@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FamWake - Familienwecker</string>
+    <string name="app_name_short">Familienwecker</string>
+    <string name="login_title">FamWake - Familienwecker</string>
+    <string name="email_label">E-Mail</string>
+    <string name="password_label">Passwort</string>
+    <string name="register_button">Registrieren</string>
+    <string name="login_button">Einloggen</string>
+    <string name="already_have_account">Bereits ein Konto? Hier einloggen.</string>
+    <string name="no_account">Noch kein Konto? Hier registrieren.</string>
+    <string name="login_with_google">Mit Google Anmelden</string>
+
+    <string name="setup_title">Familie einrichten</string>
+    <string name="setup_create_tab">Gründen</string>
+    <string name="setup_join_tab">Beitreten</string>
+    <string name="setup_family_name">Familienname (z.B. Musterfamilie)</string>
+    <string name="setup_create_button">Familie gründen</string>
+    <string name="setup_join_code_label">6-stelliger Join Code</string>
+    <string name="setup_join_button">Familie beitreten</string>
+
+    <string name="main_title">FamWake - Familienwecker</string>
+    <string name="main_settings_desc">Einstellungen</string>
+    <string name="main_add_member_desc">Mitglied hinzufügen</string>
+    <string name="main_family_members">Familienmitglieder</string>
+    <string name="main_no_members">Bisher keine Mitglieder. Füge jemanden hinzu!</string>
+    <string name="main_current_schedule">Aktueller Weck-Plan</string>
+    <string name="main_add_members_prompt">Füge Mitglieder hinzu, um einen Plan zu berechnen.</string>
+    <string name="main_error">Fehler: %s</string>
+    <string name="main_optimal_plan">Optimaler Plan berechnet</string>
+    <string name="main_plan_paused">Wecker pausiert</string>
+    <string name="main_shared_breakfast">Gemeinsames Frühstück ab %1$s</string>
+    <string name="main_wake_time">Wecken: %1$s - %2$s</string>
+    <string name="main_bathroom_info">Bad: %1$s Min | Frühstück: %2$s</string>
+    <string name="main_alarm_enabled">Wecker Aktiviert</string>
+    <string name="main_alarm_enabled_desc">Der Wecker weckt die Familie automatisch.</string>
+    <string name="main_alarm_disabled">Wecker Pausiert</string>
+    <string name="main_alarm_disabled_desc">Genießt das Wochenende! Alle Wecker sind aus.</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="delete_desc">Löschen</string>
+    <string name="main_schedule_bathroom">Bad: %1$s bis %2$s</string>
+    <string name="main_schedule_leave">Haus verlassen: %1$s</string>
+    <string name="main_member_paused">(Pausiert)</string>
+
+    <string name="add_member_title_add">Mitglied hinzufügen</string>
+    <string name="add_member_title_edit">Mitglied bearbeiten</string>
+    <string name="back_desc">Zurück</string>
+    <string name="save_button">Speichern</string>
+    <string name="add_member_name_label">Name (z.B. Mama, Papa, Kind)</string>
+    <string name="add_member_unknown">Unbekannt</string>
+    <string name="add_member_earliest_wake">Früheste Weckzeit</string>
+    <string name="add_member_latest_wake">Späteste Weckzeit</string>
+    <string name="add_member_bathroom_duration">Bad-Dauer (Minuten)</string>
+    <string name="add_member_wants_breakfast">Möchte mitfrühstücken</string>
+    <string name="add_member_leave_home">Haus verlassen um (optional)</string>
+
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_profile_title">Mein Profil</string>
+    <string name="settings_profile_desc">Dein Handy klingelt nur für die Weckzeit des hier ausgewählten Profils.</string>
+    <string name="settings_please_select">Bitte auswählen</string>
+    <string name="settings_no_members">Keine Mitglieder vorhanden</string>
+    <string name="settings_alarm_title">Weckton</string>
+    <string name="settings_alarm_default">Standard</string>
+    <string name="settings_alarm_select">Ton auswählen: %s</string>
+    <string name="settings_alarm_picker_title">Wähle einen Weckton</string>
+    <string name="settings_account_title">Familie &amp; Account</string>
+    <string name="settings_join_code">Dein Familien-Einladungscode lautet:</string>
+    <string name="settings_leave_family">Familie verlassen</string>
+    <string name="settings_logout">Abmelden</string>
+    <string name="settings_version_info">%1$s Version %2$s\nBuild %3$s | %4$s\n(c) 2026 Daniel Notthoff. All rights reserved.</string>
+
+    <string name="settings_language_title">Sprache</string>
+    <string name="settings_language_system">Systemstandard</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_german">Deutsch</string>
+    <string name="settings_help_title">Über diese App</string>
+    <string name="settings_help_text">Der FamWake Familienwecker berechnet den optimalen Weckplan für deine Familie, um Staus im Bad zu vermeiden. Du musst Mitglieder anlegen, die Zeiten (früheste und späteste Weckzeit) und die Bad-Dauer (in Minuten) definieren. Setze ebenfalls, ob mit gefrühstückt werden möchte und optional eine Zeit, wann das Haus verlassen wird. In den Einstellungen wählst du dein Profil, um genau dann geweckt zu werden, wenn du dran bist.</string>
+
+    <string name="settings_support_title">Support</string>
+    <string name="settings_support_text">Feedback oder Fragen zur Bedienung?</string>
+    <string name="settings_support_button">E-Mail an Entwickler</string>
+    <string name="settings_privacy_policy">Datenschutzerklärung</string>
+    <string name="settings_imprint">Impressum</string>
+
+    <string name="ringing_wake_up">Aufwachen, %s!</string>
+    <string name="ringing_message">Dank des perfekten Plans hast du heute genug Zeit im Bad.</string>
+    <string name="ringing_stop">Wecker stoppen</string>
+    <string name="ringing_snooze">Snooze (5 Min)</string>
+</resources>
