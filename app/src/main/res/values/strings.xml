@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FamWake - Family Alarm</string>
+    <string name="app_name_short">Family Alarm</string>
+    <string name="login_title">FamWake - Family Alarm</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="register_button">Register</string>
+    <string name="login_button">Login</string>
+    <string name="already_have_account">Already have an account? Login here.</string>
+    <string name="no_account">Need an account? Register here.</string>
+    <string name="login_with_google">Login with Google</string>
+
+    <string name="setup_title">Family Setup</string>
+    <string name="setup_create_tab">Create</string>
+    <string name="setup_join_tab">Join</string>
+    <string name="setup_family_name">Family Name (e.g. The Millers)</string>
+    <string name="setup_create_button">Create Family</string>
+    <string name="setup_join_code_label">6-digit Join Code</string>
+    <string name="setup_join_button">Join Family</string>
+
+    <string name="main_title">FamWake - Family Alarm</string>
+    <string name="main_settings_desc">Settings</string>
+    <string name="main_add_member_desc">Add Member</string>
+    <string name="main_family_members">Family Members</string>
+    <string name="main_no_members">No members yet. Add someone!</string>
+    <string name="main_current_schedule">Current Schedule</string>
+    <string name="main_add_members_prompt">Add members to calculate a schedule.</string>
+    <string name="main_error">Error: %s</string>
+    <string name="main_optimal_plan">Here is the calculated family schedule:</string>
+    <string name="main_plan_paused">Your alarm is currently paused.</string>
+    <string name="main_shared_breakfast">☕ Shared Breakfast: %s</string>
+    <string name="main_wake_time">Wake up: %1$s - %2$s</string>
+    <string name="main_bathroom_info">Bath: %1$s Min | Breakfast: %2$s</string>
+    <string name="main_schedule_bathroom">Bathroom: %1$s to %2$s</string>
+    <string name="main_schedule_leave">Leaves Home: %s</string>
+    <string name="main_member_paused">(Paused)</string>
+    <string name="main_alarm_enabled">Alarms Enabled</string>
+    <string name="main_alarm_enabled_desc">System calculates and rings alarms automatically.</string>
+    <string name="main_alarm_disabled">Alarms Disabled</string>
+    <string name="main_alarm_disabled_desc">Enjoy your weekend! Wake up times are paused.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_desc">Delete</string>
+
+    <string name="add_member_title_add">Add Member</string>
+    <string name="add_member_title_edit">Edit Member</string>
+    <string name="back_desc">Back</string>
+    <string name="save_button">Save</string>
+    <string name="add_member_name_label">Name (e.g. Mom, Dad, Child)</string>
+    <string name="add_member_unknown">Unknown</string>
+    <string name="add_member_earliest_wake">Earliest Wake Time</string>
+    <string name="add_member_latest_wake">Latest Wake Time</string>
+    <string name="add_member_bathroom_duration">Bathroom Duration (Minutes)</string>
+    <string name="add_member_wants_breakfast">Wants Breakfast</string>
+    <string name="add_member_leave_home">Leaves home at (optional)</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_profile_title">My Profile</string>
+    <string name="settings_profile_desc">Your phone will only ring for the wake-up time of the profile selected here.</string>
+    <string name="settings_please_select">Please select</string>
+    <string name="settings_no_members">No members found</string>
+    <string name="settings_alarm_title">Alarm Sound</string>
+    <string name="settings_alarm_default">Default</string>
+    <string name="settings_alarm_select">Select sound: %s</string>
+    <string name="settings_alarm_picker_title">Choose an alarm sound</string>
+    <string name="settings_account_title">Family &amp; Account</string>
+    <string name="settings_join_code">Your Family Invite Code is:</string>
+    <string name="settings_leave_family">Leave Family</string>
+    <string name="settings_logout">Logout</string>
+    <string name="settings_version_info">%1$s Version %2$s\nBuild %3$s | %4$s\n(c) 2026 Daniel Notthoff. All rights reserved.</string>
+
+    <string name="settings_language_title">Language</string>
+    <string name="settings_language_system">System Default</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_german">Deutsch</string>
+    <string name="settings_help_title">About this app</string>
+    <string name="settings_help_text">The FamWake Family Alarm calculates the optimal wake-up schedule for your family to avoid traffic jams in the bathroom. Add members, define their time windows (earliest and latest wake-up), and their bathroom duration (in minutes). Specify if they want breakfast and optionally a time they need to leave the house. In settings, choose your profile so your phone rings exactly when it is your turn.</string>
+    
+    <string name="settings_support_title">Support</string>
+    <string name="settings_support_text">Feedback or questions?</string>
+    <string name="settings_support_button">Email Developer</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_imprint">Imprint</string>
+
+    <string name="ringing_wake_up">Wake up, %s!</string>
+    <string name="ringing_message">Thanks to the perfect schedule, you have enough time in the bathroom today.</string>
+    <string name="ringing_stop">Stop Alarm</string>
+    <string name="ringing_snooze">Snooze (5 Min)</string>
+</resources>
