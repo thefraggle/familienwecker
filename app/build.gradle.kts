@@ -16,8 +16,8 @@ android {
         applicationId = "com.example.familienwecker"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.2.5"
+        versionCode = 2
+        versionName = "0.2.6"
 
         val commitHash = try {
             Runtime.getRuntime().exec("git rev-parse --short HEAD").inputStream.reader().use { it.readText().trim() }
