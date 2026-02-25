@@ -43,3 +43,4 @@ The source code in this repository is provided for educational and review purpos
 * [Changelog (Version History)](CHANGELOG.md)
 * [Privacy Policy](https://www.familienwecker.de/privacy-policy-en.html)
 * [Imprint](https://www.familienwecker.de/imprint-en.html)
+* [Account Deletion](https://www.familienwecker.de/account-deletion-en.html)
