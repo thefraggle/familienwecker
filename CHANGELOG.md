@@ -11,6 +11,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ### Hinzugefügt (Added)
 - **Flexibles Frühstück:** Die Frühstückszeit passt sich nun an enge Zeitpläne an und verkürzt sich automatisch um 5 bis 10 Minuten, wenn der gemeinsame Familienkalender ansonsten nicht aufgeht.
+- **Englische Dokumentation:** Sowohl die README als auch das Changelog sind nun vollständig auf Englisch verfügbar und miteinander verlinkt.
 
 ### Geändert (Changed)
 - **Rechtliche Dokumente:** Die Links zu Impressum und Datenschutzerklärung in der README und in den Einstellungen verweisen nun auf die korrekten, nativen Live-Webseiten-Pfade.
