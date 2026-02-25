@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.2.9] - 2026-02-25
+### Fixed
+- Fixed a crash during Google Login (`NoCredentialException`) that occurred when no Google accounts were registered on the device yet.
+- Optimized account selection during Google Login (`setAutoSelectEnabled(true)`) to prevent system-level aborts in the Android `CredentialManager`.
+- Code Cleanup: Removed unused imports and unutilized variables.
+
 ## [0.2.8] - 2026-02-25
 ### Added
 - Complete "Delete Family" feature added to Settings, which safely removes the family including all members from the database.
@@ -19,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Google Sign-In errors on the Login screen are now displayed in red directly on screen (for easier SHA-256 fingerprint debugging).
 - Fixed the URLs for the German Imprint, Privacy Policy, and Account Deletion pages, as they accidentally included a `-de` suffix.
+- Added `default_web_client_id` directly to `strings.xml` to prevent annoying "Unresolved reference" errors in Android Studio following a clean build.
 ## [0.2.7] - 2026-02-25
 
 ### Added
