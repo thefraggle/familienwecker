@@ -46,19 +46,33 @@ class Scheduler {
         // Alle möglichen Reihenfolgen für's Bad ermitteln (Permutation)
         val permutations = generatePermutations(members)
 
-        var bestSchedule: FamilySchedule? = null
-        var bestScore = -1L
+        var bestSchedule = findBestScheduleOverPermutations(permutations, members, breakfastDurationMinutes, 0)
 
-        for (perm in permutations) {
-            val scheduleOpt = evaluatePermutation(perm, breakfastDurationMinutes)
-            if (scheduleOpt != null) {
-                // Score-Berechnung: Wir wollen, dass die Leute so lange wie möglich schlafen!
-                // Höhere WakeUpTimes (in Sekunden des Tages) ergeben einen höheren Score.
-                val score = scheduleOpt.memberSchedules.sumOf { it.wakeUpTime.toSecondOfDay().toLong() }
+        // Fallback 1: Try shifting wake-up times
+        if (bestSchedule == null || !bestSchedule.isValid) {
+            for (shiftMinutes in 5..15 step 5) {
+                val flexibleSchedule = findBestScheduleOverPermutations(permutations, members, breakfastDurationMinutes, shiftMinutes)
+                if (flexibleSchedule != null && flexibleSchedule.isValid) {
+                    return flexibleSchedule.copy(message = "Zeiten wurden um $shiftMinutes Minuten flexibel angepasst, um Konflikte zu lösen.")
+                }
+            }
+        }
+
+        // Fallback 2: Reduce breakfast time
+        if ((bestSchedule == null || !bestSchedule.isValid) && breakfastDurationMinutes >= 15) {
+            for (reduceBreakfast in 5..10 step 5) {
+                val reducedDuration = breakfastDurationMinutes - reduceBreakfast
+                val sched = findBestScheduleOverPermutations(permutations, members, reducedDuration, 0)
+                if (sched != null && sched.isValid) {
+                    return sched.copy(message = "Frühstück wurde um $reduceBreakfast Minuten verkürzt, um Konflikte zu lösen.")
+                }
                 
-                if (score > bestScore) {
-                    bestScore = score
-                    bestSchedule = scheduleOpt
+                // Try shifts with reduced breakfast
+                for (shiftMinutes in 5..15 step 5) {
+                    val flexibleSchedule = findBestScheduleOverPermutations(permutations, members, reducedDuration, shiftMinutes)
+                    if (flexibleSchedule != null && flexibleSchedule.isValid) {
+                        return flexibleSchedule.copy(message = "Frühstück wurde um $reduceBreakfast Min. verkürzt & Zeiten um $shiftMinutes Min. angepasst.")
+                    }
                 }
             }
         }
@@ -70,9 +84,32 @@ class Scheduler {
         )
     }
 
+    private fun findBestScheduleOverPermutations(
+        permutations: List<List<FamilyMember>>,
+        members: List<FamilyMember>,
+        breakfastDurationMinutes: Long,
+        shiftToleranceMinutes: Int
+    ): FamilySchedule? {
+        var bestSchedule: FamilySchedule? = null
+        var bestScore = -1L
+
+        for (perm in permutations) {
+            val scheduleOpt = evaluatePermutation(perm, breakfastDurationMinutes, shiftToleranceMinutes)
+            if (scheduleOpt != null) {
+                val score = scheduleOpt.memberSchedules.sumOf { it.wakeUpTime.toSecondOfDay().toLong() }
+                if (score > bestScore) {
+                    bestScore = score
+                    bestSchedule = scheduleOpt
+                }
+            }
+        }
+        return bestSchedule
+    }
+
     private fun evaluatePermutation(
         orderedMembers: List<FamilyMember>,
-        breakfastDurationMinutes: Long
+        breakfastDurationMinutes: Long,
+        shiftToleranceMinutes: Int = 0
     ): FamilySchedule? {
         
         // Finde die gemeinsame Frühstückszeit (Startzeit), falls irgendjemand frühstücken möchte
@@ -102,8 +139,11 @@ class Scheduler {
 
         for (member in orderedMembers.reversed()) {
 
+            val allowedLatestWakeUp = member.latestWakeUp.plusMinutes(shiftToleranceMinutes.toLong())
+            val allowedEarliestWakeUp = member.earliestWakeUp.minusMinutes(shiftToleranceMinutes.toLong())
+
             // 1. Zuerst legen wir die spätestmögliche Bad-Endzeit basierend auf seiner reinen spätesten Weckzeit fest:
-            var maxAllowedBathroomEnd = member.latestWakeUp.plusMinutes(member.bathroomDurationMinutes)
+            var maxAllowedBathroomEnd = allowedLatestWakeUp.plusMinutes(member.bathroomDurationMinutes)
 
             // 2. Er darf nicht mit dem nächsten (der nach ihm ins Bad will) kollidieren:
             if (currentLatestBathroomEndTime.isBefore(maxAllowedBathroomEnd)) {
@@ -125,7 +165,7 @@ class Scheduler {
             val wakeUpTime = maxAllowedBathroomEnd.minusMinutes(member.bathroomDurationMinutes)
 
             // 5. Letzter Check: Wurde er jetzt SO FRÜH eingeplant, dass es noch vor seiner "Frühesten Weckzeit" liegt?
-            if (wakeUpTime.isBefore(member.earliestWakeUp)) {
+            if (wakeUpTime.isBefore(allowedEarliestWakeUp)) {
                 // Diese Reihefolge ist ungültig! Wir brechen diese Permutation ab.
                 return null
             }
