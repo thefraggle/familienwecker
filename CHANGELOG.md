@@ -5,6 +5,14 @@ Alle nennenswerten Änderungen an diesem Projekt werden in dieser Datei dokument
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/),
 und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.6] - 2026-02-25
+
+### Hinzugefügt (Added)
+- **Flexibles Frühstück:** Die Frühstückszeit passt sich nun an enge Zeitpläne an und verkürzt sich automatisch um 5 bis 10 Minuten, wenn der gemeinsame Familienkalender ansonsten nicht aufgeht.
+
+### Geändert (Changed)
+- **Rechtliche Dokumente:** Die Links zu Impressum und Datenschutzerklärung in der README und in den Einstellungen verweisen nun auf die korrekten, nativen Live-Webseiten-Pfade.
+
 ## [0.2.5] - 2026-02-24
 
 Dies ist der initiale öffentliche Release auf GitHub nach einer umfassenden Codebereinigung und UI-Politur. 
