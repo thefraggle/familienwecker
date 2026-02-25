@@ -7,6 +7,11 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.2.7] - 2026-02-25
+
+### Hinzugefügt (Added)
+- **Account Löschen:** Ein Button "Konto löschen" wurde im Support-Bereich der Einstellungen hinzugefügt, der zur entsprechenden Löschungs-Seite verlinkt (Richtlinien-Anforderung).
+
 ## [0.2.6] - 2026-02-25
 
 ### Hinzugefügt (Added)
