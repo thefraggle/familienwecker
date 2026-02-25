@@ -59,6 +59,11 @@ android {
         compose = true
         buildConfig = true
     }
+
+}
+
+base {
+    archivesName.set("FamWake-Familienwecker-v0.2.8-b4")
 }
 
 dependencies {

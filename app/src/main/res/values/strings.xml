@@ -67,6 +67,11 @@
     <string name="settings_account_title">Family &amp; Account</string>
     <string name="settings_join_code">Your Family Invite Code is:</string>
     <string name="settings_leave_family">Leave Family</string>
+    <string name="settings_delete_family">Delete Family</string>
+    <string name="settings_delete_family_dialog_title">Delete Family?</string>
+    <string name="settings_delete_family_dialog_text">Are you sure you want to permanently delete this family? All members, schedules, and settings will be removed for everyone. This cannot be undone.</string>
+    <string name="settings_delete_family_dialog_confirm">Delete</string>
+    <string name="settings_delete_family_dialog_cancel">Cancel</string>
     <string name="settings_logout">Logout</string>
     <string name="settings_version_info">%1$s Version %2$s\nBuild %3$s | %4$s\n(c) 2026 Daniel Notthoff. All rights reserved.</string>
 
@@ -84,7 +89,7 @@
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
     <string name="settings_imprint">Imprint</string>
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
-    <string name="settings_delete_account">Delete Account</string>
+    <string name="settings_delete_account">Delete Account (Info)</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
 
     <string name="ringing_wake_up">Wake up, %s!</string>

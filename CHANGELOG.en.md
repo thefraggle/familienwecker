@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.2.8] - 2026-02-25
+### Added
+- Complete "Delete Family" feature added to Settings, which safely removes the family including all members from the database.
+- Users on other devices are now automatically redirected to the setup screen if their family was deleted.
+- Introduced automated, descriptive file naming (incl. version and build number) for the compiled APK.
+
+### Changed
+- The layout of the settings page now visually separates the developer support email button from the remaining web links using a subtle horizontal divider.
+
+### Fixed
+- Google Sign-In errors on the Login screen are now displayed in red directly on screen (for easier SHA-256 fingerprint debugging).
+- Fixed the URLs for the German Imprint, Privacy Policy, and Account Deletion pages, as they accidentally included a `-de` suffix.
 ## [0.2.7] - 2026-02-25
 
 ### Added

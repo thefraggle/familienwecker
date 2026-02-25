@@ -139,7 +139,7 @@ fun LoginScreen(
                                     authViewModel.signInWithGoogle(firebaseCredential)
                                 }
                             } catch (e: GetCredentialException) {
-                                // Ignore or handle cancel
+                                authViewModel.setError("Google Login failed: ${e.message}")
                             }
                         }
                     },
