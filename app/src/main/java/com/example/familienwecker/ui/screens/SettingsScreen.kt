@@ -311,6 +311,18 @@ fun SettingsScreen(
                     ) {
                         Text(stringResource(R.string.settings_imprint))
                     }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = {
+                            val url = context.getString(R.string.settings_delete_account_url)
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            context.startActivity(intent)
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                    ) {
+                        Text(stringResource(R.string.settings_delete_account))
+                    }
                 }
             }
 

@@ -84,6 +84,8 @@
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy.html</string>
     <string name="settings_imprint">Impressum</string>
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint.html</string>
+    <string name="settings_delete_account">Konto L\u00f6schen</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion.html</string>
 
     <string name="ringing_wake_up">Aufwachen, %s!</string>
     <string name="ringing_message">Dank des perfekten Plans hast du heute genug Zeit im Bad.</string>

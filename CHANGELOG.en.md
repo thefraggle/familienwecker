@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.2.7] - 2026-02-25
+
+### Added
+- **Delete Account:** Added a "Delete Account" button to the support section in settings that links to the corresponding account deletion page (Play Store policy requirement).
+
 ## [0.2.6] - 2026-02-25
 
 ### Added
