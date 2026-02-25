@@ -132,4 +132,27 @@ class FirebaseRepository {
             e.printStackTrace()
         }
     }
+
+    suspend fun checkFamilyExists(familyId: String): Boolean {
+        return try {
+            val doc = db.collection("families").document(familyId).get().await()
+            doc.exists()
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun deleteFamily(familyId: String): Result<Unit> {
+        return try {
+            val membersCollection = db.collection("families").document(familyId).collection("members")
+            val membersSnapshot = membersCollection.get().await()
+            for (doc in membersSnapshot.documents) {
+                doc.reference.delete().await()
+            }
+            db.collection("families").document(familyId).delete().await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

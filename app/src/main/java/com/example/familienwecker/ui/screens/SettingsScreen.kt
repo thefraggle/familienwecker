@@ -43,6 +43,7 @@ fun SettingsScreen(
 
     var expanded by remember { mutableStateOf(false) }
     var languageExpanded by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
     // Launcher for the RingtonePicker Activity
     val ringtonePickerLauncher = rememberLauncherForActivityResult(
@@ -210,6 +211,14 @@ fun SettingsScreen(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     OutlinedButton(
+                        onClick = { showDeleteDialog = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                    ) {
+                        Text(stringResource(R.string.settings_delete_family))
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedButton(
                         onClick = onLogout,
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
@@ -217,6 +226,33 @@ fun SettingsScreen(
                         Text(stringResource(R.string.settings_logout))
                     }
                 }
+            }
+
+            if (showDeleteDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDeleteDialog = false },
+                    title = { Text(stringResource(R.string.settings_delete_family_dialog_title)) },
+                    text = { Text(stringResource(R.string.settings_delete_family_dialog_text)) },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                showDeleteDialog = false
+                                viewModel.deleteFamily { success ->
+                                    if (success) {
+                                        onLeaveFamily()
+                                    }
+                                }
+                            }
+                        ) {
+                            Text(stringResource(R.string.settings_delete_family_dialog_confirm), color = MaterialTheme.colorScheme.error)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showDeleteDialog = false }) {
+                            Text(stringResource(R.string.settings_delete_family_dialog_cancel))
+                        }
+                    }
+                )
             }
 
             // 5. Sprache (Language)
@@ -289,7 +325,10 @@ fun SettingsScreen(
                     ) {
                         Text(stringResource(R.string.settings_support_button))
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
                     OutlinedButton(
                         onClick = {
                             val url = context.getString(R.string.settings_privacy_policy_url)
@@ -318,8 +357,7 @@ fun SettingsScreen(
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context.startActivity(intent)
                         },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(stringResource(R.string.settings_delete_account))
                     }

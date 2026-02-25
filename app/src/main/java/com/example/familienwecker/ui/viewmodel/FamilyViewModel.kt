@@ -174,6 +174,22 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         logout()
     }
 
+    fun deleteFamily(onComplete: (Boolean) -> Unit) {
+        val currentFamilyId = familyId.value ?: return
+        viewModelScope.launch {
+            val result = repository.deleteFamily(currentFamilyId)
+            if (result.isSuccess) {
+                auth.currentUser?.uid?.let { uid ->
+                    repository.removeUserFamily(uid)
+                }
+                logout()
+                onComplete(true)
+            } else {
+                onComplete(false)
+            }
+        }
+    }
+
     private fun recalculateSchedule() {
         val currentMembers = _members.value
         val alarmsOn = isAlarmEnabled.value

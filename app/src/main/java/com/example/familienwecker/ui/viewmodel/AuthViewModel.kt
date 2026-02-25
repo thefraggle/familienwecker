@@ -45,8 +45,17 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             val result = dbRepository.getUserFamily(uid)
             result.onSuccess { pair ->
                 if (pair != null) {
-                    prefsRepository.setFamilyId(pair.first)
-                    prefsRepository.setJoinCode(pair.second)
+                    val familyExists = dbRepository.checkFamilyExists(pair.first)
+                    if (familyExists) {
+                        prefsRepository.setFamilyId(pair.first)
+                        prefsRepository.setJoinCode(pair.second)
+                    } else {
+                        // Family was deleted by someone else, clean up this user
+                        dbRepository.removeUserFamily(uid)
+                        prefsRepository.setFamilyId(null)
+                        prefsRepository.setJoinCode(null)
+                        prefsRepository.setMyMemberId(null)
+                    }
                 }
             }
         }
@@ -95,5 +104,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         authRepository.logout()
         prefsRepository.setMyMemberId(null) // Reset local preferences upon logout
         _authState.value = AuthState.Idle
+    }
+
+    fun setError(message: String) {
+        _authState.value = AuthState.Error(message)
     }
 }

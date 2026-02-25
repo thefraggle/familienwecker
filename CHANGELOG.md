@@ -7,6 +7,19 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.2.8] - 2026-02-25
+### Hinzugefügt
+- Vollständige "Familie löschen"-Funktion in den Einstellungen hinzugefügt, welche die Familie inkl. aller Mitglieder sicher aus der Datenbank entfernt.
+- Nutzer anderer Geräte werden nun automatisch auf den Startbildschirm zurückgeleitet, wenn ihre Familie gelöscht wurde.
+- Automatisierte sprechende Dateinamen (inkl. Version und Build-Nummer) für die kompilierte APK eingeführt.
+
+### Geändert
+- Das Layout der Einstellungsseite trennt nun den Support-E-Mail-Button optisch mit einer zarten Trennlinie (HorizontalDivider) von den restlichen Weblinks ab.
+
+### Behoben
+- Google Sign-In Fehler auf dem Login-Screen werden jetzt rot auf dem Bildschirm ausgegeben (für einfacheres Debugging des SHA-256 Fingerabdrucks).
+- Die URLs für Impressum, Datenschutz und Account-löschen wurden in der deutschen Sprachausgabe korrigiert, da versehentlich ein `-de` Suffix mitkopiert wurde.
+
 ## [0.2.7] - 2026-02-25
 
 ### Hinzugefügt (Added)

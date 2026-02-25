@@ -67,6 +67,11 @@
     <string name="settings_account_title">Familie &amp; Account</string>
     <string name="settings_join_code">Dein Familien-Einladungscode lautet:</string>
     <string name="settings_leave_family">Familie verlassen</string>
+    <string name="settings_delete_family">Familie l\u00f6schen</string>
+    <string name="settings_delete_family_dialog_title">Familie l\u00f6schen?</string>
+    <string name="settings_delete_family_dialog_text">Bist du sicher, dass du diese Familie dauerhaft l\u00f6schen möchtest? Alle Mitglieder, Weckpläne und Einstellungen werden unwiderruflich f\u00fcr alle Beteiligten gelöscht.</string>
+    <string name="settings_delete_family_dialog_confirm">L\u00f6schen</string>
+    <string name="settings_delete_family_dialog_cancel">Abbrechen</string>
     <string name="settings_logout">Abmelden</string>
     <string name="settings_version_info">%1$s Version %2$s\nBuild %3$s | %4$s\n(c) 2026 Daniel Notthoff. All rights reserved.</string>
 
@@ -80,11 +85,11 @@
     <string name="settings_support_title">Support</string>
     <string name="settings_support_text">Feedback oder Fragen zur Bedienung?</string>
     <string name="settings_support_button">E-Mail an Entwickler</string>
-    <string name="settings_privacy_policy">Datenschutzerklärung</string>
+    <string name="settings_privacy_policy">Datenschutzerkl\u00e4rung</string>
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy.html</string>
     <string name="settings_imprint">Impressum</string>
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint.html</string>
-    <string name="settings_delete_account">Konto L\u00f6schen</string>
+    <string name="settings_delete_account">Account l\u00f6schen (Info)</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion.html</string>
 
     <string name="ringing_wake_up">Aufwachen, %s!</string>
