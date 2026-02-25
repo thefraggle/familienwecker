@@ -1,23 +1,19 @@
 # ⏰ FamWake - Familienwecker / Family Alarm
 
-**Jeder schläft länger. Niemand streitet ums Bad. Alle starten entspannt in den Tag.**
+[![Website: familienwecker.de](https://img.shields.io/badge/Website-familienwecker.de-blue)](https://www.familienwecker.de)
 
-Kennst du das? Der morgendliche Wahnsinn: Die Zeit ist knapp, vor dem Bad bildet sich eine Schlange und am Ende rennt jemand mit Toast im Mund zur Tür hinaus. Das muss nicht sein!
+*[🇬🇧 English version](README.en.md)*
+
+**Jeder schläft länger. Niemand streitet ums Bad. Alle starten entspannt in den Tag.**
 
 Der **FamWake Familienwecker** ist die intelligente Lösung für entspannte Morgenroutinen. Anstatt starrer Weckzeiten passt sich die App dynamisch an die Termine und Bedürfnisse aller Familienmitglieder an. 
 
-## ✨ Wie funktioniert FamWake?
+👉 **Alle Informationen, Features und die Anmeldung zur Warteliste findest du auf unserer Website:**  
+🌐 [www.familienwecker.de](https://www.familienwecker.de)
 
-Jedes Familienmitglied legt in der App sein Profil an und definiert:
-- **Wann muss ich spätestens aufstehen?**
-- **Was ist meine frühestmögliche Weckzeit?**
-- **Wie lang blockiere ich das Badezimmer?**
-- **Möchte ich mit den anderen gemeinsam frühstücken?**
-- **Wann muss ich morgens aus dem Haus?**
+## 📸 Ein erster Blick in die App
 
-Das war's! Der Familienwecker übernimmt den Rest. Ein intelligenter Algorithmus berechnet täglich den *absolut perfekten* Weckplan für die gesamte Familie. 
-
-## 📸 Screenshots
+Hier ist ein kleiner Vorgeschmack auf unseren aktuellen Arbeitsstand:
 
 <p align="center">
   <img src="docs/images/screenshot_main.jpg" width="30%" alt="Hauptansicht (Dashboard)">
@@ -27,20 +23,14 @@ Das war's! Der Familienwecker übernimmt den Rest. Ein intelligenter Algorithmus
   <img src="docs/images/screenshot_setup.jpg" width="30%" alt="Familie gründen">
 </p>
 
-* **Maximale Schlafzeit:** Jeder schläft genau so lange wie nur irgend möglich. Kein unnötig frühes Aufstehen mehr!
-* **Kein Bad-Stau:** Die Weckzeiten sind so intelligent aufeinander abgestimmt, dass das Badezimmer immer nahtlos und ohne Wartezeiten übergeben wird.
-* **Gemeinsame Zeit:** Wenn gewünscht, koordiniert die App den perfekten Slot für ein gemeinsames, entspanntes Frühstück.
+## ✨ Die Highlights
 
-## 🚀 Features
+* **Maximale Schlafzeit:** Ein cleverer Algorithmus berechnet den perfekten Weckplan für die ganze Familie.
+* **Kein Bad-Stau:** Nahtlose Übergabe des Badezimmers dank optimierter Taktung.
+* **Gemeinsames Frühstück:** Die App findet den idealen Zeitpunkt für alle, die zusammen essen möchten.
+* **Wochenend-Schalter:** Einfach den eigenen Wecker pausieren – der Rest der Familie schläft dadurch noch länger aus.
 
-- **Der smarte Masterplan:** Ein übersichtliches Familien-Dashboard zeigt dir jederzeit genau, wann wer ins Bad geht, wann gefrühstückt wird und wer wann das Haus verlassen muss.
-- **Flexible Weck-Logik:** Sind die Zeiten der Familienmitglieder einmal zu knapp getaktet? Kein Problem. Der Algorithmus sucht selbstständig nach dem besten Kompromiss und verschiebt die Zeiten leicht, damit trotzdem alles reibungslos klappt.
-- **Wochenend-Schalter:** Ein einfacher Klick auf dem Dashboard reicht, um deinen Wecker zu pausieren. Der intelligente Algorithmus schließt dich dann komplett aus der Tagesplanung aus, sodass deine "Reservierungen" für Bad und Frühstück verfallen und der Rest der Familie noch länger ausschlafen kann! Du siehst jederzeit direkt auf dem Dashboard, wer aktuell pausiert hat.
-- **Dein persönliches Profil:** Du wählst in den Einstellungen dein eigenes Profil aus. Dein Handy klingelt morgens genau dann – und* nur* dann –, wenn du an der Reihe bist.
-- **Dark Mode & Mehrsprachig:** Komplett anpassbares Design für Tag und Nacht, wahlweise auf Deutsch oder Englisch nutzbar.
-- **100% Zuverlässig:** Weckt dich garantiert, selbst wenn dein Handy stummgeschaltet oder im Tiefschlaf ist.
-
-Mach dem morgendlichen Chaos ein Ende. **Starte entspannt. Starte gemeinsam. Starte mit FamWake.**
+*(Weitere Details zu den Funktionen wie dem smarten Masterplan, der flexiblen Weck-Logik und dem Dark Mode findest du auf unserer [Website](https://www.familienwecker.de).)*
 
 ---
 
