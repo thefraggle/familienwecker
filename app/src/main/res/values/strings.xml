@@ -67,7 +67,7 @@
     <string name="settings_alarm_select">Select sound: %s</string>
     <string name="settings_alarm_picker_title">Choose an alarm sound</string>
     <string name="settings_account_title">Family &amp; Account</string>
-    <string name="settings_join_code">Your Family Invite Code is:</string>
+    <string name="settings_join_code">Invitation code for family %1$s:</string>
     <string name="settings_leave_family">Leave Family</string>
     <string name="settings_delete_family">Delete Family</string>
     <string name="settings_delete_family_dialog_title">Delete Family?</string>

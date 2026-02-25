@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.0] - 2026-02-26
+### Added
+- Display of the family name in the settings: The name of the family is now displayed next to the invitation code to avoid confusion when joining or managing.
+- Optimized Navigation: A new Loading Screen prevents the "double swipe" issue when exiting and ensures a clean app startup.
+- Logout on Setup Screen: A new button allows users to sign out directly from the initial setup flow, in case they want to use a different account.
+- Robust Versioning: The internal version code is now based on a timestamp, ensuring reliable APK updates.
+
 ## [0.2.9] - 2026-02-25
 ### Fixed
 - Fixed a crash during Google Login (`NoCredentialException`) that occurred when no Google accounts were registered on the device yet.

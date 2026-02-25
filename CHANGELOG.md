@@ -7,6 +7,13 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.0] - 2026-02-26
+### Hinzugefügt
+- Anzeige des Familiennamens in den Einstellungen: Neben dem Einladungscode wird nun auch der Name der Familie angezeigt, um Verwechslungen beim Beitritt oder bei der Verwaltung zu vermeiden.
+- Navigation optimiert: Ein neuer Lade-Screen verhindert "doppeltes Wischen" zum Beenden der App und sorgt für einen sauberen App-Start.
+- Logout im Setup-Screen: Ein neuer Button ermöglicht das Abmelden direkt aus dem Start-Setup, falls man ein anderes Konto nutzen möchte.
+- Versionsverwaltung verbessert: Der interne Version-Code basiert nun auf einem Zeitstempel, was reibungslose Updates beim Drüber-Installieren der APK garantiert.
+
 ## [0.2.9] - 2026-02-25
 ### Behoben
 - Abstürze beim Google Login (`NoCredentialException`) behoben, die auftraten, wenn auf dem Gerät noch gar kein Google Konto eingerichtet war.
