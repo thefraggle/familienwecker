@@ -81,7 +81,9 @@
     <string name="settings_support_text">Feedback or questions?</string>
     <string name="settings_support_button">Email Developer</string>
     <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
     <string name="settings_imprint">Imprint</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
 
     <string name="ringing_wake_up">Wake up, %s!</string>
     <string name="ringing_message">Thanks to the perfect schedule, you have enough time in the bathroom today.</string>

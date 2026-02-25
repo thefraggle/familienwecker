@@ -51,5 +51,5 @@ Copyright (c) 2026 Daniel Notthoff. All rights reserved.
 The source code in this repository is provided for educational and review purposes only. It may not be copied, modified, or distributed without explicit permission from the author.
 
 * [Changelog (Version History)](CHANGELOG.md)
-* [Datenschutzerklärung (Privacy Policy)](docs/privacy-policy.md)
-* [Impressum (Imprint)](docs/imprint.md)
+* [Datenschutzerklärung (Privacy Policy)](https://www.familienwecker.de/privacy-policy.html)
+* [Impressum (Imprint)](https://www.familienwecker.de/imprint.html)
