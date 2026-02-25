@@ -292,7 +292,8 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     OutlinedButton(
                         onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://thefraggle.github.io/familienwecker/privacy-policy"))
+                            val url = context.getString(R.string.settings_privacy_policy_url)
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context.startActivity(intent)
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -302,7 +303,8 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     OutlinedButton(
                         onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://thefraggle.github.io/familienwecker/imprint"))
+                            val url = context.getString(R.string.settings_imprint_url)
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context.startActivity(intent)
                         },
                         modifier = Modifier.fillMaxWidth()
