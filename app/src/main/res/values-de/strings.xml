@@ -10,6 +10,7 @@
     <string name="already_have_account">Bereits ein Konto? Hier einloggen.</string>
     <string name="no_account">Noch kein Konto? Hier registrieren.</string>
     <string name="login_with_google">Mit Google Anmelden</string>
+    <string name="default_web_client_id" translatable="false">979926159025-72vtcvhq3bcc7esh6dhaqmqf6p9cjkaf.apps.googleusercontent.com</string>
 
     <string name="setup_title">Familie einrichten</string>
     <string name="setup_create_tab">Gründen</string>

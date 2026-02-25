@@ -6,13 +6,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
 import com.example.familienwecker.R
 import com.example.familienwecker.ui.viewmodel.AuthViewModel
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
@@ -109,25 +109,26 @@ fun LoginScreen(
                 OutlinedButton(
                     onClick = {
                         coroutineScope.launch {
-                            val credentialManager = CredentialManager.create(context)
-                            
-                            val rawNonce = UUID.randomUUID().toString()
-                            val bytes = rawNonce.toByteArray()
-                            val md = MessageDigest.getInstance("SHA-256")
-                            val digest = md.digest(bytes)
-                            val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
-
-                            val googleIdOption = GetGoogleIdOption.Builder()
-                                .setFilterByAuthorizedAccounts(false)
-                                .setServerClientId(context.getString(R.string.default_web_client_id))
-                                .setNonce(hashedNonce)
-                                .build()
-
-                            val request = GetCredentialRequest.Builder()
-                                .addCredentialOption(googleIdOption)
-                                .build()
-
                             try {
+                                val credentialManager = CredentialManager.create(context)
+                                
+                                val rawNonce = UUID.randomUUID().toString()
+                                val bytes = rawNonce.toByteArray()
+                                val md = MessageDigest.getInstance("SHA-256")
+                                val digest = md.digest(bytes)
+                                val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
+
+                                val googleIdOption = GetGoogleIdOption.Builder()
+                                    .setFilterByAuthorizedAccounts(false)
+                                    .setServerClientId(context.getString(R.string.default_web_client_id))
+                                    .setNonce(hashedNonce)
+                                    .setAutoSelectEnabled(true)
+                                    .build()
+
+                                val request = GetCredentialRequest.Builder()
+                                    .addCredentialOption(googleIdOption)
+                                    .build()
+
                                 val result = credentialManager.getCredential(context, request)
                                 val credential = result.credential
                                 
@@ -138,8 +139,12 @@ fun LoginScreen(
                                     val firebaseCredential = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
                                     authViewModel.signInWithGoogle(firebaseCredential)
                                 }
+                            } catch (_: NoCredentialException) {
+                                authViewModel.setError("Kein Google Konto gefunden. Bitte registriere dich zuerst.")
                             } catch (e: GetCredentialException) {
                                 authViewModel.setError("Google Login failed: ${e.message}")
+                            } catch (e: Exception) {
+                                authViewModel.setError("Unerwarteter Fehler: ${e.message}")
                             }
                         }
                     },

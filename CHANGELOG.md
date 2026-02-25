@@ -7,6 +7,12 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.2.9] - 2026-02-25
+### Behoben
+- Abstürze beim Google Login (`NoCredentialException`) behoben, die auftraten, wenn auf dem Gerät noch gar kein Google Konto eingerichtet war.
+- Die Konto-Auswahl beim Google Login (`setAutoSelectEnabled(true)`) optimiert, um systembedingte Abbrüche des Android `CredentialManager` zu verhindern.
+- Code-Bereinigung: Ungenutzte Imports und ungenutzte Variablen entfernt.
+
 ## [0.2.8] - 2026-02-25
 ### Hinzugefügt
 - Vollständige "Familie löschen"-Funktion in den Einstellungen hinzugefügt, welche die Familie inkl. aller Mitglieder sicher aus der Datenbank entfernt.
@@ -19,6 +25,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 ### Behoben
 - Google Sign-In Fehler auf dem Login-Screen werden jetzt rot auf dem Bildschirm ausgegeben (für einfacheres Debugging des SHA-256 Fingerabdrucks).
 - Die URLs für Impressum, Datenschutz und Account-löschen wurden in der deutschen Sprachausgabe korrigiert, da versehentlich ein `-de` Suffix mitkopiert wurde.
+- Die Konstante `default_web_client_id` wurde fest in die `strings.xml` integriert, um lästige "Unresolved reference"-Fehler in Android Studio nach einem Clean Build zu vermeiden.
 
 ## [0.2.7] - 2026-02-25
 

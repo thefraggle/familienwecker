@@ -4,8 +4,22 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
+val commitHash = try {
+    Runtime.getRuntime().exec(arrayOf("git", "rev-parse", "--short", "HEAD")).inputStream.reader().use { it.readText().trim() }
+} catch (e: Exception) {
+    "unknown"
+}
+
+val commitDate = try {
+    Runtime.getRuntime().exec(arrayOf("git", "log", "-1", "--format=%cd", "--date=format:%d.%m.%Y %H:%M")).inputStream.reader().use { it.readText().trim() }
+} catch (e: Exception) {
+    "unknown"
+}
+
 android {
     namespace = "com.example.familienwecker"
+
+
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -16,21 +30,10 @@ android {
         applicationId = "com.example.familienwecker"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
-        versionName = "0.2.8"
+        versionCode = 5
+        versionName = "0.2.9"
 
-        val commitHash = try {
-            Runtime.getRuntime().exec("git rev-parse --short HEAD").inputStream.reader().use { it.readText().trim() }
-        } catch (e: Exception) {
-            "unknown"
-        }
         buildConfigField("String", "COMMIT_HASH", "\"${commitHash}\"")
-
-        val commitDate = try {
-            Runtime.getRuntime().exec(arrayOf("git", "log", "-1", "--format=%cd", "--date=format:%d.%m.%Y %H:%M")).inputStream.reader().use { it.readText().trim() }
-        } catch (e: Exception) {
-            "unknown"
-        }
         buildConfigField("String", "COMMIT_DATE", "\"${commitDate}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -63,7 +66,7 @@ android {
 }
 
 base {
-    archivesName.set("FamWake-Familienwecker-v0.2.8-b4")
+    archivesName.set("FamWake-Familienwecker-v0.2.9-${commitHash}")
 }
 
 dependencies {
