@@ -25,6 +25,9 @@ class PreferencesRepository(context: Context) {
     private val _joinCode = MutableStateFlow<String?>(prefs.getString("JOIN_CODE", null))
     val joinCode: StateFlow<String?> = _joinCode.asStateFlow()
 
+    private val _familyName = MutableStateFlow<String?>(prefs.getString("FAMILY_NAME", null))
+    val familyName: StateFlow<String?> = _familyName.asStateFlow()
+
     private val defaultLang = if (java.util.Locale.getDefault().language == "de") "de" else "en"
     private val _language = MutableStateFlow<String>(prefs.getString("APP_LANGUAGE", defaultLang) ?: defaultLang)
     val language: StateFlow<String> = _language.asStateFlow()
@@ -50,6 +53,11 @@ class PreferencesRepository(context: Context) {
     fun setJoinCode(code: String?) {
         prefs.edit { putString("JOIN_CODE", code) }
         _joinCode.value = code
+    }
+
+    fun setFamilyName(name: String?) {
+        prefs.edit { putString("FAMILY_NAME", name) }
+        _familyName.value = name
     }
 
     fun setLanguage(lang: String) {

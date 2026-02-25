@@ -66,7 +66,7 @@
     <string name="settings_alarm_select">Ton auswählen: %s</string>
     <string name="settings_alarm_picker_title">Wähle einen Weckton</string>
     <string name="settings_account_title">Familie &amp; Account</string>
-    <string name="settings_join_code">Dein Familien-Einladungscode lautet:</string>
+    <string name="settings_join_code">Einladungscode für Familie %1$s:</string>
     <string name="settings_leave_family">Familie verlassen</string>
     <string name="settings_delete_family">Familie l\u00f6schen</string>
     <string name="settings_delete_family_dialog_title">Familie l\u00f6schen?</string>

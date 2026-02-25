@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
+val appVersion = "0.3.0"
+
 val commitHash = try {
     Runtime.getRuntime().exec(arrayOf("git", "rev-parse", "--short", "HEAD")).inputStream.reader().use { it.readText().trim() }
 } catch (e: Exception) {
@@ -14,6 +16,14 @@ val commitDate = try {
     Runtime.getRuntime().exec(arrayOf("git", "log", "-1", "--format=%cd", "--date=format:%d.%m.%Y %H:%M")).inputStream.reader().use { it.readText().trim() }
 } catch (e: Exception) {
     "unknown"
+}
+
+val versionCodeTimestamp = try {
+    // Minutes since January 1st, 2026
+    val startTime = 1735686000000L // 2026-01-01 00:00:00 UTC
+    ((System.currentTimeMillis() - startTime) / (1000 * 60)).toInt()
+} catch (e: Exception) {
+    1
 }
 
 android {
@@ -30,8 +40,8 @@ android {
         applicationId = "com.example.familienwecker"
         minSdk = 26
         targetSdk = 36
-        versionCode = 5
-        versionName = "0.2.9"
+        versionCode = versionCodeTimestamp
+        versionName = appVersion
 
         buildConfigField("String", "COMMIT_HASH", "\"${commitHash}\"")
         buildConfigField("String", "COMMIT_DATE", "\"${commitDate}\"")
@@ -66,7 +76,7 @@ android {
 }
 
 base {
-    archivesName.set("FamWake-Familienwecker-v0.2.9-${commitHash}")
+    archivesName.set("FamWake-Familienwecker-v${appVersion}-${commitHash}")
 }
 
 dependencies {

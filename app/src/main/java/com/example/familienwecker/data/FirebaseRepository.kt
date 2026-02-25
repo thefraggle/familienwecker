@@ -40,6 +40,15 @@ class FirebaseRepository {
         }
     }
 
+    suspend fun getFamilyName(familyId: String): String? {
+        return try {
+            val doc = db.collection("families").document(familyId).get().await()
+            doc.getString("name")
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun getFamilyMembersFlow(familyId: String): Flow<List<FamilyMember>> = callbackFlow {
         val collection = db.collection("families").document(familyId).collection("members")
         val subscription = collection.addSnapshotListener { snapshot, error ->

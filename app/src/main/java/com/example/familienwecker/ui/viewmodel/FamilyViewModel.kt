@@ -31,6 +31,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     val alarmSoundUri: StateFlow<String?> = prefsRepo.alarmSoundUri
     val familyId: StateFlow<String?> = prefsRepo.familyId
     val joinCode: StateFlow<String?> = prefsRepo.joinCode
+    val familyName: StateFlow<String?> = prefsRepo.familyName
     val language: StateFlow<String> = prefsRepo.language
     val isAlarmEnabled: StateFlow<Boolean> = prefsRepo.isAlarmEnabled
 
@@ -86,6 +87,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
             result.onSuccess { pair ->
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)
+                prefsRepo.setFamilyName(familyName)
                 
                 auth.currentUser?.uid?.let { uid ->
                     repository.saveUserFamily(uid, pair.first, pair.second)
@@ -106,6 +108,10 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
             result.onSuccess { pair ->
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)
+                
+                // Fetch name since we only have the code
+                val fetchedName = repository.getFamilyName(pair.first)
+                prefsRepo.setFamilyName(fetchedName)
                 
                 auth.currentUser?.uid?.let { uid ->
                     repository.saveUserFamily(uid, pair.first, pair.second)
@@ -162,6 +168,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     fun logout() {
         prefsRepo.setFamilyId(null)
         prefsRepo.setJoinCode(null)
+        prefsRepo.setFamilyName(null)
         prefsRepo.setMyMemberId(null)
     }
 

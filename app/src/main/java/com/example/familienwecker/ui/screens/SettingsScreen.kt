@@ -40,6 +40,7 @@ fun SettingsScreen(
     val myMemberId by viewModel.myMemberId.collectAsState()
     val alarmSoundUri by viewModel.alarmSoundUri.collectAsState()
     val currentLanguage by viewModel.language.collectAsState()
+    val familyName by viewModel.familyName.collectAsState()
 
     var expanded by remember { mutableStateOf(false) }
     var languageExpanded by remember { mutableStateOf(false) }
@@ -195,7 +196,7 @@ fun SettingsScreen(
                     Text(stringResource(R.string.settings_account_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(16.dp))
                     if (currentJoinCode != null) {
-                        Text(stringResource(R.string.settings_join_code))
+                        Text(stringResource(R.string.settings_join_code, familyName ?: ""))
                         Text(
                             text = currentJoinCode!!, 
                             style = MaterialTheme.typography.headlineMedium, 

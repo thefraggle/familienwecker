@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.example.familienwecker.ui.screens.AddMemberScreen
 import com.example.familienwecker.ui.screens.FamilySetupScreen
+import com.example.familienwecker.ui.screens.LoadingScreen
 import com.example.familienwecker.ui.screens.LoginScreen
 import com.example.familienwecker.ui.screens.MainScreen
 import com.example.familienwecker.ui.screens.SettingsScreen
@@ -67,17 +68,6 @@ fun FamilienweckerApp() {
     val familyViewModel: FamilyViewModel = viewModel()
     val authViewModel: AuthViewModel = viewModel()
 
-    val authState by authViewModel.authState.collectAsState()
-    val familyId by familyViewModel.familyId.collectAsState()
-
-    val startDestination = remember(authState, familyId) {
-        if (authState is AuthViewModel.AuthState.Authenticated) {
-            if (familyId != null) "main" else "setup"
-        } else {
-            if (authState is AuthViewModel.AuthState.Idle || authState is AuthViewModel.AuthState.Loading) "login" else "login"
-        }
-    }
-
     val currentLanguage by familyViewModel.language.collectAsState()
 
     LaunchedEffect(currentLanguage) {
@@ -88,9 +78,30 @@ fun FamilienweckerApp() {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = startDestination,
+            startDestination = "loading",
             modifier = Modifier.padding(innerPadding)
         ) {
+            composable("loading") {
+                LoadingScreen(
+                    authViewModel = authViewModel,
+                    familyViewModel = familyViewModel,
+                    onNavigateToLogin = {
+                        navController.navigate("login") {
+                            popUpTo("loading") { inclusive = true }
+                        }
+                    },
+                    onNavigateToSetup = {
+                        navController.navigate("setup") {
+                            popUpTo("loading") { inclusive = true }
+                        }
+                    },
+                    onNavigateToMain = {
+                        navController.navigate("main") {
+                            popUpTo("loading") { inclusive = true }
+                        }
+                    }
+                )
+            }
             composable("login") {
                 LoginScreen(
                     authViewModel = authViewModel,
@@ -109,6 +120,13 @@ fun FamilienweckerApp() {
                         navController.navigate("main") {
                             popUpTo("setup") { inclusive = true }
                             popUpTo("login") { inclusive = true }
+                        }
+                    },
+                    onLogout = {
+                        authViewModel.logout()
+                        familyViewModel.logout()
+                        navController.navigate("login") {
+                            popUpTo(0)
                         }
                     }
                 )

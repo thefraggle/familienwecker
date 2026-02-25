@@ -49,11 +49,15 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     if (familyExists) {
                         prefsRepository.setFamilyId(pair.first)
                         prefsRepository.setJoinCode(pair.second)
+                        // Fetch and cache family name
+                        val familyName = dbRepository.getFamilyName(pair.first)
+                        prefsRepository.setFamilyName(familyName)
                     } else {
                         // Family was deleted by someone else, clean up this user
                         dbRepository.removeUserFamily(uid)
                         prefsRepository.setFamilyId(null)
                         prefsRepository.setJoinCode(null)
+                        prefsRepository.setFamilyName(null)
                         prefsRepository.setMyMemberId(null)
                     }
                 }

@@ -14,7 +14,8 @@ import com.example.familienwecker.ui.viewmodel.FamilyViewModel
 @Composable
 fun FamilySetupScreen(
     viewModel: FamilyViewModel,
-    onSetupComplete: () -> Unit
+    onSetupComplete: () -> Unit,
+    onLogout: () -> Unit
 ) {
     var isCreateMode by remember { mutableStateOf(true) }
     var familyName by remember { mutableStateOf("") }
@@ -114,6 +115,16 @@ fun FamilySetupScreen(
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodyMedium
                 )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+            
+            TextButton(
+                onClick = onLogout,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+            ) {
+                Text(stringResource(R.string.settings_logout))
             }
         }
     }
