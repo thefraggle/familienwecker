@@ -35,7 +35,9 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 ---
 
 ## ✅ Completed
-- [x] Profile Ownership & Security (#5) (V 0.3.1)
+- [x] Profile Ownership, Automatic Restoration & Security (#5) (V 0.3.1)
+- [x] Robust Deletion Protection & Navigation Sync (V 0.3.1)
+- [x] Color-coded member alarm statuses (V 0.3.1)
 - [x] Display of family name in settings (#4) (V 0.3.0)
 - [x] Smart algorithm for bathroom conflicts (V 0.2.5)
 - [x] Flexible breakfast (V 0.2.6)
