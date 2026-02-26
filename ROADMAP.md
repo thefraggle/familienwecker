@@ -34,7 +34,9 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 ---
 
 ## ✅ Erledigt
-- [x] Profil-Besitz & Sicherheit (#5) (V 0.3.1)
+- [x] Profil-Besitz, automatische Wiederherstellung & Sicherheit (#5) (V 0.3.1)
+- [x] Robuster Lösch-Schutz & Navigations-Sync (V 0.3.1)
+- [x] Farblich visualisierte Mitglieder-Stati (V 0.3.1)
 - [x] Anzeige des Familiennamens in den Einstellungen (#4) (V 0.3.0)
 - [x] Smarter Algorithmus für Bad-Konflikte (V 0.2.5)
 - [x] Flexibles Frühstück (V 0.2.6)
