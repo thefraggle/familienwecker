@@ -41,6 +41,8 @@
     <string name="main_alarm_enabled_desc">System calculates and rings alarms automatically.</string>
     <string name="main_alarm_disabled">Alarms Disabled</string>
     <string name="main_alarm_disabled_desc">Enjoy your weekend! Wake up times are paused.</string>
+    <string name="main_no_profile_warning">No profile selected!</string>
+    <string name="main_no_profile_warning_desc">Please select your profile in Settings so the alarm can ring for you.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete_desc">Delete</string>

@@ -32,7 +32,7 @@ class PreferencesRepository(context: Context) {
     private val _language = MutableStateFlow<String>(prefs.getString("APP_LANGUAGE", defaultLang) ?: defaultLang)
     val language: StateFlow<String> = _language.asStateFlow()
 
-    private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean("ALARM_ENABLED", true))
+    private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean("ALARM_ENABLED", false))
     val isAlarmEnabled: StateFlow<Boolean> = _isAlarmEnabled.asStateFlow()
 
     fun setMyMemberId(id: String?) {
