@@ -17,6 +17,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.familienwecker.model.FamilyMember
@@ -47,8 +48,13 @@ fun MainScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    containerColor = if (androidx.compose.foundation.isSystemInDarkTheme()) 
+                        MaterialTheme.colorScheme.surface 
+                    else 
+                        MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White,
+                    actionIconContentColor = Color.White,
+                    navigationIconContentColor = Color.White
                 )
             )
         }
@@ -219,6 +225,7 @@ fun MainScreen(
             members.forEach { member ->
                 MemberCard(
                     member = member, 
+                    myMemberId = myMemberId,
                     onEdit = { onNavigateToEditMember(member.id) },
                     onDelete = { viewModel.removeMember(member.id) }
                 )
@@ -228,12 +235,21 @@ fun MainScreen(
 }
 
 @Composable
-fun MemberCard(member: FamilyMember, onEdit: () -> Unit, onDelete: () -> Unit) {
-    val backgroundColor = if (member.isPaused) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f) else MaterialTheme.colorScheme.surface
-    val textColor = if (member.isPaused) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f) else MaterialTheme.colorScheme.onSurface
+fun MemberCard(member: FamilyMember, myMemberId: String?, onEdit: () -> Unit, onDelete: () -> Unit) {
+    // Aktive Karten: primaryContainer (helles Night-Blue-Grau) – brand-konform, kein Grün, kein Lila
+    // Pausierte Karten: surfaceVariant mit reduzierter Deckkraft (gedimmt)
+    val backgroundColor = if (member.isPaused)
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+    else
+        MaterialTheme.colorScheme.primaryContainer
+    val textColor = if (member.isPaused)
+        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+    else
+        MaterialTheme.colorScheme.onPrimaryContainer
 
     Card(
-        modifier = Modifier.fillMaxWidth().clickable { onEdit() },
+        onClick = onEdit,
+        modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor)
     ) {
@@ -270,8 +286,10 @@ fun MemberCard(member: FamilyMember, onEdit: () -> Unit, onDelete: () -> Unit) {
                 Text(stringResource(R.string.main_wake_time, member.earliestWakeUp.toString(), member.latestWakeUp.toString()), color = textColor)
                 Text(stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if(member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), color = textColor)
             }
-            IconButton(onClick = onDelete) {
-                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_desc), tint = MaterialTheme.colorScheme.error)
+            if (member.claimedByUserId == null || member.id == myMemberId) {
+                IconButton(onClick = onDelete) {
+                    Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_desc), tint = MaterialTheme.colorScheme.error)
+                }
             }
         }
     }

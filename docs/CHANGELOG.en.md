@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.2] - 2026-02-26
+### Added
+- **New App Icon:** The icon has been updated to match the modern design of the website favicon.
+- **Security Rules (Firestore):** Added a new `firestore.rules` file to secure access to families and members and enforce deletion logic on the server side.
+
+### Changed
+- **Color Concept & Contrast:** Comprehensive overhaul of the color palette (Deep Night Blue, Sunrise Orange). Dark Mode now features significantly satterer contrasts and a consistently dark header (TopAppBar) across all screens.
+- **Optimized Deletion Logic:** 
+    - Unclaimed members can now be deleted by any family member.
+    - Your own profile can be deleted/unclaimed at any time.
+    - The alarm is automatically deactivated when deleting your own profile.
+- **Resilient Family Deletion:** Deleting a family is now more robust against individual member deletion failures. The family document is securely removed in any case.
+- **Error Handling:** Error messages (e.g., after failed actions) are now reliably reset upon logout or leaving the family and no longer appear on the login screen.
+
+### Fixed
+- **Build Error:** Added missing `Color` references in the UI to ensure error-free compilation.
+
 ## [0.3.1] - 2026-02-26
 ### Added
 - **Profile Ownership (Claiming):** Introduced a new system where users "claim" a family member in the settings. This prevents other users from using the same profile or modifying someone else's wake-up times.

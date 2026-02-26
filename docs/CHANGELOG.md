@@ -7,6 +7,23 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.2] - 2026-02-26
+### Hinzugefügt
+- **Neues App-Icon:** Das Icon wurde an das moderne Design des Web-Favicons angepasst.
+- **Sicherheits-Regeln (Firestore):** Eine neue `firestore.rules` Datei wurde hinzugefügt, die den Zugriff auf Familien und Mitglieder absichert und die Lösch-Logik serverseitig erzwingt.
+
+### Geändert
+- **Farbkonzept & Kontraste:** Umfassende Überarbeitung der Farben (Deep Night Blue, Sunrise Orange). Der Dark Mode bietet nun deutlich sattere Kontraste und einen konsistent dunklen Header (TopAppBar) über alle Screens hinweg.
+- **Optimierte Lösch-Logik:** 
+    - Ungeclaimte Mitglieder können nun von jedem Familienmitglied gelöscht werden. 
+    - Das eigene Profil kann jederzeit gelöscht/freigegeben werden.
+    - Beim Löschen des eigenen Profils wird der Wecker automatisch deaktiviert.
+- **Resiliente Familien-Löschung:** Das Löschen einer Familie ist nun robuster gegen Einzelfehler bei der Mitglieder-Löschung. Das Familiendokument wird in jedem Fall sicher entfernt.
+- **Fehlerbehandlung:** Fehlermeldungen (z.B. nach fehlgeschlagenen Aktionen) werden nun beim Logout oder Verlassen der Familie zuverlässig zurückgesetzt und erscheinen nicht mehr auf dem Login-Screen.
+
+### Behoben
+- **Build-Fehler:** Fehlende `Color`-Referenzen in der UI wurden ergänzt, um eine fehlerfreie Kompilierung sicherzustellen.
+
 ## [0.3.1] - 2026-02-26
 ### Hinzugefügt
 - **Profil-Besitz (Claiming):** Ein neues System wurde eingeführt, bei dem Nutzer in den Einstellungen ein Familienmitglied "beanspruchen" (claimen). Dies verhindert, dass andere Nutzer dasselbe Profil nutzen oder die Weckzeiten anderer Familienmitglieder verändern.

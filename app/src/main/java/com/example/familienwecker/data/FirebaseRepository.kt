@@ -99,8 +99,13 @@ class FirebaseRepository {
         db.collection("families").document(familyId).collection("members").document(member.id).set(data)
     }
 
-    fun removeMember(familyId: String, id: String) {
-        db.collection("families").document(familyId).collection("members").document(id).delete()
+    suspend fun removeMember(familyId: String, id: String): Result<Unit> {
+        return try {
+            db.collection("families").document(familyId).collection("members").document(id).delete().await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
     suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?): Boolean {

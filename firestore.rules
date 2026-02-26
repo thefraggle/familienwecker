@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Hilfsfunktionen
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // Prüft, ob der Nutzer Teil dieser Familie ist (basierend auf seinem User-Profil)
+    function isFamilyMember(familyId) {
+      return signedIn() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.familyId == familyId);
+    }
+
+    // User-Profile: Nur der Eigentümer kann lesen/schreiben
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Familien
+    match /families/{familyId} {
+      // Lesen erlauben, um Familienname vor dem Beitreten zu sehen oder per Code zu suchen
+      allow read: if signedIn();
+      
+      // Jeder eingeloggte Nutzer kann eine Familie erstellen
+      allow create: if signedIn();
+      
+      // Bearbeiten/Löschen nur für Mitglieder der Familie
+      allow update, delete: if isFamilyMember(familyId);
+
+      // Mitglieder-Subcollection
+      match /members/{memberId} {
+        // Jeder in der Familie kann die Mitglieder sehen und anlegen/bearbeiten
+        allow read, create, update: if isFamilyMember(familyId);
+        
+        // Spezifische Lösch-Logik:
+        // Ein Mitglied darf NUR gelöscht werden, wenn:
+        // 1. Es nicht geclaimt ist (claimedByUserId == null)
+        // ODERE
+        // 2. Es der eigene Claim des Nutzers ist (claimedByUserId == uid)
+        allow delete: if isFamilyMember(familyId) && 
+          (resource.data.claimedByUserId == null || 
+           resource.data.claimedByUserId == request.auth.uid);
+      }
+    }
+  }
+}
