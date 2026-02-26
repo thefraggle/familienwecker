@@ -109,6 +109,7 @@ fun FamilienweckerApp() {
                         val currentFamilyId = familyViewModel.familyId.value
                         navController.navigate(if (currentFamilyId != null) "main" else "setup") {
                             popUpTo("login") { inclusive = true }
+                            launchSingleTop = true
                         }
                     }
                 )
@@ -119,14 +120,15 @@ fun FamilienweckerApp() {
                     onSetupComplete = {
                         navController.navigate("main") {
                             popUpTo("setup") { inclusive = true }
-                            popUpTo("login") { inclusive = true }
+                            launchSingleTop = true
                         }
                     },
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
                         navController.navigate("login") {
-                            popUpTo(0)
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
                         }
                     }
                 )
@@ -162,13 +164,15 @@ fun FamilienweckerApp() {
                         authViewModel.logout()
                         familyViewModel.logout()
                         navController.navigate("login") {
-                            popUpTo(0)
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
                         }
                     },
                     onLeaveFamily = {
                         familyViewModel.leaveFamily()
                         navController.navigate("setup") {
-                            popUpTo(0)
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
                         }
                     }
                 )

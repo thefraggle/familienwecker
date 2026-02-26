@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.2] - 2026-02-26
+### Fixed
+- **Navigation Issue (Backstack):** Fixed a bug where the login screen remained in the background after successful login. A "back" swipe now correctly exits the app instead of returning to the login screen.
+
 ## [0.3.1] - 2026-02-26
 ### Added
 - **Profile Ownership (Claiming):** Introduced a new system where users "claim" a family member in the settings. This prevents other users from using the same profile or modifying someone else's wake-up times.
