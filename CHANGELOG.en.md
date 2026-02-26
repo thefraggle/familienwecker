@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Robust Deletion:** Deleting a family now checks for other active members and displays an explicit warning before data is permanently removed.
 - **Synchronized Navigation (Fix):** All app components now use synchronized data streams for user preferences, guaranteeing absolutely reliable redirection to the dashboard after login.
 - **State Restoration:** The status of the master alarm switch (On/Off) is now saved across sessions and automatically restored upon next login.
+- **Visualized Member Status:** The member list now highlights whether an alarm is set for a person ("(Alarm active)" in Green) or not ("(no alarm)" in Red).
 - **Settings UI Polish:** Renamed the logout button and added a horizontal divider for better visual separation.
 
 ### Changed

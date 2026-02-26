@@ -44,7 +44,8 @@
     <string name="delete_desc">Löschen</string>
     <string name="main_schedule_bathroom">Bad: %1$s bis %2$s</string>
     <string name="main_schedule_leave">Haus verlassen: %1$s</string>
-    <string name="main_member_paused">(Pausiert)</string>
+    <string name="main_member_alarm_on">(Wecker aktiviert)</string>
+    <string name="main_member_alarm_off">(kein Alarm)</string>
 
     <string name="add_member_title_add">Mitglied hinzufügen</string>
     <string name="add_member_title_edit">Mitglied bearbeiten</string>
