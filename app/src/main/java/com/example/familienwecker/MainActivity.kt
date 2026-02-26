@@ -106,8 +106,7 @@ fun FamilienweckerApp() {
                 LoginScreen(
                     authViewModel = authViewModel,
                     onLoginSuccess = {
-                        val currentFamilyId = familyViewModel.familyId.value
-                        navController.navigate(if (currentFamilyId != null) "main" else "setup") {
+                        navController.navigate("loading") {
                             popUpTo("login") { inclusive = true }
                             launchSingleTop = true
                         }

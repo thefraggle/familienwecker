@@ -28,6 +28,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
 
+    private val _isRestoringFamily = MutableStateFlow(false)
+    val isRestoringFamily: StateFlow<Boolean> = _isRestoringFamily.asStateFlow()
+
     init {
         checkCurrentUser()
     }
@@ -41,6 +44,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun restoreUserFamily(uid: String) {
+        _isRestoringFamily.value = true
         viewModelScope.launch {
             val result = dbRepository.getUserFamily(uid)
             result.onSuccess { pair ->
@@ -67,6 +71,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         prefsRepository.setMyMemberId(null)
                     }
                 }
+                _isRestoringFamily.value = false
+            }.onFailure {
+                _isRestoringFamily.value = false
             }
         }
     }
