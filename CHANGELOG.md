@@ -15,6 +15,8 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **UI-Navigation:** Die Warnung "Kein Profil ausgewählt" auf dem Dashboard ist nun anklickbar und führt direkt zu den Einstellungen.
 - **Verbesserte Button-Platzierung:** Der "+"-Button zum Hinzufügen von Mitgliedern wurde von einem schwebenden Button (FAB) direkt in den Bereich der Familienmitglieder verschoben.
 - **Priorisiertes Layout:** Der berechnete Weck-Plan steht nun an oberster Stelle auf dem Dashboard, gefolgt von der Mitgliederliste, da dieser im Alltag die wichtigste Information darstellt.
+- **Automatische Profil-Wiederherstellung:** Nach einer Neuinstallation oder einem erneuten Login wird ein bereits beanspruchtes Profil automatisch wiedererkannt und ausgewählt.
+- **Robustes Löschen:** Das Löschen einer Familie prüft nun auf andere aktive Mitglieder und zeigt eine explizite Warnung an, bevor Daten unwiderruflich entfernt werden.
 
 ### Geändert
 - **Profil-Auswahl verbessert:** Das Dropdown-Menü in den Einstellungen ist nun deaktiviert, solange noch keine Familienmitglieder angelegt wurden.

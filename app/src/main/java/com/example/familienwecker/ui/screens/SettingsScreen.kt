@@ -260,6 +260,8 @@ fun SettingsScreen(
                 }
             }
 
+            var showDeleteWarningDialog by remember { mutableStateOf(false) }
+
             if (showDeleteDialog) {
                 AlertDialog(
                     onDismissRequest = { showDeleteDialog = false },
@@ -268,10 +270,14 @@ fun SettingsScreen(
                     confirmButton = {
                         TextButton(
                             onClick = {
-                                showDeleteDialog = false
-                                viewModel.deleteFamily { success ->
-                                    if (success) {
-                                        onLeaveFamily()
+                                val otherActiveMembers = members.any { it.claimedByUserId != null && it.claimedByUserId != viewModel.myMemberId.value }
+                                if (otherActiveMembers) {
+                                    showDeleteDialog = false
+                                    showDeleteWarningDialog = true
+                                } else {
+                                    showDeleteDialog = false
+                                    viewModel.deleteFamily { success ->
+                                        if (success) onLeaveFamily()
                                     }
                                 }
                             }
@@ -281,6 +287,31 @@ fun SettingsScreen(
                     },
                     dismissButton = {
                         TextButton(onClick = { showDeleteDialog = false }) {
+                            Text(stringResource(R.string.settings_delete_family_dialog_cancel))
+                        }
+                    }
+                )
+            }
+
+            if (showDeleteWarningDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDeleteWarningDialog = false },
+                    title = { Text(stringResource(R.string.settings_delete_family_warning_title)) },
+                    text = { Text(stringResource(R.string.settings_delete_family_warning_text)) },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                showDeleteWarningDialog = false
+                                viewModel.deleteFamily { success ->
+                                    if (success) onLeaveFamily()
+                                }
+                            }
+                        ) {
+                            Text(stringResource(R.string.settings_delete_family_warning_confirm), color = MaterialTheme.colorScheme.error)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showDeleteWarningDialog = false }) {
                             Text(stringResource(R.string.settings_delete_family_dialog_cancel))
                         }
                     }

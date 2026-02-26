@@ -199,6 +199,24 @@ class FirebaseRepository {
         }
     }
 
+    suspend fun getClaimedMemberId(familyId: String, userId: String): String? {
+        return try {
+            val snapshot = db.collection("families").document(familyId)
+                .collection("members")
+                .whereEqualTo("claimedByUserId", userId)
+                .limit(1)
+                .get()
+                .await()
+            if (!snapshot.isEmpty) {
+                snapshot.documents.first().id
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     suspend fun deleteFamily(familyId: String): Result<Unit> {
         return try {
             val membersCollection = db.collection("families").document(familyId).collection("members")
