@@ -16,7 +16,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Verbesserte Button-Platzierung:** Der "+"-Button zum Hinzufügen von Mitgliedern wurde von einem schwebenden Button (FAB) direkt in den Bereich der Familienmitglieder verschoben.
 - **Priorisiertes Layout:** Der berechnete Weck-Plan steht nun an oberster Stelle auf dem Dashboard, gefolgt von der Mitgliederliste, da dieser im Alltag die wichtigste Information darstellt.
 - **Automatische Profil-Wiederherstellung:** Nach einer Neuinstallation oder einem erneuten Login wird ein bereits beanspruchtes Profil automatisch wiedererkannt und ausgewählt.
-- **Robustes Löschen:** Das Löschen einer Familie prüft nun auf andere aktive Mitglieder und zeigt eine explizite Warnung an, bevor Daten unwiderruflich entfernt werden.
+- **Robuster Lösch-Schutz & Navigations-Sync (V 0.3.1):** Das Löschen einer Familie prüft nun auf andere aktive Mitglieder und löscht alle Mitglieder-Dokumente zuverlässig in einem Batch-Vorgang, bevor die Familie und der Benutzer-Bezug entfernt werden.
 - **Synchronisierte Navigation (Fix):** Alle App-Komponenten nutzen nun synchronisierte Datenströme für die Benutzer-Präferenzen, was eine absolut zuverlässige Weiterleitung zum Dashboard nach dem Login garantiert.
 - **Zustands-Wiederherstellung:** Der Status des Haupt-Weckschalters (An/Aus) wird nun sitzungsübergreifend gespeichert und beim nächsten Login automatisch wiederhergestellt.
 - **Visualisierte Mitglieder-Stati (3-stufig):** Die Mitgliederliste zeigt nun differenziert an: "(Wecker aktiviert)" [Grün] oder "(kein Alarm)" [Rot], aber nur wenn ein Profil aktiv beansprucht wurde. Unbeanspruchte Profile zeigen keinen Status-Text (Rein für die Berechnung).

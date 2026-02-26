@@ -12,12 +12,13 @@ import kotlin.random.Random
 class FirebaseRepository {
     private val db = FirebaseFirestore.getInstance()
 
-    suspend fun createFamily(familyName: String): Result<Pair<String, String>> {
+    suspend fun createFamily(familyName: String, userId: String): Result<Pair<String, String>> {
         return try {
             val joinCode = generateJoinCode()
             val familyData = hashMapOf(
                 "name" to familyName,
-                "joinCode" to joinCode
+                "joinCode" to joinCode,
+                "createdByUserId" to userId
             )
             val docRef = db.collection("families").add(familyData).await()
             // Gib die Document ID und den Join Code zurück
@@ -231,12 +232,33 @@ class FirebaseRepository {
 
     suspend fun deleteFamily(familyId: String): Result<Unit> {
         return try {
-            val membersCollection = db.collection("families").document(familyId).collection("members")
+            val familyRef = db.collection("families").document(familyId)
+            
+            // 1. Delete all members in the subcollection
+            val membersCollection = familyRef.collection("members")
             val membersSnapshot = membersCollection.get().await()
+            
+            // We use a batch for better performance and atomicity where possible
+            var batch = db.batch()
+            var count = 0
+            
             for (doc in membersSnapshot.documents) {
-                doc.reference.delete().await()
+                batch.delete(doc.reference)
+                count++
+                // Firestore batches have a limit of 500 operations
+                if (count >= 500) {
+                    batch.commit().await()
+                    batch = db.batch()
+                    count = 0
+                }
             }
-            db.collection("families").document(familyId).delete().await()
+            if (count > 0) {
+                batch.commit().await()
+            }
+
+            // 2. Delete the family document itself
+            familyRef.delete().await()
+            
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
