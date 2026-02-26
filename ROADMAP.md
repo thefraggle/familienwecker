@@ -20,6 +20,7 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 ### Prio: Mittel (Usability & UI)
 - [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
 - [ ] **Snooze-Synchronisation:** Wenn einer länger braucht, passt sich der Plan der anderen "live" an.
+- [ ] **Individuelle Frühstücksdauer:** Jedes Mitglied kann eigene Zeiten setzen (z. B. Kinder frühstücken 30 Min., Papa kommt nur für 10 Min. dazu).
 
 ### Prio: Niedrig (Nice-to-have)
 - [ ] **Kalender-Integration:** Automatischer Import von "Haus verlassen"-Zeiten aus Google/Outlook.
