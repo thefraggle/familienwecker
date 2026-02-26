@@ -7,10 +7,6 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
-## [0.3.2] - 2026-02-26
-### Behoben
-- **Navigations-Fehler (Backstack):** Ein Problem wurde behoben, bei dem der Login-Screen nach erfolgreicher Anmeldung im Hintergrund offen blieb. Ein "Zurück"-Wischen beendet die App nun wie erwartet, anstatt zum Login zurückzukehren.
-
 ## [0.3.1] - 2026-02-26
 ### Hinzugefügt
 - **Profil-Besitz (Claiming):** Ein neues System wurde eingeführt, bei dem Nutzer in den Einstellungen ein Familienmitglied "beanspruchen" (claimen). Dies verhindert, dass andere Nutzer dasselbe Profil nutzen oder die Weckzeiten anderer Familienmitglieder verändern.
@@ -21,6 +17,9 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 ### Geändert
 - **Profil-Auswahl verbessert:** Das Dropdown-Menü in den Einstellungen ist nun deaktiviert, solange noch keine Familienmitglieder angelegt wurden.
 - **Dynamische Warnungen:** Der Warnhinweis zur fehlenden Profil-Zuweisung erscheint nur noch, wenn bereits Mitglieder in der Familie vorhanden sind.
+
+### Behoben
+- **Navigations-Fehler (Backstack):** Ein Problem wurde behoben, bei dem der Login-Screen nach erfolgreicher Anmeldung im Hintergrund offen blieb. Ein "Zurück"-Wischen beendet die App nun wie erwartet.
 
 ## [0.3.0] - 2026-02-26
 ### Hinzugefügt

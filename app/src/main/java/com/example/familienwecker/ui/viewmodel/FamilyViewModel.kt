@@ -67,7 +67,10 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
         // 2. Observer MyMemberId
         viewModelScope.launch {
-            myMemberId.collect {
+            myMemberId.collect { id ->
+                if (id == null && isAlarmEnabled.value) {
+                    setAlarmEnabled(false)
+                }
                 recalculateSchedule()
             }
         }

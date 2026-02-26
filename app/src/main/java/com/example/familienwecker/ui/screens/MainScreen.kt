@@ -97,7 +97,8 @@ fun MainScreen(
                     }
                     Switch(
                         checked = isAlarmEnabled,
-                        onCheckedChange = { viewModel.setAlarmEnabled(it) }
+                        onCheckedChange = { viewModel.setAlarmEnabled(it) },
+                        enabled = myMemberId != null
                     )
                 }
             }
