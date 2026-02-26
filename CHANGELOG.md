@@ -19,7 +19,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Robustes Löschen:** Das Löschen einer Familie prüft nun auf andere aktive Mitglieder und zeigt eine explizite Warnung an, bevor Daten unwiderruflich entfernt werden.
 - **Synchronisierte Navigation (Fix):** Alle App-Komponenten nutzen nun synchronisierte Datenströme für die Benutzer-Präferenzen, was eine absolut zuverlässige Weiterleitung zum Dashboard nach dem Login garantiert.
 - **Zustands-Wiederherstellung:** Der Status des Haupt-Weckschalters (An/Aus) wird nun sitzungsübergreifend gespeichert und beim nächsten Login automatisch wiederhergestellt.
-- **Visualisierte Mitglieder-Stati:** In der Mitgliederliste wird nun farblich hervorgehoben, ob der Wecker für eine Person aktiv ist ("(Wecker aktiviert)" in Grün) oder nicht ("(kein Alarm)" in Rot).
+- **Visualisierte Mitglieder-Stati (3-stufig):** Die Mitgliederliste zeigt nun differenziert an: "(Wecker aktiviert)" [Grün] oder "(kein Alarm)" [Rot], aber nur wenn ein Profil aktiv beansprucht wurde. Unbeanspruchte Profile zeigen keinen Status-Text (Rein für die Berechnung).
 - **UI-Feinschliff Settings:** Die Schaltfläche "Abmelden" wurde in "Ausloggen" umbenannt und optisch durch eine Trennlinie abgesetzt.
 
 ### Geändert

@@ -247,21 +247,24 @@ fun MemberCard(member: FamilyMember, onEdit: () -> Unit, onDelete: () -> Unit) {
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(member.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = textColor)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    if (member.isPaused) {
-                        Text(
-                            text = stringResource(R.string.main_member_alarm_off),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.error,
-                            fontWeight = FontWeight.Bold
-                        )
-                    } else {
-                        Text(
-                            text = stringResource(R.string.main_member_alarm_on),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = androidx.compose.ui.graphics.Color(0xFF2E7D32), // Custom Green
-                            fontWeight = FontWeight.Bold
-                        )
+                    
+                    if (member.claimedByUserId != null) {
+                        Spacer(modifier = Modifier.width(8.dp))
+                        if (member.isPaused) {
+                            Text(
+                                text = stringResource(R.string.main_member_alarm_off),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.error,
+                                fontWeight = FontWeight.Bold
+                            )
+                        } else {
+                            Text(
+                                text = stringResource(R.string.main_member_alarm_on),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = androidx.compose.ui.graphics.Color(0xFF2E7D32), // Custom Green
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
                 Text(stringResource(R.string.main_wake_time, member.earliestWakeUp.toString(), member.latestWakeUp.toString()), color = textColor)
