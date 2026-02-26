@@ -17,7 +17,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Priorisiertes Layout:** Der berechnete Weck-Plan steht nun an oberster Stelle auf dem Dashboard, gefolgt von der Mitgliederliste, da dieser im Alltag die wichtigste Information darstellt.
 - **Automatische Profil-Wiederherstellung:** Nach einer Neuinstallation oder einem erneuten Login wird ein bereits beanspruchtes Profil automatisch wiedererkannt und ausgewählt.
 - **Robustes Löschen:** Das Löschen einer Familie prüft nun auf andere aktive Mitglieder und zeigt eine explizite Warnung an, bevor Daten unwiderruflich entfernt werden.
-- **Synchronisierte Navigation:** Nach dem Login wird nun explizit gewartet, bis alle Familiendaten und Profil-Zuordnungen geladen sind, um eine falsche Weiterleitung auf den Einrichtungs-Bildschirm zu verhindern.
+- **Synchronisierte Navigation (Fix):** Alle App-Komponenten nutzen nun synchronisierte Datenströme für die Benutzer-Präferenzen, was eine absolut zuverlässige Weiterleitung zum Dashboard nach dem Login garantiert.
 
 ### Geändert
 - **Profil-Auswahl verbessert:** Das Dropdown-Menü in den Einstellungen ist nun deaktiviert, solange noch keine Familienmitglieder angelegt wurden.
