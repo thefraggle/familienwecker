@@ -1,5 +1,7 @@
 package com.example.familienwecker.ui.screens
 
+import kotlinx.coroutines.launch
+
 import android.app.Activity
 import android.content.Intent
 import android.media.RingtoneManager
@@ -45,6 +47,8 @@ fun SettingsScreen(
     var expanded by remember { mutableStateOf(false) }
     var languageExpanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
 
     // Launcher for the RingtonePicker Activity
     val ringtonePickerLauncher = rememberLauncherForActivityResult(
@@ -73,7 +77,8 @@ fun SettingsScreen(
                     }
                 }
             )
-        }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -98,14 +103,19 @@ fun SettingsScreen(
 
                     ExposedDropdownMenuBox(
                         expanded = expanded,
-                        onExpandedChange = { expanded = !expanded }
+                        onExpandedChange = { if (members.isNotEmpty()) expanded = !expanded }
                     ) {
                         val selectedMember = members.find { it.id == myMemberId }
                         OutlinedTextField(
-                            value = selectedMember?.name ?: stringResource(R.string.settings_please_select),
+                            value = when {
+                                members.isEmpty() -> stringResource(R.string.settings_no_members)
+                                selectedMember != null -> selectedMember.name
+                                else -> stringResource(R.string.settings_please_select)
+                            },
                             onValueChange = {},
                             readOnly = true,
-                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                            enabled = members.isNotEmpty(),
+                            trailingIcon = { if (members.isNotEmpty()) ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                             modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
                         )
 
@@ -114,12 +124,33 @@ fun SettingsScreen(
                             onDismissRequest = { expanded = false }
                         ) {
                             members.forEach { member ->
+                                val isClaimedByOther = member.claimedByUserId != null && member.claimedByUserId != viewModel.myMemberId.value
                                 DropdownMenuItem(
-                                    text = { Text(member.name) },
+                                    text = { 
+                                        Column {
+                                            Text(member.name)
+                                            if (isClaimedByOther) {
+                                                Text(
+                                                    text = "Bereits belegt durch ${member.claimedByUserName ?: "jemand anderen"}",
+                                                    style = MaterialTheme.typography.labelSmall,
+                                                    color = MaterialTheme.colorScheme.error
+                                                )
+                                            }
+                                        }
+                                    },
                                     onClick = {
-                                        viewModel.setMyMemberId(member.id)
-                                        expanded = false
-                                    }
+                                        if (!isClaimedByOther) {
+                                            viewModel.setMyMemberId(member.id) { success ->
+                                                if (!success) {
+                                                    coroutineScope.launch {
+                                                        snackbarHostState.showSnackbar("Dieses Profil ist bereits belegt.")
+                                                    }
+                                                }
+                                            }
+                                            expanded = false
+                                        }
+                                    },
+                                    enabled = !isClaimedByOther
                                 )
                             }
                             if (members.isEmpty()) {

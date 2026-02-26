@@ -68,7 +68,9 @@ class FirebaseRepository {
                             bathroomDurationMinutes = doc.getLong("bathroomDurationMinutes") ?: 20L,
                             wantsBreakfast = doc.getBoolean("wantsBreakfast") ?: true,
                             leaveHomeTime = doc.getString("leaveHomeTime")?.let { LocalTime.parse(it) },
-                            isPaused = doc.getBoolean("isPaused") ?: false
+                            isPaused = doc.getBoolean("isPaused") ?: false,
+                            claimedByUserId = doc.getString("claimedByUserId"),
+                            claimedByUserName = doc.getString("claimedByUserName")
                         )
                     } catch (e: Exception) {
                         null
@@ -89,13 +91,59 @@ class FirebaseRepository {
             "bathroomDurationMinutes" to member.bathroomDurationMinutes,
             "wantsBreakfast" to member.wantsBreakfast,
             "leaveHomeTime" to member.leaveHomeTime?.toString(),
-            "isPaused" to member.isPaused
+            "isPaused" to member.isPaused,
+            "claimedByUserId" to member.claimedByUserId,
+            "claimedByUserName" to member.claimedByUserName
         )
         db.collection("families").document(familyId).collection("members").document(member.id).set(data)
     }
 
     fun removeMember(familyId: String, id: String) {
         db.collection("families").document(familyId).collection("members").document(id).delete()
+    }
+
+    suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?): Boolean {
+        return try {
+            val docRef = db.collection("families").document(familyId).collection("members").document(memberId)
+            val snapshot = docRef.get().await()
+            val existingClaim = snapshot.getString("claimedByUserId")
+            
+            if (existingClaim == null || existingClaim == userId) {
+                docRef.update(
+                    mapOf(
+                        "claimedByUserId" to userId,
+                        "claimedByUserName" to userName
+                    )
+                ).await()
+                true
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun unclaimMember(familyId: String, memberId: String, userId: String): Boolean {
+        return try {
+            val docRef = db.collection("families").document(familyId).collection("members").document(memberId)
+            val snapshot = docRef.get().await()
+            val existingClaim = snapshot.getString("claimedByUserId")
+            
+            if (existingClaim == userId) {
+                docRef.update(
+                    mapOf(
+                        "claimedByUserId" to null,
+                        "claimedByUserName" to null
+                    )
+                ).await()
+                true
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            false
+        }
     }
 
     private fun generateJoinCode(): String {

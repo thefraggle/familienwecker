@@ -9,7 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.1] - 2026-02-26
 ### Added
-- Preparation for next features (version bump).
+- **Profile Ownership (Claiming):** Introduced a new system where users "claim" a family member in the settings. This prevents other users from using the same profile or modifying someone else's wake-up times.
+- **Security Hardening (Firestore):** New database rules enforce profile ownership at a technical level. Only the "owner" of a profile can modify or delete its data.
+- **Strict Alarm Logic & Auto-Enable:** Removed automatic fallback to the first profile. The global alarm is now OFF by default and automatically switches ON only after a profile has been successfully claimed. Alarms cannot be enabled without a profile assignment.
+- **UI Navigation:** The "No profile selected" warning on the dashboard is now clickable and navigates directly to the settings screen.
+
+### Changed
+- **Improved Profile Selection:** The dropdown menu in the settings is now disabled as long as no family members have been created.
+- **Dynamic Warnings:** The warning for missing profile assignment only appears if there are already members in the family.
 
 ## [0.3.0] - 2026-02-26
 ### Added

@@ -9,7 +9,14 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ## [0.3.1] - 2026-02-26
 ### Hinzugefügt
-- Vorbereitung auf nächste Features (Version-Update).
+- **Profil-Besitz (Claiming):** Ein neues System wurde eingeführt, bei dem Nutzer in den Einstellungen ein Familienmitglied "beanspruchen" (claimen). Dies verhindert, dass andere Nutzer dasselbe Profil nutzen oder die Weckzeiten anderer Familienmitglieder verändern.
+- **Sicherheits-Härtung (Firestore):** Neue Datenbank-Regeln erzwingen den Profil-Besitz auf technischer Ebene. Nur der "Besitzer" eines Profils kann dessen Daten ändern oder löschen.
+- **Striktes Wecken & Auto-Alarm:** Der automatische Fallback auf das erste Profil wurde entfernt. Der globale Wecker ist nun standardmäßig AUS und schaltet sich erst automatisch EIN, wenn ein Profil erfolgreich geclaimt wurde. Ohne Profil-Zuweisung kann der Wecker nicht aktiviert werden.
+- **UI-Navigation:** Die Warnung "Kein Profil ausgewählt" auf dem Dashboard ist nun anklickbar und führt direkt zu den Einstellungen.
+
+### Geändert
+- **Profil-Auswahl verbessert:** Das Dropdown-Menü in den Einstellungen ist nun deaktiviert, solange noch keine Familienmitglieder angelegt wurden.
+- **Dynamische Warnungen:** Der Warnhinweis zur fehlenden Profil-Zuweisung erscheint nur noch, wenn bereits Mitglieder in der Familie vorhanden sind.
 
 ## [0.3.0] - 2026-02-26
 ### Hinzugefügt

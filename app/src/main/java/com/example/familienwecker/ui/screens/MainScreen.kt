@@ -35,6 +35,7 @@ fun MainScreen(
     val members by viewModel.members.collectAsState()
     val schedule by viewModel.schedule.collectAsState()
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsState()
+    val myMemberId by viewModel.myMemberId.collectAsState()
 
     Scaffold(
         topBar = {
@@ -98,6 +99,31 @@ fun MainScreen(
                         checked = isAlarmEnabled,
                         onCheckedChange = { viewModel.setAlarmEnabled(it) }
                     )
+                }
+            }
+
+            // Fallback: Warnung wenn kein Profil ausgewählt ist (nur wenn Mitglieder vorhanden sind)
+            if (myMemberId == null && members.isNotEmpty()) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onNavigateToSettings() },
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "⚠️ " + stringResource(R.string.main_no_profile_warning),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.main_no_profile_warning_desc),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    }
                 }
             }
 

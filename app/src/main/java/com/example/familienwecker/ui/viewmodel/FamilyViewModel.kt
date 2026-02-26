@@ -139,8 +139,36 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun setMyMemberId(id: String?) {
-        prefsRepo.setMyMemberId(id)
+    fun setMyMemberId(id: String?, onComplete: (Boolean) -> Unit = {}) {
+        val currentFamilyId = familyId.value ?: return
+        val currentMyMemberId = myMemberId.value
+        val userId = auth.currentUser?.uid ?: return
+        val userName = auth.currentUser?.displayName ?: "Papa/Mama"
+
+        viewModelScope.launch {
+            // 1. Unclaim previous member if exists
+            if (currentMyMemberId != null && currentMyMemberId != id) {
+                repository.unclaimMember(currentFamilyId, currentMyMemberId, userId)
+            }
+
+            // 2. Claim new member if id is not null
+            if (id != null) {
+                val success = repository.claimMember(currentFamilyId, id, userId, userName)
+                if (success) {
+                    prefsRepo.setMyMemberId(id)
+                    // Alarm automatisch einschalten wenn ein Profil gewählt wird
+                    prefsRepo.setAlarmEnabled(true)
+                    onComplete(true)
+                } else {
+                    onComplete(false)
+                }
+            } else {
+                prefsRepo.setMyMemberId(null)
+                // Alarm ausschalten wenn kein Profil mehr gewählt ist
+                prefsRepo.setAlarmEnabled(false)
+                onComplete(true)
+            }
+        }
     }
 
     fun setAlarmSoundUri(uri: String) {
@@ -152,6 +180,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun setAlarmEnabled(enabled: Boolean) {
+        // Wecker kann nur eingeschaltet werden, wenn ein Profil belegt ist
+        if (enabled && myMemberId.value == null) return
+
         prefsRepo.setAlarmEnabled(enabled)
         
         // Sync to cloud so other family members know this user's alarm is paused
@@ -221,7 +252,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         val tomorrow = LocalDate.now().plusDays(1)
         val today = LocalDate.now()
 
-        val currentMyMemberId = myMemberId.value ?: schedule.memberSchedules.firstOrNull()?.member?.id
+        val currentMyMemberId = myMemberId.value
         
         schedule.memberSchedules.forEach { alarmScheduler.cancelWakeUp(it.member.id) }
 

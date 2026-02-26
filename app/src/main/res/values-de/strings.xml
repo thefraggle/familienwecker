@@ -37,6 +37,8 @@
     <string name="main_alarm_enabled_desc">Der Wecker weckt die Familie automatisch.</string>
     <string name="main_alarm_disabled">Wecker Pausiert</string>
     <string name="main_alarm_disabled_desc">Genießt das Wochenende! Alle Wecker sind aus.</string>
+    <string name="main_no_profile_warning">Kein Profil ausgewählt!</string>
+    <string name="main_no_profile_warning_desc">Bitte wähle dein Profil in den Einstellungen aus, damit der Wecker für dich klingelt.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="delete_desc">Löschen</string>

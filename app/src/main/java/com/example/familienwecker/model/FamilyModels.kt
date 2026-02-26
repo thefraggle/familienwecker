@@ -10,7 +10,9 @@ data class FamilyMember(
     val bathroomDurationMinutes: Long,
     val wantsBreakfast: Boolean,
     val leaveHomeTime: LocalTime? = null,
-    val isPaused: Boolean = false
+    val isPaused: Boolean = false,
+    val claimedByUserId: String? = null,
+    val claimedByUserName: String? = null
 )
 
 data class ScheduleResult(
