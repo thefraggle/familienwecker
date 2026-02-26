@@ -76,6 +76,9 @@
     <string name="settings_delete_family_dialog_text">Are you sure you want to permanently delete this family? All members, schedules, and settings will be removed for everyone. This cannot be undone.</string>
     <string name="settings_delete_family_dialog_confirm">Delete</string>
     <string name="settings_delete_family_dialog_cancel">Cancel</string>
+    <string name="settings_delete_family_warning_title">Other members active!</string>
+    <string name="settings_delete_family_warning_text">There are other active members in this family. If you delete it, everyone will lose access. Do you really want to force delete everything?</string>
+    <string name="settings_delete_family_warning_confirm">Yes, delete everything</string>
     <string name="settings_logout">Logout</string>
     <string name="settings_version_info">%1$s Version %2$s\nBuild %3$s | %4$s\n(c) 2026 Daniel Notthoff. All rights reserved.</string>
 

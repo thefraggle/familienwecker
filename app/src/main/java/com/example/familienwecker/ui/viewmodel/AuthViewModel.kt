@@ -52,6 +52,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         // Fetch and cache family name
                         val familyName = dbRepository.getFamilyName(pair.first)
                         prefsRepository.setFamilyName(familyName)
+                        
+                        // Automatically restore member claim if exists
+                        val claimedMemberId = dbRepository.getClaimedMemberId(pair.first, uid)
+                        if (claimedMemberId != null) {
+                            prefsRepository.setMyMemberId(claimedMemberId)
+                        }
                     } else {
                         // Family was deleted by someone else, clean up this user
                         dbRepository.removeUserFamily(uid)

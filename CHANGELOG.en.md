@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **UI Navigation:** The "No profile selected" warning on the dashboard is now clickable and navigates directly to the settings screen.
 - **Improved Button Placement:** Moved the "+" button for adding members from a Floating Action Button (FAB) directly into the Family Members section.
 - **Prioritized Layout:** The calculated wake-up plan is now positioned at the top of the dashboard, followed by the member list, as it provides the most important daily information.
+- **Automatic Profile Restoration:** After re-installation or re-login, a previously claimed profile is automatically recognized and selected.
+- **Robust Deletion:** Deleting a family now checks for other active members and displays an explicit warning before data is permanently removed.
 
 ### Changed
 - **Improved Profile Selection:** The dropdown menu in the settings is now disabled as long as no family members have been created.
