@@ -51,11 +51,6 @@ fun MainScreen(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
             )
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = onNavigateToAddMember) {
-                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.main_add_member_desc))
-            }
         }
     ) { padding ->
         Column(
@@ -129,9 +124,35 @@ fun MainScreen(
             }
 
             // 1. Liste der Familienmitglieder
-            Text(stringResource(R.string.main_family_members), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.main_family_members),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+                IconButton(onClick = onNavigateToAddMember) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = stringResource(R.string.main_add_member_desc),
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+
             AnimatedVisibility(visible = members.isEmpty()) {
-                Text(stringResource(R.string.main_no_members))
+                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.main_no_members))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Button(onClick = onNavigateToAddMember) {
+                        Icon(Icons.Default.Add, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.main_add_member_desc))
+                    }
+                }
             }
             members.forEach { member ->
                 MemberCard(

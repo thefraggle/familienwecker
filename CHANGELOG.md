@@ -13,6 +13,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Sicherheits-Härtung (Firestore):** Neue Datenbank-Regeln erzwingen den Profil-Besitz auf technischer Ebene. Nur der "Besitzer" eines Profils kann dessen Daten ändern oder löschen.
 - **Striktes Wecken & Auto-Alarm:** Der automatische Fallback auf das erste Profil wurde entfernt. Der globale Wecker ist nun standardmäßig AUS und schaltet sich erst automatisch EIN, wenn ein Profil erfolgreich geclaimt wurde. Ohne Profil-Zuweisung kann der Wecker nicht aktiviert werden.
 - **UI-Navigation:** Die Warnung "Kein Profil ausgewählt" auf dem Dashboard ist nun anklickbar und führt direkt zu den Einstellungen.
+- **Bessere Button-Platzierung:** Der "+"-Button zum Hinzufügen von Mitgliedern wurde von einem schwebenden Button (FAB) direkt in den Bereich der Familienmitglieder verschoben. Bei leeren Listen gibt es nun zudem einen prominenten "Mitglied hinzufügen" Button direkt in der Mitte.
 
 ### Geändert
 - **Profil-Auswahl verbessert:** Das Dropdown-Menü in den Einstellungen ist nun deaktiviert, solange noch keine Familienmitglieder angelegt wurden.
