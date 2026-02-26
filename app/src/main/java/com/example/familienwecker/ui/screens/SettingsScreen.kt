@@ -249,7 +249,9 @@ fun SettingsScreen(
                     ) {
                         Text(stringResource(R.string.settings_delete_family))
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
+                    
                     OutlinedButton(
                         onClick = onLogout,
                         modifier = Modifier.fillMaxWidth(),

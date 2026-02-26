@@ -78,7 +78,7 @@
     <string name="settings_delete_family_warning_title">Andere Mitglieder aktiv!</string>
     <string name="settings_delete_family_warning_text">Es gibt noch andere aktive Profile in dieser Familie. Wenn du l\u00f6schst, verlieren alle den Zugriff. Willst du wirklich f\u00fcr alle Beteiligten alles l\u00f6schen?</string>
     <string name="settings_delete_family_warning_confirm">Ja, alles mitsamt der fremden Profile l\u00f6schen</string>
-    <string name="settings_logout">Abmelden</string>
+    <string name="settings_logout">Ausloggen</string>
     <string name="settings_version_info">%1$s Version %2$s\nBuild %3$s | %4$s\n(c) 2026 Daniel Notthoff. All rights reserved.</string>
 
     <string name="settings_language_title">Sprache</string>

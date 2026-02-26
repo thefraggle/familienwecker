@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Automatic Profile Restoration:** After re-installation or re-login, a previously claimed profile is automatically recognized and selected.
 - **Robust Deletion:** Deleting a family now checks for other active members and displays an explicit warning before data is permanently removed.
 - **Synchronized Navigation (Fix):** All app components now use synchronized data streams for user preferences, guaranteeing absolutely reliable redirection to the dashboard after login.
+- **State Restoration:** The status of the master alarm switch (On/Off) is now saved across sessions and automatically restored upon next login.
+- **Settings UI Polish:** Renamed the logout button and added a horizontal divider for better visual separation.
 
 ### Changed
 - **Improved Profile Selection:** The dropdown menu in the settings is now disabled as long as no family members have been created.

@@ -199,7 +199,7 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun getClaimedMemberId(familyId: String, userId: String): String? {
+    suspend fun getClaimedMember(familyId: String, userId: String): FamilyMember? {
         return try {
             val snapshot = db.collection("families").document(familyId)
                 .collection("members")
@@ -208,7 +208,19 @@ class FirebaseRepository {
                 .get()
                 .await()
             if (!snapshot.isEmpty) {
-                snapshot.documents.first().id
+                val doc = snapshot.documents.first()
+                FamilyMember(
+                    id = doc.id,
+                    name = doc.getString("name") ?: "",
+                    earliestWakeUp = LocalTime.parse(doc.getString("earliestWakeUp") ?: "06:00"),
+                    latestWakeUp = LocalTime.parse(doc.getString("latestWakeUp") ?: "07:30"),
+                    bathroomDurationMinutes = doc.getLong("bathroomDurationMinutes") ?: 20L,
+                    wantsBreakfast = doc.getBoolean("wantsBreakfast") ?: true,
+                    leaveHomeTime = doc.getString("leaveHomeTime")?.let { LocalTime.parse(it) },
+                    isPaused = doc.getBoolean("isPaused") ?: false,
+                    claimedByUserId = doc.getString("claimedByUserId"),
+                    claimedByUserName = doc.getString("claimedByUserName")
+                )
             } else {
                 null
             }
