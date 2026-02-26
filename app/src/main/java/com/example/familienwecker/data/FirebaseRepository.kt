@@ -234,26 +234,17 @@ class FirebaseRepository {
         return try {
             val familyRef = db.collection("families").document(familyId)
             
-            // 1. Delete all members in the subcollection
+            // 1. Delete all members in the subcollection individually to be more robust
             val membersCollection = familyRef.collection("members")
             val membersSnapshot = membersCollection.get().await()
             
-            // We use a batch for better performance and atomicity where possible
-            var batch = db.batch()
-            var count = 0
-            
             for (doc in membersSnapshot.documents) {
-                batch.delete(doc.reference)
-                count++
-                // Firestore batches have a limit of 500 operations
-                if (count >= 500) {
-                    batch.commit().await()
-                    batch = db.batch()
-                    count = 0
+                try {
+                    doc.reference.delete().await()
+                } catch (e: Exception) {
+                    // Log and continue - we want to delete as much as possible
+                    e.printStackTrace()
                 }
-            }
-            if (count > 0) {
-                batch.commit().await()
             }
 
             // 2. Delete the family document itself
@@ -261,6 +252,7 @@ class FirebaseRepository {
             
             Result.success(Unit)
         } catch (e: Exception) {
+            // If the family doc deletion itself fails (permissions), we at least tried the members
             Result.failure(e)
         }
     }
