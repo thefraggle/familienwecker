@@ -7,6 +7,10 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.1] - 2026-02-26
+### Hinzugefügt
+- Vorbereitung auf nächste Features (Version-Update).
+
 ## [0.3.0] - 2026-02-26
 ### Hinzugefügt
 - Anzeige des Familiennamens in den Einstellungen: Neben dem Einladungscode wird nun auch der Name der Familie angezeigt, um Verwechslungen beim Beitritt oder bei der Verwaltung zu vermeiden.
