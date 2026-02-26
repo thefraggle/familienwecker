@@ -85,8 +85,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun createFamily(familyName: String, onComplete: (Boolean) -> Unit) {
         _errorMessage.value = null
+        val uid = auth.currentUser?.uid ?: return
         viewModelScope.launch {
-            val result = repository.createFamily(familyName)
+            val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)

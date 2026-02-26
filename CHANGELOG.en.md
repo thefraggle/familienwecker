@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Improved Button Placement:** Moved the "+" button for adding members from a Floating Action Button (FAB) directly into the Family Members section.
 - **Prioritized Layout:** The calculated wake-up plan is now positioned at the top of the dashboard, followed by the member list, as it provides the most important daily information.
 - **Automatic Profile Restoration:** After re-installation or re-login, a previously claimed profile is automatically recognized and selected.
-- **Robust Deletion:** Deleting a family now checks for other active members and displays an explicit warning before data is permanently removed.
+- **Robust Deletion & Navigation Sync (V 0.3.1):** Deleting a family now checks for other active members and reliably deletes all member documents in a batch process before removing the family itself.
 - **Synchronized Navigation (Fix):** All app components now use synchronized data streams for user preferences, guaranteeing absolutely reliable redirection to the dashboard after login.
 - **State Restoration:** The status of the master alarm switch (On/Off) is now saved across sessions and automatically restored upon next login.
 - **Visualized Member Status (3-state):** The member list now distinguishes: "(Alarm active)" [Green] or "(no alarm)" [Red], but only if a profile has been claimed. Unclaimed profiles show no status text (Purely for calculation).
