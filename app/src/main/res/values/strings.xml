@@ -36,7 +36,8 @@
     <string name="main_bathroom_info">Bath: %1$s Min | Breakfast: %2$s</string>
     <string name="main_schedule_bathroom">Bathroom: %1$s to %2$s</string>
     <string name="main_schedule_leave">Leaves Home: %s</string>
-    <string name="main_member_paused">(Paused)</string>
+    <string name="main_member_alarm_on">(Alarm active)</string>
+    <string name="main_member_alarm_off">(no alarm)</string>
     <string name="main_alarm_enabled">Alarms Enabled</string>
     <string name="main_alarm_enabled_desc">System calculates and rings alarms automatically.</string>
     <string name="main_alarm_disabled">Alarms Disabled</string>
