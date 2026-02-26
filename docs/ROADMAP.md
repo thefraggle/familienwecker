@@ -23,17 +23,15 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Individuelle Frühstücksdauer:** Jedes Mitglied kann eigene Zeiten setzen (z. B. Kinder frühstücken 30 Min., Papa kommt nur für 10 Min. dazu).
 
 ### Prio: Niedrig (Nice-to-have)
-- [ ] **Kalender-Integration:** Automatischer Import von "Haus verlassen"-Zeiten aus Google/Outlook.
 - [ ] **Abendlicher Check-In:** Push-Reminder um 21 Uhr, um die Zeiten für morgen zu bestätigen.
-- [ ] **Smart Home Anbindung:** Philips Hue (Lichtwecker) & Kaffeemaschinen-Integration.
-- [ ] **Verkehrsdaten-Check:** Automatisches Vorziehen des Weckers bei Stau auf der Route.
-- [ ] **Statistiken:** "Bonus-Schlaf"-Tracker (Wie viel Zeit hat FamWake gespart?).
-- [ ] **Voice-Support:** Alexa/Google Home Abfrage des Morgenplans.
 - [ ] **Eigene Playlists:** Spotify-Integration für den Weck-Screen.
 
 ---
 
 ## ✅ Erledigt
+- [x] Modernes App-Icon (V 0.3.2)
+- [x] Optimierter Dark Mode & Kontraste (V 0.3.2)
+- [x] Erweiterte Lösch-Logik & Firestore Security Rules (V 0.3.2)
 - [x] Profil-Besitz, automatische Wiederherstellung & Sicherheit (#5) (V 0.3.1)
 - [x] Robuster Lösch-Schutz & Navigations-Sync (V 0.3.1)
 - [x] Farblich visualisierte Mitglieder-Stati (V 0.3.1)

@@ -24,17 +24,15 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Individual Breakfast Duration:** Each member can set their own duration (e.g., kids eat for 30 mins, dad joins only for 10 mins).
 
 ### Priority: Low (Nice-to-have)
-- [ ] **Calendar Integration:** Automatic import of "Leave home" times from Google/Outlook.
 - [ ] **Evening Check-In:** Push reminder at 9 PM to confirm times for tomorrow.
-- [ ] **Smart Home Connection:** Philips Hue (light alarm) & coffee machine integration.
-- [ ] **Traffic Data Check:** Automatically advance the alarm if there's traffic on the route.
-- [ ] **Statistics:** "Bonus Sleep" tracker (How much time has FamWake saved?).
-- [ ] **Voice Support:** Alexa/Google Home query of the morning plan.
 - [ ] **Custom Playlists:** Spotify integration for the ringing screen.
 
 ---
 
 ## ✅ Completed
+- [x] Modern App Icon (V 0.3.2)
+- [x] Optimized Dark Mode & Contrast (V 0.3.2)
+- [x] Extended Deletion Logic & Firestore Security Rules (V 0.3.2)
 - [x] Profile Ownership, Automatic Restoration & Security (#5) (V 0.3.1)
 - [x] Robust Deletion Protection & Navigation Sync (V 0.3.1)
 - [x] Color-coded member alarm statuses (V 0.3.1)

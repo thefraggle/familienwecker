@@ -136,7 +136,12 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun removeMember(id: String) {
         val currentFamilyId = familyId.value ?: return
-        repository.removeMember(currentFamilyId, id)
+        viewModelScope.launch {
+            val result = repository.removeMember(currentFamilyId, id)
+            if (result.isFailure) {
+                _errorMessage.value = "Mitglied konnte nicht gelöscht werden: ${result.exceptionOrNull()?.localizedMessage}"
+            }
+        }
         // Setze MyMemberId zurück falls der eigene Nutzer gelöscht wird
         if (myMemberId.value == id) {
             setMyMemberId(null)
@@ -201,6 +206,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun logout() {
+        _errorMessage.value = null
         prefsRepo.setFamilyId(null)
         prefsRepo.setJoinCode(null)
         prefsRepo.setFamilyName(null)
@@ -208,6 +214,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun leaveFamily() {
+        _errorMessage.value = null
         auth.currentUser?.uid?.let { uid ->
             viewModelScope.launch {
                 repository.removeUserFamily(uid)
@@ -217,6 +224,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun deleteFamily(onComplete: (Boolean) -> Unit) {
+        _errorMessage.value = null
         val currentFamilyId = familyId.value ?: return
         viewModelScope.launch {
             val result = repository.deleteFamily(currentFamilyId)
@@ -227,6 +235,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 logout()
                 onComplete(true)
             } else {
+                _errorMessage.value = result.exceptionOrNull()?.localizedMessage ?: "Fehler beim Löschen der Familie"
                 onComplete(false)
             }
         }
