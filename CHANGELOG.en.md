@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Prioritized Layout:** The calculated wake-up plan is now positioned at the top of the dashboard, followed by the member list, as it provides the most important daily information.
 - **Automatic Profile Restoration:** After re-installation or re-login, a previously claimed profile is automatically recognized and selected.
 - **Robust Deletion:** Deleting a family now checks for other active members and displays an explicit warning before data is permanently removed.
+- **Synchronized Navigation:** After login, the app now explicitly waits for all family data and profile claims to load, preventing incorrect redirection to the setup screen.
 
 ### Changed
 - **Improved Profile Selection:** The dropdown menu in the settings is now disabled as long as no family members have been created.

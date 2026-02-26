@@ -21,9 +21,12 @@ fun LoadingScreen(
     onNavigateToMain: () -> Unit
 ) {
     val authState by authViewModel.authState.collectAsState()
+    val isRestoring by authViewModel.isRestoringFamily.collectAsState()
     val familyId by familyViewModel.familyId.collectAsState()
 
-    LaunchedEffect(authState, familyId) {
+    LaunchedEffect(authState, isRestoring, familyId) {
+        if (isRestoring) return@LaunchedEffect
+
         when (authState) {
             is AuthViewModel.AuthState.Authenticated -> {
                 if (familyId != null) {
