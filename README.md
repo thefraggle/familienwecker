@@ -41,6 +41,7 @@ Copyright (c) 2026 Daniel Notthoff. All rights reserved.
 The source code in this repository is provided for educational and review purposes only. It may not be copied, modified, or distributed without explicit permission from the author.
 
 * [Changelog (Version History)](CHANGELOG.md)
+* [Roadmap (Geplante Features)](ROADMAP.md)
 * [Datenschutzerklärung (Privacy Policy)](https://www.familienwecker.de/privacy-policy.html)
 * [Impressum (Imprint)](https://www.familienwecker.de/imprint.html)
 * [Konto & Daten löschen (Account Deletion)](https://www.familienwecker.de/account-deletion.html)
