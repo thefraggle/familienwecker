@@ -35,6 +35,22 @@ class PreferencesRepository(context: Context) {
     private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean("ALARM_ENABLED", false))
     val isAlarmEnabled: StateFlow<Boolean> = _isAlarmEnabled.asStateFlow()
 
+    private val listener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+        when (key) {
+            "MY_MEMBER_ID" -> _myMemberId.value = sharedPreferences.getString(key, null)
+            "ALARM_SOUND_URI" -> _alarmSoundUri.value = sharedPreferences.getString(key, null)
+            "FAMILY_ID" -> _familyId.value = sharedPreferences.getString(key, null)
+            "JOIN_CODE" -> _joinCode.value = sharedPreferences.getString(key, null)
+            "FAMILY_NAME" -> _familyName.value = sharedPreferences.getString(key, null)
+            "APP_LANGUAGE" -> _language.value = sharedPreferences.getString(key, defaultLang) ?: defaultLang
+            "ALARM_ENABLED" -> _isAlarmEnabled.value = sharedPreferences.getBoolean(key, false)
+        }
+    }
+
+    init {
+        prefs.registerOnSharedPreferenceChangeListener(listener)
+    }
+
     fun setMyMemberId(id: String?) {
         prefs.edit { putString("MY_MEMBER_ID", id) }
         _myMemberId.value = id
