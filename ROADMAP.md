@@ -14,19 +14,18 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 
 ### Prio: Hoch (Integration & Kern-Features)
 - [ ] **Individueller Klingelton (#1):** Auswahl eines eigenen Wecktons aus den lokalen Handy-Sounds.
-- [ ] **Kalender-Integration:** Automatischer Import von "Haus verlassen"-Zeiten aus Google/Outlook.
-- [ ] **Snooze-Synchronisation:** Wenn einer länger braucht, passt sich der Plan der anderen "live" an.
-- [ ] **Abendlicher Check-In:** Push-Reminder um 21 Uhr, um die Zeiten für morgen zu bestätigen.
-
-### Prio: Mittel (Usability & UI)
 - [ ] **"Bin schon wach" Button (#2):** Wecker für heute deaktivieren, ohne den Plan der anderen zu stören.
 - [ ] **"Was ist neu?" Dialog (#3):** Übersichtliche Highlights nach einem App-Update anzeigen.
+
+### Prio: Mittel (Usability & UI)
 - [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
-- [ ] **Kinder-Modus:** Vereinfachte UI mit Icons für die Kleinsten.
-- [ ] **Smart Home Anbindung:** Philips Hue (Lichtwecker) & Kaffeemaschinen-Integration.
-- [ ] **Verkehrsdaten-Check:** Automatisches Vorziehen des Weckers bei Stau auf der Route.
+- [ ] **Snooze-Synchronisation:** Wenn einer länger braucht, passt sich der Plan der anderen "live" an.
 
 ### Prio: Niedrig (Nice-to-have)
+- [ ] **Kalender-Integration:** Automatischer Import von "Haus verlassen"-Zeiten aus Google/Outlook.
+- [ ] **Abendlicher Check-In:** Push-Reminder um 21 Uhr, um die Zeiten für morgen zu bestätigen.
+- [ ] **Smart Home Anbindung:** Philips Hue (Lichtwecker) & Kaffeemaschinen-Integration.
+- [ ] **Verkehrsdaten-Check:** Automatisches Vorziehen des Weckers bei Stau auf der Route.
 - [ ] **Statistiken:** "Bonus-Schlaf"-Tracker (Wie viel Zeit hat FamWake gespart?).
 - [ ] **Voice-Support:** Alexa/Google Home Abfrage des Morgenplans.
 - [ ] **Eigene Playlists:** Spotify-Integration für den Weck-Screen.
