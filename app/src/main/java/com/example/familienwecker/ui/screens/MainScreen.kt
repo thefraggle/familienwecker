@@ -123,7 +123,69 @@ fun MainScreen(
                 }
             }
 
-            // 1. Liste der Familienmitglieder
+            // 1. Errechneter Wecker-Plan
+            Text(stringResource(R.string.main_current_schedule), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+            val currentSchedule = schedule
+            
+            val planCardColor by animateColorAsState(
+                targetValue = if (isAlarmEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                animationSpec = tween(durationMillis = 300),
+                label = "planCardColor"
+            )
+
+            if (currentSchedule == null) {
+                Text(stringResource(R.string.main_add_members_prompt))
+            } else if (!currentSchedule.isValid) {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                ) {
+                    Text(
+                        text = "❌ " + stringResource(R.string.main_error, currentSchedule.message), 
+                        modifier = Modifier.padding(16.dp),
+                        color = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                }
+            } else {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = planCardColor)
+                ) {
+                    @Suppress("DEPRECATION")
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = if (isAlarmEnabled) "✅ " + stringResource(R.string.main_optimal_plan) else "⏸️ " + stringResource(R.string.main_plan_paused), 
+                            fontWeight = FontWeight.Bold
+                        )
+                        // If there is a flexible adjustment message, show it explicitly
+                        if (currentSchedule.message.contains("flexibel")) {
+                            Text(
+                                text = "⚠️ " + currentSchedule.message,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.error,
+                                modifier = Modifier.padding(top = 4.dp)
+                            )
+                        }
+                        currentSchedule.breakfastTime?.let {
+                            Text(text = "☕ " + stringResource(R.string.main_shared_breakfast, it.toString()), modifier = Modifier.padding(top = 8.dp))
+                        }
+                    }
+                }
+
+                currentSchedule.memberSchedules.sortedBy { it.wakeUpTime }.forEach { sched ->
+                    Card(modifier = Modifier.fillMaxWidth()) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(text = "⏰ ${sched.wakeUpTime} - ${sched.member.name}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                            Text(text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toString(), sched.bathroomEndTime.toString()))
+                            if (sched.member.leaveHomeTime != null) {
+                                Text(text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime.toString()))
+                            }
+                        }
+                    }
+                }
+            }
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
+
+            // 2. Liste der Familienmitglieder
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -160,67 +222,6 @@ fun MainScreen(
                     onEdit = { onNavigateToEditMember(member.id) },
                     onDelete = { viewModel.removeMember(member.id) }
                 )
-            }
-
-            HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
-
-            // 2. Errechneter Wecker-Plan
-            Text(stringResource(R.string.main_current_schedule), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            val currentSchedule = schedule
-            
-            val planCardColor by animateColorAsState(
-                targetValue = if (isAlarmEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
-                animationSpec = tween(durationMillis = 300),
-                label = "planCardColor"
-            )
-
-            if (currentSchedule == null) {
-                Text(stringResource(R.string.main_add_members_prompt))
-            } else if (!currentSchedule.isValid) {
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
-                ) {
-                    Text(
-                        text = "❌ " + stringResource(R.string.main_error, currentSchedule.message), 
-                        modifier = Modifier.padding(16.dp),
-                        color = MaterialTheme.colorScheme.onErrorContainer
-                    )
-                }
-            } else {
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = planCardColor)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = if (isAlarmEnabled) "✅ " + stringResource(R.string.main_optimal_plan) else "⏸️ " + stringResource(R.string.main_plan_paused), 
-                            fontWeight = FontWeight.Bold
-                        )
-                        // If there is a flexible adjustment message, show it explicitly
-                        if (currentSchedule.message.contains("flexibel")) {
-                            Text(
-                                text = "⚠️ " + currentSchedule.message,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.error,
-                                modifier = Modifier.padding(top = 4.dp)
-                            )
-                        }
-                        currentSchedule.breakfastTime?.let {
-                            Text(text = "☕ " + stringResource(R.string.main_shared_breakfast, it.toString()), modifier = Modifier.padding(top = 8.dp))
-                        }
-                    }
-                }
-
-                currentSchedule.memberSchedules.sortedBy { it.wakeUpTime }.forEach { sched ->
-                    Card(modifier = Modifier.fillMaxWidth()) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text(text = "⏰ ${sched.wakeUpTime} - ${sched.member.name}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                            Text(text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toString(), sched.bathroomEndTime.toString()))
-                            if (sched.member.leaveHomeTime != null) {
-                                Text(text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime.toString()))
-                            }
-                        }
-                    }
-                }
             }
         }
     }
