@@ -21,6 +21,7 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 ### Priority: Medium (Usability & UI)
 - [ ] **Support for 2 Bathrooms:** Parallel slot calculation.
 - [ ] **Snooze Sync:** If someone takes longer, the plan for others adjusts "live."
+- [ ] **Individual Breakfast Duration:** Each member can set their own duration (e.g., kids eat for 30 mins, dad joins only for 10 mins).
 
 ### Priority: Low (Nice-to-have)
 - [ ] **Calendar Integration:** Automatic import of "Leave home" times from Google/Outlook.
