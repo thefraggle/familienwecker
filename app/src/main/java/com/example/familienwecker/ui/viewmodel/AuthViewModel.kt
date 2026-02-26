@@ -58,9 +58,11 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         prefsRepository.setFamilyName(familyName)
                         
                         // Automatically restore member claim if exists
-                        val claimedMemberId = dbRepository.getClaimedMemberId(pair.first, uid)
-                        if (claimedMemberId != null) {
-                            prefsRepository.setMyMemberId(claimedMemberId)
+                        val claimedMember = dbRepository.getClaimedMember(pair.first, uid)
+                        if (claimedMember != null) {
+                            prefsRepository.setMyMemberId(claimedMember.id)
+                            // Restore alarm state from cloud (isAlarmEnabled = !isPaused)
+                            prefsRepository.setAlarmEnabled(!claimedMember.isPaused)
                         }
                     } else {
                         // Family was deleted by someone else, clean up this user
