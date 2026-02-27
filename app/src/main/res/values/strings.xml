@@ -44,6 +44,8 @@
     <string name="main_alarm_disabled_desc">Enjoy your weekend! Wake up times are paused.</string>
     <string name="main_no_profile_warning">No profile selected!</string>
     <string name="main_no_profile_warning_desc">Please select your profile in Settings so the alarm can ring for you.</string>
+    <string name="main_battery_warning">Battery optimization active!</string>
+    <string name="main_battery_warning_desc">Your system might delay the alarm. Tap here to add an exception for FamWake.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete_desc">Delete</string>

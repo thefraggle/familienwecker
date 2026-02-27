@@ -7,6 +7,18 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.5] - 2026-02-27
+
+### Hinzugefügt
+- **Präzise Scheduler-Diagnose:** Wenn kein Zeitplan gefunden wird, nennt die App nun das Mitglied und die Einschränkung, die den Konflikt verursacht (z.B. „Konflikt bei Mama: Wecken müsste um 06:15 Uhr sein, aber frühestes Wecken ist 06:30 Uhr“).
+- **Akku-Optimierung Warnhinweis:** Neue Warnkarte auf dem Hauptbildschirm, falls die Akku-Optimierung des Systems den Wecker verzögern könnte. Klick auf die Karte führt direkt zur entsprechenden System-Einstellung.
+- **Testplan:** Erstmaliger umfassender Testplan in `docs/test_plan.md`, der funktionale Tests, Randbedingungen (EC) und UI/UX-Szenarien abdeckt.
+
+### Geändert
+- **Robuster Scheduler:** Der Algorithmus nutzt nun Kotlin's `Result`-Typen für eine bessere Fehlerweitergabe und stabilere Berechnungsketten.
+- **Roadmap-Synchronisation:** Die Roadmaps (DE/EN) wurden um alle Lücken aus dem Testplan (z.B. Snooze, DST-Schutz, Watchdog) für zukünftige Versionen ergänzt.
+- **Version Bump:** App-Version auf 0.3.5 angehoben.
+
 ## [0.3.4] - 2026-02-27
 
 ### Hinzugefügt

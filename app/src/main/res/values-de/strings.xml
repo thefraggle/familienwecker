@@ -39,6 +39,8 @@
     <string name="main_alarm_disabled_desc">Genießt das Wochenende! Alle Wecker sind aus.</string>
     <string name="main_no_profile_warning">Kein Profil ausgewählt!</string>
     <string name="main_no_profile_warning_desc">Bitte wähle dein Profil in den Einstellungen aus, damit der Wecker für dich klingelt.</string>
+    <string name="main_battery_warning">Akku-Optimierung aktiv!</string>
+    <string name="main_battery_warning_desc">Dein System könnte den Wecker verzögern. Tippe hier, um eine Ausnahme für FamWake einzurichten.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="delete_desc">Löschen</string>

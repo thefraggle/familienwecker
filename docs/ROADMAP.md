@@ -18,11 +18,17 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **"Was ist neu?" Dialog (#3):** Übersichtliche Highlights nach einem App-Update anzeigen.
 - [ ] **Wochentag-Konfiguration:** Weckzeiten für Werktage und Wochenende getrennt einstellen – z. B. Kinder schlafen samstags länger.
 - [ ] **Mitglied für heute pausieren:** Ein nicht-geclaimed Mitglied (oder das eigene Profil) kann für heute aus dem Weck-Plan genommen werden (z. B. krank, auswärts). Zurücksetzen automatisch um Mitternacht. Geclaimte Fremd-Profile kann niemand anderes pausieren. Pause-Icon neben Edit/Delete in der Mitglied-Card ergänzen. Hinweis: Der Master-Switch auf der Hauptseite pausiert bereits den eigenen geclaimten User; nicht-geclaimte Mitglieder fließen immer in die Berechnung ein, werden aber nicht geweckt.
+- [ ] **Basisfunktion Snooze:** Implementierung der Schlummerfunktion (z. B. 5/10 Min. Verzögerung) im Weckscreen.
 
 ### Prio: Mittel (Usability & UI)
 - [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
 - [ ] **Snooze-Synchronisation:** Wenn einer länger braucht, passt sich der Plan der anderen "live" an.
 - [ ] **Individuelle Frühstücksdauer:** Jedes Mitglied kann eigene Zeiten setzen (z. B. Kinder frühstücken 30 Min., Papa kommt nur für 10 Min. dazu).
+- [ ] **Echtzeit-Feedback:** Visuelle Bestätigung/Animation, wenn der Plan im Hintergrund neu berechnet wurde (Testplan UI).
+- [ ] **Haptik-Profile:** Unterschiedliche Vibrationsmuster für Voralarm und Hauptalarm (Testplan UX).
+- [ ] **Smarte Zeit-Warnungen:** Hinweis bei zu knappen Zeitfenstern (z. B. Wecken vs. Haus verlassen) (EC-03).
+- [ ] **Smarte Konflikt-Vorschläge:** UI-Vorschläge zur Lösung von Bad-Engpässen (z. B. "Frühstück um 5 Min. kürzen?") (EC-01).
+- [ ] **Eingabe-Validierung (Extreme):** Warnung bei unrealistischen Werten (z. B. 2h Bad-Dauer) (EC-02).
 - [ ] **Homescreen-Widget:** Kleines 2×1 Widget zeigt die eigene heutige Weckzeit – ohne App öffnen.
 - [ ] **Weck-Bestätigung mit Familien-Push:** "Bin wach!"-Button auf dem Weckscreen schickt eine kurze Push-Meldung an alle anderen Familienmitglieder.
 - [ ] **Urlaubs-Datum statt manuellem Schalter:** Urlaub bis Datum X eintragen; Wecker schaltet sich danach automatisch wieder ein.
@@ -39,10 +45,16 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Klingelton-Vorschau in den Einstellungen:** Kurzes Abspielen des gewählten Tons nach der Auswahl direkt im Settings-Screen, damit der User weiß, was er gewählt hat.
 - [ ] **Scheduler: Shift-Richtung im Plan-Text ausweisen:** Der Fallback-Text "Zeiten wurden um X Minuten angepasst" zeigt nicht, bei wem und in welche Richtung abgewichen wurde. Idealerweise pro Mitglied anzeigen ob früher oder später.
 - [ ] **Scheduler: `LocalTime.MAX`-Sentinel absichern:** Interner Startwert `currentLatestBathroomEndTime = LocalTime.MAX` kann bei sehr frühen Abfahrtszeiten mathematisch einmal durch Mitternacht wrappen. Absicherung durch expliziten Frühst-Zeitwert (z. B. 04:00) als praktische Untergrenze.
+- [ ] **Zeitumstellungs-Schutz (DST):** Absicherung der Berechnung bei Wechsel Sommer-/Winterzeit (EC-05).
+- [ ] **Alarm-Watchdog:** Maximale Belastbarkeit des Hintergrunddienstes gegen System-Kills/Abstürze (EC-06).
+- [ ] **Deep Offline Resilience:** Explizite lokale Datenbank als Primary-Source bei fehlendem Internet (EC-04).
+- [ ] **Multi-Admin Konfliktlösung:** Strategie für gleichzeitige Änderungen an denselben Mitgliedern (EC-10).
 
 ---
 
 ## ✅ Erledigt
+- [x] Scheduler-Diagnose: Präzise Fehlermeldungen bei Konflikten (V 0.3.5)
+- [x] Akku-Optimierung: System-Check & Warnhinweis (V 0.3.5)
 - [x] Mitglied-Reihenfolge: stabile Sortierung nach Anlege-Zeitstempel (V 0.3.4)
 - [x] Member anlegen nach Familien-Erstellung fehlgeschlagen (saveUserFamily-Race) (V 0.3.4)
 - [x] Phantom-Alarm bei Logout/LeaveFamily/DeleteFamily (V 0.3.4)

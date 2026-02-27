@@ -23,8 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.familienwecker.model.FamilyMember
 import com.example.familienwecker.ui.viewmodel.FamilyViewModel
+import com.example.familienwecker.util.BatteryUtils
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.example.familienwecker.R
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,10 +38,13 @@ fun MainScreen(
     onNavigateToEditMember: (String) -> Unit,
     onNavigateToSettings: () -> Unit
 ) {
+    val context = LocalContext.current
     val members by viewModel.members.collectAsState()
     val schedule by viewModel.schedule.collectAsState()
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsState()
     val myMemberId by viewModel.myMemberId.collectAsState()
+    
+    val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
 
     Scaffold(
         topBar = {
@@ -69,7 +76,32 @@ fun MainScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             
-            // 0. Wecker Ein/Aus Schalter
+            // 0. Akku-Optimierung Warnung
+            if (isBatteryOptimized.value && isAlarmEnabled) {
+                Card(
+                    modifier = Modifier.fillMaxWidth().clickable { 
+                        BatteryUtils.requestIgnoreBatteryOptimizations(context)
+                    },
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "🔋 " + stringResource(R.string.main_battery_warning),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.main_battery_warning_desc),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    }
+                }
+            }
+
+            // 0b. Wecker Ein/Aus Schalter
             val toggleCardColor by animateColorAsState(
                 targetValue = if (isAlarmEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
                 animationSpec = tween(durationMillis = 300),
