@@ -7,6 +7,17 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.4] - 2026-02-27
+
+### Hinzugefügt
+- **Badezimmer-Dauer-Validierung:** Eingabe muss zwischen 1 und 120 Minuten liegen. Speichern-Button deaktiviert bei ungültigem Wert, Fehlermeldung wird angezeigt.
+
+### Behoben
+- **Member-Anlegen nach Familien-Erstellung:** `saveUserFamily()` wurde asynchron aufgerufen _nach_ der Navigation zur Hauptseite. Firestore-Security-Rules prüfen `isFamilyMember()` über das User-Dokument — dieses fehlte noch beim ersten Members-Write → Permission Denied (lautlos). Fix: User-Dokument wird jetzt vor der Navigation awaitet; SharedPrefs werden danach gesetzt. Nebeneffekt: Fehlermeldungs-Flash beim Anlegen einer Familie behoben.
+- **isPaused / Claim-Status nach Bearbeiten eines Mitglieds zurückgesetzt:** `AddMemberScreen` hat beim Speichern ein neues `FamilyMember`-Objekt ohne `isPaused`, `claimedByUserId`, `claimedByUserName` und `createdAt` erstellt — alle Felder wurden auf Default-Werte zurückgesetzt. Fix: nicht-editierbare Felder werden jetzt aus dem bestehenden Mitglied übernommen.
+- **Stabile Mitglieder-Reihenfolge:** Firestore liefert Dokumente in nicht-deterministischer Reihenfolge (UUID-IDs). Neues Feld `createdAt` (Epoch-Millis) wird beim Anlegen gesetzt und beim Bearbeiten bewahrt. Liste wird client-seitig nach `createdAt` sortiert.
+- **Phantom-Alarm nach Logout / Familie verlassen / Familie löschen:** `logout()` cancelte keinen laufenden System-Alarm. Neuer Helper `cancelAlarmForCurrentUser()` wird jetzt in `logout()`, `leaveFamily()`, `deleteFamily()` und `recalculateSchedule()` (bei leerer Mitgliederliste) aufgerufen.
+
 ## [0.3.3] - 2026-02-27
 
 ### Hinzugefügt

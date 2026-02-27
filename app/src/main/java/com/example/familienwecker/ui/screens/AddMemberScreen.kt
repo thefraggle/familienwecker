@@ -47,6 +47,11 @@ fun AddMemberScreen(
         leaveHomeTime != null && leaveHomeTime.isAfter(latestWakeUp)
     }
 
+    val isBathroomDurationValid = remember(bathroomDuration) {
+        val v = bathroomDuration.toLongOrNull()
+        v != null && v in 1..120
+    }
+
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
     Scaffold(
@@ -82,12 +87,18 @@ fun AddMemberScreen(
                         latestWakeUp = latestWakeUp,
                         bathroomDurationMinutes = bathroomDuration.toLongOrNull() ?: 20L,
                         wantsBreakfast = wantsBreakfast,
-                        leaveHomeTime = leaveHomeTime
+                        leaveHomeTime = leaveHomeTime,
+                        // Nicht-editierbare Felder aus dem bestehenden Mitglied übernehmen
+                        // damit isPaused / Claim-Status / Sortierung erhalten bleiben
+                        isPaused = memberToEdit?.isPaused ?: false,
+                        claimedByUserId = memberToEdit?.claimedByUserId,
+                        claimedByUserName = memberToEdit?.claimedByUserName,
+                        createdAt = memberToEdit?.createdAt
                     )
                     viewModel.addOrUpdateMember(memberToSave)
                     onNavigateBack()
                 },
-                enabled = isTimeRangeValid && isLeaveTimeValid
+                enabled = isTimeRangeValid && isLeaveTimeValid && isBathroomDurationValid
             ) {
                 Text(stringResource(R.string.save_button))
             }
@@ -122,6 +133,20 @@ fun AddMemberScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.add_member_error_leave_home),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(12.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
+            if (!isBathroomDurationValid) {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_member_error_bathroom_duration),
                         color = MaterialTheme.colorScheme.onErrorContainer,
                         modifier = Modifier.padding(12.dp),
                         style = MaterialTheme.typography.bodyMedium

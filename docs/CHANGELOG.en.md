@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.4] - 2026-02-27
+
+### Added
+- **Bathroom duration validation:** Input must be between 1 and 120 minutes. The Save button is disabled for invalid values and an error card is shown.
+
+### Fixed
+- **Member creation failing after family setup:** `saveUserFamily()` was called asynchronously _after_ navigation to the main screen. Firestore security rules check `isFamilyMember()` via the user document — which didn't exist yet when the first member write occurred → silent Permission Denied. Fix: user document is now awaited before navigation; SharedPrefs are set afterwards. Side effect: also eliminates the brief red error flash during family creation.
+- **isPaused / claim status reset after editing a member:** `AddMemberScreen` constructed a new `FamilyMember` without `isPaused`, `claimedByUserId`, `claimedByUserName`, or `createdAt` — all fields were reset to defaults on every save. Fix: non-editable fields are now copied from the existing member.
+- **Stable member list order:** Firestore returns documents in non-deterministic order (UUID-based document IDs). New `createdAt` field (epoch millis) is written on creation and preserved on update. The list is sorted client-side by `createdAt` ascending.
+- **Phantom alarm after logout / leave family / delete family:** `logout()` did not cancel a pending system alarm. New `cancelAlarmForCurrentUser()` helper is now called in `logout()`, `leaveFamily()`, `deleteFamily()`, and `recalculateSchedule()` (when the member list becomes empty).
+
 ## [0.3.3] - 2026-02-27
 
 ### Added
