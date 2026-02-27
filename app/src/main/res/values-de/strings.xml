@@ -57,7 +57,9 @@
     <string name="add_member_latest_wake">Späteste Weckzeit</string>
     <string name="add_member_bathroom_duration">Bad-Dauer (Minuten)</string>
     <string name="add_member_wants_breakfast">Möchte mitfrühstücken</string>
-    <string name="add_member_leave_home">Haus verlassen um (optional)</string>
+    <string name="add_member_leave_home">Haus verlassen um</string>
+    <string name="add_member_error_time_range">Die späteste Weckzeit muss nach der frühesten liegen.</string>
+    <string name="add_member_error_leave_home">Die „Haus verlassen"-Zeit muss nach der spätesten Weckzeit liegen.</string>
 
     <string name="settings_title">Einstellungen</string>
     <string name="settings_profile_title">Mein Profil</string>

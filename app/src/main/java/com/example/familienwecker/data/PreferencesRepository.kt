@@ -15,7 +15,11 @@ class PreferencesRepository(context: Context) {
     val myMemberId: StateFlow<String?> = _myMemberId.asStateFlow()
 
     private val _alarmSoundUri = MutableStateFlow<String?>(
-        prefs.getString("ALARM_SOUND_URI", RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())
+        try {
+            prefs.getString("ALARM_SOUND_URI", RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)?.toString())
+        } catch (e: Exception) {
+            prefs.getString("ALARM_SOUND_URI", null)
+        }
     )
     val alarmSoundUri: StateFlow<String?> = _alarmSoundUri.asStateFlow()
 

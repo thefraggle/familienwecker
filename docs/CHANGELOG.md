@@ -7,6 +7,29 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.3] - 2026-02-27
+
+### Hinzugefügt
+- **Abfahrtszeit-Validierung:** Beim Anlegen/Bearbeiten eines Mitglieds wird nun geprüft, ob die „Haus verlassen"-Zeit nach der spätesten Weckzeit liegt. Bei Fehler wird eine Fehlermeldung angezeigt und der Speichern-Button deaktiviert.
+- **Edit-Icon in der Mitglieder-Card:** Kleines Stift-Icon signalisiert die Bearbeitbarkeit von Mitgliedseinträgen per Antippen.
+
+### Geändert
+- **Klingelton-Fix (komplett überarbeitet):** Der ausgewählte Klingelton aus den Einstellungen wird nun korrekt abgespielt.
+  - Notification-Channel auf `ALARM_CHANNEL_V2` erhöht – Android's gecachte Sound-Einstellungen des alten Kanals werden dadurch umgangen.
+  - `RingingActivity.playRingtone()` komplett neu implementiert: `setDataSource + prepare()` mit `USAGE_ALARM`-Audio-Attributen statt `MediaPlayer.create()`. Dreistufige Fallback-Kette (gespeicherter Ton → System-Alarm → System-Ringtone). Ton läuft nun garantiert über den Alarm-Audio-Stream und wird nicht durch DND geblockt.
+- **Klingelton läuft nicht mehr nach:** `onDestroy()` der `RingingActivity` ruft nun `stop()` vor `release()` auf; `mediaPlayer` wird danach auf `null` gesetzt.
+- **Scheduler auf Background-Thread:** Die n!-Permutations-Berechnung des Schedulers wird nun auf `Dispatchers.Default` ausgeführt und blockiert nicht mehr den Main-Thread (ANR-Schutz ab ~7 Mitgliedern).
+- **Farbpalette überarbeitet:** Verbesserter Kontrast und Hochwertigkeitsgefühl in Light und Dark Mode.
+  - Light: Hintergrund `#F3F7FB` (NightBlue-Stich), Cards `#E8F0F8` (deutlich abgehoben), Fehler-Container klar Rot statt Warmgrau.
+  - Dark: Hintergrund `#0F1923` (tieferes Blau-Schwarz), Primary `#8DAFC8` (Brand-nah, 5.5:1 Kontrast), Akzent SunriseOrange `#FFB37A` (5.2:1).
+- **`compileSdk` / `targetSdk` auf 35:** Verhindert Java-21-Abhängigkeit des android-36.1 Extension-Platforms.
+
+### Behoben
+- **App-Abstürze nach Login:** `FamilyViewModel` und `PreferencesRepository` stürzen nicht mehr ab, wenn beim ersten Hochfahren noch kein `familyId` vorhanden ist.
+- **Alarm-Cancel beim Mitglied-Löschen:** `cancelWakeUp()` wird nun für jedes gelöschte Mitglied aufgerufen, nicht nur für das eigene Profil.
+- **Race Condition beim Profil-Beanspruchen:** `claimMember()` nutzt nun eine atomare Firestore-Transaktion statt `get() + update()`. Zwei Nutzer können dasselbe Profil nicht mehr gleichzeitig beanspruchen.
+- **Doppelter MediaPlayer bei Bildschirm-Rotation:** `RingingActivity` ist nun als `screenOrientation="portrait"` im Manifest fixiert. Android recreated die Activity nicht mehr, ein doppeltes Abspielen ist ausgeschlossen.
+
 ## [0.3.2] - 2026-02-26
 ### Hinzugefügt
 - **Neues App-Icon:** Das Icon wurde an das moderne Design des Web-Favicons angepasst.

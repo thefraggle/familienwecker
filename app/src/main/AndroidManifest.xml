@@ -37,6 +37,7 @@
             android:exported="false"
             android:showOnLockScreen="true"
             android:turnScreenOn="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Familienwecker" />
 
         <receiver
