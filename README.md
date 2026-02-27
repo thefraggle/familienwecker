@@ -29,6 +29,8 @@ Hier ist ein kleiner Vorgeschmack auf unseren aktuellen Arbeitsstand:
 * **Kein Bad-Stau:** Nahtlose Übergabe des Badezimmers dank optimierter Taktung.
 * **Gemeinsames Frühstück:** Die App findet den idealen Zeitpunkt für alle, die zusammen essen möchten.
 * **Wochenend-Schalter:** Einfach den eigenen Wecker pausieren – der Rest der Familie schläft dadurch noch länger aus.
+* **"Bin schon wach":** Wecker für heute deaktivieren, ohne den Plan der anderen zu beeinflussen.
+* **Sicherer Login:** Einfache Anmeldung via E-Mail oder Google-Konto.
 
 *(Weitere Details zu den Funktionen wie dem smarten Masterplan, der flexiblen Weck-Logik und dem Dark Mode findest du auf unserer [Website](https://www.familienwecker.de).)*
 

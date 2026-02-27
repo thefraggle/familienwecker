@@ -29,6 +29,8 @@ Here is a quick look at our current work in progress:
 * **No Bathroom Traffic Jams:** Wake-up times are intelligently coordinated so that the bathroom is always handed over seamlessly.
 * **Shared Time:** The app finds the ideal slot for everyone who wants to have breakfast together.
 * **Weekend Switch:** Simply pause your own alarm – meaning your bathroom slots expire so the rest of the family can sleep in even longer.
+* **"Already Awake" Button:** Deactivate your alarm for today without affecting the schedule of others.
+* **Secure Login:** Easy sign-in via email or Google account.
 
 *(Find more details on features like the smart master plan, flexible wake-up logic, and dark mode on our [website](https://www.familienwecker.de/index-en.html).)*
 
