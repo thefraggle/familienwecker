@@ -32,6 +32,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-04 | Weck-Präferenzen ändern | Späteste Weckzeit und Bad-Dauer werden gespeichert. |
 | TC-05 | Frühstücks-Wunsch umschalten | Algorithmus berücksichtigt das Mitglied bei der Frühstückszeit-Berechnung. |
 | TC-06 | Haus-Verlassen Zeit setzen | Plan wird angepasst, damit die Person rechtzeitig fertig ist. |
+| TC-10 | **Mitglieder-Limit** | Bei 6 Mitgliedern wird der „Hinzufügen"-Button gesperrt. |
 
 ### 3. Planungs-Logik (Algorithmische Tests)
 | ID | Testfall | Erwartetes Ergebnis |
@@ -58,13 +59,16 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-05 | **Zeitumstellung** (Sommer/Winter) | Weckzeiten werden korrekt an die neue Zeit angepasst, keine doppelten Alarme. |
 | EC-06 | **App-Absturz während Alarm** | Alarm-Dienst startet automatisch neu und setzt den Weckvorgang fort. |
 | EC-07 | **Akku-Optimierung (Android)** | App ist als "Nicht optimiert" markiert, damit der Background-Service zuverlässig weckt. |
+| EC-11 | **Snooze-Funktion** | Klick auf Snooze (5 Min) im Weckscreen plant einen neuen Alarm exakt 5 Min später. |
+| EC-12 | **Mitternachts-Reset** | Status „Heute pausieren" und „Bin schon wach" werden automatisch am nächsten Tag zurückgesetzt. |
 
 ### 3. Benutzer-Verhalten
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| EC-08 | **Wochenend-Schalter** | Einzelnes Mitglied deaktiviert Wecker; Algorithmus nutzt die freie Badzeit für die anderen. |
-| EC-09 | **Nachträgliche Änderung (2 Uhr nachts)** | Plan wird neu berechnet und asynchron an alle synchronisiert. |
-| EC-10 | **Mehrere Admins** | Beide ändern gleichzeitig die Badzeit eines Kindes -> Last-Write-Wins oder Konfliktmeldung. |
+| EC-08 | **Pausieren für heute** | ⏸️ Icon entfernt Mitglied komplett aus dem Plan; andere schlafen ggf. länger. |
+| EC-13 | **Bin schon wach (☀️)** | Sonnen-Icon unterdrückt nur den Alarm; Badezimmer-Slot bleibt für andere reserviert. |
+| EC-09 | Nachträgliche Änderung (2 Uhr nachts) | Plan wird neu berechnet und asynchron an alle synchronisiert. |
+| EC-10 | Mehrere Admins | Beide ändern gleichzeitig die Badzeit eines Kindes -> Last-Write-Wins oder Konfliktmeldung. |
 
 ---
 
