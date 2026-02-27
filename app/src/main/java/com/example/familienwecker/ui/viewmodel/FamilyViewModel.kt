@@ -107,19 +107,17 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
-                // Set sharedPrefs first
+                // User-Dokument zuerst in Firestore schreiben – Firestore Security Rules
+                // prüfen isFamilyMember() über /users/{uid}.familyId. Erst danach darf
+                // navigiert werden, sonst schlägt der erste Members-Write mit Permission-Denied fehl.
+                repository.saveUserFamily(uid, pair.first, pair.second)
+
+                // SharedPrefs NACH dem Cloud-Write setzen, damit Flow-Observer
+                // getFamilyMembersFlow erst startet wenn die Berechtigung gesichert ist.
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)
                 prefsRepo.setFamilyName(familyName)
-                
-                // Save to cloud asynchronously, don't block the UI transition too much
-                launch {
-                    auth.currentUser?.uid?.let { uid ->
-                        repository.saveUserFamily(uid, pair.first, pair.second)
-                    }
-                }
-                
-                // Allow state flows to propagate before navigating
+
                 onComplete(true)
             }.onFailure { error ->
                 _errorMessage.value = error.localizedMessage ?: "Fehler beim Erstellen der Familie"
@@ -133,19 +131,21 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             val result = repository.joinFamilyByCode(code)
             result.onSuccess { pair ->
+                val uid = auth.currentUser?.uid
+
+                // User-Dokument zuerst schreiben (gleicher Grund wie createFamily)
+                if (uid != null) {
+                    repository.saveUserFamily(uid, pair.first, pair.second)
+                }
+
+                // Familienname aus der Cloud holen
+                val fetchedName = repository.getFamilyName(pair.first)
+
+                // SharedPrefs erst setzen wenn Cloud-Write abgeschlossen
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)
-                
-                // Fetch name since we only have the code
-                val fetchedName = repository.getFamilyName(pair.first)
                 prefsRepo.setFamilyName(fetchedName)
-                
-                launch {
-                    auth.currentUser?.uid?.let { uid ->
-                        repository.saveUserFamily(uid, pair.first, pair.second)
-                    }
-                }
-                
+
                 onComplete(true)
             }.onFailure { error ->
                 _errorMessage.value = error.localizedMessage ?: "Code ungültig"
@@ -234,10 +234,17 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun logout() {
         _errorMessage.value = null
+        // Laufenden Alarm canceln bevor Präferenzen gelöscht werden
+        cancelAlarmForCurrentUser()
         prefsRepo.setFamilyId(null)
         prefsRepo.setJoinCode(null)
         prefsRepo.setFamilyName(null)
         prefsRepo.setMyMemberId(null)
+    }
+
+    /** Cancelt den System-Alarm des aktuell eingeloggten Nutzers (falls vorhanden). */
+    private fun cancelAlarmForCurrentUser() {
+        myMemberId.value?.let { alarmScheduler.cancelWakeUp(it) }
     }
 
     fun leaveFamily() {
@@ -292,6 +299,8 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 }
             }
         } else {
+            // Keine Mitglieder mehr – laufenden Alarm des eigenen Profils canceln
+            cancelAlarmForCurrentUser()
             _schedule.value = null
         }
     }

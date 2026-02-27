@@ -61,6 +61,7 @@
     <string name="add_member_leave_home">Leaves home at</string>
     <string name="add_member_error_time_range">Latest wake time must be after earliest wake time.</string>
     <string name="add_member_error_leave_home">Leave home time must be after the latest wake time.</string>
+    <string name="add_member_error_bathroom_duration">Bathroom duration must be between 1 and 120 minutes.</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_profile_title">My Profile</string>

@@ -12,7 +12,8 @@ data class FamilyMember(
     val leaveHomeTime: LocalTime? = null,
     val isPaused: Boolean = false,
     val claimedByUserId: String? = null,
-    val claimedByUserName: String? = null
+    val claimedByUserName: String? = null,
+    val createdAt: Long? = null   // Epoch-Millis beim ersten Anlegen – für stabile Sortierung
 )
 
 data class ScheduleResult(

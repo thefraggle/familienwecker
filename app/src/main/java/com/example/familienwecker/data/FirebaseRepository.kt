@@ -71,13 +71,15 @@ class FirebaseRepository {
                             leaveHomeTime = doc.getString("leaveHomeTime")?.let { LocalTime.parse(it) },
                             isPaused = doc.getBoolean("isPaused") ?: false,
                             claimedByUserId = doc.getString("claimedByUserId"),
-                            claimedByUserName = doc.getString("claimedByUserName")
+                            claimedByUserName = doc.getString("claimedByUserName"),
+                            createdAt = doc.getLong("createdAt")
                         )
                     } catch (e: Exception) {
                         null
                     }
                 }
-                trySend(members)
+                // Stabile Reihenfolge: immer nach Anlege-Zeitstempel sortieren
+                trySend(members.sortedWith(compareBy(nullsLast()) { it.createdAt }))
             }
         }
 
@@ -85,6 +87,10 @@ class FirebaseRepository {
     }
 
     fun addOrUpdateMember(familyId: String, member: FamilyMember) {
+        val docRef = db.collection("families").document(familyId)
+            .collection("members").document(member.id)
+        // createdAt nur beim ersten Anlegen setzen – beim Bearbeiten beibehalten
+        val existingCreatedAt = member.createdAt ?: System.currentTimeMillis()
         val data = hashMapOf(
             "name" to member.name,
             "earliestWakeUp" to member.earliestWakeUp.toString(),
@@ -94,9 +100,10 @@ class FirebaseRepository {
             "leaveHomeTime" to member.leaveHomeTime?.toString(),
             "isPaused" to member.isPaused,
             "claimedByUserId" to member.claimedByUserId,
-            "claimedByUserName" to member.claimedByUserName
+            "claimedByUserName" to member.claimedByUserName,
+            "createdAt" to existingCreatedAt
         )
-        db.collection("families").document(familyId).collection("members").document(member.id).set(data)
+        docRef.set(data)
     }
 
     suspend fun removeMember(familyId: String, id: String): Result<Unit> {

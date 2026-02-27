@@ -38,10 +38,18 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **UI feedback on Firestore errors:** `addOrUpdateMember()` is currently fire-and-forget — if a write fails, the user sees nothing. Add a Snackbar or retry dialog.
 - [ ] **Scheduler upper limit:** Cap the number of members fed into the permutation algorithm (e.g., at 7) and use a greedy fallback above that threshold (currently n! permutations are theoretically unbounded, even though the scheduler is now async).
 - [ ] **Ringtone preview in Settings:** Play the selected tone briefly after picking it, so the user hears what they chose before the next alarm fires.
+- [ ] **Scheduler: show shift direction per member:** The fallback message "times adjusted by X minutes" doesn't tell the user who was shifted or in which direction. Ideally shown per member.
+- [ ] **Scheduler: `LocalTime.MAX` sentinel guard:** The internal starting value `currentLatestBathroomEndTime = LocalTime.MAX` can theoretically wrap past midnight with very early departure times. Add a practical lower bound (e.g., 04:00) as a safeguard.
 
 ---
 
 ## ✅ Completed
+- [x] Member order: stable sort by creation timestamp (V 0.3.4)
+- [x] Member creation failing after family setup (saveUserFamily race condition) (V 0.3.4)
+- [x] Phantom alarm on logout/leaveFamily/deleteFamily (V 0.3.4)
+- [x] isPaused/claim lost when editing a member (V 0.3.4)
+- [x] Bathroom duration validation (1–120 min) (V 0.3.4)
+- [x] Error flash on family creation fixed (V 0.3.4)
 - [x] Alarm sound: selected ringtone is now played correctly (Notification Channel V2, USAGE_ALARM attributes) (V 0.3.3)
 - [x] Leave-home-time validation: error shown if time is before wake time (V 0.3.3)
 - [x] Scheduler moved to background thread (V 0.3.3)

@@ -37,10 +37,18 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **UI-Feedback bei Firestore-Fehler:** `addOrUpdateMember()` ist aktuell fire-and-forget – bei einem Schreib-Fehler bekommt der User nichts mit. Snackbar oder Retry-Dialog einbauen.
 - [ ] **Scheduler-Limit absichern:** Maximale Mitgliederzahl für den Permutations-Algorithmus auf z. B. 7 begrenzen und oberhalb davon einen Greedy-Fallback einsetzen (aktuell sind n! Permutationen theoretisch unbegrenzt, auch wenn der Scheduler nun asynchron läuft).
 - [ ] **Klingelton-Vorschau in den Einstellungen:** Kurzes Abspielen des gewählten Tons nach der Auswahl direkt im Settings-Screen, damit der User weiß, was er gewählt hat.
+- [ ] **Scheduler: Shift-Richtung im Plan-Text ausweisen:** Der Fallback-Text "Zeiten wurden um X Minuten angepasst" zeigt nicht, bei wem und in welche Richtung abgewichen wurde. Idealerweise pro Mitglied anzeigen ob früher oder später.
+- [ ] **Scheduler: `LocalTime.MAX`-Sentinel absichern:** Interner Startwert `currentLatestBathroomEndTime = LocalTime.MAX` kann bei sehr frühen Abfahrtszeiten mathematisch einmal durch Mitternacht wrappen. Absicherung durch expliziten Frühst-Zeitwert (z. B. 04:00) als praktische Untergrenze.
 
 ---
 
 ## ✅ Erledigt
+- [x] Mitglied-Reihenfolge: stabile Sortierung nach Anlege-Zeitstempel (V 0.3.4)
+- [x] Member anlegen nach Familien-Erstellung fehlgeschlagen (saveUserFamily-Race) (V 0.3.4)
+- [x] Phantom-Alarm bei Logout/LeaveFamily/DeleteFamily (V 0.3.4)
+- [x] isPaused/Claim beim Bearbeiten eines Mitglieds verloren gegangen (V 0.3.4)
+- [x] Badezimmer-Dauer-Validierung (1–120 Min.) (V 0.3.4)
+- [x] Fehlermeldungs-Flash beim Anlegen einer Familie behoben (V 0.3.4)
 - [x] Alarm-Ton: Ausgewählter Klingelton wird korrekt gespielt (Notification-Channel V2, USAGE_ALARM-Attribute) (V 0.3.3)
 - [x] Abfahrtszeit-Validierung: Fehler wenn Zeit vor Weckzeit liegt (V 0.3.3)
 - [x] Scheduler auf Background-Thread ausgelagert (V 0.3.3)
