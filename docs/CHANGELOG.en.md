@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.6] - 2026-02-27
+
+### Added
+- **"Already Awake" Button:** A new sun icon (☀️) on member cards allows users to suppress their alarm for today without disrupting the bathroom schedule of others.
+- **"Pause for Today":** A new pause icon (⏸️/▶️) removes a member entirely from today's schedule, potentially allowing others to sleep in longer.
+- **Snooze Functionality:** A "Snooze (5 Min)" button in the ringing screen for a short alarm delay.
+- **Member Limit:** Family size is now capped at 6 members to ensure stability and clarity.
+- **Automatic Reset:** "Already Awake" and "Paused" statuses are automatically cleared at midnight (or upon the first app launch of the day).
+
+### Changed
+- **Scheduler Robustness:** Removed internal `LocalTime.MAX` sentinel values and introduced a 04:00 AM lower bound for backward planning to prevent wrap-around bugs with extremely early departure times.
+- **Version Bump:** App version updated to 0.3.6.
+
 ## [0.3.5] - 2026-02-27
 
 ### Added

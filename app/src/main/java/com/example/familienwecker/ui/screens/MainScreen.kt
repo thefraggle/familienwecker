@@ -9,6 +9,9 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -350,7 +353,7 @@ fun MemberCard(
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = onTogglePause) {
-                    val icon = if (member.isPaused) androidx.compose.material.icons.filled.PlayArrow else androidx.compose.material.icons.filled.Pause
+                    val icon = if (member.isPaused) Icons.Default.PlayArrow else Icons.Default.Pause
                     Icon(
                         imageVector = icon,
                         contentDescription = stringResource(R.string.pause_today_desc),
@@ -360,7 +363,7 @@ fun MemberCard(
                 }
                 IconButton(onClick = onToggleAwake) {
                     Icon(
-                        imageVector = androidx.compose.material.icons.filled.WbSunny,
+                        imageVector = Icons.Default.WbSunny,
                         contentDescription = stringResource(R.string.awake_today_desc),
                         tint = if (member.isAwakeToday) MaterialTheme.colorScheme.secondary else textColor.copy(alpha = 0.6f),
                         modifier = Modifier.size(20.dp)

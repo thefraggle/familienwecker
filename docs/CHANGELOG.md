@@ -7,6 +7,19 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.6] - 2026-02-27
+
+### Hinzugefügt
+- **"Bin schon wach" (Already Awake) Button:** Ein neues Sonnen-Icon (☀️) auf den Mitgliedskarten ermöglicht es, den eigenen Wecker für heute zu unterdrücken, ohne die Badezimmer-Reihenfolge der anderen zu stören.
+- **"Pause für heute":** Über ein neues Pause-Icon (⏸️/▶️) kann ein Mitglied komplett aus dem heutigen Plan genommen werden, wodurch andere ggf. länger ausschlafen können.
+- **Snooze-Funktion:** Ein "Snooze (5 Min)" Button im Weck-Screen ermöglicht eine kurze Verzögerung des Alarms.
+- **Mitglieder-Limit:** Die Familiengröße ist nun auf maximal 6 Mitglieder begrenzt, um Stabilität und Übersichtlichkeit zu gewährleisten.
+- **Automatischer Reset:** Die Status „Bin schon wach" und „Pausiert" werden automatisch um Mitternacht (bzw. beim ersten App-Start des Tages) zurückgesetzt.
+
+### Geändert
+- **Scheduler-Robustheit:** Interne `LocalTime.MAX` Sentinel-Werte entfernt und eine Untergrenze von 04:00 Uhr für die Rückwärts-Planung eingeführt, um Fehler bei extrem frühen Abfahrtszeiten zu vermeiden.
+- **Version Bump:** App-Version auf 0.3.6 angehoben.
+
 ## [0.3.5] - 2026-02-27
 
 ### Hinzugefügt
