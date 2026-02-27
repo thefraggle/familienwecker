@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.5] - 2026-02-27
+
+### Added
+- **Precise Scheduler Diagnostics:** If no schedule can be found, the app now identifies the specific member and constraint causing the conflict (e.g., "Conflict at Mom: wake up would need to be 06:15, but earliest wake up is 06:30").
+- **Battery Optimization Warning:** New warning card on the main screen appears if system battery optimizations might delay the alarm. Clicking the card opens the relevant system settings.
+- **Test Plan:** Initial comprehensive test plan in `docs/test_plan.md` covering functional tests, edge cases (EC), and UI/UX scenarios.
+
+### Changed
+- **Robust Scheduler:** The algorithm now uses Kotlin `Result` types for better error propagation and more stable calculation chains.
+- **Roadmap Synchronization:** Updated roadmaps (DE/EN) with all gaps identified in the test plan (e.g., Snooze, DST protection, Watchdog) for future versions.
+- **Version Bump:** App version updated to 0.3.5.
+
 ## [0.3.4] - 2026-02-27
 
 ### Added
