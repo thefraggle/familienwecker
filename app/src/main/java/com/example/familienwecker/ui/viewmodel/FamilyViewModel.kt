@@ -104,7 +104,12 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun createFamily(familyName: String, onComplete: (Boolean) -> Unit) {
         _errorMessage.value = null
-        val uid = auth.currentUser?.uid ?: return
+        val uid = auth.currentUser?.uid
+        if (uid == null) {
+            _errorMessage.value = "Benutzer nicht eingeloggt"
+            onComplete(false)
+            return
+        }
         viewModelScope.launch {
             val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
@@ -235,11 +240,18 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun togglePauseMember(memberId: String) {
         val member = _members.value.find { it.id == memberId } ?: return
+        
+        // Pause only allowed for unclaimed members or own profile
+        if (member.claimedByUserId != null && member.id != myMemberId.value) return
+        
         val updatedMember = member.copy(isPaused = !member.isPaused)
         addOrUpdateMember(updatedMember)
     }
 
     fun toggleAwakeMember(memberId: String) {
+        // "Bin wach" can only be toggled for the own profile (requested feature)
+        if (memberId != myMemberId.value) return
+        
         val member = _members.value.find { it.id == memberId } ?: return
         val updatedMember = member.copy(isAwakeToday = !member.isAwakeToday)
         addOrUpdateMember(updatedMember)
@@ -283,15 +295,6 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         myMemberId.value?.let { alarmScheduler.cancelWakeUp(it) }
     }
 
-    fun leaveFamily() {
-        _errorMessage.value = null
-        auth.currentUser?.uid?.let { uid ->
-            viewModelScope.launch {
-                repository.removeUserFamily(uid)
-            }
-        }
-        logout()
-    }
 
     fun deleteFamily(onComplete: (Boolean) -> Unit) {
         _errorMessage.value = null
@@ -302,12 +305,29 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 auth.currentUser?.uid?.let { uid ->
                     repository.removeUserFamily(uid)
                 }
-                logout()
+                // Don't logout, just clear family state
+                prefsRepo.setFamilyId(null)
+                prefsRepo.setJoinCode(null)
+                prefsRepo.setFamilyName(null)
+                prefsRepo.setMyMemberId(null)
+                
                 onComplete(true)
             } else {
                 _errorMessage.value = result.exceptionOrNull()?.localizedMessage ?: "Fehler beim Löschen der Familie"
                 onComplete(false)
             }
+        }
+    }
+
+    fun leaveFamily() {
+        _errorMessage.value = null
+        val uid = auth.currentUser?.uid ?: return
+        viewModelScope.launch {
+            repository.removeUserFamily(uid)
+            prefsRepo.setFamilyId(null)
+            prefsRepo.setJoinCode(null)
+            prefsRepo.setFamilyName(null)
+            prefsRepo.setMyMemberId(null)
         }
     }
 

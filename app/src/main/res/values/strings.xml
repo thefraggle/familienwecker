@@ -40,10 +40,10 @@
     <string name="main_member_alarm_off">(no alarm)</string>
     <string name="main_member_awake">(already up)</string>
     <string name="main_member_limit_reached">Maximum of 6 members reached.</string>
-    <string name="main_alarm_enabled">Alarms Enabled</string>
-    <string name="main_alarm_enabled_desc">System calculates and rings alarms automatically.</string>
-    <string name="main_alarm_disabled">Alarms Disabled</string>
-    <string name="main_alarm_disabled_desc">Enjoy your weekend! Wake up times are paused.</string>
+    <string name="main_alarm_enabled">Alarm: ON</string>
+    <string name="main_alarm_enabled_desc">Automatic wake-ups are active.</string>
+    <string name="main_alarm_disabled">Alarm: OFF</string>
+    <string name="main_alarm_disabled_desc">Manual pause is active.</string>
     <string name="main_no_profile_warning">No profile selected!</string>
     <string name="main_no_profile_warning_desc">Please select your profile in Settings so the alarm can ring for you.</string>
     <string name="main_battery_warning">Battery optimization active!</string>
@@ -55,7 +55,11 @@
     <string name="add_member_title_add">Add Member</string>
     <string name="add_member_title_edit">Edit Member</string>
     <string name="back_desc">Back</string>
-    <string name="save_button">Save</string>
+    <string name="add_member_submit">Save</string>
+    <string name="delete_member_title">Delete Member</string>
+    <string name="delete_member_text">Do you really want to delete %1$s from the family?</string>
+    <string name="delete_confirm">Delete</string>
+    <string name="cancel_button">Cancel</string>
     <string name="add_member_name_label">Name (e.g. Mom, Dad, Child)</string>
     <string name="add_member_unknown">Unknown</string>
     <string name="add_member_earliest_wake">Earliest Wake Time</string>

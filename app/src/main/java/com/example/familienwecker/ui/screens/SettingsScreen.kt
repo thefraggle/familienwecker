@@ -282,8 +282,8 @@ fun SettingsScreen(
                     confirmButton = {
                         TextButton(
                             onClick = {
-                                val otherActiveMembers = members.any { it.claimedByUserId != null && it.claimedByUserId != viewModel.myMemberId.value }
-                                if (otherActiveMembers) {
+                                val hasOtherMembers = members.any { it.id != myMemberId }
+                                if (hasOtherMembers) {
                                     showDeleteDialog = false
                                     showDeleteWarningDialog = true
                                 } else {

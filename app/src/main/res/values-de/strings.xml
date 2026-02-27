@@ -33,10 +33,10 @@
     <string name="main_shared_breakfast">Gemeinsames Frühstück ab %1$s</string>
     <string name="main_wake_time">Wecken: %1$s - %2$s</string>
     <string name="main_bathroom_info">Bad: %1$s Min | Frühstück: %2$s</string>
-    <string name="main_alarm_enabled">Wecker Aktiviert</string>
-    <string name="main_alarm_enabled_desc">Der Wecker weckt die Familie automatisch.</string>
-    <string name="main_alarm_disabled">Wecker Pausiert</string>
-    <string name="main_alarm_disabled_desc">Genießt das Wochenende! Alle Wecker sind aus.</string>
+    <string name="main_alarm_enabled">Wecker an</string>
+    <string name="main_alarm_enabled_desc">Automatisches Wecken aktiv.</string>
+    <string name="main_alarm_disabled">Wecker aus</string>
+    <string name="main_alarm_disabled_desc">Manuelle Pause aktiv.</string>
     <string name="main_no_profile_warning">Kein Profil ausgewählt!</string>
     <string name="main_no_profile_warning_desc">Bitte wähle dein Profil in den Einstellungen aus, damit der Wecker für dich klingelt.</string>
     <string name="main_battery_warning">Akku-Optimierung aktiv!</string>
@@ -54,7 +54,11 @@
     <string name="add_member_title_add">Mitglied hinzufügen</string>
     <string name="add_member_title_edit">Mitglied bearbeiten</string>
     <string name="back_desc">Zurück</string>
-    <string name="save_button">Speichern</string>
+    <string name="add_member_submit">Speichern</string>
+    <string name="delete_member_title">Mitglied löschen</string>
+    <string name="delete_member_text">Möchtest du %1$s wirklich aus der Familie löschen?</string>
+    <string name="delete_confirm">Löschen</string>
+    <string name="cancel_button">Abbrechen</string>
     <string name="add_member_name_label">Name (z.B. Mama, Papa, Kind)</string>
     <string name="add_member_unknown">Unbekannt</string>
     <string name="add_member_earliest_wake">Früheste Weckzeit</string>
@@ -85,7 +89,7 @@
     <string name="settings_delete_family_dialog_cancel">Abbrechen</string>
     <string name="settings_delete_family_warning_title">Andere Mitglieder aktiv!</string>
     <string name="settings_delete_family_warning_text">Es gibt noch andere aktive Profile in dieser Familie. Wenn du l\u00f6schst, verlieren alle den Zugriff. Willst du wirklich f\u00fcr alle Beteiligten alles l\u00f6schen?</string>
-    <string name="settings_delete_family_warning_confirm">Ja, alles mitsamt der fremden Profile l\u00f6schen</string>
+    <string name="settings_delete_family_warning_confirm">Ja, Familie endgültig löschen</string>
     <string name="settings_logout">Ausloggen</string>
     <string name="settings_version_info">%1$s Version %2$s\nBuild %3$s | %4$s\n(c) 2026 Daniel Notthoff. All rights reserved.</string>
 

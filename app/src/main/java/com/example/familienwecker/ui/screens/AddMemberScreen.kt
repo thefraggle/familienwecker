@@ -100,7 +100,7 @@ fun AddMemberScreen(
                 },
                 enabled = isTimeRangeValid && isLeaveTimeValid && isBathroomDurationValid
             ) {
-                Text(stringResource(R.string.save_button))
+                Text(stringResource(R.string.add_member_submit))
             }
         }
     ) { padding ->

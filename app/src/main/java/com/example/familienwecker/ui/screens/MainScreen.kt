@@ -16,6 +16,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -46,6 +47,36 @@ fun MainScreen(
     val schedule by viewModel.schedule.collectAsState()
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsState()
     val myMemberId by viewModel.myMemberId.collectAsState()
+    var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
+    
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    if (showDeleteMemberDialog != null) {
+        AlertDialog(
+            onDismissRequest = { showDeleteMemberDialog = null },
+            title = { Text(stringResource(R.string.delete_member_title)) },
+            text = { Text(stringResource(R.string.delete_member_text, showDeleteMemberDialog!!.name)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        val memberToDelete = showDeleteMemberDialog!!
+                        if (memberToDelete.id == myMemberId) {
+                            viewModel.setMyMemberId(null) { }
+                        }
+                        viewModel.removeMember(memberToDelete.id)
+                        showDeleteMemberDialog = null
+                    }
+                ) {
+                    Text(stringResource(R.string.delete_confirm), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteMemberDialog = null }) {
+                    Text(stringResource(R.string.cancel_button))
+                }
+            }
+        )
+    }
     
     val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
 
@@ -115,28 +146,59 @@ fun MainScreen(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = toggleCardColor)
             ) {
-                Row(
-                    modifier = Modifier.padding(16.dp).fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column {
-                        Text(
-                            text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled) else stringResource(R.string.main_alarm_disabled),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled_desc) else stringResource(R.string.main_alarm_disabled_desc),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled) else stringResource(R.string.main_alarm_disabled),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled_desc) else stringResource(R.string.main_alarm_disabled_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Switch(
+                            checked = isAlarmEnabled,
+                            onCheckedChange = { viewModel.setAlarmEnabled(it) },
+                            enabled = myMemberId != null
                         )
                     }
-                    Switch(
-                        checked = isAlarmEnabled,
-                        onCheckedChange = { viewModel.setAlarmEnabled(it) },
-                        enabled = myMemberId != null
-                    )
+
+                    // "Ich bin wach" button for the current user
+                    if (myMemberId != null) {
+                        val myMember = members.find { it.id == myMemberId }
+                        if (myMember != null) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Button(
+                                onClick = { viewModel.toggleAwakeMember(myMemberId!!) },
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (myMember.isAwakeToday) 
+                                        MaterialTheme.colorScheme.secondary 
+                                    else 
+                                        MaterialTheme.colorScheme.primary
+                                )
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.WbSunny,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = stringResource(R.string.awake_today_desc),
+                                    style = MaterialTheme.typography.labelLarge
+                                )
+                            }
+                        }
+                    }
                 }
             }
 
@@ -275,7 +337,7 @@ fun MainScreen(
                     member = member, 
                     myMemberId = myMemberId,
                     onEdit = { onNavigateToEditMember(member.id) },
-                    onDelete = { viewModel.removeMember(member.id) },
+                    onDelete = { showDeleteMemberDialog = member },
                     onTogglePause = { viewModel.togglePauseMember(member.id) },
                     onToggleAwake = { viewModel.toggleAwakeMember(member.id) }
                 )
@@ -304,8 +366,10 @@ fun MemberCard(
     else
         MaterialTheme.colorScheme.onPrimaryContainer
 
+    val isOtherUserClaim = member.claimedByUserId != null && member.id != myMemberId
+
     Card(
-        onClick = onEdit,
+        onClick = { if (!isOtherUserClaim) onEdit() },
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor)
@@ -358,39 +422,32 @@ fun MemberCard(
                 Text(stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if(member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), color = textColor)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(
-                    onClick = onTogglePause,
-                    modifier = Modifier.size(32.dp)
-                ) {
-                    val icon = if (member.isPaused) Icons.Default.PlayArrow else Icons.Default.Pause
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = stringResource(R.string.pause_today_desc),
-                        tint = textColor.copy(alpha = 0.6f),
-                        modifier = Modifier.size(18.dp)
-                    )
+                if (member.claimedByUserId == null) {
+                    IconButton(
+                        onClick = onTogglePause,
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        val icon = if (member.isPaused) Icons.Default.PlayArrow else Icons.Default.Pause
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = stringResource(R.string.pause_today_desc),
+                            tint = textColor.copy(alpha = 0.6f),
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
                 }
-                IconButton(
-                    onClick = onToggleAwake,
-                    modifier = Modifier.size(32.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.WbSunny,
-                        contentDescription = stringResource(R.string.awake_today_desc),
-                        tint = if (member.isAwakeToday) MaterialTheme.colorScheme.secondary else textColor.copy(alpha = 0.6f),
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
-                IconButton(
-                    onClick = onEdit,
-                    modifier = Modifier.size(32.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Edit,
-                        contentDescription = stringResource(R.string.add_member_title_edit),
-                        tint = textColor.copy(alpha = 0.6f),
-                        modifier = Modifier.size(18.dp)
-                    )
+                if (!isOtherUserClaim) {
+                    IconButton(
+                        onClick = onEdit,
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = stringResource(R.string.add_member_title_edit),
+                            tint = textColor.copy(alpha = 0.6f),
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
                 }
                 if (member.claimedByUserId == null || member.id == myMemberId) {
                     IconButton(onClick = onDelete) {

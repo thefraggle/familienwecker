@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.7] - 2026-02-27
+
+### Added
+- **Google Login Icon:** The login screen now displays the official Google icon on the sign-in button.
+- **Member Deletion Confirmation:** Deleting a family member now requires explicit confirmation to prevent accidental removal.
+- **Refined Deletion Safety:** Deleting a family now requires double confirmation if other members (claimed or unclaimed) are still present. A single confirmation suffices for empty families or if you are the only member.
+
+### Changed & Improved
+- **Centralizing "I'm Awake":** The "Already Awake" function has been moved from individual member cards to a prominent global button in the Master Switch area.
+- **Compact Master Switch:** Shortened and clarified the labels on the main switch ("Alarm: ON" / "Alarm: OFF").
+- **Permission Management:** Restricted editing and deletion of profiles claimed by other family members. Edit buttons are automatically hidden for these profiles.
+- **Delete Own Profile:** You can now delete your own profile directly from the main dashboard (unassigns the profile and deactivates the alarm).
+- **Pause Logic:** The pause button on member tiles (reset at midnight) is now only available for unclaimed members to avoid redundancy with the Master Switch.
+
+### Fixed
+- **Resolved Infinity Loading:** Fixed a bug where the app could hang in an endless loading loop after deleting a family and immediately creating a new one.
+- **Login Persistence:** Deleting a family no longer triggers a full logout; the user remains logged in and is redirected to the setup screen.
+- **Logic Audit:** Conducted a comprehensive consistency check of app logic regarding claimed, unclaimed, and personal profiles, closing security gaps in multi-user data editing.
+
 ## [0.3.6] - 2026-02-27
 
 ### Added

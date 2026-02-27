@@ -40,10 +40,8 @@ Copyright (c) 2026 Daniel Notthoff. All rights reserved.
 
 The source code in this repository is provided for educational and review purposes only. It may not be copied, modified, or distributed without explicit permission from the author.
 
-* [Technical Setup Guide (Setup Instructions)](docs/SETUP.en.md)
 * [Changelog (Version History)](docs/CHANGELOG.en.md)
 * [Roadmap (Planned Features)](docs/ROADMAP.en.md)
-* [Algorithm Test Script](docs/AlgorithmTest.main.kts)
 * [Privacy Policy](https://www.familienwecker.de/privacy-policy.html)
 * [Imprint](https://www.familienwecker.de/imprint-en.html)
 * [Account Deletion](https://www.familienwecker.de/account-deletion-en.html)
