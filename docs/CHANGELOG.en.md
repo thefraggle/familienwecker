@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.8] - TBD
+
+### Added
+- 
+
+### Changed & Improved
+- 
+
+### Fixed
+- 
+
 ## [0.3.7] - 2026-02-27
 
 ### Added
