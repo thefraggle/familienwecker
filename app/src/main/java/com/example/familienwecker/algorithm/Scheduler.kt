@@ -97,20 +97,22 @@ class Scheduler {
         var breakfastTime: LocalTime? = null
 
         if (breakfastEaters.isNotEmpty()) {
-            var minLeaveForBreakfastEaters = LocalTime.MAX
+            var minLeaveForBreakfastEaters = LocalTime.of(23, 59)
             for (m in breakfastEaters) {
                 val leave = m.leaveHomeTime ?: LocalTime.of(23, 59)
                 if (leave.isBefore(minLeaveForBreakfastEaters)) {
                     minLeaveForBreakfastEaters = leave
                 }
             }
-            if (minLeaveForBreakfastEaters != LocalTime.MAX) {
-                breakfastTime = minLeaveForBreakfastEaters.minusMinutes(breakfastDurationMinutes)
-            }
+            // Limit to a reasonable start time (e.g., not before 04:00)
+            val startTime = if (minLeaveForBreakfastEaters.isBefore(LocalTime.of(4, 0))) 
+                LocalTime.of(4, 0) else minLeaveForBreakfastEaters
+            
+            breakfastTime = startTime.minusMinutes(breakfastDurationMinutes)
         }
 
         val schedules = mutableListOf<ScheduleResult>()
-        var currentLatestBathroomEndTime = LocalTime.MAX
+        var currentLatestBathroomEndTime = LocalTime.of(23, 59)
 
         for (member in orderedMembers.reversed()) {
             val allowedLatestWakeUp = member.latestWakeUp.plusMinutes(shiftToleranceMinutes.toLong())

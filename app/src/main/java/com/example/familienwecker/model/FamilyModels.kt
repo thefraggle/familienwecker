@@ -11,6 +11,8 @@ data class FamilyMember(
     val wantsBreakfast: Boolean,
     val leaveHomeTime: LocalTime? = null,
     val isPaused: Boolean = false,
+    val isAwakeToday: Boolean = false,
+    val lastResetDate: String = "", // YYYY-MM-DD
     val claimedByUserId: String? = null,
     val claimedByUserName: String? = null,
     val createdAt: Long? = null   // Epoch-Millis beim ersten Anlegen – für stabile Sortierung
