@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.3] - 2026-02-27
+
+### Added
+- **Leave-home-time validation:** When adding or editing a member, the app now validates that the "leave home" time is after the latest wake time. An error card is shown and the Save button is disabled if invalid.
+- **Edit icon on member cards:** A small pencil icon now signals that member entries can be tapped to edit.
+
+### Changed
+- **Ringtone fix (complete rewrite):** The alarm sound selected in Settings is now played correctly.
+  - Notification channel bumped to `ALARM_CHANNEL_V2` — bypasses Android's cached sound settings from the old channel.
+  - `RingingActivity.playRingtone()` rewritten: uses `setDataSource + prepare()` with `USAGE_ALARM` audio attributes instead of `MediaPlayer.create()`. Three-stage fallback chain (saved URI → system alarm → ringtone). The alarm now runs on the correct audio stream and is not blocked by DND.
+- **Ringtone no longer runs on after dismiss:** `onDestroy()` in `RingingActivity` now calls `stop()` before `release()`; `mediaPlayer` is set to `null` afterwards.
+- **Scheduler moved to background thread:** The n! permutation computation now runs on `Dispatchers.Default` and no longer blocks the main thread (ANR protection for ~7+ members).
+- **Color palette refined:** Improved contrast and quality feel in both Light and Dark Mode.
+  - Light: Background `#F3F7FB` (Night Blue tint), cards `#E8F0F8` (clearly elevated), error container clearly red instead of warm grey.
+  - Dark: Background `#0F1923` (deeper blue-black), primary `#8DAFC8` (brand-aligned, 5.5:1), accent SunriseOrange `#FFB37A` (5.2:1).
+- **`compileSdk` / `targetSdk` set to 35:** Avoids Java 21 dependency introduced by the android-36.1 extension platform.
+
+### Fixed
+- **App crashes after login:** `FamilyViewModel` and `PreferencesRepository` no longer crash on first launch when no `familyId` is available yet.
+- **Alarm not cancelled on member delete:** `cancelWakeUp()` is now called for every deleted member, not only for the current user's profile.
+- **Race condition when claiming a profile:** `claimMember()` now uses an atomic Firestore transaction instead of `get() + update()`. Two users can no longer simultaneously claim the same profile.
+- **Double MediaPlayer on screen rotation:** `RingingActivity` is now locked to `screenOrientation="portrait"` in the manifest, preventing Android from recreating the activity and starting a second audio track.
+
 ## [0.3.2] - 2026-02-26
 ### Added
 - **New App Icon:** The icon has been updated to match the modern design of the website favicon.

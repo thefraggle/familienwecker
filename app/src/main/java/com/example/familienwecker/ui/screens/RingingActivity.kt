@@ -1,6 +1,7 @@
 package com.example.familienwecker.ui.screens
 
 import android.net.Uri
+import android.media.AudioAttributes
 import com.example.familienwecker.data.PreferencesRepository
 import android.app.KeyguardManager
 import android.content.Context
@@ -65,38 +66,64 @@ class RingingActivity : AppCompatActivity() {
         }
     }
 
+    private val alarmAudioAttributes = AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_ALARM)
+        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+        .build()
+
+    private fun buildMediaPlayer(uri: Uri): MediaPlayer? {
+        return try {
+            MediaPlayer().apply {
+                setAudioAttributes(alarmAudioAttributes)
+                setDataSource(this@RingingActivity, uri)
+                prepare()
+                isLooping = true
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     private fun playRingtone() {
         val prefsRepo = PreferencesRepository(this)
         val savedUriString = prefsRepo.alarmSoundUri.value
-        
-        val alarmUri = if (savedUriString != null) {
-            Uri.parse(savedUriString)
-        } else {
-            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-                ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+
+        // Versuche zunächst den gespeicherten Ton, dann System-Alarm, dann System-Ringtone
+        val uriChain = listOfNotNull(
+            savedUriString?.let { Uri.parse(it) },
+            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
+            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+        )
+
+        for (uri in uriChain) {
+            val player = buildMediaPlayer(uri)
+            if (player != null) {
+                mediaPlayer = player
+                player.start()
+                return
+            }
         }
-        
-        mediaPlayer = MediaPlayer.create(this, alarmUri)
-        
-        // Fallback falls die ausgewählte URI auf dem Gerät nicht abspielbar ist
-        if (mediaPlayer == null) {
-             val fallbackUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-             mediaPlayer = MediaPlayer.create(this, fallbackUri)
-        }
-        
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.start()
+        // Wenn alle Versuche scheitern, klingelt die App lautlos (besser als Crash)
     }
 
     private fun stopRingtoneAndFinish() {
-        mediaPlayer?.stop()
+        try {
+            mediaPlayer?.stop()
+        } catch (_: IllegalStateException) {}
         mediaPlayer?.release()
+        mediaPlayer = null
         finish()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        try {
+            mediaPlayer?.stop()
+        } catch (_: IllegalStateException) {
+            // MediaPlayer war evtl. noch nicht gestartet
+        }
         mediaPlayer?.release()
+        mediaPlayer = null
     }
 }
 

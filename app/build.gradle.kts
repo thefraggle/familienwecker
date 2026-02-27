@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val appVersion = "0.3.2"
+val appVersion = "0.3.3"
 
 val commitHash = try {
     Runtime.getRuntime().exec(arrayOf("git", "rev-parse", "--short", "HEAD")).inputStream.reader().use { it.readText().trim() }
@@ -30,16 +30,12 @@ android {
     namespace = "com.example.familienwecker"
 
 
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.familienwecker"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 35
         versionCode = versionCodeTimestamp
         versionName = appVersion
 

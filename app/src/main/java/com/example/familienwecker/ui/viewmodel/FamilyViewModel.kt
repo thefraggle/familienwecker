@@ -9,11 +9,13 @@ import com.example.familienwecker.data.FirebaseRepository
 import com.example.familienwecker.data.PreferencesRepository
 import com.example.familienwecker.model.FamilyMember
 import com.example.familienwecker.model.FamilySchedule
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -49,36 +51,52 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     init {
         // 1. Observe FamilyId and load members accordingly
         viewModelScope.launch {
-            familyId.collect { currentFamilyId ->
-                membersJob?.cancel()
-                if (currentFamilyId != null) {
-                    membersJob = launch {
-                        repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
-                            _members.value = membersList
-                            recalculateSchedule()
+            try {
+                familyId.collect { currentFamilyId ->
+                    membersJob?.cancel()
+                    if (currentFamilyId != null) {
+                        membersJob = launch {
+                            try {
+                                repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
+                                    _members.value = membersList
+                                    recalculateSchedule()
+                                }
+                            } catch (e: Exception) {
+                                _errorMessage.value = "Fehler beim Laden der Mitglieder: ${e.localizedMessage}"
+                            }
                         }
+                    } else {
+                        _members.value = emptyList()
+                        recalculateSchedule()
                     }
-                } else {
-                    _members.value = emptyList()
-                    recalculateSchedule()
                 }
+            } catch (e: Exception) {
+                _errorMessage.value = "Systemfehler: ${e.localizedMessage}"
             }
         }
 
         // 2. Observer MyMemberId
         viewModelScope.launch {
-            myMemberId.collect { id ->
-                if (id == null && isAlarmEnabled.value) {
-                    setAlarmEnabled(false)
+            try {
+                myMemberId.collect { id ->
+                    if (id == null && isAlarmEnabled.value) {
+                        setAlarmEnabled(false)
+                    }
+                    recalculateSchedule()
                 }
-                recalculateSchedule()
+            } catch (e: Exception) {
+                // Ignore silent errors in member ID update
             }
         }
 
         // 3. Observer Global Alarm Toggle
         viewModelScope.launch {
-            isAlarmEnabled.collect {
-                recalculateSchedule()
+            try {
+                isAlarmEnabled.collect {
+                    recalculateSchedule()
+                }
+            } catch (e: Exception) {
+                // Ignore silent errors in alarm toggle
             }
         }
     }
@@ -89,14 +107,19 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
+                // Set sharedPrefs first
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)
                 prefsRepo.setFamilyName(familyName)
                 
-                auth.currentUser?.uid?.let { uid ->
-                    repository.saveUserFamily(uid, pair.first, pair.second)
+                // Save to cloud asynchronously, don't block the UI transition too much
+                launch {
+                    auth.currentUser?.uid?.let { uid ->
+                        repository.saveUserFamily(uid, pair.first, pair.second)
+                    }
                 }
                 
+                // Allow state flows to propagate before navigating
                 onComplete(true)
             }.onFailure { error ->
                 _errorMessage.value = error.localizedMessage ?: "Fehler beim Erstellen der Familie"
@@ -117,8 +140,10 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 val fetchedName = repository.getFamilyName(pair.first)
                 prefsRepo.setFamilyName(fetchedName)
                 
-                auth.currentUser?.uid?.let { uid ->
-                    repository.saveUserFamily(uid, pair.first, pair.second)
+                launch {
+                    auth.currentUser?.uid?.let { uid ->
+                        repository.saveUserFamily(uid, pair.first, pair.second)
+                    }
                 }
                 
                 onComplete(true)
@@ -136,6 +161,8 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun removeMember(id: String) {
         val currentFamilyId = familyId.value ?: return
+        // Alarm für dieses Mitglied abbrechen (unabhängig ob es myMemberId ist)
+        alarmScheduler.cancelWakeUp(id)
         viewModelScope.launch {
             val result = repository.removeMember(currentFamilyId, id)
             if (result.isFailure) {
@@ -246,15 +273,23 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         val alarmsOn = isAlarmEnabled.value
 
         if (currentMembers.isNotEmpty()) {
-            val result = scheduler.calculateIdealSchedule(currentMembers)
-            _schedule.value = result
-            
-            // Apply alarms for active schedules if the global toggle is ON
-            if (alarmsOn && result.isValid && result.memberSchedules.isNotEmpty()) {
-                applyAlarms(result)
-            } else {
-                // Wipe local system alarms
-                currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
+            viewModelScope.launch {
+                try {
+                    // Scheduler runs n! permutations – off main thread to avoid ANR
+                    val result = withContext(Dispatchers.Default) {
+                        scheduler.calculateIdealSchedule(currentMembers)
+                    }
+                    _schedule.value = result
+
+                    if (alarmsOn && result.isValid && result.memberSchedules.isNotEmpty()) {
+                        applyAlarms(result)
+                    } else {
+                        currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
+                    }
+                } catch (e: Exception) {
+                    _errorMessage.value = "Fehler bei der Zeitplanberechnung: ${e.localizedMessage}"
+                    _schedule.value = null
+                }
             }
         } else {
             _schedule.value = null
@@ -265,11 +300,13 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         val tomorrow = LocalDate.now().plusDays(1)
         val today = LocalDate.now()
 
-        val currentMyMemberId = myMemberId.value
+        val currentMyMemberId = myMemberId.value ?: return
         
-        schedule.memberSchedules.forEach { alarmScheduler.cancelWakeUp(it.member.id) }
+        // Safety: ensure we only schedule if we have member schedules
+        if (schedule.memberSchedules.isEmpty()) return
 
-        if (currentMyMemberId == null) return
+        // Always cancel existing alarms first for the current user to avoid duplicates or old times
+        alarmScheduler.cancelWakeUp(currentMyMemberId)
 
         for (memberSchedule in schedule.memberSchedules) {
             if (memberSchedule.member.id == currentMyMemberId) {

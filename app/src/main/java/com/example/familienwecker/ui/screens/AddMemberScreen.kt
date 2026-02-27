@@ -39,6 +39,14 @@ fun AddMemberScreen(
     var wantsBreakfast by remember(memberToEdit) { mutableStateOf(memberToEdit?.wantsBreakfast ?: true) }
     var leaveHomeTime by remember(memberToEdit) { mutableStateOf(memberToEdit?.leaveHomeTime ?: LocalTime.of(8, 0)) }
 
+    val isTimeRangeValid = remember(earliestWakeUp, latestWakeUp) {
+        !latestWakeUp.isBefore(earliestWakeUp)
+    }
+
+    val isLeaveTimeValid = remember(leaveHomeTime, latestWakeUp) {
+        leaveHomeTime != null && leaveHomeTime.isAfter(latestWakeUp)
+    }
+
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
     Scaffold(
@@ -78,7 +86,8 @@ fun AddMemberScreen(
                     )
                     viewModel.addOrUpdateMember(memberToSave)
                     onNavigateBack()
-                }
+                },
+                enabled = isTimeRangeValid && isLeaveTimeValid
             ) {
                 Text(stringResource(R.string.save_button))
             }
@@ -92,6 +101,34 @@ fun AddMemberScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            if (!isTimeRangeValid) {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_member_error_time_range),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(12.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
+            if (!isLeaveTimeValid) {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_member_error_leave_home),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(12.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },

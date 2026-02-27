@@ -111,20 +111,21 @@ class FirebaseRepository {
     suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?): Boolean {
         return try {
             val docRef = db.collection("families").document(familyId).collection("members").document(memberId)
-            val snapshot = docRef.get().await()
-            val existingClaim = snapshot.getString("claimedByUserId")
-            
-            if (existingClaim == null || existingClaim == userId) {
-                docRef.update(
-                    mapOf(
+            // Atomare Transaktion: verhindert Race Condition wenn zwei User
+            // gleichzeitig dasselbe Profil beanspruchen wollen.
+            db.runTransaction { transaction ->
+                val snapshot = transaction.get(docRef)
+                val existingClaim = snapshot.getString("claimedByUserId")
+                if (existingClaim == null || existingClaim == userId) {
+                    transaction.update(docRef, mapOf(
                         "claimedByUserId" to userId,
                         "claimedByUserName" to userName
-                    )
-                ).await()
-                true
-            } else {
-                false
-            }
+                    ))
+                    true
+                } else {
+                    false
+                }
+            }.await()
         } catch (e: Exception) {
             false
         }
