@@ -70,6 +70,8 @@ class FirebaseRepository {
                             wantsBreakfast = doc.getBoolean("wantsBreakfast") ?: true,
                             leaveHomeTime = doc.getString("leaveHomeTime")?.let { LocalTime.parse(it) },
                             isPaused = doc.getBoolean("isPaused") ?: false,
+                            isAwakeToday = doc.getBoolean("isAwakeToday") ?: false,
+                            lastResetDate = doc.getString("lastResetDate") ?: "",
                             claimedByUserId = doc.getString("claimedByUserId"),
                             claimedByUserName = doc.getString("claimedByUserName"),
                             createdAt = doc.getLong("createdAt")
@@ -99,6 +101,8 @@ class FirebaseRepository {
             "wantsBreakfast" to member.wantsBreakfast,
             "leaveHomeTime" to member.leaveHomeTime?.toString(),
             "isPaused" to member.isPaused,
+            "isAwakeToday" to member.isAwakeToday,
+            "lastResetDate" to member.lastResetDate,
             "claimedByUserId" to member.claimedByUserId,
             "claimedByUserName" to member.claimedByUserName,
             "createdAt" to existingCreatedAt
@@ -232,6 +236,8 @@ class FirebaseRepository {
                     wantsBreakfast = doc.getBoolean("wantsBreakfast") ?: true,
                     leaveHomeTime = doc.getString("leaveHomeTime")?.let { LocalTime.parse(it) },
                     isPaused = doc.getBoolean("isPaused") ?: false,
+                    isAwakeToday = doc.getBoolean("isAwakeToday") ?: false,
+                    lastResetDate = doc.getString("lastResetDate") ?: "",
                     claimedByUserId = doc.getString("claimedByUserId"),
                     claimedByUserName = doc.getString("claimedByUserName")
                 )

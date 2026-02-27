@@ -16,6 +16,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Member Limit:** Family size is now capped at 6 members to ensure stability and clarity.
 - **Automatic Reset:** "Already Awake" and "Paused" statuses are automatically cleared at midnight (or upon the first app launch of the day).
 
+### Fixed & Improved
+- **Data Persistence:** Fixed an issue where "Already Awake" and "Paused" states were not saved correctly in the cloud.
+- **Logout & Deletion:** Robust local state clearing (SharedPreferences) and explicit sign-out during logout or family deletion. 
+- **Auto-Backup disabled:** To prevent the restoration of old session data after re-installation, Android's Auto-Backup has been disabled for the app.
+- **UI Layout:** Optimized member card header to better handle long names and multiple status icons without text wrapping.
+- **Battery Optimization:** Fixed a bug where clicking the battery warning card would not open the system settings (requires new permission).
+- **Compilation:** Fixed a nullability mismatch in the repository.
+
 ### Changed
 - **Scheduler Robustness:** Removed internal `LocalTime.MAX` sentinel values and introduced a 04:00 AM lower bound for backward planning to prevent wrap-around bugs with extremely early departure times.
 - **Version Bump:** App version updated to 0.3.6.

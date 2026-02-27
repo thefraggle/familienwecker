@@ -50,6 +50,7 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [x] Snooze Functionality (5 Min) (V 0.3.6)
 - [x] Member limit (max 6) and robustness against large family sizes (V 0.3.6)
 - [x] Scheduler: `LocalTime.MAX` sentinel guard & 04:00 AM lower bound (V 0.3.6)
+- [x] Robust Logout, Deletion & Auto-Backup disablement (V 0.3.6)
 - [x] Scheduler Diagnostics: Precise error messages on conflicts (V 0.3.5)
 - [x] Battery Optimization: System check & warning card (V 0.3.5)
 - [x] Member order: stable sort by creation timestamp (V 0.3.4)

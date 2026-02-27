@@ -318,33 +318,39 @@ fun MemberCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(member.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = textColor)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = member.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = textColor,
+                        modifier = Modifier.weight(1f, fill = false),
+                        maxLines = 1
+                    )
                     
                     if (member.claimedByUserId != null) {
-                        Spacer(modifier = Modifier.width(8.dp))
-                        if (member.isPaused) {
-                            Text(
-                                text = stringResource(R.string.main_member_alarm_off),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.error,
-                                fontWeight = FontWeight.Bold
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(R.string.main_member_alarm_on),
-                                style = MaterialTheme.typography.labelMedium,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
+                        Spacer(modifier = Modifier.width(6.dp))
+                        val statusText = if (member.isPaused) 
+                            stringResource(R.string.main_member_alarm_off) 
+                        else 
+                            stringResource(R.string.main_member_alarm_on)
+                        
+                        Text(
+                            text = statusText,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = if (member.isPaused) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.7f),
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1
+                        )
                     }
                     if (member.isAwakeToday) {
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = stringResource(R.string.main_member_awake),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.secondary,
-                            fontWeight = FontWeight.Bold
+                            text = "☀️",
+                            style = MaterialTheme.typography.labelSmall
                         )
                     }
                 }
@@ -352,29 +358,40 @@ fun MemberCard(
                 Text(stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if(member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), color = textColor)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onTogglePause) {
+                IconButton(
+                    onClick = onTogglePause,
+                    modifier = Modifier.size(32.dp)
+                ) {
                     val icon = if (member.isPaused) Icons.Default.PlayArrow else Icons.Default.Pause
                     Icon(
                         imageVector = icon,
                         contentDescription = stringResource(R.string.pause_today_desc),
                         tint = textColor.copy(alpha = 0.6f),
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(18.dp)
                     )
                 }
-                IconButton(onClick = onToggleAwake) {
+                IconButton(
+                    onClick = onToggleAwake,
+                    modifier = Modifier.size(32.dp)
+                ) {
                     Icon(
                         imageVector = Icons.Default.WbSunny,
                         contentDescription = stringResource(R.string.awake_today_desc),
                         tint = if (member.isAwakeToday) MaterialTheme.colorScheme.secondary else textColor.copy(alpha = 0.6f),
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(18.dp)
                     )
                 }
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = stringResource(R.string.add_member_title_edit),
-                    tint = textColor.copy(alpha = 0.6f),
-                    modifier = Modifier.size(20.dp).clickable { onEdit() }
-                )
+                IconButton(
+                    onClick = onEdit,
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = stringResource(R.string.add_member_title_edit),
+                        tint = textColor.copy(alpha = 0.6f),
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
                 if (member.claimedByUserId == null || member.id == myMemberId) {
                     IconButton(onClick = onDelete) {
                         Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_desc), tint = MaterialTheme.colorScheme.error)
