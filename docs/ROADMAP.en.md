@@ -15,11 +15,8 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 
 ### Priority: High (Integration & Core Features)
 - [ ] **Custom Ringtone (#1):** Selection of an individual alarm sound from local device files.
-- [ ] **"Already Awake" Button (#2):** Disable alarm for today without disrupting others' plans.
 - [ ] **"What's New" Dialog (#3):** Clear highlights shown after an app update.
 - [ ] **Weekday configuration:** Set different wake times for weekdays vs. weekends – e.g. children sleep in on Saturdays.
-- [ ] **Pause member for today:** An unclaimed member (or your own profile) can be removed from today's schedule (e.g. sick, sleeping elsewhere). Resets automatically at midnight. Other people's claimed profiles can never be paused by someone else. Add a pause icon next to Edit/Delete on member cards. Note: the master switch on the main screen already pauses your own claimed profile; unclaimed members always stay in the calculation but are never alarmed.
-- [ ] **Basic Snooze Logic:** Implementation of the snooze function (e.g., 5/10 min delay) on the ringing screen.
 
 ### Priority: Medium (Usability & UI)
 - [ ] **Support for 2 Bathrooms:** Parallel slot calculation.
@@ -40,12 +37,6 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Custom Playlists:** Spotify integration for the ringing screen.
 - [ ] **Bathroom duration by weekday:** Dad needs more time on Fridays, kids on Mondays – configurable per weekday.
 
-### Priority: Technical Improvements (Robustness)
-- [ ] **UI feedback on Firestore errors:** `addOrUpdateMember()` is currently fire-and-forget — if a write fails, the user sees nothing. Add a Snackbar or retry dialog.
-- [ ] **Scheduler upper limit:** Cap the number of members fed into the permutation algorithm (e.g., at 7) and use a greedy fallback above that threshold (currently n! permutations are theoretically unbounded, even though the scheduler is now async).
-- [ ] **Ringtone preview in Settings:** Play the selected tone briefly after picking it, so the user hears what they chose before the next alarm fires.
-- [ ] **Scheduler: show shift direction per member:** The fallback message "times adjusted by X minutes" doesn't tell the user who was shifted or in which direction. Ideally shown per member.
-- [ ] **Scheduler: `LocalTime.MAX` sentinel guard:** The internal starting value `currentLatestBathroomEndTime = LocalTime.MAX` can theoretically wrap past midnight with very early departure times. Add a practical lower bound (e.g., 04:00) as a safeguard.
 - [ ] **Daylight Saving Time (DST) Support:** Ensure calculations are robust against summer/winter time shifts (EC-05).
 - [ ] **Alarm Watchdog:** Enhance background service resilience against system kills or crashes (EC-06).
 - [ ] **Deep Offline Resilience:** Explicit local database as primary source when internet is unavailable (EC-04).
@@ -54,6 +45,11 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 ---
 
 ## ✅ Completed
+- [x] "Already Awake" Button (☀️) (V 0.3.6)
+- [x] Pause for Today (⏸️) & Automatic Midnight Reset (V 0.3.6)
+- [x] Snooze Functionality (5 Min) (V 0.3.6)
+- [x] Member limit (max 6) and robustness against large family sizes (V 0.3.6)
+- [x] Scheduler: `LocalTime.MAX` sentinel guard & 04:00 AM lower bound (V 0.3.6)
 - [x] Scheduler Diagnostics: Precise error messages on conflicts (V 0.3.5)
 - [x] Battery Optimization: System check & warning card (V 0.3.5)
 - [x] Member order: stable sort by creation timestamp (V 0.3.4)
