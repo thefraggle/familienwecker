@@ -7,6 +7,25 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.7] - 2026-02-27
+
+### Hinzugefügt
+- **Google-Login Icon:** Die Login-Seite zeigt nun das offizielle Google-Icon auf dem Login-Button.
+- **Lösch-Bestätigung für Mitglieder:** Das Löschen eines Familienmitglieds erfordert nun eine explizite Bestätigung, um versehentliches Entfernen zu verhindern.
+- **Präzisierte Deletions-Sicherheit:** Das Löschen einer Familie erfordert nun eine doppelte Bestätigung, wenn sich noch andere Mitglieder (egal ob geclaimt oder nicht) in der Familie befinden. Bei einer leeren Familie oder wenn man nur selbst Mitglied ist, genügt eine einfache Bestätigung.
+
+### Geändert & Verbessert
+- **Zentraler "Bin wach"-Button:** Die Funktion „Ich bin wach" wurde aus den einzelnen Mitgliederkacheln entfernt und als globaler Button prominent in den Bereich des Master-Schalters verschoben.
+- **Kompakter Master-Schalter:** Die Texte am Hauptschalter wurden gekürzt und präzisiert ("Wecker an" / "Wecker aus").
+- **Rechte-Management:** Profile, die von anderen Familienmitgliedern beansprucht wurden, können nun nicht mehr von Dritten bearbeitet oder gelöscht werden. Die Bearbeitungs-Buttons werden für diese Profile automatisch ausgeblendet.
+- **Besitzer-Profil löschen:** Das eigene Profil kann nun direkt vom Hauptbildschirm aus gelöscht werden (führt zur Freigabe des Profils und Deaktivierung des Weckers).
+- **Pause-Logik:** Der Pausieren-Knopf (der um mitternacht resettet wird) ist nun nur noch bei nicht geclaimten Membern aktiv und anwählbar, um Redundanz zum Master-Schalter zu vermeiden.
+
+### Behoben
+- **Kein Infinity-Loading nach Löschen:** Ein Fehler wurde behoben, durch den die App nach dem Löschen einer Familie beim Erstellen einer neuen Familie in einer Endlosschleife hängen blieb.
+- **Login-Persistenz:** Das Löschen einer Familie führt nicht mehr zum kompletten Logout; der Nutzer bleibt eingeloggt und landet direkt im Setup-Screen für eine neue Familie.
+- **Logik-Audit:** Konsistenzprüfung der gesamten App-Logik bezüglich geclaimter, ungeclaimter und eigener Profile durchgeführt und Sicherheitslücken beim Bearbeiten fremder Daten geschlossen.
+
 ## [0.3.6] - 2026-02-27
 
 ### Hinzugefügt
