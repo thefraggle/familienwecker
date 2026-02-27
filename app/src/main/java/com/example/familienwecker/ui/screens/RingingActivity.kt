@@ -41,9 +41,17 @@ class RingingActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RingingScreen(memberName = memberName) {
-                        stopRingtoneAndFinish()
-                    }
+                    val familyViewModel = com.example.familienwecker.ui.viewmodel.FamilyViewModel(application)
+                    val memberId = intent.getStringExtra("MEMBER_ID") ?: ""
+                    
+                    RingingScreen(
+                        memberName = memberName,
+                        onStopClicked = { stopRingtoneAndFinish() },
+                        onSnoozeClicked = {
+                            familyViewModel.snooze(memberId, memberName)
+                            stopRingtoneAndFinish()
+                        }
+                    )
                 }
             }
         }
@@ -128,7 +136,7 @@ class RingingActivity : AppCompatActivity() {
 }
 
 @Composable
-fun RingingScreen(memberName: String, onStopClicked: () -> Unit) {
+fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -150,12 +158,25 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit) {
         )
         Spacer(modifier = Modifier.height(48.dp))
         
-        Button(
-            onClick = onStopClicked,
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-            modifier = Modifier.size(width = 200.dp, height = 64.dp)
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(stringResource(R.string.ringing_stop), style = MaterialTheme.typography.titleMedium)
+            Button(
+                onClick = onSnoozeClicked,
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                modifier = Modifier.weight(1f).height(64.dp)
+            ) {
+                Text(stringResource(R.string.ringing_snooze), style = MaterialTheme.typography.titleMedium)
+            }
+            
+            Button(
+                onClick = onStopClicked,
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
+                modifier = Modifier.weight(1f).height(64.dp)
+            ) {
+                Text(stringResource(R.string.ringing_stop), style = MaterialTheme.typography.titleMedium)
+            }
         }
     }
 }

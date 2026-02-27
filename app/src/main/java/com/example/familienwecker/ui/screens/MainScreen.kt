@@ -235,13 +235,25 @@ fun MainScreen(
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
-                IconButton(onClick = onNavigateToAddMember) {
+                val memberLimitReached = members.size >= 6
+                IconButton(
+                    onClick = onNavigateToAddMember,
+                    enabled = !memberLimitReached
+                ) {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = stringResource(R.string.main_add_member_desc),
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = if (memberLimitReached) MaterialTheme.colorScheme.outline else MaterialTheme.colorScheme.primary
                     )
                 }
+            }
+            if (members.size >= 6) {
+                Text(
+                    text = stringResource(R.string.main_member_limit_reached),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
             }
 
             AnimatedVisibility(visible = members.isEmpty()) {
@@ -260,7 +272,9 @@ fun MainScreen(
                     member = member, 
                     myMemberId = myMemberId,
                     onEdit = { onNavigateToEditMember(member.id) },
-                    onDelete = { viewModel.removeMember(member.id) }
+                    onDelete = { viewModel.removeMember(member.id) },
+                    onTogglePause = { viewModel.togglePauseMember(member.id) },
+                    onToggleAwake = { viewModel.toggleAwakeMember(member.id) }
                 )
             }
         }
@@ -268,7 +282,14 @@ fun MainScreen(
 }
 
 @Composable
-fun MemberCard(member: FamilyMember, myMemberId: String?, onEdit: () -> Unit, onDelete: () -> Unit) {
+fun MemberCard(
+    member: FamilyMember, 
+    myMemberId: String?, 
+    onEdit: () -> Unit, 
+    onDelete: () -> Unit,
+    onTogglePause: () -> Unit,
+    onToggleAwake: () -> Unit
+) {
     // Aktive Karten: primaryContainer (helles Night-Blue-Grau) – brand-konform, kein Grün, kein Lila
     // Pausierte Karten: surfaceVariant mit reduzierter Deckkraft (gedimmt)
     val backgroundColor = if (member.isPaused)
@@ -310,21 +331,46 @@ fun MemberCard(member: FamilyMember, myMemberId: String?, onEdit: () -> Unit, on
                             Text(
                                 text = stringResource(R.string.main_member_alarm_on),
                                 style = MaterialTheme.typography.labelMedium,
-                                color = androidx.compose.ui.graphics.Color(0xFF2E7D32), // Custom Green
                                 fontWeight = FontWeight.Bold
                             )
                         }
+                    }
+                    if (member.isAwakeToday) {
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.main_member_awake),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.secondary,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
                 Text(stringResource(R.string.main_wake_time, member.earliestWakeUp.toString(), member.latestWakeUp.toString()), color = textColor)
                 Text(stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if(member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), color = textColor)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onTogglePause) {
+                    val icon = if (member.isPaused) androidx.compose.material.icons.filled.PlayArrow else androidx.compose.material.icons.filled.Pause
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = stringResource(R.string.pause_today_desc),
+                        tint = textColor.copy(alpha = 0.6f),
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+                IconButton(onClick = onToggleAwake) {
+                    Icon(
+                        imageVector = androidx.compose.material.icons.filled.WbSunny,
+                        contentDescription = stringResource(R.string.awake_today_desc),
+                        tint = if (member.isAwakeToday) MaterialTheme.colorScheme.secondary else textColor.copy(alpha = 0.6f),
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = stringResource(R.string.add_member_title_edit),
                     tint = textColor.copy(alpha = 0.6f),
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp).clickable { onEdit() }
                 )
                 if (member.claimedByUserId == null || member.id == myMemberId) {
                     IconButton(onClick = onDelete) {

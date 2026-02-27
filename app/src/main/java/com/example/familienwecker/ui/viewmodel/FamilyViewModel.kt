@@ -58,7 +58,8 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                         membersJob = launch {
                             try {
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
-                                    _members.value = membersList
+                                    val checkedMembers = checkAndResetMembers(membersList)
+                                    _members.value = checkedMembers
                                     recalculateSchedule()
                                 }
                             } catch (e: Exception) {
@@ -232,6 +233,41 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun togglePauseMember(memberId: String) {
+        val member = _members.value.find { it.id == memberId } ?: return
+        val updatedMember = member.copy(isPaused = !member.isPaused)
+        addOrUpdateMember(updatedMember)
+    }
+
+    fun toggleAwakeMember(memberId: String) {
+        val member = _members.value.find { it.id == memberId } ?: return
+        val updatedMember = member.copy(isAwakeToday = !member.isAwakeToday)
+        addOrUpdateMember(updatedMember)
+    }
+
+    fun snooze(memberId: String, memberName: String) {
+        val snoozeTime = LocalDateTime.now().plusMinutes(5)
+        alarmScheduler.scheduleWakeUp(snoozeTime, memberId, memberName)
+    }
+
+    private fun checkAndResetMembers(members: List<FamilyMember>): List<FamilyMember> {
+        val today = LocalDate.now().toString()
+        val updatedMembers = members.map { member ->
+            if (member.lastResetDate != today) {
+                val updated = member.copy(
+                    isPaused = false,
+                    isAwakeToday = false,
+                    lastResetDate = today
+                )
+                addOrUpdateMember(updated)
+                updated
+            } else {
+                member
+            }
+        }
+        return updatedMembers
+    }
+
     fun logout() {
         _errorMessage.value = null
         // Laufenden Alarm canceln bevor Präferenzen gelöscht werden
@@ -319,6 +355,11 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
         for (memberSchedule in schedule.memberSchedules) {
             if (memberSchedule.member.id == currentMyMemberId) {
+                // Feature "Bin schon wach": Wenn der Nutzer bereits wach ist, keinen Alarm planen
+                if (memberSchedule.member.isAwakeToday) {
+                    continue
+                }
+
                 val wakeUpTime = memberSchedule.wakeUpTime
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
                 val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)

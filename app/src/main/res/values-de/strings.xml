@@ -48,6 +48,8 @@
     <string name="main_schedule_leave">Haus verlassen: %1$s</string>
     <string name="main_member_alarm_on">(Wecker aktiviert)</string>
     <string name="main_member_alarm_off">(kein Alarm)</string>
+    <string name="main_member_awake">(bereits wach)</string>
+    <string name="main_member_limit_reached">Maximale Anzahl von 6 Mitgliedern erreicht.</string>
 
     <string name="add_member_title_add">Mitglied hinzufügen</string>
     <string name="add_member_title_edit">Mitglied bearbeiten</string>
@@ -108,4 +110,6 @@
     <string name="ringing_message">Dank des perfekten Plans hast du heute genug Zeit im Bad.</string>
     <string name="ringing_stop">Wecker stoppen</string>
     <string name="ringing_snooze">Snooze (5 Min)</string>
+    <string name="pause_today_desc">Heute pausieren</string>
+    <string name="awake_today_desc">Bereits wach</string>
 </resources>
