@@ -270,12 +270,12 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun logout() {
         _errorMessage.value = null
-        // Laufenden Alarm canceln bevor Präferenzen gelöscht werden
+        // 1. Cancel alarm first
         cancelAlarmForCurrentUser()
-        prefsRepo.setFamilyId(null)
-        prefsRepo.setJoinCode(null)
-        prefsRepo.setFamilyName(null)
-        prefsRepo.setMyMemberId(null)
+        // 2. Clear all local preferences
+        prefsRepo.clearAll()
+        // 3. Explicitly sign out from Firebase to be absolute sure
+        auth.signOut()
     }
 
     /** Cancelt den System-Alarm des aktuell eingeloggten Nutzers (falls vorhanden). */

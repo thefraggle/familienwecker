@@ -67,10 +67,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     } else {
                         // Family was deleted by someone else, clean up this user
                         dbRepository.removeUserFamily(uid)
-                        prefsRepository.setFamilyId(null)
-                        prefsRepository.setJoinCode(null)
-                        prefsRepository.setFamilyName(null)
-                        prefsRepository.setMyMemberId(null)
+                        prefsRepository.clearAll()
                     }
                 }
                 _isRestoringFamily.value = false
@@ -121,7 +118,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     fun logout() {
         authRepository.logout()
-        prefsRepository.setMyMemberId(null) // Reset local preferences upon logout
+        prefsRepository.clearAll()
         _authState.value = AuthState.Idle
     }
 

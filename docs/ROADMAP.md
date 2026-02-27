@@ -49,6 +49,7 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [x] Snooze-Funktion (5 Min.) (V 0.3.6)
 - [x] Mitglieder-Limit (max 6) und Robustheit gegen große Familien (V 0.3.6)
 - [x] Scheduler: `LocalTime.MAX`-Sentinel & 04:00 Uhr Untergrenze (V 0.3.6)
+- [x] Robuster Logout, Lösch-Bereinigung & Auto-Backup deaktiviert (V 0.3.6)
 - [x] Scheduler-Diagnose: Präzise Fehlermeldungen bei Konflikten (V 0.3.5)
 - [x] Akku-Optimierung: System-Check & Warnhinweis (V 0.3.5)
 - [x] Mitglied-Reihenfolge: stabile Sortierung nach Anlege-Zeitstempel (V 0.3.4)

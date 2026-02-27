@@ -16,6 +16,14 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Mitglieder-Limit:** Die Familiengröße ist nun auf maximal 6 Mitglieder begrenzt, um Stabilität und Übersichtlichkeit zu gewährleisten.
 - **Automatischer Reset:** Die Status „Bin schon wach" und „Pausiert" werden automatisch um Mitternacht (bzw. beim ersten App-Start des Tages) zurückgesetzt.
 
+### Behoben & Verbessert
+- **Daten-Persistenz:** Ein Fehler wurde behoben, durch den die Stati "Bereits wach" und "Pausiert" nicht korrekt in der Cloud gespeichert wurden.
+- **Logout & Lösch-Logik:** Lokaler App-Zustand (SharedPreferences) wird beim Logout oder Löschen einer Familie nun restlos bereinigt; zudem erfolgt ein expliziter Firebase-Signout.
+- **Auto-Backup deaktiviert:** Um die Wiederherstellung alter Sitzungsdaten nach einer Neuinstallation zu verhindern, wurde das Android-Auto-Backup für die App deaktiviert.
+- **UI-Layout:** Die Kopfzeile der Mitgliedskarten wurde optimiert, um lange Namen und mehrere Status-Icons ohne unschöne Zeilenumbrüche darzustellen.
+- **Akku-Optimierung:** Fehler behoben, bei dem der Klick auf die Warnkarte die Systemeinstellungen nicht öffnete (erfordert neue Berechtigung).
+- **Kompilierung:** Ein Typ-Konflikt (Nullability) im Repository wurde behoben.
+
 ### Geändert
 - **Scheduler-Robustheit:** Interne `LocalTime.MAX` Sentinel-Werte entfernt und eine Untergrenze von 04:00 Uhr für die Rückwärts-Planung eingeführt, um Fehler bei extrem frühen Abfahrtszeiten zu vermeiden.
 - **Version Bump:** App-Version auf 0.3.6 angehoben.

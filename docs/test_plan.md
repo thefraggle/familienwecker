@@ -61,6 +61,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-07 | **Akku-Optimierung (Android)** | App ist als "Nicht optimiert" markiert, damit der Background-Service zuverlässig weckt. |
 | EC-11 | **Snooze-Funktion** | Klick auf Snooze (5 Min) im Weckscreen plant einen neuen Alarm exakt 5 Min später. |
 | EC-12 | **Mitternachts-Reset** | Status „Heute pausieren" und „Bin schon wach" werden automatisch am nächsten Tag zurückgesetzt. |
+| EC-14 | **Persistenz & Logout** | Nach Logout oder Neu-Installation sind keine alten Login-Daten oder Familien-IDs mehr vorhanden (Auto-Backup deaktiviert). |
 
 ### 3. Benutzer-Verhalten
 | ID | Testfall | Erwartetes Ergebnis |

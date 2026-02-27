@@ -89,4 +89,15 @@ class PreferencesRepository(context: Context) {
         prefs.edit { putBoolean("ALARM_ENABLED", enabled) }
         _isAlarmEnabled.value = enabled
     }
+
+    fun clearAll() {
+        prefs.edit { clear() }
+        _myMemberId.value = null
+        _familyId.value = null
+        _joinCode.value = null
+        _familyName.value = null
+        _isAlarmEnabled.value = false
+        // Note: Language and Sound URI are kept at default or last set 
+        // as they are typically user-level app settings, not session-level.
+    }
 }
