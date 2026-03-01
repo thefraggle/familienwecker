@@ -7,7 +7,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
-## [0.3.8] - TBD
+## [0.3.9] - TBD
 
 ### Hinzugefügt
 - 
@@ -17,6 +17,20 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ### Behoben
 - 
+
+## [0.3.8] - 2026-03-01
+
+### Hinzugefügt
+- **Android 14 Vollbild-Schutz:** Automatischer Check und Request der "Vollbild-Intent-Berechtigung" unter Android 14+ beim App-Start.
+
+### Geändert & Verbessert
+- **Wecker-Sound & System-Töne:** Die Auswahl von System-Wecktönen wurde stabilisiert. Einführung von dynamischen Notification-Channels mit Sound-Fallback. Der Wecker nutzt nun zuverlässig den gewählten System-Ton, auch wenn die Fullscreen-Activity verzögert startet.
+- **Optimierte Ringing-Logik:** Die `RingingActivity` bricht nun beim Start die Benachrichtigung ab, um Sound-Überschneidungen zu vermeiden.
+- **Modernisierte Screen-Flags:** Verbesserte Flags für das Erreichen des gesperrten Bildschirms auf aktuellen Android-Versionen.
+
+### Behoben
+- **Sound-Reset beim Logout:** `PreferencesRepository` korrigiert; der gewählte Weckton und die Spracheinstellungen bleiben nun nach dem Abmelden und erneuten Anmelden dauerhaft erhalten.
+- **Kompilierungsfehler:** Fehlende Imports in `AlarmReceiver` und `RingingActivity` ergänzt.
 
 ## [0.3.7] - 2026-02-27
 
