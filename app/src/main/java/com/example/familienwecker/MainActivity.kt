@@ -1,8 +1,13 @@
 package com.example.familienwecker
 
 import android.Manifest
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -53,10 +58,28 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 
+        // Android 14+ Full Screen Intent check
+        checkFullScreenIntentPermission()
+
         enableEdgeToEdge()
         setContent {
             FamilienweckerTheme {
                 FamilienweckerApp()
+            }
+        }
+    }
+
+    private fun checkFullScreenIntentPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (!nm.canUseFullScreenIntent()) {
+                try {
+                    val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
+                    intent.data = Uri.parse("package:$packageName")
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    // Fallback for some devices/versions
+                }
             }
         }
     }

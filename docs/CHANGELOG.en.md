@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.3.8] - TBD
+## [0.3.9] - TBD
 
 ### Added
 - 
@@ -17,6 +17,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - 
+
+## [0.3.8] - 2026-03-01
+
+### Added
+- **Android 14 Full-Screen Protection:** Automatic check and request for "Full-Screen Intent permission" on Android 14+ during app startup.
+
+### Changed & Improved
+- **Alarm Sound & System Tones:** Stabilized the selection of system alarm sounds. Introduced dynamic notification channels with sound fallback. The alarm now reliably plays the selected system tone even if the full-screen activity is delayed.
+- **Optimized Ringing Logic:** `RingingActivity` now cancels the notification upon launch to prevent audio overlaps.
+- **Modernized Screen Flags:** Improved flags for accessing the locked screen on current Android versions.
+
+### Fixed
+- **Sound Reset on Logout:** Fixed `PreferencesRepository` to preserve selected ringtone and language settings after logout and re-login.
+- **Compilation Errors:** Added missing imports in `AlarmReceiver` and `RingingActivity`.
 
 ## [0.3.7] - 2026-02-27
 

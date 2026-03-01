@@ -91,13 +91,18 @@ class PreferencesRepository(context: Context) {
     }
 
     fun clearAll() {
-        prefs.edit { clear() }
+        prefs.edit {
+            remove("MY_MEMBER_ID")
+            remove("FAMILY_ID")
+            remove("JOIN_CODE")
+            remove("FAMILY_NAME")
+            remove("ALARM_ENABLED")
+        }
         _myMemberId.value = null
         _familyId.value = null
         _joinCode.value = null
         _familyName.value = null
         _isAlarmEnabled.value = false
-        // Note: Language and Sound URI are kept at default or last set 
-        // as they are typically user-level app settings, not session-level.
+        // Note: Language and Sound URI are kept to preserve user experience after logout/login.
     }
 }

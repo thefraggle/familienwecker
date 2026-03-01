@@ -4,6 +4,7 @@ import android.net.Uri
 import android.media.AudioAttributes
 import com.example.familienwecker.data.PreferencesRepository
 import android.app.KeyguardManager
+import android.app.NotificationManager
 import android.content.Context
 import android.media.MediaPlayer
 import android.media.RingtoneManager
@@ -30,9 +31,16 @@ class RingingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        showOnLockScreenAndTurnScreenOn()
 
+        val memberId = intent.getStringExtra("MEMBER_ID") ?: ""
         val memberName = intent.getStringExtra("MEMBER_NAME") ?: "Jemand"
+
+        // WICHTIG: Wenn die Activity startet, canceln wir die Notification.
+        // Das stoppt den dortigen Fallback-Sound und verhindert Dopplungen.
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(memberId.hashCode())
+
+        showOnLockScreenAndTurnScreenOn()
         playRingtone()
 
         setContent {
@@ -61,16 +69,19 @@ class RingingActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
+        }
+        
+        // Flags für alle Versionen (als Backup)
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
+            WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON or
+            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
             keyguardManager.requestDismissKeyguard(this, null)
-        } else {
-            @Suppress("DEPRECATION")
-            window.addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-            )
         }
     }
 
