@@ -50,26 +50,25 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             val result = dbRepository.getUserFamily(uid)
             result.onSuccess { triple ->
                 if (triple != null) {
-                    val familyExists = dbRepository.checkFamilyExists(triple.first)
-                    if (familyExists) {
-                        prefsRepository.setFamilyId(triple.first)
-                        prefsRepository.setJoinCode(triple.second)
-                        prefsRepository.setAlarmEnabled(triple.third) // Correct: use fetched value
-                        
-                        // Fetch and cache family name
-                        val familyName = dbRepository.getFamilyName(triple.first)
-                        prefsRepository.setFamilyName(familyName)
-                        
-                        // Automatically restore member claim if exists
-                        val claimedMember = dbRepository.getClaimedMember(triple.first, uid)
-                        if (claimedMember != null) {
-                            prefsRepository.setMyMemberId(claimedMember.id)
+                        val familyExistsResult = kotlin.runCatching { dbRepository.checkFamilyExists(triple.first) }
+                        if (familyExistsResult.getOrNull() == true) {
+                            prefsRepository.setFamilyId(triple.first)
+                            prefsRepository.setJoinCode(triple.second)
+                            prefsRepository.setAlarmEnabled(triple.third)
+                            
+                            val familyName = dbRepository.getFamilyName(triple.first)
+                            prefsRepository.setFamilyName(familyName)
+                            
+                            val claimedMember = dbRepository.getClaimedMember(triple.first, uid)
+                            if (claimedMember != null) {
+                                prefsRepository.setMyMemberId(claimedMember.id)
+                            }
+                        } else if (familyExistsResult.getOrNull() == false) {
+                            // Only clear IF we definitely know it doesn't exist (404)
+                            dbRepository.removeUserFamily(uid)
+                            prefsRepository.clearAll()
                         }
-                    } else {
-                        // Family was deleted by someone else, clean up this user
-                        dbRepository.removeUserFamily(uid)
-                        prefsRepository.clearAll()
-                    }
+                        // If it's a network error (exception), we keep what we have locally
                 }
                 _isRestoringFamily.value = false
             }.onFailure {

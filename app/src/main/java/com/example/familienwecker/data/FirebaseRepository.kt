@@ -82,16 +82,24 @@ class FirebaseRepository {
             }
 
             if (snapshot != null) {
+                if (snapshot.isEmpty) {
+                    android.util.Log.d("FirebaseRepository", "Subkollektion 'members' ist leer für $familyId")
+                }
                 val members = snapshot.documents.mapNotNull { doc ->
                     try {
+                        val name = doc.getString("name") ?: "Unbekannt"
+                        val earliestStr = doc.getString("earliestWakeUp") ?: "06:00"
+                        val latestStr = doc.getString("latestWakeUp") ?: "07:30"
+                        val leaveStr = doc.getString("leaveHomeTime")
+                        
                         FamilyMember(
                             id = doc.id,
-                            name = doc.getString("name") ?: "",
-                            earliestWakeUp = LocalTime.parse(doc.getString("earliestWakeUp") ?: "06:00"),
-                            latestWakeUp = LocalTime.parse(doc.getString("latestWakeUp") ?: "07:30"),
+                            name = name,
+                            earliestWakeUp = try { LocalTime.parse(earliestStr) } catch (e: Exception) { LocalTime.of(6, 0) },
+                            latestWakeUp = try { LocalTime.parse(latestStr) } catch (e: Exception) { LocalTime.of(7, 30) },
                             bathroomDurationMinutes = doc.getLong("bathroomDurationMinutes") ?: 20L,
                             wantsBreakfast = doc.getBoolean("wantsBreakfast") ?: true,
-                            leaveHomeTime = doc.getString("leaveHomeTime")?.let { LocalTime.parse(it) },
+                            leaveHomeTime = leaveStr?.let { try { LocalTime.parse(it) } catch (e: Exception) { null } },
                             isPaused = doc.getBoolean("isPaused") ?: false,
                             isAwakeToday = doc.getBoolean("isAwakeToday") ?: false,
                             lastResetDate = doc.getString("lastResetDate") ?: "",
@@ -101,11 +109,13 @@ class FirebaseRepository {
                             lastUpdatedAt = doc.getLong("lastUpdatedAt")
                         )
                     } catch (e: Exception) {
+                        android.util.Log.e("FirebaseRepository", "Kritischer Fehler beim Mapping von ${doc.id}: ${e.message}")
                         null
                     }
                 }
-                // Stabile Reihenfolge: immer nach Anlege-Zeitstempel sortieren
-                trySend(members.sortedWith(compareBy(nullsLast()) { it.createdAt }))
+                // Stabilitäts-Fix: Sortierung vereinfachen
+                val sortedMembers = members.sortedBy { it.createdAt ?: 0L }
+                trySend(sortedMembers)
             }
         }
 
