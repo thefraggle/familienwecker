@@ -43,6 +43,8 @@
     <string name="main_member_alarm_on">(Alarm active)</string>
     <string name="main_member_alarm_off">(no alarm)</string>
     <string name="main_member_awake">(already up)</string>
+    <string name="main_sync_success">Synchronized with Cloud</string>
+    <string name="main_sync_desc">Refresh data from Firebase</string>
     <string name="main_member_limit_reached">Maximum of 6 members reached.</string>
     <string name="main_alarm_enabled">Alarm: ON</string>
     <string name="main_alarm_enabled_desc">Automatic wake-ups are active.</string>

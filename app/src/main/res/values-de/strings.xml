@@ -36,6 +36,8 @@
     <string name="main_plan_paused">Wecker pausiert</string>
     <string name="main_shared_breakfast">Gemeinsames Frühstück ab %1$s</string>
     <string name="main_wake_time">Wecken: %1$s - %2$s</string>
+    <string name="main_sync_success">Erfolgreich synchronisiert</string>
+    <string name="main_sync_desc">Daten aus Firebase laden</string>
     <string name="main_bathroom_info">Bad: %1$s Min | Frühstück: %2$s</string>
     <string name="main_alarm_enabled">Wecker an</string>
     <string name="main_alarm_enabled_desc">Automatisches Wecken aktiv.</string>

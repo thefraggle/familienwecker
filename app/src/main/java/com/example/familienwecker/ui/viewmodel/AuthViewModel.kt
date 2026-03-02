@@ -48,22 +48,22 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         _isRestoringFamily.value = true
         viewModelScope.launch {
             val result = dbRepository.getUserFamily(uid)
-            result.onSuccess { pair ->
-                if (pair != null) {
-                    val familyExists = dbRepository.checkFamilyExists(pair.first)
+            result.onSuccess { triple ->
+                if (triple != null) {
+                    val familyExists = dbRepository.checkFamilyExists(triple.first)
                     if (familyExists) {
-                        prefsRepository.setFamilyId(pair.first)
-                        prefsRepository.setJoinCode(pair.second)
+                        prefsRepository.setFamilyId(triple.first)
+                        prefsRepository.setJoinCode(triple.second)
+                        prefsRepository.setAlarmEnabled(triple.third) // Correct: use fetched value
+                        
                         // Fetch and cache family name
-                        val familyName = dbRepository.getFamilyName(pair.first)
+                        val familyName = dbRepository.getFamilyName(triple.first)
                         prefsRepository.setFamilyName(familyName)
                         
                         // Automatically restore member claim if exists
-                        val claimedMember = dbRepository.getClaimedMember(pair.first, uid)
+                        val claimedMember = dbRepository.getClaimedMember(triple.first, uid)
                         if (claimedMember != null) {
                             prefsRepository.setMyMemberId(claimedMember.id)
-                            // Restore alarm state from cloud (isAlarmEnabled = !isPaused)
-                            prefsRepository.setAlarmEnabled(!claimedMember.isPaused)
                         }
                     } else {
                         // Family was deleted by someone else, clean up this user
