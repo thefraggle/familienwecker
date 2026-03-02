@@ -35,7 +35,7 @@ fun LoadingScreen(
                     onNavigateToSetup()
                 }
             }
-            is AuthViewModel.AuthState.Error, AuthViewModel.AuthState.Idle -> {
+            is AuthViewModel.AuthState.Error, AuthViewModel.AuthState.Idle, AuthViewModel.AuthState.PasswordResetSuccess -> {
                 onNavigateToLogin()
             }
             AuthViewModel.AuthState.Loading -> {

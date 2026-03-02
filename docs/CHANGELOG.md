@@ -7,6 +7,16 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.3.10] - 2026-03-02
+
+### Hinzugefügt
+- **Passwort vergessen:** Neue Funktion auf dem Login-Screen integriert. Nutzer können nun eine E-Mail zum Zurücksetzen ihres Passworts anfordern.
+
+### Geändert & Verbessert
+- **Google OAuth Fehlermeldung:** Die Fehlermeldung wurde präzisiert. Wenn kein Google-Konto auf dem Gerät gefunden wurde, weist die App nun explizit darauf hin, sich zuerst in den Android-Systemeinstellungen anzumelden.
+- **Navigation:** Die `LoadingScreen`-Logik wurde erweitert, um den Zustand nach einem erfolgreichen Passwort-Reset-Request korrekt zu handhaben.
+- **Version Bump:** App-Version auf 0.3.10 angehoben.
+
 ## [0.3.9] - 2026-03-02
 
 ### Hinzugefügt

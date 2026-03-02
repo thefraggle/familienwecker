@@ -23,6 +23,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         object Loading : AuthState()
         data class Authenticated(val user: FirebaseUser) : AuthState()
         data class Error(val message: String) : AuthState()
+        object PasswordResetSuccess : AuthState()
     }
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
@@ -120,6 +121,22 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         authRepository.logout()
         prefsRepository.clearAll()
         _authState.value = AuthState.Idle
+    }
+
+    fun resetPassword(email: String) {
+        if (email.isBlank()) {
+            _authState.value = AuthState.Error("Bitte gib eine E-Mail-Adresse ein.")
+            return
+        }
+        _authState.value = AuthState.Loading
+        viewModelScope.launch {
+            val result = authRepository.sendPasswordResetEmail(email)
+            result.onSuccess {
+                _authState.value = AuthState.PasswordResetSuccess
+            }.onFailure { error ->
+                _authState.value = AuthState.Error(error.localizedMessage ?: "Passwort-Reset fehlgeschlagen")
+            }
+        }
     }
 
     fun setError(message: String) {

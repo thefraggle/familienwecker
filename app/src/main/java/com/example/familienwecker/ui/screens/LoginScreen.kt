@@ -105,6 +105,14 @@ fun LoginScreen(
                     )
                 }
 
+                if (!isRegistering) {
+                    TextButton(onClick = {
+                        authViewModel.resetPassword(email)
+                    }) {
+                        Text(stringResource(R.string.login_forgot_password))
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
                 
                 OutlinedButton(
@@ -141,7 +149,7 @@ fun LoginScreen(
                                     authViewModel.signInWithGoogle(firebaseCredential)
                                 }
                             } catch (_: NoCredentialException) {
-                                authViewModel.setError("Kein Google Konto gefunden. Bitte registriere dich zuerst.")
+                                authViewModel.setError(context.getString(R.string.login_google_error_no_account))
                             } catch (e: GetCredentialException) {
                                 authViewModel.setError("Google Login failed: ${e.message}")
                             } catch (e: Exception) {
@@ -167,6 +175,15 @@ fun LoginScreen(
                 Text(
                     text = (authState as AuthViewModel.AuthState.Error).message,
                     color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            if (authState is AuthViewModel.AuthState.PasswordResetSuccess) {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(R.string.login_password_reset_sent),
+                    color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

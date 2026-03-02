@@ -10,6 +10,9 @@
     <string name="already_have_account">Already have an account? Login here.</string>
     <string name="no_account">Need an account? Register here.</string>
     <string name="login_with_google">Login with Google</string>
+    <string name="login_forgot_password">Forgot Password?</string>
+    <string name="login_password_reset_sent">Password reset email sent!</string>
+    <string name="login_google_error_no_account">No Google account found on this device. Please sign in to Google in Android settings or use Email/Password.</string>
     <!-- Firebase Web Client ID for Google Login (used to prevent clean build errors) -->
     <string name="default_web_client_id" translatable="false">979926159025-72vtcvhq3bcc7esh6dhaqmqf6p9cjkaf.apps.googleusercontent.com</string>
 
