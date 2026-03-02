@@ -43,6 +43,15 @@ class AuthRepository {
         auth.signOut()
     }
 
+    suspend fun sendPasswordResetEmail(email: String): Result<Unit> {
+        return try {
+            auth.sendPasswordResetEmail(email).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     suspend fun signInWithGoogleCredential(credential: AuthCredential): Result<FirebaseUser> {
         return try {
             val result = auth.signInWithCredential(credential).await()
