@@ -77,6 +77,7 @@ class FirebaseRepository {
         val collection = db.collection("families").document(familyId).collection("members")
         val subscription = collection.addSnapshotListener { snapshot, error ->
             if (error != null) {
+                android.util.Log.e("FirebaseRepository", "Fehler in getFamilyMembersFlow für $familyId: ${error.message}")
                 close(error)
                 return@addSnapshotListener
             }

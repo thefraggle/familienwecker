@@ -46,6 +46,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
+    private val _isSyncing = MutableStateFlow(false)
+    val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
+
     private var membersJob: Job? = null
     private var alarmEnabledJob: Job? = null
 
@@ -58,6 +61,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     alarmEnabledJob?.cancel()
                     if (currentFamilyId != null) {
                         // Startup Sync: Force refresh from Firebase once to ensure consistency
+                        // We do this BEFORE starting the member flow to ensure user/family doc link is there
                         refreshData()
                         
                         membersJob = launch {
@@ -297,13 +301,11 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         addOrUpdateMember(updatedMember)
     }
 
+
     fun snooze(memberId: String, memberName: String) {
         val snoozeTime = LocalDateTime.now().plusMinutes(5)
         alarmScheduler.scheduleWakeUp(snoozeTime, memberId, memberName)
     }
-
-    private val _isSyncing = MutableStateFlow(false)
-    val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
 
     fun refreshData() {
         val uid = auth.currentUser?.uid ?: return

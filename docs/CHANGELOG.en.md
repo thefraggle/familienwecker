@@ -10,20 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.10] - 2026-03-02
 
 ### Added
-- **Forgot Password:** New feature integrated into the login screen. Users can now request a password reset email.
+- **Forgot Password:** Integrated password reset functionality into the login screen.
 
 ### Changed & Improved
-- **Master Switch Sync:** The status of the "Alarm On/Off" switch is now synced via Firestore across all family members. If your own master switch is OFF, you are removed from the schedule calculation, but other members remain visible.
-- **Automatic Sync on Startup:** The app now automatically performs a "Force Refresh" upon startup or login to ensure the latest state is loaded from the cloud (especially important after re-installs).
-- **Conflict Robustness:** Member updates now include a timestamp (`lastUpdatedAt`) to reliably determine the most recent state during concurrent or offline changes.
-- **Manual Synchronization:** A new "Refresh" button in the TopAppBar allows manual reloading of all data from the cloud (Debug/Manual Override).
-- **User Friendliness:** If all members are paused, the app now displays a clear "No active schedule" message instead of asking to add members.
-- **Robuster Status Logic (Pause & Awake):** Manual pauses now persist for up to 24h. The "Already Awake" status can only be activated starting 4 hours before the wake-up time.
-- **Resilient Member List:** Member mapping from Firestore is now "ultra-robust." Missing or corrupted data fields no longer cause members to disappear from the list; instead, safe default values are used.
+- **Sync & Stability:** The "Alarm On/Off" master switch is now synced via Firestore. The app performs an automatic "Force Refresh" on startup to prevent data inconsistencies (especially after re-installs).
+- **Error Transparency:** System errors (e.g., "Permission Denied" or network issues) are now displayed directly on the dashboard.
+- **Database Hardening:** Firestore security rules optimized for family creators to resolve access issues during profile synchronization.
+- **Robust Logic:** Improved determination of the most recent state (`lastUpdatedAt`) for concurrent changes and "ultra-robust" member mapping (safety default values).
 
 ### Fixed
-- **Bugfix (Pause Button):** Fixed an issue where the pause button on unclaimed cards had no effect on the schedule calculation.
-- **Data Loss Prevention:** Fixed a critical bug in the login flow that could incorrectly delete local family data during network issues.
+- **Critical Fixes:** Resolved a `NullPointerException` on app startup and fixed a potential data loss issue during network instability.
+- **UI Fixes:** Corrected the pause button logic on unclaimed cards for schedule calculation.
 - **Version Bump:** App version increased to 0.3.10.
 
 ## [0.3.9] - 2026-03-02

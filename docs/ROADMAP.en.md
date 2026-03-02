@@ -37,6 +37,13 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Custom Playlists:** Spotify integration for the ringing screen.
 - [ ] **Bathroom duration by weekday:** Dad needs more time on Fridays, kids on Mondays – configurable per weekday.
 
+### ✔️ Completed (v0.3.10)
+- [x] **Forgot Password:** Password reset email via Firebase Auth.
+- [x] **Error Transparency:** System errors (e.g., "Permission Denied") displayed directly on the dashboard.
+- [x] **Master Switch Sync:** Synchronization of the main switch across all devices.
+- [x] **Startup Force-Sync:** Automatic cloud data refresh on app launch.
+- [x] **NPE Fix:** Resolved critical startup crash in ViewModel.
+
 - [ ] **Daylight Saving Time (DST) Support:** Ensure calculations are robust against summer/winter time shifts (EC-05).
 - [ ] **Alarm Watchdog:** Enhance background service resilience against system kills or crashes (EC-06).
 - [ ] **Deep Offline Resilience:** Explicit local database as primary source when internet is unavailable (EC-04).

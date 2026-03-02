@@ -10,18 +10,17 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 ## [0.3.10] - 2026-03-02
 
 ### Hinzugefügt
-- **Passwort vergessen:** Neue Funktion auf dem Login-Screen integriert. Nutzer können nun eine E-Mail zum Zurücksetzen ihres Passworts anfordern.
+- **Passwort vergessen:** Funktion zum Zurücksetzen des Passworts auf dem Login-Screen integriert.
 
 ### Geändert & Verbessert
-- **Synchronisierung des Hauptschalters:** Der Status des "Wecker Ein/Aus"-Schalters wird nun über Firestore zwischen allen Familienmitgliedern synchronisiert. Wenn der eigene Hauptschalter AUS ist, wird man aus der Zeitplanberechnung herausgenommen, die anderen Mitglieder bleiben jedoch sichtbar.
-- **Automatischer Sync bei Start:** Die App führt nun beim Starten oder Einloggen automatisch einen "Force Refresh" durch, um sicherzustellen, dass immer der aktuellste Stand aus der Cloud geladen wird (besonders wichtig nach Neuinstallationen).
-- **Konflikt-Robustheit:** Mitglieder-Updates enthalten nun einen Zeitstempel (`lastUpdatedAt`), um bei gleichzeitigen oder Offline-Änderungen den aktuellsten Stand zuverlässig zu ermitteln.
-- **Manuelle Synchronisierung:** Ein neuer "Aktualisieren"-Button in der Top-Bar erlaubt das manuelle Neuladen aller Daten aus der Cloud (Debug/Manueller Override).
-- **Benutzerfreundlichkeit:** Wenn alle Mitglieder pausiert sind, zeigt die App nun die klare Meldung "Kein aktiver Weckplan" an, anstatt zum Hinzufügen von Mitgliedern aufzufordern.
-- **Robustere Status-Logik (Pause & Bin wach):** Manuelle Pausierungen bleiben nun bis zu 24h bestehen. Der "Bin schon wach"-Status kann erst ab 4 Stunden vor der Weckzeit aktiviert werden.
-- **Fehlerbehebung (Pause-Button):** Ein Fehler wurde behoben, durch den der Pause-Button auf ungeclaimten Karten keine Auswirkung auf die Zeitplanberechnung hatte.
-- **Robustheit (Mitgliederliste):** Das Einlesen der Mitglieder aus Firestore wurde "ultra-robust" gestaltet. Fehlende oder korrupte Datenfelder führen nicht mehr dazu, dass Mitglieder aus der Liste verschwinden; stattdessen werden sichere Standardwerte genutzt.
-- **Fehlerbehebung (Datenverlust):** Ein kritischer Fehler im Login-Flow wurde behoben, der bei Netzwerkproblemen fälschlicherweise lokale Familiendaten löschen konnte.
+- **Synchronisierung & Stabilität:** Der "Wecker Ein/Aus"-Schalter wird nun via Firestore synchronisiert. Die App führt beim Start einen automatischen "Force Refresh" durch, um Daten-Inkonsistenzen (z. B. nach Neuinstallation) zu vermeiden.
+- **Transparenz bei Fehlern:** Systemfehler (z. B. "Permission Denied" oder Netzwerkfehler) werden nun direkt auf dem Dashboard angezeigt.
+- **Datenbank-Härtung:** Die Firestore-Regeln wurden für den Familien-Ersteller optimiert, um Zugriffsprobleme während der Profil-Synchronisierung zu beheben.
+- **Robustere Logik:** Verbesserte Bestimmung des aktuellsten Stands (`lastUpdatedAt`) bei gleichzeitigen Änderungen und "ultra-robuste" Mitglieder-Mapping-Logik (Sicherheits-Standardwerte).
+
+### Behoben
+- **Kritische Fixes:** Behebung eines `NullPointerException` beim App-Start sowie eines Fehlers, der bei Netzwerkproblemen zu lokalem Datenverlust führen konnte.
+- **UI-Fixes:** Der Pause-Button auf ungeclaimten Karten funktioniert nun korrekt für die Zeitplanberechnung.
 - **Version Bump:** App-Version auf 0.3.10 angehoben.
 
 ## [0.3.9] - 2026-03-02
