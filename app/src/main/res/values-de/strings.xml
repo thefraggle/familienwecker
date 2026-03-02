@@ -30,6 +30,7 @@
     <string name="main_no_members">Bisher keine Mitglieder. Füge jemanden hinzu!</string>
     <string name="main_current_schedule">Aktueller Weck-Plan</string>
     <string name="main_add_members_prompt">Füge Mitglieder hinzu, um einen Plan zu berechnen.</string>
+    <string name="main_no_active_schedule">Kein aktiver Weckplan.</string>
     <string name="main_error">Fehler: %s</string>
     <string name="main_optimal_plan">Optimaler Plan berechnet</string>
     <string name="main_plan_paused">Wecker pausiert</string>

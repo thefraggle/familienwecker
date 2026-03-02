@@ -377,18 +377,27 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         val currentMembers = _members.value
         val alarmsOn = isAlarmEnabled.value
 
-        if (!alarmsOn) {
-            _schedule.value = null
-            currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
-            return
-        }
-
         if (currentMembers.isNotEmpty()) {
             viewModelScope.launch {
                 try {
+                    // Filter members for calculation based on Master Switch
+                    // "switch off: keine berechnung meiner angaben"
+                    val currentMyMemberId = myMemberId.value
+                    val calculationMembers = if (alarmsOn) {
+                        currentMembers
+                    } else {
+                        currentMembers.filter { it.id != currentMyMemberId }
+                    }
+
+                    if (calculationMembers.none { !it.isPaused }) {
+                        _schedule.value = FamilySchedule(emptyList(), null, true, "no_active_schedule")
+                        currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
+                        return@launch
+                    }
+
                     // Scheduler runs n! permutations – off main thread to avoid ANR
                     val result = withContext(Dispatchers.Default) {
-                        scheduler.calculateIdealSchedule(currentMembers)
+                        scheduler.calculateIdealSchedule(calculationMembers)
                     }
                     _schedule.value = result
 
@@ -397,6 +406,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     if (alarmsOn && result.isValid && result.memberSchedules.isNotEmpty()) {
                         applyAlarms(result)
                     } else {
+                        // Cancel alarms if master switch is off or schedule invalid
                         currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                     }
                 } catch (e: Exception) {
