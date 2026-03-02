@@ -7,6 +7,17 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.0] - 2026-03-02
+
+### Hinzugefügt
+- **Gebrandete Passwort-Reset-Mail:** Die Passwortzurücksetzung läuft nun über eine Firebase Cloud Function (Node.js 22, Gen2, `europe-west3`) und den Mail-Provider **Resend**. Absender ist `no-reply@familienwecker.de` mit eigenem HTML-Template (Button, Sicherheitshinweis, Footer).
+- **Zweisprachige E-Mails:** E-Mail-Template (Betreff, Inhalt, Absender, Footer) passt sich automatisch an die Gerätesprache an (Deutsch / Englisch).
+- **Fehlermeldungen bei Password-Reset:** Ungültige E-Mail, unbekannter Account und Ratenlimit werden nun mit klaren Meldungen (DE/EN) angezeigt.
+
+### Geändert & Verbessert
+- **Code-Härtung:** Sichere `LocalTime`-Parsing-Fallbacks in `FirebaseRepository`. `addOrUpdateMember()` mit Try-Catch und Logging. `email.trim()` bei Login, Register und Reset.
+- **Bereinigung:** Doppelter Import in `MainActivity` entfernt.
+
 ## [0.3.11] - 2026-03-02
 
 ### Geändert & Verbessert
