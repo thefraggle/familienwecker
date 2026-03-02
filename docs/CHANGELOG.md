@@ -13,6 +13,8 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Passwort vergessen:** Neue Funktion auf dem Login-Screen integriert. Nutzer können nun eine E-Mail zum Zurücksetzen ihres Passworts anfordern.
 
 ### Geändert & Verbessert
+- **Synchronisierung des Hauptschalters:** Der Status des "Wecker Ein/Aus"-Schalters wird nun über Firestore zwischen allen Familienmitgliedern synchronisiert.
+- **Robustere Statusanzeige:** Die Anzeige "(Wecker aktiviert)" bzw. "(kein Alarm)" in den Mitgliedskarten berücksichtigt nun korrekt sowohl den globalen Hauptschalter als auch die individuelle Pausierung.
 - **Google OAuth Fehlermeldung:** Die Fehlermeldung wurde präzisiert. Wenn kein Google-Konto auf dem Gerät gefunden wurde, weist die App nun explizit darauf hin, sich zuerst in den Android-Systemeinstellungen anzumelden.
 - **Navigation:** Die `LoadingScreen`-Logik wurde erweitert, um den Zustand nach einem erfolgreichen Passwort-Reset-Request korrekt zu handhaben.
 - **Version Bump:** App-Version auf 0.3.10 angehoben.

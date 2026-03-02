@@ -339,7 +339,8 @@ fun MainScreen(
                     onEdit = { onNavigateToEditMember(member.id) },
                     onDelete = { showDeleteMemberDialog = member },
                     onTogglePause = { viewModel.togglePauseMember(member.id) },
-                    onToggleAwake = { viewModel.toggleAwakeMember(member.id) }
+                    onToggleAwake = { viewModel.toggleAwakeMember(member.id) },
+                    isAlarmEnabled = isAlarmEnabled
                 )
             }
         }
@@ -353,7 +354,8 @@ fun MemberCard(
     onEdit: () -> Unit, 
     onDelete: () -> Unit,
     onTogglePause: () -> Unit,
-    onToggleAwake: () -> Unit
+    onToggleAwake: () -> Unit,
+    isAlarmEnabled: Boolean
 ) {
     // Aktive Karten: primaryContainer (helles Night-Blue-Grau) – brand-konform, kein Grün, kein Lila
     // Pausierte Karten: surfaceVariant mit reduzierter Deckkraft (gedimmt)
@@ -397,15 +399,22 @@ fun MemberCard(
                     
                     if (member.claimedByUserId != null) {
                         Spacer(modifier = Modifier.width(6.dp))
-                        val statusText = if (member.isPaused) 
-                            stringResource(R.string.main_member_alarm_off) 
+                        
+                        val statusText = when {
+                            !isAlarmEnabled -> stringResource(R.string.main_member_alarm_off)
+                            member.isPaused -> stringResource(R.string.main_member_alarm_off)
+                            else -> stringResource(R.string.main_member_alarm_on)
+                        }
+                        
+                        val statusColor = if (!isAlarmEnabled || member.isPaused) 
+                            MaterialTheme.colorScheme.error 
                         else 
-                            stringResource(R.string.main_member_alarm_on)
+                            textColor.copy(alpha = 0.7f)
                         
                         Text(
                             text = statusText,
                             style = MaterialTheme.typography.labelSmall,
-                            color = if (member.isPaused) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.7f),
+                            color = statusColor,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1
                         )
