@@ -264,8 +264,14 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     private fun checkAndResetMembers(members: List<FamilyMember>): List<FamilyMember> {
         val today = LocalDate.now().toString()
+        val now = LocalTime.now()
         val updatedMembers = members.map { member ->
-            if (member.lastResetDate != today) {
+            // Reset if date changed OR if it's the same day but we are significantly past the latest possible wake-up time (e.g. after 11:00 AM)
+            // This is a safety fallback for "Paused" flags if the app wasn't opened early in the morning.
+            val latestWakeUpPlusBuffer = member.latestWakeUp.plusHours(2)
+            val isWayPastWakeUp = now.isAfter(latestWakeUpPlusBuffer) && now.isBefore(LocalTime.of(23, 59))
+            
+            if (member.lastResetDate != today || (member.isPaused && isWayPastWakeUp)) {
                 val updated = member.copy(
                     isPaused = false,
                     isAwakeToday = false,
@@ -343,6 +349,19 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                         scheduler.calculateIdealSchedule(currentMembers)
                     }
                     _schedule.value = result
+
+                    // Auto-reset isAwakeToday if we are past the calculated wake-up time
+                    result.memberSchedules.forEach { memberSchedule ->
+                        if (memberSchedule.member.isAwakeToday && LocalTime.now().isAfter(memberSchedule.wakeUpTime)) {
+                            toggleAwakeMember(memberSchedule.member.id)
+                        }
+                        
+                        // Also auto-reset isPaused if we are past the wake-up time,
+                        // so it's ready for the next day calculation (which happens for tomorrow if now > wakeUpTime)
+                        if (memberSchedule.member.isPaused && LocalTime.now().isAfter(memberSchedule.wakeUpTime)) {
+                            togglePauseMember(memberSchedule.member.id)
+                        }
+                    }
 
                     if (alarmsOn && result.isValid && result.memberSchedules.isNotEmpty()) {
                         applyAlarms(result)
