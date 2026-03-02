@@ -15,7 +15,8 @@ data class FamilyMember(
     val lastResetDate: String = "", // YYYY-MM-DD
     val claimedByUserId: String? = null,
     val claimedByUserName: String? = null,
-    val createdAt: Long? = null   // Epoch-Millis beim ersten Anlegen – für stabile Sortierung
+    val createdAt: Long? = null,   // Epoch-Millis beim ersten Anlegen – für stabile Sortierung
+    val lastUpdatedAt: Long? = null // Epoch-Millis für Konfliktlösung (Last Intent Wins)
 )
 
 data class ScheduleResult(

@@ -97,7 +97,8 @@ class FirebaseRepository {
                             lastResetDate = doc.getString("lastResetDate") ?: "",
                             claimedByUserId = doc.getString("claimedByUserId"),
                             claimedByUserName = doc.getString("claimedByUserName"),
-                            createdAt = doc.getLong("createdAt")
+                            createdAt = doc.getLong("createdAt"),
+                            lastUpdatedAt = doc.getLong("lastUpdatedAt")
                         )
                     } catch (e: Exception) {
                         null
@@ -111,11 +112,12 @@ class FirebaseRepository {
         awaitClose { subscription.remove() }
     }
 
-    fun addOrUpdateMember(familyId: String, member: FamilyMember) {
+    suspend fun addOrUpdateMember(familyId: String, member: FamilyMember) {
+        val currentTime = System.currentTimeMillis()
         val docRef = db.collection("families").document(familyId)
             .collection("members").document(member.id)
         // createdAt nur beim ersten Anlegen setzen – beim Bearbeiten beibehalten
-        val existingCreatedAt = member.createdAt ?: System.currentTimeMillis()
+        val existingCreatedAt = member.createdAt ?: currentTime
         val data = hashMapOf(
             "name" to member.name,
             "earliestWakeUp" to member.earliestWakeUp.toString(),
@@ -128,9 +130,10 @@ class FirebaseRepository {
             "lastResetDate" to member.lastResetDate,
             "claimedByUserId" to member.claimedByUserId,
             "claimedByUserName" to member.claimedByUserName,
-            "createdAt" to existingCreatedAt
+            "createdAt" to existingCreatedAt,
+            "lastUpdatedAt" to currentTime
         )
-        docRef.set(data)
+        docRef.set(data).await()
     }
 
     suspend fun removeMember(familyId: String, id: String): Result<Unit> {

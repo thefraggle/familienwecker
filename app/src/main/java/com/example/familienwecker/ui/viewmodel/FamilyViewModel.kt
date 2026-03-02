@@ -57,6 +57,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     membersJob?.cancel()
                     alarmEnabledJob?.cancel()
                     if (currentFamilyId != null) {
+                        // Startup Sync: Force refresh from Firebase once to ensure consistency
+                        refreshData()
+                        
                         membersJob = launch {
                             try {
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
@@ -173,7 +176,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun addOrUpdateMember(member: FamilyMember) {
         val currentFamilyId = familyId.value ?: return
-        repository.addOrUpdateMember(currentFamilyId, member)
+        viewModelScope.launch {
+            repository.addOrUpdateMember(currentFamilyId, member)
+        }
     }
 
     fun removeMember(id: String) {
@@ -346,7 +351,11 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     isAwakeToday = false,
                     lastResetDate = today
                 )
-                addOrUpdateMember(updated)
+                // Inside collect flow, we are already in a coroutine scope
+                val familyIdVal = familyId.value
+                if (familyIdVal != null) {
+                    viewModelScope.launch { repository.addOrUpdateMember(familyIdVal, updated) }
+                }
                 updated
             } else {
                 member
