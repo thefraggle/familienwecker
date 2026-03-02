@@ -44,7 +44,8 @@ fun MainScreen(
     viewModel: FamilyViewModel,
     onNavigateToAddMember: () -> Unit,
     onNavigateToEditMember: (String) -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToSettings: () -> Unit,
+    onLeaveFamily: () -> Unit
 ) {
     val context = LocalContext.current
     val members by viewModel.members.collectAsState()
@@ -90,10 +91,13 @@ fun MainScreen(
     val familyId by viewModel.familyId.collectAsState()
     val syncSuccessMessage = stringResource(R.string.main_sync_success)
 
-    LaunchedEffect(isSyncing) {
+    LaunchedEffect(isSyncing, familyId) {
         if (!isSyncing && familyId != null) {
             // Optional: show snackbar on success if it was initiated manually?
             // For now, just a simple way to show it worked
+        }
+        if (familyId == null) {
+            onLeaveFamily()
         }
     }
 
@@ -146,12 +150,22 @@ fun MainScreen(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
                 ) {
-                    Text(
-                        text = "⚠️ $error",
-                        modifier = Modifier.padding(16.dp),
-                        color = MaterialTheme.colorScheme.onErrorContainer,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "⚠️ $error",
+                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        TextButton(
+                            onClick = { onLeaveFamily() },
+                            colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                        ) {
+                            Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(R.string.settings_leave_family))
+                        }
+                    }
                 }
             }
 
