@@ -297,6 +297,38 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         alarmScheduler.scheduleWakeUp(snoozeTime, memberId, memberName)
     }
 
+    private val _isSyncing = MutableStateFlow(false)
+    val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
+
+    fun refreshData() {
+        val uid = auth.currentUser?.uid ?: return
+        _isSyncing.value = true
+        viewModelScope.launch {
+            try {
+                val result = repository.getUserFamily(uid)
+                result.onSuccess { triple ->
+                    if (triple != null) {
+                        prefsRepo.setFamilyId(triple.first)
+                        prefsRepo.setJoinCode(triple.second)
+                        prefsRepo.setAlarmEnabled(triple.third)
+                        
+                        val familyName = repository.getFamilyName(triple.first)
+                        prefsRepo.setFamilyName(familyName)
+                        
+                        val claimedMember = repository.getClaimedMember(triple.first, uid)
+                        if (claimedMember != null) {
+                            prefsRepo.setMyMemberId(claimedMember.id)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = "Synchronisierung fehlgeschlagen: ${e.localizedMessage}"
+            } finally {
+                _isSyncing.value = false
+            }
+        }
+    }
+
     private fun checkAndResetMembers(members: List<FamilyMember>): List<FamilyMember> {
         val today = LocalDate.now().toString()
         val now = LocalTime.now()

@@ -204,14 +204,17 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun getUserFamily(userId: String): Result<Pair<String, String>?> {
+    suspend fun getUserFamily(userId: String): Result<Triple<String, String, Boolean>?> {
         return try {
             val doc = db.collection("users").document(userId).get().await()
             if (doc.exists()) {
                 val familyId = doc.getString("familyId")
                 val joinCode = doc.getString("joinCode")
                 if (familyId != null && joinCode != null) {
-                    Result.success(Pair(familyId, joinCode))
+                    // Also get the global alarm state from the family doc
+                    val familyDoc = db.collection("families").document(familyId).get().await()
+                    val isAlarmEnabled = familyDoc.getBoolean("isAlarmEnabled") ?: true
+                    Result.success(Triple(familyId, joinCode, isAlarmEnabled))
                 } else {
                     Result.success(null)
                 }

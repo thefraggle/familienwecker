@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
@@ -17,6 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -31,6 +34,7 @@ import com.example.familienwecker.util.BatteryUtils
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.example.familienwecker.R
+import kotlinx.coroutines.launch
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 
@@ -50,6 +54,7 @@ fun MainScreen(
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     
     val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarScope = rememberCoroutineScope()
 
     if (showDeleteMemberDialog != null) {
         AlertDialog(
@@ -80,11 +85,35 @@ fun MainScreen(
     
     val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
 
+    val isSyncing by viewModel.isSyncing.collectAsState()
+    val familyId by viewModel.familyId.collectAsState()
+    val syncSuccessMessage = stringResource(R.string.main_sync_success)
+
+    LaunchedEffect(isSyncing) {
+        if (!isSyncing && familyId != null) {
+            // Optional: show snackbar on success if it was initiated manually?
+            // For now, just a simple way to show it worked
+        }
+    }
+
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.main_title)) },
                 actions = {
+                    IconButton(onClick = { 
+                        viewModel.refreshData()
+                        // Manual feedback for the user
+                        snackbarScope.launch {
+                            snackbarHostState.showSnackbar(syncSuccessMessage)
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh, 
+                            contentDescription = stringResource(R.string.main_sync_desc)
+                        )
+                    }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.main_settings_desc))
                     }
