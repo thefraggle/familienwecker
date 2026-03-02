@@ -262,6 +262,32 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         if (memberId != myMemberId.value) return
         
         val member = _members.value.find { it.id == memberId } ?: return
+        
+        // 4h window restriction: only allow "Already Awake" within 4h before wake-up
+        val now = LocalTime.now()
+        val wakeUpTime = member.latestWakeUp
+        val fourHoursBefore = wakeUpTime.minusHours(4)
+        
+        // Check if now is within the 4h window before wake-up
+        // or during the wake-up window itself (before it resets)
+        val isInWindow = if (fourHoursBefore.isBefore(wakeUpTime)) {
+            now.isAfter(fourHoursBefore) || now.isBefore(LocalTime.of(0, 5)) // spans midnight or just before
+        } else {
+            // Case where 4h before crosses midnight (e.g. wake up at 02:00 -> 22:00)
+            now.isAfter(fourHoursBefore) || now.isBefore(wakeUpTime)
+        }
+        
+        // Simpler check for now: actually just check if duration to wakeUp is <= 4h
+        val targetDate = if (now.isAfter(wakeUpTime)) LocalDate.now().plusDays(1) else LocalDate.now()
+        val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
+        val duration = java.time.Duration.between(LocalDateTime.now(), targetDateTime)
+        val hoursUntil = duration.toHours()
+        
+        if (hoursUntil > 4 && !member.isAwakeToday) {
+            // Too early to set "Awake", only allowed if already awake (to toggle back) or within 4h
+            return 
+        }
+
         val updatedMember = member.copy(isAwakeToday = !member.isAwakeToday)
         addOrUpdateMember(updatedMember)
     }
@@ -350,6 +376,12 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     private fun recalculateSchedule() {
         val currentMembers = _members.value
         val alarmsOn = isAlarmEnabled.value
+
+        if (!alarmsOn) {
+            _schedule.value = null
+            currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
+            return
+        }
 
         if (currentMembers.isNotEmpty()) {
             viewModelScope.launch {

@@ -13,8 +13,8 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Passwort vergessen:** Neue Funktion auf dem Login-Screen integriert. Nutzer können nun eine E-Mail zum Zurücksetzen ihres Passworts anfordern.
 
 ### Geändert & Verbessert
-- **Synchronisierung des Hauptschalters:** Der Status des "Wecker Ein/Aus"-Schalters wird nun über Firestore zwischen allen Familienmitgliedern synchronisiert.
-- **Robustere Status-Logik (Pause & Bin wach):** Manuelle Pausierungen bleiben nun bis zu 24h (bzw. bis nach der nächsten Weckzeit) bestehen, auch wenn sie am Vorabend eingestellt wurden. Der "Bin schon wach"-Status blockiert den Alarm nun nur noch innerhalb eines Fensters von 4 Stunden vor der Weckzeit.
+- **Synchronisierung des Hauptschalters:** Der Status des "Wecker Ein/Aus"-Schalters wird nun über Firestore zwischen allen Familienmitgliedern synchronisiert. Wenn der Hauptschalter AUS ist, wird kein Zeitplan mehr berechnet und keine Slots reserviert.
+- **Robustere Status-Logik (Pause & Bin wach):** Manuelle Pausierungen bleiben nun bis zu 24h bestehen. Der "Bin schon wach"-Status kann erst ab 4 Stunden vor der Weckzeit aktiviert werden und blockiert dann den Alarm, während die Zeitplanung (Bad-Slot) erhalten bleibt.
 - **Fehlerbehebung (Pause-Button):** Ein Fehler wurde behoben, durch den der Pause-Button auf ungeclaimten Karten keine Auswirkung auf die Zeitplanberechnung hatte.
 - **Robustere Statusanzeige:** Die Anzeige "(Wecker aktiviert)" bzw. "(kein Alarm)" in den Mitgliedskarten berücksichtigt nun korrekt sowohl den globalen Hauptschalter als auch die individuelle Pausierung.
 - **Google OAuth Fehlermeldung:** Die Fehlermeldung wurde präzisiert. Wenn kein Google-Konto auf dem Gerät gefunden wurde, weist die App nun explizit darauf hin, sich zuerst in den Android-Systemeinstellungen anzumelden.
