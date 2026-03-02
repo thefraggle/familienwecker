@@ -7,16 +7,17 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
-## [0.3.9] - TBD
+## [0.3.9] - 2026-03-02
 
 ### Hinzugefügt
-- 
+- **Automatischer Status-Reset:** Die Status „Bin schon wach" und „Pausiert" werden nun automatisch zurückgesetzt, sobald die berechnete Weckzeit für das jeweilige Mitglied erreicht oder überschritten wurde. Dies stellt sicher, dass der Wecker am nächsten Tag wieder regulär aktiv ist.
 
 ### Geändert & Verbessert
-- 
+- **Scheduler-Integration:** Der Reset-Check wurde direkt in die Zeitplan-Berechnung integriert, um eine sofortige Aktualisierung der UI und der Alarme für den Folgetag zu gewährleisten.
+- **Safety-Reset:** Zusätzliche Sicherheitsprüfung beim App-Start eingeführt, die pausierte Profile zurücksetzt, falls die App über den Weckzeitraum hinaus inaktiv war.
 
 ### Behoben
-- 
+- Ein potenzielles Problem wurde behoben, bei dem der "Pausiert"-Status fälschlicherweise über mehrere Tage aktiv bleiben konnte.
 
 ## [0.3.8] - 2026-03-01
 
