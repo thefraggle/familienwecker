@@ -274,13 +274,15 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     private fun checkAndResetMembers(members: List<FamilyMember>): List<FamilyMember> {
         val today = LocalDate.now().toString()
         val now = LocalTime.now()
-        val updatedMembers = members.map { member ->
-            // Reset if date changed OR if it's the same day but we are significantly past the latest possible wake-up time (e.g. after 11:00 AM)
-            // This is a safety fallback for "Paused" flags if the app wasn't opened early in the morning.
-            val latestWakeUpPlusBuffer = member.latestWakeUp.plusHours(2)
-            val isWayPastWakeUp = now.isAfter(latestWakeUpPlusBuffer) && now.isBefore(LocalTime.of(23, 59))
+        
+        return members.map { member ->
+            // Reset logic: Only reset if we are past the latest wake-up time (+ buffer)
+            // AND we haven't reset for the current date yet.
+            // This allows manual toggles (e.g. Pause) to persist until the next wake-up cycle.
+            val resetThreshold = member.latestWakeUp.plusHours(4)
+            val isPastResetThreshold = now.isAfter(resetThreshold)
             
-            if (member.lastResetDate != today || (member.isPaused && isWayPastWakeUp)) {
+            if (isPastResetThreshold && member.lastResetDate != today) {
                 val updated = member.copy(
                     isPaused = false,
                     isAwakeToday = false,
@@ -292,7 +294,6 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 member
             }
         }
-        return updatedMembers
     }
 
     fun logout() {
@@ -359,19 +360,8 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     }
                     _schedule.value = result
 
-                    // Auto-reset isAwakeToday if we are past the calculated wake-up time
-                    result.memberSchedules.forEach { memberSchedule ->
-                        if (memberSchedule.member.isAwakeToday && LocalTime.now().isAfter(memberSchedule.wakeUpTime)) {
-                            toggleAwakeMember(memberSchedule.member.id)
-                        }
-                        
-                        // Also auto-reset isPaused if we are past the wake-up time,
-                        // so it's ready for the next day calculation (which happens for tomorrow if now > wakeUpTime)
-                        if (memberSchedule.member.isPaused && LocalTime.now().isAfter(memberSchedule.wakeUpTime)) {
-                            togglePauseMember(memberSchedule.member.id)
-                        }
-                    }
-
+                    // Auto-reset logic moved entirely to checkAndResetMembers for robustness
+                    
                     if (alarmsOn && result.isValid && result.memberSchedules.isNotEmpty()) {
                         applyAlarms(result)
                     } else {
@@ -403,14 +393,18 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
         for (memberSchedule in schedule.memberSchedules) {
             if (memberSchedule.member.id == currentMyMemberId) {
-                // Feature "Bin schon wach": Wenn der Nutzer bereits wach ist, keinen Alarm planen
-                if (memberSchedule.member.isAwakeToday) {
-                    continue
-                }
-
                 val wakeUpTime = memberSchedule.wakeUpTime
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
                 val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
+
+                // Feature "Already Awake": Only skip alarm if we are within the 4h window before/during wake-up (requested)
+                if (memberSchedule.member.isAwakeToday) {
+                    val hoursUntilAlarm = java.time.Duration.between(LocalDateTime.now(), targetDateTime).toHours()
+                    // If alarm is in the future and less than 4h away, or already in the past (e.g. within the snooze window)
+                    if (hoursUntilAlarm in 0..4) {
+                        continue
+                    }
+                }
 
                 alarmScheduler.scheduleWakeUp(targetDateTime, memberSchedule.member.id, memberSchedule.member.name)
             }
