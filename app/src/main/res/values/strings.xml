@@ -31,6 +31,7 @@
     <string name="main_no_members">No members yet. Add someone!</string>
     <string name="main_current_schedule">Current Schedule</string>
     <string name="main_add_members_prompt">Add members to calculate a schedule.</string>
+    <string name="main_no_active_schedule">No active wake-up plan.</string>
     <string name="main_error">Error: %s</string>
     <string name="main_optimal_plan">Here is the calculated family schedule:</string>
     <string name="main_plan_paused">Your alarm is currently paused.</string>

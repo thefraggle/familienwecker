@@ -13,7 +13,8 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Passwort vergessen:** Neue Funktion auf dem Login-Screen integriert. Nutzer können nun eine E-Mail zum Zurücksetzen ihres Passworts anfordern.
 
 ### Geändert & Verbessert
-- **Synchronisierung des Hauptschalters:** Der Status des "Wecker Ein/Aus"-Schalters wird nun über Firestore zwischen allen Familienmitgliedern synchronisiert. Wenn der Hauptschalter AUS ist, wird kein Zeitplan mehr berechnet und keine Slots reserviert.
+- **Synchronisierung des Hauptschalters:** Der Status des "Wecker Ein/Aus"-Schalters wird nun über Firestore zwischen allen Familienmitgliedern synchronisiert. Wenn der eigene Hauptschalter AUS ist, wird man aus der Zeitplanberechnung herausgenommen, die anderen Mitglieder bleiben jedoch sichtbar.
+- **Benutzerfreundlichkeit:** Wenn alle Mitglieder pausiert sind, zeigt die App nun die klare Meldung "Kein aktiver Weckplan" an, anstatt zum Hinzufügen von Mitgliedern aufzufordern.
 - **Robustere Status-Logik (Pause & Bin wach):** Manuelle Pausierungen bleiben nun bis zu 24h bestehen. Der "Bin schon wach"-Status kann erst ab 4 Stunden vor der Weckzeit aktiviert werden und blockiert dann den Alarm, während die Zeitplanung (Bad-Slot) erhalten bleibt.
 - **Fehlerbehebung (Pause-Button):** Ein Fehler wurde behoben, durch den der Pause-Button auf ungeclaimten Karten keine Auswirkung auf die Zeitplanberechnung hatte.
 - **Robustere Statusanzeige:** Die Anzeige "(Wecker aktiviert)" bzw. "(kein Alarm)" in den Mitgliedskarten berücksichtigt nun korrekt sowohl den globalen Hauptschalter als auch die individuelle Pausierung.

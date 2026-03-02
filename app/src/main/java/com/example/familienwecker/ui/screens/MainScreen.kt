@@ -239,6 +239,8 @@ fun MainScreen(
 
             if (currentSchedule == null) {
                 Text(stringResource(R.string.main_add_members_prompt))
+            } else if (currentSchedule.message == "no_active_schedule") {
+                Text(stringResource(R.string.main_no_active_schedule))
             } else if (!currentSchedule.isValid) {
                 Card(
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
