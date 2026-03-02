@@ -20,6 +20,8 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Benutzerfreundlichkeit:** Wenn alle Mitglieder pausiert sind, zeigt die App nun die klare Meldung "Kein aktiver Weckplan" an, anstatt zum Hinzufügen von Mitgliedern aufzufordern.
 - **Robustere Status-Logik (Pause & Bin wach):** Manuelle Pausierungen bleiben nun bis zu 24h bestehen. Der "Bin schon wach"-Status kann erst ab 4 Stunden vor der Weckzeit aktiviert werden.
 - **Fehlerbehebung (Pause-Button):** Ein Fehler wurde behoben, durch den der Pause-Button auf ungeclaimten Karten keine Auswirkung auf die Zeitplanberechnung hatte.
+- **Robustheit (Mitgliederliste):** Das Einlesen der Mitglieder aus Firestore wurde "ultra-robust" gestaltet. Fehlende oder korrupte Datenfelder führen nicht mehr dazu, dass Mitglieder aus der Liste verschwinden; stattdessen werden sichere Standardwerte genutzt.
+- **Fehlerbehebung (Datenverlust):** Ein kritischer Fehler im Login-Flow wurde behoben, der bei Netzwerkproblemen fälschlicherweise lokale Familiendaten löschen konnte.
 - **Version Bump:** App-Version auf 0.3.10 angehoben.
 
 ## [0.3.9] - 2026-03-02
