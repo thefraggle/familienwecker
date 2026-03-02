@@ -18,16 +18,6 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Wochentag-Konfiguration:** Weckzeiten für Werktage und Wochenende getrennt einstellen – z. B. Kinder schlafen samstags länger.
 
 ### Prio: Mittel (Usability & UI)
-### ✔️ Abgeschlossen (v0.3.11)
- - [x] **Daten-Resilienz:** Button „Familie verlassen" auf dem Dashboard bei Inkonsistenzen (z. B. gelöschte Familie auf anderem Gerät).
- - [x] **Claim-Synchronisierung:** Automatische Profil-Erkennung über mehrere Geräte (Zweitgeräte erkennen Claims sofort ohne Refresh).
-
-### ✔️ Abgeschlossen (v0.3.10)
- - [x] **Passwort vergessen:** Passwort-Reset-Mail via Firebase Auth.
- - [x] **Fehler-Transparenz:** Systemfehler (z. B. "Permission Denied") werden direkt auf dem Dashboard angezeigt.
- - [x] **Master Switch Sync:** Synchronisierung des Hauptschalters über alle Geräte.
- - [x] **Startup Force-Sync:** Automatisches Neuladen der Cloud-Daten beim App-Start.
- - [x] **NPE Fix:** Behebung eines kritischen Start-Absturzes im ViewModel.
 - [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
 - [ ] **Snooze-Synchronisation:** Wenn einer länger braucht, passt sich der Plan der anderen "live" an.
 - [ ] **Individuelle Frühstücksdauer:** Jedes Mitglied kann eigene Zeiten setzen (z. B. Kinder frühstücken 30 Min., Papa kommt nur für 10 Min. dazu).
@@ -38,7 +28,6 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Eingabe-Validierung (Extreme):** Warnung bei unrealistischen Werten (z. B. 2h Bad-Dauer) (EC-02).
 - [ ] **Homescreen-Widget:** Kleines 2×1 Widget zeigt die eigene heutige Weckzeit – ohne App öffnen.
 - [ ] **Weck-Bestätigung mit Familien-Push:** "Bin wach!"-Button auf dem Weckscreen schickt eine kurze Push-Meldung an alle anderen Familienmitglieder.
-- [x] **Automatischer Reset nach Weckzeit:** Status "Bin wach" und "Pause" werden nach dem täglichen Weck-Event automatisch für morgen resettet (v0.3.9).
 - [ ] **Urlaubs-Datum statt manuellem Schalter:** Urlaub bis Datum X eintragen; Wecker schaltet sich danach automatisch wieder ein.
 - [ ] **Plan-Übersicht als Wochentabelle:** Kompakte Tabelle aller Mitglieder × Wochentage in einer Übersicht.
 
@@ -46,7 +35,6 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Abendlicher Check-In:** Push-Reminder um 21 Uhr, um die Zeiten für morgen zu bestätigen.
 - [ ] **Eigene Playlists:** Spotify-Integration für den Weck-Screen.
 - [ ] **Badezimmer-Dauer nach Wochentag:** Freitag braucht Papa länger, Montag die Kinder mehr Zeit – pro Wochentag konfigurierbar.
-
 - [ ] **Zeitumstellungs-Schutz (DST):** Absicherung der Berechnung bei Wechsel Sommer-/Winterzeit (EC-05).
 - [ ] **Alarm-Watchdog:** Maximale Belastbarkeit des Hintergrunddienstes gegen System-Kills/Abstürze (EC-06).
 - [ ] **Deep Offline Resilience:** Explizite lokale Datenbank als Primary-Source bei fehlendem Internet (EC-04).

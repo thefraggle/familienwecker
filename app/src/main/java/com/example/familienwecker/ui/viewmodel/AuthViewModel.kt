@@ -124,16 +124,36 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     fun resetPassword(email: String) {
         if (email.isBlank()) {
-            _authState.value = AuthState.Error("Bitte gib eine E-Mail-Adresse ein.")
+            _authState.value = AuthState.Error(
+                if (java.util.Locale.getDefault().language == "de")
+                    "Bitte gib eine E-Mail-Adresse ein."
+                else "Please enter an email address."
+            )
             return
         }
         _authState.value = AuthState.Loading
+        val language = java.util.Locale.getDefault().language // "de", "en", etc.
         viewModelScope.launch {
-            val result = authRepository.sendPasswordResetEmail(email)
+            val result = authRepository.sendPasswordResetEmail(email, language)
             result.onSuccess {
                 _authState.value = AuthState.PasswordResetSuccess
             }.onFailure { error ->
-                _authState.value = AuthState.Error(error.localizedMessage ?: "Passwort-Reset fehlgeschlagen")
+                val isDe = language == "de"
+                val message = when (error.message) {
+                    "INVALID_EMAIL" ->
+                        if (isDe) "Ungültige E-Mail-Adresse. Bitte prüfe die Schreibweise."
+                        else "Invalid email address. Please check the spelling."
+                    "USER_NOT_FOUND" ->
+                        if (isDe) "Kein Konto mit dieser E-Mail-Adresse gefunden."
+                        else "No account found for this email address."
+                    "TOO_MANY_REQUESTS" ->
+                        if (isDe) "Zu viele Versuche. Bitte warte kurz und versuche es erneut."
+                        else "Too many attempts. Please wait and try again."
+                    else ->
+                        if (isDe) "Passwort-Reset fehlgeschlagen. Bitte versuche es später erneut."
+                        else "Password reset failed. Please try again later."
+                }
+                _authState.value = AuthState.Error(message)
             }
         }
     }

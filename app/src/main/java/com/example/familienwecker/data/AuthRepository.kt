@@ -13,7 +13,7 @@ class AuthRepository {
 
     suspend fun login(email: String, pass: String): Result<FirebaseUser> {
         return try {
-            val result = auth.signInWithEmailAndPassword(email, pass).await()
+            val result = auth.signInWithEmailAndPassword(email.trim(), pass).await()
             val user = result.user
             if (user != null) {
                 Result.success(user)
@@ -27,7 +27,7 @@ class AuthRepository {
 
     suspend fun register(email: String, pass: String): Result<FirebaseUser> {
         return try {
-            val result = auth.createUserWithEmailAndPassword(email, pass).await()
+            val result = auth.createUserWithEmailAndPassword(email.trim(), pass).await()
             val user = result.user
             if (user != null) {
                 Result.success(user)
@@ -43,12 +43,53 @@ class AuthRepository {
         auth.signOut()
     }
 
-    suspend fun sendPasswordResetEmail(email: String): Result<Unit> {
+    private val functions: com.google.firebase.functions.FirebaseFunctions = 
+        com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
+
+    suspend fun sendPasswordResetEmail(email: String, language: String = "de"): Result<Unit> {
         return try {
-            auth.sendPasswordResetEmail(email).await()
+            val data = hashMapOf(
+                "email" to email.trim(),
+                "language" to language
+            )
+            functions
+                .getHttpsCallable("sendBrandedResetEmail")
+                .call(data)
+                .await()
             Result.success(Unit)
+        } catch (e: com.google.firebase.functions.FirebaseFunctionsException) {
+            when (e.code) {
+                // Gen2 public function shouldn't return these, but keep as safety net
+                com.google.firebase.functions.FirebaseFunctionsException.Code.PERMISSION_DENIED,
+                com.google.firebase.functions.FirebaseFunctionsException.Code.UNAUTHENTICATED -> {
+                    try {
+                        auth.sendPasswordResetEmail(email.trim()).await()
+                        Result.success(Unit)
+                    } catch (fallbackEx: Exception) {
+                        Result.failure(Exception("RESET_FAILED"))
+                    }
+                }
+                com.google.firebase.functions.FirebaseFunctionsException.Code.INVALID_ARGUMENT ->
+                    Result.failure(Exception("INVALID_EMAIL"))
+                com.google.firebase.functions.FirebaseFunctionsException.Code.NOT_FOUND ->
+                    Result.failure(Exception("USER_NOT_FOUND"))
+                com.google.firebase.functions.FirebaseFunctionsException.Code.RESOURCE_EXHAUSTED ->
+                    Result.failure(Exception("TOO_MANY_REQUESTS"))
+                else -> Result.failure(Exception("RESET_FAILED"))
+            }
         } catch (e: Exception) {
-            Result.failure(e)
+            // Fallback: FirebaseFunctionsException may not be caught for v2 functions
+            // on older SDK versions. Try to extract the error code from the raw message.
+            val msg = e.message?.uppercase() ?: ""
+            when {
+                msg.contains("NOT_FOUND") || msg.contains("USER_NOT_FOUND") ->
+                    Result.failure(Exception("USER_NOT_FOUND"))
+                msg.contains("INVALID_ARGUMENT") || msg.contains("INVALID_EMAIL") ->
+                    Result.failure(Exception("INVALID_EMAIL"))
+                msg.contains("RESOURCE_EXHAUSTED") || msg.contains("TOO_MANY") ->
+                    Result.failure(Exception("TOO_MANY_REQUESTS"))
+                else -> Result.failure(Exception("RESET_FAILED"))
+            }
         }
     }
 

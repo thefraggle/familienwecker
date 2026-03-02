@@ -35,4 +35,7 @@ google-services.json
 
 # Internal documentation
 todo.md
-docs/internal/
+# Firebase Functions
+functions/node_modules/
+firebase-debug.log
+.runtimeconfig.json

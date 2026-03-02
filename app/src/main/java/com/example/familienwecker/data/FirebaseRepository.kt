@@ -124,27 +124,31 @@ class FirebaseRepository {
     }
 
     suspend fun addOrUpdateMember(familyId: String, member: FamilyMember) {
-        val currentTime = System.currentTimeMillis()
-        val docRef = db.collection("families").document(familyId)
-            .collection("members").document(member.id)
-        // createdAt nur beim ersten Anlegen setzen – beim Bearbeiten beibehalten
-        val existingCreatedAt = member.createdAt ?: currentTime
-        val data = hashMapOf(
-            "name" to member.name,
-            "earliestWakeUp" to member.earliestWakeUp.toString(),
-            "latestWakeUp" to member.latestWakeUp.toString(),
-            "bathroomDurationMinutes" to member.bathroomDurationMinutes,
-            "wantsBreakfast" to member.wantsBreakfast,
-            "leaveHomeTime" to member.leaveHomeTime?.toString(),
-            "isPaused" to member.isPaused,
-            "isAwakeToday" to member.isAwakeToday,
-            "lastResetDate" to member.lastResetDate,
-            "claimedByUserId" to member.claimedByUserId,
-            "claimedByUserName" to member.claimedByUserName,
-            "createdAt" to existingCreatedAt,
-            "lastUpdatedAt" to currentTime
-        )
-        docRef.set(data).await()
+        try {
+            val currentTime = System.currentTimeMillis()
+            val docRef = db.collection("families").document(familyId)
+                .collection("members").document(member.id)
+            val existingCreatedAt = member.createdAt ?: currentTime
+            val data = hashMapOf(
+                "name" to member.name,
+                "earliestWakeUp" to member.earliestWakeUp.toString(),
+                "latestWakeUp" to member.latestWakeUp.toString(),
+                "bathroomDurationMinutes" to member.bathroomDurationMinutes,
+                "wantsBreakfast" to member.wantsBreakfast,
+                "leaveHomeTime" to member.leaveHomeTime?.toString(),
+                "isPaused" to member.isPaused,
+                "isAwakeToday" to member.isAwakeToday,
+                "lastResetDate" to member.lastResetDate,
+                "claimedByUserId" to member.claimedByUserId,
+                "claimedByUserName" to member.claimedByUserName,
+                "createdAt" to existingCreatedAt,
+                "lastUpdatedAt" to currentTime
+            )
+            docRef.set(data).await()
+        } catch (e: Exception) {
+            android.util.Log.e("FirebaseRepository", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
+            throw e
+        }
     }
 
     suspend fun removeMember(familyId: String, id: String): Result<Unit> {
@@ -270,11 +274,11 @@ class FirebaseRepository {
                 FamilyMember(
                     id = doc.id,
                     name = doc.getString("name") ?: "",
-                    earliestWakeUp = LocalTime.parse(doc.getString("earliestWakeUp") ?: "06:00"),
-                    latestWakeUp = LocalTime.parse(doc.getString("latestWakeUp") ?: "07:30"),
+                    earliestWakeUp = try { LocalTime.parse(doc.getString("earliestWakeUp") ?: "06:00") } catch (e: Exception) { LocalTime.of(6, 0) },
+                    latestWakeUp = try { LocalTime.parse(doc.getString("latestWakeUp") ?: "07:30") } catch (e: Exception) { LocalTime.of(7, 30) },
                     bathroomDurationMinutes = doc.getLong("bathroomDurationMinutes") ?: 20L,
                     wantsBreakfast = doc.getBoolean("wantsBreakfast") ?: true,
-                    leaveHomeTime = doc.getString("leaveHomeTime")?.let { LocalTime.parse(it) },
+                    leaveHomeTime = doc.getString("leaveHomeTime")?.let { try { LocalTime.parse(it) } catch (e: Exception) { null } },
                     isPaused = doc.getBoolean("isPaused") ?: false,
                     isAwakeToday = doc.getBoolean("isAwakeToday") ?: false,
                     lastResetDate = doc.getString("lastResetDate") ?: "",

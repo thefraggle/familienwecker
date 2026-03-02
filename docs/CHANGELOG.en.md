@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.0] - 2026-03-02
+
+### Added
+- **Branded Password Reset Email:** Password resets are now sent via a Firebase Cloud Function (Node.js 22, Gen2, `europe-west3`) and the **Resend** email provider. Sender is `no-reply@familienwecker.de` with a custom HTML template (button, security notice, footer).
+- **Bilingual Emails:** The email template (subject, content, sender name, footer) automatically adapts to the device language (German / English).
+- **Password Reset Error Messages:** Invalid email, unknown account, and rate limit are now shown with clear messages (DE/EN).
+
+### Changed & Improved
+- **Code Hardening:** Safe `LocalTime` parsing fallbacks in `FirebaseRepository`. `addOrUpdateMember()` with try-catch and logging. `email.trim()` on login, register, and reset.
+- **Cleanup:** Removed duplicate import in `MainActivity`.
+
 ## [0.3.11] - 2026-03-02
 
 ### Changed & Improved
