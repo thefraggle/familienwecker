@@ -47,6 +47,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     private var membersJob: Job? = null
+    private var alarmEnabledJob: Job? = null
 
     init {
         // 1. Observe FamilyId and load members accordingly
@@ -54,6 +55,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
             try {
                 familyId.collect { currentFamilyId ->
                     membersJob?.cancel()
+                    alarmEnabledJob?.cancel()
                     if (currentFamilyId != null) {
                         membersJob = launch {
                             try {
@@ -64,6 +66,15 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                                 }
                             } catch (e: Exception) {
                                 _errorMessage.value = "Fehler beim Laden der Mitglieder: ${e.localizedMessage}"
+                            }
+                        }
+                        alarmEnabledJob = launch {
+                            try {
+                                repository.getFamilyAlarmEnabledFlow(currentFamilyId).collect { enabled ->
+                                    prefsRepo.setAlarmEnabled(enabled)
+                                }
+                            } catch (e: Exception) {
+                                // Silent error for alarm sync
                             }
                         }
                     } else {
@@ -225,17 +236,15 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         // Wecker kann nur eingeschaltet werden, wenn ein Profil belegt ist
         if (enabled && myMemberId.value == null) return
 
-        prefsRepo.setAlarmEnabled(enabled)
-        
-        // Sync to cloud so other family members know this user's alarm is paused
-        val currentMyMemberId = myMemberId.value ?: return
-        val currentMembers = _members.value
-        val myMemberProfile = currentMembers.find { it.id == currentMyMemberId }
-        
-        if (myMemberProfile != null) {
-            val updatedProfile = myMemberProfile.copy(isPaused = !enabled)
-            addOrUpdateMember(updatedProfile)
+        val currentFamilyId = familyId.value
+        if (currentFamilyId != null) {
+            viewModelScope.launch {
+                repository.updateFamilyAlarmEnabled(currentFamilyId, enabled)
+            }
         }
+        
+        // Fallback for local UI (flow will update it anyway)
+        prefsRepo.setAlarmEnabled(enabled)
     }
 
     fun togglePauseMember(memberId: String) {

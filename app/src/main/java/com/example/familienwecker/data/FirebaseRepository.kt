@@ -18,7 +18,8 @@ class FirebaseRepository {
             val familyData = hashMapOf(
                 "name" to familyName,
                 "joinCode" to joinCode,
-                "createdByUserId" to userId
+                "createdByUserId" to userId,
+                "isAlarmEnabled" to true
             )
             val docRef = db.collection("families").add(familyData).await()
             // Gib die Document ID und den Join Code zurück
@@ -38,6 +39,28 @@ class FirebaseRepository {
             }
         } catch (e: Exception) {
             Result.failure(e)
+        }
+    }
+
+    fun getFamilyAlarmEnabledFlow(familyId: String): Flow<Boolean> = callbackFlow {
+        val docRef = db.collection("families").document(familyId)
+        val subscription = docRef.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                close(error)
+                return@addSnapshotListener
+            }
+            if (snapshot != null && snapshot.exists()) {
+                trySend(snapshot.getBoolean("isAlarmEnabled") ?: true)
+            }
+        }
+        awaitClose { subscription.remove() }
+    }
+
+    suspend fun updateFamilyAlarmEnabled(familyId: String, enabled: Boolean) {
+        try {
+            db.collection("families").document(familyId).update("isAlarmEnabled", enabled).await()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

@@ -18,6 +18,11 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Wochentag-Konfiguration:** Weckzeiten für Werktage und Wochenende getrennt einstellen – z. B. Kinder schlafen samstags länger.
 
 ### Prio: Mittel (Usability & UI)
+### ✔️ Abgeschlossen (v0.3.10)
+ - [x] **Passwort vergessen:** Passwort-Reset-Mail via Firebase Auth.
+ - [x] **Fehler-UX Login:** Präzisere Google OAuth Fehlermeldungen.
+ - [x] **Master Switch Sync:** Synchronisierung des Hauptschalters über alle Geräte.
+ - [x] **Status-Robustheit:** Korrekte Statusanzeige in den Karten (Master Switch vs. Pause).
 - [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
 - [ ] **Snooze-Synchronisation:** Wenn einer länger braucht, passt sich der Plan der anderen "live" an.
 - [ ] **Individuelle Frühstücksdauer:** Jedes Mitglied kann eigene Zeiten setzen (z. B. Kinder frühstücken 30 Min., Papa kommt nur für 10 Min. dazu).
