@@ -10,7 +10,8 @@ service cloud.firestore {
     // Prüft, ob der Nutzer Teil dieser Familie ist (basierend auf seinem User-Profil)
     function isFamilyMember(familyId) {
       return signedIn() && 
-        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.familyId == familyId);
+        ((get(/databases/$(database)/documents/users/$(request.auth.uid)).data.familyId == familyId) || 
+         (get(/databases/$(database)/documents/families/$(familyId)).data.createdByUserId == request.auth.uid));
     }
 
     // User-Profile: Nur der Eigentümer kann lesen/schreiben

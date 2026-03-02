@@ -51,6 +51,7 @@ fun MainScreen(
     val schedule by viewModel.schedule.collectAsState()
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsState()
     val myMemberId by viewModel.myMemberId.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     
     val snackbarHostState = remember { SnackbarHostState() }
@@ -139,6 +140,21 @@ fun MainScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             
+            // 0. Fehlermeldung (falls vorhanden)
+            errorMessage?.let { error ->
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                ) {
+                    Text(
+                        text = "⚠️ $error",
+                        modifier = Modifier.padding(16.dp),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
             // 0. Akku-Optimierung Warnung
             if (isBatteryOptimized.value && isAlarmEnabled) {
                 Card(
