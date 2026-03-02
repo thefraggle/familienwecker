@@ -14,12 +14,12 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ### Geändert & Verbessert
 - **Synchronisierung des Hauptschalters:** Der Status des "Wecker Ein/Aus"-Schalters wird nun über Firestore zwischen allen Familienmitgliedern synchronisiert. Wenn der eigene Hauptschalter AUS ist, wird man aus der Zeitplanberechnung herausgenommen, die anderen Mitglieder bleiben jedoch sichtbar.
+- **Automatischer Sync bei Start:** Die App führt nun beim Starten oder Einloggen automatisch einen "Force Refresh" durch, um sicherzustellen, dass immer der aktuellste Stand aus der Cloud geladen wird (besonders wichtig nach Neuinstallationen).
+- **Konflikt-Robustheit:** Mitglieder-Updates enthalten nun einen Zeitstempel (`lastUpdatedAt`), um bei gleichzeitigen oder Offline-Änderungen den aktuellsten Stand zuverlässig zu ermitteln.
+- **Manuelle Synchronisierung:** Ein neuer "Aktualisieren"-Button in der Top-Bar erlaubt das manuelle Neuladen aller Daten aus der Cloud (Debug/Manueller Override).
 - **Benutzerfreundlichkeit:** Wenn alle Mitglieder pausiert sind, zeigt die App nun die klare Meldung "Kein aktiver Weckplan" an, anstatt zum Hinzufügen von Mitgliedern aufzufordern.
-- **Robustere Status-Logik (Pause & Bin wach):** Manuelle Pausierungen bleiben nun bis zu 24h bestehen. Der "Bin schon wach"-Status kann erst ab 4 Stunden vor der Weckzeit aktiviert werden und blockiert dann den Alarm, während die Zeitplanung (Bad-Slot) erhalten bleibt.
+- **Robustere Status-Logik (Pause & Bin wach):** Manuelle Pausierungen bleiben nun bis zu 24h bestehen. Der "Bin schon wach"-Status kann erst ab 4 Stunden vor der Weckzeit aktiviert werden.
 - **Fehlerbehebung (Pause-Button):** Ein Fehler wurde behoben, durch den der Pause-Button auf ungeclaimten Karten keine Auswirkung auf die Zeitplanberechnung hatte.
-- **Robustere Statusanzeige:** Die Anzeige "(Wecker aktiviert)" bzw. "(kein Alarm)" in den Mitgliedskarten berücksichtigt nun korrekt sowohl den globalen Hauptschalter als auch die individuelle Pausierung.
-- **Google OAuth Fehlermeldung:** Die Fehlermeldung wurde präzisiert. Wenn kein Google-Konto auf dem Gerät gefunden wurde, weist die App nun explizit darauf hin, sich zuerst in den Android-Systemeinstellungen anzumelden.
-- **Navigation:** Die `LoadingScreen`-Logik wurde erweitert, um den Zustand nach einem erfolgreichen Passwort-Reset-Request korrekt zu handhaben.
 - **Version Bump:** App-Version auf 0.3.10 angehoben.
 
 ## [0.3.9] - 2026-03-02
