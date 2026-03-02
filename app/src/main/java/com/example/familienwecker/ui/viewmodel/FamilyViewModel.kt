@@ -69,6 +69,19 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
                                     val checkedMembers = checkAndResetMembers(membersList)
                                     _members.value = checkedMembers
+                                    
+                                    // Auto-Sync MyMemberId from Cloud (multi-device resilience)
+                                    val uid = auth.currentUser?.uid
+                                    if (uid != null) {
+                                        val claimedByMe = checkedMembers.find { it.claimedByUserId == uid }
+                                        if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
+                                            prefsRepo.setMyMemberId(claimedByMe.id)
+                                        } else if (claimedByMe == null && myMemberId.value != null) {
+                                            // Handle case where claim was removed on another device
+                                            prefsRepo.setMyMemberId(null)
+                                        }
+                                    }
+                                    
                                     recalculateSchedule()
                                 }
                             } catch (e: Exception) {

@@ -160,7 +160,14 @@ fun FamilienweckerApp() {
                     viewModel = familyViewModel,
                     onNavigateToAddMember = { navController.navigate("addMember") },
                     onNavigateToEditMember = { id -> navController.navigate("editMember/$id") },
-                    onNavigateToSettings = { navController.navigate("settings") }
+                    onNavigateToSettings = { navController.navigate("settings") },
+                    onLeaveFamily = {
+                        familyViewModel.leaveFamily()
+                        navController.navigate("setup") {
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
             composable("addMember") {

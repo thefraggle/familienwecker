@@ -66,6 +66,8 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-15 | **Familien-Löschen (Sicherheit)** | Doppelte Bestätigung erforderlich, wenn andere Mitglieder existieren; einfache Bestätigung bei "nur ich" oder leeren Listen. |
 | EC-16 | **Mitglied löschen (Bestätigung)** | Ja/Nein-Dialog erscheint vor dem Löschen eines Mitglieds. |
 | EC-17 | **Neu-Anlage nach Löschung** | Nach Löschung einer Familie kann sofort eine neue angelegt werden ohne Hängen (Infinity Loading Test). |
+| EC-18 | **Daten-Resilienz (Dashboard)** | Wenn die Familie auf einem anderen Gerät gelöscht wurde, erscheint der Button „Familie verlassen". Klick führt zum Setup. |
+| EC-19 | **Multi-Device Claim Sync** | Wenn Profil auf Gerät A geclaimt wird, erkennt Gerät B (gleiche UID) dies automatisch ohne Refresh. |
 
 ### 3. Benutzer-Verhalten
 | ID | Testfall | Erwartetes Ergebnis |

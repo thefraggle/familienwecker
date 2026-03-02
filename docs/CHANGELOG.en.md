@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.3.11] - 2026-03-02
+
+### Changed & Improved
+- **Data Resilience:** Users are now offered an option to leave a family when data is missing or deleted, allowing a smooth return to the setup screen.
+- **Claim Synchronization:** Claimed profiles are now synchronized more reliably across devices without requiring a manual refresh.
+
 ## [0.3.10] - 2026-03-02
 
 ### Added

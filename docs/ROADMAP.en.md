@@ -37,6 +37,10 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Custom Playlists:** Spotify integration for the ringing screen.
 - [ ] **Bathroom duration by weekday:** Dad needs more time on Fridays, kids on Mondays – configurable per weekday.
 
+### ✔️ Completed (v0.3.11)
+- [x] **Data Resilience:** "Leave Family" button on the dashboard for recovering from inconsistencies (e.g., deleted family on another device).
+- [x] **Claim Synchronization:** Automatic profile detection across multiple devices (secondary devices recognize claims instantly without refresh).
+
 ### ✔️ Completed (v0.3.10)
 - [x] **Forgot Password:** Password reset email via Firebase Auth.
 - [x] **Error Transparency:** System errors (e.g., "Permission Denied") displayed directly on the dashboard.

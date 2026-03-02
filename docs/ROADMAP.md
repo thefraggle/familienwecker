@@ -18,6 +18,10 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Wochentag-Konfiguration:** Weckzeiten für Werktage und Wochenende getrennt einstellen – z. B. Kinder schlafen samstags länger.
 
 ### Prio: Mittel (Usability & UI)
+### ✔️ Abgeschlossen (v0.3.11)
+ - [x] **Daten-Resilienz:** Button „Familie verlassen" auf dem Dashboard bei Inkonsistenzen (z. B. gelöschte Familie auf anderem Gerät).
+ - [x] **Claim-Synchronisierung:** Automatische Profil-Erkennung über mehrere Geräte (Zweitgeräte erkennen Claims sofort ohne Refresh).
+
 ### ✔️ Abgeschlossen (v0.3.10)
  - [x] **Passwort vergessen:** Passwort-Reset-Mail via Firebase Auth.
  - [x] **Fehler-Transparenz:** Systemfehler (z. B. "Permission Denied") werden direkt auf dem Dashboard angezeigt.
