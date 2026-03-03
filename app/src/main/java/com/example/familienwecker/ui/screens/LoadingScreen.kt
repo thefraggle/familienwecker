@@ -41,6 +41,10 @@ fun LoadingScreen(
             AuthViewModel.AuthState.Loading -> {
                 // Wait in loading state
             }
+            AuthViewModel.AuthState.AwaitingEmailVerification -> {
+                // Show login screen which handles the verification pending UI
+                onNavigateToLogin()
+            }
         }
     }
 

@@ -42,6 +42,7 @@ fun LoginScreen(
         if (authState is AuthViewModel.AuthState.Authenticated) {
             onLoginSuccess()
         }
+        // Bei EMAIL_NOT_VERIFIED zurück in AwaitingEmailVerification (State bleibt Error -> wird im UI angezeigt)
     }
 
     Scaffold { padding ->
@@ -81,6 +82,43 @@ fun LoginScreen(
 
             if (authState is AuthViewModel.AuthState.Loading) {
                 CircularProgressIndicator()
+            } else if (authState is AuthViewModel.AuthState.AwaitingEmailVerification) {
+                // --- Double Opt-In: Warte auf E-Mail-Bestätigung ---
+                val isDe = java.util.Locale.getDefault().language == "de"
+                val userEmail = remember { authViewModel.currentUserEmail ?: email }
+
+                Text(
+                    text = if (isDe) "✉️ E-Mail bestätigen" else "✉️ Confirm your email",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = if (isDe)
+                        "Wir haben eine Bestätigungs-Mail an\n$userEmail\ngesendet. Bitte klicke auf den Link in der Mail, um deinen Account zu aktivieren."
+                    else
+                        "We sent a confirmation email to\n$userEmail\nPlease click the link in the email to activate your account.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                Button(
+                    onClick = { authViewModel.checkEmailVerified() },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(if (isDe) "Ich habe bestätigt ✓" else "I have confirmed ✓")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                TextButton(onClick = { authViewModel.resendVerificationEmail() }) {
+                    Text(if (isDe) "E-Mail erneut senden" else "Resend email")
+                }
+                TextButton(onClick = {
+                    authViewModel.logout()
+                    isRegistering = true
+                }) {
+                    Text(if (isDe) "Abbrechen" else "Cancel",
+                        color = MaterialTheme.colorScheme.error)
+                }
             } else {
                 Button(
                     onClick = {
@@ -172,11 +210,24 @@ fun LoginScreen(
 
             if (authState is AuthViewModel.AuthState.Error) {
                 Spacer(modifier = Modifier.height(16.dp))
+                val isDe = java.util.Locale.getDefault().language == "de"
+                val errMsg = (authState as AuthViewModel.AuthState.Error).message
+                val displayMsg = if (errMsg == "EMAIL_NOT_VERIFIED") {
+                    if (isDe) "Die E-Mail-Adresse wurde noch nicht bestätigt. Bitte prüfe dein Postfach."
+                    else "Email address not yet confirmed. Please check your inbox."
+                } else errMsg
                 Text(
-                    text = (authState as AuthViewModel.AuthState.Error).message,
+                    text = displayMsg,
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodyMedium
                 )
+                // Nach EMAIL_NOT_VERIFIED zurück zum AwaitingEmailVerification Screen
+                if (errMsg == "EMAIL_NOT_VERIFIED") {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    TextButton(onClick = { authViewModel.resendVerificationEmail() }) {
+                        Text(if (isDe) "E-Mail erneut senden" else "Resend email")
+                    }
+                }
             }
 
             if (authState is AuthViewModel.AuthState.PasswordResetSuccess) {

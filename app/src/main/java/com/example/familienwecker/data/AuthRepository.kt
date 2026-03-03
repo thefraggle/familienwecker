@@ -106,4 +106,35 @@ class AuthRepository {
             Result.failure(e)
         }
     }
+
+    suspend fun sendVerificationEmail(email: String, language: String = "de"): Result<Unit> {
+        return try {
+            val data = hashMapOf(
+                "email" to email.trim(),
+                "language" to language
+            )
+            functions
+                .getHttpsCallable("sendVerificationEmail")
+                .call(data)
+                .await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            android.util.Log.e("AuthRepository", "Cloud function sendVerificationEmail failed, fallback to default", e)
+            try {
+                auth.currentUser?.sendEmailVerification()?.await()
+                Result.success(Unit)
+            } catch (fallbackEx: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun reloadUser(): Boolean {
+        return try {
+            auth.currentUser?.reload()?.await()
+            auth.currentUser?.isEmailVerified ?: false
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

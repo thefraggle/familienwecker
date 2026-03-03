@@ -24,10 +24,15 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         data class Authenticated(val user: FirebaseUser) : AuthState()
         data class Error(val message: String) : AuthState()
         object PasswordResetSuccess : AuthState()
+        object AwaitingEmailVerification : AuthState()
     }
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
+
+    /** E-Mail des aktuell eingeloggten (ggf. noch unverifiziert) Firebase-Users. */
+    val currentUserEmail: String?
+        get() = authRepository.currentUser?.email
 
     private val _isRestoringFamily = MutableStateFlow(false)
     val isRestoringFamily: StateFlow<Boolean> = _isRestoringFamily.asStateFlow()
@@ -39,8 +44,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private fun checkCurrentUser() {
         val user = authRepository.currentUser
         if (user != null) {
-            _authState.value = AuthState.Authenticated(user)
-            restoreUserFamily(user.uid)
+            if (user.isEmailVerified) {
+                _authState.value = AuthState.Authenticated(user)
+                restoreUserFamily(user.uid)
+            } else {
+                _authState.value = AuthState.AwaitingEmailVerification
+            }
         }
     }
 
@@ -82,8 +91,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val result = authRepository.login(email, pass)
             result.onSuccess { user ->
-                _authState.value = AuthState.Authenticated(user)
-                restoreUserFamily(user.uid)
+                if (user.isEmailVerified) {
+                    _authState.value = AuthState.Authenticated(user)
+                    restoreUserFamily(user.uid)
+                } else {
+                    _authState.value = AuthState.AwaitingEmailVerification
+                }
             }.onFailure { error ->
                 _authState.value = AuthState.Error(error.localizedMessage ?: "Login fehlgeschlagen")
             }
@@ -92,11 +105,18 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     fun register(email: String, pass: String) {
         _authState.value = AuthState.Loading
+        val language = java.util.Locale.getDefault().language
         viewModelScope.launch {
             val result = authRepository.register(email, pass)
-            result.onSuccess { user ->
-                _authState.value = AuthState.Authenticated(user)
-                restoreUserFamily(user.uid)
+            result.onSuccess {
+                // Double Opt-In: Verifikations-Mail senden, NICHT direkt einloggen
+                val sendResult = authRepository.sendVerificationEmail(email, language)
+                if (sendResult.isFailure) {
+                    // Log the failure or set an appropriate error state if desired,
+                    // but we still want to show the awaiting verification screen.
+                    android.util.Log.e("AuthViewModel", "Failed to send verification email: \${sendResult.exceptionOrNull()}")
+                }
+                _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
                 _authState.value = AuthState.Error(error.localizedMessage ?: "Registrierung fehlgeschlagen")
             }
@@ -160,5 +180,33 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setError(message: String) {
         _authState.value = AuthState.Error(message)
+    }
+
+    fun checkEmailVerified() {
+        _authState.value = AuthState.Loading
+        viewModelScope.launch {
+            val verified = authRepository.reloadUser()
+            if (verified) {
+                val user = authRepository.currentUser
+                if (user != null) {
+                    _authState.value = AuthState.Authenticated(user)
+                    restoreUserFamily(user.uid)
+                } else {
+                    _authState.value = AuthState.AwaitingEmailVerification
+                }
+            } else {
+                _authState.value = AuthState.Error("EMAIL_NOT_VERIFIED")
+            }
+        }
+    }
+
+    fun resendVerificationEmail() {
+        val email = authRepository.currentUser?.email ?: return
+        val language = java.util.Locale.getDefault().language
+        _authState.value = AuthState.Loading
+        viewModelScope.launch {
+            authRepository.sendVerificationEmail(email, language)
+            _authState.value = AuthState.AwaitingEmailVerification
+        }
     }
 }

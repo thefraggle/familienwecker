@@ -43,7 +43,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Hallo!",
     intro: "Dein Passwort für <strong>FamWake</strong> wurde erfolgreich geändert.",
     instruction: "Du kannst dich jetzt mit deinem neuen Passwort in der App anmelden.",
-    security: "⚠️ Falls du dein Passwort <strong>nicht</strong> geändert hast, kontaktiere uns bitte umgehend: support@familienwecker.de",
+    security: "⚠️ Falls du dein Passwort <strong>nicht</strong> geändert hast, kontaktiere uns bitte umgehend: daniel.notthoff@gmail.com",
     footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt darauf.",
   },
   en: {
@@ -52,7 +52,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Hello!",
     intro: "Your password for <strong>FamWake</strong> has been successfully changed.",
     instruction: "You can now log in to the app with your new password.",
-    security: "⚠️ If you did <strong>not</strong> change your password, please contact us immediately: support@familienwecker.de",
+    security: "⚠️ If you did <strong>not</strong> change your password, please contact us immediately: daniel.notthoff@gmail.com",
     footer: "This is an automated message. Please do not reply directly.",
   },
 };
@@ -203,6 +203,110 @@ exports.sendBrandedConfirmationEmail = onCall(
 
     } catch (err) {
       console.error("Error in sendBrandedConfirmationEmail:", err);
+      throw new HttpsError("internal", err.message || "INTERNAL_ERROR");
+    }
+  }
+);
+
+const EMAIL_CONTENT_VERIFY = {
+  de: {
+    subject: "E-Mail bestätigen – FamWake",
+    appName: "FamWake - Familienwecker",
+    greeting: "Willkommen bei FamWake! 🎉",
+    intro: "Danke für deine Registrierung bei <strong>FamWake</strong>. Bitte bestätige deine E-Mail-Adresse, um deinen Account zu aktivieren.",
+    instruction: "Klicke auf den folgenden Button, um deine E-Mail-Adresse zu bestätigen:",
+    button: "E-Mail bestätigen",
+    fallback: "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
+    security: "⚠️ Falls du diesen Account <strong>nicht</strong> angelegt hast, kannst du diese E-Mail einfach ignorieren.",
+    footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt darauf.",
+  },
+  en: {
+    subject: "Confirm your email – FamWake",
+    appName: "FamWake - Family Alarm",
+    greeting: "Welcome to FamWake! 🎉",
+    intro: "Thank you for registering with <strong>FamWake</strong>. Please confirm your email address to activate your account.",
+    instruction: "Click the button below to confirm your email address:",
+    button: "Confirm email",
+    fallback: "If the button doesn't work, paste this link into your browser:",
+    security: "⚠️ If you did <strong>not</strong> create this account, you can safely ignore this email.",
+    footer: "This is an automated message. Please do not reply directly.",
+  },
+};
+
+function buildVerifyEmailHtml(link, lang) {
+  const t = EMAIL_CONTENT_VERIFY[lang] || EMAIL_CONTENT_VERIFY.de;
+  return `
+    <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+      <h2 style="color: ${BRAND_BLUE};">${t.greeting}</h2>
+      <p>${t.intro}</p>
+      <p>${t.instruction}</p>
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="${link}" style="background-color: ${BRAND_BLUE}; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px;">${t.button}</a>
+      </div>
+      <p style="font-size: 12px; color: #666;">${t.fallback}</p>
+      <p style="font-size: 12px; color: #888; word-break: break-all;">${link}</p>
+      <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+      <p style="font-size: 12px; color: #888; background-color: #f9f9f9; padding: 12px; border-radius: 6px;">${t.security}</p>
+      <p style="font-size: 11px; color: #999; text-align: center;">
+        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${t.appName}</a><br>
+        <a href="https://www.familienwecker.de" style="color: #999;">www.familienwecker.de</a><br><br>
+        ${t.footer}
+      </p>
+    </div>
+  `;
+}
+
+exports.sendVerificationEmail = onCall(
+  {
+    region: "europe-west3",
+    secrets: ["RESEND_API_KEY"],
+    invoker: "public",
+  },
+  async (request) => {
+    const email = request.data?.email;
+    const lang = (request.data?.language || "de").startsWith("en") ? "en" : "de";
+
+    if (!email) {
+      throw new HttpsError("invalid-argument", "INVALID_EMAIL");
+    }
+
+    const resendKey = process.env.RESEND_API_KEY;
+    if (!resendKey) {
+      console.error("RESEND_API_KEY secret is not set.");
+      throw new HttpsError("failed-precondition", "Email service is not configured.");
+    }
+
+    try {
+      const linkOriginal = await admin.auth().generateEmailVerificationLink(email.trim());
+      // Firebase uses a single global Action URL configured in the console (currently reset-password.html)
+      // So we must string-replace it back to verify-email.html for verification links.
+      let link = linkOriginal.replace("deine-domain.de", "www.familienwecker.de");
+      link = link.replace("reset-password.html", "verify-email.html");
+
+      // Dynamically switch to English HTML page if language is set to English
+      if (lang === "en") {
+        link = link.replace("verify-email.html", "verify-email-en.html");
+      }
+
+      const t = EMAIL_CONTENT_VERIFY[lang] || EMAIL_CONTENT_VERIFY.de;
+      const resend = new Resend(resendKey);
+      const { error } = await resend.emails.send({
+        from: SENDER[lang] || SENDER.de,
+        to: [email.trim()],
+        subject: t.subject,
+        html: buildVerifyEmailHtml(link, lang),
+      });
+
+      if (error) {
+        console.error("Resend Error:", error);
+        throw new HttpsError("internal", "Failed to send verification email via Resend.");
+      }
+
+      return { success: true };
+
+    } catch (err) {
+      if (err instanceof HttpsError) throw err;
+      console.error("Error in sendVerificationEmail:", err);
       throw new HttpsError("internal", err.message || "INTERNAL_ERROR");
     }
   }
