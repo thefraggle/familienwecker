@@ -2,7 +2,7 @@
 
 This guide explains how to get FamWake up and running locally. Since the app relies on Firebase, you need to configure your own backend project.
 
-*Current Version: v0.4.2*
+*Current Version: v0.4.3*
 
 ## 1. Create a Firebase Project
 1. Go to the [Firebase Console](https://console.firebase.google.com/).
@@ -24,6 +24,15 @@ This guide explains how to get FamWake up and running locally. Since the app rel
 2. Choose a server location (e.g., `eur3` for Europe).
 3. Start in "Test Mode" or directly with safety rules.
 4. **IMPORTANT**: Copy the content of the `firestore.rules` file from this repository into the "Rules" tab in the Firebase Console and click "Publish".
+
+## 4. Cloud Functions (Emails)
+The app uses Cloud Functions for branded emails via **Resend**.
+1. Install the Firebase CLI and log in.
+2. Navigate to the `functions/` directory and run `npm install`.
+3. Set the secret for the Resend API Key:
+   `firebase functions:secrets:set RESEND_API_KEY`
+4. Deploy the functions: `firebase deploy --only functions`
+
 
 ## 4. Build & Run
 1. Open the project in **Android Studio** (Koala or newer recommended).

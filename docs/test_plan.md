@@ -14,6 +14,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 3.  **Planungs-Logik (Kern):** Bad-Taktung, Frühstücksplanung, Pufferzeiten.
 4.  **Wecker-Funktion:** Sound, Fullscreen-Notification, Snooze.
 5.  **Edge Cases & Robustheit:** Offline-Status, Zeitzonen, Konfliktsituationen.
+6.  **Assets & Ressourcen:** Icon-Scaling, Splash-Screen Integrität.
 
 ---
 
@@ -70,6 +71,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-17 | **Neu-Anlage nach Löschung** | Nach Löschung einer Familie kann sofort eine neue angelegt werden ohne Hängen (Infinity Loading Test). |
 | EC-18 | **Daten-Resilienz (Dashboard)** | Wenn die Familie auf einem anderen Gerät gelöscht wurde, erscheint der Button „Familie verlassen". Klick führt zum Setup. |
 | EC-19 | **Multi-Device Claim Sync** | Wenn Profil auf Gerät A geclaimt wird, erkennt Gerät B (gleiche UID) dies automatisch ohne Refresh. |
+| EC-20 | **Resource-Health** | Icons und Splash-Screen werden auf verschiedenen Pixeldichten (xhdpi bis xxxhdpi) ohne Verzerrung korrekt dargestellt. |
 
 ### 3. Benutzer-Verhalten
 | ID | Testfall | Erwartetes Ergebnis |
