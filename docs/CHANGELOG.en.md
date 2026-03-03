@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.1] - 2026-03-03
+
+### Added
+- **Branded Password Reset Pages:** Custom HTML pages for password reset were created in the `/auth` directory of this project, utilizing the app branding (Outfit font, colors).
+- **Confirmation Email:** After a successful password reset, a branded confirmation email (DE/EN) is now sent via Cloud Function and Resend.
+
+### Changed & Improved
+- **Error Mapping for Password Reset:** Improved error mapping in the Cloud Function to ensure "Account not found" (`auth/user-not-found`) is reliably reported as `USER_NOT_FOUND` to the Android client.
+- **Documentation:** SETUP guides (DE/EN) and test plan updated to v0.4.1, including branding information.
+- **Version Bump:** App version increased to 0.4.1.
+
 ## [0.4.0] - 2026-03-02
+
 
 ### Added
 - **Branded Password Reset Email:** Password resets are now sent via a Firebase Cloud Function (Node.js 22, Gen2, `europe-west3`) and the **Resend** email provider. Sender is `no-reply@familienwecker.de` with a custom HTML template (button, security notice, footer).

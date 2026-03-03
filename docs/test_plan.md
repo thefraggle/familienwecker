@@ -25,6 +25,8 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-01 | Erst-Registrierung mit E-Mail | Account wird erstellt, Bestätigungs-E-Mail versendet. |
 | TC-02 | Familie gründen | Benutzer wird "Admin" einer neuen Familie, Einladungscode wird generiert. |
 | TC-03 | Familie beitreten | Benutzer tritt per Code einer bestehenden Familie bei. |
+| TC-20 | Passwort vergessen (Reset) | Branded E-Mail wird versendet, Link führt zur branded HTML-Seite, Passwortänderung funktioniert. |
+
 
 ### 2. Familien-Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |

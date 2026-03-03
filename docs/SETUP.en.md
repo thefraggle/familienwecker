@@ -2,6 +2,8 @@
 
 This guide explains how to get FamWake up and running locally. Since the app relies on Firebase, you need to configure your own backend project.
 
+*Current Version: v0.4.1*
+
 ## 1. Create a Firebase Project
 1. Go to the [Firebase Console](https://console.firebase.google.com/).
 2. Create a new project (e.g., "FamWake-Dev").
@@ -10,11 +12,12 @@ This guide explains how to get FamWake up and running locally. Since the app rel
    - Add your **SHA-1** and **SHA-256** fingerprints (required for Google Login).
 4. Download the `google-services.json` file and move it into the `app/` directory.
 
-## 2. Authentication (Google Login)
+## 2. Authentication & Branded Pages
 1. In the Firebase menu under **Authentication**, enable the **Google** provider.
 2. Copy the **Web Client ID** from the Google provider settings.
 3. Open `app/src/main/res/values/strings.xml` in Android Studio.
 4. Replace the value of `default_web_client_id` with your new Web Client ID.
+5. **Branding**: The source templates for the password reset pages are located in the `auth/` directory of this project. These must be hosted and reachable on a web server (e.g., Firebase Hosting). Configure the Firebase Action URL to the corresponding address (e.g., `https://your-project.web.app/auth/reset-password.html`).
 
 ## 3. Cloud Firestore
 1. Enable **Cloud Firestore** in the Firebase Console.
@@ -29,3 +32,4 @@ This guide explains how to get FamWake up and running locally. Since the app rel
 
 ---
 *Note: Without a correctly configured `google-services.json` and the matching `default_web_client_id`, the login will fail.*
+
