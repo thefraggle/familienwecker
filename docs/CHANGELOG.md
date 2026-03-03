@@ -7,7 +7,19 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.1] - 2026-03-03
+
+### Hinzugefügt
+- **Gebrandete Passwort-Reset-Seiten:** In diesem Projekt unter `/auth` wurden eigene HTML-Seiten für das Zurücksetzen des Passworts erstellt, die das App-Branding (Outfit-Font, Farben) nutzen.
+- **Bestätigungs-E-Mail:** Nach erfolgreichem Passwort-Reset wird nun eine gebrandete Bestätigungs-E-Mail (DE/EN) via Cloud Function und Resend versendet.
+
+### Behoben & Verbessert
+- **Fehler-Mapping bei Password-Reset:** Das Error-Mapping in der Cloud Function wurde verbessert, sodass „Account nicht vorhanden" (`auth/user-not-found`) nun zuverlässig als `USER_NOT_FOUND` an den Android-Client gemeldet wird.
+- **Dokumentation:** SETUP-Guides (DE/EN) und Testplan auf v0.4.1 aktualisiert und um Branding-Infos ergänzt.
+- **Version Bump:** App-Version auf 0.4.1 angehoben.
+
 ## [0.4.0] - 2026-03-02
+
 
 ### Hinzugefügt
 - **Gebrandete Passwort-Reset-Mail:** Die Passwortzurücksetzung läuft nun über eine Firebase Cloud Function (Node.js 22, Gen2, `europe-west3`) und den Mail-Provider **Resend**. Absender ist `no-reply@familienwecker.de` mit eigenem HTML-Template (Button, Sicherheitshinweis, Footer).
