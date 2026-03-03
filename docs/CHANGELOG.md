@@ -7,6 +7,12 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.4] - 2026-03-03
+
+### Hinzugefügt
+- **Automatisierte Unit-Tests:** Der Kern-Algorithmus (`Scheduler`) wird nun automatisch durch Unit-Tests auf Korrektheit und Konfliktlösung geprüft.
+
+
 ## [0.4.3] - 2026-03-03
 
 ### Bereinigt & Verbessert
