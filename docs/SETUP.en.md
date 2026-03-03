@@ -2,7 +2,7 @@
 
 This guide explains how to get FamWake up and running locally. Since the app relies on Firebase, you need to configure your own backend project.
 
-*Current Version: v0.4.3*
+*Current Version: v0.4.4*
 
 ## 1. Create a Firebase Project
 1. Go to the [Firebase Console](https://console.firebase.google.com/).
@@ -38,6 +38,11 @@ The app uses Cloud Functions for branded emails via **Resend**.
 1. Open the project in **Android Studio** (Koala or newer recommended).
 2. Let Gradle sync all dependencies.
 3. Run the app on an emulator or a real device with Google Play Services.
+
+## 5. Automated Tests
+To ensure the correctness of the scheduling logic, unit tests have been integrated.
+- **In Android Studio**: Right-click on the `app/src/test/java` folder -> "Run 'Tests in...'".
+- **Via Command Line**: Run `./gradlew test` in the root directory.
 
 ---
 *Note: Without a correctly configured `google-services.json` and the matching `default_web_client_id`, the login will fail.*
