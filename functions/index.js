@@ -4,6 +4,7 @@ const { Resend } = require("resend");
 
 admin.initializeApp();
 
+const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
 const BRAND_BLUE = "#1A3A5C";
 
 const SENDER = {
@@ -361,5 +362,30 @@ exports.cleanupUnverifiedUsers = onSchedule(
     }
 
     console.log(`Successfully deleted ${staleUsers.length} unverified users.`);
+
+    // Admin-Benachrichtigung senden
+    const resendKey = process.env.RESEND_API_KEY;
+    if (resendKey && staleUsers.length > 0) {
+      try {
+        const resend = new Resend(resendKey);
+        await resend.emails.send({
+          from: SENDER.de,
+          to: [NOTIFY_EMAIL],
+          subject: `🧹 User-Profile bereinigt: ${staleUsers.length} Accounts gelöscht`,
+          html: `
+            <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+              <h2 style="color: ${BRAND_BLUE};">🧹 User-Bereinigung abgeschlossen</h2>
+              <p>Der tägliche Cleanup-Job hat nicht verifizierte Benutzerkonten entfernt, die älter als 48 Stunden waren.</p>
+              <p><strong>Anzahl gelöschter Accounts:</strong> ${staleUsers.length}</p>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+              <p style="font-size: 11px; color: #999;">Projekt: Familienwecker App</p>
+            </div>
+          `,
+        });
+        console.log("Admin notification sent for user cleanup.");
+      } catch (err) {
+        console.error("Failed to send admin notification for user cleanup:", err);
+      }
+    }
   }
 );
