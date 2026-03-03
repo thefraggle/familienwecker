@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.4] - 2026-03-03
+
+### Added
+- **Automated Unit Tests:** The core algorithm (`Scheduler`) is now automatically tested for correctness and conflict resolution using unit tests.
+
+
 ## [0.4.3] - 2026-03-03
 
 ### Cleaned & Improved
