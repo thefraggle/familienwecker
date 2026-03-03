@@ -93,5 +93,5 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 
 ## 📈 Validierung & Reporting
 
-- **Automatisierung:** Die Kern-Logik (`Scheduler`) wird über JUnit-Tests mit den Szenarien aus TC-07 bis TC-09 und EC-01 abgedeckt.
+- **Automatisierung:** Die Kern-Logik (`Scheduler`) wird über JUnit-Tests (zu finden in `app/src/test`) mit den Szenarien aus TC-07 bis TC-09 und EC-01 abgedeckt.
 - **Manuelle Abnahme:** Vor jedem Release erfolgt ein "Live-Test" über eine Nacht in einer Test-Familie.
