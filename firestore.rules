@@ -7,6 +7,10 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function emailVerified() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+
     // Prüft, ob der Nutzer Teil dieser Familie ist (basierend auf seinem User-Profil)
     function isFamilyMember(familyId) {
       return signedIn() && 
@@ -14,9 +18,10 @@ service cloud.firestore {
          (get(/databases/$(database)/documents/families/$(familyId)).data.createdByUserId == request.auth.uid));
     }
 
-    // User-Profile: Nur der Eigentümer kann lesen/schreiben
+    // User-Profile: Nur der Eigentümer kann lesen, Schreiben nur mit verifizierter E-Mail
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null && request.auth.uid == userId && emailVerified();
     }
 
     // Familien
@@ -24,16 +29,17 @@ service cloud.firestore {
       // Lesen erlauben, um Familienname vor dem Beitreten zu sehen oder per Code zu suchen
       allow read: if signedIn();
       
-      // Jeder eingeloggte Nutzer kann eine Familie erstellen
-      allow create: if signedIn();
+      // Jeder eingeloggte Nutzer mit verifizierter E-Mail kann eine Familie erstellen
+      allow create: if signedIn() && emailVerified();
       
       // Bearbeiten/Löschen nur für Mitglieder der Familie
       allow update, delete: if isFamilyMember(familyId);
 
       // Mitglieder-Subcollection
       match /members/{memberId} {
-        // Jeder in der Familie kann die Mitglieder sehen und anlegen/bearbeiten
-        allow read, create, update: if isFamilyMember(familyId);
+        // Jeder in der Familie kann die Mitglieder sehen; Erstellen/Bearbeiten nur mit verifizierter E-Mail
+        allow read: if isFamilyMember(familyId);
+        allow create, update: if isFamilyMember(familyId) && emailVerified();
         
         // Spezifische Lösch-Logik:
         // Ein Mitglied darf NUR gelöscht werden, wenn:

@@ -1,11 +1,22 @@
 # Changelog
 
-Alle nennenswerten Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
+Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/),
 und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
+
+## [0.4.2] - 2026-03-03
+
+### Hinzugefügt
+- **Bestätigungs-E-Mail nach Passwortänderung:** Nach dem erfolgreichen Speichern eines neuen Passworts über die Reset-Seite wird nun automatisch eine gebrandete Bestätigungs-E-Mail (DE/EN) versendet.
+
+### Behoben & Verbessert
+- **E-Mail-Verifizierung (Login-Bypass):** Ein Fehler wurde behoben, durch den Nutzer nach einem App-Restart oder explizitem Login den Verifizierungs-Screen umgehen konnten. Die App prüft nun strikt den `isEmailVerified` Status (`AuthViewModel`).
+- **Resend-Zuverlässigkeit & Fallback:** Cloud Function Fehler beim E-Mail-Versand werden nun clientseitig abgefangen und lösen einen automatischen Fallback auf das native Firebase-System (`sendEmailVerification`) aus, um sicherzustellen, dass die Mail immer ankommt.
+- **Link-Routing-Fix:** Die Verifizierungs-Links in den E-Mails führen nun zuverlässig zur korrekten Bestätigungsseite (`verify-email.html`) statt zur Passwort-Reset-Seite, indem die globale Action-URL in der Cloud Function dynamisch angepasst wird.
+
 
 ## [0.4.1] - 2026-03-03
 

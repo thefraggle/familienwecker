@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.2] - 2026-03-03
+
+### Added
+- **Password Change Confirmation Email:** After successfully saving a new password on the reset page, a branded confirmation email (DE/EN) is now automatically sent.
+
+### Fixed & Improved
+- **Email Verification (Login Bypass):** Fixed a bug where users could bypass the verification screen after an app restart or explicit login. The app now strictly checks the `isEmailVerified` status in `AuthViewModel`.
+- **Resend Reliability & Fallback:** Cloud Function errors during email dispatch are now caught client-side, triggering an automatic fallback to the native Firebase system (`sendEmailVerification`) to ensure the email is always delivered.
+- **Routing Fix:** Verification links in emails now reliably point to the correct confirmation page (`verify-email.html`) instead of the password reset page by dynamically rewriting the global action URL in the Cloud Function.
+
+
 ## [0.4.1] - 2026-03-03
 
 ### Added
