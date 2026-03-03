@@ -311,3 +311,55 @@ exports.sendVerificationEmail = onCall(
     }
   }
 );
+
+// ─── Scheduled Function: Bereinigung unbestätigter User ──────────────────────
+const { onSchedule } = require("firebase-functions/v2/scheduler");
+
+exports.cleanupUnverifiedUsers = onSchedule(
+  {
+    schedule: "every day 04:00",
+    region: "europe-west3",
+    timeZone: "Europe/Berlin",
+  },
+  async (event) => {
+    const fortyEightHoursAgoMs = Date.now() - 48 * 60 * 60 * 1000;
+    const staleUsers = [];
+
+    console.log(`Running unverified users cleanup. Deleting users created before ${new Date(fortyEightHoursAgoMs).toISOString()}`);
+
+    async function listAllUnverifiedUsers(nextPageToken) {
+      const result = await admin.auth().listUsers(1000, nextPageToken);
+      result.users.forEach((user) => {
+        const createdAtMs = Date.parse(user.metadata.creationTime);
+        if (!user.emailVerified && createdAtMs < fortyEightHoursAgoMs) {
+          // Check if user has any other providers (e.g. Google) - if Google, email is usually verified automatically
+          // but we check anyway to be safe. Password-only users are the main target.
+          const isPasswordUser = user.providerData.some(p => p.providerId === 'password');
+          if (isPasswordUser) {
+            staleUsers.push(user.uid);
+          }
+        }
+      });
+      if (result.pageToken) {
+        await listAllUnverifiedUsers(result.pageToken);
+      }
+    }
+
+    await listAllUnverifiedUsers();
+
+    if (staleUsers.length === 0) {
+      console.log("No expired unverified users found.");
+      return;
+    }
+
+    console.log(`Found ${staleUsers.length} users to delete. Starting batch deletion...`);
+
+    // Delete in chunks of 1000 (limit of deleteUsers)
+    for (let i = 0; i < staleUsers.length; i += 1000) {
+      const chunk = staleUsers.slice(i, i + 1000);
+      await admin.auth().deleteUsers(chunk);
+    }
+
+    console.log(`Successfully deleted ${staleUsers.length} unverified users.`);
+  }
+);
