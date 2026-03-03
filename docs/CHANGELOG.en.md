@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.3] - 2026-03-03
+
+### Cleaned & Improved
+- **Icon Cleanup & Optimization:** 
+    - Removed unused assets (`ic_splash_logo.png`, `splash_screen_full.jpg`) and the unused `SplashScreen.kt` to reduce app size.
+    - Unified adaptive icon references (`mipmap-anydpi`) to use density-specific mipmaps instead of a single image in `drawable/`, preventing scaling issues on high-density displays.
+    - Updated the app icon in `drawable/` to the current design.
+    - Ensured support for Monochrome (Themed) Icons starting with Android 13.
+
+
 ## [0.4.2] - 2026-03-03
 
 ### Added
