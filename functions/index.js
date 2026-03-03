@@ -14,52 +14,53 @@ const SENDER = {
 
 const EMAIL_CONTENT = {
   de: {
-    subject: "Passwort zurücksetzen - FamWake",
+    subject: "🔑 Passwort zurücksetzen – FamWake",
     appName: "FamWake - Familienwecker",
     greeting: "Hallo!",
-    intro: "Du hast eine Anfrage zum Zurücksetzen deines Passworts für <strong>FamWake</strong> gestellt.",
+    intro: "Wir haben eine Anfrage erhalten, das Passwort für dein <strong>FamWake</strong>-Konto zurückzusetzen.",
     instruction: "Klicke auf den folgenden Button, um ein neues Passwort zu vergeben:",
     button: "Passwort zurücksetzen",
-    fallback: "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
-    security: "⚠️ Falls du diese Anfrage <strong>nicht</strong> gestellt hast, kannst du diese E-Mail ignorieren. Dein Passwort bleibt unverändert.",
-    footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt darauf.",
+    fallback: "Falls der Button nicht funktioniert, kopiere bitte diesen Link in deinen Browser:",
+    security: "⚠️ Falls du diese Anfrage <strong>nicht</strong> gestellt hast, kannst du diese E-Mail einfach ignorieren. Dein Passwort bleibt unverändert. Solltest du verdächtige Aktivitäten bemerken, wende dich bitte an: daniel.notthoff@gmail.com",
+    footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt auf diese E-Mail.",
   },
   en: {
-    subject: "Reset your password - FamWake",
+    subject: "🔑 Reset your password – FamWake",
     appName: "FamWake - Family Alarm",
     greeting: "Hello!",
-    intro: "You requested a password reset for your <strong>FamWake</strong> account.",
+    intro: "We received a request to reset the password for your <strong>FamWake</strong> account.",
     instruction: "Click the button below to set a new password:",
     button: "Reset Password",
-    fallback: "If the button doesn't work, paste this link into your browser:",
-    security: "⚠️ If you did <strong>not</strong> request this, you can safely ignore this email. Your password will remain unchanged.",
-    footer: "This is an automated message. Please do not reply directly.",
+    fallback: "If the button doesn't work, please paste this link into your browser:",
+    security: "⚠️ If you did <strong>not</strong> request this, you can safely ignore this email. Your password will remain unchanged. If you notice any suspicious activity, please contact us at: daniel.notthoff@gmail.com",
+    footer: "This is an automated message. Please do not reply directly to this email.",
   },
 };
 
 const EMAIL_CONTENT_CONFIRM = {
   de: {
-    subject: "Passwort erfolgreich geändert - FamWake",
+    subject: "✅ Passwort erfolgreich geändert – FamWake",
     appName: "FamWake - Familienwecker",
     greeting: "Hallo!",
-    intro: "Dein Passwort für <strong>FamWake</strong> wurde erfolgreich geändert.",
-    instruction: "Du kannst dich jetzt mit deinem neuen Passwort in der App anmelden.",
-    security: "⚠️ Falls du dein Passwort <strong>nicht</strong> geändert hast, kontaktiere uns bitte umgehend: daniel.notthoff@gmail.com",
-    footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt darauf.",
+    intro: "Dein Passwort für dein <strong>FamWake</strong>-Konto wurde erfolgreich geändert.",
+    instruction: "Du kannst dich ab sofort mit deinem neuen Passwort in der App anmelden.",
+    security: "⚠️ Falls du dein Passwort <strong>nicht</strong> geändert hast, wende dich bitte umgehend an uns: daniel.notthoff@gmail.com",
+    footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt auf diese E-Mail.",
   },
   en: {
-    subject: "Password successfully changed - FamWake",
+    subject: "✅ Password successfully changed – FamWake",
     appName: "FamWake - Family Alarm",
     greeting: "Hello!",
-    intro: "Your password for <strong>FamWake</strong> has been successfully changed.",
+    intro: "The password for your <strong>FamWake</strong> account has been successfully changed.",
     instruction: "You can now log in to the app with your new password.",
     security: "⚠️ If you did <strong>not</strong> change your password, please contact us immediately: daniel.notthoff@gmail.com",
-    footer: "This is an automated message. Please do not reply directly.",
+    footer: "This is an automated message. Please do not reply directly to this email.",
   },
 };
 
 function buildEmailHtml(link, lang) {
   const t = EMAIL_CONTENT[lang] || EMAIL_CONTENT.de;
+  const isDE = lang !== "en";
   return `
     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
       <h2 style="color: ${BRAND_BLUE};">${t.greeting}</h2>
@@ -72,9 +73,14 @@ function buildEmailHtml(link, lang) {
       <p style="font-size: 12px; color: #888; word-break: break-all;">${link}</p>
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 12px; color: #888; background-color: #f9f9f9; padding: 12px; border-radius: 6px;">${t.security}</p>
+      <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 11px; color: #999; text-align: center;">
-        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${t.appName}</a><br>
-        <a href="https://www.familienwecker.de" style="color: #999;">www.familienwecker.de</a><br><br>
+        <strong>${t.appName}</strong><br>
+        Daniel Notthoff<br>
+        Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
+        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${isDE ? "Startseite" : "Website"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/datenschutz.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/impressum.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
         ${t.footer}
       </p>
     </div>
@@ -149,6 +155,7 @@ exports.sendBrandedResetEmail = onCall(
 
 function buildConfirmEmailHtml(lang) {
   const t = EMAIL_CONTENT_CONFIRM[lang] || EMAIL_CONTENT_CONFIRM.de;
+  const isDE = lang !== "en";
   return `
     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
       <h2 style="color: ${BRAND_BLUE};">${t.greeting}</h2>
@@ -156,9 +163,14 @@ function buildConfirmEmailHtml(lang) {
       <p>${t.instruction}</p>
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 12px; color: #888; background-color: #f9f9f9; padding: 12px; border-radius: 6px;">${t.security}</p>
+      <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 11px; color: #999; text-align: center;">
-        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${t.appName}</a><br>
-        <a href="https://www.familienwecker.de" style="color: #999;">www.familienwecker.de</a><br><br>
+        <strong>${t.appName}</strong><br>
+        Daniel Notthoff<br>
+        Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
+        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${isDE ? "Startseite" : "Website"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/datenschutz.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/impressum.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
         ${t.footer}
       </p>
     </div>
@@ -211,31 +223,34 @@ exports.sendBrandedConfirmationEmail = onCall(
 
 const EMAIL_CONTENT_VERIFY = {
   de: {
-    subject: "E-Mail bestätigen – FamWake",
+    subject: "🚀 Bestätige dein FamWake-Konto",
     appName: "FamWake - Familienwecker",
-    greeting: "Willkommen bei FamWake! 🎉",
-    intro: "Danke für deine Registrierung bei <strong>FamWake</strong>. Bitte bestätige deine E-Mail-Adresse, um deinen Account zu aktivieren.",
-    instruction: "Klicke auf den folgenden Button, um deine E-Mail-Adresse zu bestätigen:",
-    button: "E-Mail bestätigen",
-    fallback: "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
-    security: "⚠️ Falls du diesen Account <strong>nicht</strong> angelegt hast, kannst du diese E-Mail einfach ignorieren.",
-    footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt darauf.",
+    greeting: "Willkommen bei FamWake!",
+    intro: "Vielen Dank für deine Registrierung bei <strong>FamWake</strong>. Wir freuen uns darauf, dir und deiner Familie zu einem entspannten Morgen ohne Chaos zu verhelfen!",
+    instruction: "Bitte bestätige deine E-Mail-Adresse, um dein Konto zu aktivieren:",
+    button: "E-Mail-Adresse bestätigen",
+    fallback: "Falls der Button nicht funktioniert, kopiere bitte diesen Link in deinen Browser:",
+    privacy: "<strong>Hinweis:</strong> Aus Datenschutzgründen werden dieser Link und deine unbestätigten Registrierungsdaten automatisch nach 48 Stunden gelöscht, falls keine Aktivierung erfolgt.",
+    security: "Falls du dieses Konto nicht erstellt hast, kannst du diese E-Mail einfach ignorieren. Es werden keine Daten dauerhaft von dir gespeichert.",
+    footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt auf diese E-Mail.",
   },
   en: {
-    subject: "Confirm your email – FamWake",
+    subject: "🚀 Confirm your FamWake account",
     appName: "FamWake - Family Alarm",
-    greeting: "Welcome to FamWake! 🎉",
-    intro: "Thank you for registering with <strong>FamWake</strong>. Please confirm your email address to activate your account.",
-    instruction: "Click the button below to confirm your email address:",
-    button: "Confirm email",
-    fallback: "If the button doesn't work, paste this link into your browser:",
-    security: "⚠️ If you did <strong>not</strong> create this account, you can safely ignore this email.",
-    footer: "This is an automated message. Please do not reply directly.",
+    greeting: "Welcome to FamWake!",
+    intro: "Thank you for registering with <strong>FamWake</strong>. We look forward to helping you and your family start the day stress-free!",
+    instruction: "Please confirm your email address to activate your account:",
+    button: "Confirm email address",
+    fallback: "If the button doesn't work, please paste this link into your browser:",
+    privacy: "<strong>Note:</strong> For privacy reasons, this link and your unconfirmed registration data will be automatically deleted after 48 hours if no activation occurs.",
+    security: "If you did not create this account, you can safely ignore this email. No data will be permanently stored.",
+    footer: "This is an automated message. Please do not reply directly to this email.",
   },
 };
 
 function buildVerifyEmailHtml(link, lang) {
   const t = EMAIL_CONTENT_VERIFY[lang] || EMAIL_CONTENT_VERIFY.de;
+  const isDE = lang !== "en";
   return `
     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
       <h2 style="color: ${BRAND_BLUE};">${t.greeting}</h2>
@@ -247,10 +262,16 @@ function buildVerifyEmailHtml(link, lang) {
       <p style="font-size: 12px; color: #666;">${t.fallback}</p>
       <p style="font-size: 12px; color: #888; word-break: break-all;">${link}</p>
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-      <p style="font-size: 12px; color: #888; background-color: #f9f9f9; padding: 12px; border-radius: 6px;">${t.security}</p>
+      <p style="font-size: 12px; color: #888; background-color: #f9f9f9; padding: 12px; border-radius: 6px;">${t.privacy}</p>
+      <p style="font-size: 12px; color: #888;">${t.security}</p>
+      <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 11px; color: #999; text-align: center;">
-        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${t.appName}</a><br>
-        <a href="https://www.familienwecker.de" style="color: #999;">www.familienwecker.de</a><br><br>
+        <strong>${t.appName}</strong><br>
+        Daniel Notthoff<br>
+        Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
+        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${isDE ? "Startseite" : "Website"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/datenschutz.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/impressum.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
         ${t.footer}
       </p>
     </div>
