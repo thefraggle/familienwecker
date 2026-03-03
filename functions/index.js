@@ -79,8 +79,8 @@ function buildEmailHtml(link, lang) {
         Daniel Notthoff<br>
         Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
         <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${isDE ? "Startseite" : "Website"}</a> &nbsp;|&nbsp;
-        <a href="https://www.familienwecker.de/datenschutz.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
-        <a href="https://www.familienwecker.de/impressum.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
+        <a href="https://www.familienwecker.de/privacy-policy.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/imprint.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
         ${t.footer}
       </p>
     </div>
@@ -169,8 +169,8 @@ function buildConfirmEmailHtml(lang) {
         Daniel Notthoff<br>
         Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
         <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${isDE ? "Startseite" : "Website"}</a> &nbsp;|&nbsp;
-        <a href="https://www.familienwecker.de/datenschutz.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
-        <a href="https://www.familienwecker.de/impressum.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
+        <a href="https://www.familienwecker.de/privacy-policy.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/imprint.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
         ${t.footer}
       </p>
     </div>
@@ -270,8 +270,8 @@ function buildVerifyEmailHtml(link, lang) {
         Daniel Notthoff<br>
         Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
         <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${isDE ? "Startseite" : "Website"}</a> &nbsp;|&nbsp;
-        <a href="https://www.familienwecker.de/datenschutz.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
-        <a href="https://www.familienwecker.de/impressum.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
+        <a href="https://www.familienwecker.de/privacy-policy.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
+        <a href="https://www.familienwecker.de/imprint.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
         ${t.footer}
       </p>
     </div>
