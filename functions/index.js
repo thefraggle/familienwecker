@@ -81,7 +81,7 @@ function buildEmailHtml(link, lang) {
         <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${isDE ? "Startseite" : "Website"}</a> &nbsp;|&nbsp;
         <a href="https://www.familienwecker.de/privacy-policy.html" style="color: #999; text-decoration: none;">${isDE ? "Datenschutzerklärung" : "Privacy Policy"}</a> &nbsp;|&nbsp;
         <a href="https://www.familienwecker.de/imprint.html" style="color: #999; text-decoration: none;">${isDE ? "Impressum" : "Legal Notice"}</a><br><br>
-        ${t.footer}
+        ${t.footerNote}
       </p>
     </div>
   `;
