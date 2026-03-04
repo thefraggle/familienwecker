@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.9] - 2026-03-04
+
+### Fixed
+- **Missing Permissions on Fresh Install:** Fixed an issue where a fresh installation (from a backup restore) could briefly trigger a `PERMISSION_DENIED` error due to an outdated authentication state. The profile now loads the alarm schedule smoothly immediately after a renewed login or app start.
+
+
 ## [0.4.8] - 2026-03-04
 
 ### Added

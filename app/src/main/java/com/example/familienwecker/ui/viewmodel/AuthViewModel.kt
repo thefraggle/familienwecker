@@ -61,6 +61,14 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 if (triple != null) {
                         val familyExistsResult = kotlin.runCatching { dbRepository.checkFamilyExists(triple.first) }
                         if (familyExistsResult.getOrNull() == true) {
+                            // Bugfix: Nach einer Neu-Installation via Backup-Restore kann es sein,
+                            // dass preferencesRepository.familyId.value bereits "triple.first" ist,
+                            // der SnapshotListener aber aufgrund fehlender Authentifizierung vorab
+                            // mit PERMISSION_DENIED gecrasht ist.
+                            // Um den Flow in FamilyViewModel zwingend neu zu starten, erzwingen wir ein Emit.
+                            if (prefsRepository.familyId.value == triple.first) {
+                                prefsRepository.setFamilyId("") // Temporärer Dummy-Wert
+                            }
                             prefsRepository.setFamilyId(triple.first)
                             prefsRepository.setJoinCode(triple.second)
                             prefsRepository.setAlarmEnabled(triple.third)
