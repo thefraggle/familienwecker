@@ -7,6 +7,12 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.11] - 2026-03-04
+
+### Behoben
+- **Coroutine Cancellation Popup:** Ein visueller Fehler wurde behoben. Wenn der Datenstrom beim App-Start (nach einer Backup-Wiederherstellung) sauber neu gestartet wird, löste der Abbruch der alten Coroutine fälschlicherweise eine rote Fehlermeldung ("StandaloneCoroutine was cancelled") im UI aus. Diese erwartete System-Exception wird nun korrekt ignoriert.
+
+
 ## [0.4.10] - 2026-03-04
 
 ### Behoben
