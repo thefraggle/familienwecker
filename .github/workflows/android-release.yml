@@ -41,7 +41,7 @@ jobs:
 
       # Signiert das APK mit deinen GitHub Secrets
       - name: Sign APK
-        uses: r0adkll/sign-android-release@v1
+        uses: kevin-david/zipalign-sign-android-release@v2.0.1
         id: sign_apk
         with:
           releaseDirectory: app/build/outputs/apk/release
@@ -49,11 +49,10 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-          buildToolsVersion: "34.0.0"
 
       # Signiert das AAB Bundle
       - name: Sign AAB
-        uses: r0adkll/sign-android-release@v1
+        uses: kevin-david/zipalign-sign-android-release@v2.0.1
         id: sign_aab
         with:
           releaseDirectory: app/build/outputs/bundle/release
@@ -61,7 +60,6 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-          buildToolsVersion: "34.0.0"
 
       # Benennt die signierten Dateien um
       - name: Rename Files
