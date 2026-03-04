@@ -99,4 +99,3 @@ jobs:
             FamWake-${{ github.ref_name }}-release.aab
           name: Release ${{ github.ref_name }}
           prerelease: true
-          generate_release_notes: true
