@@ -13,13 +13,13 @@ import androidx.compose.ui.graphics.Color
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── Night Blue ───────────────────────────────────────────────────────────────
-val NightBlue950    = Color(0xFF0F1923) // tiefster Hintergrund Night
-val NightBlue900    = Color(0xFF1A2532) // dunkler Hintergrund
-val NightBlue800    = Color(0xFF2C3E50) // Primärfarbe (Brand-Dunkel)
-val NightBlue700    = Color(0xFF3D5166) // Surface-Variante Dark
+val NightBlue950    = Color(0xFF080C11) // tiefster Hintergrund Night (quasi Schwarz)
+val NightBlue900    = Color(0xFF0F151C) // sehr dunkler Hintergrund
+val NightBlue800    = Color(0xFF161F2A) // Primärfarbe (Brand-Dunkel) für Cards
+val NightBlue700    = Color(0xFF1D2938) // Surface-Variante Dark (Pausiert)
 val NightBlue600    = Color(0xFF4E657C) // Outline Dark
 val NightBlue300    = Color(0xFF8DAFC8) // Primärfarbe Light im Dark-Mode
-val NightBlue150    = Color(0xFFCCDEED) // heller Container-Text im Light-Mode
+val NightBlue150    = Color(0xFFE3EDF7) // heller Container-Text im Light-Mode für besseren Kontrast auf Schwarz
 val NightBlue080    = Color(0xFFE8F0F8) // sehr helle Card in Light-Mode
 val NightBlue050    = Color(0xFFF3F7FB) // Page-Background Light
 
@@ -51,8 +51,8 @@ val ErrorRedContDark = Color(0xFF93000A) // Dark errorContainer
 // ─────────────────────────────────────────────────────────────────────────────
 val md_theme_light_primary             = NightBlue800        // #2C3E50 – 8.5:1 auf Weiß ✓
 val md_theme_light_onPrimary           = Color(0xFFFFFFFF)
-val md_theme_light_primaryContainer    = NightBlue080        // #E8F0F8 – helle, klar abgesetzte Cards
-val md_theme_light_onPrimaryContainer  = NightBlue900        // #1A2532 – 10:1 auf Container ✓
+val md_theme_light_primaryContainer    = Color(0xFFFFFFFF)   // Weisse Cards für maximalen Kontrast
+val md_theme_light_onPrimaryContainer  = NightBlue950        // #0F1923 – fast Schwarz für beste Lesbarkeit
 
 val md_theme_light_secondary           = Mint600             // #2E7D52 – 4.7:1 auf Weiß ✓
 val md_theme_light_onSecondary         = Color(0xFFFFFFFF)
@@ -65,16 +65,16 @@ val md_theme_light_tertiaryContainer   = SunriseOrange100    // #FFE8D2
 val md_theme_light_onTertiaryContainer = SunriseOrange900    // #3D1A00 ✓
 
 val md_theme_light_error               = ErrorRed700
-val md_theme_light_errorContainer      = ErrorRedCont        // #FFDAD6 – klar als Fehler erkennbar
+val md_theme_light_errorContainer      = Color(0xFFFFE8E6)   // Entschärfter, weicher roter Hintergrund
 val md_theme_light_onError             = Color(0xFFFFFFFF)
-val md_theme_light_onErrorContainer    = Color(0xFF410002)
+val md_theme_light_onErrorContainer    = NightBlue950        // Dunkelblau/Schwarz für bessere Lesbarkeit
 
-val md_theme_light_background          = NightBlue050        // #F3F7FB – hochwertiger als reines Weiß
-val md_theme_light_onBackground        = NightBlue900
-val md_theme_light_surface             = NightBlue050
-val md_theme_light_onSurface           = NightBlue900
-val md_theme_light_surfaceVariant      = NightBlue150        // #CCDEEC – dezenter Kontrast
-val md_theme_light_onSurfaceVariant    = NightBlue700
+val md_theme_light_background          = Color(0xFFF0F4F8)   // Leicht bläulich-grauer Hintergrund
+val md_theme_light_onBackground        = NightBlue950        // Fast Schwarz für beste Lesbarkeit
+val md_theme_light_surface             = Color(0xFFFFFFFF)   // Weisse Cards/Boxen
+val md_theme_light_onSurface           = NightBlue950        // Fast Schwarz
+val md_theme_light_surfaceVariant      = NightBlue080        // Dezenter Kontrast
+val md_theme_light_onSurfaceVariant    = NightBlue950        // Fast Schwarz
 val md_theme_light_outline             = NightBlue600
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -84,7 +84,7 @@ val md_theme_light_outline             = NightBlue600
 // Primary (interaktiv): NightBlue300 – helles Blau, Brand-nah, 5.5:1 ✓
 // Akzent: SunriseOrange300 – wärmer, gut auf dunklem Grund (4.5:1+)
 // ─────────────────────────────────────────────────────────────────────────────
-val md_theme_dark_primary              = NightBlue300        // #8DAFC8 – 5.5:1 auf #0F1923 ✓
+val md_theme_dark_primary              = NightBlue150        // #E3EDF7 – Helleres Eisweiß für lesbare Buttons und Primär-Aktionen
 val md_theme_dark_onPrimary            = NightBlue950        // sehr dunkel für Button-Text
 val md_theme_dark_primaryContainer     = NightBlue800        // #2C3E50 – Card-BG im Dark ✓
 val md_theme_dark_onPrimaryContainer   = NightBlue150        // #CCDEEC – 8:1 auf Container ✓
@@ -108,6 +108,6 @@ val md_theme_dark_background           = NightBlue950        // #0F1923 – tief
 val md_theme_dark_onBackground         = Color(0xFFE8EDF2)
 val md_theme_dark_surface              = NightBlue950
 val md_theme_dark_onSurface            = Color(0xFFE8EDF2)
-val md_theme_dark_surfaceVariant       = NightBlue800        // #2C3E50 – für Card-ähnliche Elemente
-val md_theme_dark_onSurfaceVariant     = NightBlue300        // #8DAFC8 – lesbar auf dunklen Cards
+val md_theme_dark_surfaceVariant       = NightBlue800        // #161F2A – für Card-ähnliche Elemente
+val md_theme_dark_onSurfaceVariant     = NightBlue150        // Helleres Blau-Weiß für Fließtexte und Sub-Infos
 val md_theme_dark_outline              = NightBlue600        // #4E657C

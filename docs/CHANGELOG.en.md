@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.6] - 2026-03-04
+
+### UI & UX Overhaul (Dark Mode 2.0)
+- **Extreme Dark Mode:** Switched the dark theme to near-black backgrounds and deep-dark cards for an ultra-modern look and better battery life (OLED).
+- **Contrast Optimization:** All text and icon colors refined for the new dark design to ensure maximum readability at night.
+- **Dynamic App Branding:** The TopAppBar now displays a branded logo app-wide: **FamWake** (ExtraBold) + localized suffix (normal), e.g., "Family Alarm".
+- **Light Theme Polishing:** Transparent (seamless) headers in the light design. Fixed "muddy" shadow artifacts on tiles by avoiding alpha transparency in Light Mode.
+- **Font Strategy:** Switched to a more precise integration of the "Nunito" font with 7 individual weights, now correctly utilized throughout the project (Compose Typography).
+- **Layout Refinement:** Reduced internal card padding from 16.dp to 12.dp for a more compact and professional appearance.
+
+### Fixed
+- **Compilation Errors:** Resolved syntax errors and missing imports in member management and login screens.
+- **Shadow Artifacts:** Fixed a rendering issue with error cards and paused members in the light design.
+
 ## [0.4.5] - 2026-03-04
 
 ### UI & UX Modernization

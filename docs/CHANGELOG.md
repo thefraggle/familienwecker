@@ -7,6 +7,20 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.6] - 2026-03-04
+
+### UI & UX Überarbeitung (Dark Mode 2.0)
+- **Extreme Dark Mode:** Das dunkle Thema wurde auf fast schwarze Hintergründe und tiefdunkle Karten umgestellt für einen extrem modernen Look und bessere Akkulaufzeit (OLED).
+- **Kontrast-Optimierung:** Alle Text- und Icon-Farben wurden für das neue dunkle Design geschärft, um maximale Lesbarkeit bei Nacht zu garantieren.
+- **Dynamic App Branding:** Die TopAppBar zeigt nun app-weit ein gebrandetes Logo: **FamWake** (ExtraBold) + lokaler Zusatz (normal), z.B. „Familienwecker“.
+- **Light Theme Polishing:** Transparente (nahtlose) Header im hellen Design. Fix für „matschige“ Schatten-Artefakte an Kacheln durch Verzicht auf Alpha-Transparenz im Light Mode.
+- **Font-Strategie:** Wechsel auf eine präzisere Font-Einbindung von "Nunito" mit 7 individuellen Gewichtungen, die nun korrekt über das gesamte Projekt hinweg (Compose Typography) genutzt werden.
+- **Layout-Verfeinerung:** Reduzierung der inneren Karten-Abstände von 16.dp auf 12.dp für ein kompakteres, professionelleres Erscheinungsbild.
+
+### Behoben
+- **Kompilierungsfehler:** Behebung von Syntaxfehlern und fehlenden Imports in den Screens für Mitgliederverwaltung und Login.
+- **Shadow Artefakte:** Behebung eines Darstellungsfehlers bei Fehlerkarten und pausierten Mitgliedern im hellen Design.
+
 ## [0.4.5] - 2026-03-04
 
 ### UI & UX Modernisierung

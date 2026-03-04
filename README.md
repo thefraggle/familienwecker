@@ -16,11 +16,11 @@ Der **FamWake Familienwecker** ist die intelligente Lösung für entspannte Morg
 Hier ist ein kleiner Vorgeschmack auf unseren aktuellen Arbeitsstand:
 
 <p align="center">
-  <img src="docs/images/screenshot_main.jpg" width="30%" alt="Hauptansicht (Dashboard)">
+  <img src="docs/images/screenshot_main.png" width="30%" alt="Hauptansicht (Dashboard)">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/screenshot_settings.jpg" width="30%" alt="Einstellungen">
+  <img src="docs/images/screenshot_settings.png" width="30%" alt="Einstellungen">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/screenshot_setup.jpg" width="30%" alt="Familie gründen">
+  <img src="docs/images/screenshot_setup.png" width="30%" alt="Familie gründen">
 </p>
 
 ## ✨ Die Highlights

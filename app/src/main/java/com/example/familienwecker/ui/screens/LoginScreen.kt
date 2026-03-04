@@ -15,8 +15,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
@@ -75,10 +79,21 @@ fun LoginScreen(
         topBar = {
             @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(
-                title = { Text(stringResource(R.string.login_title)) },
+                title = {
+                    Text(
+                        buildAnnotatedString {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.ExtraBold)) {
+                                append("FamWake")
+                            }
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Normal)) {
+                                append(" " + stringResource(R.string.app_name_short))
+                            }
+                        }
+                    )
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
+                    titleContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
                 )
             )
         }
@@ -96,11 +111,11 @@ fun LoginScreen(
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                         else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                                         else MaterialTheme.colorScheme.surface
                     )
                 ) {
                     Column(
