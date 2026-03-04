@@ -60,7 +60,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 familyId.collect { currentFamilyId ->
                     membersJob?.cancel()
                     alarmEnabledJob?.cancel()
-                    if (currentFamilyId != null) {
+                    if (!currentFamilyId.isNullOrBlank()) {
                         // Startup Sync: Force refresh from Firebase once to ensure consistency
                         // We do this BEFORE starting the member flow to ensure user/family doc link is there
                         refreshData()
