@@ -22,6 +22,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.example.familienwecker.ui.viewmodel.FamilyViewModel
+import com.example.familienwecker.ui.components.bounceClick
 
 @Composable
 fun FamilySetupScreen(
@@ -126,12 +127,6 @@ fun FamilySetupScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         
                         val createInteractionSource = remember { MutableInteractionSource() }
-                        val isCreatePressed by createInteractionSource.collectIsPressedAsState()
-                        val createScale by animateFloatAsState(
-                            targetValue = if (isCreatePressed) 0.95f else 1f,
-                            animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
-                            label = "createScale"
-                        )
 
                         Button(
                             onClick = {
@@ -144,10 +139,7 @@ fun FamilySetupScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(56.dp)
-                                .graphicsLayer {
-                                    scaleX = createScale
-                                    scaleY = createScale
-                                },
+                                .bounceClick(createInteractionSource),
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                             interactionSource = createInteractionSource,
                             enabled = familyName.isNotBlank() && !isLoading
@@ -167,12 +159,6 @@ fun FamilySetupScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         
                         val joinInteractionSource = remember { MutableInteractionSource() }
-                        val isJoinPressed by joinInteractionSource.collectIsPressedAsState()
-                        val joinScale by animateFloatAsState(
-                            targetValue = if (isJoinPressed) 0.95f else 1f,
-                            animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
-                            label = "joinScale"
-                        )
 
                         Button(
                             onClick = {
@@ -185,10 +171,7 @@ fun FamilySetupScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(56.dp)
-                                .graphicsLayer {
-                                    scaleX = joinScale
-                                    scaleY = joinScale
-                                },
+                                .bounceClick(joinInteractionSource),
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                             interactionSource = joinInteractionSource,
                             enabled = joinCode.length >= 5 && !isLoading
@@ -218,9 +201,11 @@ fun FamilySetupScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
                 
+                val logoutInteractionSource = remember { MutableInteractionSource() }
                 TextButton(
                     onClick = onLogout,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
+                    interactionSource = logoutInteractionSource,
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
                 ) {
                     Text(stringResource(R.string.settings_logout))

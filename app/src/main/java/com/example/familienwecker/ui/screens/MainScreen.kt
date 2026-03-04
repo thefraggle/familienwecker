@@ -43,6 +43,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.example.familienwecker.R
 import kotlinx.coroutines.launch
+import com.example.familienwecker.ui.components.bounceClick
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 
@@ -138,7 +139,12 @@ fun MainScreen(
                         )
                     },
                     actions = {
-                        IconButton(onClick = onNavigateToSettings) {
+                        val settingsInteractionSource = remember { MutableInteractionSource() }
+                        IconButton(
+                            onClick = onNavigateToSettings,
+                            modifier = Modifier.bounceClick(settingsInteractionSource),
+                            interactionSource = settingsInteractionSource
+                        ) {
                             Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.main_settings_desc))
                         }
                     },
@@ -273,22 +279,13 @@ fun MainScreen(
                         if (myMember != null) {
                             Spacer(modifier = Modifier.height(16.dp))
                             val awakeInteractionSource = remember { MutableInteractionSource() }
-                            val isAwakePressed by awakeInteractionSource.collectIsPressedAsState()
-                            val awakeScale by animateFloatAsState(
-                                targetValue = if (isAwakePressed) 0.95f else 1f,
-                                animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
-                                label = "awakeScale"
-                            )
                             
                             Button(
                                 onClick = { viewModel.toggleAwakeMember(myMemberId!!) },
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(56.dp)
-                                    .graphicsLayer {
-                                        scaleX = awakeScale
-                                        scaleY = awakeScale
-                                    },
+                                    .bounceClick(awakeInteractionSource),
                                 shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                                 interactionSource = awakeInteractionSource,
                                 colors = ButtonDefaults.buttonColors(
@@ -445,9 +442,12 @@ fun MainScreen(
                     fontWeight = FontWeight.Black
                 )
                 val memberLimitReached = members.size >= 6
+                val addMemberInteractionSource = remember { MutableInteractionSource() }
                 IconButton(
                     onClick = onNavigateToAddMember,
-                    enabled = !memberLimitReached
+                    enabled = !memberLimitReached,
+                    modifier = Modifier.bounceClick(addMemberInteractionSource),
+                    interactionSource = addMemberInteractionSource
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,

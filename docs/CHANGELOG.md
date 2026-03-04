@@ -7,16 +7,17 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
-## [0.4.7] - TBD
+## [0.4.7] - 2026-03-04
 
 ### Hinzugefügt
-- 
+- **Visuelles Feedback:** Bounce-Effekt beim Klicken auf Buttons und interaktive Elemente für eine reaktionsschnellere Bedienung.
+- **Icon-Erweiterungen:** Neue Icons für externe Links (Datenschutz, Impressum, Account löschen) und E-Mail-Support zur besseren visuellen Führung.
+- **Join-Code Sicherheit:** Implementierung einer Eindeutigkeitsprüfung für Familien-Join-Codes im `FirebaseRepository`.
 
 ### Geändert
-- 
-
-### Behoben
-- 
+- **Einstellungen-Struktur:** Logische Neusortierung der Sektionen (Profil, Weckton, Familie, Sprache, Hilfe, Support).
+- **Lokalisierung:** Copyright-Footer in den Einstellungen auf Deutsch („Alle Rechte vorbehalten.“) lokalisiert.
+- **Icon-Refinement:** Anpassung der Sektions-Icons (Groups, Description) in den Einstellungen für klarere Symbolik.
 
 ## [0.4.6] - 2026-03-04
 

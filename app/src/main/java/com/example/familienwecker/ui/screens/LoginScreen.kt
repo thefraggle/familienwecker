@@ -32,6 +32,7 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
+import com.example.familienwecker.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
 import java.security.MessageDigest
 import java.util.UUID
@@ -183,12 +184,6 @@ fun LoginScreen(
                 }
             } else {
                 val loginInteractionSource = remember { MutableInteractionSource() }
-                val isLoginPressed by loginInteractionSource.collectIsPressedAsState()
-                val loginScale by animateFloatAsState(
-                    targetValue = if (isLoginPressed) 0.95f else 1f,
-                    animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
-                    label = "loginScale"
-                )
 
                 Button(
                     onClick = {
@@ -201,10 +196,7 @@ fun LoginScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
-                        .graphicsLayer {
-                            scaleX = loginScale
-                            scaleY = loginScale
-                        },
+                        .bounceClick(loginInteractionSource),
                     shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                     interactionSource = loginInteractionSource,
                     enabled = email.isNotBlank() && password.isNotBlank()
@@ -234,50 +226,52 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
                 
-                OutlinedButton(
-                    onClick = {
-                        coroutineScope.launch {
-                            try {
-                                val credentialManager = CredentialManager.create(context)
-                                
-                                val rawNonce = UUID.randomUUID().toString()
-                                val bytes = rawNonce.toByteArray()
-                                val md = MessageDigest.getInstance("SHA-256")
-                                val digest = md.digest(bytes)
-                                val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
+                    val googleInteractionSource = remember { MutableInteractionSource() }
+                    OutlinedButton(
+                        onClick = {
+                            coroutineScope.launch {
+                                try {
+                                    val credentialManager = CredentialManager.create(context)
+                                    
+                                    val rawNonce = UUID.randomUUID().toString()
+                                    val bytes = rawNonce.toByteArray()
+                                    val md = MessageDigest.getInstance("SHA-256")
+                                    val digest = md.digest(bytes)
+                                    val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
 
-                                val googleIdOption = GetGoogleIdOption.Builder()
-                                    .setFilterByAuthorizedAccounts(false)
-                                    .setServerClientId(context.getString(R.string.default_web_client_id))
-                                    .setNonce(hashedNonce)
-                                    .setAutoSelectEnabled(true)
-                                    .build()
+                                    val googleIdOption = GetGoogleIdOption.Builder()
+                                        .setFilterByAuthorizedAccounts(false)
+                                        .setServerClientId(context.getString(R.string.default_web_client_id))
+                                        .setNonce(hashedNonce)
+                                        .setAutoSelectEnabled(true)
+                                        .build()
 
-                                val request = GetCredentialRequest.Builder()
-                                    .addCredentialOption(googleIdOption)
-                                    .build()
+                                    val request = GetCredentialRequest.Builder()
+                                        .addCredentialOption(googleIdOption)
+                                        .build()
 
-                                val result = credentialManager.getCredential(context, request)
-                                val credential = result.credential
-                                
-                                if (credential is androidx.credentials.CustomCredential &&
-                                    credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
-                                ) {
-                                    val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                                    val firebaseCredential = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
-                                    authViewModel.signInWithGoogle(firebaseCredential)
+                                    val result = credentialManager.getCredential(context, request)
+                                    val credential = result.credential
+                                    
+                                    if (credential is androidx.credentials.CustomCredential &&
+                                        credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+                                    ) {
+                                        val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                                        val firebaseCredential = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
+                                        authViewModel.signInWithGoogle(firebaseCredential)
+                                    }
+                                } catch (_: NoCredentialException) {
+                                    authViewModel.setError(context.getString(R.string.login_google_error_no_account))
+                                } catch (e: GetCredentialException) {
+                                    authViewModel.setError("Google Login failed: ${e.message}")
+                                } catch (e: Exception) {
+                                    authViewModel.setError("Unerwarteter Fehler: ${e.message}")
                                 }
-                            } catch (_: NoCredentialException) {
-                                authViewModel.setError(context.getString(R.string.login_google_error_no_account))
-                            } catch (e: GetCredentialException) {
-                                authViewModel.setError("Google Login failed: ${e.message}")
-                            } catch (e: Exception) {
-                                authViewModel.setError("Unerwarteter Fehler: ${e.message}")
                             }
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
+                        },
+                        modifier = Modifier.fillMaxWidth().bounceClick(googleInteractionSource),
+                        interactionSource = googleInteractionSource
+                    ) {
                     Icon(
                         painter = androidx.compose.ui.res.painterResource(id = R.drawable.ic_google),
                         contentDescription = null,
