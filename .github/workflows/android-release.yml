@@ -98,5 +98,5 @@ jobs:
             FamWake-${{ github.ref_name }}-release.apk
             FamWake-${{ github.ref_name }}-release.aab
           name: Release ${{ github.ref_name }}
-          body: "Full Changelog: [CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
+          body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
           prerelease: true
