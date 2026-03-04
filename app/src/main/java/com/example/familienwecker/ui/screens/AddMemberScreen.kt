@@ -12,6 +12,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
@@ -54,24 +56,37 @@ fun AddMemberScreen(
 
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(if (memberId == null) stringResource(R.string.add_member_title_add) else stringResource(R.string.add_member_title_edit)) },
+    val themePreference by viewModel.themePreference.collectAsState()
+    val isDarkTheme = when (themePreference) {
+        "dark" -> true
+        "light" -> false
+        else -> isSystemInDarkTheme()
+    }
+    val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
+        colors = if (isDarkTheme) {
+            listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.background)
+        } else {
+            listOf(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f), MaterialTheme.colorScheme.background)
+        }
+    )
+
+    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+        Scaffold(
+            containerColor = Color.Transparent,
+            topBar = {
+                TopAppBar(
+                    title = { Text(if (memberId == null) stringResource(R.string.add_member_title_add) else stringResource(R.string.add_member_title_edit)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back_desc))
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = if (androidx.compose.foundation.isSystemInDarkTheme()) 
-                        MaterialTheme.colorScheme.surface 
-                    else 
-                        MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
+                        titleContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
+                        navigationIconContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
+                    )
                 )
-            )
         },
         bottomBar = {
             val unknownStr = stringResource(R.string.add_member_unknown)
@@ -114,6 +129,7 @@ fun AddMemberScreen(
         ) {
             if (!isTimeRangeValid) {
                 Card(
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -128,6 +144,7 @@ fun AddMemberScreen(
 
             if (!isLeaveTimeValid) {
                 Card(
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -142,6 +159,7 @@ fun AddMemberScreen(
 
             if (!isBathroomDurationValid) {
                 Card(
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -186,6 +204,7 @@ fun AddMemberScreen(
             }
         }
     }
+}
 }
 
 @Composable

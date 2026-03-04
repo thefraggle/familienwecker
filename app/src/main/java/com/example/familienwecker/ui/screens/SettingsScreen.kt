@@ -98,10 +98,10 @@ fun SettingsScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White,
-                    actionIconContentColor = Color.White
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
+                    titleContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
+                    navigationIconContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
+                    actionIconContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
                 )
             )
         },
@@ -120,11 +120,11 @@ fun SettingsScreen(
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                     else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                                     else MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -204,11 +204,11 @@ fun SettingsScreen(
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                     else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                                     else MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -251,11 +251,11 @@ fun SettingsScreen(
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                     else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                                     else MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -279,11 +279,11 @@ fun SettingsScreen(
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                     else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                                     else MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -391,7 +391,7 @@ fun SettingsScreen(
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                     else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                                     else MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -488,7 +488,7 @@ fun SettingsScreen(
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                     else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                                     else MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
