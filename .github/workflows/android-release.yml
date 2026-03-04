@@ -10,6 +10,10 @@ jobs:
     name: Build & Upload APK
     runs-on: ubuntu-latest
 
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     # Gibt dem Workflow die Schreibrechte für GitHub Releases
     permissions:
       contents: write 
@@ -23,6 +27,16 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17' # Deine benötigte Java-Version für Android/Gradle
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
