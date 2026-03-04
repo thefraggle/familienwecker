@@ -105,7 +105,11 @@
     <string name="settings_language_english">English</string>
     <string name="settings_language_german">Deutsch</string>
     <string name="settings_help_title">About FamWake</string>
-    <string name="settings_help_text">The FamWake family alarm calculates the perfect wake-up schedule for your entire family, so that nobody gets stuck in front of a locked bathroom door in the morning.\n\nHow it works:\n- Create Profiles: Set when each family member needs to get up and how long they need the bathroom.\n- Plan Extras: Specify who wants to have breakfast together and when they need to leave the house.\n- Your Slot: Select your profile. You will be woken up exactly when it is your turn.</string>
+    <string name="settings_help_intro">The FamWake family alarm calculates the perfect wake-up schedule for your entire family, so that nobody gets stuck in front of a locked bathroom door in the morning.</string>
+    <string name="settings_help_how_it_works">How it works:</string>
+    <string name="settings_help_bullet_1"><b>Create Profiles</b>: Set when each family member needs to get up and how long they need the bathroom.</string>
+    <string name="settings_help_bullet_2"><b>Plan Extras</b>: Specify who wants to have breakfast together and when they need to leave the house.</string>
+    <string name="settings_help_bullet_3"><b>Your Slot</b>: Select your profile. You will be woken up exactly when it is your turn.</string>
     
     <string name="settings_support_title">Support</string>
     <string name="settings_support_text">Feedback or questions?</string>
