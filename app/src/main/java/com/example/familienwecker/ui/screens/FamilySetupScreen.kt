@@ -5,6 +5,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.familienwecker.R
 import androidx.compose.animation.Crossfade
 import androidx.compose.runtime.*
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -35,9 +36,9 @@ fun FamilySetupScreen(
     var joinCode by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
 
-    val errorMessage by viewModel.errorMessage.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
-    val themePreference by viewModel.themePreference.collectAsState()
+    val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
@@ -70,7 +71,7 @@ fun FamilySetupScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
-                    titleContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
         }

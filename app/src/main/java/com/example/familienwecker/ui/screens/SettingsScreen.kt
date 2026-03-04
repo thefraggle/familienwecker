@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Description
 import androidx.compose.material3.*
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.runtime.*
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.background
 import androidx.compose.ui.Alignment
@@ -46,11 +47,11 @@ fun SettingsScreen(
     onLeaveFamily: () -> Unit
 ) {
     val context = LocalContext.current
-    val members by viewModel.members.collectAsState()
-    val myMemberId by viewModel.myMemberId.collectAsState()
-    val alarmSoundUri by viewModel.alarmSoundUri.collectAsState()
-    val currentLanguage by viewModel.language.collectAsState()
-    val familyName by viewModel.familyName.collectAsState()
+    val members by viewModel.members.collectAsStateWithLifecycle()
+    val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
+    val alarmSoundUri by viewModel.alarmSoundUri.collectAsStateWithLifecycle()
+    val currentLanguage by viewModel.language.collectAsStateWithLifecycle()
+    val familyName by viewModel.familyName.collectAsStateWithLifecycle()
 
     var expanded by remember { mutableStateOf(false) }
     var languageExpanded by remember { mutableStateOf(false) }
@@ -76,7 +77,7 @@ fun SettingsScreen(
         }
     }
 
-    val themePreference by viewModel.themePreference.collectAsState()
+    val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
@@ -109,9 +110,9 @@ fun SettingsScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
-                    titleContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
-                    navigationIconContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
-                    actionIconContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
+                    titleContentColor = MaterialTheme.colorScheme.onSurface,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+                    actionIconContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
         },
@@ -260,7 +261,7 @@ fun SettingsScreen(
             }
 
             // 4. Familie & Account
-            val currentJoinCode by viewModel.joinCode.collectAsState()
+            val currentJoinCode by viewModel.joinCode.collectAsStateWithLifecycle()
             
             Card(
                 modifier = Modifier.fillMaxWidth(), 
@@ -279,10 +280,10 @@ fun SettingsScreen(
                         Text(stringResource(R.string.settings_account_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    if (currentJoinCode != null) {
+                    currentJoinCode?.let { code ->
                         Text(stringResource(R.string.settings_join_code, familyName ?: ""))
                         Text(
-                            text = currentJoinCode!!, 
+                            text = code, 
                             style = MaterialTheme.typography.headlineMedium, 
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 16.dp)

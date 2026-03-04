@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,9 +20,9 @@ fun LoadingScreen(
     onNavigateToSetup: () -> Unit,
     onNavigateToMain: () -> Unit
 ) {
-    val authState by authViewModel.authState.collectAsState()
-    val isRestoring by authViewModel.isRestoringFamily.collectAsState()
-    val familyId by familyViewModel.familyId.collectAsState()
+    val authState by authViewModel.authState.collectAsStateWithLifecycle()
+    val isRestoring by authViewModel.isRestoringFamily.collectAsStateWithLifecycle()
+    val familyId by familyViewModel.familyId.collectAsStateWithLifecycle()
 
     LaunchedEffect(authState, isRestoring, familyId) {
         if (isRestoring) return@LaunchedEffect

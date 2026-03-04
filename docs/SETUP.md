@@ -2,7 +2,7 @@
 
 Diese Anleitung erklärt, wie du FamWake lokal zum Laufen bekommst. Da die App auf Firebase basiert, musst du dein eigenes Backend-Projekt konfigurieren.
 
-*Aktuelle Version: v0.4.7*
+*Aktuelle Version: v0.4.8*
 
 ## 1. Firebase Projekt erstellen
 1. Gehe zur [Firebase Console](https://console.firebase.google.com/).
@@ -32,6 +32,7 @@ Die App nutzt Cloud Functions für branded E-Mails via **Resend**.
 3. Setze den Secret für den Resend API Key:
    `firebase functions:secrets:set RESEND_API_KEY`
 4. Deploie die Functions: `firebase deploy --only functions`
+   *(Beinhaltet auch periodische Garbage Collection Tasks).*
 
 
 ## 4. App bauen & starten

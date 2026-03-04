@@ -7,16 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.4.8] - TBD
+## [0.4.8] - 2026-03-04
 
 ### Added
-- 
+- **Database & Storage Hygiene (Garbage Collection):** Automated Firebase Cloud Function (`cleanupInactiveFamilies`) runs every Sunday to entirely wipe orphaned families (after 180 days of inactivity). Automatically generates an admin notification email.
 
-### Changed
-- 
+### Changed & Improved
+- **Battery & Performance Optimization:** Refactored Compose states to `collectAsStateWithLifecycle` across the entire app. The app now pauses completely while in the background, significantly saving battery life, while the system alarm remains unaffected.
+- **Dark Mode Consistency:** Removed the last hardcoded white colors. The theme now fully relies on the official `MaterialTheme.colorScheme.onSurface` token for perfect Dark/Light mode contrasting.
+- **Scheduler Memory Protection:** A hard limit (max 6 active members) now prevents OutOfMemory (OOM) crashes on devices during complex O(n!) time-slot calculations.
+- **Error-Free Family Codes:** The invitation code generator now utilizes a Base32 character set excluding ambiguous characters (`0`, `O`, `1`, `I`), making manual typing foolproof.
 
 ### Fixed
-- 
+- **Auto-Reset "Paused" State:** Fixed an issue where manually paused unclaimed profiles (e.g., kids) were not automatically reactivated for the upcoming morning. The "Already Awake" state also resets with 100% reliability now.
+
 
 ## [0.4.7] - 2026-03-04
 

@@ -7,16 +7,20 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
-## [0.4.8] - TBD
+## [0.4.8] - 2026-03-04
 
 ### Hinzugefügt
-- 
+- **Datenbank & Speicher-Hygiene (Garbage Collection):** Automatisierte Firebase Cloud Function (`cleanupInactiveFamilies`), die jeden Sonntag verwaiste Familien (180 Tage Inaktivität) restlos vom Server löscht. Inklusive E-Mail-Bericht an den Administrator.
 
-### Geändert
-- 
+### Geändert & Verbessert
+- **Akku- & Performance-Optimierung:** Umstellung auf `collectAsStateWithLifecycle` in der gesamten Android App. Die App pausiert nun vollständig im Hintergrund und spart merklich Akkulaufzeit, während der Systemwecker unberührt weiterarbeitet.
+- **Dark Mode Konsistenz:** Entfernung letzter hartkodierter Weiß-Töne. Das Theme verlässt sich nun nahtlos auf das offizielle `MaterialTheme.colorScheme.onSurface` Token für perfekten Dark/Light-Mode Kontrast.
+- **Memory-Schutz im Scheduler:** Ein hartes Limit (max. 6 aktive Mitglieder) verhindert nun OutOfMemory (OOM) Crashes auf Android Geräten bei der komplexen O(n!) Zeitgeist-Berechnung.
+- **Fehlerfreie Familiencodes:** Der Generator für Einladungscodes nutzt nun einen Base32-Zeichensatz ohne verwechselbare Buchstaben (`0`, `O`, `1`, `I`), was Fehler beim Abtippen drastisch reduziert.
 
 ### Behoben
-- 
+- **Auto-Reset "Pausiert":** Ein Fehler wurde behoben, durch den manuell pausierte unbeanspruchte Profile (z.B. Kleinkinder) nicht automatisch für den nächsten Tag reaktiviert wurden. Zudem resettet der Status "Bin schon wach" nun ebenfalls zuverlässig.
+
 
 ## [0.4.7] - 2026-03-04
 

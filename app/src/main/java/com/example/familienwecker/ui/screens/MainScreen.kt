@@ -16,7 +16,7 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -57,11 +57,11 @@ fun MainScreen(
     onLeaveFamily: () -> Unit
 ) {
     val context = LocalContext.current
-    val members by viewModel.members.collectAsState()
-    val schedule by viewModel.schedule.collectAsState()
-    val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsState()
-    val myMemberId by viewModel.myMemberId.collectAsState()
-    val errorMessage by viewModel.errorMessage.collectAsState()
+    val members by viewModel.members.collectAsStateWithLifecycle()
+    val schedule by viewModel.schedule.collectAsStateWithLifecycle()
+    val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsStateWithLifecycle()
+    val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
+    val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     
     val snackbarHostState = remember { SnackbarHostState() }
@@ -96,8 +96,8 @@ fun MainScreen(
     
     val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
 
-    val isSyncing by viewModel.isSyncing.collectAsState()
-    val familyId by viewModel.familyId.collectAsState()
+    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
+    val familyId by viewModel.familyId.collectAsStateWithLifecycle()
 
     LaunchedEffect(isSyncing, familyId) {
         if (familyId == null) {
@@ -105,7 +105,7 @@ fun MainScreen(
         }
     }
 
-    val themePreference by viewModel.themePreference.collectAsState()
+    val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
@@ -150,9 +150,9 @@ fun MainScreen(
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
-                        titleContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
-                        actionIconContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
-                        navigationIconContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
+                        titleContentColor = MaterialTheme.colorScheme.onSurface,
+                        actionIconContentColor = MaterialTheme.colorScheme.onSurface,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onSurface
                     )
                 )
             }
