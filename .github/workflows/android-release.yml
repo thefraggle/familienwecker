@@ -39,33 +39,42 @@ jobs:
       - name: Build Release APK and AAB
         run: ./gradlew assembleRelease bundleRelease
 
-      # Signiert das APK mit deinen GitHub Secrets
-      - name: Sign APK
-        uses: kevin-david/zipalign-sign-android-release@v2.0.1
-        id: sign_apk
-        with:
-          releaseDirectory: app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
-          alias: ${{ secrets.KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+      # Entschlüsselt den Keystore aus den GitHub Secrets
+      - name: Decode Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: echo -n "$KEYSTORE_BASE64" | base64 --decode > app/keystore.jks
 
-      # Signiert das AAB Bundle
-      - name: Sign AAB
-        uses: kevin-david/zipalign-sign-android-release@v2.0.1
-        id: sign_aab
-        with:
-          releaseDirectory: app/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
-          alias: ${{ secrets.KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      # Benennt die signierten Dateien um
-      - name: Rename Files
+      # Sucht die aktuellsten Android Build Tools auf dem Runner und fügt sie zum PATH hinzu
+      - name: Setup Android Build Tools
         run: |
-          mv ${{steps.sign_apk.outputs.signedReleaseFile}} FamWake-${{ github.ref_name }}-release.apk
-          mv ${{steps.sign_aab.outputs.signedReleaseFile}} FamWake-${{ github.ref_name }}-release.aab
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
+          echo "Verwende Build Tools aus: $BUILD_TOOLS_DIR"
+          echo "$BUILD_TOOLS_DIR" >> $GITHUB_PATH
+
+      # Führt Zipalign und die Signierung manuell ohne fehleranfällige Drittanbieter-Actions aus
+      - name: Sign APK and AAB
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: |
+          # 1. APK finden und signieren
+          APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
+          zipalign -v 4 "$APK_PATH" aligned.apk
+          apksigner sign --ks app/keystore.jks \
+            --ks-pass env:KEYSTORE_PASSWORD \
+            --key-pass env:KEY_PASSWORD \
+            --ks-key-alias "$KEY_ALIAS" \
+            --out FamWake-${{ github.ref_name }}-release.apk aligned.apk
+            
+          # 2. AAB finden und signieren (App Bundles benötigen Jarsigner)
+          AAB_PATH=$(find app/build/outputs/bundle/release -name "*.aab" | head -n 1)
+          jarsigner -keystore app/keystore.jks \
+            -storepass "$KEYSTORE_PASSWORD" \
+            -keypass "$KEY_PASSWORD" \
+            "$AAB_PATH" "$KEY_ALIAS"
+          cp "$AAB_PATH" FamWake-${{ github.ref_name }}-release.aab
 
       # Nimmt das fertige APK und AAB und hängt sie als Pre-Release an den GitHub-Tag
       - name: Create GitHub Pre-Release
