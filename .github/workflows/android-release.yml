@@ -41,10 +41,9 @@ jobs:
 
       # Entschlüsselt den Keystore aus den GitHub Secrets
       - name: Decode Keystore
-        run: |
-          cat << 'EOF' | base64 -d -i > app/keystore.jks
-          ${{ secrets.KEYSTORE_BASE64 }}
-          EOF
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: python3 -c "import os, base64; open('app/keystore.jks', 'wb').write(base64.b64decode(os.environ['KEYSTORE_BASE64']))"
 
       # Sucht die aktuellsten Android Build Tools auf dem Runner und fügt sie zum PATH hinzu
       - name: Setup Android Build Tools
