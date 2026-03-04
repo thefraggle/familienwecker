@@ -7,6 +7,17 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.8] - TBD
+
+### Hinzugefügt
+- 
+
+### Geändert
+- 
+
+### Behoben
+- 
+
 ## [0.4.7] - 2026-03-04
 
 ### Hinzugefügt
