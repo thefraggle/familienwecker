@@ -9,7 +9,7 @@
 The **FamWake Family Alarm** is the intelligent solution for a relaxed morning routine. Instead of rigid wake-up times, the app dynamically adapts to the schedules and needs of all family members.
 
 👉 **Find all information, features, and the waitlist sign-up on our website:**  
-🌐 [www.familienwecker.de/en](https://familienwecker.de/index-en.html)
+🌐 [familienwecker.de/en](https://familienwecker.de/index-en.html)
 
 ## 📸 A Sneak Peek at the App
 
