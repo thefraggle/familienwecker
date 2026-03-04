@@ -9,7 +9,7 @@
 Der **FamWake Familienwecker** ist die intelligente Lösung für entspannte Morgenroutinen. Anstatt starrer Weckzeiten passt sich die App dynamisch an die Termine und Bedürfnisse aller Familienmitglieder an. 
 
 👉 **Alle Informationen, Features und die Anmeldung zur Warteliste findest du auf unserer Website:**  
-🌐 [www.familienwecker.de](https://www.familienwecker.de)
+🌐 [www.familienwecker.de](https://familienwecker.de)
 
 ## 📸 Ein erster Blick in die App
 
@@ -32,7 +32,7 @@ Hier ist ein kleiner Vorgeschmack auf unseren aktuellen Arbeitsstand:
 * **"Bin schon wach":** Wecker für heute deaktivieren, ohne den Plan der anderen zu beeinflussen.
 * **Sicherer Login:** Einfache Anmeldung via E-Mail oder Google-Konto.
 
-*(Weitere Details zu den Funktionen wie dem smarten Masterplan, der flexiblen Weck-Logik und dem Dark Mode findest du auf unserer [Website](https://www.familienwecker.de).)*
+*(Weitere Details zu den Funktionen wie dem smarten Masterplan, der flexiblen Weck-Logik und dem Dark Mode findest du auf unserer [Website](https://familienwecker.de).)*
 
 ---
 

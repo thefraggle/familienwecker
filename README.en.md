@@ -9,7 +9,7 @@
 The **FamWake Family Alarm** is the intelligent solution for a relaxed morning routine. Instead of rigid wake-up times, the app dynamically adapts to the schedules and needs of all family members.
 
 👉 **Find all information, features, and the waitlist sign-up on our website:**  
-🌐 [www.familienwecker.de/en](https://www.familienwecker.de/index-en.html)
+🌐 [www.familienwecker.de/en](https://familienwecker.de/index-en.html)
 
 ## 📸 A Sneak Peek at the App
 
@@ -32,7 +32,7 @@ Here is a quick look at our current work in progress:
 * **"Already Awake" Button:** Deactivate your alarm for today without affecting the schedule of others.
 * **Secure Login:** Easy sign-in via email or Google account.
 
-*(Find more details on features like the smart master plan, flexible wake-up logic, and dark mode on our [website](https://www.familienwecker.de/index-en.html).)*
+*(Find more details on features like the smart master plan, flexible wake-up logic, and dark mode on our [website](https://familienwecker.de/index-en.html).)*
 
 ---
 
