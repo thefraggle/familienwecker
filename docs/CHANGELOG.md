@@ -7,6 +7,12 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.10] - 2026-03-04
+
+### Behoben
+- **Invalid document reference Crash:** Ein Folgefehler des vorherigen Updates wurde behandelt. Der kurzzeitige Workaround-Status für den App-Reload führt nun nicht mehr zu fehlerhaften Firestore-Anfragen mit leerer ID (`""`).
+
+
 ## [0.4.9] - 2026-03-04
 
 ### Behoben
