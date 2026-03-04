@@ -366,8 +366,12 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
             val isPastResetThreshold = now.isAfter(resetThreshold)
             
             if (isPastResetThreshold && member.lastResetDate != today) {
+                // Feature: Unclaimed fields get their 'paused' state reset. Claimed members keep their manual 'paused' state.
+                val isUnclaimed = member.claimedByUserId == null
+                val newIsPaused = if (isUnclaimed) false else member.isPaused
+                
                 val updated = member.copy(
-                    isPaused = false,
+                    isPaused = newIsPaused,
                     isAwakeToday = false,
                     lastResetDate = today
                 )

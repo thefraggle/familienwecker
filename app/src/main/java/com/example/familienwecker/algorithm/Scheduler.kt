@@ -11,7 +11,8 @@ class Scheduler {
         members: List<FamilyMember>,
         breakfastDurationMinutes: Long = 30
     ): FamilySchedule {
-        val activeMembers = members.filter { !it.isPaused }
+        // Limit active members to prevent OOM resulting from O(n!) permutations
+        val activeMembers = members.filter { !it.isPaused }.take(6)
         
         if (activeMembers.isEmpty()) return FamilySchedule(emptyList(), null, true, "Keine aktiven Mitglieder vorhanden.")
 

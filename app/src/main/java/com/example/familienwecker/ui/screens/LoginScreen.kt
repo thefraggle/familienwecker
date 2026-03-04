@@ -3,6 +3,7 @@ package com.example.familienwecker.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -50,7 +51,7 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var isRegistering by remember { mutableStateOf(false) }
 
-    val authState by authViewModel.authState.collectAsState()
+    val authState by authViewModel.authState.collectAsStateWithLifecycle()
 
     // Automatische Weiterleitung, wenn der User erfolgreich eingeloggt ist
     LaunchedEffect(authState) {
@@ -60,7 +61,7 @@ fun LoginScreen(
         // Bei EMAIL_NOT_VERIFIED zurück in AwaitingEmailVerification (State bleibt Error -> wird im UI angezeigt)
     }
 
-    val themePreference by familyViewModel.themePreference.collectAsState()
+    val themePreference by familyViewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
@@ -94,7 +95,7 @@ fun LoginScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
-                    titleContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
         }

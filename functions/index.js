@@ -410,3 +410,96 @@ exports.cleanupUnverifiedUsers = onSchedule(
     }
   }
 );
+
+// ─── Scheduled Function: Bereinigung inaktiver Familien (Müll-Sammlung) ───────
+exports.cleanupInactiveFamilies = onSchedule(
+  {
+    schedule: "every sunday 04:00",
+    region: "europe-west3",
+    timeZone: "Europe/Berlin",
+  },
+  async (event) => {
+    // 6 Monate (180 Tage) Inaktivität
+    const sixMonthsAgoMs = Date.now() - 180 * 24 * 60 * 60 * 1000;
+    const staleFamilies = [];
+
+    console.log(`Running inactive families cleanup. Looking for activity before ${new Date(sixMonthsAgoMs).toISOString()}`);
+
+    const familiesSnapshot = await admin.firestore().collection("families").get();
+
+    for (const familyDoc of familiesSnapshot.docs) {
+      // Höre auf das letzte Update eines Mitglieds
+      const membersSnapshot = await familyDoc.ref.collection("members")
+        .orderBy("lastUpdatedAt", "desc")
+        .limit(1)
+        .get();
+
+      let isStale = true;
+      if (!membersSnapshot.empty) {
+        const latestMember = membersSnapshot.docs[0].data();
+        if (latestMember.lastUpdatedAt && latestMember.lastUpdatedAt > sixMonthsAgoMs) {
+          isStale = false;
+        }
+      }
+
+      const familyData = familyDoc.data();
+      if (familyData.createdAt && familyData.createdAt > sixMonthsAgoMs) {
+        isStale = false;
+      }
+
+      if (isStale) {
+        staleFamilies.push(familyDoc.ref);
+      }
+    }
+
+    if (staleFamilies.length === 0) {
+      console.log("No inactive families found.");
+      return;
+    }
+
+    console.log(`Found ${staleFamilies.length} families to delete. Starting deletion...`);
+
+    // In modern Admin SDKs, recursiveDelete deletes the document and all its subcollections
+    if (admin.firestore().recursiveDelete) {
+      for (const ref of staleFamilies) {
+        await admin.firestore().recursiveDelete(ref);
+      }
+    } else {
+      // Fallback
+      for (const ref of staleFamilies) {
+        const members = await ref.collection("members").get();
+        const batch = admin.firestore().batch();
+        members.docs.forEach(doc => batch.delete(doc.ref));
+        batch.delete(ref);
+        await batch.commit();
+      }
+    }
+
+    console.log(`Successfully deleted ${staleFamilies.length} inactive families.`);
+
+    // Admin-Benachrichtigung senden
+    const resendKey = process.env.RESEND_API_KEY;
+    if (resendKey && staleFamilies.length > 0) {
+      try {
+        const resend = new Resend(resendKey);
+        await resend.emails.send({
+          from: SENDER.de,
+          to: [NOTIFY_EMAIL],
+          subject: `🧹 Familien-Bereinigung: ${staleFamilies.length} inaktive Familien gelöscht`,
+          html: `
+            <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+              <h2 style="color: ${BRAND_BLUE};">🧹 Müll-Sammlung abgeschlossen</h2>
+              <p>Der wöchentliche Cleanup-Job hat inaktive Familien entfernt, auf die seit mehr als 6 Monaten (180 Tagen) nicht mehr zugegriffen wurde.</p>
+              <p><strong>Anzahl gelöschter Familien:</strong> ${staleFamilies.length}</p>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+              <p style="font-size: 11px; color: #999;">Projekt: Familienwecker App</p>
+            </div>
+          `,
+        });
+        console.log("Admin notification sent for family cleanup.");
+      } catch (err) {
+        console.error("Failed to send admin notification for family cleanup:", err);
+      }
+    }
+  }
+);

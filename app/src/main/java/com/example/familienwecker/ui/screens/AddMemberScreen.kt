@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.background
@@ -33,7 +34,7 @@ fun AddMemberScreen(
     memberId: String? = null,
     onNavigateBack: () -> Unit
 ) {
-    val members by viewModel.members.collectAsState()
+    val members by viewModel.members.collectAsStateWithLifecycle()
     val memberToEdit = remember(memberId, members) { members.find { it.id == memberId } }
 
     var name by remember(memberToEdit) { mutableStateOf(memberToEdit?.name ?: "") }
@@ -58,7 +59,7 @@ fun AddMemberScreen(
 
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
-    val themePreference by viewModel.themePreference.collectAsState()
+    val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
@@ -90,8 +91,8 @@ fun AddMemberScreen(
                 },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
-                        titleContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
-                        navigationIconContentColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
+                        titleContentColor = MaterialTheme.colorScheme.onSurface,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onSurface
                     )
                 )
         },

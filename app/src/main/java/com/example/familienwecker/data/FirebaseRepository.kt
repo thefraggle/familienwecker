@@ -222,7 +222,8 @@ class FirebaseRepository {
     }
 
     private fun generateJoinCode(): String {
-        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        // Base32 ohne verwechselbare Zeichen (0, O, 1, I)
+        val chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
         return (1..6).map { chars[Random.nextInt(chars.length)] }.joinToString("")
     }
 
