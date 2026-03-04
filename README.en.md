@@ -44,6 +44,6 @@ The source code in this repository is provided for educational and review purpos
 
 * [Changelog (Version History)](docs/CHANGELOG.en.md)
 * [Roadmap (Planned Features)](docs/ROADMAP.en.md)
-* [Privacy Policy](https://www.familienwecker.de/privacy-policy.html)
-* [Imprint](https://www.familienwecker.de/imprint-en.html)
-* [Account Deletion](https://www.familienwecker.de/account-deletion-en.html)
+* [Privacy Policy](https://familienwecker.de/privacy-policy.html)
+* [Imprint](https://familienwecker.de/imprint-en.html)
+* [Account Deletion](https://familienwecker.de/account-deletion-en.html)
