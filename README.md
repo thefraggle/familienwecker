@@ -1,4 +1,4 @@
-# ⏰ FamWake - Familienwecker / Family Alarm
+# ⏰ **FamWake** Familienwecker / Family Alarm
 
 [![Website: familienwecker.de](https://img.shields.io/badge/Website-familienwecker.de-blue)](https://www.familienwecker.de)
 
