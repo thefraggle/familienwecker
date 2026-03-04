@@ -104,7 +104,11 @@
     <string name="settings_language_english">English</string>
     <string name="settings_language_german">Deutsch</string>
     <string name="settings_help_title">Über FamWake</string>
-    <string name="settings_help_text">Der FamWake Familienwecker berechnet den perfekten Weckplan für deine gesamte Familie, damit morgens niemand mehr vor verschlossener Badezimmertür steht.\n\nSo funktioniert’s:\n- Profile anlegen: Lege für jedes Familienmitglied fest, wann es aufstehen muss und wie lange es das Bad benötigt.\n- Extras planen: Gib an, wer gemeinsam frühstücken möchte und wann das Haus verlassen wird.\n- Dein Slot: Wähle dein Profil aus. Du wirst genau dann geweckt, wenn du an der Reihe bist.</string>
+    <string name="settings_help_intro">Der FamWake Familienwecker berechnet den perfekten Weckplan für deine gesamte Familie, damit morgens niemand mehr vor verschlossener Badezimmertür steht.</string>
+    <string name="settings_help_how_it_works">So funktioniert’s:</string>
+    <string name="settings_help_bullet_1"><b>Profile anlegen</b>: Lege für jedes Familienmitglied fest, wann es aufstehen muss und wie lange es das Bad benötigt.</string>
+    <string name="settings_help_bullet_2"><b>Extras planen</b>: Gib an, wer gemeinsam frühstücken möchte und wann das Haus verlassen wird.</string>
+    <string name="settings_help_bullet_3"><b>Dein Slot</b>: Wähle dein Profil aus. Du wirst genau dann geweckt, wenn du an der Reihe bist.</string>
 
     <string name="settings_support_title">Support</string>
     <string name="settings_support_text">Feedback oder Fragen zur Bedienung?</string>

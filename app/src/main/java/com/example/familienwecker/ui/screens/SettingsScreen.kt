@@ -493,12 +493,28 @@ fun SettingsScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_help_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
+                    
                     Text(
-                        stringResource(R.string.settings_help_text),
+                        stringResource(R.string.settings_help_intro),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
+                    Text(
+                        stringResource(R.string.settings_help_how_it_works),
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    
+                    Spacer(modifier = Modifier.height(8.dp))
+                    
+                    HelpBulletPoint("👥", stringResource(R.string.settings_help_bullet_1))
+                    HelpBulletPoint("🗓️", stringResource(R.string.settings_help_bullet_2))
+                    HelpBulletPoint("⏰", stringResource(R.string.settings_help_bullet_3))
                 }
             }
 
@@ -605,4 +621,25 @@ fun SettingsScreen(
         }
     }
 }
+}
+
+@Composable
+fun HelpBulletPoint(emoji: String, text: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        Text(
+            text = emoji,
+            modifier = Modifier.padding(end = 12.dp, top = 2.dp),
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Text(
+            text = text.replace("<b>", "").replace("</b>", ""), 
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
 }
