@@ -41,31 +41,33 @@ jobs:
 
       # Signiert das APK mit deinen GitHub Secrets
       - name: Sign APK
-        uses: ilharp/sign-android-release@v1
+        uses: r0adkll/sign-android-release@v1
         id: sign_apk
         with:
-          releaseDir: app/build/outputs/apk/release
-          signingKey: ${{ secrets.KEYSTORE_BASE64 }}
-          keyAlias: ${{ secrets.KEY_ALIAS }}
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+          buildToolsVersion: "34.0.0"
 
       # Signiert das AAB Bundle
       - name: Sign AAB
-        uses: ilharp/sign-android-release@v1
+        uses: r0adkll/sign-android-release@v1
         id: sign_aab
         with:
-          releaseDir: app/build/outputs/bundle/release
-          signingKey: ${{ secrets.KEYSTORE_BASE64 }}
-          keyAlias: ${{ secrets.KEY_ALIAS }}
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+          buildToolsVersion: "34.0.0"
 
       # Benennt die signierten Dateien um
       - name: Rename Files
         run: |
-          mv ${{steps.sign_apk.outputs.signedFile}} FamWake-${{ github.ref_name }}-release.apk
-          mv ${{steps.sign_aab.outputs.signedFile}} FamWake-${{ github.ref_name }}-release.aab
+          mv ${{steps.sign_apk.outputs.signedReleaseFile}} FamWake-${{ github.ref_name }}-release.apk
+          mv ${{steps.sign_aab.outputs.signedReleaseFile}} FamWake-${{ github.ref_name }}-release.aab
 
       # Nimmt das fertige APK und AAB und hängt sie als Pre-Release an den GitHub-Tag
       - name: Create GitHub Pre-Release
