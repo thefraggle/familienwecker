@@ -104,8 +104,8 @@
     <string name="settings_language_system">System Default</string>
     <string name="settings_language_english">English</string>
     <string name="settings_language_german">Deutsch</string>
-    <string name="settings_help_title">About this app</string>
-    <string name="settings_help_text">The FamWake Family Alarm calculates the optimal wake-up schedule for your family to avoid traffic jams in the bathroom. Add members, define their time windows (earliest and latest wake-up), and their bathroom duration (in minutes). Specify if they want breakfast and optionally a time they need to leave the house. In settings, choose your profile so your phone rings exactly when it is your turn.</string>
+    <string name="settings_help_title">About FamWake</string>
+    <string name="settings_help_text">The FamWake family alarm calculates the perfect wake-up schedule for your entire family, so that nobody gets stuck in front of a locked bathroom door in the morning.\n\nHow it works:\n- Create Profiles: Set when each family member needs to get up and how long they need the bathroom.\n- Plan Extras: Specify who wants to have breakfast together and when they need to leave the house.\n- Your Slot: Select your profile. You will be woken up exactly when it is your turn.</string>
     
     <string name="settings_support_title">Support</string>
     <string name="settings_support_text">Feedback or questions?</string>
