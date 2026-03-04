@@ -5,6 +5,14 @@ import androidx.compose.ui.res.stringResource
 import com.example.familienwecker.R
 import androidx.compose.animation.Crossfade
 import androidx.compose.runtime.*
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,23 +32,62 @@ fun FamilySetupScreen(
 
     val errorMessage by viewModel.errorMessage.collectAsState()
 
-    Scaffold { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = stringResource(R.string.setup_title),
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(32.dp))
+    val themePreference by viewModel.themePreference.collectAsState()
+    val isDarkTheme = when (themePreference) {
+        "dark" -> true
+        "light" -> false
+        else -> isSystemInDarkTheme()
+    }
+    val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
+        colors = if (isDarkTheme) {
+            listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.background)
+        } else {
+            listOf(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f), MaterialTheme.colorScheme.background)
+        }
+    )
 
-            TabRow(selectedTabIndex = if (isCreateMode) 0 else 1) {
+    Scaffold(
+        containerColor = Color.Transparent,
+        topBar = {
+            @OptIn(ExperimentalMaterial3Api::class)
+            TopAppBar(
+                title = { Text(stringResource(R.string.setup_title)) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White
+                )
+            )
+        }
+    ) { padding ->
+        Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
+                                         else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        TabRow(
+                            selectedTabIndex = if (isCreateMode) 0 else 1,
+                            containerColor = Color.Transparent,
+                            divider = {}
+                        ) {
                 Tab(selected = isCreateMode, onClick = { isCreateMode = true }) {
                     Text(stringResource(R.string.setup_create_tab), modifier = Modifier.padding(16.dp))
                 }
@@ -62,6 +109,15 @@ fun FamilySetupScreen(
                             modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(16.dp))
+                        
+                        val createInteractionSource = remember { MutableInteractionSource() }
+                        val isCreatePressed by createInteractionSource.collectIsPressedAsState()
+                        val createScale by animateFloatAsState(
+                            targetValue = if (isCreatePressed) 0.95f else 1f,
+                            animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
+                            label = "createScale"
+                        )
+
                         Button(
                             onClick = {
                                 isLoading = true
@@ -70,10 +126,18 @@ fun FamilySetupScreen(
                                     if (success) onSetupComplete()
                                 }
                             },
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(56.dp)
+                                .graphicsLayer {
+                                    scaleX = createScale
+                                    scaleY = createScale
+                                },
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                            interactionSource = createInteractionSource,
                             enabled = familyName.isNotBlank() && !isLoading
                         ) {
-                            Text(stringResource(R.string.setup_create_button))
+                            Text(stringResource(R.string.setup_create_button), style = MaterialTheme.typography.titleMedium)
                         }
                     }
                 } else {
@@ -86,6 +150,15 @@ fun FamilySetupScreen(
                             modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(16.dp))
+                        
+                        val joinInteractionSource = remember { MutableInteractionSource() }
+                        val isJoinPressed by joinInteractionSource.collectIsPressedAsState()
+                        val joinScale by animateFloatAsState(
+                            targetValue = if (isJoinPressed) 0.95f else 1f,
+                            animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
+                            label = "joinScale"
+                        )
+
                         Button(
                             onClick = {
                                 isLoading = true
@@ -94,10 +167,18 @@ fun FamilySetupScreen(
                                     if (success) onSetupComplete()
                                 }
                             },
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(56.dp)
+                                .graphicsLayer {
+                                    scaleX = joinScale
+                                    scaleY = joinScale
+                                },
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                            interactionSource = joinInteractionSource,
                             enabled = joinCode.length >= 5 && !isLoading
                         ) {
-                            Text(stringResource(R.string.setup_join_button))
+                            Text(stringResource(R.string.setup_join_button), style = MaterialTheme.typography.titleMedium)
                         }
                     }
                 }
@@ -117,14 +198,18 @@ fun FamilySetupScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
-            
-            TextButton(
-                onClick = onLogout,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-            ) {
-                Text(stringResource(R.string.settings_logout))
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(32.dp))
+                
+                TextButton(
+                    onClick = onLogout,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text(stringResource(R.string.settings_logout))
+                }
             }
         }
     }

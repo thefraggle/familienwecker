@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.5] - 2026-03-04
+
+### UI & UX Modernization
+- **Glassmorphism:** Introduction of semi-transparent cards with a subtle border (1.dp) and reduced elevation (0.dp) to avoid Android shadow artifacts.
+- **Background Gradients:** Soft, vertical color gradient depending on the theme.
+- **Rounded Corners:** CornerRadius increased to softer 24.dp - 32.dp.
+- **New Typography:** Integration of the "Nunito" Google Font for a softer, more geometric appearance. Stronger font weights (ExtraBold) for headers and large titles.
+- **Dark Mode Support:** Theme selection ("Light", "Dark", "System") added to settings, including automatic system adoption. Color scheme adjustments (e.g. to Night Blue and soft Mint).
+- **Animations:** "Bouncy" spring animations on interactive objects (buttons) as well as smooth transitions for family member lists.
+- **Clean-Up:** Removed the "Sync" icon in the TopBar, as synchronization happens in the background and at startup.
+
 ## [0.4.4] - 2026-03-03
 
 ### Added

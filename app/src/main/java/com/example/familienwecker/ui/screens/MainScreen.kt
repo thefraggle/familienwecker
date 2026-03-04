@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -22,11 +23,18 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.example.familienwecker.model.FamilyMember
 import com.example.familienwecker.ui.viewmodel.FamilyViewModel
@@ -89,52 +97,60 @@ fun MainScreen(
 
     val isSyncing by viewModel.isSyncing.collectAsState()
     val familyId by viewModel.familyId.collectAsState()
-    val syncSuccessMessage = stringResource(R.string.main_sync_success)
 
     LaunchedEffect(isSyncing, familyId) {
-        if (!isSyncing && familyId != null) {
-            // Optional: show snackbar on success if it was initiated manually?
-            // For now, just a simple way to show it worked
-        }
         if (familyId == null) {
             onLeaveFamily()
         }
     }
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.main_title)) },
-                actions = {
-                    IconButton(onClick = { 
-                        viewModel.refreshData()
-                        // Manual feedback for the user
-                        snackbarScope.launch {
-                            snackbarHostState.showSnackbar(syncSuccessMessage)
-                        }
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh, 
-                            contentDescription = stringResource(R.string.main_sync_desc)
-                        )
-                    }
-                    IconButton(onClick = onNavigateToSettings) {
-                        Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.main_settings_desc))
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = if (androidx.compose.foundation.isSystemInDarkTheme()) 
-                        MaterialTheme.colorScheme.surface 
-                    else 
-                        MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White,
-                    actionIconContentColor = Color.White,
-                    navigationIconContentColor = Color.White
-                )
-            )
+    val themePreference by viewModel.themePreference.collectAsState()
+    val isDarkTheme = when (themePreference) {
+        "dark" -> true
+        "light" -> false
+        else -> androidx.compose.foundation.isSystemInDarkTheme()
+    }
+    
+    val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
+        colors = if (isDarkTheme) {
+            listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.background)
+        } else {
+            listOf(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f), MaterialTheme.colorScheme.background)
         }
-    ) { padding ->
+    )
+
+    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+        Scaffold(
+            containerColor = Color.Transparent,
+            snackbarHost = { SnackbarHost(snackbarHostState) },
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.ExtraBold)) {
+                                    append("FamWake")
+                                }
+                                withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Normal)) {
+                                    append(" - Family Alarm")
+                                }
+                            }
+                        )
+                    },
+                    actions = {
+                        IconButton(onClick = onNavigateToSettings) {
+                            Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.main_settings_desc))
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary,
+                        titleContentColor = Color.White,
+                        actionIconContentColor = Color.White,
+                        navigationIconContentColor = Color.White
+                    )
+                )
+            }
+        ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -148,7 +164,10 @@ fun MainScreen(
             errorMessage?.let { error ->
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f))
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
@@ -175,7 +194,10 @@ fun MainScreen(
                     modifier = Modifier.fillMaxWidth().clickable { 
                         BatteryUtils.requestIgnoreBatteryOptimizations(context)
                     },
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f))
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
@@ -196,13 +218,16 @@ fun MainScreen(
 
             // 0b. Wecker Ein/Aus Schalter
             val toggleCardColor by animateColorAsState(
-                targetValue = if (isAlarmEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                targetValue = if (isAlarmEnabled) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f) else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f),
                 animationSpec = tween(durationMillis = 300),
                 label = "toggleCardColor"
             )
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(containerColor = toggleCardColor)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -214,12 +239,12 @@ fun MainScreen(
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
                                 text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled) else stringResource(R.string.main_alarm_disabled),
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Black
                             )
                             Text(
                                 text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled_desc) else stringResource(R.string.main_alarm_disabled_desc),
-                                style = MaterialTheme.typography.bodySmall,
+                                style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
@@ -234,10 +259,26 @@ fun MainScreen(
                     if (myMemberId != null) {
                         val myMember = members.find { it.id == myMemberId }
                         if (myMember != null) {
-                            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
+                            val awakeInteractionSource = remember { MutableInteractionSource() }
+                            val isAwakePressed by awakeInteractionSource.collectIsPressedAsState()
+                            val awakeScale by animateFloatAsState(
+                                targetValue = if (isAwakePressed) 0.95f else 1f,
+                                animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
+                                label = "awakeScale"
+                            )
+                            
                             Button(
                                 onClick = { viewModel.toggleAwakeMember(myMemberId!!) },
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(56.dp)
+                                    .graphicsLayer {
+                                        scaleX = awakeScale
+                                        scaleY = awakeScale
+                                    },
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                interactionSource = awakeInteractionSource,
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = if (myMember.isAwakeToday) 
                                         MaterialTheme.colorScheme.secondary 
@@ -248,12 +289,12 @@ fun MainScreen(
                                 Icon(
                                     imageVector = Icons.Default.WbSunny,
                                     contentDescription = null,
-                                    modifier = Modifier.size(18.dp)
+                                    modifier = Modifier.size(24.dp)
                                 )
-                                Spacer(modifier = Modifier.width(8.dp))
+                                Spacer(modifier = Modifier.width(12.dp))
                                 Text(
                                     text = stringResource(R.string.awake_today_desc),
-                                    style = MaterialTheme.typography.labelLarge
+                                    style = MaterialTheme.typography.titleMedium
                                 )
                             }
                         }
@@ -267,7 +308,10 @@ fun MainScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable { onNavigateToSettings() },
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f))
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
@@ -287,11 +331,11 @@ fun MainScreen(
             }
 
             // 1. Errechneter Wecker-Plan
-            Text(stringResource(R.string.main_current_schedule), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.main_current_schedule), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
             val currentSchedule = schedule
             
             val planCardColor by animateColorAsState(
-                targetValue = if (isAlarmEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                targetValue = if (isAlarmEnabled) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f) else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f),
                 animationSpec = tween(durationMillis = 300),
                 label = "planCardColor"
             )
@@ -302,7 +346,10 @@ fun MainScreen(
                 Text(stringResource(R.string.main_no_active_schedule))
             } else if (!currentSchedule.isValid) {
                 Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f))
                 ) {
                     Text(
                         text = "❌ " + stringResource(R.string.main_error, currentSchedule.message), 
@@ -312,6 +359,9 @@ fun MainScreen(
                 }
             } else {
                 Card(
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(containerColor = planCardColor)
                 ) {
                     @Suppress("DEPRECATION")
@@ -336,7 +386,13 @@ fun MainScreen(
                 }
 
                 currentSchedule.memberSchedules.sortedBy { it.wakeUpTime }.forEach { sched ->
-                    Card(modifier = Modifier.fillMaxWidth()) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f))
+                    ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(text = "⏰ ${sched.wakeUpTime} - ${sched.member.name}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                             Text(text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toString(), sched.bathroomEndTime.toString()))
@@ -359,7 +415,7 @@ fun MainScreen(
                 Text(
                     text = stringResource(R.string.main_family_members),
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Black
                 )
                 val memberLimitReached = members.size >= 6
                 IconButton(
@@ -393,16 +449,29 @@ fun MainScreen(
                     }
                 }
             }
-            members.forEach { member ->
-                MemberCard(
-                    member = member, 
-                    myMemberId = myMemberId,
-                    onEdit = { onNavigateToEditMember(member.id) },
-                    onDelete = { showDeleteMemberDialog = member },
-                    onTogglePause = { viewModel.togglePauseMember(member.id) },
-                    onToggleAwake = { viewModel.toggleAwakeMember(member.id) },
-                    isAlarmEnabled = isAlarmEnabled
-                )
+            
+            // Verwende animateItem für geschmeidige Umsortierungen/Hinzufügen
+            androidx.compose.foundation.layout.Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                members.forEach { member ->
+                    androidx.compose.animation.AnimatedVisibility(
+                        visible = true,
+                        enter = androidx.compose.animation.fadeIn() + androidx.compose.animation.expandVertically(),
+                        exit = androidx.compose.animation.fadeOut() + androidx.compose.animation.shrinkVertically()
+                    ) {
+                        MemberCard(
+                            member = member, 
+                            myMemberId = myMemberId,
+                            onEdit = { onNavigateToEditMember(member.id) },
+                            onDelete = { showDeleteMemberDialog = member },
+                            onTogglePause = { viewModel.togglePauseMember(member.id) },
+                            onToggleAwake = { viewModel.toggleAwakeMember(member.id) },
+                            isAlarmEnabled = isAlarmEnabled
+                        )
+                    }
+                }
+            }
             }
         }
     }
@@ -421,9 +490,9 @@ fun MemberCard(
     // Aktive Karten: primaryContainer (helles Night-Blue-Grau) – brand-konform, kein Grün, kein Lila
     // Pausierte Karten: surfaceVariant mit reduzierter Deckkraft (gedimmt)
     val backgroundColor = if (member.isPaused)
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
     else
-        MaterialTheme.colorScheme.primaryContainer
+        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
     val textColor = if (member.isPaused)
         MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
     else
@@ -434,7 +503,9 @@ fun MemberCard(
     Card(
         onClick = { if (!isOtherUserClaim) onEdit() },
         modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
         colors = CardDefaults.cardColors(containerColor = backgroundColor)
     ) {
         Row(

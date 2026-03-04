@@ -7,6 +7,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.credentials.CredentialManager
@@ -15,6 +23,7 @@ import androidx.credentials.exceptions.GetCredentialException
 import androidx.credentials.exceptions.NoCredentialException
 import com.example.familienwecker.R
 import com.example.familienwecker.ui.viewmodel.AuthViewModel
+import com.example.familienwecker.ui.viewmodel.FamilyViewModel
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.GoogleAuthProvider
@@ -26,6 +35,7 @@ import java.util.UUID
 @Composable
 fun LoginScreen(
     authViewModel: AuthViewModel,
+    familyViewModel: FamilyViewModel,
     onLoginSuccess: () -> Unit
 ) {
     val context = LocalContext.current
@@ -45,21 +55,58 @@ fun LoginScreen(
         // Bei EMAIL_NOT_VERIFIED zurück in AwaitingEmailVerification (State bleibt Error -> wird im UI angezeigt)
     }
 
-    Scaffold { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = stringResource(R.string.login_title),
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.primary
+    val themePreference by familyViewModel.themePreference.collectAsState()
+    val isDarkTheme = when (themePreference) {
+        "dark" -> true
+        "light" -> false
+        else -> isSystemInDarkTheme()
+    }
+    
+    val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
+        colors = if (isDarkTheme) {
+            listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.background)
+        } else {
+            listOf(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f), MaterialTheme.colorScheme.background)
+        }
+    )
+
+    Scaffold(
+        containerColor = Color.Transparent,
+        topBar = {
+            @OptIn(ExperimentalMaterial3Api::class)
+            TopAppBar(
+                title = { Text(stringResource(R.string.login_title)) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White
+                )
             )
-            Spacer(modifier = Modifier.height(32.dp))
+        }
+    ) { padding ->
+        Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
+                                         else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
 
             OutlinedTextField(
                 value = email,
@@ -120,6 +167,14 @@ fun LoginScreen(
                         color = MaterialTheme.colorScheme.error)
                 }
             } else {
+                val loginInteractionSource = remember { MutableInteractionSource() }
+                val isLoginPressed by loginInteractionSource.collectIsPressedAsState()
+                val loginScale by animateFloatAsState(
+                    targetValue = if (isLoginPressed) 0.95f else 1f,
+                    animationSpec = spring(dampingRatio = 0.5f, stiffness = 400f),
+                    label = "loginScale"
+                )
+
                 Button(
                     onClick = {
                         if (isRegistering) {
@@ -128,10 +183,21 @@ fun LoginScreen(
                             authViewModel.login(email, password)
                         }
                     },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .graphicsLayer {
+                            scaleX = loginScale
+                            scaleY = loginScale
+                        },
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                    interactionSource = loginInteractionSource,
                     enabled = email.isNotBlank() && password.isNotBlank()
                 ) {
-                    Text(if (isRegistering) stringResource(R.string.register_button) else stringResource(R.string.login_button))
+                    Text(
+                        text = if (isRegistering) stringResource(R.string.register_button) else stringResource(R.string.login_button),
+                        style = MaterialTheme.typography.titleMedium
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -237,7 +303,10 @@ fun LoginScreen(
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodyMedium
                 )
+                    }
+                }
             }
         }
     }
+}
 }

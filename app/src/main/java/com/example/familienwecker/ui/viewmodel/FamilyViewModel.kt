@@ -35,6 +35,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     val joinCode: StateFlow<String?> = prefsRepo.joinCode
     val familyName: StateFlow<String?> = prefsRepo.familyName
     val language: StateFlow<String> = prefsRepo.language
+    val themePreference: StateFlow<String> = prefsRepo.themePreference
     val isAlarmEnabled: StateFlow<Boolean> = prefsRepo.isAlarmEnabled
 
     private val _members = MutableStateFlow<List<FamilyMember>>(emptyList())
@@ -252,6 +253,10 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun setLanguage(lang: String) {
         prefsRepo.setLanguage(lang)
+    }
+
+    fun setThemePreference(theme: String) {
+        prefsRepo.setThemePreference(theme)
     }
 
     fun setAlarmEnabled(enabled: Boolean) {
