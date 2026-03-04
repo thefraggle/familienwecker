@@ -1,0 +1,57 @@
+name: Android Release Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    name: Build & Upload APK
+    runs-on: ubuntu-latest
+
+    # Gibt dem Workflow die Schreibrechte für GitHub Releases
+    permissions:
+      contents: write 
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17' # Deine benötigte Java-Version für Android/Gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # Baut das un-signierte Release APK
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      # Signiert das APK mit deinen GitHub Secrets
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      # Benennt das signierte APK exakt nach dem Muster FamWake-vX.X.X-release.apk
+      - name: Rename APK
+        run: |
+          mv ${{steps.sign_app.outputs.signedReleaseFile}} FamWake-${{ github.ref_name }}-release.apk
+
+      # Nimmt das fertige APK und hängt es als Pre-Release an den GitHub-Tag
+      - name: Create GitHub Pre-Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: FamWake-${{ github.ref_name }}-release.apk
+          name: Release ${{ github.ref_name }}
+          prerelease: true
+          generate_release_notes: true
