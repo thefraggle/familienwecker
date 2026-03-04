@@ -49,6 +49,7 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+          buildToolsVersion: 34.0.0
 
       # Signiert das AAB Bundle
       - name: Sign AAB
@@ -60,6 +61,7 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+          buildToolsVersion: 34.0.0
 
       # Benennt die signierten Dateien um
       - name: Rename Files
