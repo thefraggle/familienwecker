@@ -14,10 +14,10 @@ const SENDER = {
 
 const EMAIL_CONTENT = {
   de: {
-    subject: "🔑 Passwort zurücksetzen – FamWake",
-    appName: "FamWake - Familienwecker",
+    subject: "🔑 Passwort zurücksetzen – FamWake Familienwecker",
+    appName: "<strong>FamWake</strong> Familienwecker",
     greeting: "Hallo!",
-    intro: "Wir haben eine Anfrage erhalten, das Passwort für dein <strong>FamWake</strong>-Konto zurückzusetzen.",
+    intro: "Wir haben eine Anfrage erhalten, das Passwort für dein <strong>FamWake</strong> Familienwecker-Konto zurückzusetzen.",
     instruction: "Klicke auf den folgenden Button, um ein neues Passwort zu vergeben:",
     button: "Passwort zurücksetzen",
     fallback: "Falls der Button nicht funktioniert, kopiere bitte diesen Link in deinen Browser:",
@@ -25,10 +25,10 @@ const EMAIL_CONTENT = {
     footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt auf diese E-Mail.",
   },
   en: {
-    subject: "🔑 Reset your password – FamWake",
-    appName: "FamWake - Family Alarm",
+    subject: "🔑 Reset your password – FamWake Family Alarm",
+    appName: "<strong>FamWake</strong> Family Alarm",
     greeting: "Hello!",
-    intro: "We received a request to reset the password for your <strong>FamWake</strong> account.",
+    intro: "We received a request to reset the password for your <strong>FamWake</strong> Family Alarm account.",
     instruction: "Click the button below to set a new password:",
     button: "Reset Password",
     fallback: "If the button doesn't work, please paste this link into your browser:",
@@ -39,19 +39,19 @@ const EMAIL_CONTENT = {
 
 const EMAIL_CONTENT_CONFIRM = {
   de: {
-    subject: "✅ Passwort erfolgreich geändert – FamWake",
-    appName: "FamWake - Familienwecker",
+    subject: "✅ Passwort erfolgreich geändert – FamWake Familienwecker",
+    appName: "<strong>FamWake</strong> Familienwecker",
     greeting: "Hallo!",
-    intro: "Dein Passwort für dein <strong>FamWake</strong>-Konto wurde erfolgreich geändert.",
+    intro: "Dein Passwort für dein <strong>FamWake</strong> Familienwecker-Konto wurde erfolgreich geändert.",
     instruction: "Du kannst dich ab sofort mit deinem neuen Passwort in der App anmelden.",
     security: "⚠️ Falls du dein Passwort <strong>nicht</strong> geändert hast, wende dich bitte umgehend an uns: daniel.notthoff@gmail.com",
     footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt auf diese E-Mail.",
   },
   en: {
-    subject: "✅ Password successfully changed – FamWake",
-    appName: "FamWake - Family Alarm",
+    subject: "✅ Password successfully changed – FamWake Family Alarm",
+    appName: "<strong>FamWake</strong> Family Alarm",
     greeting: "Hello!",
-    intro: "The password for your <strong>FamWake</strong> account has been successfully changed.",
+    intro: "The password for your <strong>FamWake</strong> Family Alarm account has been successfully changed.",
     instruction: "You can now log in to the app with your new password.",
     security: "⚠️ If you did <strong>not</strong> change your password, please contact us immediately: daniel.notthoff@gmail.com",
     footer: "This is an automated message. Please do not reply directly to this email.",
@@ -223,10 +223,10 @@ exports.sendBrandedConfirmationEmail = onCall(
 
 const EMAIL_CONTENT_VERIFY = {
   de: {
-    subject: "🚀 Bestätige dein FamWake-Konto",
-    appName: "FamWake - Familienwecker",
-    greeting: "Willkommen bei FamWake!",
-    intro: "Vielen Dank für deine Registrierung bei <strong>FamWake</strong>. Wir freuen uns darauf, dir und deiner Familie zu einem entspannten Morgen ohne Chaos zu verhelfen!",
+    subject: "🚀 Bestätige dein FamWake Familienwecker-Konto",
+    appName: "<strong>FamWake</strong> Familienwecker",
+    greeting: "Willkommen bei FamWake Familienwecker!",
+    intro: "Vielen Dank für deine Registrierung bei <strong>FamWake</strong> Familienwecker. Wir freuen uns darauf, dir und deiner Familie zu einem entspannten Morgen ohne Chaos zu verhelfen!",
     instruction: "Bitte bestätige deine E-Mail-Adresse, um dein Konto zu aktivieren:",
     button: "E-Mail-Adresse bestätigen",
     fallback: "Falls der Button nicht funktioniert, kopiere bitte diesen Link in deinen Browser:",
@@ -235,10 +235,10 @@ const EMAIL_CONTENT_VERIFY = {
     footer: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt auf diese E-Mail.",
   },
   en: {
-    subject: "🚀 Confirm your FamWake account",
-    appName: "FamWake - Family Alarm",
-    greeting: "Welcome to FamWake!",
-    intro: "Thank you for registering with <strong>FamWake</strong>. We look forward to helping you and your family start the day stress-free!",
+    subject: "🚀 Confirm your FamWake Family Alarm account",
+    appName: "<strong>FamWake</strong> Family Alarm",
+    greeting: "Welcome to FamWake Family Alarm!",
+    intro: "Thank you for registering with <strong>FamWake</strong> Family Alarm. We look forward to helping you and your family start the day stress-free!",
     instruction: "Please confirm your email address to activate your account:",
     button: "Confirm email address",
     fallback: "If the button doesn't work, please paste this link into your browser:",
