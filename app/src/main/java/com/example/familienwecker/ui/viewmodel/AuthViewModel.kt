@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import com.example.familienwecker.R
+import com.example.familienwecker.ui.util.UiText
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val authRepository: AuthRepository = AuthRepository()
@@ -22,7 +24,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         object Idle : AuthState()
         object Loading : AuthState()
         data class Authenticated(val user: FirebaseUser) : AuthState()
-        data class Error(val message: String) : AuthState()
+        data class Error(val message: UiText) : AuthState()
         object PasswordResetSuccess : AuthState()
         object AwaitingEmailVerification : AuthState()
     }
@@ -106,7 +108,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             }.onFailure { error ->
-                _authState.value = AuthState.Error(error.localizedMessage ?: "Login fehlgeschlagen")
+                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_login_failed, error.localizedMessage ?: "Unknown"))
             }
         }
     }
@@ -126,7 +128,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                _authState.value = AuthState.Error(error.localizedMessage ?: "Registrierung fehlgeschlagen")
+                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_registration_failed, error.localizedMessage ?: "Unknown"))
             }
         }
     }
@@ -139,7 +141,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 _authState.value = AuthState.Authenticated(user)
                 restoreUserFamily(user.uid)
             }.onFailure { error ->
-                _authState.value = AuthState.Error(error.localizedMessage ?: "Google Sign-In fehlgeschlagen")
+                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed, error.localizedMessage ?: "Unknown"))
             }
         }
     }
@@ -152,11 +154,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     fun resetPassword(email: String) {
         if (email.isBlank()) {
-            _authState.value = AuthState.Error(
-                if (java.util.Locale.getDefault().language == "de")
-                    "Bitte gib eine E-Mail-Adresse ein."
-                else "Please enter an email address."
-            )
+            _authState.value = AuthState.Error(UiText.StringResource(R.string.error_empty_email))
             return
         }
         _authState.value = AuthState.Loading
@@ -166,27 +164,18 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             result.onSuccess {
                 _authState.value = AuthState.PasswordResetSuccess
             }.onFailure { error ->
-                val isDe = language == "de"
                 val message = when (error.message) {
-                    "INVALID_EMAIL" ->
-                        if (isDe) "Ungültige E-Mail-Adresse. Bitte prüfe die Schreibweise."
-                        else "Invalid email address. Please check the spelling."
-                    "USER_NOT_FOUND" ->
-                        if (isDe) "Kein Konto mit dieser E-Mail-Adresse gefunden."
-                        else "No account found for this email address."
-                    "TOO_MANY_REQUESTS" ->
-                        if (isDe) "Zu viele Versuche. Bitte warte kurz und versuche es erneut."
-                        else "Too many attempts. Please wait and try again."
-                    else ->
-                        if (isDe) "Passwort-Reset fehlgeschlagen. Bitte versuche es später erneut."
-                        else "Password reset failed. Please try again later."
+                    "INVALID_EMAIL" -> UiText.StringResource(R.string.error_invalid_email)
+                    "USER_NOT_FOUND" -> UiText.StringResource(R.string.error_user_not_found)
+                    "TOO_MANY_REQUESTS" -> UiText.StringResource(R.string.error_too_many_requests)
+                    else -> UiText.StringResource(R.string.error_password_reset_failed)
                 }
                 _authState.value = AuthState.Error(message)
             }
         }
     }
 
-    fun setError(message: String) {
+    fun setError(message: UiText) {
         _authState.value = AuthState.Error(message)
     }
 
@@ -203,7 +192,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             } else {
-                _authState.value = AuthState.Error("EMAIL_NOT_VERIFIED")
+                // Hier könnten wir auch einen speziellen Error-String definieren, 
+                // wird aber intern anscheinend nur zur Screen-Steuerung genutzt.
+                _authState.value = AuthState.Error(UiText.DynamicString("EMAIL_NOT_VERIFIED"))
             }
         }
     }
