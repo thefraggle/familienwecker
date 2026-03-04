@@ -62,8 +62,16 @@ class MainActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
         setContent {
-            FamilienweckerTheme {
-                FamilienweckerApp()
+            val familyViewModel: FamilyViewModel = viewModel()
+            val themePref by familyViewModel.themePreference.collectAsState()
+            val darkTheme = when (themePref) {
+                "dark" -> true
+                "light" -> false
+                else -> androidx.compose.foundation.isSystemInDarkTheme()
+            }
+            
+            FamilienweckerTheme(darkTheme = darkTheme) {
+                FamilienweckerApp(familyViewModel)
             }
         }
     }
@@ -85,9 +93,8 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun FamilienweckerApp() {
+fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
     val navController = rememberNavController()
-    val familyViewModel: FamilyViewModel = viewModel()
     val authViewModel: AuthViewModel = viewModel()
 
     val currentLanguage by familyViewModel.language.collectAsState()
@@ -127,6 +134,7 @@ fun FamilienweckerApp() {
             composable("login") {
                 LoginScreen(
                     authViewModel = authViewModel,
+                    familyViewModel = familyViewModel,
                     onLoginSuccess = {
                         navController.navigate("loading") {
                             popUpTo("login") { inclusive = true }

@@ -36,6 +36,9 @@ class PreferencesRepository(context: Context) {
     private val _language = MutableStateFlow<String>(prefs.getString("APP_LANGUAGE", defaultLang) ?: defaultLang)
     val language: StateFlow<String> = _language.asStateFlow()
 
+    private val _themePreference = MutableStateFlow<String>(prefs.getString("APP_THEME", "system") ?: "system")
+    val themePreference: StateFlow<String> = _themePreference.asStateFlow()
+
     private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean("ALARM_ENABLED", false))
     val isAlarmEnabled: StateFlow<Boolean> = _isAlarmEnabled.asStateFlow()
 
@@ -47,6 +50,7 @@ class PreferencesRepository(context: Context) {
             "JOIN_CODE" -> _joinCode.value = sharedPreferences.getString(key, null)
             "FAMILY_NAME" -> _familyName.value = sharedPreferences.getString(key, null)
             "APP_LANGUAGE" -> _language.value = sharedPreferences.getString(key, defaultLang) ?: defaultLang
+            "APP_THEME" -> _themePreference.value = sharedPreferences.getString(key, "system") ?: "system"
             "ALARM_ENABLED" -> _isAlarmEnabled.value = sharedPreferences.getBoolean(key, false)
         }
     }
@@ -83,6 +87,11 @@ class PreferencesRepository(context: Context) {
     fun setLanguage(lang: String) {
         prefs.edit { putString("APP_LANGUAGE", lang) }
         _language.value = lang
+    }
+
+    fun setThemePreference(theme: String) {
+        prefs.edit { putString("APP_THEME", theme) }
+        _themePreference.value = theme
     }
 
     fun setAlarmEnabled(enabled: Boolean) {
