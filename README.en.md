@@ -16,11 +16,11 @@ The **FamWake Family Alarm** is the intelligent solution for a relaxed morning r
 Here is a quick look at our current work in progress:
 
 <p align="center">
-  <img src="docs/images/screenshot_main.png" width="30%" alt="Main View (Dashboard)">
+  <img src="docs/images/screenshot_main_en.png" width="30%" alt="Main View (Dashboard)">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/screenshot_settings.png" width="30%" alt="Settings">
+  <img src="docs/images/screenshot_settings_en.png" width="30%" alt="Settings">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/screenshot_setup.png" width="30%" alt="Family Setup">
+  <img src="docs/images/screenshot_setup_en.png" width="30%" alt="Family Setup">
 </p>
 
 ## ✨ The Highlights
