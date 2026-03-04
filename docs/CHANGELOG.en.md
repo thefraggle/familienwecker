@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.11] - 2026-03-04
+
+### Fixed
+- **Coroutine Cancellation Popup:** Fixed a visual issue on startup. When the data flow restarts cleanly upon app launch (following a backup restore), the cancellation of the old coroutine falsely triggered a red error message ("StandaloneCoroutine was cancelled") in the UI. This expected system exception is now correctly ignored.
+
+
 ## [0.4.10] - 2026-03-04
 
 ### Fixed

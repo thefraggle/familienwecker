@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CancellationException
 import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -85,6 +86,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                                     
                                     recalculateSchedule()
                                 }
+                            } catch (e: CancellationException) {
+                                // Ignore cancellation exceptions caused by rapid familyId re-emits (e.g. during auth restore)
+                                throw e
                             } catch (e: Exception) {
                                 _errorMessage.value = "Fehler beim Laden der Mitglieder: ${e.localizedMessage}"
                             }
