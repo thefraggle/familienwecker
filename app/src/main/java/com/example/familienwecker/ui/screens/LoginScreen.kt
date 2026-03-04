@@ -29,6 +29,7 @@ import androidx.credentials.exceptions.NoCredentialException
 import com.example.familienwecker.R
 import com.example.familienwecker.ui.viewmodel.AuthViewModel
 import com.example.familienwecker.ui.viewmodel.FamilyViewModel
+import com.example.familienwecker.ui.util.UiText
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.GoogleAuthProvider
@@ -262,11 +263,11 @@ fun LoginScreen(
                                         authViewModel.signInWithGoogle(firebaseCredential)
                                     }
                                 } catch (_: NoCredentialException) {
-                                    authViewModel.setError(context.getString(R.string.login_google_error_no_account))
+                                    authViewModel.setError(UiText.StringResource(R.string.login_google_error_no_account))
                                 } catch (e: GetCredentialException) {
-                                    authViewModel.setError("Google Login failed: ${e.message}")
+                                    authViewModel.setError(UiText.DynamicString("Google Login failed: ${e.message}"))
                                 } catch (e: Exception) {
-                                    authViewModel.setError("Unerwarteter Fehler: ${e.message}")
+                                    authViewModel.setError(UiText.DynamicString("Unerwarteter Fehler: ${e.message}"))
                                 }
                             }
                         },
@@ -287,18 +288,21 @@ fun LoginScreen(
             if (authState is AuthViewModel.AuthState.Error) {
                 Spacer(modifier = Modifier.height(16.dp))
                 val isDe = java.util.Locale.getDefault().language == "de"
-                val errMsg = (authState as AuthViewModel.AuthState.Error).message
-                val displayMsg = if (errMsg == "EMAIL_NOT_VERIFIED") {
+                val errorUiText = (authState as AuthViewModel.AuthState.Error).message
+                
+                val isEmailNotVerified = errorUiText is UiText.DynamicString && errorUiText.value == "EMAIL_NOT_VERIFIED"
+                
+                val displayMsg = if (isEmailNotVerified) {
                     if (isDe) "Die E-Mail-Adresse wurde noch nicht bestätigt. Bitte prüfe dein Postfach."
                     else "Email address not yet confirmed. Please check your inbox."
-                } else errMsg
+                } else errorUiText.asString()
                 Text(
                     text = displayMsg,
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 // Nach EMAIL_NOT_VERIFIED zurück zum AwaitingEmailVerification Screen
-                if (errMsg == "EMAIL_NOT_VERIFIED") {
+                if (isEmailNotVerified) {
                     Spacer(modifier = Modifier.height(8.dp))
                     TextButton(onClick = { authViewModel.resendVerificationEmail() }) {
                         Text(if (isDe) "E-Mail erneut senden" else "Resend email")

@@ -126,4 +126,22 @@
     <string name="ringing_snooze">Snooze (5 Min)</string>
     <string name="pause_today_desc">Heute pausieren</string>
     <string name="awake_today_desc">Bereits wach</string>
+
+    <string name="error_load_members">Fehler beim Laden der Mitglieder: %1$s</string>
+    <string name="error_create_family">Fehler beim Erstellen der Familie: %1$s</string>
+    <string name="error_invalid_code">Einladungscode ungültig: %1$s</string>
+    <string name="error_delete_member">Mitglied konnte nicht gelöscht werden: %1$s</string>
+    <string name="error_sync_failed">Synchronisierung fehlgeschlagen: %1$s</string>
+    <string name="error_delete_family">Fehler beim Löschen der Familie: %1$s</string>
+    <string name="error_calculate_schedule">Fehler bei der Zeitplanberechnung: %1$s</string>
+    <string name="error_not_logged_in">Benutzer nicht eingeloggt</string>
+    <string name="error_system">Systemfehler: %1$s</string>
+    <string name="error_login_failed">Login fehlgeschlagen: %1$s</string>
+    <string name="error_registration_failed">Registrierung fehlgeschlagen: %1$s</string>
+    <string name="error_google_sign_in_failed">Google Sign-In fehlgeschlagen: %1$s</string>
+    <string name="error_empty_email">Bitte gib eine E-Mail-Adresse ein.</string>
+    <string name="error_invalid_email">Ungültige E-Mail-Adresse. Bitte prüfe die Schreibweise.</string>
+    <string name="error_user_not_found">Kein Konto mit dieser E-Mail-Adresse gefunden.</string>
+    <string name="error_too_many_requests">Zu viele Versuche. Bitte warte kurz und versuche es erneut.</string>
+    <string name="error_password_reset_failed">Passwort-Reset fehlgeschlagen. Bitte versuche es später erneut.</string>
 </resources>

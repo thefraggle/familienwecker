@@ -7,6 +7,12 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.12] - 2026-03-04
+
+### Geändert
+- **Lokalisierung von Fehlermeldungen:** Die ViewModels (`AuthViewModel`, `FamilyViewModel`) geben keine roh formatierten deutschen Text-Strings oder technischen Exception-Meldungen (z.B. von Firebase) mehr direkt an die Benutzeroberfläche weiter. Alle Fehler durchlaufen nun einen `UiText`-Wrapper und werden intelligent und in der korrekten Systemsprache ins UI (Englisch/Deutsch) gerendert.
+
+
 ## [0.4.11] - 2026-03-04
 
 ### Behoben

@@ -127,4 +127,22 @@
     <string name="ringing_snooze">Snooze (5 Min)</string>
     <string name="pause_today_desc">Pause for today</string>
     <string name="awake_today_desc">Already awake</string>
+
+    <string name="error_load_members">Error loading members: %1$s</string>
+    <string name="error_create_family">Error creating family: %1$s</string>
+    <string name="error_invalid_code">Invalid invitation code: %1$s</string>
+    <string name="error_delete_member">Could not delete member: %1$s</string>
+    <string name="error_sync_failed">Synchronization failed: %1$s</string>
+    <string name="error_delete_family">Error deleting family: %1$s</string>
+    <string name="error_calculate_schedule">Error calculating schedule: %1$s</string>
+    <string name="error_not_logged_in">User not logged in</string>
+    <string name="error_system">System error: %1$s</string>
+    <string name="error_login_failed">Login failed: %1$s</string>
+    <string name="error_registration_failed">Registration failed: %1$s</string>
+    <string name="error_google_sign_in_failed">Google Sign-In failed: %1$s</string>
+    <string name="error_empty_email">Please enter an email address.</string>
+    <string name="error_invalid_email">Invalid email address. Please check the spelling.</string>
+    <string name="error_user_not_found">No account found for this email address.</string>
+    <string name="error_too_many_requests">Too many attempts. Please wait and try again.</string>
+    <string name="error_password_reset_failed">Password reset failed. Please try again later.</string>
 </resources>

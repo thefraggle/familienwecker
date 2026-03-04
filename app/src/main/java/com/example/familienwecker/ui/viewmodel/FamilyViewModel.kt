@@ -17,6 +17,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CancellationException
+import com.example.familienwecker.R
+import com.example.familienwecker.ui.util.UiText
 import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -45,8 +47,8 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     private val _schedule = MutableStateFlow<FamilySchedule?>(null)
     val schedule: StateFlow<FamilySchedule?> = _schedule.asStateFlow()
 
-    private val _errorMessage = MutableStateFlow<String?>(null)
-    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
+    private val _errorMessage = MutableStateFlow<UiText?>(null)
+    val errorMessage: StateFlow<UiText?> = _errorMessage.asStateFlow()
 
     private val _isSyncing = MutableStateFlow(false)
     val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
@@ -90,7 +92,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                                 // Ignore cancellation exceptions caused by rapid familyId re-emits (e.g. during auth restore)
                                 throw e
                             } catch (e: Exception) {
-                                _errorMessage.value = "Fehler beim Laden der Mitglieder: ${e.localizedMessage}"
+                                _errorMessage.value = UiText.StringResource(R.string.error_load_members, e.localizedMessage ?: "Unknown")
                             }
                         }
                         alarmEnabledJob = launch {
@@ -108,7 +110,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     }
                 }
             } catch (e: Exception) {
-                _errorMessage.value = "Systemfehler: ${e.localizedMessage}"
+                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: "Unknown")
             }
         }
 
@@ -142,7 +144,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         _errorMessage.value = null
         val uid = auth.currentUser?.uid
         if (uid == null) {
-            _errorMessage.value = "Benutzer nicht eingeloggt"
+            _errorMessage.value = UiText.StringResource(R.string.error_not_logged_in)
             onComplete(false)
             return
         }
@@ -162,7 +164,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
                 onComplete(true)
             }.onFailure { error ->
-                _errorMessage.value = error.localizedMessage ?: "Fehler beim Erstellen der Familie"
+                _errorMessage.value = UiText.StringResource(R.string.error_create_family, error.localizedMessage ?: "Unknown")
                 onComplete(false)
             }
         }
@@ -190,7 +192,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
                 onComplete(true)
             }.onFailure { error ->
-                _errorMessage.value = error.localizedMessage ?: "Code ungültig"
+                _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
                 onComplete(false)
             }
         }
@@ -210,7 +212,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             val result = repository.removeMember(currentFamilyId, id)
             if (result.isFailure) {
-                _errorMessage.value = "Mitglied konnte nicht gelöscht werden: ${result.exceptionOrNull()?.localizedMessage}"
+                _errorMessage.value = UiText.StringResource(R.string.error_delete_member, result.exceptionOrNull()?.localizedMessage ?: "Unknown")
             }
         }
         // Setze MyMemberId zurück falls der eigene Nutzer gelöscht wird
@@ -351,7 +353,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     }
                 }
             } catch (e: Exception) {
-                _errorMessage.value = "Synchronisierung fehlgeschlagen: ${e.localizedMessage}"
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: "Unknown")
             } finally {
                 _isSyncing.value = false
             }
@@ -424,7 +426,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 
                 onComplete(true)
             } else {
-                _errorMessage.value = result.exceptionOrNull()?.localizedMessage ?: "Fehler beim Löschen der Familie"
+                _errorMessage.value = UiText.StringResource(R.string.error_delete_family, result.exceptionOrNull()?.localizedMessage ?: "Unknown")
                 onComplete(false)
             }
         }
@@ -479,7 +481,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                         currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                     }
                 } catch (e: Exception) {
-                    _errorMessage.value = "Fehler bei der Zeitplanberechnung: ${e.localizedMessage}"
+                    _errorMessage.value = UiText.StringResource(R.string.error_calculate_schedule, e.localizedMessage ?: "Unknown")
                     _schedule.value = null
                 }
             }

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.12] - 2026-03-04
+
+### Changed
+- **Error Localization:** ViewModels (`AuthViewModel`, `FamilyViewModel`) no longer pass raw, hardcoded German strings or technical Firebase exception messages directly into the UI. All errors are now correctly mapped and translated via a new `UiText` wrapper relying strictly on Android's string resources.
+
+
 ## [0.4.11] - 2026-03-04
 
 ### Fixed
