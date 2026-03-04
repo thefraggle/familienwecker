@@ -30,10 +30,7 @@ jobs:
       - name: Decode Google Services Config
         env:
           GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
-        run: |
-          cat << 'EOF' | base64 -d -i > app/google-services.json
-          ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
-          EOF
+        run: echo -n "$GOOGLE_SERVICES_JSON_BASE64" | base64 --decode > app/google-services.json
 
       # Baut das un-signierte Release APK
       - name: Build Release APK
