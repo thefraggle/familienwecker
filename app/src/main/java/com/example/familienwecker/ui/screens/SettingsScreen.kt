@@ -17,6 +17,8 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Groups
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.material3.*
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.runtime.*
@@ -31,6 +33,9 @@ import androidx.compose.ui.unit.dp
 import com.example.familienwecker.ui.viewmodel.FamilyViewModel
 import androidx.compose.ui.res.stringResource
 import com.example.familienwecker.R
+import com.example.familienwecker.ui.components.bounceClick
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -93,7 +98,12 @@ fun SettingsScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
+                    val backInteractionSource = remember { MutableInteractionSource() }
+                    IconButton(
+                        onClick = onNavigateBack,
+                        modifier = Modifier.bounceClick(backInteractionSource),
+                        interactionSource = backInteractionSource
+                    ) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back_desc))
                     }
                 },
@@ -227,6 +237,7 @@ fun SettingsScreen(
                         }
                     }
 
+                    val ringtoneInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
                             val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
@@ -240,39 +251,14 @@ fun SettingsScreen(
                             }
                             ringtonePickerLauncher.launch(intent)
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().bounceClick(ringtoneInteractionSource),
+                        interactionSource = ringtoneInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_alarm_select, ringtoneName ?: ""))
                     }
                 }
             }
 
-            // 3. Hilfe
-            Card(
-                modifier = Modifier.fillMaxWidth(), 
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                     else MaterialTheme.colorScheme.surface
-                )
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.settings_help_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        stringResource(R.string.settings_help_text),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-            
             // 4. Familie & Account
             val currentJoinCode by viewModel.joinCode.collectAsState()
             
@@ -287,7 +273,11 @@ fun SettingsScreen(
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(stringResource(R.string.settings_account_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Groups, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.settings_account_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    }
                     Spacer(modifier = Modifier.height(16.dp))
                     if (currentJoinCode != null) {
                         Text(stringResource(R.string.settings_join_code, familyName ?: ""))
@@ -298,27 +288,33 @@ fun SettingsScreen(
                             modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 16.dp)
                         )
                     }
+                    val leaveInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = onLeaveFamily,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().bounceClick(leaveInteractionSource),
+                        interactionSource = leaveInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_leave_family))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
+                    val deleteFamilyInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = { showDeleteDialog = true },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                        modifier = Modifier.fillMaxWidth().bounceClick(deleteFamilyInteractionSource),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                        interactionSource = deleteFamilyInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_delete_family))
                     }
                     
                     HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
                     
+                    val logoutInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = onLogout,
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                        modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                        interactionSource = logoutInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_logout))
                     }
@@ -480,6 +476,32 @@ fun SettingsScreen(
                 }
             }
 
+            // 5. Über diese App
+            Card(
+                modifier = Modifier.fillMaxWidth(), 
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
+                                     else MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.settings_help_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        stringResource(R.string.settings_help_text),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
             // 6. Support
             Card(
                 modifier = Modifier.fillMaxWidth(), 
@@ -493,7 +515,7 @@ fun SettingsScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Email, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.Description, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_support_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     }
@@ -504,6 +526,7 @@ fun SettingsScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(modifier = Modifier.height(16.dp))
+                    val supportInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
                             val subject = Uri.encode("Feedback: FamWake App")
@@ -512,45 +535,60 @@ fun SettingsScreen(
                             }
                             context.startActivity(intent)
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().bounceClick(supportInteractionSource),
+                        interactionSource = supportInteractionSource
                     ) {
+                        Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_support_button))
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     Spacer(modifier = Modifier.height(16.dp))
                     
+                    val privacyInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
                             val url = context.getString(R.string.settings_privacy_policy_url)
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context.startActivity(intent)
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().bounceClick(privacyInteractionSource),
+                        interactionSource = privacyInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_privacy_policy))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
+                    val imprintInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
                             val url = context.getString(R.string.settings_imprint_url)
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context.startActivity(intent)
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().bounceClick(imprintInteractionSource),
+                        interactionSource = imprintInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_imprint))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
+                    val deleteAccountInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
                             val url = context.getString(R.string.settings_delete_account_url)
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context.startActivity(intent)
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().bounceClick(deleteAccountInteractionSource),
+                        interactionSource = deleteAccountInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_delete_account))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
                     }
                 }
             }

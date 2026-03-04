@@ -14,7 +14,24 @@ class FirebaseRepository {
 
     suspend fun createFamily(familyName: String, userId: String): Result<Pair<String, String>> {
         return try {
-            val joinCode = generateJoinCode()
+            var joinCode = generateJoinCode()
+            var codeExists = true
+            var attempts = 0
+            
+            while (codeExists && attempts < 5) {
+                val snapshot = db.collection("families").whereEqualTo("joinCode", joinCode).limit(1).get().await()
+                if (snapshot.isEmpty) {
+                    codeExists = false
+                } else {
+                    joinCode = generateJoinCode()
+                    attempts++
+                }
+            }
+
+            if (codeExists) {
+                return Result.failure(Exception("Konnte keinen eindeutigen Code generieren. Bitte erneut versuchen."))
+            }
+
             val familyData = hashMapOf(
                 "name" to familyName,
                 "joinCode" to joinCode,
@@ -22,7 +39,6 @@ class FirebaseRepository {
                 "isAlarmEnabled" to true
             )
             val docRef = db.collection("families").add(familyData).await()
-            // Gib die Document ID und den Join Code zurück
             Result.success(Pair(docRef.id, joinCode))
         } catch (e: Exception) {
             Result.failure(e)

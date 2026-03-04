@@ -7,16 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.4.7] - TBD
+## [0.4.7] - 2026-03-04
 
 ### Added
-- 
+- **Visual Feedback:** Bounce effect when clicking buttons and interactive elements for a more responsive feel.
+- **Iconography Enhancements:** New icons for external links (Privacy, Imprint, Delete Account) and email support for better visual guidance.
+- **Join Code Security:** Implemented a uniqueness check for family join codes in `FirebaseRepository`.
 
 ### Changed
-- 
-
-### Fixed
-- 
+- **Settings Structure:** Logical reordering of sections (Profile, Alarm Sound, Family, Language, Help, Support).
+- **Localization:** Localized the copyright footer in settings for German users ("Alle Rechte vorbehalten.").
+- **Icon Refinement:** Adjusted section icons (Groups, Description) in Settings for clearer symbolism.
 
 ## [0.4.6] - 2026-03-04
 

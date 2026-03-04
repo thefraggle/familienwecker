@@ -23,6 +23,8 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import androidx.compose.ui.res.stringResource
 import com.example.familienwecker.R
+import com.example.familienwecker.ui.components.bounceClick
+import androidx.compose.foundation.interaction.MutableInteractionSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,7 +79,12 @@ fun AddMemberScreen(
                 TopAppBar(
                     title = { Text(if (memberId == null) stringResource(R.string.add_member_title_add) else stringResource(R.string.add_member_title_edit)) },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
+                    val backInteractionSource = remember { MutableInteractionSource() }
+                    IconButton(
+                        onClick = onNavigateBack,
+                        modifier = Modifier.bounceClick(backInteractionSource),
+                        interactionSource = backInteractionSource
+                    ) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back_desc))
                     }
                 },
@@ -90,10 +97,13 @@ fun AddMemberScreen(
         },
         bottomBar = {
             val unknownStr = stringResource(R.string.add_member_unknown)
+            val saveInteractionSource = remember { MutableInteractionSource() }
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(16.dp)
+                    .bounceClick(saveInteractionSource),
+                interactionSource = saveInteractionSource,
                 onClick = {
                     val memberToSave = com.example.familienwecker.model.FamilyMember(
                         id = memberId ?: java.util.UUID.randomUUID().toString(),
