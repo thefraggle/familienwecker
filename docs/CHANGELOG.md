@@ -7,6 +7,12 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.9] - 2026-03-04
+
+### Behoben
+- **Fehlende Berechtigungen nach Neuinstallation:** Ein Fehler wurde behoben, durch den nach einer Neuinstallation (aus einem Backup) kurzzeitig eine `PERMISSION_DENIED`-Fehlermeldung wegen veralteter Authentifizierungs-Status auftreten konnte. Das Profil lädt nun den Wecker reibungslos direkt nach dem erneuten Login bzw. App-Start.
+
+
 ## [0.4.8] - 2026-03-04
 
 ### Hinzugefügt
