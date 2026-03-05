@@ -385,6 +385,4 @@ Dies ist der initiale öffentliche Release auf GitHub nach einer umfassenden Cod
 - **Platzhalter-Texte:** Hardcodierte Entwicklernamen ("Familie Notthoff" / "Smith Family") wurden aus den Textfeldern bei der Familien-Gründung entfernt und durch neutrale Beispiele ("Musterfamilie") ersetzt.
 
 ---
-*Ältere, interne Entwicklungsstände- Current Version: v0.4.13
-- Last Tag: v0.4.13
-in diesem öffentlichen Repository nicht dokumentiert.*
+*Ältere, interne Entwicklungsstände (vor Version 0.2.5) sind in diesem öffentlichen Repository nicht dokumentiert.*
