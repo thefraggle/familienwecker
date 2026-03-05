@@ -34,7 +34,8 @@ google-services.json
 /tmp/
 
 # Internal documentation
-todo.md
+.antigravity/
+
 # Firebase Functions
 functions/node_modules/
 firebase-debug.log

@@ -524,9 +524,9 @@ fun MainScreen(
                     }
                 }
             }
-            }
         }
     }
+}
 }
 
 @Composable
