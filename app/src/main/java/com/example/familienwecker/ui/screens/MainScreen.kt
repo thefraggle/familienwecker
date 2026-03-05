@@ -44,6 +44,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.familienwecker.R
 import kotlinx.coroutines.launch
 import com.example.familienwecker.ui.components.bounceClick
+import com.example.familienwecker.ui.components.EmptyState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.Lifecycle
@@ -377,10 +378,12 @@ fun MainScreen(
                 label = "planCardColor"
             )
 
-            if (currentSchedule == null) {
-                Text(stringResource(R.string.main_add_members_prompt))
-            } else if (currentSchedule.message == "no_active_schedule") {
-                Text(stringResource(R.string.main_no_active_schedule))
+            if (currentSchedule == null || currentSchedule.message == "no_active_schedule") {
+                EmptyState(
+                    imageRes = R.drawable.illustration_no_schedule,
+                    title = stringResource(R.string.empty_schedule_title),
+                    description = stringResource(R.string.empty_schedule_description)
+                )
             } else if (!currentSchedule.isValid) {
                 Card(
                     shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
@@ -484,16 +487,19 @@ fun MainScreen(
                 )
             }
 
-            AnimatedVisibility(visible = members.isEmpty()) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.main_no_members))
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = onNavigateToAddMember) {
-                        Icon(Icons.Default.Add, contentDescription = null)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.main_add_member_desc))
+            if (members.isEmpty()) {
+                EmptyState(
+                    imageRes = R.drawable.illustration_empty_members,
+                    title = stringResource(R.string.empty_members_title),
+                    description = stringResource(R.string.empty_members_description),
+                    action = {
+                        Button(onClick = onNavigateToAddMember) {
+                            Icon(Icons.Default.Add, contentDescription = null)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(R.string.main_add_member_desc))
+                        }
                     }
-                }
+                )
             }
             
             // Verwende animateItem für geschmeidige Umsortierungen/Hinzufügen
