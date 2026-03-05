@@ -14,14 +14,12 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 
 ### Prio: Hoch (Integration & Kern-Features)
 - [ ] **Individueller Klingelton (#1):** Auswahl eines eigenen Wecktons aus den lokalen Handy-Sounds.
-- [ ] **"Was ist neu?" Dialog (#3):** Übersichtliche Highlights nach einem App-Update anzeigen.
 - [ ] **Wochentag-Konfiguration:** Weckzeiten für Werktage und Wochenende getrennt einstellen – z. B. Kinder schlafen samstags länger.
 
 ### Prio: Mittel (Usability & UI)
 - [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
 - [ ] **Snooze-Synchronisation:** Wenn einer länger braucht, passt sich der Plan der anderen "live" an.
 - [ ] **Individuelle Frühstücksdauer:** Jedes Mitglied kann eigene Zeiten setzen (z. B. Kinder frühstücken 30 Min., Papa kommt nur für 10 Min. dazu).
-- [x] **Lottie-Animationen:** Integration von Animationen für Empty States (Dashboard).
 - [ ] **Echtzeit-Feedback:** Visuelle Bestätigung/Animation, wenn der Plan im Hintergrund neu berechnet wurde (Testplan UI).
 - [ ] **Haptik-Profile:** Unterschiedliche Vibrationsmuster für Voralarm und Hauptalarm (Testplan UX).
 - [ ] **Smarte Zeit-Warnungen:** Hinweis bei zu knappen Zeitfenstern (z. B. Wecken vs. Haus verlassen) (EC-03).
@@ -40,6 +38,10 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Alarm-Watchdog:** Maximale Belastbarkeit des Hintergrunddienstes gegen System-Kills/Abstürze (EC-06).
 - [ ] **Deep Offline Resilience:** Explizite lokale Datenbank als Primary-Source bei fehlendem Internet (EC-04).
 - [ ] **Multi-Admin Konfliktlösung:** Strategie für gleichzeitige Änderungen an denselben Mitgliedern (EC-10).
+
+## ✅ Erledigt
+- [x] **Lottie-Animationen:** Integration von Animationen für Empty States (Dashboard).
+- [x] **"Was ist neu?" Dialog:** News-Popup nach Updates (v0.4.15).
 
 ---
 *Vorschläge können jederzeit ergänzt werden! Einfach dieses File bearbeiten.*
