@@ -10,10 +10,6 @@ jobs:
     name: Build & Upload APK
     runs-on: ubuntu-latest
 
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
-
     # Gibt dem Workflow die Schreibrechte für GitHub Releases
     permissions:
       contents: write 
