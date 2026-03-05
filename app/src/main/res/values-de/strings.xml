@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FamWake - Familienwecker</string>
+    <string name="app_name">FamWake Familienwecker</string>
     <string name="app_name_short">Familienwecker</string>
-    <string name="login_title">FamWake - Familienwecker</string>
+    <string name="login_title">FamWake Familienwecker</string>
     <string name="email_label">E-Mail</string>
     <string name="password_label">Passwort</string>
     <string name="register_button">Registrieren</string>
@@ -97,7 +97,7 @@
     <string name="settings_delete_family_warning_text">Es gibt noch andere aktive Profile in dieser Familie. Wenn du l\u00f6schst, verlieren alle den Zugriff. Willst du wirklich f\u00fcr alle Beteiligten alles l\u00f6schen?</string>
     <string name="settings_delete_family_warning_confirm">Ja, Familie endgültig löschen</string>
     <string name="settings_logout">Ausloggen</string>
-    <string name="settings_footer_version">%1$s v%2$s</string>
+    <string name="settings_footer_version">FamWake Familienwecker v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle Rechte vorbehalten.</string>
 

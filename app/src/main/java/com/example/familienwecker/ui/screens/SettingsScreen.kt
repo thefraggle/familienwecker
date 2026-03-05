@@ -618,7 +618,7 @@ fun SettingsScreen(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = stringResource(R.string.settings_footer_version, stringResource(R.string.app_name_short), com.example.familienwecker.BuildConfig.VERSION_NAME),
+                    text = stringResource(R.string.settings_footer_version, com.example.familienwecker.BuildConfig.VERSION_NAME),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
