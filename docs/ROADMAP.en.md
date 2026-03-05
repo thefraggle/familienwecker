@@ -15,14 +15,12 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 
 ### Priority: High (Integration & Core Features)
 - [ ] **Custom Ringtone (#1):** Selection of an individual alarm sound from local device files.
-- [ ] **"What's New" Dialog (#3):** Clear highlights shown after an app update.
 - [ ] **Weekday configuration:** Set different wake times for weekdays vs. weekends – e.g. children sleep in on Saturdays.
 
 ### Priority: Medium (Usability & UI)
 - [ ] **Support for 2 Bathrooms:** Parallel slot calculation.
 - [ ] **Snooze Sync:** If someone takes longer, the plan for others adjusts "live."
 - [ ] **Individual Breakfast Duration:** Each member can set their own duration (e.g., kids eat for 30 mins, dad joins only for 10 mins).
-- [x] **Lottie Animations:** Integration of animations for Empty States (Dashboard).
 - [ ] **Real-time Feedback:** Visual confirmation/animation when the plan has been recalculated in the background (Testplan UI).
 - [ ] **Haptic Feedback Profiles:** Different vibration patterns for pre-alarm and main alarm (Testplan UX).
 - [ ] **Smart Time Warnings:** Alert if time windows are too tight (e.g., wake up vs. leave home) (EC-03).
@@ -41,6 +39,10 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Alarm Watchdog:** Enhance background service resilience against system kills or crashes (EC-06).
 - [ ] **Deep Offline Resilience:** Explicit local database as primary source when internet is unavailable (EC-04).
 - [ ] **Multi-Admin Conflict Resolution:** Strategy for simultaneous edits to the same member profiles (EC-10).
+
+## ✅ Completed
+- [x] **Lottie Animations:** Integration of animations for Empty States (Dashboard).
+- [x] **"What's New" Dialog:** News popup after updates (v0.4.15).
 
 ---
 *Suggestions can be added at any time! Just edit this file.*

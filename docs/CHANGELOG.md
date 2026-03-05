@@ -7,6 +7,17 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
  
+ ## [0.4.16] - Unreleased
+ 
+ ### Hinzugefügt
+ - 
+ 
+ ### Geändert
+ - 
+ 
+ ### Behoben
+ - 
+ 
  ## [0.4.15] - 2026-03-05
  
  ### Hinzugefügt
