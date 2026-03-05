@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FamWake - Family Alarm</string>
+    <string name="app_name">FamWake Family Alarm</string>
     <string name="app_name_short">Family Alarm</string>
-    <string name="login_title">FamWake - Family Alarm</string>
+    <string name="login_title">FamWake Family Alarm</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="register_button">Register</string>
@@ -98,7 +98,7 @@
     <string name="settings_delete_family_warning_text">There are other active members in this family. If you delete it, everyone will lose access. Do you really want to force delete everything?</string>
     <string name="settings_delete_family_warning_confirm">Yes, delete everything</string>
     <string name="settings_logout">Logout</string>
-    <string name="settings_footer_version">%1$s v%2$s</string>
+    <string name="settings_footer_version">FamWake Family Alarm v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">All rights reserved.</string>
 
