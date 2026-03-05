@@ -612,13 +612,30 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
             
-            Text(
-                text = stringResource(R.string.settings_version_info, stringResource(R.string.app_name), com.example.familienwecker.BuildConfig.VERSION_NAME, com.example.familienwecker.BuildConfig.COMMIT_HASH, com.example.familienwecker.BuildConfig.COMMIT_DATE),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                textAlign = androidx.compose.ui.text.style.TextAlign.Center
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.settings_footer_version, stringResource(R.string.app_name_short), com.example.familienwecker.BuildConfig.VERSION_NAME),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                )
+                Text(
+                    text = stringResource(R.string.settings_footer_copyright),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                )
+                Text(
+                    text = stringResource(R.string.settings_footer_rights),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                )
+            }
         }
     }
 }
