@@ -23,6 +23,9 @@ import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import com.example.familienwecker.util.WhatsNewManager
+import com.example.familienwecker.util.WhatsNewContent
+import kotlinx.coroutines.flow.first
 
 class FamilyViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -31,6 +34,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     private val alarmScheduler = AlarmScheduler(application)
     private val prefsRepo = PreferencesRepository(application)
     private val auth = FirebaseAuth.getInstance()
+    private val whatsNewManager = WhatsNewManager(application)
 
     val myMemberId: StateFlow<String?> = prefsRepo.myMemberId
     val alarmSoundUri: StateFlow<String?> = prefsRepo.alarmSoundUri
@@ -52,6 +56,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _isSyncing = MutableStateFlow(false)
     val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
+
+    private val _whatsNewContent = MutableStateFlow<WhatsNewContent?>(null)
+    val whatsNewContent: StateFlow<WhatsNewContent?> = _whatsNewContent.asStateFlow()
 
     private var membersJob: Job? = null
     private var alarmEnabledJob: Job? = null
@@ -138,6 +145,8 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 // Ignore silent errors in alarm toggle
             }
         }
+
+        checkWhatsNew()
     }
 
     fun createFamily(familyName: String, onComplete: (Boolean) -> Unit) {
@@ -538,6 +547,23 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
                 alarmScheduler.scheduleWakeUp(targetDateTime, memberSchedule.member.id, memberSchedule.member.name)
             }
+        }
+    }
+
+    private fun checkWhatsNew() {
+        viewModelScope.launch {
+            val content = whatsNewManager.getWhatsNewContent() ?: return@launch
+            val lastSeen = prefsRepo.lastSeenWhatsNewVersion.value
+            if (content.versionCode > lastSeen) {
+                _whatsNewContent.value = content
+            }
+        }
+    }
+
+    fun dismissWhatsNew() {
+        _whatsNewContent.value?.let {
+            prefsRepo.setLastSeenWhatsNewVersion(it.versionCode)
+            _whatsNewContent.value = null
         }
     }
 }

@@ -6,6 +6,18 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/),
 und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
+ 
+ ## [0.4.15] - 2026-03-05
+ 
+ ### Hinzugefügt
+- **What's New Popup:** Einführung eines dynamischen News-Dialogs nach App-Updates (JSON-basiert).
+- **Willkommens-Botschaft:** Erster Dialog für neue Nutzer und Rückkehrer nach dem Lottie-Update.
+ 
+ ### Geändert
+- **Infrastructure:** PreferencesRepository um Version-Tracking für News erweitert.
+ 
+ ### Behoben
+ - 
 
 ## [0.4.14] - 2026-03-05
  
