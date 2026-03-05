@@ -101,6 +101,11 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle Rechte vorbehalten.</string>
 
+    <string name="empty_members_title">Noch keine Profile</string>
+    <string name="empty_members_description">Füge deine Liebsten hinzu, um ihre Pläne zu sehen und sie liebevoll zu wecken.</string>
+    <string name="empty_schedule_title">Alles schläft noch</string>
+    <string name="empty_schedule_description">Aktuell sind keine Wecker aktiv. Genieße die Ruhe!</string>
+
     <string name="settings_language_title">Sprache</string>
     <string name="settings_language_system">Systemstandard</string>
     <string name="settings_language_english">English</string>
