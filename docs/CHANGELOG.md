@@ -7,6 +7,17 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.14] - Unreleased
+
+### Hinzugefügt
+- 
+
+### Geändert
+- 
+
+### Behoben
+- 
+
 ## [0.4.13] - 2026-03-05
 
 ### Hinzugefügt
@@ -35,8 +46,8 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Invalid document reference Crash:** Ein Folgefehler des vorherigen Updates wurde behandelt. Der kurzzeitige Workaround-Status für den App-Reload führt nun nicht mehr zu fehlerhaften Firestore-Anfragen mit leerer ID (`""`).
 
 
-## 🎯 State of the App (2026-03-05) - v0.4.13
-Session ended. Version 0.4.13 pushed to GitHub. UI polished (Empty States, Typography), strings refactored. Ready for v0.4.14 feature development.
+## 🎯 State of the App (2026-03-05) - v0.4.14 (Internal Dev)
+v0.4.13 is released. Local environment is set to v0.4.14 for upcoming features (Hero Section, Tab-Nav). Project is in 'Sleep Mode' context-wise.
 
 ## [0.4.9] - 2026-03-04
 
@@ -384,5 +395,15 @@ Dies ist der initiale öffentliche Release auf GitHub nach einer umfassenden Cod
 - **Doppelte Splash Screens:** Ein Bug wurde behoben, bei dem auf neueren Android Versionen erst das Android System-Logo und danach nochmal ein ladebildschirm-ähnlicher Activity-Splash angezeigt wurde.
 - **Platzhalter-Texte:** Hardcodierte Entwicklernamen ("Familie Notthoff" / "Smith Family") wurden aus den Textfeldern bei der Familien-Gründung entfernt und durch neutrale Beispiele ("Musterfamilie") ersetzt.
 
+## [0.4.14] - YYYY-MM-DD
+
+### Hinzugefügt
+
+### Geändert
+
+### Behoben
+
 ---
-*Ältere, interne Entwicklungsstände (vor Version 0.2.5) sind in diesem öffentlichen Repository nicht dokumentiert.*
+*Ältere, interne Entwicklungsstände- Current Version: v0.4.14 (Internal Dev)
+- Last Tag: v0.4.13
+in diesem öffentlichen Repository nicht dokumentiert.*
