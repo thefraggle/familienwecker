@@ -67,6 +67,7 @@ fun MainScreen(
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
+    val whatsNewContent by viewModel.whatsNewContent.collectAsStateWithLifecycle()
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     
     val snackbarHostState = remember { SnackbarHostState() }
@@ -94,6 +95,23 @@ fun MainScreen(
             dismissButton = {
                 TextButton(onClick = { showDeleteMemberDialog = null }) {
                     Text(stringResource(R.string.cancel_button))
+                }
+            }
+        )
+    }
+
+    // What's New Popup
+    whatsNewContent?.let { content ->
+        AlertDialog(
+            onDismissRequest = { viewModel.dismissWhatsNew() },
+            title = { Text(content.title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold) },
+            text = { Text(content.text, style = MaterialTheme.typography.bodyMedium) },
+            confirmButton = {
+                Button(
+                    onClick = { viewModel.dismissWhatsNew() },
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                ) {
+                    Text(content.buttonText)
                 }
             }
         )

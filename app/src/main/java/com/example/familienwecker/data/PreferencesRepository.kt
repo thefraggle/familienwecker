@@ -42,6 +42,9 @@ class PreferencesRepository(context: Context) {
     private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean("ALARM_ENABLED", false))
     val isAlarmEnabled: StateFlow<Boolean> = _isAlarmEnabled.asStateFlow()
 
+    private val _lastSeenWhatsNewVersion = MutableStateFlow<Int>(prefs.getInt("LAST_SEEN_WHATS_NEW_VERSION", 0))
+    val lastSeenWhatsNewVersion: StateFlow<Int> = _lastSeenWhatsNewVersion.asStateFlow()
+
     private val listener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         when (key) {
             "MY_MEMBER_ID" -> _myMemberId.value = sharedPreferences.getString(key, null)
@@ -52,6 +55,7 @@ class PreferencesRepository(context: Context) {
             "APP_LANGUAGE" -> _language.value = sharedPreferences.getString(key, defaultLang) ?: defaultLang
             "APP_THEME" -> _themePreference.value = sharedPreferences.getString(key, "system") ?: "system"
             "ALARM_ENABLED" -> _isAlarmEnabled.value = sharedPreferences.getBoolean(key, false)
+            "LAST_SEEN_WHATS_NEW_VERSION" -> _lastSeenWhatsNewVersion.value = sharedPreferences.getInt(key, 0)
         }
     }
 
@@ -97,6 +101,11 @@ class PreferencesRepository(context: Context) {
     fun setAlarmEnabled(enabled: Boolean) {
         prefs.edit { putBoolean("ALARM_ENABLED", enabled) }
         _isAlarmEnabled.value = enabled
+    }
+
+    fun setLastSeenWhatsNewVersion(version: Int) {
+        prefs.edit { putInt("LAST_SEEN_WHATS_NEW_VERSION", version) }
+        _lastSeenWhatsNewVersion.value = version
     }
 
     fun clearAll() {
