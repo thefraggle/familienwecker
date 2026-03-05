@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.4.14] - 2026-03-05
+ 
+ ### Added
+- **Lottie Animations:** Integrated dynamic animations for Empty States ("No alarm set" and "No members added").
+- **Layout Optimization:** Improved dashboard spacing for a more compact appearance.
+ 
+ ### Changed
+- **EmptyState:** Support for Lottie resources including fallback to static images.
+
+### Fixed
+- 
+
+## [0.4.13] - 2026-03-05
+
+### Added
+- **Empty States:** Beautiful illustrations and new `EmptyState` component for empty lists.
+- **UI Refinement:** App name in header and footer without hyphens; modernized settings structure (3-line style).
+
+### Changed
+- **Strings & Localization:** Cleaned and updated language resources for a more professional impact.
+- **UX:** Automatic data refresh when app starts in the foreground.
+
 ## [0.4.12] - 2026-03-04
 
 ### Changed
@@ -68,9 +90,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Font Strategy:** Switched to a more precise integration of the "Nunito" font with 7 individual weights, now correctly utilized throughout the project (Compose Typography).
 - **Layout Refinement:** Reduced internal card padding from 16.dp to 12.dp for a more compact and professional appearance.
 
-### Fixed
-- **Compilation Errors:** Resolved syntax errors and missing imports in member management and login screens.
-- **Shadow Artifacts:** Fixed a rendering issue with error cards and paused members in the light design.
+- [x] Compilation errors: Fixed syntax errors and missing imports.
+- [x] Shadow artifacts: Fixed rendering issues on error cards.
+
+## 🎯 State of the App (2026-03-05) - v0.4.14 (Internal Dev)
+v0.4.14: Lottie integration complete. Next steps: Hero Section, Tab-Nav, and Instagram-story-style avatars.
 
 ## [0.4.5] - 2026-03-04
 
