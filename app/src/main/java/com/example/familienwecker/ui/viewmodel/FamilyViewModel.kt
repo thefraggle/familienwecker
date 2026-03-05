@@ -395,7 +395,13 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 // Inside collect flow, we are already in a coroutine scope
                 val familyIdVal = familyId.value
                 if (familyIdVal != null) {
-                    viewModelScope.launch { repository.addOrUpdateMember(familyIdVal, updated) }
+                    viewModelScope.launch {
+                        try {
+                            repository.addOrUpdateMember(familyIdVal, updated)
+                        } catch (e: Exception) {
+                            android.util.Log.e("FamilyViewModel", "Failed to reset member status: ${e.message}")
+                        }
+                    }
                 }
                 updated
             } else {

@@ -30,15 +30,6 @@ fun EmptyState(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            painter = painterResource(id = imageRes),
-            contentDescription = null,
-            modifier = Modifier
-                .size(240.dp)
-                .padding(bottom = 24.dp),
-            contentScale = ContentScale.Fit
-        )
-        
         Text(
             text = title,
             style = MaterialTheme.typography.headlineSmall,
@@ -54,6 +45,16 @@ fun EmptyState(
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Image(
+            painter = painterResource(id = imageRes),
+            contentDescription = null,
+            modifier = Modifier
+                .size(240.dp),
+            contentScale = ContentScale.Fit
         )
         
         if (action != null) {

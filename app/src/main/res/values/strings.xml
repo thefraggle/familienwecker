@@ -102,10 +102,10 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">All rights reserved.</string>
 
-    <string name="empty_members_title">No family members yet</string>
-    <string name="empty_members_description">Add your loved ones to see their schedules and wake them up with a smile.</string>
-    <string name="empty_schedule_title">Everyone is sleeping</string>
-    <string name="empty_schedule_description">There are no active alarms right now. Enjoy the silence!</string>
+    <string name="empty_members_title">No members yet</string>
+    <string name="empty_members_description">Add profiles to see your wake-up times and wake each other up.</string>
+    <string name="empty_schedule_title">No active alarms</string>
+    <string name="empty_schedule_description">Currently, no alarms are set for anyone. Time to sleep in!</string>
 
     <string name="settings_language_title">Language</string>
     <string name="settings_language_system">System Default</string>
