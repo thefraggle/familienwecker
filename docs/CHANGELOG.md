@@ -7,6 +7,16 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
+## [0.4.13] - 2026-03-05
+
+### Hinzugefügt
+- **Empty States:** Liebevolle Illustrationen und neue `EmptyState`-Komponente für leere Listen.
+- **UI-Refinement:** App-Name im Header und Footer ohne Bindestriche; modernisierte Settings-Struktur (3-zeilig).
+
+### Geändert
+- **Strings & Lokalisierung:** Bereinigung und Aktualisierung der Sprach-Ressourcen für eine professionellere Wirkung.
+- **UX:** Automatischer Daten-Refresh beim App-Start im Vordergrund.
+
 ## [0.4.12] - 2026-03-04
 
 ### Geändert
@@ -24,6 +34,9 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 ### Behoben
 - **Invalid document reference Crash:** Ein Folgefehler des vorherigen Updates wurde behandelt. Der kurzzeitige Workaround-Status für den App-Reload führt nun nicht mehr zu fehlerhaften Firestore-Anfragen mit leerer ID (`""`).
 
+
+## 🎯 State of the App (2026-03-05) - v0.4.13
+Session ended. Version 0.4.13 pushed to GitHub. UI polished (Empty States, Typography), strings refactored. Ready for v0.4.14 feature development.
 
 ## [0.4.9] - 2026-03-04
 
@@ -372,4 +385,6 @@ Dies ist der initiale öffentliche Release auf GitHub nach einer umfassenden Cod
 - **Platzhalter-Texte:** Hardcodierte Entwicklernamen ("Familie Notthoff" / "Smith Family") wurden aus den Textfeldern bei der Familien-Gründung entfernt und durch neutrale Beispiele ("Musterfamilie") ersetzt.
 
 ---
-*Ältere, interne Entwicklungsstände (vor Version 0.2.5) sind in diesem öffentlichen Repository nicht dokumentiert.*
+*Ältere, interne Entwicklungsstände- Current Version: v0.4.13
+- Last Tag: v0.4.13
+in diesem öffentlichen Repository nicht dokumentiert.*
