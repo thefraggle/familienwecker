@@ -360,6 +360,17 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun triggerMemberReset() {
+        val currentMembers = _members.value
+        if (currentMembers.isNotEmpty()) {
+            val checkedMembers = checkAndResetMembers(currentMembers)
+            if (checkedMembers != currentMembers) {
+                _members.value = checkedMembers
+                recalculateSchedule()
+            }
+        }
+    }
+
     private fun checkAndResetMembers(members: List<FamilyMember>): List<FamilyMember> {
         val today = LocalDate.now().toString()
         val now = LocalTime.now()

@@ -46,6 +46,10 @@ import kotlinx.coroutines.launch
 import com.example.familienwecker.ui.components.bounceClick
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.runtime.DisposableEffect
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,6 +102,21 @@ fun MainScreen(
 
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
     val familyId by viewModel.familyId.collectAsStateWithLifecycle()
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.triggerMemberReset()
+                viewModel.refreshData()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     LaunchedEffect(isSyncing, familyId) {
         if (familyId == null) {
