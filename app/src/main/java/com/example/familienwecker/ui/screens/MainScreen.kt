@@ -381,6 +381,7 @@ fun MainScreen(
             if (currentSchedule == null || currentSchedule.message == "no_active_schedule") {
                 EmptyState(
                     imageRes = R.drawable.illustration_no_schedule,
+                    lottieRes = R.raw.mond,
                     title = stringResource(R.string.empty_schedule_title),
                     description = stringResource(R.string.empty_schedule_description)
                 )
@@ -490,6 +491,7 @@ fun MainScreen(
             if (members.isEmpty()) {
                 EmptyState(
                     imageRes = R.drawable.illustration_empty_members,
+                    lottieRes = R.raw.family,
                     title = stringResource(R.string.empty_members_title),
                     description = stringResource(R.string.empty_members_description),
                     action = {

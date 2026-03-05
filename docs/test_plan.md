@@ -2,6 +2,9 @@
 
 Diese Dokumentation beschreibt die Teststrategie und die Testfälle für die FamWake-App, um eine hohe Zuverlässigkeit der Weck-Logik und eine reibungslose Benutzererfahrung sicherzustellen.
 
+*[🇬🇧 English version](test_plan.en.md)*
+
+
 ---
 
 ## 📋 Übersicht & Strategie

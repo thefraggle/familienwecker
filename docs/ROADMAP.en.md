@@ -22,6 +22,7 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Support for 2 Bathrooms:** Parallel slot calculation.
 - [ ] **Snooze Sync:** If someone takes longer, the plan for others adjusts "live."
 - [ ] **Individual Breakfast Duration:** Each member can set their own duration (e.g., kids eat for 30 mins, dad joins only for 10 mins).
+- [x] **Lottie Animations:** Integration of animations for Empty States (Dashboard).
 - [ ] **Real-time Feedback:** Visual confirmation/animation when the plan has been recalculated in the background (Testplan UI).
 - [ ] **Haptic Feedback Profiles:** Different vibration patterns for pre-alarm and main alarm (Testplan UX).
 - [ ] **Smart Time Warnings:** Alert if time windows are too tight (e.g., wake up vs. leave home) (EC-03).

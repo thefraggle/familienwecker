@@ -7,13 +7,14 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
 
-## [0.4.14] - Unreleased
-
+## [0.4.14] - 2026-03-05
+ 
 ### Hinzugefügt
-- 
-
+- **Lottie-Animationen:** Integration dynamischer Animationen für Empty States („Kein Wecker“ und „Keine Mitglieder“).
+- **Layout-Optimierung:** Verbessertes Spacing auf dem Dashboard für eine kompaktere Darstellung.
+ 
 ### Geändert
-- 
+- **EmptyState:** Unterstützung für Lottie-Ressourcen inkl. Fallback auf statische Bilder.
 
 ### Behoben
 - 
@@ -47,7 +48,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 
 ## 🎯 State of the App (2026-03-05) - v0.4.14 (Internal Dev)
-v0.4.13 is released. Local environment is set to v0.4.14 for upcoming features (Hero Section, Tab-Nav). Project is in 'Sleep Mode' context-wise.
+v0.4.14: Lottie-Integration ist abgeschlossen. Nächste Schritte: Hero-Sektion, Tab-Nav und Instagram-Story-Style Avatare.
 
 ## [0.4.9] - 2026-03-04
 
@@ -395,15 +396,5 @@ Dies ist der initiale öffentliche Release auf GitHub nach einer umfassenden Cod
 - **Doppelte Splash Screens:** Ein Bug wurde behoben, bei dem auf neueren Android Versionen erst das Android System-Logo und danach nochmal ein ladebildschirm-ähnlicher Activity-Splash angezeigt wurde.
 - **Platzhalter-Texte:** Hardcodierte Entwicklernamen ("Familie Notthoff" / "Smith Family") wurden aus den Textfeldern bei der Familien-Gründung entfernt und durch neutrale Beispiele ("Musterfamilie") ersetzt.
 
-## [0.4.14] - YYYY-MM-DD
-
-### Hinzugefügt
-
-### Geändert
-
-### Behoben
-
 ---
-*Ältere, interne Entwicklungsstände- Current Version: v0.4.14 (Internal Dev)
-- Last Tag: v0.4.13
-in diesem öffentlichen Repository nicht dokumentiert.*
+*Ältere, interne Entwicklungsstände in diesem öffentlichen Repository nicht dokumentiert.*
