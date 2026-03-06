@@ -8,7 +8,7 @@ This guide explains how to get FamWake up and running locally. Since the app rel
 1. Go to the [Firebase Console](https://console.firebase.google.com/).
 2. Create a new project (e.g., "FamWake-Dev").
 3. Add an **Android App**:
-   - Package Name: `com.example.familienwecker`
+   - Package Name: `de.familienwecker.famwake`
    - Add your **SHA-1** and **SHA-256** fingerprints (required for Google Login).
 4. Download the `google-services.json` file and move it into the `app/` directory.
 

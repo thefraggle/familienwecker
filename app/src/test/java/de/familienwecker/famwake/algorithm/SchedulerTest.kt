@@ -1,6 +1,6 @@
-package com.example.familienwecker.algorithm
+package de.familienwecker.famwake.algorithm
 
-import com.example.familienwecker.model.FamilyMember
+import de.familienwecker.famwake.model.FamilyMember
 import org.junit.Assert.*
 import org.junit.Test
 import java.time.LocalTime

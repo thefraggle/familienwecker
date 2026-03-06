@@ -1,4 +1,4 @@
-package com.example.familienwecker
+package de.familienwecker.famwake
 
 import org.junit.Test
 
