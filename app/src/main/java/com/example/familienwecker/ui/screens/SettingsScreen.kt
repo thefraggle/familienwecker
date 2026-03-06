@@ -288,6 +288,31 @@ fun SettingsScreen(
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 16.dp)
                         )
+
+                        val shareInteractionSource = remember { MutableInteractionSource() }
+                        val shareMessage = stringResource(R.string.settings_share_message, familyName ?: "", code)
+                        
+                        Button(
+                            onClick = {
+                                val sendIntent = Intent().apply {
+                                    action = Intent.ACTION_SEND
+                                    putExtra(Intent.EXTRA_TEXT, shareMessage)
+                                    type = "text/plain"
+                                }
+                                val shareIntent = Intent.createChooser(sendIntent, null)
+                                context.startActivity(shareIntent)
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 16.dp)
+                                .bounceClick(shareInteractionSource),
+                            interactionSource = shareInteractionSource,
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+                        ) {
+                            Icon(Icons.Default.Groups, contentDescription = null)
+                            Spacer(Modifier.width(8.dp))
+                            Text(stringResource(R.string.settings_share_code))
+                        }
                     }
                     val leaveInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
