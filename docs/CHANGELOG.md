@@ -27,7 +27,6 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
  ### Behoben
 - Viele kleine Fixes für die Synchronisierung und das Rechte-Management.
 
-
 ## [0.4.14] - 2026-03-05
 
  ### Hinzugefügt
@@ -57,7 +56,6 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 ## [0.4.10] - 2026-03-04
 - **Stabilitäts-Update:** Behebung eines Absturzes, der kurzzeitig bei der Verbindung zum Server auftreten konnte.
-
 
 ## [0.4.9] - 2026-03-04
 - **Fehlerbehandlung:** Behebung eines Problems, bei dem eine Neuinstallation (aus einem Backup) kurzzeitig einen Zugriffsfehler verursachen konnte.

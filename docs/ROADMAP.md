@@ -39,6 +39,5 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Offline-Modus:** Lokale Speicherung der Daten, falls das Internet mal ausfällt.
 - [ ] **Konfliktlösung:** Strategie für gleichzeitige Änderungen am selben Mitglied.
 
-
 ---
 *Vorschläge können jederzeit ergänzt werden! Einfach dieses File bearbeiten.*
