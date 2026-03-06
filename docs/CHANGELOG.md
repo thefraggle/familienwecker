@@ -58,8 +58,6 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 ## [0.4.10] - 2026-03-04
 - **Stabilitäts-Update:** Behebung eines Absturzes, der kurzzeitig bei der Verbindung zum Server auftreten konnte.
 
-## 🎯 State of the App (2026-03-06) - v0.5.0 (Internal Dev)
-v0.4.16 erfolgreich veröffentlicht. Nächster Meilenstein: Hero-Sektion und Tab-Navigation für v0.5.0.
 
 ## [0.4.9] - 2026-03-04
 - **Fehlerbehandlung:** Behebung eines Problems, bei dem eine Neuinstallation (aus einem Backup) kurzzeitig einen Zugriffsfehler verursachen konnte.
