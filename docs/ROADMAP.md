@@ -40,6 +40,7 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Multi-Admin Konfliktlösung:** Strategie für gleichzeitige Änderungen an denselben Mitgliedern (EC-10).
 
 ## ✅ Erledigt
+- [x] **Einladungs-Sharing:** Familien-Code über Android-Dialog teilen (v0.4.16).
 - [x] **Lottie-Animationen:** Integration von Animationen für Empty States (Dashboard).
 - [x] **"Was ist neu?" Dialog:** News-Popup nach Updates (v0.4.15).
 
