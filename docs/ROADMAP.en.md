@@ -40,11 +40,6 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Offline Mode:** Local data storage for when internet is unavailable.
 - [ ] **Conflict Resolution:** Strategy for simultaneous edits to the same member profiles.
 
-## ✅ Completed
-- [x] **v0.5.0 Release:** First official Play Store release (March 2026).
-- [x] **Invitation Sharing:** Share family code via Android dialog.
-- [x] **Lottie Animations:** Integration of animations for Empty States.
-- [x] **"What's New" Dialog:** News popup after updates.
 
 ---
 *Suggestions can be added at any time! Just edit this file.*

@@ -9,7 +9,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
  ## [0.5.0] - 2026-03-06
  
- ### Erster öffentlicher Play Store Release
+ ### Veröffentlichung im Play Store
  Eine komplett überarbeitete Version mit Fokus auf Familien-Organisation, Design und Stabilität.
  
  ### Hinzugefügt
