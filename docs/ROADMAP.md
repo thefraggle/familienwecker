@@ -40,9 +40,10 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Konfliktlösung:** Strategie für gleichzeitige Änderungen am selben Mitglied.
 
 ## ✅ Erledigt
-- [x] **Einladungs-Sharing:** Familien-Code über Android-Dialog teilen (v0.4.16).
-- [x] **Lottie-Animationen:** Integration von Animationen für Empty States (Dashboard).
-- [x] **"Was ist neu?" Dialog:** News-Popup nach Updates (v0.4.15).
+- [x] **v0.5.0 Release:** Erster offizieller Release im Play Store (März 2026).
+- [x] **Einladungs-Sharing:** Familien-Code über Android-Dialog teilen.
+- [x] **Lottie-Animationen:** Integration von Animationen für Empty States.
+- [x] **"Was ist neu?" Dialog:** News-Popup nach Updates.
 
 ---
 *Vorschläge können jederzeit ergänzt werden! Einfach dieses File bearbeiten.*

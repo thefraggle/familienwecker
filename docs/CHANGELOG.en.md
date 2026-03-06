@@ -7,35 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
- ## [0.5.0] - Unreleased
+ ## [0.5.0] - 2026-03-06
  
- ### Added
- - 
- 
- ### Changed
- - 
- 
- ### Fixed
- - 
- 
- ## [0.4.16] - 2026-03-06
+ ### First Public Play Store Release
+ A fully redesigned and stabilized version with focus on family organization and modern UI.
  
  ### Added
 - **Invitation Sharing:** New system for sharing the family code via Android `ACTION_SEND` (Link: `https://familienwecker.de`).
-- **Setup UI:** Refinement of the family setup screen (spacing, logout position).
+- **What's New Popup:** Intelligent news box after updates to introduce new features.
+- **Lottie Animations:** High-quality, dynamic animations for a modern look.
+- **Support Links:** Direct access to privacy policy, imprint, and email support.
  
- ### Changed
-- **Strings:** Revised invitation messages (DE/EN) for a more personalized touch.
-- **Navigation:** Cleaned up the setup flow (removed experimental animations).
+ ### Changed & Improved
+- **Design 2.0:** Modern "OLED" Dark Mode, glassmorphism effects, and improved typography (Nunito).
+- **Setup UI:** Optimized process for creating and joining families.
+- **Language System:** Full support for German and English with smart, user-friendly error messages.
+- **Performance:** Massive battery life improvements and background stability.
  
- ## [0.4.15] - 2026-03-05
- 
- ### Added
-- **What's New Popup:** Introduction of a dynamic news dialog after app updates (JSON-based).
-- **Welcome Message:** First dialog for new users and returnees after the Lottie update.
- 
- ### Changed
-- **Infrastructure:** Extended PreferencesRepository with version tracking for news.
+ ### Fixed
+- Numerous small fixes for synchronization and permission management.
+
 
 ## [0.4.14] - 2026-03-05
  
@@ -67,8 +58,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.10] - 2026-03-04
 - **Stability Update:** Fixed a crash during server connection.
 
-## 🎯 State of the App (2026-03-06) - v0.5.0 (Internal Dev)
-v0.4.16 successfully released. Next milestone: Hero section and Tab navigation for v0.5.0.
 
 ## [0.4.9] - 2026-03-04
 - **Error Handling:** Fixed an issue where a fresh installation (from a backup) could briefly trigger a access error.

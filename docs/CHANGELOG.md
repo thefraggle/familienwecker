@@ -7,38 +7,29 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
- ## [0.5.0] - Unreleased
+ ## [0.5.0] - 2026-03-06
  
- ### Hinzugefügt
- - 
- 
- ### Geändert
- - 
- 
- ### Behoben
- - 
- 
- ## [0.4.16] - 2026-03-06
+ ### Erster öffentlicher Play Store Release
+ Eine komplett überarbeitete Version mit Fokus auf Familien-Organisation, Design und Stabilität.
  
  ### Hinzugefügt
 - **Einladungs-Sharing:** Neues System zum Teilen des Familien-Codes via Android `ACTION_SEND` (Link: `https://familienwecker.de`).
-- **Setup-UI:** Verfeinerung des Familien-Gründen Screens (Abstände, Logout-Position).
+- **Was ist neu Popup:** Intelligente News-Box nach Updates zur Vorstellung neuer Funktionen.
+- **Lottie-Animationen:** Hochwertige, dynamische Animationen für einen modernen Look.
+- **Support-Links:** Direkter Zugriff auf Datenschutz, Impressum und E-Mail-Hilfe direkt aus der App.
  
- ### Geändert
-- **Texte:** Überarbeitung der Einladungs-Nachrichten (DE/EN) für eine persönlichere Note.
-- **Navigation:** Bereinigung des Setup-Flows (entfernen experimenteller Animationen).
+ ### Geändert & Verbessert
+- **Design 2.0:** Moderner "OLED" Dark Mode, Glasmorphismus-Effekte und verbesserte Typografie (Nunito).
+- **Setup-UI:** Optimierter Prozess zum Gründen und Beitreten von Familien.
+- **Sprach-System:** Unterstützung für Deutsch und Englisch in der gesamten App inklusive smarter Fehlermeldungen.
+- **Performance:** Massive Optimierung der Akkulaufzeit und Hintergrund-Stabilität.
  
- ## [0.4.15] - 2026-03-05
- 
- ### Hinzugefügt
-- **"Was ist neu" Popup:** Einführung eines dynamischen News-Dialogs nach App-Updates (JSON-basiert).
-- **Willkommens-Nachricht:** Erstmaliger Dialog für neue Nutzer und Rückkehrer nach dem Lottie-Update.
- 
- ### Geändert
-- **Infrastruktur:** Erweiterung des PreferencesRepository um Version-Tracking für News.
+ ### Behoben
+- Viele kleine Fixes für die Synchronisierung und das Rechte-Management.
+
 
 ## [0.4.14] - 2026-03-05
- 
+
  ### Hinzugefügt
 - **Lottie-Animationen:** Integration von dynamischen Animationen für Empty-States ("Kein Wecker gestellt" und "Keine Mitglieder hinzugefügt").
 - **Layout-Optimierung:** Verbesserung der Dashboard-Abstände für ein kompakteres Erscheinungsbild.
