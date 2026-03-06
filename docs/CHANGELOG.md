@@ -7,7 +7,7 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 
 *[🇬🇧 English version](CHANGELOG.en.md)*
  
- ## [0.4.16] - Unreleased
+ ## [0.5.0] - Unreleased
  
  ### Hinzugefügt
  - 
@@ -17,6 +17,16 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
  
  ### Behoben
  - 
+ 
+ ## [0.4.16] - 2026-03-06
+ 
+ ### Hinzugefügt
+- **Einladungs-Sharing:** Neues System zum Teilen des Familien-Codes via Android `ACTION_SEND` (Link: `https://familienwecker.de`).
+- **Setup-UI:** Verfeinerung des Familien-Startscreens (Abstände, Logout-Position).
+ 
+ ### Geändert
+- **Strings:** Überarbeitung der Einladungstexte (DE/EN) für eine persönlichere Ansprache.
+- **Navigation:** Bereinigung des Setup-Flows (Entfernung von Test-Animationen).
  
  ## [0.4.15] - 2026-03-05
  
@@ -70,8 +80,8 @@ und dieses Projekt folgt der [Semantic Versioning](https://semver.org/spec/v2.0.
 - **Invalid document reference Crash:** Ein Folgefehler des vorherigen Updates wurde behandelt. Der kurzzeitige Workaround-Status für den App-Reload führt nun nicht mehr zu fehlerhaften Firestore-Anfragen mit leerer ID (`""`).
 
 
-## 🎯 State of the App (2026-03-05) - v0.4.14 (Internal Dev)
-v0.4.14: Lottie-Integration ist abgeschlossen. Nächste Schritte: Hero-Sektion, Tab-Nav und Instagram-Story-Style Avatare.
+## 🎯 State of the App (2026-03-06) - v0.5.0 (Internal Dev)
+v0.4.16 erfolgreich veröffentlicht. Nächster Meilenstein: Hero-Sektion und Tab-Navigation für v0.5.0.
 
 ## [0.4.9] - 2026-03-04
 
