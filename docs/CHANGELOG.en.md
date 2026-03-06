@@ -27,7 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  ### Fixed
 - Numerous small fixes for synchronization and permission management.
 
-
 ## [0.4.14] - 2026-03-05
  
  ### Added
@@ -57,7 +56,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.4.10] - 2026-03-04
 - **Stability Update:** Fixed a crash during server connection.
-
 
 ## [0.4.9] - 2026-03-04
 - **Error Handling:** Fixed an issue where a fresh installation (from a backup) could briefly trigger a access error.
