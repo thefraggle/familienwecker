@@ -1,0 +1,245 @@
+package de.familienwecker.famwake.ui.screens
+
+import android.app.TimePickerDialog
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import androidx.compose.ui.res.stringResource
+import de.familienwecker.famwake.R
+import de.familienwecker.famwake.ui.components.bounceClick
+import androidx.compose.foundation.interaction.MutableInteractionSource
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AddMemberScreen(
+    viewModel: FamilyViewModel,
+    memberId: String? = null,
+    onNavigateBack: () -> Unit
+) {
+    val members by viewModel.members.collectAsStateWithLifecycle()
+    val memberToEdit = remember(memberId, members) { members.find { it.id == memberId } }
+
+    var name by remember(memberToEdit) { mutableStateOf(memberToEdit?.name ?: "") }
+    var earliestWakeUp by remember(memberToEdit) { mutableStateOf(memberToEdit?.earliestWakeUp ?: LocalTime.of(6, 0)) }
+    var latestWakeUp by remember(memberToEdit) { mutableStateOf(memberToEdit?.latestWakeUp ?: LocalTime.of(7, 30)) }
+    var bathroomDuration by remember(memberToEdit) { mutableStateOf(memberToEdit?.bathroomDurationMinutes?.toString() ?: "20") }
+    var wantsBreakfast by remember(memberToEdit) { mutableStateOf(memberToEdit?.wantsBreakfast ?: true) }
+    var leaveHomeTime by remember(memberToEdit) { mutableStateOf(memberToEdit?.leaveHomeTime ?: LocalTime.of(8, 0)) }
+
+    val isTimeRangeValid = remember(earliestWakeUp, latestWakeUp) {
+        !latestWakeUp.isBefore(earliestWakeUp)
+    }
+
+    val isLeaveTimeValid = remember(leaveHomeTime, latestWakeUp) {
+        leaveHomeTime != null && leaveHomeTime.isAfter(latestWakeUp)
+    }
+
+    val isBathroomDurationValid = remember(bathroomDuration) {
+        val v = bathroomDuration.toLongOrNull()
+        v != null && v in 1..120
+    }
+
+    val formatter = DateTimeFormatter.ofPattern("HH:mm")
+
+    val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
+    val isDarkTheme = when (themePreference) {
+        "dark" -> true
+        "light" -> false
+        else -> isSystemInDarkTheme()
+    }
+    val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
+        colors = if (isDarkTheme) {
+            listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.background)
+        } else {
+            listOf(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f), MaterialTheme.colorScheme.background)
+        }
+    )
+
+    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+        Scaffold(
+            containerColor = Color.Transparent,
+            topBar = {
+                TopAppBar(
+                    title = { Text(if (memberId == null) stringResource(R.string.add_member_title_add) else stringResource(R.string.add_member_title_edit)) },
+                navigationIcon = {
+                    val backInteractionSource = remember { MutableInteractionSource() }
+                    IconButton(
+                        onClick = onNavigateBack,
+                        modifier = Modifier.bounceClick(backInteractionSource),
+                        interactionSource = backInteractionSource
+                    ) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back_desc))
+                    }
+                },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
+                        titleContentColor = MaterialTheme.colorScheme.onSurface,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+        },
+        bottomBar = {
+            val unknownStr = stringResource(R.string.add_member_unknown)
+            val saveInteractionSource = remember { MutableInteractionSource() }
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .bounceClick(saveInteractionSource),
+                interactionSource = saveInteractionSource,
+                onClick = {
+                    val memberToSave = de.familienwecker.famwake.model.FamilyMember(
+                        id = memberId ?: java.util.UUID.randomUUID().toString(),
+                        name = name.ifEmpty { unknownStr },
+                        earliestWakeUp = earliestWakeUp,
+                        latestWakeUp = latestWakeUp,
+                        bathroomDurationMinutes = bathroomDuration.toLongOrNull() ?: 20L,
+                        wantsBreakfast = wantsBreakfast,
+                        leaveHomeTime = leaveHomeTime,
+                        // Nicht-editierbare Felder aus dem bestehenden Mitglied übernehmen
+                        // damit isPaused / Claim-Status / Sortierung erhalten bleiben
+                        isPaused = memberToEdit?.isPaused ?: false,
+                        claimedByUserId = memberToEdit?.claimedByUserId,
+                        claimedByUserName = memberToEdit?.claimedByUserName,
+                        createdAt = memberToEdit?.createdAt
+                    )
+                    viewModel.addOrUpdateMember(memberToSave)
+                    onNavigateBack()
+                },
+                enabled = isTimeRangeValid && isLeaveTimeValid && isBathroomDurationValid
+            ) {
+                Text(stringResource(R.string.add_member_submit))
+            }
+        }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            if (!isTimeRangeValid) {
+                Card(
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_member_error_time_range),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(12.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
+            if (!isLeaveTimeValid) {
+                Card(
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_member_error_leave_home),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(12.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
+            if (!isBathroomDurationValid) {
+                Card(
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_member_error_bathroom_duration),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(12.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text(stringResource(R.string.add_member_name_label)) },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            TimePickerRow(stringResource(R.string.add_member_earliest_wake), earliestWakeUp) { earliestWakeUp = it }
+            TimePickerRow(stringResource(R.string.add_member_latest_wake), latestWakeUp) { latestWakeUp = it }
+            
+            OutlinedTextField(
+                value = bathroomDuration,
+                onValueChange = { bathroomDuration = it },
+                label = { Text(stringResource(R.string.add_member_bathroom_duration)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Switch(
+                    checked = wantsBreakfast,
+                    onCheckedChange = { wantsBreakfast = it }
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(stringResource(R.string.add_member_wants_breakfast))
+            }
+
+            TimePickerRow(stringResource(R.string.add_member_leave_home), leaveHomeTime ?: LocalTime.of(8,0)) { 
+                leaveHomeTime = it 
+            }
+        }
+    }
+}
+}
+
+@Composable
+fun TimePickerRow(label: String, time: LocalTime, onTimeSelected: (LocalTime) -> Unit) {
+    val context = LocalContext.current
+    val formatter = DateTimeFormatter.ofPattern("HH:mm")
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                TimePickerDialog(
+                    context,
+                    { _, hour, minute -> onTimeSelected(LocalTime.of(hour, minute)) },
+                    time.hour,
+                    time.minute,
+                    true
+                ).show()
+            }
+            .padding(vertical = 12.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, style = MaterialTheme.typography.bodyLarge)
+        Text(time.format(formatter), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+    }
+}

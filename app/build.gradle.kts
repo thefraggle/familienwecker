@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val appVersion = "0.5.1"
+val appVersion = "0.5.0"
 
 val commitHash = try {
     Runtime.getRuntime().exec(arrayOf("git", "rev-parse", "--short", "HEAD")).inputStream.reader().use { it.readText().trim() }
@@ -27,13 +27,13 @@ val versionCodeTimestamp = try {
 }
 
 android {
-    namespace = "com.example.familienwecker"
+    namespace = "de.familienwecker.famwake"
 
 
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.familienwecker"
+        applicationId = "de.familienwecker.famwake"
         minSdk = 26
         targetSdk = 35
         versionCode = versionCodeTimestamp

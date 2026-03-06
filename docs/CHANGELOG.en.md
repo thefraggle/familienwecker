@@ -8,9 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
  ## [0.5.0] - 2026-03-06
- 
- ### Release in the Play Store
+ ### Release in the Play Store (Update)
  A fully redesigned and stabilized version with focus on family organization and modern UI.
+ *Note: The package name has been changed to `de.familienwecker.famwake`.*
  
  ### Added
 - **Invitation Sharing:** New system for sharing the family code via Android `ACTION_SEND` (Link: `https://familienwecker.de`).
