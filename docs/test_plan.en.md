@@ -29,6 +29,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-02 | Found a family | User becomes "Admin" of a new family, invitation code generated. |
 | TC-03 | Join a family | User joins an existing family via code. |
 | TC-20 | Forgot Password (Reset) | Branded email sent, link leads to branded HTML page, password change works. |
+| TC-21 | **Invitation Sharing** | Clicking "Share" opens the Android dialog with the family code and link. |
 
 
 ### 2. Family Configuration
