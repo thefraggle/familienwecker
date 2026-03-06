@@ -40,5 +40,10 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Deep Offline Resilience:** Explicit local database as primary source when internet is unavailable (EC-04).
 - [ ] **Multi-Admin Conflict Resolution:** Strategy for simultaneous edits to the same member profiles (EC-10).
 
+## ✅ Completed
+- [x] **Invitation Sharing:** Share family code via Android dialog (v0.4.16).
+- [x] **Lottie Animations:** Integration of animations for Empty States (Dashboard).
+- [x] **"What's New" Dialog:** News popup after updates (v0.4.15).
+
 ---
 *Suggestions can be added at any time! Just edit this file.*
