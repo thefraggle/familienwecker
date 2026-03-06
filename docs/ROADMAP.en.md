@@ -21,11 +21,11 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Support for 2 Bathrooms:** Parallel slot calculation.
 - [ ] **Snooze Sync:** If someone takes longer, the plan for others adjusts "live."
 - [ ] **Individual Breakfast Duration:** Each member can set their own duration (e.g., kids eat for 30 mins, dad joins only for 10 mins).
-- [ ] **Real-time Feedback:** Visual confirmation/animation when the plan has been recalculated in the background (Testplan UI).
-- [ ] **Haptic Feedback Profiles:** Different vibration patterns for pre-alarm and main alarm (Testplan UX).
-- [ ] **Smart Time Warnings:** Alert if time windows are too tight (e.g., wake up vs. leave home) (EC-03).
-- [ ] **Smart Conflict Proposals:** UI suggestions to resolve bathroom bottlenecks (e.g., "Shorten breakfast by 5 mins?") (EC-01).
-- [ ] **Input Validation (Extreme):** Warning for unrealistic values (e.g., 2h bathroom duration) (EC-02).
+- [ ] **Real-time Feedback:** Visual confirmation/animation when the plan has been recalculated in the background.
+- [ ] **Haptic Feedback Profiles:** Different vibration patterns for pre-alarm and main alarm.
+- [ ] **Smart Time Warnings:** Alert if time windows are too tight (e.g., wake up vs. leave home).
+- [ ] **Smart Conflict Proposals:** UI suggestions to resolve bathroom bottlenecks (e.g., "Shorten breakfast by 5 mins?").
+- [ ] **Input Validation:** Warning for unrealistic values (e.g., 2h bathroom duration).
 - [ ] **Home Screen Widget:** Small 2×1 widget showing today's wake time for your own profile – without opening the app.
 - [ ] **Wake confirmation with family push:** A "I'm awake!" button on the ringing screen sends a brief push notification to the other family members.
 - [ ] **Vacation end date instead of manual toggle:** Enter vacation until date X; the alarm re-enables itself automatically afterwards.
@@ -35,10 +35,10 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Evening Check-In:** Push reminder at 9 PM to confirm times for tomorrow.
 - [ ] **Custom Playlists:** Spotify integration for the ringing screen.
 - [ ] **Bathroom duration by weekday:** Dad needs more time on Fridays, kids on Mondays – configurable per weekday.
-- [ ] **Daylight Saving Time (DST) Support:** Ensure calculations are robust against summer/winter time shifts (EC-05).
-- [ ] **Alarm Watchdog:** Enhance background service resilience against system kills or crashes (EC-06).
-- [ ] **Deep Offline Resilience:** Explicit local database as primary source when internet is unavailable (EC-04).
-- [ ] **Multi-Admin Conflict Resolution:** Strategy for simultaneous edits to the same member profiles (EC-10).
+- [ ] **Daylight Saving Time (DST) Support:** Ensure calculations are robust against summer/winter time shifts.
+- [ ] **Alarm Watchdog:** Enhance background service resilience against system kills or crashes.
+- [ ] **Offline Mode:** Local data storage for when internet is unavailable.
+- [ ] **Conflict Resolution:** Strategy for simultaneous edits to the same member profiles.
 
 ## ✅ Completed
 - [x] **Invitation Sharing:** Share family code via Android dialog (v0.4.16).

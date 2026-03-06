@@ -30,6 +30,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-02 | Familie gründen | Benutzer wird "Admin" einer neuen Familie, Einladungscode wird generiert. |
 | TC-03 | Familie beitreten | Benutzer tritt per Code einer bestehenden Familie bei. |
 | TC-20 | Passwort vergessen (Reset) | Branded E-Mail wird versendet, Link führt zur branded HTML-Seite, Passwortänderung funktioniert. |
+| TC-21 | **Einladungs-Sharing** | Klick auf "Teilen" öffnet den Android-Dialog mit dem Familien-Code und Link. |
 
 
 ### 2. Familien-Konfiguration
