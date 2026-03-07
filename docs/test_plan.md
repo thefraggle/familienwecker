@@ -34,6 +34,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-22 | **Deep Link (App-Start)** | Klick auf einen `/join/` Link öffnet direkt die App (statt Browser). |
 | TC-23 | **Auto-Join via Link** | App erkennt den Code aus der URL und zeigt den "Beitreten"-Dialog an. |
 | TC-24 | **Re-Join Robustheit** | Beitritt zur eigenen Familie via Link löscht die Profil-Zuordnung nicht mehr. |
+| TC-25 | **Self-Healing (Deep Link)** | Login via Link führt auch bei existierendem Alt-Profil zum neuen Beitritt. |
 
 
 ### 2. Familien-Konfiguration
@@ -76,7 +77,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-15 | **Familien-Löschen (Sicherheit)** | Doppelte Bestätigung erforderlich, wenn andere Mitglieder existieren; einfache Bestätigung bei "nur ich" oder leeren Listen. |
 | EC-16 | **Mitglied löschen (Bestätigung)** | Ja/Nein-Dialog erscheint vor dem Löschen eines Mitglieds. |
 | EC-17 | **Neu-Anlage nach Löschung** | Nach Löschung einer Familie kann sofort eine neue angelegt werden ohne Hängen (Infinity Loading Test). |
-| EC-18 | **Daten-Resilienz (Dashboard)** | Wenn die Familie auf einem anderen Gerät gelöscht wurde, erscheint der Button „Familie verlassen". Klick führt zum Setup. |
+| EC-18 | **Daten-Resilienz (Dashboard)** | Wenn die Familie auf einem anderen Gerät gelöscht wurde, erfolgt automatischer Reset zum Setup (Self-Healing). |
 | EC-19 | **Multi-Device Claim Sync** | Wenn Profil auf Gerät A geclaimt wird, erkennt Gerät B (gleiche UID) dies automatisch ohne Refresh. |
 | EC-20 | **Resource-Health** | Icons und Splash-Screen werden auf verschiedenen Pixeldichten (xhdpi bis xxxhdpi) ohne Verzerrung korrekt dargestellt. |
 | EC-21 | **Max. Calculation Limit (OOM)** | Versuch, Plan für >6 aktive Mitglieder zu berechnen, wird zur Crash-Prävention auf 6 limitiert. |

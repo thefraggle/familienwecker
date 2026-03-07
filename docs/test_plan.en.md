@@ -33,6 +33,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-22 | **Deep Link (App Start)** | Clicking a `/join/` link opens the app directly (instead of browser). |
 | TC-23 | **Auto-Join via Link** | App recognizes the code from the URL and shows the "Join" dialog. |
 | TC-24 | **Re-Join Resilience** | Re-joining the own family via link no longer clears the profile assignment. |
+| TC-25 | **Self-Healing (Deep Link)** | Login via link triggers new join even if an old profile exists. |
 
 
 ### 2. Family Configuration
@@ -75,7 +76,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-15 | **Delete Family (Safety)** | Double confirmation required if other members exist; single confirmation for "just me" or empty lists. |
 | EC-16 | **Delete Member (Confirmation)** | Yes/No dialog appears before deleting a member. |
 | EC-17 | **New Setup after Deletion** | A new family can be created immediately after deletion without hanging (Infinity Loading test). |
-| EC-18 | **Data Resilience (Dashboard)** | If the family was deleted on another device, a "Leave Family" button appears. Clicking it leads to setup. |
+| EC-18 | **Data Resilience (Dashboard)** | If the family was deleted on another device, an automatic reset to setup occurs (Self-Healing). |
 | EC-19 | **Multi-Device Claim Sync** | If a profile is claimed on Device A, Device B (same UID) recognizes this automatically without refresh. |
 | EC-20 | **Resource Health** | Icons and Splash screen are rendered correctly across various pixel densities (xhdpi to xxxhdpi) without distortion. |
 | EC-21 | **Max. Calculation Limit (OOM)** | Attempting to calculate a plan for >6 active members is limited to 6 for crash prevention. |

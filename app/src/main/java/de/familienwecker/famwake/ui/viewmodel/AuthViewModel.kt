@@ -88,7 +88,11 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                             prefsRepository.clearAll()
                         }
                         // If it's a network error (exception), we keep what we have locally
+                } else {
+                    // Kein Profil in der Cloud -> Lokal ebenfalls säubern (Self-Healing)
+                    prefsRepository.clearAll()
                 }
+
                 _isRestoringFamily.value = false
             }.onFailure {
                 _isRestoringFamily.value = false

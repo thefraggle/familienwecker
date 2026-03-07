@@ -102,7 +102,14 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                                 // Ignore cancellation exceptions caused by rapid familyId re-emits (e.g. during auth restore)
                                 throw e
                             } catch (e: Exception) {
-                                _errorMessage.value = UiText.StringResource(R.string.error_load_members, e.localizedMessage ?: "Unknown")
+                                // Self-Healing: Bei Permission Denied (veraltete FamilyId) lokal aufräumen
+                                if (e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true) {
+                                    android.util.Log.w("FamilyViewModel", "Permission Denied beim Laden der Mitglieder - lösche lokalen Zustand")
+                                    leaveFamily()
+                                    _members.value = emptyList()
+                                } else {
+                                    _errorMessage.value = UiText.StringResource(R.string.error_load_members, e.localizedMessage ?: "Unknown")
+                                }
                             }
                         }
                         alarmEnabledJob = launch {
@@ -225,6 +232,11 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun handlePendingJoin(onComplete: (Boolean) -> Unit) {
         val code = _pendingJoinCode.value ?: return
+        
+        // Sicherstellen, dass wir einen sauberen Zustand haben bevor wir joinen
+        // (Verhindert Race Conditions mit veralteten familyIds)
+        prefsRepo.setFamilyId(null)
+        
         joinFamily(code, onComplete)
     }
 
@@ -442,6 +454,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                         if (claimedMember != null) {
                             prefsRepo.setMyMemberId(claimedMember.id)
                         }
+                    } else {
+                        // Kein Profil in der Cloud -> Lokal ebenfalls säubern (Self-Healing)
+                        leaveFamily()
                     }
                 }
             } catch (e: Exception) {
