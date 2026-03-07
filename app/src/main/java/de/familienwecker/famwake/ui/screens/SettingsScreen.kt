@@ -179,7 +179,7 @@ fun SettingsScreen(
                                             Text(member.name)
                                             if (isClaimedByOther) {
                                                 Text(
-                                                    text = "Bereits belegt durch ${member.claimedByUserName ?: "jemand anderen"}",
+                                                    text = "bereits belegt",
                                                     style = MaterialTheme.typography.labelSmall,
                                                     color = MaterialTheme.colorScheme.error
                                                 )

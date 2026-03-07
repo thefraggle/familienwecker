@@ -34,6 +34,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-23 | **Auto-Join via Link** | App recognizes the code from the URL and shows the "Join" dialog. |
 | TC-24 | **Re-Join Resilience** | Re-joining the own family via link no longer clears the profile assignment. |
 | TC-25 | **Self-Healing (Deep Link)** | Login via link triggers new join even if an old profile exists. |
+| TC-26 | **Single Instance Check** | Repeatedly clicking deep links does not open new app instances in task manager. |
 
 
 ### 2. Family Configuration

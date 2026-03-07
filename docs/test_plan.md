@@ -35,6 +35,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-23 | **Auto-Join via Link** | App erkennt den Code aus der URL und zeigt den "Beitreten"-Dialog an. |
 | TC-24 | **Re-Join Robustheit** | Beitritt zur eigenen Familie via Link löscht die Profil-Zuordnung nicht mehr. |
 | TC-25 | **Self-Healing (Deep Link)** | Login via Link führt auch bei existierendem Alt-Profil zum neuen Beitritt. |
+| TC-26 | **Single Instance Check** | Mehrfacher Klick auf Deep Links öffnet keine neuen App-Instanzen im Task-Manager. |
 
 
 ### 2. Familien-Konfiguration
