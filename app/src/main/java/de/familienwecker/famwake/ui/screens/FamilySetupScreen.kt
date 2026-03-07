@@ -24,6 +24,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.ui.components.bounceClick
+import androidx.activity.compose.BackHandler
 
 @Composable
 fun FamilySetupScreen(
@@ -31,6 +32,11 @@ fun FamilySetupScreen(
     onSetupComplete: () -> Unit,
     onLogout: () -> Unit
 ) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    BackHandler {
+        (context as? android.app.Activity)?.finish()
+    }
+
     var isCreateMode by remember { mutableStateOf(true) }
     var familyName by remember { mutableStateOf("") }
     var joinCode by remember { mutableStateOf("") }
