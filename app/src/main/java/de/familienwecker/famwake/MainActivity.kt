@@ -144,11 +144,13 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                     onNavigateToSetup = {
                         navController.navigate("setup") {
                             popUpTo("loading") { inclusive = true }
+                            launchSingleTop = true
                         }
                     },
                     onNavigateToMain = {
                         navController.navigate("main") {
                             popUpTo("loading") { inclusive = true }
+                            launchSingleTop = true
                         }
                     }
                 )

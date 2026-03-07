@@ -38,6 +38,7 @@ import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
 import java.security.MessageDigest
 import java.util.UUID
+import androidx.activity.compose.BackHandler
 
 @Composable
 fun LoginScreen(
@@ -51,6 +52,10 @@ fun LoginScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isRegistering by remember { mutableStateOf(false) }
+
+    BackHandler {
+        (context as? android.app.Activity)?.finish()
+    }
 
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
 

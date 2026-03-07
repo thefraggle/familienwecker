@@ -51,6 +51,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.runtime.DisposableEffect
+import androidx.activity.compose.BackHandler
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,6 +73,11 @@ fun MainScreen(
     
     val snackbarHostState = remember { SnackbarHostState() }
     val snackbarScope = rememberCoroutineScope()
+
+    // Swipe-back (left) on MainScreen should close the app
+    BackHandler {
+        (context as? android.app.Activity)?.finish()
+    }
 
     if (showDeleteMemberDialog != null) {
         AlertDialog(
