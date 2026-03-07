@@ -7,6 +7,15 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.5.12] - 2026-03-07
+ ### UI-Polishing & Instanz-Fix
+ Fokus dieser Version sind UI-Korrekturen und die Stabilisierung des App-Starts.
+
+ ### Behoben
+ - **LaunchMode Fix:** Die App läuft nun konsequent als `singleTask`. Dies verhindert, dass Deep Links (z.B. aus E-Mails/WhatsApp) neue, redundante Instanzen der App öffnen.
+ - **Settings UI:** Der Text für belegte Profile wurde auf "bereits belegt" verkürzt, um das Layout sauberer zu halten.
+ - **Whats New:** Die News-Anzeige wurde zurückgesetzt und folgt nun strikten manuellen Freigaberegeln.
+
 ## [0.5.11] - 2026-03-07
  ### Self-Healing & Deep Link Fix
  Diese Version behebt kritische Fehler beim Login-Flow über Deep Links und führt eine automatische Fehlerkorrektur bei Berechtigungsproblemen ein.

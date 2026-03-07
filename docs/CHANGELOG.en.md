@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.5.12] - 2026-03-07
+ ### UI Polishing & Instance Fix
+ This version focuses on UI corrections and stabilizing the app start-up behavior.
+
+ ### Fixed
+ - **LaunchMode Fix:** The app now consistently runs as `singleTask`. This prevents deep links (e.g., from emails/WhatsApp) from opening redundant instances of the app.
+ - **Settings UI:** The text for claimed profiles was shortened to "bereits belegt" (already claimed) to keep the layout cleaner.
+ - **Whats New:** The news display was reset and now follows strict manual update rules.
+
 ## [0.5.11] - 2026-03-07
  ### Self-Healing & Deep Link Fix
  This version fixes critical issues with the login flow via deep links and introduces automatic error correction for permission-related problems.
