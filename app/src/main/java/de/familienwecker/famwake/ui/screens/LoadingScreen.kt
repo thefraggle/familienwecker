@@ -23,13 +23,25 @@ fun LoadingScreen(
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
     val isRestoring by authViewModel.isRestoringFamily.collectAsStateWithLifecycle()
     val familyId by familyViewModel.familyId.collectAsStateWithLifecycle()
+    val pendingJoinCode by familyViewModel.pendingJoinCode.collectAsStateWithLifecycle()
 
-    LaunchedEffect(authState, isRestoring, familyId) {
+    LaunchedEffect(authState, isRestoring, familyId, pendingJoinCode) {
         if (isRestoring) return@LaunchedEffect
 
         when (authState) {
             is AuthViewModel.AuthState.Authenticated -> {
-                if (familyId != null) {
+                if (pendingJoinCode != null) {
+                    if (familyId == null) {
+                        // Noch keine Familie, automatisch beitreten
+                        familyViewModel.handlePendingJoin { success ->
+                            if (success) onNavigateToMain() else onNavigateToSetup()
+                        }
+                    } else {
+                        // Bereits in einer Familie, Konflikt-Handling nötig
+                        // Wir navigieren zum MainScreen (oder Setup), wo der Dialog angezeigt wird
+                        onNavigateToMain()
+                    }
+                } else if (familyId != null) {
                     onNavigateToMain()
                 } else {
                     onNavigateToSetup()

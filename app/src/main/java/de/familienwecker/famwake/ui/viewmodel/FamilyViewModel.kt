@@ -60,6 +60,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     private val _whatsNewContent = MutableStateFlow<WhatsNewContent?>(null)
     val whatsNewContent: StateFlow<WhatsNewContent?> = _whatsNewContent.asStateFlow()
 
+    private val _pendingJoinCode = MutableStateFlow<String?>(null)
+    val pendingJoinCode: StateFlow<String?> = _pendingJoinCode.asStateFlow()
+
     private var membersJob: Job? = null
     private var alarmEnabledJob: Job? = null
 
@@ -199,10 +202,90 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 prefsRepo.setJoinCode(pair.second)
                 prefsRepo.setFamilyName(fetchedName)
 
+                // Clear pending code if it matches successfully
+                if (_pendingJoinCode.value == code) {
+                    _pendingJoinCode.value = null
+                }
+
                 onComplete(true)
             }.onFailure { error ->
                 _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
                 onComplete(false)
+            }
+        }
+    }
+
+    fun setPendingJoinCode(code: String?) {
+        _pendingJoinCode.value = code
+    }
+
+    fun clearPendingJoinCode() {
+        _pendingJoinCode.value = null
+    }
+
+    fun handlePendingJoin(onComplete: (Boolean) -> Unit) {
+        val code = _pendingJoinCode.value ?: return
+        joinFamily(code, onComplete)
+    }
+
+    /**
+     * Verlässt die aktuelle Familie und tritt der neuen (aus pendingJoinCode) atomar bei.
+     * Dies verhindert, dass der familyId Flow zwischendurch null wird und die UI zum SetupScreen springt.
+     */
+    fun leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
+        val code = _pendingJoinCode.value ?: return
+        val uid = auth.currentUser?.uid
+        
+        viewModelScope.launch {
+            _isSyncing.value = true
+            try {
+                // 1. Cloud-Link zur alten Familie entfernen
+                if (uid != null) {
+                    repository.removeUserFamily(uid)
+                }
+                
+                // 2. Der neuen Familie beitreten
+                val result = repository.joinFamilyByCode(code)
+                result.onSuccess { pair ->
+                    // 3. Neuen Cloud-Link speichern
+                    if (uid != null) {
+                        repository.saveUserFamily(uid, pair.first, pair.second)
+                    }
+                    
+                    // 4. Familiennamen holen
+                    val fetchedName = repository.getFamilyName(pair.first)
+                    
+                    // 5. SharedPrefs AKTUALISIEREN (dies triggert die Flow-Emissionen)
+                    // Wir setzen hier direkt die neue ID, sodass sie nie null wird
+                    val oldFamilyId = familyId.value
+                    prefsRepo.setFamilyId(pair.first)
+                    prefsRepo.setJoinCode(pair.second)
+                    prefsRepo.setFamilyName(fetchedName)
+                    
+                    if (oldFamilyId != pair.first) {
+                        prefsRepo.setMyMemberId(null) // Profil nur bei echtem Familienwechsel neu wählen
+                    }
+                    
+                    _pendingJoinCode.value = null
+                    onComplete(true)
+                }.onFailure { error ->
+                    _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                    _pendingJoinCode.value = null // Dialog schließen
+                    
+                    // Lokalen Zustand ebenfalls nullen, da Cloud-Link bereits gelöscht wurde.
+                    // Dies triggert die Navigation zurück zum SetupScreen.
+                    prefsRepo.setFamilyId(null)
+                    prefsRepo.setJoinCode(null)
+                    prefsRepo.setFamilyName(null)
+                    prefsRepo.setMyMemberId(null)
+                    
+                    onComplete(false)
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: "Unknown")
+                onComplete(false)
+            } finally {
+                _isSyncing.value = false
             }
         }
     }

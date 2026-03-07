@@ -4,19 +4,10 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val appVersion = "0.5.1"
+val appVersion = "0.5.10"
 
-val commitHash = try {
-    Runtime.getRuntime().exec(arrayOf("git", "rev-parse", "--short", "HEAD")).inputStream.reader().use { it.readText().trim() }
-} catch (e: Exception) {
-    "unknown"
-}
-
-val commitDate = try {
-    Runtime.getRuntime().exec(arrayOf("git", "log", "-1", "--format=%cd", "--date=format:%d.%m.%Y %H:%M")).inputStream.reader().use { it.readText().trim() }
-} catch (e: Exception) {
-    "unknown"
-}
+val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
+val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
 
 val versionCodeTimestamp = try {
     // Minutes since January 1st, 2026

@@ -31,6 +31,9 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-03 | Familie beitreten | Benutzer tritt per Code einer bestehenden Familie bei. |
 | TC-20 | Passwort vergessen (Reset) | Branded E-Mail wird versendet, Link führt zur branded HTML-Seite, Passwortänderung funktioniert. |
 | TC-21 | **Einladungs-Sharing** | Klick auf "Teilen" öffnet den Android-Dialog mit dem Familien-Code und Link. |
+| TC-22 | **Deep Link (App-Start)** | Klick auf einen `/join/` Link öffnet direkt die App (statt Browser). |
+| TC-23 | **Auto-Join via Link** | App erkennt den Code aus der URL und zeigt den "Beitreten"-Dialog an. |
+| TC-24 | **Re-Join Robustheit** | Beitritt zur eigenen Familie via Link löscht die Profil-Zuordnung nicht mehr. |
 
 
 ### 2. Familien-Konfiguration

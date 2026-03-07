@@ -7,6 +7,29 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.5.10] - 2026-03-07
+ ### Deep Linking, Navigation & CI-Optimierung
+ Diese Version führt umfassendes Deep Linking für Familien-Einladungen ein, optimiert die App-Navigation bei Fehlern und beschleunigt die Build-Pipeline.
+
+ ### Hinzugefügt
+- **Deep Linking:** Unterstützung für `familienwecker.de/join/[CODE]`. Links öffnen nun direkt die App.
+- **Automatischer Join:** Beim Klicken eines Links wird der User (nach dem Login) automatisch der Familie hinzugefügt.
+- **Konflikt-Handling:** Smarter Dialog beim Versuch, einer neuen Familie beizutreten, wenn man bereits Mitglied ist.
+
+ ### Verbessert & Optimiert
+- **App Link Verifizierung:** Best-Practice Manifest-Struktur zur Erhöhung der Wahrscheinlichkeit der automatischen Verifizierung unter Android 12+.
+- **Build-Pipeline (CI/CD):** Aktivierung von Gradle Build Cache, Parallel Execution und Configuration Cache in GitHub Actions für deutlich schnellere Deployments.
+- **CI-Performance:** Erhöhung des Heap-Speichers auf 4GB für stabilere Build-Läufe.
+- **Einladungs-Sharing:** Überarbeiteter Einladungstext mit direktem Link für eine nahtlose Nutzererfahrung.
+- **Join-Logik:** Die Profilwahl bleibt nun erhalten, wenn man einer Familie beitritt, in der man bereits Mitglied ist (Re-Join).
+
+ ### Behoben
+- **Profil-Claim:** Fix eines Fehlers, bei dem das eigene Profil nach einem Re-Join (z.B. via Link) als "belegt" angezeigt wurde.
+- **Navigations-Stabilität:** Automatischer Familienwechsel verläuft nun atomar. Bei Fehlern (z.B. ungültiger Code) erfolgt ein sauberer Backtrack zum Setup-Screen inklusive Fehlermeldung.
+- **Configuration Cache:** Build-Metadaten werden nun via Gradle Properties übergeben, was Build-Fehler im CI-Prozess behebt.
+- **Mehrfach-Instanzen:** App öffnet sich bei Deep-Link-Klicks nicht mehr doppelt (`singleTop`).
+- **Dialog-UX:** Der Konflikt-Dialog schließt sich nun zuverlässig in allen Fehler-Szenarien.
+
  ## [0.5.0] - 2026-03-06
   ### Veröffentlichung im Play Store (Update)
  Eine komplett überarbeitete Version mit Fokus auf Familien-Organisation, Design und Stabilität.

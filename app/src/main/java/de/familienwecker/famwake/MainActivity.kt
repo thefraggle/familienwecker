@@ -63,6 +63,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContent {
             val familyViewModel: FamilyViewModel = viewModel()
+            
+            // Handle Deep Link
+            LaunchedEffect(intent) {
+                handleDeepLink(intent, familyViewModel)
+            }
+
             val themePref by familyViewModel.themePreference.collectAsState()
             val darkTheme = when (themePref) {
                 "dark" -> true
@@ -72,6 +78,22 @@ class MainActivity : AppCompatActivity() {
             
             FamilienweckerTheme(darkTheme = darkTheme) {
                 FamilienweckerApp(familyViewModel)
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        // Note: handleDeepLink is called via LaunchedEffect(intent) in setContent
+    }
+
+    private fun handleDeepLink(intent: Intent?, viewModel: FamilyViewModel) {
+        val data: Uri? = intent?.data
+        if (data != null && data.host == "familienwecker.de" && data.path?.startsWith("/join/") == true) {
+            val code = data.lastPathSegment
+            if (!code.isNullOrBlank() && code != "join") {
+                viewModel.setPendingJoinCode(code.uppercase())
             }
         }
     }

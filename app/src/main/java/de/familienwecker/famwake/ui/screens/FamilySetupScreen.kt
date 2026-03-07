@@ -104,99 +104,128 @@ fun FamilySetupScreen(
                             containerColor = Color.Transparent,
                             divider = {}
                         ) {
-                Tab(selected = isCreateMode, onClick = { isCreateMode = true }) {
-                    Text(stringResource(R.string.setup_create_tab), modifier = Modifier.padding(16.dp))
-                }
-                Tab(selected = !isCreateMode, onClick = { isCreateMode = false }) {
-                    Text(stringResource(R.string.setup_join_tab), modifier = Modifier.padding(16.dp))
-                }
-            }
+                            Tab(selected = isCreateMode, onClick = { isCreateMode = true }) {
+                                Text(stringResource(R.string.setup_create_tab), modifier = Modifier.padding(16.dp))
+                            }
+                            Tab(selected = !isCreateMode, onClick = { isCreateMode = false }) {
+                                Text(stringResource(R.string.setup_join_tab), modifier = Modifier.padding(16.dp))
+                            }
+                        }
 
-            Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(24.dp))
 
-            Crossfade(targetState = isCreateMode, label = "SetupMode") { mode ->
-                if (mode) {
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        OutlinedTextField(
-                            value = familyName,
-                            onValueChange = { familyName = it },
-                            label = { Text(stringResource(R.string.setup_family_name)) },
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        
-                        val createInteractionSource = remember { MutableInteractionSource() }
+                        Crossfade(targetState = isCreateMode, label = "SetupMode") { mode ->
+                            if (mode) {
+                                Column(modifier = Modifier.fillMaxWidth()) {
+                                    OutlinedTextField(
+                                        value = familyName,
+                                        onValueChange = { familyName = it },
+                                        label = { Text(stringResource(R.string.setup_family_name)) },
+                                        singleLine = true,
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    
+                                    val createInteractionSource = remember { MutableInteractionSource() }
 
-                        Button(
-                            onClick = {
-                                isLoading = true
-                                viewModel.createFamily(familyName) { success ->
-                                    isLoading = false
-                                    if (success) onSetupComplete()
+                                    Button(
+                                        onClick = {
+                                            isLoading = true
+                                            viewModel.createFamily(familyName) { success ->
+                                                isLoading = false
+                                                if (success) onSetupComplete()
+                                            }
+                                        },
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(56.dp)
+                                            .bounceClick(createInteractionSource),
+                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                        interactionSource = createInteractionSource,
+                                        enabled = familyName.isNotBlank() && !isLoading
+                                    ) {
+                                        Text(stringResource(R.string.setup_create_button), style = MaterialTheme.typography.titleMedium)
+                                    }
                                 }
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp)
-                                .bounceClick(createInteractionSource),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
-                            interactionSource = createInteractionSource,
-                            enabled = familyName.isNotBlank() && !isLoading
-                        ) {
-                            Text(stringResource(R.string.setup_create_button), style = MaterialTheme.typography.titleMedium)
+                            } else {
+                                Column(modifier = Modifier.fillMaxWidth()) {
+                                    OutlinedTextField(
+                                        value = joinCode,
+                                        onValueChange = { joinCode = it.uppercase() },
+                                        label = { Text(stringResource(R.string.setup_join_code_label)) },
+                                        singleLine = true,
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    
+                                    val joinInteractionSource = remember { MutableInteractionSource() }
+
+                                    Button(
+                                        onClick = {
+                                            isLoading = true
+                                            viewModel.joinFamily(joinCode) { success ->
+                                                isLoading = false
+                                                if (success) onSetupComplete()
+                                            }
+                                        },
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(56.dp)
+                                            .bounceClick(joinInteractionSource),
+                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                        interactionSource = joinInteractionSource,
+                                        enabled = joinCode.length >= 5 && !isLoading
+                                    ) {
+                                        Text(stringResource(R.string.setup_join_button), style = MaterialTheme.typography.titleMedium)
+                                    }
+                                }
+                            }
+                        }
+
+                        if (isLoading) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            CircularProgressIndicator()
+                        }
+
+                        if (errorMessage != null) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = errorMessage!!.asString(),
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
                         }
                     }
-                } else {
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        OutlinedTextField(
-                            value = joinCode,
-                            onValueChange = { joinCode = it.uppercase() },
-                            label = { Text(stringResource(R.string.setup_join_code_label)) },
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        
-                        val joinInteractionSource = remember { MutableInteractionSource() }
-
-                        Button(
-                            onClick = {
-                                isLoading = true
-                                viewModel.joinFamily(joinCode) { success ->
-                                    isLoading = false
-                                    if (success) onSetupComplete()
-                                }
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp)
-                                .bounceClick(joinInteractionSource),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
-                            interactionSource = joinInteractionSource,
-                            enabled = joinCode.length >= 5 && !isLoading
-                        ) {
-                            Text(stringResource(R.string.setup_join_button), style = MaterialTheme.typography.titleMedium)
-                        }
-                    }
                 }
-            }
 
-            if (isLoading) {
-                Spacer(modifier = Modifier.height(16.dp))
-                CircularProgressIndicator()
-            }
+                // Deep Link Join Conflict Dialog
+                val pendingJoinCode by viewModel.pendingJoinCode.collectAsStateWithLifecycle()
+                val familyId by viewModel.familyId.collectAsStateWithLifecycle()
+                val currentFamilyName by viewModel.familyName.collectAsStateWithLifecycle()
 
-            if (errorMessage != null) {
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = errorMessage!!.asString(),
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-
-                    }
+                if (pendingJoinCode != null && familyId != null) {
+                    AlertDialog(
+                        onDismissRequest = { viewModel.clearPendingJoinCode() },
+                        title = { Text(stringResource(R.string.join_conflict_title)) },
+                        text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "---", pendingJoinCode!!)) },
+                        confirmButton = {
+                            Button(
+                                onClick = {
+                                    viewModel.leaveAndJoinPendingCode { success ->
+                                        if (success) onSetupComplete()
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                            ) {
+                                Text(stringResource(R.string.join_conflict_confirm))
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { viewModel.clearPendingJoinCode() }) {
+                                Text(stringResource(R.string.cancel_button))
+                            }
+                        }
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))

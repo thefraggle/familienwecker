@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.5.10] - 2026-03-07
+ ### Deep Linking, Navigation & CI Optimization
+ This version introduces comprehensive deep linking for family invitations, optimizes app navigation on errors, and accelerates the build pipeline.
+
+ ### Added
+- **Deep Linking:** Support for `familienwecker.de/join/[CODE]`. Links now open the app directly.
+- **Automatic Join:** When clicking a link, the user is automatically added to the family (after login).
+- **Conflict Handling:** Smart dialog when attempting to join a new family while already being a member.
+
+ ### Improved & Optimized
+- **App Link Verification:** Best-practice manifest structure to increase the probability of automatic verification on Android 12+.
+- **Build Pipeline (CI/CD):** Enabled Gradle build cache, parallel execution, and configuration cache in GitHub Actions for significantly faster deployments.
+- **CI Performance:** Increased heap memory to 4GB for more stable build runs.
+- **Invitation Sharing:** Revised invitation text with a direct link for a seamless user experience.
+- **Join Logic:** Profile selection is now preserved when re-joining a family the user is already a member of.
+
+ ### Fixed
+- **Profile Claim:** Fixed an issue where the user's own profile was shown as "occupied" after re-joining (e.g., via link).
+- **Navigation Stability:** Automatic family switching is now atomic. In case of errors (e.g., invalid code), a clean backtrack to the setup screen occurs, including the error message.
+- **Configuration Cache:** Build metadata is now passed via Gradle properties, fixing build failures in the CI process.
+- **Multiple Instances:** App no longer opens twice when clicking deep links (`singleTop`).
+- **Dialog UX:** The conflict dialog now closes reliably in all error scenarios.
+
  ## [0.5.0] - 2026-03-06
  ### Release in the Play Store (Update)
  A fully redesigned and stabilized version with focus on family organization and modern UI.
