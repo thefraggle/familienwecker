@@ -100,6 +100,42 @@ fun MainScreen(
         )
     }
 
+    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
+    val familyId by viewModel.familyId.collectAsStateWithLifecycle()
+
+    // Deep Link Join Conflict Dialog
+    val pendingJoinCode by viewModel.pendingJoinCode.collectAsStateWithLifecycle()
+    val currentFamilyName by viewModel.familyName.collectAsStateWithLifecycle()
+
+    if (pendingJoinCode != null && familyId != null) {
+        AlertDialog(
+            onDismissRequest = { viewModel.clearPendingJoinCode() },
+            title = { Text(stringResource(R.string.join_conflict_title)) },
+            text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "---", pendingJoinCode!!)) },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        viewModel.leaveAndJoinPendingCode { success ->
+                            if (success) {
+                                snackbarScope.launch {
+                                    snackbarHostState.showSnackbar(context.getString(R.string.main_sync_success))
+                                }
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Text(stringResource(R.string.join_conflict_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { viewModel.clearPendingJoinCode() }) {
+                    Text(stringResource(R.string.cancel_button))
+                }
+            }
+        )
+    }
+    
     // What's New Popup
     whatsNewContent?.let { content ->
         AlertDialog(
@@ -118,9 +154,6 @@ fun MainScreen(
     }
     
     val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
-
-    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
-    val familyId by viewModel.familyId.collectAsStateWithLifecycle()
 
     val lifecycleOwner = LocalLifecycleOwner.current
 

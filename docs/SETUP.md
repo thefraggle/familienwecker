@@ -2,7 +2,7 @@
 
 Diese Anleitung erklärt, wie du FamWake lokal zum Laufen bekommst. Da die App auf Firebase basiert, musst du dein eigenes Backend-Projekt konfigurieren.
 
-*Aktuelle Version: v0.5.0*
+*Aktuelle Version: v0.5.10*
 
 ## 1. Firebase Projekt erstellen
 1. Gehe zur [Firebase Console](https://console.firebase.google.com/).
@@ -35,7 +35,21 @@ Die App nutzt Cloud Functions für branded E-Mails via **Resend**.
    *(Beinhaltet auch periodische Garbage Collection Tasks).*
 
 
-## 4. App bauen & starten
+## 5. App Links (Deep Linking)
+Damit Einladungs-Links (`familienwecker.de/join/[CODE]`) direkt die App öffnen, muss die Domain verifiziert sein.
+1. **assetlinks.json**: Diese Datei muss unter `https://familienwecker.de/.well-known/assetlinks.json` erreichbar sein.
+2. **Inhalt**: Sie muss den SHA-256 Fingerprint deines **Release-Keys** enthalten (siehe Google Play Console -> App-Integrität).
+3. **Manifest**: Der Intent-Filter in der `AndroidManifest.xml` ist bereits vorkonfiguriert:
+   ```xml
+   <intent-filter android:autoVerify="true">
+       <action android:name="android.intent.action.VIEW" />
+       <category android:name="android.intent.category.DEFAULT" />
+       <category android:name="android.intent.category.BROWSABLE" />
+       <data android:scheme="https" android:host="familienwecker.de" android:pathPrefix="/join/" />
+   </intent-filter>
+   ```
+
+## 6. App bauen & starten
 1. Öffne das Projekt in **Android Studio** (Koala oder neuer empfohlen).
 2. Lass Gradle alle Abhängigkeiten synchronisieren.
 3. Starte die App auf einem Emulator oder einem echten Gerät mit Google Play Services.

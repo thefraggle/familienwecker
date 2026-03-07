@@ -27,7 +27,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17' # Deine benötigte Java-Version für Android/Gradle
+          java-version: '17'
+          cache: 'gradle'
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -42,9 +43,21 @@ jobs:
           ${{ secrets.GOOGLE_SERVICES_JSON }}
           EOF
 
+      # Berechne Metadaten für den Build (kompatibel mit Configuration Cache)
+      - name: Prepare Build Metadata
+        id: metadata
+        run: |
+          echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
+
       # Baut das un-signierte Release APK und das Release AAB
       - name: Build Release APK and AAB
-        run: ./gradlew assembleRelease bundleRelease
+        run: |
+          ./gradlew assembleRelease bundleRelease \
+            --build-cache --parallel --configuration-cache \
+            -PcommitHash=${{ steps.metadata.outputs.hash }} \
+            -PcommitDate="${{ steps.metadata.outputs.date }}" \
+            -Dorg.gradle.jvmargs="-Xmx4g"
 
       # Entschlüsselt den Keystore aus den GitHub Secrets
       - name: Decode Keystore

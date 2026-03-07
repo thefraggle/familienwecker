@@ -89,7 +89,7 @@
     <string name="settings_account_title">Family &amp; Account</string>
     <string name="settings_join_code">Invitation code for family %1$s:</string>
     <string name="settings_share_code">Share Code</string>
-    <string name="settings_share_message">Your invitation to FamWake! ⏰\n\nCode: %2$s\nGroup: %1$s\n\nWaking up together is more fun! ❤️\nMore info at: https://familienwecker.de</string>
+    <string name="settings_share_message">Hier ist dein Link für FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGruppe: %1$s\n\nEinfach klicken, einloggen und wir sind verbunden. Wach werden macht zusammen mehr Spaß! ⏰❤️</string>
     <string name="settings_leave_family">Leave Family</string>
     <string name="settings_delete_family">Delete Family</string>
     <string name="settings_delete_family_dialog_title">Delete Family?</string>
@@ -140,6 +140,9 @@
     <string name="error_load_members">Error loading members: %1$s</string>
     <string name="error_create_family">Error creating family: %1$s</string>
     <string name="error_invalid_code">Invalid invitation code: %1$s</string>
+    <string name="join_conflict_title">Join new family?</string>
+    <string name="join_conflict_text">You are already a member of family \"%1$s\". To join the new family, you must leave your current one first. Do you want to leave \"%1$s\" and join with code %2$s?</string>
+    <string name="join_conflict_confirm">Leave &amp; Join</string>
     <string name="error_delete_member">Could not delete member: %1$s</string>
     <string name="error_sync_failed">Synchronization failed: %1$s</string>
     <string name="error_delete_family">Error deleting family: %1$s</string>

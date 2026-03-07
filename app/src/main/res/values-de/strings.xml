@@ -88,7 +88,7 @@
     <string name="settings_account_title">Familie &amp; Account</string>
     <string name="settings_join_code">Einladungscode für Familie %1$s:</string>
     <string name="settings_share_code">Code teilen</string>
-    <string name="settings_share_message">Deine Einladung für FamWake! ⏰\n\nCode: %2$s\nGruppe: %1$s\n\nWach werden macht zusammen mehr Spaß! ❤️\nMehr Infos unter: https://familienwecker.de</string>
+    <string name="settings_share_message">Hier ist dein Link für FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGruppe: %1$s\n\nEinfach klicken, einloggen und wir sind verbunden. Wach werden macht zusammen mehr Spaß! ⏰❤️</string>
     <string name="settings_leave_family">Familie verlassen</string>
     <string name="settings_delete_family">Familie l\u00f6schen</string>
     <string name="settings_delete_family_dialog_title">Familie l\u00f6schen?</string>
@@ -139,6 +139,9 @@
     <string name="error_load_members">Fehler beim Laden der Mitglieder: %1$s</string>
     <string name="error_create_family">Fehler beim Erstellen der Familie: %1$s</string>
     <string name="error_invalid_code">Einladungscode ungültig: %1$s</string>
+    <string name="join_conflict_title">Neuer Familie beitreten?</string>
+    <string name="join_conflict_text">Du bist bereits Mitglied der Familie \"%1$s\". Um der neuen Familie beitreten zu können, musst du deine aktuelle zuerst verlassen. Möchtest du \"%1$s\" verlassen und mit dem Code %2$s beitreten?</string>
+    <string name="join_conflict_confirm">Verlassen &amp; Beitreten</string>
     <string name="error_delete_member">Mitglied konnte nicht gelöscht werden: %1$s</string>
     <string name="error_sync_failed">Synchronisierung fehlgeschlagen: %1$s</string>
     <string name="error_delete_family">Fehler beim Löschen der Familie: %1$s</string>

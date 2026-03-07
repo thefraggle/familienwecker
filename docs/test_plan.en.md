@@ -30,6 +30,9 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-03 | Join a family | User joins an existing family via code. |
 | TC-20 | Forgot Password (Reset) | Branded email sent, link leads to branded HTML page, password change works. |
 | TC-21 | **Invitation Sharing** | Clicking "Share" opens the Android dialog with the family code and link. |
+| TC-22 | **Deep Link (App Start)** | Clicking a `/join/` link opens the app directly (instead of browser). |
+| TC-23 | **Auto-Join via Link** | App recognizes the code from the URL and shows the "Join" dialog. |
+| TC-24 | **Re-Join Resilience** | Re-joining the own family via link no longer clears the profile assignment. |
 
 
 ### 2. Family Configuration
