@@ -7,6 +7,15 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.5.11] - 2026-03-07
+ ### Self-Healing & Deep Link Fix
+ Diese Version behebt kritische Fehler beim Login-Flow über Deep Links und führt eine automatische Fehlerkorrektur bei Berechtigungsproblemen ein.
+
+ ### Behoben
+ - **Self-Healing:** Die App erkennt nun `PERMISSION_DENIED` Fehler (z.B. bei gelöschten Familien) und bereinigt automatisch den lokalen Zustand, um zurück zum Setup-Screen zu führen.
+ - **Deep Link Race Condition:** Der Join-Vorgang nach dem Login hat nun immer Vorrang vor der Wiederherstellung alter Profile. Behebt den Fehler, bei dem man nach dem Login auf der falschen Seite landete.
+ - **Zustands-Synchronisierung:** Konsequente Bereinigung lokaler Daten, wenn kein Cloud-Profil mehr existiert.
+
 ## [0.5.10] - 2026-03-07
  ### Deep Linking, Navigation & CI-Optimierung
  Diese Version führt umfassendes Deep Linking für Familien-Einladungen ein, optimiert die App-Navigation bei Fehlern und beschleunigt die Build-Pipeline.
