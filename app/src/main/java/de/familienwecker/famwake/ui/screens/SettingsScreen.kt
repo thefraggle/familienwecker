@@ -471,7 +471,7 @@ fun SettingsScreen(
                         val themeLabel = when (themePreference) {
                             "dark" -> if (currentLanguage == "de") "Dunkel" else "Dark"
                             "light" -> if (currentLanguage == "de") "Hell" else "Light"
-                            else -> "System"
+                            else -> stringResource(R.string.settings_language_system)
                         }
                         
                         OutlinedTextField(
@@ -495,7 +495,7 @@ fun SettingsScreen(
                                 onClick = { viewModel.setThemePreference("dark"); themeExpanded = false }
                             )
                             DropdownMenuItem(
-                                text = { Text("System") },
+                                text = { Text(stringResource(R.string.settings_language_system)) },
                                 onClick = { viewModel.setThemePreference("system"); themeExpanded = false }
                             )
                         }

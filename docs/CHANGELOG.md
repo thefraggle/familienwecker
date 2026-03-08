@@ -7,6 +7,18 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.5.14] - 2026-03-08
+ ### App-Check & Join UI
+ Fokus dieser Version sind die vollständige Lokalisierung und eine verbesserte Rückmeldung beim Beitreten einer Familie.
+
+ ### Hinzugefügt
+ - **Join-Success:** Ein neues Popup bestätigt den erfolgreichen Beitritt zu einer Familie direkt auf dem Dashboard (nur bei echtem Beitritt, nicht beim Erstellen).
+
+ ### Verbessert
+ - **Join-Code:** Robustere Eingabe im Setup-Screen. Der Code wird nun automatisch gefiltert (nur Alphanumerisch), auf 6 Zeichen begrenzt und in Großbuchstaben umgewandelt. Deep-Links werden ebenfalls sanitisiert.
+ - **Lokalisierung:** Konsequente Auslagerung aller Texte in `strings.xml`. Volle Unterstützung für Deutsch und Englisch. Die App erkennt beim ersten Start automatisch die passende Sprache (DE/EN). Manuelle Sprachwahl in den Einstellungen ohne "System"-Option für maximale Klarheit.
+ - **Settings UI:** Hardcoded Strings im Einstellungsmenü (Sprach- und Theme-Eigenschaften) wurden externalisiert. Theme nutzt weiterhin "System" als Standard.
+
 ## [0.5.12] - 2026-03-07
  ### UI-Polishing & Instanz-Fix
  Fokus dieser Version sind UI-Korrekturen und die Stabilisierung des App-Starts.

@@ -89,7 +89,7 @@
     <string name="settings_account_title">Family &amp; Account</string>
     <string name="settings_join_code">Invitation code for family %1$s:</string>
     <string name="settings_share_code">Share Code</string>
-    <string name="settings_share_message">Hier ist dein Link für FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGruppe: %1$s\n\nEinfach klicken, einloggen und wir sind verbunden. Wach werden macht zusammen mehr Spaß! ⏰❤️</string>
+    <string name="settings_share_message">Here is your link for FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGroup: %1$s\n\nJust click, log in, and we are connected. Waking up is more fun together! ⏰❤️</string>
     <string name="settings_leave_family">Leave Family</string>
     <string name="settings_delete_family">Delete Family</string>
     <string name="settings_delete_family_dialog_title">Delete Family?</string>
@@ -157,4 +157,7 @@
     <string name="error_user_not_found">No account found for this email address.</string>
     <string name="error_too_many_requests">Too many attempts. Please wait and try again.</string>
     <string name="error_password_reset_failed">Password reset failed. Please try again later.</string>
+    <string name="join_success_title">Family Joined!</string>
+    <string name="join_success_message">You have successfully joined the family.</string>
+    <string name="ok">OK</string>
 </resources>

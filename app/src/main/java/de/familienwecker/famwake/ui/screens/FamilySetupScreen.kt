@@ -157,10 +157,20 @@ fun FamilySetupScreen(
                                 Column(modifier = Modifier.fillMaxWidth()) {
                                     OutlinedTextField(
                                         value = joinCode,
-                                        onValueChange = { joinCode = it.uppercase() },
+                                        onValueChange = { input ->
+                                            val sanitized = input.filter { it.isLetterOrDigit() }.uppercase()
+                                            if (sanitized.length <= 6) {
+                                                joinCode = sanitized
+                                            }
+                                        },
                                         label = { Text(stringResource(R.string.setup_join_code_label)) },
                                         singleLine = true,
-                                        modifier = Modifier.fillMaxWidth()
+                                        modifier = Modifier.fillMaxWidth(),
+                                        placeholder = { Text("ABC123") },
+                                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                                            capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.Characters,
+                                            autoCorrectEnabled = false
+                                        )
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
                                     
@@ -180,7 +190,7 @@ fun FamilySetupScreen(
                                             .bounceClick(joinInteractionSource),
                                         shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                                         interactionSource = joinInteractionSource,
-                                        enabled = joinCode.length >= 5 && !isLoading
+                                        enabled = joinCode.length == 6 && !isLoading
                                     ) {
                                         Text(stringResource(R.string.setup_join_button), style = MaterialTheme.typography.titleMedium)
                                     }

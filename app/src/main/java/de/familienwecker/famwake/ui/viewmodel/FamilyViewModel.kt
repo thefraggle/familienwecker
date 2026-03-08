@@ -63,6 +63,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     private val _pendingJoinCode = MutableStateFlow<String?>(null)
     val pendingJoinCode: StateFlow<String?> = _pendingJoinCode.asStateFlow()
 
+    private val _showJoinSuccess = MutableStateFlow(false)
+    val showJoinSuccess: StateFlow<Boolean> = _showJoinSuccess.asStateFlow()
+
     private var membersJob: Job? = null
     private var alarmEnabledJob: Job? = null
 
@@ -213,7 +216,8 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 if (_pendingJoinCode.value == code) {
                     _pendingJoinCode.value = null
                 }
-
+                
+                _showJoinSuccess.value = true
                 onComplete(true)
             }.onFailure { error ->
                 _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
@@ -279,6 +283,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     }
                     
                     _pendingJoinCode.value = null
+                    _showJoinSuccess.value = true
                     onComplete(true)
                 }.onFailure { error ->
                     _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
@@ -663,5 +668,8 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
             prefsRepo.setLastSeenWhatsNewVersion(it.versionCode)
             _whatsNewContent.value = null
         }
+    }
+    fun dismissJoinSuccess() {
+        _showJoinSuccess.value = false
     }
 }
