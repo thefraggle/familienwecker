@@ -429,15 +429,37 @@ fun MainScreen(
                     ) { index, sched ->
                         val isDragging = draggedItemId == sched.member.id
                         
+                        val cardBgColor by animateColorAsState(
+                            targetValue = if (isDragging) {
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.9f)
+                            } else if (isDarkTheme) {
+                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                            } else {
+                                MaterialTheme.colorScheme.surface
+                            },
+                            animationSpec = tween(durationMillis = 200),
+                            label = "dragCardBgColor"
+                        )
+
+                        val contentColor by animateColorAsState(
+                            targetValue = if (isDragging) {
+                                MaterialTheme.colorScheme.onPrimary
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
+                            animationSpec = tween(durationMillis = 200),
+                            label = "dragContentColor"
+                        )
+
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .animateItem() // Gap-Animations
                                 .zIndex(if (isDragging) 10f else 0f)
                                 .graphicsLayer {
                                     translationY = if (isDragging) draggingOffset else 0f
                                     scaleX = if (isDragging) 1.08f else 1f
                                     scaleY = if (isDragging) 1.08f else 1f
-                                    alpha = if (isDragging) 1.0f else 1f
                                 }
                                 .pointerInput(currentSched.memberSchedules) {
                                     detectDragGesturesAfterLongPress(
@@ -445,22 +467,24 @@ fun MainScreen(
                                         onDragEnd = {
                                             draggedItemId = null
                                             draggingOffset = 0f
+                                            viewModel.saveMemberOrder() // Final Sync
                                         },
                                         onDragCancel = {
                                             draggedItemId = null
                                             draggingOffset = 0f
+                                            viewModel.saveMemberOrder() // Final Sync
                                         },
                                         onDrag = { change, dragAmount ->
                                             change.consume()
                                             draggingOffset += dragAmount.y
                                             
-                                            // Swap logic based on item height (approx 100dp)
+                                            // Swap logic based on item height (approx 110dp)
                                             val heightPx = 110.dp.toPx()
                                             if (draggingOffset > heightPx / 2 && index < currentSched.memberSchedules.size - 1) {
-                                                viewModel.updateMemberOrder(index, index + 1)
+                                                viewModel.moveMemberOrder(index, index + 1)
                                                 draggingOffset -= heightPx
                                             } else if (draggingOffset < -heightPx / 2 && index > 0) {
-                                                viewModel.updateMemberOrder(index, index - 1)
+                                                viewModel.moveMemberOrder(index, index - 1)
                                                 draggingOffset += heightPx
                                             }
                                         }
@@ -468,10 +492,13 @@ fun MainScreen(
                                 },
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                             elevation = CardDefaults.cardElevation(defaultElevation = if (isDragging) 32.dp else 6.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                            border = androidx.compose.foundation.BorderStroke(
+                                width = 1.dp, 
+                                color = if (isDragging) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+                            ),
                             colors = CardDefaults.cardColors(
-                                containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                                 else MaterialTheme.colorScheme.surface
+                                containerColor = cardBgColor,
+                                contentColor = contentColor
                             )
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
@@ -480,16 +507,28 @@ fun MainScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text(text = "⏰ ${sched.wakeUpTime} - ${sched.member.name}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                                    Text(
+                                        text = "⏰ ${sched.wakeUpTime} - ${sched.member.name}", 
+                                        style = MaterialTheme.typography.titleMedium, 
+                                        fontWeight = FontWeight.Bold
+                                    )
                                     Icon(
                                         imageVector = Icons.Default.DragHandle,
                                         contentDescription = null,
-                                        modifier = Modifier.size(28.dp).alpha(0.6f)
+                                        modifier = Modifier.size(28.dp).alpha(if (isDragging) 1.0f else 0.6f)
                                     )
                                 }
-                                Text(text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toString(), sched.bathroomEndTime.toString()))
+                                Text(
+                                    text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toString(), sched.bathroomEndTime.toString()),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
+                                )
                                 if (sched.member.leaveHomeTime != null) {
-                                    Text(text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime.toString()))
+                                    Text(
+                                        text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime.toString()),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
+                                    )
                                 }
                             }
                         }
