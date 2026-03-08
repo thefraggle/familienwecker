@@ -57,6 +57,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     private val _isSyncing = MutableStateFlow(false)
     val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
 
+    private val _syncStatus = MutableStateFlow(de.familienwecker.famwake.model.SyncStatus())
+    val syncStatus: StateFlow<de.familienwecker.famwake.model.SyncStatus> = _syncStatus.asStateFlow()
+
     private val _whatsNewContent = MutableStateFlow<WhatsNewContent?>(null)
     val whatsNewContent: StateFlow<WhatsNewContent?> = _whatsNewContent.asStateFlow()
 
@@ -67,6 +70,7 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
     val showJoinSuccess: StateFlow<Boolean> = _showJoinSuccess.asStateFlow()
 
     private var membersJob: Job? = null
+    private var syncStatusJob: Job? = null
     private var alarmEnabledJob: Job? = null
 
     init {
@@ -75,12 +79,23 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
             try {
                 familyId.collect { currentFamilyId ->
                     membersJob?.cancel()
+                    syncStatusJob?.cancel()
                     alarmEnabledJob?.cancel()
                     if (!currentFamilyId.isNullOrBlank()) {
                         // Startup Sync: Force refresh from Firebase once to ensure consistency
                         // We do this BEFORE starting the member flow to ensure user/family doc link is there
                         refreshData()
                         
+                        syncStatusJob = launch {
+                            try {
+                                repository.getSyncStatusFlow(currentFamilyId).collect { status ->
+                                    _syncStatus.value = status
+                                }
+                            } catch (e: Exception) {
+                                // Silent error for sync status
+                            }
+                        }
+
                         membersJob = launch {
                             try {
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->

@@ -5,6 +5,12 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.material.icons.filled.CloudOff
+import androidx.compose.material.icons.filled.Sync
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -144,6 +150,33 @@ fun MainScreen(
                         )
                     },
                     actions = {
+                        val syncStatus by viewModel.syncStatus.collectAsStateWithLifecycle()
+                        val isSyncingAnim by animateFloatAsState(
+                            targetValue = if (syncStatus.hasPendingWrites) 1f else 0f,
+                            animationSpec = infiniteRepeatable(
+                                animation = tween(1000, easing = LinearEasing),
+                                repeatMode = RepeatMode.Restart
+                            ),
+                            label = "syncAnimation"
+                        )
+
+                        if (syncStatus.isFromCache || syncStatus.hasPendingWrites) {
+                            Box(modifier = Modifier.padding(end = 4.dp)) {
+                                Icon(
+                                    imageVector = if (syncStatus.hasPendingWrites) Icons.Default.Sync else Icons.Default.CloudOff,
+                                    contentDescription = null,
+                                    tint = if (syncStatus.hasPendingWrites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .let { 
+                                            if (syncStatus.hasPendingWrites) {
+                                                it.graphicsLayer { rotationZ = isSyncingAnim * 360f }
+                                            } else it 
+                                        }
+                                )
+                            }
+                        }
+
                         val settingsInteractionSource = remember { MutableInteractionSource() }
                         IconButton(
                             onClick = onNavigateToSettings,

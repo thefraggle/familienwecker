@@ -359,4 +359,27 @@ class FirebaseRepository {
             android.util.Log.e("FirebaseRepository", "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
         }
     }
+
+    /**
+     * Erzeugt einen Flow, der den Synchronisationsstatus der Mitglieder-Kollektion überwacht.
+     * Nutzt Firestore Metadaten (isFromCache, hasPendingWrites).
+     */
+    fun getSyncStatusFlow(familyId: String): Flow<de.familienwecker.famwake.model.SyncStatus> = callbackFlow {
+        val collection = db.collection("families").document(familyId).collection("members")
+        val subscription = collection.addSnapshotListener(com.google.firebase.firestore.MetadataChanges.INCLUDE) { snapshot, error ->
+            if (error != null) {
+                close(error)
+                return@addSnapshotListener
+            }
+            if (snapshot != null) {
+                trySend(
+                    de.familienwecker.famwake.model.SyncStatus(
+                        isFromCache = snapshot.metadata.isFromCache(),
+                        hasPendingWrites = snapshot.metadata.hasPendingWrites()
+                    )
+                )
+            }
+        }
+        awaitClose { subscription.remove() }
+    }
 }
