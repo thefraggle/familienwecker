@@ -46,8 +46,8 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-06 | Haus-Verlassen Zeit setzen | Plan wird angepasst, damit die Person rechtzeitig fertig ist. |
 | TC-10 | **Mitglieder-Limit** | Bei 6 Mitgliedern wird der „Hinzufügen"-Button gesperrt. |
 | TC-11 | **Rechte-Schutz** | Profile von anderen (geclaimt) zeigen kein Edit-Icon und reagieren nicht auf Klick. |
-| TC-12 | **Drag & Drop Reihung** | Long-Press auf eine Zeitplan-Kachel erlaubt das Verschieben. Tausch findet bei >50% Überlappung statt. |
-| TC-13 | **Reihungs-Persistence** | Nach dem Verschieben bleibt die neue Reihenfolge auch nach App-Neustart und auf anderen Geräten erhalten. |
+| TC-12 | **Drag & Drop Reihung** | Long-Press auf eine Zeitplan-Kachel erlaubt das Verschieben. Andere Kacheln gleiten via Spring-Animation beiseite (Gap-Preview). |
+| TC-13 | **Drag & Drop Persistence** | Tausch und Firestore-Sync erst beim Loslassen. Neue Reihenfolge bleibt auch nach App-Neustart und auf anderen Geräten erhalten. |
 
 ### 3. Planungs-Logik (Algorithmische Tests)
 | ID | Testfall | Erwartetes Ergebnis |
