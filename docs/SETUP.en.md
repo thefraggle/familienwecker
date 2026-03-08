@@ -2,7 +2,7 @@
 
 This guide explains how to get FamWake up and running locally. Since the app relies on Firebase, you need to configure your own backend project.
 
-*Current Version: v0.5.12*
+*Current Version: v0.5.15*
 
 ## 1. Create a Firebase Project
 1. Go to the [Firebase Console](https://console.firebase.google.com/).

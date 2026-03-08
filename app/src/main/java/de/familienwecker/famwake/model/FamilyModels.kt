@@ -15,6 +15,7 @@ data class FamilyMember(
     val lastResetDate: String = "", // YYYY-MM-DD
     val claimedByUserId: String? = null,
     val claimedByUserName: String? = null,
+    val sequenceOrder: Int = 0,    // Manuelle Reihung (0 = am Anfang)
     val createdAt: Long? = null,   // Epoch-Millis beim ersten Anlegen – für stabile Sortierung
     val lastUpdatedAt: Long? = null // Epoch-Millis für Konfliktlösung (Last Intent Wins)
 )

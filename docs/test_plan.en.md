@@ -45,6 +45,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-06 | Set leave-home time | Schedule is adjusted so the person is ready on time. |
 | TC-10 | **Member Limit** | At 6 members, the "Add" button is disabled. |
 | TC-11 | **Permission Protection** | Profiles claimed by others do not show an edit icon and do not respond to clicks. |
+| TC-12 | **Drag & Drop Reordering** | Long-press on a schedule tile allows moving it. Swap occurs at >50% overlap. |
+| TC-13 | **Order Persistence** | After reordering, the new sequence is preserved after app restart and across multiple devices. |
 
 ### 3. Scheduling Logic (Algorithmic Tests)
 | ID | Test Case | Expected Result |
