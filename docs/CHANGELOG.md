@@ -7,6 +7,22 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.5.15] - 2026-03-08
+ ### Drag & Drop / Reordering
+ Diese Version führt die manuelle Reihung der Familienmitglieder ein, um den Weckplan flexibel zu gestalten.
+
+ ### Hinzugefügt
+ - **Drag & Drop:** Weckzeiten-Kacheln können nun per Long-Press verschoben werden. Die neue Reihenfolge wird sofort für die gesamte Familie berechnet und synchronisiert.
+ - **Floating UI:** Verbesserte Animationen beim Verschieben mit verstärktem Schattenwurf (32dp) für ein echtes "Schwebefühl".
+
+ ### Verbessert
+ - **Branding:** Konsistente Darstellung des App-Namens im Header ("**FamWake** Familienwecker").
+ - **UX:** Neues Drag-Handle Icon an der rechten Seite der Kacheln für bessere Greifbarkeit.
+
+ ### Behoben
+ - **Stability Fix:** Behebung eines Absturzes beim Hinzufügen des ersten Mitglieds (Duplicate Key in LazyColumn).
+ - **Kompilierung:** Korrektur fehlender Scopes und Receiver in der UI-Struktur.
+
 ## [0.5.14] - 2026-03-08
  ### App-Check & Join UI
  Fokus dieser Version sind die vollständige Lokalisierung und eine verbesserte Rückmeldung beim Beitreten einer Familie.

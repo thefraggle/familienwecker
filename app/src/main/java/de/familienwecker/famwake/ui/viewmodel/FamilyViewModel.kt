@@ -399,6 +399,31 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         addOrUpdateMember(updatedMember)
     }
 
+    fun updateMemberOrder(fromIndex: Int, toIndex: Int) {
+        val currentMembers = _members.value.toMutableList()
+        if (fromIndex !in currentMembers.indices || toIndex !in currentMembers.indices) return
+
+        // 1. Lokale Liste aktualisieren für sofortiges UI-Feedback
+        val member = currentMembers.removeAt(fromIndex)
+        currentMembers.add(toIndex, member)
+        
+        // 2. Neue Indizes vergeben
+        val updatedMembers = currentMembers.mapIndexed { index, m ->
+            m.copy(sequenceOrder = index)
+        }
+        _members.value = updatedMembers
+        
+        // 3. Sofort neu berechnen für "Ghost-Times" (während/nach Drop)
+        recalculateSchedule()
+
+        // 4. In Firestore persistieren (Batch-Update)
+        val currentFamilyId = familyId.value ?: return
+        val orderMap = updatedMembers.associate { it.id to it.sequenceOrder }
+        viewModelScope.launch {
+            repository.updateMemberOrders(currentFamilyId, orderMap)
+        }
+    }
+
     fun toggleAwakeMember(memberId: String) {
         // "Bin wach" can only be toggled for the own profile (requested feature)
         if (memberId != myMemberId.value) return

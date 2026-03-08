@@ -11,41 +11,42 @@ class Scheduler {
         members: List<FamilyMember>,
         breakfastDurationMinutes: Long = 30
     ): FamilySchedule {
-        // Limit active members to prevent OOM resulting from O(n!) permutations
+        // Limit active members to prevent overflow logic (though we don't permute anymore)
         val activeMembers = members.filter { !it.isPaused }.take(6)
         
         if (activeMembers.isEmpty()) return FamilySchedule(emptyList(), null, true, "Keine aktiven Mitglieder vorhanden.")
 
-        val permutations = generatePermutations(activeMembers)
+        // Wir nutzen exakt die übergebene Reihung (Manuelle Sortierung)
+        val fixedPermutation = listOf(activeMembers)
 
-        // Check strictly first
-        val result = findBestScheduleOverPermutations(permutations, activeMembers, breakfastDurationMinutes, 0)
+        // 1. Versuche die exakte Reihung ohne Zeit-Verschiebung
+        val result = findBestScheduleOverPermutations(fixedPermutation, activeMembers, breakfastDurationMinutes, 0)
         
         if (result.isSuccess) return result.getOrThrow()
 
-        // Fallback 1: Iteratively allow shifts up to 15 minutes in 5-minute increments
+        // Fallback 1: Erlaube moderate Zeit-Verschiebungen (5-15 Min) bei festgehaltener Reihung
         for (shiftMinutes in 5..15 step 5) {
-            val flexibleResult = findBestScheduleOverPermutations(permutations, activeMembers, breakfastDurationMinutes, shiftMinutes)
+            val flexibleResult = findBestScheduleOverPermutations(fixedPermutation, activeMembers, breakfastDurationMinutes, shiftMinutes)
             flexibleResult.onSuccess { flexibleSchedule ->
-                return flexibleSchedule.copy(message = "Zeiten wurden um $shiftMinutes Minuten flexibel angepasst, um Konflikte zu lösen.")
+                return flexibleSchedule.copy(message = "Zeiten wurden um $shiftMinutes Min. angepasst, um deine Reihenfolge einzuhalten.")
             }
         }
 
-        // Fallback 2: Reduce breakfast time by 5 or 10 minutes and try again with shifts
+        // Fallback 2: Frühstück leicht verkürzen und mit Verschiebungen erneut probieren
         if (breakfastDurationMinutes >= 15) {
             for (reduceBreakfast in 5..10 step 5) {
                 val reducedDuration = breakfastDurationMinutes - reduceBreakfast
-                val reductionResult = findBestScheduleOverPermutations(permutations, activeMembers, reducedDuration, 0)
+                val reductionResult = findBestScheduleOverPermutations(fixedPermutation, activeMembers, reducedDuration, 0)
                 
                 reductionResult.onSuccess { sched ->
-                    return sched.copy(message = "Frühstück wurde um $reduceBreakfast Minuten verkürzt, um Konflikte zu lösen.")
+                    return sched.copy(message = "Frühstück wurde um $reduceBreakfast Min. verkürzt, um deine Reihenfolge zu ermöglichen.")
                 }
                 
-                // Try shifts with reduced breakfast
+                // Kombiniere Frühstücksverkürzung mit Zeit-Verschiebung
                 for (shiftMinutes in 5..15 step 5) {
-                    val flexibleReductionResult = findBestScheduleOverPermutations(permutations, activeMembers, reducedDuration, shiftMinutes)
+                    val flexibleReductionResult = findBestScheduleOverPermutations(fixedPermutation, activeMembers, reducedDuration, shiftMinutes)
                     flexibleReductionResult.onSuccess { flexibleSchedule ->
-                        return flexibleSchedule.copy(message = "Frühstück wurde um $reduceBreakfast Min. verkürzt & Zeiten um $shiftMinutes Min. angepasst.")
+                        return flexibleSchedule.copy(message = "Frühstück -$reduceBreakfast Min. & Zeiten um $shiftMinutes Min. angepasst.")
                     }
                 }
             }

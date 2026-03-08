@@ -193,6 +193,14 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                     onNavigateToAddMember = { navController.navigate("addMember") },
                     onNavigateToEditMember = { id -> navController.navigate("editMember/$id") },
                     onNavigateToSettings = { navController.navigate("settings") },
+                    onLogout = {
+                        authViewModel.logout()
+                        familyViewModel.logout()
+                        navController.navigate("login") {
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    },
                     onLeaveFamily = {
                         familyViewModel.leaveFamily()
                         navController.navigate("setup") {

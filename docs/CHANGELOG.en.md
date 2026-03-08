@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.5.15] - 2026-03-08
+ ### Drag & Drop / Reordering
+ This version introduces manual reordering of family members to make the wake-up plan flexible.
+
+ ### Added
+ - **Drag & Drop:** Wake-up tiles can now be moved via long-press. The new order is immediately calculated and synchronized for the entire family.
+ - **Floating UI:** Improved animations during dragging with increased shadow (32dp) for a real "floating" feel.
+
+ ### Improved
+ - **Branding:** Consistent display of the app name in the header ("**FamWake** Family Alarm").
+ - **UX:** New drag-handle icon on the right side of the tiles for better accessibility.
+
+ ### Fixed
+ - **Stability Fix:** Fixed a crash when adding the first member (Duplicate Key in LazyColumn).
+ - **Compilation:** Corrected missing scopes and receivers in the UI structure.
+
 ## [0.5.14] - 2026-03-08
  ### App Check & Join UI
  This version focuses on full localization and improved feedback when joining a family.

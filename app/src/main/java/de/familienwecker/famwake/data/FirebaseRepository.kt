@@ -122,6 +122,7 @@ class FirebaseRepository {
                             lastResetDate = doc.getString("lastResetDate") ?: "",
                             claimedByUserId = doc.getString("claimedByUserId"),
                             claimedByUserName = doc.getString("claimedByUserName"),
+                            sequenceOrder = doc.getLong("sequenceOrder")?.toInt() ?: 0,
                             createdAt = doc.getLong("createdAt"),
                             lastUpdatedAt = doc.getLong("lastUpdatedAt")
                         )
@@ -130,8 +131,8 @@ class FirebaseRepository {
                         null
                     }
                 }
-                // Stabilitäts-Fix: Sortierung vereinfachen
-                val sortedMembers = members.sortedBy { it.createdAt ?: 0L }
+                // Stabilitäts-Fix: Sortierung nach sequenceOrder (manuell) und dann createdAt (stabil)
+                val sortedMembers = members.sortedWith(compareBy({ it.sequenceOrder }, { it.createdAt ?: 0L }))
                 trySend(sortedMembers)
             }
         }
@@ -157,6 +158,7 @@ class FirebaseRepository {
                 "lastResetDate" to member.lastResetDate,
                 "claimedByUserId" to member.claimedByUserId,
                 "claimedByUserName" to member.claimedByUserName,
+                "sequenceOrder" to member.sequenceOrder,
                 "createdAt" to existingCreatedAt,
                 "lastUpdatedAt" to currentTime
             )
@@ -300,7 +302,8 @@ class FirebaseRepository {
                     isAwakeToday = doc.getBoolean("isAwakeToday") ?: false,
                     lastResetDate = doc.getString("lastResetDate") ?: "",
                     claimedByUserId = doc.getString("claimedByUserId"),
-                    claimedByUserName = doc.getString("claimedByUserName")
+                    claimedByUserName = doc.getString("claimedByUserName"),
+                    sequenceOrder = doc.getLong("sequenceOrder")?.toInt() ?: 0
                 )
             } else {
                 null
@@ -334,6 +337,26 @@ class FirebaseRepository {
         } catch (e: Exception) {
             // If the family doc deletion itself fails (permissions), we at least tried the members
             Result.failure(e)
+        }
+    }
+
+    /**
+     * Aktualisiert die Reihenfolge mehrerer Mitglieder atomar in einem Batch.
+     * Verhindert Inkonsistenzen bei gleichzeitigem Schieben.
+     */
+    suspend fun updateMemberOrders(familyId: String, orders: Map<String, Int>) {
+        try {
+            val batch = db.batch()
+            val collection = db.collection("families").document(familyId).collection("members")
+            
+            orders.forEach { (memberId, order) ->
+                val docRef = collection.document(memberId)
+                batch.update(docRef, "sequenceOrder", order, "lastUpdatedAt", System.currentTimeMillis())
+            }
+            
+            batch.commit().await()
+        } catch (e: Exception) {
+            android.util.Log.e("FirebaseRepository", "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
         }
     }
 }
