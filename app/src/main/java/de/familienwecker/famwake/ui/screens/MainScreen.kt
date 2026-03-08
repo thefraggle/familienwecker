@@ -2,6 +2,9 @@ package de.familienwecker.famwake.ui.screens
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.Spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -158,6 +161,8 @@ fun MainScreen(
                 )
             }
         ) { padding ->
+            val itemHeightPx = with(androidx.compose.ui.platform.LocalDensity.current) { 110.dp.toPx() }
+            
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -423,12 +428,33 @@ fun MainScreen(
                 // 1b. Die verschiebbaren Weckzeiten-Kacheln (Drag & Drop)
                 val currentSched = schedule
                 if (currentSched != null && currentSched.isValid && currentSched.memberSchedules.isNotEmpty()) {
+                    val totalItems = currentSched.memberSchedules.size
+
                     itemsIndexed(
                         items = currentSched.memberSchedules,
                         key = { _, s -> "sched_${s.member.id}" }
                     ) { index, sched ->
                         val isDragging = draggedItemId == sched.member.id
                         
+                        // Berechnung des Versatzes für andere Kacheln während des Drags (Gap-Preview)
+                        val otherItemTranslationY by animateFloatAsState(
+                            targetValue = if (draggedItemId != null && !isDragging) {
+                                val draggedIdx = currentSched.memberSchedules.indexOfFirst { it.member.id == draggedItemId }
+                                if (draggedIdx != -1) {
+                                    val offsetItems = (draggingOffset / itemHeightPx).roundToInt()
+                                    val targetIdx = (draggedIdx + offsetItems).coerceIn(0, totalItems - 1)
+                                    
+                                    if (draggedIdx < targetIdx && index > draggedIdx && index <= targetIdx) {
+                                        -itemHeightPx
+                                    } else if (draggedIdx > targetIdx && index < draggedIdx && index >= targetIdx) {
+                                        itemHeightPx
+                                    } else 0f
+                                } else 0f
+                            } else 0f,
+                            animationSpec = spring(stiffness = Spring.StiffnessLow),
+                            label = "gapAnimation"
+                        )
+
                         val cardBgColor by animateColorAsState(
                             targetValue = if (isDragging) {
                                 MaterialTheme.colorScheme.primary.copy(alpha = 0.9f)
@@ -454,10 +480,10 @@ fun MainScreen(
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .animateItem() // Gap-Animations
+                                .animateItem()
                                 .zIndex(if (isDragging) 10f else 0f)
                                 .graphicsLayer {
-                                    translationY = if (isDragging) draggingOffset else 0f
+                                    translationY = if (isDragging) draggingOffset else otherItemTranslationY
                                     scaleX = if (isDragging) 1.08f else 1f
                                     scaleY = if (isDragging) 1.08f else 1f
                                 }
@@ -465,28 +491,22 @@ fun MainScreen(
                                     detectDragGesturesAfterLongPress(
                                         onDragStart = { draggedItemId = sched.member.id },
                                         onDragEnd = {
+                                            val offsetItems = (draggingOffset / itemHeightPx).roundToInt()
+                                            val targetIdx = (index + offsetItems).coerceIn(0, totalItems - 1)
+                                            if (targetIdx != index) {
+                                                viewModel.moveMemberOrder(index, targetIdx)
+                                                viewModel.saveMemberOrder()
+                                            }
                                             draggedItemId = null
                                             draggingOffset = 0f
-                                            viewModel.saveMemberOrder() // Final Sync
                                         },
                                         onDragCancel = {
                                             draggedItemId = null
                                             draggingOffset = 0f
-                                            viewModel.saveMemberOrder() // Final Sync
                                         },
                                         onDrag = { change, dragAmount ->
                                             change.consume()
                                             draggingOffset += dragAmount.y
-                                            
-                                            // Swap logic based on item height (approx 110dp)
-                                            val heightPx = 110.dp.toPx()
-                                            if (draggingOffset > heightPx / 2 && index < currentSched.memberSchedules.size - 1) {
-                                                viewModel.moveMemberOrder(index, index + 1)
-                                                draggingOffset -= heightPx
-                                            } else if (draggingOffset < -heightPx / 2 && index > 0) {
-                                                viewModel.moveMemberOrder(index, index - 1)
-                                                draggingOffset += heightPx
-                                            }
                                         }
                                     )
                                 },
@@ -513,7 +533,7 @@ fun MainScreen(
                                         fontWeight = FontWeight.Bold
                                     )
                                     Icon(
-                                        imageVector = Icons.Default.DragHandle,
+                                        imageVector = Icons.Default.DragIndicator, // Modernes Grip-Icon
                                         contentDescription = null,
                                         modifier = Modifier.size(28.dp).alpha(if (isDragging) 1.0f else 0.6f)
                                     )
