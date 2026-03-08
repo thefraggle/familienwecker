@@ -69,6 +69,7 @@ fun MainScreen(
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val whatsNewContent by viewModel.whatsNewContent.collectAsStateWithLifecycle()
+    val showJoinSuccess by viewModel.showJoinSuccess.collectAsStateWithLifecycle()
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     
     val snackbarHostState = remember { SnackbarHostState() }
@@ -137,6 +138,20 @@ fun MainScreen(
             dismissButton = {
                 TextButton(onClick = { viewModel.clearPendingJoinCode() }) {
                     Text(stringResource(R.string.cancel_button))
+                }
+            }
+        )
+    }
+
+    // Join Success Popup
+    if (showJoinSuccess) {
+        AlertDialog(
+            onDismissRequest = { viewModel.dismissJoinSuccess() },
+            title = { Text(stringResource(R.string.join_success_title)) },
+            text = { Text(stringResource(R.string.join_success_message)) },
+            confirmButton = {
+                Button(onClick = { viewModel.dismissJoinSuccess() }) {
+                    Text(stringResource(R.string.ok))
                 }
             }
         )

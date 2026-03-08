@@ -93,7 +93,8 @@ class MainActivity : AppCompatActivity() {
         if (data != null && data.host == "familienwecker.de" && data.path?.startsWith("/join/") == true) {
             val code = data.lastPathSegment
             if (!code.isNullOrBlank() && code != "join") {
-                viewModel.setPendingJoinCode(code.uppercase())
+                val sanitized = code.filter { it.isLetterOrDigit() }.uppercase().take(6)
+                viewModel.setPendingJoinCode(sanitized)
             }
         }
     }
