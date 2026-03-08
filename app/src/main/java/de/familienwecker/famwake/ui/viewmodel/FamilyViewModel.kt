@@ -399,11 +399,14 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         addOrUpdateMember(updatedMember)
     }
 
-    fun updateMemberOrder(fromIndex: Int, toIndex: Int) {
+    /**
+     * Verschiebt ein Mitglied lokal in der Liste für sofortiges UI-Feedback.
+     */
+    fun moveMemberOrder(fromIndex: Int, toIndex: Int) {
         val currentMembers = _members.value.toMutableList()
         if (fromIndex !in currentMembers.indices || toIndex !in currentMembers.indices) return
 
-        // 1. Lokale Liste aktualisieren für sofortiges UI-Feedback
+        // 1. Lokale Liste aktualisieren
         val member = currentMembers.removeAt(fromIndex)
         currentMembers.add(toIndex, member)
         
@@ -413,12 +416,19 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         }
         _members.value = updatedMembers
         
-        // 3. Sofort neu berechnen für "Ghost-Times" (während/nach Drop)
+        // 3. Sofort neu berechnen für "Ghost-Times" (während des Drags)
         recalculateSchedule()
+    }
 
-        // 4. In Firestore persistieren (Batch-Update)
+    /**
+     * Persistiert die aktuelle lokale Reihenfolge in Firestore.
+     * Wird am Ende eines Drag & Drop Vorgangs aufgerufen.
+     */
+    fun saveMemberOrder() {
         val currentFamilyId = familyId.value ?: return
+        val updatedMembers = _members.value
         val orderMap = updatedMembers.associate { it.id to it.sequenceOrder }
+        
         viewModelScope.launch {
             repository.updateMemberOrders(currentFamilyId, orderMap)
         }
