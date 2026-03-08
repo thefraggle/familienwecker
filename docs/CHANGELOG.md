@@ -7,7 +7,19 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## [0.5.15] - 2026-03-08
+## [0.5.16] - 2026-03-08
+ ### Drag & Drop Refinement
+ Diese Version verfeinert das Drag-and-Drop-Erlebnis für maximale Haptik und Vorhersehbarkeit.
+
+ ### Hinzugefügt
+ - **Grip-Icon:** Einführung der 6-Punkte-Matrix (`DragIndicator`) als universelles Symbol für "Anfassen und Bewegen".
+ - **Visual Gap Preview:** Während des Ziehens gleiten andere Kacheln sanft mit einer Spring-Animation beiseite, um den Landeplatz anzuzeigen.
+
+ ### Verbessert
+ - **Delayed Swap:** Die Reihung der Liste erfolgt erst beim Loslassen. Dies erlaubt flüssiges Überspringen mehrerer Positionen ohne unruhiges Layout.
+ - **Sync-Performance:** Optimierter Batch-Sync an Firestore erst nach Abschluss der Drag-Aktion.
+
+ ## [0.5.15] - 2026-03-08
  ### Drag & Drop / Reordering
  Diese Version führt die manuelle Reihung der Familienmitglieder ein, um den Weckplan flexibel zu gestalten.
 

@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.5.15] - 2026-03-08
+## [0.5.16] - 2026-03-08
+ ### Drag & Drop Refinement
+ This version finalizes the drag-and-drop experience for maximum haptics and predictability.
+
+ ### Added
+ - **Grip-Icon:** Introduction of the 6-dot matrix (`DragIndicator`) as the universal symbol for "grab and move".
+ - **Visual Gap Preview:** Other tiles smoothly slide aside with a spring animation during dragging to show the landing spot.
+
+ ### Improved
+ - **Delayed Swap:** List reordering now only occurs upon release. This allows smooth skipping of multiple positions without a restless layout.
+ - **Sync Performance:** Optimized batch sync to Firestore only after the drag action is complete.
+
+ ## [0.5.15] - 2026-03-08
  ### Drag & Drop / Reordering
  This version introduces manual reordering of family members to make the wake-up plan flexible.
 
