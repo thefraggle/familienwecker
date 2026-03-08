@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.5.17] - 2026-03-08
+### Added
+- **Offline-UI Indicator:** Visual hint in the top bar when the app is working in cache mode or changes are not yet synchronized.
+- **Real-time Metadata Tracking:** Firestore listener now actively monitors the synchronization status.
+
 ## [0.5.16] - 2026-03-08
  ### Drag & Drop Refinement
  This version finalizes the drag-and-drop experience for maximum haptics and predictability.
