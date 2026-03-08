@@ -33,3 +33,8 @@ data class FamilySchedule(
     val isValid: Boolean,
     val message: String
 )
+
+data class SyncStatus(
+    val isFromCache: Boolean = false,
+    val hasPendingWrites: Boolean = false
+)
