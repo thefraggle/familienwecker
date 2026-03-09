@@ -7,93 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.5.17] - 2026-03-08
+## [0.6.0] - 2026-03-09
 ### Added
-- **Offline-UI Indicator:** Visual hint in the top bar when the app is working in cache mode or changes are not yet synchronized.
-- **Real-time Metadata Tracking:** Firestore listener now actively monitors the synchronization status.
+- **Drag & Drop Reordering:** Sort family members via long-press. Includes spring animations for gap preview and haptic feedback.
+- **Offline-UI & Sync:** New status icons in the top bar for offline mode and pending cloud synchronization.
+- **Deep Linking:** Support for `familienwecker.de/join/[CODE]`. Automatic join after login with conflict handling dialogs.
+- **App Description:** Expanded help text to explain the new manual reordering feature.
 
-## [0.5.16] - 2026-03-08
- ### Drag & Drop Refinement
- This version finalizes the drag-and-drop experience for maximum haptics and predictability.
+### Improved
+- **Localization:** Full German and English (DE/EN) support across the entire app.
+- **UX & Robustness:** Sanitized join codes, join-success popups on the dashboard, and automatic self-healing for permission issues.
+- **Performance:** Optimized cloud sync (batch updates after drag-end) and battery optimizations.
+- **Navigation:** Unified back-handler behavior and single-instance launch mode for deep links.
 
- ### Added
- - **Grip-Icon:** Introduction of the 6-dot matrix (`DragIndicator`) as the universal symbol for "grab and move".
- - **Visual Gap Preview:** Other tiles smoothly slide aside with a spring animation during dragging to show the landing spot.
+### Fixed
+- Crash during first member addition (Duplicate Key).
+- Race conditions during deep link joins.
+- Incorrect profile claim status after re-joining.
+- Gradle build-cache and CI stability fixes.
 
- ### Improved
- - **Delayed Swap:** List reordering now only occurs upon release. This allows smooth skipping of multiple positions without a restless layout.
- - **Sync Performance:** Optimized batch sync to Firestore only after the drag action is complete.
-
- ## [0.5.15] - 2026-03-08
- ### Drag & Drop / Reordering
- This version introduces manual reordering of family members to make the wake-up plan flexible.
-
- ### Added
- - **Drag & Drop:** Wake-up tiles can now be moved via long-press. The new order is immediately calculated and synchronized for the entire family.
- - **Floating UI:** Improved animations during dragging with increased shadow (32dp) for a real "floating" feel.
-
- ### Improved
- - **Branding:** Consistent display of the app name in the header ("**FamWake** Family Alarm").
- - **UX:** New drag-handle icon on the right side of the tiles for better accessibility.
-
- ### Fixed
- - **Stability Fix:** Fixed a crash when adding the first member (Duplicate Key in LazyColumn).
- - **Compilation:** Corrected missing scopes and receivers in the UI structure.
-
-## [0.5.14] - 2026-03-08
- ### App Check & Join UI
- This version focuses on full localization and improved feedback when joining a family.
-
- ### Added
- - **Join Success:** A new popup confirms a successful family join directly on the dashboard (only for actual joins, not for creation).
-
- ### Improved
- - **Join Code:** More robust input on the setup screen. The code is now automatically filtered (alphanumeric only), limited to 6 characters, and converted to uppercase. Deep links are also sanitized.
- - **Localization:** Consistent externalization of all texts to `strings.xml`. Full support for German and English. The app automatically detects the appropriate language (DE/EN) on the first start. Manual language selection in settings without a "System" option for maximum clarity.
- - **Settings UI:** Hardcoded strings in the settings menu (language and theme properties) have been externalized. The theme still uses "System" as the default.
-
-## [0.5.12] - 2026-03-07
- ### UI Polishing & Instance Fix
- This version focuses on UI corrections and stabilizing the app start-up behavior.
-
- ### Fixed
- - **LaunchMode Fix:** The app now consistently runs as `singleTask`. This prevents deep links (e.g., from emails/WhatsApp) from opening redundant instances of the app.
- - **Settings UI:** The text for claimed profiles was shortened to "bereits belegt" (already claimed) to keep the layout cleaner.
- - **Whats New:** The news display was reset and now follows strict manual update rules.
-
-## [0.5.11] - 2026-03-07
- ### Self-Healing & Deep Link Fix
- This version fixes critical issues with the login flow via deep links and introduces automatic error correction for permission-related problems.
-
- ### Fixed
- - **Self-Healing:** The app now detects `PERMISSION_DENIED` errors (e.g., for deleted families) and automatically clears the local state to lead back to the setup screen.
- - **Deep Link Race Condition:** Joining after login now always takes precedence over restoring old profiles. Fixes the issue where users landed on the wrong screen after logging in.
- - **State Synchronization:** Consistent cleanup of local data when a cloud profile no longer exists.
-
-## [0.5.10] - 2026-03-07
- ### Deep Linking, Navigation & CI Optimization
- This version introduces comprehensive deep linking for family invitations, optimizes app navigation on errors, and accelerates the build pipeline.
-
- ### Added
-- **Deep Linking:** Support for `familienwecker.de/join/[CODE]`. Links now open the app directly.
-- **Automatic Join:** When clicking a link, the user is automatically added to the family (after login).
-- **Conflict Handling:** Smart dialog when attempting to join a new family while already being a member.
-
- ### Improved & Optimized
-- **App Link Verification:** Best-practice manifest structure to increase the probability of automatic verification on Android 12+.
-- **Build Pipeline (CI/CD):** Enabled Gradle build cache, parallel execution, and configuration cache in GitHub Actions for significantly faster deployments.
-- **CI Performance:** Increased heap memory to 4GB for more stable build runs.
-- **Invitation Sharing:** Revised invitation text with a direct link for a seamless user experience.
-- **Join Logic:** Profile selection is now preserved when re-joining a family the user is already a member of.
-
- ### Fixed
-- **Profile Claim:** Fixed an issue where the user's own profile was shown as "occupied" after re-joining (e.g., via link).
-- **Navigation Stability:** Automatic family switching is now atomic. In case of errors (e.g., invalid code), a clean backtrack to the setup screen occurs, including the error message.
-- **Configuration Cache:** Build metadata is now passed via Gradle properties, fixing build failures in the CI process.
-- **Multiple Instances:** App no longer opens twice when clicking deep links (`singleTop`).
-- **Dialog UX:** The conflict dialog now closes reliably in all error scenarios.
-
- ## [0.5.0] - 2026-03-06
+## [0.5.0] - 2026-03-06
  ### Release in the Play Store (Update)
  A fully redesigned and stabilized version with focus on family organization and modern UI.
  *Note: The package name has been changed to `de.familienwecker.famwake`.*
