@@ -7,94 +7,27 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## [0.5.17] - 2026-03-08
+## [0.6.0] - 2026-03-09
 ### Hinzugefügt
-- **Offline-UI Indikator:** Visueller Hinweis in der Top-Bar, wenn die App im Cache-Modus arbeitet oder Änderungen noch nicht synchronisiert wurden.
-- **Echtzeit-Metadata-Tracking:** Firestore-Listener überwacht nun aktiv den Synchronisationsstatus.
+- **Drag & Drop Reordering:** Mitglieder können nun per Drag & Drop sortiert werden. Inklusive Spring-Animationen für Gap-Preview und haptischem Feedback.
+- **Offline-UI & Sync:** Neue Indikatoren in der Top-Bar für Offline-Modus und ausstehende Cloud-Synchronisierung.
+- **Deep Linking:** Volle Unterstützung für `familienwecker.de/join/[CODE]`. Automatischer Beitritt nach Login inkl. Konflikt-Dialogen.
+- **App-Beschreibung:** Hilfetexte um die neue Sortierfunktion erweitert.
 
-## [0.5.16] - 2026-03-08
- ### Drag & Drop Refinement
- Diese Version verfeinert das Drag-and-Drop-Erlebnis für maximale Haptik und Vorhersehbarkeit.
+### Verbessert
+- **Lokalisierung:** Volle Unterstützung für Deutsch und Englisch (DE/EN) in der gesamten App.
+- **UX & Robustheit:** Sanitisierung von Join-Codes, Join-Success Popups auf dem Dashboard und automatisches Self-Healing bei Berechtigungsfehlern.
+- **Performance:** Optimierter Cloud-Sync (Batch-Updates nach Drag-Ende) und Akku-Optimierungen.
+- **Navigation:** Einheitliches Back-Handler Verhalten und Single-Instance LaunchMode für Deep Links.
 
- ### Hinzugefügt
- - **Grip-Icon:** Einführung der 6-Punkte-Matrix (`DragIndicator`) als universelles Symbol für "Anfassen und Bewegen".
- - **Visual Gap Preview:** Während des Ziehens gleiten andere Kacheln sanft mit einer Spring-Animation beiseite, um den Landeplatz anzuzeigen.
+### Behoben
+- Crash bei erstem Mitglied (Duplicate Key).
+- Race-Conditions beim Deep Link Join.
+- Fehlerhafter Profil-Claim Status nach Re-Join.
+- Gradle Build-Cache & CI Stabilitäts-Fixes.
 
- ### Verbessert
- - **Delayed Swap:** Die Reihung der Liste erfolgt erst beim Loslassen. Dies erlaubt flüssiges Überspringen mehrerer Positionen ohne unruhiges Layout.
- - **Sync-Performance:** Optimierter Batch-Sync an Firestore erst nach Abschluss der Drag-Aktion.
-
- ## [0.5.15] - 2026-03-08
- ### Drag & Drop / Reordering
- Diese Version führt die manuelle Reihung der Familienmitglieder ein, um den Weckplan flexibel zu gestalten.
-
- ### Hinzugefügt
- - **Drag & Drop:** Weckzeiten-Kacheln können nun per Long-Press verschoben werden. Die neue Reihenfolge wird sofort für die gesamte Familie berechnet und synchronisiert.
- - **Floating UI:** Verbesserte Animationen beim Verschieben mit verstärktem Schattenwurf (32dp) für ein echtes "Schwebefühl".
-
- ### Verbessert
- - **Branding:** Konsistente Darstellung des App-Namens im Header ("**FamWake** Familienwecker").
- - **UX:** Neues Drag-Handle Icon an der rechten Seite der Kacheln für bessere Greifbarkeit.
-
- ### Behoben
- - **Stability Fix:** Behebung eines Absturzes beim Hinzufügen des ersten Mitglieds (Duplicate Key in LazyColumn).
- - **Kompilierung:** Korrektur fehlender Scopes und Receiver in der UI-Struktur.
-
-## [0.5.14] - 2026-03-08
- ### App-Check & Join UI
- Fokus dieser Version sind die vollständige Lokalisierung und eine verbesserte Rückmeldung beim Beitreten einer Familie.
-
- ### Hinzugefügt
- - **Join-Success:** Ein neues Popup bestätigt den erfolgreichen Beitritt zu einer Familie direkt auf dem Dashboard (nur bei echtem Beitritt, nicht beim Erstellen).
-
- ### Verbessert
- - **Join-Code:** Robustere Eingabe im Setup-Screen. Der Code wird nun automatisch gefiltert (nur Alphanumerisch), auf 6 Zeichen begrenzt und in Großbuchstaben umgewandelt. Deep-Links werden ebenfalls sanitisiert.
- - **Lokalisierung:** Konsequente Auslagerung aller Texte in `strings.xml`. Volle Unterstützung für Deutsch und Englisch. Die App erkennt beim ersten Start automatisch die passende Sprache (DE/EN). Manuelle Sprachwahl in den Einstellungen ohne "System"-Option für maximale Klarheit.
- - **Settings UI:** Hardcoded Strings im Einstellungsmenü (Sprach- und Theme-Eigenschaften) wurden externalisiert. Theme nutzt weiterhin "System" als Standard.
-
-## [0.5.12] - 2026-03-07
- ### UI-Polishing & Instanz-Fix
- Fokus dieser Version sind UI-Korrekturen und die Stabilisierung des App-Starts.
-
- ### Behoben
- - **LaunchMode Fix:** Die App läuft nun konsequent als `singleTask`. Dies verhindert, dass Deep Links (z.B. aus E-Mails/WhatsApp) neue, redundante Instanzen der App öffnen.
- - **Settings UI:** Der Text für belegte Profile wurde auf "bereits belegt" verkürzt, um das Layout sauberer zu halten.
- - **Whats New:** Die News-Anzeige wurde zurückgesetzt und folgt nun strikten manuellen Freigaberegeln.
-
-## [0.5.11] - 2026-03-07
- ### Self-Healing & Deep Link Fix
- Diese Version behebt kritische Fehler beim Login-Flow über Deep Links und führt eine automatische Fehlerkorrektur bei Berechtigungsproblemen ein.
-
- ### Behoben
- - **Self-Healing:** Die App erkennt nun `PERMISSION_DENIED` Fehler (z.B. bei gelöschten Familien) und bereinigt automatisch den lokalen Zustand, um zurück zum Setup-Screen zu führen.
- - **Deep Link Race Condition:** Der Join-Vorgang nach dem Login hat nun immer Vorrang vor der Wiederherstellung alter Profile. Behebt den Fehler, bei dem man nach dem Login auf der falschen Seite landete.
- - **Zustands-Synchronisierung:** Konsequente Bereinigung lokaler Daten, wenn kein Cloud-Profil mehr existiert.
-
-## [0.5.10] - 2026-03-07
- ### Deep Linking, Navigation & CI-Optimierung
- Diese Version führt umfassendes Deep Linking für Familien-Einladungen ein, optimiert die App-Navigation bei Fehlern und beschleunigt die Build-Pipeline.
-
- ### Hinzugefügt
-- **Deep Linking:** Unterstützung für `familienwecker.de/join/[CODE]`. Links öffnen nun direkt die App.
-- **Automatischer Join:** Beim Klicken eines Links wird der User (nach dem Login) automatisch der Familie hinzugefügt.
-- **Konflikt-Handling:** Smarter Dialog beim Versuch, einer neuen Familie beizutreten, wenn man bereits Mitglied ist.
-
- ### Verbessert & Optimiert
-- **App Link Verifizierung:** Best-Practice Manifest-Struktur zur Erhöhung der Wahrscheinlichkeit der automatischen Verifizierung unter Android 12+.
-- **Build-Pipeline (CI/CD):** Aktivierung von Gradle Build Cache, Parallel Execution und Configuration Cache in GitHub Actions für deutlich schnellere Deployments.
-- **CI-Performance:** Erhöhung des Heap-Speichers auf 4GB für stabilere Build-Läufe.
-- **Einladungs-Sharing:** Überarbeiteter Einladungstext mit direktem Link für eine nahtlose Nutzererfahrung.
-- **Join-Logik:** Die Profilwahl bleibt nun erhalten, wenn man einer Familie beitritt, in der man bereits Mitglied ist (Re-Join).
-
- ### Behoben
-- **Profil-Claim:** Fix eines Fehlers, bei dem das eigene Profil nach einem Re-Join (z.B. via Link) als "belegt" angezeigt wurde.
-- **Navigations-Stabilität:** Automatischer Familienwechsel verläuft nun atomar. Bei Fehlern (z.B. ungültiger Code) erfolgt ein sauberer Backtrack zum Setup-Screen inklusive Fehlermeldung.
-- **Configuration Cache:** Build-Metadaten werden nun via Gradle Properties übergeben, was Build-Fehler im CI-Prozess behebt.
-- **Mehrfach-Instanzen:** App öffnet sich bei Deep-Link-Klicks nicht mehr doppelt (`singleTop`).
-- **Dialog-UX:** Der Konflikt-Dialog schließt sich nun zuverlässig in allen Fehler-Szenarien.
-
- ## [0.5.0] - 2026-03-06
-  ### Veröffentlichung im Play Store (Update)
+## [0.5.0] - 2026-03-06
+ ### Veröffentlichung im Play Store (Update)
  Eine komplett überarbeitete Version mit Fokus auf Familien-Organisation, Design und Stabilität.
  *Hinweis: Der Paketname wurde zu `de.familienwecker.famwake` geändert.*
  
@@ -149,7 +82,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 ## [0.4.8] - 2026-03-04
 
 ### Hinzugefügt
-- **Hausputz:** Ein automatisches System räumt nun alle 180 Tage verwaiste Familiendaten auf dem Server auf, um die Performance hochzuhalten.
+- **Hausputz:** Ein automatisches system räumt nun alle 180 Tage verwaiste Familiendaten auf dem Server auf, um die Performance hochzuhalten.
 
 ### Geändert & Verbessert
 - **Akku- & Performance:** Massive Optimierung der App-Hintergrundprozesse. Die App schont nun spürbar den Akku, während der Wecker weiterhin absolut präzise arbeitet.
