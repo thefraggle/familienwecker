@@ -119,6 +119,7 @@
     <string name="settings_help_bullet_1"><b>Create Profiles</b>: Set when each family member needs to get up and how long they need the bathroom.</string>
     <string name="settings_help_bullet_2"><b>Plan Extras</b>: Specify who wants to have breakfast together and when they need to leave the house.</string>
     <string name="settings_help_bullet_3"><b>Your Slot</b>: Select your profile. You will be woken up exactly when it is your turn.</string>
+    <string name="settings_help_bullet_4"><b>Adjust Order</b>: Simply drag &amp; drop profiles to manually change the bathroom sequence.</string>
     
     <string name="settings_support_title">Support</string>
     <string name="settings_support_text">Feedback or questions?</string>

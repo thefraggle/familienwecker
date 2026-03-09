@@ -118,6 +118,7 @@
     <string name="settings_help_bullet_1"><b>Profile anlegen</b>: Lege für jedes Familienmitglied fest, wann es aufstehen muss und wie lange es das Bad benötigt.</string>
     <string name="settings_help_bullet_2"><b>Extras planen</b>: Gib an, wer gemeinsam frühstücken möchte und wann das Haus verlassen wird.</string>
     <string name="settings_help_bullet_3"><b>Dein Slot</b>: Wähle dein Profil aus. Du wirst genau dann geweckt, wenn du an der Reihe bist.</string>
+    <string name="settings_help_bullet_4"><b>Reihenfolge anpassen</b>: Schiebe Profile einfach per Drag &amp; Drop an die gewünschte Stelle, um die Bad-Reihenfolge manuell zu ändern.</string>
 
     <string name="settings_support_title">Support</string>
     <string name="settings_support_text">Feedback oder Fragen zur Bedienung?</string>
