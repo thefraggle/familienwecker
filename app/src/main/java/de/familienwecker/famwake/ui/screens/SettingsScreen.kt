@@ -542,6 +542,7 @@ fun SettingsScreen(
                     HelpBulletPoint("👥", stringResource(R.string.settings_help_bullet_1))
                     HelpBulletPoint("🗓️", stringResource(R.string.settings_help_bullet_2))
                     HelpBulletPoint("⏰", stringResource(R.string.settings_help_bullet_3))
+                    HelpBulletPoint("↕️", stringResource(R.string.settings_help_bullet_4))
                 }
             }
 
