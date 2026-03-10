@@ -30,13 +30,13 @@ fun LoadingScreen(
 
         when (authState) {
             is AuthViewModel.AuthState.Authenticated -> {
-                if (pendingJoinCode != null) {
-                    // Deep Link hat Vorrang, auch wenn wir (ggf. noch) eine familyId haben
+                if (familyId != null) {
+                    onNavigateToMain()
+                } else if (pendingJoinCode != null) {
+                    // Kein Konflikt, direktes Joinen zulässig
                     familyViewModel.handlePendingJoin { success ->
                         if (success) onNavigateToMain() else onNavigateToSetup()
                     }
-                } else if (familyId != null) {
-                    onNavigateToMain()
                 } else {
                     onNavigateToSetup()
                 }
