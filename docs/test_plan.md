@@ -37,6 +37,8 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-25 | **Self-Healing (Deep Link)** | Login via Link führt auch bei existierendem Alt-Profil zum neuen Beitritt. |
 | TC-26 | **Single Instance Check** | Mehrfacher Klick auf Deep Links öffnet keine neuen App-Instanzen im Task-Manager. |
 | TC-27 | **Selbst-Beitritt Guard** | Eingabe des eigenen Familien-Codes im Beitritt-Dialog führt **nicht** zu einem erneuten Join (keine Profilzuordnung verloren). |
+| TC-28 | **Deep Link Conflict Dialog** | Klick auf Deep Link während man in einer Familie ist, öffnet MainScreen mit Warn-Dialog zum Wechseln. |
+| TC-29 | **Join Code Validation Guard** | Ungültiger Deep/Join Code führt nach Bestätigung nur zu einer Fehlermeldung, alte Familie wird nicht verlassen. |
 
 
 ### 2. Familien-Konfiguration

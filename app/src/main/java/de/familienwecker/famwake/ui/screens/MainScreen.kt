@@ -66,6 +66,8 @@ fun MainScreen(
     val members by viewModel.members.collectAsStateWithLifecycle()
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
     val familyId by viewModel.familyId.collectAsStateWithLifecycle()
+    val pendingJoinCode by viewModel.pendingJoinCode.collectAsStateWithLifecycle()
+    val currentFamilyName by viewModel.familyName.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsStateWithLifecycle()
     // O3: Nur noch ein collect für themePreference
@@ -707,6 +709,33 @@ fun MainScreen(
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteMemberDialog = null }) {
+                    Text(stringResource(R.string.cancel_button))
+                }
+            }
+        )
+    }
+
+    if (pendingJoinCode != null && familyId != null) {
+        AlertDialog(
+            onDismissRequest = { viewModel.clearPendingJoinCode() },
+            title = { Text(stringResource(R.string.join_conflict_title)) },
+            text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "---", pendingJoinCode!!)) },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        viewModel.leaveAndJoinPendingCode { success ->
+                            if (success) {
+                                // Re-composition will automatically handle the new family data
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Text(stringResource(R.string.join_conflict_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { viewModel.clearPendingJoinCode() }) {
                     Text(stringResource(R.string.cancel_button))
                 }
             }
