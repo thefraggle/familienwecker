@@ -160,4 +160,25 @@
     <string name="join_success_title">Familie beigetreten!</string>
     <string name="join_success_message">Du bist der Familie erfolgreich beigetreten.</string>
     <string name="ok">OK</string>
+
+    <!-- Alarm Receiver Notification Strings -->
+    <string name="alarm_default_member">Familienmitglied</string>
+    <string name="alarm_notification_title">FamWake klingelt</string>
+    <string name="alarm_notification_text">Guten Morgen, %s!</string>
+    <string name="alarm_channel_name">Wecker</string>
+
+    <!-- Fallback display name for unclaimed profiles -->
+    <string name="settings_fallback_username">Elternteil</string>
+
+    <!-- Alarm permission error (shown if exact alarm permission is denied) -->
+    <string name="error_alarm_permission">Bitte erlaube exakte Wecker in den Systemeinstellungen, damit FamWake pünktlich klingeln kann.</string>
+
+    <!-- Schedule messages (from Scheduler) -->
+    <string name="schedule_message_optimal">Optimaler Plan berechnet</string>
+    <string name="schedule_message_no_members">Keine aktiven Mitglieder. Alle sind pausiert.</string>
+    <string name="schedule_message_no_valid">Kein gültiger Zeitplan gefunden. Zeiten überschneiden sich zu stark.</string>
+    <string name="schedule_message_time_adjusted">Zeiten um %d Min. angepasst, um deine Reihenfolge einzuhalten.</string>
+    <string name="schedule_message_breakfast_reduced">Frühstück um %d Min. verkürzt, um deine Reihenfolge zu ermöglichen.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Frühstück &#x2212;%1$d Min. &amp; Zeiten um %2$d Min. angepasst.</string>
+    <string name="schedule_message_member_conflict">Konflikt bei %s: Zeiten überschneiden sich zu stark.</string>
 </resources>

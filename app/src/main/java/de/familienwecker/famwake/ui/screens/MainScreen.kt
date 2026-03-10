@@ -68,8 +68,11 @@ fun MainScreen(
     val familyId by viewModel.familyId.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsStateWithLifecycle()
+    // O3: Nur noch ein collect für themePreference
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
+    // O5: isOffline über ViewModel (mit 3s-Debounce) statt syncStatus.isFromCache direkt
+    val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     val whatsNewContent by viewModel.whatsNewContent.collectAsStateWithLifecycle()
@@ -110,8 +113,8 @@ fun MainScreen(
         }
     }
 
-    val themePreferenceVal by viewModel.themePreference.collectAsStateWithLifecycle()
-    val isDarkTheme = when (themePreferenceVal) {
+    // O3: themePreference wird nur einmal gecollected (oben), direkt hier auswerten
+    val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
         else -> androidx.compose.foundation.isSystemInDarkTheme()
@@ -160,19 +163,26 @@ fun MainScreen(
                             label = "syncAnimation"
                         )
 
-                        if (syncStatus.isFromCache || syncStatus.hasPendingWrites) {
+                        if (syncStatus.hasPendingWrites) {
+                            // Pending Writes: Sync-Icon rotierend anzeigen
                             Box(modifier = Modifier.padding(end = 4.dp)) {
                                 Icon(
-                                    imageVector = if (syncStatus.hasPendingWrites) Icons.Default.Sync else Icons.Default.CloudOff,
+                                    imageVector = Icons.Default.Sync,
                                     contentDescription = null,
-                                    tint = if (syncStatus.hasPendingWrites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
+                                    tint = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier
                                         .size(20.dp)
-                                        .let { 
-                                            if (syncStatus.hasPendingWrites) {
-                                                it.graphicsLayer { rotationZ = isSyncingAnim * 360f }
-                                            } else it 
-                                        }
+                                        .graphicsLayer { rotationZ = isSyncingAnim * 360f }
+                                )
+                            }
+                        } else if (isOffline) {
+                            // O5: CloudOff nur nach 3s Offline-Debounce anzeigen
+                            Box(modifier = Modifier.padding(end = 4.dp)) {
+                                Icon(
+                                    imageVector = Icons.Default.CloudOff,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.outline,
+                                    modifier = Modifier.size(20.dp)
                                 )
                             }
                         }
@@ -194,9 +204,16 @@ fun MainScreen(
                 )
             }
         ) { padding ->
-            val itemHeightPx = with(androidx.compose.ui.platform.LocalDensity.current) { 110.dp.toPx() }
+            // O2: LazyListState für dynamische Höhenberechnung beim Drag & Drop
+            val lazyListState = androidx.compose.foundation.lazy.rememberLazyListState()
+            val itemHeightPx = remember(lazyListState.layoutInfo) {
+                lazyListState.layoutInfo.visibleItemsInfo
+                    .firstOrNull { it.key?.toString()?.startsWith("sched_") == true }
+                    ?.size?.toFloat() ?: with(android.util.DisplayMetrics()) { 110f * (context.resources.displayMetrics.density) }
+            }
             
             LazyColumn(
+                state = lazyListState,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
@@ -407,7 +424,7 @@ fun MainScreen(
                         label = "planCardColor"
                     )
 
-                    if (currentSchedule == null || currentSchedule.message == "no_active_schedule") {
+                    if (currentSchedule == null || currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.NoActiveSchedule) {
                         EmptyState(
                             lottieRes = R.raw.mond,
                             title = stringResource(R.string.empty_schedule_title),
@@ -424,7 +441,7 @@ fun MainScreen(
                             )
                         ) {
                             Text(
-                                text = "❌ " + stringResource(R.string.main_error, currentSchedule.message), 
+                                text = "❌ " + viewModel.scheduleMessageToUiText(currentSchedule.scheduleMessage).asString(),
                                 modifier = Modifier.padding(16.dp),
                                 color = MaterialTheme.colorScheme.onErrorContainer
                             )
@@ -441,10 +458,14 @@ fun MainScreen(
                                     text = if (isAlarmEnabled) "✅ " + stringResource(R.string.main_optimal_plan) else "⏸️ " + stringResource(R.string.main_plan_paused), 
                                     fontWeight = FontWeight.Bold
                                 )
-                                // If there is a flexible adjustment message, show it explicitly
-                                if (currentSchedule.message.contains("flexibel") || currentSchedule.message.contains("angepasst")) {
+                                // Flexible Anpassungsmeldung aus ScheduleMessage anzeigen
+                                val msgText = viewModel.scheduleMessageToUiText(currentSchedule.scheduleMessage).asString()
+                                val isFlexibleAdjustment = currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.TimeAdjusted ||
+                                    currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BreakfastReduced ||
+                                    currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BreakfastAndTimeAdjusted
+                                if (isFlexibleAdjustment) {
                                     Text(
-                                        text = "⚠️ " + currentSchedule.message,
+                                        text = "⚠️ $msgText",
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = MaterialTheme.colorScheme.error,
                                         modifier = Modifier.padding(top = 4.dp)

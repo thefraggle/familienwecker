@@ -45,17 +45,47 @@ class PreferencesRepository(context: Context) {
     private val _lastSeenWhatsNewVersion = MutableStateFlow<Int>(prefs.getInt("LAST_SEEN_WHATS_NEW_VERSION", 0))
     val lastSeenWhatsNewVersion: StateFlow<Int> = _lastSeenWhatsNewVersion.asStateFlow()
 
+    // B9: Der SharedPreferences-Listener reagiert nur auf externe Schreiber (z.B. andere Prozesse).
+    // Alle eigenen Setters setzen den StateFlow direkt – kein Doppel-Emit.
     private val listener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+        // Guard: nur updaten wenn der Wert sich tatsächlich von dem aktuellen StateFlow-Wert unterscheidet
         when (key) {
-            "MY_MEMBER_ID" -> _myMemberId.value = sharedPreferences.getString(key, null)
-            "ALARM_SOUND_URI" -> _alarmSoundUri.value = sharedPreferences.getString(key, null)
-            "FAMILY_ID" -> _familyId.value = sharedPreferences.getString(key, null)
-            "JOIN_CODE" -> _joinCode.value = sharedPreferences.getString(key, null)
-            "FAMILY_NAME" -> _familyName.value = sharedPreferences.getString(key, null)
-            "APP_LANGUAGE" -> _language.value = sharedPreferences.getString(key, defaultLang) ?: defaultLang
-            "APP_THEME" -> _themePreference.value = sharedPreferences.getString(key, "system") ?: "system"
-            "ALARM_ENABLED" -> _isAlarmEnabled.value = sharedPreferences.getBoolean(key, false)
-            "LAST_SEEN_WHATS_NEW_VERSION" -> _lastSeenWhatsNewVersion.value = sharedPreferences.getInt(key, 0)
+            "MY_MEMBER_ID" -> {
+                val v = sharedPreferences.getString(key, null)
+                if (v != _myMemberId.value) _myMemberId.value = v
+            }
+            "ALARM_SOUND_URI" -> {
+                val v = sharedPreferences.getString(key, null)
+                if (v != _alarmSoundUri.value) _alarmSoundUri.value = v
+            }
+            "FAMILY_ID" -> {
+                val v = sharedPreferences.getString(key, null)
+                if (v != _familyId.value) _familyId.value = v
+            }
+            "JOIN_CODE" -> {
+                val v = sharedPreferences.getString(key, null)
+                if (v != _joinCode.value) _joinCode.value = v
+            }
+            "FAMILY_NAME" -> {
+                val v = sharedPreferences.getString(key, null)
+                if (v != _familyName.value) _familyName.value = v
+            }
+            "APP_LANGUAGE" -> {
+                val v = sharedPreferences.getString(key, defaultLang) ?: defaultLang
+                if (v != _language.value) _language.value = v
+            }
+            "APP_THEME" -> {
+                val v = sharedPreferences.getString(key, "system") ?: "system"
+                if (v != _themePreference.value) _themePreference.value = v
+            }
+            "ALARM_ENABLED" -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _isAlarmEnabled.value) _isAlarmEnabled.value = v
+            }
+            "LAST_SEEN_WHATS_NEW_VERSION" -> {
+                val v = sharedPreferences.getInt(key, 0)
+                if (v != _lastSeenWhatsNewVersion.value) _lastSeenWhatsNewVersion.value = v
+            }
         }
     }
 
@@ -64,51 +94,56 @@ class PreferencesRepository(context: Context) {
     }
 
     fun setMyMemberId(id: String?) {
-        prefs.edit { putString("MY_MEMBER_ID", id) }
         _myMemberId.value = id
+        prefs.edit { putString("MY_MEMBER_ID", id) }
     }
 
     fun setAlarmSoundUri(uri: String) {
-        prefs.edit { putString("ALARM_SOUND_URI", uri) }
         _alarmSoundUri.value = uri
+        prefs.edit { putString("ALARM_SOUND_URI", uri) }
     }
 
     fun setFamilyId(id: String?) {
-        prefs.edit { putString("FAMILY_ID", id) }
         _familyId.value = id
+        prefs.edit { putString("FAMILY_ID", id) }
     }
 
     fun setJoinCode(code: String?) {
-        prefs.edit { putString("JOIN_CODE", code) }
         _joinCode.value = code
+        prefs.edit { putString("JOIN_CODE", code) }
     }
 
     fun setFamilyName(name: String?) {
-        prefs.edit { putString("FAMILY_NAME", name) }
         _familyName.value = name
+        prefs.edit { putString("FAMILY_NAME", name) }
     }
 
     fun setLanguage(lang: String) {
-        prefs.edit { putString("APP_LANGUAGE", lang) }
         _language.value = lang
+        prefs.edit { putString("APP_LANGUAGE", lang) }
     }
 
     fun setThemePreference(theme: String) {
-        prefs.edit { putString("APP_THEME", theme) }
         _themePreference.value = theme
+        prefs.edit { putString("APP_THEME", theme) }
     }
 
     fun setAlarmEnabled(enabled: Boolean) {
-        prefs.edit { putBoolean("ALARM_ENABLED", enabled) }
         _isAlarmEnabled.value = enabled
+        prefs.edit { putBoolean("ALARM_ENABLED", enabled) }
     }
 
     fun setLastSeenWhatsNewVersion(version: Int) {
-        prefs.edit { putInt("LAST_SEEN_WHATS_NEW_VERSION", version) }
         _lastSeenWhatsNewVersion.value = version
+        prefs.edit { putInt("LAST_SEEN_WHATS_NEW_VERSION", version) }
     }
 
     fun clearAll() {
+        _myMemberId.value = null
+        _familyId.value = null
+        _joinCode.value = null
+        _familyName.value = null
+        _isAlarmEnabled.value = false
         prefs.edit {
             remove("MY_MEMBER_ID")
             remove("FAMILY_ID")
@@ -116,11 +151,6 @@ class PreferencesRepository(context: Context) {
             remove("FAMILY_NAME")
             remove("ALARM_ENABLED")
         }
-        _myMemberId.value = null
-        _familyId.value = null
-        _joinCode.value = null
-        _familyName.value = null
-        _isAlarmEnabled.value = false
-        // Note: Language and Sound URI are kept to preserve user experience after logout/login.
+        // Hinweis: Sprache und Sound-URI bleiben erhalten (User-Experience nach Logout/Login)
     }
 }
