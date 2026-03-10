@@ -246,12 +246,18 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                 onComplete(true)
             }.onFailure { error ->
                 _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                _pendingJoinCode.value = null
                 onComplete(false)
             }
         }
     }
 
     fun setPendingJoinCode(code: String?) {
+        if (code != null && code.equals(joinCode.value, ignoreCase = true)) {
+            // Ignorieren, falls Benutzer schon in dieser Familie ist
+            _pendingJoinCode.value = null
+            return
+        }
         _pendingJoinCode.value = code
     }
 
@@ -261,6 +267,11 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
 
     fun handlePendingJoin(onComplete: (Boolean) -> Unit) {
         val code = _pendingJoinCode.value ?: return
+        if (code.equals(joinCode.value, ignoreCase = true)) {
+            _pendingJoinCode.value = null
+            onComplete(true)
+            return
+        }
         prefsRepo.setFamilyId(null)
         joinFamily(code, onComplete)
     }

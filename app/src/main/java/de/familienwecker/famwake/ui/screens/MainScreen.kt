@@ -109,7 +109,7 @@ fun MainScreen(
 
     LaunchedEffect(isSyncing, familyId) {
         if (familyId == null) {
-            onLogout()
+            onLeaveFamily()
         }
     }
 
