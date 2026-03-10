@@ -7,6 +7,11 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.6.2] - 2026-03-10
+### Behoben
+- **Deep Link Navigation:** Behebung eines Bugs, bei dem Nutzer nach Klick auf einen Einladungs-Link fälschlicherweise aus der App ausgeloggt wurden. 
+- **Deep Link Loop:** Verhindert Endlosschleifen, falls ein Beitritt fehlschlägt.
+
 ## [0.6.1] - 2026-03-10
 ### Behoben
 - **Lokalisierung Alarm:** Benachrichtigungen erscheinen jetzt in der Gerätesprache statt immer auf Deutsch.

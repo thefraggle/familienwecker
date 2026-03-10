@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.6.2] - 2026-03-10
+### Fixed
+- **Deep Link Navigation:** Fixed a bug where clicking an invitation link would falsely trigger a global logout.
+- **Deep Link Loop:** Prevents infinite loading loops if joining a family via link fails.
+
 ## [0.6.1] - 2026-03-10
 ### Fixed
 - **Alarm Localization:** Notifications (title, text, channel name) now correctly appear in the device language instead of always in German.
