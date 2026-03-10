@@ -31,7 +31,7 @@ data class FamilySchedule(
     val memberSchedules: List<ScheduleResult>,
     val breakfastTime: LocalTime?,
     val isValid: Boolean,
-    val message: String
+    val scheduleMessage: ScheduleMessage
 )
 
 data class SyncStatus(

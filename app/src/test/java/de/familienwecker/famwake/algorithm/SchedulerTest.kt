@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.algorithm
 
 import de.familienwecker.famwake.model.FamilyMember
+import de.familienwecker.famwake.model.ScheduleMessage
 import org.junit.Assert.*
 import org.junit.Test
 import java.time.LocalTime
@@ -21,14 +22,16 @@ class SchedulerTest {
 
         assertTrue("Schedule should be valid", result.isValid)
         assertEquals(4, result.memberSchedules.size)
-        
+
         // Check for bathroom overlaps
         val sortedSchedules = result.memberSchedules.sortedBy { it.bathroomStartTime }
         for (i in 0 until sortedSchedules.size - 1) {
             val current = sortedSchedules[i]
-            val next = sortedSchedules[i+1]
-            assertTrue("Bathroom overlap between ${current.member.name} and ${next.member.name}", 
-                current.bathroomEndTime <= next.bathroomStartTime)
+            val next = sortedSchedules[i + 1]
+            assertTrue(
+                "Bathroom overlap between ${current.member.name} and ${next.member.name}",
+                current.bathroomEndTime <= next.bathroomStartTime
+            )
         }
     }
 
@@ -41,9 +44,14 @@ class SchedulerTest {
         val result = scheduler.calculateIdealSchedule(listOf(m1, m2))
 
         // It might still be valid due to the built-in shift fallback (up to 15 mins)
-        // If it's valid, it should contain the fallback message
+        // If valid, scheduleMessage must indicate the adjustment (not a plain string anymore)
         if (result.isValid) {
-            assertTrue("Should mention flexible adjustment", result.message.contains("angepasst"))
+            assertTrue(
+                "Should indicate flexible adjustment via ScheduleMessage",
+                result.scheduleMessage is ScheduleMessage.TimeAdjusted ||
+                    result.scheduleMessage is ScheduleMessage.BreakfastReduced ||
+                    result.scheduleMessage is ScheduleMessage.BreakfastAndTimeAdjusted
+            )
         } else {
             assertFalse("Schedule should be invalid for extreme conflicts", result.isValid)
         }
@@ -58,6 +66,15 @@ class SchedulerTest {
 
         assertEquals(1, result.memberSchedules.size)
         assertEquals("Active", result.memberSchedules[0].member.name)
+    }
+
+    @Test
+    fun `no active members should return NoActiveMembers message`() {
+        val m1 = createMember("1", "All", "06:00", "07:00", 20, false).copy(isPaused = true)
+        val result = scheduler.calculateIdealSchedule(listOf(m1))
+
+        assertTrue(result.isValid)
+        assertEquals(ScheduleMessage.NoActiveMembers, result.scheduleMessage)
     }
 
     private fun createMember(

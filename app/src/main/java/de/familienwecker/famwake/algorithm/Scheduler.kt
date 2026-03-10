@@ -2,6 +2,7 @@ package de.familienwecker.famwake.algorithm
 
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.FamilySchedule
+import de.familienwecker.famwake.model.ScheduleMessage
 import de.familienwecker.famwake.model.ScheduleResult
 import java.time.LocalTime
 
@@ -11,24 +12,26 @@ class Scheduler {
         members: List<FamilyMember>,
         breakfastDurationMinutes: Long = 30
     ): FamilySchedule {
-        // Limit active members to prevent overflow logic (though we don't permute anymore)
+        // Limit active members (max 6 per UI constraint)
         val activeMembers = members.filter { !it.isPaused }.take(6)
-        
-        if (activeMembers.isEmpty()) return FamilySchedule(emptyList(), null, true, "Keine aktiven Mitglieder vorhanden.")
 
-        // Wir nutzen exakt die übergebene Reihung (Manuelle Sortierung)
+        if (activeMembers.isEmpty()) {
+            return FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveMembers)
+        }
+
+        // Nutze exakt die übergebene Reihung (Manuelle Sortierung)
         val fixedPermutation = listOf(activeMembers)
 
         // 1. Versuche die exakte Reihung ohne Zeit-Verschiebung
         val result = findBestScheduleOverPermutations(fixedPermutation, activeMembers, breakfastDurationMinutes, 0)
-        
+
         if (result.isSuccess) return result.getOrThrow()
 
         // Fallback 1: Erlaube moderate Zeit-Verschiebungen (5-15 Min) bei festgehaltener Reihung
         for (shiftMinutes in 5..15 step 5) {
             val flexibleResult = findBestScheduleOverPermutations(fixedPermutation, activeMembers, breakfastDurationMinutes, shiftMinutes)
             flexibleResult.onSuccess { flexibleSchedule ->
-                return flexibleSchedule.copy(message = "Zeiten wurden um $shiftMinutes Min. angepasst, um deine Reihenfolge einzuhalten.")
+                return flexibleSchedule.copy(scheduleMessage = ScheduleMessage.TimeAdjusted(shiftMinutes))
             }
         }
 
@@ -37,26 +40,41 @@ class Scheduler {
             for (reduceBreakfast in 5..10 step 5) {
                 val reducedDuration = breakfastDurationMinutes - reduceBreakfast
                 val reductionResult = findBestScheduleOverPermutations(fixedPermutation, activeMembers, reducedDuration, 0)
-                
+
                 reductionResult.onSuccess { sched ->
-                    return sched.copy(message = "Frühstück wurde um $reduceBreakfast Min. verkürzt, um deine Reihenfolge zu ermöglichen.")
+                    return sched.copy(scheduleMessage = ScheduleMessage.BreakfastReduced(reduceBreakfast))
                 }
-                
+
                 // Kombiniere Frühstücksverkürzung mit Zeit-Verschiebung
                 for (shiftMinutes in 5..15 step 5) {
                     val flexibleReductionResult = findBestScheduleOverPermutations(fixedPermutation, activeMembers, reducedDuration, shiftMinutes)
                     flexibleReductionResult.onSuccess { flexibleSchedule ->
-                        return flexibleSchedule.copy(message = "Frühstück -$reduceBreakfast Min. & Zeiten um $shiftMinutes Min. angepasst.")
+                        return flexibleSchedule.copy(scheduleMessage = ScheduleMessage.BreakfastAndTimeAdjusted(reduceBreakfast, shiftMinutes))
                     }
                 }
             }
         }
 
-        val lastErrorMessage = result.exceptionOrNull()?.message ?: "Kein gültiger Zeitplan gefunden! Zeiten überschneiden sich zu stark."
+        // Letzten Fehler aus dem initialen Versuch extrahieren
+        val conflictException = result.exceptionOrNull()
+        val lastMessage = if (conflictException != null) {
+            // Versuche den Mitgliedsnamen aus der Exception-Message zu extrahieren
+            val memberName = conflictException.message
+                ?.removePrefix("CONFLICT:")
+                ?.substringBefore(":")
+                ?.trim()
+            if (!memberName.isNullOrBlank()) {
+                ScheduleMessage.MemberConflict(memberName)
+            } else {
+                ScheduleMessage.NoValidScheduleFound
+            }
+        } else {
+            ScheduleMessage.NoValidScheduleFound
+        }
 
         return FamilySchedule(
-            emptyList(), null, false, 
-            lastErrorMessage
+            emptyList(), null, false,
+            lastMessage
         )
     }
 
@@ -68,7 +86,7 @@ class Scheduler {
     ): Result<FamilySchedule> {
         var bestSchedule: FamilySchedule? = null
         var bestScore = -1L
-        var lastError: String? = null
+        var lastError: Exception? = null
 
         for (perm in permutations) {
             val result = evaluatePermutation(perm, breakfastDurationMinutes, shiftToleranceMinutes)
@@ -79,14 +97,14 @@ class Scheduler {
                     bestSchedule = scheduleOpt
                 }
             }.onFailure { exception ->
-                lastError = exception.message
+                lastError = exception as? Exception ?: Exception(exception.message)
             }
         }
-        
+
         return if (bestSchedule != null) {
             Result.success(bestSchedule!!)
         } else {
-            Result.failure(Exception(lastError ?: "Kein gültiger Zeitplan gefunden!"))
+            Result.failure(lastError ?: Exception())
         }
     }
 
@@ -106,10 +124,10 @@ class Scheduler {
                     minLeaveForBreakfastEaters = leave
                 }
             }
-            // Limit to a reasonable start time (e.g., not before 04:00)
-            val startTime = if (minLeaveForBreakfastEaters.isBefore(LocalTime.of(4, 0))) 
+            // Limit to a reasonable start time (not before 04:00)
+            val startTime = if (minLeaveForBreakfastEaters.isBefore(LocalTime.of(4, 0)))
                 LocalTime.of(4, 0) else minLeaveForBreakfastEaters
-            
+
             breakfastTime = startTime.minusMinutes(breakfastDurationMinutes)
         }
 
@@ -138,7 +156,8 @@ class Scheduler {
             val wakeUpTime = maxAllowedBathroomEnd.minusMinutes(member.bathroomDurationMinutes)
 
             if (wakeUpTime.isBefore(allowedEarliestWakeUp)) {
-                return Result.failure(Exception("Konflikt bei ${member.name}: Wecken müsste um $wakeUpTime Uhr sein, um Bad/Frühstück einzuhalten, aber frühestes Wecken ist $allowedEarliestWakeUp Uhr."))
+                // Prefix mit "CONFLICT:{memberName}:" für die Exception-Extraktion in calculateIdealSchedule
+                return Result.failure(Exception("CONFLICT:${member.name}:${wakeUpTime}:${allowedEarliestWakeUp}"))
             }
 
             schedules.add(
@@ -152,24 +171,13 @@ class Scheduler {
             currentLatestBathroomEndTime = wakeUpTime
         }
 
-        return Result.success(FamilySchedule(
-            memberSchedules = schedules.reversed(),
-            breakfastTime = breakfastTime,
-            isValid = true,
-            message = "Optimaler Plan berechnet."
-        ))
-    }
-
-    private fun <T> generatePermutations(list: List<T>): List<List<T>> {
-        if (list.isEmpty()) return listOf(emptyList())
-        val result = mutableListOf<List<T>>()
-        for (i in list.indices) {
-            val current = list[i]
-            val remaining = list.toMutableList().apply { removeAt(i) }
-            for (perm in generatePermutations(remaining)) {
-                result.add(listOf(current) + perm)
-            }
-        }
-        return result
+        return Result.success(
+            FamilySchedule(
+                memberSchedules = schedules.reversed(),
+                breakfastTime = breakfastTime,
+                isValid = true,
+                scheduleMessage = ScheduleMessage.OptimalPlan
+            )
+        )
     }
 }

@@ -204,20 +204,23 @@ class FirebaseRepository {
     suspend fun unclaimMember(familyId: String, memberId: String, userId: String): Boolean {
         return try {
             val docRef = db.collection("families").document(familyId).collection("members").document(memberId)
-            val snapshot = docRef.get().await()
-            val existingClaim = snapshot.getString("claimedByUserId")
-            
-            if (existingClaim == userId) {
-                docRef.update(
-                    mapOf(
-                        "claimedByUserId" to null,
-                        "claimedByUserName" to null
+            // Atomare Transaktion: verhindert Race Condition beim unclaimen
+            db.runTransaction { transaction ->
+                val snapshot = transaction.get(docRef)
+                val existingClaim = snapshot.getString("claimedByUserId")
+                if (existingClaim == userId) {
+                    transaction.update(
+                        docRef,
+                        mapOf(
+                            "claimedByUserId" to null,
+                            "claimedByUserName" to null
+                        )
                     )
-                ).await()
-                true
-            } else {
-                false
-            }
+                    true
+                } else {
+                    false
+                }
+            }.await()
         } catch (e: Exception) {
             false
         }
@@ -316,26 +319,24 @@ class FirebaseRepository {
     suspend fun deleteFamily(familyId: String): Result<Unit> {
         return try {
             val familyRef = db.collection("families").document(familyId)
-            
-            // 1. Delete all members in the subcollection individually to be more robust
+
+            // 1. Alle Members als Batch löschen (atomar, robuster bei Netzwerkabbruch)
             val membersCollection = familyRef.collection("members")
             val membersSnapshot = membersCollection.get().await()
-            
-            for (doc in membersSnapshot.documents) {
-                try {
-                    doc.reference.delete().await()
-                } catch (e: Exception) {
-                    // Log and continue - we want to delete as much as possible
-                    e.printStackTrace()
+
+            if (membersSnapshot.documents.isNotEmpty()) {
+                val batch = db.batch()
+                membersSnapshot.documents.forEach { doc ->
+                    batch.delete(doc.reference)
                 }
+                batch.commit().await()
             }
 
-            // 2. Delete the family document itself
+            // 2. Familie-Dokument selbst löschen
             familyRef.delete().await()
-            
+
             Result.success(Unit)
         } catch (e: Exception) {
-            // If the family doc deletion itself fails (permissions), we at least tried the members
             Result.failure(e)
         }
     }
