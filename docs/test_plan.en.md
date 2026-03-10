@@ -36,6 +36,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-25 | **Self-Healing (Deep Link)** | Login via link triggers new join even if an old profile exists. |
 | TC-26 | **Single Instance Check** | Repeatedly clicking deep links does not open new app instances in task manager. |
 | TC-27 | **Self-Join Guard** | Entering the own family code in the join dialog does **not** trigger a re-join (no profile assignment lost). |
+| TC-28 | **Deep Link Conflict Dialog** | Clicking a deep link while already in a family opens MainScreen showing a warning dialog to switch. |
+| TC-29 | **Join Code Validation Guard** | Invalid deep/join code only shows an error message after confirmation, without leaving the old family. |
 
 
 ### 2. Family Configuration

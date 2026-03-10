@@ -291,21 +291,27 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             _isSyncing.value = true
             try {
-                if (uid != null) {
-                    repository.removeUserFamily(uid)
-                }
+                // Versuche zuerst der neuen Familie beizutreten, BEVOR die alte verlassen wird!
                 val result = repository.joinFamilyByCode(code)
                 result.onSuccess { pair ->
+                    val newFamilyId = pair.first
+                    val newJoinCode = pair.second
+                    
+                    // Code ist gültig -> Alte Familie verlassen (Alarm canceln)
+                    cancelAlarmForCurrentUser()
+                    
+                    // Neues Mapping speichern (überschreibt das alte)
                     if (uid != null) {
-                        repository.saveUserFamily(uid, pair.first, pair.second)
+                        repository.saveUserFamily(uid, newFamilyId, newJoinCode)
                     }
-                    val fetchedName = repository.getFamilyName(pair.first)
+                    val fetchedName = repository.getFamilyName(newFamilyId)
                     val oldFamilyId = familyId.value
-                    prefsRepo.setFamilyId(pair.first)
-                    prefsRepo.setJoinCode(pair.second)
+                    
+                    prefsRepo.setFamilyId(newFamilyId)
+                    prefsRepo.setJoinCode(newJoinCode)
                     prefsRepo.setFamilyName(fetchedName)
 
-                    if (oldFamilyId != pair.first) {
+                    if (oldFamilyId != newFamilyId) {
                         prefsRepo.setMyMemberId(null)
                     }
 
@@ -313,12 +319,9 @@ class FamilyViewModel(application: Application) : AndroidViewModel(application) 
                     _showJoinSuccess.value = true
                     onComplete(true)
                 }.onFailure { error ->
+                    // Code ist ungültig -> Fehler anzeigen, aber in der ALTEN Familie bleiben!
                     _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
                     _pendingJoinCode.value = null
-                    prefsRepo.setFamilyId(null)
-                    prefsRepo.setJoinCode(null)
-                    prefsRepo.setFamilyName(null)
-                    prefsRepo.setMyMemberId(null)
                     onComplete(false)
                 }
             } catch (e: Exception) {

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.6.3] - 2026-03-10
+### Fixed
+- **Deep Link Join Conflict:** Fixed a bug where a user already in a family wouldn't see a conflict dialog (warning) when trying to join a new family via deep link.
+- **Deep Link Join Validation:** An invalid code now correctly shows an error message instead of accidentally leaving the user with no family.
+
 ## [0.6.2] - 2026-03-10
 ### Fixed
 - **Deep Link Navigation:** Fixed a bug where clicking an invitation link would falsely trigger a global logout.

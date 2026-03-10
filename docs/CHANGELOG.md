@@ -7,6 +7,11 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.6.3] - 2026-03-10
+### Behoben
+- **Deep Link Join Conflict:** Behebung eines Bugs, bei dem Nutzer, die bereits in einer Familie waren, beim Beitreten einer neuen Familie über einen Link keinen Konflikt-Dialog (Warnung) sahen.
+- **Deep Link Join Validation:** Ein ungültiger Code führt nun korrekt zu einer Fehlermeldung, anstatt den Nutzer in einen Zustand ohne Familie zu versetzen.
+
 ## [0.6.2] - 2026-03-10
 ### Behoben
 - **Deep Link Navigation:** Behebung eines Bugs, bei dem Nutzer nach Klick auf einen Einladungs-Link fälschlicherweise aus der App ausgeloggt wurden. 
