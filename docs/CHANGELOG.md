@@ -7,6 +7,26 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.6.1] - 2026-03-10
+### Behoben
+- **Lokalisierung Alarm:** Benachrichtigungen erscheinen jetzt in der Gerätesprache statt immer auf Deutsch.
+- **unclaimMember Race Condition:** Freigabe eines Profils nutzt jetzt eine atomare Firestore-Transaktion.
+- **deleteFamily Konsistenz:** Mitglieder werden als `WriteBatch` gelöscht – kein inkonsistenter Zustand bei Abbruch mehr.
+- **Alarm-Cancel beim Verlassen:** `leaveFamily()` bricht den eigenen Systemwecker jetzt korrekt ab.
+- **Toter Code entfernt:** Nicht-genutzter `isInWindow`-Block und `generatePermutations()` entfernt.
+- **Toast durch UiText ersetzt:** Fehlende Alarm-Berechtigung wird als lokalisierte UI-Fehlermeldung angezeigt.
+- **Doppel-Emit PreferencesRepository:** Guards in Listenern verhindern doppelte StateFlow-Emits.
+- **Fallback-Username:** `"Papa/Mama"` hardcodiert durch `R.string.settings_fallback_username` (DE/EN) ersetzt.
+
+### Optimiert
+- **ScheduleMessage:** Typsichere `sealed class ScheduleMessage` ersetzt rohe Strings – Meldungen sind voll lokalisiert.
+- **Drag & Drop Höhe:** `itemHeightPx` dynamisch über `LazyListState` gemessen statt statisch 110 dp.
+- **Doppelter State-Collect:** Redundantes `themePreference`-Collect in `MainScreen` entfernt.
+- **Alarm-Debounce:** Alarm wird nur neu gesetzt wenn die Zielzeit sich geändert hat.
+- **Offline-Indikator:** CloudOff-Icon erscheint erst nach 3 Sekunden (kein Flackern bei kurzem Offline).
+- **refreshData Guard:** Kein unnötiger Firestore-Call mehr beim temporären `""` Dummy-FamilyId.
+- **Selbst-Beitritt verhindert:** `joinFamily()` überspringt den Beitritt wenn der Code der eigene ist.
+
 ## [0.6.0] - 2026-03-09
 ### Hinzugefügt
 - **Drag & Drop Reordering:** Mitglieder können nun per Drag & Drop sortiert werden. Inklusive Spring-Animationen für Gap-Preview und haptischem Feedback.

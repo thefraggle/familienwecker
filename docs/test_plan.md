@@ -36,6 +36,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-24 | **Re-Join Robustheit** | Beitritt zur eigenen Familie via Link löscht die Profil-Zuordnung nicht mehr. |
 | TC-25 | **Self-Healing (Deep Link)** | Login via Link führt auch bei existierendem Alt-Profil zum neuen Beitritt. |
 | TC-26 | **Single Instance Check** | Mehrfacher Klick auf Deep Links öffnet keine neuen App-Instanzen im Task-Manager. |
+| TC-27 | **Selbst-Beitritt Guard** | Eingabe des eigenen Familien-Codes im Beitritt-Dialog führt **nicht** zu einem erneuten Join (keine Profilzuordnung verloren). |
 
 
 ### 2. Familien-Konfiguration
@@ -86,6 +87,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-20 | **Resource-Health** | Icons und Splash-Screen werden auf verschiedenen Pixeldichten (xhdpi bis xxxhdpi) ohne Verzerrung korrekt dargestellt. |
 | EC-21 | **Max. Calculation Limit (OOM)** | Versuch, Plan für >6 aktive Mitglieder zu berechnen, wird zur Crash-Prävention auf 6 limitiert. |
 | EC-22 | **Garbage Collection (Server)** | Familien ohne Update in den letzten 180 Tagen werden sonntags von Cloud Functions gelöscht. |
+| EC-23 | **Alarm-Berechtigung fehlt (UI)** | Wenn `SCHEDULE_EXACT_ALARM` fehlt, erscheint eine lokalisierte Fehlermeldung im UI (kein Toast, kein Absturz). |
 
 ### 3. Benutzer-Verhalten
 | ID | Testfall | Erwartetes Ergebnis |
@@ -107,5 +109,5 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 
 ## 📈 Validierung & Reporting
 
-- **Automatisierung:** Die Kern-Logik (`Scheduler`) wird über JUnit-Tests (zu finden in `app/src/test`) mit den Szenarien aus TC-07 bis TC-09 und EC-01 abgedeckt.
+- **Automatisierung:** Die Kern-Logik (`Scheduler`) wird über JUnit-Tests (zu finden in `app/src/test`) mit den Szenarien aus TC-07 bis TC-09, EC-01 und dem neuen `NoActiveMembers`-Test abgedeckt. Alle Tests prüfen jetzt typsichere `ScheduleMessage`-Codes statt Rohstrings.
 - **Manuelle Abnahme:** Vor jedem Release erfolgt ein "Live-Test" über eine Nacht in einer Test-Familie.
