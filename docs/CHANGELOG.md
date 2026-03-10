@@ -7,6 +7,9 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.6.4] - Unveröffentlicht
+- Lokale Entwicklungsversion
+
 ## [0.6.3] - 2026-03-10
 ### Behoben
 - **Deep Link Join Conflict:** Behebung eines Bugs, bei dem Nutzer, die bereits in einer Familie waren, beim Beitreten einer neuen Familie über einen Link keinen Konflikt-Dialog (Warnung) sahen.
