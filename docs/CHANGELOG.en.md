@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.6.1] - 2026-03-10
+### Fixed
+- **Alarm Localization:** Notifications (title, text, channel name) now correctly appear in the device language instead of always in German.
+- **unclaimMember Race Condition:** Releasing a profile now uses an atomic Firestore transaction (same as `claimMember`).
+- **deleteFamily Consistency:** Members are now deleted via `WriteBatch` – no inconsistent state on network interruption.
+- **Alarm Cancel on Leave:** `leaveFamily()` now correctly cancels the system alarm before leaving.
+- **Dead Code Removed:** Unused `isInWindow` block in `toggleAwakeMember` and orphaned `generatePermutations()` removed.
+- **Toast Replaced by UiText:** Missing alarm permission is now shown as a localized UI error message instead of a hardcoded Toast.
+- **PreferencesRepository Double-Emit:** Listener guards prevent double StateFlow emissions on each setter call.
+- **Fallback Username:** `"Papa/Mama"` hardcoded replaced by `R.string.settings_fallback_username` (DE: "Elternteil", EN: "Parent").
+
+### Optimized
+- **ScheduleMessage:** New type-safe `sealed class ScheduleMessage` replaces raw strings in Scheduler – messages are now fully localized.
+- **Drag & Drop Height:** `itemHeightPx` measured dynamically via `LazyListState` instead of hardcoded 110 dp.
+- **Duplicate State Collect:** Redundant `themePreference` collect in `MainScreen` removed.
+- **Alarm Debounce:** Alarm is only rescheduled when the target time actually changed.
+- **Offline Indicator:** CloudOff icon appears only after 3 seconds offline (no flickering on brief disconnects).
+- **refreshData Guard:** No unnecessary Firestore call on temporary empty `""` familyId.
+- **Self-Join Guard:** `joinFamily()` skips rejoining if the entered code is already the current one.
+
 ## [0.6.0] - 2026-03-09
 ### Added
 - **Drag & Drop Reordering:** Sort family members via long-press. Includes spring animations for gap preview and haptic feedback.

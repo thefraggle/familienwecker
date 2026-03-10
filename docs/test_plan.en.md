@@ -35,6 +35,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-24 | **Re-Join Resilience** | Re-joining the own family via link no longer clears the profile assignment. |
 | TC-25 | **Self-Healing (Deep Link)** | Login via link triggers new join even if an old profile exists. |
 | TC-26 | **Single Instance Check** | Repeatedly clicking deep links does not open new app instances in task manager. |
+| TC-27 | **Self-Join Guard** | Entering the own family code in the join dialog does **not** trigger a re-join (no profile assignment lost). |
 
 
 ### 2. Family Configuration
@@ -84,6 +85,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-20 | **Resource Health** | Icons and Splash screen are rendered correctly across various pixel densities (xhdpi to xxxhdpi) without distortion. |
 | EC-21 | **Max. Calculation Limit (OOM)** | Attempting to calculate a plan for >6 active members is limited to 6 for crash prevention. |
 | EC-22 | **Garbage Collection (Server)** | Families without updates in the last 180 days are deleted by Cloud Functions on Sundays. |
+| EC-23 | **Missing Alarm Permission (UI)** | If `SCHEDULE_EXACT_ALARM` is missing, a localized error message appears in the UI (no Toast, no crash). |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |
@@ -105,5 +107,5 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 
 ## 📈 Validation & Reporting
 
-- **Automation:** The core logic (`Scheduler`) is covered by JUnit tests (found in `app/src/test`) with scenarios from TC-07 to TC-09 and EC-01.
+- **Automation:** The core logic (`Scheduler`) is covered by JUnit tests (found in `app/src/test`) with scenarios from TC-07 to TC-09, EC-01, and the new `NoActiveMembers` test. All tests now check type-safe `ScheduleMessage` codes instead of raw strings.
 - **Manual Verification:** A "Live Test" over one night in a test family occurs before every release.
