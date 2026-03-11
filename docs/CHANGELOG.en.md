@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.6.6] - 2026-03-11
+### Added / Changed
+- **Material You (Dynamic Colors):** Enabled support for dynamic app theme colors based on the system wallpaper for Android 12+.
+- **AMOLED Dark Mode:** The background in the dark theme now uses a true black (`#000000`) to increase contrast and save battery life on OLED displays.
+
 ## [0.6.5] - 2026-03-11
 ### Fixed
 - **Missing Translations:** Replaced hardcoded German error strings (e.g., "Family not found") when joining a family with localized string resources, ensuring these messages are properly translated into English.
