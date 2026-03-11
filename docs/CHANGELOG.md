@@ -7,8 +7,10 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## [0.6.4] - Unveröffentlicht
-- Lokale Entwicklungsversion
+## [0.6.4] - 2026-03-11
+### Sicherheit & Architektur
+- **Familiencode (Join Code):** Generierung verwendet nun `SecureRandom` statt `Random` für echten kryptografischen Zufall und Schutz vor Brute-Force Vorhersagen.
+- **Dependency Injection:** `FirebaseRepository` wird nun via `Factory` ins `FamilyViewModel` injiziert, anstatt hardcodiert instanziiert zu werden (verbessert Testbarkeit).
 
 ## [0.6.3] - 2026-03-10
 ### Behoben
