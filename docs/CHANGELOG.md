@@ -7,6 +7,11 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.7.1] - 2026-03-11
+### Optimiert & Behoben
+- **Build (R8):** Die App wird im Release-Modus nun sauber via R8 minifiziert (obfuscated). Die entsprechende `mapping.txt` Datei für Crash-Reports wird vollautomatisch ins Android App Bundle (.aab) integriert.
+- **CI/CD (GitHub Actions):** Massive Beschleunigung der GitHub Releases (von ~9 auf ~3 Minuten). Der Workflow nutzt nun isoliertes Caching (Cache Warming) auf dem `main`-Branch über Gradle und Kotlin Caches.
+
 ## [0.7.0] - 2026-03-11
 ### Neu & Optimiert
 - **Performance & Architektur:** Einführung von `ImmutableList` für effizienteres Compose-Rendering und verbesserte Dependency Injection für Repositories.
