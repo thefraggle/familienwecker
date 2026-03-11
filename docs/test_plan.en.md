@@ -102,7 +102,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 
 ## 📱 UI/UX & Accessibility
 
-- **Dark Mode:** All contrasts must be eye-friendly in the dark theme (for night/morning use).
+- **Dark Mode:** All contrasts must be eye-friendly in the dark theme (for night/morning use). The background now uses a true AMOLED Black (`#000000`) for improved battery efficiency.
+- **Material You:** Dynamic application colors based on the system wallpaper (Android 12+).
 - **Haptics:** Vibration patterns differ between "Pre-alarm" and "Main alarm."
 - **Real-time Feedback:** When the plan is recalculated, the user sees a short animation/confirmation.
 

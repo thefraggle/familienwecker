@@ -7,6 +7,11 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.6.6] - 2026-03-11
+### Hinzugefügt / Geändert
+- **Material You (Dynamic Colors):** Unterstützung für dynamische Farben basierend auf dem System-Thema ab Android 12 aktiviert.
+- **AMOLED Dark Mode:** Der Hintergrund im Dark Theme ist nun komplett schwarz (`#000000`), um den Kontrast zu verbessern und bei OLED-Screens den Akku zu schonen.
+
 ## [0.6.5] - 2026-03-11
 ### Behoben
 - **Fehlende Übersetzungen:** Hardcodierte deutsche Fehler-Strings (z.B. "Unter diesem Code wurde keine Familie gefunden") beim Beitreten in eine Familie wurden durch lokalisierte String-Ressourcen ersetzt, sodass diese Meldungen im Englischen nun korrekt übersetzt werden.

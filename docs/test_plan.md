@@ -104,7 +104,8 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 
 ## 📱 UI/UX & Barrierefreiheit
 
-- **Dark Mode:** Alle Kontraste müssen auch im dunklen Thema (für nachts/morgens) augenfreundlich sein.
+- **Dark Mode:** Alle Kontraste müssen auch im dunklen Thema (für nachts/morgens) augenfreundlich sein. Der Hintergrund nutzt nun echtes AMOLED Schwarz (`#000000`) für verbesserte Batterie-Effizienz.
+- **Material You:** Dynamische App-Farben basierend auf dem System-Hintergrundbild (ab Android 12).
 - **Haptik:** Vibrationsmuster unterscheiden sich zwischen "Voralarm" und "Hauptalarm".
 - **Echtzeit-Feedback:** Wenn der Plan neu berechnet wird, sieht der User eine kurze Animation/Bestätigung.
 
