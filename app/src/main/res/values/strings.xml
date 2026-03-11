@@ -141,6 +141,8 @@
     <string name="error_load_members">Error loading members: %1$s</string>
     <string name="error_create_family">Error creating family: %1$s</string>
     <string name="error_invalid_code">Invalid invitation code: %1$s</string>
+    <string name="error_family_not_found">No family was found under this code.</string>
+    <string name="error_code_generation_failed">Could not generate a unique code. Please try again.</string>
     <string name="join_conflict_title">Join new family?</string>
     <string name="join_conflict_text">You are already a member of family \"%1$s\". To join the new family, you must leave your current one first. Do you want to leave \"%1$s\" and join with code %2$s?</string>
     <string name="join_conflict_confirm">Leave &amp; Join</string>

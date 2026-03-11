@@ -9,6 +9,9 @@ import kotlinx.coroutines.tasks.await
 import java.time.LocalTime
 import kotlin.random.Random
 
+class FamilyNotFoundException : Exception()
+class CodeGenerationFailedException : Exception()
+
 class FirebaseRepository {
     private val db = FirebaseFirestore.getInstance()
 
@@ -29,7 +32,7 @@ class FirebaseRepository {
             }
 
             if (codeExists) {
-                return Result.failure(Exception("Konnte keinen eindeutigen Code generieren. Bitte erneut versuchen."))
+                return Result.failure(CodeGenerationFailedException())
             }
 
             val familyData = hashMapOf(
@@ -51,7 +54,7 @@ class FirebaseRepository {
             if (!snapshot.isEmpty) {
                 Result.success(Pair(snapshot.documents.first().id, joinCode))
             } else {
-                Result.failure(Exception("Unter diesem Code wurde keine Familie gefunden."))
+                Result.failure(FamilyNotFoundException())
             }
         } catch (e: Exception) {
             Result.failure(e)

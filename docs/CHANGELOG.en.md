@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.6.5] - 2026-03-11
+### Fixed
+- **Missing Translations:** Replaced hardcoded German error strings (e.g., "Family not found") when joining a family with localized string resources, ensuring these messages are properly translated into English.
+
 ## [0.6.4] - 2026-03-11
 ### Security & Architecture
 - **Family Code (Join Code):** Generation now uses `SecureRandom` instead of `Random` for true cryptographic randomness and protection against brute-force predictions.
