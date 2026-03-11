@@ -4,6 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import de.familienwecker.famwake.data.AuthRepository
+import de.familienwecker.famwake.data.LoginFailedException
+import de.familienwecker.famwake.data.RegistrationFailedException
+import de.familienwecker.famwake.data.GoogleSignInFailedException
 import de.familienwecker.famwake.data.FirebaseRepository
 import de.familienwecker.famwake.data.PreferencesRepository
 import com.google.firebase.auth.AuthCredential
@@ -112,7 +115,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             }.onFailure { error ->
-                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_login_failed, error.localizedMessage ?: "Unknown"))
+                val uiMessage = if (error is LoginFailedException) {
+                    UiText.StringResource(R.string.error_login_failed_unknown)
+                } else {
+                    UiText.StringResource(R.string.error_login_failed, error.localizedMessage ?: "Unknown")
+                }
+                _authState.value = AuthState.Error(uiMessage)
             }
         }
     }
@@ -132,7 +140,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_registration_failed, error.localizedMessage ?: "Unknown"))
+                val uiMessage = if (error is RegistrationFailedException) {
+                    UiText.StringResource(R.string.error_registration_failed_unknown)
+                } else {
+                    UiText.StringResource(R.string.error_registration_failed, error.localizedMessage ?: "Unknown")
+                }
+                _authState.value = AuthState.Error(uiMessage)
             }
         }
     }
@@ -145,7 +158,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 _authState.value = AuthState.Authenticated(user)
                 restoreUserFamily(user.uid)
             }.onFailure { error ->
-                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed, error.localizedMessage ?: "Unknown"))
+                val uiMessage = if (error is GoogleSignInFailedException) {
+                    UiText.StringResource(R.string.error_google_sign_in_failed_unknown)
+                } else {
+                    UiText.StringResource(R.string.error_google_sign_in_failed, error.localizedMessage ?: "Unknown")
+                }
+                _authState.value = AuthState.Error(uiMessage)
             }
         }
     }

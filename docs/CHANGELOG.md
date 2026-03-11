@@ -10,6 +10,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 ## [0.6.5] - 2026-03-11
 ### Behoben
 - **Fehlende Übersetzungen:** Hardcodierte deutsche Fehler-Strings (z.B. "Unter diesem Code wurde keine Familie gefunden") beim Beitreten in eine Familie wurden durch lokalisierte String-Ressourcen ersetzt, sodass diese Meldungen im Englischen nun korrekt übersetzt werden.
+- **Fehlende UI-Übersetzungen:** Hardcodierte Texte in den Einstellungen (Profilzuweisung, Erscheinungsbild) und im Authentifizierungs-System (Login, Registrierung) wurden lokalisiert (DE/EN).
 
 ## [0.6.4] - 2026-03-11
 ### Sicherheit & Architektur

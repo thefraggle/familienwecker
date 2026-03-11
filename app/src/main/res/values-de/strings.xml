@@ -127,8 +127,13 @@
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy.html</string>
     <string name="settings_imprint">Impressum</string>
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint.html</string>
-    <string name="settings_delete_account">Account l\u00f6schen (Info)</string>
+    <string name="settings_delete_account">Account löschen (Info)</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion.html</string>
+
+    <string name="settings_already_claimed">bereits belegt</string>
+    <string name="settings_appearance_title">Erscheinungsbild</string>
+    <string name="settings_theme_light">Hell</string>
+    <string name="settings_theme_dark">Dunkel</string>
 
     <string name="ringing_wake_up">Aufwachen, %s!</string>
     <string name="ringing_message">Dank des perfekten Plans hast du heute genug Zeit im Bad.</string>
@@ -152,13 +157,17 @@
     <string name="error_not_logged_in">Benutzer nicht eingeloggt</string>
     <string name="error_system">Systemfehler: %1$s</string>
     <string name="error_login_failed">Login fehlgeschlagen: %1$s</string>
+    <string name="error_login_failed_unknown">Unbekannter Login-Fehler</string>
     <string name="error_registration_failed">Registrierung fehlgeschlagen: %1$s</string>
+    <string name="error_registration_failed_unknown">Konnte User nicht anlegen</string>
     <string name="error_google_sign_in_failed">Google Sign-In fehlgeschlagen: %1$s</string>
+    <string name="error_google_sign_in_failed_unknown">Google Sign-In fehlgeschlagen</string>
     <string name="error_empty_email">Bitte gib eine E-Mail-Adresse ein.</string>
     <string name="error_invalid_email">Ungültige E-Mail-Adresse. Bitte prüfe die Schreibweise.</string>
     <string name="error_user_not_found">Kein Konto mit dieser E-Mail-Adresse gefunden.</string>
     <string name="error_too_many_requests">Zu viele Versuche. Bitte warte kurz und versuche es erneut.</string>
     <string name="error_password_reset_failed">Passwort-Reset fehlgeschlagen. Bitte versuche es später erneut.</string>
+    <string name="error_profile_taken">Dieses Profil ist bereits belegt.</string>
     <string name="join_success_title">Familie beigetreten!</string>
     <string name="join_success_message">Du bist der Familie erfolgreich beigetreten.</string>
     <string name="ok">OK</string>
