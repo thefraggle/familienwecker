@@ -7,50 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.6.6] - 2026-03-11
-### Added / Changed
-- **Material You (Dynamic Colors):** Enabled support for dynamic app theme colors based on the system wallpaper for Android 12+.
-- **AMOLED Dark Mode:** The background in the dark theme now uses a true black (`#000000`) to increase contrast and save battery life on OLED displays.
+## [0.7.0] - 2026-03-11
+### Added & Optimized
+- **Performance & Architecture:** Implemented `ImmutableList` for more efficient Compose rendering and improved Dependency Injection (`FirebaseRepository`).
+- **Security:** `SecureRandom` used for family code generation to prevent predictability.
+- **Design:** Added support for Material You (Dynamic Colors) on Android 12+ and a true AMOLED Black Mode (`#000000`).
+- **Accessibility:** Increased Touch Targets in Settings to align with safe interaction minimums.
 
-## [0.6.5] - 2026-03-11
 ### Fixed
-- **Missing Translations:** Replaced hardcoded German error strings (e.g., "Family not found") when joining a family with localized string resources, ensuring these messages are properly translated into English.
-- **Missing UI Translations:** Localized hardcoded texts in the Settings screen (Profile Claiming, Appearance) and Authentication system (Login, Registration) for better DE/EN support.
-
-## [0.6.4] - 2026-03-11
-### Security & Architecture
-- **Family Code (Join Code):** Generation now uses `SecureRandom` instead of `Random` for true cryptographic randomness and protection against brute-force predictions.
-- **Dependency Injection:** `FirebaseRepository` is now injected via `Factory` into the `FamilyViewModel` instead of hardcoded instantiation (improves testability).
-
-## [0.6.3] - 2026-03-10
-### Fixed
-- **Deep Link Join Conflict:** Fixed a bug where a user already in a family wouldn't see a conflict dialog (warning) when trying to join a new family via deep link.
-- **Deep Link Join Validation:** An invalid code now correctly shows an error message instead of accidentally leaving the user with no family.
-
-## [0.6.2] - 2026-03-10
-### Fixed
-- **Deep Link Navigation:** Fixed a bug where clicking an invitation link would falsely trigger a global logout.
-- **Deep Link Loop:** Prevents infinite loading loops if joining a family via link fails.
-
-## [0.6.1] - 2026-03-10
-### Fixed
-- **Alarm Localization:** Notifications (title, text, channel name) now correctly appear in the device language instead of always in German.
-- **unclaimMember Race Condition:** Releasing a profile now uses an atomic Firestore transaction (same as `claimMember`).
-- **deleteFamily Consistency:** Members are now deleted via `WriteBatch` – no inconsistent state on network interruption.
-- **Alarm Cancel on Leave:** `leaveFamily()` now correctly cancels the system alarm before leaving.
-- **Dead Code Removed:** Unused `isInWindow` block in `toggleAwakeMember` and orphaned `generatePermutations()` removed.
-- **Toast Replaced by UiText:** Missing alarm permission is now shown as a localized UI error message instead of a hardcoded Toast.
-- **PreferencesRepository Double-Emit:** Listener guards prevent double StateFlow emissions on each setter call.
-- **Fallback Username:** `"Papa/Mama"` hardcoded replaced by `R.string.settings_fallback_username` (DE: "Elternteil", EN: "Parent").
-
-### Optimized
-- **ScheduleMessage:** New type-safe `sealed class ScheduleMessage` replaces raw strings in Scheduler – messages are now fully localized.
-- **Drag & Drop Height:** `itemHeightPx` measured dynamically via `LazyListState` instead of hardcoded 110 dp.
-- **Duplicate State Collect:** Redundant `themePreference` collect in `MainScreen` removed.
-- **Alarm Debounce:** Alarm is only rescheduled when the target time actually changed.
-- **Offline Indicator:** CloudOff icon appears only after 3 seconds offline (no flickering on brief disconnects).
-- **refreshData Guard:** No unnecessary Firestore call on temporary empty `""` familyId.
-- **Self-Join Guard:** `joinFamily()` skips rejoining if the entered code is already the current one.
+- **Localization (I18n):** Resolved missing translations for errors and UI elements in email/join flows and Settings (full DE/EN support). Alarms now correctly respect the configured system locale.
+- **Deep Links:** Extensive fixes for conflicts, validation, and infinite loops when joining via invitation links.
+- **Stability:** Resolved race conditions during profile unclaiming (Atomic Transaction) and family deletion (WriteBatch). `leaveFamily()` now reliably cancels the underlying system alarm.
 
 ## [0.6.0] - 2026-03-09
 ### Added

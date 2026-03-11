@@ -7,50 +7,17 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## [0.6.6] - 2026-03-11
-### Hinzugefügt / Geändert
-- **Material You (Dynamic Colors):** Unterstützung für dynamische Farben basierend auf dem System-Thema ab Android 12 aktiviert.
-- **AMOLED Dark Mode:** Der Hintergrund im Dark Theme ist nun komplett schwarz (`#000000`), um den Kontrast zu verbessern und bei OLED-Screens den Akku zu schonen.
+## [0.7.0] - 2026-03-11
+### Neu & Optimiert
+- **Performance & Architektur:** Einführung von `ImmutableList` für effizienteres Compose-Rendering und verbesserte Dependency Injection für Repositories.
+- **Sicherheit:** Verwendung von `SecureRandom` für die Generierung von Familiencodes.
+- **Design:** Unterstützung für Material You (Dynamic Colors) ab Android 12 und echter AMOLED Black Mode (`#000000`) für Akkuschonung und bessere Kontraste.
+- **Barrierefreiheit (A11y):** Vergrößerte Touch-Targets in den Einstellungen für bessere Nutzbarkeit.
 
-## [0.6.5] - 2026-03-11
 ### Behoben
-- **Fehlende Übersetzungen:** Hardcodierte deutsche Fehler-Strings (z.B. "Unter diesem Code wurde keine Familie gefunden") beim Beitreten in eine Familie wurden durch lokalisierte String-Ressourcen ersetzt, sodass diese Meldungen im Englischen nun korrekt übersetzt werden.
-- **Fehlende UI-Übersetzungen:** Hardcodierte Texte in den Einstellungen (Profilzuweisung, Erscheinungsbild) und im Authentifizierungs-System (Login, Registrierung) wurden lokalisiert (DE/EN).
-
-## [0.6.4] - 2026-03-11
-### Sicherheit & Architektur
-- **Familiencode (Join Code):** Generierung verwendet nun `SecureRandom` statt `Random` für echten kryptografischen Zufall und Schutz vor Brute-Force Vorhersagen.
-- **Dependency Injection:** `FirebaseRepository` wird nun via `Factory` ins `FamilyViewModel` injiziert, anstatt hardcodiert instanziiert zu werden (verbessert Testbarkeit).
-
-## [0.6.3] - 2026-03-10
-### Behoben
-- **Deep Link Join Conflict:** Behebung eines Bugs, bei dem Nutzer, die bereits in einer Familie waren, beim Beitreten einer neuen Familie über einen Link keinen Konflikt-Dialog (Warnung) sahen.
-- **Deep Link Join Validation:** Ein ungültiger Code führt nun korrekt zu einer Fehlermeldung, anstatt den Nutzer in einen Zustand ohne Familie zu versetzen.
-
-## [0.6.2] - 2026-03-10
-### Behoben
-- **Deep Link Navigation:** Behebung eines Bugs, bei dem Nutzer nach Klick auf einen Einladungs-Link fälschlicherweise aus der App ausgeloggt wurden. 
-- **Deep Link Loop:** Verhindert Endlosschleifen, falls ein Beitritt fehlschlägt.
-
-## [0.6.1] - 2026-03-10
-### Behoben
-- **Lokalisierung Alarm:** Benachrichtigungen erscheinen jetzt in der Gerätesprache statt immer auf Deutsch.
-- **unclaimMember Race Condition:** Freigabe eines Profils nutzt jetzt eine atomare Firestore-Transaktion.
-- **deleteFamily Konsistenz:** Mitglieder werden als `WriteBatch` gelöscht – kein inkonsistenter Zustand bei Abbruch mehr.
-- **Alarm-Cancel beim Verlassen:** `leaveFamily()` bricht den eigenen Systemwecker jetzt korrekt ab.
-- **Toter Code entfernt:** Nicht-genutzter `isInWindow`-Block und `generatePermutations()` entfernt.
-- **Toast durch UiText ersetzt:** Fehlende Alarm-Berechtigung wird als lokalisierte UI-Fehlermeldung angezeigt.
-- **Doppel-Emit PreferencesRepository:** Guards in Listenern verhindern doppelte StateFlow-Emits.
-- **Fallback-Username:** `"Papa/Mama"` hardcodiert durch `R.string.settings_fallback_username` (DE/EN) ersetzt.
-
-### Optimiert
-- **ScheduleMessage:** Typsichere `sealed class ScheduleMessage` ersetzt rohe Strings – Meldungen sind voll lokalisiert.
-- **Drag & Drop Höhe:** `itemHeightPx` dynamisch über `LazyListState` gemessen statt statisch 110 dp.
-- **Doppelter State-Collect:** Redundantes `themePreference`-Collect in `MainScreen` entfernt.
-- **Alarm-Debounce:** Alarm wird nur neu gesetzt wenn die Zielzeit sich geändert hat.
-- **Offline-Indikator:** CloudOff-Icon erscheint erst nach 3 Sekunden (kein Flackern bei kurzem Offline).
-- **refreshData Guard:** Kein unnötiger Firestore-Call mehr beim temporären `""` Dummy-FamilyId.
-- **Selbst-Beitritt verhindert:** `joinFamily()` überspringt den Beitritt wenn der Code der eigene ist.
+- **Lokalisierung (I18n):** Alle ehemals hardcodierten Fehler und UI-Elemente in E-Mail/Join-Flows und Settings sind nun vollständig (DE/EN) übersetzt. Alarme respektieren die eingestellte System-Sprache.
+- **Deep Links:** Umfangreiche Fixes für Konflikte, Validierung und Endlosschleifen beim Beitreten über Einladungslinks.
+- **Stabilität:** Race-Conditions beim Profil-Freigeben (Atomic Transaction) und Familien-Löschen (WriteBatch) behoben. `leaveFamily()` bricht nun zuverlässig den eigenen Wecker ab.
 
 ## [0.6.0] - 2026-03-09
 ### Hinzugefügt
