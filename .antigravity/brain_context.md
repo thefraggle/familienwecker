@@ -5,4 +5,5 @@ Android App (FamWake).
   - Offline-first Ansatz (Firestore-Cache mit Sync-Indikatoren).
   - Algorithmus-basiertes Scheduling (Rückwärtsrechnung von Weck- und Badzeiten).
   - Deep-Linking für Familien-Beitritt (`familienwecker.de/join`).
-- **Aktueller Stand:** Version 0.7.2 (dev). Release v0.7.1 durchgeführt mit aktiviertem R8 Build (und automatischer mapping.txt) plus GitHub Actions Cache Warming auf dem main-Branch.
+  - Strict Local Development: Commits und CI/CD-Pipelines (APK/AAB) werden ausschließlich über Git Tags in GitHub Releases gebaut.
+- **Aktueller Stand:** Version 0.7.2 (dev). Release v0.7.1 eingeführt (R8 Obfuscation inkl. auto `mapping.txt`). Alle antiken Changelogs (0.4.x) konsolidiert für saubere Historie.
