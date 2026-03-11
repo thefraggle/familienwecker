@@ -17,6 +17,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CancellationException
@@ -51,8 +54,8 @@ class FamilyViewModel(
     val themePreference: StateFlow<String> = prefsRepo.themePreference
     val isAlarmEnabled: StateFlow<Boolean> = prefsRepo.isAlarmEnabled
 
-    private val _members = MutableStateFlow<List<FamilyMember>>(emptyList())
-    val members: StateFlow<List<FamilyMember>> = _members.asStateFlow()
+    private val _members = MutableStateFlow<PersistentList<FamilyMember>>(persistentListOf())
+    val members: StateFlow<PersistentList<FamilyMember>> = _members.asStateFlow()
 
     private val _schedule = MutableStateFlow<FamilySchedule?>(null)
     val schedule: StateFlow<FamilySchedule?> = _schedule.asStateFlow()
@@ -124,7 +127,7 @@ class FamilyViewModel(
                             try {
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
                                     val checkedMembers = checkAndResetMembers(membersList)
-                                    _members.value = checkedMembers
+                                    _members.value = checkedMembers.toPersistentList()
 
                                     // Auto-Sync MyMemberId from Cloud (multi-device resilience)
                                     val uid = auth.currentUser?.uid
@@ -146,7 +149,7 @@ class FamilyViewModel(
                                 if (e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true) {
                                     android.util.Log.w("FamilyViewModel", "Permission Denied beim Laden der Mitglieder - lösche lokalen Zustand")
                                     leaveFamily()
-                                    _members.value = emptyList()
+                                    _members.value = persistentListOf()
                                 } else {
                                     _errorMessage.value = UiText.StringResource(R.string.error_load_members, e.localizedMessage ?: "Unknown")
                                 }
@@ -162,7 +165,7 @@ class FamilyViewModel(
                             }
                         }
                     } else {
-                        _members.value = emptyList()
+                        _members.value = persistentListOf()
                         recalculateSchedule()
                     }
                 }
@@ -441,7 +444,7 @@ class FamilyViewModel(
         val updatedMembers = currentMembers.mapIndexed { index, m ->
             m.copy(sequenceOrder = index)
         }
-        _members.value = updatedMembers
+        _members.value = updatedMembers.toPersistentList()
         recalculateSchedule()
     }
 
@@ -518,7 +521,7 @@ class FamilyViewModel(
         if (currentMembers.isNotEmpty()) {
             val checkedMembers = checkAndResetMembers(currentMembers)
             if (checkedMembers != currentMembers) {
-                _members.value = checkedMembers
+                _members.value = checkedMembers.toPersistentList()
                 recalculateSchedule()
             }
         }
