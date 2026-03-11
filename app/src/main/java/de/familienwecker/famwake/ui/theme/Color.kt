@@ -104,9 +104,9 @@ val md_theme_dark_errorContainer       = ErrorRedContDark    // #93000A
 val md_theme_dark_onError              = Color(0xFF690005)
 val md_theme_dark_onErrorContainer     = ErrorRedCont        // #FFDAD6 – hoch kontrastreich ✓
 
-val md_theme_dark_background           = NightBlue950        // #0F1923 – tiefes Blau-Schwarz
+val md_theme_dark_background           = Color(0xFF000000)   // Echtes AMOLED-Schwarz
 val md_theme_dark_onBackground         = Color(0xFFE8EDF2)
-val md_theme_dark_surface              = NightBlue950
+val md_theme_dark_surface              = Color(0xFF000000)   // Echtes AMOLED-Schwarz
 val md_theme_dark_onSurface            = Color(0xFFE8EDF2)
 val md_theme_dark_surfaceVariant       = NightBlue800        // #161F2A – für Card-ähnliche Elemente
 val md_theme_dark_onSurfaceVariant     = NightBlue150        // Helleres Blau-Weiß für Fließtexte und Sub-Infos
