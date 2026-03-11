@@ -7,6 +7,11 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.7.2] - Unreleased
+### Optimiert & Behoben
+- **Google Play:** Native Debug-Symbole (NDK) werden nun automatisch für saubere Crash-Analysen im Play Console Bundle (.aab) hinterlegt.
+- **Deep Links:** Problem behoben, bei dem Einladungslinks bei bereits im Hintergrund geöffneter App ignoriert wurden (SingleTask Intent Handling).
+
 ## [0.7.1] - 2026-03-11
 ### Optimiert & Behoben
 - **Build (R8):** Die App wird im Release-Modus nun sauber via R8 minifiziert (obfuscated). Die entsprechende `mapping.txt` Datei für Crash-Reports wird vollautomatisch ins Android App Bundle (.aab) integriert.

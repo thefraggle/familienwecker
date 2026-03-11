@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.7.2] - Unreleased
+### Optimized & Fixed
+- **Google Play:** Native debug symbols (NDK) are now fully integrated into the App Bundle (.aab) to ensure clean crash analytics in the Play Console.
+- **Deep Links:** Fixed an issue where invitation links were ignored if the app was already running in the background (warm start Intent routing).
+
 ## [0.7.1] - 2026-03-11
 ### Optimized & Fixed
 - **Build (R8):** The app is now properly minified and obfuscated (via R8) in release mode. The corresponding `mapping.txt` file for crash symbolication is seamlessly embedded into the `.aab` file for the Google Play Console.
