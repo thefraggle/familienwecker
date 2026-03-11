@@ -63,83 +63,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  ### Fixed
 - Numerous small fixes for synchronization and permission management.
 
-## [0.4.14] - 2026-03-05
- 
- ### Added
-- **Lottie Animations:** Integrated dynamic animations for Empty States ("No alarm set" and "No members added").
-- **Layout Optimization:** Improved dashboard spacing for a more compact appearance.
- 
- ### Changed
-- **EmptyState:** Support for Lottie resources including fallback to static images.
-
-## [0.4.13] - 2026-03-05
-
-### Added
-- **Empty States:** Beautiful illustrations and new `EmptyState` component for empty lists.
-- **UI Refinement:** App name in header and footer without hyphens; modernized settings structure (3-line style).
-
-### Changed
-- **Strings & Localization:** Cleaned and updated language resources for a more professional impact.
-- **UX:** Automatic data refresh when app starts in the foreground.
-
-## [0.4.12] - 2026-03-04
-
-### Changed
-- **Language Optimization:** Refined error messages to be user-friendly and intelligently translated (EN/DE), replacing technical server exceptions.
-
-## [0.4.11] - 2026-03-04
-- **Error Handling:** Fixed a visual issue on startup during data recovery.
-
-## [0.4.10] - 2026-03-04
-- **Stability Update:** Fixed a crash during server connection.
-
-## [0.4.9] - 2026-03-04
-- **Error Handling:** Fixed an issue where a fresh installation (from a backup) could briefly trigger a access error.
-
-## [0.4.8] - 2026-03-04
-
-### Added
-- **Housekeeping:** Automated system cleans up orphaned families after 180 days to maintain high performance.
-
-### Changed & Improved
-- **Battery & Performance:** Massive optimization of background processes. The app is now battery-friendly while maintaining 100% alarm precision.
-- **Dark Mode:** Refined dark theme with perfect contrasts across all screens.
-- **Better Planning Limit:** Set a limit of 6 active members per schedule to ensure stability on all devices.
-- **Safe Codes:** Invitation codes now exclude ambiguous characters (like 0 vs O) to prevent typing errors.
-
-### Fixed
-- **Auto-Reset:** Paused members are now reliably reactivated for the upcoming morning.
-
-## [0.4.7] - 2026-03-04
-
-### Added
-- **Visual Feedback:** Bounce effect when clicking buttons and interactive elements for a more responsive feel.
-- **Icons & Help:** New icons for external links (Privacy, Imprint) and email support for better orientation.
-- **Security:** Uniqueness check for family codes upon creation.
-
-### Changed
-- **Settings Structure:** Logical reordering of sections (Profile, Alarm Sound, Family, Language, Help & Support).
-
-## [0.4.6] - 2026-03-04
-
-### UI & UX Overhaul (Dark Mode 2.0)
-- **Deep Dark Mode:** Switched the dark theme to near-black backgrounds for an ultra-modern look and battery-friendly display (OLED).
-- **Contrast Optimization:** Refinement of all text and icon colors for the new design.
-- **Branding:** Consistent **FamWake** logo in the header.
-- **Font Strategy:** Switched to "Nunito" font in various weights for modern typography.
-
-## [0.4.5] - 2026-03-04
-
-### UI & UX Modernization
-- **Glassmorphism:** Introduction of semi-transparent cards with subtle borders.
-- **Gradients:** Soft vertical color gradients depending on the theme.
-- **CornerRadius:** Increased to softer 24dp - 32dp.
-- **Theme Selection:** Support for "Light", "Dark", and "System" including manual selection in settings.
-
-## [0.4.x] - Further Improvements
-- **Unit Tests:** Automated tests for the core algorithm (`Scheduler`).
-- **Icon Cleanup:** Removed unused graphics to reduce app size.
-- **Email Branding:** Designed HTML emails for password reset and verification (DE/EN).
+## [0.4.x] - Summary (March 2026)
+This phase polished the app for a growing user base and enhanced stability:
+- **Design & UX:** Introduction of glassmorphism edge effects, Lottie animations for empty states, and a refined AMOLED Deep Dark Mode. Interactive bounce feedback for buttons.
+- **Stability & Housekeeping:** Automated deletion of orphaned families (after 180 days) and a hard limit of 6 active members per schedule to prevent out-of-memory crashes.
+- **Localization:** Smart, multilingual error messages (DE/EN) instead of technical server exceptions.
+- **UX & Scaling:** Unambiguous invitation codes (no `O` or `0`), automatic localized data refresh on app foreground, and auto-resetting of paused profiles for the next day.
 
 ## [0.3.x] - Summary (February 2026)
 This phase established the core of family planning:
