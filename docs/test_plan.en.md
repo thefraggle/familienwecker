@@ -89,6 +89,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-21 | **Max. Calculation Limit (OOM)** | Attempting to calculate a plan for >6 active members is limited to 6 for crash prevention. |
 | EC-22 | **Garbage Collection (Server)** | Families without updates in the last 180 days are deleted by Cloud Functions on Sundays. |
 | EC-23 | **Missing Alarm Permission (UI)** | If `SCHEDULE_EXACT_ALARM` is missing, a localized error message appears in the UI (no Toast, no crash). |
+| EC-24 | **Accessibility (A11y)** | Touch targets (e.g., in Settings) are at least 24dp large for reliable usability. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |
