@@ -42,6 +42,8 @@ import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var familyViewModel: FamilyViewModel
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -64,11 +66,11 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val context = androidx.compose.ui.platform.LocalContext.current
             val application = context.applicationContext as android.app.Application
-            val familyViewModel: FamilyViewModel = viewModel(
-                factory = de.familienwecker.famwake.ui.viewmodel.FamilyViewModelFactory(application)
-            )
-            // Handle Deep Link
-            LaunchedEffect(intent) {
+            if (!this::familyViewModel.isInitialized) {
+                familyViewModel = viewModel(
+                    factory = de.familienwecker.famwake.ui.viewmodel.FamilyViewModelFactory(application)
+                )
+                // Process deep link if we were started fresh
                 handleDeepLink(intent, familyViewModel)
             }
 
@@ -88,7 +90,9 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        // Note: handleDeepLink is called via LaunchedEffect(intent) in setContent
+        if (this::familyViewModel.isInitialized) {
+            handleDeepLink(intent, familyViewModel)
+        }
     }
 
     private fun handleDeepLink(intent: Intent?, viewModel: FamilyViewModel) {
