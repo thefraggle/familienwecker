@@ -65,7 +65,7 @@ val md_theme_light_tertiaryContainer   = SunriseOrange100    // #FFE8D2
 val md_theme_light_onTertiaryContainer = SunriseOrange900    // #3D1A00 ✓
 
 val md_theme_light_error               = ErrorRed700
-val md_theme_light_errorContainer      = Color(0xFFFFE8E6)   // Entschärfter, weicher roter Hintergrund
+val md_theme_light_errorContainer      = Color(0xFFFFDAD6)   // Entschärfter, weicher roter Hintergrund
 val md_theme_light_onError             = Color(0xFFFFFFFF)
 val md_theme_light_onErrorContainer    = NightBlue950        // Dunkelblau/Schwarz für bessere Lesbarkeit
 
