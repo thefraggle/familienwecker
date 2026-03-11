@@ -140,6 +140,8 @@
     <string name="error_load_members">Fehler beim Laden der Mitglieder: %1$s</string>
     <string name="error_create_family">Fehler beim Erstellen der Familie: %1$s</string>
     <string name="error_invalid_code">Einladungscode ungültig: %1$s</string>
+    <string name="error_family_not_found">Unter diesem Code wurde keine Familie gefunden.</string>
+    <string name="error_code_generation_failed">Konnte keinen eindeutigen Code generieren. Bitte erneut versuchen.</string>
     <string name="join_conflict_title">Neuer Familie beitreten?</string>
     <string name="join_conflict_text">Du bist bereits Mitglied der Familie \"%1$s\". Um der neuen Familie beitreten zu können, musst du deine aktuelle zuerst verlassen. Möchtest du \"%1$s\" verlassen und mit dem Code %2$s beitreten?</string>
     <string name="join_conflict_confirm">Verlassen &amp; Beitreten</string>

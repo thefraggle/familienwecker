@@ -7,6 +7,10 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.6.5] - 2026-03-11
+### Behoben
+- **Fehlende Übersetzungen:** Hardcodierte deutsche Fehler-Strings (z.B. "Unter diesem Code wurde keine Familie gefunden") beim Beitreten in eine Familie wurden durch lokalisierte String-Ressourcen ersetzt, sodass diese Meldungen im Englischen nun korrekt übersetzt werden.
+
 ## [0.6.4] - 2026-03-11
 ### Sicherheit & Architektur
 - **Familiencode (Join Code):** Generierung verwendet nun `SecureRandom` statt `Random` für echten kryptografischen Zufall und Schutz vor Brute-Force Vorhersagen.

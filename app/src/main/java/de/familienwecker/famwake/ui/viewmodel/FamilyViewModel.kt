@@ -7,6 +7,8 @@ import de.familienwecker.famwake.algorithm.Scheduler
 import de.familienwecker.famwake.alarm.AlarmScheduler
 import de.familienwecker.famwake.data.FirebaseRepository
 import de.familienwecker.famwake.data.PreferencesRepository
+import de.familienwecker.famwake.data.FamilyNotFoundException
+import de.familienwecker.famwake.data.CodeGenerationFailedException
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
@@ -214,7 +216,11 @@ class FamilyViewModel(
                 prefsRepo.setFamilyName(familyName)
                 onComplete(true)
             }.onFailure { error ->
-                _errorMessage.value = UiText.StringResource(R.string.error_create_family, error.localizedMessage ?: "Unknown")
+                if (error is CodeGenerationFailedException) {
+                    _errorMessage.value = UiText.StringResource(R.string.error_code_generation_failed)
+                } else {
+                    _errorMessage.value = UiText.StringResource(R.string.error_create_family, error.localizedMessage ?: "Unknown")
+                }
                 onComplete(false)
             }
         }
@@ -247,7 +253,11 @@ class FamilyViewModel(
                 _showJoinSuccess.value = true
                 onComplete(true)
             }.onFailure { error ->
-                _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                if (error is FamilyNotFoundException) {
+                    _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
+                } else {
+                    _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                }
                 _pendingJoinCode.value = null
                 onComplete(false)
             }
@@ -322,7 +332,11 @@ class FamilyViewModel(
                     onComplete(true)
                 }.onFailure { error ->
                     // Code ist ungültig -> Fehler anzeigen, aber in der ALTEN Familie bleiben!
-                    _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                    if (error is FamilyNotFoundException) {
+                        _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
+                    } else {
+                        _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                    }
                     _pendingJoinCode.value = null
                     onComplete(false)
                 }
