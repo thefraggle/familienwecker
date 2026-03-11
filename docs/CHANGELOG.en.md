@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.7.2] - Unreleased
+## [0.7.2] - 2026-03-11
 ### Optimized & Fixed
 - **Google Play:** Native debug symbols (NDK) are now fully integrated into the App Bundle (.aab) to ensure clean crash analytics in the Play Console.
 - **Deep Links:** Fixed an issue where invitation links were ignored if the app was already running in the background (warm start Intent routing).

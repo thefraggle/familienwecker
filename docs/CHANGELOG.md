@@ -7,7 +7,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## [0.7.2] - Unreleased
+## [0.7.2] - 2026-03-11
 ### Optimiert & Behoben
 - **Google Play:** Native Debug-Symbole (NDK) werden nun automatisch für saubere Crash-Analysen im Play Console Bundle (.aab) hinterlegt.
 - **Deep Links:** Problem behoben, bei dem Einladungslinks bei bereits im Hintergrund geöffneter App ignoriert wurden (SingleTask Intent Handling).
