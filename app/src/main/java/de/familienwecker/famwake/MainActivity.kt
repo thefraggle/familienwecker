@@ -62,8 +62,11 @@ class MainActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
         setContent {
-            val familyViewModel: FamilyViewModel = viewModel()
-            
+            val context = androidx.compose.ui.platform.LocalContext.current
+            val application = context.applicationContext as android.app.Application
+            val familyViewModel: FamilyViewModel = viewModel(
+                factory = de.familienwecker.famwake.ui.viewmodel.FamilyViewModelFactory(application)
+            )
             // Handle Deep Link
             LaunchedEffect(intent) {
                 handleDeepLink(intent, familyViewModel)
