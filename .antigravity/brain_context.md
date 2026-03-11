@@ -6,4 +6,4 @@ Android App (FamWake).
   - Algorithmus-basiertes Scheduling (Rückwärtsrechnung von Weck- und Badzeiten).
   - Deep-Linking für Familien-Beitritt (`familienwecker.de/join`).
   - Strict Local Development: Commits und CI/CD-Pipelines (APK/AAB) werden ausschließlich über Git Tags in GitHub Releases gebaut.
-- **Aktueller Stand:** Version 0.7.2 (dev). Release v0.7.1 eingeführt (R8 Obfuscation inkl. auto `mapping.txt`). Alle antiken Changelogs (0.4.x) konsolidiert für saubere Historie.
+- **Aktueller Stand:** Version 0.7.3 (dev). Release v0.7.2 durchgeführt (Fix für SingleTask Deep Links, NDK Crash Symbole für Play Console ergänzt). Release v0.7.1 eingeführt (R8 Obfuscation inkl. auto `mapping.txt`). Alle antiken Changelogs (0.4.x) konsolidiert für saubere Historie.
