@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.7.1] - 2026-03-11
+### Optimized & Fixed
+- **Build (R8):** The app is now properly minified and obfuscated (via R8) in release mode. The corresponding `mapping.txt` file for crash symbolication is seamlessly embedded into the `.aab` file for the Google Play Console.
+- **CI/CD (GitHub Actions):** Massive speedup of the GitHub Release Action (from ~9 back to ~3 minutes). The workflow now correctly utilizes isolated Kotlin & Gradle cache warming on the `main` branch.
+
 ## [0.7.0] - 2026-03-11
 ### Added & Optimized
 - **Performance & Architecture:** Implemented `ImmutableList` for more efficient Compose rendering and improved Dependency Injection (`FirebaseRepository`).
