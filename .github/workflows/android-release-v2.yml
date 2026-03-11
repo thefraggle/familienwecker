@@ -2,8 +2,6 @@ name: Android Release Build
 
 on:
   push:
-    branches:
-      - main
     tags:
       - v*
   workflow_dispatch:
@@ -100,7 +98,6 @@ jobs:
 
       # Nimmt das fertige APK und AAB und hängt sie als Pre-Release an den GitHub-Tag
       - name: Create GitHub Pre-Release
-        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: |
