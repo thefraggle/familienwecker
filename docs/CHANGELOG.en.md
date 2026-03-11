@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.6.5] - 2026-03-11
 ### Fixed
 - **Missing Translations:** Replaced hardcoded German error strings (e.g., "Family not found") when joining a family with localized string resources, ensuring these messages are properly translated into English.
+- **Missing UI Translations:** Localized hardcoded texts in the Settings screen (Profile Claiming, Appearance) and Authentication system (Login, Registration) for better DE/EN support.
 
 ## [0.6.4] - 2026-03-11
 ### Security & Architecture

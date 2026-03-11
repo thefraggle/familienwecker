@@ -179,7 +179,7 @@ fun SettingsScreen(
                                             Text(member.name)
                                             if (isClaimedByOther) {
                                                 Text(
-                                                    text = "bereits belegt",
+                                                    text = stringResource(R.string.settings_already_claimed),
                                                     style = MaterialTheme.typography.labelSmall,
                                                     color = MaterialTheme.colorScheme.error
                                                 )
@@ -188,10 +188,11 @@ fun SettingsScreen(
                                     },
                                     onClick = {
                                         if (!isClaimedByOther) {
+                                            val errorMessage = context.getString(R.string.error_profile_taken)
                                             viewModel.setMyMemberId(member.id) { success ->
                                                 if (!success) {
                                                     coroutineScope.launch {
-                                                        snackbarHostState.showSnackbar("Dieses Profil ist bereits belegt.")
+                                                        snackbarHostState.showSnackbar(errorMessage)
                                                     }
                                                 }
                                             }
@@ -460,7 +461,7 @@ fun SettingsScreen(
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text("🌗", modifier = Modifier.padding(end = 8.dp))
-                        Text(if (currentLanguage == "de") "Erscheinungsbild" else "Theme", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.settings_appearance_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     
@@ -469,8 +470,8 @@ fun SettingsScreen(
                         onExpandedChange = { themeExpanded = !themeExpanded }
                     ) {
                         val themeLabel = when (themePreference) {
-                            "dark" -> if (currentLanguage == "de") "Dunkel" else "Dark"
-                            "light" -> if (currentLanguage == "de") "Hell" else "Light"
+                            "dark" -> stringResource(R.string.settings_theme_dark)
+                            "light" -> stringResource(R.string.settings_theme_light)
                             else -> stringResource(R.string.settings_language_system)
                         }
                         
@@ -487,11 +488,11 @@ fun SettingsScreen(
                             onDismissRequest = { themeExpanded = false }
                         ) {
                             DropdownMenuItem(
-                                text = { Text(if (currentLanguage == "de") "Hell" else "Light") },
+                                text = { Text(stringResource(R.string.settings_theme_light)) },
                                 onClick = { viewModel.setThemePreference("light"); themeExpanded = false }
                             )
                             DropdownMenuItem(
-                                text = { Text(if (currentLanguage == "de") "Dunkel" else "Dark") },
+                                text = { Text(stringResource(R.string.settings_theme_dark)) },
                                 onClick = { viewModel.setThemePreference("dark"); themeExpanded = false }
                             )
                             DropdownMenuItem(

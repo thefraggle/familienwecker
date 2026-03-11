@@ -131,6 +131,11 @@
     <string name="settings_delete_account">Delete Account (Info)</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
 
+    <string name="settings_already_claimed">already claimed</string>
+    <string name="settings_appearance_title">Appearance</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+
     <string name="ringing_wake_up">Wake up, %s!</string>
     <string name="ringing_message">Thanks to the perfect schedule, you have enough time in the bathroom today.</string>
     <string name="ringing_stop">Stop Alarm</string>
@@ -153,13 +158,17 @@
     <string name="error_not_logged_in">User not logged in</string>
     <string name="error_system">System error: %1$s</string>
     <string name="error_login_failed">Login failed: %1$s</string>
+    <string name="error_login_failed_unknown">Unknown login error</string>
     <string name="error_registration_failed">Registration failed: %1$s</string>
+    <string name="error_registration_failed_unknown">Could not create user</string>
     <string name="error_google_sign_in_failed">Google Sign-In failed: %1$s</string>
+    <string name="error_google_sign_in_failed_unknown">Google Sign-In failed</string>
     <string name="error_empty_email">Please enter an email address.</string>
     <string name="error_invalid_email">Invalid email address. Please check the spelling.</string>
     <string name="error_user_not_found">No account found for this email address.</string>
     <string name="error_too_many_requests">Too many attempts. Please wait and try again.</string>
     <string name="error_password_reset_failed">Password reset failed. Please try again later.</string>
+    <string name="error_profile_taken">This profile is already claimed.</string>
     <string name="join_success_title">Family Joined!</string>
     <string name="join_success_message">You have successfully joined the family.</string>
     <string name="ok">OK</string>

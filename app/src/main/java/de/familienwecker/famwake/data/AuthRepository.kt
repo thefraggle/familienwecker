@@ -5,6 +5,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await
 
+class LoginFailedException : Exception()
+class RegistrationFailedException : Exception()
+class GoogleSignInFailedException : Exception()
+
 class AuthRepository {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -18,7 +22,7 @@ class AuthRepository {
             if (user != null) {
                 Result.success(user)
             } else {
-                Result.failure(Exception("Unbekannter Login-Fehler"))
+                Result.failure(LoginFailedException())
             }
         } catch (e: Exception) {
             Result.failure(e)
@@ -32,7 +36,7 @@ class AuthRepository {
             if (user != null) {
                 Result.success(user)
             } else {
-                Result.failure(Exception("Konnte User nicht anlegen"))
+                Result.failure(RegistrationFailedException())
             }
         } catch (e: Exception) {
             Result.failure(e)
@@ -100,7 +104,7 @@ class AuthRepository {
             if (user != null) {
                 Result.success(user)
             } else {
-                Result.failure(Exception("Google Sign-In fehlgeschlagen"))
+                Result.failure(GoogleSignInFailedException())
             }
         } catch (e: Exception) {
             Result.failure(e)
