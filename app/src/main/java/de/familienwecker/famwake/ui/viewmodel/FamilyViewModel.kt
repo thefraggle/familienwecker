@@ -29,9 +29,11 @@ import de.familienwecker.famwake.util.WhatsNewContent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 
-class FamilyViewModel(application: Application) : AndroidViewModel(application) {
+class FamilyViewModel(
+    application: Application,
+    private val repository: FirebaseRepository = FirebaseRepository()
+) : AndroidViewModel(application) {
 
-    private val repository = FirebaseRepository()
     private val scheduler = Scheduler()
     private val alarmScheduler = AlarmScheduler(application)
     private val prefsRepo = PreferencesRepository(application)

@@ -229,7 +229,8 @@ class FirebaseRepository {
     private fun generateJoinCode(): String {
         // Base32 ohne verwechselbare Zeichen (0, O, 1, I)
         val chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
-        return (1..6).map { chars[Random.nextInt(chars.length)] }.joinToString("")
+        val secureRandom = java.security.SecureRandom()
+        return (1..6).map { chars[secureRandom.nextInt(chars.length)] }.joinToString("")
     }
 
     suspend fun saveUserFamily(userId: String, familyId: String, joinCode: String) {
