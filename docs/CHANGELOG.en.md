@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.7.4] - 2026-03-12
+## [0.7.5] - 2026-03-12
 ### Optimized
-- **App Size:** Removed native debug symbols (NDK) to bring the App Bundle back under 4 MB, as embedding them provided no measurable benefit in the Play Console.
+- **Play Console (NDK):** Native debug symbols are now reliably embedded via `FULL` directly into the App Bundle. Additionally, the NDK is explicitly installed in the CI pipeline to ensure symbols are generated correctly.
+
+### Fixed
+- **Security (Revert):** Removed the experimental screenshot lock (`FLAG_SECURE`) as it did not meet reliability standards during testing.
+
+## [0.7.4] - 2026-03-12
+### Info
+- This version involved testing various NDK configurations. Finalized symbol integration is implemented in v0.7.5.
 
 ## [0.7.3] - 2026-03-12
 ### Added & Optimized
