@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [0.9.5] - 2026-03-12
+### Improvements
+- **CompositionLocal for Dark Theme:** `isSystemInDarkTheme()` is now called once at the theme root and provided via `LocalDarkTheme` – cleaner architecture, no redundant system state queries.
+- **SyncStatus expanded:** The cloud sync indicator now monitors both the family document and the members sub-collection.
+- **Password validation:** Client-side check (min. 8 chars) prevents unnecessary Firebase calls for too-short passwords.
+
+## [0.9.2] - 2026-03-12
+### Security & Code Quality (Audit Fixes)
+- **Boot resilience:** Alarms are automatically rescheduled after device restart (`BootReceiver`).
+- **Deep Links:** Only HTTPS scheme allowed – HTTP removed from invitation links.
+- **Type-safe navigation:** Navigation routes centralized in `Routes` object; typos now cause compile errors instead of runtime crashes.
+- **Battery warning:** Settings screen shows a warning card when battery optimization is active (may delay alarm).
+- **SharedPreferences listener:** Properly unregistered on ViewModel destroy – prevents memory leak.
+- **Offline fallback:** `getUserFamily()` uses locally cached join code as fallback on Firestore errors.
+- **Code cleanup:** Duplicate Firestore mapping centralized in `FamilyMemberMapper`; redundant imports removed.
+
 ## [0.9.1] - 2026-03-12
 ### Added
 - **Alarm Status Sync:** The alarm status of claimed family members is now live-synced in the member list. When someone disables their alarm, others see it instantly – no app restart required. The global alarm switch remains device-specific.
