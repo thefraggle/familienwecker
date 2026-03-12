@@ -204,6 +204,10 @@ class FamilyViewModel(
         checkWhatsNew()
     }
 
+    fun setError(message: UiText) {
+        _errorMessage.value = message
+    }
+
     fun createFamily(familyName: String, onComplete: (Boolean) -> Unit) {
         _errorMessage.value = null
         val uid = auth.currentUser?.uid
@@ -214,7 +218,7 @@ class FamilyViewModel(
         }
         viewModelScope.launch {
             if (!NetworkUtils.isOnline(getApplication())) {
-                _errorMessage.value = UiText.StringResource(R.string.error_not_logged_in) // Reuse or add offline error
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
                 onComplete(false)
                 return@launch
             }
@@ -318,6 +322,13 @@ class FamilyViewModel(
         viewModelScope.launch {
             _isSyncing.value = true
             try {
+                // O8: Netzwerk-Check vor Join-Versuch
+                if (!NetworkUtils.isOnline(getApplication())) {
+                    _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
+                    onComplete(false)
+                    return@launch
+                }
+
                 // Versuche zuerst der neuen Familie beizutreten, BEVOR die alte verlassen wird!
                 val result = repository.joinFamilyByCode(code)
                 result.onSuccess { pair ->
