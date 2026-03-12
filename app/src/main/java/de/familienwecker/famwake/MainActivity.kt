@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -20,10 +21,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -42,7 +41,10 @@ import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var familyViewModel: FamilyViewModel
+    // H-3: ViewModel via Activity-Delegate initialisieren – nicht in setContent
+    private val familyViewModel: FamilyViewModel by viewModels {
+        de.familienwecker.famwake.ui.viewmodel.FamilyViewModelFactory(application)
+    }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -62,19 +64,12 @@ class MainActivity : AppCompatActivity() {
         // Android 14+ Full Screen Intent check
         checkFullScreenIntentPermission()
 
+        // H-3: Deep Link sofort nach Initialisierung verarbeiten (kein lazy check mehr)
+        handleDeepLink(intent, familyViewModel)
+
         enableEdgeToEdge()
         setContent {
-            val context = androidx.compose.ui.platform.LocalContext.current
-            val application = context.applicationContext as android.app.Application
-            if (!this::familyViewModel.isInitialized) {
-                familyViewModel = viewModel(
-                    factory = de.familienwecker.famwake.ui.viewmodel.FamilyViewModelFactory(application)
-                )
-                // Process deep link if we were started fresh
-                handleDeepLink(intent, familyViewModel)
-            }
-
-            val themePref by familyViewModel.themePreference.collectAsState()
+            val themePref by familyViewModel.themePreference.collectAsStateWithLifecycle()
             val darkTheme = when (themePref) {
                 "dark" -> true
                 "light" -> false
@@ -90,9 +85,8 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        if (this::familyViewModel.isInitialized) {
-            handleDeepLink(intent, familyViewModel)
-        }
+        // familyViewModel ist via by viewModels() immer initialisiert
+        handleDeepLink(intent, familyViewModel)
     }
 
     private fun handleDeepLink(intent: Intent?, viewModel: FamilyViewModel) {

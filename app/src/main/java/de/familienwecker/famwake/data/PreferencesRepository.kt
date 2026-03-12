@@ -4,12 +4,69 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.media.RingtoneManager
 import androidx.core.content.edit
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+private const val PREFS_FILE = "FamilienweckerPrefs"
+private const val ENCRYPTED_PREFS_FILE = "FamilienweckerPrefs_enc"
+private const val MIGRATION_DONE_KEY = "enc_migration_v1"
+
 class PreferencesRepository(context: Context) {
-    private val prefs: SharedPreferences = context.getSharedPreferences("FamilienweckerPrefs", Context.MODE_PRIVATE)
+    private val prefs: SharedPreferences = createEncryptedPrefs(context).also {
+        // H-5: Einmalige Migration von alten unverschlüsselten Prefs
+        migrateIfNeeded(context, it)
+    }
+
+    companion object {
+        private fun createEncryptedPrefs(context: Context): SharedPreferences {
+            return try {
+                val masterKey = MasterKey.Builder(context)
+                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                    .build()
+                EncryptedSharedPreferences.create(
+                    context,
+                    ENCRYPTED_PREFS_FILE,
+                    masterKey,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                )
+            } catch (e: Exception) {
+                // Fallback auf unverschlüsselte Prefs wenn EncryptedSharedPreferences nicht verfügbar
+                android.util.Log.e("PreferencesRepository", "EncryptedSharedPreferences nicht verfügbar, Fallback: ${e.message}")
+                context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+            }
+        }
+
+        private fun migrateIfNeeded(context: Context, encrypted: SharedPreferences) {
+            val legacy = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+            // Prüfen ob Migration noch nicht durchgeführt oder ob encrypted auf legacy zeigt (Fallback-Fall)
+            if (legacy === encrypted) return
+            if (encrypted.contains(MIGRATION_DONE_KEY)) return
+            if (legacy.all.isEmpty()) {
+                encrypted.edit { putBoolean(MIGRATION_DONE_KEY, true) }
+                return
+            }
+            // Werte übertragen
+            encrypted.edit {
+                legacy.getString("MY_MEMBER_ID", null)?.let { putString("MY_MEMBER_ID", it) }
+                legacy.getString("ALARM_SOUND_URI", null)?.let { putString("ALARM_SOUND_URI", it) }
+                legacy.getString("FAMILY_ID", null)?.let { putString("FAMILY_ID", it) }
+                legacy.getString("JOIN_CODE", null)?.let { putString("JOIN_CODE", it) }
+                legacy.getString("FAMILY_NAME", null)?.let { putString("FAMILY_NAME", it) }
+                legacy.getString("APP_LANGUAGE", null)?.let { putString("APP_LANGUAGE", it) }
+                legacy.getString("APP_THEME", null)?.let { putString("APP_THEME", it) }
+                putBoolean("ALARM_ENABLED", legacy.getBoolean("ALARM_ENABLED", false))
+                putInt("LAST_SEEN_WHATS_NEW_VERSION", legacy.getInt("LAST_SEEN_WHATS_NEW_VERSION", 0))
+                putBoolean(MIGRATION_DONE_KEY, true)
+            }
+            // Alte Prefs löschen
+            legacy.edit { clear() }
+            android.util.Log.i("PreferencesRepository", "Migration zu EncryptedSharedPreferences abgeschlossen.")
+        }
+    }
 
     private val _myMemberId = MutableStateFlow<String?>(prefs.getString("MY_MEMBER_ID", null))
     val myMemberId: StateFlow<String?> = _myMemberId.asStateFlow()
