@@ -1,31 +1,42 @@
 package de.familienwecker.famwake.ui.viewmodel
 
 import android.app.Application
+import android.content.Context
+import androidx.credentials.CredentialManager
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import de.familienwecker.famwake.data.AuthRepository
-import de.familienwecker.famwake.data.LoginFailedException
-import de.familienwecker.famwake.data.RegistrationFailedException
-import de.familienwecker.famwake.data.GoogleSignInFailedException
-import de.familienwecker.famwake.data.FirebaseRepository
-import de.familienwecker.famwake.data.PreferencesRepository
-import com.google.firebase.auth.AuthCredential
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import de.familienwecker.famwake.FamWakeApplication
+import de.familienwecker.famwake.R
+import de.familienwecker.famwake.data.AuthRepository
+import de.familienwecker.famwake.data.FirebaseRepository
+import de.familienwecker.famwake.data.GoogleSignInFailedException
+import de.familienwecker.famwake.data.LoginFailedException
+import de.familienwecker.famwake.data.PreferencesRepository
+import de.familienwecker.famwake.data.RegistrationFailedException
+import de.familienwecker.famwake.ui.util.UiText
+import de.familienwecker.famwake.util.NetworkUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import de.familienwecker.famwake.R
-import de.familienwecker.famwake.ui.util.UiText
-import de.familienwecker.famwake.util.NetworkUtils
 import kotlinx.coroutines.withTimeoutOrNull
+import java.security.MessageDigest
+import java.util.UUID
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val authRepository: AuthRepository = AuthRepository()
-    private val prefsRepository: PreferencesRepository = PreferencesRepository(application)
+    private val prefsRepository: PreferencesRepository =
+        (application as FamWakeApplication).preferencesRepository
     private val dbRepository: FirebaseRepository = FirebaseRepository()
 
     sealed class AuthState {
@@ -70,41 +81,40 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 _isRestoringFamily.value = false
                 return@launch
             }
-            
+
             val result = withTimeoutOrNull(2000) {
                 dbRepository.getUserFamily(uid, cachedJoinCode = prefsRepository.joinCode.value)
             }
-            
+
             if (result == null) {
-                // Timeout or generic error handled below
                 _isRestoringFamily.value = false
                 return@launch
             }
 
             result.onSuccess { pair ->
                 if (pair != null) {
-                        val familyExistsResult = kotlin.runCatching { 
-                            withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
+                    val familyExistsResult = kotlin.runCatching {
+                        withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
+                    }
+                    if (familyExistsResult.getOrNull() == true) {
+                        if (prefsRepository.familyId.value == pair.first) {
+                            prefsRepository.setFamilyId("")
                         }
-                        if (familyExistsResult.getOrNull() == true) {
-                            if (prefsRepository.familyId.value == pair.first) {
-                                prefsRepository.setFamilyId("")
-                            }
-                            prefsRepository.setFamilyId(pair.first)
-                            prefsRepository.setJoinCode(pair.second)
-                            // isAlarmEnabled wird NICHT aus Firestore geladen (gerätespezifisch)
-                            
-                            val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(pair.first) }
-                            prefsRepository.setFamilyName(familyName)
-                            
-                            val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
-                            if (claimedMember != null) {
-                                prefsRepository.setMyMemberId(claimedMember.id)
-                            }
-                        } else if (familyExistsResult.getOrNull() == false) {
-                            dbRepository.removeUserFamily(uid)
-                            prefsRepository.clearAll()
+                        prefsRepository.setFamilyId(pair.first)
+                        prefsRepository.setJoinCode(pair.second)
+
+                        val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(pair.first) }
+                        prefsRepository.setFamilyName(familyName)
+
+                        val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
+                        if (claimedMember != null) {
+                            prefsRepository.setMyMemberId(claimedMember.id)
+                            prefsRepository.setMyMemberName(claimedMember.name)
                         }
+                    } else if (familyExistsResult.getOrNull() == false) {
+                        dbRepository.removeUserFamily(uid)
+                        prefsRepository.clearAll()
+                    }
                 } else {
                     prefsRepository.clearAll()
                 }
@@ -130,7 +140,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 val uiMessage = when (error) {
                     is FirebaseAuthInvalidCredentialsException -> UiText.StringResource(R.string.error_login_failed)
                     is LoginFailedException -> UiText.StringResource(R.string.error_login_failed_unknown)
-                    else -> UiText.StringResource(R.string.error_login_failed, error.localizedMessage ?: "Unknown")
+                    else -> UiText.StringResource(R.string.error_login_failed)
                 }
                 _authState.value = AuthState.Error(uiMessage)
             }
@@ -138,7 +148,6 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun register(email: String, pass: String) {
-        // M-7: Clientseitige Validierung (min. 8 Zeichen) vor Firebase-Aufruf
         if (pass.length < 8) {
             _authState.value = AuthState.Error(UiText.StringResource(R.string.error_password_too_short))
             return
@@ -148,9 +157,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val result = authRepository.register(email, pass)
             result.onSuccess {
-                // Double Opt-In: Verifikations-Mail senden, NICHT direkt einloggen
                 val sendResult = authRepository.sendVerificationEmail(email, language)
-                if (sendResult.isFailure) {
+                if (sendResult.isFailure && de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("AuthViewModel", "Failed to send verification email: ${sendResult.exceptionOrNull()}")
                 }
                 _authState.value = AuthState.AwaitingEmailVerification
@@ -159,27 +167,75 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     is FirebaseAuthWeakPasswordException -> UiText.StringResource(R.string.error_password_too_short)
                     is FirebaseAuthUserCollisionException -> UiText.StringResource(R.string.error_email_already_in_use)
                     is RegistrationFailedException -> UiText.StringResource(R.string.error_registration_failed_unknown)
-                    else -> UiText.StringResource(R.string.error_registration_failed, error.localizedMessage ?: "Unknown")
+                    else -> UiText.StringResource(R.string.error_registration_failed_unknown)
                 }
                 _authState.value = AuthState.Error(uiMessage)
             }
         }
     }
 
-    fun signInWithGoogle(credential: AuthCredential) {
+    /**
+     * M-5: Kompletter Google Sign-In Flow – von Nonce-Generierung bis Firebase-Auth.
+     * Der Context wird nur für den Credential Manager benötigt und nicht gespeichert.
+     */
+    fun signInWithGoogle(context: Context) {
         _authState.value = AuthState.Loading
         viewModelScope.launch {
-            val result = authRepository.signInWithGoogleCredential(credential)
-            result.onSuccess { user ->
-                _authState.value = AuthState.Authenticated(user)
-                restoreUserFamily(user.uid)
-            }.onFailure { error ->
-                val uiMessage = if (error is GoogleSignInFailedException) {
-                    UiText.StringResource(R.string.error_google_sign_in_failed_unknown)
+            try {
+                val credentialManager = CredentialManager.create(context)
+
+                val rawNonce = UUID.randomUUID().toString()
+                val hashedNonce = MessageDigest.getInstance("SHA-256")
+                    .digest(rawNonce.toByteArray())
+                    .fold("") { str, it -> str + "%02x".format(it) }
+
+                val googleIdOption = GetGoogleIdOption.Builder()
+                    .setFilterByAuthorizedAccounts(false)
+                    .setServerClientId(context.getString(R.string.default_web_client_id))
+                    .setNonce(hashedNonce)
+                    .setAutoSelectEnabled(true)
+                    .build()
+
+                val request = GetCredentialRequest.Builder()
+                    .addCredentialOption(googleIdOption)
+                    .build()
+
+                val result = credentialManager.getCredential(context, request)
+                val credential = result.credential
+
+                if (credential is androidx.credentials.CustomCredential &&
+                    credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+                ) {
+                    val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                    val firebaseCredential = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
+
+                    val authResult = authRepository.signInWithGoogleCredential(firebaseCredential)
+                    authResult.onSuccess { user ->
+                        _authState.value = AuthState.Authenticated(user)
+                        restoreUserFamily(user.uid)
+                    }.onFailure { error ->
+                        val msg = if (error is GoogleSignInFailedException) {
+                            UiText.StringResource(R.string.error_google_sign_in_failed_unknown)
+                        } else {
+                            UiText.StringResource(R.string.error_google_sign_in_failed_unknown)
+                        }
+                        _authState.value = AuthState.Error(msg)
+                    }
                 } else {
-                    UiText.StringResource(R.string.error_google_sign_in_failed, error.localizedMessage ?: "Unknown")
+                    _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed_unknown))
                 }
-                _authState.value = AuthState.Error(uiMessage)
+            } catch (_: NoCredentialException) {
+                _authState.value = AuthState.Error(UiText.StringResource(R.string.login_google_error_no_account))
+            } catch (e: GetCredentialException) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("AuthViewModel", "Google Sign-In failed: ${e.message}")
+                }
+                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed_unknown))
+            } catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("AuthViewModel", "Unexpected Google Sign-In error: ${e.message}")
+                }
+                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed_unknown))
             }
         }
     }
@@ -196,7 +252,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         _authState.value = AuthState.Loading
-        val language = java.util.Locale.getDefault().language // "de", "en", etc.
+        val language = java.util.Locale.getDefault().language
         viewModelScope.launch {
             val result = authRepository.sendPasswordResetEmail(email, language)
             result.onSuccess {
@@ -230,8 +286,6 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             } else {
-                // Hier könnten wir auch einen speziellen Error-String definieren, 
-                // wird aber intern anscheinend nur zur Screen-Steuerung genutzt.
                 _authState.value = AuthState.Error(UiText.DynamicString("EMAIL_NOT_VERIFIED"))
             }
         }

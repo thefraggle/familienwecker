@@ -38,12 +38,13 @@ import kotlinx.coroutines.withTimeoutOrNull
 
 class FamilyViewModel(
     application: Application,
-    private val repository: FirebaseRepository = FirebaseRepository()
+    private val repository: FirebaseRepository = FirebaseRepository(),
+    prefsRepo: PreferencesRepository = PreferencesRepository(application)
 ) : AndroidViewModel(application) {
 
     private val scheduler = Scheduler()
     private val alarmScheduler = AlarmScheduler(application)
-    private val prefsRepo = PreferencesRepository(application)
+    private val prefsRepo: PreferencesRepository = prefsRepo
     private val auth = FirebaseAuth.getInstance()
     private val whatsNewManager = WhatsNewManager(application)
 
@@ -80,7 +81,7 @@ class FamilyViewModel(
     private val _showJoinSuccess = MutableStateFlow(false)
     val showJoinSuccess: StateFlow<Boolean> = _showJoinSuccess.asStateFlow()
 
-    // O5: Offline-Debounce – CloudOff-Icon erst nach 3s ohne Verbindung zeigen
+    // Offline-Debounce – CloudOff-Icon erst nach 3s ohne Verbindung zeigen
     private val _isOffline = MutableStateFlow(false)
     val isOffline: StateFlow<Boolean> = _isOffline.asStateFlow()
     private var offlineDebounceJob: Job? = null

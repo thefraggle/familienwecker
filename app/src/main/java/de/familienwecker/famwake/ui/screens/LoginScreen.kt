@@ -27,22 +27,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.credentials.CredentialManager
-import androidx.credentials.GetCredentialRequest
-import androidx.credentials.exceptions.GetCredentialException
-import androidx.credentials.exceptions.NoCredentialException
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.ui.util.UiText
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.coroutines.launch
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
-import java.security.MessageDigest
-import java.util.UUID
 import androidx.activity.compose.BackHandler
 
 @Composable
@@ -52,8 +42,7 @@ fun LoginScreen(
     onLoginSuccess: () -> Unit
 ) {
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-    
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isRegistering by remember { mutableStateOf(false) }
@@ -64,12 +53,10 @@ fun LoginScreen(
 
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
 
-    // Automatische Weiterleitung, wenn der User erfolgreich eingeloggt ist
     LaunchedEffect(authState) {
         if (authState is AuthViewModel.AuthState.Authenticated) {
             onLoginSuccess()
         }
-        // Bei EMAIL_NOT_VERIFIED zurück in AwaitingEmailVerification (State bleibt Error -> wird im UI angezeigt)
     }
 
     val themePreference by familyViewModel.themePreference.collectAsStateWithLifecycle()
@@ -78,7 +65,7 @@ fun LoginScreen(
         "light" -> false
         else -> LocalDarkTheme.current
     }
-    
+
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
         colors = if (isDarkTheme) {
             listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.background)
@@ -127,7 +114,7 @@ fun LoginScreen(
                     elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
-                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
                                          else MaterialTheme.colorScheme.surface
                     )
                 ) {
@@ -136,203 +123,162 @@ fun LoginScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text(stringResource(R.string.email_label)) },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email,
-                    imeAction = ImeAction.Next
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text(stringResource(R.string.password_label)) },
-                singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Done
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
+                        OutlinedTextField(
+                            value = email,
+                            onValueChange = { email = it },
+                            label = { Text(stringResource(R.string.email_label)) },
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Email,
+                                imeAction = ImeAction.Next
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        OutlinedTextField(
+                            value = password,
+                            onValueChange = { password = it },
+                            label = { Text(stringResource(R.string.password_label)) },
+                            singleLine = true,
+                            visualTransformation = PasswordVisualTransformation(),
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Password,
+                                imeAction = ImeAction.Done
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
 
-            Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(24.dp))
 
-            if (authState is AuthViewModel.AuthState.Loading) {
-                CircularProgressIndicator()
-            } else if (authState is AuthViewModel.AuthState.AwaitingEmailVerification) {
-                // --- Double Opt-In: Warte auf E-Mail-Bestätigung ---
-                val userEmail = remember { authViewModel.currentUserEmail ?: email }
+                        if (authState is AuthViewModel.AuthState.Loading) {
+                            CircularProgressIndicator()
+                        } else if (authState is AuthViewModel.AuthState.AwaitingEmailVerification) {
+                            val userEmail = remember { authViewModel.currentUserEmail ?: email }
 
-                Text(
-                    text = stringResource(R.string.login_verify_email_title),
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = stringResource(R.string.login_verify_email_text, userEmail),
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                Button(
-                    onClick = { authViewModel.checkEmailVerified() },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(stringResource(R.string.login_verify_email_confirm))
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                TextButton(onClick = { authViewModel.resendVerificationEmail() }) {
-                    Text(stringResource(R.string.login_verify_email_resend))
-                }
-                TextButton(onClick = {
-                    authViewModel.logout()
-                    isRegistering = true
-                }) {
-                    Text(stringResource(R.string.cancel_button),
-                        color = MaterialTheme.colorScheme.error)
-                }
-            } else {
-                val loginInteractionSource = remember { MutableInteractionSource() }
-
-                Button(
-                    onClick = {
-                        if (isRegistering) {
-                            authViewModel.register(email, password)
+                            Text(
+                                text = stringResource(R.string.login_verify_email_title),
+                                style = MaterialTheme.typography.headlineSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = stringResource(R.string.login_verify_email_text, userEmail),
+                                style = MaterialTheme.typography.bodyMedium,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                            Spacer(modifier = Modifier.height(24.dp))
+                            Button(
+                                onClick = { authViewModel.checkEmailVerified() },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(stringResource(R.string.login_verify_email_confirm))
+                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            TextButton(onClick = { authViewModel.resendVerificationEmail() }) {
+                                Text(stringResource(R.string.login_verify_email_resend))
+                            }
+                            TextButton(onClick = {
+                                authViewModel.logout()
+                                isRegistering = true
+                            }) {
+                                Text(
+                                    stringResource(R.string.cancel_button),
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            }
                         } else {
-                            authViewModel.login(email, password)
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .bounceClick(loginInteractionSource),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
-                    interactionSource = loginInteractionSource,
-                    enabled = email.isNotBlank() && password.isNotBlank()
-                ) {
-                    Text(
-                        text = if (isRegistering) stringResource(R.string.register_button) else stringResource(R.string.login_button),
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                }
+                            val loginInteractionSource = remember { MutableInteractionSource() }
 
-                Spacer(modifier = Modifier.height(8.dp))
-
-                TextButton(onClick = { isRegistering = !isRegistering }) {
-                    Text(
-                        if (isRegistering) stringResource(R.string.already_have_account)
-                        else stringResource(R.string.no_account)
-                    )
-                }
-
-                if (!isRegistering) {
-                    TextButton(onClick = {
-                        authViewModel.resetPassword(email)
-                    }) {
-                        Text(stringResource(R.string.login_forgot_password))
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-                
-                    val googleInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = {
-                            coroutineScope.launch {
-                                try {
-                                    val credentialManager = CredentialManager.create(context)
-                                    
-                                    val rawNonce = UUID.randomUUID().toString()
-                                    val bytes = rawNonce.toByteArray()
-                                    val md = MessageDigest.getInstance("SHA-256")
-                                    val digest = md.digest(bytes)
-                                    val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
-
-                                    val googleIdOption = GetGoogleIdOption.Builder()
-                                        .setFilterByAuthorizedAccounts(false)
-                                        .setServerClientId(context.getString(R.string.default_web_client_id))
-                                        .setNonce(hashedNonce)
-                                        .setAutoSelectEnabled(true)
-                                        .build()
-
-                                    val request = GetCredentialRequest.Builder()
-                                        .addCredentialOption(googleIdOption)
-                                        .build()
-
-                                    val result = credentialManager.getCredential(context, request)
-                                    val credential = result.credential
-                                    
-                                    if (credential is androidx.credentials.CustomCredential &&
-                                        credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
-                                    ) {
-                                        val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                                        val firebaseCredential = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
-                                        authViewModel.signInWithGoogle(firebaseCredential)
+                            Button(
+                                onClick = {
+                                    if (isRegistering) {
+                                        authViewModel.register(email, password)
+                                    } else {
+                                        authViewModel.login(email, password)
                                     }
-                                } catch (_: NoCredentialException) {
-                                    authViewModel.setError(UiText.StringResource(R.string.login_google_error_no_account))
-                                } catch (e: GetCredentialException) {
-                                    authViewModel.setError(UiText.DynamicString("Google Login failed: ${e.message}"))
-                                } catch (e: Exception) {
-                                    authViewModel.setError(UiText.DynamicString("Unerwarteter Fehler: ${e.message}"))
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(56.dp)
+                                    .bounceClick(loginInteractionSource),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                interactionSource = loginInteractionSource,
+                                enabled = email.isNotBlank() && password.isNotBlank()
+                            ) {
+                                Text(
+                                    text = if (isRegistering) stringResource(R.string.register_button) else stringResource(R.string.login_button),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            TextButton(onClick = { isRegistering = !isRegistering }) {
+                                Text(
+                                    if (isRegistering) stringResource(R.string.already_have_account)
+                                    else stringResource(R.string.no_account)
+                                )
+                            }
+
+                            if (!isRegistering) {
+                                TextButton(onClick = { authViewModel.resetPassword(email) }) {
+                                    Text(stringResource(R.string.login_forgot_password))
                                 }
                             }
-                        },
-                        modifier = Modifier.fillMaxWidth().bounceClick(googleInteractionSource),
-                        interactionSource = googleInteractionSource
-                    ) {
-                    Icon(
-                        painter = androidx.compose.ui.res.painterResource(id = R.drawable.ic_google),
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp),
-                        tint = Color.Unspecified
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.login_with_google))
-                }
-            }
 
-            if (authState is AuthViewModel.AuthState.Error) {
-                Spacer(modifier = Modifier.height(16.dp))
-                val errorUiText = (authState as AuthViewModel.AuthState.Error).message
-                
-                val isEmailNotVerified = errorUiText is UiText.DynamicString && errorUiText.value == "EMAIL_NOT_VERIFIED"
-                
-                val displayMsg = if (isEmailNotVerified) {
-                    stringResource(R.string.login_verify_email_not_verified)
-                } else errorUiText.asString()
-                Text(
-                    text = displayMsg,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                // Nach EMAIL_NOT_VERIFIED zurück zum AwaitingEmailVerification Screen
-                if (isEmailNotVerified) {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    TextButton(onClick = { authViewModel.resendVerificationEmail() }) {
-                        Text(stringResource(R.string.login_verify_email_resend))
-                    }
-                }
-            }
+                            Spacer(modifier = Modifier.height(16.dp))
 
-            if (authState is AuthViewModel.AuthState.PasswordResetSuccess) {
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = stringResource(R.string.login_password_reset_sent),
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                            // M-5: Google Sign-In – der Flow läuft vollständig im ViewModel
+                            val googleInteractionSource = remember { MutableInteractionSource() }
+                            OutlinedButton(
+                                onClick = { authViewModel.signInWithGoogle(context) },
+                                modifier = Modifier.fillMaxWidth().bounceClick(googleInteractionSource),
+                                interactionSource = googleInteractionSource
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_google),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp),
+                                    tint = Color.Unspecified
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(stringResource(R.string.login_with_google))
+                            }
+                        }
+
+                        if (authState is AuthViewModel.AuthState.Error) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            val errorUiText = (authState as AuthViewModel.AuthState.Error).message
+
+                            val isEmailNotVerified = errorUiText is UiText.DynamicString && errorUiText.value == "EMAIL_NOT_VERIFIED"
+
+                            val displayMsg = if (isEmailNotVerified) {
+                                stringResource(R.string.login_verify_email_not_verified)
+                            } else errorUiText.asString()
+                            Text(
+                                text = displayMsg,
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            if (isEmailNotVerified) {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                TextButton(onClick = { authViewModel.resendVerificationEmail() }) {
+                                    Text(stringResource(R.string.login_verify_email_resend))
+                                }
+                            }
+                        }
+
+                        if (authState is AuthViewModel.AuthState.PasswordResetSuccess) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = stringResource(R.string.login_password_reset_sent),
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
                     }
                 }
             }
         }
     }
-}
 }
