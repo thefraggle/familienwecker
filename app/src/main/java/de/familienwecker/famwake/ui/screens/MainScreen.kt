@@ -75,7 +75,44 @@ fun MainScreen(
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
+    var showJoinConflictDialog by remember { mutableStateOf(false) }
     val whatsNewContent by viewModel.whatsNewContent.collectAsStateWithLifecycle()
+
+    // Sofort Conflict-Dialog zeigen wenn ein pendingJoinCode eintrifft (z.B. nach Deep-Link aus Hintergrund)
+    LaunchedEffect(pendingJoinCode, familyId) {
+        if (pendingJoinCode != null && familyId != null) {
+            showJoinConflictDialog = true
+        }
+    }
+
+    if (showJoinConflictDialog && pendingJoinCode != null) {
+        AlertDialog(
+            onDismissRequest = {
+                showJoinConflictDialog = false
+                viewModel.clearPendingJoinCode()
+            },
+            title = { Text(stringResource(R.string.join_conflict_title)) },
+            text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "", pendingJoinCode ?: "")) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showJoinConflictDialog = false
+                    viewModel.leaveAndJoinPendingCode { success ->
+                        if (success) onLeaveFamily()
+                    }
+                }) {
+                    Text(stringResource(R.string.join_conflict_confirm), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showJoinConflictDialog = false
+                    viewModel.clearPendingJoinCode()
+                }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        )
+    }
 
     if (whatsNewContent != null) {
         val content = whatsNewContent!!

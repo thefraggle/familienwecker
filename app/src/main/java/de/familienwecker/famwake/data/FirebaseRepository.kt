@@ -315,12 +315,28 @@ class FirebaseRepository {
     suspend fun deleteFamily(familyId: String): Result<Unit> {
         return try {
             val familyRef = db.collection("families").document(familyId)
-
-            // Alle Members in Chunks von max. 500 löschen (Firestore-Batch-Limit)
             val membersCollection = familyRef.collection("members")
             val membersSnapshot = membersCollection.get().await()
 
             if (membersSnapshot.documents.isNotEmpty()) {
+                // Erst alle fremden Claims entfernen (Firestore-Rule erlaubt nur
+                // das Löschen von Members mit eigener oder keiner claimedByUserId)
+                val claimedByOthers = membersSnapshot.documents.filter { doc ->
+                    val claimed = doc.getString("claimedByUserId")
+                    claimed != null && claimed != com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+                }
+                if (claimedByOthers.isNotEmpty()) {
+                    val unclaimBatch = db.batch()
+                    claimedByOthers.forEach { doc ->
+                        unclaimBatch.update(doc.reference, mapOf(
+                            "claimedByUserId" to null,
+                            "claimedByUserName" to null
+                        ))
+                    }
+                    unclaimBatch.commit().await()
+                }
+
+                // Alle Members in Chunks von max. 500 löschen (Firestore-Batch-Limit)
                 membersSnapshot.documents.chunked(500).forEach { chunk ->
                     val batch = db.batch()
                     chunk.forEach { doc -> batch.delete(doc.reference) }
