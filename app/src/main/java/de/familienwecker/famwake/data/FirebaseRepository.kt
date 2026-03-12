@@ -97,6 +97,17 @@ class FirebaseRepository {
         }
     }
 
+    suspend fun getFamilyData(familyId: String): de.familienwecker.famwake.model.FamilyData? {
+        return try {
+            val doc = db.collection("families").document(familyId).get().await()
+            val name = doc.getString("name") ?: return null
+            val createdByUserId = doc.getString("createdByUserId")
+            de.familienwecker.famwake.model.FamilyData(id = familyId, name = name, createdByUserId = createdByUserId)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun getFamilyMembersFlow(familyId: String): Flow<List<FamilyMember>> = callbackFlow {
         val collection = db.collection("families").document(familyId).collection("members")
         val subscription = collection.addSnapshotListener { snapshot, error ->

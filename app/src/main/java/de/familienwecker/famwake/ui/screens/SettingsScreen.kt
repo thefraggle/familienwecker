@@ -55,6 +55,8 @@ fun SettingsScreen(
     val alarmSoundUri by viewModel.alarmSoundUri.collectAsStateWithLifecycle()
     val currentLanguage by viewModel.language.collectAsStateWithLifecycle()
     val familyName by viewModel.familyName.collectAsStateWithLifecycle()
+    val isAdmin by viewModel.familyCreatorId.collectAsStateWithLifecycle()
+    val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
 
     var expanded by remember { mutableStateOf(false) }
     var languageExpanded by remember { mutableStateOf(false) }
@@ -154,7 +156,15 @@ fun SettingsScreen(
 
                     ExposedDropdownMenuBox(
                         expanded = expanded,
-                        onExpandedChange = { if (members.isNotEmpty()) expanded = !expanded }
+                        onExpandedChange = {
+                            if (isOffline) {
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar(context.getString(R.string.error_profile_claim_offline))
+                                }
+                            } else if (members.isNotEmpty()) {
+                                expanded = !expanded
+                            }
+                        }
                     ) {
                         val selectedMember = members.find { it.id == myMemberId }
                         OutlinedTextField(
@@ -373,13 +383,29 @@ fun SettingsScreen(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     val deleteFamilyInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = { showDeleteDialog = true },
-                        modifier = Modifier.fillMaxWidth().bounceClick(deleteFamilyInteractionSource),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
-                        interactionSource = deleteFamilyInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_delete_family))
+                    if (viewModel.isAdmin) {
+                        OutlinedButton(
+                            onClick = { showDeleteDialog = true },
+                            modifier = Modifier.fillMaxWidth().bounceClick(deleteFamilyInteractionSource),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                            interactionSource = deleteFamilyInteractionSource
+                        ) {
+                            Text(stringResource(R.string.settings_delete_family))
+                        }
+                    } else {
+                        val deleteNotAdminMsg = stringResource(R.string.error_delete_not_admin)
+                        OutlinedButton(
+                            onClick = {
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar(deleteNotAdminMsg)
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth().bounceClick(deleteFamilyInteractionSource),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.outline),
+                            interactionSource = deleteFamilyInteractionSource
+                        ) {
+                            Text(stringResource(R.string.settings_delete_family))
+                        }
                     }
                     
                     HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))

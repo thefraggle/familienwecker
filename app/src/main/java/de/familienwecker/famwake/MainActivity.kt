@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleDeepLink(intent: Intent?, viewModel: FamilyViewModel) {
         val data: Uri? = intent?.data
-        if (data != null && data.host == "familienwecker.de" && data.path?.startsWith("/join/") == true) {
+        if (data != null && data.scheme == "https" && data.host == "familienwecker.de" && data.path?.startsWith("/join/") == true) {
             val code = data.lastPathSegment
             if (!code.isNullOrBlank() && code != "join") {
                 val sanitized = code.filter { it.isLetterOrDigit() }.uppercase().take(6)
