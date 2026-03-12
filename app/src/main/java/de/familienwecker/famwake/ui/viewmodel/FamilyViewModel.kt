@@ -90,6 +90,13 @@ class FamilyViewModel(
     val isOffline: StateFlow<Boolean> = _isOffline.asStateFlow()
     private var offlineDebounceJob: Job? = null
 
+    private val _familyCreatorId = MutableStateFlow<String?>(null)
+    val familyCreatorId: StateFlow<String?> = _familyCreatorId.asStateFlow()
+
+    /** True wenn der eingeloggte User der Ersteller (Admin) der aktuellen Familie ist. */
+    val isAdmin: Boolean
+        get() = auth.currentUser?.uid != null && auth.currentUser?.uid == _familyCreatorId.value
+
     private var membersJob: Job? = null
     private var syncStatusJob: Job? = null
 
@@ -105,6 +112,11 @@ class FamilyViewModel(
                     syncStatusJob?.cancel()
                     if (!currentFamilyId.isNullOrBlank()) {
                         refreshData()
+                        // Admin-Status laden
+                        launch {
+                            val data = repository.getFamilyData(currentFamilyId)
+                            _familyCreatorId.value = data?.createdByUserId
+                        }
 
                         syncStatusJob = launch {
                             try {
@@ -422,6 +434,12 @@ class FamilyViewModel(
         val userId = auth.currentUser?.uid ?: return
         val userName = auth.currentUser?.displayName
             ?: getApplication<Application>().getString(R.string.settings_fallback_username)
+
+        // Offline: Profil-Claim erfordert Netzwerk (Firestore-Transaktion)
+        if (_isOffline.value) {
+            onComplete(false)
+            return
+        }
 
         viewModelScope.launch {
             if (currentMyMemberId != null && currentMyMemberId != id) {

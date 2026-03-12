@@ -35,6 +35,12 @@ data class FamilySchedule(
     val scheduleMessage: ScheduleMessage
 )
 
+data class FamilyData(
+    val id: String,
+    val name: String,
+    val createdByUserId: String?
+)
+
 data class SyncStatus(
     val isFromCache: Boolean = false,
     val hasPendingWrites: Boolean = false

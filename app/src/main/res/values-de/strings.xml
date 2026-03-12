@@ -172,6 +172,8 @@
     <string name="error_too_many_requests">Zu viele Versuche. Bitte warte kurz und versuche es erneut.</string>
     <string name="error_password_reset_failed">Passwort-Reset fehlgeschlagen. Bitte versuche es später erneut.</string>
     <string name="error_profile_taken">Dieses Profil ist bereits belegt.</string>
+    <string name="error_profile_claim_offline">Keine Verbindung. Profilauswahl benötigt Internet.</string>
+    <string name="error_delete_not_admin">Nur der Ersteller der Familie kann sie löschen.</string>
     <string name="join_success_title">Familie beigetreten!</string>
     <string name="join_success_message">Du bist der Familie erfolgreich beigetreten.</string>
     <string name="ok">OK</string>
