@@ -44,6 +44,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-35 | **Admin-only Delete** | Nicht-Ersteller öffnet Settings → Familie löschen → erhält Fehlermeldung statt Dialog. |
 | TC-36 | **Offline Profil-Claim gesperrt** | Im Flugmodus Dropdown öffnen → Snackbar mit Offline-Fehlermeldung erscheint sofort. |
 | TC-37 | **Deep-Link Sofort-Dialog (Hintergrund)** | App auf Settings-Screen, Join-Link öffnen → Conflict-Dialog erscheint sofort ohne Zurück-Navigation. |
+| TC-38 | **Akku-Kachel Sofort-Reset** | Akku-Optimierung deaktivieren, zur App zurückkehren → Kachel verschwindet sofort ohne Screen-Wechsel. |
 
 
 ### 2. Familien-Konfiguration

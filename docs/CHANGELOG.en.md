@@ -5,6 +5,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.0.1] - 2026-03-12
+### Fixed
+- Battery optimization card now disappears immediately after confirmation (was: required screen navigation).
+- Card layout aligned with other settings cards.
+
+---
+
 ## [1.0.0] - 2026-03-12
 
 ### Security

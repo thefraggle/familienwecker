@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.0.1] - 2026-03-12
+### Behoben
+- Akku-Optimierungs-Kachel verschwindet sofort nach Bestätigung (war: erst nach Screen-Wechsel).
+- Layout der Kachel korrigiert – einheitlich mit anderen Settings-Kacheln.
+
+---
+
 ## [1.0.0] - 2026-03-12
 
 ### Sicherheit
