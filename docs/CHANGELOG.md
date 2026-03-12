@@ -7,7 +7,12 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## [0.8.2] - 2026-03-12
+
+## [0.8.3] - 2026-03-12
+### Behoben
+- **Globaler Alarm-Switch:** Der Schalter in den Einstellungen ist nun rein gerätespezifisch. Das Deaktivieren des Alarms auf einem Gerät (z. B. "Mama") hat keine Auswirkung mehr auf andere Geräte in der Familie (z. B. "Papa").
+- **Firestore-Sync:** Reduzierung von unnötigen Cloud-Schreibvorgängen und Datenübertragung durch Entfernung des globalen Alarm-Status aus Firestore.
+
 ### Sicherheit & Audit (K+H Fixes)
 - **Login & Join:** Der Beitritt zu Familien erfolgt nun über eine gesicherte Cloud Function mit serverseitigem Rate-Limiting (Schutz gegen Brute-Force).
 - **Daten-Integrität:** Die `families`-Datenbank wurde in den Sicherheitsregeln vollständig geschlossen; Lesezugriff nur noch für verifizierte Mitglieder.
