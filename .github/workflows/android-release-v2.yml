@@ -60,6 +60,9 @@ jobs:
         run: |
           echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
+          # App-Version aus build.gradle.kts lesen
+          APP_VERSION=$(grep -oP '(?<=appVersion = ")[^"]+' app/build.gradle.kts)
+          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
           # Determine build type:
           # force_aab=true (manuell) oder Version endet auf .0 → AAB
           # Sonst → APK
@@ -157,6 +160,6 @@ jobs:
         if: steps.metadata.outputs.build_aab == 'true' && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
-          name: FamWake-AAB-${{ github.ref_name }}-${{ steps.metadata.outputs.hash }}
+          name: FamWake-${{ steps.metadata.outputs.app_version }}-release
           path: FamWake-${{ github.ref_name }}-release.aab
           retention-days: 14
