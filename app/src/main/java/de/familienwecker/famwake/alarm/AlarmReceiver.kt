@@ -16,18 +16,16 @@ import de.familienwecker.famwake.ui.screens.RingingActivity
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        // B2: Alle Strings aus R.string ziehen – korrekte Lokalisierung unabhängig von der Systemsprache
         val defaultMemberName = context.getString(R.string.alarm_default_member)
         val memberName = intent.getStringExtra("MEMBER_NAME") ?: defaultMemberName
         val memberId = intent.getStringExtra("MEMBER_ID") ?: memberName
 
-        // H-1: Sound URI kommt als Extra vom AlarmScheduler – kein KeyStore-Zugriff nötig
         val soundUriString = intent.getStringExtra("SOUND_URI")
         val soundUri = soundUriString?.let { Uri.parse(it) }
             ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
 
-        // Dynamische Channel-ID basierend auf dem Sound-URI
-        // Da Android Channel-Einstellungen (Sound) cached, brauchen wir einen neuen Channel bei neuem Sound.
+        // Dynamische Channel-ID basierend auf dem Sound-URI.
+        // Android cached Channel-Einstellungen (inkl. Sound) – neuer Sound benötigt neuen Channel.
         val soundHash = soundUri.toString().hashCode().coerceAtLeast(0)
         val dynamicChannelId = "ALARM_CHANNEL_S_$soundHash"
 

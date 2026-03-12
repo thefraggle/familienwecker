@@ -43,30 +43,23 @@ import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 
 class MainActivity : AppCompatActivity() {
 
-    // H-3: ViewModel via Activity-Delegate initialisieren – nicht in setContent
     private val familyViewModel: FamilyViewModel by viewModels {
         de.familienwecker.famwake.ui.viewmodel.FamilyViewModelFactory(application)
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        // Berechtigung geloggt
-    }
+    ) { _ -> /* Berechtigung wird im ViewModel verarbeitet */ }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         
-        // Frage Notifizierungsrechte unter Android 13+ an, damit FullScreenIntents feuern
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 
-        // Android 14+ Full Screen Intent check
         checkFullScreenIntentPermission()
-
-        // H-3: Deep Link sofort nach Initialisierung verarbeiten (kein lazy check mehr)
         handleDeepLink(intent, familyViewModel)
 
         enableEdgeToEdge()
@@ -87,7 +80,6 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        // familyViewModel ist via by viewModels() immer initialisiert
         handleDeepLink(intent, familyViewModel)
     }
 
@@ -106,13 +98,22 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             if (!nm.canUseFullScreenIntent()) {
-                try {
-                    val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
-                    intent.data = Uri.parse("package:$packageName")
-                    startActivity(intent)
-                } catch (e: Exception) {
-                    // Fallback for some devices/versions
-                }
+                android.app.AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.permission_fullscreen_title))
+                    .setMessage(getString(R.string.permission_fullscreen_message))
+                    .setPositiveButton(getString(R.string.permission_fullscreen_open)) { _, _ ->
+                        try {
+                            val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
+                            intent.data = Uri.parse("package:$packageName")
+                            startActivity(intent)
+                        } catch (e: Exception) {
+                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                android.util.Log.w("MainActivity", "FullScreenIntent settings not available", e)
+                            }
+                        }
+                    }
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show()
             }
         }
     }
@@ -123,7 +124,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
     val navController = rememberNavController()
     val authViewModel: AuthViewModel = viewModel()
 
-    val currentLanguage by familyViewModel.language.collectAsState()
+    val currentLanguage by familyViewModel.language.collectAsStateWithLifecycle()
 
     LaunchedEffect(currentLanguage) {
         val localeList = LocaleListCompat.forLanguageTags(currentLanguage)
