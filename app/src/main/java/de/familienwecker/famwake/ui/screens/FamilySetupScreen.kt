@@ -29,6 +29,7 @@ import android.app.Activity
 import android.view.WindowManager
 import androidx.compose.ui.platform.LocalContext
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FamilySetupScreen(
     viewModel: FamilyViewModel,
@@ -65,7 +66,6 @@ fun FamilySetupScreen(
     Scaffold(
         containerColor = Color.Transparent,
         topBar = {
-            @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(
                 title = {
                     Text(

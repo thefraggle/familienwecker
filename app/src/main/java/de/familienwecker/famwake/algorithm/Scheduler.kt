@@ -160,6 +160,12 @@ class Scheduler {
                 return Result.failure(Exception("CONFLICT:${member.name}:${wakeUpTime}:${allowedEarliestWakeUp}"))
             }
 
+            // E2: Guard gegen Mitternacht-Overflow: Errechnete Weckzeit liegt vor 03:00 → unrealistisch und deutet auf
+            // einen LocalTime-Wrap-Around hin (z. B. 90 Min Badzeit mit leaveHomeTime 02:00).
+            if (wakeUpTime.isBefore(LocalTime.of(3, 0))) {
+                return Result.failure(Exception("CONFLICT:${member.name}:${wakeUpTime}:midnight-guard"))
+            }
+
             schedules.add(
                 ScheduleResult(
                     member = member,

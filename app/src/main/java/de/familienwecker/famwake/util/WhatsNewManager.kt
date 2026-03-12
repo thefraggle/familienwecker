@@ -45,7 +45,7 @@ class WhatsNewManager(private val context: Context) {
                 )
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            android.util.Log.e("WhatsNewManager", "Fehler beim Lesen der WhatsNew-Datei: ${e.message}")
             null
         }
     }
