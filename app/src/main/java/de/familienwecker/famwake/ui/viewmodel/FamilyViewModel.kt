@@ -123,7 +123,8 @@ class FamilyViewModel(
                                 repository.getSyncStatusFlow(currentFamilyId).collect { status ->
                                     _syncStatus.value = status
                                     // Offline-Status mit Debounce setzen (3s Wartezeit)
-                                    if (status.isFromCache && !status.hasPendingWrites) {
+                                    // isFromCache reicht als Signal – hasPendingWrites ist egal
+                                    if (status.isFromCache) {
                                         offlineDebounceJob?.cancel()
                                         offlineDebounceJob = launch {
                                             delay(3000)
