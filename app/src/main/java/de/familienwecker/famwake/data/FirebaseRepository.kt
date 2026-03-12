@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.time.LocalTime
-import kotlin.random.Random
+
 
 class FamilyNotFoundException : Exception()
 class CodeGenerationFailedException : Exception()
@@ -79,7 +79,7 @@ class FirebaseRepository {
         try {
             db.collection("families").document(familyId).update("isAlarmEnabled", enabled).await()
         } catch (e: Exception) {
-            e.printStackTrace()
+            android.util.Log.e("FirebaseRepository", "Fehler beim Aktualisieren von isAlarmEnabled für $familyId: ${e.message}")
         }
     }
 
@@ -244,7 +244,7 @@ class FirebaseRepository {
             )
             db.collection("users").document(userId).set(data).await()
         } catch (e: Exception) {
-            e.printStackTrace()
+            android.util.Log.e("FirebaseRepository", "Fehler beim Speichern der User-Family-Zuordnung für $userId: ${e.message}")
         }
     }
 
@@ -274,7 +274,7 @@ class FirebaseRepository {
         try {
             db.collection("users").document(userId).delete().await()
         } catch (e: Exception) {
-            e.printStackTrace()
+            android.util.Log.e("FirebaseRepository", "Fehler beim Entfernen der User-Family-Zuordnung für $userId: ${e.message}")
         }
     }
 
@@ -337,7 +337,14 @@ class FirebaseRepository {
             }
 
             // 2. Familie-Dokument selbst löschen
-            familyRef.delete().await()
+            // HINWEIS: Falls dieser Schritt fehlschlägt, existiert eine Zombie-Familie (Members = 0, Dokument noch da).
+            // Wird durch Cloud Function (Garbage Collection nach 180 Tagen) bereinigt.
+            try {
+                familyRef.delete().await()
+            } catch (e: Exception) {
+                android.util.Log.e("FirebaseRepository", "KRITISCH: Members gelöscht, aber Familie-Dokument $familyId konnte nicht entfernt werden: ${e.message}")
+                return Result.failure(e)
+            }
 
             Result.success(Unit)
         } catch (e: Exception) {
