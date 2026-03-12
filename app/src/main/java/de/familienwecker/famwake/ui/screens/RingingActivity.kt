@@ -2,6 +2,7 @@ package de.familienwecker.famwake.ui.screens
 
 import android.net.Uri
 import android.media.AudioAttributes
+import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.data.PreferencesRepository
 import android.app.KeyguardManager
 import android.app.NotificationManager
@@ -49,9 +50,13 @@ class RingingActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val familyViewModel = de.familienwecker.famwake.ui.viewmodel.FamilyViewModel(application)
+                    val prefsRepo = (application as FamWakeApplication).preferencesRepository
+                    val familyViewModel = de.familienwecker.famwake.ui.viewmodel.FamilyViewModel(
+                        application,
+                        prefsRepo = prefsRepo
+                    )
                     val memberId = intent.getStringExtra("MEMBER_ID") ?: ""
-                    
+
                     RingingScreen(
                         memberName = memberName,
                         onStopClicked = { stopRingtoneAndFinish() },
@@ -69,20 +74,13 @@ class RingingActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
-        }
-        
-        // Flags für alle Versionen (als Backup)
-        window.addFlags(
-            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-            WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON or
-            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-        )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
             keyguardManager.requestDismissKeyguard(this, null)
         }
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
+            WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+        )
     }
 
     private val alarmAudioAttributes = AudioAttributes.Builder()
@@ -104,7 +102,7 @@ class RingingActivity : AppCompatActivity() {
     }
 
     private fun playRingtone() {
-        val prefsRepo = PreferencesRepository(this)
+        val prefsRepo = (application as FamWakeApplication).preferencesRepository
         val savedUriString = prefsRepo.alarmSoundUri.value
 
         // Versuche zunächst den gespeicherten Ton, dann System-Alarm, dann System-Ringtone

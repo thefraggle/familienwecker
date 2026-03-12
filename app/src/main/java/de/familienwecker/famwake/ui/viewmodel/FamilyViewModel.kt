@@ -48,6 +48,10 @@ class FamilyViewModel(
     private val auth = FirebaseAuth.getInstance()
     private val whatsNewManager = WhatsNewManager(application)
 
+    /** UID des aktuell eingeloggten Users (null wenn nicht eingeloggt). */
+    val currentUserId: String?
+        get() = auth.currentUser?.uid
+
     val myMemberId: StateFlow<String?> = prefsRepo.myMemberId
     val alarmSoundUri: StateFlow<String?> = prefsRepo.alarmSoundUri
     val familyId: StateFlow<String?> = prefsRepo.familyId

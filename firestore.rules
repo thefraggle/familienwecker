@@ -24,15 +24,14 @@ service cloud.firestore {
       allow write: if request.auth != null && request.auth.uid == userId && emailVerified();
     }
 
-    // K-1: Familien
-    // Kein globaler Read-Zugriff mehr – Join-Flow läuft über Cloud Function joinFamilyByCode.
+    // Familien – Create nur über Cloud Function (Admin SDK), nicht direkt vom Client
     match /families/{familyId} {
       // Lesen nur für Familienmitglieder (z.B. Dashboard, Settings)
       allow read: if isFamilyMember(familyId);
-      
-      // Jeder eingeloggte Nutzer mit verifizierter E-Mail kann eine Familie erstellen
-      allow create: if signedIn() && emailVerified();
-      
+
+      // Erstellen nur über Cloud Function (createFamily) – kein direkter Client-Zugriff
+      allow create: if false;
+
       // Bearbeiten/Löschen nur für Mitglieder der Familie
       allow update, delete: if isFamilyMember(familyId);
 
@@ -40,14 +39,14 @@ service cloud.firestore {
       match /members/{memberId} {
         allow read: if isFamilyMember(familyId);
         allow create, update: if isFamilyMember(familyId) && emailVerified();
-        
-        allow delete: if isFamilyMember(familyId) && 
-          (resource.data.claimedByUserId == null || 
+
+        allow delete: if isFamilyMember(familyId) &&
+          (resource.data.claimedByUserId == null ||
            resource.data.claimedByUserId == request.auth.uid);
       }
     }
 
-    // K-1 + H-1: Rate-Limit-Tracking – nur von Cloud Functions (Admin SDK) beschreibbar
+    // Rate-Limit-Tracking – nur von Cloud Functions (Admin SDK) beschreibbar
     // Client-seitiger Zugriff wird explizit verboten
     match /_rate_limits/{doc} {
       allow read, write: if false;

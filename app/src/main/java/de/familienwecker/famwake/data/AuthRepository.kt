@@ -113,7 +113,9 @@ class AuthRepository {
                 .await()
             Result.success(Unit)
         } catch (e: Exception) {
-            android.util.Log.e("AuthRepository", "Cloud function sendVerificationEmail failed, fallback to default", e)
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("AuthRepository", "Cloud function sendVerificationEmail failed, fallback to default", e)
+            }
             try {
                 auth.currentUser?.sendEmailVerification()?.await()
                 Result.success(Unit)

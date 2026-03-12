@@ -175,7 +175,7 @@ fun SettingsScreen(
                             onDismissRequest = { expanded = false }
                         ) {
                             members.forEach { member ->
-                                val currentUid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+                                val currentUid = viewModel.currentUserId
                                 val isClaimedByOther = member.claimedByUserId != null && member.claimedByUserId != currentUid
                                 DropdownMenuItem(
                                     text = { 
