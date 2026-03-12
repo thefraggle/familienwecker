@@ -21,9 +21,8 @@ class AlarmReceiver : BroadcastReceiver() {
         val memberName = intent.getStringExtra("MEMBER_NAME") ?: defaultMemberName
         val memberId = intent.getStringExtra("MEMBER_ID") ?: memberName
 
-        // Sound URI aus Preferences holen für Fallback im Notification-Channel
-        val prefsRepo = de.familienwecker.famwake.data.PreferencesRepository(context)
-        val soundUriString = prefsRepo.alarmSoundUri.value
+        // H-1: Sound URI kommt als Extra vom AlarmScheduler – kein KeyStore-Zugriff nötig
+        val soundUriString = intent.getStringExtra("SOUND_URI")
         val soundUri = soundUriString?.let { Uri.parse(it) }
             ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
 
@@ -79,6 +78,6 @@ class AlarmReceiver : BroadcastReceiver() {
             .setAutoCancel(true)
             .setOngoing(true)
 
-        notificationManager.notify(memberId.hashCode(), notificationBuilder.build())
+        notificationManager.notify(memberId.hashCode().and(0x7fffffff), notificationBuilder.build())
     }
 }

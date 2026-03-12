@@ -81,19 +81,7 @@ class FirebaseRepository {
         }
     }
 
-    // Bug-Fix: isAlarmEnabled ist eine rein gerätespezifische Einstellung und wird
-    // NICHT mehr in Firestore gespeichert oder von dort gelesen. Die folgenden
-    // Funktionen sind deprecated und werden nicht mehr aufgerufen.
-    @Deprecated("isAlarmEnabled ist jetzt ausschließlich lokal in PreferencesRepository gespeichert.")
-    fun getFamilyAlarmEnabledFlow(familyId: String): Flow<Boolean> = callbackFlow {
-        awaitClose { }
-    }
 
-    @Deprecated("isAlarmEnabled ist jetzt ausschließlich lokal in PreferencesRepository gespeichert.")
-    suspend fun updateFamilyAlarmEnabled(familyId: String, enabled: Boolean) {
-        // Keine Aktion mehr – Firestore-Sync für dieses Feld wurde bewusst entfernt
-        android.util.Log.d("FirebaseRepository", "updateFamilyAlarmEnabled wird ignoriert (nur noch lokal)")
-    }
 
     suspend fun getFamilyName(familyId: String): String? {
         return try {
@@ -119,7 +107,7 @@ class FirebaseRepository {
                 }
                 val members = snapshot.documents.mapNotNull { doc ->
                     try {
-                        val name = doc.getString("name") ?: "Unbekannt"
+                        val name = doc.getString("name") ?: "Unknown"
                         val earliestStr = doc.getString("earliestWakeUp") ?: "06:00"
                         val latestStr = doc.getString("latestWakeUp") ?: "07:30"
                         val leaveStr = doc.getString("leaveHomeTime")
@@ -319,7 +307,7 @@ class FirebaseRepository {
                 val doc = snapshot.documents.first()
                 FamilyMember(
                     id = doc.id,
-                    name = doc.getString("name") ?: "",
+                    name = doc.getString("name") ?: "Unknown",
                     earliestWakeUp = try { LocalTime.parse(doc.getString("earliestWakeUp") ?: "06:00") } catch (e: Exception) { LocalTime.of(6, 0) },
                     latestWakeUp = try { LocalTime.parse(doc.getString("latestWakeUp") ?: "07:30") } catch (e: Exception) { LocalTime.of(7, 30) },
                     bathroomDurationMinutes = doc.getLong("bathroomDurationMinutes") ?: 20L,
@@ -330,7 +318,8 @@ class FirebaseRepository {
                     lastResetDate = doc.getString("lastResetDate") ?: "",
                     claimedByUserId = doc.getString("claimedByUserId"),
                     claimedByUserName = doc.getString("claimedByUserName"),
-                    sequenceOrder = doc.getLong("sequenceOrder")?.toInt() ?: 0
+                    sequenceOrder = doc.getLong("sequenceOrder")?.toInt() ?: 0,
+                    deviceAlarmEnabled = doc.getBoolean("deviceAlarmEnabled")
                 )
             } else {
                 null
