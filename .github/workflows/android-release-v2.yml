@@ -5,6 +5,15 @@ on:
     tags:
       - v*
   workflow_dispatch:
+    inputs:
+      force_aab:
+        description: 'AAB erzwingen (auch für Patch-Tags)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -51,8 +60,10 @@ jobs:
         run: |
           echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
-          # Determine build type: versions ending in .0 → AAB (Store), others → APK (Testing)
-          if [[ "${{ github.ref_name }}" == *.0 ]]; then
+          # Determine build type:
+          # force_aab=true (manuell) oder Version endet auf .0 → AAB
+          # Sonst → APK
+          if [[ "${{ github.event.inputs.force_aab }}" == "true" || "${{ github.ref_name }}" == *.0 ]]; then
             echo "build_aab=true" >> $GITHUB_OUTPUT
             echo "build_apk=false" >> $GITHUB_OUTPUT
           else
