@@ -7,12 +7,15 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.7.4] - 2026-03-12
+### Optimiert
+- **App-Größe:** Die nativen Debug-Symbole (NDK) wurden wieder entfernt, um das App Bundle wieder unter 4 MB zu bringen, da die Einbettung keinen messbaren Vorteil in der Play Console brachte.
+
 ## [0.7.3] - 2026-03-12
 ### Neu & Optimiert
 - **Offline-Robustheit:** Massive Verbesserung der Stabilität im Offline-Modus. Der App-Start dauert nun auch ohne Internet maximal 2 Sekunden durch intelligente Timeouts und Vorab-Checks.
 - **Sicherheit:** Einführung von `FLAG_SECURE` im Family-Setup Screen, um Screenshots und Bildschirmaufnahmen des Join-Codes zu verhindern.
 - **Join-Flow:** Sofortige Fehlermeldung beim Versuch einer Familie offline beizutreten (kein unendliches Laden mehr).
-- **Entwickler-Optionen:** Korrekte Einbindung nativer Debug-Symbole (NDK) für Google Play, um detaillierte ANR- und Crash-Analysen zu ermöglichen.
 
 ### Behoben
 - **UI:** Korrektur der Icon-Größen (Mail & External Link) in den Einstellungen auf die ursprüngliche, kompakte Größe.
