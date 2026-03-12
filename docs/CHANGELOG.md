@@ -8,45 +8,36 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [0.9.1] - 2026-03-12
+### Neu
+- **Alarm-Status Sync:** Der Alarm-Status geclaimter Familienmitglieder wird in der Liste automatisch live synchronisiert. Deaktiviert jemand seinen Wecker, sehen andere das Ändern sofort – ohne App-Neustart. Der eigene globale Alarm-Switch bleibt weiterhin gerätespezifisch.
+
 ## [0.9.0] - 2026-03-12
 ### Zusammenfassung (Consolidation Release)
-Dieses Release bündelt alle kritischen Sicherheitsverbesserungen, Bugfixes und Lokalisierungs-Updates seit der Version 0.8.0.
+Bündelt alle kritischen Sicherheitsverbesserungen, Bugfixes und Lokalisierungs-Updates seit 0.8.0.
 
 ### Sicherheit & Audit
-- **Sicherer Join-Flow:** Der Beitritt zu Familien erfolgt nun über eine gesicherte Cloud Function mit serverseitigem Rate-Limiting zum Schutz gegen Brute-Force-Angriffe.
-- **Daten-Integrität:** Vollständige Überarbeitung der Firestore Security Rules; Lese- und Schreibzugriff ist strikt auf verifizierte Familienmitglieder begrenzt.
-- **Verschlüsselung:** Migration der lokalen Benutzereinstellungen auf `EncryptedSharedPreferences` (AES-256) für erhöhten Schutz auf gerooteten Geräten.
-- **Privacy:** `joinCode` wird nicht mehr im Benutzerprofil gespeichert, sondern nur noch flüchtig im verschlüsselten lokalen Speicher und im geschützten Familien-Dokument.
+- **Sicherer Join-Flow:** Familienbeitritt über gesicherte Cloud Function mit serverseitigem Rate-Limiting.
+- **Daten-Integrität:** Überarbeitung der Firestore Security Rules; Zugriff strikt auf verifizierte Mitglieder begrenzt.
+- **Verschlüsselung:** Lokale Einstellungen auf `EncryptedSharedPreferences` (AES-256) migriert.
+- **Privacy:** `joinCode` nicht mehr im Benutzerprofil gespeichert.
 
 ### Lokalisierung & UX
-- **Fehler-Mapping:** Lokalisierung (DE/EN) von Firebase-Authentifizierungsfehlern (z. B. Passwort zu kurz, E-Mail bereits vergeben).
-- **Bereinigung:** Entfernung hardcodierter Texte im Login-Bereich; alle Strings werden nun sauber aus den Ressourcen geladen.
+- **Fehler-Mapping:** Firebase-Auth-Fehler (z. B. Passwort zu kurz, E-Mail vergeben) vollständig lokalisiert (DE/EN).
+- **Bereinigung:** Hardcodierte Texte im Login entfernt.
 
 ### Behoben
-- **Multi-Device Sync:** Der globale Alarm-Switch wurde in einen gerätespezifischen Schalter umgewandelt. Das Deaktivieren auf einem Gerät hat keine Auswirkungen mehr auf andere Familienmitglieder.
-- **Stabilität & Offline:**
-  - Korrektur von UI-Freezes im Offline-Modus und verbesserte Fehlerbehandlung beim Beitritts-Dialog.
-  - Behebung von Race-Conditions im Join-Konflikt-Dialog durch asynchrones State-Handling.
-  - `PendingIntent` Request-Codes für Alarme gegen negative Werte abgesichert.
+- **Multi-Device Sync:** Alarm-Switch ist jetzt gerätespezifisch – Deaktivieren auf einem Gerät beeinflusst keine anderen Mitglieder.
+- **Stabilität & Offline:** UI-Freezes, Race-Conditions im Join-Dialog und negative `PendingIntent` Request-Codes behoben.
 
 ## [0.8.x] - 2026-03-12
-### 0.8.0 Release - Highlights
-- **Basis-Sicherheit:** Umfassendes Code-Audit durchgeführt und Struktur bereinigt.
-- **Offline-Erkennung:** Höhere Präzision durch Prüfung auf `NET_CAPABILITY_VALIDATED` (verhindert Falsch-Positiv bei Hotel-WLANs/Captive Portals).
-- **Kritische Korrekturen:** Scheduler-Guard gegen Mitternachts-Overflows und robustere Löschvorgänge für Familien.
-### Neu
-- **Sicherheit & Audit:** Umfassendes Code-Audit durchgeführt und Struktur bereinigt.
-- **Offline-Erkennung:** Höhere Präzision durch Prüfung auf `NET_CAPABILITY_VALIDATED` (verhindert Falsch-Positiv bei Hotel-WLANs/Captive Portals).
-- **Stabilität:**
-  - Scheduler-Guard gegen Mitternachts-Overflows bei extrem langen Badzeiten.
-  - Verbessertes Error-Logging (`Log.e` statt `printStackTrace`) für bessere Fehleranalyse.
-  - Robusterer Löschvorgang für Familien (`deleteFamily`) mit explizitem Status-Tracking.
+### Highlights
+- **Offline-Erkennung:** Präzisere Prüfung via `NET_CAPABILITY_VALIDATED` (verhindert Falsch-Positiv bei Captive Portals).
+- **Stabilität:** Scheduler-Guard gegen Mitternachts-Overflows; verbessertes Error-Logging; robusterer Löschvorgang für Familien.
+- **Offline-Robustheit:** App-Start dauert auch ohne Netz max. 2 Sekunden. Endlose Lade-Spinner im Join-Flow behoben.
+- **Deep Links:** `SingleTask` Intent-Handling gefixt; Einladungslinks funktionieren auch bei laufender App.
+- **Release:** R8-Minifizierung und NDK-Debug-Symbole (`FULL`) fest integriert.
 
-### Optimiert & Behoben
-- **Release-Automatisierung:** R8-Minifizierung und NDK-Debug-Symbole (`FULL`) sind nun fest integriert und für die Play Console optimiert.
-- **Offline-Robustheit:** Massive Verbesserung der Stabilität. Der App-Start dauert auch ohne Netz maximal 2 Sekunden. Endlose Lade-Spinner im Join-Flow (auch via Deep Link) behoben.
-- **Deep Links:** Problem mit SingleTask Intent-Handling behoben; Einladungslinks funktionieren nun auch bei bereits geöffneter App zuverlässig.
-- **UI & Architektur:** Korrektur von Icon-Größen in den Settings, korrektes Scoping von `@OptIn` Annotationen und AMOLED Black Mode Optimierung.
 
 ## [0.7.x] - Zusammengefasst (März 2026)
 ### Neu & Optimiert
