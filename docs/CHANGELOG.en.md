@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.8.2] - 2026-03-12
+
+## [0.8.3] - 2026-03-12
+### Fixed
+- **Global Alarm Switch:** The toggle in settings is now strictly device-specific. Disabling the alarm on one device (e.g., "Mom") no longer affects other devices in the family (e.g., "Dad").
+- **Firestore Sync:** Reduced unnecessary cloud writes and data transfer by removing the global alarm status from Firestore.
+
 ### Security & Audit (K+H Fixes)
 - **Login & Join:** Family joins are now handled via a secure Cloud Function with server-side rate-limiting (brute-force protection).
 - **Data Integrity:** The `families` collection is now strictly restricted in Firestore Security Rules; read access is granted only to verified members.
