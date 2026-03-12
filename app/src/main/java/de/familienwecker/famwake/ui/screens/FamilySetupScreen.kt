@@ -224,24 +224,41 @@ fun FamilySetupScreen(
                 val currentFamilyName by viewModel.familyName.collectAsStateWithLifecycle()
 
                 if (pendingJoinCode != null && familyId != null) {
+                    var isJoining by remember { mutableStateOf(false) }
                     AlertDialog(
-                        onDismissRequest = { viewModel.clearPendingJoinCode() },
+                        onDismissRequest = { if (!isJoining) viewModel.clearPendingJoinCode() },
                         title = { Text(stringResource(R.string.join_conflict_title)) },
                         text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "---", pendingJoinCode!!)) },
                         confirmButton = {
                             Button(
                                 onClick = {
-                                    viewModel.leaveAndJoinPendingCode { success ->
-                                        if (success) onSetupComplete()
+                                    if (!isJoining) {
+                                        isJoining = true
+                                        viewModel.leaveAndJoinPendingCode { success ->
+                                            isJoining = false
+                                            if (success) onSetupComplete()
+                                        }
                                     }
                                 },
+                                enabled = !isJoining,
                                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                             ) {
-                                Text(stringResource(R.string.join_conflict_confirm))
+                                if (isJoining) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(18.dp),
+                                        strokeWidth = 2.dp,
+                                        color = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                } else {
+                                    Text(stringResource(R.string.join_conflict_confirm))
+                                }
                             }
                         },
                         dismissButton = {
-                            TextButton(onClick = { viewModel.clearPendingJoinCode() }) {
+                            TextButton(
+                                onClick = { viewModel.clearPendingJoinCode() },
+                                enabled = !isJoining
+                            ) {
                                 Text(stringResource(R.string.cancel_button))
                             }
                         }
