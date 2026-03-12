@@ -192,4 +192,13 @@
     <string name="schedule_message_breakfast_reduced">Frühstück um %d Min. verkürzt, um deine Reihenfolge zu ermöglichen.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Frühstück &#x2212;%1$d Min. &amp; Zeiten um %2$d Min. angepasst.</string>
     <string name="schedule_message_member_conflict">Konflikt bei %s: Zeiten überschneiden sich zu stark.</string>
+
+    <!-- Neue Lokalisierungen -->
+    <string name="error_password_too_short">Das Passwort muss mindestens 6 Zeichen lang sein.</string>
+    <string name="error_email_already_in_use">Diese E-Mail-Adresse wird bereits von einem anderen Konto verwendet.</string>
+    <string name="login_verify_email_title">✉️ E-Mail bestätigen</string>
+    <string name="login_verify_email_text">Wir haben eine Bestätigungs-Mail an\n%1$s\ngesendet. Bitte klicke auf den Link in der Mail, um deinen Account zu aktivieren.</string>
+    <string name="login_verify_email_confirm">Ich habe bestätigt ✓</string>
+    <string name="login_verify_email_resend">E-Mail erneut senden</string>
+    <string name="login_verify_email_not_verified">Die E-Mail-Adresse wurde noch nicht bestätigt. Bitte prüfe dein Postfach.</string>
 </resources>
