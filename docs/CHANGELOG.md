@@ -7,38 +7,20 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## [0.7.6] - 2026-03-12
-### Behoben
-- **Offline-Robustheit:** Endloser Lade-Spinner beim Erstellen oder Beitreten einer Familie im Offline-Modus (auch via Deep Link) behoben. Die App zeigt nun sofort einen Fehler an, statt in einem Lade-Zustand hängen zu bleiben.
+## [0.8.0] - 2026-03-12
+### Neu
+- **Sicherheit & Audit:** Umfassendes Code-Audit durchgeführt und Struktur bereinigt.
+- **Offline-Erkennung:** Höhere Präzision durch Prüfung auf `NET_CAPABILITY_VALIDATED` (verhindert Falsch-Positiv bei Hotel-WLANs/Captive Portals).
+- **Stabilität:**
+  - Scheduler-Guard gegen Mitternachts-Overflows bei extrem langen Badzeiten.
+  - Verbessertes Error-Logging (`Log.e` statt `printStackTrace`) für bessere Fehleranalyse.
+  - Robusterer Löschvorgang für Familien (`deleteFamily`) mit explizitem Status-Tracking.
 
-## [0.7.5] - 2026-03-12
-### Optimiert
-- **Play Console (NDK):** Native Debug-Symbole werden nun zuverlässig via `FULL` direkt in das App Bundle eingebettet. Zusätzlich wird das NDK in der CI-Pipeline explizit installiert, um Fehler beim Bauen der Symbole zu verhindern.
-
-### Behoben
-- **Sicherheit (Revert):** Die experimentelle Screenshot-Sperre (`FLAG_SECURE`) wurde wieder entfernt, da sie in Tests nicht die gewünschte Zuverlässigkeit zeigte.
-
-## [0.7.4] - 2026-03-12
-### Info
-- In dieser Version wurden verschiedene NDK-Konfigurationen getestet, jedoch ohne finalen Erfolg für die Play Console Warnungen. Optimierte Symbole folgen in v0.7.5.
-
-## [0.7.3] - 2026-03-12
-### Neu & Optimiert
-- **Offline-Robustheit:** Massive Verbesserung der Stabilität im Offline-Modus. Der App-Start dauert nun auch ohne Internet maximal 2 Sekunden durch intelligente Timeouts und Vorab-Checks.
-- **Sicherheit:** Einführung von `FLAG_SECURE` im Family-Setup Screen, um Screenshots und Bildschirmaufnahmen des Join-Codes zu verhindern.
-- **Join-Flow:** Sofortige Fehlermeldung beim Versuch einer Familie offline beizutreten (kein unendliches Laden mehr).
-
-### Behoben
-- **UI:** Korrektur der Icon-Größen (Mail & External Link) in den Einstellungen auf die ursprüngliche, kompakte Größe.
-
-## [0.7.2] - 2026-03-11
 ### Optimiert & Behoben
-- **Google Play:** Native Debug-Symbole (NDK) werden nun automatisch für saubere Crash-Analysen im Play Console Bundle (.aab) hinterlegt.
-- **Deep Links:** Problem behoben, bei dem Einladungslinks bei bereits im Hintergrund geöffneter App ignoriert wurden (SingleTask Intent Handling).
-
-## [0.7.1] - 2026-03-11
-### Optimiert & Behoben
-- **Build (R8):** Die App wird im Release-Modus nun sauber via R8 minifiziert (obfuscated). Die entsprechende `mapping.txt` Datei für Crash-Reports wird vollautomatisch ins Android App Bundle (.aab) integriert.
+- **Release-Automatisierung:** R8-Minifizierung und NDK-Debug-Symbole (`FULL`) sind nun fest integriert und für die Play Console optimiert.
+- **Offline-Robustheit:** Massive Verbesserung der Stabilität. Der App-Start dauert auch ohne Netz maximal 2 Sekunden. Endlose Lade-Spinner im Join-Flow (auch via Deep Link) behoben.
+- **Deep Links:** Problem mit SingleTask Intent-Handling behoben; Einladungslinks funktionieren nun auch bei bereits geöffneter App zuverlässig.
+- **UI & Architektur:** Korrektur von Icon-Größen in den Settings, korrektes Scoping von `@OptIn` Annotationen und AMOLED Black Mode Optimierung.
 
 ## [0.7.0] - 2026-03-11
 ### Neu & Optimiert
