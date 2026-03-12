@@ -296,11 +296,12 @@ fun SettingsScreen(
             if (isBatteryOptimized.value) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                         else MaterialTheme.colorScheme.surface
                     )
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
