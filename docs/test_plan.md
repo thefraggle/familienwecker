@@ -42,6 +42,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-30 | **Join Code Sicherheit** | Ein generierter 6-stelliger Code ist weiterhin rein alphanumerisch ohne 0, O, 1, I und wird via SecureRandom erzeugt. |
 | TC-31 | **Verschlüsselung (H-5)** | Nach Update von Altversion: Daten (familyId, joinCode) werden automatisch in EncryptedPrefs migriert; Original-Datei wird gelöscht. |
 | TC-32 | **Rate-Limiting (H-1)** | Mehrfalsche falsche Code-Eingaben (>5/min) führen zu einer serverseitigen Blockierung ("Resource Exhausted"). |
+| TC-33 | **E-Mail Rate-Limiting** | Mehr als 3 Passwort-Reset- oder Verifikations-E-Mails für dieselbe Adresse innerhalb einer Stunde werden serverseitig blockiert ("Resource Exhausted"). |
 
 
 ### 2. Familien-Konfiguration
