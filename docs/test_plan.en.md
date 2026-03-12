@@ -73,37 +73,39 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 ### 1. Conflict Situations (Stress Tests)
 | ID | Test Case | Expected Result |
 |:---|:---|:---|
-| EC-01 | **Impossible Plan** (Everyone wants the bathroom at the same time) | App shows "Conflict found" warning and offers compromise suggestions (e.g., shorten breakfast). |
-| EC-02 | **Extreme Bathroom Duration** (Member with 120 min) | The plan shifts other members significantly; warning for unrealistic inputs shown if applicable. |
-| EC-03 | **Short Time Windows** (Wake up 7:00, leave home 7:05) | App warns about tight time management. |
+| EC-01 | **Impossible Plan** | Everyone wants the bathroom at the same time. | App shows a conflict warning and compromise suggestions. |
+| EC-02 | **Extreme Bathroom Duration** | Member with 120 min. | Plan shifts others significantly; warning shown if applicable. |
+| EC-03 | **Short Time Windows** | Wake 7:00, leave 7:05. | App warns about the tight time window. |
 
 ### 2. Technical Edge Cases
 | ID | Test Case | Expected Result |
 |:---|:---|:---|
-| EC-04 | **Offline Calculation** | The last valid plan remains stored locally. Alarm rings even without internet. |
-| EC-05 | **Daylight Saving Time** (Summer/Winter) | Wake-up times are correctly adjusted to the new time, no duplicate alarms. |
-| EC-06 | **App Crash during Alarm** | Alarm service restarts automatically and continues the wake-up process. |
-| EC-07 | **Battery Optimization (Android)** | App is marked as "Not optimized" so the background service wakes reliably. |
-| EC-11 | **Snooze Function** | Clicking Snooze (5 min) on the ringing screen schedules a new alarm exactly 5 min later. |
-| EC-12 | **Midnight Reset** | "Pause for Today" and "Already Awake" statuses are automatically reset the next day. |
-| EC-14 | **Persistence & Logout** | No old login data or family IDs remain after logout or re-installation (Auto-Backup disabled). |
-| EC-15 | **Delete Family (Safety)** | Double confirmation required if other members exist; single confirmation for "just me" or empty lists. |
-| EC-16 | **Delete Member (Confirmation)** | Yes/No dialog appears before deleting a member. |
-| EC-17 | **New Setup after Deletion** | A new family can be created immediately after deletion without hanging (Infinity Loading test). |
-| EC-18 | **Data Resilience (Dashboard)** | If the family was deleted on another device, an automatic reset to setup occurs (Self-Healing). |
-| EC-19 | **Multi-Device Claim Sync** | If a profile is claimed on Device A, Device B (same UID) recognizes this automatically without refresh. |
-| EC-20 | **Resource Health** | Icons and Splash screen are rendered correctly across various pixel densities (xhdpi to xxxhdpi) without distortion. |
-| EC-21 | **Max. Calculation Limit (OOM)** | Attempting to calculate a plan for >6 active members is limited to 6 for crash prevention. |
-| EC-22 | **Garbage Collection (Server)** | Families without updates in the last 180 days are deleted by Cloud Functions on Sundays. |
-| EC-23 | **Missing Alarm Permission (UI)** | If `SCHEDULE_EXACT_ALARM` is missing, a localized error message appears in the UI (no Toast, no crash). |
-| EC-24 | **Accessibility (A11y)** | Touch targets (e.g., in Settings) are at least 24dp large for reliable usability. |
-| EC-25 | **Offline Startup Timeout** | Launch app in Airplane mode. Loading screen must transition to Dashboard within max. 2s (given local data exists). |
-| EC-26 | **Offline Join Error** | Attempting to join (code/link) in Airplane mode shows a brief spinner in the button and then an immediate error message; dialog closes. |
-| EC-27 | **Captive Portal Detection** | Wi-Fi with a login page (no real internet access). | App must detect offline status (via `NET_CAPABILITY_VALIDATED`). |
-| EC-28 | **Midnight Schedule Guard** | Departure extremely early + long bathroom duration (calc before 03:00). | Scheduler must report a conflict instead of generating invalid times. |
-| EC-29 | **Device-specific Alarm Toggle** | Disabling the alarm on Device A. | Device B (same family) keeps its alarm status unchanged (no global sync). |
-| EC-30 | **Localized Auth Errors** | Registration with password too short (< 6 characters). | Error message appears in German (or system language), not in English. |
-| EC-31 | **Alarm Status Sync (Display)** | User A disables alarm on Device A. | Device B immediately shows "no alarm" for User A in the member list – without refresh. Device B's own alarm status remains unchanged. |
+| EC-04 | **Offline Calculation** | Last valid plan stored locally; alarm rings without internet. |
+| EC-05 | **Daylight Saving Time** | Wake times correctly adjusted, no duplicate alarms. |
+| EC-06 | **App Crash during Alarm** | Alarm service restarts automatically. |
+| EC-07 | **Battery Optimization** | App marked as "Not optimized". |
+| EC-11 | **Snooze** | Snooze (5 min) schedules new alarm exactly 5 min later. |
+| EC-12 | **Midnight Reset** | "Pause for Today" and "Already Awake" reset the next day. |
+| EC-14 | **Persistence & Logout** | No old login data or family IDs after logout/reinstall. |
+| EC-15 | **Delete Family** | Double confirmation if other members exist; single for empty family. |
+| EC-16 | **Delete Member** | Confirmation dialog before deletion. |
+| EC-17 | **New Setup after Deletion** | New family can be created immediately, no infinite spinner. |
+| EC-18 | **Data Resilience** | Family deleted on another device → automatic reset to setup. |
+| EC-19 | **Multi-Device Claim Sync** | Profile claimed on Device A → Device B recognizes without refresh. |
+| EC-20 | **Icon Scaling** | Icons and splash screen correct on xhdpi to xxxhdpi. |
+| EC-21 | **Calc Limit** | Plan for >6 members capped at 6. |
+| EC-22 | **Server Cleanup** | Families without updates for 180 days deleted on Sundays. |
+| EC-23 | **Missing Alarm Permission** | Localized error in UI; no Toast, no crash. |
+| EC-24 | **Touch Targets (A11y)** | At least 24dp. |
+| EC-25 | **Offline Startup** | Loading screen transitions to dashboard within max. 2s. |
+| EC-26 | **Offline Join** | Immediate error message; no infinite spinner. |
+| EC-27 | **Captive Portal** | Offline status detected via `NET_CAPABILITY_VALIDATED`. |
+| EC-28 | **Midnight Guard** | Early departure + long bathroom time → conflict instead of invalid times. |
+| EC-29 | **Device-specific Alarm Toggle** | Alarm off on Device A → Device B unchanged. |
+| EC-30 | **Localized Auth Errors** | Error in system language, not English. |
+| EC-31 | **Alarm Status Sync** | User A disables alarm → Device B sees it immediately, own status unchanged. |
+| EC-32 | **Delete Family with Other Users** | Admin deletes → all removed, family deleted. |
+| EC-33 | **Offline Icon with Pending Writes** | After 3s offline → CloudOff icon instead of sync spinner. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |
@@ -117,14 +119,14 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 
 ## 📱 UI/UX & Accessibility
 
-- **Dark Mode:** All contrasts must be eye-friendly in the dark theme (for night/morning use). The background now uses a true AMOLED Black (`#000000`) for improved battery efficiency.
-- **Material You:** Dynamic application colors based on the system wallpaper (Android 12+).
-- **Haptics:** Vibration patterns differ between "Pre-alarm" and "Main alarm."
-- **Real-time Feedback:** When the plan is recalculated, the user sees a short animation/confirmation.
+- **Dark Mode:** Contrasts eye-friendly; AMOLED Black (`#000000`) for battery efficiency.
+- **Material You:** Dynamic colors on Android 12+.
+- **Haptics:** Different vibration patterns for pre-alarm and main alarm.
+- **Real-time Feedback:** Short animation on schedule recalculation.
 
 ---
 
 ## 📈 Validation & Reporting
 
-- **Automation:** The core logic (`Scheduler`) is covered by JUnit tests (found in `app/src/test`) with scenarios from TC-07 to TC-09, EC-01, and the new `NoActiveMembers` test. All tests now check type-safe `ScheduleMessage` codes instead of raw strings.
-- **Manual Verification:** A "Live Test" over one night in a test family occurs before every release.
+- **Automation:** Core logic (`Scheduler`) covered by JUnit tests in `app/src/test` (TC-07 to TC-09, EC-01, `NoActiveMembers`). All tests use type-safe `ScheduleMessage` codes.
+- **Manual:** Live test over one night in a test family before every release.
