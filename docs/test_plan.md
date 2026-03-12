@@ -43,6 +43,10 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | TC-31 | **Verschlüsselung (H-5)** | Nach Update von Altversion: Daten (familyId, joinCode) werden automatisch in EncryptedPrefs migriert; Original-Datei wird gelöscht. |
 | TC-32 | **Rate-Limiting (H-1)** | Mehrfalsche falsche Code-Eingaben (>5/min) führen zu einer serverseitigen Blockierung ("Resource Exhausted"). |
 | TC-33 | **E-Mail Rate-Limiting** | Mehr als 3 Passwort-Reset- oder Verifikations-E-Mails für dieselbe Adresse innerhalb einer Stunde werden serverseitig blockiert ("Resource Exhausted"). |
+| TC-34 | **HTTP-Link abgewiesen** | Aufruf von `http://familienwecker.de/join/CODE` darf keinen Join auslösen – App ignoriert das HTTP-Schema. |
+| TC-35 | **Admin-only Delete** | Nicht-Ersteller öffnet Settings → Familie löschen → erhält Fehlermeldung statt Dialog. |
+| TC-36 | **Offline Profil-Claim gesperrt** | Im Flugmodus Dropdown öffnen → Snackbar mit Offline-Fehlermeldung erscheint sofort. |
+| TC-37 | **Deep-Link Sofort-Dialog (Hintergrund)** | App auf Settings-Screen, Join-Link öffnen → Conflict-Dialog erscheint sofort ohne Zurück-Navigation. |
 
 
 ### 2. Familien-Konfiguration
@@ -102,6 +106,8 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-29 | **Gerätespezifischer Alarm-Switch** | Deaktivieren des Alarms auf Gerät A. | Gerät B (selbe Familie) behält den Alarm-Status unverändert bei (kein globaler Sync). |
 | EC-30 | **Lokalisierte Auth-Fehler** | Registrierung mit zu kurzem Passwort (< 6 Zeichen). | Fehlermeldung erscheint auf Deutsch (bzw. Systemsprache), nicht auf Englisch. |
 | EC-31 | **Alarm-Status Sync (Fremd-Anzeige)** | User A deaktiviert Wecker auf Gerät A. | Gerät B sieht in der Mitgliederliste bei User A sofort „kein Alarm" – ohne Refresh. Eigener Alarm-Status von Gerät B bleibt unverändert. |
+| EC-32 | **Familie löschen mit anderen Usern** | Admin löscht Familie obwohl andere User aktive Profile haben → alle werden herausgeworfen, Familie wird gelöscht. |
+| EC-33 | **Offline-Icon bei ausstehenden Writes** | Änderung offline vornehmen → nach 3s erscheint CloudOff-Icon statt drehendem Sync-Spinner. |
 
 
 ### 3. Benutzer-Verhalten

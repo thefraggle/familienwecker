@@ -42,6 +42,10 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-31 | **Encryption (H-5)** | After update: Data (familyId, joinCode) is automatically migrated to EncryptedPrefs; legacy file is cleared. |
 | TC-32 | **Rate-Limiting (H-1)** | Repeated wrong code entries (>5/min) trigger server-side blocking ("Resource Exhausted"). |
 | TC-33 | **Email Rate-Limiting** | More than 3 password-reset or verification emails for the same address within one hour are blocked server-side ("Resource Exhausted"). |
+| TC-34 | **HTTP link rejected** | Calling `http://familienwecker.de/join/CODE` must not trigger a join – app ignores the HTTP scheme. |
+| TC-35 | **Admin-only delete** | Non-creator opens Settings → delete family → receives error message instead of confirmation dialog. |
+| TC-36 | **Offline profile claim blocked** | Open dropdown in airplane mode → Snackbar with offline error appears immediately. |
+| TC-37 | **Deep link instant dialog (background)** | App is on Settings screen, open join link → Conflict dialog appears immediately without back navigation. |
 
 
 ### 2. Family Configuration
