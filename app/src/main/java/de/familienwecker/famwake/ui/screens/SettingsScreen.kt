@@ -40,6 +40,10 @@ import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import de.familienwecker.famwake.util.BatteryUtils
 import androidx.compose.material.icons.filled.BatteryAlert
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
+import androidx.compose.runtime.DisposableEffect
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,6 +66,7 @@ fun SettingsScreen(
     var languageExpanded by remember { mutableStateOf(false) }
     var themeExpanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
+    val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -277,15 +282,25 @@ fun SettingsScreen(
             }
 
             // Akku-Optimierungs-Warnung
-            val batteryOptIgnored = remember { BatteryUtils.isBatteryOptimizationIgnored(context) }
-            if (!batteryOptIgnored) {
+            val lifecycleOwnerSettings = LocalLifecycleOwner.current
+            DisposableEffect(lifecycleOwnerSettings) {
+                val observer = LifecycleEventObserver { _, event ->
+                    if (event == Lifecycle.Event.ON_RESUME) {
+                        isBatteryOptimized.value = !BatteryUtils.isBatteryOptimizationIgnored(context)
+                    }
+                }
+                lifecycleOwnerSettings.lifecycle.addObserver(observer)
+                onDispose { lifecycleOwnerSettings.lifecycle.removeObserver(observer) }
+            }
+
+            if (isBatteryOptimized.value) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.5.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.6f)),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f)
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
                     )
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
