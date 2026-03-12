@@ -139,7 +139,8 @@ class FirebaseRepository {
                             claimedByUserName = doc.getString("claimedByUserName"),
                             sequenceOrder = doc.getLong("sequenceOrder")?.toInt() ?: 0,
                             createdAt = doc.getLong("createdAt"),
-                            lastUpdatedAt = doc.getLong("lastUpdatedAt")
+                            lastUpdatedAt = doc.getLong("lastUpdatedAt"),
+                            deviceAlarmEnabled = doc.getBoolean("deviceAlarmEnabled")
                         )
                     } catch (e: Exception) {
                         android.util.Log.e("FirebaseRepository", "Kritischer Fehler beim Mapping von ${doc.id}: ${e.message}")
@@ -175,7 +176,8 @@ class FirebaseRepository {
                 "claimedByUserName" to member.claimedByUserName,
                 "sequenceOrder" to member.sequenceOrder,
                 "createdAt" to existingCreatedAt,
-                "lastUpdatedAt" to currentTime
+                "lastUpdatedAt" to currentTime,
+                "deviceAlarmEnabled" to member.deviceAlarmEnabled
             )
             docRef.set(data).await()
         } catch (e: Exception) {
@@ -387,6 +389,22 @@ class FirebaseRepository {
             batch.commit().await()
         } catch (e: Exception) {
             android.util.Log.e("FirebaseRepository", "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
+        }
+    }
+
+    /**
+     * Schreibt nur das Feld 'deviceAlarmEnabled' für das eigene Mitglieds-Dokument.
+     * Wird aufgerufen wenn der User seinen lokalen Alarm-Switch ändert, damit andere
+     * Geräte den Status in der Mitgliederliste anzeigen können.
+     */
+    suspend fun updateDeviceAlarmEnabled(familyId: String, memberId: String, enabled: Boolean) {
+        try {
+            db.collection("families").document(familyId)
+                .collection("members").document(memberId)
+                .update("deviceAlarmEnabled", enabled)
+                .await()
+        } catch (e: Exception) {
+            android.util.Log.e("FirebaseRepository", "Fehler beim Schreiben von deviceAlarmEnabled für $memberId: ${e.message}")
         }
     }
 
