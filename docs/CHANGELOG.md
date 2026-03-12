@@ -8,29 +8,32 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
-## [0.8.3] - 2026-03-12
-### Behoben
-- **Globaler Alarm-Switch:** Der Schalter in den Einstellungen ist nun rein gerätespezifisch. Das Deaktivieren des Alarms auf einem Gerät (z. B. "Mama") hat keine Auswirkung mehr auf andere Geräte in der Familie (z. B. "Papa").
-- **Firestore-Sync:** Reduzierung von unnötigen Cloud-Schreibvorgängen und Datenübertragung durch Entfernung des globalen Alarm-Status aus Firestore.
+## [0.9.0] - 2026-03-12
+### Zusammenfassung (Consolidation Release)
+Dieses Release bündelt alle kritischen Sicherheitsverbesserungen, Bugfixes und Lokalisierungs-Updates seit der Version 0.8.0.
 
-### Sicherheit & Audit (K+H Fixes)
-- **Login & Join:** Der Beitritt zu Familien erfolgt nun über eine gesicherte Cloud Function mit serverseitigem Rate-Limiting (Schutz gegen Brute-Force).
-- **Daten-Integrität:** Die `families`-Datenbank wurde in den Sicherheitsregeln vollständig geschlossen; Lesezugriff nur noch für verifizierte Mitglieder.
+### Sicherheit & Audit
+- **Sicherer Join-Flow:** Der Beitritt zu Familien erfolgt nun über eine gesicherte Cloud Function mit serverseitigem Rate-Limiting zum Schutz gegen Brute-Force-Angriffe.
+- **Daten-Integrität:** Vollständige Überarbeitung der Firestore Security Rules; Lese- und Schreibzugriff ist strikt auf verifizierte Familienmitglieder begrenzt.
 - **Verschlüsselung:** Migration der lokalen Benutzereinstellungen auf `EncryptedSharedPreferences` (AES-256) für erhöhten Schutz auf gerooteten Geräten.
 - **Privacy:** `joinCode` wird nicht mehr im Benutzerprofil gespeichert, sondern nur noch flüchtig im verschlüsselten lokalen Speicher und im geschützten Familien-Dokument.
-- **Stabilität:**
-  - `PendingIntent` Request-Codes für Alarme gegen negative Werte abgesichert.
-  - Bereinigung der Activity-Instanziierung (ViewModel-Lifecycle) zur Vermeidung von Race-Conditions beim Deep-Linking.
 
-## [0.8.1] - 2026-03-12
+### Lokalisierung & UX
+- **Fehler-Mapping:** Lokalisierung (DE/EN) von Firebase-Authentifizierungsfehlern (z. B. Passwort zu kurz, E-Mail bereits vergeben).
+- **Bereinigung:** Entfernung hardcodierter Texte im Login-Bereich; alle Strings werden nun sauber aus den Ressourcen geladen.
+
 ### Behoben
-- **Offline-UI:** Die Top-Bar zeigt nun zuverlässig das Cloud-Off Icon, auch wenn der Firestore-Cache noch ausstehende Schreibvorgänge meldet.
-- **Join-Flow:** 
-  - Race-Conditions im Join-Konflikt-Dialog (MainScreen und SetupScreen) durch asynchrones State-Handling behoben.
-  - Interaktives Feedback während des Beitritts durch Button-Loading-Spinner.
-  - Dialog schließt sich nun zuverlässig auch bei Fehlern (z. B. Offline-Status).
+- **Multi-Device Sync:** Der globale Alarm-Switch wurde in einen gerätespezifischen Schalter umgewandelt. Das Deaktivieren auf einem Gerät hat keine Auswirkungen mehr auf andere Familienmitglieder.
+- **Stabilität & Offline:**
+  - Korrektur von UI-Freezes im Offline-Modus und verbesserte Fehlerbehandlung beim Beitritts-Dialog.
+  - Behebung von Race-Conditions im Join-Konflikt-Dialog durch asynchrones State-Handling.
+  - `PendingIntent` Request-Codes für Alarme gegen negative Werte abgesichert.
 
-## [0.8.0] - 2026-03-12
+## [0.8.x] - 2026-03-12
+### 0.8.0 Release - Highlights
+- **Basis-Sicherheit:** Umfassendes Code-Audit durchgeführt und Struktur bereinigt.
+- **Offline-Erkennung:** Höhere Präzision durch Prüfung auf `NET_CAPABILITY_VALIDATED` (verhindert Falsch-Positiv bei Hotel-WLANs/Captive Portals).
+- **Kritische Korrekturen:** Scheduler-Guard gegen Mitternachts-Overflows und robustere Löschvorgänge für Familien.
 ### Neu
 - **Sicherheit & Audit:** Umfassendes Code-Audit durchgeführt und Struktur bereinigt.
 - **Offline-Erkennung:** Höhere Präzision durch Prüfung auf `NET_CAPABILITY_VALIDATED` (verhindert Falsch-Positiv bei Hotel-WLANs/Captive Portals).
