@@ -138,6 +138,11 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun register(email: String, pass: String) {
+        // M-7: Clientseitige Validierung (min. 8 Zeichen) vor Firebase-Aufruf
+        if (pass.length < 8) {
+            _authState.value = AuthState.Error(UiText.StringResource(R.string.error_password_too_short))
+            return
+        }
         _authState.value = AuthState.Loading
         val language = java.util.Locale.getDefault().language
         viewModelScope.launch {
@@ -146,9 +151,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 // Double Opt-In: Verifikations-Mail senden, NICHT direkt einloggen
                 val sendResult = authRepository.sendVerificationEmail(email, language)
                 if (sendResult.isFailure) {
-                    // Log the failure or set an appropriate error state if desired,
-                    // but we still want to show the awaiting verification screen.
-                    android.util.Log.e("AuthViewModel", "Failed to send verification email: \${sendResult.exceptionOrNull()}")
+                    android.util.Log.e("AuthViewModel", "Failed to send verification email: ${sendResult.exceptionOrNull()}")
                 }
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->

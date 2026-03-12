@@ -107,29 +107,8 @@ class FirebaseRepository {
                 }
                 val members = snapshot.documents.mapNotNull { doc ->
                     try {
-                        val name = doc.getString("name") ?: "Unknown"
-                        val earliestStr = doc.getString("earliestWakeUp") ?: "06:00"
-                        val latestStr = doc.getString("latestWakeUp") ?: "07:30"
-                        val leaveStr = doc.getString("leaveHomeTime")
-                        
-                        FamilyMember(
-                            id = doc.id,
-                            name = name,
-                            earliestWakeUp = try { LocalTime.parse(earliestStr) } catch (e: Exception) { LocalTime.of(6, 0) },
-                            latestWakeUp = try { LocalTime.parse(latestStr) } catch (e: Exception) { LocalTime.of(7, 30) },
-                            bathroomDurationMinutes = doc.getLong("bathroomDurationMinutes") ?: 20L,
-                            wantsBreakfast = doc.getBoolean("wantsBreakfast") ?: true,
-                            leaveHomeTime = leaveStr?.let { try { LocalTime.parse(it) } catch (e: Exception) { null } },
-                            isPaused = doc.getBoolean("isPaused") ?: false,
-                            isAwakeToday = doc.getBoolean("isAwakeToday") ?: false,
-                            lastResetDate = doc.getString("lastResetDate") ?: "",
-                            claimedByUserId = doc.getString("claimedByUserId"),
-                            claimedByUserName = doc.getString("claimedByUserName"),
-                            sequenceOrder = doc.getLong("sequenceOrder")?.toInt() ?: 0,
-                            createdAt = doc.getLong("createdAt"),
-                            lastUpdatedAt = doc.getLong("lastUpdatedAt"),
-                            deviceAlarmEnabled = doc.getBoolean("deviceAlarmEnabled")
-                        )
+                        // M-1: Zentrales Mapping via Extension-Funktion (FamilyMemberMapper.kt)
+                        doc.toFamilyMember()
                     } catch (e: Exception) {
                         android.util.Log.e("FirebaseRepository", "Kritischer Fehler beim Mapping von ${doc.id}: ${e.message}")
                         null
@@ -302,23 +281,8 @@ class FirebaseRepository {
                 .get()
                 .await()
             if (!snapshot.isEmpty) {
-                val doc = snapshot.documents.first()
-                FamilyMember(
-                    id = doc.id,
-                    name = doc.getString("name") ?: "Unknown",
-                    earliestWakeUp = try { LocalTime.parse(doc.getString("earliestWakeUp") ?: "06:00") } catch (e: Exception) { LocalTime.of(6, 0) },
-                    latestWakeUp = try { LocalTime.parse(doc.getString("latestWakeUp") ?: "07:30") } catch (e: Exception) { LocalTime.of(7, 30) },
-                    bathroomDurationMinutes = doc.getLong("bathroomDurationMinutes") ?: 20L,
-                    wantsBreakfast = doc.getBoolean("wantsBreakfast") ?: true,
-                    leaveHomeTime = doc.getString("leaveHomeTime")?.let { try { LocalTime.parse(it) } catch (e: Exception) { null } },
-                    isPaused = doc.getBoolean("isPaused") ?: false,
-                    isAwakeToday = doc.getBoolean("isAwakeToday") ?: false,
-                    lastResetDate = doc.getString("lastResetDate") ?: "",
-                    claimedByUserId = doc.getString("claimedByUserId"),
-                    claimedByUserName = doc.getString("claimedByUserName"),
-                    sequenceOrder = doc.getLong("sequenceOrder")?.toInt() ?: 0,
-                    deviceAlarmEnabled = doc.getBoolean("deviceAlarmEnabled")
-                )
+                // M-1: Zentrales Mapping via Extension-Funktion
+                snapshot.documents.first().toFamilyMember()
             } else {
                 null
             }
