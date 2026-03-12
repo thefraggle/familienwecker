@@ -1,115 +1,89 @@
 # Changelog
 
-Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
-
-Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/),
-und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
 ## [1.0.0] - 2026-03-12
-### 🎉 Erster stabiler Release
-Die erste vollständige, produktionsreife Version von FamWake.
 
 ### Sicherheit
-- **HTTP-Links abgewiesen:** Einladungslinks werden nur noch über HTTPS akzeptiert.
-- **Admin-only Löschen:** Familie kann nur noch vom Ersteller gelöscht werden. Andere Mitglieder erhalten eine klare Fehlermeldung.
-- **Offline-Claim-Sperre:** Profil-Auswahl ist offline deaktiviert – verhindert irreführende Fehlermeldungen.
+- HTTP-Einladungslinks werden abgewiesen – nur HTTPS erlaubt.
+- Familie löschen nur durch den Ersteller; andere erhalten eine Fehlermeldung.
+- Profil-Auswahl offline gesperrt – verhindert irreführende Timeout-Fehler.
 
-### UX & Bugfixes
-- **Deep-Link Sofort-Dialog:** Join-Link öffnet jetzt direkt den Konflikt-Dialog, auch wenn die App bereits im Hintergrund läuft.
-- **Familie löschen mit geclaimten Membern:** Familien können nun auch dann gelöscht werden, wenn andere User aktive Profile haben.
-- **Offline-Icon:** Wird nun auch bei ausstehenden Schreiboperationen korrekt angezeigt (statt endlosem Sync-Spinner).
-- **WhatsNew Button-Text:** „Was ist neu"-Dialog verwendet den konfigurierbaren Button-Text aus der JSON-Konfiguration.
+### Behoben
+- Join-Link öffnet sofort den Konflikt-Dialog, auch wenn die App im Hintergrund läuft.
+- Familie löschen klappt nun auch wenn andere User aktive Profile haben.
+- Offline-Icon erscheint korrekt, auch wenn Schreiboperationen ausstehen.
+- „Was ist neu"-Dialog zeigt konfigurierbaren Button-Text statt hardkodiertem „OK".
 
 ---
 
 ## [0.9.x] - 2026-03-12
-### Zusammenfassung (Pre-Release Stabilisierung)
-Bündelt alle Verbesserungen, Sicherheits-Fixes und Code-Qualitäts-Arbeiten seit 0.9.0.
 
-### Sicherheit & Code-Qualität (Security-Audit)
-- **Cloud Function `createFamily` (H-5):** Familie-Erstellung läuft vollständig serverseitig – kein direkter Client-Schreibzugriff möglich (`allow create: if false`).
-- **App-Singleton durchgängig (H-1/H-2):** `RingingActivity` und `BootReceiver` nutzen den `FamWakeApplication`-Singleton.
-- **E-Mail Rate-Limiting (H-3):** Alle Cloud Functions für E-Mail-Versand haben ein serverseitiges Rate-Limit (max. 3/Std. pro Adresse).
-- **Kryptografisch sicherer PRNG (M-1):** Join-Code-Generierung nutzt `crypto.randomInt()` statt `Math.random()`.
-- **Deprecated Window-Flags entfernt (M-2):** `FLAG_SHOW_WHEN_LOCKED` / `FLAG_TURN_SCREEN_ON` aus `RingingActivity` entfernt.
-- **Debug-Guards:** Alle `Log.e()`-Aufrufe mit `BuildConfig.DEBUG`-Guard abgesichert.
-- **Boot-Sicherheit:** Wecker werden nach Neustart automatisch neu geplant (`BootReceiver`).
-- **Navigations-Typsicherheit:** Zentrales `Routes`-Objekt verhindert Tippfehler-Crashes.
-- **Passwort-Validierung:** Min. 8 Zeichen clientseitig geprüft.
+### Sicherheit
+- `createFamily` vollständig serverseitig; kein direkter Client-Schreibzugriff möglich.
+- E-Mail-Versand via Cloud Functions: Rate-Limit 3/Stunde pro Adresse.
+- Join-Code-Generierung: `crypto.randomInt()` statt `Math.random()`.
+- Deprecated `FLAG_SHOW_WHEN_LOCKED`/`FLAG_TURN_SCREEN_ON` entfernt.
+- Alle `Log.e()`-Aufrufe mit `BuildConfig.DEBUG` abgesichert.
+- Wecker werden nach Gerät-Neustart automatisch neu geplant.
 
-### Neue Features
-- **Alarm-Status Sync:** Der Alarm-Status geclaimter Mitglieder wird live synchronisiert – ohne App-Neustart.
-- **CompositionLocal Dark Theme:** `isSystemInDarkTheme()` einmalig am Root ausgelesen (`LocalDarkTheme`).
-- **Akku-Warnung:** Settings zeigen Hinweis wenn Akku-Optimierung aktiv ist.
-- **Admin-Erkennung:** `createdByUserId` wird geladen, `isAdmin`-Property im ViewModel exponiert.
+### Neu
+- Alarm-Status geclaimter Mitglieder wird live synchronisiert.
+- Admin-Erkennung: `createdByUserId` aus Firestore, `isAdmin` im ViewModel.
+- Akku-Warnung in den Einstellungen wenn Optimierung aktiv ist.
+- Passwort-Validierung: min. 8 Zeichen clientseitig.
+- Typsichere Navigation via zentralem `Routes`-Objekt.
 
 ---
 
 ## [0.9.0] - 2026-03-12
-### Zusammenfassung (Consolidation Release)
-Bündelt alle kritischen Sicherheitsverbesserungen, Bugfixes und Lokalisierungs-Updates seit 0.8.0.
 
-### Sicherheit & Audit
-- **Sicherer Join-Flow:** Familienbeitritt über gesicherte Cloud Function mit serverseitigem Rate-Limiting.
-- **Daten-Integrität:** Überarbeitung der Firestore Security Rules.
-- **Verschlüsselung:** Lokale Einstellungen auf `EncryptedSharedPreferences` (AES-256) migriert.
-- **Privacy:** `joinCode` nicht mehr im Benutzerprofil gespeichert.
-
-### Lokalisierung & UX
-- **Fehler-Mapping:** Firebase-Auth-Fehler vollständig lokalisiert (DE/EN).
+### Sicherheit
+- Familienbeitritt über Cloud Function mit serverseitigem Rate-Limiting.
+- Firestore Security Rules überarbeitet; Zugriff auf verifizierte Mitglieder begrenzt.
+- Lokale Einstellungen auf `EncryptedSharedPreferences` (AES-256) migriert.
+- `joinCode` nicht mehr im Benutzerprofil gespeichert.
 
 ### Behoben
-- **Multi-Device Sync:** Alarm-Switch ist jetzt gerätespezifisch.
-- **Stabilität & Offline:** UI-Freezes und Race-Conditions behoben.
+- Alarm-Switch gerätespezifisch – kein ungewollter Sync auf andere Geräte.
+- UI-Freezes und Race-Conditions im Join-Dialog behoben.
 
 ---
 
 ## [0.8.x] - 2026-03-12
-### Highlights
-- **Offline-Erkennung:** Präzisere Prüfung via `NET_CAPABILITY_VALIDATED`.
-- **Stabilität:** Scheduler-Guard gegen Mitternachts-Overflows; robusterer Löschvorgang für Familien.
-- **Offline-Robustheit:** App-Start max. 2 Sekunden ohne Netz. Endlose Spinner behoben.
-- **Deep Links:** `SingleTask` Intent-Handling gefixt; Einladungslinks funktionieren auch bei laufender App.
+- Offline-Erkennung via `NET_CAPABILITY_VALIDATED` (kein Falsch-Positiv bei Captive Portals).
+- App-Start ohne Netz: max. 2 Sekunden bis zum Dashboard.
+- Scheduler-Guard gegen Mitternachts-Overflows.
+- `SingleTask` Intent-Handling für Deep Links gefixt.
 
-## [0.7.x] - Zusammengefasst (März 2026)
-### Neu & Optimiert
-- **Performance & Architektur:** `ImmutableList` für effizienteres Compose-Rendering.
-- **Design:** Material You (Dynamic Colors) ab Android 12 und AMOLED Black Mode (`#000000`).
-- **Barrierefreiheit (A11y):** Vergrößerte Touch-Targets in den Einstellungen.
+## [0.7.x] - März 2026
+- `ImmutableList` für effizienteres Compose-Rendering.
+- Material You (Dynamic Colors) ab Android 12; AMOLED Black Mode (`#000000`).
+- Race-Conditions beim Profil-Freigeben und Familien-Löschen behoben.
+- Vollständige DE/EN-Lokalisierung für alle Auth-Fehler und UI-Texte.
 
-### Behoben
-- **Lokalisierung (I18n):** Alle hardcodierten Fehler und UI-Elemente vollständig (DE/EN) übersetzt.
-- **Deep Links:** Fixes für Konflikte, Validierung und Endlosschleifen.
-- **Stabilität:** Race-Conditions beim Profil-Freigeben und Familien-Löschen behoben.
+## [0.6.x] - März 2026
+- Drag & Drop Sortierung der Familienmitglieder mit Spring-Animationen.
+- Offline-Indikator und Sync-Icon in der Top-Bar.
+- Deep Linking: `familienwecker.de/join/[CODE]` vollständig unterstützt.
 
-## [0.6.x] - Zusammengefasst (März 2026)
-### Hinzugefügt
-- **Drag & Drop Reordering:** Mitglieder per Drag & Drop sortieren mit Spring-Animationen.
-- **Offline-UI & Sync:** Indikatoren in der Top-Bar für Offline-Modus und Cloud-Sync.
-- **Deep Linking:** Volle Unterstützung für `familienwecker.de/join/[CODE]`.
+## [0.5.x] - März 2026
+- Design 2.0: OLED Dark Mode, Glasmorphismus, verbesserte Typografie.
+- „Was ist neu"-Popup nach Updates.
+- Datenschutz, Impressum und Support-Mail direkt aus der App.
 
-### Behoben
-- Crash bei erstem Mitglied, Race-Conditions beim Deep Link Join, fehlerhafte Profil-Claims.
+## [0.4.x] - März 2026
+- Glasmorphismus, Lottie-Animationen für Leerzustände, AMOLED Dark Mode.
+- Automatisches Löschen inaktiver Familien (180 Tage), Limit: 6 Mitglieder.
+- Verwechslungsfreie Einladungscodes; Auto-Reset pausierter Profile.
 
-## [0.5.x] - Zusammengefasst (März 2026)
-### Veröffentlichung im Play Store (Update)
-- **Design 2.0:** OLED Dark Mode, Glasmorphismus, verbesserte Typografie.
-- **Was ist neu Popup:** Intelligente News-Box nach Updates.
-- **Support-Links:** Datenschutz, Impressum und E-Mail-Hilfe direkt aus der App.
-
-## [0.4.x] - Zusammengefasst (März 2026)
-- **Design & UX:** Glasmorphismus, Lottie-Animationen, AMOLED Dark Mode.
-- **Stabilität:** Automatisches Löschen verwaister Familien (180 Tage), Limit 6 Mitglieder.
-- **UX:** Verwechslungsfreie Einladungscodes, Auto-Reset pausierter Profile.
-
-## [0.3.x] - Zusammengefasst (Februar 2026)
-- **Profil-System:** Einführung des „Beanspruchens" von Profilen.
-- **Wecker-Präzision:** Neues Alarmsystem (Android 14 Support, Fullscreen-Weckscreen).
-- **Sicherheits-Update:** Striktes Rechte-Management und sichere Cloud-Speicherung.
+## [0.3.x] - Februar 2026
+- Profil-Claiming zum Schutz eigener Weckzeiten.
+- Neues Alarmsystem (Android 14, Fullscreen-Weckscreen).
+- Firestore Rechte-Management und Validierung von Badezimmerzeiten.
 
 ## [0.2.5] - 2026-02-24
-Erster öffentlicher Release.
-- Fokus auf Weck-Algorithmus, Mehrsprachigkeit (DE/EN) und intuitive Bedienung.
+Erster öffentlicher Release. Weck-Algorithmus, DE/EN-Support, intuitive Bedienung.
