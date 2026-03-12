@@ -1,6 +1,7 @@
 # To-Do
 
 ## Recently Completed
+- [x] **Release Cycle 0.8.0:** Konsolidierung 0.7.1-0.7.6 + Audit Fixes (NetworkUtils, Scheduler Guard, Log.e). Tagging & Push durchgeführt.
 - [x] **Release Cycle 0.7.6:** Offline-Optimierung (Join-Flow): Endloser Lade-Spinner bei fehlendem Netzwerk verhindert. Deployment & Tagging durchgeführt.
 - [x] **Release Cycle 0.7.5:** NDK-Symbole fixiert (debugSymbolLevel FULL), FLAG_SECURE entfernt.
 - [x] **Release Cycle 0.7.3:** Implemented massive offline robustness (timeouts/checks), `FLAG_SECURE` for join codes, fixed NDK debug symbols in CI, and restored compact icon sizes in Settings.

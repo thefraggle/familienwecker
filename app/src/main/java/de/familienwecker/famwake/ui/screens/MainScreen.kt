@@ -165,8 +165,18 @@ fun MainScreen(
                             label = "syncAnimation"
                         )
 
-                        if (syncStatus.hasPendingWrites) {
-                            // Pending Writes: Sync-Icon rotierend anzeigen
+                        if (isOffline) {
+                            // O5: Offline hat Vorrang – CloudOff-Icon nach 3s Debounce
+                            Box(modifier = Modifier.padding(end = 4.dp)) {
+                                Icon(
+                                    imageVector = Icons.Default.CloudOff,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.outline,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        } else if (syncStatus.hasPendingWrites) {
+                            // Pending Writes: Sync-Icon rotierend anzeigen (nur wenn online)
                             Box(modifier = Modifier.padding(end = 4.dp)) {
                                 Icon(
                                     imageVector = Icons.Default.Sync,
@@ -175,16 +185,6 @@ fun MainScreen(
                                     modifier = Modifier
                                         .size(20.dp)
                                         .graphicsLayer { rotationZ = isSyncingAnim * 360f }
-                                )
-                            }
-                        } else if (isOffline) {
-                            // O5: CloudOff nur nach 3s Offline-Debounce anzeigen
-                            Box(modifier = Modifier.padding(end = 4.dp)) {
-                                Icon(
-                                    imageVector = Icons.Default.CloudOff,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.outline,
-                                    modifier = Modifier.size(20.dp)
                                 )
                             }
                         }
@@ -716,26 +716,41 @@ fun MainScreen(
     }
 
     if (pendingJoinCode != null && familyId != null) {
+        var isJoining by remember { mutableStateOf(false) }
         AlertDialog(
-            onDismissRequest = { viewModel.clearPendingJoinCode() },
+            onDismissRequest = { if (!isJoining) viewModel.clearPendingJoinCode() },
             title = { Text(stringResource(R.string.join_conflict_title)) },
             text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "---", pendingJoinCode!!)) },
             confirmButton = {
                 Button(
                     onClick = {
-                        viewModel.leaveAndJoinPendingCode { success ->
-                            if (success) {
-                                // Re-composition will automatically handle the new family data
+                        if (!isJoining) {
+                            isJoining = true
+                            viewModel.leaveAndJoinPendingCode { _ ->
+                                isJoining = false
+                                // Dialog schliesst sich automatisch da pendingJoinCode = null
                             }
                         }
                     },
+                    enabled = !isJoining,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
-                    Text(stringResource(R.string.join_conflict_confirm))
+                    if (isJoining) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.dp,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    } else {
+                        Text(stringResource(R.string.join_conflict_confirm))
+                    }
                 }
             },
             dismissButton = {
-                TextButton(onClick = { viewModel.clearPendingJoinCode() }) {
+                TextButton(
+                    onClick = { viewModel.clearPendingJoinCode() },
+                    enabled = !isJoining
+                ) {
                     Text(stringResource(R.string.cancel_button))
                 }
             }
