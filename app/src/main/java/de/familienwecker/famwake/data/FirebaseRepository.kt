@@ -231,12 +231,14 @@ class FirebaseRepository {
             db.collection("users").document(userId).set(data).await()
             Result.success(Unit)
         } catch (e: Exception) {
-            android.util.Log.e("FirebaseRepository", "Fehler beim Speichern der User-Family-Zuordnung für $userId: ${e.message}")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FirebaseRepository", "Fehler beim Speichern der User-Family-Zuordnung für $userId: ${e.message}")
+            }
             Result.failure(e)
         }
     }
 
-    // M-3: cachedJoinCode als Fallback, falls das Firestore-Family-Dokument nicht gelesen werden kann
+    // cachedJoinCode als Fallback, falls das Firestore-Family-Dokument nicht gelesen werden kann
     suspend fun getUserFamily(userId: String, cachedJoinCode: String? = null): Result<Pair<String, String>?> {
         return try {
             val doc = db.collection("users").document(userId).get().await()
@@ -265,7 +267,9 @@ class FirebaseRepository {
         try {
             db.collection("users").document(userId).delete().await()
         } catch (e: Exception) {
-            android.util.Log.e("FirebaseRepository", "Fehler beim Entfernen der User-Family-Zuordnung für $userId: ${e.message}")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FirebaseRepository", "Fehler beim Entfernen der User-Family-Zuordnung für $userId: ${e.message}")
+            }
         }
     }
 
