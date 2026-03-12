@@ -12,6 +12,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.Alignment
@@ -53,7 +54,7 @@ fun FamilySetupScreen(
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
-        else -> isSystemInDarkTheme()
+        else -> LocalDarkTheme.current
     }
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
         colors = if (isDarkTheme) {

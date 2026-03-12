@@ -360,25 +360,50 @@ class FirebaseRepository {
     }
 
     /**
-     * Erzeugt einen Flow, der den Synchronisationsstatus der Mitglieder-Kollektion überwacht.
-     * Nutzt Firestore Metadaten (isFromCache, hasPendingWrites).
+     * M-5: Erzeugt einen Flow, der den Synchronisationsstatus überwacht.
+     * Kombiniert members-Subkollektion UND das families-Dokument selbst.
      */
     fun getSyncStatusFlow(familyId: String): Flow<de.familienwecker.famwake.model.SyncStatus> = callbackFlow {
-        val collection = db.collection("families").document(familyId).collection("members")
-        val subscription = collection.addSnapshotListener(com.google.firebase.firestore.MetadataChanges.INCLUDE) { snapshot, error ->
-            if (error != null) {
-                close(error)
-                return@addSnapshotListener
-            }
-            if (snapshot != null) {
-                trySend(
-                    de.familienwecker.famwake.model.SyncStatus(
-                        isFromCache = snapshot.metadata.isFromCache(),
-                        hasPendingWrites = snapshot.metadata.hasPendingWrites()
-                    )
+        val familyRef = db.collection("families").document(familyId)
+        val membersRef = familyRef.collection("members")
+
+        var familySynced = de.familienwecker.famwake.model.SyncStatus()
+        var membersSynced = de.familienwecker.famwake.model.SyncStatus()
+
+        fun emitCombined() {
+            trySend(
+                de.familienwecker.famwake.model.SyncStatus(
+                    isFromCache = familySynced.isFromCache || membersSynced.isFromCache,
+                    hasPendingWrites = familySynced.hasPendingWrites || membersSynced.hasPendingWrites
                 )
+            )
+        }
+
+        val familySub = familyRef.addSnapshotListener(com.google.firebase.firestore.MetadataChanges.INCLUDE) { snapshot, error ->
+            if (error != null) { close(error); return@addSnapshotListener }
+            if (snapshot != null) {
+                familySynced = de.familienwecker.famwake.model.SyncStatus(
+                    isFromCache = snapshot.metadata.isFromCache(),
+                    hasPendingWrites = snapshot.metadata.hasPendingWrites()
+                )
+                emitCombined()
             }
         }
-        awaitClose { subscription.remove() }
+
+        val membersSub = membersRef.addSnapshotListener(com.google.firebase.firestore.MetadataChanges.INCLUDE) { snapshot, error ->
+            if (error != null) { close(error); return@addSnapshotListener }
+            if (snapshot != null) {
+                membersSynced = de.familienwecker.famwake.model.SyncStatus(
+                    isFromCache = snapshot.metadata.isFromCache(),
+                    hasPendingWrites = snapshot.metadata.hasPendingWrites()
+                )
+                emitCombined()
+            }
+        }
+
+        awaitClose {
+            familySub.remove()
+            membersSub.remove()
+        }
     }
 }

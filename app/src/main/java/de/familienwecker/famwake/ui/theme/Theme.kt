@@ -9,10 +9,20 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+
+/**
+ * N-2: Zentrales CompositionLocal für Dark-Theme-Status.
+ * Einmalig in FamilienweckerTheme gesetzt – Screens rufen isSystemInDarkTheme()
+ * nicht mehr individuell ab.
+ * Zugriff: val isDarkTheme = LocalDarkTheme.current
+ */
+val LocalDarkTheme = compositionLocalOf { false }
 
 private val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,
@@ -92,9 +102,12 @@ fun FamilienweckerTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    // N-2: LocalDarkTheme einmalig providen, damit Screens nicht isSystemInDarkTheme() direkt aufrufen
+    CompositionLocalProvider(LocalDarkTheme provides darkTheme) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }
