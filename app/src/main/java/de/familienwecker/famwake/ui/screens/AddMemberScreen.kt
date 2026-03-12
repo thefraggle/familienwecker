@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
@@ -63,7 +64,7 @@ fun AddMemberScreen(
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
-        else -> isSystemInDarkTheme()
+        else -> LocalDarkTheme.current
     }
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
         colors = if (isDarkTheme) {

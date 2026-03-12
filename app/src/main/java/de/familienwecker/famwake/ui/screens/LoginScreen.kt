@@ -14,6 +14,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -71,7 +72,7 @@ fun LoginScreen(
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
-        else -> isSystemInDarkTheme()
+        else -> LocalDarkTheme.current
     }
     
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(

@@ -44,6 +44,7 @@ import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.ui.components.EmptyState
 import de.familienwecker.famwake.ui.components.bounceClick
+import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.util.BatteryUtils
 import de.familienwecker.famwake.model.FamilySchedule
@@ -118,7 +119,7 @@ fun MainScreen(
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
-        else -> androidx.compose.foundation.isSystemInDarkTheme()
+        else -> LocalDarkTheme.current
     }
     
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
@@ -767,7 +768,7 @@ fun MemberCard(
     onToggleAwake: () -> Unit,
     isAlarmEnabled: Boolean
 ) {
-    val isDarkTheme = androidx.compose.foundation.isSystemInDarkTheme()
+    val isDarkTheme = LocalDarkTheme.current
     val backgroundColor = if (member.isPaused) {
         if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
         else MaterialTheme.colorScheme.surfaceVariant

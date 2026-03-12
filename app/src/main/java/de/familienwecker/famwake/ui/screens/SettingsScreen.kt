@@ -39,6 +39,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import de.familienwecker.famwake.util.BatteryUtils
 import androidx.compose.material.icons.filled.BatteryAlert
+import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,10 +81,11 @@ fun SettingsScreen(
     }
 
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
+    val systemDark = LocalDarkTheme.current
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
-        else -> isSystemInDarkTheme()
+        else -> systemDark
     }
     
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
