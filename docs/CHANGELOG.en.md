@@ -7,38 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## [0.7.6] - 2026-03-12
-### Fixed
-- **Offline Robustness:** Fixed infinite loading spinners when creating or joining a family while offline (including deep links). The app now immediately displays an error instead of hanging in a loading state.
+## [0.8.0] - 2026-03-12
+### Added
+- **Security & Audit:** Completed comprehensive code audit and structure cleanup.
+- **Offline Detection:** Improved reliability by checking for `NET_CAPABILITY_VALIDATED` (prevents false-positives with captive portals like hotel Wi-Fi).
+- **Stability:**
+  - Scheduler guard against midnight-overflow edge cases for extremely long bathroom durations.
+  - Improved error logging (replaced `printStackTrace` with `Log.e`) for better diagnostic analysis.
+  - Enhanced family deletion process (`deleteFamily`) with explicit status tracking and safety checks.
 
-## [0.7.5] - 2026-03-12
-### Optimized
-- **Play Console (NDK):** Native debug symbols are now reliably embedded via `FULL` directly into the App Bundle. Additionally, the NDK is explicitly installed in the CI pipeline to ensure symbols are generated correctly.
-
-### Fixed
-- **Security (Revert):** Removed the experimental screenshot lock (`FLAG_SECURE`) as it did not meet reliability standards during testing.
-
-## [0.7.4] - 2026-03-12
-### Info
-- This version involved testing various NDK configurations. Finalized symbol integration is implemented in v0.7.5.
-
-## [0.7.3] - 2026-03-12
-### Added & Optimized
-- **Offline Robustness:** Massive improvements in offline stability. App startup now takes a maximum of 2 seconds even without internet thanks to intelligent timeouts and connectivity checks.
-- **Security:** Implemented `FLAG_SECURE` on the Family Setup screen to prevent screenshots and screen recordings of the join code.
-- **Join Flow:** Immediate error feedback when attempting to join a family while offline (no more infinite loading spinners).
-
-### Fixed
-- **UI:** Restored icon sizes (Email & External Link) in Settings to their original, compact dimensions.
-
-## [0.7.2] - 2026-03-11
 ### Optimized & Fixed
-- **Google Play:** Native debug symbols (NDK) are now fully integrated into the App Bundle (.aab) to ensure clean crash analytics in the Play Console.
-- **Deep Links:** Fixed an issue where invitation links were ignored if the app was already running in the background (warm start Intent routing).
-
-## [0.7.1] - 2026-03-11
-### Optimized & Fixed
-- **Build (R8):** The app is now properly minified and obfuscated (via R8) in release mode. The corresponding `mapping.txt` file for crash symbolication is seamlessly embedded into the `.aab` file for the Google Play Console.
+- **Release Automation:** R8 minification and NDK debug symbols (`FULL`) are now fully integrated and optimized for the Google Play Console.
+- **Offline Robustness:** Significant improvements in offline stability. App startup now takes a maximum of 2 seconds even without internet. Resolved infinite loading spinners in join flow (including deep links).
+- **Deep Links:** Fixed SingleTask Intent handling; invitation links now reliably route to the app even when already running in the background.
+- **UI & Architecture:** Corrected icon sizes in Settings, fixed `@OptIn` annotation scoping, and optimized AMOLED Black Mode.
 
 ## [0.7.0] - 2026-03-11
 ### Added & Optimized

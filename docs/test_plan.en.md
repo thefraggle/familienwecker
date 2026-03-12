@@ -92,7 +92,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-24 | **Accessibility (A11y)** | Touch targets (e.g., in Settings) are at least 24dp large for reliable usability. |
 | EC-25 | **Offline Startup Timeout** | Launch app in Airplane mode. Loading screen must transition to Dashboard within max. 2s (given local data exists). |
 | EC-26 | **Offline Join Error** | Attempting to join (code/link) in Airplane mode must show an immediate error message (no spinner). |
-| EC-27 | **Screenshot Block** | Attempting to take a screenshot of the join code must be blocked by the system (`FLAG_SECURE`). |
+| EC-27 | **Captive Portal Detection** | Wi-Fi with a login page (no real internet access). | App must detect offline status (via `NET_CAPABILITY_VALIDATED`). |
+| EC-28 | **Midnight Schedule Guard** | Departure extremely early + long bathroom duration (calc before 03:00). | Scheduler must report a conflict instead of generating invalid times. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |
