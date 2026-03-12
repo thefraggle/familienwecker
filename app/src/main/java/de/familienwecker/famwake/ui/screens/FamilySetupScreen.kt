@@ -40,13 +40,6 @@ fun FamilySetupScreen(
         (context as? Activity)?.finish()
     }
 
-    DisposableEffect(Unit) {
-        val window = (context as? Activity)?.window
-        window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-        onDispose {
-            window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
-        }
-    }
 
     var isCreateMode by remember { mutableStateOf(true) }
     var familyName by remember { mutableStateOf("") }
