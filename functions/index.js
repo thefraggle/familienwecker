@@ -517,7 +517,7 @@ exports.cleanupInactiveFamilies = onSchedule(
   }
 );
 
-// ─── K-1 + H-1: Sicherer Join-Flow via Cloud Function ─────────────────────────
+// ─── Sicherer Join-Flow via Cloud Function ────────────────────────────────────
 // Verhindert direkten Firestore-Zugriff auf alle Familien und ermöglicht
 // serverseitiges Rate-Limiting gegen Brute-Force-Versuche auf Join-Codes.
 exports.joinFamilyByCode = onCall(
@@ -574,5 +574,92 @@ exports.joinFamilyByCode = onCall(
     }
 
     return { familyId: snapshot.docs[0].id, joinCode: code };
+  }
+);
+
+// ─── Sicheres Familie-Erstellen via Cloud Function ────────────────────────────
+// Generiert den joinCode serverseitig und schreibt das Familie-Dokument.
+// Verhindert client-seitigen Query auf die families-Collection für Eindeutigkeitsprüfung.
+exports.createFamily = onCall(
+  { region: "europe-west3" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
+    const uid = request.auth.uid;
+
+    const familyName = request.data?.familyName;
+    if (!familyName || typeof familyName !== "string" || familyName.trim().length === 0) {
+      throw new HttpsError("invalid-argument", "INVALID_FAMILY_NAME");
+    }
+    const sanitizedName = familyName.trim().slice(0, 64);
+
+    // Rate-Limiting: max. 3 Family-Erstellungen pro UID pro Stunde
+    const rateLimitRef = admin.firestore().collection("_rate_limits").doc(`create_${uid}`);
+    const now = Date.now();
+    const windowMs = 60 * 60 * 1000; // 1 Stunde
+    const maxAttempts = 3;
+
+    try {
+      const limited = await admin.firestore().runTransaction(async (tx) => {
+        const doc = await tx.get(rateLimitRef);
+        const data = doc.exists ? doc.data() : { count: 0, windowStart: now };
+        if (now - data.windowStart > windowMs) {
+          tx.set(rateLimitRef, { count: 1, windowStart: now });
+          return false;
+        }
+        if (data.count >= maxAttempts) return true;
+        tx.update(rateLimitRef, { count: data.count + 1 });
+        return false;
+      });
+      if (limited) {
+        throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      }
+    } catch (err) {
+      if (err instanceof HttpsError) throw err;
+      console.error("Rate-Limit-Check fehlgeschlagen (wird ignoriert):", err);
+    }
+
+    // Eindeutigen 6-stelligen alphanumerischen Join-Code generieren (max. 5 Versuche)
+    const CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // ohne 0/O und 1/I zur Verwechslungsvermeidung
+    let joinCode = null;
+    let attempts = 0;
+
+    while (attempts < 5) {
+      const candidate = Array.from({ length: 6 }, () =>
+        CHARS.charAt(Math.floor(Math.random() * CHARS.length))
+      ).join("");
+
+      const existing = await admin.firestore()
+        .collection("families")
+        .where("joinCode", "==", candidate)
+        .limit(1)
+        .get();
+
+      if (existing.empty) {
+        joinCode = candidate;
+        break;
+      }
+      attempts++;
+    }
+
+    if (!joinCode) {
+      throw new HttpsError("internal", "CODE_GENERATION_FAILED");
+    }
+
+    // Familie-Dokument anlegen
+    const familyData = {
+      name: sanitizedName,
+      joinCode,
+      createdByUserId: uid,
+      isAlarmEnabled: true,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    };
+
+    const docRef = await admin.firestore().collection("families").add(familyData);
+
+    console.log(`Family '${sanitizedName}' created by ${uid} with id ${docRef.id} and code ${joinCode}`);
+
+    return { familyId: docRef.id, joinCode };
   }
 );
