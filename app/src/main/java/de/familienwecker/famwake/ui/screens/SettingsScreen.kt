@@ -266,7 +266,7 @@ fun SettingsScreen(
                 }
             }
 
-            // 3. Battery-Optimierungs-Warnung (M-5)
+            // Akku-Optimierungs-Warnung
             val batteryOptIgnored = remember { BatteryUtils.isBatteryOptimizationIgnored(context) }
             if (!batteryOptIgnored) {
                 Card(
