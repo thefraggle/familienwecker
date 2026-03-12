@@ -10,6 +10,9 @@ import de.familienwecker.famwake.data.GoogleSignInFailedException
 import de.familienwecker.famwake.data.FirebaseRepository
 import de.familienwecker.famwake.data.PreferencesRepository
 import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -124,10 +127,10 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             }.onFailure { error ->
-                val uiMessage = if (error is LoginFailedException) {
-                    UiText.StringResource(R.string.error_login_failed_unknown)
-                } else {
-                    UiText.StringResource(R.string.error_login_failed, error.localizedMessage ?: "Unknown")
+                val uiMessage = when (error) {
+                    is FirebaseAuthInvalidCredentialsException -> UiText.StringResource(R.string.error_login_failed)
+                    is LoginFailedException -> UiText.StringResource(R.string.error_login_failed_unknown)
+                    else -> UiText.StringResource(R.string.error_login_failed, error.localizedMessage ?: "Unknown")
                 }
                 _authState.value = AuthState.Error(uiMessage)
             }
@@ -149,10 +152,11 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                val uiMessage = if (error is RegistrationFailedException) {
-                    UiText.StringResource(R.string.error_registration_failed_unknown)
-                } else {
-                    UiText.StringResource(R.string.error_registration_failed, error.localizedMessage ?: "Unknown")
+                val uiMessage = when (error) {
+                    is FirebaseAuthWeakPasswordException -> UiText.StringResource(R.string.error_password_too_short)
+                    is FirebaseAuthUserCollisionException -> UiText.StringResource(R.string.error_email_already_in_use)
+                    is RegistrationFailedException -> UiText.StringResource(R.string.error_registration_failed_unknown)
+                    else -> UiText.StringResource(R.string.error_registration_failed, error.localizedMessage ?: "Unknown")
                 }
                 _authState.value = AuthState.Error(uiMessage)
             }

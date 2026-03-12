@@ -193,4 +193,13 @@
     <string name="schedule_message_breakfast_reduced">Breakfast shortened by %d min to fit your order.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Breakfast &#x2212;%1$d min &amp; times adjusted by %2$d min.</string>
     <string name="schedule_message_member_conflict">Conflict for %s: times overlap too much.</string>
+
+    <!-- New Localization Strings -->
+    <string name="error_password_too_short">Password must be at least 6 characters long.</string>
+    <string name="error_email_already_in_use">This email address is already in use by another account.</string>
+    <string name="login_verify_email_title">✉️ Confirm your email</string>
+    <string name="login_verify_email_text">We sent a confirmation email to\n%1$s\nPlease click the link in the email to activate your account.</string>
+    <string name="login_verify_email_confirm">I have confirmed ✓</string>
+    <string name="login_verify_email_resend">Resend email</string>
+    <string name="login_verify_email_not_verified">Email address not yet confirmed. Please check your inbox.</string>
 </resources>
