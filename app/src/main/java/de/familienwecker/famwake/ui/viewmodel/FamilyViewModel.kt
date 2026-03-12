@@ -88,7 +88,7 @@ class FamilyViewModel(
     private var membersJob: Job? = null
     private var syncStatusJob: Job? = null
 
-    // O4: Zuletzt gesetzten Alarm-Zeitstempel merken
+    // Zuletzt gesetzten Alarm-Zeitstempel merken
     private var lastScheduledAlarmMillis: Long? = null
 
     init {
@@ -99,14 +99,13 @@ class FamilyViewModel(
                     membersJob?.cancel()
                     syncStatusJob?.cancel()
                     if (!currentFamilyId.isNullOrBlank()) {
-                        // O6: refreshData nur aufrufen wenn familyId ein echter Wert ist (kein leerer Dummy)
                         refreshData()
 
                         syncStatusJob = launch {
                             try {
                                 repository.getSyncStatusFlow(currentFamilyId).collect { status ->
                                     _syncStatus.value = status
-                                    // O5: Offline-Status mit Debounce setzen
+                                    // Offline-Status mit Debounce setzen (3s Wartezeit)
                                     if (status.isFromCache && !status.hasPendingWrites) {
                                         offlineDebounceJob?.cancel()
                                         offlineDebounceJob = launch {
@@ -129,14 +128,16 @@ class FamilyViewModel(
                                     val checkedMembers = checkAndResetMembers(membersList)
                                     _members.value = checkedMembers.toPersistentList()
 
-                                    // Auto-Sync MyMemberId from Cloud (multi-device resilience)
+                                    // Auto-Sync MyMemberId aus Cloud (multi-device resilience)
                                     val uid = auth.currentUser?.uid
                                     if (uid != null) {
                                         val claimedByMe = checkedMembers.find { it.claimedByUserId == uid }
                                         if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
                                             prefsRepo.setMyMemberId(claimedByMe.id)
+                                            prefsRepo.setMyMemberName(claimedByMe.name)
                                         } else if (claimedByMe == null && myMemberId.value != null) {
                                             prefsRepo.setMyMemberId(null)
+                                            prefsRepo.setMyMemberName(null)
                                         }
                                         // Initial-Push: lokalen Alarm-Status nach Firestore übertragen
                                         val myId = myMemberId.value
@@ -155,11 +156,10 @@ class FamilyViewModel(
                             } catch (e: Exception) {
                                 // Self-Healing: Bei Permission Denied (veraltete FamilyId) lokal aufräumen
                                 if (e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true) {
-                                    android.util.Log.w("FamilyViewModel", "Permission Denied beim Laden der Mitglieder - lösche lokalen Zustand")
                                     leaveFamily()
                                     _members.value = persistentListOf()
                                 } else {
-                                    _errorMessage.value = UiText.StringResource(R.string.error_load_members, e.localizedMessage ?: "Unknown")
+                                    _errorMessage.value = UiText.StringResource(R.string.error_load_members)
                                 }
                             }
                         }
@@ -228,9 +228,8 @@ class FamilyViewModel(
             }
             val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
-                // K-2: joinCode wird nicht mehr im User-Profil gespeichert
                 val saveResult = repository.saveUserFamily(uid, pair.first)
-                if (saveResult.isFailure) {
+                if (saveResult.isFailure && de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("FamilyViewModel", "saveUserFamily fehlgeschlagen: ${saveResult.exceptionOrNull()?.message}")
                 }
                 prefsRepo.setFamilyId(pair.first)
@@ -241,7 +240,7 @@ class FamilyViewModel(
                 if (error is CodeGenerationFailedException) {
                     _errorMessage.value = UiText.StringResource(R.string.error_code_generation_failed)
                 } else {
-                    _errorMessage.value = UiText.StringResource(R.string.error_create_family, error.localizedMessage ?: "Unknown")
+                    _errorMessage.value = UiText.StringResource(R.string.error_create_family)
                 }
                 onComplete(false)
             }
@@ -267,9 +266,8 @@ class FamilyViewModel(
             result.onSuccess { pair ->
                 val uid = auth.currentUser?.uid
                 if (uid != null) {
-                    // K-2: joinCode wird nicht mehr im User-Profil gespeichert
                     val saveResult = repository.saveUserFamily(uid, pair.first)
-                    if (saveResult.isFailure) {
+                    if (saveResult.isFailure && de.familienwecker.famwake.BuildConfig.DEBUG) {
                         android.util.Log.e("FamilyViewModel", "saveUserFamily fehlgeschlagen: ${saveResult.exceptionOrNull()?.message}")
                     }
                 }
@@ -287,7 +285,7 @@ class FamilyViewModel(
                 if (error is FamilyNotFoundException) {
                     _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
                 } else {
-                    _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                    _errorMessage.value = UiText.StringResource(R.string.error_invalid_code)
                 }
                 _pendingJoinCode.value = null
                 onComplete(false)
@@ -417,7 +415,6 @@ class FamilyViewModel(
         val currentFamilyId = familyId.value ?: return
         val currentMyMemberId = myMemberId.value
         val userId = auth.currentUser?.uid ?: return
-        // B10: Fallback-Name aus strings.xml statt hardcodiertem "Papa/Mama"
         val userName = auth.currentUser?.displayName
             ?: getApplication<Application>().getString(R.string.settings_fallback_username)
 
@@ -430,6 +427,9 @@ class FamilyViewModel(
                 val success = repository.claimMember(currentFamilyId, id, userId, userName)
                 if (success) {
                     prefsRepo.setMyMemberId(id)
+                    // Namen des geclaimten Mitglieds persistieren für BootReceiver
+                    val memberName = _members.value.find { it.id == id }?.name
+                    prefsRepo.setMyMemberName(memberName)
                     prefsRepo.setAlarmEnabled(true)
                     onComplete(true)
                 } else {
@@ -437,6 +437,7 @@ class FamilyViewModel(
                 }
             } else {
                 prefsRepo.setMyMemberId(null)
+                prefsRepo.setMyMemberName(null)
                 prefsRepo.setAlarmEnabled(false)
                 onComplete(true)
             }
@@ -455,8 +456,7 @@ class FamilyViewModel(
         prefsRepo.setThemePreference(theme)
     }
 
-    // Bug-Fix: isAlarmEnabled ist gerätespezifisch und darf NICHT in Firestore geschrieben werden.
-    // updateFamilyAlarmEnabled wird nicht mehr aufgerufen.
+    // isAlarmEnabled ist gerätespezifisch und darf NICHT in Firestore geschrieben werden.
     fun setAlarmEnabled(enabled: Boolean) {
         if (enabled && myMemberId.value == null) return
         prefsRepo.setAlarmEnabled(enabled)
@@ -581,8 +581,9 @@ class FamilyViewModel(
     private fun checkAndResetMembers(members: List<FamilyMember>): List<FamilyMember> {
         val today = LocalDate.now().toString()
         val now = LocalTime.now()
+        val toUpdate = mutableListOf<FamilyMember>()
 
-        return members.map { member ->
+        val result = members.map { member ->
             val resetThreshold = member.latestWakeUp.plusHours(4)
             val isPastResetThreshold = now.isAfter(resetThreshold)
 
@@ -595,21 +596,30 @@ class FamilyViewModel(
                     isAwakeToday = false,
                     lastResetDate = today
                 )
-                val familyIdVal = familyId.value
-                if (familyIdVal != null) {
-                    viewModelScope.launch {
-                        try {
-                            repository.addOrUpdateMember(familyIdVal, updated)
-                        } catch (e: Exception) {
-                            android.util.Log.e("FamilyViewModel", "Failed to reset member status: ${e.message}")
-                        }
-                    }
-                }
+                toUpdate.add(updated)
                 updated
             } else {
                 member
             }
         }
+
+        // Alle geänderten Members in einem einzigen Batch schreiben
+        val familyIdVal = familyId.value
+        if (familyIdVal != null && toUpdate.isNotEmpty()) {
+            viewModelScope.launch {
+                toUpdate.forEach { updated ->
+                    try {
+                        repository.addOrUpdateMember(familyIdVal, updated)
+                    } catch (e: Exception) {
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.e("FamilyViewModel", "Failed to reset member status: ${e.message}")
+                        }
+                    }
+                }
+            }
+        }
+
+        return result
     }
 
     fun logout() {
@@ -647,7 +657,6 @@ class FamilyViewModel(
     fun leaveFamily() {
         _errorMessage.value = null
         val uid = auth.currentUser?.uid ?: return
-        // B6: Alarm canceln bevor die Familie verlassen wird
         cancelAlarmForCurrentUser()
         viewModelScope.launch {
             repository.removeUserFamily(uid)
@@ -655,6 +664,7 @@ class FamilyViewModel(
             prefsRepo.setJoinCode(null)
             prefsRepo.setFamilyName(null)
             prefsRepo.setMyMemberId(null)
+            prefsRepo.setMyMemberName(null)
         }
     }
 
@@ -775,7 +785,7 @@ class FamilyViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        // H-4/N-6: SharedPreferences-Listener deregistrieren, um Memory Leaks zu vermeiden
+        // SharedPreferences-Listener deregistrieren um Memory Leaks zu vermeiden
         prefsRepo.unregisterListener()
     }
 }

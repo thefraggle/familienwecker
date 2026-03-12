@@ -12,10 +12,10 @@ class AlarmScheduler(private val context: Context) {
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     /**
-     * Plant einen exakten Systemwecker.
+     * Plant einen exakten Systemwecker. Verwendet [AlarmManager.setAlarmClock] um
+     * aggressive Doze-Modes von Herstellern zu umgehen.
      *
      * @param onPermissionDenied Callback wenn SCHEDULE_EXACT_ALARM fehlt (Android 12+).
-     *   Das ViewModel leitet daraus einen UiText-Fehler ab ‒ kein Toast hier.
      */
     fun scheduleWakeUp(
         wakeUpTime: LocalDateTime,
@@ -24,7 +24,6 @@ class AlarmScheduler(private val context: Context) {
         soundUri: String? = null,
         onPermissionDenied: (() -> Unit)? = null
     ) {
-        // Exakte Alarme benötigen ab Android 12 (API 31) die Berechtigung SCHEDULE_EXACT_ALARM
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!alarmManager.canScheduleExactAlarms()) {
                 onPermissionDenied?.invoke()
@@ -38,7 +37,7 @@ class AlarmScheduler(private val context: Context) {
             soundUri?.let { putExtra("SOUND_URI", it) }
         }
 
-        // N-2: Bitmask statt Math.abs() – verhindert Int.MIN_VALUE-Kollision
+        // Bitmask verhindert Int.MIN_VALUE-Kollision bei hashCode()
         val requestCode = memberId.hashCode().and(0x7fffffff)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -48,16 +47,14 @@ class AlarmScheduler(private val context: Context) {
         )
 
         val timeInMillis = wakeUpTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-
-        // Setzt den Wecker als echten System-Wecker (AlarmClock)
-        // Das umgeht aggressive Doze-Modes von Herstellern (wie Samsung) am besten
         val alarmClockInfo = AlarmManager.AlarmClockInfo(timeInMillis, pendingIntent)
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
     }
 
     fun cancelWakeUp(memberId: String) {
         val intent = Intent(context, AlarmReceiver::class.java)
-        val requestCode = Math.abs(memberId.hashCode())
+        // Gleiche Bitmask wie in scheduleWakeUp – damit stimmen schedule und cancel überein
+        val requestCode = memberId.hashCode().and(0x7fffffff)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,

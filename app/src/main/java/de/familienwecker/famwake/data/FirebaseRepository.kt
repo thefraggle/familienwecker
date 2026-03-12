@@ -48,9 +48,10 @@ class FirebaseRepository {
         }
     }
 
-    // K-1 + H-1: Join-Flow über gesicherte Cloud Function statt direktem Firestore-Query.
-    // Die families-Collection ist damit nicht mehr global lesbar.
-    // Die Cloud Function validiert den Code serverseitig und erzwingt Rate-Limiting.
+    /**
+     * Join-Flow über gesicherte Cloud Function.
+     * Die Cloud Function validiert den Code serverseitig und erzwingt Rate-Limiting.
+     */
     suspend fun joinFamilyByCode(joinCode: String): Result<Pair<String, String>> {
         return try {
             val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
@@ -96,25 +97,24 @@ class FirebaseRepository {
         val collection = db.collection("families").document(familyId).collection("members")
         val subscription = collection.addSnapshotListener { snapshot, error ->
             if (error != null) {
-                android.util.Log.e("FirebaseRepository", "Fehler in getFamilyMembersFlow für $familyId: ${error.message}")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FirebaseRepository", "Fehler in getFamilyMembersFlow für $familyId: ${error.message}")
+                }
                 close(error)
                 return@addSnapshotListener
             }
 
             if (snapshot != null) {
-                if (snapshot.isEmpty) {
-                    android.util.Log.d("FirebaseRepository", "Subkollektion 'members' ist leer für $familyId")
-                }
                 val members = snapshot.documents.mapNotNull { doc ->
                     try {
-                        // M-1: Zentrales Mapping via Extension-Funktion (FamilyMemberMapper.kt)
                         doc.toFamilyMember()
                     } catch (e: Exception) {
-                        android.util.Log.e("FirebaseRepository", "Kritischer Fehler beim Mapping von ${doc.id}: ${e.message}")
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.e("FirebaseRepository", "Fehler beim Mapping von ${doc.id}: ${e.message}")
+                        }
                         null
                     }
                 }
-                // Stabilitäts-Fix: Sortierung nach sequenceOrder (manuell) und dann createdAt (stabil)
                 val sortedMembers = members.sortedWith(compareBy({ it.sequenceOrder }, { it.createdAt ?: 0L }))
                 trySend(sortedMembers)
             }
@@ -148,7 +148,9 @@ class FirebaseRepository {
             )
             docRef.set(data).await()
         } catch (e: Exception) {
-            android.util.Log.e("FirebaseRepository", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FirebaseRepository", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
+            }
             throw e
         }
     }
@@ -295,25 +297,25 @@ class FirebaseRepository {
         return try {
             val familyRef = db.collection("families").document(familyId)
 
-            // 1. Alle Members als Batch löschen (atomar, robuster bei Netzwerkabbruch)
+            // Alle Members in Chunks von max. 500 löschen (Firestore-Batch-Limit)
             val membersCollection = familyRef.collection("members")
             val membersSnapshot = membersCollection.get().await()
 
             if (membersSnapshot.documents.isNotEmpty()) {
-                val batch = db.batch()
-                membersSnapshot.documents.forEach { doc ->
-                    batch.delete(doc.reference)
+                membersSnapshot.documents.chunked(500).forEach { chunk ->
+                    val batch = db.batch()
+                    chunk.forEach { doc -> batch.delete(doc.reference) }
+                    batch.commit().await()
                 }
-                batch.commit().await()
             }
 
-            // 2. Familie-Dokument selbst löschen
-            // HINWEIS: Falls dieser Schritt fehlschlägt, existiert eine Zombie-Familie (Members = 0, Dokument noch da).
-            // Wird durch Cloud Function (Garbage Collection nach 180 Tagen) bereinigt.
+            // Familie-Dokument löschen
             try {
                 familyRef.delete().await()
             } catch (e: Exception) {
-                android.util.Log.e("FirebaseRepository", "KRITISCH: Members gelöscht, aber Familie-Dokument $familyId konnte nicht entfernt werden: ${e.message}")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FirebaseRepository", "Members gelöscht, aber Familie-Dokument $familyId konnte nicht entfernt werden: ${e.message}")
+                }
                 return Result.failure(e)
             }
 
@@ -325,7 +327,6 @@ class FirebaseRepository {
 
     /**
      * Aktualisiert die Reihenfolge mehrerer Mitglieder atomar in einem Batch.
-     * Verhindert Inkonsistenzen bei gleichzeitigem Schieben.
      */
     suspend fun updateMemberOrders(familyId: String, orders: Map<String, Int>) {
         try {
@@ -339,14 +340,14 @@ class FirebaseRepository {
             
             batch.commit().await()
         } catch (e: Exception) {
-            android.util.Log.e("FirebaseRepository", "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FirebaseRepository", "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
+            }
         }
     }
 
     /**
      * Schreibt nur das Feld 'deviceAlarmEnabled' für das eigene Mitglieds-Dokument.
-     * Wird aufgerufen wenn der User seinen lokalen Alarm-Switch ändert, damit andere
-     * Geräte den Status in der Mitgliederliste anzeigen können.
      */
     suspend fun updateDeviceAlarmEnabled(familyId: String, memberId: String, enabled: Boolean) {
         try {
@@ -355,12 +356,14 @@ class FirebaseRepository {
                 .update("deviceAlarmEnabled", enabled)
                 .await()
         } catch (e: Exception) {
-            android.util.Log.e("FirebaseRepository", "Fehler beim Schreiben von deviceAlarmEnabled für $memberId: ${e.message}")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FirebaseRepository", "Fehler beim Schreiben von deviceAlarmEnabled für $memberId: ${e.message}")
+            }
         }
     }
 
     /**
-     * M-5: Erzeugt einen Flow, der den Synchronisationsstatus überwacht.
+     * Erzeugt einen Flow, der den Synchronisationsstatus überwacht.
      * Kombiniert members-Subkollektion UND das families-Dokument selbst.
      */
     fun getSyncStatusFlow(familyId: String): Flow<de.familienwecker.famwake.model.SyncStatus> = callbackFlow {
