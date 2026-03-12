@@ -15,38 +15,42 @@ class CodeGenerationFailedException : Exception()
 class FirebaseRepository {
     private val db = FirebaseFirestore.getInstance()
 
+    /**
+     * H-5: Familie-Erstellung über Cloud Function.
+     * Die Function generiert den eindeutigen joinCode serverseitig und schreibt das Familie-Dokument.
+     * Verhindert den client-seitigen joinCode-Uniqueness-Check, der globalen Lesezugriff erfordert.
+     */
     suspend fun createFamily(familyName: String, userId: String): Result<Pair<String, String>> {
         return try {
-            var joinCode = generateJoinCode()
-            var codeExists = true
-            var attempts = 0
-            
-            while (codeExists && attempts < 5) {
-                val snapshot = db.collection("families").whereEqualTo("joinCode", joinCode).limit(1).get().await()
-                if (snapshot.isEmpty) {
-                    codeExists = false
-                } else {
-                    joinCode = generateJoinCode()
-                    attempts++
-                }
-            }
-
-            if (codeExists) {
-                return Result.failure(CodeGenerationFailedException())
-            }
-
-            val familyData = hashMapOf(
-                "name" to familyName,
-                "joinCode" to joinCode,
-                "createdByUserId" to userId,
-                "isAlarmEnabled" to true
+            val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
+            val data = hashMapOf(
+                "familyName" to familyName,
+                "userId" to userId
             )
-            val docRef = db.collection("families").add(familyData).await()
-            Result.success(Pair(docRef.id, joinCode))
+            val result = functions
+                .getHttpsCallable("createFamily")
+                .call(data)
+                .await()
+
+            @Suppress("UNCHECKED_CAST")
+            val map = result.data as? Map<String, Any>
+                ?: return Result.failure(CodeGenerationFailedException())
+
+            val familyId = map["familyId"] as? String
+                ?: return Result.failure(CodeGenerationFailedException())
+            val joinCode = map["joinCode"] as? String
+                ?: return Result.failure(CodeGenerationFailedException())
+
+            Result.success(Pair(familyId, joinCode))
         } catch (e: Exception) {
-            Result.failure(e)
+            if (e.message?.contains("CODE_GENERATION_FAILED", ignoreCase = true) == true) {
+                Result.failure(CodeGenerationFailedException())
+            } else {
+                Result.failure(e)
+            }
         }
     }
+
 
     /**
      * Join-Flow über gesicherte Cloud Function.
