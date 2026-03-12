@@ -1,6 +1,7 @@
 # To-Do
 
 ## Recently Completed
+- [x] **Release 0.8.1:** Kritische Bugfixes (Offline-UI & Join-Konflikt). Tag v0.8.1 erstellt.
 - [x] **Release Cycle 0.8.0:** Konsolidierung 0.7.1-0.7.6 + Audit Fixes (NetworkUtils, Scheduler Guard, Log.e). Tagging & Push durchgeführt.
 - [x] **Release Cycle 0.7.6:** Offline-Optimierung (Join-Flow): Endloser Lade-Spinner bei fehlendem Netzwerk verhindert. Deployment & Tagging durchgeführt.
 - [x] **Release Cycle 0.7.5:** NDK-Symbole fixiert (debugSymbolLevel FULL), FLAG_SECURE entfernt.
