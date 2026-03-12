@@ -1,5 +1,18 @@
 # To-Do
 
+## Security Audit – Offen für später (Mittel/Niedrig)
+- [ ] **M-1:** `toFamilyMember()` Extension-Funktion extrahieren (Duplikat-Mapping in `FirebaseRepository`)
+- [ ] **M-2:** `saveUserFamily()` ist erledigt; `updateFamilyAlarmEnabled` könnte Result<Unit> rückkgeben (optional)
+- [ ] **M-3:** Navigation via `sealed class` statt String-Literals in `MainActivity.kt`
+- [ ] **M-5:** `SyncStatus` auch auf `families/{id}` Dokument ausweiten (kosmetisch)
+- [ ] **M-7:** Clientseitige Passwort-Validierung (min. 8 Zeichen) im Register-Flow
+- [ ] **H-6:** Dependency Injection für Repositories einführen (Hilt oder manuell, langfristig)
+- [ ] **N-1:** Hardcodierten String "Unbekannt" in `FirebaseRepository` durch `UiText` ersetzen
+- [ ] **N-2:** `isSystemInDarkTheme()` via CompositionLocal durchreichen statt mehrfach abfragen
+- [ ] **N-4:** Doppelten `graphicsLayer`-Import in `MainScreen.kt` entfernen
+- [ ] **N-5:** GitHub Actions Workflow: `commitHash`/`commitDate` Properties automatisch setzen
+- [ ] **N-6:** `SharedPreferences.OnSharedPreferenceChangeListener` in `clearup()`-Methode deregistrieren
+
 ## Recently Completed
 - [x] **Release 0.8.1:** Kritische Bugfixes (Offline-UI & Join-Konflikt). Tag v0.8.1 erstellt.
 - [x] **Release Cycle 0.8.0:** Konsolidierung 0.7.1-0.7.6 + Audit Fixes (NetworkUtils, Scheduler Guard, Log.e). Tagging & Push durchgeführt.
