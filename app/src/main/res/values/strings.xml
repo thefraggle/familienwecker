@@ -83,6 +83,9 @@
     <string name="settings_please_select">Please select</string>
     <string name="settings_no_members">No members found</string>
     <string name="settings_alarm_title">Alarm Sound</string>
+    <string name="settings_battery_warning_title">Battery Optimization active</string>
+    <string name="settings_battery_warning_text">The alarm may be delayed or blocked. Please disable battery optimization for FamWake.</string>
+    <string name="settings_battery_warning_button">Fix now</string>
     <string name="settings_alarm_default">Default</string>
     <string name="settings_alarm_select">Select sound: %s</string>
     <string name="settings_alarm_picker_title">Choose an alarm sound</string>
