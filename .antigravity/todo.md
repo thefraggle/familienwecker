@@ -14,6 +14,7 @@
 - [ ] **N-6:** `SharedPreferences.OnSharedPreferenceChangeListener` in `clearup()`-Methode deregistrieren
 
 ## Recently Completed
+- [x] **Release 0.8.2:** Sicherheits-Audit Fixes (H-5, K-1, K-2, H-1, H-2, H-3). GitHub Push & Tag v0.8.2.
 - [x] **Release 0.8.1:** Kritische Bugfixes (Offline-UI & Join-Konflikt). Tag v0.8.1 erstellt.
 - [x] **Release Cycle 0.8.0:** Konsolidierung 0.7.1-0.7.6 + Audit Fixes (NetworkUtils, Scheduler Guard, Log.e). Tagging & Push durchgeführt.
 - [x] **Release Cycle 0.7.6:** Offline-Optimierung (Join-Flow): Endloser Lade-Spinner bei fehlendem Netzwerk verhindert. Deployment & Tagging durchgeführt.

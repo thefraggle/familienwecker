@@ -78,23 +78,23 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 return@launch
             }
 
-            result.onSuccess { triple ->
-                if (triple != null) {
+            result.onSuccess { pair ->
+                if (pair != null) {
                         val familyExistsResult = kotlin.runCatching { 
-                            withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(triple.first) }
+                            withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
                         }
                         if (familyExistsResult.getOrNull() == true) {
-                            if (prefsRepository.familyId.value == triple.first) {
+                            if (prefsRepository.familyId.value == pair.first) {
                                 prefsRepository.setFamilyId("")
                             }
-                            prefsRepository.setFamilyId(triple.first)
-                            prefsRepository.setJoinCode(triple.second)
-                            prefsRepository.setAlarmEnabled(triple.third)
+                            prefsRepository.setFamilyId(pair.first)
+                            prefsRepository.setJoinCode(pair.second)
+                            // isAlarmEnabled wird NICHT aus Firestore geladen (gerätespezifisch)
                             
-                            val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(triple.first) }
+                            val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(pair.first) }
                             prefsRepository.setFamilyName(familyName)
                             
-                            val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(triple.first, uid) }
+                            val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
                             if (claimedMember != null) {
                                 prefsRepository.setMyMemberId(claimedMember.id)
                             }

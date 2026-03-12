@@ -81,26 +81,18 @@ class FirebaseRepository {
         }
     }
 
+    // Bug-Fix: isAlarmEnabled ist eine rein gerätespezifische Einstellung und wird
+    // NICHT mehr in Firestore gespeichert oder von dort gelesen. Die folgenden
+    // Funktionen sind deprecated und werden nicht mehr aufgerufen.
+    @Deprecated("isAlarmEnabled ist jetzt ausschließlich lokal in PreferencesRepository gespeichert.")
     fun getFamilyAlarmEnabledFlow(familyId: String): Flow<Boolean> = callbackFlow {
-        val docRef = db.collection("families").document(familyId)
-        val subscription = docRef.addSnapshotListener { snapshot, error ->
-            if (error != null) {
-                close(error)
-                return@addSnapshotListener
-            }
-            if (snapshot != null && snapshot.exists()) {
-                trySend(snapshot.getBoolean("isAlarmEnabled") ?: true)
-            }
-        }
-        awaitClose { subscription.remove() }
+        awaitClose { }
     }
 
+    @Deprecated("isAlarmEnabled ist jetzt ausschließlich lokal in PreferencesRepository gespeichert.")
     suspend fun updateFamilyAlarmEnabled(familyId: String, enabled: Boolean) {
-        try {
-            db.collection("families").document(familyId).update("isAlarmEnabled", enabled).await()
-        } catch (e: Exception) {
-            android.util.Log.e("FirebaseRepository", "Fehler beim Aktualisieren von isAlarmEnabled für $familyId: ${e.message}")
-        }
+        // Keine Aktion mehr – Firestore-Sync für dieses Feld wurde bewusst entfernt
+        android.util.Log.d("FirebaseRepository", "updateFamilyAlarmEnabled wird ignoriert (nur noch lokal)")
     }
 
     suspend fun getFamilyName(familyId: String): String? {
@@ -269,7 +261,9 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun getUserFamily(userId: String): Result<Triple<String, String, Boolean>?> {
+    // Bug-Fix: isAlarmEnabled aus Firestore entfernt. Triple -> Pair (familyId, joinCode).
+    // isAlarmEnabled ist rein gerätespezifisch und wird nicht mehr von Firestore geladen.
+    suspend fun getUserFamily(userId: String): Result<Pair<String, String>?> {
         return try {
             val doc = db.collection("users").document(userId).get().await()
             if (doc.exists()) {
@@ -278,9 +272,8 @@ class FirebaseRepository {
                     // K-2: joinCode wird aus dem Family-Dokument gelesen, nicht aus dem User-Profil
                     val familyDoc = db.collection("families").document(familyId).get().await()
                     val joinCode = familyDoc.getString("joinCode")
-                    val isAlarmEnabled = familyDoc.getBoolean("isAlarmEnabled") ?: true
                     if (joinCode != null) {
-                        Result.success(Triple(familyId, joinCode, isAlarmEnabled))
+                        Result.success(Pair(familyId, joinCode))
                     } else {
                         Result.success(null)
                     }
