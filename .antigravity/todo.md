@@ -1,7 +1,8 @@
 # To-Do
 
 ## Recently Completed
-- [x] **Release Cycle 0.7.4:** Reverted NDK debug symbols to reduce AAB size below 4MB (Play Console warning persisted despite embedded symbols).
+- [x] **Release Cycle 0.7.6:** Offline-Optimierung (Join-Flow): Endloser Lade-Spinner bei fehlendem Netzwerk verhindert. Deployment & Tagging durchgeführt.
+- [x] **Release Cycle 0.7.5:** NDK-Symbole fixiert (debugSymbolLevel FULL), FLAG_SECURE entfernt.
 - [x] **Release Cycle 0.7.3:** Implemented massive offline robustness (timeouts/checks), `FLAG_SECURE` for join codes, fixed NDK debug symbols in CI, and restored compact icon sizes in Settings.
 - [x] **Security Enhancement:** Protected join codes from screenshots via `FLAG_SECURE`.
 - [x] **Release Cycle 0.7.x:** Launched 0.7.2 (Deep Link intent fix + NDK Symbols), implemented R8 minification, GitHub Actions cache optimizations, and consolidated 0.4.x changelogs.

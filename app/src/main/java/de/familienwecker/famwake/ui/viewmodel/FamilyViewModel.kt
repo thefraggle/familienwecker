@@ -325,6 +325,7 @@ class FamilyViewModel(
                 // O8: Netzwerk-Check vor Join-Versuch
                 if (!NetworkUtils.isOnline(getApplication())) {
                     _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
+                    _pendingJoinCode.value = null
                     onComplete(false)
                     return@launch
                 }
@@ -368,6 +369,7 @@ class FamilyViewModel(
                 }
             } catch (e: Exception) {
                 _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: "Unknown")
+                _pendingJoinCode.value = null
                 onComplete(false)
             } finally {
                 _isSyncing.value = false
