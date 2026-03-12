@@ -132,9 +132,9 @@ jobs:
             "$AAB_PATH" "$KEY_ALIAS"
           cp "$AAB_PATH" FamWake-${{ github.ref_name }}-release.aab
 
-      # GitHub Release mit APK (Patch)
+      # GitHub Release mit APK (Patch, nur bei Tag-Push)
       - name: Create GitHub Release (APK)
-        if: steps.metadata.outputs.build_apk == 'true'
+        if: steps.metadata.outputs.build_apk == 'true' && startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: FamWake-${{ github.ref_name }}-release.apk
@@ -142,12 +142,21 @@ jobs:
           body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
           prerelease: true
 
-      # GitHub Release mit AAB (Minor → Store)
+      # GitHub Release mit AAB (Minor → Store, nur bei Tag-Push)
       - name: Create GitHub Release (AAB)
-        if: steps.metadata.outputs.build_aab == 'true'
+        if: steps.metadata.outputs.build_aab == 'true' && startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: FamWake-${{ github.ref_name }}-release.aab
           name: Release ${{ github.ref_name }}
           body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
           prerelease: false
+
+      # Artefakt-Upload bei manuellem Run (force_aab=true) – direkt im Actions-Run downloadbar
+      - name: Upload AAB as Artifact (manual run)
+        if: steps.metadata.outputs.build_aab == 'true' && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: FamWake-AAB-${{ github.ref_name }}-${{ steps.metadata.outputs.hash }}
+          path: FamWake-${{ github.ref_name }}-release.aab
+          retention-days: 14
