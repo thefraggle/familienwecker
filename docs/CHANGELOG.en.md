@@ -9,6 +9,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - Battery optimization card now disappears immediately after confirmation (was: required screen navigation).
 - Card layout aligned with other settings cards.
+- Battery warning removed from main screen – now only shown in Settings.
 
 ---
 

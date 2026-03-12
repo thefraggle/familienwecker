@@ -9,6 +9,7 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ### Behoben
 - Akku-Optimierungs-Kachel verschwindet sofort nach Bestätigung (war: erst nach Screen-Wechsel).
 - Layout der Kachel korrigiert – einheitlich mit anderen Settings-Kacheln.
+- Akku-Hinweis aus dem Hauptscreen entfernt – nur noch in den Einstellungen.
 
 ---
 
