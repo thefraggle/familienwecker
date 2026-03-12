@@ -3,7 +3,9 @@ package de.familienwecker.famwake.data
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class LoginFailedException : Exception()
 class RegistrationFailedException : Exception()
@@ -15,29 +17,21 @@ class AuthRepository {
     val currentUser: FirebaseUser?
         get() = auth.currentUser
 
-    suspend fun login(email: String, pass: String): Result<FirebaseUser> {
-        return try {
+    suspend fun login(email: String, pass: String): Result<FirebaseUser> = withContext(Dispatchers.IO) {
+        try {
             val result = auth.signInWithEmailAndPassword(email.trim(), pass).await()
             val user = result.user
-            if (user != null) {
-                Result.success(user)
-            } else {
-                Result.failure(LoginFailedException())
-            }
+            if (user != null) Result.success(user) else Result.failure(LoginFailedException())
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    suspend fun register(email: String, pass: String): Result<FirebaseUser> {
-        return try {
+    suspend fun register(email: String, pass: String): Result<FirebaseUser> = withContext(Dispatchers.IO) {
+        try {
             val result = auth.createUserWithEmailAndPassword(email.trim(), pass).await()
             val user = result.user
-            if (user != null) {
-                Result.success(user)
-            } else {
-                Result.failure(RegistrationFailedException())
-            }
+            if (user != null) Result.success(user) else Result.failure(RegistrationFailedException())
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -97,15 +91,11 @@ class AuthRepository {
         }
     }
 
-    suspend fun signInWithGoogleCredential(credential: AuthCredential): Result<FirebaseUser> {
-        return try {
+    suspend fun signInWithGoogleCredential(credential: AuthCredential): Result<FirebaseUser> = withContext(Dispatchers.IO) {
+        try {
             val result = auth.signInWithCredential(credential).await()
             val user = result.user
-            if (user != null) {
-                Result.success(user)
-            } else {
-                Result.failure(GoogleSignInFailedException())
-            }
+            if (user != null) Result.success(user) else Result.failure(GoogleSignInFailedException())
         } catch (e: Exception) {
             Result.failure(e)
         }

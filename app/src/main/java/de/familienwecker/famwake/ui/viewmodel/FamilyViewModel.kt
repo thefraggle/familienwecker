@@ -515,9 +515,15 @@ class FamilyViewModel(
 
     fun snooze(memberId: String, memberName: String) {
         val snoozeTime = LocalDateTime.now().plusMinutes(5)
-        alarmScheduler.scheduleWakeUp(snoozeTime, memberId, memberName) {
-            _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
-        }
+        alarmScheduler.scheduleWakeUp(
+            wakeUpTime = snoozeTime,
+            memberId = memberId,
+            memberName = memberName,
+            soundUri = alarmSoundUri.value,
+            onPermissionDenied = {
+                _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
+            }
+        )
     }
 
     fun refreshData() {
@@ -724,6 +730,7 @@ class FamilyViewModel(
                     wakeUpTime = targetDateTime,
                     memberId = memberSchedule.member.id,
                     memberName = memberSchedule.member.name,
+                    soundUri = alarmSoundUri.value,
                     onPermissionDenied = {
                         _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
                     }
@@ -764,5 +771,11 @@ class FamilyViewModel(
 
     fun dismissJoinSuccess() {
         _showJoinSuccess.value = false
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        // H-4/N-6: SharedPreferences-Listener deregistrieren, um Memory Leaks zu vermeiden
+        prefsRepo.unregisterListener()
     }
 }

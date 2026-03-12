@@ -150,6 +150,11 @@ class PreferencesRepository(context: Context) {
         prefs.registerOnSharedPreferenceChangeListener(listener)
     }
 
+    /** H-4/N-6: Listener deregistrieren – wird von FamilyViewModel.onCleared() aufgerufen. */
+    fun unregisterListener() {
+        prefs.unregisterOnSharedPreferenceChangeListener(listener)
+    }
+
     fun setMyMemberId(id: String?) {
         _myMemberId.value = id
         prefs.edit { putString("MY_MEMBER_ID", id) }

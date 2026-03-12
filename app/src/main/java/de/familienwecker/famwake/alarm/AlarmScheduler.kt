@@ -21,6 +21,7 @@ class AlarmScheduler(private val context: Context) {
         wakeUpTime: LocalDateTime,
         memberId: String,
         memberName: String,
+        soundUri: String? = null,
         onPermissionDenied: (() -> Unit)? = null
     ) {
         // Exakte Alarme benötigen ab Android 12 (API 31) die Berechtigung SCHEDULE_EXACT_ALARM
@@ -34,10 +35,11 @@ class AlarmScheduler(private val context: Context) {
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra("MEMBER_ID", memberId)
             putExtra("MEMBER_NAME", memberName)
+            soundUri?.let { putExtra("SOUND_URI", it) }
         }
 
-        // H-2: abs() verhindert negative Request-Codes, die auf einigen OEM-ROMs Probleme bereiten
-        val requestCode = Math.abs(memberId.hashCode())
+        // N-2: Bitmask statt Math.abs() – verhindert Int.MIN_VALUE-Kollision
+        val requestCode = memberId.hashCode().and(0x7fffffff)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,
