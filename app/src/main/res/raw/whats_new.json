@@ -1,9 +1,9 @@
 {
-    "versionCode": 495,
-    "title_de": "Stärker, sicherer, stabiler ⚡",
-    "text_de": "Version 0.9.5 bringt wichtige Verbesserungen unter der Haube: Nach einem Neustart wird der Wecker jetzt automatisch neu geplant, Deep Links sind auf HTTPS beschränkt und die Einstellungen warnen bei aktiver Akku-Optimierung.",
-    "title_en": "Stronger, safer, more stable ⚡",
-    "text_en": "Version 0.9.5 brings important under-the-hood improvements: alarms are now automatically rescheduled after a reboot, deep links are restricted to HTTPS, and settings warn about active battery optimization.",
-    "button_text_de": "Super!",
-    "button_text_en": "Got it!"
+    "versionCode": 499,
+    "title_de": "Bereit für entspannte Morgen? ☀️",
+    "text_de": "Herzlich willkommen! FamWake ist ab sofort dein Begleiter für einen besseren Familienalltag.\n\nTauch ein und entdecke die Möglichkeiten. Wir sind gespannt, wie dir die App gefällt! Sollte mal etwas nicht rund laufen oder dir eine Funktion fehlen, lass es uns wissen.",
+    "title_en": "Ready for relaxed mornings? ☀️",
+    "text_en": "Welcome aboard! FamWake is now your companion for a better daily family routine.\n\nDive in and discover the possibilities. We're excited to see how you like the app! If something doesn't run smoothly or you're missing a feature, let us know.",
+    "button_text_de": "Los geht's!",
+    "button_text_en": "Let's go!"
 }

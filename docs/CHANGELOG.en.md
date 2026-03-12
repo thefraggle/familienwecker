@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [0.9.9] - 2026-03-12
+### Security & Code Quality (Security audit completed)
+- **Family creation via Cloud Function (H-5):** `createFamily` now runs entirely server-side – no direct client write to Firestore possible (`allow create: if false` in Security Rules).
+- **App singleton used consistently (H-1/H-2):** `RingingActivity` and `BootReceiver` now use the `FamWakeApplication` singleton for `PreferencesRepository` – regression from M-3 fix resolved.
+- **Email rate-limiting (H-3):** All public Cloud Functions (`sendBrandedResetEmail`, `sendVerificationEmail`, `sendBrandedConfirmationEmail`) now enforce server-side rate-limiting (max. 3/hour per email address) against email bombing.
+- **Cryptographically secure PRNG (M-1):** Join code generation in `createFamily` now uses `crypto.randomInt()` instead of `Math.random()`.
+- **Deprecated window flags removed (M-2):** `FLAG_SHOW_WHEN_LOCKED` and `FLAG_TURN_SCREEN_ON` removed from `RingingActivity` – redundant with `minSdk=26`.
+- **SettingsScreen MVVM-compliant (M-3):** Direct `FirebaseAuth.getInstance()` call inside a Composable replaced with `viewModel.currentUserId`.
+- **Debug guards completed:** All remaining `Log.e()` calls without `BuildConfig.DEBUG` guard fixed (`AuthRepository`, `FirebaseRepository`).
+- **firebase.json extended:** Firestore Rules can now be deployed via `firebase deploy --only firestore`.
+
 ## [0.9.5] - 2026-03-12
 ### Improvements
 - **CompositionLocal for Dark Theme:** `isSystemInDarkTheme()` is now called once at the theme root and provided via `LocalDarkTheme` – cleaner architecture, no redundant system state queries.
