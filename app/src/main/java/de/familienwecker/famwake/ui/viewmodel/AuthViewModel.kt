@@ -17,6 +17,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.util.UiText
+import de.familienwecker.famwake.util.NetworkUtils
+import kotlinx.coroutines.withTimeoutOrNull
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val authRepository: AuthRepository = AuthRepository()
@@ -61,41 +63,48 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private fun restoreUserFamily(uid: String) {
         _isRestoringFamily.value = true
         viewModelScope.launch {
-            val result = dbRepository.getUserFamily(uid)
+            if (!NetworkUtils.isOnline(getApplication())) {
+                _isRestoringFamily.value = false
+                return@launch
+            }
+            
+            val result = withTimeoutOrNull(2000) {
+                dbRepository.getUserFamily(uid)
+            }
+            
+            if (result == null) {
+                // Timeout or generic error handled below
+                _isRestoringFamily.value = false
+                return@launch
+            }
+
             result.onSuccess { triple ->
                 if (triple != null) {
-                        val familyExistsResult = kotlin.runCatching { dbRepository.checkFamilyExists(triple.first) }
+                        val familyExistsResult = kotlin.runCatching { 
+                            withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(triple.first) }
+                        }
                         if (familyExistsResult.getOrNull() == true) {
-                            // Bugfix: Nach einer Neu-Installation via Backup-Restore kann es sein,
-                            // dass preferencesRepository.familyId.value bereits "triple.first" ist,
-                            // der SnapshotListener aber aufgrund fehlender Authentifizierung vorab
-                            // mit PERMISSION_DENIED gecrasht ist.
-                            // Um den Flow in FamilyViewModel zwingend neu zu starten, erzwingen wir ein Emit.
                             if (prefsRepository.familyId.value == triple.first) {
-                                prefsRepository.setFamilyId("") // Temporärer Dummy-Wert
+                                prefsRepository.setFamilyId("")
                             }
                             prefsRepository.setFamilyId(triple.first)
                             prefsRepository.setJoinCode(triple.second)
                             prefsRepository.setAlarmEnabled(triple.third)
                             
-                            val familyName = dbRepository.getFamilyName(triple.first)
+                            val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(triple.first) }
                             prefsRepository.setFamilyName(familyName)
                             
-                            val claimedMember = dbRepository.getClaimedMember(triple.first, uid)
+                            val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(triple.first, uid) }
                             if (claimedMember != null) {
                                 prefsRepository.setMyMemberId(claimedMember.id)
                             }
                         } else if (familyExistsResult.getOrNull() == false) {
-                            // Only clear IF we definitely know it doesn't exist (404)
                             dbRepository.removeUserFamily(uid)
                             prefsRepository.clearAll()
                         }
-                        // If it's a network error (exception), we keep what we have locally
                 } else {
-                    // Kein Profil in der Cloud -> Lokal ebenfalls säubern (Self-Healing)
                     prefsRepository.clearAll()
                 }
-
                 _isRestoringFamily.value = false
             }.onFailure {
                 _isRestoringFamily.value = false

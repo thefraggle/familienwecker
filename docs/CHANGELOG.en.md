@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.7.3] - 2026-03-12
+### Added & Optimized
+- **Offline Robustness:** Massive improvements in offline stability. App startup now takes a maximum of 2 seconds even without internet thanks to intelligent timeouts and connectivity checks.
+- **Security:** Implemented `FLAG_SECURE` on the Family Setup screen to prevent screenshots and screen recordings of the join code.
+- **Join Flow:** Immediate error feedback when attempting to join a family while offline (no more infinite loading spinners).
+- **Developer Tools:** Proper integration of native debug symbols (NDK) for Google Play to enable detailed ANR and crash analysis.
+
+### Fixed
+- **UI:** Restored icon sizes (Email & External Link) in Settings to their original, compact dimensions.
+
 ## [0.7.2] - 2026-03-11
 ### Optimized & Fixed
 - **Google Play:** Native debug symbols (NDK) are now fully integrated into the App Bundle (.aab) to ensure clean crash analytics in the Play Console.

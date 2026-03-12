@@ -7,6 +7,16 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.7.3] - 2026-03-12
+### Neu & Optimiert
+- **Offline-Robustheit:** Massive Verbesserung der Stabilität im Offline-Modus. Der App-Start dauert nun auch ohne Internet maximal 2 Sekunden durch intelligente Timeouts und Vorab-Checks.
+- **Sicherheit:** Einführung von `FLAG_SECURE` im Family-Setup Screen, um Screenshots und Bildschirmaufnahmen des Join-Codes zu verhindern.
+- **Join-Flow:** Sofortige Fehlermeldung beim Versuch einer Familie offline beizutreten (kein unendliches Laden mehr).
+- **Entwickler-Optionen:** Korrekte Einbindung nativer Debug-Symbole (NDK) für Google Play, um detaillierte ANR- und Crash-Analysen zu ermöglichen.
+
+### Behoben
+- **UI:** Korrektur der Icon-Größen (Mail & External Link) in den Einstellungen auf die ursprüngliche, kompakte Größe.
+
 ## [0.7.2] - 2026-03-11
 ### Optimiert & Behoben
 - **Google Play:** Native Debug-Symbole (NDK) werden nun automatisch für saubere Crash-Analysen im Play Console Bundle (.aab) hinterlegt.

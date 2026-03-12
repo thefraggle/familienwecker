@@ -33,6 +33,8 @@ import de.familienwecker.famwake.util.WhatsNewManager
 import de.familienwecker.famwake.util.WhatsNewContent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
+import de.familienwecker.famwake.util.NetworkUtils
+import kotlinx.coroutines.withTimeoutOrNull
 
 class FamilyViewModel(
     application: Application,
@@ -211,6 +213,11 @@ class FamilyViewModel(
             return
         }
         viewModelScope.launch {
+            if (!NetworkUtils.isOnline(getApplication())) {
+                _errorMessage.value = UiText.StringResource(R.string.error_not_logged_in) // Reuse or add offline error
+                onComplete(false)
+                return@launch
+            }
             val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
                 repository.saveUserFamily(uid, pair.first, pair.second)
@@ -239,6 +246,11 @@ class FamilyViewModel(
         }
 
         viewModelScope.launch {
+            if (!NetworkUtils.isOnline(getApplication())) {
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
+                onComplete(false)
+                return@launch
+            }
             val result = repository.joinFamilyByCode(code)
             result.onSuccess { pair ->
                 val uid = auth.currentUser?.uid
@@ -489,8 +501,18 @@ class FamilyViewModel(
         val uid = auth.currentUser?.uid ?: return
         _isSyncing.value = true
         viewModelScope.launch {
+            if (!NetworkUtils.isOnline(getApplication())) {
+                _isSyncing.value = false
+                return@launch
+            }
             try {
-                val result = repository.getUserFamily(uid)
+                val result = withTimeoutOrNull(3000) {
+                    repository.getUserFamily(uid)
+                }
+                if (result == null) {
+                    _isSyncing.value = false
+                    return@launch
+                }
                 result.onSuccess { triple ->
                     if (triple != null) {
                         prefsRepo.setFamilyId(triple.first)
