@@ -1,4 +1,5 @@
 ## Recently Completed
+- [x] **Release 0.8.3:** Kritischer Bugfix: Alarm-Switch gerätespezifisch gemacht (Firestore-Sync entfernt). Tag `v0.8.3`.
 - [x] **Release 0.8.2:** Sicherheits-Audit Fixes (K+H). EncryptedSharedPreferences, Cloud Function Join mit Rate-Limiting, restriktive Firestore Rules. Tag `v0.8.2`.
 - [x] **Release 0.8.1:** Kritische Bugfixes für Offline-UI und Join-Konflikt-Dialog. Tag `v0.8.1`.
 - [x] **Firebase Cleanup:** Korrektur der Cloud Functions (Timestamp-Handling & Secrets).
@@ -12,4 +13,4 @@ Android App (FamWake).
   - Algorithmus-basiertes Scheduling (Rückwärtsrechnung von Weck- und Badzeiten mit Midnight-Guard).
   - Deep-Linking für Familien-Beitritt (`familienwecker.de/join`).
   - Strict Local Development: Release-Zyklen werden über semantische Tags (vX.Y.Z) konsolidiert und via GitHub deployt.
-- **Aktueller Stand:** Version 0.8.3-dev. Release v0.8.2 (Security Audit) durchgeführt.
+- **Aktueller Stand:** Version 0.8.4-dev. Release v0.8.3 (Bugfix Alarm-Sync) durchgeführt.
