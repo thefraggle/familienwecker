@@ -7,6 +7,10 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.7.6] - 2026-03-12
+### Behoben
+- **Offline-Robustheit:** Endloser Lade-Spinner beim Erstellen oder Beitreten einer Familie im Offline-Modus (auch via Deep Link) behoben. Die App zeigt nun sofort einen Fehler an, statt in einem Lade-Zustand hängen zu bleiben.
+
 ## [0.7.5] - 2026-03-12
 ### Optimiert
 - **Play Console (NDK):** Native Debug-Symbole werden nun zuverlässig via `FULL` direkt in das App Bundle eingebettet. Zusätzlich wird das NDK in der CI-Pipeline explizit installiert, um Fehler beim Bauen der Symbole zu verhindern.

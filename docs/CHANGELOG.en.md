@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.7.6] - 2026-03-12
+### Fixed
+- **Offline Robustness:** Fixed infinite loading spinners when creating or joining a family while offline (including deep links). The app now immediately displays an error instead of hanging in a loading state.
+
 ## [0.7.5] - 2026-03-12
 ### Optimized
 - **Play Console (NDK):** Native debug symbols are now reliably embedded via `FULL` directly into the App Bundle. Additionally, the NDK is explicitly installed in the CI pipeline to ensure symbols are generated correctly.
