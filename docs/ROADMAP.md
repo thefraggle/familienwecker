@@ -35,8 +35,6 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Badezimmer-Dauer nach Wochentag:** Freitag braucht Papa länger, Montag die Kinder mehr Zeit – pro Wochentag konfigurierbar.
 - [ ] **Zeitumstellungs-Schutz (DST):** Absicherung der Berechnung bei Wechsel Sommer-/Winterzeit.
 - [ ] **Alarm-Watchdog:** Hintergrunddienst gegen System-Kills/Abstürze absichern.
-- [ ] **Offline-Modus:** ~~Lokale Speicherung der Daten, falls das Internet mal ausfällt.~~ ✅ Umgesetzt via Firestore Offline-Cache (2s Timeout bei App-Start).
-- [ ] **Konfliktlösung:** ~~Strategie für gleichzeitige Änderungen am selben Mitglied.~~ ✅ Last-Write-Wins via `lastUpdatedAt` implementiert.
 
 ---
 *Vorschläge können jederzeit ergänzt werden! Einfach dieses File bearbeiten.*

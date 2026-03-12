@@ -8,6 +8,22 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [0.9.5] - 2026-03-12
+### Verbesserungen
+- **CompositionLocal für Dark Theme:** `isSystemInDarkTheme()` wird einmalig im Theme-Root ausgelesen und via `LocalDarkTheme` bereitgestellt – korrektere Architektur, kein mehrfaches Abfragen des System-States.
+- **SyncStatus:** Überblick über Cloud-Synchronisierung überwacht jetzt sowohl das Familien-Dokument als auch die Mitglieder-Kollektion.
+- **Passwort-Validierung:** Clientseitige Prüfung (min. 8 Zeichen) verhindert unnötige Firebase-Aufrufe bei zu kurzem Passwort.
+
+## [0.9.2] - 2026-03-12
+### Sicherheit & Code-Qualität (Audit-Fixes)
+- **Boot-Sicherheit:** Wecker werden nach Geräte-Neustart automatisch neu geplant (`BootReceiver`).
+- **Deep Links:** Nur noch HTTPS-Schema erlaubt – kein HTTP mehr in Einladungslinks.
+- **Navigations-Typsicherheit:** Navigations-Routen über zentrales `Routes`-Objekt; Tippfehler führen jetzt zum Compile-Fehler statt Laufzeit-Crash.
+- **Akku-Warnung:** Einstellungen zeigen Hinweis, wenn Akku-Optimierung aktiv ist (kann Wecker verzögern).
+- **SharedPreferences-Listener:** Wird bei ViewModel-Destroy sauber deregistriert – verhindert Memory Leak.
+- **Fallback:** `getUserFamily()` nutzt lokal gecachten Join-Code als Fallback bei Firestore-Fehler.
+- **Code-Cleanup:** Duplikates Firestore-Mapping in `FamilyMemberMapper` zentralisiert; redundante Imports entfernt.
+
 ## [0.9.1] - 2026-03-12
 ### Neu
 - **Alarm-Status Sync:** Der Alarm-Status geclaimter Familienmitglieder wird in der Liste automatisch live synchronisiert. Deaktiviert jemand seinen Wecker, sehen andere das Ändern sofort – ohne App-Neustart. Der eigene globale Alarm-Switch bleibt weiterhin gerätespezifisch.

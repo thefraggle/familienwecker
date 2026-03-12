@@ -37,8 +37,6 @@ Stress-free morning routines – through intelligent, dynamic planning for the w
 - [ ] **Bathroom duration by weekday:** Dad needs more time on Fridays, kids on Mondays – configurable per weekday.
 - [ ] **Daylight Saving Time (DST) Support:** Ensure calculations are robust against summer/winter time shifts.
 - [ ] **Alarm Watchdog:** Enhance background service resilience against system kills or crashes.
-- [ ] **Offline Mode:** ~~Local data storage for when internet is unavailable.~~ ✅ Implemented via Firestore offline cache (2s timeout on app start).
-- [ ] **Conflict Resolution:** ~~Strategy for simultaneous edits to the same member profiles.~~ ✅ Last-Write-Wins via `lastUpdatedAt` implemented.
 
 
 ---
