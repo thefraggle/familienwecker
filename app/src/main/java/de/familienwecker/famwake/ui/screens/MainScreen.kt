@@ -124,7 +124,7 @@ fun MainScreen(
                 TextButton(
                     onClick = { viewModel.dismissWhatsNew() },
                 ) {
-                    Text(stringResource(android.R.string.ok))
+                    Text(content.buttonText)
                 }
             }
         )
