@@ -1,12 +1,10 @@
-# 🗺️ FamWake Roadmap & Ideas Backlog
-
-This document serves as the central place for everything we want to improve or build for FamWake.
+# 🗺️ FamWake Roadmap
 
 *[🇩🇪 Deutsche Version](ROADMAP.md)*
 
 ---
 ## 🎯 Vision
-Stress-free mornings – through intelligent, dynamic planning for the whole family.
+Stress-free mornings – smart, dynamic planning for the whole family.
 
 ---
 
@@ -27,7 +25,7 @@ Stress-free mornings – through intelligent, dynamic planning for the whole fam
 - [ ] **Weekday configuration:** Separate wake times for weekdays and weekends.
 
 ### Priority: Medium (Usability & UI)
-- [ ] **Snooze synchronization:** If someone needs more time, others' plans adjust "live".
+- [ ] **Snooze sync:** Others' plans adjust "live" when someone needs more time.
 - [ ] **2-bathroom support:** Parallel slot calculation.
 - [ ] **Individual breakfast duration:** Each member can set their own times.
 - [ ] **Haptic profiles:** Different vibration patterns for pre-alarm and main alarm.
@@ -35,7 +33,7 @@ Stress-free mornings – through intelligent, dynamic planning for the whole fam
 - [ ] **Input validation:** Warning for unrealistic values (e.g. 2h bathroom time).
 - [ ] **Home screen widget:** See your wake time without opening the app.
 - [ ] **Wake confirmation push:** "I'm awake!" button sends a push to everyone.
-- [ ] **Vacation date instead of manual switch:** Alarm re-activates automatically.
+- [ ] **Vacation date:** Alarm re-activates automatically after the set date.
 - [ ] **Weekly plan overview:** Compact table of all members × weekdays.
 
 ### Priority: Low (Nice-to-have)
@@ -46,4 +44,3 @@ Stress-free mornings – through intelligent, dynamic planning for the whole fam
 - [ ] **Alarm watchdog:** Protect background service against system kills.
 
 ---
-*Suggestions can be added at any time! Just edit this file.*

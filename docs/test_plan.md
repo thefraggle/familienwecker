@@ -1,15 +1,12 @@
-# 🧪 Testplan - FamWake (Familienwecker)
-
-Diese Dokumentation beschreibt die Teststrategie und die Testfälle für die FamWake-App, um eine hohe Zuverlässigkeit der Weck-Logik und eine reibungslose Benutzererfahrung sicherzustellen.
+# 🧪 Testplan - FamWake
 
 *[🇬🇧 English version](test_plan.en.md)*
-
 
 ---
 
 ## 📋 Übersicht & Strategie
 
-Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen daher nicht nur die UI validieren, sondern insbesondere die mathematische Korrektheit und Stabilität der Zeitplanberechnung unter verschiedenen Randbedingungen.
+Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrektheit des Planungsalgorithmus.
 
 ### Testbereiche
 1.  **Onboarding & Account:** Registrierung, Login, Familienbeitritt.
@@ -75,39 +72,39 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 ### 1. Konfliktsituationen (Stress-Tests)
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| EC-01 | **Unmöglicher Plan** (Alle wollen zur selben Zeit ins Bad) | App zeigt Warnung "Konflikt gefunden" und bietet Kompromissvorschläge (z.B. Frühstück verkürzen). |
-| EC-02 | **Extreme Bad-Dauer** (Mitglied mit 120 Min. Badzeit) | Der Plan verschiebt andere Mitglieder massiv; ggf. Warnung bei unrealistischen Eingaben. |
-| EC-03 | **Kurze Zeitfenster** (Wecken 7:00, Haus verlassen 7:05) | App warnt vor zu knappem Zeitmanagement. |
+| EC-01 | **Unmöglicher Plan** | Alle wollen gleichzeitig ins Bad. | App zeigt Konflikt-Warnung und Kompromissvorschläge. |
+| EC-02 | **Extreme Bad-Dauer** | Mitglied mit 120 Min. | Plan verschiebt andere massiv; ggf. Warnung. |
+| EC-03 | **Kurze Zeitfenster** | Wecken 7:00, Abfahrt 7:05. | App warnt vor zu knappem Zeitfenster. |
 
 ### 2. Technische Grenzfälle
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| EC-04 | **Offline-Berechnung** | Der letzte gültige Plan bleibt lokal gespeichert. Wecker klingelt auch ohne Internet. |
-| EC-05 | **Zeitumstellung** (Sommer/Winter) | Weckzeiten werden korrekt an die neue Zeit angepasst, keine doppelten Alarme. |
-| EC-06 | **App-Absturz während Alarm** | Alarm-Dienst startet automatisch neu und setzt den Weckvorgang fort. |
-| EC-07 | **Akku-Optimierung (Android)** | App ist als "Nicht optimiert" markiert, damit der Background-Service zuverlässig weckt. |
-| EC-11 | **Snooze-Funktion** | Klick auf Snooze (5 Min) im Weckscreen plant einen neuen Alarm exakt 5 Min später. |
-| EC-12 | **Mitternachts-Reset** | Status „Heute pausieren" und „Bin schon wach" werden automatisch am nächsten Tag zurückgesetzt. |
-| EC-14 | **Persistenz & Logout** | Nach Logout oder Neu-Installation sind keine alten Login-Daten oder Familien-IDs mehr vorhanden (Auto-Backup deaktiviert). |
-| EC-15 | **Familien-Löschen (Sicherheit)** | Doppelte Bestätigung erforderlich, wenn andere Mitglieder existieren; einfache Bestätigung bei "nur ich" oder leeren Listen. |
-| EC-16 | **Mitglied löschen (Bestätigung)** | Ja/Nein-Dialog erscheint vor dem Löschen eines Mitglieds. |
-| EC-17 | **Neu-Anlage nach Löschung** | Nach Löschung einer Familie kann sofort eine neue angelegt werden ohne Hängen (Infinity Loading Test). |
-| EC-18 | **Daten-Resilienz (Dashboard)** | Wenn die Familie auf einem anderen Gerät gelöscht wurde, erfolgt automatischer Reset zum Setup (Self-Healing). |
-| EC-19 | **Multi-Device Claim Sync** | Wenn Profil auf Gerät A geclaimt wird, erkennt Gerät B (gleiche UID) dies automatisch ohne Refresh. |
-| EC-20 | **Resource-Health** | Icons und Splash-Screen werden auf verschiedenen Pixeldichten (xhdpi bis xxxhdpi) ohne Verzerrung korrekt dargestellt. |
-| EC-21 | **Max. Calculation Limit (OOM)** | Versuch, Plan für >6 aktive Mitglieder zu berechnen, wird zur Crash-Prävention auf 6 limitiert. |
-| EC-22 | **Garbage Collection (Server)** | Familien ohne Update in den letzten 180 Tagen werden sonntags von Cloud Functions gelöscht. |
-| EC-23 | **Alarm-Berechtigung fehlt (UI)** | Wenn `SCHEDULE_EXACT_ALARM` fehlt, erscheint eine lokalisierte Fehlermeldung im UI (kein Toast, kein Absturz). |
-| EC-24 | **Barrierefreiheit (A11y)** | Touch-Targets (z.B. in Settings) sind mindestens 24dp groß für zuverlässige Bedienbarkeit. |
-| EC-25 | **Offline-Start Timeout** | Start der App im Flugmodus. Lade-Screen muss nach max. 2 Sek. zum Dashboard führen (lokale Daten vorausgesetzt). |
-| EC-26 | **Offline-Join Error** | Beitrittsversuch (Code/Link) im Flugmodus zeigt kurz einen Spinner im Button und dann sofort eine Fehlermeldung; Dialog schließt sich. |
-| EC-27 | **Captive Portal Erkennung** | WLAN mit vorgeschalteter Login-Seite (kein echtes Internet). | App muss Offline-Status erkennen (via `NET_CAPABILITY_VALIDATED`). |
-| EC-28 | **Midnight Schedule Guard** | Abfahrt extrem früh + lange Badzeit (Berechnung vor 03:00). | Scheduler muss Konflikt melden statt fehlerhafte Zeiten zu generieren. |
-| EC-29 | **Gerätespezifischer Alarm-Switch** | Deaktivieren des Alarms auf Gerät A. | Gerät B (selbe Familie) behält den Alarm-Status unverändert bei (kein globaler Sync). |
-| EC-30 | **Lokalisierte Auth-Fehler** | Registrierung mit zu kurzem Passwort (< 6 Zeichen). | Fehlermeldung erscheint auf Deutsch (bzw. Systemsprache), nicht auf Englisch. |
-| EC-31 | **Alarm-Status Sync (Fremd-Anzeige)** | User A deaktiviert Wecker auf Gerät A. | Gerät B sieht in der Mitgliederliste bei User A sofort „kein Alarm" – ohne Refresh. Eigener Alarm-Status von Gerät B bleibt unverändert. |
-| EC-32 | **Familie löschen mit anderen Usern** | Admin löscht Familie obwohl andere User aktive Profile haben → alle werden herausgeworfen, Familie wird gelöscht. |
-| EC-33 | **Offline-Icon bei ausstehenden Writes** | Änderung offline vornehmen → nach 3s erscheint CloudOff-Icon statt drehendem Sync-Spinner. |
+| EC-04 | **Offline-Berechnung** | Letzter Plan lokal gespeichert; Wecker klingelt auch ohne Internet. |
+| EC-05 | **Zeitumstellung** | Weckzeiten korrekt angepasst, keine doppelten Alarme. |
+| EC-06 | **App-Absturz während Alarm** | Alarm-Dienst startet automatisch neu. |
+| EC-07 | **Akku-Optimierung** | App als „Nicht optimiert" markiert. |
+| EC-11 | **Snooze** | Snooze (5 Min) plant neuen Alarm exakt 5 Min später. |
+| EC-12 | **Mitternachts-Reset** | „Heute pausieren" und „Bin wach" am nächsten Tag zurückgesetzt. |
+| EC-14 | **Persistenz & Logout** | Keine alten Login-Daten oder Familien-IDs nach Logout/Neuinstallation. |
+| EC-15 | **Familien-Löschen** | Doppelte Bestätigung bei anderen Mitgliedern; einfach bei leerer Familie. |
+| EC-16 | **Mitglied löschen** | Bestätigungs-Dialog vor dem Löschen. |
+| EC-17 | **Neu-Anlage nach Löschung** | Neue Familie direkt anlegbar, kein Infinity-Spinner. |
+| EC-18 | **Daten-Resilienz** | Familie auf anderem Gerät gelöscht → automatischer Reset zum Setup. |
+| EC-19 | **Multi-Device Claim Sync** | Profil auf Gerät A geclaimt → Gerät B erkennt es ohne Refresh. |
+| EC-20 | **Icon-Skalierung** | Icons und Splash-Screen korrekt auf xhdpi bis xxxhdpi. |
+| EC-21 | **Calc-Limit** | Plan für >6 aktive Mitglieder wird auf 6 begrenzt. |
+| EC-22 | **Server-Cleanup** | Familien ohne Update seit 180 Tagen werden sonntags gelöscht. |
+| EC-23 | **Fehlende Alarm-Berechtigung** | Lokalisierte Fehlermeldung im UI; kein Toast, kein Absturz. |
+| EC-24 | **Touch-Targets (A11y)** | Mindestens 24dp groß. |
+| EC-25 | **Offline-Start** | Lade-Screen wechselt nach max. 2s zum Dashboard. |
+| EC-26 | **Offline-Join** | Sofortige Fehlermeldung; kein endloser Spinner. |
+| EC-27 | **Captive Portal** | Offline-Status via `NET_CAPABILITY_VALIDATED` erkannt. |
+| EC-28 | **Mitternachts-Guard** | Frühes Abfahrtsziel + lange Badzeit → Konflikt statt fehlerhafte Zeiten. |
+| EC-29 | **Gerätespezifischer Alarm-Switch** | Alarm auf Gerät A aus → Gerät B unverändert. |
+| EC-30 | **Lokalisierte Auth-Fehler** | Fehlermeldung in Systemsprache, nicht Englisch. |
+| EC-31 | **Alarm-Status Sync** | User A deaktiviert Wecker → Gerät B sieht es sofort, eigener Status bleibt. |
+| EC-32 | **Familie löschen mit anderen Usern** | Admin löscht → alle herausgeworfen, Familie gelöscht. |
+| EC-33 | **Offline-Icon bei Writes** | Nach 3s Offline → CloudOff-Icon statt Sync-Spinner. |
 
 
 ### 3. Benutzer-Verhalten
@@ -122,10 +119,10 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 
 ## 📱 UI/UX & Barrierefreiheit
 
-- **Dark Mode:** Alle Kontraste müssen auch im dunklen Thema (für nachts/morgens) augenfreundlich sein. Der Hintergrund nutzt nun echtes AMOLED Schwarz (`#000000`) für verbesserte Batterie-Effizienz.
-- **Material You:** Dynamische App-Farben basierend auf dem System-Hintergrundbild (ab Android 12).
-- **Haptik:** Vibrationsmuster unterscheiden sich zwischen "Voralarm" und "Hauptalarm".
-- **Echtzeit-Feedback:** Wenn der Plan neu berechnet wird, sieht der User eine kurze Animation/Bestätigung.
+- **Dark Mode:** Kontraste augenfreundlich; AMOLED Black (`#000000`) für Akku-Effizienz.
+- **Material You:** Dynamische Farben ab Android 12.
+- **Haptik:** Unterschiedliche Vibrationsmuster für Voralarm und Hauptalarm.
+- **Echtzeit-Feedback:** Kurze Animation bei Plan-Neuberechnung.
 
 ---
 

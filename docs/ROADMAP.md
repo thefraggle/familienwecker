@@ -1,12 +1,10 @@
-# 🗺️ FamWake Roadmap & Ideen-Backlog
-
-Dieses Dokument dient als zentraler Ort für alles, was wir an FamWake verbessern oder neu bauen wollen. 
+# 🗺️ FamWake Roadmap
 
 *[🇬🇧 English version](ROADMAP.en.md)*
 
 ---
 ## 🎯 Vision
-Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ganze Familie.
+Morgenroutine ohne Stress – smarte, dynamische Planung für die ganze Familie.
 
 ---
 
@@ -27,7 +25,7 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Wochentag-Konfiguration:** Weckzeiten für Werktage und Wochenende getrennt einstellen.
 
 ### Prio: Mittel (Usability & UI)
-- [ ] **Snooze-Synchronisation:** Wenn einer länger braucht, passt sich der Plan der anderen „live" an.
+- [ ] **Snooze-Sync:** Plan der anderen passt sich „live" an, wenn jemand länger braucht.
 - [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
 - [ ] **Individuelle Frühstücksdauer:** Jedes Mitglied kann eigene Zeiten setzen.
 - [ ] **Haptik-Profile:** Unterschiedliche Vibrationsmuster für Voralarm und Hauptalarm.
@@ -35,7 +33,7 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Eingabe-Validierung:** Warnung bei unrealistischen Werten (z. B. 2h Bad-Dauer).
 - [ ] **Homescreen-Widget:** Eigene heutige Weckzeit ohne App öffnen.
 - [ ] **Weck-Bestätigung mit Familien-Push:** „Bin wach!"-Button schickt Push an alle.
-- [ ] **Urlaubs-Datum statt manuellem Schalter:** Wecker reaktiviert sich automatisch.
+- [ ] **Urlaubs-Datum:** Wecker reaktiviert sich automatisch nach Ablauf.
 - [ ] **Plan-Übersicht als Wochentabelle:** Kompakte Tabelle aller Mitglieder × Wochentage.
 
 ### Prio: Niedrig (Nice-to-have)
@@ -46,4 +44,3 @@ Morgenroutine ohne Stress – durch intelligente, dynamische Planung für die ga
 - [ ] **Alarm-Watchdog:** Hintergrunddienst gegen System-Kills absichern.
 
 ---
-*Vorschläge können jederzeit ergänzt werden! Einfach dieses File bearbeiten.*
