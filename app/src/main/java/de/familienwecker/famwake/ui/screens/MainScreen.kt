@@ -130,19 +130,7 @@ fun MainScreen(
         )
     }
 
-    val isBatteryOptimized = remember { mutableStateOf<Boolean>(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
 
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                isBatteryOptimized.value = !BatteryUtils.isBatteryOptimizationIgnored(context)
-            }
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
 
     LaunchedEffect(isSyncing, familyId) {
         if (familyId == null) {
@@ -288,38 +276,7 @@ fun MainScreen(
                     }
                 }
                 
-                // Akku-Optimierung Warnung
-                item {
-                    if (isBatteryOptimized.value && isAlarmEnabled) {
-                        Card(
-                            modifier = Modifier.fillMaxWidth().clickable { 
-                                BatteryUtils.requestIgnoreBatteryOptimizations(context)
-                            },
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                            colors = CardDefaults.cardColors(
-                                containerColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
-                                                 else MaterialTheme.colorScheme.errorContainer
-                            )
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = "🔋 " + stringResource(R.string.main_battery_warning),
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onErrorContainer
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = stringResource(R.string.main_battery_warning_desc),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onErrorContainer
-                                )
-                            }
-                        }
-                    }
-                }
+
 
                 // 0b. Wecker Ein/Aus Schalter
                 item {
