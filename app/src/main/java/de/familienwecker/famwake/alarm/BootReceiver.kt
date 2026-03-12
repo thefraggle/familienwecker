@@ -3,6 +3,7 @@ package de.familienwecker.famwake.alarm
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.data.PreferencesRepository
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -20,7 +21,7 @@ class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != Intent.ACTION_BOOT_COMPLETED) return
 
-        val prefs = PreferencesRepository(context)
+        val prefs = (context.applicationContext as FamWakeApplication).preferencesRepository
         val familyId = prefs.familyId.value ?: return
         val memberId = prefs.myMemberId.value ?: return
         val memberName = prefs.myMemberName.value ?: ""
