@@ -46,6 +46,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-35 | **Admin-only delete** | Non-creator opens Settings → delete family → receives error message instead of confirmation dialog. |
 | TC-36 | **Offline profile claim blocked** | Open dropdown in airplane mode → Snackbar with offline error appears immediately. |
 | TC-37 | **Deep link instant dialog (background)** | App is on Settings screen, open join link → Conflict dialog appears immediately without back navigation. |
+| TC-38 | **Battery card instant reset** | Disable battery optimization, return to app → card disappears immediately without screen navigation. |
 
 
 ### 2. Family Configuration
