@@ -70,10 +70,8 @@ fun MainScreen(
     val currentFamilyName by viewModel.familyName.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsStateWithLifecycle()
-    // O3: Nur noch ein collect für themePreference
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
-    // O5: isOffline über ViewModel (mit 3s-Debounce) statt syncStatus.isFromCache direkt
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
@@ -115,7 +113,6 @@ fun MainScreen(
         }
     }
 
-    // O3: themePreference wird nur einmal gecollected (oben), direkt hier auswerten
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
@@ -166,7 +163,6 @@ fun MainScreen(
                         )
 
                         if (isOffline) {
-                            // O5: Offline hat Vorrang – CloudOff-Icon nach 3s Debounce
                             Box(modifier = Modifier.padding(end = 4.dp)) {
                                 Icon(
                                     imageVector = Icons.Default.CloudOff,
@@ -206,7 +202,6 @@ fun MainScreen(
                 )
             }
         ) { padding ->
-            // O2: LazyListState für dynamische Höhenberechnung beim Drag & Drop
             val lazyListState = androidx.compose.foundation.lazy.rememberLazyListState()
             val itemHeightPx = remember(lazyListState.layoutInfo) {
                 lazyListState.layoutInfo.visibleItemsInfo
