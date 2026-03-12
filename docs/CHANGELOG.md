@@ -7,6 +7,14 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.8.1] - 2026-03-12
+### Behoben
+- **Offline-UI:** Die Top-Bar zeigt nun zuverlässig das Cloud-Off Icon, auch wenn der Firestore-Cache noch ausstehende Schreibvorgänge meldet.
+- **Join-Flow:** 
+  - Race-Conditions im Join-Konflikt-Dialog (MainScreen und SetupScreen) durch asynchrones State-Handling behoben.
+  - Interaktives Feedback während des Beitritts durch Button-Loading-Spinner.
+  - Dialog schließt sich nun zuverlässig auch bei Fehlern (z. B. Offline-Status).
+
 ## [0.8.0] - 2026-03-12
 ### Neu
 - **Sicherheit & Audit:** Umfassendes Code-Audit durchgeführt und Struktur bereinigt.

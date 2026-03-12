@@ -342,6 +342,7 @@ exports.cleanupUnverifiedUsers = onSchedule(
     schedule: "every day 04:00",
     region: "europe-west3",
     timeZone: "Europe/Berlin",
+    secrets: ["RESEND_API_KEY"],
   },
   async (event) => {
     const fortyEightHoursAgoMs = Date.now() - 48 * 60 * 60 * 1000;
@@ -417,6 +418,7 @@ exports.cleanupInactiveFamilies = onSchedule(
     schedule: "every sunday 04:00",
     region: "europe-west3",
     timeZone: "Europe/Berlin",
+    secrets: ["RESEND_API_KEY"],
   },
   async (event) => {
     // 6 Monate (180 Tage) Inaktivität
@@ -437,13 +439,24 @@ exports.cleanupInactiveFamilies = onSchedule(
       let isStale = true;
       if (!membersSnapshot.empty) {
         const latestMember = membersSnapshot.docs[0].data();
-        if (latestMember.lastUpdatedAt && latestMember.lastUpdatedAt > sixMonthsAgoMs) {
+        // Firestore Timestamps haben .toMillis() – direkter Vergleich mit > wäre nur bei Numbers korrekt
+        const lastUpdatedMs = latestMember.lastUpdatedAt
+          ? (typeof latestMember.lastUpdatedAt.toMillis === "function"
+              ? latestMember.lastUpdatedAt.toMillis()
+              : latestMember.lastUpdatedAt)
+          : 0;
+        if (lastUpdatedMs > sixMonthsAgoMs) {
           isStale = false;
         }
       }
 
       const familyData = familyDoc.data();
-      if (familyData.createdAt && familyData.createdAt > sixMonthsAgoMs) {
+      const createdAtMs = familyData.createdAt
+        ? (typeof familyData.createdAt.toMillis === "function"
+            ? familyData.createdAt.toMillis()
+            : familyData.createdAt)
+        : 0;
+      if (createdAtMs > sixMonthsAgoMs) {
         isStale = false;
       }
 
