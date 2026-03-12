@@ -32,7 +32,7 @@
     <string name="main_add_members_prompt">Füge Mitglieder hinzu, um einen Plan zu berechnen.</string>
     <string name="main_no_active_schedule">Kein aktiver Weckplan.</string>
     <string name="main_error">Fehler: %s</string>
-    <string name="main_optimal_plan">Optimaler Plan berechnet</string>
+    <string name="main_optimal_plan">Optimaler Weck-Plan berechnet</string>
     <string name="main_plan_paused">Wecker pausiert</string>
     <string name="main_shared_breakfast">Gemeinsames Frühstück ab %1$s</string>
     <string name="main_wake_time">Wecken: %1$s - %2$s</string>
@@ -124,7 +124,7 @@
     <string name="settings_help_bullet_4"><b>Reihenfolge anpassen</b>: Schiebe Profile einfach per Drag &amp; Drop an die gewünschte Stelle, um die Bad-Reihenfolge manuell zu ändern.</string>
 
     <string name="settings_support_title">Support</string>
-    <string name="settings_support_text">Feedback oder Fragen zur Bedienung?</string>
+    <string name="settings_support_text">Feedback oder Fragen?</string>
     <string name="settings_support_button">E-Mail an Entwickler</string>
     <string name="settings_privacy_policy">Datenschutzerkl\u00e4rung</string>
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy.html</string>

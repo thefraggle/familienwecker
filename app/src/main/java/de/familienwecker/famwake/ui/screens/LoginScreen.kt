@@ -228,7 +228,7 @@ fun LoginScreen(
 
                             Spacer(modifier = Modifier.height(16.dp))
 
-                            // M-5: Google Sign-In – der Flow läuft vollständig im ViewModel
+                            // Google Sign-In – der Flow läuft vollständig im ViewModel
                             val googleInteractionSource = remember { MutableInteractionSource() }
                             OutlinedButton(
                                 onClick = { authViewModel.signInWithGoogle(context) },

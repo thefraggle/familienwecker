@@ -97,7 +97,7 @@ class FamilyViewModel(
     private var lastScheduledAlarmMillis: Long? = null
 
     init {
-        // 1. Observe FamilyId and load members accordingly
+        // Observe FamilyId and load members accordingly
         viewModelScope.launch {
             try {
                 familyId.collect { currentFamilyId ->
@@ -178,7 +178,7 @@ class FamilyViewModel(
             }
         }
 
-        // 2. Observer MyMemberId
+        // Observer MyMemberId
         viewModelScope.launch {
             try {
                 myMemberId.collect { id ->
@@ -192,7 +192,7 @@ class FamilyViewModel(
             }
         }
 
-        // 3. Observer Global Alarm Toggle → nach Firestore pushen (nur Anzeige für andere Geräte)
+        // Observer Global Alarm Toggle → nach Firestore pushen (nur Anzeige für andere Geräte)
         viewModelScope.launch {
             try {
                 isAlarmEnabled.collect { enabled ->
@@ -255,7 +255,7 @@ class FamilyViewModel(
     fun joinFamily(code: String, onComplete: (Boolean) -> Unit) {
         _errorMessage.value = null
 
-        // O7: Nicht beitreten wenn bereits in dieser Familie
+        // Nicht beitreten wenn bereits in dieser Familie
         if (code.equals(joinCode.value, ignoreCase = true)) {
             onComplete(true)
             return
@@ -325,7 +325,7 @@ class FamilyViewModel(
     fun leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
         val code = _pendingJoinCode.value ?: return
 
-        // O7: Nicht beitreten wenn bereits in dieser Familie
+        // Nicht beitreten wenn bereits in dieser Familie
         if (code.equals(joinCode.value, ignoreCase = true)) {
             _pendingJoinCode.value = null
             onComplete(true)
@@ -337,7 +337,7 @@ class FamilyViewModel(
         viewModelScope.launch {
             _isSyncing.value = true
             try {
-                // O8: Netzwerk-Check vor Join-Versuch
+                // Netzwerk-Check vor Join-Versuch
                 if (!NetworkUtils.isOnline(getApplication())) {
                     _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
                     _pendingJoinCode.value = null
@@ -354,7 +354,7 @@ class FamilyViewModel(
                     // Code ist gültig -> Alte Familie verlassen (Alarm canceln)
                     cancelAlarmForCurrentUser()
                     
-                    // K-2: Neues Mapping speichern (kein joinCode im User-Profil)
+                    // Neues Mapping speichern (kein joinCode im User-Profil)
                     if (uid != null) {
                         val saveResult = repository.saveUserFamily(uid, newFamilyId)
                         if (saveResult.isFailure) {
@@ -503,7 +503,7 @@ class FamilyViewModel(
 
         val member = _members.value.find { it.id == memberId } ?: return
 
-        // B7: Toter Code (isInWindow-Block) entfernt. Nur die korrekte Duration-Berechnung.
+        // Dauer-Berechnung
         val now = LocalTime.now()
         val wakeUpTime = member.latestWakeUp
         val targetDate = if (now.isAfter(wakeUpTime)) LocalDate.now().plusDays(1) else LocalDate.now()
@@ -727,7 +727,7 @@ class FamilyViewModel(
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
                 val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
 
-                // O4: Alarm nur neu setzen wenn die Zeit sich geändert hat
+                // Alarm nur neu setzen wenn die Zeit sich geändert hat
                 val newAlarmMillis = targetDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
                 if (newAlarmMillis == lastScheduledAlarmMillis) return
 

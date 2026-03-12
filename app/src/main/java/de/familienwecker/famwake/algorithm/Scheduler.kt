@@ -22,7 +22,7 @@ class Scheduler {
         // Nutze exakt die übergebene Reihung (Manuelle Sortierung)
         val fixedPermutation = listOf(activeMembers)
 
-        // 1. Versuche die exakte Reihung ohne Zeit-Verschiebung
+        // Versuche die exakte Reihung ohne Zeit-Verschiebung
         val result = findBestScheduleOverPermutations(fixedPermutation, activeMembers, breakfastDurationMinutes, 0)
 
         if (result.isSuccess) return result.getOrThrow()
@@ -160,7 +160,7 @@ class Scheduler {
                 return Result.failure(Exception("CONFLICT:${member.name}:${wakeUpTime}:${allowedEarliestWakeUp}"))
             }
 
-            // E2: Guard gegen Mitternacht-Overflow: Errechnete Weckzeit liegt vor 03:00 → unrealistisch und deutet auf
+            // Guard gegen Mitternacht-Overflow: Errechnete Weckzeit liegt vor 03:00 → unrealistisch
             // einen LocalTime-Wrap-Around hin (z. B. 90 Min Badzeit mit leaveHomeTime 02:00).
             if (wakeUpTime.isBefore(LocalTime.of(3, 0))) {
                 return Result.failure(Exception("CONFLICT:${member.name}:${wakeUpTime}:midnight-guard"))

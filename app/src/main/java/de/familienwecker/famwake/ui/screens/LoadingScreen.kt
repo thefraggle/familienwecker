@@ -46,7 +46,7 @@ fun LoadingScreen(
                 if (familyId != null) {
                     onNavigateToMain()
                 } else if (pendingJoinCode != null) {
-                    // O8: Netzwerk-Check vor automatischem Beitritt
+                    // Netzwerk-Check vor automatischem Beitritt
                     if (de.familienwecker.famwake.util.NetworkUtils.isOnline(context)) {
                         familyViewModel.handlePendingJoin { success ->
                             if (success) onNavigateToMain() else onNavigateToSetup()

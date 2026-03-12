@@ -223,7 +223,7 @@ class FirebaseRepository {
         return (1..6).map { chars[secureRandom.nextInt(chars.length)] }.joinToString("")
     }
 
-    // K-2 Security: joinCode wird NICHT im User-Profil gespeichert.
+    // Security: joinCode wird NICHT im User-Profil gespeichert.
     // Er wird bei Bedarf direkt aus dem Family-Dokument gelesen.
     suspend fun saveUserFamily(userId: String, familyId: String): Result<Unit> {
         return try {
@@ -291,7 +291,7 @@ class FirebaseRepository {
                 .get()
                 .await()
             if (!snapshot.isEmpty) {
-                // M-1: Zentrales Mapping via Extension-Funktion
+                // Zentrales Mapping via Extension-Funktion
                 snapshot.documents.first().toFamilyMember()
             } else {
                 null

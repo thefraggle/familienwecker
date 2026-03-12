@@ -131,7 +131,7 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             
-            // 1. Profilauswahl (Wer bin ich?)
+            // Profilauswahl (Wer bin ich?)
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
@@ -217,7 +217,7 @@ fun SettingsScreen(
                 }
             }
 
-            // 2. Weckereinstellungen (Ton)
+            // Weckereinstellungen (Ton)
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
@@ -309,7 +309,7 @@ fun SettingsScreen(
                 }
             }
 
-            // 4. Familie & Account
+            // Familie & Account
             val currentJoinCode by viewModel.joinCode.collectAsStateWithLifecycle()
             
             Card(
@@ -454,7 +454,7 @@ fun SettingsScreen(
                 )
             }
 
-            // 5. Sprache (Language)
+            // Sprache (Language)
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
@@ -551,7 +551,7 @@ fun SettingsScreen(
                 }
             }
 
-            // 5. Über diese App
+            // Über diese App
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
@@ -594,7 +594,7 @@ fun SettingsScreen(
                 }
             }
 
-            // 6. Support
+            // Support
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
