@@ -102,7 +102,7 @@ fun FamilienweckerTheme(
         }
     }
 
-    // N-2: LocalDarkTheme einmalig providen, damit Screens nicht isSystemInDarkTheme() direkt aufrufen
+    // LocalDarkTheme einmalig providen, damit Screens nicht isSystemInDarkTheme() direkt aufrufen
     CompositionLocalProvider(LocalDarkTheme provides darkTheme) {
         MaterialTheme(
             colorScheme = colorScheme,

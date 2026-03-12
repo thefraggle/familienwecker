@@ -218,7 +218,7 @@ fun MainScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 
-                // 0. Fehlermeldung (falls vorhanden)
+                // Fehlermeldung (falls vorhanden)
                 item {
                     errorMessage?.let { error ->
                         Card(
@@ -251,7 +251,7 @@ fun MainScreen(
                     }
                 }
                 
-                // 0. Akku-Optimierung Warnung
+                // Akku-Optimierung Warnung
                 item {
                     if (isBatteryOptimized.value && isAlarmEnabled) {
                         Card(
@@ -402,7 +402,7 @@ fun MainScreen(
                     }
                 }
 
-                // 1. Errechneter Wecker-Plan
+                // Errechneter Wecker-Plan
                 item {
                     Text(stringResource(R.string.main_current_schedule), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
                 }
@@ -610,7 +610,7 @@ fun MainScreen(
                     HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
                 }
 
-                // 2. Liste der Familienmitglieder
+                // Liste der Familienmitglieder
                 item {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
