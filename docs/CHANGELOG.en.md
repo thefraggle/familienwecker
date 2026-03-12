@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Deep Links:** Fixed SingleTask Intent handling; invitation links now reliably route to the app even when already running in the background.
 - **UI & Architecture:** Corrected icon sizes in Settings, fixed `@OptIn` annotation scoping, and optimized AMOLED Black Mode.
 
-## [0.7.0] - 2026-03-11
+## [0.7.x] - Summary (March 2026)
 ### Added & Optimized
 - **Performance & Architecture:** Implemented `ImmutableList` for more efficient Compose rendering and improved Dependency Injection (`FirebaseRepository`).
 - **Security:** `SecureRandom` used for family code generation to prevent predictability.
@@ -42,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Deep Links:** Extensive fixes for conflicts, validation, and infinite loops when joining via invitation links.
 - **Stability:** Resolved race conditions during profile unclaiming (Atomic Transaction) and family deletion (WriteBatch). `leaveFamily()` now reliably cancels the underlying system alarm.
 
-## [0.6.0] - 2026-03-09
+## [0.6.x] - Summary (March 2026)
 ### Added
 - **Drag & Drop Reordering:** Sort family members via long-press. Includes spring animations for gap preview and haptic feedback.
 - **Offline-UI & Sync:** New status icons in the top bar for offline mode and pending cloud synchronization.
@@ -61,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Incorrect profile claim status after re-joining.
 - Gradle build-cache and CI stability fixes.
 
-## [0.5.0] - 2026-03-06
+## [0.5.x] - Summary (March 2026)
  ### Release in the Play Store (Update)
  A fully redesigned and stabilized version with focus on family organization and modern UI.
  *Note: The package name has been changed to `de.familienwecker.famwake`.*

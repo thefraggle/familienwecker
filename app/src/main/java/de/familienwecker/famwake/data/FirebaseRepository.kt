@@ -48,13 +48,33 @@ class FirebaseRepository {
         }
     }
 
+    // K-1 + H-1: Join-Flow über gesicherte Cloud Function statt direktem Firestore-Query.
+    // Die families-Collection ist damit nicht mehr global lesbar.
+    // Die Cloud Function validiert den Code serverseitig und erzwingt Rate-Limiting.
     suspend fun joinFamilyByCode(joinCode: String): Result<Pair<String, String>> {
         return try {
-            val snapshot = db.collection("families").whereEqualTo("joinCode", joinCode).limit(1).get().await()
-            if (!snapshot.isEmpty) {
-                Result.success(Pair(snapshot.documents.first().id, joinCode))
+            val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
+            val data = hashMapOf("code" to joinCode)
+            val result = functions
+                .getHttpsCallable("joinFamilyByCode")
+                .call(data)
+                .await()
+            @Suppress("UNCHECKED_CAST")
+            val response = result.data as? Map<String, Any>
+            val familyId = response?.get("familyId") as? String
+            val code = response?.get("joinCode") as? String
+            if (familyId != null && code != null) {
+                Result.success(Pair(familyId, code))
             } else {
                 Result.failure(FamilyNotFoundException())
+            }
+        } catch (e: com.google.firebase.functions.FirebaseFunctionsException) {
+            when (e.code) {
+                com.google.firebase.functions.FirebaseFunctionsException.Code.NOT_FOUND ->
+                    Result.failure(FamilyNotFoundException())
+                com.google.firebase.functions.FirebaseFunctionsException.Code.RESOURCE_EXHAUSTED ->
+                    Result.failure(Exception("TOO_MANY_REQUESTS"))
+                else -> Result.failure(e)
             }
         } catch (e: Exception) {
             Result.failure(e)
@@ -236,15 +256,16 @@ class FirebaseRepository {
         return (1..6).map { chars[secureRandom.nextInt(chars.length)] }.joinToString("")
     }
 
-    suspend fun saveUserFamily(userId: String, familyId: String, joinCode: String) {
-        try {
-            val data = hashMapOf(
-                "familyId" to familyId,
-                "joinCode" to joinCode
-            )
+    // K-2 Security: joinCode wird NICHT im User-Profil gespeichert.
+    // Er wird bei Bedarf direkt aus dem Family-Dokument gelesen.
+    suspend fun saveUserFamily(userId: String, familyId: String): Result<Unit> {
+        return try {
+            val data = hashMapOf("familyId" to familyId)
             db.collection("users").document(userId).set(data).await()
+            Result.success(Unit)
         } catch (e: Exception) {
             android.util.Log.e("FirebaseRepository", "Fehler beim Speichern der User-Family-Zuordnung für $userId: ${e.message}")
+            Result.failure(e)
         }
     }
 
@@ -253,12 +274,16 @@ class FirebaseRepository {
             val doc = db.collection("users").document(userId).get().await()
             if (doc.exists()) {
                 val familyId = doc.getString("familyId")
-                val joinCode = doc.getString("joinCode")
-                if (familyId != null && joinCode != null) {
-                    // Also get the global alarm state from the family doc
+                if (familyId != null) {
+                    // K-2: joinCode wird aus dem Family-Dokument gelesen, nicht aus dem User-Profil
                     val familyDoc = db.collection("families").document(familyId).get().await()
+                    val joinCode = familyDoc.getString("joinCode")
                     val isAlarmEnabled = familyDoc.getBoolean("isAlarmEnabled") ?: true
-                    Result.success(Triple(familyId, joinCode, isAlarmEnabled))
+                    if (joinCode != null) {
+                        Result.success(Triple(familyId, joinCode, isAlarmEnabled))
+                    } else {
+                        Result.success(null)
+                    }
                 } else {
                     Result.success(null)
                 }

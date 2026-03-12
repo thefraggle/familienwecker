@@ -30,7 +30,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 - **Deep Links:** Problem mit SingleTask Intent-Handling behoben; Einladungslinks funktionieren nun auch bei bereits geöffneter App zuverlässig.
 - **UI & Architektur:** Korrektur von Icon-Größen in den Settings, korrektes Scoping von `@OptIn` Annotationen und AMOLED Black Mode Optimierung.
 
-## [0.7.0] - 2026-03-11
+## [0.7.x] - Zusammengefasst (März 2026)
 ### Neu & Optimiert
 - **Performance & Architektur:** Einführung von `ImmutableList` für effizienteres Compose-Rendering und verbesserte Dependency Injection für Repositories.
 - **Sicherheit:** Verwendung von `SecureRandom` für die Generierung von Familiencodes.
@@ -42,7 +42,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 - **Deep Links:** Umfangreiche Fixes für Konflikte, Validierung und Endlosschleifen beim Beitreten über Einladungslinks.
 - **Stabilität:** Race-Conditions beim Profil-Freigeben (Atomic Transaction) und Familien-Löschen (WriteBatch) behoben. `leaveFamily()` bricht nun zuverlässig den eigenen Wecker ab.
 
-## [0.6.0] - 2026-03-09
+## [0.6.x] - Zusammengefasst (März 2026)
 ### Hinzugefügt
 - **Drag & Drop Reordering:** Mitglieder können nun per Drag & Drop sortiert werden. Inklusive Spring-Animationen für Gap-Preview und haptischem Feedback.
 - **Offline-UI & Sync:** Neue Indikatoren in der Top-Bar für Offline-Modus und ausstehende Cloud-Synchronisierung.
@@ -61,7 +61,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 - Fehlerhafter Profil-Claim Status nach Re-Join.
 - Gradle Build-Cache & CI Stabilitäts-Fixes.
 
-## [0.5.0] - 2026-03-06
+## [0.5.x] - Zusammengefasst (März 2026)
  ### Veröffentlichung im Play Store (Update)
  Eine komplett überarbeitete Version mit Fokus auf Familien-Organisation, Design und Stabilität.
  *Hinweis: Der Paketname wurde zu `de.familienwecker.famwake` geändert.*

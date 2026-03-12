@@ -36,9 +36,11 @@ class AlarmScheduler(private val context: Context) {
             putExtra("MEMBER_NAME", memberName)
         }
 
+        // H-2: abs() verhindert negative Request-Codes, die auf einigen OEM-ROMs Probleme bereiten
+        val requestCode = Math.abs(memberId.hashCode())
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            memberId.hashCode(),
+            requestCode,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -53,9 +55,10 @@ class AlarmScheduler(private val context: Context) {
 
     fun cancelWakeUp(memberId: String) {
         val intent = Intent(context, AlarmReceiver::class.java)
+        val requestCode = Math.abs(memberId.hashCode())
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            memberId.hashCode(),
+            requestCode,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )

@@ -224,7 +224,11 @@ class FamilyViewModel(
             }
             val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
-                repository.saveUserFamily(uid, pair.first, pair.second)
+                // K-2: joinCode wird nicht mehr im User-Profil gespeichert
+                val saveResult = repository.saveUserFamily(uid, pair.first)
+                if (saveResult.isFailure) {
+                    android.util.Log.e("FamilyViewModel", "saveUserFamily fehlgeschlagen: ${saveResult.exceptionOrNull()?.message}")
+                }
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)
                 prefsRepo.setFamilyName(familyName)
@@ -259,7 +263,11 @@ class FamilyViewModel(
             result.onSuccess { pair ->
                 val uid = auth.currentUser?.uid
                 if (uid != null) {
-                    repository.saveUserFamily(uid, pair.first, pair.second)
+                    // K-2: joinCode wird nicht mehr im User-Profil gespeichert
+                    val saveResult = repository.saveUserFamily(uid, pair.first)
+                    if (saveResult.isFailure) {
+                        android.util.Log.e("FamilyViewModel", "saveUserFamily fehlgeschlagen: ${saveResult.exceptionOrNull()?.message}")
+                    }
                 }
                 val fetchedName = repository.getFamilyName(pair.first)
                 prefsRepo.setFamilyId(pair.first)
@@ -339,9 +347,12 @@ class FamilyViewModel(
                     // Code ist gültig -> Alte Familie verlassen (Alarm canceln)
                     cancelAlarmForCurrentUser()
                     
-                    // Neues Mapping speichern (überschreibt das alte)
+                    // K-2: Neues Mapping speichern (kein joinCode im User-Profil)
                     if (uid != null) {
-                        repository.saveUserFamily(uid, newFamilyId, newJoinCode)
+                        val saveResult = repository.saveUserFamily(uid, newFamilyId)
+                        if (saveResult.isFailure) {
+                            android.util.Log.e("FamilyViewModel", "saveUserFamily fehlgeschlagen: ${saveResult.exceptionOrNull()?.message}")
+                        }
                     }
                     val fetchedName = repository.getFamilyName(newFamilyId)
                     val oldFamilyId = familyId.value
