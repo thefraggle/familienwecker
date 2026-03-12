@@ -1,8 +1,37 @@
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const admin = require("firebase-admin");
 const { Resend } = require("resend");
+const { randomInt } = require("crypto");
 
 admin.initializeApp();
+
+/**
+ * Rate-Limit auf E-Mail-Adresse: max. 3 Versuche pro Stunde.
+ * Wird von allen Email-Cloud-Functions genutzt, die ohne Auth aufgerufen werden können.
+ */
+async function checkEmailRateLimit(email) {
+  const key = `email_${email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 80)}`;
+  const rateLimitRef = admin.firestore().collection("_rate_limits").doc(key);
+  const now = Date.now();
+  const windowMs = 60 * 60 * 1000; // 1 Stunde
+  const maxAttempts = 3;
+
+  const limited = await admin.firestore().runTransaction(async (tx) => {
+    const doc = await tx.get(rateLimitRef);
+    const data = doc.exists ? doc.data() : { count: 0, windowStart: now };
+    if (now - data.windowStart > windowMs) {
+      tx.set(rateLimitRef, { count: 1, windowStart: now });
+      return false;
+    }
+    if (data.count >= maxAttempts) return true;
+    tx.update(rateLimitRef, { count: data.count + 1 });
+    return false;
+  });
+
+  if (limited) {
+    throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+  }
+}
 
 const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
 const BRAND_BLUE = "#1A3A5C";
@@ -108,6 +137,7 @@ exports.sendBrandedResetEmail = onCall(
     }
 
     try {
+      await checkEmailRateLimit(email.trim());
       const linkOriginal = await admin.auth().generatePasswordResetLink(email.trim());
       let link = linkOriginal.replace("deine-domain.de", "www.familienwecker.de");
 
@@ -198,6 +228,7 @@ exports.sendBrandedConfirmationEmail = onCall(
     }
 
     try {
+      await checkEmailRateLimit(email.trim());
       const t = EMAIL_CONTENT_CONFIRM[lang] || EMAIL_CONTENT_CONFIRM.de;
       const resend = new Resend(resendKey);
       const { error } = await resend.emails.send({
@@ -299,6 +330,7 @@ exports.sendVerificationEmail = onCall(
     }
 
     try {
+      await checkEmailRateLimit(email.trim());
       const linkOriginal = await admin.auth().generateEmailVerificationLink(email.trim());
       // Firebase uses a single global Action URL configured in the console (currently reset-password.html)
       // So we must string-replace it back to verify-email.html for verification links.
@@ -627,7 +659,7 @@ exports.createFamily = onCall(
 
     while (attempts < 5) {
       const candidate = Array.from({ length: 6 }, () =>
-        CHARS.charAt(Math.floor(Math.random() * CHARS.length))
+        CHARS.charAt(randomInt(CHARS.length))
       ).join("");
 
       const existing = await admin.firestore()
