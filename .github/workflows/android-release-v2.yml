@@ -12,12 +12,11 @@ concurrency:
 
 jobs:
   build-and-release:
-    name: Build & Upload APK
+    name: Build & Upload
     runs-on: ubuntu-latest
 
-    # Gibt dem Workflow die Schreibrechte für GitHub Releases
     permissions:
-      contents: write 
+      contents: write
 
     steps:
       - name: Checkout Code
@@ -47,43 +46,58 @@ jobs:
           ${{ secrets.GOOGLE_SERVICES_JSON }}
           EOF
 
-      # Berechne Metadaten für den Build (kompatibel mit Configuration Cache)
       - name: Prepare Build Metadata
         id: metadata
         run: |
           echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
+          # Determine build type: versions ending in .0 → AAB (Store), others → APK (Testing)
+          if [[ "${{ github.ref_name }}" == *.0 ]]; then
+            echo "build_aab=true" >> $GITHUB_OUTPUT
+            echo "build_apk=false" >> $GITHUB_OUTPUT
+          else
+            echo "build_aab=false" >> $GITHUB_OUTPUT
+            echo "build_apk=true" >> $GITHUB_OUTPUT
+          fi
 
-      # Baut das un-signierte Release APK und das Release AAB
-      - name: Build Release APK and AAB
+      # x.x.0 → AAB für den Play Store
+      - name: Build AAB (Store Release)
+        if: steps.metadata.outputs.build_aab == 'true'
         run: |
-          ./gradlew assembleRelease bundleRelease \
+          ./gradlew bundleRelease \
             --build-cache --parallel --configuration-cache \
             -PcommitHash=${{ steps.metadata.outputs.hash }} \
             -PcommitDate="${{ steps.metadata.outputs.date }}" \
             -Dorg.gradle.jvmargs="-Xmx4g"
 
-      # Entschlüsselt den Keystore aus den GitHub Secrets
+      # x.x.1+ → APK für Beta-Tests
+      - name: Build APK (Test Release)
+        if: steps.metadata.outputs.build_apk == 'true'
+        run: |
+          ./gradlew assembleRelease \
+            --build-cache --parallel --configuration-cache \
+            -PcommitHash=${{ steps.metadata.outputs.hash }} \
+            -PcommitDate="${{ steps.metadata.outputs.date }}" \
+            -Dorg.gradle.jvmargs="-Xmx4g"
+
       - name: Decode Keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: python3 -c "import os, base64; open('app/keystore.jks', 'wb').write(base64.b64decode(os.environ['KEYSTORE_BASE64']))"
 
-      # Sucht die aktuellsten Android Build Tools auf dem Runner und fügt sie zum PATH hinzu
       - name: Setup Android Build Tools
         run: |
           BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
-          echo "Verwende Build Tools aus: $BUILD_TOOLS_DIR"
           echo "$BUILD_TOOLS_DIR" >> $GITHUB_PATH
 
-      # Führt Zipalign und die Signierung manuell ohne fehleranfällige Drittanbieter-Actions aus
-      - name: Sign APK and AAB
+      # APK signieren (nur für Patch-Releases)
+      - name: Sign APK
+        if: steps.metadata.outputs.build_apk == 'true'
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: |
-          # 1. APK finden und signieren
           APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
           zipalign -v 4 "$APK_PATH" aligned.apk
           apksigner sign --ks app/keystore.jks \
@@ -91,8 +105,15 @@ jobs:
             --key-pass env:KEY_PASSWORD \
             --ks-key-alias "$KEY_ALIAS" \
             --out FamWake-${{ github.ref_name }}-release.apk aligned.apk
-            
-          # 2. AAB finden und signieren (App Bundles benötigen Jarsigner)
+
+      # AAB signieren (nur für Minor-Releases)
+      - name: Sign AAB
+        if: steps.metadata.outputs.build_aab == 'true'
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: |
           AAB_PATH=$(find app/build/outputs/bundle/release -name "*.aab" | head -n 1)
           jarsigner -keystore app/keystore.jks \
             -storepass "$KEYSTORE_PASSWORD" \
@@ -100,13 +121,22 @@ jobs:
             "$AAB_PATH" "$KEY_ALIAS"
           cp "$AAB_PATH" FamWake-${{ github.ref_name }}-release.aab
 
-      # Nimmt das fertige APK und AAB und hängt sie als Pre-Release an den GitHub-Tag
-      - name: Create GitHub Pre-Release
+      # GitHub Release mit APK (Patch)
+      - name: Create GitHub Release (APK)
+        if: steps.metadata.outputs.build_apk == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            FamWake-${{ github.ref_name }}-release.apk
-            FamWake-${{ github.ref_name }}-release.aab
+          files: FamWake-${{ github.ref_name }}-release.apk
           name: Release ${{ github.ref_name }}
           body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
           prerelease: true
+
+      # GitHub Release mit AAB (Minor → Store)
+      - name: Create GitHub Release (AAB)
+        if: steps.metadata.outputs.build_aab == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: FamWake-${{ github.ref_name }}-release.aab
+          name: Release ${{ github.ref_name }}
+          body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
+          prerelease: false
