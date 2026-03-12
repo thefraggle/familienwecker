@@ -1,4 +1,5 @@
 ## Recently Completed
+- [x] **Lokalisierung (v0.8.4-dev):** Firebase-Auth-Fehler (Länge, Kollision) lokalisiert, hardcodierte Strings im Login-Bereich entfernt.
 - [x] **Release 0.8.3:** Kritischer Bugfix: Alarm-Switch gerätespezifisch gemacht (Firestore-Sync entfernt). Tag `v0.8.3`.
 - [x] **Release 0.8.2:** Sicherheits-Audit Fixes (K+H). EncryptedSharedPreferences, Cloud Function Join mit Rate-Limiting, restriktive Firestore Rules. Tag `v0.8.2`.
 - [x] **Release 0.8.1:** Kritische Bugfixes für Offline-UI und Join-Konflikt-Dialog. Tag `v0.8.1`.

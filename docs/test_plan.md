@@ -99,6 +99,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-27 | **Captive Portal Erkennung** | WLAN mit vorgeschalteter Login-Seite (kein echtes Internet). | App muss Offline-Status erkennen (via `NET_CAPABILITY_VALIDATED`). |
 | EC-28 | **Midnight Schedule Guard** | Abfahrt extrem früh + lange Badzeit (Berechnung vor 03:00). | Scheduler muss Konflikt melden statt fehlerhafte Zeiten zu generieren. |
 | EC-29 | **Gerätespezifischer Alarm-Switch** | Deaktivieren des Alarms auf Gerät A. | Gerät B (selbe Familie) behält den Alarm-Status unverändert bei (kein globaler Sync). |
+| EC-30 | **Lokalisierte Auth-Fehler** | Registrierung mit zu kurzem Passwort (< 6 Zeichen). | Fehlermeldung erscheint auf Deutsch (bzw. Systemsprache), nicht auf Englisch. |
 
 
 ### 3. Benutzer-Verhalten

@@ -14,6 +14,7 @@
 - [ ] **N-6:** `SharedPreferences.OnSharedPreferenceChangeListener` in `clearup()`-Methode deregistrieren
 
 ## Recently Completed
+- [x] **Lokalisierung:** Firebase-Fehler gemappt und Login-Strings in `strings.xml` verschoben.
 - [x] **Release 0.8.3:** Bugfix: Globaler Alarm-Switch auf lokales Storage begrenzt. GitHub Push & Tag v0.8.3.
 - [x] **Release 0.8.2:** Sicherheits-Audit Fixes (H-5, K-1, K-2, H-1, H-2, H-3). GitHub Push & Tag v0.8.2.
 - [x] **Release 0.8.1:** Kritische Bugfixes (Offline-UI & Join-Konflikt). Tag v0.8.1 erstellt.
