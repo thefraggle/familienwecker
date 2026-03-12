@@ -138,6 +138,14 @@ class FamilyViewModel(
                                         } else if (claimedByMe == null && myMemberId.value != null) {
                                             prefsRepo.setMyMemberId(null)
                                         }
+                                        // Initial-Push: lokalen Alarm-Status nach Firestore übertragen
+                                        val myId = myMemberId.value
+                                        val fId = currentFamilyId
+                                        if (myId != null) {
+                                            launch {
+                                                repository.updateDeviceAlarmEnabled(fId, myId, isAlarmEnabled.value)
+                                            }
+                                        }
                                     }
 
                                     recalculateSchedule()
@@ -179,11 +187,18 @@ class FamilyViewModel(
             }
         }
 
-        // 3. Observer Global Alarm Toggle
+        // 3. Observer Global Alarm Toggle → nach Firestore pushen (nur Anzeige für andere Geräte)
         viewModelScope.launch {
             try {
-                isAlarmEnabled.collect {
+                isAlarmEnabled.collect { enabled ->
                     recalculateSchedule()
+                    val fId = familyId.value
+                    val myId = myMemberId.value
+                    if (fId != null && myId != null) {
+                        launch {
+                            repository.updateDeviceAlarmEnabled(fId, myId, enabled)
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 // Ignore silent errors in alarm toggle
