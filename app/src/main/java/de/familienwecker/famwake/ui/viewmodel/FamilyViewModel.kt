@@ -87,7 +87,6 @@ class FamilyViewModel(
 
     private var membersJob: Job? = null
     private var syncStatusJob: Job? = null
-    private var alarmEnabledJob: Job? = null
 
     // O4: Zuletzt gesetzten Alarm-Zeitstempel merken
     private var lastScheduledAlarmMillis: Long? = null
@@ -99,7 +98,6 @@ class FamilyViewModel(
                 familyId.collect { currentFamilyId ->
                     membersJob?.cancel()
                     syncStatusJob?.cancel()
-                    alarmEnabledJob?.cancel()
                     if (!currentFamilyId.isNullOrBlank()) {
                         // O6: refreshData nur aufrufen wenn familyId ein echter Wert ist (kein leerer Dummy)
                         refreshData()
@@ -155,15 +153,6 @@ class FamilyViewModel(
                                 } else {
                                     _errorMessage.value = UiText.StringResource(R.string.error_load_members, e.localizedMessage ?: "Unknown")
                                 }
-                            }
-                        }
-                        alarmEnabledJob = launch {
-                            try {
-                                repository.getFamilyAlarmEnabledFlow(currentFamilyId).collect { enabled ->
-                                    prefsRepo.setAlarmEnabled(enabled)
-                                }
-                            } catch (e: Exception) {
-                                // Silent error for alarm sync
                             }
                         }
                     } else {
@@ -451,15 +440,10 @@ class FamilyViewModel(
         prefsRepo.setThemePreference(theme)
     }
 
+    // Bug-Fix: isAlarmEnabled ist gerätespezifisch und darf NICHT in Firestore geschrieben werden.
+    // updateFamilyAlarmEnabled wird nicht mehr aufgerufen.
     fun setAlarmEnabled(enabled: Boolean) {
         if (enabled && myMemberId.value == null) return
-
-        val currentFamilyId = familyId.value
-        if (currentFamilyId != null) {
-            viewModelScope.launch {
-                repository.updateFamilyAlarmEnabled(currentFamilyId, enabled)
-            }
-        }
         prefsRepo.setAlarmEnabled(enabled)
     }
 
@@ -537,16 +521,16 @@ class FamilyViewModel(
                     _isSyncing.value = false
                     return@launch
                 }
-                result.onSuccess { triple ->
-                    if (triple != null) {
-                        prefsRepo.setFamilyId(triple.first)
-                        prefsRepo.setJoinCode(triple.second)
-                        prefsRepo.setAlarmEnabled(triple.third)
+                result.onSuccess { pair ->
+                    if (pair != null) {
+                        prefsRepo.setFamilyId(pair.first)
+                        prefsRepo.setJoinCode(pair.second)
+                        // isAlarmEnabled wird NICHT aus Firestore geladen (gerätespezifisch)
 
-                        val fetchedFamilyName = repository.getFamilyName(triple.first)
+                        val fetchedFamilyName = repository.getFamilyName(pair.first)
                         prefsRepo.setFamilyName(fetchedFamilyName)
 
-                        val claimedMember = repository.getClaimedMember(triple.first, uid)
+                        val claimedMember = repository.getClaimedMember(pair.first, uid)
                         if (claimedMember != null) {
                             prefsRepo.setMyMemberId(claimedMember.id)
                         }
