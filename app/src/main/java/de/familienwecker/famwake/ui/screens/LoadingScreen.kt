@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoadingScreen(
@@ -26,10 +28,19 @@ fun LoadingScreen(
     val pendingJoinCode by familyViewModel.pendingJoinCode.collectAsStateWithLifecycle()
 
     LaunchedEffect(authState, isRestoring, familyId, pendingJoinCode) {
+        // Notfall-Timeout: Wenn nach 2 Sekunden immer noch geladen wird, aber wir eine familyId haben, gehen wir direkt rein.
+        val timeoutJob = launch {
+            delay(2000)
+            if (authState is AuthViewModel.AuthState.Authenticated && familyId != null && isRestoring) {
+                onNavigateToMain()
+            }
+        }
+
         if (isRestoring) return@LaunchedEffect
 
         when (authState) {
             is AuthViewModel.AuthState.Authenticated -> {
+                timeoutJob.cancel()
                 if (familyId != null) {
                     onNavigateToMain()
                 } else if (pendingJoinCode != null) {
@@ -42,13 +53,14 @@ fun LoadingScreen(
                 }
             }
             is AuthViewModel.AuthState.Error, AuthViewModel.AuthState.Idle, AuthViewModel.AuthState.PasswordResetSuccess -> {
+                timeoutJob.cancel()
                 onNavigateToLogin()
             }
             AuthViewModel.AuthState.Loading -> {
                 // Wait in loading state
             }
             AuthViewModel.AuthState.AwaitingEmailVerification -> {
-                // Show login screen which handles the verification pending UI
+                timeoutJob.cancel()
                 onNavigateToLogin()
             }
         }

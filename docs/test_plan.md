@@ -92,6 +92,9 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-22 | **Garbage Collection (Server)** | Familien ohne Update in den letzten 180 Tagen werden sonntags von Cloud Functions gelöscht. |
 | EC-23 | **Alarm-Berechtigung fehlt (UI)** | Wenn `SCHEDULE_EXACT_ALARM` fehlt, erscheint eine lokalisierte Fehlermeldung im UI (kein Toast, kein Absturz). |
 | EC-24 | **Barrierefreiheit (A11y)** | Touch-Targets (z.B. in Settings) sind mindestens 24dp groß für zuverlässige Bedienbarkeit. |
+| EC-25 | **Offline-Start Timeout** | Start der App im Flugmodus. Lade-Screen muss nach max. 2 Sek. zum Dashboard führen (lokale Daten vorausgesetzt). |
+| EC-26 | **Offline-Join Error** | Beitrittsversuch (Code/Link) im Flugmodus muss sofort eine Fehlermeldung zeigen (kein Spinner). |
+| EC-27 | **Screenshot-Sperre** | Versuch, einen Screenshot vom Join-Code zu machen, muss systemseitig blockiert werden (`FLAG_SECURE`). |
 
 ### 3. Benutzer-Verhalten
 | ID | Testfall | Erwartetes Ergebnis |

@@ -583,7 +583,7 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().bounceClick(supportInteractionSource),
                         interactionSource = supportInteractionSource
                     ) {
-                        Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(24.dp))
+                        Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_support_button))
                     }
@@ -603,7 +603,7 @@ fun SettingsScreen(
                     ) {
                         Text(stringResource(R.string.settings_privacy_policy))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(24.dp))
+                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     val imprintInteractionSource = remember { MutableInteractionSource() }
@@ -618,7 +618,7 @@ fun SettingsScreen(
                     ) {
                         Text(stringResource(R.string.settings_imprint))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(24.dp))
+                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     val deleteAccountInteractionSource = remember { MutableInteractionSource() }
@@ -633,7 +633,7 @@ fun SettingsScreen(
                     ) {
                         Text(stringResource(R.string.settings_delete_account))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(24.dp))
+                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
                     }
                 }
             }
