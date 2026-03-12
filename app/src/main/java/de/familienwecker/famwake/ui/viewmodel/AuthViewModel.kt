@@ -72,7 +72,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             }
             
             val result = withTimeoutOrNull(2000) {
-                dbRepository.getUserFamily(uid)
+                dbRepository.getUserFamily(uid, cachedJoinCode = prefsRepository.joinCode.value)
             }
             
             if (result == null) {

@@ -37,6 +37,8 @@ import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import de.familienwecker.famwake.util.BatteryUtils
+import androidx.compose.material.icons.filled.BatteryAlert
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -258,6 +260,49 @@ fun SettingsScreen(
                         interactionSource = ringtoneInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_alarm_select, ringtoneName ?: ""))
+                    }
+                }
+            }
+
+            // 3. Battery-Optimierungs-Warnung (M-5)
+            val batteryOptIgnored = remember { BatteryUtils.isBatteryOptimizationIgnored(context) }
+            if (!batteryOptIgnored) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.5.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.6f)),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f)
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.BatteryAlert, contentDescription = null, tint = MaterialTheme.colorScheme.error)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(R.string.settings_battery_warning_title),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            stringResource(R.string.settings_battery_warning_text),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        val batteryInteractionSource = remember { MutableInteractionSource() }
+                        Button(
+                            onClick = { BatteryUtils.requestIgnoreBatteryOptimizations(context) },
+                            modifier = Modifier.fillMaxWidth().bounceClick(batteryInteractionSource),
+                            interactionSource = batteryInteractionSource,
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                        ) {
+                            Text(stringResource(R.string.settings_battery_warning_button))
+                        }
                     }
                 }
             }

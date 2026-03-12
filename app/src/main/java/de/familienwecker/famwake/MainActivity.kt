@@ -38,6 +38,7 @@ import de.familienwecker.famwake.ui.screens.SettingsScreen
 import de.familienwecker.famwake.ui.theme.FamilienweckerTheme
 import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
+import de.familienwecker.famwake.ui.Routes
 
 class MainActivity : AppCompatActivity() {
 
@@ -131,94 +132,94 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = "loading",
+            startDestination = Routes.LOADING,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable("loading") {
+            composable(Routes.LOADING) {
                 LoadingScreen(
                     authViewModel = authViewModel,
                     familyViewModel = familyViewModel,
                     onNavigateToLogin = {
-                        navController.navigate("login") {
-                            popUpTo("loading") { inclusive = true }
+                        navController.navigate(Routes.LOGIN) {
+                            popUpTo(Routes.LOADING) { inclusive = true }
                         }
                     },
                     onNavigateToSetup = {
-                        navController.navigate("setup") {
-                            popUpTo("loading") { inclusive = true }
+                        navController.navigate(Routes.SETUP) {
+                            popUpTo(Routes.LOADING) { inclusive = true }
                             launchSingleTop = true
                         }
                     },
                     onNavigateToMain = {
-                        navController.navigate("main") {
-                            popUpTo("loading") { inclusive = true }
+                        navController.navigate(Routes.MAIN) {
+                            popUpTo(Routes.LOADING) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
                 )
             }
-            composable("login") {
+            composable(Routes.LOGIN) {
                 LoginScreen(
                     authViewModel = authViewModel,
                     familyViewModel = familyViewModel,
                     onLoginSuccess = {
-                        navController.navigate("loading") {
-                            popUpTo("login") { inclusive = true }
+                        navController.navigate(Routes.LOADING) {
+                            popUpTo(Routes.LOGIN) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
                 )
             }
-            composable("setup") {
+            composable(Routes.SETUP) {
                 FamilySetupScreen(
                     viewModel = familyViewModel,
                     onSetupComplete = {
-                        navController.navigate("main") {
-                            popUpTo("setup") { inclusive = true }
+                        navController.navigate(Routes.MAIN) {
+                            popUpTo(Routes.SETUP) { inclusive = true }
                             launchSingleTop = true
                         }
                     },
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
-                        navController.navigate("login") {
+                        navController.navigate(Routes.LOGIN) {
                             popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
                 )
             }
-            composable("main") {
+            composable(Routes.MAIN) {
                 MainScreen(
                     viewModel = familyViewModel,
-                    onNavigateToAddMember = { navController.navigate("addMember") },
-                    onNavigateToEditMember = { id -> navController.navigate("editMember/$id") },
-                    onNavigateToSettings = { navController.navigate("settings") },
+                    onNavigateToAddMember = { navController.navigate(Routes.ADD_MEMBER) },
+                    onNavigateToEditMember = { id -> navController.navigate(Routes.editMember(id)) },
+                    onNavigateToSettings = { navController.navigate(Routes.SETTINGS) },
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
-                        navController.navigate("login") {
+                        navController.navigate(Routes.LOGIN) {
                             popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }
                     },
                     onLeaveFamily = {
                         familyViewModel.leaveFamily()
-                        navController.navigate("setup") {
+                        navController.navigate(Routes.SETUP) {
                             popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
                 )
             }
-            composable("addMember") {
+            composable(Routes.ADD_MEMBER) {
                 AddMemberScreen(
                     viewModel = familyViewModel,
                     memberId = null,
                     onNavigateBack = { navController.popBackStack() }
                 )
             }
-            composable("editMember/{memberId}") { backStackEntry ->
+            composable(Routes.EDIT_MEMBER) { backStackEntry ->
                 val memberId = backStackEntry.arguments?.getString("memberId")
                 AddMemberScreen(
                     viewModel = familyViewModel,
@@ -226,21 +227,21 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                     onNavigateBack = { navController.popBackStack() }
                 )
             }
-            composable("settings") {
+            composable(Routes.SETTINGS) {
                 SettingsScreen(
                     viewModel = familyViewModel,
                     onNavigateBack = { navController.popBackStack() },
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
-                        navController.navigate("login") {
+                        navController.navigate(Routes.LOGIN) {
                             popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }
                     },
                     onLeaveFamily = {
                         familyViewModel.leaveFamily()
-                        navController.navigate("setup") {
+                        navController.navigate(Routes.SETUP) {
                             popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }

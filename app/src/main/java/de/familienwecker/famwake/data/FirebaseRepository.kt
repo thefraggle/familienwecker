@@ -251,17 +251,15 @@ class FirebaseRepository {
         }
     }
 
-    // Bug-Fix: isAlarmEnabled aus Firestore entfernt. Triple -> Pair (familyId, joinCode).
-    // isAlarmEnabled ist rein gerätespezifisch und wird nicht mehr von Firestore geladen.
-    suspend fun getUserFamily(userId: String): Result<Pair<String, String>?> {
+    // M-3: cachedJoinCode als Fallback, falls das Firestore-Family-Dokument nicht gelesen werden kann
+    suspend fun getUserFamily(userId: String, cachedJoinCode: String? = null): Result<Pair<String, String>?> {
         return try {
             val doc = db.collection("users").document(userId).get().await()
             if (doc.exists()) {
                 val familyId = doc.getString("familyId")
                 if (familyId != null) {
-                    // K-2: joinCode wird aus dem Family-Dokument gelesen, nicht aus dem User-Profil
                     val familyDoc = db.collection("families").document(familyId).get().await()
-                    val joinCode = familyDoc.getString("joinCode")
+                    val joinCode = familyDoc.getString("joinCode") ?: cachedJoinCode
                     if (joinCode != null) {
                         Result.success(Pair(familyId, joinCode))
                     } else {

@@ -82,6 +82,9 @@
     <string name="settings_please_select">Bitte auswählen</string>
     <string name="settings_no_members">Keine Mitglieder vorhanden</string>
     <string name="settings_alarm_title">Weckton</string>
+    <string name="settings_battery_warning_title">Akku-Optimierung aktiv</string>
+    <string name="settings_battery_warning_text">Der Wecker kann dadurch verzögert oder blockiert werden. Bitte deaktiviere die Akku-Optimierung für FamWake.</string>
+    <string name="settings_battery_warning_button">Jetzt beheben</string>
     <string name="settings_alarm_default">Standard</string>
     <string name="settings_alarm_select">Ton auswählen: %s</string>
     <string name="settings_alarm_picker_title">Wähle einen Weckton</string>

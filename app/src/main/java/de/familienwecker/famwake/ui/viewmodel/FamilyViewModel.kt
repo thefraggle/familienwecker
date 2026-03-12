@@ -536,7 +536,7 @@ class FamilyViewModel(
             }
             try {
                 val result = withTimeoutOrNull(3000) {
-                    repository.getUserFamily(uid)
+                    repository.getUserFamily(uid, cachedJoinCode = prefsRepo.joinCode.value)
                 }
                 if (result == null) {
                     _isSyncing.value = false
