@@ -98,6 +98,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-28 | **Midnight Schedule Guard** | Departure extremely early + long bathroom duration (calc before 03:00). | Scheduler must report a conflict instead of generating invalid times. |
 | EC-29 | **Device-specific Alarm Toggle** | Disabling the alarm on Device A. | Device B (same family) keeps its alarm status unchanged (no global sync). |
 | EC-30 | **Localized Auth Errors** | Registration with password too short (< 6 characters). | Error message appears in German (or system language), not in English. |
+| EC-31 | **Alarm Status Sync (Display)** | User A disables alarm on Device A. | Device B immediately shows "no alarm" for User A in the member list – without refresh. Device B's own alarm status remains unchanged. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |

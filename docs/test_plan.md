@@ -100,6 +100,7 @@ Die FamWake-App basiert auf einem dynamischen Planungsalgorithmus. Tests müssen
 | EC-28 | **Midnight Schedule Guard** | Abfahrt extrem früh + lange Badzeit (Berechnung vor 03:00). | Scheduler muss Konflikt melden statt fehlerhafte Zeiten zu generieren. |
 | EC-29 | **Gerätespezifischer Alarm-Switch** | Deaktivieren des Alarms auf Gerät A. | Gerät B (selbe Familie) behält den Alarm-Status unverändert bei (kein globaler Sync). |
 | EC-30 | **Lokalisierte Auth-Fehler** | Registrierung mit zu kurzem Passwort (< 6 Zeichen). | Fehlermeldung erscheint auf Deutsch (bzw. Systemsprache), nicht auf Englisch. |
+| EC-31 | **Alarm-Status Sync (Fremd-Anzeige)** | User A deaktiviert Wecker auf Gerät A. | Gerät B sieht in der Mitgliederliste bei User A sofort „kein Alarm" – ohne Refresh. Eigener Alarm-Status von Gerät B bleibt unverändert. |
 
 
 ### 3. Benutzer-Verhalten

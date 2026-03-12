@@ -8,45 +8,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [0.9.1] - 2026-03-12
+### Added
+- **Alarm Status Sync:** The alarm status of claimed family members is now live-synced in the member list. When someone disables their alarm, others see it instantly – no app restart required. The global alarm switch remains device-specific.
+
 ## [0.9.0] - 2026-03-12
 ### Summary (Consolidation Release)
-This release bundles all critical security improvements, bug fixes, and localization updates since version 0.8.0.
+Bundles all critical security improvements, bug fixes, and localization updates since 0.8.0.
 
 ### Security & Audit
-- **Secure Join Flow:** Joining a family is now handled via a secure Cloud Function with server-side rate-limiting to protect against brute-force attacks.
-- **Data Integrity:** Complete overhaul of Firestore Security Rules; read and write access is strictly limited to verified family members.
-- **Encryption:** Migrated local user settings to `EncryptedSharedPreferences` (AES-256) for enhanced protection on rooted devices.
-- **Privacy:** `joinCode` is no longer stored in the user profile; it now resides only in encrypted local storage and the protected family document.
+- **Secure Join Flow:** Family joining now uses a secure Cloud Function with server-side rate-limiting.
+- **Data Integrity:** Overhaul of Firestore Security Rules; access strictly limited to verified members.
+- **Encryption:** Local settings migrated to `EncryptedSharedPreferences` (AES-256).
+- **Privacy:** `joinCode` no longer stored in the user profile.
 
 ### Localization & UX
-- **Error Mapping:** Localization (DE/EN) of Firebase authentication errors (e.g., password too short, email already in use).
-- **Cleanup:** Removal of hardcoded text in the login area; all strings are now correctly loaded from resources.
+- **Error Mapping:** Firebase auth errors (e.g., password too short, email in use) fully localized (DE/EN).
+- **Cleanup:** Hardcoded strings in the login area removed.
 
 ### Fixed
-- **Multi-Device Sync:** The global alarm switch has been converted to a device-specific toggle. Disabling it on one device no longer affects other family members.
-- **Stability & Offline:**
-  - Fixed UI freezes in offline mode and improved error handling in the join dialog.
-  - Resolved race conditions in the join conflict dialog using asynchronous state management.
-  - Secured `PendingIntent` request codes for alarms against negative values.
+- **Multi-Device Sync:** Alarm switch is now device-specific – disabling on one device no longer affects others.
+- **Stability & Offline:** UI freezes, race conditions in join dialog, and negative `PendingIntent` codes fixed.
 
 ## [0.8.x] - 2026-03-12
-### 0.8.0 Release - Highlights
-- **Security Audit:** Completed comprehensive code audit and structure cleanup.
-- **Offline Detection:** Improved reliability by checking for `NET_CAPABILITY_VALIDATED` (prevents false-positives with captive portals).
-- **Critical Fixes:** Scheduler guard for midnight-overflow cases and more robust family deletion processes.
-### Added
-- **Security & Audit:** Completed comprehensive code audit and structure cleanup.
-- **Offline Detection:** Improved reliability by checking for `NET_CAPABILITY_VALIDATED` (prevents false-positives with captive portals like hotel Wi-Fi).
-- **Stability:**
-  - Scheduler guard against midnight-overflow edge cases for extremely long bathroom durations.
-  - Improved error logging (replaced `printStackTrace` with `Log.e`) for better diagnostic analysis.
-  - Enhanced family deletion process (`deleteFamily`) with explicit status tracking and safety checks.
+### Highlights
+- **Offline Detection:** More reliable via `NET_CAPABILITY_VALIDATED` (prevents false-positives with captive portals).
+- **Stability:** Scheduler guard for midnight-overflow edge cases; improved error logging; robust family deletion.
+- **Offline Robustness:** App startup takes max. 2 seconds even without internet. Infinite spinners in join flow fixed.
+- **Deep Links:** Fixed `SingleTask` intent handling; invitation links work even when app is already running.
+- **Release:** R8 minification and NDK debug symbols (`FULL`) fully integrated.
 
-### Optimized & Fixed
-- **Release Automation:** R8 minification and NDK debug symbols (`FULL`) are now fully integrated and optimized for the Google Play Console.
-- **Offline Robustness:** Significant improvements in offline stability. App startup now takes a maximum of 2 seconds even without internet. Resolved infinite loading spinners in join flow (including deep links).
-- **Deep Links:** Fixed SingleTask Intent handling; invitation links now reliably route to the app even when already running in the background.
-- **UI & Architecture:** Corrected icon sizes in Settings, fixed `@OptIn` annotation scoping, and optimized AMOLED Black Mode.
 
 ## [0.7.x] - Summary (March 2026)
 ### Added & Optimized
