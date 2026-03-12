@@ -13,6 +13,7 @@ import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun LoadingScreen(
@@ -22,6 +23,7 @@ fun LoadingScreen(
     onNavigateToSetup: () -> Unit,
     onNavigateToMain: () -> Unit
 ) {
+    val context = LocalContext.current
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
     val isRestoring by authViewModel.isRestoringFamily.collectAsStateWithLifecycle()
     val familyId by familyViewModel.familyId.collectAsStateWithLifecycle()
@@ -44,9 +46,15 @@ fun LoadingScreen(
                 if (familyId != null) {
                     onNavigateToMain()
                 } else if (pendingJoinCode != null) {
-                    // Kein Konflikt, direktes Joinen zulässig
-                    familyViewModel.handlePendingJoin { success ->
-                        if (success) onNavigateToMain() else onNavigateToSetup()
+                    // O8: Netzwerk-Check vor automatischem Beitritt
+                    if (de.familienwecker.famwake.util.NetworkUtils.isOnline(context)) {
+                        familyViewModel.handlePendingJoin { success ->
+                            if (success) onNavigateToMain() else onNavigateToSetup()
+                        }
+                    } else {
+                        // Offline: Beitreten unmöglich, gehe zum Setup (ViewModel zeigt Fehler an)
+                        familyViewModel.setError(de.familienwecker.famwake.ui.util.UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, "Offline"))
+                        onNavigateToSetup()
                     }
                 } else {
                     onNavigateToSetup()
