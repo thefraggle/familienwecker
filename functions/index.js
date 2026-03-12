@@ -516,3 +516,63 @@ exports.cleanupInactiveFamilies = onSchedule(
     }
   }
 );
+
+// ─── K-1 + H-1: Sicherer Join-Flow via Cloud Function ─────────────────────────
+// Verhindert direkten Firestore-Zugriff auf alle Familien und ermöglicht
+// serverseitiges Rate-Limiting gegen Brute-Force-Versuche auf Join-Codes.
+exports.joinFamilyByCode = onCall(
+  { region: "europe-west3" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
+    const uid = request.auth.uid;
+
+    const rawCode = request.data?.code;
+    if (!rawCode || typeof rawCode !== "string") {
+      throw new HttpsError("invalid-argument", "INVALID_CODE");
+    }
+    const code = rawCode.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6);
+    if (code.length !== 6) {
+      throw new HttpsError("invalid-argument", "INVALID_CODE");
+    }
+
+    // Rate-Limiting: max. 5 Join-Versuche pro UID pro Minute
+    const rateLimitRef = admin.firestore().collection("_rate_limits").doc(`join_${uid}`);
+    const now = Date.now();
+    const windowMs = 60 * 1000;
+    const maxAttempts = 5;
+
+    try {
+      const limited = await admin.firestore().runTransaction(async (tx) => {
+        const doc = await tx.get(rateLimitRef);
+        const data = doc.exists ? doc.data() : { count: 0, windowStart: now };
+        if (now - data.windowStart > windowMs) {
+          tx.set(rateLimitRef, { count: 1, windowStart: now });
+          return false;
+        }
+        if (data.count >= maxAttempts) return true;
+        tx.update(rateLimitRef, { count: data.count + 1 });
+        return false;
+      });
+      if (limited) {
+        throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      }
+    } catch (err) {
+      if (err instanceof HttpsError) throw err;
+      console.error("Rate-Limit-Check fehlgeschlagen (wird ignoriert):", err);
+    }
+
+    const snapshot = await admin.firestore()
+      .collection("families")
+      .where("joinCode", "==", code)
+      .limit(1)
+      .get();
+
+    if (snapshot.empty) {
+      throw new HttpsError("not-found", "FAMILY_NOT_FOUND");
+    }
+
+    return { familyId: snapshot.docs[0].id, joinCode: code };
+  }
+);

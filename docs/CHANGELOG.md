@@ -7,6 +7,16 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## [0.8.2] - 2026-03-12
+### Sicherheit & Audit (K+H Fixes)
+- **Login & Join:** Der Beitritt zu Familien erfolgt nun über eine gesicherte Cloud Function mit serverseitigem Rate-Limiting (Schutz gegen Brute-Force).
+- **Daten-Integrität:** Die `families`-Datenbank wurde in den Sicherheitsregeln vollständig geschlossen; Lesezugriff nur noch für verifizierte Mitglieder.
+- **Verschlüsselung:** Migration der lokalen Benutzereinstellungen auf `EncryptedSharedPreferences` (AES-256) für erhöhten Schutz auf gerooteten Geräten.
+- **Privacy:** `joinCode` wird nicht mehr im Benutzerprofil gespeichert, sondern nur noch flüchtig im verschlüsselten lokalen Speicher und im geschützten Familien-Dokument.
+- **Stabilität:**
+  - `PendingIntent` Request-Codes für Alarme gegen negative Werte abgesichert.
+  - Bereinigung der Activity-Instanziierung (ViewModel-Lifecycle) zur Vermeidung von Race-Conditions beim Deep-Linking.
+
 ## [0.8.1] - 2026-03-12
 ### Behoben
 - **Offline-UI:** Die Top-Bar zeigt nun zuverlässig das Cloud-Off Icon, auch wenn der Firestore-Cache noch ausstehende Schreibvorgänge meldet.

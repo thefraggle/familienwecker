@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## [0.8.2] - 2026-03-12
+### Security & Audit (K+H Fixes)
+- **Login & Join:** Family joins are now handled via a secure Cloud Function with server-side rate-limiting (brute-force protection).
+- **Data Integrity:** The `families` collection is now strictly restricted in Firestore Security Rules; read access is granted only to verified members.
+- **Encryption:** Migrated local user settings to `EncryptedSharedPreferences` (AES-256) for enhanced protection on rooted devices.
+- **Privacy:** `joinCode` is no longer stored in the user profile; it now resides only in encrypted local storage and the protected family document.
+- **Stability:**
+  - `PendingIntent` request codes for alarms are now secured against negative values.
+  - Refactored Activity instantiation (ViewModel lifecycle) to prevent race conditions during deep-linking.
+
 ## [0.8.1] - 2026-03-12
 ### Fixed
 - **Offline-UI:** The top bar now reliably displays the Cloud-Off icon, even if the Firestore cache reports pending writes.

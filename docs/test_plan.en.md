@@ -39,6 +39,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-28 | **Deep Link Conflict Dialog** | Clicking a deep link while already in a family opens MainScreen showing a warning dialog to switch. |
 | TC-29 | **Join Code Validation Guard** | Invalid deep/join code only shows an error message after confirmation, without leaving the old family. |
 | TC-30 | **Join Code Security** | A generated 6-digit code remains purely alphanumeric without 0, O, 1, I and is generated via SecureRandom. |
+| TC-31 | **Encryption (H-5)** | After update: Data (familyId, joinCode) is automatically migrated to EncryptedPrefs; legacy file is cleared. |
+| TC-32 | **Rate-Limiting (H-1)** | Repeated wrong code entries (>5/min) trigger server-side blocking ("Resource Exhausted"). |
 
 
 ### 2. Family Configuration
