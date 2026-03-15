@@ -46,6 +46,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-37 | **Deep-Link Sofort-Dialog (Hintergrund)** | App auf Settings-Screen, Join-Link öffnen → Conflict-Dialog erscheint sofort ohne Zurück-Navigation. |
 | TC-38 | **Akku-Kachel Sofort-Reset** | Akku-Optimierung deaktivieren, zur App zurückkehren → Kachel verschwindet sofort ohne Screen-Wechsel. |
 | TC-39 | **Scroll-Indicator** | Hauptscreen ohne Mitglieder: Bounce-Pfeil am unteren Rand sichtbar. Verschwindet beim ersten Scrollen oder sobald ein Mitglied vorhanden ist. |
+| TC-40 | **Reboot-Alarm-Persistenz** | Alarm für 2 Min. stellen → Gerät neustarten → Wecker klingelt auch ohne PIN-Eingabe auf dem Sperrbildschirm. |
+| TC-41 | **Snooze überlebt Reboot** | Snooze drücken → Gerät innerhalb 5 Min. neustarten → Wecker klingelt zum Snooze-Zeitpunkt. |
 
 
 ### 2. Familien-Konfiguration
@@ -83,7 +85,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 |:---|:---|:---|
 | EC-04 | **Offline-Berechnung** | Letzter Plan lokal gespeichert; Wecker klingelt auch ohne Internet. |
 | EC-05 | **Zeitumstellung** | Weckzeiten korrekt angepasst, keine doppelten Alarme. |
-| EC-06 | **App-Absturz während Alarm** | Alarm-Dienst startet automatisch neu. |
+| EC-06 | **App-Absturz während Alarm** | Alarm-Dienst startet automatisch neu. Alarm überlebt auch Geräteneustart (AlarmBackupPrefs + LOCKED_BOOT_COMPLETED). |
 | EC-07 | **Akku-Optimierung** | App als „Nicht optimiert" markiert. |
 | EC-11 | **Snooze** | Snooze (5 Min) plant neuen Alarm exakt 5 Min später. |
 | EC-12 | **Mitternachts-Reset** | „Heute pausieren" und „Bin wach" am nächsten Tag zurückgesetzt. |

@@ -48,6 +48,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-37 | **Deep link instant dialog (background)** | App is on Settings screen, open join link → Conflict dialog appears immediately without back navigation. |
 | TC-38 | **Battery card instant reset** | Disable battery optimization, return to app → card disappears immediately without screen navigation. |
 | TC-39 | **Scroll indicator** | Main screen without members: bouncing arrow visible at bottom. Disappears on first scroll or once a member is added. |
+| TC-40 | **Reboot alarm persistence** | Set alarm for 2 min → reboot device → alarm rings even before PIN entry on the lock screen. |
+| TC-41 | **Snooze survives reboot** | Press snooze → reboot within 5 min → alarm rings at the snooze time. |
 
 
 ### 2. Family Configuration
@@ -84,7 +86,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 |:---|:---|:---|
 | EC-04 | **Offline Calculation** | Last valid plan stored locally; alarm rings without internet. |
 | EC-05 | **Daylight Saving Time** | Wake times correctly adjusted, no duplicate alarms. |
-| EC-06 | **App Crash during Alarm** | Alarm service restarts automatically. |
+| EC-06 | **App Crash during Alarm** | Alarm service restarts automatically. Alarm also survives device reboot (AlarmBackupPrefs + LOCKED_BOOT_COMPLETED). |
 | EC-07 | **Battery Optimization** | App marked as "Not optimized". |
 | EC-11 | **Snooze** | Snooze (5 min) schedules new alarm exactly 5 min later. |
 | EC-12 | **Midnight Reset** | "Pause for Today" and "Already Awake" reset the next day. |

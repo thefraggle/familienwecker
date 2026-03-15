@@ -5,6 +5,18 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.0.3] - 2026-03-15
+### Behoben
+- Wecker klingelte nach Geräteneustart nicht mehr (`AlarmManager`-Einträge werden beim Reboot gelöscht; `EncryptedSharedPreferences` sind vor dem ersten Unlock nicht lesbar).
+- Wecker-Screen erschien auf manchen Geräten (Samsung, Xiaomi) nicht über dem Sperrbildschirm.
+
+### Technisch
+- Neuer `AlarmBackupPrefs`-Speicher (plain, unverschlüsselt) spiegelt jeden aktiven Alarm – lesbar auch vor dem ersten Unlock.
+- `BootReceiver` reagiert jetzt auf `LOCKED_BOOT_COMPLETED` (vor PIN-Eingabe) und stellt den exakten Alarm-Zeitstempel wieder her.
+- `RingingActivity`: Legacy-Window-Flags für OEM-Kompatibilität ergänzt.
+
+---
+
 ## [1.0.2] - 2026-03-15
 ### Behoben
 - Firebase Cleanup-Job löschte irrtümlich neu angelegte Familien (fehlendes `createdAt`-Feld wurde als Unix-Epoch 1970 interpretiert).
