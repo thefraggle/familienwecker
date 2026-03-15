@@ -1,16 +1,17 @@
 package de.familienwecker.famwake.alarm
 
 import android.content.Context
+import android.os.Build
 
 /**
- * Unverschlüsselte Sicherung des aktiven Alarms.
+ * Unverschlüsselte Sicherung des aktiven Alarms in Device-Protected Storage.
  *
- * EncryptedSharedPreferences sind vor dem ersten Geräte-Unlock nach einem Reboot
- * nicht lesbar (KeyStore-Key noch nicht verfügbar). Dieser Store verwendet
- * reguläre SharedPreferences und ist daher auch im "Before-First-Unlock"-Zustand
- * (LOCKED_BOOT_COMPLETED) aus dem BootReceiver heraus lesbar.
+ * Normales context.getSharedPreferences() schreibt in Credential-Encrypted Storage
+ * (nur nach Unlock lesbar). Device-Protected Storage hingegen ist sowohl nach Unlock
+ * als auch im Direct-Boot-Modus (LOCKED_BOOT_COMPLETED, vor PIN-Eingabe) zugänglich.
  *
- * Enthält keine sensiblen Daten (nur memberName, memberId, Weckzeit, Sound-URI).
+ * → Schreiben: App nach Unlock via createDeviceProtectedStorageContext()
+ * → Lesen: BootReceiver via LOCKED_BOOT_COMPLETED (Context ist bereits DEP)
  */
 object AlarmBackupPrefs {
 
@@ -22,7 +23,12 @@ object AlarmBackupPrefs {
     private const val KEY_ENABLED      = "alarm_enabled"
 
     private fun prefs(context: Context) =
-        context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            context.createDeviceProtectedStorageContext()
+                .getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        } else {
+            context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        }
 
     /** Wird von AlarmScheduler.scheduleWakeUp() aufgerufen. */
     fun save(
