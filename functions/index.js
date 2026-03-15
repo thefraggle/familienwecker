@@ -468,28 +468,35 @@ exports.cleanupInactiveFamilies = onSchedule(
         .limit(1)
         .get();
 
-      let isStale = true;
-      if (!membersSnapshot.empty) {
-        const latestMember = membersSnapshot.docs[0].data();
-        // Firestore Timestamps haben .toMillis() – direkter Vergleich mit > wäre nur bei Numbers korrekt
-        const lastUpdatedMs = latestMember.lastUpdatedAt
-          ? (typeof latestMember.lastUpdatedAt.toMillis === "function"
-              ? latestMember.lastUpdatedAt.toMillis()
-              : latestMember.lastUpdatedAt)
-          : 0;
-        if (lastUpdatedMs > sixMonthsAgoMs) {
-          isStale = false;
-        }
-      }
-
+      // Default: NICHT löschen – nur explizit als stale markieren wenn sicher veraltet
+      let isStale = false;
       const familyData = familyDoc.data();
+
+      // createdAt prüfen: Fallback Date.now() (= nie löschen) wenn Feld fehlt
       const createdAtMs = familyData.createdAt
         ? (typeof familyData.createdAt.toMillis === "function"
             ? familyData.createdAt.toMillis()
             : familyData.createdAt)
-        : 0;
-      if (createdAtMs > sixMonthsAgoMs) {
-        isStale = false;
+        : Date.now(); // Sicherer Fallback: kein Datum → als "jetzt" behandeln, nie löschen
+
+      if (createdAtMs <= sixMonthsAgoMs) {
+        // Familie selbst ist alt genug – prüfe ob Members aktiv waren
+        if (membersSnapshot.empty) {
+          // Keine Members UND Familie älter als 6 Monate → stale
+          isStale = true;
+        } else {
+          const latestMember = membersSnapshot.docs[0].data();
+          // Firestore Timestamps haben .toMillis() – direkter Vergleich mit > wäre nur bei Numbers korrekt
+          // Fallback Date.now() wenn lastUpdatedAt fehlt → sicher, nicht löschen
+          const lastUpdatedMs = latestMember.lastUpdatedAt
+            ? (typeof latestMember.lastUpdatedAt.toMillis === "function"
+                ? latestMember.lastUpdatedAt.toMillis()
+                : latestMember.lastUpdatedAt)
+            : Date.now();
+          if (lastUpdatedMs <= sixMonthsAgoMs) {
+            isStale = true;
+          }
+        }
       }
 
       if (isStale) {
