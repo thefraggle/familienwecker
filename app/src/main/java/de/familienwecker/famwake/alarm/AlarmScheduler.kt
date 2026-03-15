@@ -14,6 +14,9 @@ class AlarmScheduler(private val context: Context) {
     /**
      * Plant einen exakten Systemwecker. Verwendet [AlarmManager.setAlarmClock] um
      * aggressive Doze-Modes von Herstellern zu umgehen.
+     * Speichert die Alarm-Daten zusätzlich in [AlarmBackupPrefs] (plain SharedPreferences),
+     * damit der [BootReceiver] sie nach einem Reboot lesen kann – noch bevor der erste
+     * Unlock erfolgt ist (EncryptedSharedPreferences wären da nicht verfügbar).
      *
      * @param onPermissionDenied Callback wenn SCHEDULE_EXACT_ALARM fehlt (Android 12+).
      */
@@ -49,6 +52,9 @@ class AlarmScheduler(private val context: Context) {
         val timeInMillis = wakeUpTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
         val alarmClockInfo = AlarmManager.AlarmClockInfo(timeInMillis, pendingIntent)
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
+
+        // Backup in plain SharedPreferences – lesbar auch vor erstem Unlock nach Reboot
+        AlarmBackupPrefs.save(context, memberId, memberName, soundUri, timeInMillis)
     }
 
     fun cancelWakeUp(memberId: String) {
@@ -62,5 +68,9 @@ class AlarmScheduler(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         alarmManager.cancel(pendingIntent)
+
+        // Backup-Eintrag ebenfalls löschen
+        AlarmBackupPrefs.clear(context)
     }
 }
+
