@@ -8,6 +8,9 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Sync
@@ -228,6 +231,22 @@ fun MainScreen(
             }
         ) { padding ->
             val lazyListState = androidx.compose.foundation.lazy.rememberLazyListState()
+
+            // Scroll-Indicator: nur wenn members leer und noch nicht gescrollt
+            val showScrollHint = members.isEmpty() &&
+                lazyListState.firstVisibleItemIndex == 0 &&
+                lazyListState.firstVisibleItemScrollOffset == 0
+
+            val scrollHintBounce by animateFloatAsState(
+                targetValue = if (showScrollHint) 12f else 0f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(700, easing = LinearEasing),
+                    repeatMode = RepeatMode.Reverse
+                ),
+                label = "scrollHintBounce"
+            )
+
+            Box(modifier = Modifier.fillMaxSize()) {
             val itemHeightPx = remember(lazyListState.layoutInfo) {
                 lazyListState.layoutInfo.visibleItemsInfo
                     .firstOrNull { it.key?.toString()?.startsWith("sched_") == true }
@@ -677,6 +696,31 @@ fun MainScreen(
                     )
                 }
             }
+
+            // Scroll-Indicator Overlay
+            AnimatedVisibility(
+                visible = showScrollHint,
+                enter = fadeIn(),
+                exit = fadeOut(),
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 24.dp)
+                        .graphicsLayer { translationY = scrollHintBounce },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowDown,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
+                        modifier = Modifier.size(36.dp)
+                    )
+                }
+            }
+
+            } // end Box
         }
     }
 
