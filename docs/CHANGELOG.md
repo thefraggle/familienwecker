@@ -5,42 +5,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
-## [1.0.4] - 2026-03-15
-### Behoben
-- Google OAuth schlug bei selbst signierten APKs mit „Kein Konto gefunden" fehl (Erstnutzung ohne vorherig autorisierten Account).
-
-### Technisch
-- Zweistufiger Credential Manager Flow: zuerst autorisierte Accounts prüfen, bei `NoCredentialException` Account-Picker anzeigen.
-
----
-
-## [1.0.3] - 2026-03-15
-### Behoben
-- Wecker klingelte nach Geräteneustart nicht mehr (`AlarmManager`-Einträge werden beim Reboot gelöscht; `EncryptedSharedPreferences` sind vor dem ersten Unlock nicht lesbar).
-- Wecker-Screen erschien auf manchen Geräten (Samsung, Xiaomi) nicht über dem Sperrbildschirm.
-
-### Technisch
-- Neuer `AlarmBackupPrefs`-Speicher (plain, unverschlüsselt) spiegelt jeden aktiven Alarm – lesbar auch vor dem ersten Unlock.
-- `BootReceiver` reagiert jetzt auf `LOCKED_BOOT_COMPLETED` (vor PIN-Eingabe) und stellt den exakten Alarm-Zeitstempel wieder her.
-- `RingingActivity`: Legacy-Window-Flags für OEM-Kompatibilität ergänzt.
-
----
-
-## [1.0.2] - 2026-03-15
-### Behoben
-- Firebase Cleanup-Job löschte irrtümlich neu angelegte Familien (fehlendes `createdAt`-Feld wurde als Unix-Epoch 1970 interpretiert).
-- Scroll-Indicator auf dem Hauptscreen bounced jetzt korrekt (falsche Animation-API ersetzt).
+## [1.1.0] - 2026-03-15
 
 ### Neu
-- Scroll-Indicator (↓) auf dem Hauptscreen, solange noch keine Familienmitglieder angelegt sind – blendet beim ersten Scrollen oder nach dem ersten Mitglied aus.
+- Scroll-Indicator (↓) auf dem Hauptscreen solange keine Mitglieder vorhanden.
 
----
-
-## [1.0.1] - 2026-03-12
 ### Behoben
-- Akku-Optimierungs-Kachel verschwindet sofort nach Bestätigung (war: erst nach Screen-Wechsel).
-- Layout der Kachel korrigiert – einheitlich mit anderen Settings-Kacheln.
-- Akku-Hinweis aus dem Hauptscreen entfernt – nur noch in den Einstellungen.
+- Wecker klingelt nach Geräteneustart (auch vor PIN-Eingabe).
+- Wecker-Screen auf Sperrbildschirm (Samsung, Xiaomi u.a.).
+- Google OAuth in selbst signierten APKs.
+- Firebase Cleanup-Job löschte irrtümlich neue Familien.
+- Akku-Kachel verschwindet sofort nach Bestätigung.
 
 ---
 
