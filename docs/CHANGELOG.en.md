@@ -5,6 +5,18 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.0.3] - 2026-03-15
+### Fixed
+- Alarm no longer rings after device reboot (`AlarmManager` entries are wiped on reboot; `EncryptedSharedPreferences` are unreadable before first unlock).
+- Alarm screen failed to appear over the lock screen on some devices (Samsung, Xiaomi).
+
+### Technical
+- New `AlarmBackupPrefs` store (plain, unencrypted) mirrors every active alarm – readable even before first unlock.
+- `BootReceiver` now listens to `LOCKED_BOOT_COMPLETED` (before PIN entry) and restores the exact alarm timestamp.
+- `RingingActivity`: added legacy window flags for OEM compatibility.
+
+---
+
 ## [1.0.2] - 2026-03-15
 ### Fixed
 - Firebase cleanup job incorrectly deleted newly created families (missing `createdAt` field was interpreted as Unix epoch 1970).
