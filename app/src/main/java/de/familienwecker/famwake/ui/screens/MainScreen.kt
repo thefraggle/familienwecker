@@ -3,6 +3,8 @@ package de.familienwecker.famwake.ui.screens
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.LinearEasing
@@ -237,10 +239,13 @@ fun MainScreen(
                 lazyListState.firstVisibleItemIndex == 0 &&
                 lazyListState.firstVisibleItemScrollOffset == 0
 
-            val scrollHintBounce by animateFloatAsState(
-                targetValue = if (showScrollHint) 12f else 0f,
+            // Echter infinite Bounce – muss rememberInfiniteTransition verwenden
+            val infiniteTransition = rememberInfiniteTransition(label = "scrollHint")
+            val scrollHintBounce by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = 10f,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(700, easing = LinearEasing),
+                    animation = tween(600, easing = LinearEasing),
                     repeatMode = RepeatMode.Reverse
                 ),
                 label = "scrollHintBounce"
@@ -707,16 +712,27 @@ fun MainScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 24.dp)
+                        .padding(bottom = 32.dp)
                         .graphicsLayer { translationY = scrollHintBounce },
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowDown,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
-                        modifier = Modifier.size(36.dp)
-                    )
+                    // Pill-Hintergrund: Icon hebt sich klar vom Text ab
+                    Box(
+                        modifier = Modifier
+                            .size(44.dp)
+                            .background(
+                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f),
+                                shape = androidx.compose.foundation.shape.CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowDown,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
                 }
             }
 
