@@ -45,6 +45,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-36 | **Offline Profil-Claim gesperrt** | Im Flugmodus Dropdown öffnen → Snackbar mit Offline-Fehlermeldung erscheint sofort. |
 | TC-37 | **Deep-Link Sofort-Dialog (Hintergrund)** | App auf Settings-Screen, Join-Link öffnen → Conflict-Dialog erscheint sofort ohne Zurück-Navigation. |
 | TC-38 | **Akku-Kachel Sofort-Reset** | Akku-Optimierung deaktivieren, zur App zurückkehren → Kachel verschwindet sofort ohne Screen-Wechsel. |
+| TC-39 | **Scroll-Indicator** | Hauptscreen ohne Mitglieder: Bounce-Pfeil am unteren Rand sichtbar. Verschwindet beim ersten Scrollen oder sobald ein Mitglied vorhanden ist. |
 
 
 ### 2. Familien-Konfiguration
@@ -94,7 +95,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | EC-19 | **Multi-Device Claim Sync** | Profil auf Gerät A geclaimt → Gerät B erkennt es ohne Refresh. |
 | EC-20 | **Icon-Skalierung** | Icons und Splash-Screen korrekt auf xhdpi bis xxxhdpi. |
 | EC-21 | **Calc-Limit** | Plan für >6 aktive Mitglieder wird auf 6 begrenzt. |
-| EC-22 | **Server-Cleanup** | Familien ohne Update seit 180 Tagen werden sonntags gelöscht. |
+| EC-22 | **Server-Cleanup** | Familien ohne Update seit 180 Tagen werden sonntags gelöscht. Neue Familien (< 180 Tage alt) werden nie gelöscht. |
 | EC-23 | **Fehlende Alarm-Berechtigung** | Lokalisierte Fehlermeldung im UI; kein Toast, kein Absturz. |
 | EC-24 | **Touch-Targets (A11y)** | Mindestens 24dp groß. |
 | EC-25 | **Offline-Start** | Lade-Screen wechselt nach max. 2s zum Dashboard. |

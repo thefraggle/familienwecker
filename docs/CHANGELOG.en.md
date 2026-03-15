@@ -5,6 +5,16 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.0.2] - 2026-03-15
+### Fixed
+- Firebase cleanup job incorrectly deleted newly created families (missing `createdAt` field was interpreted as Unix epoch 1970).
+- Scroll indicator on main screen now bounces correctly (wrong animation API replaced).
+
+### Added
+- Scroll indicator (↓) on main screen while no family members have been added yet – fades out on first scroll or after the first member is added.
+
+---
+
 ## [1.0.1] - 2026-03-12
 ### Fixed
 - Battery optimization card now disappears immediately after confirmation (was: required screen navigation).

@@ -47,6 +47,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-36 | **Offline profile claim blocked** | Open dropdown in airplane mode → Snackbar with offline error appears immediately. |
 | TC-37 | **Deep link instant dialog (background)** | App is on Settings screen, open join link → Conflict dialog appears immediately without back navigation. |
 | TC-38 | **Battery card instant reset** | Disable battery optimization, return to app → card disappears immediately without screen navigation. |
+| TC-39 | **Scroll indicator** | Main screen without members: bouncing arrow visible at bottom. Disappears on first scroll or once a member is added. |
 
 
 ### 2. Family Configuration
@@ -95,7 +96,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-19 | **Multi-Device Claim Sync** | Profile claimed on Device A → Device B recognizes without refresh. |
 | EC-20 | **Icon Scaling** | Icons and splash screen correct on xhdpi to xxxhdpi. |
 | EC-21 | **Calc Limit** | Plan for >6 members capped at 6. |
-| EC-22 | **Server Cleanup** | Families without updates for 180 days deleted on Sundays. |
+| EC-22 | **Server Cleanup** | Families without updates for 180 days deleted on Sundays. New families (< 180 days old) are never deleted. |
 | EC-23 | **Missing Alarm Permission** | Localized error in UI; no Toast, no crash. |
 | EC-24 | **Touch Targets (A11y)** | At least 24dp. |
 | EC-25 | **Offline Startup** | Loading screen transitions to dashboard within max. 2s. |
