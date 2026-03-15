@@ -5,6 +5,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.0.2] - 2026-03-15
+### Behoben
+- Firebase Cleanup-Job löschte irrtümlich neu angelegte Familien (fehlendes `createdAt`-Feld wurde als Unix-Epoch 1970 interpretiert).
+- Scroll-Indicator auf dem Hauptscreen bounced jetzt korrekt (falsche Animation-API ersetzt).
+
+### Neu
+- Scroll-Indicator (↓) auf dem Hauptscreen, solange noch keine Familienmitglieder angelegt sind – blendet beim ersten Scrollen oder nach dem ersten Mitglied aus.
+
+---
+
 ## [1.0.1] - 2026-03-12
 ### Behoben
 - Akku-Optimierungs-Kachel verschwindet sofort nach Bestätigung (war: erst nach Screen-Wechsel).
