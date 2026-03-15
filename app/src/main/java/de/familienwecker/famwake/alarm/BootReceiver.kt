@@ -3,45 +3,63 @@ package de.familienwecker.famwake.alarm
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import de.familienwecker.famwake.FamWakeApplication
-import de.familienwecker.famwake.data.PreferencesRepository
-import java.time.LocalDate
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneId
 
 /**
  * Stellt nach einem Geräteneustart den Wecker wieder her.
- * Android löscht alle AlarmManager-Einträge beim Reboot. Dieser Receiver
- * liest die gespeicherten Präferenzen und plant den Alarm für den nächsten Morgen.
+ * Android löscht alle AlarmManager-Einträge beim Reboot.
  *
- * Hinweis: Reagiert nur auf BOOT_COMPLETED (nach vollständigem Unlock), da
- * EncryptedSharedPreferences vor dem ersten Unlock nicht lesbar sind.
+ * Reagiert auf zwei Broadcasts:
+ * - [Intent.ACTION_BOOT_COMPLETED]: nach vollständigem Unlock (normale Geräte)
+ * - [Intent.ACTION_LOCKED_BOOT_COMPLETED]: sofort nach Boot, vor PIN-Eingabe
+ *
+ * [AlarmBackupPrefs] (plain SharedPreferences) werden verwendet statt
+ * EncryptedSharedPreferences, da diese vor dem ersten Unlock nicht lesbar sind.
+ * Der Receiver ist directBootAware (siehe AndroidManifest).
  */
 class BootReceiver : BroadcastReceiver() {
+
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action != Intent.ACTION_BOOT_COMPLETED) return
+        val action = intent.action
+        if (action != Intent.ACTION_BOOT_COMPLETED &&
+            action != Intent.ACTION_LOCKED_BOOT_COMPLETED) return
 
-        val prefs = (context.applicationContext as FamWakeApplication).preferencesRepository
-        val familyId = prefs.familyId.value ?: return
-        val memberId = prefs.myMemberId.value ?: return
-        val memberName = prefs.myMemberName.value ?: ""
-        val isEnabled = prefs.isAlarmEnabled.value
+        // Plain Prefs – immer lesbar, auch vor erstem Unlock
+        if (!AlarmBackupPrefs.isEnabled(context)) return
 
-        if (!isEnabled || familyId.isBlank() || memberId.isBlank()) return
+        val memberId   = AlarmBackupPrefs.getMemberId(context)   ?: return
+        val memberName = AlarmBackupPrefs.getMemberName(context) ?: ""
+        val soundUri   = AlarmBackupPrefs.getSoundUri(context)
+        val savedMillis = AlarmBackupPrefs.getWakeUpMillis(context)
 
-        // Fallback-Zeit 06:00 – wird vom ViewModel übersteuert sobald die App startet
-        val now = LocalTime.now()
-        val alarmTime = LocalTime.of(6, 0)
-        val targetDate = if (now.isAfter(alarmTime)) LocalDate.now().plusDays(1) else LocalDate.now()
-        val targetDateTime = LocalDateTime.of(targetDate, alarmTime)
+        if (savedMillis == 0L) return
+
+        // Gespeicherten Zeitstempel lesen und Datum anpassen:
+        // - Liegt der Zeitpunkt in der Zukunft → exakt diesen Zeitpunkt verwenden
+        // - Liegt er in der Vergangenheit → gleiche Uhrzeit am nächsten Tag
+        val zone = ZoneId.systemDefault()
+        val savedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(savedMillis), zone)
+        val alarmTime: LocalTime = savedDateTime.toLocalTime()
+
+        val now = LocalDateTime.now(zone)
+        val targetDateTime = if (savedDateTime.isAfter(now)) {
+            // Noch in der Zukunft – exakt diesen Termin wiederherstellen
+            savedDateTime
+        } else {
+            // Bereits vergangen – selbe Uhrzeit, nächster Tag
+            val nextDay = now.toLocalDate().plusDays(1)
+            LocalDateTime.of(nextDay, alarmTime)
+        }
 
         val scheduler = AlarmScheduler(context)
         scheduler.scheduleWakeUp(
             wakeUpTime = targetDateTime,
-            memberId = memberId,
+            memberId   = memberId,
             memberName = memberName,
-            soundUri = prefs.alarmSoundUri.value
+            soundUri   = soundUri
         )
     }
 }
-
