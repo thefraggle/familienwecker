@@ -5,6 +5,15 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.0.4] - 2026-03-15
+### Behoben
+- Google OAuth schlug bei selbst signierten APKs mit „Kein Konto gefunden" fehl (Erstnutzung ohne vorherig autorisierten Account).
+
+### Technisch
+- Zweistufiger Credential Manager Flow: zuerst autorisierte Accounts prüfen, bei `NoCredentialException` Account-Picker anzeigen.
+
+---
+
 ## [1.0.3] - 2026-03-15
 ### Behoben
 - Wecker klingelte nach Geräteneustart nicht mehr (`AlarmManager`-Einträge werden beim Reboot gelöscht; `EncryptedSharedPreferences` sind vor dem ersten Unlock nicht lesbar).

@@ -5,6 +5,15 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.0.4] - 2026-03-15
+### Fixed
+- Google OAuth failed on self-signed APKs with "No account found" on first use (no previously authorized account).
+
+### Technical
+- Two-step Credential Manager flow: check authorized accounts first; on `NoCredentialException` show the account picker.
+
+---
+
 ## [1.0.3] - 2026-03-15
 ### Fixed
 - Alarm no longer rings after device reboot (`AlarmManager` entries are wiped on reboot; `EncryptedSharedPreferences` are unreadable before first unlock).

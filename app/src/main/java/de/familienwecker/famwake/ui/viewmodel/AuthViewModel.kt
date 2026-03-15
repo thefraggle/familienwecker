@@ -176,7 +176,10 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * M-5: Kompletter Google Sign-In Flow – von Nonce-Generierung bis Firebase-Auth.
-     * Der Context wird nur für den Credential Manager benötigt und nicht gespeichert.
+     * Zwei-Stufen-Ansatz:
+     * 1. Versuch mit bereits autorisierten Accounts (schnell, kein Dialog)
+     * 2. Fallback: Account-Picker anzeigen (filterByAuthorizedAccounts=false, autoSelect=false)
+     *    → behebt "kein Konto gefunden" bei Erstnutzung / auf nicht-Play-Store-APKs
      */
     fun signInWithGoogle(context: Context) {
         _authState.value = AuthState.Loading
@@ -189,19 +192,35 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     .digest(rawNonce.toByteArray())
                     .fold("") { str, it -> str + "%02x".format(it) }
 
-                val googleIdOption = GetGoogleIdOption.Builder()
-                    .setFilterByAuthorizedAccounts(false)
-                    .setServerClientId(context.getString(R.string.default_web_client_id))
+                val webClientId = context.getString(R.string.default_web_client_id)
+
+                // Stufe 1: Nur bereits autorisierte Accounts (kein Dialog, schnell)
+                val authorizedOption = GetGoogleIdOption.Builder()
+                    .setFilterByAuthorizedAccounts(true)
+                    .setServerClientId(webClientId)
                     .setNonce(hashedNonce)
                     .setAutoSelectEnabled(true)
                     .build()
 
-                val request = GetCredentialRequest.Builder()
-                    .addCredentialOption(googleIdOption)
-                    .build()
+                val credential = try {
+                    val request = GetCredentialRequest.Builder()
+                        .addCredentialOption(authorizedOption)
+                        .build()
+                    credentialManager.getCredential(context, request).credential
+                } catch (_: NoCredentialException) {
+                    // Stufe 2: Kein autorisierter Account → Account-Picker anzeigen
+                    val allAccountsOption = GetGoogleIdOption.Builder()
+                        .setFilterByAuthorizedAccounts(false)
+                        .setServerClientId(webClientId)
+                        .setNonce(hashedNonce)
+                        .setAutoSelectEnabled(false)
+                        .build()
 
-                val result = credentialManager.getCredential(context, request)
-                val credential = result.credential
+                    val fallbackRequest = GetCredentialRequest.Builder()
+                        .addCredentialOption(allAccountsOption)
+                        .build()
+                    credentialManager.getCredential(context, fallbackRequest).credential
+                }
 
                 if (credential is androidx.credentials.CustomCredential &&
                     credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
