@@ -30,6 +30,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
+import android.net.Uri
+import android.content.Intent
 import de.familienwecker.famwake.ui.util.UiText
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
@@ -208,6 +210,72 @@ fun LoginScreen(
                                 Text(
                                     text = if (isRegistering) stringResource(R.string.register_button) else stringResource(R.string.login_button),
                                     style = MaterialTheme.typography.titleMedium
+                                )
+                            }
+
+                            if (isRegistering) {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                val termsOfUse = stringResource(R.string.registration_terms_of_use)
+                                val privacyPolicy = stringResource(R.string.registration_privacy_policy)
+                                val disclaimer = stringResource(R.string.registration_disclaimer, termsOfUse, privacyPolicy)
+                                
+                                val annotatedString = buildAnnotatedString {
+                                    val termsStart = disclaimer.indexOf(termsOfUse)
+                                    val privacyStart = disclaimer.indexOf(privacyPolicy)
+                                    
+                                    append(disclaimer)
+                                    
+                                    if (termsStart != -1) {
+                                        addStyle(
+                                            style = SpanStyle(
+                                                color = MaterialTheme.colorScheme.primary,
+                                                fontWeight = FontWeight.Bold,
+                                                textDecoration = androidx.compose.ui.text.style.TextDecoration.Underline
+                                            ),
+                                            start = termsStart,
+                                            end = termsStart + termsOfUse.length
+                                        )
+                                        addStringAnnotation(
+                                            tag = "URL",
+                                            annotation = stringResource(R.string.settings_terms_of_use_url),
+                                            start = termsStart,
+                                            end = termsStart + termsOfUse.length
+                                        )
+                                    }
+                                    
+                                    if (privacyStart != -1) {
+                                        addStyle(
+                                            style = SpanStyle(
+                                                color = MaterialTheme.colorScheme.primary,
+                                                fontWeight = FontWeight.Bold,
+                                                textDecoration = androidx.compose.ui.text.style.TextDecoration.Underline
+                                            ),
+                                            start = privacyStart,
+                                            end = privacyStart + privacyPolicy.length
+                                        )
+                                        addStringAnnotation(
+                                            tag = "URL",
+                                            annotation = stringResource(R.string.settings_privacy_policy_url),
+                                            start = privacyStart,
+                                            end = privacyStart + privacyPolicy.length
+                                        )
+                                    }
+                                }
+                                
+                                androidx.compose.foundation.text.ClickableText(
+                                    text = annotatedString,
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    ),
+                                    onClick = { offset ->
+                                        annotatedString.getStringAnnotations(tag = "URL", start = offset, end = offset)
+                                            .firstOrNull()?.let { annotation ->
+                                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(annotation.item))
+                                                context.startActivity(intent)
+                                            }
+                                    },
+                                    modifier = Modifier.padding(horizontal = 8.dp)
                                 )
                             }
 
