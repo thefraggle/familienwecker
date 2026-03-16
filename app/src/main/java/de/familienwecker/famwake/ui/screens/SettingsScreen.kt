@@ -679,7 +679,23 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     Spacer(modifier = Modifier.height(16.dp))
-                    
+
+                    val termsInteractionSource = remember { MutableInteractionSource() }
+                    OutlinedButton(
+                        onClick = {
+                            val url = context.getString(R.string.settings_terms_of_use_url)
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            context.startActivity(intent)
+                        },
+                        modifier = Modifier.fillMaxWidth().bounceClick(termsInteractionSource),
+                        interactionSource = termsInteractionSource
+                    ) {
+                        Text(stringResource(R.string.settings_terms_of_use))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+
                     val privacyInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
