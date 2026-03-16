@@ -178,6 +178,18 @@ class Scheduler {
             currentLatestBathroomEndTime = wakeUpTime
         }
 
+        // Post-Validation: Sicherheitsnetz fuer Edge Cases bei der Fruehstueck-Constraint-Berechnung.
+        // Pruefe explizit dass kein Fruehstuecker sein Bad nach Fruehstücksbeginn beendet.
+        if (breakfastTime != null) {
+            for (s in schedules) {
+                if (s.member.wantsBreakfast && s.bathroomEndTime.isAfter(breakfastTime)) {
+                    return Result.failure(
+                        Exception("CONFLICT:${s.member.name}:Bad endet nach Fruehstueck (${s.bathroomEndTime} > $breakfastTime)")
+                    )
+                }
+            }
+        }
+
         return Result.success(
             FamilySchedule(
                 memberSchedules = schedules.reversed(),
