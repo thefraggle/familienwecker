@@ -172,10 +172,17 @@ class FamilyViewModel(
                             } catch (e: CancellationException) {
                                 throw e
                             } catch (e: Exception) {
-                                // Self-Healing: Bei Permission Denied (veraltete FamilyId) lokal aufräumen
+                                // Self-Healing: Bei Permission Denied (veraltete FamilyId) lokal aufräumen.
+                                // Nur wenn die Familie wirklich nicht mehr existiert – verhindert false-positives
+                                // z.B. wenn ein anderer User die Familie verlässt und kurz PERMISSION_DENIED
+                                // auf diesem Gerät ausgelöst wird.
                                 if (e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true) {
-                                    leaveFamily()
-                                    _members.value = persistentListOf()
+                                    val fId = currentFamilyId
+                                    val stillExists = if (fId != null) repository.checkFamilyExists(fId) else false
+                                    if (!stillExists) {
+                                        leaveFamily()
+                                        _members.value = persistentListOf()
+                                    }
                                 } else {
                                     _errorMessage.value = UiText.StringResource(R.string.error_load_members)
                                 }
@@ -681,8 +688,16 @@ class FamilyViewModel(
     fun leaveFamily() {
         _errorMessage.value = null
         val uid = auth.currentUser?.uid ?: return
+        val currentFamilyId = familyId.value
+        val currentMemberId = myMemberId.value
         cancelAlarmForCurrentUser()
         viewModelScope.launch {
+            // Eigenen Member-Claim entfernen bevor das User-Mapping gelöscht wird.
+            // Verhindert Ghost-Claims: ohne diesen Schritt bleibt claimedByUserId in
+            // Firestore stehen, obwohl der User die Familie verlassen hat.
+            if (currentFamilyId != null && currentMemberId != null) {
+                repository.unclaimMember(currentFamilyId, currentMemberId, uid)
+            }
             repository.removeUserFamily(uid)
             prefsRepo.setFamilyId(null)
             prefsRepo.setJoinCode(null)
