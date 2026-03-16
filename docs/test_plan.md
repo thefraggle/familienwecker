@@ -48,6 +48,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-39 | **Scroll-Indicator** | Hauptscreen ohne Mitglieder: Bounce-Pfeil am unteren Rand sichtbar. Verschwindet beim ersten Scrollen oder sobald ein Mitglied vorhanden ist. |
 | TC-40 | **Reboot-Alarm-Persistenz** | Alarm für 2 Min. stellen → Gerät neustarten → Wecker klingelt auch ohne PIN-Eingabe auf dem Sperrbildschirm. |
 | TC-41 | **Snooze überlebt Reboot** | Snooze drücken → Gerät innerhalb 5 Min. neustarten → Wecker klingelt zum Snooze-Zeitpunkt. |
+| TC-42 | **E-Mail-Rate-Limit erste Anfrage** | Passwort-Reset für neue (nie angeforderte) E-Mail → E-Mail wird korrekt versendet, kein interner Fehler. |
 
 
 ### 2. Familien-Konfiguration
@@ -109,6 +110,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | EC-31 | **Alarm-Status Sync** | User A deaktiviert Wecker → Gerät B sieht es sofort, eigener Status bleibt. |
 | EC-32 | **Familie löschen mit anderen Usern** | Admin löscht → alle herausgeworfen, Familie gelöscht. |
 | EC-33 | **Offline-Icon bei Writes** | Nach 3s Offline → CloudOff-Icon statt Sync-Spinner. |
+| EC-34 | **Familie-Verlassen (Isolation)** | Papa verlässt Familie auf Gerät A → Mamas Session auf Gerät B bleibt unverändert; kein ungewolltes leaveFamily. |
+| EC-35 | **Ghost-Claim nach Verlassen** | Nach Papa's Verlassen ist Papas Mitglieds-Profil in Firestore nicht mehr geclamet (claimedByUserId = null). |
 
 
 ### 3. Benutzer-Verhalten
