@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.2] - 2026-03-16
+
+### Behoben
+- Beim Verlassen der Familie wird das eigene Mitglieds-Profil nun vollständig aus Firestore gelöscht. Ein erneuter Beitritt erfordert das Anlegen und Claimen eines neuen Profils.
+
+---
+
 ## [1.1.1] - 2026-03-16
 
 ### Behoben

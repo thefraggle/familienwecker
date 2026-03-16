@@ -37,7 +37,6 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-28 | **Deep Link Conflict Dialog** | Klick auf Deep Link während man in einer Familie ist, öffnet MainScreen mit Warn-Dialog zum Wechseln. |
 | TC-29 | **Join Code Validation Guard** | Ungültiger Deep/Join Code führt nach Bestätigung nur zu einer Fehlermeldung, alte Familie wird nicht verlassen. |
 | TC-30 | **Join Code Sicherheit** | Ein generierter 6-stelliger Code ist weiterhin rein alphanumerisch ohne 0, O, 1, I und wird via SecureRandom erzeugt. |
-| TC-31 | **Verschlüsselung (H-5)** | Nach Update von Altversion: Daten (familyId, joinCode) werden automatisch in EncryptedPrefs migriert; Original-Datei wird gelöscht. |
 | TC-32 | **Rate-Limiting (H-1)** | Mehrfalsche falsche Code-Eingaben (>5/min) führen zu einer serverseitigen Blockierung ("Resource Exhausted"). |
 | TC-33 | **E-Mail Rate-Limiting** | Mehr als 3 Passwort-Reset- oder Verifikations-E-Mails für dieselbe Adresse innerhalb einer Stunde werden serverseitig blockiert ("Resource Exhausted"). |
 | TC-34 | **HTTP-Link abgewiesen** | Aufruf von `http://familienwecker.de/join/CODE` darf keinen Join auslösen – App ignoriert das HTTP-Schema. |
@@ -49,6 +48,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-40 | **Reboot-Alarm-Persistenz** | Alarm für 2 Min. stellen → Gerät neustarten → Wecker klingelt auch ohne PIN-Eingabe auf dem Sperrbildschirm. |
 | TC-41 | **Snooze überlebt Reboot** | Snooze drücken → Gerät innerhalb 5 Min. neustarten → Wecker klingelt zum Snooze-Zeitpunkt. |
 | TC-42 | **E-Mail-Rate-Limit erste Anfrage** | Passwort-Reset für neue (nie angeforderte) E-Mail → E-Mail wird korrekt versendet, kein interner Fehler. |
+| TC-43 | **Familie verlassen – Member gelöscht** | Familie verlassen → eigenes Mitglieds-Profil in Firestore gelöscht. Erneuter Beitritt: kein altes Profil sichtbar, neues Anlegen nötig. |
 
 
 ### 2. Familien-Konfiguration
@@ -111,7 +111,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | EC-32 | **Familie löschen mit anderen Usern** | Admin löscht → alle herausgeworfen, Familie gelöscht. |
 | EC-33 | **Offline-Icon bei Writes** | Nach 3s Offline → CloudOff-Icon statt Sync-Spinner. |
 | EC-34 | **Familie-Verlassen (Isolation)** | Papa verlässt Familie auf Gerät A → Mamas Session auf Gerät B bleibt unverändert; kein ungewolltes leaveFamily. |
-| EC-35 | **Ghost-Claim nach Verlassen** | Nach Papa's Verlassen ist Papas Mitglieds-Profil in Firestore nicht mehr geclamet (claimedByUserId = null). |
+| EC-35 | **Member-Löschung beim Verlassen** | Nach dem Verlassen ist das eigene Mitglieds-Profil vollständig aus Firestore gelöscht. Nach erneutem Beitreten ist kein altes Profil mehr vorhanden. |
 
 
 ### 3. Benutzer-Verhalten
