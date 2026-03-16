@@ -5,6 +5,18 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.3] - 2026-03-16
+
+### Behoben
+- Algorithmus: Frühstücks-Konflikt wird jetzt auch erkannt wenn Bad-Ende = Frühstücksbeginn (0 Min Puffer)
+- Algorithmus: Post-Validierung stellt sicher dass kein Frühstücker sein Bad nach Frühstücksbeginn beendet
+- Offline-Anzeige: Falsches "Offline"-Icon nach App-Start behoben (nur noch bei echtem Netzwerkausfall)
+- Cloud Functions: Rate-Limit-Zähler wurde beim ersten Aufruf nicht korrekt gespeichert (tx.update → tx.set)
+- Cloud Functions: Join-Versuchslimit von 5 auf 10 pro Minute erhöht (zu niedrig für Join/Leave-Tests)
+- CI: AAB-Dateiname in manuellen GitHub-Builds war fehlerhaft (enthielt "main" statt Versionsnummer)
+
+---
+
 ## [1.1.2] - 2026-03-16
 
 ### Behoben
