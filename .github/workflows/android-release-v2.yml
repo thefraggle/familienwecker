@@ -133,7 +133,7 @@ jobs:
             -storepass "$KEYSTORE_PASSWORD" \
             -keypass "$KEY_PASSWORD" \
             "$AAB_PATH" "$KEY_ALIAS"
-          cp "$AAB_PATH" FamWake-${{ github.ref_name }}-release.aab
+          cp "$AAB_PATH" FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
 
       # GitHub Release mit APK (Patch, nur bei Tag-Push)
       - name: Create GitHub Release (APK)
@@ -150,16 +150,18 @@ jobs:
         if: steps.metadata.outputs.build_aab == 'true' && startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: FamWake-${{ github.ref_name }}-release.aab
+          files: FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
           name: Release ${{ github.ref_name }}
           body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
           prerelease: false
 
       # Artefakt-Upload bei manuellem Run (force_aab=true) – direkt im Actions-Run downloadbar
+      # Hinweis: GitHub verpackt Artefakte immer als ZIP – das lässt sich nicht deaktivieren.
+      # Die darin enthaltene AAB ist korrekt als FamWake-v{version}-release.aab benannt.
       - name: Upload AAB as Artifact (manual run)
         if: steps.metadata.outputs.build_aab == 'true' && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: FamWake-v${{ steps.metadata.outputs.app_version }}-release
-          path: FamWake-${{ github.ref_name }}-release.aab
+          path: FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
           retention-days: 14
