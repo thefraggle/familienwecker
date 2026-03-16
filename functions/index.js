@@ -24,7 +24,7 @@ async function checkEmailRateLimit(email) {
       return false;
     }
     if (data.count >= maxAttempts) return true;
-    tx.update(rateLimitRef, { count: data.count + 1 });
+    tx.set(rateLimitRef, { count: data.count + 1, windowStart: data.windowStart }, { merge: true });
     return false;
   });
 
@@ -167,7 +167,7 @@ exports.sendBrandedResetEmail = onCall(
 
       console.error("Error in sendBrandedResetEmail:", err);
       // Accessing error code from Firebase Admin SDK error
-      const code = err.code || (err.errorInfo && err.errorInfo.code) || "";
+      const code = String(err.code || (err.errorInfo && err.errorInfo.code) || "");
       console.log("Extracted error code:", code);
 
       if (code.includes("invalid-email") || code.includes("argument")) {
