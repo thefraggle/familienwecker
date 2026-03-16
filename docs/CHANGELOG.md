@@ -5,6 +5,14 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.4] - 2026-03-16
+
+### Neu
+- Nutzungsbedingungen (Terms of Use) direkt in den Einstellungen verlinkt.
+- Disclaimer im Registrierungs-Screen mit klickbaren Links zu Nutzungsbedingungen und Datenschutz.
+
+---
+
 ## [1.1.3] - 2026-03-16
 
 ### Behoben
