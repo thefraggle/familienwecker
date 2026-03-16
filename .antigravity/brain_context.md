@@ -1,10 +1,10 @@
 # FamWake Brain Context
 
 ## Current State
-- **Version:** 1.1.3 released (APK Beta), next: 1.1.4-dev
+- **Version:** 1.1.4 released, next: 1.1.5-dev
 - **Repo:** public @ github.com/thefraggle/familienwecker
-- **Last Tag:** v1.1.3
-- **Active Tags:** v1.0.0, v1.1.0, v1.1.1, v1.1.2, v1.1.3
+- **Last Tag:** v1.1.4
+- **Active Tags:** v1.0.0, v1.1.0, v1.1.1, v1.1.2, v1.1.3, v1.1.4
 
 ## Architecture
 - Android (Kotlin/Compose), Firebase (Firestore + Functions), Cloud Functions (europe-west3)
@@ -19,6 +19,12 @@
 - Tag endet auf `.1+` → APK (Beta, prerelease: true)
 - Version wird aus `build.gradle.kts` gelesen
 - AAB-Dateiname: immer `FamWake-v{app_version}-release.aab` (nicht github.ref_name)
+
+## 1.1.4 (2026-03-16) – Legal Compliance
+- `SettingsScreen.kt`: Nutzungsbedingungen ("Terms of Use") Link hinzugefügt.
+- `LoginScreen.kt`: Disclaimer bei Registrierung mit klickbaren Links zu Nutzungsbedingungen und Datenschutz.
+- `strings.xml`: Neue Strings für Nutzungsbedingungen und Disclaimer (DE/EN).
+- Firebase: Functions & Rules deployed (2026-03-16).
 
 ## 1.1.3 (2026-03-16) – Audit-Release
 - `Scheduler.kt`: `isBefore` → `!isAfter` für Frühstücks-Constraint (inkl. ==Fall)

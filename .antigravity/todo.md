@@ -10,6 +10,7 @@
 - [ ] Widget
 
 ## Recently Completed
+- [x] v1.1.4 Release: Nutzungsbedingungen & Registrierungs-Disclaimer integriert
 - [x] Play Store: AAB eingereicht & Lock-Screen-Alarm erfolgreich getestet
 - [x] Deep-Link Verifizierung auf echtem Gerät (v1.1.3)
 - [x] v1.1.3 Release: Umfassender Audit – Scheduler, Offline, Sync, Rate-Limit, CI-Fixes
