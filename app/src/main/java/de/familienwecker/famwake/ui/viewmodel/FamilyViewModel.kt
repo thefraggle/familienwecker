@@ -103,6 +103,10 @@ class FamilyViewModel(
     // Zuletzt gesetzten Alarm-Zeitstempel merken
     private var lastScheduledAlarmMillis: Long? = null
 
+    // Initial-Push-Flag: deviceAlarmEnabled nur einmal beim Start des Listeners schreiben,
+    // nicht bei jedem weiteren Members-Update (vermeidet redundante Firestore-Writes)
+    private var initialAlarmPushDone = false
+
     init {
         // Observe FamilyId and load members accordingly
         viewModelScope.launch {
@@ -123,8 +127,9 @@ class FamilyViewModel(
                                 repository.getSyncStatusFlow(currentFamilyId).collect { status ->
                                     _syncStatus.value = status
                                     // Offline-Status mit Debounce setzen (3s Wartezeit)
-                                    // isFromCache reicht als Signal – hasPendingWrites ist egal
-                                    if (status.isFromCache) {
+                                    // Nur offline zeigen wenn isFromCache UND kein validiertes Netz –
+                                    // verhindert False-Positives direkt nach App-Start (Firestore liefert kurz aus Cache)
+                                    if (status.isFromCache && !NetworkUtils.isOnline(getApplication())) {
                                         offlineDebounceJob?.cancel()
                                         offlineDebounceJob = launch {
                                             delay(3000)
@@ -141,6 +146,7 @@ class FamilyViewModel(
                         }
 
                         membersJob = launch {
+                            initialAlarmPushDone = false
                             try {
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
                                     val checkedMembers = checkAndResetMembers(membersList)
@@ -150,17 +156,23 @@ class FamilyViewModel(
                                     val uid = auth.currentUser?.uid
                                     if (uid != null) {
                                         val claimedByMe = checkedMembers.find { it.claimedByUserId == uid }
+                                        // Race-Condition-Guard: myMemberId nur überschreiben wenn Cloud-Wert
+                                        // wirklich anders ist als lokal bereits gesetzt
                                         if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
                                             prefsRepo.setMyMemberId(claimedByMe.id)
                                             prefsRepo.setMyMemberName(claimedByMe.name)
                                         } else if (claimedByMe == null && myMemberId.value != null) {
+                                            // Kein Profil mehr geclaimt – aber nur räumen wenn nicht gerade
+                                            // ein frischer Join-Vorgang läuft (myMemberId wäre dann noch null)
                                             prefsRepo.setMyMemberId(null)
                                             prefsRepo.setMyMemberName(null)
                                         }
                                         // Initial-Push: lokalen Alarm-Status nach Firestore übertragen
+                                        // Nur beim ersten Emit (wenn myId bekannt), nicht bei jedem Member-Update
                                         val myId = myMemberId.value
                                         val fId = currentFamilyId
-                                        if (myId != null) {
+                                        if (myId != null && !initialAlarmPushDone) {
+                                            initialAlarmPushDone = true
                                             launch {
                                                 repository.updateDeviceAlarmEnabled(fId, myId, isAlarmEnabled.value)
                                             }
@@ -208,7 +220,9 @@ class FamilyViewModel(
                     recalculateSchedule()
                 }
             } catch (e: Exception) {
-                // Ignore silent errors in member ID update
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamilyViewModel", "myMemberId observer error: ${e.message}")
+                }
             }
         }
 
@@ -226,7 +240,9 @@ class FamilyViewModel(
                     }
                 }
             } catch (e: Exception) {
-                // Ignore silent errors in alarm toggle
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamilyViewModel", "isAlarmEnabled observer error: ${e.message}")
+                }
             }
         }
 

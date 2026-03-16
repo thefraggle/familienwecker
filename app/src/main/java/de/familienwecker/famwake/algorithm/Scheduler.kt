@@ -144,7 +144,8 @@ class Scheduler {
                 maxAllowedBathroomEnd = currentLatestBathroomEndTime
             }
 
-            if (member.wantsBreakfast && breakfastTime != null && breakfastTime.isBefore(maxAllowedBathroomEnd)) {
+            // Fix: !isAfter statt isBefore – deckt auch den ==Fall ab (0 Min Frühstückszeit)
+            if (member.wantsBreakfast && breakfastTime != null && !breakfastTime.isAfter(maxAllowedBathroomEnd)) {
                 maxAllowedBathroomEnd = breakfastTime
             }
 
