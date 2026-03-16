@@ -692,11 +692,11 @@ class FamilyViewModel(
         val currentMemberId = myMemberId.value
         cancelAlarmForCurrentUser()
         viewModelScope.launch {
-            // Eigenen Member-Claim entfernen bevor das User-Mapping gelöscht wird.
-            // Verhindert Ghost-Claims: ohne diesen Schritt bleibt claimedByUserId in
-            // Firestore stehen, obwohl der User die Familie verlassen hat.
+            // Eigenen Member-Datensatz komplett löschen (nicht nur unclaimen).
+            // Die Firestore-Rule erlaubt delete wenn claimedByUserId == request.auth.uid.
+            // So ist kein verwaistes Profil mehr in der Familie nach dem Verlassen.
             if (currentFamilyId != null && currentMemberId != null) {
-                repository.unclaimMember(currentFamilyId, currentMemberId, uid)
+                repository.removeMember(currentFamilyId, currentMemberId)
             }
             repository.removeUserFamily(uid)
             prefsRepo.setFamilyId(null)
