@@ -49,6 +49,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-41 | **Snooze überlebt Reboot** | Snooze drücken → Gerät innerhalb 5 Min. neustarten → Wecker klingelt zum Snooze-Zeitpunkt. |
 | TC-42 | **E-Mail-Rate-Limit erste Anfrage** | Passwort-Reset für neue (nie angeforderte) E-Mail → E-Mail wird korrekt versendet, kein interner Fehler. |
 | TC-43 | **Familie verlassen – Member gelöscht** | Familie verlassen → eigenes Mitglieds-Profil in Firestore gelöscht. Erneuter Beitritt: kein altes Profil sichtbar, neues Anlegen nötig. |
+| TC-44 | **Frühstück-Bad-Konflikt** | Mitglied mit Badzeit ≥ Zeit bis Frühstück → Scheduler meldet Konflikt, kein stiller Fehler. |
+| TC-45 | **Offline-Anzeige** | Netz trennen: Offline-Icon erscheint nach >3s. Netz wieder verbinden: Icon verschwindet sofort. Im WLAN wird kein Offline-Icon angezeigt, auch wenn Firestore kurz aus Cache liefert. |
 
 
 ### 2. Familien-Konfiguration

@@ -51,6 +51,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-41 | **Snooze survives reboot** | Press snooze → reboot within 5 min → alarm rings at the snooze time. |
 | TC-42 | **Email rate-limit first request** | Password reset for a new (never requested) email address → email is sent correctly, no internal error. |
 | TC-43 | **Leave family – member deleted** | Leave family → own member profile deleted from Firestore. On rejoin: no old profile visible, new one must be created and claimed. |
+| TC-44 | **Breakfast-bath conflict** | Member with bath duration ≥ time until breakfast → scheduler reports conflict, no silent failure. |
+| TC-45 | **Offline indicator** | Disconnect network: offline icon appears after >3s. Reconnect: icon disappears immediately. On WiFi, no offline icon shown even if Firestore briefly serves cached data. |
 
 
 ### 2. Family Configuration

@@ -5,6 +5,18 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.1.3] - 2026-03-16
+
+### Fixed
+- Scheduler: Breakfast conflict now detected when bath end equals breakfast start (0 min buffer)
+- Scheduler: Post-validation ensures no breakfast eater finishes their bath after breakfast begins
+- Offline indicator: False 'offline' display on app start resolved (only shows on real network loss)
+- Cloud Functions: Rate-limit counter was not saved correctly on first request (tx.update → tx.set)
+- Cloud Functions: Join attempt limit increased from 5 to 10 per minute (was too low for join/leave cycles)
+- CI: AAB filename in manual GitHub builds was incorrect (contained 'main' instead of version number)
+
+---
+
 ## [1.1.2] - 2026-03-16
 
 ### Fixed
