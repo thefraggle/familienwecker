@@ -121,6 +121,9 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 |:---|:---|:---|
 | EC-08 | **Pausieren für heute** | ⏸️ Icon entfernt Mitglied komplett aus dem Plan; andere schlafen ggf. länger. |
 | EC-13 | **Bin schon wach (☀️)** | Sonnen-Icon unterdrückt nur den Alarm; Badezimmer-Slot bleibt für andere reserviert. |
+| EC-36 | **Reboot-Alarm-Wiederherstellung** | Alarme werden nach Reboot (Locked Boot) korrekt wiederhergestellt (Direct Boot). |
+| EC-37 | **Nutzungsbedingungen Link** | Klick auf "Nutzungsbedingungen" in den Einstellungen öffnet den korrekten Link. |
+| EC-38 | **Registrierungs-Disclaimer Link** | Klick auf Disclaimer-Links bei der Registrierung öffnet die korrekten Seiten. |
 | EC-09 | Nachträgliche Änderung (2 Uhr nachts) | Plan wird neu berechnet und asynchron an alle synchronisiert. |
 | EC-10 | Mehrere Admins | Beide ändern gleichzeitig die Badzeit eines Kindes -> Last-Write-Wins oder Konfliktmeldung. |
 
