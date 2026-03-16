@@ -576,11 +576,12 @@ exports.joinFamilyByCode = onCall(
       throw new HttpsError("invalid-argument", "INVALID_CODE");
     }
 
-    // Rate-Limiting: max. 5 Join-Versuche pro UID pro Minute
+    // Rate-Limiting: max. 10 Join-Versuche pro UID pro Minute
+    // (vorher 5 – zu niedrig für legitimate Join/Leave-Zyklen beim Testen)
     const rateLimitRef = admin.firestore().collection("_rate_limits").doc(`join_${uid}`);
     const now = Date.now();
     const windowMs = 60 * 1000;
-    const maxAttempts = 5;
+    const maxAttempts = 10;
 
     try {
       const limited = await admin.firestore().runTransaction(async (tx) => {
@@ -591,7 +592,8 @@ exports.joinFamilyByCode = onCall(
           return false;
         }
         if (data.count >= maxAttempts) return true;
-        tx.update(rateLimitRef, { count: data.count + 1 });
+        // set({merge:true}) statt update() – verhindert Fehler wenn Dokument noch nicht existiert
+        tx.set(rateLimitRef, { count: data.count + 1, windowStart: data.windowStart }, { merge: true });
         return false;
       });
       if (limited) {
@@ -648,7 +650,8 @@ exports.createFamily = onCall(
           return false;
         }
         if (data.count >= maxAttempts) return true;
-        tx.update(rateLimitRef, { count: data.count + 1 });
+        // set({merge:true}) statt update() – verhindert Fehler wenn Dokument noch nicht existiert
+        tx.set(rateLimitRef, { count: data.count + 1, windowStart: data.windowStart }, { merge: true });
         return false;
       });
       if (limited) {
