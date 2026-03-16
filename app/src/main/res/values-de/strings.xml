@@ -126,6 +126,8 @@
     <string name="settings_support_title">Support</string>
     <string name="settings_support_text">Feedback oder Fragen?</string>
     <string name="settings_support_button">E-Mail an Entwickler</string>
+    <string name="settings_terms_of_use">Nutzungsbedingungen</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms.html</string>
     <string name="settings_privacy_policy">Datenschutzerkl\u00e4rung</string>
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy.html</string>
     <string name="settings_imprint">Impressum</string>
