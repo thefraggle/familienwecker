@@ -39,7 +39,6 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-28 | **Deep Link Conflict Dialog** | Clicking a deep link while already in a family opens MainScreen showing a warning dialog to switch. |
 | TC-29 | **Join Code Validation Guard** | Invalid deep/join code only shows an error message after confirmation, without leaving the old family. |
 | TC-30 | **Join Code Security** | A generated 6-digit code remains purely alphanumeric without 0, O, 1, I and is generated via SecureRandom. |
-| TC-31 | **Encryption (H-5)** | After update: Data (familyId, joinCode) is automatically migrated to EncryptedPrefs; legacy file is cleared. |
 | TC-32 | **Rate-Limiting (H-1)** | Repeated wrong code entries (>5/min) trigger server-side blocking ("Resource Exhausted"). |
 | TC-33 | **Email Rate-Limiting** | More than 3 password-reset or verification emails for the same address within one hour are blocked server-side ("Resource Exhausted"). |
 | TC-34 | **HTTP link rejected** | Calling `http://familienwecker.de/join/CODE` must not trigger a join – app ignores the HTTP scheme. |
@@ -51,6 +50,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-40 | **Reboot alarm persistence** | Set alarm for 2 min → reboot device → alarm rings even before PIN entry on the lock screen. |
 | TC-41 | **Snooze survives reboot** | Press snooze → reboot within 5 min → alarm rings at the snooze time. |
 | TC-42 | **Email rate-limit first request** | Password reset for a new (never requested) email address → email is sent correctly, no internal error. |
+| TC-43 | **Leave family – member deleted** | Leave family → own member profile deleted from Firestore. On rejoin: no old profile visible, new one must be created and claimed. |
 
 
 ### 2. Family Configuration
@@ -112,7 +112,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-32 | **Delete Family with Other Users** | Admin deletes → all removed, family deleted. |
 | EC-33 | **Offline Icon with Pending Writes** | After 3s offline → CloudOff icon instead of sync spinner. |
 | EC-34 | **Leave Family (isolation)** | Papa leaves family on Device A → Mama's session on Device B remains unchanged; no unintended leaveFamily triggered. |
-| EC-35 | **Ghost-claim after leaving** | After Papa leaves, his member profile in Firestore is no longer claimed (claimedByUserId = null). |
+| EC-35 | **Member deletion on leave** | After leaving, the own member profile is completely deleted from Firestore. After rejoining, no old profile is present; a new one must be created. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |

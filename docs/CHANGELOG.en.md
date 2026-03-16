@@ -5,6 +5,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.1.2] - 2026-03-16
+
+### Fixed
+- When leaving a family, the own member profile is now completely deleted from Firestore. Rejoining requires creating and claiming a new profile.
+
+---
+
 ## [1.1.1] - 2026-03-16
 
 ### Fixed
