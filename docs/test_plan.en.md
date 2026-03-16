@@ -50,6 +50,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-39 | **Scroll indicator** | Main screen without members: bouncing arrow visible at bottom. Disappears on first scroll or once a member is added. |
 | TC-40 | **Reboot alarm persistence** | Set alarm for 2 min → reboot device → alarm rings even before PIN entry on the lock screen. |
 | TC-41 | **Snooze survives reboot** | Press snooze → reboot within 5 min → alarm rings at the snooze time. |
+| TC-42 | **Email rate-limit first request** | Password reset for a new (never requested) email address → email is sent correctly, no internal error. |
 
 
 ### 2. Family Configuration
@@ -110,6 +111,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-31 | **Alarm Status Sync** | User A disables alarm → Device B sees it immediately, own status unchanged. |
 | EC-32 | **Delete Family with Other Users** | Admin deletes → all removed, family deleted. |
 | EC-33 | **Offline Icon with Pending Writes** | After 3s offline → CloudOff icon instead of sync spinner. |
+| EC-34 | **Leave Family (isolation)** | Papa leaves family on Device A → Mama's session on Device B remains unchanged; no unintended leaveFamily triggered. |
+| EC-35 | **Ghost-claim after leaving** | After Papa leaves, his member profile in Firestore is no longer claimed (claimedByUserId = null). |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |

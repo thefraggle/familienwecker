@@ -5,6 +5,16 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.1.1] - 2026-03-16
+
+### Fixed
+- Email sending (password reset, opt-in verification) was broken: rate-limit document was not created correctly on the first request.
+- Password reset error: error code was evaluated as a number, causing `includes()` to fail.
+- "Leave family" incorrectly terminated sessions on other devices (self-healing triggered without existence check).
+- Leaving the family left the user's account claim in the Firestore member profile (ghost-claim).
+
+---
+
 ## [1.1.0] - 2026-03-15
 
 ### New

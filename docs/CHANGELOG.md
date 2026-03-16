@@ -5,6 +5,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.1] - 2026-03-16
+
+### Behoben
+- E-Mail-Versand (Passwort-Reset, Opt-In-Bestätigung) war nicht möglich: Rate-Limit-Dokument wurde bei der ersten Anfrage nicht korrekt angelegt.
+- Fehlermeldung beim Passwort-Reset: Fehlercode wurde als Zahl ausgewertet, `includes()` schlug fehl.
+- „Familie verlassen" trennte irrtümlich auch andere Geräte (Self-Healing ohne Existenzprüfung).
+- Beim Verlassen der Familie blieb der eigene Account-Claim im Firestore-Profil bestehen (Ghost-Claim).
+
+---
+
 ## [1.1.0] - 2026-03-15
 
 ### Neu
