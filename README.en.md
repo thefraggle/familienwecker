@@ -11,17 +11,21 @@ The **FamWake Family Alarm** is the intelligent solution for a relaxed morning r
 👉 **Find all information, features, and the waitlist sign-up on our website:**  
 🌐 [familienwecker.de/en](https://familienwecker.de/index-en.html)
 
-## 📸 A Sneak Peek at the App
+## 📸 A Sneak Peek at the App (Dark Mode)
 
-Here is a quick look at our current work in progress:
+See how FamWake organizes your morning:
 
 <p align="center">
-  <img src="docs/images/screenshot_3_main_dark_en.png" width="30%" alt="Main View (Dashboard)">
+  <img src="docs/images/screenshot_6_main_dark_en.png" width="30%" alt="The Current Wake-up Plan">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/screenshot_4_settings_dark_en.png" width="30%" alt="Settings">
+  <img src="docs/images/screenshot_5_config_dark_en.png" width="30%" alt="Profile Settings">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/screenshot_2_sleep_dark_en.png" width="30%" alt="Alarm inactive">
+  <img src="docs/images/screenshot_7_settings_dark_en.png" width="30%" alt="The Invitation Code">
 </p>
+
+1.  **The Current Wake-up Plan** (`screenshot_6_main.png`): This shows the result: a calculated, stress-free morning with synchronized bathroom slots and shared breakfast.
+2.  **Profile Settings** (`screenshot_5_config.png`): This displays the app's smart features, such as "Bathroom Duration" and "Wants to share breakfast."
+3.  **The Invitation Code** (`screenshot_7_settings.png`): Shows how easily you can invite more people to your family group. Shared benefits for everyone!
 
 ## ✨ The Highlights
 

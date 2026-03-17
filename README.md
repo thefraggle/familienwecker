@@ -11,17 +11,21 @@ Der **FamWake Familienwecker** ist die intelligente Lösung für entspannte Morg
 👉 **Alle Informationen, Features und die Anmeldung zur Warteliste findest du auf unserer Website:**  
 🌐 [familienwecker.de](https://familienwecker.de)
 
-## 📸 Ein erster Blick in die App
+## 📸 Ein Blick in die App (Dark Mode)
 
-Hier ist ein kleiner Vorgeschmack auf unseren aktuellen Arbeitsstand:
+Hier siehst du, wie FamWake deinen Morgen organisiert:
 
 <p align="center">
-  <img src="docs/images/screenshot_3_main_dark.png" width="30%" alt="Hauptansicht (Dashboard)">
+  <img src="docs/images/screenshot_6_main_dark.png" width="30%" alt="Der aktuelle Weck-Plan">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/screenshot_4_settings_dark.png" width="30%" alt="Einstellungen">
+  <img src="docs/images/screenshot_5_config_dark.png" width="30%" alt="Die Profil-Einstellungen">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/images/screenshot_2_sleep_dark.png" width="30%" alt="Wecker inaktiv">
+  <img src="docs/images/screenshot_7_settings_dark.png" width="30%" alt="Der Einladungscode">
 </p>
+
+1.  **Der aktuelle Weck-Plan** (`screenshot_6_main.png`): Dein wichtigstes Bild. Es zeigt direkt das fertige Ergebnis: den berechneten, stressfreien Morgen mit Badzeiten und gemeinsamem Frühstück.
+2.  **Die Profil-Einstellungen** (`screenshot_5_config.png`): Hier siehst du, wie schlau die App mitdenkt. Praktische Funktionen wie „Bad-Dauer“ und „Möchte mitfrühstücken“ sind sofort erkennbar.
+3.  **Der Einladungscode** (`screenshot_7_settings.png`): So einfach lädst du weitere Personen in deine Familiengruppe ein. Gemeinsamer Nutzen für alle!
 
 ## ✨ Die Highlights
 
