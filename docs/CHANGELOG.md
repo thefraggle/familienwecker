@@ -21,6 +21,8 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ### Behoben
 - Algorithmus: Frühstücks-Konflikt wird jetzt auch erkannt wenn Bad-Ende = Frühstücksbeginn (0 Min Puffer).
 - Algorithmus: Post-Validierung stellt sicher dass kein Frühstücker sein Bad nach Frühstücksbeginn beendet.
+- **Frühstückszeit:** War kein Abfahrtszeitpunkt gesetzt, wurde fälschlicherweise 23:59 als Basis genommen, was zu unrealistischen Frühstückszeiten (z.B. 23:29) führte. Fix: Fallback ist nun `späteste Weckzeit + Badezimmer-Dauer`.
+- **Wochentag-Konfiguration:** Tagesspezifische Zeiten aus den Tagesprofilen wurden beim Berechnen des Schedules ignoriert. Fix: Effektive Felder werden jetzt korrekt aufgelöst, bevor der Scheduler aufgerufen wird.
 - Offline-Anzeige: Falsches „Offline\"-Icon nach App-Start behoben (nur noch bei echtem Netzwerkausfall).
 - Cloud Functions: Rate-Limit-Zähler wurde beim ersten Aufruf nicht korrekt gespeichert (tx.update → tx.set).
 - Cloud Functions: Join-Versuchslimit von 5 auf 10 pro Minute erhöht.
@@ -37,6 +39,7 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ### Neu
 - Scroll-Indicator (↓) auf dem Hauptscreen solange keine Mitglieder vorhanden.
+- **Snooze:** Snooze-Button im Wecker-Screen (5 Min). Im Hauptscreen wird während eines aktiven Snooze ein Banner mit Endzeit und Abbruch-Button angezeigt.
 
 ### Behoben
 - Wecker klingelt nach Geräteneustart (auch vor PIN-Eingabe).

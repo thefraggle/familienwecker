@@ -96,4 +96,28 @@ class SchedulerTest {
             leaveHomeTime = leave?.let { LocalTime.parse(it) }
         )
     }
+
+    @Test
+    fun `single member with breakfast and no leaveHomeTime should not have late-night breakfast time`() {
+        // Reproduziert den Bug: Weckzeit 06:00–07:30, kein leaveHomeTime, wantsBreakfast=true
+        // → Frühstück darf NICHT 23:29 sein, sondern muss ≤ latestWakeUp + bathroomDuration sein
+        val mama = createMember("1", "Mama", "06:00", "07:30", 20, true, null)
+
+        val result = scheduler.calculateIdealSchedule(listOf(mama), breakfastDurationMinutes = 30)
+
+        assertTrue("Schedule should be valid", result.isValid)
+        val breakfast = result.breakfastTime
+        assertNotNull("Breakfast time should be set", breakfast)
+        // Frühstück muss vor 10:00 liegen (nie im abendlichen/nächtlichen Bereich)
+        assertTrue(
+            "Breakfast time $breakfast should not be unreasonably late (expected < 10:00)",
+            breakfast!!.isBefore(LocalTime.of(10, 0))
+        )
+        // Frühstück darf nicht vor der Weckzeit liegen
+        val wakeUp = result.memberSchedules.first().wakeUpTime
+        assertTrue(
+            "Breakfast $breakfast should be after or equal to wakeUpTime $wakeUp",
+            !breakfast.isBefore(wakeUp)
+        )
+    }
 }
