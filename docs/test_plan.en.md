@@ -40,7 +40,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-29 | **Join Code Validation Guard** | Invalid deep/join code only shows an error message after confirmation, without leaving the old family. |
 | TC-30 | **Join Code Security** | A generated 6-digit code remains purely alphanumeric without 0, O, 1, I and is generated via SecureRandom. |
 | TC-32 | **Rate-Limiting (H-1)** | Repeated wrong code entries (>5/min) trigger server-side blocking ("Resource Exhausted"). |
-| TC-33 | **Email Rate-Limiting** | More than 3 password-reset or verification emails for the same address within one hour are blocked server-side ("Resource Exhausted"). |
+| TC-33 | **Email Rate-Limiting** | More than 5 password-reset or verification emails for the same address within one hour are blocked server-side ("Resource Exhausted"). |
 | TC-34 | **HTTP link rejected** | Calling `http://familienwecker.de/join/CODE` must not trigger a join – app ignores the HTTP scheme. |
 | TC-35 | **Admin-only delete** | Non-creator opens Settings → delete family → receives error message instead of confirmation dialog. |
 | TC-36 | **Offline profile claim blocked** | Open dropdown in airplane mode → Snackbar with offline error appears immediately. |
@@ -53,6 +53,12 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-43 | **Leave family – member deleted** | Leave family → own member profile deleted from Firestore. On rejoin: no old profile visible, new one must be created and claimed. |
 | TC-44 | **Breakfast-bath conflict** | Member with bath duration ≥ time until breakfast → scheduler reports conflict, no silent failure. |
 | TC-45 | **Offline indicator** | Disconnect network: offline icon appears after >3s. Reconnect: icon disappears immediately. On WiFi, no offline icon shown even if Firestore briefly serves cached data. |
+| TC-51 | **New account – create family** | New email account, create family → app stays on main screen, no redirect back. |
+| TC-52 | **Alarm restore after reinstall** | Alarm ON → uninstall app → reinstall → login → alarm is ON again. |
+| TC-53 | **Multi-account on one device** | Log out User A, log in User B → B sees only their own family, no data from A. |
+| TC-54 | **Alarm logout isolation** | User A has alarm ON → logout → `deviceAlarmEnabled` of member stays unchanged in Firestore (no false-write). |
+| TC-55 | **Rate app button** | Tap „⭐ Rate App“ → In-app review dialog opens (or fallback to Play Store if unavailable). No crash. |
+| TC-56 | **Daily rate limit** | After reaching the hourly limit, wait for the hour to pass and try again: the daily limit (2× hourly) kicks in after the second hour and blocks further attempts for 24h. |
 
 
 ### 2. Family Configuration

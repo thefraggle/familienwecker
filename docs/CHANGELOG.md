@@ -5,63 +5,24 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
-## [1.2.7] - 2026-03-17
-
-### Geändert
-- **Dual Rate-Limit (Cloud Functions):** Zusätzlich zum Kurz-Fenster-Limit gilt jetzt ein Tageslimit (je doppelt so hoch):
-  - E-Mail Reset/Verify: max. 5/Stunde **und** max. 10/Tag
-  - Familie beitreten: max. 5/Minute **und** max. 10/Tag
-  - Familie erstellen: max. 3/Stunde **und** max. 6/Tag
-
----
-
-## [1.2.6] - 2026-03-17
-
-### Geändert
-- **Rate-Limits angepasst (Cloud Functions):**
-  - E-Mail (Reset/Verify): 3 → 5 pro Stunde
-  - Familie beitreten: 10 → 5 pro Minute (schärferer Schutz gegen Code-Erraten)
-  - Familie erstellen: bleibt bei 3 pro Stunde
-
----
-
-## [1.2.5] - 2026-03-17
-
-### Behoben
-- **Rate-Limit Fehlermeldungen vollständig:** Alle drei Cloud-Function-Rate-Limits zeigen jetzt klare Fehlermeldungen:
-  - *Familie beitreten* (max. 10/Minute): Eigene Meldung statt generischem Fehler.
-  - *Verifikations-Mail erneut senden*: Ergebnis wird jetzt ausgewertet, Rate-Limit-Fehler wird angezeigt.
-  - *Familie erstellen* (max. 3/Stunde): bereits in v1.2.4 behoben.
-
----
-
-## [1.2.4] - 2026-03-17
-
-### Behoben
-- **Crash beim Rate-Limit "Familie erstellen":** Die App stürzte ab wenn der interne Grenzwert (3 Familien pro Stunde) erreicht wurde. Die `RESOURCE_EXHAUSTED`-Exception der Cloud Function wird jetzt korrekt abgefangen und zeigt eine verständliche Fehlermeldung im Create-Family-Screen.
-
----
-
-## [1.2.3] - 2026-03-17
+## [1.3.0] - 2026-03-17
 
 ### Neu
-- **App bewerten:** Neuer Button „⭐ App bewerten ⭐" im Hilfe & Feedback Block. Öffnet In-App-Bewertungsfenster (Play In-App Review API); Fallback auf Play Store Seite wenn nicht verfügbar.
-
----
-
-## [1.2.2] - 2026-03-17
-
-### Behoben
-- **Chip-Text unsichtbar:** Beim Klick auf einen inaktiven Wochentag-Chip war der Text auf dem ausgefüllten Hintergrund nicht sichtbar. Fix: Selektiert+Inaktiv-Chips verwenden jetzt einen gedämpften grauen Container statt Primary-Farbe.
-
----
-
-## [1.2.1] - 2026-03-17
+- **⭐ App bewerten:** Neuer Button im Hilfe & Feedback Block. Öffnet In-App-Bewertungsfenster (Play In-App Review API); Fallback auf Play Store Seite wenn nicht verfügbar.
 
 ### Geändert
-- **Wochentag-Tabs:** DE: Sa/So → „S"; EN: Mon→Mo, Tue→Tu, Wed→We, Thu→Th, Fri→Fr, Sat→Sa, Sun→Su – alle 7 Chips in 2 Buchstaben.
-- **Inaktive Tage:** Chips für deaktivierte Wochentage werden jetzt deutlich ausgeblendet (Text, Rahmen und Hintergrund auf ~30 % Deckkraft).
+- **Wochentag-Chips:** DE und EN nutzen jetzt einheitliche 2-Buchstaben-Kürzel (Mo Di Mi Do Fr Sa So / Mo Tu We Th Fr Sa Su), damit alle 7 Chips in der Breite passen.
+- **Inaktive Tage:** Chips für deaktivierte Wochentage werden deutlich ausgeblendet (Text, Rahmen und Hintergrund auf ~30 % Deckkraft).
 - **Settings-Footer:** Neue Reihenfolge: Version → Copyright → All rights reserved → Links.
+- **Rate-Limits (Cloud Functions):**
+  - E-Mail Reset/Verify: max. 5 pro Stunde + max. 10 pro Tag
+  - Familie beitreten: max. 5 pro Minute + max. 10 pro Tag
+  - Familie erstellen: max. 3 pro Stunde + max. 6 pro Tag
+
+### Behoben
+- **Chip-Text unsichtbar:** Selektierter inaktiver Wochentag-Chip: Text war auf ausgefülltem Hintergrund nicht lesbar. Fix: gedämpfter grauer Container statt Primary-Farbe.
+- **Crash beim Rate-Limit „Familie erstellen":** `RESOURCE_EXHAUSTED`-Exception der Cloud Function wird jetzt korrekt abgefangen.
+- **Rate-Limit Fehlermeldungen komplett:** Alle drei Rate-Limits (Familie erstellen, beitreten, E-Mail) zeigen spezifische Fehlermeldungen. `resendVerificationEmail` wertet Ergebnis jetzt aus.
 
 ---
 

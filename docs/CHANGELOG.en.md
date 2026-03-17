@@ -5,63 +5,24 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
-## [1.2.7] - 2026-03-17
-
-### Changed
-- **Dual rate limit (Cloud Functions):** In addition to the short-window limit, a daily limit now applies (twice the short-window limit):
-  - Email Reset/Verify: max. 5/hour **and** max. 10/day
-  - Join family: max. 5/minute **and** max. 10/day
-  - Create family: max. 3/hour **and** max. 6/day
-
----
-
-## [1.2.6] - 2026-03-17
-
-### Changed
-- **Rate limits adjusted (Cloud Functions):**
-  - Email (Reset/Verify): 3 → 5 per hour
-  - Join family: 10 → 5 per minute (stricter protection against code guessing)
-  - Create family: unchanged at 3 per hour
-
----
-
-## [1.2.5] - 2026-03-17
-
-### Fixed
-- **Rate-limit errors fully covered:** All three Cloud Function rate limits now show clear error messages:
-  - *Join family* (max. 10/minute): Specific message instead of generic error.
-  - *Resend verification email*: Result is now evaluated; rate-limit error is shown to the user.
-  - *Create family* (max. 3/hour): already fixed in v1.2.4.
-
----
-
-## [1.2.4] - 2026-03-17
-
-### Fixed
-- **Crash on "create family" rate limit:** The app crashed when the internal limit (3 families per hour) was hit. The `RESOURCE_EXHAUSTED` exception from the Cloud Function is now correctly caught and shows a clear error message on the create-family screen.
-
----
-
-## [1.2.3] - 2026-03-17
+## [1.3.0] - 2026-03-17
 
 ### Added
-- **Rate app:** New button "⭐ Rate App ⭐" in the Help & Feedback section. Opens the in-app review dialog (Play In-App Review API); falls back to the Play Store page if unavailable.
-
----
-
-## [1.2.2] - 2026-03-17
-
-### Fixed
-- **Chip text invisible:** Clicking on an inactive weekday chip showed no readable text on the filled background. Fix: selected+inactive chips now use a muted grey container instead of the primary color.
-
----
-
-## [1.2.1] - 2026-03-17
+- **⭐ Rate app:** New button in the Help & Feedback section. Opens the in-app review dialog (Play In-App Review API); falls back to the Play Store page if unavailable.
 
 ### Changed
-- **Weekday tabs:** DE: Sa/So → "S"; EN: Mon→Mo, Tue→Tu, Wed→We, Thu→Th, Fri→Fr, Sat→Sa, Sun→Su – all 7 chips as 2-letter abbreviations.
+- **Weekday chips:** DE and EN now use uniform 2-letter abbreviations (Mo Di Mi Do Fr Sa So / Mo Tu We Th Fr Sa Su) so all 7 chips fit in the available width.
 - **Inactive days:** Chips for disabled weekdays are now clearly dimmed (text, border and background at ~30% opacity).
 - **Settings footer:** New order: Version → Copyright → All rights reserved → Links.
+- **Rate limits (Cloud Functions):**
+  - Email Reset/Verify: max. 5 per hour + max. 10 per day
+  - Join family: max. 5 per minute + max. 10 per day
+  - Create family: max. 3 per hour + max. 6 per day
+
+### Fixed
+- **Chip text invisible:** Selecting an inactive weekday chip showed unreadable text on the filled background. Fix: muted grey container instead of primary color.
+- **Crash on "create family" rate limit:** `RESOURCE_EXHAUSTED` exception from the Cloud Function is now correctly caught.
+- **Rate-limit errors fully covered:** All three rate limits (create, join, email) now show specific error messages. `resendVerificationEmail` result is now evaluated.
 
 ---
 
