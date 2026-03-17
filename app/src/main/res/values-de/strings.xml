@@ -164,7 +164,6 @@
     <string name="registration_disclaimer">Mit der Registrierung werden die %1$s und die %2$s akzeptiert.</string>
     <string name="registration_terms_of_use">Nutzungsbedingungen</string>
     <string name="registration_privacy_policy">Datenschutzerkl\u00e4rung</string>
-    <string name="settings_appearance_title">Erscheinungsbild</string>
     <string name="settings_theme_light">Hell</string>
     <string name="settings_theme_dark">Dunkel</string>
     <string name="settings_theme_system">System</string>
