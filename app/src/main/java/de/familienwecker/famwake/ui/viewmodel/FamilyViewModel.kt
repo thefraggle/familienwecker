@@ -694,24 +694,36 @@ class FamilyViewModel(
     }
 
     /**
-     * Löst das korrekte DayProfile für den nächsten Alarm-Tag auf und gibt einen
-     * FamilyMember zurück, dessen Felder (earliestWakeUp, latestWakeUp, bathroomDuration,
-     * wantsBreakfast, leaveHomeTime) aus dem Profil überschrieben sind.
-     * Ist der Tag deaktiviert → isPaused = true (Scheduler filtert ihn heraus).
-     * Sind keine dayProfiles vorhanden → unveränderter Member (Fallback auf Root-Felder).
+     * Löst das korrekte DayProfile für den nächsten Alarm-Tag auf.
+     *
+     * Logik:
+     * - Wenn das heutige DayProfile aktiv ist UND die latestWakeUp noch nicht erreicht wurde
+     *   → verwende das heutige Profil.
+     * - Sonst: nächsten Tag prüfen (morgen).
+     * - Ist das Profil des Zieltags inaktiv → member.isPaused = true (kein Wecker).
+     * - Sind keine dayProfiles vorhanden → unveranderter Member (Fallback auf Root-Felder).
      */
     private fun resolveEffectiveMember(member: FamilyMember): FamilyMember {
         val profiles = member.dayProfiles ?: return member
         val now = LocalTime.now()
-        // Nächster Alarm-Tag: wenn aktuelle Zeit bereits nach latestWakeUp → morgen
-        val targetDate = if (now.isAfter(member.latestWakeUp)) {
-            LocalDate.now().plusDays(1)
+        val today = LocalDate.now()
+
+        // Heutiges Profil prüfen
+        val todayDow = today.dayOfWeek.value // 1=Mo … 7=So
+        val todayProfile = profiles[todayDow]
+
+        val targetDate = if (todayProfile != null && todayProfile.isActive && now.isBefore(todayProfile.latestWakeUp)) {
+            // Heute ist noch Zeit für den Wecker
+            today
         } else {
-            LocalDate.now()
+            // Heute vorbei oder deaktiviert → morgen prüfen
+            today.plusDays(1)
         }
-        val dayOfWeek = targetDate.dayOfWeek.value // 1=Mo … 7=So
-        val profile = profiles[dayOfWeek] ?: return member
+
+        val targetDow = targetDate.dayOfWeek.value
+        val profile = profiles[targetDow] ?: return member.copy(isPaused = true)
         if (!profile.isActive) return member.copy(isPaused = true)
+
         return member.copy(
             earliestWakeUp          = profile.earliestWakeUp,
             latestWakeUp            = profile.latestWakeUp,
@@ -831,7 +843,7 @@ class FamilyViewModel(
                 val wakeUpTime = memberSchedule.wakeUpTime
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
 
-                // Tagesprofil für targetDate auflösen
+                // Tagesprofil für targetDate auflösen und prüfen ob aktiv
                 val dayOfWeek = targetDate.dayOfWeek.value // 1=Mo, 7=So
                 val dayProfile = memberSchedule.member.dayProfiles?.get(dayOfWeek)
 

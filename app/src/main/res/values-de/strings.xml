@@ -82,6 +82,8 @@
     <string name="add_member_copy_to_days">"%1$s" auf andere Tage kopieren</string>
     <string name="add_member_copy_dialog_title">Auf Tage kopieren</string>
     <string name="add_member_copy_apply">Anwenden</string>
+    <string name="validation_latest_before_earliest">Späteste Weckzeit muss nach der frühesten Weckzeit liegen</string>
+    <string name="validation_leave_too_early">Abfahrtszeit muss nach Ende der Badzeit liegen (Weckzeit + Baddauer)</string>
     <string name="weekday_1">Montag</string>
     <string name="weekday_2">Dienstag</string>
     <string name="weekday_3">Mittwoch</string>
