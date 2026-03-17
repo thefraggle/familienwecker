@@ -436,14 +436,16 @@ fun SettingsScreen(
                         Text(stringResource(R.string.settings_logout))
                     }
 
-                    var showDeleteAccountInfoDialog by remember { mutableStateOf(false) }
-
+                    val deleteAccountUrl = stringResource(R.string.settings_delete_account_url)
                     TextButton(
-                        onClick = { showDeleteAccountInfoDialog = true },
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(deleteAccountUrl))
+                            context.startActivity(intent)
+                        },
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Info,
+                            imageVector = Icons.AutoMirrored.Filled.OpenInNew,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -453,20 +455,6 @@ fun SettingsScreen(
                             text = stringResource(R.string.settings_delete_account),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-
-                    if (showDeleteAccountInfoDialog) {
-                        AlertDialog(
-                            onDismissRequest = { showDeleteAccountInfoDialog = false },
-                            icon = { Icon(Icons.Default.Info, contentDescription = null) },
-                            title = { Text(stringResource(R.string.settings_delete_account)) },
-                            text = { Text(stringResource(R.string.settings_delete_account_info)) },
-                            confirmButton = {
-                                TextButton(onClick = { showDeleteAccountInfoDialog = false }) {
-                                    Text(stringResource(R.string.ok_button))
-                                }
-                            }
                         )
                     }
                 }
