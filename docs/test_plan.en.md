@@ -71,6 +71,13 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-11 | **Permission Protection** | Profiles claimed by others do not show an edit icon and do not respond to clicks. |
 | TC-12 | **Drag & Drop Reordering** | Long-press on a schedule tile allows moving it. Swap occurs at >50% overlap. |
 | TC-13 | **Order Persistence** | After reordering, the new sequence is preserved after app restart and across multiple devices. |
+| TC-57 | **Chip layout (all 7 days visible)** | Open profile editor → all 7 weekday chips (Mo–Su) are fully visible and equally wide on a narrow screen. |
+| TC-58 | **Chip error highlight** | Set an invalid time combination → affected chip is highlighted in red (border + text). |
+| TC-59 | **Validation – latest wake time** | Set `latestWakeUp` ≤ `earliestWakeUp` → red error text appears; save button is disabled. |
+| TC-60 | **Validation – leave home time (explicit)** | Set leave time ≤ `latestWakeUp + bathroom duration` → red error text; save button disabled. |
+| TC-61 | **Validation – leave home time (default)** | Set `latestWakeUp` to 21:00 without touching leave time (default 08:00) → error text appears immediately. |
+| TC-62 | **Next alarm – today disabled** | Disable today's weekday, enable tomorrow's → main screen shows tomorrow's alarm (not "no active alarm"). |
+| TC-63 | **Next alarm – today & tomorrow disabled** | Disable both today's and tomorrow's weekday → main screen shows "no active alarm". |
 
 ### 3. Scheduling Logic (Algorithmic Tests)
 | ID | Test Case | Expected Result |

@@ -5,6 +5,21 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.3.1] - 2026-03-17
+
+### Geändert
+- **Wochentag-Chips:** Alle 7 Chips (`Mo Di Mi Do Fr Sa So`) haben jetzt `weight(1f)` und verteilen sich gleichmäßig auf die volle Breite – Sonntag war auf schmalen Screens abgeschnitten.
+- **Chip-Fehler-Markierung:** Chips mit ungültigen Zeiteinstellungen werden rot hervorgehoben (Rahmen + Text + Hintergrund).
+
+### Behoben
+- **Next-Alarm-Logik:** `resolveEffectiveMember` prüft jetzt das heutige DayProfile zuerst (ist es aktiv UND vor `latestWakeUp`?), andernfalls morgen. Vorher wurde das veraltete Root-Feld `member.latestWakeUp` als Referenz genutzt → falsches Ergebnis wenn heutiges Profil deaktiviert war.
+- **„Kein Wecker" falsch angezeigt:** Wenn der aktuelle Tag deaktiviert und der nächste aktiv ist, wurde trotzdem „kein aktiver Wecker" gezeigt.
+- **Alarm klingelt für deaktivierte Tage:** `applyAlarms` wird abgebrochen wenn das DayProfile des Zieldatums `isActive = false` ist.
+- **Validierung – Späteste Weckzeit:** Fehlertext erscheint wenn `latestWakeUp ≤ earliestWakeUp`; Speichern-Button gesperrt.
+- **Validierung – Abfahrtszeit:** Fehlertext erscheint wenn Abfahrtszeit ≤ `latestWakeUp + Baddauer`. Prüft jetzt auch den angezeigten Default-Wert (08:00), nicht nur explizit gesetzte Werte.
+
+---
+
 ## [1.3.0] - 2026-03-17
 
 ### Neu

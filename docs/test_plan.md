@@ -70,6 +70,13 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-12 | **Drag & Drop Reihung** | Long-Press auf eine Zeitplan-Kachel erlaubt das Verschieben. Andere Kacheln gleiten via Spring-Animation beiseite (Gap-Preview). |
 | TC-13 | **Drag & Drop Persistence** | Tausch und Firestore-Sync erst beim Loslassen. Neue Reihenfolge bleibt auch nach App-Neustart und auf anderen Geräten erhalten. |
 | TC-14 | **Offline-Indikator** | Im Flugmodus erscheint Cloud-Off Icon; bei Änderung Sync-Icon; Reset nach Re-connect. |
+| TC-57 | **Chip-Layout (7 Tage sichtbar)** | Profil-Editor öffnen → alle 7 Wochentag-Chips (Mo–So) auf schmalem Screen vollständig sichtbar und gleich breit. |
+| TC-58 | **Chip-Fehlermarkierung** | Ungültige Zeitkombination setzen → betroffener Chip wird rot markiert (Rahmen + Text). |
+| TC-59 | **Validierung – Späteste Weckzeit** | `latestWakeUp` ≤ `earliestWakeUp` setzen → roter Fehlertext erscheint; Speichern-Button gesperrt. |
+| TC-60 | **Validierung – Abfahrtszeit (explizit)** | Abfahrtszeit ≤ `latestWakeUp + Baddauer` setzen → roter Fehlertext erscheint; Speichern-Button gesperrt. |
+| TC-61 | **Validierung – Abfahrtszeit (Default)** | `latestWakeUp` auf 21:00 setzen, Abfahrtszeit nicht anfassen (Default 08:00) → Fehlertext erscheint sofort. |
+| TC-62 | **Next-Alarm – heutiger Tag deaktiviert** | Heutigen Wochentag deaktivieren, morgigen aktivieren → Hauptscreen zeigt den Wecker für morgen (nicht „kein aktiver Wecker"). |
+| TC-63 | **Next-Alarm – kein aktiver Tag heute/morgen** | Heutigen und morgigen Wochentag deaktivieren → Hauptscreen zeigt „kein aktiver Wecker". |
 
 ### 3. Planungs-Logik (Algorithmische Tests)
 | ID | Testfall | Erwartetes Ergebnis |
