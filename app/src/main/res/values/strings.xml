@@ -141,7 +141,7 @@
     <string name="settings_language_english">English</string>
     <string name="settings_language_german">Deutsch</string>
     <string name="settings_appearance_title">Appearance</string>
-    <string name="settings_display_title">Language &amp; Appearance</string>
+    <string name="settings_display_title">App Settings</string>
     <string name="settings_help_title">About FamWake</string>
     <string name="settings_help_intro">The FamWake family alarm calculates the perfect wake-up schedule for your entire family, so that nobody gets stuck in front of a locked bathroom door in the morning.</string>
     <string name="settings_help_how_it_works">How it works:</string>
