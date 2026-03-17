@@ -337,13 +337,12 @@ private fun validateDayProfile(profile: DayProfile): List<Int> {
     if (!profile.latestWakeUp.isAfter(profile.earliestWakeUp)) {
         errors.add(R.string.validation_latest_before_earliest)
     }
-    // 2. leaveHomeTime muss NACH latestWakeUp + Baddauer liegen
-    val profile_leaveHomeTime = profile.leaveHomeTime
-    if (profile_leaveHomeTime != null) {
-        val latestBathroomEnd = profile.latestWakeUp.plusMinutes(profile.bathroomDurationMinutes)
-        if (!profile_leaveHomeTime.isAfter(latestBathroomEnd)) {
-            errors.add(R.string.validation_leave_too_early)
-        }
+    // 2. leaveHomeTime (effektiv: gesetzter Wert oder UI-Default 08:00)
+    //    muss NACH latestWakeUp + Baddauer liegen
+    val effectiveLeaveTime = profile.leaveHomeTime ?: java.time.LocalTime.of(8, 0)
+    val latestBathroomEnd = profile.latestWakeUp.plusMinutes(profile.bathroomDurationMinutes)
+    if (!effectiveLeaveTime.isAfter(latestBathroomEnd)) {
+        errors.add(R.string.validation_leave_too_early)
     }
     return errors
 }
@@ -464,13 +463,13 @@ private fun DayProfileCard(
                     }
 
                     // Abfahrtszeit
-                    val leaveHomeLine = profile.leaveHomeTime
-                    val leaveTooEarlyError = leaveHomeLine != null &&
-                        !leaveHomeLine.isAfter(profile.latestWakeUp.plusMinutes(profile.bathroomDurationMinutes))
+                    val effectiveLeaveTime = profile.leaveHomeTime ?: LocalTime.of(8, 0)
+                    val leaveTooEarlyError =
+                        !effectiveLeaveTime.isAfter(profile.latestWakeUp.plusMinutes(profile.bathroomDurationMinutes))
 
                     TimePickerRow(
                         label = stringResource(R.string.add_member_leave_home),
-                        time = profile.leaveHomeTime ?: LocalTime.of(8, 0),
+                        time = effectiveLeaveTime,
                         context = context,
                         formatter = formatter,
                         onTimeSelected = { onProfileChange(profile.copy(leaveHomeTime = it)) },
