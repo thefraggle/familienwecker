@@ -286,7 +286,7 @@ fun AddMemberScreen(
                     onClick = { showCopyDialog = true },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
-                    Text(stringResource(R.string.add_member_copy_to_days, dayLabelShort(selectedDay)))
+                    Text(stringResource(R.string.add_member_copy_to_days, dayLabel(selectedDay)))
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
