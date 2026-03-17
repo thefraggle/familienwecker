@@ -1,13 +1,14 @@
 # ToDo – FamWake
 
 ## Nächste Schritte
-(keine unmittelbaren Aufgaben offen)
+- [ ] Snooze: UI-Feedback (Banner im Hauptscreen) und Abbruch-Button
 
 ## Backlog (Roadmap)
 - [ ] Wochentag-Konfiguration (Wecker nur Mo-Fr)
 - [ ] Snooze-Synchronisation zwischen Geräten
 - [ ] Multi-Bad-Unterstützung
 - [ ] Widget
+- [ ] Direct Boot: Wecker bei gesperrtem Handy nach Reboot (Device Protected Storage + directBootAware)
 
 ## Recently Completed
 - [x] v1.1.4 Release: Nutzungsbedingungen & Registrierungs-Disclaimer integriert
