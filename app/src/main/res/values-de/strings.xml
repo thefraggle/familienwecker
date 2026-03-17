@@ -123,6 +123,9 @@
     <string name="settings_delete_family_warning_text">Es gibt noch andere aktive Profile in dieser Familie. Wenn du l\u00f6schst, verlieren alle den Zugriff. Willst du wirklich f\u00fcr alle Beteiligten alles l\u00f6schen?</string>
     <string name="settings_delete_family_warning_confirm">Ja, Familie endgültig löschen</string>
     <string name="settings_logout">Ausloggen</string>
+    <string name="settings_delete_account">Account löschen</string>
+    <string name="settings_delete_account_info">Um deinen Account und alle zugehörigen Daten dauerhaft zu löschen, kontaktiere uns bitte unter support@familienwecker.de. Wir bearbeiten deinen Antrag innerhalb von 30 Tagen.</string>
+    <string name="ok_button">OK</string>
     <string name="settings_footer_version">FamWake Familienwecker v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle Rechte vorbehalten.</string>

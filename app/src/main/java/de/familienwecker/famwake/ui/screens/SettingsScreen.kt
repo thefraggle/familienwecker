@@ -435,6 +435,40 @@ fun SettingsScreen(
                     ) {
                         Text(stringResource(R.string.settings_logout))
                     }
+
+                    var showDeleteAccountInfoDialog by remember { mutableStateOf(false) }
+
+                    TextButton(
+                        onClick = { showDeleteAccountInfoDialog = true },
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = stringResource(R.string.settings_delete_account),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
+                    if (showDeleteAccountInfoDialog) {
+                        AlertDialog(
+                            onDismissRequest = { showDeleteAccountInfoDialog = false },
+                            icon = { Icon(Icons.Default.Info, contentDescription = null) },
+                            title = { Text(stringResource(R.string.settings_delete_account)) },
+                            text = { Text(stringResource(R.string.settings_delete_account_info)) },
+                            confirmButton = {
+                                TextButton(onClick = { showDeleteAccountInfoDialog = false }) {
+                                    Text(stringResource(R.string.ok_button))
+                                }
+                            }
+                        )
+                    }
                 }
             }
 
