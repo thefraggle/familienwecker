@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val appVersion = "1.2.2"
+val appVersion = "1.2.3"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -109,4 +109,7 @@ dependencies {
 
     // Lottie
     implementation("com.airbnb.android:lottie-compose:6.4.1")
+
+    // Play In-App Review
+    implementation("com.google.android.play:review-ktx:2.0.1")
 }

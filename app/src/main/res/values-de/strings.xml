@@ -141,6 +141,7 @@
     <string name="settings_display_title">App-Einstellungen</string>
     <string name="settings_help_feedback_title">Hilfe &amp; Feedback</string>
     <string name="settings_support_button">E-Mail an Entwickler</string>
+    <string name="settings_rate_app">⭐ App bewerten ⭐</string>
     <string name="settings_feedback_button">Feedback geben / Fehler melden</string>
     <!-- Feedback Screen -->
     <string name="feedback_title">Feedback</string>

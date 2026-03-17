@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.2.3] - 2026-03-17
+
+### Neu
+- **App bewerten:** Neuer Button „⭐ App bewerten ⭐" im Hilfe & Feedback Block. Öffnet In-App-Bewertungsfenster (Play In-App Review API); Fallback auf Play Store Seite wenn nicht verfügbar.
+
+---
+
 ## [1.2.2] - 2026-03-17
 
 ### Behoben
