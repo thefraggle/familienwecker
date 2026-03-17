@@ -6,31 +6,39 @@ const { randomInt } = require("crypto");
 admin.initializeApp();
 
 /**
- * Rate-Limit auf E-Mail-Adresse: max. 3 Versuche pro Stunde.
- * Wird von allen Email-Cloud-Functions genutzt, die ohne Auth aufgerufen werden können.
+ * Prüft ein einzelnes Rate-Limit-Fenster.
+ * Gibt true zurück wenn das Limit erreicht ist, false wenn OK (und Zähler wird erhöht).
  */
-async function checkEmailRateLimit(email) {
-  const key = `email_${email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 80)}`;
-  const rateLimitRef = admin.firestore().collection("_rate_limits").doc(key);
+async function checkSingleRateLimit(key, windowMs, maxAttempts) {
+  const ref = admin.firestore().collection("_rate_limits").doc(key);
   const now = Date.now();
-  const windowMs = 60 * 60 * 1000; // 1 Stunde
-  const maxAttempts = 5;
-
-  const limited = await admin.firestore().runTransaction(async (tx) => {
-    const doc = await tx.get(rateLimitRef);
+  return admin.firestore().runTransaction(async (tx) => {
+    const doc = await tx.get(ref);
     const data = doc.exists ? doc.data() : { count: 0, windowStart: now };
     if (now - data.windowStart > windowMs) {
-      tx.set(rateLimitRef, { count: 1, windowStart: now });
+      tx.set(ref, { count: 1, windowStart: now });
       return false;
     }
     if (data.count >= maxAttempts) return true;
-    tx.set(rateLimitRef, { count: data.count + 1, windowStart: data.windowStart }, { merge: true });
+    tx.set(ref, { count: data.count + 1, windowStart: data.windowStart }, { merge: true });
     return false;
   });
+}
 
-  if (limited) {
-    throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
-  }
+/**
+ * Dual Rate-Limit auf E-Mail-Adresse:
+ * max. 5 Versuche pro Stunde UND max. 10 pro Tag.
+ */
+async function checkEmailRateLimit(email) {
+  const key = `email_${email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 80)}`;
+
+  // Stunden-Limit
+  const hourLimited = await checkSingleRateLimit(`${key}_h`, 60 * 60 * 1000, 5);
+  if (hourLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+
+  // Tages-Limit (2× stündliches Limit)
+  const dayLimited = await checkSingleRateLimit(`${key}_d`, 24 * 60 * 60 * 1000, 10);
+  if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
 }
 
 const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
@@ -576,29 +584,12 @@ exports.joinFamilyByCode = onCall(
       throw new HttpsError("invalid-argument", "INVALID_CODE");
     }
 
-    // Rate-Limiting: max. 10 Join-Versuche pro UID pro Minute
-    // (vorher 5 – zu niedrig für legitimate Join/Leave-Zyklen beim Testen)
-    const rateLimitRef = admin.firestore().collection("_rate_limits").doc(`join_${uid}`);
-    const now = Date.now();
-    const windowMs = 60 * 1000;
-    const maxAttempts = 5;
-
+    // Rate-Limiting: max. 5 Join-Versuche pro UID pro Minute, max. 10 pro Tag
     try {
-      const limited = await admin.firestore().runTransaction(async (tx) => {
-        const doc = await tx.get(rateLimitRef);
-        const data = doc.exists ? doc.data() : { count: 0, windowStart: now };
-        if (now - data.windowStart > windowMs) {
-          tx.set(rateLimitRef, { count: 1, windowStart: now });
-          return false;
-        }
-        if (data.count >= maxAttempts) return true;
-        // set({merge:true}) statt update() – verhindert Fehler wenn Dokument noch nicht existiert
-        tx.set(rateLimitRef, { count: data.count + 1, windowStart: data.windowStart }, { merge: true });
-        return false;
-      });
-      if (limited) {
-        throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
-      }
+      const minuteLimited = await checkSingleRateLimit(`join_${uid}_m`, 60 * 1000, 5);
+      if (minuteLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      const dayLimited = await checkSingleRateLimit(`join_${uid}_d`, 24 * 60 * 60 * 1000, 10);
+      if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
     } catch (err) {
       if (err instanceof HttpsError) throw err;
       console.error("Rate-Limit-Check fehlgeschlagen (wird ignoriert):", err);
@@ -635,28 +626,12 @@ exports.createFamily = onCall(
     }
     const sanitizedName = familyName.trim().slice(0, 64);
 
-    // Rate-Limiting: max. 3 Family-Erstellungen pro UID pro Stunde
-    const rateLimitRef = admin.firestore().collection("_rate_limits").doc(`create_${uid}`);
-    const now = Date.now();
-    const windowMs = 60 * 60 * 1000; // 1 Stunde
-    const maxAttempts = 3;
-
+    // Rate-Limiting: max. 3 Family-Erstellungen pro UID pro Stunde, max. 6 pro Tag
     try {
-      const limited = await admin.firestore().runTransaction(async (tx) => {
-        const doc = await tx.get(rateLimitRef);
-        const data = doc.exists ? doc.data() : { count: 0, windowStart: now };
-        if (now - data.windowStart > windowMs) {
-          tx.set(rateLimitRef, { count: 1, windowStart: now });
-          return false;
-        }
-        if (data.count >= maxAttempts) return true;
-        // set({merge:true}) statt update() – verhindert Fehler wenn Dokument noch nicht existiert
-        tx.set(rateLimitRef, { count: data.count + 1, windowStart: data.windowStart }, { merge: true });
-        return false;
-      });
-      if (limited) {
-        throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
-      }
+      const hourLimited = await checkSingleRateLimit(`create_${uid}_h`, 60 * 60 * 1000, 3);
+      if (hourLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      const dayLimited = await checkSingleRateLimit(`create_${uid}_d`, 24 * 60 * 60 * 1000, 6);
+      if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
     } catch (err) {
       if (err instanceof HttpsError) throw err;
       console.error("Rate-Limit-Check fehlgeschlagen (wird ignoriert):", err);

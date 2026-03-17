@@ -5,6 +5,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.2.7] - 2026-03-17
+
+### Geändert
+- **Dual Rate-Limit (Cloud Functions):** Zusätzlich zum Kurz-Fenster-Limit gilt jetzt ein Tageslimit (je doppelt so hoch):
+  - E-Mail Reset/Verify: max. 5/Stunde **und** max. 10/Tag
+  - Familie beitreten: max. 5/Minute **und** max. 10/Tag
+  - Familie erstellen: max. 3/Stunde **und** max. 6/Tag
+
+---
+
 ## [1.2.6] - 2026-03-17
 
 ### Geändert
