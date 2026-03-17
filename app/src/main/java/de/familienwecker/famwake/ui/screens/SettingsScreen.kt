@@ -530,11 +530,29 @@ fun SettingsScreen(
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
+                    // Gemeinsamer Header
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("🌐", modifier = Modifier.padding(end = 8.dp))
-                        Text(stringResource(R.string.settings_language_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            stringResource(R.string.settings_display_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                     Spacer(modifier = Modifier.height(16.dp))
+
+                    // Sprache
+                    Text(
+                        stringResource(R.string.settings_language_title),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
                     
                     ExposedDropdownMenuBox(
                         expanded = languageExpanded,
@@ -568,13 +586,15 @@ fun SettingsScreen(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("🌗", modifier = Modifier.padding(end = 8.dp))
-                        Text(stringResource(R.string.settings_appearance_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
+                    // Erscheinungsbild
+                    Text(
+                        stringResource(R.string.settings_appearance_title),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
                     
                     ExposedDropdownMenuBox(
                         expanded = themeExpanded,
