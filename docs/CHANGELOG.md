@@ -5,6 +5,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.2.6] - 2026-03-17
+
+### Geändert
+- **Rate-Limits angepasst (Cloud Functions):**
+  - E-Mail (Reset/Verify): 3 → 5 pro Stunde
+  - Familie beitreten: 10 → 5 pro Minute (schärferer Schutz gegen Code-Erraten)
+  - Familie erstellen: bleibt bei 3 pro Stunde
+
+---
+
 ## [1.2.5] - 2026-03-17
 
 ### Behoben

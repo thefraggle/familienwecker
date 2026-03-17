@@ -14,7 +14,7 @@ async function checkEmailRateLimit(email) {
   const rateLimitRef = admin.firestore().collection("_rate_limits").doc(key);
   const now = Date.now();
   const windowMs = 60 * 60 * 1000; // 1 Stunde
-  const maxAttempts = 3;
+  const maxAttempts = 5;
 
   const limited = await admin.firestore().runTransaction(async (tx) => {
     const doc = await tx.get(rateLimitRef);
@@ -581,7 +581,7 @@ exports.joinFamilyByCode = onCall(
     const rateLimitRef = admin.firestore().collection("_rate_limits").doc(`join_${uid}`);
     const now = Date.now();
     const windowMs = 60 * 1000;
-    const maxAttempts = 10;
+    const maxAttempts = 5;
 
     try {
       const limited = await admin.firestore().runTransaction(async (tx) => {
