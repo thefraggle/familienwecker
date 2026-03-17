@@ -5,6 +5,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.1.12] - 2026-03-17
+
+### Fixed
+- **New account: create family loop + crash:** `refreshData()` called `leaveFamily()` when Firestore returned `null` briefly after `createFamily()` (propagation delay). This deleted the just-created family and crashed the app on the second attempt. Fix: removed `leaveFamily()` from `refreshData()` – self-healing now runs through the members-flow collector.
+
+---
+
 ## [1.1.11] - 2026-03-17
 
 ### Fixed
