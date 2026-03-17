@@ -612,7 +612,12 @@ class FamilyViewModel(
                             }
                         }
                     } else {
-                        leaveFamily()
+                        // Keine Familie in Firestore gefunden – kein leaveFamily() hier!
+                        // Firestore kann kurz null zurückgeben (Race nach createFamily).
+                        // Self-Healing läuft über den Members-Flow-Collector (PERMISSION_DENIED-Guard).
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.w("FamilyViewModel", "refreshData: getUserFamily returned null, keeping local state")
+                        }
                     }
                 }
             } catch (e: Exception) {
