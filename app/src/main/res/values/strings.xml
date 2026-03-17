@@ -124,6 +124,9 @@
     <string name="settings_delete_family_warning_text">There are other active members in this family. If you delete it, everyone will lose access. Do you really want to force delete everything?</string>
     <string name="settings_delete_family_warning_confirm">Yes, delete everything</string>
     <string name="settings_logout">Logout</string>
+    <string name="settings_delete_account">Delete Account</string>
+    <string name="settings_delete_account_info">To permanently delete your account and all associated data, please contact us at support@familienwecker.de. We will process your request within 30 days.</string>
+    <string name="ok_button">OK</string>
     <string name="settings_footer_version">FamWake Family Alarm v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">All rights reserved.</string>
