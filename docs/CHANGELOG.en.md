@@ -5,6 +5,14 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.2.1] - 2026-03-17
+
+### Changed
+- **Weekday tabs:** Sat and Sun are now abbreviated as "S" so all 7 tabs fit in the available width.
+- **Inactive days:** Chips for disabled weekdays are now clearly dimmed (text, border and background at ~30% opacity).
+
+---
+
 ## [1.2.0] - 2026-03-17
 
 ### Added
