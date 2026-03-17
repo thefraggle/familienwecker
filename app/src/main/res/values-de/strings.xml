@@ -156,7 +156,6 @@
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy.html</string>
     <string name="settings_imprint">Impressum</string>
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint.html</string>
-    <string name="settings_delete_account">Account löschen (Info)</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion.html</string>
 
     <string name="settings_already_claimed">bereits belegt</string>
