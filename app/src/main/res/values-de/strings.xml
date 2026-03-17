@@ -187,6 +187,7 @@
     <string name="error_load_members">Fehler beim Laden der Mitglieder: %1$s</string>
     <string name="error_create_family">Fehler beim Erstellen der Familie: %1$s</string>
     <string name="error_create_family_rate_limit">Du hast in der letzten Stunde bereits 3 Familien erstellt. Bitte warte eine Stunde und versuche es erneut.</string>
+    <string name="error_join_family_rate_limit">Zu viele Beitrittsversuche. Bitte warte eine Minute und versuche es erneut.</string>
     <string name="error_invalid_code">Einladungscode ungültig: %1$s</string>
     <string name="error_family_not_found">Unter diesem Code wurde keine Familie gefunden.</string>
     <string name="error_code_generation_failed">Konnte keinen eindeutigen Code generieren. Bitte erneut versuchen.</string>

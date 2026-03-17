@@ -315,8 +315,16 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         val language = java.util.Locale.getDefault().language
         _authState.value = AuthState.Loading
         viewModelScope.launch {
-            authRepository.sendVerificationEmail(email, language)
-            _authState.value = AuthState.AwaitingEmailVerification
+            val result = authRepository.sendVerificationEmail(email, language)
+            result.onSuccess {
+                _authState.value = AuthState.AwaitingEmailVerification
+            }.onFailure { error ->
+                if (error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true) {
+                    _authState.value = AuthState.Error(UiText.StringResource(R.string.error_too_many_requests))
+                } else {
+                    _authState.value = AuthState.AwaitingEmailVerification
+                }
+            }
         }
     }
 }

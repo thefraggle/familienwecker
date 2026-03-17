@@ -5,6 +5,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.2.5] - 2026-03-17
+
+### Behoben
+- **Rate-Limit Fehlermeldungen vollständig:** Alle drei Cloud-Function-Rate-Limits zeigen jetzt klare Fehlermeldungen:
+  - *Familie beitreten* (max. 10/Minute): Eigene Meldung statt generischem Fehler.
+  - *Verifikations-Mail erneut senden*: Ergebnis wird jetzt ausgewertet, Rate-Limit-Fehler wird angezeigt.
+  - *Familie erstellen* (max. 3/Stunde): bereits in v1.2.4 behoben.
+
+---
+
 ## [1.2.4] - 2026-03-17
 
 ### Behoben
