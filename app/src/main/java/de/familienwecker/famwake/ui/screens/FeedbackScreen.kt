@@ -1,7 +1,5 @@
 package de.familienwecker.famwake.ui.screens
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -17,14 +15,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.firebase.functions.FirebaseFunctions
 import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +33,6 @@ fun FeedbackScreen(
     viewModel: FamilyViewModel,
     onNavigateBack: () -> Unit
 ) {
-    val context = LocalContext.current
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
         "dark" -> true
@@ -51,10 +51,13 @@ fun FeedbackScreen(
     var selectedCategory by remember { mutableStateOf(categories[0]) }
     var message by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(false) }
     var submitted by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
 
     val deviceModel = remember { "${Build.MANUFACTURER} ${Build.MODEL}" }
     val appVersion = BuildConfig.VERSION_NAME
+    val scope = rememberCoroutineScope()
 
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
         colors = if (isDarkTheme) {
@@ -63,6 +66,14 @@ fun FeedbackScreen(
             listOf(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f), MaterialTheme.colorScheme.background)
         }
     )
+
+    // Auto-Close nach Erfolg
+    LaunchedEffect(submitted) {
+        if (submitted) {
+            delay(2500)
+            onNavigateBack()
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
         Scaffold(
@@ -93,6 +104,7 @@ fun FeedbackScreen(
             ) {
                 Spacer(modifier = Modifier.height(4.dp))
 
+                // Erfolgsmeldung
                 AnimatedVisibility(visible = submitted) {
                     Card(
                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
@@ -114,144 +126,181 @@ fun FeedbackScreen(
                     }
                 }
 
-                // Intro
-                Text(
-                    text = stringResource(R.string.feedback_intro),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
-                // Kategorie
-                Text(
-                    text = stringResource(R.string.feedback_category_label),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                ExposedDropdownMenuBox(
-                    expanded = categoryExpanded,
-                    onExpandedChange = { categoryExpanded = !categoryExpanded }
-                ) {
-                    OutlinedTextField(
-                        value = selectedCategory,
-                        onValueChange = {},
-                        readOnly = true,
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = categoryExpanded) },
-                        modifier = Modifier
-                            .menuAnchor(MenuAnchorType.PrimaryNotEditable)
-                            .fillMaxWidth()
-                    )
-                    ExposedDropdownMenu(
-                        expanded = categoryExpanded,
-                        onDismissRequest = { categoryExpanded = false }
+                // Fehlermeldung
+                AnimatedVisibility(visible = errorMessage != null) {
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        categories.forEach { cat ->
-                            DropdownMenuItem(
-                                text = { Text(cat) },
-                                onClick = { selectedCategory = cat; categoryExpanded = false }
+                        Text(
+                            text = errorMessage ?: "",
+                            modifier = Modifier.padding(16.dp),
+                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+
+                if (!submitted) {
+                    // Intro
+                    Text(
+                        text = stringResource(R.string.feedback_intro),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    // Kategorie
+                    Text(
+                        text = stringResource(R.string.feedback_category_label),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    ExposedDropdownMenuBox(
+                        expanded = categoryExpanded,
+                        onExpandedChange = { categoryExpanded = !categoryExpanded }
+                    ) {
+                        OutlinedTextField(
+                            value = selectedCategory,
+                            onValueChange = {},
+                            readOnly = true,
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = categoryExpanded) },
+                            modifier = Modifier
+                                .menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                                .fillMaxWidth()
+                        )
+                        ExposedDropdownMenu(
+                            expanded = categoryExpanded,
+                            onDismissRequest = { categoryExpanded = false }
+                        ) {
+                            categories.forEach { cat ->
+                                DropdownMenuItem(
+                                    text = { Text(cat) },
+                                    onClick = { selectedCategory = cat; categoryExpanded = false }
+                                )
+                            }
+                        }
+                    }
+
+                    // Nachricht
+                    Text(
+                        text = stringResource(R.string.feedback_message_label),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    OutlinedTextField(
+                        value = message,
+                        onValueChange = { message = it },
+                        placeholder = { Text(stringResource(R.string.feedback_message_placeholder)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 120.dp),
+                        maxLines = 8,
+                        minLines = 4
+                    )
+
+                    // E-Mail (optional)
+                    Text(
+                        text = stringResource(R.string.feedback_email_label),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    OutlinedTextField(
+                        value = email,
+                        onValueChange = { email = it },
+                        placeholder = { Text(stringResource(R.string.feedback_email_placeholder)) },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                            keyboardType = androidx.compose.ui.text.input.KeyboardType.Email
+                        )
+                    )
+
+                    // Hintergrund-Info
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                        ),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(
+                                text = stringResource(R.string.feedback_auto_info_title),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Text(
+                                text = stringResource(R.string.feedback_auto_version, appVersion),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Text(
+                                text = stringResource(R.string.feedback_auto_device, deviceModel),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                     }
-                }
 
-                // Nachricht
-                Text(
-                    text = stringResource(R.string.feedback_message_label),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                OutlinedTextField(
-                    value = message,
-                    onValueChange = { message = it },
-                    placeholder = { Text(stringResource(R.string.feedback_message_placeholder)) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 120.dp),
-                    maxLines = 8,
-                    minLines = 4
-                )
-
-                // E-Mail (optional)
-                Text(
-                    text = stringResource(R.string.feedback_email_label),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    placeholder = { Text(stringResource(R.string.feedback_email_placeholder)) },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                        keyboardType = androidx.compose.ui.text.input.KeyboardType.Email
-                    )
-                )
-
-                // Hintergrund-Info
-                Card(
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-                    ),
-                    shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text(
-                            text = stringResource(R.string.feedback_auto_info_title),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        Text(
-                            text = stringResource(R.string.feedback_auto_version, appVersion),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        Text(
-                            text = stringResource(R.string.feedback_auto_device, deviceModel),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-
-                // Buttons
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 4.dp, bottom = 24.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    OutlinedButton(
-                        onClick = onNavigateBack,
-                        modifier = Modifier.weight(1f)
+                    // Buttons
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 24.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        Text(stringResource(R.string.feedback_cancel))
-                    }
-                    Button(
-                        onClick = {
-                            val subject = "FamWake Feedback: $selectedCategory"
-                            val body = buildString {
-                                append("Kategorie: $selectedCategory\n\n")
-                                append("Nachricht:\n$message\n\n")
-                                if (email.isNotBlank()) append("E-Mail: $email\n\n")
-                                append("--- Automatische Info ---\n")
-                                append("App-Version: v$appVersion\n")
-                                append("Gerät: $deviceModel\n")
-                                append("Android: ${Build.VERSION.RELEASE}\n")
+                        OutlinedButton(
+                            onClick = onNavigateBack,
+                            modifier = Modifier.weight(1f),
+                            enabled = !isLoading
+                        ) {
+                            Text(stringResource(R.string.feedback_cancel))
+                        }
+                        Button(
+                            onClick = {
+                                scope.launch {
+                                    isLoading = true
+                                    errorMessage = null
+                                    try {
+                                        val functions = FirebaseFunctions.getInstance("europe-west3")
+                                        val data = hashMapOf(
+                                            "category" to selectedCategory,
+                                            "message" to message.trim(),
+                                            "email" to email.trim(),
+                                            "appVersion" to appVersion,
+                                            "device" to deviceModel
+                                        )
+                                        functions
+                                            .getHttpsCallable("sendFeedbackEmail")
+                                            .call(data)
+                                            .await()
+
+                                        // Formular leeren
+                                        message = ""
+                                        email = ""
+                                        selectedCategory = categories[0]
+                                        submitted = true
+                                    } catch (e: Exception) {
+                                        errorMessage = "Fehler beim Senden. Bitte versuche es später noch einmal."
+                                    } finally {
+                                        isLoading = false
+                                    }
+                                }
+                            },
+                            enabled = message.isNotBlank() && !isLoading,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            if (isLoading) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(18.dp),
+                                    strokeWidth = 2.dp,
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                            } else {
+                                Text(stringResource(R.string.feedback_send))
                             }
-                            val intent = Intent(Intent.ACTION_SENDTO).apply {
-                                data = Uri.parse("mailto:")
-                                putExtra(Intent.EXTRA_EMAIL, arrayOf("daniel.notthoff@gmail.com"))
-                                putExtra(Intent.EXTRA_SUBJECT, subject)
-                                putExtra(Intent.EXTRA_TEXT, body)
-                            }
-                            context.startActivity(Intent.createChooser(intent, null))
-                            submitted = true
-                        },
-                        enabled = message.isNotBlank(),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text(stringResource(R.string.feedback_send))
+                        }
                     }
                 }
             }
