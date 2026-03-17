@@ -8,28 +8,6 @@ Stress-free mornings – smart, dynamic planning for the whole family.
 
 ---
 
-## ✅ Implemented in 1.1.5
-- **Feedback Screen:** Dedicated feedback screen with category, message, optional email and device info.
-- **Firebase Feedback:** Sent via Cloud Function (Resend); archived in Firestore.
-- **Settings Restructured:** Language & Appearance merged; Help & Feedback in its own card.
-- **Settings Footer:** Version, legal links (Terms of Use, Privacy Policy, Imprint) and copyright.
-- **Delete Account:** External link instead of info dialog.
-- **Bug Fixes 1.1.1–1.1.4:** Rate-limit fixes, scheduler corrections, ghost-claim fix, member deletion on leave.
-- **String Audit:** Removed obsolete strings; DE/EN fully synchronized.
-
----
-
-## ✅ Implemented in 1.0.0
-- **Smart family wake-up schedule:** Automatic calculation of who gets woken up when.
-- **Family invitations via link:** Deep-link join with conflict dialog.
-- **Multi-device sync:** Real-time synchronization of all changes.
-- **Profile claiming:** Each family member can claim their profile.
-- **Offline handling:** Offline icon, offline guards for claim and join.
-- **Admin protection:** Family deletion restricted to the creator.
-- **Code / Security audit:** HTTP guard, rate-limiting, encrypted preferences.
-
----
-
 ## 🛠️ Backlog / Open Ideas
 
 ### Priority: High (Integration & Core Features)
