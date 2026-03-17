@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.13] - 2026-03-17
+
+### Behoben
+- **Logout schreibt false nach Firestore:** `isAlarmEnabled`-Observer schrieb `deviceAlarmEnabled = false` nach Firestore wenn beim Logout `myMemberId` auf null gesetzt wurde. Das überschrieb den Alarm-Status anderer User die denselben Member geclaimed hatten. Fix: Firestore-Write nur wenn `auth.currentUser != null`.
+
+---
+
 ## [1.1.12] - 2026-03-17
 
 ### Behoben

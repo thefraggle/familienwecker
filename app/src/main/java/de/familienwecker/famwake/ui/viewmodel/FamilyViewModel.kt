@@ -220,7 +220,8 @@ class FamilyViewModel(
                     recalculateSchedule()
                     val fId = familyId.value
                     val myId = myMemberId.value
-                    if (fId != null && myId != null) {
+                    // Nur schreiben wenn aktiv eingeloggt – verhindert Firestore-Write nach Logout
+                    if (fId != null && myId != null && auth.currentUser != null) {
                         launch {
                             repository.updateDeviceAlarmEnabled(fId, myId, enabled)
                         }
