@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.10] - 2026-03-17
+
+### Behoben
+- **Alarm-Restore endgültiger Fix:** Ein `initialAlarmPushDone`-Block im Members-Flow schrieb `deviceAlarmEnabled = false` nach Firestore noch BEVOR `refreshData()` den gespeicherten Wert aus Firestore restoren konnte. Der Block wurde entfernt; der Firestore-Sync findet jetzt erst – in der richtigen Reihenfolge – in `refreshData()` nach dem Restore statt.
+
+---
+
 ## [1.1.9] - 2026-03-17
 
 ### Behoben
