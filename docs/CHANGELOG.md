@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.2.2] - 2026-03-17
+
+### Behoben
+- **Chip-Text unsichtbar:** Beim Klick auf einen inaktiven Wochentag-Chip war der Text auf dem ausgefüllten Hintergrund nicht sichtbar. Fix: Selektiert+Inaktiv-Chips verwenden jetzt einen gedämpften grauen Container statt Primary-Farbe.
+
+---
+
 ## [1.2.1] - 2026-03-17
 
 ### Geändert
