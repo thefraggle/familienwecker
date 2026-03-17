@@ -38,7 +38,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-29 | **Join Code Validation Guard** | Ungültiger Deep/Join Code führt nach Bestätigung nur zu einer Fehlermeldung, alte Familie wird nicht verlassen. |
 | TC-30 | **Join Code Sicherheit** | Ein generierter 6-stelliger Code ist weiterhin rein alphanumerisch ohne 0, O, 1, I und wird via SecureRandom erzeugt. |
 | TC-32 | **Rate-Limiting (H-1)** | Mehrfalsche falsche Code-Eingaben (>5/min) führen zu einer serverseitigen Blockierung ("Resource Exhausted"). |
-| TC-33 | **E-Mail Rate-Limiting** | Mehr als 3 Passwort-Reset- oder Verifikations-E-Mails für dieselbe Adresse innerhalb einer Stunde werden serverseitig blockiert ("Resource Exhausted"). |
+| TC-33 | **E-Mail Rate-Limiting** | Mehr als 5 Passwort-Reset- oder Verifikations-E-Mails für dieselbe Adresse innerhalb einer Stunde werden serverseitig blockiert ("Resource Exhausted"). |
 | TC-34 | **HTTP-Link abgewiesen** | Aufruf von `http://familienwecker.de/join/CODE` darf keinen Join auslösen – App ignoriert das HTTP-Schema. |
 | TC-35 | **Admin-only Delete** | Nicht-Ersteller öffnet Settings → Familie löschen → erhält Fehlermeldung statt Dialog. |
 | TC-36 | **Offline Profil-Claim gesperrt** | Im Flugmodus Dropdown öffnen → Snackbar mit Offline-Fehlermeldung erscheint sofort. |
@@ -55,6 +55,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-52 | **Alarm-Restore nach Neuinstall** | Alarm AN → App deinstallieren → neu installieren → Login → Alarm ist wieder AN. |
 | TC-53 | **Multi-Account auf einem Gerät** | User A ausloggen, User B einloggen → B sieht nur seine Familie, keine Daten von A. |
 | TC-54 | **Alarm-Logout-Isolation** | User A hat Alarm AN → Logout → `deviceAlarmEnabled` des Members bleibt in Firestore unverändert (kein false-Write). |
+| TC-55 | **App bewerten Button** | Klick auf „⭐ App bewerten“ → In-App-Review-Dialog öffnet sich (oder Fallback auf Play Store, wenn nicht verfügbar). Kein Absturz. |
+| TC-56 | **Tageslimit Rate-Limiting** | Nach Erreichen des stündlichen Limits, nach Ablauf der Stunde erneut versuchen: Tageslimit (2× stündliches Limit) greift nach der zweiten Stunde und blockiert weitere Versuche bis 24h abgelaufen. |
 
 
 ### 2. Familien-Konfiguration
