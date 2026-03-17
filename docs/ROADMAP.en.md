@@ -10,9 +10,6 @@ Stress-free mornings – smart, dynamic planning for the whole family.
 
 ## 🛠️ Backlog / Open Ideas
 
-### Priority: High (Integration & Core Features)
-- [ ] **Weekday configuration:** Separate wake times for weekdays and weekends.
-
 ### Priority: Medium (Usability & UI)
 - [ ] **Snooze sync:** Others' plans adjust "live" when someone needs more time.
 - [ ] **2-bathroom support:** Parallel slot calculation.

@@ -8,7 +8,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [1.1.5] - 2026-03-17
 
 ### Added
-- **Feedback Screen:** Dedicated feedback screen with category selection, message, optional email, and automatically included device info (model, app version).
+- **Weekday Configuration:** Wake times and bathroom duration can be set individually per day of the week.
+- **Feedback Screen:** Dedicated feedback screen with category selection, message, optional email, and automatically included device info.
 - **Firebase Feedback Sending:** Feedback is sent via a Firebase Cloud Function (Resend) as an email — no system mail intent anymore. Each submission is also archived in Firestore.
 - **Feedback UX:** Form is cleared after submission; screen closes automatically after 2.5 seconds.
 - **Settings Footer:** Version, clickable legal links (Terms of Use, Privacy Policy, Imprint) and copyright are now visible as a footer.

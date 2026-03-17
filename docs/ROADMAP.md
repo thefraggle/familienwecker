@@ -10,9 +10,6 @@ Morgenroutine ohne Stress – smarte, dynamische Planung für die ganze Familie.
 
 ## 🛠️ Backlog / Offene Ideen
 
-### Prio: Hoch (Integration & Kern-Features)
-- [ ] **Wochentag-Konfiguration:** Weckzeiten für Werktage und Wochenende getrennt einstellen.
-
 ### Prio: Mittel (Usability & UI)
 - [ ] **Snooze-Sync:** Plan der anderen passt sich „live" an, wenn jemand länger braucht.
 - [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
