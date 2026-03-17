@@ -5,6 +5,14 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.2.1] - 2026-03-17
+
+### Geändert
+- **Wochentag-Tabs:** Sa und So werden als „S" abgekürzt, damit alle 7 Tabs in der Breite passen.
+- **Inaktive Tage:** Chips für deaktivierte Wochentage werden jetzt deutlich ausgeblendet (Text, Rahmen und Hintergrund auf ~30 % Deckkraft).
+
+---
+
 ## [1.2.0] - 2026-03-17
 
 ### Neu

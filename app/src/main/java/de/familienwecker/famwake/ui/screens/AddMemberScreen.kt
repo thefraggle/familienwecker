@@ -239,19 +239,35 @@ fun AddMemberScreen(
                             label = {
                                 Text(
                                     text = dayLabelShort(day),
-                                    style = MaterialTheme.typography.labelMedium
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = when {
+                                        isSelected && isActive -> MaterialTheme.colorScheme.onPrimary
+                                        isSelected && !isActive -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
+                                        isActive -> MaterialTheme.colorScheme.onSurface
+                                        else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f)
+                                    }
                                 )
                             },
                             colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = if (isActive)
-                                    MaterialTheme.colorScheme.primary
+                                // Selektiert + aktiv → primary
+                                selectedContainerColor = MaterialTheme.colorScheme.primary,
+                                selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                                // Nicht selektiert, aktiv → leichte Füllung
+                                containerColor = if (isActive)
+                                    MaterialTheme.colorScheme.surfaceVariant
                                 else
-                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
-                                selectedLabelColor = if (isActive)
-                                    MaterialTheme.colorScheme.onPrimary
+                                    MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                                // Inaktiv selektiert → gedämpft
+                                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.2f)
+                            ),
+                            border = FilterChipDefaults.filterChipBorder(
+                                enabled = true,
+                                selected = isSelected,
+                                borderColor = if (isActive)
+                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
                                 else
-                                    MaterialTheme.colorScheme.onSurfaceVariant,
-                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.25f),
+                                selectedBorderColor = MaterialTheme.colorScheme.primary
                             )
                         )
                     }
