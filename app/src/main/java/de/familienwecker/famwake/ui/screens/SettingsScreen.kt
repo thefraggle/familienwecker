@@ -39,6 +39,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import de.familienwecker.famwake.util.BatteryUtils
 import androidx.compose.material.icons.filled.BatteryAlert
+import androidx.compose.material.icons.filled.Tune
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -533,7 +534,7 @@ fun SettingsScreen(
                     // Gemeinsamer Header
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
-                            imageVector = Icons.Default.Settings,
+                            imageVector = Icons.Default.Tune,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.primary
                         )
