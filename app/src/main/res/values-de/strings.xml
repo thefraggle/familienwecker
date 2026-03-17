@@ -152,6 +152,26 @@
     <string name="settings_support_title">Support</string>
     <string name="settings_support_text">Feedback oder Fragen?</string>
     <string name="settings_support_button">E-Mail an Entwickler</string>
+    <string name="settings_help_feedback_title">Hilfe &amp; Feedback</string>
+    <string name="settings_feedback_button">Feedback geben / Fehler melden</string>
+    <!-- Feedback Screen -->
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_intro">Hilf uns, die App noch besser zu machen! Was brennt dir auf der Seele?</string>
+    <string name="feedback_category_label">Kategorie</string>
+    <string name="feedback_category_bug">Fehler gefunden (Bug)</string>
+    <string name="feedback_category_feature">Funktion vorschlagen</string>
+    <string name="feedback_category_praise">Lob &amp; Kritik</string>
+    <string name="feedback_category_other">Sonstiges</string>
+    <string name="feedback_message_label">Nachricht</string>
+    <string name="feedback_message_placeholder">Beschreibe kurz dein Anliegen…</string>
+    <string name="feedback_email_label">E-Mail (optional)</string>
+    <string name="feedback_email_placeholder">Deine E-Mail (falls wir antworten dürfen)</string>
+    <string name="feedback_auto_info_title">Automatisch mitgesendet:</string>
+    <string name="feedback_auto_version">App-Version: v%1$s</string>
+    <string name="feedback_auto_device">Gerät: %1$s</string>
+    <string name="feedback_cancel">Abbrechen</string>
+    <string name="feedback_send">Feedback senden</string>
+    <string name="feedback_success">Vielen Dank! Dein Feedback ist bei uns angekommen und hilft uns sehr.</string>
     <string name="settings_terms_of_use">Nutzungsbedingungen</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms.html</string>
     <string name="settings_privacy_policy">Datenschutzerkl\u00e4rung</string>
