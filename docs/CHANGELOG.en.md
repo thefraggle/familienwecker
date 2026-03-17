@@ -8,8 +8,9 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [1.2.1] - 2026-03-17
 
 ### Changed
-- **Weekday tabs:** Sat and Sun are now abbreviated as "S" so all 7 tabs fit in the available width.
+- **Weekday tabs:** DE: Sa/So → "S"; EN: Mon→Mo, Tue→Tu, Wed→We, Thu→Th, Fri→Fr, Sat→Sa, Sun→Su – all 7 chips as 2-letter abbreviations.
 - **Inactive days:** Chips for disabled weekdays are now clearly dimmed (text, border and background at ~30% opacity).
+- **Settings footer:** New order: Version → Copyright → All rights reserved → Links.
 
 ---
 

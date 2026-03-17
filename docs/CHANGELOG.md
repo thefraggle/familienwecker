@@ -8,8 +8,9 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ## [1.2.1] - 2026-03-17
 
 ### Geändert
-- **Wochentag-Tabs:** Sa und So werden als „S" abgekürzt, damit alle 7 Tabs in der Breite passen.
+- **Wochentag-Tabs:** DE: Sa/So → „S"; EN: Mon→Mo, Tue→Tu, Wed→We, Thu→Th, Fri→Fr, Sat→Sa, Sun→Su – alle 7 Chips in 2 Buchstaben.
 - **Inaktive Tage:** Chips für deaktivierte Wochentage werden jetzt deutlich ausgeblendet (Text, Rahmen und Hintergrund auf ~30 % Deckkraft).
+- **Settings-Footer:** Neue Reihenfolge: Version → Copyright → All rights reserved → Links.
 
 ---
 
