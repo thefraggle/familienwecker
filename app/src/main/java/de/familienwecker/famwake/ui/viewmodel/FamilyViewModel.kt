@@ -264,10 +264,13 @@ class FamilyViewModel(
                 prefsRepo.setFamilyName(familyName)
                 onComplete(true)
             }.onFailure { error ->
-                if (error is CodeGenerationFailedException) {
-                    _errorMessage.value = UiText.StringResource(R.string.error_code_generation_failed)
-                } else {
-                    _errorMessage.value = UiText.StringResource(R.string.error_create_family)
+                when {
+                    error is CodeGenerationFailedException ->
+                        _errorMessage.value = UiText.StringResource(R.string.error_code_generation_failed)
+                    error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
+                        _errorMessage.value = UiText.StringResource(R.string.error_create_family_rate_limit)
+                    else ->
+                        _errorMessage.value = UiText.StringResource(R.string.error_create_family)
                 }
                 onComplete(false)
             }

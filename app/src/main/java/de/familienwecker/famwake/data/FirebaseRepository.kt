@@ -42,9 +42,22 @@ class FirebaseRepository {
                 ?: return Result.failure(CodeGenerationFailedException())
 
             Result.success(Pair(familyId, joinCode))
+        } catch (e: com.google.firebase.functions.FirebaseFunctionsException) {
+            when (e.code) {
+                com.google.firebase.functions.FirebaseFunctionsException.Code.RESOURCE_EXHAUSTED ->
+                    Result.failure(Exception("TOO_MANY_REQUESTS"))
+                else ->
+                    if (e.message?.contains("CODE_GENERATION_FAILED", ignoreCase = true) == true)
+                        Result.failure(CodeGenerationFailedException())
+                    else
+                        Result.failure(e)
+            }
         } catch (e: Exception) {
             if (e.message?.contains("CODE_GENERATION_FAILED", ignoreCase = true) == true) {
                 Result.failure(CodeGenerationFailedException())
+            } else if (e.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ||
+                       e.message?.contains("RESOURCE_EXHAUSTED", ignoreCase = true) == true) {
+                Result.failure(Exception("TOO_MANY_REQUESTS"))
             } else {
                 Result.failure(e)
             }
