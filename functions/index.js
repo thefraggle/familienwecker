@@ -705,3 +705,76 @@ exports.createFamily = onCall(
     return { familyId: docRef.id, joinCode };
   }
 );
+
+// ─── Feedback-E-Mail via Resend ──────────────────────────────────────────────
+exports.sendFeedbackEmail = onCall(
+  {
+    region: "europe-west3",
+    secrets: ["RESEND_API_KEY"],
+    invoker: "public",
+  },
+  async (request) => {
+    const { category, message, email, appVersion, device } = request.data || {};
+
+    if (!message || typeof message !== "string" || message.trim().length === 0) {
+      throw new HttpsError("invalid-argument", "INVALID_MESSAGE");
+    }
+
+    const resendKey = process.env.RESEND_API_KEY;
+    if (!resendKey) {
+      throw new HttpsError("failed-precondition", "Email service not configured.");
+    }
+
+    const replyTo = email && email.trim() ? email.trim() : undefined;
+    const subject = `📬 FamWake Feedback: ${category || "Sonstiges"}`;
+    const html = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+        <h2 style="color: ${BRAND_BLUE};">📬 Neues Feedback</h2>
+        <table style="width:100%; border-collapse: collapse; font-size:14px;">
+          <tr><td style="padding:6px 0; color:#666; width:130px;">Kategorie</td><td><strong>${category || "–"}</strong></td></tr>
+          <tr><td style="padding:6px 0; color:#666;">App-Version</td><td>${appVersion || "–"}</td></tr>
+          <tr><td style="padding:6px 0; color:#666;">Gerät</td><td>${device || "–"}</td></tr>
+          ${replyTo ? `<tr><td style="padding:6px 0; color:#666;">Antwort-E-Mail</td><td><a href="mailto:${replyTo}">${replyTo}</a></td></tr>` : ""}
+        </table>
+        <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;">
+        <h3 style="color: ${BRAND_BLUE};">Nachricht</h3>
+        <p style="background:#f9f9f9; padding:12px; border-radius:6px; white-space: pre-wrap;">${message.trim()}</p>
+        <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;">
+        <p style="font-size:11px; color:#999; text-align:center;">FamWake Familienwecker – automatisch generiert</p>
+      </div>
+    `;
+
+    try {
+      const resend = new Resend(resendKey);
+      const { error } = await resend.emails.send({
+        from: SENDER.de,
+        to: [NOTIFY_EMAIL],
+        subject,
+        html,
+        ...(replyTo ? { reply_to: replyTo } : {}),
+      });
+
+      if (error) {
+        console.error("Resend Feedback Error:", error);
+        throw new HttpsError("internal", "Failed to send feedback email.");
+      }
+
+      // Feedback auch in Firestore für Archiv speichern
+      await admin.firestore().collection("feedback").add({
+        category: category || "",
+        message: message.trim(),
+        email: email?.trim() || "",
+        appVersion: appVersion || "",
+        device: device || "",
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      });
+
+      return { success: true };
+
+    } catch (err) {
+      if (err instanceof HttpsError) throw err;
+      console.error("Error in sendFeedbackEmail:", err);
+      throw new HttpsError("internal", err.message || "INTERNAL_ERROR");
+    }
+  }
+);
