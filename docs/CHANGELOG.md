@@ -5,6 +5,14 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.6] - 2026-03-17
+
+### Behoben
+- **Frühstückszeit:** War kein Abfahrtszeitpunkt gesetzt, wurde fälschlicherweise 23:59 als Basis genommen, was zu unrealistischen Frühstückszeiten (z.B. 23:29) führte. Fix: Fallback ist nun `späteste Weckzeit + Badezimmer-Dauer`.
+- **Wochentag-Konfiguration:** Tagesspezifische Zeiten aus den Tagesprofilen wurden beim Berechnen des Schedules ignoriert. Fix: Effektive Felder werden jetzt korrekt aufgelöst, bevor der Scheduler aufgerufen wird.
+
+---
+
 ## [1.1.5] - 2026-03-17
 
 ### Neu
@@ -21,8 +29,6 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ### Behoben
 - Algorithmus: Frühstücks-Konflikt wird jetzt auch erkannt wenn Bad-Ende = Frühstücksbeginn (0 Min Puffer).
 - Algorithmus: Post-Validierung stellt sicher dass kein Frühstücker sein Bad nach Frühstücksbeginn beendet.
-- **Frühstückszeit:** War kein Abfahrtszeitpunkt gesetzt, wurde fälschlicherweise 23:59 als Basis genommen, was zu unrealistischen Frühstückszeiten (z.B. 23:29) führte. Fix: Fallback ist nun `späteste Weckzeit + Badezimmer-Dauer`.
-- **Wochentag-Konfiguration:** Tagesspezifische Zeiten aus den Tagesprofilen wurden beim Berechnen des Schedules ignoriert. Fix: Effektive Felder werden jetzt korrekt aufgelöst, bevor der Scheduler aufgerufen wird.
 - Offline-Anzeige: Falsches „Offline\"-Icon nach App-Start behoben (nur noch bei echtem Netzwerkausfall).
 - Cloud Functions: Rate-Limit-Zähler wurde beim ersten Aufruf nicht korrekt gespeichert (tx.update → tx.set).
 - Cloud Functions: Join-Versuchslimit von 5 auf 10 pro Minute erhöht.
