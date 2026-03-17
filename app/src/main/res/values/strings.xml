@@ -90,13 +90,13 @@
     <string name="weekday_5">Friday</string>
     <string name="weekday_6">Saturday</string>
     <string name="weekday_7">Sunday</string>
-    <string name="weekday_short_1">Mon</string>
-    <string name="weekday_short_2">Tue</string>
-    <string name="weekday_short_3">Wed</string>
-    <string name="weekday_short_4">Thu</string>
-    <string name="weekday_short_5">Fri</string>
-    <string name="weekday_short_6">S</string>
-    <string name="weekday_short_7">S</string>
+    <string name="weekday_short_1">Mo</string>
+    <string name="weekday_short_2">Tu</string>
+    <string name="weekday_short_3">We</string>
+    <string name="weekday_short_4">Th</string>
+    <string name="weekday_short_5">Fr</string>
+    <string name="weekday_short_6">Sa</string>
+    <string name="weekday_short_7">Su</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_profile_title">My Profile</string>
