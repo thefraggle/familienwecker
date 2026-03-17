@@ -172,6 +172,7 @@
     <string name="registration_disclaimer">By registering, you accept the %1$s and the %2$s.</string>
     <string name="registration_terms_of_use">Terms of Use</string>
     <string name="registration_privacy_policy">Privacy Policy</string>
+    <string name="settings_already_claimed">already claimed</string>
     <string name="settings_theme_light">Light</string>
     <string name="settings_theme_dark">Dark</string>
     <string name="settings_theme_system">System</string>
