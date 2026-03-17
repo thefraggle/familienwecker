@@ -1,32 +1,52 @@
 package de.familienwecker.famwake.ui.screens
 
 import android.app.TimePickerDialog
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
-import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import de.familienwecker.famwake.R
+import de.familienwecker.famwake.model.DayProfile
+import de.familienwecker.famwake.model.FamilyMember
+import de.familienwecker.famwake.ui.components.bounceClick
+import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import androidx.compose.ui.res.stringResource
-import de.familienwecker.famwake.R
-import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.foundation.interaction.MutableInteractionSource
+
+// Mo=1 … So=7 nach java.time.DayOfWeek
+private val WEEKDAY_KEYS = 1..7
+
+private fun defaultDayProfiles(
+    earliestWakeUp: LocalTime = LocalTime.of(6, 0),
+    latestWakeUp: LocalTime = LocalTime.of(7, 30),
+    bathroomDurationMinutes: Long = 20L,
+    wantsBreakfast: Boolean = true,
+    leaveHomeTime: LocalTime? = null
+): Map<Int, DayProfile> = WEEKDAY_KEYS.associateWith { day ->
+    DayProfile(
+        isActive = day <= 5, // Mo–Fr aktiv, Sa–So aus
+        earliestWakeUp = earliestWakeUp,
+        latestWakeUp = latestWakeUp,
+        bathroomDurationMinutes = bathroomDurationMinutes,
+        wantsBreakfast = wantsBreakfast,
+        leaveHomeTime = leaveHomeTime
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,26 +59,21 @@ fun AddMemberScreen(
     val memberToEdit = remember(memberId, members) { members.find { it.id == memberId } }
 
     var name by remember(memberToEdit) { mutableStateOf(memberToEdit?.name ?: "") }
-    var earliestWakeUp by remember(memberToEdit) { mutableStateOf(memberToEdit?.earliestWakeUp ?: LocalTime.of(6, 0)) }
-    var latestWakeUp by remember(memberToEdit) { mutableStateOf(memberToEdit?.latestWakeUp ?: LocalTime.of(7, 30)) }
-    var bathroomDuration by remember(memberToEdit) { mutableStateOf(memberToEdit?.bathroomDurationMinutes?.toString() ?: "20") }
-    var wantsBreakfast by remember(memberToEdit) { mutableStateOf(memberToEdit?.wantsBreakfast ?: true) }
-    var leaveHomeTime by remember(memberToEdit) { mutableStateOf(memberToEdit?.leaveHomeTime ?: LocalTime.of(8, 0)) }
 
-    val isTimeRangeValid = remember(earliestWakeUp, latestWakeUp) {
-        !latestWakeUp.isBefore(earliestWakeUp)
+    // Starte mit bestehenden dayProfiles oder erzeuge Defaults aus alten Feldern
+    var dayProfiles by remember(memberToEdit) {
+        mutableStateOf(
+            memberToEdit?.dayProfiles ?: defaultDayProfiles(
+                earliestWakeUp = memberToEdit?.earliestWakeUp ?: LocalTime.of(6, 0),
+                latestWakeUp = memberToEdit?.latestWakeUp ?: LocalTime.of(7, 30),
+                bathroomDurationMinutes = memberToEdit?.bathroomDurationMinutes ?: 20L,
+                wantsBreakfast = memberToEdit?.wantsBreakfast ?: true,
+                leaveHomeTime = memberToEdit?.leaveHomeTime
+            )
+        )
     }
-
-    val isLeaveTimeValid = remember(leaveHomeTime, latestWakeUp) {
-        leaveHomeTime != null && leaveHomeTime.isAfter(latestWakeUp)
-    }
-
-    val isBathroomDurationValid = remember(bathroomDuration) {
-        val v = bathroomDuration.toLongOrNull()
-        v != null && v in 1..120
-    }
-
-    val formatter = DateTimeFormatter.ofPattern("HH:mm")
+    var selectedDay by remember { mutableStateOf(1) } // 1=Mo
+    var showCopyDialog by remember { mutableStateOf(false) }
 
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
@@ -74,173 +89,370 @@ fun AddMemberScreen(
         }
     )
 
+    val hasAtLeastOneActiveDay = dayProfiles.values.any { it.isActive }
+
+    // Copy-Dialog
+    if (showCopyDialog) {
+        val currentProfile = dayProfiles[selectedDay]
+        val otherDays = WEEKDAY_KEYS.filter { it != selectedDay }
+        val selectedTargets = remember { mutableStateMapOf<Int, Boolean>().apply { otherDays.forEach { put(it, false) } } }
+
+        AlertDialog(
+            onDismissRequest = { showCopyDialog = false },
+            title = { Text(stringResource(R.string.add_member_copy_dialog_title)) },
+            text = {
+                Column {
+                    otherDays.forEach { day ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = selectedTargets[day] == true,
+                                onCheckedChange = { selectedTargets[day] = it }
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(dayLabel(day))
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    if (currentProfile != null) {
+                        val updated = dayProfiles.toMutableMap()
+                        selectedTargets.filter { it.value }.keys.forEach { d ->
+                            updated[d] = currentProfile
+                        }
+                        dayProfiles = updated
+                    }
+                    showCopyDialog = false
+                }) { Text(stringResource(R.string.add_member_copy_apply)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showCopyDialog = false }) {
+                    Text(stringResource(R.string.cancel_button))
+                }
+            }
+        )
+    }
+
     Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {
                 TopAppBar(
-                    title = { Text(if (memberId == null) stringResource(R.string.add_member_title_add) else stringResource(R.string.add_member_title_edit)) },
-                navigationIcon = {
-                    val backInteractionSource = remember { MutableInteractionSource() }
-                    IconButton(
-                        onClick = onNavigateBack,
-                        modifier = Modifier.bounceClick(backInteractionSource),
-                        interactionSource = backInteractionSource
-                    ) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back_desc))
-                    }
-                },
+                    title = {
+                        Text(
+                            if (memberId == null) stringResource(R.string.add_member_title_add)
+                            else stringResource(R.string.add_member_title_edit)
+                        )
+                    },
+                    navigationIcon = {
+                        val backInteractionSource = remember { MutableInteractionSource() }
+                        IconButton(
+                            onClick = onNavigateBack,
+                            modifier = Modifier.bounceClick(backInteractionSource),
+                            interactionSource = backInteractionSource
+                        ) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back_desc))
+                        }
+                    },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
                         titleContentColor = MaterialTheme.colorScheme.onSurface,
                         navigationIconContentColor = MaterialTheme.colorScheme.onSurface
                     )
                 )
-        },
-        bottomBar = {
-            val unknownStr = stringResource(R.string.add_member_unknown)
-            val saveInteractionSource = remember { MutableInteractionSource() }
-            Button(
+            },
+            bottomBar = {
+                val unknownStr = stringResource(R.string.add_member_unknown)
+                val saveInteractionSource = remember { MutableInteractionSource() }
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .bounceClick(saveInteractionSource),
+                    interactionSource = saveInteractionSource,
+                    onClick = {
+                        // Legacyfelder aus dem Wochentag-Profil ableiten (Fallback: Mo-Profil oder Defaults)
+                        val refProfile = dayProfiles[1] ?: dayProfiles.values.firstOrNull()
+                        val memberToSave = FamilyMember(
+                            id = memberId ?: java.util.UUID.randomUUID().toString(),
+                            name = name.ifEmpty { unknownStr },
+                            earliestWakeUp = refProfile?.earliestWakeUp ?: LocalTime.of(6, 0),
+                            latestWakeUp = refProfile?.latestWakeUp ?: LocalTime.of(7, 30),
+                            bathroomDurationMinutes = refProfile?.bathroomDurationMinutes ?: 20L,
+                            wantsBreakfast = refProfile?.wantsBreakfast ?: true,
+                            leaveHomeTime = refProfile?.leaveHomeTime,
+                            isPaused = memberToEdit?.isPaused ?: false,
+                            claimedByUserId = memberToEdit?.claimedByUserId,
+                            claimedByUserName = memberToEdit?.claimedByUserName,
+                            createdAt = memberToEdit?.createdAt,
+                            dayProfiles = dayProfiles
+                        )
+                        viewModel.addOrUpdateMember(memberToSave)
+                        onNavigateBack()
+                    },
+                    enabled = name.isNotBlank() && hasAtLeastOneActiveDay
+                ) {
+                    Text(stringResource(R.string.add_member_submit))
+                }
+            }
+        ) { padding ->
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .bounceClick(saveInteractionSource),
-                interactionSource = saveInteractionSource,
-                onClick = {
-                    val memberToSave = de.familienwecker.famwake.model.FamilyMember(
-                        id = memberId ?: java.util.UUID.randomUUID().toString(),
-                        name = name.ifEmpty { unknownStr },
-                        earliestWakeUp = earliestWakeUp,
-                        latestWakeUp = latestWakeUp,
-                        bathroomDurationMinutes = bathroomDuration.toLongOrNull() ?: 20L,
-                        wantsBreakfast = wantsBreakfast,
-                        leaveHomeTime = leaveHomeTime,
-                        // Nicht-editierbare Felder aus dem bestehenden Mitglied übernehmen
-                        // damit isPaused / Claim-Status / Sortierung erhalten bleiben
-                        isPaused = memberToEdit?.isPaused ?: false,
-                        claimedByUserId = memberToEdit?.claimedByUserId,
-                        claimedByUserName = memberToEdit?.claimedByUserName,
-                        createdAt = memberToEdit?.createdAt
-                    )
-                    viewModel.addOrUpdateMember(memberToSave)
-                    onNavigateBack()
-                },
-                enabled = isTimeRangeValid && isLeaveTimeValid && isBathroomDurationValid
+                    .padding(padding)
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text(stringResource(R.string.add_member_submit))
-            }
-        }
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            if (!isTimeRangeValid) {
-                Card(
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Name
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text(stringResource(R.string.add_member_name_label)) },
                     modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(R.string.add_member_error_time_range),
-                        color = MaterialTheme.colorScheme.onErrorContainer,
-                        modifier = Modifier.padding(12.dp),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-
-            if (!isLeaveTimeValid) {
-                Card(
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(R.string.add_member_error_leave_home),
-                        color = MaterialTheme.colorScheme.onErrorContainer,
-                        modifier = Modifier.padding(12.dp),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-
-            if (!isBathroomDurationValid) {
-                Card(
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(R.string.add_member_error_bathroom_duration),
-                        color = MaterialTheme.colorScheme.onErrorContainer,
-                        modifier = Modifier.padding(12.dp),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-
-            OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
-                label = { Text(stringResource(R.string.add_member_name_label)) },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            TimePickerRow(stringResource(R.string.add_member_earliest_wake), earliestWakeUp) { earliestWakeUp = it }
-            TimePickerRow(stringResource(R.string.add_member_latest_wake), latestWakeUp) { latestWakeUp = it }
-            
-            OutlinedTextField(
-                value = bathroomDuration,
-                onValueChange = { bathroomDuration = it },
-                label = { Text(stringResource(R.string.add_member_bathroom_duration)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Switch(
-                    checked = wantsBreakfast,
-                    onCheckedChange = { wantsBreakfast = it }
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(stringResource(R.string.add_member_wants_breakfast))
-            }
 
-            TimePickerRow(stringResource(R.string.add_member_leave_home), leaveHomeTime ?: LocalTime.of(8,0)) { 
-                leaveHomeTime = it 
+                // Wochentag-Chip-Leiste
+                Text(
+                    text = stringResource(R.string.add_member_day_profiles_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    WEEKDAY_KEYS.forEach { day ->
+                        val profile = dayProfiles[day]
+                        val isSelected = selectedDay == day
+                        val isActive = profile?.isActive == true
+                        FilterChip(
+                            selected = isSelected,
+                            onClick = { selectedDay = day },
+                            label = {
+                                Text(
+                                    text = dayLabelShort(day),
+                                    style = MaterialTheme.typography.labelMedium
+                                )
+                            },
+                            colors = FilterChipDefaults.filterChipColors(
+                                selectedContainerColor = if (isActive)
+                                    MaterialTheme.colorScheme.primary
+                                else
+                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                                selectedLabelColor = if (isActive)
+                                    MaterialTheme.colorScheme.onPrimary
+                                else
+                                    MaterialTheme.colorScheme.onSurfaceVariant,
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                            )
+                        )
+                    }
+                }
+
+                // Tages-Card für selectedDay
+                val selectedProfile = dayProfiles[selectedDay] ?: DayProfile()
+                DayProfileCard(
+                    dayLabel = dayLabel(selectedDay),
+                    profile = selectedProfile,
+                    onProfileChange = { updated ->
+                        dayProfiles = dayProfiles.toMutableMap().apply { put(selectedDay, updated) }
+                    }
+                )
+
+                if (!hasAtLeastOneActiveDay) {
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = stringResource(R.string.add_member_error_no_days),
+                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            modifier = Modifier.padding(12.dp),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+
+                // Copy-Button
+                TextButton(
+                    onClick = { showCopyDialog = true },
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Text(stringResource(R.string.add_member_copy_to_days, dayLabelShort(selectedDay)))
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }
 }
-}
 
 @Composable
-fun TimePickerRow(label: String, time: LocalTime, onTimeSelected: (LocalTime) -> Unit) {
+private fun DayProfileCard(
+    dayLabel: String,
+    profile: DayProfile,
+    onProfileChange: (DayProfile) -> Unit
+) {
     val context = LocalContext.current
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+
+            // Header: Tag + Toggle
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = dayLabel,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = stringResource(R.string.add_member_day_active),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Switch(
+                        checked = profile.isActive,
+                        onCheckedChange = { onProfileChange(profile.copy(isActive = it)) }
+                    )
+                }
+            }
+
+            AnimatedVisibility(visible = profile.isActive) {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    HorizontalDivider()
+
+                    // Früheste Weckzeit
+                    TimePickerRow(
+                        label = stringResource(R.string.add_member_earliest_wake),
+                        time = profile.earliestWakeUp,
+                        context = context,
+                        formatter = formatter,
+                        onTimeSelected = { onProfileChange(profile.copy(earliestWakeUp = it)) }
+                    )
+
+                    // Späteste Weckzeit
+                    TimePickerRow(
+                        label = stringResource(R.string.add_member_latest_wake),
+                        time = profile.latestWakeUp,
+                        context = context,
+                        formatter = formatter,
+                        onTimeSelected = { onProfileChange(profile.copy(latestWakeUp = it)) }
+                    )
+
+                    // Baddauer (+/-)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(stringResource(R.string.add_member_bathroom_duration), style = MaterialTheme.typography.bodyLarge)
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            IconButton(
+                                onClick = { if (profile.bathroomDurationMinutes > 5) onProfileChange(profile.copy(bathroomDurationMinutes = profile.bathroomDurationMinutes - 5)) }
+                            ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                            Text(
+                                "${profile.bathroomDurationMinutes} min",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                modifier = Modifier.widthIn(min = 64.dp),
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                            IconButton(
+                                onClick = { if (profile.bathroomDurationMinutes < 120) onProfileChange(profile.copy(bathroomDurationMinutes = profile.bathroomDurationMinutes + 5)) }
+                            ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                        }
+                    }
+
+                    // Frühstück
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(stringResource(R.string.add_member_wants_breakfast), style = MaterialTheme.typography.bodyLarge)
+                        Switch(
+                            checked = profile.wantsBreakfast,
+                            onCheckedChange = { onProfileChange(profile.copy(wantsBreakfast = it)) }
+                        )
+                    }
+
+                    // Abfahrtszeit
+                    TimePickerRow(
+                        label = stringResource(R.string.add_member_leave_home),
+                        time = profile.leaveHomeTime ?: LocalTime.of(8, 0),
+                        context = context,
+                        formatter = formatter,
+                        onTimeSelected = { onProfileChange(profile.copy(leaveHomeTime = it)) }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun TimePickerRow(
+    label: String,
+    time: LocalTime,
+    context: android.content.Context,
+    formatter: DateTimeFormatter,
+    onTimeSelected: (LocalTime) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                TimePickerDialog(
-                    context,
-                    { _, hour, minute -> onTimeSelected(LocalTime.of(hour, minute)) },
-                    time.hour,
-                    time.minute,
-                    true
-                ).show()
-            }
-            .padding(vertical = 12.dp),
+            .padding(vertical = 4.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(label, style = MaterialTheme.typography.bodyLarge)
-        Text(time.format(formatter), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+        TextButton(onClick = {
+            TimePickerDialog(
+                context,
+                { _, hour, minute -> onTimeSelected(LocalTime.of(hour, minute)) },
+                time.hour,
+                time.minute,
+                true
+            ).show()
+        }) {
+            Text(time.format(formatter), style = MaterialTheme.typography.titleMedium)
+        }
     }
+}
+
+// TimePickerRow benötigt für Rückwärtskompatibilität noch als top-level Funktion
+@Composable
+fun TimePickerRow(label: String, time: LocalTime, onTimeSelected: (LocalTime) -> Unit) {
+    val context = LocalContext.current
+    val formatter = DateTimeFormatter.ofPattern("HH:mm")
+    TimePickerRow(label = label, time = time, context = context, formatter = formatter, onTimeSelected = onTimeSelected)
+}
+
+private fun dayLabel(day: Int): String = when (day) {
+    1 -> "Montag"; 2 -> "Dienstag"; 3 -> "Mittwoch"; 4 -> "Donnerstag"
+    5 -> "Freitag"; 6 -> "Samstag"; 7 -> "Sonntag"; else -> ""
+}
+
+private fun dayLabelShort(day: Int): String = when (day) {
+    1 -> "Mo"; 2 -> "Di"; 3 -> "Mi"; 4 -> "Do"
+    5 -> "Fr"; 6 -> "Sa"; 7 -> "So"; else -> ""
 }
