@@ -29,8 +29,6 @@ import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import de.familienwecker.famwake.util.WhatsNewManager
-import de.familienwecker.famwake.util.WhatsNewContent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import de.familienwecker.famwake.util.NetworkUtils
@@ -46,7 +44,6 @@ class FamilyViewModel(
     private val alarmScheduler = AlarmScheduler(application)
     private val prefsRepo: PreferencesRepository = prefsRepo
     private val auth = FirebaseAuth.getInstance()
-    private val whatsNewManager = WhatsNewManager(application)
 
     /** UID des aktuell eingeloggten Users (null wenn nicht eingeloggt). */
     val currentUserId: String?
@@ -75,9 +72,6 @@ class FamilyViewModel(
 
     private val _syncStatus = MutableStateFlow(de.familienwecker.famwake.model.SyncStatus())
     val syncStatus: StateFlow<de.familienwecker.famwake.model.SyncStatus> = _syncStatus.asStateFlow()
-
-    private val _whatsNewContent = MutableStateFlow<WhatsNewContent?>(null)
-    val whatsNewContent: StateFlow<WhatsNewContent?> = _whatsNewContent.asStateFlow()
 
     private val _pendingJoinCode = MutableStateFlow<String?>(null)
     val pendingJoinCode: StateFlow<String?> = _pendingJoinCode.asStateFlow()
@@ -249,8 +243,6 @@ class FamilyViewModel(
                 }
             }
         }
-
-        checkWhatsNew()
     }
 
     fun setError(message: UiText) {
@@ -365,10 +357,10 @@ class FamilyViewModel(
     fun leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
         val code = _pendingJoinCode.value ?: return
 
-        // Nicht beitreten wenn bereits in dieser Familie
+        // Nicht beitreten wenn bereits in dieser Familie – kein onLeaveFamily-Trigger
         if (code.equals(joinCode.value, ignoreCase = true)) {
             _pendingJoinCode.value = null
-            onComplete(true)
+            onComplete(false)  // false = kein Navigation-Trigger im MainScreen
             return
         }
 
@@ -877,23 +869,6 @@ class FamilyViewModel(
         is ScheduleMessage.BreakfastAndTimeAdjusted -> UiText.StringResource(R.string.schedule_message_breakfast_and_time_adjusted, msg.breakfast, msg.shift)
         is ScheduleMessage.MemberConflict -> UiText.StringResource(R.string.schedule_message_member_conflict, msg.memberName)
         is ScheduleMessage.NoActiveSchedule -> UiText.StringResource(R.string.main_no_active_schedule)
-    }
-
-    private fun checkWhatsNew() {
-        viewModelScope.launch {
-            val content = whatsNewManager.getWhatsNewContent() ?: return@launch
-            val lastSeen = prefsRepo.lastSeenWhatsNewVersion.value
-            if (content.versionCode > lastSeen) {
-                _whatsNewContent.value = content
-            }
-        }
-    }
-
-    fun dismissWhatsNew() {
-        _whatsNewContent.value?.let {
-            prefsRepo.setLastSeenWhatsNewVersion(it.versionCode)
-            _whatsNewContent.value = null
-        }
     }
 
     fun dismissJoinSuccess() {

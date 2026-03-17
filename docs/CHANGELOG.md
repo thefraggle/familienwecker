@@ -5,6 +5,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.7] - 2026-03-17
+
+### Behoben
+- **Join-Flow Doppel-Dialog:** War der Join-Link die eigene Familie, wurde `onLeaveFamily()` aufgerufen und der User auf den Setup-Screen weitergeleitet. Fix: Same-Family-Guard gibt jetzt `false` zurück – Dialog schließt sich, User bleibt in seiner Familie.
+
+### Entfernt
+- **"Was ist neu?"-Dialog** vollständig entfernt (Dialog, Logik, JSON-Datei, Strings).
+
+---
+
 ## [1.1.6] - 2026-03-17
 
 ### Behoben

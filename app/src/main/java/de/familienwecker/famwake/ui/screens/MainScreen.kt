@@ -82,7 +82,6 @@ fun MainScreen(
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     var showJoinConflictDialog by remember { mutableStateOf(false) }
-    val whatsNewContent by viewModel.whatsNewContent.collectAsStateWithLifecycle()
 
     // Sofort Conflict-Dialog zeigen wenn ein pendingJoinCode eintrifft (z.B. nach Deep-Link aus Hintergrund)
     LaunchedEffect(pendingJoinCode, familyId) {
@@ -104,6 +103,7 @@ fun MainScreen(
                     showJoinConflictDialog = false
                     viewModel.leaveAndJoinPendingCode { success ->
                         if (success) onLeaveFamily()
+                        // success=false: Dialog geschlossen, pendingCode gecleard, User bleibt in Familie
                     }
                 }) {
                     Text(stringResource(R.string.join_conflict_confirm), color = MaterialTheme.colorScheme.error)
@@ -119,24 +119,6 @@ fun MainScreen(
             }
         )
     }
-
-    if (whatsNewContent != null) {
-        val content = whatsNewContent!!
-        AlertDialog(
-            onDismissRequest = { viewModel.dismissWhatsNew() },
-            title = { Text(content.title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold) },
-            text = { Text(content.text, style = MaterialTheme.typography.bodyMedium) },
-            confirmButton = {
-                TextButton(
-                    onClick = { viewModel.dismissWhatsNew() },
-                ) {
-                    Text(content.buttonText)
-                }
-            }
-        )
-    }
-
-
 
     LaunchedEffect(isSyncing, familyId) {
         if (familyId == null) {

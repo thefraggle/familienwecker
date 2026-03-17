@@ -22,7 +22,6 @@ private const val KEY_FAMILY_NAME = "FAMILY_NAME"
 private const val KEY_LANGUAGE = "APP_LANGUAGE"
 private const val KEY_THEME = "APP_THEME"
 private const val KEY_ALARM_ENABLED = "ALARM_ENABLED"
-private const val KEY_WHATS_NEW_VERSION = "LAST_SEEN_WHATS_NEW_VERSION"
 
 class PreferencesRepository(context: Context) {
     private val prefs: SharedPreferences = createEncryptedPrefs(context).also {
@@ -68,7 +67,6 @@ class PreferencesRepository(context: Context) {
                 legacy.getString(KEY_LANGUAGE, null)?.let { putString(KEY_LANGUAGE, it) }
                 legacy.getString(KEY_THEME, null)?.let { putString(KEY_THEME, it) }
                 putBoolean(KEY_ALARM_ENABLED, legacy.getBoolean(KEY_ALARM_ENABLED, false))
-                putInt(KEY_WHATS_NEW_VERSION, legacy.getInt(KEY_WHATS_NEW_VERSION, 0))
                 putBoolean(MIGRATION_DONE_KEY, true)
             }
             legacy.edit { clear() }
@@ -109,8 +107,6 @@ class PreferencesRepository(context: Context) {
     private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_ALARM_ENABLED, false))
     val isAlarmEnabled: StateFlow<Boolean> = _isAlarmEnabled.asStateFlow()
 
-    private val _lastSeenWhatsNewVersion = MutableStateFlow<Int>(prefs.getInt(KEY_WHATS_NEW_VERSION, 0))
-    val lastSeenWhatsNewVersion: StateFlow<Int> = _lastSeenWhatsNewVersion.asStateFlow()
 
     /**
      * Reagiert nur auf externe Schreiber (z.B. andere Prozesse).
@@ -153,10 +149,6 @@ class PreferencesRepository(context: Context) {
             KEY_ALARM_ENABLED -> {
                 val v = sharedPreferences.getBoolean(key, false)
                 if (v != _isAlarmEnabled.value) _isAlarmEnabled.value = v
-            }
-            KEY_WHATS_NEW_VERSION -> {
-                val v = sharedPreferences.getInt(key, 0)
-                if (v != _lastSeenWhatsNewVersion.value) _lastSeenWhatsNewVersion.value = v
             }
         }
     }
@@ -213,11 +205,6 @@ class PreferencesRepository(context: Context) {
     fun setAlarmEnabled(enabled: Boolean) {
         _isAlarmEnabled.value = enabled
         prefs.edit { putBoolean(KEY_ALARM_ENABLED, enabled) }
-    }
-
-    fun setLastSeenWhatsNewVersion(version: Int) {
-        _lastSeenWhatsNewVersion.value = version
-        prefs.edit { putInt(KEY_WHATS_NEW_VERSION, version) }
     }
 
     fun clearAll() {
