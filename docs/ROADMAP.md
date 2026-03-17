@@ -8,6 +8,17 @@ Morgenroutine ohne Stress – smarte, dynamische Planung für die ganze Familie.
 
 ---
 
+## ✅ In 1.1.5 umgesetzt
+- **Feedback-Screen:** Dedizierter Feedback-Screen mit Kategorie, Nachricht, optionaler E-Mail und Ger\u00e4teinfos.
+- **Firebase Feedback:** Versand via Cloud Function (Resend); Archivierung in Firestore.
+- **Settings restrukturiert:** Sprache & Erscheinungsbild in einer Karte; Hilfe & Feedback in eigener Karte.
+- **Settings-Footer:** Versionsnummer, Rechtlinks (Nutzungsbedingungen, Datenschutz, Impressum) und Copyright.
+- **Account l\u00f6schen:** Externer Link statt Info-Dialog.
+- **Bug-Fixes 1.1.1\u20131.1.4:** Rate-Limit-Fixes, Algorithmus-Korrekturen, Ghost-Claim-Fix, Member-Deletion beim Verlassen.
+- **String-Audit:** Veraltete Strings entfernt, DE/EN vollst\u00e4ndig synchronisiert.
+
+---
+
 ## ✅ In 1.0.0 umgesetzt
 - **Smarter Familien-Weckplan:** Automatische Berechnung, wer wann geweckt wird.
 - **Familien-Einladungen per Link:** Deep-Link Join mit Conflict-Dialog.

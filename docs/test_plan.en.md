@@ -118,6 +118,11 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-36 | **Reboot Alarm Restore** | Alarms are correctly restored after reboot (Locked Boot) via Direct Boot. |
 | EC-37 | **Terms of Use Link** | Terms of Use in Settings open correctly in a browser or webview. |
 | EC-38 | **Registration Disclaimer Link** | Registration disclaimer links open correctly in a browser or webview. |
+| TC-46 | **Open Feedback Screen** | Tapping "Give Feedback / Report Issue" opens the FeedbackScreen. |
+| TC-47 | **Send Feedback (Firebase)** | Enter message → submit → success message appears, form is cleared, screen closes after 2.5s. |
+| TC-48 | **Feedback without message** | "Send" button is disabled when message field is empty. |
+| TC-49 | **Footer links open** | Tapping Terms of Use, Privacy Policy, or Imprint in the Settings footer each open the correct external page in a browser. |
+| TC-50 | **Delete account link** | Tapping "Delete Account (Info)" opens the correct external page (language-aware: DE/EN) in a browser. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |
