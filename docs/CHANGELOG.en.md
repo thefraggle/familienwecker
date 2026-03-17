@@ -5,6 +5,13 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.2.2] - 2026-03-17
+
+### Fixed
+- **Chip text invisible:** Clicking on an inactive weekday chip showed no readable text on the filled background. Fix: selected+inactive chips now use a muted grey container instead of the primary color.
+
+---
+
 ## [1.2.1] - 2026-03-17
 
 ### Changed
