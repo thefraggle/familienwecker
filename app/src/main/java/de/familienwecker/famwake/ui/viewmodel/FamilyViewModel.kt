@@ -101,10 +101,6 @@ class FamilyViewModel(
     private val _snoozeUntil = MutableStateFlow<LocalDateTime?>(null)
     val snoozeUntil: StateFlow<LocalDateTime?> = _snoozeUntil.asStateFlow()
 
-    // Initial-Push-Flag: deviceAlarmEnabled nur einmal beim Start des Listeners schreiben,
-    // nicht bei jedem weiteren Members-Update (vermeidet redundante Firestore-Writes)
-    private var initialAlarmPushDone = false
-
     init {
         // Observe FamilyId and load members accordingly
         viewModelScope.launch {
@@ -144,7 +140,6 @@ class FamilyViewModel(
                         }
 
                         membersJob = launch {
-                            initialAlarmPushDone = false
                             try {
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
                                     val checkedMembers = checkAndResetMembers(membersList)
@@ -164,16 +159,6 @@ class FamilyViewModel(
                                             // ein frischer Join-Vorgang läuft (myMemberId wäre dann noch null)
                                             prefsRepo.setMyMemberId(null)
                                             prefsRepo.setMyMemberName(null)
-                                        }
-                                        // Initial-Push: lokalen Alarm-Status nach Firestore übertragen
-                                        // Nur beim ersten Emit (wenn myId bekannt), nicht bei jedem Member-Update
-                                        val myId = myMemberId.value
-                                        val fId = currentFamilyId
-                                        if (myId != null && !initialAlarmPushDone) {
-                                            initialAlarmPushDone = true
-                                            launch {
-                                                repository.updateDeviceAlarmEnabled(fId, myId, isAlarmEnabled.value)
-                                            }
                                         }
                                     }
 
@@ -610,13 +595,20 @@ class FamilyViewModel(
                         val claimedMember = repository.getClaimedMember(pair.first, uid)
                         if (claimedMember != null) {
                             prefsRepo.setMyMemberId(claimedMember.id)
-                            // Alarm-Status nach Neuinstall wiederherstellen:
-                            // Nur wenn LocalPrefs noch auf default (false) stehen UND Firestore einen Wert hat.
-                            // Bewusst ausgeschalteter Alarm (false in Firestore) → bleibt aus.
+                            // Alarm-Status nach Neuinstall wiederherstellen.
+                            // Reihenfolge kritisch: Restore ZUERST, dann Firestore-Sync.
                             val localAlarm = prefsRepo.isAlarmEnabled.value
                             val savedAlarm = claimedMember.deviceAlarmEnabled
-                            if (!localAlarm && savedAlarm == true) {
-                                prefsRepo.setAlarmEnabled(true)
+                            val effectiveAlarm = if (!localAlarm && savedAlarm == true) {
+                                prefsRepo.setAlarmEnabled(true)  // restore
+                                true
+                            } else {
+                                localAlarm
+                            }
+                            // Proaktiv Firestore aktualisieren (nach Restore, nicht davor!)
+                            // Stellt sicher dass der Status persistiert ist, unabhängig von Observer-Timing.
+                            launch {
+                                repository.updateDeviceAlarmEnabled(pair.first, claimedMember.id, effectiveAlarm)
                             }
                         }
                     } else {
