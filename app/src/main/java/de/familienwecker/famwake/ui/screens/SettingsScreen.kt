@@ -51,6 +51,7 @@ import androidx.lifecycle.LifecycleEventObserver
 fun SettingsScreen(
     viewModel: FamilyViewModel,
     onNavigateBack: () -> Unit,
+    onNavigateToFeedback: () -> Unit,
     onLogout: () -> Unit,
     onLeaveFamily: () -> Unit
 ) {
@@ -636,14 +637,14 @@ fun SettingsScreen(
                 }
             }
 
-            // Support
+            // Hilfe & Feedback
             Card(
-                modifier = Modifier.fillMaxWidth(), 
+                modifier = Modifier.fillMaxWidth(),
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
-                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
                                      else MaterialTheme.colorScheme.surface
                 )
             ) {
@@ -651,15 +652,23 @@ fun SettingsScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Description, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.settings_support_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.settings_help_feedback_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        stringResource(R.string.settings_support_text),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
                     Spacer(modifier = Modifier.height(16.dp))
+
+                    // Feedback-Formular-Button
+                    val feedbackInteractionSource = remember { MutableInteractionSource() }
+                    OutlinedButton(
+                        onClick = onNavigateToFeedback,
+                        modifier = Modifier.fillMaxWidth().bounceClick(feedbackInteractionSource),
+                        interactionSource = feedbackInteractionSource
+                    ) {
+                        Text(stringResource(R.string.settings_feedback_button))
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // E-Mail an Entwickler
                     val supportInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
@@ -675,70 +684,6 @@ fun SettingsScreen(
                         Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_support_button))
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    val termsInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = {
-                            val url = context.getString(R.string.settings_terms_of_use_url)
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                            context.startActivity(intent)
-                        },
-                        modifier = Modifier.fillMaxWidth().bounceClick(termsInteractionSource),
-                        interactionSource = termsInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_terms_of_use))
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    val privacyInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = {
-                            val url = context.getString(R.string.settings_privacy_policy_url)
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                            context.startActivity(intent)
-                        },
-                        modifier = Modifier.fillMaxWidth().bounceClick(privacyInteractionSource),
-                        interactionSource = privacyInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_privacy_policy))
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    val imprintInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = {
-                            val url = context.getString(R.string.settings_imprint_url)
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                            context.startActivity(intent)
-                        },
-                        modifier = Modifier.fillMaxWidth().bounceClick(imprintInteractionSource),
-                        interactionSource = imprintInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_imprint))
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    val deleteAccountInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = {
-                            val url = context.getString(R.string.settings_delete_account_url)
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                            context.startActivity(intent)
-                        },
-                        modifier = Modifier.fillMaxWidth().bounceClick(deleteAccountInteractionSource),
-                        interactionSource = deleteAccountInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_delete_account))
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
                     }
                 }
             }

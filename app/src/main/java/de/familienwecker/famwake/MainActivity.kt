@@ -35,6 +35,7 @@ import de.familienwecker.famwake.ui.screens.LoadingScreen
 import de.familienwecker.famwake.ui.screens.LoginScreen
 import de.familienwecker.famwake.ui.screens.MainScreen
 import de.familienwecker.famwake.ui.screens.SettingsScreen
+import de.familienwecker.famwake.ui.screens.FeedbackScreen
 import de.familienwecker.famwake.ui.theme.FamilienweckerTheme
 import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
@@ -233,6 +234,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                 SettingsScreen(
                     viewModel = familyViewModel,
                     onNavigateBack = { navController.popBackStack() },
+                    onNavigateToFeedback = { navController.navigate(Routes.FEEDBACK) },
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
@@ -248,6 +250,12 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                             launchSingleTop = true
                         }
                     }
+                )
+            }
+            composable(Routes.FEEDBACK) {
+                FeedbackScreen(
+                    viewModel = familyViewModel,
+                    onNavigateBack = { navController.popBackStack() }
                 )
             }
         }

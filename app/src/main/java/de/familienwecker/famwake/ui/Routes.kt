@@ -11,6 +11,7 @@ object Routes {
     const val MAIN = "main"
     const val ADD_MEMBER = "addMember"
     const val SETTINGS = "settings"
+    const val FEEDBACK = "feedback"
     /** Edit-Route mit Argument – via [editMember] erzeugen */
     const val EDIT_MEMBER = "editMember/{memberId}"
 
