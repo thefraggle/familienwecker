@@ -188,6 +188,7 @@
     <string name="error_load_members">Error loading members: %1$s</string>
     <string name="error_create_family">Error creating family: %1$s</string>
     <string name="error_create_family_rate_limit">You have already created 3 families in the last hour. Please wait an hour and try again.</string>
+    <string name="error_join_family_rate_limit">Too many join attempts. Please wait a minute and try again.</string>
     <string name="error_invalid_code">Invalid invitation code: %1$s</string>
     <string name="error_family_not_found">No family was found under this code.</string>
     <string name="error_code_generation_failed">Could not generate a unique code. Please try again.</string>

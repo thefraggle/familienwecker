@@ -5,6 +5,16 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.2.5] - 2026-03-17
+
+### Fixed
+- **Rate-limit errors fully covered:** All three Cloud Function rate limits now show clear error messages:
+  - *Join family* (max. 10/minute): Specific message instead of generic error.
+  - *Resend verification email*: Result is now evaluated; rate-limit error is shown to the user.
+  - *Create family* (max. 3/hour): already fixed in v1.2.4.
+
+---
+
 ## [1.2.4] - 2026-03-17
 
 ### Fixed

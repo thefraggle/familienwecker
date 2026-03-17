@@ -312,10 +312,13 @@ class FamilyViewModel(
                 _showJoinSuccess.value = true
                 onComplete(true)
             }.onFailure { error ->
-                if (error is FamilyNotFoundException) {
-                    _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
-                } else {
-                    _errorMessage.value = UiText.StringResource(R.string.error_invalid_code)
+                when {
+                    error is FamilyNotFoundException ->
+                        _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
+                    error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
+                        _errorMessage.value = UiText.StringResource(R.string.error_join_family_rate_limit)
+                    else ->
+                        _errorMessage.value = UiText.StringResource(R.string.error_invalid_code)
                 }
                 _pendingJoinCode.value = null
                 onComplete(false)
@@ -401,11 +404,14 @@ class FamilyViewModel(
                     _showJoinSuccess.value = true
                     onComplete(true)
                 }.onFailure { error ->
-                    // Code ist ungültig -> Fehler anzeigen, aber in der ALTEN Familie bleiben!
-                    if (error is FamilyNotFoundException) {
-                        _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
-                    } else {
-                        _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                    // Code ist ungültig → Fehler anzeigen, aber in der ALTEN Familie bleiben!
+                    when {
+                        error is FamilyNotFoundException ->
+                            _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
+                        error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
+                            _errorMessage.value = UiText.StringResource(R.string.error_join_family_rate_limit)
+                        else ->
+                            _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
                     }
                     _pendingJoinCode.value = null
                     onComplete(false)
