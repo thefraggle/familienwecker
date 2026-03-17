@@ -5,6 +5,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.1.9] - 2026-03-17
+
+### Fixed
+- **Alarm restore race condition:** The `myMemberId` observer called `setAlarmEnabled(false)` on app start (because `myMemberId` is initially `null`), immediately overwriting the alarm state restored from Firestore. Fix: The initial `null` emission at startup is now ignored.
+
+---
+
 ## [1.1.8] - 2026-03-17
 
 ### Added
