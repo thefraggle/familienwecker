@@ -83,6 +83,20 @@
     <string name="add_member_copy_to_days">Copy "%1$s" to other days</string>
     <string name="add_member_copy_dialog_title">Copy to days</string>
     <string name="add_member_copy_apply">Apply</string>
+    <string name="weekday_1">Monday</string>
+    <string name="weekday_2">Tuesday</string>
+    <string name="weekday_3">Wednesday</string>
+    <string name="weekday_4">Thursday</string>
+    <string name="weekday_5">Friday</string>
+    <string name="weekday_6">Saturday</string>
+    <string name="weekday_7">Sunday</string>
+    <string name="weekday_short_1">Mon</string>
+    <string name="weekday_short_2">Tue</string>
+    <string name="weekday_short_3">Wed</string>
+    <string name="weekday_short_4">Thu</string>
+    <string name="weekday_short_5">Fri</string>
+    <string name="weekday_short_6">Sat</string>
+    <string name="weekday_short_7">Sun</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_profile_title">My Profile</string>
