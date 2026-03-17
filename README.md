@@ -4,11 +4,9 @@
 
 *[🇬🇧 English version](README.en.md)*
 
-**Jeder schläft länger. Niemand streitet ums Bad. Alle starten entspannt in den Tag.**
+Schluss mit dem morgendlichen Chaos! **FamWake** ist der intelligente Familienwecker & Bad-Planer, der euren Morgen als perfekt eingespieltes Team organisiert.
 
-Der **FamWake Familienwecker** ist die intelligente Lösung für entspannte Morgenroutinen. Anstatt starrer Weckzeiten passt sich die App dynamisch an die Termine und Bedürfnisse aller Familienmitglieder an. 
-
-👉 **Alle Informationen, Features und die Anmeldung zur Warteliste findest du auf unserer Website:**  
+👉 **Alle Informationen, Features und Early Access auf:**  
 🌐 [familienwecker.de](https://familienwecker.de)
 
 ## 📸 Ein Blick in die App (Dark Mode)
@@ -23,20 +21,14 @@ Hier siehst du, wie FamWake deinen Morgen organisiert:
   <img src="docs/images/screenshot_7_settings_dark.png" width="30%" alt="Der Einladungscode">
 </p>
 
-1.  **Der aktuelle Weck-Plan** (`screenshot_6_main.png`): Dein wichtigstes Bild. Es zeigt direkt das fertige Ergebnis: den berechneten, stressfreien Morgen mit Badzeiten und gemeinsamem Frühstück.
-2.  **Die Profil-Einstellungen** (`screenshot_5_config.png`): Hier siehst du, wie schlau die App mitdenkt. Praktische Funktionen wie „Bad-Dauer“ und „Möchte mitfrühstücken“ sind sofort erkennbar.
-3.  **Der Einladungscode** (`screenshot_7_settings.png`): So einfach lädst du weitere Personen in deine Familiengruppe ein. Gemeinsamer Nutzen für alle!
-
 ## ✨ Die Highlights
 
-* **Maximale Schlafzeit:** Ein cleverer Algorithmus berechnet den perfekten Weckplan für die ganze Familie.
-* **Kein Bad-Stau:** Nahtlose Übergabe des Badezimmers dank optimierter Taktung.
-* **Gemeinsames Frühstück:** Die App findet den idealen Zeitpunkt für alle, die zusammen essen möchten.
-* **Wochenend-Schalter:** Einfach den eigenen Wecker pausieren – der Rest der Familie schläft dadurch noch länger aus.
-* **"Bin schon wach":** Wecker für heute deaktivieren, ohne den Plan der anderen zu beeinflussen.
-* **Sicherer Login:** Einfache Anmeldung via E-Mail oder Google-Konto.
+* **Smarter Fahrplan:** Ein intelligenter Algorithmus koordiniert Bad, Frühstück und Aufstehen für die ganze Familie.
+* **Synchronisierter Morgen:** Live-Status für alle – wer wann ins Bad darf, steht fest. Keine Schlange, kein Stress.
+* **Maximale Flexibilität:** "Bin schon wach"-Button für Frühaussteher und intuitive Drag & Drop Planung.
+* **Sicher & Privat:** Anmeldung via Google oder E-Mail. Keine Werbung, kein Datenverkauf – dein Morgen gehört dir.
 
-*(Weitere Details zu den Funktionen wie dem smarten Masterplan, der flexiblen Weck-Logik und dem Dark Mode findest du auf unserer [Website](https://familienwecker.de).)*
+*(Weitere Details findest du auf unserer [Website](https://familienwecker.de).)*
 
 ---
 
