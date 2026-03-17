@@ -144,6 +144,20 @@ class FirebaseRepository {
             val docRef = db.collection("families").document(familyId)
                 .collection("members").document(member.id)
             val existingCreatedAt = member.createdAt ?: currentTime
+
+            // dayProfiles: Map<Int, DayProfile> → Map<String, Map<String, Any?>>
+            val dayProfilesData = member.dayProfiles?.mapKeys { it.key.toString() }
+                ?.mapValues { (_, profile) ->
+                    mapOf(
+                        "isActive" to profile.isActive,
+                        "earliestWakeUp" to profile.earliestWakeUp.toString(),
+                        "latestWakeUp" to profile.latestWakeUp.toString(),
+                        "bathroomDurationMinutes" to profile.bathroomDurationMinutes,
+                        "wantsBreakfast" to profile.wantsBreakfast,
+                        "leaveHomeTime" to profile.leaveHomeTime?.toString()
+                    )
+                }
+
             val data = hashMapOf(
                 "name" to member.name,
                 "earliestWakeUp" to member.earliestWakeUp.toString(),
@@ -159,7 +173,8 @@ class FirebaseRepository {
                 "sequenceOrder" to member.sequenceOrder,
                 "createdAt" to existingCreatedAt,
                 "lastUpdatedAt" to currentTime,
-                "deviceAlarmEnabled" to member.deviceAlarmEnabled
+                "deviceAlarmEnabled" to member.deviceAlarmEnabled,
+                "dayProfiles" to dayProfilesData
             )
             docRef.set(data).await()
         } catch (e: Exception) {

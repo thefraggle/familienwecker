@@ -787,6 +787,23 @@ class FamilyViewModel(
             if (memberSchedule.member.id == currentMyMemberId) {
                 val wakeUpTime = memberSchedule.wakeUpTime
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
+
+                // Tagesprofil für targetDate auflösen
+                val dayOfWeek = targetDate.dayOfWeek.value // 1=Mo, 7=So
+                val dayProfile = memberSchedule.member.dayProfiles?.get(dayOfWeek)
+
+                if (dayProfile != null && !dayProfile.isActive) {
+                    // Tag deaktiviert → kein Alarm
+                    alarmScheduler.cancelWakeUp(currentMyMemberId)
+                    lastScheduledAlarmMillis = null
+                    return
+                }
+
+                // Effektive Weckzeit: ggf. aus Tagesprofil überschrieben
+                // (Der Scheduler hat bereits mit den Fallback-Feldern gerechnet;
+                //  wenn ein Tagesprofil existiert, benutzen wir dessen latestWakeUp als Signal,
+                //  aber die eigentliche Uhrzeit kommt bereits korrekt aus memberSchedule.wakeUpTime
+                //  da recalculateSchedule() den effectiveMember übergeben hat)
                 val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
 
                 // Alarm nur neu setzen wenn die Zeit sich geändert hat
