@@ -125,8 +125,6 @@
     <string name="settings_delete_family_warning_confirm">Yes, delete everything</string>
     <string name="settings_logout">Logout</string>
     <string name="settings_delete_account">Delete Account (Info)</string>
-    <string name="settings_delete_account_info">To permanently delete your account and all associated data, please contact us at support@familienwecker.de. We will process your request within 30 days.</string>
-    <string name="ok_button">OK</string>
     <string name="settings_footer_version">FamWake Family Alarm v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">All rights reserved.</string>
@@ -142,18 +140,8 @@
     <string name="settings_language_german">Deutsch</string>
     <string name="settings_appearance_title">Appearance</string>
     <string name="settings_display_title">App Settings</string>
-    <string name="settings_help_title">About FamWake</string>
-    <string name="settings_help_intro">The FamWake family alarm calculates the perfect wake-up schedule for your entire family, so that nobody gets stuck in front of a locked bathroom door in the morning.</string>
-    <string name="settings_help_how_it_works">How it works:</string>
-    <string name="settings_help_bullet_1"><b>Create Profiles</b>: Set when each family member needs to get up and how long they need the bathroom.</string>
-    <string name="settings_help_bullet_2"><b>Plan Extras</b>: Specify who wants to have breakfast together and when they need to leave the house.</string>
-    <string name="settings_help_bullet_3"><b>Your Slot</b>: Select your profile. You will be woken up exactly when it is your turn.</string>
-    <string name="settings_help_bullet_4"><b>Adjust Order</b>: Simply drag &amp; drop profiles to manually change the bathroom sequence.</string>
-    
-    <string name="settings_support_title">Support</string>
-    <string name="settings_support_text">Feedback or questions?</string>
-    <string name="settings_support_button">Email Developer</string>
     <string name="settings_help_feedback_title">Help &amp; Feedback</string>
+    <string name="settings_support_button">Email Developer</string>
     <string name="settings_feedback_button">Give Feedback / Report Issue</string>
     <!-- Feedback Screen -->
     <string name="feedback_title">Feedback</string>
@@ -181,7 +169,6 @@
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
 
-    <string name="settings_already_claimed">already claimed</string>
     <string name="registration_disclaimer">By registering, you accept the %1$s and the %2$s.</string>
     <string name="registration_terms_of_use">Terms of Use</string>
     <string name="registration_privacy_policy">Privacy Policy</string>
@@ -224,9 +211,6 @@
     <string name="error_profile_taken">This profile is already claimed.</string>
     <string name="error_profile_claim_offline">No connection. Profile selection requires internet.</string>
     <string name="error_delete_not_admin">Only the family creator can delete the family.</string>
-    <string name="join_success_title">Family Joined!</string>
-    <string name="join_success_message">You have successfully joined the family.</string>
-    <string name="ok">OK</string>
 
     <!-- Alarm Receiver Notification -->
     <string name="alarm_default_member">Family Member</string>
