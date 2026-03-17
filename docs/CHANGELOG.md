@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.2.4] - 2026-03-17
+
+### Behoben
+- **Crash beim Rate-Limit "Familie erstellen":** Die App stürzte ab wenn der interne Grenzwert (3 Familien pro Stunde) erreicht wurde. Die `RESOURCE_EXHAUSTED`-Exception der Cloud Function wird jetzt korrekt abgefangen und zeigt eine verständliche Fehlermeldung im Create-Family-Screen.
+
+---
+
 ## [1.2.3] - 2026-03-17
 
 ### Neu

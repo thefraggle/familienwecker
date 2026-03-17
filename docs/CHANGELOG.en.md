@@ -5,6 +5,13 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.2.4] - 2026-03-17
+
+### Fixed
+- **Crash on "create family" rate limit:** The app crashed when the internal limit (3 families per hour) was hit. The `RESOURCE_EXHAUSTED` exception from the Cloud Function is now correctly caught and shows a clear error message on the create-family screen.
+
+---
+
 ## [1.2.3] - 2026-03-17
 
 ### Added
