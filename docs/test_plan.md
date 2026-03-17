@@ -51,6 +51,10 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-43 | **Familie verlassen – Member gelöscht** | Familie verlassen → eigenes Mitglieds-Profil in Firestore gelöscht. Erneuter Beitritt: kein altes Profil sichtbar, neues Anlegen nötig. |
 | TC-44 | **Frühstück-Bad-Konflikt** | Mitglied mit Badzeit ≥ Zeit bis Frühstück → Scheduler meldet Konflikt, kein stiller Fehler. |
 | TC-45 | **Offline-Anzeige** | Netz trennen: Offline-Icon erscheint nach >3s. Netz wieder verbinden: Icon verschwindet sofort. Im WLAN wird kein Offline-Icon angezeigt, auch wenn Firestore kurz aus Cache liefert. |
+| TC-51 | **Neuer Account – Familie erstellen** | Neuer E-Mail-Account, Familie erstellen → App bleibt im Hauptscreen, kein Redirect zurück. |
+| TC-52 | **Alarm-Restore nach Neuinstall** | Alarm AN → App deinstallieren → neu installieren → Login → Alarm ist wieder AN. |
+| TC-53 | **Multi-Account auf einem Gerät** | User A ausloggen, User B einloggen → B sieht nur seine Familie, keine Daten von A. |
+| TC-54 | **Alarm-Logout-Isolation** | User A hat Alarm AN → Logout → `deviceAlarmEnabled` des Members bleibt in Firestore unverändert (kein false-Write). |
 
 
 ### 2. Familien-Konfiguration
