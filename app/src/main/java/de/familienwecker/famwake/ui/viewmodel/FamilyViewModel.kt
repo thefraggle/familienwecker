@@ -103,6 +103,10 @@ class FamilyViewModel(
     // Zuletzt gesetzten Alarm-Zeitstempel merken
     private var lastScheduledAlarmMillis: Long? = null
 
+    // Snooze-Status: wenn nicht null ist ein Snooze aktiv
+    private val _snoozeUntil = MutableStateFlow<LocalDateTime?>(null)
+    val snoozeUntil: StateFlow<LocalDateTime?> = _snoozeUntil.asStateFlow()
+
     // Initial-Push-Flag: deviceAlarmEnabled nur einmal beim Start des Listeners schreiben,
     // nicht bei jedem weiteren Members-Update (vermeidet redundante Firestore-Writes)
     private var initialAlarmPushDone = false
@@ -562,6 +566,7 @@ class FamilyViewModel(
 
     fun snooze(memberId: String, memberName: String) {
         val snoozeTime = LocalDateTime.now().plusMinutes(5)
+        _snoozeUntil.value = snoozeTime
         alarmScheduler.scheduleWakeUp(
             wakeUpTime = snoozeTime,
             memberId = memberId,
@@ -571,6 +576,13 @@ class FamilyViewModel(
                 _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
             }
         )
+    }
+
+    fun cancelSnooze(memberId: String) {
+        _snoozeUntil.value = null
+        alarmScheduler.cancelWakeUp(memberId)
+        lastScheduledAlarmMillis = null
+        recalculateSchedule()
     }
 
     fun refreshData() {
@@ -801,6 +813,8 @@ class FamilyViewModel(
                     }
                 )
                 lastScheduledAlarmMillis = newAlarmMillis
+                // Regulärer Alarm gesetzt → Snooze abgeschlossen
+                _snoozeUntil.value = null
             }
         }
     }

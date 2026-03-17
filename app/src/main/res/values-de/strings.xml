@@ -41,6 +41,7 @@
     <string name="main_bathroom_info">Bad: %1$s Min | Frühstück: %2$s</string>
     <string name="main_alarm_enabled">Wecker an</string>
     <string name="main_alarm_enabled_desc">Automatisches Wecken aktiv.</string>
+    <string name="main_snooze_active">Snooze aktiv bis %1$s</string>
     <string name="main_alarm_disabled">Wecker aus</string>
     <string name="main_alarm_disabled_desc">Manuelle Pause aktiv.</string>
     <string name="main_no_profile_warning">Kein Profil ausgewählt!</string>

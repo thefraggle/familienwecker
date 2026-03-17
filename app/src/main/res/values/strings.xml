@@ -48,6 +48,7 @@
     <string name="main_member_limit_reached">Maximum of 6 members reached.</string>
     <string name="main_alarm_enabled">Alarm: ON</string>
     <string name="main_alarm_enabled_desc">Automatic wake-ups are active.</string>
+    <string name="main_snooze_active">Snooze active until %1$s</string>
     <string name="main_alarm_disabled">Alarm: OFF</string>
     <string name="main_alarm_disabled_desc">Manual pause is active.</string>
     <string name="main_no_profile_warning">No profile selected!</string>

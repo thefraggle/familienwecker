@@ -78,6 +78,7 @@ fun MainScreen(
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
+    val snoozeUntil by viewModel.snoozeUntil.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     var showJoinConflictDialog by remember { mutableStateOf(false) }
@@ -380,6 +381,67 @@ fun MainScreen(
                                             text = stringResource(R.string.awake_today_desc),
                                             style = MaterialTheme.typography.titleMedium
                                         )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Snooze-Banner (sichtbar wenn Snooze aktiv)
+                item {
+                    AnimatedVisibility(
+                        visible = snoozeUntil != null && myMemberId != null,
+                        enter = androidx.compose.animation.expandVertically() + fadeIn(),
+                        exit = androidx.compose.animation.shrinkVertically() + fadeOut()
+                    ) {
+                        snoozeUntil?.let { snoozeTime ->
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.85f)
+                                )
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier.weight(1f)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Snooze,
+                                            contentDescription = null,
+                                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                            modifier = Modifier.size(22.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(10.dp))
+                                        Text(
+                                            text = stringResource(
+                                                R.string.main_snooze_active,
+                                                snoozeTime.toLocalTime().toString().substring(0, 5)
+                                            ),
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                                        )
+                                    }
+                                    TextButton(
+                                        onClick = { viewModel.cancelSnooze(myMemberId!!) },
+                                        colors = ButtonDefaults.textButtonColors(
+                                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                        )
+                                    ) {
+                                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(16.dp))
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Text(stringResource(R.string.cancel_button), style = MaterialTheme.typography.labelLarge)
                                     }
                                 }
                             }
