@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.9] - 2026-03-17
+
+### Behoben
+- **Alarm-Restore Race Condition:** Der `myMemberId`-Observer rief beim App-Start `setAlarmEnabled(false)` auf (weil `myMemberId` initial `null` ist), was den gespeicherten Alarm-Status aus Firestore sofort wieder überschrieb. Fix: Erster `null`-Wert beim Start wird ignoriert.
+
+---
+
 ## [1.1.8] - 2026-03-17
 
 ### Neu

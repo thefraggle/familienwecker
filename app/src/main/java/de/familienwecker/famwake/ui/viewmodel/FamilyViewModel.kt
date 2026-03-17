@@ -211,10 +211,14 @@ class FamilyViewModel(
         // Observer MyMemberId
         viewModelScope.launch {
             try {
+                var isFirstEmission = true
                 myMemberId.collect { id ->
-                    if (id == null && isAlarmEnabled.value) {
+                    if (id == null && isAlarmEnabled.value && !isFirstEmission) {
+                        // Alarm nur deaktivieren wenn myMemberId aktiv verloren geht
+                        // (nicht beim initialen null-Wert nach Neuinstall/Neustart)
                         setAlarmEnabled(false)
                     }
+                    isFirstEmission = false
                     recalculateSchedule()
                 }
             } catch (e: Exception) {
