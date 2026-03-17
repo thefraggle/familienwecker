@@ -681,6 +681,34 @@ class FamilyViewModel(
         return result
     }
 
+    /**
+     * Löst das korrekte DayProfile für den nächsten Alarm-Tag auf und gibt einen
+     * FamilyMember zurück, dessen Felder (earliestWakeUp, latestWakeUp, bathroomDuration,
+     * wantsBreakfast, leaveHomeTime) aus dem Profil überschrieben sind.
+     * Ist der Tag deaktiviert → isPaused = true (Scheduler filtert ihn heraus).
+     * Sind keine dayProfiles vorhanden → unveränderter Member (Fallback auf Root-Felder).
+     */
+    private fun resolveEffectiveMember(member: FamilyMember): FamilyMember {
+        val profiles = member.dayProfiles ?: return member
+        val now = LocalTime.now()
+        // Nächster Alarm-Tag: wenn aktuelle Zeit bereits nach latestWakeUp → morgen
+        val targetDate = if (now.isAfter(member.latestWakeUp)) {
+            LocalDate.now().plusDays(1)
+        } else {
+            LocalDate.now()
+        }
+        val dayOfWeek = targetDate.dayOfWeek.value // 1=Mo … 7=So
+        val profile = profiles[dayOfWeek] ?: return member
+        if (!profile.isActive) return member.copy(isPaused = true)
+        return member.copy(
+            earliestWakeUp          = profile.earliestWakeUp,
+            latestWakeUp            = profile.latestWakeUp,
+            bathroomDurationMinutes = profile.bathroomDurationMinutes,
+            wantsBreakfast          = profile.wantsBreakfast,
+            leaveHomeTime           = profile.leaveHomeTime
+        )
+    }
+
     fun logout() {
         _errorMessage.value = null
         cancelAlarmForCurrentUser()
@@ -743,11 +771,14 @@ class FamilyViewModel(
             viewModelScope.launch {
                 try {
                     val currentMyMemberId = myMemberId.value
-                    val calculationMembers = if (alarmsOn) {
+                    val rawMembers = if (alarmsOn) {
                         currentMembers
                     } else {
                         currentMembers.filter { it.id != currentMyMemberId }
                     }
+
+                    // Wochentag-spezifische Felder aus dayProfiles auflösen (nächster Alarm-Tag)
+                    val calculationMembers = rawMembers.map { resolveEffectiveMember(it) }
 
                     if (calculationMembers.none { !it.isPaused }) {
                         _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)

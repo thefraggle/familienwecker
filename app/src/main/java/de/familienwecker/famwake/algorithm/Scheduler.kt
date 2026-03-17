@@ -119,7 +119,10 @@ class Scheduler {
         if (breakfastEaters.isNotEmpty()) {
             var minLeaveForBreakfastEaters = LocalTime.of(23, 59)
             for (m in breakfastEaters) {
-                val leave = m.leaveHomeTime ?: LocalTime.of(23, 59)
+                // Ist kein leaveHomeTime gesetzt, nutzen wir latestWakeUp + bathroomDuration
+                // als natürliche "Bad fertig"-Obergrenze (verhindert Fallback auf 23:59)
+                val naturalBathEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes)
+                val leave = m.leaveHomeTime ?: naturalBathEnd
                 if (leave.isBefore(minLeaveForBreakfastEaters)) {
                     minLeaveForBreakfastEaters = leave
                 }

@@ -21,6 +21,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - Scheduler: Breakfast conflict now detected when bath end equals breakfast start (0 min buffer).
 - Scheduler: Post-validation ensures no breakfast eater finishes their bath after breakfast begins.
+- **Breakfast time:** When no departure time was set, 23:59 was incorrectly used as the base, resulting in unrealistic breakfast times (e.g. 23:29). Fix: Fallback is now `latest wake-up + bathroom duration`.
+- **Weekday configuration:** Day-specific times from day profiles were ignored when calculating the schedule. Fix: Effective fields are now correctly resolved before passing members to the scheduler.
 - Offline indicator: False 'offline' display on app start resolved (only shows on real network loss).
 - Cloud Functions: Rate-limit counter was not saved correctly on first request (tx.update → tx.set).
 - Cloud Functions: Join attempt limit increased from 5 to 10 per minute.
@@ -37,6 +39,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### New
 - Scroll indicator (↓) on main screen while no members are added yet.
+- **Snooze:** Snooze button on the alarm screen (5 min). While a snooze is active, a banner with end time and cancel button is shown on the main screen.
 
 ### Fixed
 - Alarm rings after device reboot (even before PIN entry).
