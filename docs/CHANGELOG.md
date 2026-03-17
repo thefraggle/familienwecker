@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.8] - 2026-03-17
+
+### Neu
+- **Alarm-Status-Persistenz:** Nach Neuinstall + Login wird der letzte bekannte Alarm-Status (An/Aus) aus Firestore wiederhergestellt. War der Wecker vorher an, ist er nach Neuinstall wieder an.
+
+---
+
 ## [1.1.7] - 2026-03-17
 
 ### Behoben

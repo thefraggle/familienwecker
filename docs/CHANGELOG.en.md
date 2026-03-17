@@ -5,6 +5,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.1.8] - 2026-03-17
+
+### Added
+- **Alarm state persistence:** After reinstall + login, the last known alarm state (on/off) is restored from Firestore. If the alarm was on before reinstall, it will be on again.
+
+---
+
 ## [1.1.7] - 2026-03-17
 
 ### Fixed

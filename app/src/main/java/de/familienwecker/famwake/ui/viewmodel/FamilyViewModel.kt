@@ -499,10 +499,16 @@ class FamilyViewModel(
         prefsRepo.setThemePreference(theme)
     }
 
-    // isAlarmEnabled ist gerätespezifisch und darf NICHT in Firestore geschrieben werden.
+    // isAlarmEnabled ist gerätespezifisch – sync nach Firestore (deviceAlarmEnabled) für Restore nach Neuinstall.
     fun setAlarmEnabled(enabled: Boolean) {
         if (enabled && myMemberId.value == null) return
         prefsRepo.setAlarmEnabled(enabled)
+        // Firestore: deviceAlarmEnabled aktualisieren damit Status nach Neuinstall wiederhergestellt wird
+        val memberId = myMemberId.value ?: return
+        val famId = familyId.value ?: return
+        viewModelScope.launch {
+            repository.updateDeviceAlarmEnabled(famId, memberId, enabled)
+        }
     }
 
     fun togglePauseMember(memberId: String) {
@@ -605,6 +611,14 @@ class FamilyViewModel(
                         val claimedMember = repository.getClaimedMember(pair.first, uid)
                         if (claimedMember != null) {
                             prefsRepo.setMyMemberId(claimedMember.id)
+                            // Alarm-Status nach Neuinstall wiederherstellen:
+                            // Nur wenn LocalPrefs noch auf default (false) stehen UND Firestore einen Wert hat.
+                            // Bewusst ausgeschalteter Alarm (false in Firestore) → bleibt aus.
+                            val localAlarm = prefsRepo.isAlarmEnabled.value
+                            val savedAlarm = claimedMember.deviceAlarmEnabled
+                            if (!localAlarm && savedAlarm == true) {
+                                prefsRepo.setAlarmEnabled(true)
+                            }
                         }
                     } else {
                         leaveFamily()
