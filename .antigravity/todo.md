@@ -1,23 +1,36 @@
 # ToDo – FamWake
 
 ## Nächste Schritte
-- [ ] Snooze: UI-Feedback (Banner im Hauptscreen) und Abbruch-Button
+*(aktuell kein offener Next-Task)*
 
 ## Backlog (Roadmap)
-- [ ] Wochentag-Konfiguration (Wecker nur Mo-Fr)
 - [ ] Snooze-Synchronisation zwischen Geräten
 - [ ] Multi-Bad-Unterstützung
 - [ ] Widget
-- [ ] Direct Boot: Wecker bei gesperrtem Handy nach Reboot (Device Protected Storage + directBootAware)
+- [ ] Individuelle Frühstücksdauer pro Mitglied
+- [ ] Haptik-Profile (Voralarm vs. Hauptalarm)
+- [ ] Smarte Zeit-Warnungen bei zu knappen Fenstern
+- [ ] Homescreen-Widget
+- [ ] Weck-Bestätigung mit Push („Bin wach!")
+- [ ] Urlaubs-Datum (Auto-Reaktivierung)
+- [ ] Plan-Übersicht als Wochentabelle
+- [ ] Abendlicher Check-In (Push 21 Uhr)
+- [ ] Eigene Playlists (Spotify)
+- [ ] Badezimmer-Dauer nach Wochentag
+- [ ] DST-Schutz
+- [ ] Alarm-Watchdog
 
 ## Recently Completed
-- [x] v1.1.4 Release: Nutzungsbedingungen & Registrierungs-Disclaimer integriert
-- [x] Play Store: AAB eingereicht & Lock-Screen-Alarm erfolgreich getestet
-- [x] Deep-Link Verifizierung auf echtem Gerät (v1.1.3)
-- [x] v1.1.3 Release: Umfassender Audit – Scheduler, Offline, Sync, Rate-Limit, CI-Fixes
-- [x] assetlinks.json: alle 3 SHA-256 (Release, Debug, Play Store) eingetragen
-- [x] Deep Link SHA-256 korrigiert (war falscher Key)
-- [x] AAB-Dateiname in manuellen CI-Builds gefixt
-- [x] v1.1.2 Release: Member-Datensatz beim Verlassen komplett löschen
-- [x] v1.1.1 Release: E-Mail-Rate-Limit-Fix, err.code-Cast, leaveFamily Ghost-Claim + Self-Healing-Guard
+- [x] BUG FIX: Frühstückszeit-Fallback (23:59 → latestWakeUp+bathroomDuration) + dayProfiles-Auflösung vor Scheduler-Aufruf
+- [x] Snooze: UI-Banner im Hauptscreen + Abbruch-Button (bereits in v1.1.x implementiert)
+- [x] v1.1.5 Release: Feedback via Firebase, Settings-Footer, String-Audit, Docs-Update
+- [x] FeedbackScreen + Cloud Function `sendFeedbackEmail` deployed
+- [x] Settings restrukturiert (Sprache & Erscheinungsbild, Hilfe & Feedback)
+- [x] Tags v1.1.1–v1.1.4 gelöscht; Tag v1.1.5 erstellt
+- [x] Roadmap nur noch Backlog (History im Changelog)
+- [x] Wochentag-Konfiguration (bereits implementiert, Changelog ergänzt)
+- [x] v1.1.4 Release: Nutzungsbedingungen & Registrierungs-Disclaimer
+- [x] v1.1.3 Release: Scheduler, Offline, Sync, Rate-Limit, CI-Fixes
+- [x] v1.1.2 Release: Member-Datensatz beim Verlassen löschen
+- [x] v1.1.1 Release: E-Mail-Rate-Limit-Fix, err.code-Cast, Ghost-Claim-Guard
 - [x] v1.1.0 Release: Reboot-Alarm, Google OAuth APK-Fix
