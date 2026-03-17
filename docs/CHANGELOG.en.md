@@ -5,6 +5,21 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.3.1] - 2026-03-17
+
+### Changed
+- **Weekday chips:** All 7 chips (`Mo Tu We Th Fr Sa Su`) now use `weight(1f)` and distribute evenly across the full width – Sunday was previously cut off on narrow screens.
+- **Chip error highlight:** Chips with invalid time settings are highlighted in red (border, text, and background).
+
+### Fixed
+- **Next-alarm logic:** `resolveEffectiveMember` now checks today's DayProfile first (is it active AND before `latestWakeUp`?), otherwise falls back to tomorrow. Previously, the legacy root field `member.latestWakeUp` was used as reference → wrong result when today's profile was inactive.
+- **"No alarm" shown incorrectly:** If today's profile was disabled but tomorrow's is active, the app now correctly shows tomorrow's alarm instead of "no active alarm".
+- **Alarm rings for disabled days:** `applyAlarms` now cancels the alarm if the DayProfile for the target date has `isActive = false`.
+- **Validation – latest wake time:** Error message shown when `latestWakeUp ≤ earliestWakeUp`; save button is disabled.
+- **Validation – leave home time:** Error message shown when leave time ≤ `latestWakeUp + bathroom duration`. Also validates against the displayed default value (08:00), not just explicitly set values.
+
+---
+
 ## [1.3.0] - 2026-03-17
 
 ### Added
