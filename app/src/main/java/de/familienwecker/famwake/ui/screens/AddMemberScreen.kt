@@ -447,12 +447,20 @@ fun TimePickerRow(label: String, time: LocalTime, onTimeSelected: (LocalTime) ->
     TimePickerRow(label = label, time = time, context = context, formatter = formatter, onTimeSelected = onTimeSelected)
 }
 
-private fun dayLabel(day: Int): String = when (day) {
-    1 -> "Montag"; 2 -> "Dienstag"; 3 -> "Mittwoch"; 4 -> "Donnerstag"
-    5 -> "Freitag"; 6 -> "Samstag"; 7 -> "Sonntag"; else -> ""
+private fun dayNameRes(day: Int): Int = when (day) {
+    1 -> R.string.weekday_1; 2 -> R.string.weekday_2; 3 -> R.string.weekday_3
+    4 -> R.string.weekday_4; 5 -> R.string.weekday_5; 6 -> R.string.weekday_6
+    7 -> R.string.weekday_7; else -> R.string.weekday_1
 }
 
-private fun dayLabelShort(day: Int): String = when (day) {
-    1 -> "Mo"; 2 -> "Di"; 3 -> "Mi"; 4 -> "Do"
-    5 -> "Fr"; 6 -> "Sa"; 7 -> "So"; else -> ""
+private fun dayShortRes(day: Int): Int = when (day) {
+    1 -> R.string.weekday_short_1; 2 -> R.string.weekday_short_2; 3 -> R.string.weekday_short_3
+    4 -> R.string.weekday_short_4; 5 -> R.string.weekday_short_5; 6 -> R.string.weekday_short_6
+    7 -> R.string.weekday_short_7; else -> R.string.weekday_short_1
 }
+
+@Composable
+private fun dayLabel(day: Int) = stringResource(dayNameRes(day))
+
+@Composable
+private fun dayLabelShort(day: Int) = stringResource(dayShortRes(day))
