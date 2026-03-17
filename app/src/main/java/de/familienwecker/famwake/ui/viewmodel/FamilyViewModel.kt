@@ -499,16 +499,11 @@ class FamilyViewModel(
         prefsRepo.setThemePreference(theme)
     }
 
-    // isAlarmEnabled ist gerätespezifisch – sync nach Firestore (deviceAlarmEnabled) für Restore nach Neuinstall.
+    // isAlarmEnabled ist gerätespezifisch. Firestore-Sync (deviceAlarmEnabled) läuft
+    // automatisch über den isAlarmEnabled-Observer im init-Block.
     fun setAlarmEnabled(enabled: Boolean) {
         if (enabled && myMemberId.value == null) return
         prefsRepo.setAlarmEnabled(enabled)
-        // Firestore: deviceAlarmEnabled aktualisieren damit Status nach Neuinstall wiederhergestellt wird
-        val memberId = myMemberId.value ?: return
-        val famId = familyId.value ?: return
-        viewModelScope.launch {
-            repository.updateDeviceAlarmEnabled(famId, memberId, enabled)
-        }
     }
 
     fun togglePauseMember(memberId: String) {
