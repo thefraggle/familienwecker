@@ -5,6 +5,13 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.2.3] - 2026-03-17
+
+### Added
+- **Rate app:** New button "⭐ Rate App ⭐" in the Help & Feedback section. Opens the in-app review dialog (Play In-App Review API); falls back to the Play Store page if unavailable.
+
+---
+
 ## [1.2.2] - 2026-03-17
 
 ### Fixed

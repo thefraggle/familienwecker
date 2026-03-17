@@ -685,6 +685,36 @@ fun SettingsScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_support_button))
                     }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // App bewerten (In-App Review API)
+                    val rateInteractionSource = remember { MutableInteractionSource() }
+                    OutlinedButton(
+                        onClick = {
+                            val activity = context as? android.app.Activity
+                            if (activity != null) {
+                                val manager = com.google.android.play.core.review.ReviewManagerFactory.create(context)
+                                manager.requestReviewFlow().addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        manager.launchReviewFlow(activity, task.result)
+                                    } else {
+                                        // Fallback: Play Store direkt öffnen
+                                        val pkg = context.packageName
+                                        try {
+                                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg")))
+                                        } catch (e: android.content.ActivityNotFoundException) {
+                                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$pkg")))
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth().bounceClick(rateInteractionSource),
+                        interactionSource = rateInteractionSource
+                    ) {
+                        Text(stringResource(R.string.settings_rate_app))
+                    }
                 }
             }
 
