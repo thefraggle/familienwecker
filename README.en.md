@@ -4,11 +4,9 @@
 
 *[🇩🇪 Deutsche Version](README.md)*
 
-**Everyone sleeps longer. Nobody fights over the bathroom. Start your day relaxed.**
+Stop the morning chaos! **FamWake** is the smart family alarm & bathroom scheduler that organizes your morning as a perfectly synced team.
 
-The **FamWake Family Alarm** is the intelligent solution for a relaxed morning routine. Instead of rigid wake-up times, the app dynamically adapts to the schedules and needs of all family members.
-
-👉 **Find all information, features, and the waitlist sign-up on our website:**  
+👉 **Find all information, features and early access at:**  
 🌐 [familienwecker.de/en](https://familienwecker.de/index-en.html)
 
 ## 📸 A Sneak Peek at the App (Dark Mode)
@@ -23,20 +21,14 @@ See how FamWake organizes your morning:
   <img src="docs/images/screenshot_7_settings_dark_en.png" width="30%" alt="The Invitation Code">
 </p>
 
-1.  **The Current Wake-up Plan** (`screenshot_6_main.png`): This shows the result: a calculated, stress-free morning with synchronized bathroom slots and shared breakfast.
-2.  **Profile Settings** (`screenshot_5_config.png`): This displays the app's smart features, such as "Bathroom Duration" and "Wants to share breakfast."
-3.  **The Invitation Code** (`screenshot_7_settings.png`): Shows how easily you can invite more people to your family group. Shared benefits for everyone!
-
 ## ✨ The Highlights
 
-* **Maximum Sleep Time:** A clever algorithm calculates the absolutely perfect daily wake-up plan for the entire family.
-* **No Bathroom Traffic Jams:** Wake-up times are intelligently coordinated so that the bathroom is always handed over seamlessly.
-* **Shared Time:** The app finds the ideal slot for everyone who wants to have breakfast together.
-* **Weekend Switch:** Simply pause your own alarm – meaning your bathroom slots expire so the rest of the family can sleep in even longer.
-* **"Already Awake" Button:** Deactivate your alarm for today without affecting the schedule of others.
-* **Secure Login:** Easy sign-in via email or Google account.
+* **Smart Roadmap:** An intelligent algorithm coordinates bathroom, breakfast, and wake-up for your entire family.
+* **In Sync:** Live status for everyone – scheduled bathroom slots for the whole family. No more queues, no stress.
+* **Maximum Flexibility:** "Already awake" button for early birds and intuitive drag & drop planning.
+* **Secure & Private:** Sign in via Google or Email. No ads, no data sales – your morning belongs to you.
 
-*(Find more details on features like the smart master plan, flexible wake-up logic, and dark mode on our [website](https://familienwecker.de/index-en.html).)*
+*(Find more details on our [website](https://familienwecker.de/index-en.html).)*
 
 ---
 
