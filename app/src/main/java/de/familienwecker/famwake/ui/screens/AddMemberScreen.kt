@@ -90,6 +90,9 @@ fun AddMemberScreen(
     )
 
     val hasAtLeastOneActiveDay = dayProfiles.values.any { it.isActive }
+    val hasAnyValidationError = dayProfiles.entries.any { (_, profile) ->
+        profile.isActive && validateDayProfile(profile).isNotEmpty()
+    }
 
     // Copy-Dialog
     if (showCopyDialog) {
@@ -194,7 +197,7 @@ fun AddMemberScreen(
                         viewModel.addOrUpdateMember(memberToSave)
                         onNavigateBack()
                     },
-                    enabled = name.isNotBlank() && hasAtLeastOneActiveDay
+                    enabled = name.isNotBlank() && hasAtLeastOneActiveDay && !hasAnyValidationError
                 ) {
                     Text(stringResource(R.string.add_member_submit))
                 }
@@ -227,38 +230,41 @@ fun AddMemberScreen(
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     WEEKDAY_KEYS.forEach { day ->
                         val profile = dayProfiles[day]
                         val isSelected = selectedDay == day
                         val isActive = profile?.isActive == true
+                        val hasError = profile != null && profile.isActive && validateDayProfile(profile).isNotEmpty()
                         FilterChip(
                             selected = isSelected,
                             onClick = { selectedDay = day },
+                            modifier = Modifier.weight(1f),
                             label = {
                                 Text(
                                     text = dayLabelShort(day),
-                                    style = MaterialTheme.typography.labelMedium,
+                                    style = MaterialTheme.typography.labelSmall,
                                     color = when {
+                                        hasError                -> MaterialTheme.colorScheme.error
                                         isSelected && isActive  -> MaterialTheme.colorScheme.onPrimary
                                         isSelected && !isActive -> MaterialTheme.colorScheme.onSurfaceVariant
                                         isActive                -> MaterialTheme.colorScheme.onSurface
                                         else                    -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f)
-                                    }
+                                    },
+                                    maxLines = 1
                                 )
                             },
                             colors = FilterChipDefaults.filterChipColors(
-                                // selektiert + aktiv → primary
-                                selectedContainerColor = if (isActive)
-                                    MaterialTheme.colorScheme.primary
-                                else
-                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.35f),
-                                selectedLabelColor = if (isActive)
+                                selectedContainerColor = when {
+                                    hasError -> MaterialTheme.colorScheme.errorContainer
+                                    isActive -> MaterialTheme.colorScheme.primary
+                                    else     -> MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
+                                },
+                                selectedLabelColor = if (isActive && !hasError)
                                     MaterialTheme.colorScheme.onPrimary
                                 else
                                     MaterialTheme.colorScheme.onSurfaceVariant,
-                                // nicht selektiert
                                 containerColor = if (isActive)
                                     MaterialTheme.colorScheme.surfaceVariant
                                 else
@@ -268,14 +274,16 @@ fun AddMemberScreen(
                             border = FilterChipDefaults.filterChipBorder(
                                 enabled = true,
                                 selected = isSelected,
-                                borderColor = if (isActive)
-                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
-                                else
-                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.25f),
-                                selectedBorderColor = if (isActive)
-                                    MaterialTheme.colorScheme.primary
-                                else
-                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
+                                borderColor = when {
+                                    hasError -> MaterialTheme.colorScheme.error
+                                    isActive -> MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
+                                    else     -> MaterialTheme.colorScheme.outline.copy(alpha = 0.25f)
+                                },
+                                selectedBorderColor = when {
+                                    hasError -> MaterialTheme.colorScheme.error
+                                    isActive -> MaterialTheme.colorScheme.primary
+                                    else     -> MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
+                                }
                             )
                         )
                     }
@@ -319,6 +327,27 @@ fun AddMemberScreen(
     }
 }
 
+/**
+ * Validiert ein DayProfile auf sinnvolle Zeitkombinationen.
+ * Gibt eine Liste von Fehlermeldungs-Ressourcen-IDs zurück (leer = gültig).
+ */
+private fun validateDayProfile(profile: DayProfile): List<Int> {
+    val errors = mutableListOf<Int>()
+    // 1. latestWakeUp muss NACH earliestWakeUp liegen
+    if (!profile.latestWakeUp.isAfter(profile.earliestWakeUp)) {
+        errors.add(R.string.validation_latest_before_earliest)
+    }
+    // 2. leaveHomeTime muss NACH latestWakeUp + Baddauer liegen
+    val profile_leaveHomeTime = profile.leaveHomeTime
+    if (profile_leaveHomeTime != null) {
+        val latestBathroomEnd = profile.latestWakeUp.plusMinutes(profile.bathroomDurationMinutes)
+        if (!profile_leaveHomeTime.isAfter(latestBathroomEnd)) {
+            errors.add(R.string.validation_leave_too_early)
+        }
+    }
+    return errors
+}
+
 @Composable
 private fun DayProfileCard(
     dayLabel: String,
@@ -327,11 +356,15 @@ private fun DayProfileCard(
 ) {
     val context = LocalContext.current
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
+    val errors = if (profile.isActive) validateDayProfile(profile) else emptyList()
 
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        border = if (errors.isNotEmpty())
+            androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.error)
+        else null
     ) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
@@ -364,6 +397,8 @@ private fun DayProfileCard(
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     HorizontalDivider()
 
+                    val latestBeforeEarliestError = !profile.latestWakeUp.isAfter(profile.earliestWakeUp)
+
                     // Früheste Weckzeit
                     TimePickerRow(
                         label = stringResource(R.string.add_member_earliest_wake),
@@ -379,8 +414,17 @@ private fun DayProfileCard(
                         time = profile.latestWakeUp,
                         context = context,
                         formatter = formatter,
-                        onTimeSelected = { onProfileChange(profile.copy(latestWakeUp = it)) }
+                        onTimeSelected = { onProfileChange(profile.copy(latestWakeUp = it)) },
+                        isError = latestBeforeEarliestError
                     )
+                    if (latestBeforeEarliestError) {
+                        Text(
+                            text = stringResource(R.string.validation_latest_before_earliest),
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(start = 4.dp)
+                        )
+                    }
 
                     // Baddauer (+/-)
                     Row(
@@ -420,13 +464,26 @@ private fun DayProfileCard(
                     }
 
                     // Abfahrtszeit
+                    val leaveHomeLine = profile.leaveHomeTime
+                    val leaveTooEarlyError = leaveHomeLine != null &&
+                        !leaveHomeLine.isAfter(profile.latestWakeUp.plusMinutes(profile.bathroomDurationMinutes))
+
                     TimePickerRow(
                         label = stringResource(R.string.add_member_leave_home),
                         time = profile.leaveHomeTime ?: LocalTime.of(8, 0),
                         context = context,
                         formatter = formatter,
-                        onTimeSelected = { onProfileChange(profile.copy(leaveHomeTime = it)) }
+                        onTimeSelected = { onProfileChange(profile.copy(leaveHomeTime = it)) },
+                        isError = leaveTooEarlyError
                     )
+                    if (leaveTooEarlyError) {
+                        Text(
+                            text = stringResource(R.string.validation_leave_too_early),
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(start = 4.dp)
+                        )
+                    }
                 }
             }
         }
@@ -439,7 +496,8 @@ private fun TimePickerRow(
     time: LocalTime,
     context: android.content.Context,
     formatter: DateTimeFormatter,
-    onTimeSelected: (LocalTime) -> Unit
+    onTimeSelected: (LocalTime) -> Unit,
+    isError: Boolean = false
 ) {
     Row(
         modifier = Modifier
@@ -448,7 +506,11 @@ private fun TimePickerRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(label, style = MaterialTheme.typography.bodyLarge)
+        Text(
+            label,
+            style = MaterialTheme.typography.bodyLarge,
+            color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+        )
         TextButton(onClick = {
             TimePickerDialog(
                 context,
@@ -458,7 +520,11 @@ private fun TimePickerRow(
                 true
             ).show()
         }) {
-            Text(time.format(formatter), style = MaterialTheme.typography.titleMedium)
+            Text(
+                time.format(formatter),
+                style = MaterialTheme.typography.titleMedium,
+                color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+            )
         }
     }
 }
