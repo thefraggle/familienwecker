@@ -139,6 +139,8 @@
     <string name="settings_language_system">Systemstandard</string>
     <string name="settings_language_english">English</string>
     <string name="settings_language_german">Deutsch</string>
+    <string name="settings_appearance_title">Erscheinungsbild</string>
+    <string name="settings_display_title">Sprache &amp; Erscheinungsbild</string>
     <string name="settings_help_title">Über FamWake</string>
     <string name="settings_help_intro">Der FamWake Familienwecker berechnet den perfekten Weckplan für deine gesamte Familie, damit morgens niemand mehr vor verschlossener Badezimmertür steht.</string>
     <string name="settings_help_how_it_works">So funktioniert’s:</string>
