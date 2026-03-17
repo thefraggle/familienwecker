@@ -120,8 +120,11 @@ fun MainScreen(
         )
     }
 
-    LaunchedEffect(isSyncing, familyId) {
-        if (familyId == null) {
+    LaunchedEffect(familyId, isSyncing) {
+        // Guard: onLeaveFamily nur wenn familyId null UND kein aktiver Sync läuft.
+        // Verhindert Race Condition: direkt nach createFamily() ist isSyncing kurz true
+        // während familyId noch nicht im StateFlow propagiert ist.
+        if (familyId == null && !isSyncing) {
             onLeaveFamily()
         }
     }

@@ -5,6 +5,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.1.11] - 2026-03-17
+
+### Fixed
+- **Create family loop:** After creating a new family, the screen immediately redirected back to the family creation screen. Cause: `LaunchedEffect` in `MainScreen` called `onLeaveFamily()` when `familyId` appeared as `null` during an active sync. Fix: `onLeaveFamily()` is now only called when `familyId == null` AND `!isSyncing`.
+
+---
+
 ## [1.1.10] - 2026-03-17
 
 ### Fixed

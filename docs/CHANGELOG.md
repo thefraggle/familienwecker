@@ -5,6 +5,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.1.11] - 2026-03-17
+
+### Behoben
+- **Familie erstellen schleife:** Nach dem Erstellen einer neuen Familie landete der Screen sofort wieder auf dem Erstellen-Screen. Ursache: `LaunchedEffect` in `MainScreen` rief `onLeaveFamily()` auf wenn `familyId` während eines aktiven Syncs kurz als `null` erschien. Fix: `onLeaveFamily()` nur wenn `familyId == null` UND `!isSyncing`.
+
+---
+
 ## [1.1.10] - 2026-03-17
 
 ### Behoben
