@@ -124,6 +124,11 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | EC-36 | **Reboot-Alarm-Wiederherstellung** | Alarme werden nach Reboot (Locked Boot) korrekt wiederhergestellt (Direct Boot). |
 | EC-37 | **Nutzungsbedingungen Link** | Klick auf "Nutzungsbedingungen" in den Einstellungen öffnet den korrekten Link. |
 | EC-38 | **Registrierungs-Disclaimer Link** | Klick auf Disclaimer-Links bei der Registrierung öffnet die korrekten Seiten. |
+| TC-46 | **Feedback-Screen öffnen** | Klick auf "Feedback geben / Fehler melden" öffnet den FeedbackScreen. |
+| TC-47 | **Feedback senden (Firebase)** | Nachricht eingeben → Absenden → Erfolgsmeldung erscheint, Formular wird geleert, Screen schließt nach 2,5s. |
+| TC-48 | **Feedback ohne Nachricht** | "Senden"-Button ist deaktiviert wenn Nachricht leer ist. |
+| TC-49 | **Footer-Links öffnen** | Klick auf Nutzungsbedingungen, Datenschutz oder Impressum im Settings-Footer öffnet jeweils die externe Seite im Browser. |
+| TC-50 | **Account löschen Link** | Klick auf "Account löschen (Info)" öffnet die externe Seite (de/en sprachkorrekt) im Browser. |
 | EC-09 | Nachträgliche Änderung (2 Uhr nachts) | Plan wird neu berechnet und asynchron an alle synchronisiert. |
 | EC-10 | Mehrere Admins | Beide ändern gleichzeitig die Badzeit eines Kindes -> Last-Write-Wins oder Konfliktmeldung. |
 

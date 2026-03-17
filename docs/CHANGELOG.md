@@ -5,40 +5,30 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
-## [1.1.4] - 2026-03-16
+## [1.1.5] - 2026-03-17
 
 ### Neu
+- **Feedback-Screen:** Dedizierter Feedback-Screen mit Kategorie-Auswahl, Nachricht, optionaler E-Mail und automatisch mitgesendeten Gerätedaten (Modell, App-Version).
+- **Firebase Feedback-Versand:** Feedback wird direkt über eine Firebase Cloud Function (Resend) als E-Mail versendet – kein klassischer Mail-Client-Intent mehr. Zusätzlich wird jede Einsendung in Firestore archiviert.
+- **Feedback UX:** Formular wird nach dem Absenden geleert; Screen schließt sich automatisch nach 2,5 Sekunden.
+- **Settings-Footer:** Versionsnummer, klickbare Rechtlinks (Nutzungsbedingungen, Datenschutz, Impressum) und Copyright jetzt als Footer sichtbar.
+- **Account löschen:** Externer Link zu `familienwecker.de/account-deletion.html` (DE) bzw. `/account-deletion-en.html` (EN) statt Info-Dialog.
+- **Einstellungen restrukturiert:** Sprache und Erscheinungsbild in einer gemeinsamen Karte zusammengefasst; Hilfe & Feedback in eigener Karte.
 - Nutzungsbedingungen (Terms of Use) direkt in den Einstellungen verlinkt.
 - Disclaimer im Registrierungs-Screen mit klickbaren Links zu Nutzungsbedingungen und Datenschutz.
 
----
-
-## [1.1.3] - 2026-03-16
-
 ### Behoben
-- Algorithmus: Frühstücks-Konflikt wird jetzt auch erkannt wenn Bad-Ende = Frühstücksbeginn (0 Min Puffer)
-- Algorithmus: Post-Validierung stellt sicher dass kein Frühstücker sein Bad nach Frühstücksbeginn beendet
-- Offline-Anzeige: Falsches "Offline"-Icon nach App-Start behoben (nur noch bei echtem Netzwerkausfall)
-- Cloud Functions: Rate-Limit-Zähler wurde beim ersten Aufruf nicht korrekt gespeichert (tx.update → tx.set)
-- Cloud Functions: Join-Versuchslimit von 5 auf 10 pro Minute erhöht (zu niedrig für Join/Leave-Tests)
-- CI: AAB-Dateiname in manuellen GitHub-Builds war fehlerhaft (enthielt "main" statt Versionsnummer)
-
----
-
-## [1.1.2] - 2026-03-16
-
-### Behoben
-- Beim Verlassen der Familie wird das eigene Mitglieds-Profil nun vollständig aus Firestore gelöscht. Ein erneuter Beitritt erfordert das Anlegen und Claimen eines neuen Profils.
-
----
-
-## [1.1.1] - 2026-03-16
-
-### Behoben
-- E-Mail-Versand (Passwort-Reset, Opt-In-Bestätigung) war nicht möglich: Rate-Limit-Dokument wurde bei der ersten Anfrage nicht korrekt angelegt.
-- Fehlermeldung beim Passwort-Reset: Fehlercode wurde als Zahl ausgewertet, `includes()` schlug fehl.
-- „Familie verlassen" trennte irrtümlich auch andere Geräte (Self-Healing ohne Existenzprüfung).
+- Algorithmus: Frühstücks-Konflikt wird jetzt auch erkannt wenn Bad-Ende = Frühstücksbeginn (0 Min Puffer).
+- Algorithmus: Post-Validierung stellt sicher dass kein Frühstücker sein Bad nach Frühstücksbeginn beendet.
+- Offline-Anzeige: Falsches „Offline\"-Icon nach App-Start behoben (nur noch bei echtem Netzwerkausfall).
+- Cloud Functions: Rate-Limit-Zähler wurde beim ersten Aufruf nicht korrekt gespeichert (tx.update → tx.set).
+- Cloud Functions: Join-Versuchslimit von 5 auf 10 pro Minute erhöht.
+- CI: AAB-Dateiname in manuellen GitHub-Builds war fehlerhaft.
+- Beim Verlassen der Familie wird das eigene Mitglieds-Profil nun vollständig aus Firestore gelöscht.
+- E-Mail-Versand (Passwort-Reset, Opt-In-Bestätigung) war bei erster Anfrage durch fehlerhaftes Rate-Limit-Dokument blockiert.
+- „Familie verlassen\" trennte irrtümlich auch andere Geräte (Self-Healing ohne Existenzprüfung).
 - Beim Verlassen der Familie blieb der eigene Account-Claim im Firestore-Profil bestehen (Ghost-Claim).
+- String-Audit: Veraltete und unbenutzte Strings (Help-Section, `ok_button`, etc.) entfernt; beide Sprachen vollständig synchronisiert.
 
 ---
 

@@ -5,40 +5,30 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
-## [1.1.4] - 2026-03-16
+## [1.1.5] - 2026-03-17
 
 ### Added
+- **Feedback Screen:** Dedicated feedback screen with category selection, message, optional email, and automatically included device info (model, app version).
+- **Firebase Feedback Sending:** Feedback is sent via a Firebase Cloud Function (Resend) as an email — no system mail intent anymore. Each submission is also archived in Firestore.
+- **Feedback UX:** Form is cleared after submission; screen closes automatically after 2.5 seconds.
+- **Settings Footer:** Version, clickable legal links (Terms of Use, Privacy Policy, Imprint) and copyright are now visible as a footer.
+- **Delete Account:** External link to `familienwecker.de/account-deletion-en.html` (EN) instead of info dialog.
+- **Settings Restructured:** Language and Appearance merged into a single card; Help & Feedback in its own card.
 - Terms of Use linked directly in Settings.
 - Disclaimer in the registration screen with clickable links to Terms of Use and Privacy Policy.
 
----
-
-## [1.1.3] - 2026-03-16
-
 ### Fixed
-- Scheduler: Breakfast conflict now detected when bath end equals breakfast start (0 min buffer)
-- Scheduler: Post-validation ensures no breakfast eater finishes their bath after breakfast begins
-- Offline indicator: False 'offline' display on app start resolved (only shows on real network loss)
-- Cloud Functions: Rate-limit counter was not saved correctly on first request (tx.update → tx.set)
-- Cloud Functions: Join attempt limit increased from 5 to 10 per minute (was too low for join/leave cycles)
-- CI: AAB filename in manual GitHub builds was incorrect (contained 'main' instead of version number)
-
----
-
-## [1.1.2] - 2026-03-16
-
-### Fixed
-- When leaving a family, the own member profile is now completely deleted from Firestore. Rejoining requires creating and claiming a new profile.
-
----
-
-## [1.1.1] - 2026-03-16
-
-### Fixed
+- Scheduler: Breakfast conflict now detected when bath end equals breakfast start (0 min buffer).
+- Scheduler: Post-validation ensures no breakfast eater finishes their bath after breakfast begins.
+- Offline indicator: False 'offline' display on app start resolved (only shows on real network loss).
+- Cloud Functions: Rate-limit counter was not saved correctly on first request (tx.update → tx.set).
+- Cloud Functions: Join attempt limit increased from 5 to 10 per minute.
+- CI: AAB filename in manual GitHub builds was incorrect.
+- When leaving a family, the own member profile is now completely deleted from Firestore.
 - Email sending (password reset, opt-in verification) was broken: rate-limit document was not created correctly on the first request.
-- Password reset error: error code was evaluated as a number, causing `includes()` to fail.
 - "Leave family" incorrectly terminated sessions on other devices (self-healing triggered without existence check).
 - Leaving the family left the user's account claim in the Firestore member profile (ghost-claim).
+- String audit: Removed obsolete unused strings (Help section, `ok_button`, etc.); both languages fully synchronized.
 
 ---
 
