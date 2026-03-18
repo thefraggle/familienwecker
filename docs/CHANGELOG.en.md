@@ -5,6 +5,28 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.3.2] - 2026-03-18
+
+### Added
+- **All weekdays can be deactivated:** A member can now disable all weekdays (no alarm) without the save button being blocked.
+- **Next active day in member tile:** When not all days are active, the member tile shows the next active day (e.g. "Friday") and its day-specific wake times.
+- **Alarm date in schedule card:** When the next alarm is not today, the schedule card shows a subtitle with weekday and date (e.g. "Thursday, 19 March").
+- **Periodic refresh:** `recalculateSchedule` is called automatically every 5 minutes – schedule display no longer freezes when no Firestore update arrives.
+
+### Fixed
+- **Alarm not ringing (root cause):** `AlarmClockInfo` received a `getBroadcast` PendingIntent as the show intent instead of `getActivity`. On some Android versions this prevented `AlarmReceiver` from ever being called.
+- **`FLAG_UPDATE_CURRENT` + `FLAG_IMMUTABLE` conflict:** Replaced with `FLAG_CANCEL_CURRENT` for clean PendingIntent recreation.
+- **Race condition – Firebase sync after alarm time:** A Firestore update shortly after the wake time could trigger `recalculateSchedule` → `cancelWakeUp`. Fix: 5-minute grace period in `applyAlarms`.
+- **Silent cancel in `recalculateSchedule`:** All alarms were silently cancelled when `now > todayProfile.latestWakeUp`. Fix: grace period also in "all paused" branch + W-level logs for all cancel paths.
+- **Stale schedule after inactive next day:** UI kept showing old schedule when `applyAlarms` cancelled due to an inactive day. Fix: `_schedule` is now set to `NoActiveSchedule`.
+- **Race condition – second ViewModel instance:** `RingingActivity` created a second `FamilyViewModel` that overwrote the running alarm. Fix: direct use of `PreferencesRepository` + `AlarmScheduler`.
+- **`RingingActivity` not reliably launched:** `AlarmReceiver` now starts `RingingActivity` directly via `context.startActivity()` (in addition to the full-screen intent).
+- **Member tile shows wrong alarm status:** "Alarm active" shown despite all days inactive. Fix: `allDaysInactive` check in the tile.
+- **Wake time details visible when profile inactive:** Now hidden when all days are inactive.
+- **Snooze slot conflict:** Snooze and regular alarms now use separate request codes (`_snooze` suffix).
+
+---
+
 ## [1.3.1] - 2026-03-17
 
 ### Changed

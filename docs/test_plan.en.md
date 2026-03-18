@@ -78,6 +78,13 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-61 | **Validation – leave home time (default)** | Set `latestWakeUp` to 21:00 without touching leave time (default 08:00) → error text appears immediately. |
 | TC-62 | **Next alarm – today disabled** | Disable today's weekday, enable tomorrow's → main screen shows tomorrow's alarm (not "no active alarm"). |
 | TC-63 | **Next alarm – today & tomorrow disabled** | Disable both today's and tomorrow's weekday → main screen shows "no active alarm". |
+| TC-64 | **Alarm rings reliably (background)** | Send app to background → wait for alarm time → alarm rings and `RingingActivity` opens. |
+| TC-65 | **Alarm after Firebase sync** | Set alarm → change member data shortly after the wake time → alarm was still triggered correctly (grace period protects it). |
+| TC-66 | **All weekdays inactive** | Disable all days → member tile shows "no alarm" with no wake time details; schedule shows NoActiveSchedule. |
+| TC-67 | **Next active day (day after tomorrow)** | Only Friday active, today is Wednesday → member tile shows "Friday" + Friday times; schedule card shows date "Friday, XX March". |
+| TC-68 | **Snooze + regular alarm no conflict** | Press snooze → snooze rings → stop alarm → no regular alarm overwrites the running snooze. |
+| TC-69 | **Periodic refresh** | App open, no changes → after max. 5 minutes the schedule is automatically recalculated (Logcat: `applyAlarms: alarm SET` or `day X is inactive`). |
+| TC-70 | **Stale schedule disappears** | Alarm rings and is stopped → after max. 5 minutes the main screen no longer shows the old schedule but the correct state (next day / NoActiveSchedule). |
 
 ### 3. Scheduling Logic (Algorithmic Tests)
 | ID | Test Case | Expected Result |

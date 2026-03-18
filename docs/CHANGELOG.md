@@ -5,6 +5,28 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.3.2] - 2026-03-18
+
+### Neu
+- **Alle Wochentage deaktivierbar:** Ein Mitglied kann nun alle Wochentage deaktivieren (kein Wecker aktiv) ohne Sperrung des Speichern-Buttons.
+- **Nächster aktiver Tag in Member-Kachel:** Wenn nicht alle Tage aktiv sind, zeigt die Mitglieds-Kachel den nächsten aktiven Tag (z.B. „Freitag") und dessen tagespezifische Weckzeiten.
+- **Alarm-Datum im Zeitplan:** Liegt der nächste Alarm nicht heute, erscheint in der Zeitplan-Karte ein Subtitle mit Wochentag und Datum (z.B. „Donnerstag, 19. März").
+- **Periodischer Refresh:** `recalculateSchedule` wird alle 5 Minuten automatisch aufgerufen – kein Einfrieren der Zeitplan-Anzeige mehr wenn kein Firestore-Update kommt.
+
+### Behoben
+- **Wecker klingelt nicht (Hauptfehler):** `AlarmClockInfo` erhielt eine `getBroadcast`-PendingIntent als Show-Intent statt der korrekten `getActivity`-Intent. Auf manchen Android-Versionen verhinderte das, dass der `AlarmReceiver` aufgerufen wurde.
+- **`FLAG_UPDATE_CURRENT` + `FLAG_IMMUTABLE` Konflikt:** Ersetzt durch `FLAG_CANCEL_CURRENT` für sauberes Neuerstellen des PendingIntents.
+- **Race Condition – Firebase-Sync nach Alarmzeit:** Firestore-Update kurz nach der Weckzeit konnte `recalculateSchedule` → `cancelWakeUp` triggern. Fix: 5-Min-Grace-Period in `applyAlarms`.
+- **Stilles Cancel in `recalculateSchedule`:** Alle Alarme wurden ohne Log gecancelt wenn `now > todayProfile.latestWakeUp`. Fix: Grace-Period auch im „alle pausiert"-Branch + W-Level-Logs.
+- **Veralteter Zeitplan nach inaktivem Folgetag:** UI zeigte alten Zeitplan wenn `applyAlarms` wegen inaktivem Tag cancelte. Fix: `_schedule` wird auf `NoActiveSchedule` gesetzt.
+- **Race Condition – zweite ViewModel-Instanz:** `RingingActivity` erzeugte zweiten `FamilyViewModel` → überschrieb laufenden Alarm. Fix: direkte Nutzung von `PreferencesRepository` + `AlarmScheduler`.
+- **`RingingActivity` nicht zuverlässig gestartet:** `AlarmReceiver` startet `RingingActivity` jetzt direkt via `context.startActivity()` (zusätzlich zum Full-Screen-Intent).
+- **Member-Kachel zeigt falschen Alarm-Status:** „Alarm active" trotz aller inaktiver Tage. Fix: `allDaysInactive`-Check in der Kachel.
+- **Weckzeiten bei inaktivem Profil sichtbar:** Werden jetzt ausgeblendet wenn alle Tage inaktiv sind.
+- **Snooze-Slot-Konflikt:** Snooze- und reguläre Alarme nutzen eigene Request-Codes (`_snooze`-Suffix).
+
+---
+
 ## [1.3.1] - 2026-03-17
 
 ### Geändert
