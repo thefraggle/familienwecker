@@ -65,9 +65,9 @@ fun FamilySetupScreen(
         }
     )
 
-    Scaffold(
-        containerColor = Color.Transparent,
-        topBar = {
+    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(
                 title = {
                     Text(
@@ -86,13 +86,10 @@ fun FamilySetupScreen(
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
-        }
-    ) { padding ->
-        Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding)
                     .padding(24.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally

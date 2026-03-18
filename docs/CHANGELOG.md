@@ -5,6 +5,12 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.3.5] - 2026-03-18
+
+### Behoben
+- **Context Menu & Password Manager:** Blockiertes Kontextmenü (Copy/Paste) in Login- und Familien-Setup-Screens repariert durch Optimierung der UI-Hierarchie (Entfernung verschachtelter Scaffolds).
+- **Autofill-Support:** Felder für E-Mail und Passwort im Login wurden mit Autofill-Hints versehen, um die Erkennung durch Passwort-Manager (Z.B. Bitwarden, Google) zu verbessern.
+
 ## [1.3.4] - 2026-03-18
 
 ### Neu
