@@ -77,6 +77,13 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-61 | **Validierung – Abfahrtszeit (Default)** | `latestWakeUp` auf 21:00 setzen, Abfahrtszeit nicht anfassen (Default 08:00) → Fehlertext erscheint sofort. |
 | TC-62 | **Next-Alarm – heutiger Tag deaktiviert** | Heutigen Wochentag deaktivieren, morgigen aktivieren → Hauptscreen zeigt den Wecker für morgen (nicht „kein aktiver Wecker"). |
 | TC-63 | **Next-Alarm – kein aktiver Tag heute/morgen** | Heutigen und morgigen Wochentag deaktivieren → Hauptscreen zeigt „kein aktiver Wecker". |
+| TC-64 | **Alarm klingelt zuverlässig (Hintergrund)** | App in den Hintergrund → Alarm-Zeit abwarten → Wecker klingelt und `RingingActivity` öffnet sich. |
+| TC-65 | **Alarm nach Firebase-Sync** | Alarm setzen → kurz nach der Weckzeit Mitglied-Daten ändern → Alarm wurde dennoch korrekt ausgelöst (Grace-Period schützt). |
+| TC-66 | **Alle Wochentage inaktiv** | Alle Tage deaktivieren → Member-Kachel zeigt „no alarm", keine Weckzeit-Details; Zeitplan zeigt NoActiveSchedule. |
+| TC-67 | **Nächster aktiver Tag (übermorgen)** | Nur Freitag aktiv, heute ist Mittwoch → Member-Kachel zeigt „Freitag" + Freitag-Zeiten; Zeitplan-Karte zeigt Datum „Freitag, XX. März". |
+| TC-68 | **Snooze + regulärer Alarm kein Konflikt** | Snooze drücken → Snooze klingelt → Wecker beenden → kein regulärer Alarm überschreibt den laufenden Snooze. |
+| TC-69 | **Periodischer Refresh** | App offen, keine Änderungen → nach max. 5 Minuten wird der Zeitplan automatisch neu berechnet (Logcat: `applyAlarms: alarm SET` oder `day X is inactive`). |
+| TC-70 | **Veralteter Zeitplan verschwindet** | Alarm klingelt und wird gestoppt → nach max. 5 Minuten zeigt der Hauptscreen keinen alten Zeitplan mehr, sondern den korrekten Stand (nächster Tag / NoActiveSchedule). |
 
 ### 3. Planungs-Logik (Algorithmische Tests)
 | ID | Testfall | Erwartetes Ergebnis |
