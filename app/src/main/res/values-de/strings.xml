@@ -150,6 +150,8 @@
     <string name="onboarding_skip">Überspringen</string>
     <string name="onboarding_next">Weiter</string>
     <string name="onboarding_done">Los geht\'s</string>
+    <string name="onboarding_slide0_title">Euer Morgen als Team.</string>
+    <string name="onboarding_slide0_body">Verabschiedet euch vom Chaos. FamWake plant euren Ablauf so fair und entspannt, dass jeder Zeit für das Wesentliche hat.</string>
     <string name="onboarding_slide1_title">Willkommen!</string>
     <string name="onboarding_slide1_body">Schluss mit dem Weck-Chaos. Wir koordinieren euren Morgen, damit jeder entspannt wach wird.</string>
     <string name="onboarding_slide2_title">Deine Familie</string>

@@ -47,6 +47,13 @@ fun OnboardingScreen(
     val isEnglish = language == "en"
 
     val slides = listOf(
+        // Slide 0 – emotionale Einstiegs-Slide
+        OnboardingSlide(
+            titleRes   = R.string.onboarding_slide0_title,
+            bodyRes    = R.string.onboarding_slide0_body,
+            gradient   = listOf(Color(0xFFBF360C), Color(0xFFE64A19)),  // warmes Sonnenaufgang-Orange
+            imageRes   = R.drawable.onboarding_slide0     // gleiche Illustration für DE & EN
+        ),
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide1_title,
             bodyRes    = R.string.onboarding_slide1_body,
