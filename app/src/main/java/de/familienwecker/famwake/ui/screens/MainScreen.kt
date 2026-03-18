@@ -901,10 +901,13 @@ fun MemberCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
+                val allDaysInactive = member.dayProfiles?.values?.none { it.isActive } == true
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
+
                     Text(
                         text = member.name,
                         style = MaterialTheme.typography.titleMedium,
@@ -916,8 +919,6 @@ fun MemberCard(
                     
                     if (member.claimedByUserId != null) {
                         Spacer(modifier = Modifier.width(6.dp))
-                        
-                        val allDaysInactive = member.dayProfiles?.values?.none { it.isActive } == true
 
                         val statusText = when {
                             member.id == myMemberId -> when {
