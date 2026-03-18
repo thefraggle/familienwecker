@@ -372,13 +372,13 @@ fun MainScreen(
                                             interactionSource = awakeInteractionSource,
                                             colors = ButtonDefaults.buttonColors(
                                                 containerColor = if (myMember.isAwakeToday) 
-                                                    MaterialTheme.colorScheme.primary 
+                                                    MaterialTheme.colorScheme.secondary // Greenish/Mint
                                                 else 
-                                                    MaterialTheme.colorScheme.surfaceVariant,
+                                                    MaterialTheme.colorScheme.primary, // Blueish/NightBlue
                                                 contentColor = if (myMember.isAwakeToday)
-                                                    MaterialTheme.colorScheme.onPrimary
+                                                    MaterialTheme.colorScheme.onSecondary
                                                 else
-                                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                                    MaterialTheme.colorScheme.onPrimary
                                             )
                                         ) {
                                             Icon(
@@ -388,7 +388,7 @@ fun MainScreen(
                                             )
                                             Spacer(modifier = Modifier.width(12.dp))
                                             Text(
-                                                text = stringResource(R.string.awake_today_desc),
+                                                text = if (myMember.isAwakeToday) stringResource(R.string.awake_active_desc) else stringResource(R.string.awake_today_desc),
                                                 style = MaterialTheme.typography.titleMedium
                                             )
                                         }
