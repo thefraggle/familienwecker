@@ -624,8 +624,19 @@ class FamilyViewModel(
             return
         }
 
-        val updatedMember = member.copy(isAwakeToday = !member.isAwakeToday)
+        val newAwakeState = !member.isAwakeToday
+        val updatedMember = member.copy(isAwakeToday = newAwakeState)
         addOrUpdateMember(updatedMember)
+
+        if (newAwakeState) {
+            // Wecker sofort aus dem System entfernen – nicht auf applyAlarms() warten.
+            // Der globale Switch bleibt dabei unverändert.
+            cancelAlarmForCurrentUser()
+            lastScheduledAlarmMillis = null
+        } else {
+            // Wieder aktiviert → nächsten Alarm neu berechnen und planen
+            recalculateSchedule()
+        }
     }
 
     fun snooze(memberId: String, memberName: String) {
