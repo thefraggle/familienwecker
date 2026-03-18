@@ -153,8 +153,8 @@
     <string name="onboarding_done">Get Started</string>
     <string name="onboarding_slide0_title">Your morning as a team.</string>
     <string name="onboarding_slide0_body">Say goodbye to the chaos. FamWake plans your family’s morning so fairly and calmly that everyone has time for what matters.</string>
-    <string name="onboarding_slide1_title">Welcome!</string>
-    <string name="onboarding_slide1_body">No more morning chaos. We coordinate your family’s schedule so everyone wakes up relaxed and on time.</string>
+    <string name="onboarding_slide1_title">Everything at a Glance</string>
+    <string name="onboarding_slide1_body">Avoid morning bottlenecks. FamWake shows every family member in real time when it’s their turn.</string>
     <string name="onboarding_slide2_title">Your Family</string>
     <string name="onboarding_slide2_body">Your team on board. Connect your family with one tap and plan your mornings together.</string>
     <string name="onboarding_slide3_title">Your Schedule</string>

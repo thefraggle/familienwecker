@@ -59,6 +59,9 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-54 | **Alarm logout isolation** | User A has alarm ON → logout → `deviceAlarmEnabled` of member stays unchanged in Firestore (no false-write). |
 | TC-55 | **Rate app button** | Tap „⭐ Rate App“ → In-app review dialog opens (or fallback to Play Store if unavailable). No crash. |
 | TC-56 | **Daily rate limit** | After reaching the hourly limit, wait for the hour to pass and try again: the daily limit (2× hourly) kicks in after the second hour and blocks further attempts for 24h. |
+| TC-71 | **Onboarding – first launch** | After fresh install/login: onboarding slides appear (5 screens with pager). Slide 0 shows the animated panda. |
+| TC-72 | **Onboarding – app tour** | Settings → "Show app tour" → onboarding slides open completely. |
+| TC-73 | **Paste in login screen** | Long-press on email or password field → native context menu with "Paste" appears. Password manager overlay works. |
 
 
 ### 2. Family Configuration

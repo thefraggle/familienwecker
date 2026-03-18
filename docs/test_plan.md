@@ -57,6 +57,9 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-54 | **Alarm-Logout-Isolation** | User A hat Alarm AN → Logout → `deviceAlarmEnabled` des Members bleibt in Firestore unverändert (kein false-Write). |
 | TC-55 | **App bewerten Button** | Klick auf „⭐ App bewerten“ → In-App-Review-Dialog öffnet sich (oder Fallback auf Play Store, wenn nicht verfügbar). Kein Absturz. |
 | TC-56 | **Tageslimit Rate-Limiting** | Nach Erreichen des stündlichen Limits, nach Ablauf der Stunde erneut versuchen: Tageslimit (2× stündliches Limit) greift nach der zweiten Stunde und blockiert weitere Versuche bis 24h abgelaufen. |
+| TC-71 | **Onboarding – Erststart** | Nach Erstinstall/Login: Onboarding-Slides erscheinen (5 Screens mit Pager). Slide 0 zeigt animierten Panda. |
+| TC-72 | **Onboarding – App-Tour** | Einstellungen → „App-Tour anzeigen" → Onboarding-Slides öffnen sich vollständig. |
+| TC-73 | **Paste im Login-Screen** | Long-Press auf E-Mail- oder Passwort-Feld → natives Kontextmenü mit „Einfügen" erscheint. Passwort-Manager-Overlay funktioniert. |
 
 
 ### 2. Familien-Konfiguration

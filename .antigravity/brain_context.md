@@ -79,3 +79,4 @@
 - `FirebaseFunctionsException` muss VOR `Exception` gecatcht werden (ist eine Unterklasse)
 - `isFromCache`: allein kein zuverlässiger Offline-Indikator, immer mit NetworkUtils.isOnline() kombinieren
 - FeedbackScreen: FirebaseFunctions.getInstance("europe-west3") explizit angeben (Region!)
+- **Anti-Pattern:** `SelectionContainer` NIEMALS um editierbare `TextField`/`OutlinedTextField` legen → blockiert Long-Press-Paste-Menü. `SelectionContainer` ist nur für read-only Text.

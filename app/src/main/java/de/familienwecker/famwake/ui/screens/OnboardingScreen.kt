@@ -26,6 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import de.familienwecker.famwake.R
 import kotlinx.coroutines.launch
 
@@ -33,8 +37,9 @@ private data class OnboardingSlide(
     val titleRes: Int,
     val bodyRes: Int,
     val gradient: List<Color>,
-    @DrawableRes val imageRes: Int,                    // DE image
-    @DrawableRes val imageResEn: Int = imageRes        // EN image (falls abweichend)
+    @DrawableRes val imageRes: Int = 0,                // DE image (0 wenn lottieRes gesetzt)
+    @DrawableRes val imageResEn: Int = imageRes,       // EN image (falls abweichend)
+    val lottieRes: Int? = null                         // Lottie-Animation (ersetzt imageRes)
 )
 
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
@@ -47,12 +52,12 @@ fun OnboardingScreen(
     val isEnglish = language == "en"
 
     val slides = listOf(
-        // Slide 0 – emotionale Einstiegs-Slide
+        // Slide 0 – emotionale Einstiegs-Slide mit Panda-Lottie
         OnboardingSlide(
-            titleRes   = R.string.onboarding_slide0_title,
-            bodyRes    = R.string.onboarding_slide0_body,
-            gradient   = listOf(Color(0xFFBF360C), Color(0xFFE64A19)),  // warmes Sonnenaufgang-Orange
-            imageRes   = R.drawable.onboarding_slide0     // gleiche Illustration für DE & EN
+            titleRes  = R.string.onboarding_slide0_title,
+            bodyRes   = R.string.onboarding_slide0_body,
+            gradient  = listOf(Color(0xFFBF360C), Color(0xFFE64A19)),  // warmes Sonnenaufgang-Orange
+            lottieRes = R.raw.panda
         ),
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide1_title,
@@ -109,21 +114,36 @@ fun OnboardingScreen(
                         .padding(horizontal = 28.dp)
                         .padding(top = 56.dp, bottom = 180.dp)
                 ) {
-                    // Floating screenshot card
-                    androidx.compose.foundation.Image(
-                        painter            = painterResource(imageRes),
-                        contentDescription = null,
-                        contentScale       = ContentScale.FillWidth,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .shadow(
-                                elevation       = 24.dp,
-                                shape           = RoundedCornerShape(20.dp),
-                                ambientColor    = Color.Black.copy(alpha = 0.6f),
-                                spotColor       = Color.Black.copy(alpha = 0.6f)
-                            )
-                            .clip(RoundedCornerShape(20.dp))
-                    )
+                    if (slide.lottieRes != null) {
+                        // Lottie-Animation (z. B. Panda auf Slide 0)
+                        val composition by rememberLottieComposition(
+                            LottieCompositionSpec.RawRes(slide.lottieRes)
+                        )
+                        LottieAnimation(
+                            composition = composition,
+                            iterations  = LottieConstants.IterateForever,
+                            speed       = 0.7f,
+                            modifier    = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(1f)
+                        )
+                    } else {
+                        // Floating screenshot card
+                        androidx.compose.foundation.Image(
+                            painter            = painterResource(imageRes),
+                            contentDescription = null,
+                            contentScale       = ContentScale.FillWidth,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .shadow(
+                                    elevation       = 24.dp,
+                                    shape           = RoundedCornerShape(20.dp),
+                                    ambientColor    = Color.Black.copy(alpha = 0.6f),
+                                    spotColor       = Color.Black.copy(alpha = 0.6f)
+                                )
+                                .clip(RoundedCornerShape(20.dp))
+                        )
+                    }
 
                     Spacer(modifier = Modifier.height(28.dp))
 

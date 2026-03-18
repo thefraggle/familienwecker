@@ -16,6 +16,7 @@ import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
@@ -30,7 +31,7 @@ import android.app.Activity
 import android.view.WindowManager
 import androidx.compose.ui.platform.LocalContext
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun FamilySetupScreen(
     viewModel: FamilyViewModel,
@@ -128,15 +129,13 @@ fun FamilySetupScreen(
                         Crossfade(targetState = isCreateMode, label = "SetupMode") { mode ->
                             if (mode) {
                                 Column(modifier = Modifier.fillMaxWidth()) {
-                                    androidx.compose.foundation.text.selection.SelectionContainer {
-                                        OutlinedTextField(
-                                            value = familyName,
-                                            onValueChange = { familyName = it },
-                                            label = { Text(stringResource(R.string.setup_family_name)) },
-                                            singleLine = true,
-                                            modifier = Modifier.fillMaxWidth()
-                                        )
-                                    }
+                                    OutlinedTextField(
+                                        value = familyName,
+                                        onValueChange = { familyName = it },
+                                        label = { Text(stringResource(R.string.setup_family_name)) },
+                                        singleLine = true,
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
                                     Spacer(modifier = Modifier.height(16.dp))
                                     
                                     val createInteractionSource = remember { MutableInteractionSource() }
@@ -162,25 +161,23 @@ fun FamilySetupScreen(
                                 }
                             } else {
                                 Column(modifier = Modifier.fillMaxWidth()) {
-                                    androidx.compose.foundation.text.selection.SelectionContainer {
-                                        OutlinedTextField(
-                                            value = joinCode,
-                                            onValueChange = { input ->
-                                                val sanitized = input.filter { it.isLetterOrDigit() }.uppercase()
-                                                if (sanitized.length <= 6) {
-                                                    joinCode = sanitized
-                                                }
-                                            },
-                                            label = { Text(stringResource(R.string.setup_join_code_label)) },
-                                            singleLine = true,
-                                            modifier = Modifier.fillMaxWidth(),
-                                            placeholder = { Text("ABC123") },
-                                            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                                                capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.Characters,
-                                                autoCorrectEnabled = false
-                                            )
+                                    OutlinedTextField(
+                                        value = joinCode,
+                                        onValueChange = { input ->
+                                            val sanitized = input.filter { it.isLetterOrDigit() }.uppercase()
+                                            if (sanitized.length <= 6) {
+                                                joinCode = sanitized
+                                            }
+                                        },
+                                        label = { Text(stringResource(R.string.setup_join_code_label)) },
+                                        singleLine = true,
+                                        modifier = Modifier.fillMaxWidth(),
+                                        placeholder = { Text("ABC123") },
+                                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                                            capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.Characters,
+                                            autoCorrectEnabled = false
                                         )
-                                    }
+                                    )
                                     Spacer(modifier = Modifier.height(16.dp))
                                     
                                     val joinInteractionSource = remember { MutableInteractionSource() }

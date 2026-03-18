@@ -2,6 +2,9 @@
 
 ## Nächste Schritte
 
+## Recently Completed (v1.3.3-dev)
+- [x] Onboarding-System: 4 Intro-Slides (HorizontalPager), Tooltips-State, Settings-Button "App-Tour"
+
 ## Recently Completed (v1.3.2)
 - [x] v1.3.2 Play Store Release (AAB)
 - [x] Versionsnummer auf 1.3.3-dev setzen
