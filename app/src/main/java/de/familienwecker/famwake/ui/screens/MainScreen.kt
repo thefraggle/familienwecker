@@ -525,6 +525,21 @@ fun MainScreen(
                                     text = if (isAlarmEnabled) "✅ " + stringResource(R.string.main_optimal_plan) else "⏸️ " + stringResource(R.string.main_plan_paused), 
                                     fontWeight = FontWeight.Bold
                                 )
+                                // Datum anzeigen wenn Alarm nicht heute ist
+                                val earliestAlarm = currentSchedule.memberSchedules.minByOrNull { it.wakeUpTime }?.wakeUpTime
+                                if (earliestAlarm != null && java.time.LocalTime.now().isAfter(earliestAlarm)) {
+                                    val tomorrow = java.time.LocalDate.now().plusDays(1)
+                                    val dayName = tomorrow.dayOfWeek
+                                        .getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.getDefault())
+                                        .replaceFirstChar { it.uppercase() }
+                                    val dateStr = tomorrow.format(java.time.format.DateTimeFormatter.ofPattern("d. MMMM", java.util.Locale.getDefault()))
+                                    Text(
+                                        text = "$dayName, $dateStr",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier.padding(top = 2.dp)
+                                    )
+                                }
                                 // Flexible Anpassungsmeldung aus ScheduleMessage anzeigen
                                 val msgText = viewModel.scheduleMessageToUiText(currentSchedule.scheduleMessage).asString()
                                 val isFlexibleAdjustment = currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.TimeAdjusted ||
