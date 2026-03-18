@@ -858,6 +858,22 @@ class FamilyViewModel(
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
                 android.util.Log.d("FamWake_Alarm", "applyAlarms: wakeUpTime=$wakeUpTime, now=${LocalTime.now()}, targetDate=$targetDate")
 
+                // RACE-CONDITION-GUARD (müss als ALLERERSTER Check laufen):
+                // Wenn targetDate == morgen, bedeutet das: die heutige Weckzeit ist gerade eben vorbei.
+                // In diesem Moment könnte AlarmManager noch dabei sein, den Alarm zu feuern.
+                // Jeder cancelWakeUp oder scheduleWakeUp-Aufruf mit demselben requestCode würde
+                // den startenden Alarm abwürgen. Deshalb: 5 Minuten Grace Period – in dieser Zeit
+                // wird NICHTS verändert (weder Cancel noch Reschedule).
+                if (targetDate == tomorrow) {
+                    val todayAlarmMillis = LocalDateTime.of(today, wakeUpTime)
+                        .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+                    val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
+                    if (millisSinceTodayAlarm in 0..300_000) { // 0..5 Minuten
+                        android.util.Log.d("FamWake_Alarm", "applyAlarms: GRACE PERIOD – today's alarm fired ${millisSinceTodayAlarm/1000}s ago, protecting AlarmManager slot")
+                        return
+                    }
+                }
+
                 val dayOfWeek = targetDate.dayOfWeek.value
                 val dayProfile = memberSchedule.member.dayProfiles?.get(dayOfWeek)
 
@@ -874,22 +890,6 @@ class FamilyViewModel(
                 if (newAlarmMillis == lastScheduledAlarmMillis) {
                     android.util.Log.d("FamWake_Alarm", "applyAlarms: time unchanged ($targetDateTime), skipping (cache hit)")
                     return
-                }
-
-                // RACE-CONDITION-GUARD:
-                // Wenn targetDate == morgen, bedeutet das: die heutige Weckzeit ist gerade eben vorbei.
-                // Genau in dieser Sekunde könnte AlarmManager noch dabei sein, den Alarm zu feuern.
-                // Wenn wir jetzt scheduleWakeUp aufrufen, wird der soeben gefeuerter (oder in der
-                // Warteschlange befindlicher) Alarm mit demselben requestCode ÜBERSCHRIEBEN → klingelt nie.
-                // Lösung: Wenn die heutige Weckzeit weniger als 5 Minuten her ist, abwarten.
-                if (targetDate == tomorrow) {
-                    val todayAlarmMillis = LocalDateTime.of(today, wakeUpTime)
-                        .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
-                    val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
-                    if (millisSinceTodayAlarm in 0..300_000) { // 0..5 min
-                        android.util.Log.d("FamWake_Alarm", "applyAlarms: today's alarm just passed (${millisSinceTodayAlarm/1000}s ago), skipping reschedule for tomorrow to avoid race")
-                        return
-                    }
                 }
 
                 if (memberSchedule.member.isAwakeToday && targetDate == today) {
