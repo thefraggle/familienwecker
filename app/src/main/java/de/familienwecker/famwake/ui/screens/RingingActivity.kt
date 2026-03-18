@@ -52,7 +52,8 @@ class RingingActivity : AppCompatActivity() {
         // WICHTIG: Wenn die Activity startet, canceln wir die Notification.
         // Das stoppt den dortigen Fallback-Sound und verhindert Dopplungen.
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(memberId.hashCode())
+        // Notification canceln – gleiche ID-Berechnung wie in AlarmReceiver.notify()
+        notificationManager.cancel(memberId.hashCode().and(0x7fffffff))
 
         showOnLockScreenAndTurnScreenOn()
         playRingtone()

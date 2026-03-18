@@ -80,7 +80,8 @@ class AlarmReceiver : BroadcastReceiver() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setFullScreenIntent(fullScreenPendingIntent, true)
-            .setSound(soundUri)
+            // Kein .setSound() hier: Ton wird ausschließlich von RingingActivity's
+            // MediaPlayer mit USAGE_ALARM gespielt. Doppelton vermeiden.
             .setVibrate(longArrayOf(0, 500, 500, 500))
             .setAutoCancel(true)
 
