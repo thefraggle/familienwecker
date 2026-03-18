@@ -1,9 +1,9 @@
 # FamWake Brain Context
 
 ## Current State
-- **Version:** 1.3.3-dev (next)
-- v1.3.2 (2026-03-18) — Live auf GitHub & Play Store (AAB)
-- **Firebase:** keine Änderungen in v1.3.2, kein Deploy nötig
+- **Version:** 1.3.4-dev (next)
+- v1.3.3 (2026-03-18) — Live auf GitHub & Tag gesetzt
+- **Firebase:** keine Änderungen in v1.3.3, kein Deploy nötig
 
 ## Architecture
 - Android (Kotlin/Compose), Firebase (Firestore + Functions), Cloud Functions (europe-west3)

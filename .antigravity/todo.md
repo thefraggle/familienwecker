@@ -2,8 +2,12 @@
 
 ## Nächste Schritte
 
-## Recently Completed (v1.3.3-dev)
-- [x] Onboarding-System: 4 Intro-Slides (HorizontalPager), Tooltips-State, Settings-Button "App-Tour"
+## Recently Completed (v1.3.3)
+- [x] Onboarding-Tour: 5 Intro-Slides (HorizontalPager), App-Tour Button in Settings
+- [x] Panda Lottie-Animation auf Onboarding Slide 0
+- [x] SelectionContainer-Fix: Long-Press/Paste in Login + FamilySetupScreen
+- [x] Changelogs (DE+EN) und Test-Pläne (DE+EN) aktualisiert
+- [x] GitHub Push + Tag v1.3.3
 
 ## Recently Completed (v1.3.2)
 - [x] v1.3.2 Play Store Release (AAB)
