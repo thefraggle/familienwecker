@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.*
 import de.familienwecker.famwake.ui.theme.FamilienweckerTheme
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
 
@@ -181,6 +182,10 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
         iterations = LottieConstants.IterateForever
     )
 
+    // Zufälligen Grußtext einmalig beim Start wählen (stabil über Recompositions)
+    val messages = stringArrayResource(R.array.ringing_messages)
+    val randomMessage = remember { messages.random() }
+
     // Gradient: Dunkellila oben → Warmes Pfirsich unten
     val gradientBrush = Brush.verticalGradient(
         colors = listOf(
@@ -226,7 +231,7 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
                     color = Color.White
                 )
                 Text(
-                    text = stringResource(R.string.ringing_message),
+                    text = randomMessage,
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
                     color = Color.White.copy(alpha = 0.85f),

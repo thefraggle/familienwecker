@@ -198,6 +198,19 @@
 
     <string name="ringing_wake_up">Aufwachen, %s!</string>
     <string name="ringing_message">Dank des perfekten Plans hast du heute genug Zeit im Bad.</string>
+    <string-array name="ringing_messages">
+        <item>Das Bad gehört jetzt ganz allein dir!</item>
+        <item>Kein Stau, kein Stress – dein Slot startet jetzt.</item>
+        <item>Genieß die Ruhe im Bad, solange sie anhält!</item>
+        <item>Zeit für den ersten Kaffee. Die Welt wartet!</item>
+        <item>Gut geschlafen? Dein Zeitplan für heute steht.</item>
+        <item>Bereit für den Tag? Wir haben alles koordiniert.</item>
+        <item>Zeit, den Tag zu rocken! Dein Slot beginnt.</item>
+        <item>Wach auf und gib Gas – die Bühne gehört dir!</item>
+        <item>Heavy Metal am Morgen vertreibt Kummer und Sorgen!</item>
+        <item>Dein Zeitplan ist live. Los geht\'s!</item>
+        <item>Startklar? Das Team zählt auf dich.</item>
+    </string-array>
     <string name="ringing_stop">Wecker stoppen</string>
     <string name="ringing_snooze">Snooze (5 Min)</string>
     <string name="pause_today_desc">Heute pausieren</string>
