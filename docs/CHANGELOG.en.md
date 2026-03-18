@@ -5,6 +5,21 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.3.4] - 2026-03-18
+
+### Added
+- **RingingScreen Redesign:** Gradient background (Purple to Peach), Lottie Panda animation, and randomized greetings (DE/EN).
+
+### Changed
+- **Admin Debug:** Shortened debug alarm lead time to 3 minutes.
+- **"Already Awake" Improvement:** Fixed button logic (immediate cancellation), conditional visibility (only when alarm enabled), and better visual feedback ("You're awake ✅").
+
+### Fixed
+- **Bug Fix:** Fixed double alarm sound issue caused by parallel notifications/activity.
+- **Reset Logic:** "Already Awake" status is automatically reset when the global alarm switch is turned off.
+
+---
+
 ## [1.3.3] - 2026-03-18
 
 ### Added
