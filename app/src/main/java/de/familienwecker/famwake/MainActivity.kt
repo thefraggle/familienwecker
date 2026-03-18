@@ -34,6 +34,7 @@ import de.familienwecker.famwake.ui.screens.FamilySetupScreen
 import de.familienwecker.famwake.ui.screens.LoadingScreen
 import de.familienwecker.famwake.ui.screens.LoginScreen
 import de.familienwecker.famwake.ui.screens.MainScreen
+import de.familienwecker.famwake.ui.screens.OnboardingScreen
 import de.familienwecker.famwake.ui.screens.SettingsScreen
 import de.familienwecker.famwake.ui.screens.FeedbackScreen
 import de.familienwecker.famwake.ui.theme.FamilienweckerTheme
@@ -158,6 +159,24 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                             popUpTo(Routes.LOADING) { inclusive = true }
                             launchSingleTop = true
                         }
+                    },
+                    onNavigateToOnboarding = {
+                        navController.navigate(Routes.ONBOARDING) {
+                            popUpTo(Routes.LOADING) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
+            composable(Routes.ONBOARDING) {
+                OnboardingScreen(
+                    onFinished = {
+                        familyViewModel.setOnboardingCompleted(true)
+                        val dest = if (familyViewModel.familyId.value != null) Routes.MAIN else Routes.SETUP
+                        navController.navigate(dest) {
+                            popUpTo(Routes.ONBOARDING) { inclusive = true }
+                            launchSingleTop = true
+                        }
                     }
                 )
             }
@@ -247,6 +266,12 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                         familyViewModel.leaveFamily()
                         navController.navigate(Routes.SETUP) {
                             popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    },
+                    onStartOnboarding = {
+                        familyViewModel.setOnboardingCompleted(false)
+                        navController.navigate(Routes.ONBOARDING) {
                             launchSingleTop = true
                         }
                     }

@@ -53,7 +53,8 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit,
     onNavigateToFeedback: () -> Unit,
     onLogout: () -> Unit,
-    onLeaveFamily: () -> Unit
+    onLeaveFamily: () -> Unit,
+    onStartOnboarding: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val members by viewModel.members.collectAsStateWithLifecycle()
@@ -714,6 +715,18 @@ fun SettingsScreen(
                         interactionSource = rateInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_rate_app))
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // App-Tour neu starten
+                    val onboardingInteractionSource = remember { MutableInteractionSource() }
+                    OutlinedButton(
+                        onClick = onStartOnboarding,
+                        modifier = Modifier.fillMaxWidth().bounceClick(onboardingInteractionSource),
+                        interactionSource = onboardingInteractionSource
+                    ) {
+                        Text(stringResource(R.string.settings_start_onboarding))
                     }
                 }
             }

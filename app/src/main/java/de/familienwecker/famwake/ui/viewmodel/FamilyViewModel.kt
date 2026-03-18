@@ -57,6 +57,11 @@ class FamilyViewModel(
     val language: StateFlow<String> = prefsRepo.language
     val themePreference: StateFlow<String> = prefsRepo.themePreference
     val isAlarmEnabled: StateFlow<Boolean> = prefsRepo.isAlarmEnabled
+    val onboardingCompleted: StateFlow<Boolean> = prefsRepo.onboardingCompleted
+    val tooltipsCompleted: StateFlow<Boolean> = prefsRepo.tooltipsCompleted
+
+    fun setOnboardingCompleted(completed: Boolean) = prefsRepo.setOnboardingCompleted(completed)
+    fun setTooltipsCompleted(completed: Boolean) = prefsRepo.setTooltipsCompleted(completed)
 
     private val _members = MutableStateFlow<PersistentList<FamilyMember>>(persistentListOf())
     val members: StateFlow<PersistentList<FamilyMember>> = _members.asStateFlow()
