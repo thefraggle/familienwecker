@@ -169,7 +169,9 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                 )
             }
             composable(Routes.ONBOARDING) {
+                val language by familyViewModel.language.collectAsStateWithLifecycle()
                 OnboardingScreen(
+                    language   = language,
                     onFinished = {
                         familyViewModel.setOnboardingCompleted(true)
                         val dest = if (familyViewModel.familyId.value != null) Routes.MAIN else Routes.SETUP
