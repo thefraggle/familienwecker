@@ -540,6 +540,18 @@ class FamilyViewModel(
     // automatisch über den isAlarmEnabled-Observer im init-Block.
     fun setAlarmEnabled(enabled: Boolean) {
         if (enabled && myMemberId.value == null) return
+
+        // Wenn der Wecker ausgeschaltet wird, den "Schon wach"-Status zurücksetzen.
+        // Das stellt sicher, dass der Wecker beim Wiedereinschalten normal klingelt.
+        if (!enabled) {
+            val memberId = myMemberId.value
+            val member = _members.value.find { it.id == memberId }
+            if (member != null && member.isAwakeToday) {
+                val updatedMember = member.copy(isAwakeToday = false)
+                addOrUpdateMember(updatedMember)
+            }
+        }
+
         prefsRepo.setAlarmEnabled(enabled)
     }
 
