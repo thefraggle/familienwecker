@@ -59,7 +59,13 @@ class RingingActivity : AppCompatActivity() {
 
                     RingingScreen(
                         memberName = memberName,
-                        onStopClicked = { stopRingtoneAndFinish() },
+                        onStopClicked = {
+                            // Snooze-Status löschen, damit der Banner auf MainScreen verschwindet
+                            prefsRepo.setSnoozeUntil(null)
+                            // Auch den Snooze-Alarm-Slot aus dem System entfernen
+                            de.familienwecker.famwake.alarm.AlarmScheduler(this).cancelWakeUp(memberId, isSnooze = true)
+                            stopRingtoneAndFinish()
+                        },
                         onSnoozeClicked = {
                             familyViewModel.snooze(memberId, memberName)
                             stopRingtoneAndFinish()
