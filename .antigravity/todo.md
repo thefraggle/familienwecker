@@ -2,21 +2,15 @@
 
 ## Nächste Schritte
 
-## Recently Completed (v1.3.4-dev)
+## Recently Completed (v1.3.4)
+- [x] RingingScreen Redesign: Lottie-Panda, Gradient & Randomized Greetings
+- [x] Admin-Debug: Wecker-Vorlauf auf 3 Minuten verkürzt
+- [x] Fehlerbehebung: Doppelter Alarm-Ton beseitigt
+- [x] Verbesserung „Ich bin wach": Button-Logik repariert (sofortige Stornierung), bedingte Sichtbarkeit
+- [x] „Ich bin wach" Visuals: Farbe/Text toggle („Du bist wach ✅“)
+- [x] Reset-Logik: Awake-Status wird bei globalem Switch-Off zurückgesetzt
 - [x] Tooltip-System: 5 kontextuelle Erstnutzer-Hinweise (Awake, Drag, Weckfenster, Baddauer, Einladungscode)
-- [x] Tooltip F (MainScreen): Wecker-Switch erklärt (commit 6cd127a)
-- [x] Tooltip G (AddMemberScreen): Wochentag-Chips erklärt (commit 6cd127a)
-- [x] TooltipBubble.kt: Reusable Composable mit Lila/Indigo-Design + AnimatedVisibility
-- [x] PreferencesRepository: Granulare Tooltip-Keys + tooltipsEnabled-Flag
-- [x] SettingsScreen: Tipps-Toggle + "Alle zurücksetzen"-Button
-- [x] Strings DE + EN vollständig ergänzt (commit e06e325)
-
-## Recently Completed (v1.3.3)
-- [x] Onboarding-Tour: 5 Intro-Slides (HorizontalPager), App-Tour Button in Settings
-- [x] Panda Lottie-Animation auf Onboarding Slide 0
-- [x] SelectionContainer-Fix: Long-Press/Paste in Login + FamilySetupScreen
-- [x] Changelogs (DE+EN) und Test-Pläne (DE+EN) aktualisiert
-- [x] GitHub Push + Tag v1.3.3
+- [x] GitHub Push + Tag v1.3.4 + Firebase Deploy Rules/Indexes
 
 ## Recently Completed (v1.3.2)
 - [x] v1.3.2 Play Store Release (AAB)

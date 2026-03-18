@@ -1,10 +1,12 @@
 # FamWake Brain Context
 
 ## Current State
-- **Version:** 1.3.4-dev (next)
-- v1.3.3 (2026-03-18) — Live auf GitHub & Tag gesetzt
-- **Firebase:** keine Änderungen in v1.3.3, kein Deploy nötig
-- **Tooltips:** Implementiert in v1.3.4-dev (commit e06e325). System basiert auf granularen PreferencesRepository-Keys; global an/abschaltbar über SettingsScreen-Toggle.
+- **Version:** 1.3.5-dev (next)
+- v1.3.4 (2026-03-18) — Live auf GitHub & Tag gesetzt
+- **RingingScreen:** Redesign mit Lottie-Panda, Gradient (Lila/Peachy) und randomisierten Begrüßungen.
+- **Alarm-Sound:** System-Sound in Notification entfernt, um Dopplung mit RingingActivity-MediaPlayer zu vermeiden.
+- **Awake-Button:** Logik fixiert (cancelt Systemwecker sofort), visuelles Feedback (Farbe/Text toggle), bedingte Sichtbarkeit.
+- **Tooltips:** 5 kontextuelle Erstnutzer-Hinweise (Awake, Drag, Weckfenster, Baddauer, Einladungscode). System basiert auf granularen PreferencesRepository-Keys; global an/abschaltbar über SettingsScreen-Toggle.
 
 ## Architecture
 - Android (Kotlin/Compose), Firebase (Firestore + Functions), Cloud Functions (europe-west3)
