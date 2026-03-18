@@ -21,15 +21,17 @@ fun LoadingScreen(
     familyViewModel: FamilyViewModel,
     onNavigateToLogin: () -> Unit,
     onNavigateToSetup: () -> Unit,
-    onNavigateToMain: () -> Unit
+    onNavigateToMain: () -> Unit,
+    onNavigateToOnboarding: () -> Unit
 ) {
     val context = LocalContext.current
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
     val isRestoring by authViewModel.isRestoringFamily.collectAsStateWithLifecycle()
     val familyId by familyViewModel.familyId.collectAsStateWithLifecycle()
     val pendingJoinCode by familyViewModel.pendingJoinCode.collectAsStateWithLifecycle()
+    val onboardingCompleted by familyViewModel.onboardingCompleted.collectAsStateWithLifecycle()
 
-    LaunchedEffect(authState, isRestoring, familyId, pendingJoinCode) {
+        LaunchedEffect(authState, isRestoring, familyId, pendingJoinCode, onboardingCompleted) {
         // Notfall-Timeout: Wenn nach 2 Sekunden immer noch geladen wird, aber wir eine familyId haben, gehen wir direkt rein.
         val timeoutJob = launch {
             delay(2000)
@@ -43,7 +45,9 @@ fun LoadingScreen(
         when (authState) {
             is AuthViewModel.AuthState.Authenticated -> {
                 timeoutJob.cancel()
-                if (familyId != null) {
+                if (!onboardingCompleted) {
+                    onNavigateToOnboarding()
+                } else if (familyId != null) {
                     onNavigateToMain()
                 } else if (pendingJoinCode != null) {
                     // Netzwerk-Check vor automatischem Beitritt

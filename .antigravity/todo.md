@@ -1,10 +1,10 @@
 # ToDo – FamWake
 
 ## Nächste Schritte
-- [ ] v1.3.2 Play Store Release vorbereiten (AAB bauen via workflow_dispatch)
-- [ ] Versionsnummer auf 1.3.3-dev setzen
 
 ## Recently Completed (v1.3.2)
+- [x] v1.3.2 Play Store Release (AAB)
+- [x] Versionsnummer auf 1.3.3-dev setzen
 - [x] Alarm klingelt nicht behoben (AlarmClockInfo Show-Intent-Typ)
 - [x] FLAG_CANCEL_CURRENT für AlarmManager PendingIntent
 - [x] Race Condition Grace-Period in applyAlarms + recalculateSchedule

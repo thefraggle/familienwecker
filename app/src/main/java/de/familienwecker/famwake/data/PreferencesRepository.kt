@@ -23,6 +23,8 @@ private const val KEY_LANGUAGE = "APP_LANGUAGE"
 private const val KEY_THEME = "APP_THEME"
 private const val KEY_ALARM_ENABLED = "ALARM_ENABLED"
 private const val KEY_SNOOZE_UNTIL = "SNOOZE_UNTIL"
+private const val KEY_ONBOARDING_COMPLETED = "ONBOARDING_COMPLETED"
+private const val KEY_TOOLTIPS_COMPLETED = "TOOLTIPS_COMPLETED"
 
 class PreferencesRepository(context: Context) {
     private val prefs: SharedPreferences = createEncryptedPrefs(context).also {
@@ -116,6 +118,12 @@ class PreferencesRepository(context: Context) {
     )
     val snoozeUntil: StateFlow<java.time.LocalDateTime?> = _snoozeUntil.asStateFlow()
 
+    private val _onboardingCompleted = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_ONBOARDING_COMPLETED, false))
+    val onboardingCompleted: StateFlow<Boolean> = _onboardingCompleted.asStateFlow()
+
+    private val _tooltipsCompleted = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_TOOLTIPS_COMPLETED, false))
+    val tooltipsCompleted: StateFlow<Boolean> = _tooltipsCompleted.asStateFlow()
+
 
     /**
      * Reagiert nur auf externe Schreiber (z.B. andere Prozesse).
@@ -164,6 +172,14 @@ class PreferencesRepository(context: Context) {
                     try { java.time.LocalDateTime.parse(it) } catch (e: Exception) { null }
                 }
                 if (v != _snoozeUntil.value) _snoozeUntil.value = v
+            }
+            KEY_ONBOARDING_COMPLETED -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _onboardingCompleted.value) _onboardingCompleted.value = v
+            }
+            KEY_TOOLTIPS_COMPLETED -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _tooltipsCompleted.value) _tooltipsCompleted.value = v
             }
         }
     }
@@ -225,6 +241,16 @@ class PreferencesRepository(context: Context) {
     fun setSnoozeUntil(time: java.time.LocalDateTime?) {
         _snoozeUntil.value = time
         prefs.edit { putString(KEY_SNOOZE_UNTIL, time?.toString()) }
+    }
+
+    fun setOnboardingCompleted(completed: Boolean) {
+        _onboardingCompleted.value = completed
+        prefs.edit { putBoolean(KEY_ONBOARDING_COMPLETED, completed) }
+    }
+
+    fun setTooltipsCompleted(completed: Boolean) {
+        _tooltipsCompleted.value = completed
+        prefs.edit { putBoolean(KEY_TOOLTIPS_COMPLETED, completed) }
     }
 
     fun clearAll() {

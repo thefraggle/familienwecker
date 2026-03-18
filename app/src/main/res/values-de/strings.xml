@@ -144,6 +144,20 @@
     <string name="settings_help_feedback_title">Hilfe &amp; Feedback</string>
     <string name="settings_support_button">E-Mail an Entwickler</string>
     <string name="settings_rate_app">⭐ App bewerten ⭐</string>
+    <string name="settings_start_onboarding">🎓 App-Tour</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Überspringen</string>
+    <string name="onboarding_next">Weiter</string>
+    <string name="onboarding_done">Los geht\'s</string>
+    <string name="onboarding_slide1_title">Willkommen!</string>
+    <string name="onboarding_slide1_body">FamWake ist dein smarter Familienwecker. Jeder wacht nach seinem eigenen Plan auf – automatisch koordiniert.</string>
+    <string name="onboarding_slide2_title">Deine Familie</string>
+    <string name="onboarding_slide2_body">Erstelle oder tritt einer Familiengruppe bei. Füge Familienmitglieder hinzu und lege individuelle Weckpläne fest.</string>
+    <string name="onboarding_slide3_title">Dein Zeitplan</string>
+    <string name="onboarding_slide3_body">Setze verschiedene Weckzeiten pro Wochentag. Aktiviere Badezimmerzeit, Frühstück und Abfahrtszeit für eine perfekte Morgenroutine.</string>
+    <string name="onboarding_slide4_title">Bereit!</string>
+    <string name="onboarding_slide4_body">Die App erledigt den Rest. Du kannst diese Tour jederzeit unter Einstellungen → Hilfe &amp; Feedback neu starten.</string>
     <string name="settings_feedback_button">Feedback geben / Fehler melden</string>
     <!-- Feedback Screen -->
     <string name="feedback_title">Feedback</string>
