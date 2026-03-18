@@ -1,8 +1,22 @@
 # ToDo – FamWake
 
 ## Nächste Schritte
-- [ ] Finaler Test der Paste-Funktion und des Snooze-Banners.
-- [ ] Release v1.3.2 vorbereiten (falls gewünscht).
+- [ ] v1.3.2 Play Store Release vorbereiten (AAB bauen via workflow_dispatch)
+- [ ] Versionsnummer auf 1.3.3-dev setzen
+
+## Recently Completed (v1.3.2)
+- [x] Alarm klingelt nicht behoben (AlarmClockInfo Show-Intent-Typ)
+- [x] FLAG_CANCEL_CURRENT für AlarmManager PendingIntent
+- [x] Race Condition Grace-Period in applyAlarms + recalculateSchedule
+- [x] Stilles Cancel-Logging hinzugefügt
+- [x] Zweite ViewModel-Instanz in RingingActivity entfernt
+- [x] Veralteter Zeitplan-Anzeige nach inaktivem Tag behoben
+- [x] Periodischer 5-Min-Refresh-Timer
+- [x] Alle Wochentage deaktivierbar
+- [x] Member-Kachel: nächster aktiver Tag + richtige Zeiten
+- [x] Zeitplan-Karte: Datum wenn Alarm nicht heute
+- [x] Member-Kachel: korrekte Alarm-Status-Anzeige + Hide bei allen inaktiv
+- [x] GitHub Push + Tag v1.3.2
 
 ## Backlog (Roadmap)
 - [x] UI-Fixes & Snooze-Banner (Daniel)

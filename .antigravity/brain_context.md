@@ -1,11 +1,11 @@
 # FamWake Brain Context
 
 ## Current State
-- **Version:** 1.3.2 released
-- **Listing:** Play Store Listing restored and optimized (DE/EN) in `docs/internal/play_store_listing.md`
+- **Version:** 1.3.3-dev (next)
+- **Last Released:** v1.3.2 (2026-03-18) — auf GitHub live, CI baut APK
 - **Repo:** public @ github.com/thefraggle/familienwecker
-- **Last Tag:** v1.3.1
-- **Active Tags:** v1.0.0, v1.1.0, v1.1.5, v1.2.0, v1.3.0, v1.3.1
+- **Active Tags:** v1.0.0, v1.1.0, v1.1.5, v1.2.0, v1.3.0, v1.3.1, v1.3.2
+- **Firebase:** keine Änderungen in v1.3.2, kein Deploy nötig
 
 ## Architecture
 - Android (Kotlin/Compose), Firebase (Firestore + Functions), Cloud Functions (europe-west3)
@@ -28,6 +28,9 @@
   - `FamilyViewModel.applyAlarms`: Grace-Period-Guard (5 Min) verhindert dass Firebase-Sync kurz nach der Weckzeit den Alarm überschreibt oder cancelt. `isAwakeToday`-Logik korrigiert (nur für heute, nicht morgen). Stille Cancel-Pfade in `recalculateSchedule` erhalten ebenfalls Grace-Period-Guard.
   - `RingingActivity`: Kein `FamilyViewModel` mehr – verwendet direkt `PreferencesRepository` und `AlarmScheduler`, um Race Conditions durch zwei konkurrierende ViewModel-Instanzen zu vermeiden. Snooze-Status wird beim Stop-Button korrekt gelöscht.
   - `AlarmReceiver`: Startet `RingingActivity` direkt via `context.startActivity()` (nicht nur über Notification-Full-Screen-Intent).
+- **UI-Verbesserungen:** Alle Wochentage deaktivierbar. Member-Kachel zeigt nächsten aktiven Tag + tagespezifische Zeiten. Zeitplan-Karte zeigt Datum wenn Alarm nicht heute ist. Periodischer 5-Min-Refresh in ViewModel.
+- **Anti-Pattern:** `FLAG_UPDATE_CURRENT + FLAG_IMMUTABLE` nie zusammen für AlarmManager-PendingIntents → `FLAG_CANCEL_CURRENT + FLAG_IMMUTABLE` verwenden.
+- **Anti-Pattern:** `getBroadcast`-Intent NIEMALS als Show-Intent in `AlarmClockInfo` verwenden → muss `getActivity`-Intent sein.
 
 ## v1.3.1 (2026-03-17)
 - **Chip-Layout:** `weight(1f)` → alle 7 Chips gleichmäßig, Sonntag sichtbar
