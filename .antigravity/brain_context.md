@@ -20,9 +20,14 @@
 - Version wird aus `build.gradle.kts` gelesen
 
 ## v1.3.2 (2026-03-18)
-- **Snooze-Banner:** Persistenz via `PreferencesRepository`. Sichtbarkeit im `MainScreen` auch nach App-Neustart oder Activity-Wechsel (`RingingActivity`). Design-Anpassung: 32.dp Ecken, Pastell-Grün-Thema (Light/Dark). Bugfix: Snooze-Alarm wird nicht mehr durch reguläre Neuplanung überschrieben (Race Condition).
-- **Chip-Layout:** Padding in `AddMemberScreen.kt` reduziert, um Text-Truncation bei 7 Chips zu vermeiden.
-- **Eingabefelder:** Paste-Support (Einfügen) für Email und Passwort sowie Join-Code durch `SelectionContainer` aktiviert.
+- **Snooze-Banner:** Persistenz via `PreferencesRepository`. Design: 32.dp Ecken, Pastell-Grün. Snooze-Alarm stoppt korrekt wenn Banner-X gedrückt wird.
+- **Chip-Layout:** Padding reduziert, kein Text-Truncation mehr.
+- **Eingabefelder:** Paste-Support via `SelectionContainer`.
+- **Alarm-System komplett überarbeitet (mehrere kritische Bugs):**
+  - `AlarmScheduler`: Getrennte Request-Codes für Snooze vs. reguläre Alarme (`_snooze`-Suffix). Korrekte `getActivity`-Show-Intent in `AlarmClockInfo` statt `getBroadcast`. `FLAG_CANCEL_CURRENT` statt `FLAG_UPDATE_CURRENT + FLAG_IMMUTABLE`.
+  - `FamilyViewModel.applyAlarms`: Grace-Period-Guard (5 Min) verhindert dass Firebase-Sync kurz nach der Weckzeit den Alarm überschreibt oder cancelt. `isAwakeToday`-Logik korrigiert (nur für heute, nicht morgen). Stille Cancel-Pfade in `recalculateSchedule` erhalten ebenfalls Grace-Period-Guard.
+  - `RingingActivity`: Kein `FamilyViewModel` mehr – verwendet direkt `PreferencesRepository` und `AlarmScheduler`, um Race Conditions durch zwei konkurrierende ViewModel-Instanzen zu vermeiden. Snooze-Status wird beim Stop-Button korrekt gelöscht.
+  - `AlarmReceiver`: Startet `RingingActivity` direkt via `context.startActivity()` (nicht nur über Notification-Full-Screen-Intent).
 
 ## v1.3.1 (2026-03-17)
 - **Chip-Layout:** `weight(1f)` → alle 7 Chips gleichmäßig, Sonntag sichtbar
