@@ -14,14 +14,26 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AlarmOff
+import androidx.compose.material.icons.filled.Snooze
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.*
 import de.familienwecker.famwake.ui.theme.FamilienweckerTheme
 import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
@@ -162,45 +174,137 @@ class RingingActivity : AppCompatActivity() {
 
 @Composable
 fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    // Lottie-Animation
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.wakeup))
+    val lottieProgress by animateLottieCompositionAsState(
+        composition = composition,
+        iterations = LottieConstants.IterateForever
+    )
+
+    // Gradient: Dunkellila oben → Warmes Pfirsich unten
+    val gradientBrush = Brush.verticalGradient(
+        colors = listOf(
+            Color(0xFF2D1B69), // Dunkellila
+            Color(0xFF6B3FA0), // Mittleres Violett
+            Color(0xFFFFB347)  // Warmes Pfirsich
+        )
+    )
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(brush = gradientBrush)
     ) {
-        Text(
-            text = stringResource(R.string.ringing_wake_up, memberName),
-            style = MaterialTheme.typography.headlineLarge,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(horizontal = 32.dp)
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            text = stringResource(R.string.ringing_message),
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(horizontal = 32.dp)
-        )
-        Spacer(modifier = Modifier.height(48.dp))
-        
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .navigationBarsPadding()
+                .padding(horizontal = 28.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = onSnoozeClicked,
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
-                modifier = Modifier.weight(1f).height(64.dp)
+            Spacer(modifier = Modifier.height(48.dp))
+
+            // Panda Lottie-Animation
+            LottieAnimation(
+                composition = composition,
+                progress = { lottieProgress },
+                modifier = Modifier
+                    .size(280.dp)
+            )
+
+            // Texte
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Text(stringResource(R.string.ringing_snooze), style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = stringResource(R.string.ringing_wake_up, memberName),
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+                Text(
+                    text = stringResource(R.string.ringing_message),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    color = Color.White.copy(alpha = 0.85f),
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
             }
-            
-            Button(
-                onClick = onStopClicked,
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-                modifier = Modifier.weight(1f).height(64.dp)
+
+            // Buttons mit Glassmorphism
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 40.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Text(stringResource(R.string.ringing_stop), style = MaterialTheme.typography.titleMedium)
+                // Snooze (transparent/gläsern)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .clip(RoundedCornerShape(30.dp))
+                        .background(Color.White.copy(alpha = 0.18f))
+                        .border(
+                            width = 1.dp,
+                            color = Color.White.copy(alpha = 0.30f),
+                            shape = RoundedCornerShape(30.dp)
+                        )
+                        .clickable(onClick = onSnoozeClicked),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Snooze,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.ringing_snooze),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.White
+                        )
+                    }
+                }
+
+                // Stop (solider weißer Hintergrund)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .clip(RoundedCornerShape(30.dp))
+                        .background(Color.White.copy(alpha = 0.92f))
+                        .clickable(onClick = onStopClicked),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.AlarmOff,
+                            contentDescription = null,
+                            tint = Color(0xFF2D1B69),
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.ringing_stop),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF2D1B69)
+                        )
+                    }
+                }
             }
         }
     }
