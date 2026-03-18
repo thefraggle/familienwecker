@@ -781,6 +781,33 @@ fun SettingsScreen(
                 }
             }
 
+            // Admin-Button (nur für daniel.notthoff@gmail.com sichtbar)
+            val adminEmail = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.email
+            if (adminEmail == "daniel.notthoff@gmail.com") {
+                Spacer(modifier = Modifier.height(16.dp))
+                val adminInteraction = remember { MutableInteractionSource() }
+                var adminConfirmed by remember { mutableStateOf(false) }
+                Button(
+                    onClick = {
+                        viewModel.setDebugAlarmIn5Minutes()
+                        adminConfirmed = true
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .bounceClick(adminInteraction),
+                    interactionSource = adminInteraction,
+                    colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    ),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+                ) {
+                    Icon(Icons.Default.Tune, contentDescription = null)
+                    Spacer(Modifier.width(8.dp))
+                    Text(if (adminConfirmed) "✓ Wecker in 5 Min gesetzt" else "Admin: Wecker in 5 Min")
+                }
+            }
+
             Spacer(modifier = Modifier.height(24.dp))
 
             Column(
