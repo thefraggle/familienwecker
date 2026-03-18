@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import de.familienwecker.famwake.MainActivity
 import java.time.LocalDateTime
 import java.time.ZoneId
 
@@ -45,15 +46,31 @@ class AlarmScheduler(private val context: Context) {
         // Snooze-Alarme erhalten einen eigenen Slot (Suffix)
         val idForHash = if (isSnooze) memberId + "_snooze" else memberId
         val requestCode = idForHash.hashCode().and(0x7fffffff)
+
+        // FLAG_CANCEL_CURRENT: PendingIntent immer neu erstellen (clean slate).
+        // Kombinieren von FLAG_UPDATE_CURRENT + FLAG_IMMUTABLE kann auf manchen Geräten
+        // dazu führen, dass AlarmManager den Receiver nie aufruft.
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,
             intent,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // AlarmClockInfo benötigt als Show-Intent eine getActivity-Intent (nicht getBroadcast).
+        // Fehler hier führen auf manchen Android-Versionen dazu, dass der Receiver nie aufgerufen wird.
+        val showIntent = PendingIntent.getActivity(
+            context,
+            requestCode + 1,
+            Intent(context, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            },
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val timeInMillis = wakeUpTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-        val alarmClockInfo = AlarmManager.AlarmClockInfo(timeInMillis, pendingIntent)
+        android.util.Log.i("FamWake_Alarm", "AlarmScheduler.scheduleWakeUp: setting alarm for $wakeUpTime (requestCode=$requestCode, isSnooze=$isSnooze)")
+        val alarmClockInfo = AlarmManager.AlarmClockInfo(timeInMillis, showIntent)
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
 
         // Backup in plain SharedPreferences – lesbar auch vor erstem Unlock nach Reboot
