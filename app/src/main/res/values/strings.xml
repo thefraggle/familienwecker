@@ -215,7 +215,8 @@
     <string name="ringing_stop">Stop Alarm</string>
     <string name="ringing_snooze">Snooze (5 Min)</string>
     <string name="pause_today_desc">Pause for today</string>
-    <string name="awake_today_desc">Already awake</string>
+    <string name="awake_today_desc">I am already awake</string>
+    <string name="awake_undo_desc">Still sleeping after all?</string>
 
     <string name="error_load_members">Error loading members: %1$s</string>
     <string name="error_create_family">Error creating family: %1$s</string>

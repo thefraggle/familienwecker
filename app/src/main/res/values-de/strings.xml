@@ -214,7 +214,8 @@
     <string name="ringing_stop">Wecker stoppen</string>
     <string name="ringing_snooze">Snooze (5 Min)</string>
     <string name="pause_today_desc">Heute pausieren</string>
-    <string name="awake_today_desc">Bereits wach</string>
+    <string name="awake_today_desc">Ich bin schon wach</string>
+    <string name="awake_undo_desc">Doch noch nicht wach?</string>
 
     <string name="error_load_members">Fehler beim Laden der Mitglieder: %1$s</string>
     <string name="error_create_family">Fehler beim Erstellen der Familie: %1$s</string>

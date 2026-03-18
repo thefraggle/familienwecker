@@ -620,9 +620,7 @@ class FamilyViewModel(
         val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
         val hoursUntil = java.time.Duration.between(LocalDateTime.now(), targetDateTime).toHours()
 
-        if (hoursUntil > 4 && !member.isAwakeToday) {
-            return
-        }
+        // 4-Stunden-Sperre entfernt, damit der Button jederzeit am Tag des Weckers funktioniert.
 
         val newAwakeState = !member.isAwakeToday
         val updatedMember = member.copy(isAwakeToday = newAwakeState)
