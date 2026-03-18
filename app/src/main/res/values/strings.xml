@@ -199,6 +199,19 @@
 
     <string name="ringing_wake_up">Wake up, %s!</string>
     <string name="ringing_message">Thanks to the perfect schedule, you have enough time in the bathroom today.</string>
+    <string-array name="ringing_messages">
+        <item>The bathroom is all yours right now!</item>
+        <item>No traffic, no stress – your slot starts now.</item>
+        <item>Enjoy the peace in the bathroom while it lasts!</item>
+        <item>Time for that first coffee. The world is waiting!</item>
+        <item>Sleep well? Your schedule for today is ready.</item>
+        <item>Ready for the day? Everything is coordinated.</item>
+        <item>Time to rock the day! Your slot begins.</item>
+        <item>Wake up and turn it up – the stage is yours!</item>
+        <item>Heavy Metal in the morning keeps the worries away!</item>
+        <item>Your schedule is live. Let\'s go!</item>
+        <item>Ready for takeoff? The team counts on you.</item>
+    </string-array>
     <string name="ringing_stop">Stop Alarm</string>
     <string name="ringing_snooze">Snooze (5 Min)</string>
     <string name="pause_today_desc">Pause for today</string>
