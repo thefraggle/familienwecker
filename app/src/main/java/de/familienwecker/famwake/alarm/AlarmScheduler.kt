@@ -25,6 +25,7 @@ class AlarmScheduler(private val context: Context) {
         memberId: String,
         memberName: String,
         soundUri: String? = null,
+        isSnooze: Boolean = false,
         onPermissionDenied: (() -> Unit)? = null
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -41,7 +42,9 @@ class AlarmScheduler(private val context: Context) {
         }
 
         // Bitmask verhindert Int.MIN_VALUE-Kollision bei hashCode()
-        val requestCode = memberId.hashCode().and(0x7fffffff)
+        // Snooze-Alarme erhalten einen eigenen Slot (Suffix)
+        val idForHash = if (isSnooze) memberId + "_snooze" else memberId
+        val requestCode = idForHash.hashCode().and(0x7fffffff)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,
@@ -57,10 +60,11 @@ class AlarmScheduler(private val context: Context) {
         AlarmBackupPrefs.save(context, memberId, memberName, soundUri, timeInMillis)
     }
 
-    fun cancelWakeUp(memberId: String) {
+    fun cancelWakeUp(memberId: String, isSnooze: Boolean = false) {
         val intent = Intent(context, AlarmReceiver::class.java)
         // Gleiche Bitmask wie in scheduleWakeUp – damit stimmen schedule und cancel überein
-        val requestCode = memberId.hashCode().and(0x7fffffff)
+        val idForHash = if (isSnooze) memberId + "_snooze" else memberId
+        val requestCode = idForHash.hashCode().and(0x7fffffff)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,

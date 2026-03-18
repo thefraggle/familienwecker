@@ -20,7 +20,7 @@
 - Version wird aus `build.gradle.kts` gelesen
 
 ## v1.3.2 (2026-03-18)
-- **Snooze-Banner:** Persistenz via `PreferencesRepository`. Sichtbarkeit im `MainScreen` auch nach App-Neustart oder Activity-Wechsel (`RingingActivity`). Design-Anpassung: 32.dp Ecken, Pastell-Grün-Thema (Light/Dark).
+- **Snooze-Banner:** Persistenz via `PreferencesRepository`. Sichtbarkeit im `MainScreen` auch nach App-Neustart oder Activity-Wechsel (`RingingActivity`). Design-Anpassung: 32.dp Ecken, Pastell-Grün-Thema (Light/Dark). Bugfix: Snooze-Alarm wird nicht mehr durch reguläre Neuplanung überschrieben (Race Condition).
 - **Chip-Layout:** Padding in `AddMemberScreen.kt` reduziert, um Text-Truncation bei 7 Chips zu vermeiden.
 - **Eingabefelder:** Paste-Support (Einfügen) für Email und Passwort sowie Join-Code durch `SelectionContainer` aktiviert.
 
