@@ -382,18 +382,18 @@ fun MainScreen(
                     ) {
                         snoozeUntil?.let { snoozeTime ->
                             Card(
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
                                 colors = CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.85f)
+                                    containerColor = if (isDarkTheme) Color(0xFF1B321B) else Color(0xFFE8F5E9)
                                 )
                             ) {
                                 Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                                        .padding(horizontal = 20.dp, vertical = 10.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
@@ -404,29 +404,34 @@ fun MainScreen(
                                         Icon(
                                             imageVector = Icons.Default.Snooze,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
-                                            modifier = Modifier.size(22.dp)
+                                            tint = if (isDarkTheme) Color(0xFF81C784) else Color(0xFF2E7D32),
+                                            modifier = Modifier.size(20.dp)
                                         )
-                                        Spacer(modifier = Modifier.width(10.dp))
+                                        Spacer(modifier = Modifier.width(12.dp))
                                         Text(
                                             text = stringResource(
                                                 R.string.main_snooze_active,
                                                 snoozeTime.toLocalTime().toString().substring(0, 5)
                                             ),
                                             style = MaterialTheme.typography.bodyMedium,
-                                            fontWeight = FontWeight.SemiBold,
-                                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                                            fontWeight = FontWeight.Medium,
+                                            color = if (isDarkTheme) Color(0xFFE8F5E9) else Color(0xFF1B5E20)
                                         )
                                     }
                                     TextButton(
                                         onClick = { viewModel.cancelSnooze(myMemberId!!) },
+                                        contentPadding = PaddingValues(horizontal = 12.dp),
                                         colors = ButtonDefaults.textButtonColors(
-                                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                            contentColor = if (isDarkTheme) Color(0xFF81C784) else Color(0xFF2E7D32)
                                         )
                                     ) {
-                                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(16.dp))
-                                        Spacer(modifier = Modifier.width(4.dp))
-                                        Text(stringResource(R.string.cancel_button), style = MaterialTheme.typography.labelLarge)
+                                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(14.dp))
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            stringResource(R.string.cancel_button),
+                                            style = MaterialTheme.typography.labelMedium,
+                                            fontWeight = FontWeight.Bold
+                                        )
                                     }
                                 }
                             }
