@@ -876,6 +876,22 @@ class FamilyViewModel(
                     return
                 }
 
+                // RACE-CONDITION-GUARD:
+                // Wenn targetDate == morgen, bedeutet das: die heutige Weckzeit ist gerade eben vorbei.
+                // Genau in dieser Sekunde könnte AlarmManager noch dabei sein, den Alarm zu feuern.
+                // Wenn wir jetzt scheduleWakeUp aufrufen, wird der soeben gefeuerter (oder in der
+                // Warteschlange befindlicher) Alarm mit demselben requestCode ÜBERSCHRIEBEN → klingelt nie.
+                // Lösung: Wenn die heutige Weckzeit weniger als 5 Minuten her ist, abwarten.
+                if (targetDate == tomorrow) {
+                    val todayAlarmMillis = LocalDateTime.of(today, wakeUpTime)
+                        .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+                    val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
+                    if (millisSinceTodayAlarm in 0..300_000) { // 0..5 min
+                        android.util.Log.d("FamWake_Alarm", "applyAlarms: today's alarm just passed (${millisSinceTodayAlarm/1000}s ago), skipping reschedule for tomorrow to avoid race")
+                        return
+                    }
+                }
+
                 if (memberSchedule.member.isAwakeToday && targetDate == today) {
                     android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling alarm")
                     alarmScheduler.cancelWakeUp(currentMyMemberId)
