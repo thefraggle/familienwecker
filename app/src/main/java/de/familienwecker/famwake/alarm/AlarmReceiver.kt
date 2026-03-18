@@ -16,9 +16,13 @@ import de.familienwecker.famwake.ui.screens.RingingActivity
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        android.util.Log.i("FamWake_Alarm", "AlarmReceiver.onReceive() called!")
+
         val defaultMemberName = context.getString(R.string.alarm_default_member)
         val memberName = intent.getStringExtra("MEMBER_NAME") ?: defaultMemberName
         val memberId = intent.getStringExtra("MEMBER_ID") ?: memberName
+
+        android.util.Log.i("FamWake_Alarm", "AlarmReceiver: memberId=$memberId, memberName=$memberName")
 
         val soundUriString = intent.getStringExtra("SOUND_URI")
         val soundUri = soundUriString?.let { Uri.parse(it) }
@@ -34,6 +38,15 @@ class AlarmReceiver : BroadcastReceiver() {
             putExtra("MEMBER_ID", memberId)
             putExtra("FROM_NOTIFICATION", true)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        // PRIMÄR: Activity direkt starten. BroadcastReceiver der durch setAlarmClock ausgelöst
+        // wird, ist von den Background-Activity-Start-Einschränkungen ausgenommen.
+        try {
+            context.startActivity(ringingIntent)
+            android.util.Log.i("FamWake_Alarm", "AlarmReceiver: RingingActivity started directly")
+        } catch (e: Exception) {
+            android.util.Log.e("FamWake_Alarm", "AlarmReceiver: startActivity failed: ${e.message}")
         }
 
         val fullScreenPendingIntent = PendingIntent.getActivity(
@@ -64,6 +77,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val notificationTitle = context.getString(R.string.alarm_notification_title)
         val notificationText = context.getString(R.string.alarm_notification_text, memberName)
 
+        // FALLBACK: Notification mit Full-Screen-Intent (z.B. wenn Activity-Start fehlschlägt)
         val notificationBuilder = NotificationCompat.Builder(context, dynamicChannelId)
             .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
             .setContentTitle(notificationTitle)
@@ -74,8 +88,9 @@ class AlarmReceiver : BroadcastReceiver() {
             .setSound(soundUri)
             .setVibrate(longArrayOf(0, 500, 500, 500))
             .setAutoCancel(true)
-            .setOngoing(true)
 
         notificationManager.notify(memberId.hashCode().and(0x7fffffff), notificationBuilder.build())
+        android.util.Log.i("FamWake_Alarm", "AlarmReceiver: fallback notification posted")
     }
 }
+
