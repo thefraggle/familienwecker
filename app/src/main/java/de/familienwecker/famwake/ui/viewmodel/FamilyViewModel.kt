@@ -101,8 +101,6 @@ class FamilyViewModel(
     private val _pendingJoinCode = MutableStateFlow<String?>(null)
     val pendingJoinCode: StateFlow<String?> = _pendingJoinCode.asStateFlow()
 
-    private val _showJoinSuccess = MutableStateFlow(false)
-    val showJoinSuccess: StateFlow<Boolean> = _showJoinSuccess.asStateFlow()
 
     // Offline-Debounce – CloudOff-Icon erst nach 3s ohne Verbindung zeigen
     private val _isOffline = MutableStateFlow(false)
@@ -351,7 +349,6 @@ class FamilyViewModel(
                 if (_pendingJoinCode.value == code) {
                     _pendingJoinCode.value = null
                 }
-                _showJoinSuccess.value = true
                 onComplete(true)
             }.onFailure { error ->
                 when {
@@ -443,7 +440,6 @@ class FamilyViewModel(
                     }
 
                     _pendingJoinCode.value = null
-                    _showJoinSuccess.value = true
                     onComplete(true)
                 }.onFailure { error ->
                     // Code ist ungültig → Fehler anzeigen, aber in der ALTEN Familie bleiben!
@@ -978,10 +974,6 @@ class FamilyViewModel(
         is ScheduleMessage.BreakfastAndTimeAdjusted -> UiText.StringResource(R.string.schedule_message_breakfast_and_time_adjusted, msg.breakfast, msg.shift)
         is ScheduleMessage.MemberConflict -> UiText.StringResource(R.string.schedule_message_member_conflict, msg.memberName)
         is ScheduleMessage.NoActiveSchedule -> UiText.StringResource(R.string.main_no_active_schedule)
-    }
-
-    fun dismissJoinSuccess() {
-        _showJoinSuccess.value = false
     }
 
     override fun onCleared() {
