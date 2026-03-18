@@ -275,6 +275,8 @@ gesendet. Bitte klicke auf den Link in der Mail, um deinen Account zu aktivieren
     <string name="tooltip_wake_window">Gib uns ein Zeitfenster. Die App findet darin den optimalen Moment, damit niemand vor dem Badezimmer warten muss.</string>
     <string name="tooltip_bathroom">Plant das bitte realistisch. Deine Badezimmerzeit ist der Taktgeber für den gesamten Familien-Morgen.</string>
     <string name="tooltip_invite_code">Teile diesen Code mit deiner Familie. Sobald sie beitreten, erscheinen sie automatisch in eurem Plan.</string>
+    <string name="tooltip_alarm_switch">Wenn du deinen Wecker ausschaltest, bist du nicht nur leise – der Algorithmus rechnet sofort für die ganze Familie um, damit alle etwas länger schlafen oder früher ins Bad können.</string>
+    <string name="tooltip_weekdays">Plane deine ganze Woche: Tippe auf die einzelnen Wochentage, um individuelle Weck- und Badzeiten festzulegen – perfekt für den Wechsel zwischen Home-Office- und Büro-Tagen.</string>
     <string name="settings_tooltips_title">Tipps &amp; Hinweise</string>
     <string name="settings_tooltips_label">Hilfreiche Tipps anzeigen</string>
     <string name="settings_tooltips_reset">Alle Tipps zurücksetzen</string>

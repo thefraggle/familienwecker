@@ -25,11 +25,13 @@ private const val KEY_ALARM_ENABLED = "ALARM_ENABLED"
 private const val KEY_SNOOZE_UNTIL = "SNOOZE_UNTIL"
 private const val KEY_ONBOARDING_COMPLETED = "ONBOARDING_COMPLETED"
 private const val KEY_TOOLTIPS_ENABLED = "TOOLTIPS_ENABLED"
-private const val KEY_TOOLTIP_AWAKE = "TOOLTIP_SEEN_AWAKE"
-private const val KEY_TOOLTIP_DRAG = "TOOLTIP_SEEN_DRAG"
+private const val KEY_TOOLTIP_AWAKE    = "TOOLTIP_SEEN_AWAKE"
+private const val KEY_TOOLTIP_DRAG     = "TOOLTIP_SEEN_DRAG"
 private const val KEY_TOOLTIP_WAKE_WINDOW = "TOOLTIP_SEEN_WAKE_WINDOW"
 private const val KEY_TOOLTIP_BATHROOM = "TOOLTIP_SEEN_BATHROOM"
-private const val KEY_TOOLTIP_INVITE = "TOOLTIP_SEEN_INVITE"
+private const val KEY_TOOLTIP_INVITE   = "TOOLTIP_SEEN_INVITE"
+private const val KEY_TOOLTIP_SWITCH   = "TOOLTIP_SEEN_SWITCH"
+private const val KEY_TOOLTIP_WEEKDAYS = "TOOLTIP_SEEN_WEEKDAYS"
 
 class PreferencesRepository(context: Context) {
     private val prefs: SharedPreferences = createEncryptedPrefs(context).also {
@@ -145,6 +147,12 @@ class PreferencesRepository(context: Context) {
     private val _tooltipInviteSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_INVITE, false))
     val tooltipInviteSeen: StateFlow<Boolean> = _tooltipInviteSeen.asStateFlow()
 
+    private val _tooltipSwitchSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_SWITCH, false))
+    val tooltipSwitchSeen: StateFlow<Boolean> = _tooltipSwitchSeen.asStateFlow()
+
+    private val _tooltipWeekdaysSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_WEEKDAYS, false))
+    val tooltipWeekdaysSeen: StateFlow<Boolean> = _tooltipWeekdaysSeen.asStateFlow()
+
 
     /**
      * Reagiert nur auf externe Schreiber (z.B. andere Prozesse).
@@ -221,6 +229,14 @@ class PreferencesRepository(context: Context) {
             KEY_TOOLTIP_INVITE -> {
                 val v = sharedPreferences.getBoolean(key, false)
                 if (v != _tooltipInviteSeen.value) _tooltipInviteSeen.value = v
+            }
+            KEY_TOOLTIP_SWITCH -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _tooltipSwitchSeen.value) _tooltipSwitchSeen.value = v
+            }
+            KEY_TOOLTIP_WEEKDAYS -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _tooltipWeekdaysSeen.value) _tooltipWeekdaysSeen.value = v
             }
         }
     }
@@ -302,12 +318,15 @@ class PreferencesRepository(context: Context) {
             KEY_TOOLTIP_WAKE_WINDOW -> _tooltipWakeWindowSeen.value = seen
             KEY_TOOLTIP_BATHROOM    -> _tooltipBathroomSeen.value = seen
             KEY_TOOLTIP_INVITE      -> _tooltipInviteSeen.value = seen
+            KEY_TOOLTIP_SWITCH      -> _tooltipSwitchSeen.value = seen
+            KEY_TOOLTIP_WEEKDAYS    -> _tooltipWeekdaysSeen.value = seen
         }
     }
 
     fun resetAllTooltips() {
         listOf(KEY_TOOLTIP_AWAKE, KEY_TOOLTIP_DRAG, KEY_TOOLTIP_WAKE_WINDOW,
-               KEY_TOOLTIP_BATHROOM, KEY_TOOLTIP_INVITE).forEach {
+               KEY_TOOLTIP_BATHROOM, KEY_TOOLTIP_INVITE,
+               KEY_TOOLTIP_SWITCH, KEY_TOOLTIP_WEEKDAYS).forEach {
             setTooltipSeen(it, false)
         }
     }
@@ -318,6 +337,8 @@ class PreferencesRepository(context: Context) {
     val tooltipKeyWakeWindow   get() = KEY_TOOLTIP_WAKE_WINDOW
     val tooltipKeyBathroom     get() = KEY_TOOLTIP_BATHROOM
     val tooltipKeyInvite       get() = KEY_TOOLTIP_INVITE
+    val tooltipKeySwitch       get() = KEY_TOOLTIP_SWITCH
+    val tooltipKeyWeekdays     get() = KEY_TOOLTIP_WEEKDAYS
 
     fun clearAll() {
         _myMemberId.value = null

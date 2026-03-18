@@ -276,6 +276,8 @@ Please click the link in the email to activate your account.</string>
     <string name="tooltip_wake_window">Give us a time window. The app finds the perfect moment inside it so no one has to wait in front of the bathroom.</string>
     <string name="tooltip_bathroom">Plan this realistically. Your bathroom time sets the pace for the whole family\'s morning.</string>
     <string name="tooltip_invite_code">Share this code with your family. Once they join, they appear automatically in your schedule.</string>
+    <string name="tooltip_alarm_switch">Turning off your alarm doesn\'t just silence your phone – the algorithm instantly re-optimises the whole family\'s morning so everyone can sleep a bit longer or get to the bathroom sooner.</string>
+    <string name="tooltip_weekdays">Plan your whole week: Tap the individual weekdays to set specific wake and bathroom times – perfect for switching between home-office and office days.</string>
     <string name="settings_tooltips_title">Tips &amp; Hints</string>
     <string name="settings_tooltips_label">Show helpful tips</string>
     <string name="settings_tooltips_reset">Reset all tips</string>
