@@ -843,55 +843,64 @@ class FamilyViewModel(
         val tomorrow = LocalDate.now().plusDays(1)
         val today = LocalDate.now()
 
-        val currentMyMemberId = myMemberId.value ?: return
-        if (schedule.memberSchedules.isEmpty()) return
+        val currentMyMemberId = myMemberId.value ?: run {
+            android.util.Log.w("FamWake_Alarm", "applyAlarms: myMemberId is null, skipping")
+            return
+        }
+        if (schedule.memberSchedules.isEmpty()) {
+            android.util.Log.w("FamWake_Alarm", "applyAlarms: memberSchedules is empty, skipping")
+            return
+        }
 
         for (memberSchedule in schedule.memberSchedules) {
             if (memberSchedule.member.id == currentMyMemberId) {
                 val wakeUpTime = memberSchedule.wakeUpTime
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
+                android.util.Log.d("FamWake_Alarm", "applyAlarms: wakeUpTime=$wakeUpTime, now=${LocalTime.now()}, targetDate=$targetDate")
 
-                // Tagesprofil für targetDate auflösen und prüfen ob aktiv
-                val dayOfWeek = targetDate.dayOfWeek.value // 1=Mo, 7=So
+                val dayOfWeek = targetDate.dayOfWeek.value
                 val dayProfile = memberSchedule.member.dayProfiles?.get(dayOfWeek)
 
                 if (dayProfile != null && !dayProfile.isActive) {
-                    // Tag deaktiviert → kein Alarm
+                    android.util.Log.w("FamWake_Alarm", "applyAlarms: day $dayOfWeek is inactive, cancelling alarm")
                     alarmScheduler.cancelWakeUp(currentMyMemberId)
                     lastScheduledAlarmMillis = null
                     return
                 }
 
                 val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
-
-                // Alarm nur neu setzen wenn die Zeit sich geändert hat
                 val newAlarmMillis = targetDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
-                if (newAlarmMillis == lastScheduledAlarmMillis) return
 
-                // Wenn "Bin wach"-Flag gesetzt UND die Weckzeit in der Vergangenheit liegt
-                // (also für heute bereits vorbei), dann keinen Alarm für heute mehr setzen.
-                // Für morgen hingegen IMMER setzen.
+                if (newAlarmMillis == lastScheduledAlarmMillis) {
+                    android.util.Log.d("FamWake_Alarm", "applyAlarms: time unchanged ($targetDateTime), skipping (cache hit)")
+                    return
+                }
+
                 if (memberSchedule.member.isAwakeToday && targetDate == today) {
+                    android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling alarm")
                     alarmScheduler.cancelWakeUp(currentMyMemberId)
                     lastScheduledAlarmMillis = null
                     return
                 }
 
+                android.util.Log.i("FamWake_Alarm", "applyAlarms: SCHEDULING alarm for $targetDateTime (isAwakeToday=${memberSchedule.member.isAwakeToday})")
                 alarmScheduler.scheduleWakeUp(
                     wakeUpTime = targetDateTime,
                     memberId = memberSchedule.member.id,
                     memberName = memberSchedule.member.name,
                     soundUri = alarmSoundUri.value,
                     onPermissionDenied = {
+                        android.util.Log.e("FamWake_Alarm", "applyAlarms: SCHEDULE_EXACT_ALARM permission denied!")
                         _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
                     }
                 )
                 lastScheduledAlarmMillis = newAlarmMillis
-                // Regulärer Alarm wurde geplant. Wir setzen den Snooze-Banner NICHT hier zurück,
-                // damit er während der Snooze-Laufzeit sichtbar bleibt (v1.3.2).
+                android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm successfully set for $targetDateTime")
             }
         }
     }
+
+
 
     /** Übersetzt eine ScheduleMessage in lokalisiertes UiText für die Darstellung im UI. */
     fun scheduleMessageToUiText(msg: ScheduleMessage): UiText = when (msg) {
