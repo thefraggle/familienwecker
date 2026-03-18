@@ -657,6 +657,18 @@ fun SettingsScreen(
                     }
                     Spacer(modifier = Modifier.height(16.dp))
 
+                    // App-Tour neu starten
+                    val onboardingInteractionSource = remember { MutableInteractionSource() }
+                    OutlinedButton(
+                        onClick = onStartOnboarding,
+                        modifier = Modifier.fillMaxWidth().bounceClick(onboardingInteractionSource),
+                        interactionSource = onboardingInteractionSource
+                    ) {
+                        Text(stringResource(R.string.settings_start_onboarding))
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
                     // Feedback-Formular-Button
                     val feedbackInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
@@ -715,18 +727,6 @@ fun SettingsScreen(
                         interactionSource = rateInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_rate_app))
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // App-Tour neu starten
-                    val onboardingInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = onStartOnboarding,
-                        modifier = Modifier.fillMaxWidth().bounceClick(onboardingInteractionSource),
-                        interactionSource = onboardingInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_start_onboarding))
                     }
                 }
             }
