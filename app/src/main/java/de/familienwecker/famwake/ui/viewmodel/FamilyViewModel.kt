@@ -862,25 +862,19 @@ class FamilyViewModel(
                     return
                 }
 
-                // Effektive Weckzeit: ggf. aus Tagesprofil überschrieben
-                // (Der Scheduler hat bereits mit den Fallback-Feldern gerechnet;
-                //  wenn ein Tagesprofil existiert, benutzen wir dessen latestWakeUp als Signal,
-                //  aber die eigentliche Uhrzeit kommt bereits korrekt aus memberSchedule.wakeUpTime
-                //  da recalculateSchedule() den effectiveMember übergeben hat)
                 val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
 
                 // Alarm nur neu setzen wenn die Zeit sich geändert hat
                 val newAlarmMillis = targetDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
                 if (newAlarmMillis == lastScheduledAlarmMillis) return
 
-                alarmScheduler.cancelWakeUp(currentMyMemberId)
-
-                if (memberSchedule.member.isAwakeToday) {
-                    val hoursUntilAlarm = java.time.Duration.between(LocalDateTime.now(), targetDateTime).toHours()
-                    if (hoursUntilAlarm in 0..4) {
-                        lastScheduledAlarmMillis = null
-                        return
-                    }
+                // Wenn "Bin wach"-Flag gesetzt UND die Weckzeit in der Vergangenheit liegt
+                // (also für heute bereits vorbei), dann keinen Alarm für heute mehr setzen.
+                // Für morgen hingegen IMMER setzen.
+                if (memberSchedule.member.isAwakeToday && targetDate == today) {
+                    alarmScheduler.cancelWakeUp(currentMyMemberId)
+                    lastScheduledAlarmMillis = null
+                    return
                 }
 
                 alarmScheduler.scheduleWakeUp(
@@ -894,7 +888,7 @@ class FamilyViewModel(
                 )
                 lastScheduledAlarmMillis = newAlarmMillis
                 // Regulärer Alarm wurde geplant. Wir setzen den Snooze-Banner NICHT hier zurück,
-                // damit er während der Snooze-Laufzeit sichtbar bleibt (v1.3.2). 
+                // damit er während der Snooze-Laufzeit sichtbar bleibt (v1.3.2).
             }
         }
     }
