@@ -372,19 +372,23 @@ fun MainScreen(
                                             interactionSource = awakeInteractionSource,
                                             colors = ButtonDefaults.buttonColors(
                                                 containerColor = if (myMember.isAwakeToday) 
-                                                    MaterialTheme.colorScheme.secondary 
+                                                    MaterialTheme.colorScheme.primary 
                                                 else 
-                                                    MaterialTheme.colorScheme.primary
+                                                    MaterialTheme.colorScheme.surfaceVariant,
+                                                contentColor = if (myMember.isAwakeToday)
+                                                    MaterialTheme.colorScheme.onPrimary
+                                                else
+                                                    MaterialTheme.colorScheme.onSurfaceVariant
                                             )
                                         ) {
                                             Icon(
-                                                imageVector = if (myMember.isAwakeToday) Icons.Default.Bedtime else Icons.Default.WbSunny,
+                                                imageVector = Icons.Default.WbSunny,
                                                 contentDescription = null,
                                                 modifier = Modifier.size(24.dp)
                                             )
                                             Spacer(modifier = Modifier.width(12.dp))
                                             Text(
-                                                text = if (myMember.isAwakeToday) stringResource(R.string.awake_undo_desc) else stringResource(R.string.awake_today_desc),
+                                                text = stringResource(R.string.awake_today_desc),
                                                 style = MaterialTheme.typography.titleMedium
                                             )
                                         }
