@@ -957,7 +957,33 @@ fun MemberCard(
                     }
                 }
                 if (!allDaysInactive) {
-                    Text(stringResource(R.string.main_wake_time, member.earliestWakeUp.toString(), member.latestWakeUp.toString()), color = textColor)
+                    // Nächsten aktiven Tag und dessen Profil-Daten ermitteln
+                    val today = java.time.LocalDate.now()
+                    val nextActiveDayResult = (0..6).mapNotNull { offset ->
+                        val date = today.plusDays(offset.toLong())
+                        val dow = date.dayOfWeek.value
+                        val profile = member.dayProfiles?.get(dow)
+                        if (profile != null && profile.isActive) date to profile else null
+                    }.firstOrNull()
+
+                    val showDayLabel = nextActiveDayResult != null &&
+                        nextActiveDayResult.first != today
+
+                    val displayEarliest = nextActiveDayResult?.second?.earliestWakeUp ?: member.earliestWakeUp
+                    val displayLatest   = nextActiveDayResult?.second?.latestWakeUp   ?: member.latestWakeUp
+
+                    if (showDayLabel && nextActiveDayResult != null) {
+                        val dayName = nextActiveDayResult.first.dayOfWeek
+                            .getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.getDefault())
+                            .replaceFirstChar { it.uppercase() }
+                        Text(
+                            text = dayName,
+                            color = textColor.copy(alpha = 0.7f),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Text(stringResource(R.string.main_wake_time, displayEarliest.toString(), displayLatest.toString()), color = textColor)
                     Text(stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if(member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), color = textColor)
                 }
             }
