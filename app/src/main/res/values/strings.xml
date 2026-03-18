@@ -152,13 +152,13 @@
     <string name="onboarding_next">Next</string>
     <string name="onboarding_done">Get Started</string>
     <string name="onboarding_slide1_title">Welcome!</string>
-    <string name="onboarding_slide1_body">FamWake is your smart family alarm. Everyone wakes up on their own schedule – automatically coordinated.</string>
+    <string name="onboarding_slide1_body">No more morning chaos. We coordinate your family’s schedule so everyone wakes up relaxed and on time.</string>
     <string name="onboarding_slide2_title">Your Family</string>
-    <string name="onboarding_slide2_body">Create or join a family group. Add family members and set individual wake-up schedules for each person.</string>
+    <string name="onboarding_slide2_body">Your team on board. Connect your family with one tap and plan your mornings together.</string>
     <string name="onboarding_slide3_title">Your Schedule</string>
-    <string name="onboarding_slide3_body">Set different wake-up times per day. Activate bathroom time, breakfast, and leave-home time for a perfect morning routine.</string>
+    <string name="onboarding_slide3_body">No bathroom traffic jams. We calculate the perfect flow for shower, breakfast and departure.</string>
     <string name="onboarding_slide4_title">Ready!</string>
-    <string name="onboarding_slide4_body">The app handles the rest. You can restart this tour at any time in Settings → Help &amp; Feedback.</string>
+    <string name="onboarding_slide4_body">Bring it on, tomorrow! Sit back – our algorithm handles the rest for your whole family.</string>
     <string name="settings_feedback_button">Give Feedback / Report Issue</string>
     <!-- Feedback Screen -->
     <string name="feedback_title">Feedback</string>
