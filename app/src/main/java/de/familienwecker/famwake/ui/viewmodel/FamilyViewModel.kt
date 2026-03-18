@@ -240,6 +240,16 @@ class FamilyViewModel(
                 prefsRepo.setSnoozeUntil(null)
             }
         }
+
+        // Periodischer Timer: recalculateSchedule alle 5 Minuten aufrufen.
+        // Stellt sicher, dass Zeitplan und Alarm-Planung auch ohne externe Firestore-Trigger
+        // neu berechnet werden – wichtig bei Einzelbetrieb und Tageswechsel um Mitternacht.
+        viewModelScope.launch {
+            while (true) {
+                delay(5 * 60 * 1000L) // 5 Minuten
+                recalculateSchedule()
+            }
+        }
     }
 
     fun setError(message: UiText) {
