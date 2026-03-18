@@ -27,6 +27,8 @@ import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import de.familienwecker.famwake.ui.components.TooltipBubble
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 // Mo=1 … So=7 nach java.time.DayOfWeek
 private val WEEKDAY_KEYS = 1..7
@@ -57,6 +59,9 @@ fun AddMemberScreen(
 ) {
     val members by viewModel.members.collectAsStateWithLifecycle()
     val memberToEdit = remember(memberId, members) { members.find { it.id == memberId } }
+    val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
+    val tooltipWakeWindowSeen by viewModel.tooltipWakeWindowSeen.collectAsStateWithLifecycle()
+    val tooltipBathroomSeen by viewModel.tooltipBathroomSeen.collectAsStateWithLifecycle()
 
     var name by remember(memberToEdit) { mutableStateOf(memberToEdit?.name ?: "") }
 
@@ -297,7 +302,11 @@ fun AddMemberScreen(
                     profile = selectedProfile,
                     onProfileChange = { updated ->
                         dayProfiles = dayProfiles.toMutableMap().apply { put(selectedDay, updated) }
-                    }
+                    },
+                    showTooltipWakeWindow = tooltipsEnabled && !tooltipWakeWindowSeen,
+                    onDismissTooltipWakeWindow = { viewModel.markTooltipSeen(viewModel.tooltipKeyWakeWindow) },
+                    showTooltipBathroom = tooltipsEnabled && !tooltipBathroomSeen,
+                    onDismissTooltipBathroom = { viewModel.markTooltipSeen(viewModel.tooltipKeyBathroom) }
                 )
 
 
@@ -339,7 +348,11 @@ private fun validateDayProfile(profile: DayProfile): List<Int> {
 private fun DayProfileCard(
     dayLabel: String,
     profile: DayProfile,
-    onProfileChange: (DayProfile) -> Unit
+    onProfileChange: (DayProfile) -> Unit,
+    showTooltipWakeWindow: Boolean = false,
+    onDismissTooltipWakeWindow: () -> Unit = {},
+    showTooltipBathroom: Boolean = false,
+    onDismissTooltipBathroom: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
@@ -413,6 +426,13 @@ private fun DayProfileCard(
                         )
                     }
 
+                                    // Tooltip C – Weckzeitfenster
+                                    TooltipBubble(
+                                        visible = showTooltipWakeWindow,
+                                        text = stringResource(R.string.tooltip_wake_window),
+                                        onDismiss = onDismissTooltipWakeWindow
+                                    )
+
                     // Baddauer (+/-)
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -436,6 +456,13 @@ private fun DayProfileCard(
                             ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
                         }
                     }
+
+                    // Tooltip D – Baddauer
+                    TooltipBubble(
+                        visible = showTooltipBathroom,
+                        text = stringResource(R.string.tooltip_bathroom),
+                        onDismiss = onDismissTooltipBathroom
+                    )
 
                     // Frühstück
                     Row(

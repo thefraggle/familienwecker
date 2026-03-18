@@ -269,4 +269,14 @@ Please click the link in the email to activate your account.</string>
     <string name="login_verify_email_confirm">I have confirmed ✓</string>
     <string name="login_verify_email_resend">Resend email</string>
     <string name="login_verify_email_not_verified">Email address not yet confirmed. Please check your inbox.</string>
+
+    <!-- Tooltips -->
+    <string name="tooltip_awake_button">Already awake early? Tap here to stop your alarm for today – your bathroom slot stays reserved for the family.</string>
+    <string name="tooltip_drag_handle">Hold and drag a tile to manually change your family\'s wake-up order. The algorithm recalculates on the fly.</string>
+    <string name="tooltip_wake_window">Give us a time window. The app finds the perfect moment inside it so no one has to wait in front of the bathroom.</string>
+    <string name="tooltip_bathroom">Plan this realistically. Your bathroom time sets the pace for the whole family\'s morning.</string>
+    <string name="tooltip_invite_code">Share this code with your family. Once they join, they appear automatically in your schedule.</string>
+    <string name="settings_tooltips_title">Tips &amp; Hints</string>
+    <string name="settings_tooltips_label">Show helpful tips</string>
+    <string name="settings_tooltips_reset">Reset all tips</string>
 </resources>

@@ -268,4 +268,14 @@ gesendet. Bitte klicke auf den Link in der Mail, um deinen Account zu aktivieren
     <string name="login_verify_email_confirm">Ich habe bestätigt ✓</string>
     <string name="login_verify_email_resend">E-Mail erneut senden</string>
     <string name="login_verify_email_not_verified">Die E-Mail-Adresse wurde noch nicht bestätigt. Bitte prüfe dein Postfach.</string>
+
+    <!-- Tooltips -->
+    <string name="tooltip_awake_button">Schon früh wach? Tippe hier, um deinen Wecker für heute zu stoppen – dein Badezimmer-Slot bleibt dabei für die Familie reserviert.</string>
+    <string name="tooltip_drag_handle">Halte und ziehe eine Kachel, um die Weck-Reihenfolge der Familie manuell zu ändern. Der Algorithmus rechnet live mit.</string>
+    <string name="tooltip_wake_window">Gib uns ein Zeitfenster. Die App findet darin den optimalen Moment, damit niemand vor dem Badezimmer warten muss.</string>
+    <string name="tooltip_bathroom">Plant das bitte realistisch. Deine Badezimmerzeit ist der Taktgeber für den gesamten Familien-Morgen.</string>
+    <string name="tooltip_invite_code">Teile diesen Code mit deiner Familie. Sobald sie beitreten, erscheinen sie automatisch in eurem Plan.</string>
+    <string name="settings_tooltips_title">Tipps &amp; Hinweise</string>
+    <string name="settings_tooltips_label">Hilfreiche Tipps anzeigen</string>
+    <string name="settings_tooltips_reset">Alle Tipps zurücksetzen</string>
 </resources>

@@ -53,6 +53,7 @@ import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.util.BatteryUtils
 import de.familienwecker.famwake.model.FamilySchedule
+import de.familienwecker.famwake.ui.components.TooltipBubble
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,6 +80,9 @@ fun MainScreen(
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val snoozeUntil by viewModel.snoozeUntil.collectAsStateWithLifecycle()
+    val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
+    val tooltipAwakeSeen by viewModel.tooltipAwakeSeen.collectAsStateWithLifecycle()
+    val tooltipDragSeen by viewModel.tooltipDragSeen.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     var showJoinConflictDialog by remember { mutableStateOf(false) }
@@ -367,6 +371,16 @@ fun MainScreen(
                                             style = MaterialTheme.typography.titleMedium
                                         )
                                     }
+                                // Tooltip A – "Bin schon wach"-Button
+                                    if (tooltipsEnabled && !tooltipAwakeSeen) {
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        TooltipBubble(
+                                            visible = true,
+                                            text = stringResource(R.string.tooltip_awake_button),
+                                            onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyAwake) },
+                                            isDark = isDarkTheme
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -565,6 +579,20 @@ fun MainScreen(
                 val currentSched = schedule
                 if (currentSched != null && currentSched.isValid && currentSched.memberSchedules.isNotEmpty()) {
                     val totalItems = currentSched.memberSchedules.size
+
+                    // Tooltip B – Drag-Handle (nur wenn >1 Mitglied)
+                    if (totalItems > 1) {
+                        item(key = "tooltip_drag") {
+                            if (tooltipsEnabled && !tooltipDragSeen) {
+                                TooltipBubble(
+                                    visible = true,
+                                    text = stringResource(R.string.tooltip_drag_handle),
+                                    onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyDrag) },
+                                    isDark = isDarkTheme
+                                )
+                            }
+                        }
+                    }
 
                     itemsIndexed(
                         items = currentSched.memberSchedules,

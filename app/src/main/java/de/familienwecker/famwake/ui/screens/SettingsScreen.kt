@@ -45,6 +45,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import de.familienwecker.famwake.ui.components.TooltipBubble
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,6 +65,8 @@ fun SettingsScreen(
     val familyName by viewModel.familyName.collectAsStateWithLifecycle()
     val isAdmin by viewModel.familyCreatorId.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
+    val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
+    val tooltipInviteSeen by viewModel.tooltipInviteSeen.collectAsStateWithLifecycle()
 
     var expanded by remember { mutableStateOf(false) }
     var languageExpanded by remember { mutableStateOf(false) }
@@ -367,6 +370,17 @@ fun SettingsScreen(
                             modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 16.dp)
                         )
 
+                        // Tooltip E – Einladungscode
+                        if (tooltipsEnabled && !tooltipInviteSeen) {
+                            TooltipBubble(
+                                visible = true,
+                                text = stringResource(R.string.tooltip_invite_code),
+                                onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyInvite) },
+                                isDark = isDarkTheme
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
                         val shareInteractionSource = remember { MutableInteractionSource() }
                         val shareMessage = stringResource(R.string.settings_share_message, familyName ?: "", code)
                         
@@ -632,6 +646,42 @@ fun SettingsScreen(
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_system)) },
                                 onClick = { viewModel.setThemePreference("system"); themeExpanded = false }
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    // Tipps & Hinweise
+                    Text(
+                        stringResource(R.string.settings_tooltips_title),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            stringResource(R.string.settings_tooltips_label),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Switch(
+                            checked = tooltipsEnabled,
+                            onCheckedChange = { viewModel.setTooltipsEnabled(it) }
+                        )
+                    }
+                    if (tooltipsEnabled) {
+                        TextButton(
+                            onClick = { viewModel.resetAllTooltips() },
+                            modifier = Modifier.align(Alignment.End)
+                        ) {
+                            Text(
+                                stringResource(R.string.settings_tooltips_reset),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
