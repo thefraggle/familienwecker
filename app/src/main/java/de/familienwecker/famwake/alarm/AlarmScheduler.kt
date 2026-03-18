@@ -69,7 +69,6 @@ class AlarmScheduler(private val context: Context) {
         )
 
         val timeInMillis = wakeUpTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-        android.util.Log.i("FamWake_Alarm", "AlarmScheduler.scheduleWakeUp: setting alarm for $wakeUpTime (requestCode=$requestCode, isSnooze=$isSnooze)")
         val alarmClockInfo = AlarmManager.AlarmClockInfo(timeInMillis, showIntent)
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
 

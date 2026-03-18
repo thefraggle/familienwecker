@@ -16,13 +16,9 @@ import de.familienwecker.famwake.ui.screens.RingingActivity
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        android.util.Log.i("FamWake_Alarm", "AlarmReceiver.onReceive() called!")
-
         val defaultMemberName = context.getString(R.string.alarm_default_member)
         val memberName = intent.getStringExtra("MEMBER_NAME") ?: defaultMemberName
         val memberId = intent.getStringExtra("MEMBER_ID") ?: memberName
-
-        android.util.Log.i("FamWake_Alarm", "AlarmReceiver: memberId=$memberId, memberName=$memberName")
 
         val soundUriString = intent.getStringExtra("SOUND_URI")
         val soundUri = soundUriString?.let { Uri.parse(it) }
@@ -44,7 +40,6 @@ class AlarmReceiver : BroadcastReceiver() {
         // wird, ist von den Background-Activity-Start-Einschränkungen ausgenommen.
         try {
             context.startActivity(ringingIntent)
-            android.util.Log.i("FamWake_Alarm", "AlarmReceiver: RingingActivity started directly")
         } catch (e: Exception) {
             android.util.Log.e("FamWake_Alarm", "AlarmReceiver: startActivity failed: ${e.message}")
         }
@@ -90,7 +85,6 @@ class AlarmReceiver : BroadcastReceiver() {
             .setAutoCancel(true)
 
         notificationManager.notify(memberId.hashCode().and(0x7fffffff), notificationBuilder.build())
-        android.util.Log.i("FamWake_Alarm", "AlarmReceiver: fallback notification posted")
     }
 }
 

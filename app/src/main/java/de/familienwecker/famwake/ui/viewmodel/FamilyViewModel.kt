@@ -868,16 +868,12 @@ class FamilyViewModel(
             android.util.Log.w("FamWake_Alarm", "applyAlarms: myMemberId is null, skipping")
             return
         }
-        if (schedule.memberSchedules.isEmpty()) {
-            android.util.Log.w("FamWake_Alarm", "applyAlarms: memberSchedules is empty, skipping")
-            return
-        }
+        if (schedule.memberSchedules.isEmpty()) return
 
         for (memberSchedule in schedule.memberSchedules) {
             if (memberSchedule.member.id == currentMyMemberId) {
                 val wakeUpTime = memberSchedule.wakeUpTime
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
-                android.util.Log.d("FamWake_Alarm", "applyAlarms: wakeUpTime=$wakeUpTime, now=${LocalTime.now()}, targetDate=$targetDate")
 
                 // RACE-CONDITION-GUARD (müss als ALLERERSTER Check laufen):
                 // Wenn targetDate == morgen, bedeutet das: die heutige Weckzeit ist gerade eben vorbei.
@@ -890,7 +886,6 @@ class FamilyViewModel(
                         .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
                     val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
                     if (millisSinceTodayAlarm in 0..300_000) { // 0..5 Minuten
-                        android.util.Log.d("FamWake_Alarm", "applyAlarms: GRACE PERIOD – today's alarm fired ${millisSinceTodayAlarm/1000}s ago, protecting AlarmManager slot")
                         return
                     }
                 }
@@ -908,10 +903,7 @@ class FamilyViewModel(
                 val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
                 val newAlarmMillis = targetDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
 
-                if (newAlarmMillis == lastScheduledAlarmMillis) {
-                    android.util.Log.d("FamWake_Alarm", "applyAlarms: time unchanged ($targetDateTime), skipping (cache hit)")
-                    return
-                }
+                if (newAlarmMillis == lastScheduledAlarmMillis) return
 
                 if (memberSchedule.member.isAwakeToday && targetDate == today) {
                     android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling alarm")
@@ -920,7 +912,6 @@ class FamilyViewModel(
                     return
                 }
 
-                android.util.Log.i("FamWake_Alarm", "applyAlarms: SCHEDULING alarm for $targetDateTime (isAwakeToday=${memberSchedule.member.isAwakeToday})")
                 alarmScheduler.scheduleWakeUp(
                     wakeUpTime = targetDateTime,
                     memberId = memberSchedule.member.id,
@@ -932,7 +923,6 @@ class FamilyViewModel(
                     }
                 )
                 lastScheduledAlarmMillis = newAlarmMillis
-                android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm successfully set for $targetDateTime")
             }
         }
     }
