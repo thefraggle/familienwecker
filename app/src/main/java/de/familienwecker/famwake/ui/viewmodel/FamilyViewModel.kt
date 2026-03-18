@@ -543,6 +543,40 @@ class FamilyViewModel(
         prefsRepo.setAlarmEnabled(enabled)
     }
 
+    /**
+     * ADMIN/DEBUG: Setzt das DayProfile des heutigen Wochentags so,
+     * dass der Wecker in ~5 Minuten klingelt.
+     * DayOfWeek.value: 1=Mo ... 7=So (java.time)
+     */
+    fun setDebugAlarmIn5Minutes() {
+        val memberId = myMemberId.value ?: return
+        val member   = _members.value.find { it.id == memberId } ?: return
+        val now      = java.time.LocalTime.now()
+        val target   = now.plusMinutes(5)
+        val earliest = target.minusMinutes(1)   // 4 Minuten ab jetzt
+        val latest   = target.plusMinutes(1)    // 6 Minuten ab jetzt
+        val todayKey = java.time.LocalDate.now().dayOfWeek.value // 1=Mo…7=So
+
+        val debugProfile = de.familienwecker.famwake.model.DayProfile(
+            isActive = true,
+            earliestWakeUp = earliest,
+            latestWakeUp = latest,
+            bathroomDurationMinutes = 1L,
+            wantsBreakfast = false
+        )
+        // Nur den heutigen Tag überschreiben; alle anderen Tage unverändert lassen
+        val updatedDayProfiles = (member.dayProfiles ?: mapOf()).toMutableMap()
+        updatedDayProfiles[todayKey] = debugProfile
+
+        val updatedMember = member.copy(
+            dayProfiles = updatedDayProfiles,
+            isPaused = false
+        )
+        addOrUpdateMember(updatedMember)
+        // Wecker global einschalten
+        prefsRepo.setAlarmEnabled(true)
+    }
+
     fun togglePauseMember(memberId: String) {
         val member = _members.value.find { it.id == memberId } ?: return
         if (member.claimedByUserId != null && member.id != myMemberId.value) return
