@@ -552,9 +552,9 @@ class FamilyViewModel(
         val memberId = myMemberId.value ?: return
         val member   = _members.value.find { it.id == memberId } ?: return
         val now      = java.time.LocalTime.now()
-        val target   = now.plusMinutes(5)
-        val earliest = target.minusMinutes(1)   // 4 Minuten ab jetzt
-        val latest   = target.plusMinutes(1)    // 6 Minuten ab jetzt
+        val target   = now.plusMinutes(3)
+        val earliest = target.minusMinutes(1)   // 2 Minuten ab jetzt
+        val latest   = target.plusMinutes(1)    // 4 Minuten ab jetzt
         val todayKey = java.time.LocalDate.now().dayOfWeek.value // 1=Mo…7=So
 
         val debugProfile = de.familienwecker.famwake.model.DayProfile(

@@ -804,7 +804,7 @@ fun SettingsScreen(
                 ) {
                     Icon(Icons.Default.Tune, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text(if (adminConfirmed) "✓ Wecker in 5 Min gesetzt" else "Admin: Wecker in 5 Min")
+                    Text(if (adminConfirmed) "✓ Wecker in 3 Min gesetzt" else "Admin: Wecker in 3 Min")
                 }
             }
 
