@@ -197,7 +197,7 @@ fun AddMemberScreen(
                         viewModel.addOrUpdateMember(memberToSave)
                         onNavigateBack()
                     },
-                    enabled = name.isNotBlank() && hasAtLeastOneActiveDay && !hasAnyValidationError
+                    enabled = name.isNotBlank() && !hasAnyValidationError
                 ) {
                     Text(stringResource(R.string.add_member_submit))
                 }
@@ -300,19 +300,6 @@ fun AddMemberScreen(
                     }
                 )
 
-                if (!hasAtLeastOneActiveDay) {
-                    Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            text = stringResource(R.string.add_member_error_no_days),
-                            color = MaterialTheme.colorScheme.onErrorContainer,
-                            modifier = Modifier.padding(12.dp),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
 
                 // Copy-Button
                 TextButton(
