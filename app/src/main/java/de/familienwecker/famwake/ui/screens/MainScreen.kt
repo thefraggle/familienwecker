@@ -350,48 +350,55 @@ fun MainScreen(
                                 )
                             }
 
-                            // "Ich bin wach" button for the current user
-                            if (myMemberId != null) {
+                            // "Ich bin wach" button for the current user (only when alarm is enabled)
+                            AnimatedVisibility(
+                                visible = myMemberId != null && isAlarmEnabled,
+                                enter = androidx.compose.animation.expandVertically() + fadeIn(),
+                                exit = androidx.compose.animation.shrinkVertically() + fadeOut()
+                            ) {
                                 val myMember = members.find { it.id == myMemberId }
                                 if (myMember != null) {
-                                    Spacer(modifier = Modifier.height(16.dp))
-                                    val awakeInteractionSource = remember { MutableInteractionSource() }
-                                    
-                                    Button(
-                                        onClick = { viewModel.toggleAwakeMember(myMemberId!!) },
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(56.dp)
-                                            .bounceClick(awakeInteractionSource),
-                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
-                                        interactionSource = awakeInteractionSource,
-                                        colors = ButtonDefaults.buttonColors(
-                                            containerColor = if (myMember.isAwakeToday) 
-                                                MaterialTheme.colorScheme.secondary 
-                                            else 
-                                                MaterialTheme.colorScheme.primary
-                                        )
-                                    ) {
-                                        Icon(
-                                            imageVector = if (myMember.isAwakeToday) Icons.Default.Bedtime else Icons.Default.WbSunny,
-                                            contentDescription = null,
-                                            modifier = Modifier.size(24.dp)
-                                        )
-                                        Spacer(modifier = Modifier.width(12.dp))
-                                        Text(
-                                            text = if (myMember.isAwakeToday) stringResource(R.string.awake_undo_desc) else stringResource(R.string.awake_today_desc),
-                                            style = MaterialTheme.typography.titleMedium
-                                        )
-                                    }
-                                // Tooltip A – "Bin schon wach"-Button
-                                    if (tooltipsEnabled && !tooltipAwakeSeen) {
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                        TooltipBubble(
-                                            visible = true,
-                                            text = stringResource(R.string.tooltip_awake_button),
-                                            onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyAwake) },
-                                            isDark = isDarkTheme
-                                        )
+                                    Column {
+                                        Spacer(modifier = Modifier.height(16.dp))
+                                        val awakeInteractionSource = remember { MutableInteractionSource() }
+                                        
+                                        Button(
+                                            onClick = { viewModel.toggleAwakeMember(myMemberId!!) },
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(56.dp)
+                                                .bounceClick(awakeInteractionSource),
+                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                            interactionSource = awakeInteractionSource,
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = if (myMember.isAwakeToday) 
+                                                    MaterialTheme.colorScheme.secondary 
+                                                else 
+                                                    MaterialTheme.colorScheme.primary
+                                            )
+                                        ) {
+                                            Icon(
+                                                imageVector = if (myMember.isAwakeToday) Icons.Default.Bedtime else Icons.Default.WbSunny,
+                                                contentDescription = null,
+                                                modifier = Modifier.size(24.dp)
+                                            )
+                                            Spacer(modifier = Modifier.width(12.dp))
+                                            Text(
+                                                text = if (myMember.isAwakeToday) stringResource(R.string.awake_undo_desc) else stringResource(R.string.awake_today_desc),
+                                                style = MaterialTheme.typography.titleMedium
+                                            )
+                                        }
+
+                                        // Tooltip A – "Bin schon wach"-Button
+                                        if (tooltipsEnabled && !tooltipAwakeSeen) {
+                                            Spacer(modifier = Modifier.height(8.dp))
+                                            TooltipBubble(
+                                                visible = true,
+                                                text = stringResource(R.string.tooltip_awake_button),
+                                                onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyAwake) },
+                                                isDark = isDarkTheme
+                                            )
+                                        }
                                     }
                                 }
                             }
