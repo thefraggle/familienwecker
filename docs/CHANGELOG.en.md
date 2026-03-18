@@ -5,6 +5,17 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.3.3] - 2026-03-18
+
+### Added
+- **Onboarding tour:** On first launch, 5 animated intro screens (HorizontalPager) are shown with benefit-focused texts and localized app screenshots (DE/EN). Can be restarted anytime via Settings → "Show app tour".
+- **Panda intro animation:** Onboarding slide 0 features a looping Lottie animation (sleeping panda) instead of a static image.
+
+### Fixed
+- **Long-press / paste in login and join screens:** Removed `SelectionContainer` wrapper around editable text fields – it was blocking the native context menu (paste, copy). Password managers and clipboard now work reliably.
+
+---
+
 ## [1.3.2] - 2026-03-18
 
 ### Added

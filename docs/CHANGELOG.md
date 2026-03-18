@@ -5,6 +5,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.3.3] - 2026-03-18
+
+### Neu
+- **Onboarding-Tour:** Beim ersten App-Start erscheinen 5 animierte Intro-Screens (HorizontalPager) mit Benefit-fokussierten Texten und App-Screenshots (lokalisiert DE/EN). Kann über Einstellungen → „App-Tour anzeigen" jederzeit erneut gestartet werden.
+- **Panda-Intro-Animation:** Slide 0 des Onboardings zeigt eine loopende Lottie-Animation (schlafender Panda) statt eines statischen Bildes.
+
+### Behoben
+- **Long-Press / Einfügen im Login- und Join-Screen:** `SelectionContainer` um editierbare Textfelder entfernt – blockierte das native Kontextmenü (Einfügen, Kopieren). Passwort-Manager und Zwischenablage funktionieren nun zuverlässig.
+
+---
+
 ## [1.3.2] - 2026-03-18
 
 ### Neu
