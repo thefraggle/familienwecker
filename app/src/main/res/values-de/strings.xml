@@ -21,6 +21,7 @@
     <string name="setup_family_name">Familienname (z.B. Musterfamilie)</string>
     <string name="setup_create_button">Familie gründen</string>
     <string name="setup_join_code_label">6-stelliger Join Code</string>
+    <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">Familie beitreten</string>
 
     <string name="main_title">FamWake - Familienwecker</string>
