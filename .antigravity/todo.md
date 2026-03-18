@@ -17,6 +17,7 @@
 - [ ] DST-Schutz
 
 ## Recently Completed
+- [x] Play Store Listing: Restored and optimized (DE/EN) with HTML tags and user-focused messaging.
 - [x] v1.3.1 Release: Chip-Layout, Validierungen, Next-Alarm-Logik, Alarm für deaktivierte Tage
 - [x] v1.3.0 Release: In-App Review, Chip-Fixes, Rate-Limits (Dual), Fehlerbehandlung
 - [x] Rate-Limit Tageslimit (2× stündliches Limit) für Email, Join, Create

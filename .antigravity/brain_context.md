@@ -2,6 +2,7 @@
 
 ## Current State
 - **Version:** 1.3.1 released, next: 1.3.2-dev
+- **Listing:** Play Store Listing restored and optimized (DE/EN) in `docs/internal/play_store_listing.md`
 - **Repo:** public @ github.com/thefraggle/familienwecker
 - **Last Tag:** v1.3.1
 - **Active Tags:** v1.0.0, v1.1.0, v1.1.5, v1.2.0, v1.3.0, v1.3.1
