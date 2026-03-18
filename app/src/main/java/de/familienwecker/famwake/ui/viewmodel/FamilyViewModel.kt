@@ -813,8 +813,28 @@ class FamilyViewModel(
                     val calculationMembers = rawMembers.map { resolveEffectiveMember(it) }
 
                     if (calculationMembers.none { !it.isPaused }) {
+                        android.util.Log.w("FamWake_Alarm", "recalculate: all members paused – checking grace period before cancel")
                         _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)
-                        currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
+                        // Grace-Period: Keinen Alarm abbrechen, wenn der aktuelle User's Alarm
+                        // in den letzten 5 Minuten hätte klingeln sollen.
+                        // (resolveEffectiveMember sieht ihn als "paused", weil todayProfile.latestWakeUp
+                        // bereits vorbei ist – aber der echte Alarm könnte noch feuern.)
+                        val myMember = currentMembers.find { it.id == currentMyMemberId }
+                        val myProfile = myMember?.dayProfiles?.get(LocalDate.now().dayOfWeek.value)
+                        val myWakeUpToday = myProfile?.latestWakeUp
+                        val inGrace = if (myWakeUpToday != null) {
+                            val todayAlarmMillis = LocalDateTime.of(LocalDate.now(), myWakeUpToday)
+                                .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+                            val millisSince = System.currentTimeMillis() - todayAlarmMillis
+                            millisSince in 0..300_000
+                        } else false
+
+                        if (inGrace) {
+                            android.util.Log.d("FamWake_Alarm", "recalculate: GRACE PERIOD – skipping cancel (alarm just fired)")
+                        } else {
+                            android.util.Log.w("FamWake_Alarm", "recalculate: cancelling all alarms (all paused, outside grace)")
+                            currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
+                        }
                         return@launch
                     }
 
@@ -826,6 +846,7 @@ class FamilyViewModel(
                     if (alarmsOn && result.isValid && result.memberSchedules.isNotEmpty()) {
                         applyAlarms(result)
                     } else {
+                        android.util.Log.w("FamWake_Alarm", "recalculate: cancelling alarms – alarmsOn=$alarmsOn, isValid=${result.isValid}, scheduleEmpty=${result.memberSchedules.isEmpty()}")
                         currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                     }
                 } catch (e: Exception) {
