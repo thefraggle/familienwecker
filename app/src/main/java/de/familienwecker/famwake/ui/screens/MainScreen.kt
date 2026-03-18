@@ -917,24 +917,26 @@ fun MemberCard(
                     if (member.claimedByUserId != null) {
                         Spacer(modifier = Modifier.width(6.dp))
                         
+                        val allDaysInactive = member.dayProfiles?.values?.none { it.isActive } == true
+
                         val statusText = when {
                             member.id == myMemberId -> when {
                                 // Eigenes Mitglied: lokalen Alarm-Status verwenden
                                 !isAlarmEnabled -> stringResource(R.string.main_member_alarm_off)
-                                member.isPaused -> stringResource(R.string.main_member_alarm_off)
+                                member.isPaused || allDaysInactive -> stringResource(R.string.main_member_alarm_off)
                                 else -> stringResource(R.string.main_member_alarm_on)
                             }
                             else -> when {
                                 // Fremdes Mitglied: Firestore-gesyncten Status des anderen Geräts verwenden
                                 member.deviceAlarmEnabled == false -> stringResource(R.string.main_member_alarm_off)
-                                member.isPaused -> stringResource(R.string.main_member_alarm_off)
+                                member.isPaused || allDaysInactive -> stringResource(R.string.main_member_alarm_off)
                                 else -> stringResource(R.string.main_member_alarm_on)
                             }
                         }
                         
                         val statusColor = when {
-                            member.id == myMemberId -> if (!isAlarmEnabled || member.isPaused) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.7f)
-                            else -> if (member.deviceAlarmEnabled == false || member.isPaused) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.7f)
+                            member.id == myMemberId -> if (!isAlarmEnabled || member.isPaused || allDaysInactive) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.7f)
+                            else -> if (member.deviceAlarmEnabled == false || member.isPaused || allDaysInactive) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.7f)
                         }
                         
                         Text(
