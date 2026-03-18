@@ -1,5 +1,6 @@
 package de.familienwecker.famwake.ui.screens
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -15,8 +16,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,12 +29,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.familienwecker.famwake.R
 import kotlinx.coroutines.launch
+import java.util.Locale
 
-data class OnboardingSlide(
-    val emoji: String,
+private data class OnboardingSlide(
     val titleRes: Int,
     val bodyRes: Int,
-    val gradient: List<Color>
+    val gradient: List<Color>,
+    @DrawableRes val imageRes: Int,                    // DE image
+    @DrawableRes val imageResEn: Int = imageRes        // EN image (falls abweichend)
 )
 
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
@@ -37,75 +44,95 @@ data class OnboardingSlide(
 fun OnboardingScreen(
     onFinished: () -> Unit
 ) {
+    val isEnglish = LocalConfiguration.current.locales[0].language != "de"
+
     val slides = listOf(
         OnboardingSlide(
-            emoji = "⏰",
-            titleRes = R.string.onboarding_slide1_title,
-            bodyRes = R.string.onboarding_slide1_body,
-            gradient = listOf(Color(0xFF1A237E), Color(0xFF283593))
+            titleRes   = R.string.onboarding_slide1_title,
+            bodyRes    = R.string.onboarding_slide1_body,
+            gradient   = listOf(Color(0xFF1A237E), Color(0xFF283593)),
+            imageRes   = R.drawable.onboarding_slide1   // DE & EN identical
         ),
         OnboardingSlide(
-            emoji = "👨‍👩‍👧‍👦",
-            titleRes = R.string.onboarding_slide2_title,
-            bodyRes = R.string.onboarding_slide2_body,
-            gradient = listOf(Color(0xFF1B5E20), Color(0xFF2E7D32))
+            titleRes   = R.string.onboarding_slide2_title,
+            bodyRes    = R.string.onboarding_slide2_body,
+            gradient   = listOf(Color(0xFF1B5E20), Color(0xFF2E7D32)),
+            imageRes   = R.drawable.onboarding_slide2_de,
+            imageResEn = R.drawable.onboarding_slide2_en
         ),
         OnboardingSlide(
-            emoji = "📅",
-            titleRes = R.string.onboarding_slide3_title,
-            bodyRes = R.string.onboarding_slide3_body,
-            gradient = listOf(Color(0xFF4A148C), Color(0xFF6A1B9A))
+            titleRes   = R.string.onboarding_slide3_title,
+            bodyRes    = R.string.onboarding_slide3_body,
+            gradient   = listOf(Color(0xFF4A148C), Color(0xFF6A1B9A)),
+            imageRes   = R.drawable.onboarding_slide3_de,
+            imageResEn = R.drawable.onboarding_slide3_en
         ),
         OnboardingSlide(
-            emoji = "🚀",
-            titleRes = R.string.onboarding_slide4_title,
-            bodyRes = R.string.onboarding_slide4_body,
-            gradient = listOf(Color(0xFF880E4F), Color(0xFFAD1457))
+            titleRes   = R.string.onboarding_slide4_title,
+            bodyRes    = R.string.onboarding_slide4_body,
+            gradient   = listOf(Color(0xFF880E4F), Color(0xFFAD1457)),
+            imageRes   = R.drawable.onboarding_slide4   // DE & EN identical
         )
     )
 
-    val pagerState = rememberPagerState(pageCount = { slides.size })
+    val pagerState    = rememberPagerState(pageCount = { slides.size })
     val coroutineScope = rememberCoroutineScope()
-    val isLastPage = pagerState.currentPage == slides.size - 1
+    val isLastPage    = pagerState.currentPage == slides.size - 1
 
     Box(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
-            state = pagerState,
+            state    = pagerState,
             modifier = Modifier.fillMaxSize()
         ) { page ->
-            val slide = slides[page]
+            val slide    = slides[page]
+            val imageRes = if (isEnglish) slide.imageResEn else slide.imageRes
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Brush.verticalGradient(slide.gradient)),
-                contentAlignment = Alignment.Center
+                    .background(Brush.verticalGradient(slide.gradient))
             ) {
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment  = Alignment.CenterHorizontally,
+                    verticalArrangement  = Arrangement.Top,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 40.dp)
-                        .padding(bottom = 160.dp)
+                        .padding(horizontal = 28.dp)
+                        .padding(top = 56.dp, bottom = 180.dp)
                 ) {
-                    Text(
-                        text = slide.emoji,
-                        fontSize = 80.sp,
-                        modifier = Modifier.padding(bottom = 24.dp)
+                    // Floating screenshot card
+                    androidx.compose.foundation.Image(
+                        painter            = painterResource(imageRes),
+                        contentDescription = null,
+                        contentScale       = ContentScale.FillWidth,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .shadow(
+                                elevation       = 24.dp,
+                                shape           = RoundedCornerShape(20.dp),
+                                ambientColor    = Color.Black.copy(alpha = 0.6f),
+                                spotColor       = Color.Black.copy(alpha = 0.6f)
+                            )
+                            .clip(RoundedCornerShape(20.dp))
                     )
+
+                    Spacer(modifier = Modifier.height(28.dp))
+
                     Text(
-                        text = stringResource(slide.titleRes),
-                        style = MaterialTheme.typography.headlineMedium,
+                        text      = stringResource(slide.titleRes),
+                        style     = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(bottom = 16.dp)
+                        color     = Color.White,
+                        textAlign = TextAlign.Center
                     )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
                     Text(
-                        text = stringResource(slide.bodyRes),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White.copy(alpha = 0.85f),
-                        textAlign = TextAlign.Center,
+                        text       = stringResource(slide.bodyRes),
+                        style      = MaterialTheme.typography.bodyLarge,
+                        color      = Color.White.copy(alpha = 0.85f),
+                        textAlign  = TextAlign.Center,
                         lineHeight = 26.sp
                     )
                 }
@@ -119,12 +146,12 @@ fun OnboardingScreen(
                 .padding(horizontal = 24.dp)
                 .padding(bottom = 48.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // Page indicators
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment     = Alignment.CenterVertically
             ) {
                 repeat(slides.size) { index ->
                     val isActive = index == pagerState.currentPage
@@ -139,7 +166,6 @@ fun OnboardingScreen(
                 }
             }
 
-            // Next / Get Started button
             Button(
                 onClick = {
                     if (isLastPage) {
@@ -153,30 +179,29 @@ fun OnboardingScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
-                shape = RoundedCornerShape(16.dp),
+                shape  = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
-                    contentColor = Color(0xFF1A237E)
+                    contentColor   = Color(0xFF1A237E)
                 )
             ) {
                 Text(
-                    text = if (isLastPage) stringResource(R.string.onboarding_done)
-                           else stringResource(R.string.onboarding_next),
+                    text       = if (isLastPage) stringResource(R.string.onboarding_done)
+                                 else stringResource(R.string.onboarding_next),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
+                    fontSize   = 16.sp
                 )
             }
 
-            // Skip text (hidden on last page)
             AnimatedVisibility(
                 visible = !isLastPage,
-                enter = fadeIn(tween(200)),
-                exit = fadeOut(tween(200))
+                enter   = fadeIn(tween(200)),
+                exit    = fadeOut(tween(200))
             ) {
                 TextButton(onClick = onFinished) {
                     Text(
-                        text = stringResource(R.string.onboarding_skip),
-                        color = Color.White.copy(alpha = 0.7f),
+                        text     = stringResource(R.string.onboarding_skip),
+                        color    = Color.White.copy(alpha = 0.7f),
                         fontSize = 14.sp
                     )
                 }
