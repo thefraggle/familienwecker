@@ -44,30 +44,35 @@ class RingingActivity : AppCompatActivity() {
         showOnLockScreenAndTurnScreenOn()
         playRingtone()
 
+        val prefsRepo = (application as FamWakeApplication).preferencesRepository
+        val alarmScheduler = de.familienwecker.famwake.alarm.AlarmScheduler(this)
+
         setContent {
             FamilienweckerTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val prefsRepo = (application as FamWakeApplication).preferencesRepository
-                    val familyViewModel = de.familienwecker.famwake.ui.viewmodel.FamilyViewModel(
-                        application,
-                        prefsRepo = prefsRepo
-                    )
-                    val memberId = intent.getStringExtra("MEMBER_ID") ?: ""
 
                     RingingScreen(
                         memberName = memberName,
                         onStopClicked = {
                             // Snooze-Status löschen, damit der Banner auf MainScreen verschwindet
                             prefsRepo.setSnoozeUntil(null)
-                            // Auch den Snooze-Alarm-Slot aus dem System entfernen
-                            de.familienwecker.famwake.alarm.AlarmScheduler(this).cancelWakeUp(memberId, isSnooze = true)
+                            // Snooze-Alarm-Slot aus dem System entfernen
+                            alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
                             stopRingtoneAndFinish()
                         },
                         onSnoozeClicked = {
-                            familyViewModel.snooze(memberId, memberName)
+                            val snoozeTime = java.time.LocalDateTime.now().plusMinutes(5)
+                            prefsRepo.setSnoozeUntil(snoozeTime)
+                            alarmScheduler.scheduleWakeUp(
+                                wakeUpTime = snoozeTime,
+                                memberId = memberId,
+                                memberName = memberName,
+                                soundUri = prefsRepo.alarmSoundUri.value,
+                                isSnooze = true
+                            )
                             stopRingtoneAndFinish()
                         }
                     )
