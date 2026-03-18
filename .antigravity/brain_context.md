@@ -1,8 +1,10 @@
 # FamWake Brain Context
 
 ## Current State
-- **Version:** 1.3.5-dev (next)
-- v1.3.4 (2026-03-18) — Live auf GitHub & Tag gesetzt
+- **Version:** 1.3.5
+- v1.3.5 (2026-03-18) — Context Menu & Autofill Fix
+- **Context Menu Fix:** Verschachtelte `Scaffold`-Instanzen in Login/Setup-Screens entfernt, um die native Android-Event-Propagation für das Selektionsmenü (Copy/Paste) zu gewährleisten.
+- **Autofill Hints:** E-Mail und Passwort Felder im Login-Screen unterstützen nun native Autofill-Identifier für Passwort-Manager.
 - **RingingScreen:** Redesign mit Lottie-Panda, Gradient (Lila/Peachy) und randomisierten Begrüßungen.
 - **Alarm-Sound:** System-Sound in Notification entfernt, um Dopplung mit RingingActivity-MediaPlayer zu vermeiden.
 - **Awake-Button:** Logik fixiert (cancelt Systemwecker sofort), visuelles Feedback (Farbe/Text toggle), bedingte Sichtbarkeit.
@@ -82,4 +84,4 @@
 - `FirebaseFunctionsException` muss VOR `Exception` gecatcht werden (ist eine Unterklasse)
 - `isFromCache`: allein kein zuverlässiger Offline-Indikator, immer mit NetworkUtils.isOnline() kombinieren
 - FeedbackScreen: FirebaseFunctions.getInstance("europe-west3") explizit angeben (Region!)
-- **Anti-Pattern:** `SelectionContainer` NIEMALS um editierbare `TextField`/`OutlinedTextField` legen → blockiert Long-Press-Paste-Menü. `SelectionContainer` ist nur für read-only Text.
+- **Anti-Pattern:** `SelectionContainer` NIEMALS um editierbare `TextField`/`OutlinedTextField` legen. Ebenso verschachtelte `Scaffold`-Instanzen vermeiden, da sie die Event-Propagation für das native Android-Kontextmenü (Copy/Paste) stören können.

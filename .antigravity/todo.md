@@ -2,6 +2,11 @@
 
 ## Nächste Schritte
 
+## Recently Completed (v1.3.5)
+- [x] Context Menu Fix: Verschachtelte Scaffolds entfernt (Login/Setup)
+- [x] Autofill-Hints: Für E-Mail und Passwort im Login hinzugefügt
+- [x] App-Version auf 1.3.5 angehoben & Changelog aktualisiert
+
 ## Recently Completed (v1.3.4)
 - [x] RingingScreen Redesign: Lottie-Panda, Gradient & Randomized Greetings
 - [x] Admin-Debug: Wecker-Vorlauf auf 3 Minuten verkürzt

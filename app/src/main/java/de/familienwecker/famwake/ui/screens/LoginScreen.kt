@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -41,6 +42,7 @@ import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
 import androidx.activity.compose.BackHandler
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen(
     authViewModel: AuthViewModel,
@@ -81,9 +83,8 @@ fun LoginScreen(
         }
     )
 
-    Scaffold(
-        containerColor = Color.Transparent,
-        topBar = {
+    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+        Column(modifier = Modifier.fillMaxSize()) {
             @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(
                 title = {
@@ -103,13 +104,10 @@ fun LoginScreen(
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
-        }
-    ) { padding ->
-        Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding)
                     .padding(24.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
