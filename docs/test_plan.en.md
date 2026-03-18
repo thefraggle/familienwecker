@@ -152,6 +152,11 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 |:---|:---|:---|
 | EC-08 | **Pause for Today** | ⏸️ icon removes member entirely from the plan; others may sleep in longer. |
 | EC-13 | **Already Awake (☀️)** | Sun icon suppresses the alarm only; bathroom slot remains reserved for others. |
+| EC-14 | **Awake – Cancel** | Clicking "Already Awake" cancels system alarm immediately | Alarm removed from Android AlarmManager. |
+| EC-15 | **Awake – Feedback** | Button turns green and text to "You're awake ✅" | UI provides clear active state feedback. |
+| EC-16 | **Awake – Reset** | Turn off global alarm switch | "Already Awake" status is reset to false. |
+| EC-17 | **Awake – Visibility** | Toggle global alarm switch | Button shows/hides with smooth animation. |
+| EC-18 | **RingingScreen** | Alarm goes off | Lottie Panda, gradient, and random greeting are shown. |
 | EC-09 | Late-night change (2 AM) | Plan is recalculated and synchronized asynchronously to all. |
 | EC-10 | Multiple Admins | Both simultaneously change a child's bathroom duration -> Last-write-wins or conflict message. |
 

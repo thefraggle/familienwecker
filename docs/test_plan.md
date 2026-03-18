@@ -152,6 +152,11 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-48 | **Feedback ohne Nachricht** | "Senden"-Button ist deaktiviert wenn Nachricht leer ist. |
 | TC-49 | **Footer-Links öffnen** | Klick auf Nutzungsbedingungen, Datenschutz oder Impressum im Settings-Footer öffnet jeweils die externe Seite im Browser. |
 | TC-50 | **Account löschen Link** | Klick auf "Account löschen (Info)" öffnet die externe Seite (de/en sprachkorrekt) im Browser. |
+| TC-51 | **„Schon wach" – Stopp** | Klick stoppt geplanten System-Wecker sofort | Wecker im Android System gecancelt. |
+| TC-52 | **„Schon wach" – Optik** | Klick schaltet Farbe auf Grün und Text auf „Du bist wach ✅“ | Dashboard zeigt aktiven Status. |
+| TC-53 | **„Schon wach" – Reset** | Globalen Wecker-Switch ausschalten | „Schon wach"-Status wird auf false zurückgesetzt. |
+| TC-54 | **„Schon wach" – Sichtbar** | Globalen Wecker-Switch ein/aus | Button erscheint/verschwindet mit Animation. |
+| TC-55 | **RingingScreen – Panda** | Wecker klingelt | Lottie-Panda, Gradient und Zufallstext sichtbar. |
 | EC-09 | Nachträgliche Änderung (2 Uhr nachts) | Plan wird neu berechnet und asynchron an alle synchronisiert. |
 | EC-10 | Mehrere Admins | Beide ändern gleichzeitig die Badzeit eines Kindes -> Last-Write-Wins oder Konfliktmeldung. |
 

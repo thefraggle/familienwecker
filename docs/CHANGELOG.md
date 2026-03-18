@@ -5,6 +5,21 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.3.4] - 2026-03-18
+
+### Neu
+- **RingingScreen Redesign:** Hintergründe mit Gradient (Lila bis Pfirsich), Lottie-Panda Animation und randomisierten Begrüßungen (DE/EN).
+
+### Geändert
+- **Admin-Debug:** Wecker-Vorlauf auf 3 Minuten verkürzt.
+- **Verbesserung „Ich bin wach":** Button-Logik repariert (sofortige Stornierung), bedingte Sichtbarkeit (nur wenn Wecker an) und verbessertes visuelles Feedback („Du bist wach ✅“).
+
+### Behoben
+- **Fehlerbehebung:** Doppelter Alarm-Ton durch parallele Notifications/Activity beseitigt.
+- **Reset-Logik:** „Ich bin wach"-Status wird beim Ausschalten des globalen Weckers automatisch zurückgesetzt.
+
+---
+
 ## [1.3.3] - 2026-03-18
 
 ### Neu
