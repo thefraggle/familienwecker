@@ -923,6 +923,7 @@ class FamilyViewModel(
                     }
                 )
                 lastScheduledAlarmMillis = newAlarmMillis
+                android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm SET for $targetDateTime")
             }
         }
     }
