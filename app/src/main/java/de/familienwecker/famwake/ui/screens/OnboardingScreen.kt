@@ -51,7 +51,8 @@ fun OnboardingScreen(
             titleRes   = R.string.onboarding_slide1_title,
             bodyRes    = R.string.onboarding_slide1_body,
             gradient   = listOf(Color(0xFF1A237E), Color(0xFF283593)),
-            imageRes   = R.drawable.onboarding_slide1   // DE & EN identical
+            imageRes   = R.drawable.onboarding_slide1,
+            imageResEn = R.drawable.onboarding_slide1_en
         ),
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide2_title,
@@ -71,7 +72,8 @@ fun OnboardingScreen(
             titleRes   = R.string.onboarding_slide4_title,
             bodyRes    = R.string.onboarding_slide4_body,
             gradient   = listOf(Color(0xFF880E4F), Color(0xFFAD1457)),
-            imageRes   = R.drawable.onboarding_slide4   // DE & EN identical
+            imageRes   = R.drawable.onboarding_slide4,
+            imageResEn = R.drawable.onboarding_slide4_en
         )
     )
 
