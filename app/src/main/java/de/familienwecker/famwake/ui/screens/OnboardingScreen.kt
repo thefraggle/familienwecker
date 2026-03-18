@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.familienwecker.famwake.R
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 private data class OnboardingSlide(
     val titleRes: Int,
@@ -42,9 +40,11 @@ private data class OnboardingSlide(
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(
+    language: String,       // from PreferencesRepository: "de", "en", "system"
     onFinished: () -> Unit
 ) {
-    val isEnglish = LocalConfiguration.current.locales[0].language != "de"
+    // "de" und "system" (Deutsch als Standard) → DE-Screenshots, sonst EN
+    val isEnglish = language == "en"
 
     val slides = listOf(
         OnboardingSlide(
