@@ -571,6 +571,7 @@ class FamilyViewModel(
             memberId = memberId,
             memberName = memberName,
             soundUri = alarmSoundUri.value,
+            isSnooze = true,
             onPermissionDenied = {
                 _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
             }
@@ -579,7 +580,7 @@ class FamilyViewModel(
 
     fun cancelSnooze(memberId: String) {
         prefsRepo.setSnoozeUntil(null)
-        alarmScheduler.cancelWakeUp(memberId)
+        alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
         lastScheduledAlarmMillis = null
         recalculateSchedule()
     }
@@ -847,13 +848,6 @@ class FamilyViewModel(
 
         for (memberSchedule in schedule.memberSchedules) {
             if (memberSchedule.member.id == currentMyMemberId) {
-                // BUGFIX: Wenn ein Snooze aktiv ist, darf dieser nicht durch die reguläre Planung
-                // (z.B. für morgen früh) überschrieben werden. reschedule() triggert oft durch Syncs.
-                val currentSnooze = snoozeUntil.value
-                if (currentSnooze != null && currentSnooze.isAfter(LocalDateTime.now())) {
-                    return
-                }
-
                 val wakeUpTime = memberSchedule.wakeUpTime
                 val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
 
@@ -899,8 +893,8 @@ class FamilyViewModel(
                     }
                 )
                 lastScheduledAlarmMillis = newAlarmMillis
-                // Regulärer Alarm gesetzt → Snooze abgeschlossen
-                prefsRepo.setSnoozeUntil(null)
+                // Regulärer Alarm wurde geplant. Wir setzen den Snooze-Banner NICHT hier zurück,
+                // damit er während der Snooze-Laufzeit sichtbar bleibt (v1.3.2). 
             }
         }
     }
