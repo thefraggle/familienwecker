@@ -2,6 +2,13 @@
 
 ## Nächste Schritte
 
+## Recently Completed (v1.3.4-dev)
+- [x] Tooltip-System: 5 kontextuelle Erstnutzer-Hinweise (Awake, Drag, Weckfenster, Baddauer, Einladungscode)
+- [x] TooltipBubble.kt: Reusable Composable mit Lila/Indigo-Design + AnimatedVisibility
+- [x] PreferencesRepository: Granulare Tooltip-Keys + tooltipsEnabled-Flag
+- [x] SettingsScreen: Tipps-Toggle + "Alle zurücksetzen"-Button
+- [x] Strings DE + EN vollständig ergänzt (commit e06e325)
+
 ## Recently Completed (v1.3.3)
 - [x] Onboarding-Tour: 5 Intro-Slides (HorizontalPager), App-Tour Button in Settings
 - [x] Panda Lottie-Animation auf Onboarding Slide 0

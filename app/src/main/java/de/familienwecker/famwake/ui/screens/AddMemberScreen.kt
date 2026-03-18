@@ -62,6 +62,7 @@ fun AddMemberScreen(
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipWakeWindowSeen by viewModel.tooltipWakeWindowSeen.collectAsStateWithLifecycle()
     val tooltipBathroomSeen by viewModel.tooltipBathroomSeen.collectAsStateWithLifecycle()
+    val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
 
     var name by remember(memberToEdit) { mutableStateOf(memberToEdit?.name ?: "") }
 
@@ -293,6 +294,16 @@ fun AddMemberScreen(
                             )
                         )
                     }
+                }
+
+                // Tooltip G – Wochentage
+                if (tooltipsEnabled && !tooltipWeekdaysSeen) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    TooltipBubble(
+                        visible = true,
+                        text = stringResource(R.string.tooltip_weekdays),
+                        onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyWeekdays) }
+                    )
                 }
 
                 // Tages-Card für selectedDay

@@ -4,6 +4,7 @@
 - **Version:** 1.3.4-dev (next)
 - v1.3.3 (2026-03-18) — Live auf GitHub & Tag gesetzt
 - **Firebase:** keine Änderungen in v1.3.3, kein Deploy nötig
+- **Tooltips:** Implementiert in v1.3.4-dev (commit e06e325). System basiert auf granularen PreferencesRepository-Keys; global an/abschaltbar über SettingsScreen-Toggle.
 
 ## Architecture
 - Android (Kotlin/Compose), Firebase (Firestore + Functions), Cloud Functions (europe-west3)

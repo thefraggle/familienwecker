@@ -83,6 +83,7 @@ fun MainScreen(
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipAwakeSeen by viewModel.tooltipAwakeSeen.collectAsStateWithLifecycle()
     val tooltipDragSeen by viewModel.tooltipDragSeen.collectAsStateWithLifecycle()
+    val tooltipSwitchSeen by viewModel.tooltipSwitchSeen.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     var showJoinConflictDialog by remember { mutableStateOf(false) }
@@ -335,6 +336,17 @@ fun MainScreen(
                                     checked = isAlarmEnabled,
                                     onCheckedChange = { viewModel.setAlarmEnabled(it) },
                                     enabled = myMemberId != null
+                                )
+                            }
+
+                            // Tooltip F – Wecker-Switch
+                            if (tooltipsEnabled && !tooltipSwitchSeen && myMemberId != null) {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                TooltipBubble(
+                                    visible = true,
+                                    text = stringResource(R.string.tooltip_alarm_switch),
+                                    onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeySwitch) },
+                                    isDark = isDarkTheme
                                 )
                             }
 

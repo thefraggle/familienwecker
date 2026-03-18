@@ -66,6 +66,8 @@ class FamilyViewModel(
     val tooltipWakeWindowSeen: StateFlow<Boolean> = prefsRepo.tooltipWakeWindowSeen
     val tooltipBathroomSeen: StateFlow<Boolean>   = prefsRepo.tooltipBathroomSeen
     val tooltipInviteSeen: StateFlow<Boolean>     = prefsRepo.tooltipInviteSeen
+    val tooltipSwitchSeen: StateFlow<Boolean>     = prefsRepo.tooltipSwitchSeen
+    val tooltipWeekdaysSeen: StateFlow<Boolean>   = prefsRepo.tooltipWeekdaysSeen
 
     fun setOnboardingCompleted(completed: Boolean) = prefsRepo.setOnboardingCompleted(completed)
     fun setTooltipsEnabled(enabled: Boolean)        = prefsRepo.setTooltipsEnabled(enabled)
@@ -78,6 +80,8 @@ class FamilyViewModel(
     val tooltipKeyWakeWindow get() = prefsRepo.tooltipKeyWakeWindow
     val tooltipKeyBathroom   get() = prefsRepo.tooltipKeyBathroom
     val tooltipKeyInvite     get() = prefsRepo.tooltipKeyInvite
+    val tooltipKeySwitch     get() = prefsRepo.tooltipKeySwitch
+    val tooltipKeyWeekdays   get() = prefsRepo.tooltipKeyWeekdays
 
     private val _members = MutableStateFlow<PersistentList<FamilyMember>>(persistentListOf())
     val members: StateFlow<PersistentList<FamilyMember>> = _members.asStateFlow()
