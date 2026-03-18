@@ -4,6 +4,8 @@
 
 ## Recently Completed (v1.3.4-dev)
 - [x] Tooltip-System: 5 kontextuelle Erstnutzer-Hinweise (Awake, Drag, Weckfenster, Baddauer, Einladungscode)
+- [x] Tooltip F (MainScreen): Wecker-Switch erklärt (commit 6cd127a)
+- [x] Tooltip G (AddMemberScreen): Wochentag-Chips erklärt (commit 6cd127a)
 - [x] TooltipBubble.kt: Reusable Composable mit Lila/Indigo-Design + AnimatedVisibility
 - [x] PreferencesRepository: Granulare Tooltip-Keys + tooltipsEnabled-Flag
 - [x] SettingsScreen: Tipps-Toggle + "Alle zurücksetzen"-Button

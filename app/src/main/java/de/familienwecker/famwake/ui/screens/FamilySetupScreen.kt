@@ -172,7 +172,7 @@ fun FamilySetupScreen(
                                         label = { Text(stringResource(R.string.setup_join_code_label)) },
                                         singleLine = true,
                                         modifier = Modifier.fillMaxWidth(),
-                                        placeholder = { Text("ABC123") },
+                                        placeholder = { Text(stringResource(R.string.setup_join_code_placeholder)) },
                                         keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
                                             capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.Characters,
                                             autoCorrectEnabled = false
