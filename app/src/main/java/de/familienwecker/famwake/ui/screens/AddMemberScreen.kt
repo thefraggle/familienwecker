@@ -252,7 +252,8 @@ fun AddMemberScreen(
                                         isActive                -> MaterialTheme.colorScheme.onSurface
                                         else                    -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f)
                                     },
-                                    maxLines = 1
+                                    maxLines = 1,
+                                    modifier = Modifier.padding(horizontal = 0.dp)
                                 )
                             },
                             colors = FilterChipDefaults.filterChipColors(

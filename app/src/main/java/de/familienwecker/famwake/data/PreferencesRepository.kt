@@ -22,6 +22,7 @@ private const val KEY_FAMILY_NAME = "FAMILY_NAME"
 private const val KEY_LANGUAGE = "APP_LANGUAGE"
 private const val KEY_THEME = "APP_THEME"
 private const val KEY_ALARM_ENABLED = "ALARM_ENABLED"
+private const val KEY_SNOOZE_UNTIL = "SNOOZE_UNTIL"
 
 class PreferencesRepository(context: Context) {
     private val prefs: SharedPreferences = createEncryptedPrefs(context).also {
@@ -67,6 +68,7 @@ class PreferencesRepository(context: Context) {
                 legacy.getString(KEY_LANGUAGE, null)?.let { putString(KEY_LANGUAGE, it) }
                 legacy.getString(KEY_THEME, null)?.let { putString(KEY_THEME, it) }
                 putBoolean(KEY_ALARM_ENABLED, legacy.getBoolean(KEY_ALARM_ENABLED, false))
+                legacy.getString(KEY_SNOOZE_UNTIL, null)?.let { putString(KEY_SNOOZE_UNTIL, it) }
                 putBoolean(MIGRATION_DONE_KEY, true)
             }
             legacy.edit { clear() }
@@ -106,6 +108,13 @@ class PreferencesRepository(context: Context) {
 
     private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_ALARM_ENABLED, false))
     val isAlarmEnabled: StateFlow<Boolean> = _isAlarmEnabled.asStateFlow()
+
+    private val _snoozeUntil = MutableStateFlow<java.time.LocalDateTime?>(
+        prefs.getString(KEY_SNOOZE_UNTIL, null)?.let {
+            try { java.time.LocalDateTime.parse(it) } catch (e: Exception) { null }
+        }
+    )
+    val snoozeUntil: StateFlow<java.time.LocalDateTime?> = _snoozeUntil.asStateFlow()
 
 
     /**
@@ -149,6 +158,12 @@ class PreferencesRepository(context: Context) {
             KEY_ALARM_ENABLED -> {
                 val v = sharedPreferences.getBoolean(key, false)
                 if (v != _isAlarmEnabled.value) _isAlarmEnabled.value = v
+            }
+            KEY_SNOOZE_UNTIL -> {
+                val v = sharedPreferences.getString(key, null)?.let {
+                    try { java.time.LocalDateTime.parse(it) } catch (e: Exception) { null }
+                }
+                if (v != _snoozeUntil.value) _snoozeUntil.value = v
             }
         }
     }
@@ -205,6 +220,11 @@ class PreferencesRepository(context: Context) {
     fun setAlarmEnabled(enabled: Boolean) {
         _isAlarmEnabled.value = enabled
         prefs.edit { putBoolean(KEY_ALARM_ENABLED, enabled) }
+    }
+
+    fun setSnoozeUntil(time: java.time.LocalDateTime?) {
+        _snoozeUntil.value = time
+        prefs.edit { putString(KEY_SNOOZE_UNTIL, time?.toString()) }
     }
 
     fun clearAll() {
