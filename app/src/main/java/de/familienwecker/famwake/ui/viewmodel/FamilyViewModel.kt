@@ -907,6 +907,9 @@ class FamilyViewModel(
                     android.util.Log.w("FamWake_Alarm", "applyAlarms: day $dayOfWeek is inactive, cancelling alarm")
                     alarmScheduler.cancelWakeUp(currentMyMemberId)
                     lastScheduledAlarmMillis = null
+                    // Zeitplan-Anzeige ebenfalls zurücksetzen, damit die UI keinen
+                    // veralteten Plan zeigt wenn der nächste Tag inaktiv ist.
+                    _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)
                     return
                 }
 
