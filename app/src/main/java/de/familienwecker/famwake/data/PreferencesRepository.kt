@@ -24,7 +24,12 @@ private const val KEY_THEME = "APP_THEME"
 private const val KEY_ALARM_ENABLED = "ALARM_ENABLED"
 private const val KEY_SNOOZE_UNTIL = "SNOOZE_UNTIL"
 private const val KEY_ONBOARDING_COMPLETED = "ONBOARDING_COMPLETED"
-private const val KEY_TOOLTIPS_COMPLETED = "TOOLTIPS_COMPLETED"
+private const val KEY_TOOLTIPS_ENABLED = "TOOLTIPS_ENABLED"
+private const val KEY_TOOLTIP_AWAKE = "TOOLTIP_SEEN_AWAKE"
+private const val KEY_TOOLTIP_DRAG = "TOOLTIP_SEEN_DRAG"
+private const val KEY_TOOLTIP_WAKE_WINDOW = "TOOLTIP_SEEN_WAKE_WINDOW"
+private const val KEY_TOOLTIP_BATHROOM = "TOOLTIP_SEEN_BATHROOM"
+private const val KEY_TOOLTIP_INVITE = "TOOLTIP_SEEN_INVITE"
 
 class PreferencesRepository(context: Context) {
     private val prefs: SharedPreferences = createEncryptedPrefs(context).also {
@@ -121,8 +126,24 @@ class PreferencesRepository(context: Context) {
     private val _onboardingCompleted = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_ONBOARDING_COMPLETED, false))
     val onboardingCompleted: StateFlow<Boolean> = _onboardingCompleted.asStateFlow()
 
-    private val _tooltipsCompleted = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_TOOLTIPS_COMPLETED, false))
-    val tooltipsCompleted: StateFlow<Boolean> = _tooltipsCompleted.asStateFlow()
+    // --- Tooltips ---
+    private val _tooltipsEnabled = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_TOOLTIPS_ENABLED, true))
+    val tooltipsEnabled: StateFlow<Boolean> = _tooltipsEnabled.asStateFlow()
+
+    private val _tooltipAwakeSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_AWAKE, false))
+    val tooltipAwakeSeen: StateFlow<Boolean> = _tooltipAwakeSeen.asStateFlow()
+
+    private val _tooltipDragSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_DRAG, false))
+    val tooltipDragSeen: StateFlow<Boolean> = _tooltipDragSeen.asStateFlow()
+
+    private val _tooltipWakeWindowSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_WAKE_WINDOW, false))
+    val tooltipWakeWindowSeen: StateFlow<Boolean> = _tooltipWakeWindowSeen.asStateFlow()
+
+    private val _tooltipBathroomSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_BATHROOM, false))
+    val tooltipBathroomSeen: StateFlow<Boolean> = _tooltipBathroomSeen.asStateFlow()
+
+    private val _tooltipInviteSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_INVITE, false))
+    val tooltipInviteSeen: StateFlow<Boolean> = _tooltipInviteSeen.asStateFlow()
 
 
     /**
@@ -177,9 +198,29 @@ class PreferencesRepository(context: Context) {
                 val v = sharedPreferences.getBoolean(key, false)
                 if (v != _onboardingCompleted.value) _onboardingCompleted.value = v
             }
-            KEY_TOOLTIPS_COMPLETED -> {
+            KEY_TOOLTIPS_ENABLED -> {
+                val v = sharedPreferences.getBoolean(key, true)
+                if (v != _tooltipsEnabled.value) _tooltipsEnabled.value = v
+            }
+            KEY_TOOLTIP_AWAKE -> {
                 val v = sharedPreferences.getBoolean(key, false)
-                if (v != _tooltipsCompleted.value) _tooltipsCompleted.value = v
+                if (v != _tooltipAwakeSeen.value) _tooltipAwakeSeen.value = v
+            }
+            KEY_TOOLTIP_DRAG -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _tooltipDragSeen.value) _tooltipDragSeen.value = v
+            }
+            KEY_TOOLTIP_WAKE_WINDOW -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _tooltipWakeWindowSeen.value) _tooltipWakeWindowSeen.value = v
+            }
+            KEY_TOOLTIP_BATHROOM -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _tooltipBathroomSeen.value) _tooltipBathroomSeen.value = v
+            }
+            KEY_TOOLTIP_INVITE -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _tooltipInviteSeen.value) _tooltipInviteSeen.value = v
             }
         }
     }
@@ -248,10 +289,35 @@ class PreferencesRepository(context: Context) {
         prefs.edit { putBoolean(KEY_ONBOARDING_COMPLETED, completed) }
     }
 
-    fun setTooltipsCompleted(completed: Boolean) {
-        _tooltipsCompleted.value = completed
-        prefs.edit { putBoolean(KEY_TOOLTIPS_COMPLETED, completed) }
+    fun setTooltipsEnabled(enabled: Boolean) {
+        _tooltipsEnabled.value = enabled
+        prefs.edit { putBoolean(KEY_TOOLTIPS_ENABLED, enabled) }
     }
+
+    fun setTooltipSeen(key: String, seen: Boolean = true) {
+        prefs.edit { putBoolean(key, seen) }
+        when (key) {
+            KEY_TOOLTIP_AWAKE       -> _tooltipAwakeSeen.value = seen
+            KEY_TOOLTIP_DRAG        -> _tooltipDragSeen.value = seen
+            KEY_TOOLTIP_WAKE_WINDOW -> _tooltipWakeWindowSeen.value = seen
+            KEY_TOOLTIP_BATHROOM    -> _tooltipBathroomSeen.value = seen
+            KEY_TOOLTIP_INVITE      -> _tooltipInviteSeen.value = seen
+        }
+    }
+
+    fun resetAllTooltips() {
+        listOf(KEY_TOOLTIP_AWAKE, KEY_TOOLTIP_DRAG, KEY_TOOLTIP_WAKE_WINDOW,
+               KEY_TOOLTIP_BATHROOM, KEY_TOOLTIP_INVITE).forEach {
+            setTooltipSeen(it, false)
+        }
+    }
+
+    // Schlüssel-Konstanten als public val für Aufrufer
+    val tooltipKeyAwake        get() = KEY_TOOLTIP_AWAKE
+    val tooltipKeyDrag         get() = KEY_TOOLTIP_DRAG
+    val tooltipKeyWakeWindow   get() = KEY_TOOLTIP_WAKE_WINDOW
+    val tooltipKeyBathroom     get() = KEY_TOOLTIP_BATHROOM
+    val tooltipKeyInvite       get() = KEY_TOOLTIP_INVITE
 
     fun clearAll() {
         _myMemberId.value = null

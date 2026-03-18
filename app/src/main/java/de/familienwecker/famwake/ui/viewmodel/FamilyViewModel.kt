@@ -58,10 +58,26 @@ class FamilyViewModel(
     val themePreference: StateFlow<String> = prefsRepo.themePreference
     val isAlarmEnabled: StateFlow<Boolean> = prefsRepo.isAlarmEnabled
     val onboardingCompleted: StateFlow<Boolean> = prefsRepo.onboardingCompleted
-    val tooltipsCompleted: StateFlow<Boolean> = prefsRepo.tooltipsCompleted
+
+    // Tooltips
+    val tooltipsEnabled: StateFlow<Boolean>       = prefsRepo.tooltipsEnabled
+    val tooltipAwakeSeen: StateFlow<Boolean>      = prefsRepo.tooltipAwakeSeen
+    val tooltipDragSeen: StateFlow<Boolean>       = prefsRepo.tooltipDragSeen
+    val tooltipWakeWindowSeen: StateFlow<Boolean> = prefsRepo.tooltipWakeWindowSeen
+    val tooltipBathroomSeen: StateFlow<Boolean>   = prefsRepo.tooltipBathroomSeen
+    val tooltipInviteSeen: StateFlow<Boolean>     = prefsRepo.tooltipInviteSeen
 
     fun setOnboardingCompleted(completed: Boolean) = prefsRepo.setOnboardingCompleted(completed)
-    fun setTooltipsCompleted(completed: Boolean) = prefsRepo.setTooltipsCompleted(completed)
+    fun setTooltipsEnabled(enabled: Boolean)        = prefsRepo.setTooltipsEnabled(enabled)
+    fun markTooltipSeen(key: String)                = prefsRepo.setTooltipSeen(key)
+    fun resetAllTooltips()                          = prefsRepo.resetAllTooltips()
+
+    // Schlüssel-Accessoren für Composables
+    val tooltipKeyAwake      get() = prefsRepo.tooltipKeyAwake
+    val tooltipKeyDrag       get() = prefsRepo.tooltipKeyDrag
+    val tooltipKeyWakeWindow get() = prefsRepo.tooltipKeyWakeWindow
+    val tooltipKeyBathroom   get() = prefsRepo.tooltipKeyBathroom
+    val tooltipKeyInvite     get() = prefsRepo.tooltipKeyInvite
 
     private val _members = MutableStateFlow<PersistentList<FamilyMember>>(persistentListOf())
     val members: StateFlow<PersistentList<FamilyMember>> = _members.asStateFlow()
