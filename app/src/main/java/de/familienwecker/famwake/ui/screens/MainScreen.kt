@@ -373,13 +373,13 @@ fun MainScreen(
                                         )
                                     ) {
                                         Icon(
-                                            imageVector = Icons.Default.WbSunny,
+                                            imageVector = if (myMember.isAwakeToday) Icons.Default.Bedtime else Icons.Default.WbSunny,
                                             contentDescription = null,
                                             modifier = Modifier.size(24.dp)
                                         )
                                         Spacer(modifier = Modifier.width(12.dp))
                                         Text(
-                                            text = stringResource(R.string.awake_today_desc),
+                                            text = if (myMember.isAwakeToday) stringResource(R.string.awake_undo_desc) else stringResource(R.string.awake_today_desc),
                                             style = MaterialTheme.typography.titleMedium
                                         )
                                     }
