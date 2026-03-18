@@ -60,6 +60,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-71 | **Onboarding – Erststart** | Nach Erstinstall/Login: Onboarding-Slides erscheinen (5 Screens mit Pager). Slide 0 zeigt animierten Panda. |
 | TC-72 | **Onboarding – App-Tour** | Einstellungen → „App-Tour anzeigen" → Onboarding-Slides öffnen sich vollständig. |
 | TC-73 | **Paste im Login-Screen** | Long-Press auf E-Mail- oder Passwort-Feld → natives Kontextmenü mit „Einfügen" erscheint. Passwort-Manager-Overlay funktioniert. |
+| TC-74 | **Context Menu im Family Setup** | Long-Press auf Familiennamen- oder Beitrittscode-Feld → natives Kontextmenü erscheint. |
 
 
 ### 2. Familien-Konfiguration

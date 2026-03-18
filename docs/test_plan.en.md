@@ -62,6 +62,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-71 | **Onboarding – first launch** | After fresh install/login: onboarding slides appear (5 screens with pager). Slide 0 shows the animated panda. |
 | TC-72 | **Onboarding – app tour** | Settings → "Show app tour" → onboarding slides open completely. |
 | TC-73 | **Paste in login screen** | Long-press on email or password field → native context menu with "Paste" appears. Password manager overlay works. |
+| TC-74 | **Context Menu in Family Setup** | Long-press on family name or join code field → native context menu appears. |
 
 
 ### 2. Family Configuration
