@@ -1,7 +1,7 @@
 # FamWake Brain Context
 
 ## Current State
-- **Version:** 1.3.1 released, next: 1.3.2-dev
+- **Version:** 1.3.2 released
 - **Listing:** Play Store Listing restored and optimized (DE/EN) in `docs/internal/play_store_listing.md`
 - **Repo:** public @ github.com/thefraggle/familienwecker
 - **Last Tag:** v1.3.1
@@ -18,6 +18,11 @@
 - Tag-Push → immer APK (prerelease: true falls x.x.1+, false falls x.x.0)
 - AAB nur über manuelles `workflow_dispatch`
 - Version wird aus `build.gradle.kts` gelesen
+
+## v1.3.2 (2026-03-18)
+- **Snooze-Banner:** Persistenz via `PreferencesRepository`. Sichtbarkeit im `MainScreen` auch nach App-Neustart oder Activity-Wechsel (`RingingActivity`).
+- **Chip-Layout:** Padding in `AddMemberScreen.kt` reduziert, um Text-Truncation bei 7 Chips zu vermeiden.
+- **Eingabefelder:** Paste-Support (Einfügen) für Email und Passwort sowie Join-Code durch `SelectionContainer` aktiviert.
 
 ## v1.3.1 (2026-03-17)
 - **Chip-Layout:** `weight(1f)` → alle 7 Chips gleichmäßig, Sonntag sichtbar

@@ -1,9 +1,11 @@
 # ToDo – FamWake
 
 ## Nächste Schritte
-*(aktuell kein offener Next-Task)*
+- [ ] Finaler Test der Paste-Funktion und des Snooze-Banners.
+- [ ] Release v1.3.2 vorbereiten (falls gewünscht).
 
 ## Backlog (Roadmap)
+- [x] UI-Fixes & Snooze-Banner (Daniel)
 - [ ] Snooze-Synchronisation zwischen Geräten
 - [ ] Multi-Bad-Unterstützung
 - [ ] Homescreen-Widget

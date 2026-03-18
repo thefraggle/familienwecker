@@ -98,8 +98,7 @@ class FamilyViewModel(
     private var lastScheduledAlarmMillis: Long? = null
 
     // Snooze-Status: wenn nicht null ist ein Snooze aktiv
-    private val _snoozeUntil = MutableStateFlow<LocalDateTime?>(null)
-    val snoozeUntil: StateFlow<LocalDateTime?> = _snoozeUntil.asStateFlow()
+    val snoozeUntil: StateFlow<java.time.LocalDateTime?> = prefsRepo.snoozeUntil
 
     init {
         // Observe FamilyId and load members accordingly
@@ -231,6 +230,14 @@ class FamilyViewModel(
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.w("FamilyViewModel", "isAlarmEnabled observer error: ${e.message}")
                 }
+            }
+        }
+
+        // Snooze-Cleanup: Veraltete Snoozes beim Start entfernen
+        viewModelScope.launch {
+            val currentSnooze = snoozeUntil.value
+            if (currentSnooze != null && currentSnooze.isBefore(java.time.LocalDateTime.now().minusMinutes(30))) {
+                prefsRepo.setSnoozeUntil(null)
             }
         }
     }
@@ -558,7 +565,7 @@ class FamilyViewModel(
 
     fun snooze(memberId: String, memberName: String) {
         val snoozeTime = LocalDateTime.now().plusMinutes(5)
-        _snoozeUntil.value = snoozeTime
+        prefsRepo.setSnoozeUntil(snoozeTime)
         alarmScheduler.scheduleWakeUp(
             wakeUpTime = snoozeTime,
             memberId = memberId,
@@ -571,7 +578,7 @@ class FamilyViewModel(
     }
 
     fun cancelSnooze(memberId: String) {
-        _snoozeUntil.value = null
+        prefsRepo.setSnoozeUntil(null)
         alarmScheduler.cancelWakeUp(memberId)
         lastScheduledAlarmMillis = null
         recalculateSchedule()
@@ -886,7 +893,7 @@ class FamilyViewModel(
                 )
                 lastScheduledAlarmMillis = newAlarmMillis
                 // Regulärer Alarm gesetzt → Snooze abgeschlossen
-                _snoozeUntil.value = null
+                prefsRepo.setSnoozeUntil(null)
             }
         }
     }
