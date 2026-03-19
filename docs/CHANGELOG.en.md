@@ -4,6 +4,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.5.1 - 2026-03-20
+
+### Fixed
+- **Build:** Switched to dynamic `versionCode` (timestamp-based) to avoid upload conflicts in the Play Store.
+
+
 ## 1.5.0 - 2026-03-19
 
 ### New
