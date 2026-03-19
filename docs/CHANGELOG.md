@@ -4,6 +4,12 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
  
+## [1.3.10] - 2026-03-19
+### Fixed
+- **Login-Screen / Passwort-Manager:** Unterstützung für Passwort-Manager verbessert durch zusätzliche Autofill-Metadaten (`Username`).
+- **Context-Menü:** Bestätigung, dass das Einfügen-Menü auf allen relevanten Screens (Login, Family Setup) wieder zuverlässig funktioniert.
+
+[1.3.10]: https://github.com/thefraggle/familienwecker/compare/v1.3.9...v1.3.10
 ## [1.3.9] - 2026-03-19
 ### Behoben
 - **Login Screen:** „Radikale Vereinfachung“ von `OutlinedTextField` zur Behebung von Kontextmenü-Blockaden.

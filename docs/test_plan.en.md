@@ -74,7 +74,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-83 | **Deep Link Nav Fix** | Click join link while in family -> Confirmation switches family without Setup screen loop. |
 | TC-84 | **Family Deletion** | Delete family as creator -> All members and family deleted successfully. |
 | TC-85 | **Settings UI Feedback** | Error during leave/delete (e.g. offline) -> Snackbar with error message appears. |
-| TC-86 | **Autofill Positioning** | Autofill dropdown appears exactly below the focused text field (validating `boundsInWindow`). |
+| TC-86 | Login (Autofill Position) | Tap email field. | Autofill dropdown appears directly below the field (not shifted). |
+| TC-87 | Login (Password Manager) | Open login screen. | Password manager (e.g. Google) actively offers saved credentials. |
 
 
 ### 2. Family Configuration

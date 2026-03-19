@@ -4,6 +4,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
  
+## [1.3.10] - 2026-03-19
+### Fixed
+- **Login Screen / Password Manager:** Improved password manager support by adding additional autofill metadata (`Username`).
+- **Context Menu:** Confirmed that the paste menu now works reliably on all relevant screens (Login, Family Setup).
+
+[1.3.10]: https://github.com/thefraggle/familienwecker/compare/v1.3.9...v1.3.10
 ## [1.3.9] - 2026-03-19
 ### Fixed
 - **Login Screen:** "Radical simplification" of `OutlinedTextField` to fix native context menu blocking.

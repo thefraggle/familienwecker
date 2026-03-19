@@ -69,7 +69,7 @@ fun LoginScreen(
 
     val emailNode = remember {
         AutofillNode(
-            autofillTypes = listOf(AutofillType.EmailAddress),
+            autofillTypes = listOf(AutofillType.EmailAddress, AutofillType.Username),
             onFill = { email = it }
         )
     }
