@@ -1,9 +1,10 @@
-# TODO - FamWake (v1.4.3)
+# TODO - FamWake (v1.4.4)
 
 ## Nächste Schritte
 - [ ] Nächste Features planen (Snooze-Sync, Multi-Bad, Widgets)
 
 ### Recently Completed
+- [x] v1.4.3: Admin Stats Report (E-Mail), Secure Auth-Check, UI Refactor <!-- id: 107 -->
 - [x] v1.4.2: Duplicate Join Popup Fix (MainScreen) <!-- id: 106 -->
 - [x] v1.4.1: Input Validation, App Icon, Onboarding Assets, Deep Link Fixes (v1.4.1) <!-- id: 105 -->
 - [x] App Icon auf lokale Änderungen umstellen (Test) <!-- id: 104 -->
