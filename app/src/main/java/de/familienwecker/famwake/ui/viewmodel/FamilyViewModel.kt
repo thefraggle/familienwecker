@@ -140,6 +140,15 @@ class FamilyViewModel(
     val snoozeUntil: StateFlow<java.time.LocalDateTime?> = prefsRepo.snoozeUntil
 
     init {
+        // Globaler Admin-Check (unabhängig von der Familie)
+        viewModelScope.launch {
+            auth.currentUser?.uid?.let { uid ->
+                repository.checkIsGlobalAdminFlow(uid).collect { isGlobal ->
+                    _isGlobalAdmin.value = isGlobal
+                }
+            }
+        }
+
         // Observe FamilyId and load members accordingly
         viewModelScope.launch {
             try {
@@ -154,12 +163,6 @@ class FamilyViewModel(
                             _familyCreatorId.value = data?.createdByUserId
                         }
                         
-                        // Globaler Admin-Check
-                        launch {
-                            auth.currentUser?.uid?.let { uid ->
-                                _isGlobalAdmin.value = repository.checkIsGlobalAdmin(uid)
-                            }
-                        }
 
                         syncStatusJob = launch {
                             try {

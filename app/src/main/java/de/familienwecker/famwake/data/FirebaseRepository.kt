@@ -328,12 +328,14 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun checkIsGlobalAdmin(userId: String): Boolean {
-        return try {
-            db.collection("_admins").document(userId).get().await().exists()
-        } catch (e: Exception) {
-            false
+    fun checkIsGlobalAdminFlow(uid: String): kotlinx.coroutines.flow.Flow<Boolean> = kotlinx.coroutines.flow.callbackFlow {
+        val docRef = db.collection("_admins").document(uid)
+        val listener = docRef.addSnapshotListener { snapshot, _ ->
+            // Fallback auf PRIMARY_ADMIN_UID für absolute Sicherheit direkt im Code
+            val isGlobal = snapshot?.exists() == true || uid == "yqmtXyDNQCa5ajCvL9LEWbVgJmF2"
+            trySend(isGlobal)
         }
+        awaitClose { listener.remove() }
     }
 
     suspend fun getClaimedMember(familyId: String, userId: String): FamilyMember? {
