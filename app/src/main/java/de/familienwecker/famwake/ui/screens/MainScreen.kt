@@ -88,45 +88,7 @@ fun MainScreen(
     val tooltipSwitchSeen by viewModel.tooltipSwitchSeen.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
-    var showJoinConflictDialog by remember { mutableStateOf(false) }
 
-    // Sofort Conflict-Dialog zeigen wenn ein pendingJoinCode eintrifft (z.B. nach Deep-Link aus Hintergrund)
-    LaunchedEffect(pendingJoinCode, familyId) {
-        if (pendingJoinCode != null && familyId != null) {
-            showJoinConflictDialog = true
-        }
-    }
-
-    if (showJoinConflictDialog && pendingJoinCode != null) {
-        AlertDialog(
-            onDismissRequest = {
-                showJoinConflictDialog = false
-                viewModel.clearPendingJoinCode()
-            },
-            title = { Text(stringResource(R.string.join_conflict_title)) },
-            text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "", pendingJoinCode ?: "")) },
-            confirmButton = {
-                TextButton(onClick = {
-                    showJoinConflictDialog = false
-                    viewModel.leaveAndJoinPendingCode { _ ->
-                        // Kein onLeaveFamily() nötig! 
-                        // Falls Erfolg: viewModel.familyId ändert sich -> Screen re-composed automatisch
-                        // Falls Fehler: Dialog ist bereits zu, Fehlermeldung via viewModel.errorMessage
-                    }
-                }) {
-                    Text(stringResource(R.string.join_conflict_confirm), color = MaterialTheme.colorScheme.error)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = {
-                    showJoinConflictDialog = false
-                    viewModel.clearPendingJoinCode()
-                }) {
-                    Text(stringResource(android.R.string.cancel))
-                }
-            }
-        )
-    }
 
     LaunchedEffect(familyId, isSyncing) {
         // Guard: onLeaveFamily nur wenn familyId null UND kein aktiver Sync läuft.
