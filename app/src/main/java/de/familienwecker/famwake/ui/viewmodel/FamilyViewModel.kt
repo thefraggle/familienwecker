@@ -23,6 +23,9 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.combine
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.util.UiText
 import com.google.firebase.auth.FirebaseAuth
@@ -140,13 +143,17 @@ class FamilyViewModel(
     val snoozeUntil: StateFlow<java.time.LocalDateTime?> = prefsRepo.snoozeUntil
 
     init {
-        // Globaler Admin-Check (unabhängig von der Familie)
+        // Globaler Admin-Check (Reaktiv bei Nutzerwechsel)
         viewModelScope.launch {
-            auth.currentUser?.uid?.let { uid ->
-                repository.checkIsGlobalAdminFlow(uid).collect { isGlobal ->
+            repository.getAuthStateFlow()
+                .flatMapLatest { user ->
+                    user?.uid?.let { uid ->
+                        repository.checkIsGlobalAdminFlow(uid)
+                    } ?: flowOf(false)
+                }
+                .collect { isGlobal ->
                     _isGlobalAdmin.value = isGlobal
                 }
-            }
         }
 
         // Observe FamilyId and load members accordingly
