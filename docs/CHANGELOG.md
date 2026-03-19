@@ -24,6 +24,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ## 1.4.0 - 2026-03-19
 
+### Neu
+- **Cloud-Reset-Logik & Performance:** Neuer stündlicher Cron-Job für Status-Resets (2h Threshold) und effizienterer Daten-Refresh beim App-Start.
+- **Onboarding & Design:** Neuer Onboarding-Tour (5 Screens), Panda-Lottie-Animationen und Redesign des RingingScreens.
+- **Sicherheits-Audit & Fixes:** Behebung einer XSS-Lücke in Feedback-E-Mails und Verifizierung der IDOR-Sicherheit.
+
+### Behoben
+- **Autofill & Login:** Massive Verbesserung der Passort-Manager-Kompatibilität (`AutofillNode` + `Username`-Metadaten). Behebt Blockaden des Kontextmenüs.
+- **Stabilität:** Korrektur von Mitglieder-Mapping (Timestamp-Fix), Deep-Link-Flows und Doppel-Alarmen (Notification + Activity).
+- **UI/UX:** Wochentag-Chips mit besserer Verteilung, Rot-Markierung bei Fehlern und klickbare Disclaimer/Footer.
+
 
 ---
 
