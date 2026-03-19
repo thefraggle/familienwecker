@@ -3,7 +3,7 @@
 ## Nächste Schritte
 
 - [ ] Nächste Features planen
-- [x] Recently Completed (v1.3.9): OutlinedTextField Simplification & AutofillNode (v1.3.9 local)
+- [x] Recently Completed (v1.3.9): OutlinedTextField Simplification & AutofillNode (RELEASED)
 - [x] Recently Completed (v1.3.8): Login Screen Autofill & Context Menu Fix (RELEASED)
 - [x] Recently Completed (v1.3.7): Finales Release mit Mapping-Fix, Deep-Link-Flow & Firestore Rules (RELEASED)
 - [x] Recently Completed (v1.3.7): Cloud Reset (2h), Lazy-Refresh & Background-Optimierung (RELEASED)

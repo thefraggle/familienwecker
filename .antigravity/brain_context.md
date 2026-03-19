@@ -1,8 +1,8 @@
-# Brain Context - FamWake (v1.3.9)
+# Brain Context - FamWake (v1.3.10-dev)
 
 ## Current State
-- **Version:** 1.3.9
-- v1.3.9 (2026-03-19) — Radical simplification of OutlinedTextField & manual AutofillNode registration.
+- **Version:** 1.3.10-dev
+- v1.3.9 (2026-03-19) (RELEASED) — Radical simplification of OutlinedTextField & manual AutofillNode registration.
 - v1.3.8 (2026-03-19) (RELEASED) — Login Autofill & Context Menu Fix.
 - v1.3.7 (2026-03-19) (RELEASED) — Cloud Reset, Lazy Refresh, mapping/deep-link/rules fixes.
 - **Awake-Button:** Design angepasst (Sonnen-Icon, Text "Bereits wach", grüner Haken bei Aktivierung).
