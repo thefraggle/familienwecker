@@ -43,6 +43,10 @@ async function checkSingleRateLimit(key, windowMs, maxAttempts) {
  * max. 5 Versuche pro Stunde UND max. 10 pro Tag.
  */
 async function checkEmailRateLimit(email) {
+  if (email.toLowerCase().trim() === ADMIN_EMAIL) {
+    console.log(`Bypassing email rate limit for admin: ${email}`);
+    return;
+  }
   const key = `email_${email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 80)}`;
 
   // Stunden-Limit
@@ -55,6 +59,7 @@ async function checkEmailRateLimit(email) {
 }
 
 const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
+const ADMIN_EMAIL = "daniel.notthoff@gmail.com";
 const BRAND_BLUE = "#1A3A5C";
 
 const SENDER = {
@@ -599,10 +604,15 @@ exports.joinFamilyByCode = onCall(
 
     // Rate-Limiting: max. 5 Join-Versuche pro UID pro Minute, max. 10 pro Tag
     try {
-      const minuteLimited = await checkSingleRateLimit(`join_${uid}_m`, 60 * 1000, 5);
-      if (minuteLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
-      const dayLimited = await checkSingleRateLimit(`join_${uid}_d`, 24 * 60 * 60 * 1000, 10);
-      if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      const isAdmin = request.auth.token.email === ADMIN_EMAIL;
+      if (!isAdmin) {
+        const minuteLimited = await checkSingleRateLimit(`join_${uid}_m`, 60 * 1000, 5);
+        if (minuteLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+        const dayLimited = await checkSingleRateLimit(`join_${uid}_d`, 24 * 60 * 60 * 1000, 10);
+        if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      } else {
+        console.log(`Bypassing join rate limit for admin UID: ${uid}`);
+      }
     } catch (err) {
       if (err instanceof HttpsError) throw err;
       console.error("Rate-Limit-Check fehlgeschlagen (wird ignoriert):", err);
@@ -641,10 +651,15 @@ exports.createFamily = onCall(
 
     // Rate-Limiting: max. 3 Family-Erstellungen pro UID pro Stunde, max. 6 pro Tag
     try {
-      const hourLimited = await checkSingleRateLimit(`create_${uid}_h`, 60 * 60 * 1000, 3);
-      if (hourLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
-      const dayLimited = await checkSingleRateLimit(`create_${uid}_d`, 24 * 60 * 60 * 1000, 6);
-      if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      const isAdmin = request.auth.token.email === ADMIN_EMAIL;
+      if (!isAdmin) {
+        const hourLimited = await checkSingleRateLimit(`create_${uid}_h`, 60 * 60 * 1000, 3);
+        if (hourLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+        const dayLimited = await checkSingleRateLimit(`create_${uid}_d`, 24 * 60 * 60 * 1000, 6);
+        if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      } else {
+        console.log(`Bypassing create rate limit for admin UID: ${uid}`);
+      }
     } catch (err) {
       if (err instanceof HttpsError) throw err;
       console.error("Rate-Limit-Check fehlgeschlagen (wird ignoriert):", err);
