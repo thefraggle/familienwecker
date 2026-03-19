@@ -41,6 +41,9 @@ import de.familienwecker.famwake.ui.util.UiText
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
 import androidx.activity.compose.BackHandler
+import androidx.compose.ui.autofill.AutofillType
+import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.AnnotatedString
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -137,7 +140,12 @@ fun LoginScreen(
                                 keyboardType = KeyboardType.Email,
                                 imeAction = ImeAction.Next
                             ),
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .semantics {
+                                    // Fallback falls direkte Property-Zuweisung fehlschlägt
+                                    set(SemanticsPropertyKey<List<AutofillType>>("AutofillHints"), listOf(AutofillType.EmailAddress))
+                                }
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         OutlinedTextField(
@@ -161,7 +169,11 @@ fun LoginScreen(
                                 keyboardType = KeyboardType.Password,
                                 imeAction = ImeAction.Done
                             ),
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .semantics {
+                                    set(SemanticsPropertyKey<List<AutofillType>>("AutofillHints"), listOf(AutofillType.Password))
+                                }
                         )
 
                         Spacer(modifier = Modifier.height(24.dp))
