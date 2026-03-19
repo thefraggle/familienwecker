@@ -4,6 +4,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
  
+## [1.3.9] - 2026-03-19
+### Behoben
+- **Login Screen:** „Radikale Vereinfachung“ von `OutlinedTextField` zur Behebung von Kontextmenü-Blockaden.
+- **Autofill:** Umstellung auf manuelles `AutofillNode`-Management mit präziser `boundsInWindow()` Positionierung für zuverlässigere Erkennung.
+ 
 ## [1.3.8] - 2026-03-19
 ### Fixed
 - **Login Screen:** Autofill-Unterstützung für E-Mail und Passwort verbessert.

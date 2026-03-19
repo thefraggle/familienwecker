@@ -61,9 +61,9 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-56 | **Daily rate limit** | After reaching the hourly limit, wait for the hour to pass and try again: the daily limit (2× hourly) kicks in after the second hour and blocks further attempts for 24h. |
 | TC-71 | **Onboarding – first launch** | After fresh install/login: onboarding slides appear (5 screens with pager). Slide 0 shows the animated panda. |
 | TC-72 | **Onboarding – app tour** | Settings → "Show app tour" → onboarding slides open completely. |
-| TC-73 | **Paste in login screen** | Long-press on email or password field → native context menu with "Paste" appears. Password manager overlay works. |
+| TC-73 | **Paste in login screen** | Long-press on email or password field → native context menu with "Paste" appears (despite simplification). |
 | TC-74 | **Context Menu in Family Setup** | Long-press on family name or join code field → native context menu appears. |
-| TC-75 | **Autofill Support** | Focus on email field → keyboard suggests saved addresses. Password manager offers autofill. |
+| TC-75 | **Autofill Support (manual)** | Focus on email field → keyboard suggests saved addresses. Password manager offers autofill via `AutofillNode`. |
 | TC-76 | **Debouncing Toggles** | Rapidly clicking Awake/Pause multiple times → Logcat shows only one Firestore write after 2s. |
 | TC-77 | **Master-Switch Debounce** | Rapidly toggling global alarm switch → sync of the status icon to others occurs only once with a delay. |
 | TC-78 | **Batch-Reset Performance** | Manual reset trigger (via debug) → all members are updated in a single batch transaction. |
@@ -74,6 +74,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-83 | **Deep Link Nav Fix** | Click join link while in family -> Confirmation switches family without Setup screen loop. |
 | TC-84 | **Family Deletion** | Delete family as creator -> All members and family deleted successfully. |
 | TC-85 | **Settings UI Feedback** | Error during leave/delete (e.g. offline) -> Snackbar with error message appears. |
+| TC-86 | **Autofill Positioning** | Autofill dropdown appears exactly below the focused text field (validating `boundsInWindow`). |
 
 
 ### 2. Family Configuration
