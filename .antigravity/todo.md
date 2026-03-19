@@ -2,7 +2,8 @@
 
 ## Nächste Schritte
 
-- [x] Recently Completed (v1.3.6): Awake Redesign, Theme-Fix, Local Logic & Firebase Perf
+- [ ] Nächste Features für v1.3.7 planen
+- [x] Recently Completed (v1.3.6): Awake Redesign, Theme-Fix, Local Logic & Firebase Perf (RELEASED)
 - [x] Autofill-Hints: Für E-Mail und Passwort im Login hinzugefügt
 - [x] Refactoring der Awake- & Alarm-Logik (Funktion lokal, Status gesynct)
 - [x] 2s Debouncing für Toggles (Awake, Pause, Master-Switch) eingeführt

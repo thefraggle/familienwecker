@@ -67,6 +67,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-76 | **Debouncing Toggles** | Rapidly clicking Awake/Pause multiple times → Logcat shows only one Firestore write after 2s. |
 | TC-77 | **Master-Switch Debounce** | Rapidly toggling global alarm switch → sync of the status icon to others occurs only once with a delay. |
 | TC-78 | **Batch-Reset Performance** | Manual reset trigger (via debug) → all members are updated in a single batch transaction. |
+| TC-79 | **Lazy-Refresh** | UI must reset immediately when returning to foreground if threshold > 2h. |
+| TC-80 | **Cloud-Reset** | Status must disappear from Firestore after 2h even without app interaction. |
 
 
 ### 2. Family Configuration

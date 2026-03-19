@@ -1,8 +1,8 @@
-# FamWake Brain Context
+# FamWake# Brain Context - FamWake (v1.3.7 - RELEASED)
 
 ## Current State
-- **Version:** 1.3.6
-- v1.3.6 (2026-03-19) — Awake Redesign, Theme-Fix & Local Logic
+- **Version:** 1.3.7
+- v1.3.6 (2026-03-19) (RELEASED) — Awake Redesign, Theme-Fix & Local Logic
 - **Awake-Button:** Design angepasst (Sonnen-Icon, Text "Bereits wach", grüner Haken bei Aktivierung).
 - **Local-First Logik:** Wecker-Switch (`isAlarmEnabled`) und die funktionale Wirkung von "Bereits wach" sind rein lokal pro Gerät.
 - **Icon-Sync:** Der "Bereits wach"-Status wird weiterhin an Firestore gesendet (Sonnen-Icon für andere).
@@ -13,12 +13,11 @@
 - **Alarm-Sound:** System-Sound in Notification entfernt, um Dopplung mit RingingActivity-MediaPlayer zu vermeiden.
 - **Awake-Button:** Logik fixiert (cancelt Systemwecker sofort), visuelles Feedback (Farbe/Text toggle), bedingte Sichtbarkeit.
 - **Tooltips:** 5 kontextuelle Erstnutzer-Hinweise. System basiert auf granularen PreferencesRepository-Keys.
-- **Firebase-Performance (v1.3.6):** 
-    - 2s Debouncing für alle UI-Toggles (Awake, Pause, Master-Switch).
-    - Batch-Updates für tägliche Resets und Core-Löschvorgänge (`leaveFamilyBatch`, `deleteFamily`).
-    - ServerTimestamp für konsistente `lastUpdatedAt`.
-    - Autofill-Support: Semantics für E-Mail und Passwort in LoginScreen implementiert.
-    - Datenstruktur: Subcollections (`members`) für perfekte Skalierbarkeit.
+- **Firebase-Performance (v1.3.6 - RELEASED):** ...
+- **Reset-Optimierung (v1.3.7 - RELEASED):**
+    - Cloud-Reset via `scheduledMemberReset` (alle 1h, 2h Threshold).
+    - Lazy-Refresh in `MainActivity.onResume`.
+    - 5-Minuten-Timer entfernt.
 
 ## Architecture
 - Android (Kotlin/Compose), Firebase (Firestore + Functions), Cloud Functions (europe-west3)

@@ -78,7 +78,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+ 
+    override fun onResume() {
+        super.onResume()
+        familyViewModel.triggerRefresh()
+    }
+ 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
