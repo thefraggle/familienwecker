@@ -24,6 +24,16 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## 1.4.0 - 2026-03-19
 
+### New
+- **Cloud Reset Logic & Performance:** New hourly cron job for status resets (2h threshold) and more efficient data refresh on app start.
+- **Onboarding & Design:** New onboarding tour (5 screens), Panda Lottie animations, and redesign of the RingingScreen.
+- **Security Audit & Fixes:** Fixed an XSS vulnerability in feedback emails and verified IDOR security.
+
+### Fixed
+- **Autofill & Login:** Massive improvement in password manager compatibility (`AutofillNode` + `Username` metadata). Fixes context menu blockages.
+- **Stability:** Fixed member mapping (timestamp fix), deep link flows, and double alarms (notification + activity).
+- **UI/UX:** Better distribution of weekday chips, red marking for errors, and clickable disclaimers/footers.
+
 
 ---
 
