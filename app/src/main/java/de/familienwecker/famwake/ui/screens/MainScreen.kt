@@ -77,6 +77,8 @@ fun MainScreen(
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val isAlarmEnabled by viewModel.isAlarmEnabled.collectAsStateWithLifecycle()
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
+    val isAwakeTodayLocal by viewModel.isAwakeTodayLocal.collectAsStateWithLifecycle()
+    val onboardingCompleted by viewModel.onboardingCompleted.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val snoozeUntil by viewModel.snoozeUntil.collectAsStateWithLifecycle()
@@ -371,13 +373,13 @@ fun MainScreen(
                                             shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                                             interactionSource = awakeInteractionSource,
                                             colors = ButtonDefaults.buttonColors(
-                                                containerColor = if (myMember.isAwakeToday) 
+                                                containerColor = if (isAwakeTodayLocal) 
                                                     MaterialTheme.colorScheme.secondary // Greenish/Mint
                                                 else 
                                                     MaterialTheme.colorScheme.primary, // Blueish/NightBlue
-                                                contentColor = if (myMember.isAwakeToday)
+                                                contentColor = if (isAwakeTodayLocal)
                                                     MaterialTheme.colorScheme.onSecondary
-                                                else
+                                                  else
                                                     MaterialTheme.colorScheme.onPrimary
                                             )
                                         ) {
@@ -388,10 +390,10 @@ fun MainScreen(
                                             )
                                             Spacer(modifier = Modifier.width(12.dp))
                                             Text(
-                                                text = if (myMember.isAwakeToday) stringResource(R.string.awake_active_desc) else stringResource(R.string.awake_today_desc),
+                                                text = if (isAwakeTodayLocal) stringResource(R.string.awake_active_desc) else stringResource(R.string.awake_today_desc),
                                                 style = MaterialTheme.typography.titleMedium
                                             )
-                                            if (myMember.isAwakeToday) {
+                                            if (isAwakeTodayLocal) {
                                                 Spacer(modifier = Modifier.weight(1f))
                                                 Icon(
                                                     imageVector = Icons.Default.Check,

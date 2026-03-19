@@ -3,11 +3,11 @@
 ## Nächste Schritte
 
 ## Recently Completed (v1.3.6)
+- [x] Refactoring der Awake- & Alarm-Logik (Funktion lokal, Status gesynct)
+- [x] Wecker-Switch (isAlarmEnabled) rein lokal gemacht
 - [x] Awake-Button Design anpassen (Icon + Text "Bereits wach" + grüner Haken)
 - [x] Dark Mode "System" Einstellung repariert (MainActivity Fix)
-- [x] Version auf 1.3.6 angehoben
-
-## Recently Completed (v1.3.5)
+- [x] Version auf 1.3.6 gesetzt
 - [x] Context Menu Fix: Verschachtelte Scaffolds entfernt (Login/Setup)
 - [x] Autofill-Hints: Für E-Mail und Passwort im Login hinzugefügt
 - [x] App-Version auf 1.3.5 angehoben & Changelog aktualisiert

@@ -22,6 +22,7 @@ private const val KEY_FAMILY_NAME = "FAMILY_NAME"
 private const val KEY_LANGUAGE = "APP_LANGUAGE"
 private const val KEY_THEME = "APP_THEME"
 private const val KEY_ALARM_ENABLED = "ALARM_ENABLED"
+private const val KEY_AWAKE_TODAY = "AWAKE_TODAY"
 private const val KEY_SNOOZE_UNTIL = "SNOOZE_UNTIL"
 private const val KEY_ONBOARDING_COMPLETED = "ONBOARDING_COMPLETED"
 private const val KEY_TOOLTIPS_ENABLED = "TOOLTIPS_ENABLED"
@@ -118,6 +119,9 @@ class PreferencesRepository(context: Context) {
     private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_ALARM_ENABLED, false))
     val isAlarmEnabled: StateFlow<Boolean> = _isAlarmEnabled.asStateFlow()
 
+    private val _isAwakeToday = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_AWAKE_TODAY, false))
+    val isAwakeToday: StateFlow<Boolean> = _isAwakeToday.asStateFlow()
+
     private val _snoozeUntil = MutableStateFlow<java.time.LocalDateTime?>(
         prefs.getString(KEY_SNOOZE_UNTIL, null)?.let {
             try { java.time.LocalDateTime.parse(it) } catch (e: Exception) { null }
@@ -195,6 +199,10 @@ class PreferencesRepository(context: Context) {
             KEY_ALARM_ENABLED -> {
                 val v = sharedPreferences.getBoolean(key, false)
                 if (v != _isAlarmEnabled.value) _isAlarmEnabled.value = v
+            }
+            KEY_AWAKE_TODAY -> {
+                val v = sharedPreferences.getBoolean(key, false)
+                if (v != _isAwakeToday.value) _isAwakeToday.value = v
             }
             KEY_SNOOZE_UNTIL -> {
                 val v = sharedPreferences.getString(key, null)?.let {
@@ -295,6 +303,11 @@ class PreferencesRepository(context: Context) {
         prefs.edit { putBoolean(KEY_ALARM_ENABLED, enabled) }
     }
 
+    fun setAwakeToday(awake: Boolean) {
+        _isAwakeToday.value = awake
+        prefs.edit { putBoolean(KEY_AWAKE_TODAY, awake) }
+    }
+
     fun setSnoozeUntil(time: java.time.LocalDateTime?) {
         _snoozeUntil.value = time
         prefs.edit { putString(KEY_SNOOZE_UNTIL, time?.toString()) }
@@ -347,6 +360,7 @@ class PreferencesRepository(context: Context) {
         _joinCode.value = null
         _familyName.value = null
         _isAlarmEnabled.value = false
+        _isAwakeToday.value = false
         prefs.edit {
             remove(KEY_MY_MEMBER_ID)
             remove(KEY_MY_MEMBER_NAME)
@@ -354,6 +368,7 @@ class PreferencesRepository(context: Context) {
             remove(KEY_JOIN_CODE)
             remove(KEY_FAMILY_NAME)
             remove(KEY_ALARM_ENABLED)
+            remove(KEY_AWAKE_TODAY)
         }
         // Sprache und Sound-URI bleiben erhalten (bessere UX nach Logout/Login)
     }

@@ -2,10 +2,11 @@
 
 ## Current State
 - **Version:** 1.3.6
-- v1.3.6 (2026-03-19) — Awake-Button & Theme-Fix
+- v1.3.6 (2026-03-19) — Awake Redesign, Theme-Fix & Local Logic
 - **Awake-Button:** Design angepasst (Sonnen-Icon, Text "Bereits wach", grüner Haken bei Aktivierung).
-- **Dark Mode:** Fix der System-Theme-Erkennung in `MainActivity` durch Nutzung von `isSystemInDarkTheme()`.
-- v1.3.5 (2026-03-18) — Context Menu & Autofill Fix
+- **Local-First Logik:** Wecker-Switch (`isAlarmEnabled`) und die funktionale Wirkung von "Bereits wach" sind rein lokal pro Gerät.
+- **Icon-Sync:** Der "Bereits wach"-Status wird weiterhin an Firestore gesendet (Sonnen-Icon für andere).
+- **Dark Mode:** Fix der System-Theme-Erkennung in `MainActivity`.
 - **Context Menu Fix:** Verschachtelte `Scaffold`-Instanzen in Login/Setup-Screens entfernt, um die native Android-Event-Propagation für das Selektionsmenü (Copy/Paste) zu gewährleisten.
 - **Autofill Hints:** E-Mail und Passwort Felder im Login-Screen unterstützen nun native Autofill-Identifier für Passwort-Manager.
 - **RingingScreen:** Redesign mit Lottie-Panda, Gradient (Lila/Peachy) und randomisierten Begrüßungen.
