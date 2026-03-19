@@ -15,6 +15,15 @@ class CodeGenerationFailedException : Exception()
 
 class FirebaseRepository {
     private val db = FirebaseFirestore.getInstance()
+    private val auth = com.google.firebase.auth.FirebaseAuth.getInstance()
+
+    fun getAuthStateFlow(): kotlinx.coroutines.flow.Flow<com.google.firebase.auth.FirebaseUser?> = kotlinx.coroutines.flow.callbackFlow {
+        val listener = com.google.firebase.auth.FirebaseAuth.AuthStateListener { auth ->
+            trySend(auth.currentUser)
+        }
+        auth.addAuthStateListener(listener)
+        awaitClose { auth.removeAuthStateListener(listener) }
+    }
 
     /**
      * H-5: Familie-Erstellung über Cloud Function.
