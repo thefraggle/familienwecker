@@ -994,7 +994,7 @@ async function sendEmail(to, subject, html) {
     }
     const resend = new Resend(resendKey);
     const { error } = await resend.emails.send({
-        from: `${SENDER.name} <${SENDER.email}>`,
+        from: SENDER.de,
         to: [to],
         subject: subject,
         html: html,
