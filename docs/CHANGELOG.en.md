@@ -5,6 +5,17 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
 
+## [1.3.6] - 2026-03-19
+
+### Added
+- **Autofill Support:** Added autofill hints to email and password fields in the Login screen for better integration with password managers (e.g., Bitwarden, Google).
+
+### Changed
+- **Firebase Optimization (Performance):**
+    - 2s debouncing for all UI toggles (Awake, Pause, Master-Switch) to prevent unnecessary write operations during rapid clicking.
+    - Batch updates for daily resets and core deletion flows (`leaveFamily` / `deleteFamily`), reducing database load and improving atomicity.
+    - Use of `FieldValue.serverTimestamp()` for consistent `lastUpdatedAt` timestamps across all devices.
+
 ## [1.3.5] - 2026-03-18
 
 ### Fixed
