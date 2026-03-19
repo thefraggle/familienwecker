@@ -3,8 +3,9 @@
 ## Nächste Schritte
 
 - [ ] Nächste Features planen
+- [x] v1.3.10: Password Manager Support (AutofillType.Username) & Context Menu Confirmation <!-- id: 100 -->
+- [x] v1.3.9: Login Autofill & Context Menu Fix (RELEASED) <!-- id: 101 -->
 - [x] Recently Completed (v1.3.9): OutlinedTextField Simplification & AutofillNode (RELEASED)
-- [x] Recently Completed (v1.3.8): Login Screen Autofill & Context Menu Fix (RELEASED)
 - [x] Recently Completed (v1.3.7): Finales Release mit Mapping-Fix, Deep-Link-Flow & Firestore Rules (RELEASED)
 - [x] Recently Completed (v1.3.7): Cloud Reset (2h), Lazy-Refresh & Background-Optimierung (RELEASED)
 - [x] Recently Completed (v1.3.6): Awake Redesign, Theme-Fix, Local Logic & Firebase Perf (RELEASED)

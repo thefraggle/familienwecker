@@ -72,7 +72,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-83 | **Deep Link Nav-Fix** | Klick auf Join-Link in bestehender Familie -> Bestätigung führt zum Switch ohne Setup-Screen-Schleife. |
 | TC-84 | **Familien-Löschung** | Als Creator die Familie löschen -> Alle Mitglieder und Familie werden erfolgreich entfernt. |
 | TC-85 | **Settings UI Feedback** | Fehler beim Verlassen/Löschen (z.B. Offline) -> Snackbar mit Fehlermeldung erscheint. |
-| TC-86 | **Autofill-Positionierung** | Autofill-Dropdown erscheint exakt unter dem fokussierten Textfeld (Validierung von `boundsInWindow`). |
+| TC-86 | Login (Autofill Position) | Email-Feld antippen. | Autofill-Dropdown erscheint direkt unter dem Feld (nicht verschoben). |
+| TC-87 | Login (Password Manager) | Login-Screen öffnen. | Passwort-Manager (z.B. Google) bietet gespeicherte Zugangsdaten aktiv an. |
 
 
 ### 2. Familien-Konfiguration

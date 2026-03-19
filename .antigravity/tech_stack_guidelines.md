@@ -34,4 +34,4 @@
   - [2026-03-19] | System Theme Detection Fail | Theme "System" always light. Solution: Replaced `LocalDarkTheme.current` with `isSystemInDarkTheme()` in `MainActivity`'s `setContent`.
 - [2026-03-19] | Firestore Timestamp Mapping | `lastUpdatedAt` saved as Timestamp but expected as Long in Mapper. Solution: Updated `FamilyMemberMapper` to handle both `Number` and `Timestamp` types via `when` expression.
 - [2026-03-19] | Deep Link State Wipe | Successful join via deep link was immediately undone by `leaveFamily()` call in `onLeaveFamily` callback. Solution: Removed `onLeaveFamily()` call from conflict-success handler. Added auto-join to `FamilySetupScreen`.
-- [2026-03-19] | Autofill/Context Menu Blockade | Semantics-based Autofill hints blocked the native context menu. Solution: Removed semantics modifiers; switched to manual `AutofillNode` registration with `boundsInWindow()`.
+- [2026-03-19] | Autofill / Context Menu Blockade (v1.3.8-1.3.10) | OutlinedTextField had semantics/modifiers interfering. Fixed by radical simplification (v1.3.9) and adding `AutofillType.Username` (v1.3.10).
