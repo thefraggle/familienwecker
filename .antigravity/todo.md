@@ -2,7 +2,8 @@
 
 ## Nächste Schritte
 
-- [ ] Nächste Features für v1.3.7 planen
+- [ ] Nächste Features für v1.3.8 planen
+- [x] Recently Completed (v1.3.7): Cloud Reset (2h), Lazy-Refresh & Background-Optimierung (RELEASED)
 - [x] Recently Completed (v1.3.6): Awake Redesign, Theme-Fix, Local Logic & Firebase Perf (RELEASED)
 - [x] Autofill-Hints: Für E-Mail und Passwort im Login hinzugefügt
 - [x] Refactoring der Awake- & Alarm-Logik (Funktion lokal, Status gesynct)
