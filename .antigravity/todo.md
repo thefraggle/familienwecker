@@ -1,8 +1,11 @@
-# TODO - FamWake (v1.3.11-dev)
+# TODO - FamWake (v1.4.0)
 
 ## Nächste Schritte
-
 - [ ] Nächste Features planen
+
+### Recently Completed
+- [x] v1.4.0: Consolidated Major Release (since v1.3.0) <!-- id: 103 -->
+- [x] v1.3.11: XSS Security Hotfix (escapeHtml in Functions) <!-- id: 102 -->
 - [x] v1.3.10: Password Manager Support (AutofillType.Username) & Context Menu Confirmation <!-- id: 100 -->
 - [x] v1.3.9: Login Autofill & Context Menu Fix (RELEASED) <!-- id: 101 -->
 - [x] Recently Completed (v1.3.9): OutlinedTextField Simplification & AutofillNode (RELEASED)
@@ -18,7 +21,6 @@
 - [x] Dark Mode "System" Einstellung repariert (MainActivity Fix)
 - [x] Version auf 1.3.6 gesetzt
 - [x] Context Menu Fix: Verschachtelte Scaffolds entfernt (Login/Setup)
-- [x] Autofill-Hints: Für E-Mail und Passwort im Login hinzugefügt
 
 ## Recently Completed (v1.3.4)
 - [x] RingingScreen Redesign: Lottie-Panda, Gradient & Randomized Greetings
@@ -59,17 +61,3 @@
 - [ ] Abendlicher Check-In (Push 21 Uhr)
 - [ ] Eigene Playlists (Spotify)
 - [ ] DST-Schutz
-
-## Recently Completed
-- [x] Play Store Listing: Restored and optimized (DE/EN) with HTML tags and user-focused messaging.
-- [x] v1.3.1 Release: Chip-Layout, Validierungen, Next-Alarm-Logik, Alarm für deaktivierte Tage
-- [x] v1.3.0 Release: In-App Review, Chip-Fixes, Rate-Limits (Dual), Fehlerbehandlung
-- [x] Rate-Limit Tageslimit (2× stündliches Limit) für Email, Join, Create
-- [x] Rate-Limit Fehlermeldungen vollständig (createFamily, joinFamily, resendVerificationEmail)
-- [x] Crash RESOURCE_EXHAUSTED bei createFamily behoben
-- [x] GitHub Actions: APK immer bei Tag, AAB nur manuell
-- [x] Wochentag-Chips 2-Buchstaben DE+EN
-- [x] Roadmap bereinigt (Smarte Zeit-Warnungen, Eingabe-Validierung, Wochentag-Bad, Alarm-Watchdog entfernt)
-- [x] Tags v1.2.1–v1.2.7 gelöscht, konsolidiert in v1.3.0
-- [x] v1.2.0 Release: Alarm-Status-Persistenz, Join-Flow-Fixes
-- [x] v1.1.5 Release: Feedback via Firebase, Settings-Footer, String-Audit

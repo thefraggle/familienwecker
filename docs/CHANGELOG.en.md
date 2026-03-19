@@ -4,120 +4,19 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
  
-## [1.3.11] - 2026-03-19
-### Fixed
-- **Security:** Fixed an indirect XSS vulnerability in feedback emails via server-side HTML escaping (`escapeHtml`).
+## [1.4.0] - 2026-03-19
 
-[1.3.11]: https://github.com/thefraggle/familienwecker/compare/v1.3.10...v1.3.11
-## [1.3.10] - 2026-03-19
-### Fixed
-- **Login Screen / Password Manager:** Improved password manager support by adding additional autofill metadata (`Username`).
-- **Context Menu:** Confirmed that the paste menu now works reliably on all relevant screens (Login, Family Setup).
-
-[1.3.10]: https://github.com/thefraggle/familienwecker/compare/v1.3.9...v1.3.10
-## [1.3.9] - 2026-03-19
-### Fixed
-- **Login Screen:** "Radical simplification" of `OutlinedTextField` to fix native context menu blocking.
-- **Autofill:** Switched to manual `AutofillNode` management with precise `boundsInWindow()` positioning for more reliable detection.
- 
-## [1.3.8] - 2026-03-19
-### Fixed
-- **Login Screen:** Improved Autofill support for email and password fields.
-- **Context Menu:** Fixed an issue where the native context menu (Copy/Paste) was blocked in login fields.
-- **Stability:** Switched to stable semantics interfaces for password managers.
-
-## [1.3.7] - 2026-03-19
- 
- ### Added
-- **Cloud-Reset-Logic**: New hourly cron job (`scheduledMemberReset`) resets "Awake" status and unclaimed pauses centrally in the cloud.
-- **Shorter Reset Threshold**: Status reset now occurs **2 hours** (instead of 4h) after the scheduled wake-up time.
-- **Lazy-Refresh**: App now updates data and schedule efficiently upon app start or returning to foreground (`onResume`).
-- **Battery Optimization**: The periodic 5-minute background timer in the ViewModel has been removed.
- 
-### Fixed
-- **Member Mapping**: Corrected data mapping for `lastUpdatedAt` and `createdAt` (Firestore `Timestamp` -> `Long`). Fixes the issue where newly created members didn't appear in the list.
-- **Deep Link Flow**: Resolved navigation race conditions and duplicate popups during deep link joins.
-- **Family Deletion**: Corrected Firestore rules to allow the family creator to delete all associated member documents.
-- **UI Improvement**: Added Snackbar feedback in the Settings screen for errors (leaving/deleting a family).
-- **Firestore Robustness**: Optimized `isFamilyMember` rule (now uses `exists()`).
- 
- ## [1.3.6] - 2026-03-19
-
-### Added
-- **Autofill Support:** Added autofill hints to email and password fields in the Login screen for better integration with password managers (e.g., Bitwarden, Google).
-
-### Changed
-- **Firebase Optimization (Performance):**
-    - 2s debouncing for all UI toggles (Awake, Pause, Master-Switch) to prevent unnecessary write operations during rapid clicking.
-    - Batch updates for daily resets and core deletion flows (`leaveFamily` / `deleteFamily`), reducing database load and improving atomicity.
-    - Use of `FieldValue.serverTimestamp()` for consistent `lastUpdatedAt` timestamps across all devices.
-
-## [1.3.5] - 2026-03-18
+### New
+- **Cloud Reset Logic & Performance:** New hourly cron job for status resets (2h threshold) and more efficient data refresh on app start.
+- **Onboarding & Design:** New onboarding tour (5 screens), Panda Lottie animations, and redesign of the RingingScreen.
+- **Security Audit & Fixes:** Fixed an XSS vulnerability in feedback emails and verified IDOR security.
 
 ### Fixed
-- **Context Menu & Password Manager:** Fixed blocked context menu (Copy/Paste) in Login and Family Setup screens by optimizing UI hierarchy (removed nested scaffolds).
-- **Autofill Support:** Added autofill hints to email and password fields in Login screen for better password manager integration.
+- **Autofill & Login:** Massive improvement in password manager compatibility (`AutofillNode` + `Username` metadata). Fixes context menu blockages.
+- **Stability:** Fixed member mapping (timestamp fix), deep link flows, and double alarms (notification + activity).
+- **UI/UX:** Better distribution of weekday chips, red marking for errors, and clickable disclaimers/footers.
 
-## [1.3.4] - 2026-03-18
-
-### Added
-- **RingingScreen Redesign:** Gradient background (Purple to Peach), Lottie Panda animation, and randomized greetings (DE/EN).
-
-### Changed
-- **Admin Debug:** Shortened debug alarm lead time to 3 minutes.
-- **"Already Awake" Improvement:** Fixed button logic (immediate cancellation), conditional visibility (only when alarm enabled), and better visual feedback ("You're awake ✅").
-
-### Fixed
-- **Bug Fix:** Fixed double alarm sound issue caused by parallel notifications/activity.
-- **Reset Logic:** "Already Awake" status is automatically reset when the global alarm switch is turned off.
-
----
-
-## [1.3.3] - 2026-03-18
-
-### Added
-- **Onboarding tour:** On first launch, 5 animated intro screens (HorizontalPager) are shown with benefit-focused texts and localized app screenshots (DE/EN). Can be restarted anytime via Settings → "Show app tour".
-- **Panda intro animation:** Onboarding slide 0 features a looping Lottie animation (sleeping panda) instead of a static image.
-
-### Fixed
-- **Long-press / paste in login and join screens:** Removed `SelectionContainer` wrapper around editable text fields – it was blocking the native context menu (paste, copy). Password managers and clipboard now work reliably.
-
----
-
-## [1.3.2] - 2026-03-18
-
-### Added
-- **All weekdays can be deactivated:** A member can now disable all weekdays (no alarm) without the save button being blocked.
-- **Next active day in member tile:** When not all days are active, the member tile shows the next active day (e.g. "Friday") and its day-specific wake times.
-- **Alarm date in schedule card:** When the next alarm is not today, the schedule card shows a subtitle with weekday and date (e.g. "Thursday, 19 March").
-- **Periodic refresh:** `recalculateSchedule` is called automatically every 5 minutes – schedule display no longer freezes when no Firestore update arrives.
-
-### Fixed
-- **Alarm not ringing (root cause):** `AlarmClockInfo` received a `getBroadcast` PendingIntent as the show intent instead of `getActivity`. On some Android versions this prevented `AlarmReceiver` from ever being called.
-- **`FLAG_UPDATE_CURRENT` + `FLAG_IMMUTABLE` conflict:** Replaced with `FLAG_CANCEL_CURRENT` for clean PendingIntent recreation.
-- **Race condition – Firebase sync after alarm time:** A Firestore update shortly after the wake time could trigger `recalculateSchedule` → `cancelWakeUp`. Fix: 5-minute grace period in `applyAlarms`.
-- **Silent cancel in `recalculateSchedule`:** All alarms were silently cancelled when `now > todayProfile.latestWakeUp`. Fix: grace period also in "all paused" branch + W-level logs for all cancel paths.
-- **Stale schedule after inactive next day:** UI kept showing old schedule when `applyAlarms` cancelled due to an inactive day. Fix: `_schedule` is now set to `NoActiveSchedule`.
-- **Race condition – second ViewModel instance:** `RingingActivity` created a second `FamilyViewModel` that overwrote the running alarm. Fix: direct use of `PreferencesRepository` + `AlarmScheduler`.
-- **`RingingActivity` not reliably launched:** `AlarmReceiver` now starts `RingingActivity` directly via `context.startActivity()` (in addition to the full-screen intent).
-- **Member tile shows wrong alarm status:** "Alarm active" shown despite all days inactive. Fix: `allDaysInactive` check in the tile.
-- **Wake time details visible when profile inactive:** Now hidden when all days are inactive.
-- **Snooze slot conflict:** Snooze and regular alarms now use separate request codes (`_snooze` suffix).
-
----
-
-## [1.3.1] - 2026-03-17
-
-### Changed
-- **Weekday chips:** All 7 chips (`Mo Tu We Th Fr Sa Su`) now use `weight(1f)` and distribute evenly across the full width – Sunday was previously cut off on narrow screens.
-- **Chip error highlight:** Chips with invalid time settings are highlighted in red (border, text, and background).
-
-### Fixed
-- **Next-alarm logic:** `resolveEffectiveMember` now checks today's DayProfile first (is it active AND before `latestWakeUp`?), otherwise falls back to tomorrow. Previously, the legacy root field `member.latestWakeUp` was used as reference → wrong result when today's profile was inactive.
-- **"No alarm" shown incorrectly:** If today's profile was disabled but tomorrow's is active, the app now correctly shows tomorrow's alarm instead of "no active alarm".
-- **Alarm rings for disabled days:** `applyAlarms` now cancels the alarm if the DayProfile for the target date has `isActive = false`.
-- **Validation – latest wake time:** Error message shown when `latestWakeUp ≤ earliestWakeUp`; save button is disabled.
-- **Validation – leave home time:** Error message shown when leave time ≤ `latestWakeUp + bathroom duration`. Also validates against the displayed default value (08:00), not just explicitly set values.
+[1.4.0]: https://github.com/thefraggle/familienwecker/compare/v1.3.0...v1.4.0
 
 ---
 
