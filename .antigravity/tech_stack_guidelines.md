@@ -30,3 +30,4 @@
   - [2026-03-18] | Notification Cancel Failure | Activity couldn't cancel notification because of differing ID calculation. Solution: Unified ID with `memberId.hashCode().and(0x7fffffff)` across Receiver and Activity.
   - [2026-03-18] | Awake Status Persistence | User clicked "awake" but UI didn't update or alarm still came. Solution: Added `cancelAlarmForCurrentUser()` and `recalculateSchedule()` to `toggleAwakeMember`.
   - [2026-03-18] | Context Menu Blockade | Long-press for Copy/Paste didn't show up in Login/Setup. Solution: Removed nested `Scaffold` components; they intercepted pointer events. Added explicit `KeyboardOptions` and `Autofill` considerations.
+  - [2026-03-19] | System Theme Detection Fail | Theme "System" always light. Solution: Replaced `LocalDarkTheme.current` with `isSystemInDarkTheme()` in `MainActivity`'s `setContent`.

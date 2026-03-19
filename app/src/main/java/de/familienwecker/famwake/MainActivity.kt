@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             val darkTheme = when (themePref) {
                 "dark" -> true
                 "light" -> false
-                else -> LocalDarkTheme.current
+                else -> androidx.compose.foundation.isSystemInDarkTheme()
             }
             
             FamilienweckerTheme(darkTheme = darkTheme) {

@@ -2,6 +2,11 @@
 
 ## Nächste Schritte
 
+## Recently Completed (v1.3.6)
+- [x] Awake-Button Design anpassen (Icon + Text "Bereits wach" + grüner Haken)
+- [x] Dark Mode "System" Einstellung repariert (MainActivity Fix)
+- [x] Version auf 1.3.6 angehoben
+
 ## Recently Completed (v1.3.5)
 - [x] Context Menu Fix: Verschachtelte Scaffolds entfernt (Login/Setup)
 - [x] Autofill-Hints: Für E-Mail und Passwort im Login hinzugefügt
