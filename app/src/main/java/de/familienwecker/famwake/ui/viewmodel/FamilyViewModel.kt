@@ -40,6 +40,7 @@ import kotlinx.coroutines.flow.first
 import de.familienwecker.famwake.util.NetworkUtils
 import kotlinx.coroutines.withTimeoutOrNull
 
+@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class FamilyViewModel(
     application: Application,
     private val repository: FirebaseRepository = FirebaseRepository(),
