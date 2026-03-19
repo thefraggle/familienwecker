@@ -953,7 +953,7 @@ async function getStatsReport() {
 
 /** Manueller Report-Abruf aus der App */
 exports.sendAdminStatsReport = onCall(
-  { region: "europe-west3" },
+  { region: "europe-west3", secrets: ["RESEND_API_KEY"] },
   async (request) => {
     if (!request.auth) throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
     
@@ -975,7 +975,8 @@ exports.scheduledAdminStatsReport = onSchedule(
   { 
     schedule: "every sunday 20:00", 
     timeZone: "Europe/Berlin", 
-    region: "europe-west3" 
+    region: "europe-west3",
+    secrets: ["RESEND_API_KEY"]
   },
   async (event) => {
     const html = await getStatsReport();
@@ -983,3 +984,22 @@ exports.scheduledAdminStatsReport = onSchedule(
     console.log("Weekly admin stats report sent.");
   }
 );
+
+/** Hilfsfunktion zum Mail-Versand via Resend (mit Secret-Handling) */
+async function sendEmail(to, subject, html) {
+    const resendKey = process.env.RESEND_API_KEY;
+    if (!resendKey) {
+        console.error("RESEND_API_KEY secret is not set.");
+        return;
+    }
+    const resend = new Resend(resendKey);
+    const { error } = await resend.emails.send({
+        from: `${SENDER.name} <${SENDER.email}>`,
+        to: [to],
+        subject: subject,
+        html: html,
+    });
+    if (error) {
+        console.error(`Fehler beim Senden der E-Mail an ${to}:`, error);
+    }
+}
