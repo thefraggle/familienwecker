@@ -65,6 +65,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-76 | **Debouncing Toggles** | Mehrfaches schnelles Klicken auf Awake/Pause → Logcat zeigt nur einen Firestore-Write nach 2s. |
 | TC-77 | **Master-Switch Debounce** | Globalen Wecker-Switch schnell umschalten → Sync des Status-Icons zu anderen erfolgt nur einmal verzögert. |
 | TC-78 | **Batch-Reset Performance** | Manueller Reset-Trigger (via Debug) → Alle Mitglieder werden in einer einzigen Batch-Transaktion aktualisiert. |
+| TC-79 | **Lazy-Refresh** | UI muss beim Zurückkehren in den Vordergrund sofort resetten falls Threshold > 2h. |
+| TC-80 | **Cloud-Reset** | Status muss auch ohne App-Interaktion nach 2h in Firestore verschwinden. |
 
 
 ### 2. Familien-Konfiguration

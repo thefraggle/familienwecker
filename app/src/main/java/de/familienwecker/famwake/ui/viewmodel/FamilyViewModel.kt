@@ -262,15 +262,7 @@ class FamilyViewModel(
             }
         }
 
-        // Periodischer Timer: recalculateSchedule alle 5 Minuten aufrufen.
-        // Stellt sicher, dass Zeitplan und Alarm-Planung auch ohne externe Firestore-Trigger
-        // neu berechnet werden – wichtig bei Einzelbetrieb und Tageswechsel um Mitternacht.
-        viewModelScope.launch {
-            while (true) {
-                delay(5 * 60 * 1000L) // 5 Minuten
-                recalculateSchedule()
-            }
-        }
+// Periodischer Timer entfernt zugunsten von Lazy-Refresh (onResume) und Cloud-Reset.
     }
 
     fun setError(message: UiText) {
@@ -738,6 +730,16 @@ class FamilyViewModel(
         }
     }
 
+    /**
+     * Manueller Refresh (Lazy Refresh), z.B. wenn die App wieder in den Vordergrund kommt.
+     * Triggert einen sofortigen Reset-Check und frische Daten von Firestore.
+     */
+    fun triggerRefresh() {
+        refreshData()
+        triggerMemberReset()
+        recalculateSchedule()
+    }
+
     fun triggerMemberReset() {
         val currentMembers = _members.value
         if (currentMembers.isNotEmpty()) {
@@ -755,7 +757,7 @@ class FamilyViewModel(
         val toUpdate = mutableListOf<FamilyMember>()
 
         val result = members.map { member ->
-            val resetThreshold = member.latestWakeUp.plusHours(4)
+            val resetThreshold = member.latestWakeUp.plusHours(2)
             val isPastResetThreshold = now.isAfter(resetThreshold)
 
             if (isPastResetThreshold && member.lastResetDate != today) {

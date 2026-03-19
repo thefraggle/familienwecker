@@ -7,9 +7,15 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
  
 ## [Unreleased]
 
-### Neu
-
-## [1.3.6] - 2026-03-19
+## [1.3.7] - 2026-03-19
+ 
+ ### Neu
+- **Cloud-Reset-Logik**: Neuer stündlicher Cron-Job (`scheduledMemberReset`) setzt den "Bin wach"-Status und ungeclaimte Pausen zentral in der Cloud zurück.
+- **Verkürzter Reset-Threshold**: Status-Reset erfolgt nun bereits **2 Stunden** (statt 4h) nach der geplanten Weckzeit.
+- **Lazy-Refresh**: App aktualisiert Daten und Zeitplan nun effizient beim App-Start oder Zurückkehren in den Vordergrund (`onResume`).
+- **Akku-Optimierung**: Der periodische 5-Minuten-Hintergrund-Timer im ViewModel wurde entfernt.
+ 
+ ## [1.3.6] - 2026-03-19
 
 ### Neu
 - **Autofill-Support:** Felder für E-Mail und Passwort im Login wurden mit Autofill-Hints versehen, um die Erkennung durch Passwort-Manager (Z.B. Bitwarden, Google) zu verbessern.

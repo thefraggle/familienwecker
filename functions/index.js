@@ -680,6 +680,78 @@ exports.createFamily = onCall(
     return { familyId: docRef.id, joinCode };
   }
 );
+ 
+/**
+ * Täglicher Reset-Job für Familienmitglieder (alle 1h).
+ * Setzt "isAwakeToday" und "isPaused" (nur bei ungeclaimten) zurück.
+ * Schwellenwert: latestWakeUp + 2 Stunden.
+ */
+exports.scheduledMemberReset = onSchedule(
+  {
+    schedule: "every 1 hours",
+    region: "europe-west3",
+    timeZone: "Europe/Berlin",
+  },
+  async (event) => {
+    const familiesSnapshot = await admin.firestore().collection("families").get();
+    const now = new Date();
+    
+    // Berlin Zeit für den Vergleich (YYYY-MM-DD und HH:mm)
+    const options = { timeZone: "Europe/Berlin", hour12: false };
+    const todayStr = now.toLocaleDateString("en-CA", options); // YYYY-MM-DD
+    const currentTimeStr = now.toLocaleTimeString("en-GB", options).slice(0, 5); // HH:mm
+    
+    console.log(`Running scheduled reset check at ${currentTimeStr} (${todayStr}).`);
+
+    for (const familyDoc of familiesSnapshot.docs) {
+      const membersRef = familyDoc.ref.collection("members");
+      const membersSnapshot = await membersRef.get();
+      const batch = admin.firestore().batch();
+      let hasUpdates = false;
+
+      membersSnapshot.forEach((memberDoc) => {
+        const member = memberDoc.data();
+        const latestWakeUp = member.latestWakeUp; // "HH:mm"
+        
+        if (!latestWakeUp) return;
+
+        // Schwellenwert berechnen (latestWakeUp + 2h)
+        const [hours, minutes] = latestWakeUp.split(":").map(Number);
+        const resetDate = new Date();
+        resetDate.setHours(hours + 2, minutes, 0, 0);
+        const resetTimeStr = resetDate.toLocaleTimeString("en-GB", options).slice(0, 5);
+
+        // Reset nur wenn:
+        // 1. Aktuelle Zeit > (latestWakeUp + 2h)
+        // 2. lastResetDate != today (sichert dass 1x pro Tag resettet wird)
+        const isPastResetThreshold = currentTimeStr >= resetTimeStr;
+        const needsReset = isPastResetThreshold && member.lastResetDate !== todayStr;
+
+        if (needsReset) {
+          const isUnclaimed = !member.claimedByUserId;
+          const updates = {
+            isAwakeToday: false,
+            lastResetDate: todayStr,
+            lastUpdatedAt: admin.firestore.FieldValue.serverTimestamp()
+          };
+          
+          if (isUnclaimed) {
+            updates.isPaused = false;
+          }
+          
+          batch.update(memberDoc.ref, updates);
+          hasUpdates = true;
+        }
+      });
+
+      if (hasUpdates) {
+        await batch.commit();
+        console.log(`Reset performed for members in family ${familyDoc.id}`);
+      }
+    }
+    console.log("Scheduled member reset completed.");
+  }
+);
 
 // ─── Feedback-E-Mail via Resend ──────────────────────────────────────────────
 exports.sendFeedbackEmail = onCall(
