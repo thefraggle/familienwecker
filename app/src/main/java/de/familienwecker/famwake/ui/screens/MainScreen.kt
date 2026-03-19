@@ -391,6 +391,14 @@ fun MainScreen(
                                                 text = if (myMember.isAwakeToday) stringResource(R.string.awake_active_desc) else stringResource(R.string.awake_today_desc),
                                                 style = MaterialTheme.typography.titleMedium
                                             )
+                                            if (myMember.isAwakeToday) {
+                                                Spacer(modifier = Modifier.weight(1f))
+                                                Icon(
+                                                    imageVector = Icons.Default.Check,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.size(24.dp)
+                                                )
+                                            }
                                         }
 
                                         // Tooltip A – "Bin schon wach"-Button
