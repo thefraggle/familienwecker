@@ -264,6 +264,10 @@ fun MainScreen(
                 // Fehlermeldung (falls vorhanden)
                 item {
                     errorMessage?.let { error ->
+                        val errorString = error.asString()
+                        val isJoinError = errorString.contains(stringResource(R.string.error_family_not_found)) || 
+                                          errorString.contains(stringResource(R.string.error_invalid_code))
+                        
                         Card(
                             modifier = Modifier.fillMaxWidth(),
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
@@ -276,18 +280,26 @@ fun MainScreen(
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Text(
-                                    text = "⚠️ ${error.asString()}",
+                                    text = "⚠️ $errorString",
                                     color = MaterialTheme.colorScheme.onErrorContainer,
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                                 Spacer(modifier = Modifier.height(8.dp))
-                                TextButton(
-                                    onClick = { onLeaveFamily() },
-                                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                                ) {
-                                    Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(stringResource(R.string.settings_leave_family))
+                                Row {
+                                    if (isJoinError) {
+                                        TextButton(onClick = { viewModel.clearErrorMessage() }) {
+                                            Text(stringResource(R.string.cancel_button))
+                                        }
+                                    } else {
+                                        TextButton(
+                                            onClick = { onLeaveFamily() },
+                                            colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                                        ) {
+                                            Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
+                                            Spacer(modifier = Modifier.width(8.dp))
+                                            Text(stringResource(R.string.settings_leave_family))
+                                        }
+                                    }
                                 }
                             }
                         }

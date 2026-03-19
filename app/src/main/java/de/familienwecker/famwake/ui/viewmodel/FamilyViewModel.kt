@@ -93,6 +93,10 @@ class FamilyViewModel(
     private val _errorMessage = MutableStateFlow<UiText?>(null)
     val errorMessage: StateFlow<UiText?> = _errorMessage.asStateFlow()
 
+    fun clearErrorMessage() {
+        _errorMessage.value = null
+    }
+
     private val _isSyncing = MutableStateFlow(false)
     val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
 
@@ -280,6 +284,11 @@ class FamilyViewModel(
             onComplete(false)
             return
         }
+        if (familyName.isBlank()) {
+            _errorMessage.value = UiText.StringResource(R.string.error_create_family, "")
+            onComplete(false)
+            return
+        }
         viewModelScope.launch {
             if (!NetworkUtils.isOnline(getApplication())) {
                 _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
@@ -313,9 +322,14 @@ class FamilyViewModel(
     fun joinFamily(code: String, onComplete: (Boolean) -> Unit) {
         _errorMessage.value = null
 
-        // Nicht beitreten wenn bereits in dieser Familie
         if (code.equals(joinCode.value, ignoreCase = true)) {
             onComplete(true)
+            return
+        }
+
+        if (code.length != 6) {
+            _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, code)
+            onComplete(false)
             return
         }
 
@@ -369,6 +383,8 @@ class FamilyViewModel(
 
     fun clearPendingJoinCode() {
         _pendingJoinCode.value = null
+        // Auch Fehlermeldung löschen, wenn der Code verworfen wird
+        _errorMessage.value = null
     }
 
     fun handlePendingJoin(onComplete: (Boolean) -> Unit) {
@@ -378,8 +394,17 @@ class FamilyViewModel(
             onComplete(true)
             return
         }
-        prefsRepo.setFamilyId(null)
-        joinFamily(code, onComplete)
+        // WICHTIG: NICHT familyId(null) setzen bevor wir wissen ob der Join klappt!
+        // LoadingScreen navigiert bei Erfolg sowieso zu Main.
+        joinFamily(code) { success ->
+            if (success) {
+                _pendingJoinCode.value = null
+            } else {
+                // Bei Fehler Code löschen damit kein Loop im SetupScreen entsteht
+                _pendingJoinCode.value = null
+            }
+            onComplete(success)
+        }
     }
 
     fun leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
@@ -422,17 +447,17 @@ class FamilyViewModel(
                         }
                     }
                     val fetchedName = repository.getFamilyName(newFamilyId)
-                    val oldFamilyId = familyId.value
+                    
+                    // ERST den pendingJoinCode auf null setzen, dann die ID in den Prefs ändern!
+                    // Verhindert, dass MainScreen/SetupScreen kurzzeitig (Code != null && familyId != null) sehen.
+                    _pendingJoinCode.value = null
+                    _errorMessage.value = null
                     
                     prefsRepo.setFamilyId(newFamilyId)
                     prefsRepo.setJoinCode(newJoinCode)
                     prefsRepo.setFamilyName(fetchedName)
+                    prefsRepo.setMyMemberId(null)
 
-                    if (oldFamilyId != newFamilyId) {
-                        prefsRepo.setMyMemberId(null)
-                    }
-
-                    _pendingJoinCode.value = null
                     onComplete(true)
                 }.onFailure { error ->
                     // Code ist ungültig → Fehler anzeigen, aber in der ALTEN Familie bleiben!
@@ -458,9 +483,10 @@ class FamilyViewModel(
     }
 
     fun addOrUpdateMember(member: FamilyMember) {
-        val currentFamilyId = familyId.value ?: run {
+        val currentFamilyId = familyId.value ?: return
+        if (member.name.isBlank()) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FamilyViewModel", "Abbruch: familyId ist null beim Speichern von ${member.name}")
+                android.util.Log.e("FamilyViewModel", "Abbruch: Member Name ist leer")
             }
             return
         }

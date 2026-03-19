@@ -235,6 +235,7 @@
     <string name="error_calculate_schedule">Error calculating schedule: %1$s</string>
     <string name="error_not_logged_in">User not logged in</string>
     <string name="error_system">System error: %1$s</string>
+    <string name="error_invalid_credentials">Invalid email address or password. Please check the spelling.</string>
     <string name="error_login_failed">Login failed: %1$s</string>
     <string name="error_login_failed_unknown">Unknown login error</string>
     <string name="error_registration_failed">Registration failed: %1$s</string>

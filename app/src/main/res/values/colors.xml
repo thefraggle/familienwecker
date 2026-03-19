@@ -9,6 +9,6 @@
     <color name="soft_mint">#A2D5AB</color>
 
     <!-- Splash Screen & Launcher Icon -->
-    <color name="ic_launcher_background">#2C3E50</color>
-    <color name="splash_screen_bg">#2C3E50</color>
+    <color name="ic_launcher_background">#211954</color>
+    <color name="splash_screen_bg">#211954</color>
 </resources>

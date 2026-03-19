@@ -161,6 +161,10 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-48 | **Feedback without message** | "Send" button is disabled when message field is empty. |
 | TC-49 | **Footer links open** | Tapping Terms of Use, Privacy Policy, or Imprint in the Settings footer each open the correct external page in a browser. |
 | TC-50 | **Delete account link** | Tapping "Delete Account (Info)" opens the correct external page (language-aware: DE/EN) in a browser. |
+| TC-51 | **Login (Validation)** | Try login with < 8 chars password or invalid email. | Error message appears immediately; no app crash. |
+| TC-52 | **Field Validation (Family)** | Create a new family with an empty name. | "Create" button remains disabled (ViewModel validation). |
+| TC-53 | **Field Validation (Join)** | Enter join code with < 6 characters. | "Join" button remains disabled; error message on invalid code. |
+| TC-54 | **Validation (Member Name)** | Save member without a name. | Save button disabled; error message on empty inputs. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |

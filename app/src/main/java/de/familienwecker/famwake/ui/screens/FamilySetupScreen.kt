@@ -232,50 +232,6 @@ fun FamilySetupScreen(
                     }
                 }
 
-                // Deep Link Join Conflict Dialog (nur wenn bereits in einer Familie)
-                val currentFamilyName by viewModel.familyName.collectAsStateWithLifecycle()
-
-                if (pendingJoinCode != null && familyId != null) {
-                    var isJoining by remember { mutableStateOf(false) }
-                    AlertDialog(
-                        onDismissRequest = { if (!isJoining) viewModel.clearPendingJoinCode() },
-                        title = { Text(stringResource(R.string.join_conflict_title)) },
-                        text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "---", pendingJoinCode!!)) },
-                        confirmButton = {
-                            Button(
-                                onClick = {
-                                    if (!isJoining) {
-                                        isJoining = true
-                                        viewModel.leaveAndJoinPendingCode { success ->
-                                            isJoining = false
-                                            if (success) onSetupComplete()
-                                        }
-                                    }
-                                },
-                                enabled = !isJoining,
-                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
-                            ) {
-                                if (isJoining) {
-                                    CircularProgressIndicator(
-                                        modifier = Modifier.size(18.dp),
-                                        strokeWidth = 2.dp,
-                                        color = MaterialTheme.colorScheme.onPrimary
-                                    )
-                                } else {
-                                    Text(stringResource(R.string.join_conflict_confirm))
-                                }
-                            }
-                        },
-                        dismissButton = {
-                            TextButton(
-                                onClick = { viewModel.clearPendingJoinCode() },
-                                enabled = !isJoining
-                            ) {
-                                Text(stringResource(R.string.cancel_button))
-                            }
-                        }
-                    )
-                }
 
                 Spacer(modifier = Modifier.height(32.dp))
                 

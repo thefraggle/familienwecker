@@ -18,8 +18,12 @@ class AuthRepository {
         get() = auth.currentUser
 
     suspend fun login(email: String, pass: String): Result<FirebaseUser> = withContext(Dispatchers.IO) {
+        val trimmedEmail = email.trim()
+        if (trimmedEmail.isEmpty() || pass.isEmpty()) {
+            return@withContext Result.failure(IllegalArgumentException("Email or password empty"))
+        }
         try {
-            val result = auth.signInWithEmailAndPassword(email.trim(), pass).await()
+            val result = auth.signInWithEmailAndPassword(trimmedEmail, pass).await()
             val user = result.user
             if (user != null) Result.success(user) else Result.failure(LoginFailedException())
         } catch (e: Exception) {
@@ -28,8 +32,12 @@ class AuthRepository {
     }
 
     suspend fun register(email: String, pass: String): Result<FirebaseUser> = withContext(Dispatchers.IO) {
+        val trimmedEmail = email.trim()
+        if (trimmedEmail.isEmpty() || pass.isEmpty()) {
+            return@withContext Result.failure(IllegalArgumentException("Email or password empty"))
+        }
         try {
-            val result = auth.createUserWithEmailAndPassword(email.trim(), pass).await()
+            val result = auth.createUserWithEmailAndPassword(trimmedEmail, pass).await()
             val user = result.user
             if (user != null) Result.success(user) else Result.failure(RegistrationFailedException())
         } catch (e: Exception) {
