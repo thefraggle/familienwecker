@@ -7,7 +7,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
  
 ## [Unreleased]
 
-## [1.3.7] - 2026-03-19
+## [Unreleased]
+ 
++### Neu
++
+ ## [1.3.7] - 2026-03-19
  
  ### Neu
 - **Cloud-Reset-Logik**: Neuer stündlicher Cron-Job (`scheduledMemberReset`) setzt den "Bin wach"-Status und ungeclaimte Pausen zentral in der Cloud zurück.
