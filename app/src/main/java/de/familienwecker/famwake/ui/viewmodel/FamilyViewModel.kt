@@ -57,6 +57,7 @@ class FamilyViewModel(
     val language: StateFlow<String> = prefsRepo.language
     val themePreference: StateFlow<String> = prefsRepo.themePreference
     val isAlarmEnabled: StateFlow<Boolean> = prefsRepo.isAlarmEnabled
+    val isAwakeTodayLocal: StateFlow<Boolean> = prefsRepo.isAwakeToday
     val onboardingCompleted: StateFlow<Boolean> = prefsRepo.onboardingCompleted
 
     // Tooltips
@@ -235,19 +236,12 @@ class FamilyViewModel(
             }
         }
 
-        // Observer Global Alarm Toggle → nach Firestore pushen (nur Anzeige für andere Geräte)
+        // Observer Global Alarm Toggle
         viewModelScope.launch {
             try {
                 isAlarmEnabled.collect { enabled ->
                     recalculateSchedule()
-                    val fId = familyId.value
-                    val myId = myMemberId.value
-                    // Nur schreiben wenn aktiv eingeloggt – verhindert Firestore-Write nach Logout
-                    if (fId != null && myId != null && auth.currentUser != null) {
-                        launch {
-                            repository.updateDeviceAlarmEnabled(fId, myId, enabled)
-                        }
-                    }
+                    // Sync zu Firestore (deviceAlarmEnabled) entfernt, da nun rein lokal.
                 }
             } catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -544,12 +538,7 @@ class FamilyViewModel(
         // Wenn der Wecker ausgeschaltet wird, den "Schon wach"-Status zurücksetzen.
         // Das stellt sicher, dass der Wecker beim Wiedereinschalten normal klingelt.
         if (!enabled) {
-            val memberId = myMemberId.value
-            val member = _members.value.find { it.id == memberId }
-            if (member != null && member.isAwakeToday) {
-                val updatedMember = member.copy(isAwakeToday = false)
-                addOrUpdateMember(updatedMember)
-            }
+            prefsRepo.setAwakeToday(false)
         }
 
         prefsRepo.setAlarmEnabled(enabled)
@@ -634,7 +623,10 @@ class FamilyViewModel(
 
         // 4-Stunden-Sperre entfernt, damit der Button jederzeit am Tag des Weckers funktioniert.
 
-        val newAwakeState = !member.isAwakeToday
+        val newAwakeState = !isAwakeTodayLocal.value
+        prefsRepo.setAwakeToday(newAwakeState)
+
+        // Status-Sync für andere (Sonnen-Icon)
         val updatedMember = member.copy(isAwakeToday = newAwakeState)
         addOrUpdateMember(updatedMember)
 
@@ -699,21 +691,7 @@ class FamilyViewModel(
                         val claimedMember = repository.getClaimedMember(pair.first, uid)
                         if (claimedMember != null) {
                             prefsRepo.setMyMemberId(claimedMember.id)
-                            // Alarm-Status nach Neuinstall wiederherstellen.
-                            // Reihenfolge kritisch: Restore ZUERST, dann Firestore-Sync.
-                            val localAlarm = prefsRepo.isAlarmEnabled.value
-                            val savedAlarm = claimedMember.deviceAlarmEnabled
-                            val effectiveAlarm = if (!localAlarm && savedAlarm == true) {
-                                prefsRepo.setAlarmEnabled(true)  // restore
-                                true
-                            } else {
-                                localAlarm
-                            }
-                            // Proaktiv Firestore aktualisieren (nach Restore, nicht davor!)
-                            // Stellt sicher dass der Status persistiert ist, unabhängig von Observer-Timing.
-                            launch {
-                                repository.updateDeviceAlarmEnabled(pair.first, claimedMember.id, effectiveAlarm)
-                            }
+                            // Restore von deviceAlarmEnabled aus Firestore entfernt (jetzt rein lokal).
                         }
                     } else {
                         // Keine Familie in Firestore gefunden – kein leaveFamily() hier!
@@ -761,6 +739,9 @@ class FamilyViewModel(
                     isAwakeToday = false,
                     lastResetDate = today
                 )
+                if (member.id == myMemberId.value) {
+                    prefsRepo.setAwakeToday(false)
+                }
                 toUpdate.add(updated)
                 updated
             } else {
@@ -993,8 +974,9 @@ class FamilyViewModel(
                 val newAlarmMillis = targetDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
 
                 if (newAlarmMillis == lastScheduledAlarmMillis) return
-
-                if (memberSchedule.member.isAwakeToday && targetDate == today) {
+                
+                // Nutze lokalen "Bereits wach"-Status
+                if (isAwakeTodayLocal.value && targetDate == today) {
                     android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling alarm")
                     alarmScheduler.cancelWakeUp(currentMyMemberId)
                     lastScheduledAlarmMillis = null
