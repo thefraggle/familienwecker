@@ -43,6 +43,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.activity.compose.BackHandler
 import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.semantics.*
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.AnnotatedString
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -143,7 +147,6 @@ fun LoginScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .semantics {
-                                    // Fallback falls direkte Property-Zuweisung fehlschlägt
                                     set(SemanticsPropertyKey<List<AutofillType>>("AutofillHints"), listOf(AutofillType.EmailAddress))
                                 }
                         )
