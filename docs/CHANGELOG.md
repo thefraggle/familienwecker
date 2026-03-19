@@ -4,7 +4,7 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
  
-## [1.4.0] - 2026-03-19
+## 1.4.0 - 2026-03-19
 
 ### Neu
 - **Cloud-Reset-Logik & Performance:** Neuer stündlicher Cron-Job für Status-Resets (2h Threshold) und effizienterer Daten-Refresh beim App-Start.
@@ -16,7 +16,6 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 - **Stabilität:** Korrektur von Mitglieder-Mapping (Timestamp-Fix), Deep-Link-Flows und Doppel-Alarmen (Notification + Activity).
 - **UI/UX:** Wochentag-Chips mit besserer Verteilung, Rot-Markierung bei Fehlern und klickbare Disclaimer/Footer.
 
-[1.4.0]: https://github.com/thefraggle/familienwecker/compare/v1.3.0...v1.4.0
 
 ---
 
