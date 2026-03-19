@@ -2,15 +2,16 @@
 
 ## Nächste Schritte
 
-## Recently Completed (v1.3.6)
+- [x] Recently Completed (v1.3.6): Awake Redesign, Theme-Fix, Local Logic & Firebase Perf
 - [x] Refactoring der Awake- & Alarm-Logik (Funktion lokal, Status gesynct)
+- [x] 2s Debouncing für Toggles (Awake, Pause, Master-Switch) eingeführt
+- [x] Batch-Updates & atomare Core-Prozesse (Reset, Leave, Delete) implementiert
 - [x] Wecker-Switch (isAlarmEnabled) rein lokal gemacht
 - [x] Awake-Button Design anpassen (Icon + Text "Bereits wach" + grüner Haken)
 - [x] Dark Mode "System" Einstellung repariert (MainActivity Fix)
 - [x] Version auf 1.3.6 gesetzt
 - [x] Context Menu Fix: Verschachtelte Scaffolds entfernt (Login/Setup)
 - [x] Autofill-Hints: Für E-Mail und Passwort im Login hinzugefügt
-- [x] App-Version auf 1.3.5 angehoben & Changelog aktualisiert
 
 ## Recently Completed (v1.3.4)
 - [x] RingingScreen Redesign: Lottie-Panda, Gradient & Randomized Greetings

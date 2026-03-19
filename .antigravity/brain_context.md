@@ -12,7 +12,12 @@
 - **RingingScreen:** Redesign mit Lottie-Panda, Gradient (Lila/Peachy) und randomisierten Begrüßungen.
 - **Alarm-Sound:** System-Sound in Notification entfernt, um Dopplung mit RingingActivity-MediaPlayer zu vermeiden.
 - **Awake-Button:** Logik fixiert (cancelt Systemwecker sofort), visuelles Feedback (Farbe/Text toggle), bedingte Sichtbarkeit.
-- **Tooltips:** 5 kontextuelle Erstnutzer-Hinweise (Awake, Drag, Weckfenster, Baddauer, Einladungscode). System basiert auf granularen PreferencesRepository-Keys; global an/abschaltbar über SettingsScreen-Toggle.
+- **Tooltips:** 5 kontextuelle Erstnutzer-Hinweise. System basiert auf granularen PreferencesRepository-Keys.
+- **Firebase-Performance (v1.3.6):** 
+    - 2s Debouncing für alle UI-Toggles (Awake, Pause, Master-Switch).
+    - Batch-Updates für tägliche Resets und Core-Löschvorgänge (`leaveFamilyBatch`, `deleteFamily`).
+    - ServerTimestamp für konsistente `lastUpdatedAt`.
+    - Datenstruktur: Subcollections (`members`) für perfekte Skalierbarkeit.
 
 ## Architecture
 - Android (Kotlin/Compose), Firebase (Firestore + Functions), Cloud Functions (europe-west3)
