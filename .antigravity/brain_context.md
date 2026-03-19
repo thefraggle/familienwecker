@@ -1,8 +1,9 @@
-# FamWake# Brain Context - FamWake (v1.3.8-dev)
+# Brain Context - FamWake (v1.3.8)
 
 ## Current State
 - **Version:** 1.3.8
-- v1.3.7 (2026-03-19) (RELEASED) — Cloud Reset & Lazy Refresh
+- v1.3.8 (2026-03-19) (RELEASED) — Login Autofill & Context Menu Fix.
+- v1.3.7 (2026-03-19) (RELEASED) — Cloud Reset, Lazy Refresh, mapping/deep-link/rules fixes.
 - **Awake-Button:** Design angepasst (Sonnen-Icon, Text "Bereits wach", grüner Haken bei Aktivierung).
 - **Local-First Logik:** Wecker-Switch (`isAlarmEnabled`) und die funktionale Wirkung von "Bereits wach" sind rein lokal pro Gerät.
 - **Icon-Sync:** Der "Bereits wach"-Status wird weiterhin an Firestore gesendet (Sonnen-Icon für andere).

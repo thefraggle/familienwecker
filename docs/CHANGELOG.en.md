@@ -4,6 +4,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
  
+## [1.3.8] - 2026-03-19
+### Fixed
+- **Login Screen:** Improved Autofill support for email and password fields.
+- **Context Menu:** Fixed an issue where the native context menu (Copy/Paste) was blocked in login fields.
+- **Stability:** Switched to stable semantics interfaces for password managers.
+
 ## [1.3.7] - 2026-03-19
  
  ### Added
