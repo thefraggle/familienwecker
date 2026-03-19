@@ -4,6 +4,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.4.4 - 2026-03-19
+
+### Fixed
+- **Build & CI:** Fixed version numbers in build scripts (resolves incorrect file naming in GitHub Actions and Play Store upload errors).
+
+
 ## 1.4.3 - 2026-03-19
 
 ### Added

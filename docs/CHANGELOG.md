@@ -4,6 +4,12 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.4.4 - 2026-03-19
+
+### Behoben
+- **Build & CI:** Korrektur der Versionsnummern in den Build-Skripten (behebt fehlerhafte Dateibenennung in GitHub Actions und Play Store Upload-Fehler).
+
+
 ## 1.4.3 - 2026-03-19
 
 ### Neu
