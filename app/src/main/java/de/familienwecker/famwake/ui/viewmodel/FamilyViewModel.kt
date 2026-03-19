@@ -121,6 +121,10 @@ class FamilyViewModel(
     // Zuletzt gesetzten Alarm-Zeitstempel merken
     private var lastScheduledAlarmMillis: Long? = null
 
+    // Debounce Jobs für Firebase-Writes
+    private var memberUpdateJob: Job? = null
+    private var alarmToggleJob: Job? = null
+
     // Snooze-Status: wenn nicht null ist ein Snooze aktiv
     val snoozeUntil: StateFlow<java.time.LocalDateTime?> = prefsRepo.snoozeUntil
 
@@ -465,6 +469,19 @@ class FamilyViewModel(
         }
     }
 
+    /**
+     * Schreibt ein Mitglied mit 2s Debounce nach Firebase.
+     * Nützlich für Toggles im MainScreen um Schreib-Spam zu vermeiden.
+     */
+    private fun addOrUpdateMemberDebounced(member: FamilyMember) {
+        val currentFamilyId = familyId.value ?: return
+        memberUpdateJob?.cancel()
+        memberUpdateJob = viewModelScope.launch {
+            delay(2000)
+            repository.addOrUpdateMember(currentFamilyId, member)
+        }
+    }
+
     fun removeMember(id: String) {
         val currentFamilyId = familyId.value ?: return
         alarmScheduler.cancelWakeUp(id)
@@ -530,8 +547,8 @@ class FamilyViewModel(
         prefsRepo.setThemePreference(theme)
     }
 
-    // isAlarmEnabled ist gerätespezifisch. Firestore-Sync (deviceAlarmEnabled) läuft
-    // automatisch über den isAlarmEnabled-Observer im init-Block.
+    // isAlarmEnabled ist gerätespezifisch. Firestore-Sync (deviceAlarmEnabled)
+    // erfolgt debounced (2s) für die Anzeige bei anderen Familienmitgliedern.
     fun setAlarmEnabled(enabled: Boolean) {
         if (enabled && myMemberId.value == null) return
 
@@ -542,6 +559,17 @@ class FamilyViewModel(
         }
 
         prefsRepo.setAlarmEnabled(enabled)
+        
+        // Sync zu Firestore debounced (Icon-Status für andere)
+        val currentFamilyId = familyId.value
+        val currentMemberId = myMemberId.value
+        if (currentFamilyId != null && currentMemberId != null) {
+            alarmToggleJob?.cancel()
+            alarmToggleJob = viewModelScope.launch {
+                delay(2000)
+                repository.updateDeviceAlarmEnabled(currentFamilyId, currentMemberId, enabled)
+            }
+        }
     }
 
     /**
@@ -582,7 +610,7 @@ class FamilyViewModel(
         val member = _members.value.find { it.id == memberId } ?: return
         if (member.claimedByUserId != null && member.id != myMemberId.value) return
         val updatedMember = member.copy(isPaused = !member.isPaused)
-        addOrUpdateMember(updatedMember)
+        addOrUpdateMemberDebounced(updatedMember)
     }
 
     fun moveMemberOrder(fromIndex: Int, toIndex: Int) {
@@ -628,7 +656,7 @@ class FamilyViewModel(
 
         // Status-Sync für andere (Sonnen-Icon)
         val updatedMember = member.copy(isAwakeToday = newAwakeState)
-        addOrUpdateMember(updatedMember)
+        addOrUpdateMemberDebounced(updatedMember)
 
         if (newAwakeState) {
             // Wecker sofort aus dem System entfernen – nicht auf applyAlarms() warten.
@@ -753,13 +781,11 @@ class FamilyViewModel(
         val familyIdVal = familyId.value
         if (familyIdVal != null && toUpdate.isNotEmpty()) {
             viewModelScope.launch {
-                toUpdate.forEach { updated ->
-                    try {
-                        repository.addOrUpdateMember(familyIdVal, updated)
-                    } catch (e: Exception) {
-                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                            android.util.Log.e("FamilyViewModel", "Failed to reset member status: ${e.message}")
-                        }
+                try {
+                    repository.updateMembersBatch(familyIdVal, toUpdate)
+                } catch (e: Exception) {
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.e("FamilyViewModel", "Failed to reset member status batch: ${e.message}")
                     }
                 }
             }
@@ -823,11 +849,9 @@ class FamilyViewModel(
         _errorMessage.value = null
         val currentFamilyId = familyId.value ?: return
         viewModelScope.launch {
-            val result = repository.deleteFamily(currentFamilyId)
+            val uid = auth.currentUser?.uid ?: return@launch
+            val result = repository.deleteFamily(currentFamilyId, uid)
             if (result.isSuccess) {
-                auth.currentUser?.uid?.let { uid ->
-                    repository.removeUserFamily(uid)
-                }
                 prefsRepo.setFamilyId(null)
                 prefsRepo.setJoinCode(null)
                 prefsRepo.setFamilyName(null)
@@ -847,13 +871,12 @@ class FamilyViewModel(
         val currentMemberId = myMemberId.value
         cancelAlarmForCurrentUser()
         viewModelScope.launch {
-            // Eigenen Member-Datensatz komplett löschen (nicht nur unclaimen).
-            // Die Firestore-Rule erlaubt delete wenn claimedByUserId == request.auth.uid.
-            // So ist kein verwaistes Profil mehr in der Familie nach dem Verlassen.
+            // Eigenen Member-Datensatz UND User-Mapping atomar löschen.
             if (currentFamilyId != null && currentMemberId != null) {
-                repository.removeMember(currentFamilyId, currentMemberId)
+                repository.leaveFamilyBatch(uid, currentFamilyId, currentMemberId)
+            } else {
+                repository.removeUserFamily(uid)
             }
-            repository.removeUserFamily(uid)
             prefsRepo.setFamilyId(null)
             prefsRepo.setJoinCode(null)
             prefsRepo.setFamilyName(null)
