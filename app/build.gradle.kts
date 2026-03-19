@@ -28,7 +28,7 @@ android {
         minSdk = 26
         targetSdk = 35
         versionCode = 143
-        versionName = "1.4.3"
+        versionName = "1.4.4"
 
         buildConfigField("String", "COMMIT_HASH", "\"${commitHash}\"")
         buildConfigField("String", "COMMIT_DATE", "\"${commitDate}\"")
