@@ -4,43 +4,18 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.4.4 - 2026-03-19
-
-### Fixed
-- **Build & CI:** Fixed version numbers in build scripts (resolves incorrect file naming in GitHub Actions and Play Store upload errors).
-
-
-## 1.4.3 - 2026-03-19
-
-### Added
-- **Admin Functions:** Secure, reactive admin status via Firestore (`_admins` collection) for exclusive features.
-- **Reporting System:** Manual and weekly statistics report via email for admin users (user & family metrics).
-- **Security:** Migration to Firebase Secrets (Resend API) and removal of hardcoded email addresses.
-
-### Fixed
-- **Performance:** Battery-optimized admin status listeners (only active when needed).
-- **Stability:** Fix for "undefined" family names and invalid sender formats in email delivery.
-
-## 1.4.2 - 2026-03-19
-
-### Fixed
-- **UI/UX:** Removed redundant join conflict dialog in `MainScreen` (fixing the duplicate popup).
- 
-## 1.4.1 - 2026-03-19
+## 1.5.0 - 2026-03-19
 
 ### New
-- **Onboarding & Design:** Added a background image to onboarding screens with a dark scrim for improved readability.
-- **App Icon:** Implemented a new app icon with support for adaptive icons and legacy devices.
-- **Theme:** Dark Mode is now the default mode on first app start.
+- **Admin Console & Statistics:** Secure, reactive admin status via Firestore (`_admins` collection); manual and weekly statistics report via email for admins.
+- **Onboarding Refactor:** New onboarding tour (5 screens) with Panda Lottie animations and background visuals (dark scrim for improved readability).
+- **App Design:** New adaptive & legacy app icon; Dark Mode as default for new users; redesigned RingingScreen.
+- **Cloud Reset Logic:** Hourly cron job for status resets (2h threshold) and more efficient data refresh on app start.
 
 ### Fixed
-- **Login & Security:** Fixed crash on invalid credentials; added password validation (min. 8 characters) directly to the login/register flow.
-- **Deep Link & Join Flow:**
-  - Fixed duplicate popup when switching families.
-  - Join code verification now occurs before leaving the current family.
-  - Improved error messages for non-existent families (removed misleading "Leave" button).
-- **Input Validation:** Comprehensive audit and protection of all fields (Family Name, Join Code, Member Name) against empty or invalid inputs.
-- **Asset Cleanup:** Removed unused image resources to reduce app size.
+- **Security & Validation:** Password manager support (`AutofillNode` + `Username` metadata); password validation (min. 8 chars); comprehensive field audit; XSS protection in feedback emails; migration to Firebase Secrets (Resend API).
+- **Stability:** Fixed member mapping (timestamp fix); improved deep link flows (verification before switching); fixed double alarms (notification + activity) and redundant join dialogs.
+- **Build & CI:** Fixed versioning and automated AAB file naming in GitHub Actions.
 
 ---
 

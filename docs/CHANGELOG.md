@@ -4,43 +4,18 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.4.4 - 2026-03-19
-
-### Behoben
-- **Build & CI:** Korrektur der Versionsnummern in den Build-Skripten (behebt fehlerhafte Dateibenennung in GitHub Actions und Play Store Upload-Fehler).
-
-
-## 1.4.3 - 2026-03-19
+## 1.5.0 - 2026-03-19
 
 ### Neu
-- **Admin-Funktionen:** Sicherer, reaktiver Admin-Status via Firestore (`_admins`-Collection) für exklusive Funktionen.
-- **Bericht-System:** Manueller und wöchentlicher Statistik-Report per E-Mail für Admin-Nutzer (Nutzer- & Familien-Zahlen).
-- **Sicherheit:** Umstellung auf Firebase Secrets (Resend API) und Entfernung hartcodierter E-Mail-Adressen.
+- **Admin-Konsole & Statistik:** Sicherer, reaktiver Admin-Status via Firestore (`_admins`-Collection); manueller und wöchentlicher Statistik-Report per E-Mail für Admin-Nutzer.
+- **Onboarding-Refactor:** Neue Onboarding-Tour (5 Screens) mit Panda-Lottie-Animationen und Hintergrundgrafiken (dunkler Scrim für bessere Lesbarkeit).
+- **App-Design:** Neues App-Icon (Adaptive & Legacy Support); Dark Mode als Standard für Erstnutzer; Redesign des RingingScreens.
+- **Cloud-Reset-Logik:** Stündlicher Cron-Job für Status-Resets (2h Threshold) und effizienterer Daten-Refresh beim App-Start.
 
 ### Behoben
-- **Performance:** Admin-Status-Listener batterieoptimiert (aktiv nur bei Bedarf).
-- **Stabilität:** Fix für "undefined" Familiennamen und ungültige Absender im E-Mail-Versand.
-
-## 1.4.2 - 2026-03-19
-
-### Behoben
-- **UI/UX:** Redundanter Beitrittskonflikt-Dialog im `MainScreen` entfernt (behobenes doppeltes Popup).
- 
-## 1.4.1 - 2026-03-19
-
-### Neu
-- **Onboarding & Design:** Hintergrundgrafik für Onboarding-Screens mit dunklem Scrim für bessere Lesbarkeit hinzugefügt.
-- **App-Icon:** Neues App-Icon mit Unterstützung für Adaptive Icons und Legacy-Geräte implementiert.
-- **Theme:** Dark Mode ist nun der Standard-Modus beim ersten App-Start.
-
-### Behoben
-- **Login & Sicherheit:** Absturz bei ungültigen Anmeldedaten behoben; Passwort-Validierung (min. 8 Zeichen) direkt im Login/Register-Flow hinzugefügt.
-- **Deep-Link & Join-Flow:**
-  - Doppeltes Popup beim Wechseln von Familien behoben.
-  - Verifizierung des Join-Codes erfolgt nun vor dem Verlassen der alten Familie.
-  - Verbesserte Fehlermeldungen für nicht existierende Familien (kein irreführender "Verlassen"-Button mehr).
-- **Input-Validierung:** Umfassender Audit und Absicherung aller Felder (Familienname, Join-Code, Member-Name) gegen leere oder ungültige Eingaben.
-- **Asset-Cleanup:** Entfernung unbenutzter Bildressourcen zur Reduzierung der App-Größe.
+- **Sicherheit & Validierung:** Passwort-Manager-Support (`AutofillNode` + `Username`-Metadaten); Passwort-Validierung (min. 8 Zeichen); umfassender Audit aller Eingabefelder; XSS-Schutz in Feedback-E-Mails; Migration auf Firebase Secrets (Resend API).
+- **Stabilität:** Korrektur von Mitglieder-Mapping (Timestamp-Fix); Deep-Link-Flows (Verifizierung vor Wechsel); Behebung von Doppel-Alarmen (Notification + Activity) und redundanten Beitritts-Dialogen.
+- **Build & CI:** Korrektur der Versionsnummern und automatisierte AAB-Dateibenennung in GitHub Actions.
 
 ---
 
