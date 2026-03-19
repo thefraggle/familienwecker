@@ -5,6 +5,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 
+## [1.3.6] - 2026-03-19
+
+### Neu
+- **Autofill-Support:** Felder für E-Mail und Passwort im Login wurden mit Autofill-Hints versehen, um die Erkennung durch Passwort-Manager (Z.B. Bitwarden, Google) zu verbessern.
+
+### Geändert
+- **Firebase-Optimierung (Performance):** 
+    - 2s Debouncing für alle UI-Toggles (Awake, Pause, Master-Switch). Verhindert unnötige Schreibvorgänge bei schnellem Klicken.
+    - Batch-Updates für tägliche Resets und Core-Löschvorgänge (`leaveFamily` / `deleteFamily`), was die Datenbank-Last reduziert und die Atomarität verbessert.
+    - Nutzung von `FieldValue.serverTimestamp()` für konsistente `lastUpdatedAt` Zeitstempel über alle Geräte hinweg.
+
 ## [1.3.5] - 2026-03-18
 
 ### Behoben

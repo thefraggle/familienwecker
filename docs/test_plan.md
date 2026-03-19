@@ -61,6 +61,10 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-72 | **Onboarding – App-Tour** | Einstellungen → „App-Tour anzeigen" → Onboarding-Slides öffnen sich vollständig. |
 | TC-73 | **Paste im Login-Screen** | Long-Press auf E-Mail- oder Passwort-Feld → natives Kontextmenü mit „Einfügen" erscheint. Passwort-Manager-Overlay funktioniert. |
 | TC-74 | **Context Menu im Family Setup** | Long-Press auf Familiennamen- oder Beitrittscode-Feld → natives Kontextmenü erscheint. |
+| TC-75 | **Autofill-Support** | Fokus auf E-Mail Feld → Tastatur schlägt gespeicherte Adressen vor. Passwort-Manager bietet Autofill an. |
+| TC-76 | **Debouncing Toggles** | Mehrfaches schnelles Klicken auf Awake/Pause → Logcat zeigt nur einen Firestore-Write nach 2s. |
+| TC-77 | **Master-Switch Debounce** | Globalen Wecker-Switch schnell umschalten → Sync des Status-Icons zu anderen erfolgt nur einmal verzögert. |
+| TC-78 | **Batch-Reset Performance** | Manueller Reset-Trigger (via Debug) → Alle Mitglieder werden in einer einzigen Batch-Transaktion aktualisiert. |
 
 
 ### 2. Familien-Konfiguration
