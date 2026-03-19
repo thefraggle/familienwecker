@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val appVersion = "1.4.0"
+val appVersion = "1.4.1"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -27,8 +27,8 @@ android {
         applicationId = "de.familienwecker.famwake"
         minSdk = 26
         targetSdk = 35
-        versionCode = versionCodeTimestamp
-        versionName = appVersion
+        versionCode = 141
+        versionName = "1.4.1"
 
         buildConfigField("String", "COMMIT_HASH", "\"${commitHash}\"")
         buildConfigField("String", "COMMIT_DATE", "\"${commitDate}\"")

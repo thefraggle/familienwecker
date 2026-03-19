@@ -8,7 +8,7 @@
         <item name="windowSplashScreenBackground">@color/splash_screen_bg</item>
 
         <!-- Use your custom icon for the splash screen -->
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
 
         <!-- Set the theme of the Activity that directly follows your splash screen -->
         <item name="postSplashScreenTheme">@style/Theme.Familienwecker</item>

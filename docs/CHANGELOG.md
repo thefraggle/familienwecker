@@ -4,17 +4,25 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
  
-## 1.4.0 - 2026-03-19
+## 1.4.1 - 2026-03-19
 
 ### Neu
-- **Cloud-Reset-Logik & Performance:** Neuer stündlicher Cron-Job für Status-Resets (2h Threshold) und effizienterer Daten-Refresh beim App-Start.
-- **Onboarding & Design:** Neuer Onboarding-Tour (5 Screens), Panda-Lottie-Animationen und Redesign des RingingScreens.
-- **Sicherheits-Audit & Fixes:** Behebung einer XSS-Lücke in Feedback-E-Mails und Verifizierung der IDOR-Sicherheit.
+- **Onboarding & Design:** Hintergrundgrafik für Onboarding-Screens mit dunklem Scrim für bessere Lesbarkeit hinzugefügt.
+- **App-Icon:** Neues App-Icon mit Unterstützung für Adaptive Icons und Legacy-Geräte implementiert.
+- **Theme:** Dark Mode ist nun der Standard-Modus beim ersten App-Start.
 
 ### Behoben
-- **Autofill & Login:** Massive Verbesserung der Passort-Manager-Kompatibilität (`AutofillNode` + `Username`-Metadaten). Behebt Blockaden des Kontextmenüs.
-- **Stabilität:** Korrektur von Mitglieder-Mapping (Timestamp-Fix), Deep-Link-Flows und Doppel-Alarmen (Notification + Activity).
-- **UI/UX:** Wochentag-Chips mit besserer Verteilung, Rot-Markierung bei Fehlern und klickbare Disclaimer/Footer.
+- **Login & Sicherheit:** Absturz bei ungültigen Anmeldedaten behoben; Passwort-Validierung (min. 8 Zeichen) direkt im Login/Register-Flow hinzugefügt.
+- **Deep-Link & Join-Flow:**
+  - Doppeltes Popup beim Wechseln von Familien behoben.
+  - Verifizierung des Join-Codes erfolgt nun vor dem Verlassen der alten Familie.
+  - Verbesserte Fehlermeldungen für nicht existierende Familien (kein irreführender "Verlassen"-Button mehr).
+- **Input-Validierung:** Umfassender Audit und Absicherung aller Felder (Familienname, Join-Code, Member-Name) gegen leere oder ungültige Eingaben.
+- **Asset-Cleanup:** Entfernung unbenutzter Bildressourcen zur Reduzierung der App-Größe.
+
+---
+
+## 1.4.0 - 2026-03-19
 
 
 ---

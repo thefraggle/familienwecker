@@ -126,7 +126,16 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun login(email: String, pass: String) {
+        if (!isValidEmail(email)) {
+            _authState.value = AuthState.Error(UiText.StringResource(R.string.error_invalid_email))
+            return
+        }
+        if (pass.length < 8) {
+            _authState.value = AuthState.Error(UiText.StringResource(R.string.error_password_too_short))
+            return
+        }
         _authState.value = AuthState.Loading
+
         viewModelScope.launch {
             val result = authRepository.login(email, pass)
             result.onSuccess { user ->
@@ -138,9 +147,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }.onFailure { error ->
                 val uiMessage = when (error) {
-                    is FirebaseAuthInvalidCredentialsException -> UiText.StringResource(R.string.error_login_failed)
+                    is FirebaseAuthInvalidCredentialsException -> UiText.StringResource(R.string.error_invalid_credentials)
                     is LoginFailedException -> UiText.StringResource(R.string.error_login_failed_unknown)
-                    else -> UiText.StringResource(R.string.error_login_failed)
+                    else -> UiText.StringResource(R.string.error_login_failed, error.message ?: "Unknown error")
                 }
                 _authState.value = AuthState.Error(uiMessage)
             }
@@ -148,6 +157,10 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun register(email: String, pass: String) {
+        if (!isValidEmail(email)) {
+            _authState.value = AuthState.Error(UiText.StringResource(R.string.error_invalid_email))
+            return
+        }
         if (pass.length < 8) {
             _authState.value = AuthState.Error(UiText.StringResource(R.string.error_password_too_short))
             return
@@ -167,7 +180,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     is FirebaseAuthWeakPasswordException -> UiText.StringResource(R.string.error_password_too_short)
                     is FirebaseAuthUserCollisionException -> UiText.StringResource(R.string.error_email_already_in_use)
                     is RegistrationFailedException -> UiText.StringResource(R.string.error_registration_failed_unknown)
-                    else -> UiText.StringResource(R.string.error_registration_failed_unknown)
+                    else -> UiText.StringResource(R.string.error_registration_failed, error.message ?: "Unknown error")
                 }
                 _authState.value = AuthState.Error(uiMessage)
             }
@@ -270,6 +283,10 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             _authState.value = AuthState.Error(UiText.StringResource(R.string.error_empty_email))
             return
         }
+        if (!isValidEmail(email)) {
+            _authState.value = AuthState.Error(UiText.StringResource(R.string.error_invalid_email))
+            return
+        }
         _authState.value = AuthState.Loading
         val language = java.util.Locale.getDefault().language
         viewModelScope.launch {
@@ -326,5 +343,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()
     }
 }

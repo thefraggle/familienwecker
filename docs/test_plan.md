@@ -75,6 +75,10 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-86 | Login (Autofill Position) | Email-Feld antippen. | Autofill-Dropdown erscheint direkt unter dem Feld (nicht verschoben). |
 | TC-87 | Login (Password Manager) | Login-Screen öffnen. | Passwort-Manager (z.B. Google) bietet gespeicherte Zugangsdaten aktiv an. |
 | TC-88 | Security (XSS Feedback) | Feedback mit `<script>alert(1)</script>` senden. | E-Mail zeigt den Code als Text an, keine Ausführung oder Layout-Bruch. |
+| TC-89 | **Login (Validierung)** | Login mit < 8 Zeichen Passwort oder ungültiger E-Mail versuchen. | Fehlermeldung erscheint sofort; kein App-Absturz. |
+| TC-90 | **Feld-Validierung (Family)** | Neue Familie mit leerem Namen erstellen. | „Erstellen"-Button bleibt deaktiviert (Validierung im ViewModel). |
+| TC-91 | **Feld-Validierung (Join)** | Join-Code mit < 6 Zeichen eingeben. | „Beitreten"-Button bleibt deaktiviert; Fehlermeldung bei falschem Code. |
+| TC-92 | **Validierung (Member-Name)** | Mitglied ohne Namen speichern. | Speichern-Button gesperrt; Fehlermeldung bei leeren Eingaben. |
 
 
 ### 2. Familien-Konfiguration

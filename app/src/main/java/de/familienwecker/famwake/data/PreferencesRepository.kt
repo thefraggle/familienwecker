@@ -113,7 +113,7 @@ class PreferencesRepository(context: Context) {
     private val _language = MutableStateFlow<String>(prefs.getString(KEY_LANGUAGE, defaultLang) ?: defaultLang)
     val language: StateFlow<String> = _language.asStateFlow()
 
-    private val _themePreference = MutableStateFlow<String>(prefs.getString(KEY_THEME, "system") ?: "system")
+    private val _themePreference = MutableStateFlow<String>(prefs.getString(KEY_THEME, "dark") ?: "dark")
     val themePreference: StateFlow<String> = _themePreference.asStateFlow()
 
     private val _isAlarmEnabled = MutableStateFlow<Boolean>(prefs.getBoolean(KEY_ALARM_ENABLED, false))

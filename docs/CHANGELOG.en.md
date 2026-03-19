@@ -4,17 +4,25 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
  
-## 1.4.0 - 2026-03-19
+## 1.4.1 - 2026-03-19
 
 ### New
-- **Cloud Reset Logic & Performance:** New hourly cron job for status resets (2h threshold) and more efficient data refresh on app start.
-- **Onboarding & Design:** New onboarding tour (5 screens), Panda Lottie animations, and redesign of the RingingScreen.
-- **Security Audit & Fixes:** Fixed an XSS vulnerability in feedback emails and verified IDOR security.
+- **Onboarding & Design:** Added a background image to onboarding screens with a dark scrim for improved readability.
+- **App Icon:** Implemented a new app icon with support for adaptive icons and legacy devices.
+- **Theme:** Dark Mode is now the default mode on first app start.
 
 ### Fixed
-- **Autofill & Login:** Massive improvement in password manager compatibility (`AutofillNode` + `Username` metadata). Fixes context menu blockages.
-- **Stability:** Fixed member mapping (timestamp fix), deep link flows, and double alarms (notification + activity).
-- **UI/UX:** Better distribution of weekday chips, red marking for errors, and clickable disclaimers/footers.
+- **Login & Security:** Fixed crash on invalid credentials; added password validation (min. 8 characters) directly to the login/register flow.
+- **Deep Link & Join Flow:**
+  - Fixed duplicate popup when switching families.
+  - Join code verification now occurs before leaving the current family.
+  - Improved error messages for non-existent families (removed misleading "Leave" button).
+- **Input Validation:** Comprehensive audit and protection of all fields (Family Name, Join Code, Member Name) against empty or invalid inputs.
+- **Asset Cleanup:** Removed unused image resources to reduce app size.
+
+---
+
+## 1.4.0 - 2026-03-19
 
 
 ---

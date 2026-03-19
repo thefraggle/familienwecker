@@ -94,6 +94,21 @@ fun OnboardingScreen(
     val isLastPage    = pagerState.currentPage == slides.size - 1
 
     Box(modifier = Modifier.fillMaxSize()) {
+        // Globaler Hintergrund (onboarding_bg.png)
+        androidx.compose.foundation.Image(
+            painter = painterResource(R.drawable.onboarding_bg),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        // Scrim für bessere Lesbarkeit des weißen Textes
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.45f))
+        )
+
         HorizontalPager(
             state    = pagerState,
             modifier = Modifier.fillMaxSize()
@@ -104,7 +119,6 @@ fun OnboardingScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Brush.verticalGradient(slide.gradient))
             ) {
                 Column(
                     horizontalAlignment  = Alignment.CenterHorizontally,
