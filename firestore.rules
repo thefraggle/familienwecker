@@ -8,7 +8,7 @@ service cloud.firestore {
     }
 
     function isAdmin() {
-      return signedIn() && request.auth.token.email == "daniel.notthoff@gmail.com";
+      return signedIn() && exists(/databases/$(database)/documents/_admins/$(request.auth.uid));
     }
 
     // Prüft, ob der Nutzer Teil dieser Familie ist

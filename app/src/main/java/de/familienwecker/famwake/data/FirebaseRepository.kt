@@ -320,6 +320,14 @@ class FirebaseRepository {
         }
     }
 
+    suspend fun checkIsGlobalAdmin(userId: String): Boolean {
+        return try {
+            db.collection("_admins").document(userId).get().await().exists()
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     suspend fun getClaimedMember(familyId: String, userId: String): FamilyMember? {
         return try {
             val snapshot = db.collection("families").document(familyId)
