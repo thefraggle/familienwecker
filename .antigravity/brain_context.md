@@ -17,6 +17,7 @@
     - 2s Debouncing für alle UI-Toggles (Awake, Pause, Master-Switch).
     - Batch-Updates für tägliche Resets und Core-Löschvorgänge (`leaveFamilyBatch`, `deleteFamily`).
     - ServerTimestamp für konsistente `lastUpdatedAt`.
+    - Autofill-Support: Semantics für E-Mail und Passwort in LoginScreen implementiert.
     - Datenstruktur: Subcollections (`members`) für perfekte Skalierbarkeit.
 
 ## Architecture
