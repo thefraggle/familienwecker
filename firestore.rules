@@ -7,42 +7,53 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    function emailVerified() {
-      return request.auth != null && request.auth.token.email_verified == true;
-    }
-
-    // Prüft, ob der Nutzer Teil dieser Familie ist (basierend auf seinem User-Profil)
+    // Prüft, ob der Nutzer Teil dieser Familie ist
     function isFamilyMember(familyId) {
+      let userPath = /databases/$(database)/documents/users/$(request.auth.uid);
+      let familyPath = /databases/$(database)/documents/families/$(familyId);
       return signedIn() && 
-        ((get(/databases/$(database)/documents/users/$(request.auth.uid)).data.familyId == familyId) || 
-         (get(/databases/$(database)/documents/families/$(familyId)).data.createdByUserId == request.auth.uid));
+        (
+          // Option A: familyId ist im User-Dokument hinterlegt (Check ob Doc existiert)
+          (exists(userPath) && get(userPath).data.familyId == familyId) || 
+          // Option B: Der Nutzer ist der Ersteller (Fallback für Onboarding)
+          (exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid)
+        );
     }
 
-    // User-Profile: Nur der Eigentümer kann lesen, Schreiben nur mit verifizierter E-Mail
+    // User-Profile: Nur der Eigentümer kann lesen/schreiben
     match /users/{userId} {
       allow read: if request.auth != null && request.auth.uid == userId;
-      allow write: if request.auth != null && request.auth.uid == userId && emailVerified();
+      // familyId muss auch ohne E-Mail-Verifizierung gespeichert werden können
+      // Wir erlauben hier das Schreiben solange es der eigene Account ist.
+      allow write: if request.auth != null && request.auth.uid == userId;
     }
 
-    // Familien – Create nur über Cloud Function (Admin SDK), nicht direkt vom Client
+    // Familien-Dokumente
     match /families/{familyId} {
-      // Lesen nur für Familienmitglieder (z.B. Dashboard, Settings)
+      // Mitglieder dürfen lesen (isFamilyMember deckt auch Creator ab)
       allow read: if isFamilyMember(familyId);
 
-      // Erstellen nur über Cloud Function (createFamily) – kein direkter Client-Zugriff
+      // Kein direkter Client-Zugriff für Create (nur Cloud Functions)
       allow create: if false;
 
-      // Bearbeiten/Löschen nur für Mitglieder der Familie
-      allow update, delete: if isFamilyMember(familyId);
+      // Update nur für Mitglieder
+      allow update: if isFamilyMember(familyId);
+      
+      // Löschen erlaubt wenn der Nutzer der Ersteller ist
+      allow delete: if signedIn() && resource.data.createdByUserId == request.auth.uid;
 
       // Mitglieder-Subcollection
       match /members/{memberId} {
         allow read: if isFamilyMember(familyId);
-        allow create, update: if isFamilyMember(familyId) && emailVerified();
+        
+        // Erstellen/Ändern erlaubt für alle Familienmitglieder (ohne E-Mail-Lock)
+        allow create, update: if isFamilyMember(familyId);
 
+        // Löschen erlaubt wenn Mitglied der Familie UND (ungeclaimt ODER eigener Claim ODER Creator der Familie)
         allow delete: if isFamilyMember(familyId) &&
           (resource.data.claimedByUserId == null ||
-           resource.data.claimedByUserId == request.auth.uid);
+           resource.data.claimedByUserId == request.auth.uid ||
+           get(/databases/$(database)/documents/families/$(familyId)).data.createdByUserId == request.auth.uid);
       }
     }
 

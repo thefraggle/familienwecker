@@ -65,6 +65,21 @@ fun FamilySetupScreen(
         }
     )
 
+    // Deep Link Auto-Join (falls noch keine Familie vorhanden)
+    val pendingJoinCode by viewModel.pendingJoinCode.collectAsStateWithLifecycle()
+    val familyId by viewModel.familyId.collectAsStateWithLifecycle()
+
+    LaunchedEffect(pendingJoinCode, familyId) {
+        if (pendingJoinCode != null && familyId == null && !isLoading) {
+            isLoading = true
+            viewModel.joinFamily(pendingJoinCode!!) { success ->
+                isLoading = false
+                viewModel.clearPendingJoinCode()
+                if (success) onSetupComplete()
+            }
+        }
+    }
+
     Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
         Column(modifier = Modifier.fillMaxSize()) {
             @OptIn(ExperimentalMaterial3Api::class)
@@ -217,9 +232,7 @@ fun FamilySetupScreen(
                     }
                 }
 
-                // Deep Link Join Conflict Dialog
-                val pendingJoinCode by viewModel.pendingJoinCode.collectAsStateWithLifecycle()
-                val familyId by viewModel.familyId.collectAsStateWithLifecycle()
+                // Deep Link Join Conflict Dialog (nur wenn bereits in einer Familie)
                 val currentFamilyName by viewModel.familyName.collectAsStateWithLifecycle()
 
                 if (pendingJoinCode != null && familyId != null) {

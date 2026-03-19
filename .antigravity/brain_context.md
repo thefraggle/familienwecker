@@ -16,6 +16,10 @@
 - **Optimierung (v1.3.7 - RELEASED):**
     - Cloud-Reset via `scheduledMemberReset` (stündlich, 2h Threshold nach Weckzeit).
     - Lazy-Refresh in `MainActivity.onResume` für sofortige UI-Aktualisierung.
+    - **Mitglieder-Mapping Fix:** Robuste Konvertierung von Firestore `Timestamp` zu `Long` im `FamilyMemberMapper`. (Behebt leere Listen nach Neuanlage).
+    - **Firestore Rules:** `isFamilyMember` nutzt nun `exists()`. Ersteller einer Familie darf Mitglieder-Dokumente löschen.
+    - **Settings UI:** Snackbar-Feedback bei Fehlern beim Verlassen/Löschen einer Familie.
+    - **Deep-Link-Fix:** Redundante State-Löschung in `MainActivity` bei Familien-Wechsel entfernt. Auto-Join Logik im `FamilySetupScreen` hinzugefügt.
     - Entfernung des 5-Minuten-Hintergrund-Timers im ViewModel.
 - **Firebase (v1.3.6 - RELEASED):** 2s Debouncing für Toggles, Batch-Updates für Resets/Delete, ServerTimestamp, Login-Autofill.
 

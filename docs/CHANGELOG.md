@@ -4,20 +4,20 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
  
- 
-## [Unreleased]
-
-## [Unreleased]
- 
-+### Neu
-+
- ## [1.3.7] - 2026-03-19
+## [1.3.7] - 2026-03-19
  
  ### Neu
 - **Cloud-Reset-Logik**: Neuer stündlicher Cron-Job (`scheduledMemberReset`) setzt den "Bin wach"-Status und ungeclaimte Pausen zentral in der Cloud zurück.
 - **Verkürzter Reset-Threshold**: Status-Reset erfolgt nun bereits **2 Stunden** (statt 4h) nach der geplanten Weckzeit.
 - **Lazy-Refresh**: App aktualisiert Daten und Zeitplan nun effizient beim App-Start oder Zurückkehren in den Vordergrund (`onResume`).
 - **Akku-Optimierung**: Der periodische 5-Minuten-Hintergrund-Timer im ViewModel wurde entfernt.
+ 
+### Behoben
+- **Mitglieder-Mapping**: Korrektur des Daten-Mappings für `lastUpdatedAt` und `createdAt` (Firestore `Timestamp` -> `Long`). Behebt das Problem, dass neu angelegte Mitglieder nicht in der Liste erschienen.
+- **Deep Link Flow**: Bereinigung der Navigations-Race-Condition und doppelter Popups beim Beitritt via Deep Link.
+- **Familien löschen**: Firestore-Regeln korrigiert, sodass der Ersteller einer Familie nun alle zugehörigen Mitglieder-Dokumente löschen darf.
+- **UI-Feedback**: Snackbar-Feedback im Settings-Screen bei Fehlern (Verlassen/Löschen der Familie).
+- **Firestore-Robustheit**: `isFamilyMember`-Regel optimiert (nutzt nun `exists()`).
  
  ## [1.3.6] - 2026-03-19
 

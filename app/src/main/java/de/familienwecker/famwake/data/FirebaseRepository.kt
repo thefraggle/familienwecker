@@ -126,14 +126,13 @@ class FirebaseRepository {
         val collection = db.collection("families").document(familyId).collection("members")
         val subscription = collection.addSnapshotListener { snapshot, error ->
             if (error != null) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.e("FirebaseRepository", "Fehler in getFamilyMembersFlow für $familyId: ${error.message}")
-                }
+                android.util.Log.e("FirebaseRepository", "Fehler in getFamilyMembersFlow für $familyId: ${error.message}", error)
                 close(error)
                 return@addSnapshotListener
             }
 
             if (snapshot != null) {
+                android.util.Log.d("FirebaseRepository", "Habe ${snapshot.size()} Dokumente für Familie $familyId empfangen")
                 val members = snapshot.documents.mapNotNull { doc ->
                     try {
                         doc.toFamilyMember()
@@ -191,10 +190,9 @@ class FirebaseRepository {
                 "dayProfiles" to dayProfilesData
             )
             docRef.set(data).await()
+            android.util.Log.i("FirebaseRepository", "Mitglied ${member.id} ('${member.name}') erfolgreich in Familie $familyId gespeichert")
         } catch (e: Exception) {
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FirebaseRepository", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
-            }
+            android.util.Log.e("FirebaseRepository", "Fehler beim Speichern von Member ${member.id} in Familie $familyId: ${e.message}", e)
             throw e
         }
     }

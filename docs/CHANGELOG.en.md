@@ -4,11 +4,6 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
  
- 
-## [Unreleased]
-
-### Added
-
 ## [1.3.7] - 2026-03-19
  
  ### Added
@@ -16,6 +11,13 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - **Shorter Reset Threshold**: Status reset now occurs **2 hours** (instead of 4h) after the scheduled wake-up time.
 - **Lazy-Refresh**: App now updates data and schedule efficiently upon app start or returning to foreground (`onResume`).
 - **Battery Optimization**: The periodic 5-minute background timer in the ViewModel has been removed.
+ 
+### Fixed
+- **Member Mapping**: Corrected data mapping for `lastUpdatedAt` and `createdAt` (Firestore `Timestamp` -> `Long`). Fixes the issue where newly created members didn't appear in the list.
+- **Deep Link Flow**: Resolved navigation race conditions and duplicate popups during deep link joins.
+- **Family Deletion**: Corrected Firestore rules to allow the family creator to delete all associated member documents.
+- **UI Improvement**: Added Snackbar feedback in the Settings screen for errors (leaving/deleting a family).
+- **Firestore Robustness**: Optimized `isFamilyMember` rule (now uses `exists()`).
  
  ## [1.3.6] - 2026-03-19
 
