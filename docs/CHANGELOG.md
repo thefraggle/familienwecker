@@ -3,6 +3,11 @@
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
+
+## 1.4.2 - 2026-03-19
+
+### Behoben
+- **UI/UX:** Redundanter Beitrittskonflikt-Dialog im `MainScreen` entfernt (behobenes doppeltes Popup).
  
 ## 1.4.1 - 2026-03-19
 

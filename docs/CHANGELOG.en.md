@@ -3,6 +3,11 @@
 This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
+
+## 1.4.2 - 2026-03-19
+
+### Fixed
+- **UI/UX:** Removed redundant join conflict dialog in `MainScreen` (fixing the duplicate popup).
  
 ## 1.4.1 - 2026-03-19
 
