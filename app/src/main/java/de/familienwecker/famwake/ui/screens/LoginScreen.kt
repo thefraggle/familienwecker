@@ -41,12 +41,13 @@ import de.familienwecker.famwake.ui.util.UiText
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
 import androidx.activity.compose.BackHandler
-import androidx.compose.ui.autofill.AutofillType
+import androidx.compose.ui.autofill.*
+import androidx.compose.ui.platform.LocalAutofillTree
+import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.AnnotatedString
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -62,6 +63,33 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var isRegistering by remember { mutableStateOf(false) }
+
+    val autofill = LocalAutofill.current
+    val autofillTree = LocalAutofillTree.current
+
+    val emailNode = remember {
+        AutofillNode(
+            autofillTypes = listOf(AutofillType.EmailAddress),
+            onFill = { email = it }
+        )
+    }
+
+    val passwordNode = remember {
+        AutofillNode(
+            autofillTypes = listOf(AutofillType.Password),
+            onFill = { password = it }
+        )
+    }
+
+    DisposableEffect(Unit) {
+        val root = autofillTree.children
+        root[emailNode.hashCode()] = emailNode
+        root[passwordNode.hashCode()] = passwordNode
+        onDispose {
+            root.remove(emailNode.hashCode())
+            root.remove(passwordNode.hashCode())
+        }
+    }
 
     BackHandler {
         (context as? android.app.Activity)?.finish()
@@ -146,8 +174,15 @@ fun LoginScreen(
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .semantics {
-                                    set(SemanticsPropertyKey<List<AutofillType>>("AutofillHints"), listOf(AutofillType.EmailAddress))
+                                .onGloballyPositioned {
+                                    emailNode.boundingBox = it.boundsInWindow()
+                                }
+                                .onFocusChanged { focusState ->
+                                    if (focusState.isFocused) {
+                                        autofill?.requestAutofillForNode(emailNode)
+                                    } else {
+                                        autofill?.cancelAutofillForNode(emailNode)
+                                    }
                                 }
                         )
                         Spacer(modifier = Modifier.height(16.dp))
@@ -174,8 +209,15 @@ fun LoginScreen(
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .semantics {
-                                    set(SemanticsPropertyKey<List<AutofillType>>("AutofillHints"), listOf(AutofillType.Password))
+                                .onGloballyPositioned {
+                                    passwordNode.boundingBox = it.boundsInWindow()
+                                }
+                                .onFocusChanged { focusState ->
+                                    if (focusState.isFocused) {
+                                        autofill?.requestAutofillForNode(passwordNode)
+                                    } else {
+                                        autofill?.cancelAutofillForNode(passwordNode)
+                                    }
                                 }
                         )
 
