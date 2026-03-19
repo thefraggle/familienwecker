@@ -1,4 +1,4 @@
-# FamWake# Brain Context - FamWake (v1.3.8)
+# FamWake# Brain Context - FamWake (v1.3.8-dev)
 
 ## Current State
 - **Version:** 1.3.8
@@ -13,11 +13,11 @@
 - **Alarm-Sound:** System-Sound in Notification entfernt, um Dopplung mit RingingActivity-MediaPlayer zu vermeiden.
 - **Awake-Button:** Logik fixiert (cancelt Systemwecker sofort), visuelles Feedback (Farbe/Text toggle), bedingte Sichtbarkeit.
 - **Tooltips:** 5 kontextuelle Erstnutzer-Hinweise. System basiert auf granularen PreferencesRepository-Keys.
-- **Firebase-Performance (v1.3.6 - RELEASED):** ...
-- **Reset-Optimierung (v1.3.7 - RELEASED):**
-    - Cloud-Reset via `scheduledMemberReset` (alle 1h, 2h Threshold).
-    - Lazy-Refresh in `MainActivity.onResume`.
-    - 5-Minuten-Timer entfernt.
+- **Optimierung (v1.3.7 - RELEASED):**
+    - Cloud-Reset via `scheduledMemberReset` (stündlich, 2h Threshold nach Weckzeit).
+    - Lazy-Refresh in `MainActivity.onResume` für sofortige UI-Aktualisierung.
+    - Entfernung des 5-Minuten-Hintergrund-Timers im ViewModel.
+- **Firebase (v1.3.6 - RELEASED):** 2s Debouncing für Toggles, Batch-Updates für Resets/Delete, ServerTimestamp, Login-Autofill.
 
 ## Architecture
 - Android (Kotlin/Compose), Firebase (Firestore + Functions), Cloud Functions (europe-west3)
