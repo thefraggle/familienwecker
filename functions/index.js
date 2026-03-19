@@ -1,4 +1,6 @@
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
+const { onSchedule } = require("firebase-functions/v2/scheduler");
+const { onDocumentWritten } = require("firebase-functions/v2/firestore");
 const admin = require("firebase-admin");
 const { Resend } = require("resend");
 const { randomInt } = require("crypto");
@@ -408,7 +410,6 @@ exports.sendVerificationEmail = onCall(
 );
 
 // ─── Scheduled Function: Bereinigung unbestätigter User ──────────────────────
-const { onSchedule } = require("firebase-functions/v2/scheduler");
 
 exports.cleanupUnverifiedUsers = onSchedule(
   {
@@ -887,5 +888,98 @@ exports.sendFeedbackEmail = onCall(
       console.error("Error in sendFeedbackEmail:", err);
       throw new HttpsError("internal", err.message || "INTERNAL_ERROR");
     }
+  }
+);
+
+// ─── Admin-Reports ──────────────────────────────────────────────────────────
+
+/** Hilfsfunktion zur Generierung des Statistik-Reports */
+async function getStatsReport() {
+    const usersResponse = await admin.auth().listUsers();
+    const users = usersResponse.users;
+    
+    const familiesSnapshot = await admin.firestore().collection("families").get();
+    let familiesHtml = "";
+    
+    for (const doc of familiesSnapshot.docs) {
+        const family = doc.data();
+        const membersSnapshot = await doc.ref.collection("members").get();
+        const members = membersSnapshot.docs.map(m => m.data().name || "Unbekannt").join(", ");
+        
+        familiesHtml += `
+            <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>${family.familyName}</b></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eee;"><code>${family.joinCode}</code></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eee; font-size: 0.9em; color: #666;">${members}</td>
+            </tr>
+        `;
+    }
+
+    const usersHtml = users.map(u => `
+        <li>${u.email} <small style="color: #999;">(${u.metadata.creationTime})</small></li>
+    `).join("");
+
+    return `
+        <div style="font-family: sans-serif; max-width: 600px; color: #333;">
+            <h2 style="color: ${BRAND_BLUE};">FamWake Admin Report</h2>
+            <p>Stand: ${new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}</p>
+            
+            <h3 style="border-bottom: 2px solid ${BRAND_BLUE}; padding-bottom: 4px;">Zusammenfassung</h3>
+            <ul>
+                <li>Gesamt-Nutzer: <b>${users.length}</b></li>
+                <li>Gesamt-Familien: <b>${familiesSnapshot.size}</b></li>
+            </ul>
+
+            <h3 style="border-bottom: 2px solid ${BRAND_BLUE}; padding-bottom: 4px;">Familien & Mitglieder</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f8f8f8;">
+                        <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Name</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Code</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Mitglieder</th>
+                    </tr>
+                </thead>
+                <tbody>${familiesHtml}</tbody>
+            </table>
+
+            <h3 style="border-bottom: 2px solid ${BRAND_BLUE}; padding-bottom: 4px; margin-top: 24px;">Registrierte E-Mails</h3>
+            <ul style="font-size: 0.9em;">${usersHtml}</ul>
+            
+            <hr style="margin-top: 24px; border: 0; border-top: 1px solid #ccc;">
+            <p style="font-size: 0.8em; color: #999;">Dieser Report wurde automatisch generiert.</p>
+        </div>
+    `;
+}
+
+/** Manueller Report-Abruf aus der App */
+exports.sendAdminStatsReport = onCall(
+  { region: "europe-west3" },
+  async (request) => {
+    if (!request.auth) throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    
+    // Admin check
+    const uid = request.auth.uid;
+    const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
+    if (!adminDoc.exists && uid !== PRIMARY_ADMIN_UID) {
+        throw new HttpsError("permission-denied", "ADMIN_ONLY");
+    }
+
+    const html = await getStatsReport();
+    await sendEmail(ADMIN_EMAIL, "FamWake: Manueller Admin-Report", html);
+    return { success: true };
+  }
+);
+
+/** Wöchentlicher automatischer Report */
+exports.scheduledAdminStatsReport = onSchedule(
+  { 
+    schedule: "every sunday 20:00", 
+    timeZone: "Europe/Berlin", 
+    region: "europe-west3" 
+  },
+  async (event) => {
+    const html = await getStatsReport();
+    await sendEmail(ADMIN_EMAIL, "FamWake: Wöchentlicher Admin-Report", html);
+    console.log("Weekly admin stats report sent.");
   }
 );

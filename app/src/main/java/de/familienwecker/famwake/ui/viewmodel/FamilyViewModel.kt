@@ -922,6 +922,18 @@ class FamilyViewModel(
         }
     }
 
+    fun requestAdminStatsReport(onComplete: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val result = repository.requestAdminStatsReport()
+            if (result.isSuccess) {
+                onComplete(true)
+            } else {
+                _errorMessage.value = UiText.DynamicString("Report fehlgeschlagen: ${result.exceptionOrNull()?.localizedMessage ?: "Fehler"}")
+                onComplete(false)
+            }
+        }
+    }
+
     fun leaveFamily() {
         _errorMessage.value = null
         val uid = auth.currentUser?.uid ?: return
