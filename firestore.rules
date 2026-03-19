@@ -7,17 +7,21 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function isAdmin() {
+      return signedIn() && request.auth.token.email == "daniel.notthoff@gmail.com";
+    }
+
     // Prüft, ob der Nutzer Teil dieser Familie ist
     function isFamilyMember(familyId) {
       let userPath = /databases/$(database)/documents/users/$(request.auth.uid);
       let familyPath = /databases/$(database)/documents/families/$(familyId);
-      return signedIn() && 
+      return isAdmin() || (signedIn() && 
         (
           // Option A: familyId ist im User-Dokument hinterlegt (Check ob Doc existiert)
           (exists(userPath) && get(userPath).data.familyId == familyId) || 
           // Option B: Der Nutzer ist der Ersteller (Fallback für Onboarding)
           (exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid)
-        );
+        ));
     }
 
     // User-Profile: Nur der Eigentümer kann lesen/schreiben
@@ -39,8 +43,8 @@ service cloud.firestore {
       // Update nur für Mitglieder
       allow update: if isFamilyMember(familyId);
       
-      // Löschen erlaubt wenn der Nutzer der Ersteller ist
-      allow delete: if signedIn() && resource.data.createdByUserId == request.auth.uid;
+      // Löschen erlaubt wenn der Nutzer der Ersteller ist ODER Admin
+      allow delete: if isAdmin() || (signedIn() && resource.data.createdByUserId == request.auth.uid);
 
       // Mitglieder-Subcollection
       match /members/{memberId} {
@@ -49,9 +53,10 @@ service cloud.firestore {
         // Erstellen/Ändern erlaubt für alle Familienmitglieder (ohne E-Mail-Lock)
         allow create, update: if isFamilyMember(familyId);
 
-        // Löschen erlaubt wenn Mitglied der Familie UND (ungeclaimt ODER eigener Claim ODER Creator der Familie)
+        // Löschen erlaubt wenn Mitglied der Familie UND (Admin ODER ungeclaimt ODER eigener Claim ODER Creator der Familie)
         allow delete: if isFamilyMember(familyId) &&
-          (resource.data.claimedByUserId == null ||
+          (isAdmin() ||
+           resource.data.claimedByUserId == null ||
            resource.data.claimedByUserId == request.auth.uid ||
            get(/databases/$(database)/documents/families/$(familyId)).data.createdByUserId == request.auth.uid);
       }
