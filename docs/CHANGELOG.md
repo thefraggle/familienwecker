@@ -3,7 +3,11 @@
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
+ 
+ 
+## [Unreleased]
 
+### Neu
 
 ## [1.3.6] - 2026-03-19
 
