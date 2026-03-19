@@ -59,9 +59,9 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-56 | **Tageslimit Rate-Limiting** | Nach Erreichen des stündlichen Limits, nach Ablauf der Stunde erneut versuchen: Tageslimit (2× stündliches Limit) greift nach der zweiten Stunde und blockiert weitere Versuche bis 24h abgelaufen. |
 | TC-71 | **Onboarding – Erststart** | Nach Erstinstall/Login: Onboarding-Slides erscheinen (5 Screens mit Pager). Slide 0 zeigt animierten Panda. |
 | TC-72 | **Onboarding – App-Tour** | Einstellungen → „App-Tour anzeigen" → Onboarding-Slides öffnen sich vollständig. |
-| TC-73 | **Paste im Login-Screen** | Long-Press auf E-Mail- oder Passwort-Feld → natives Kontextmenü mit „Einfügen" erscheint. Passwort-Manager-Overlay funktioniert. |
+| TC-73 | **Paste im Login-Screen** | Long-Press auf E-Mail- oder Passwort-Feld → natives Kontextmenü mit „Einfügen" erscheint (trotz Vereinfachung). |
 | TC-74 | **Context Menu im Family Setup** | Long-Press auf Familiennamen- oder Beitrittscode-Feld → natives Kontextmenü erscheint. |
-| TC-75 | **Autofill-Support** | Fokus auf E-Mail Feld → Tastatur schlägt gespeicherte Adressen vor. Passwort-Manager bietet Autofill an. |
+| TC-75 | **Autofill-Support (manuell)** | Fokus auf E-Mail Feld → Tastatur schlägt gespeicherte Adressen vor. Passwort-Manager bietet Autofill via `AutofillNode` an. |
 | TC-76 | **Debouncing Toggles** | Mehrfaches schnelles Klicken auf Awake/Pause → Logcat zeigt nur einen Firestore-Write nach 2s. |
 | TC-77 | **Master-Switch Debounce** | Globalen Wecker-Switch schnell umschalten → Sync des Status-Icons zu anderen erfolgt nur einmal verzögert. |
 | TC-78 | **Batch-Reset Performance** | Manueller Reset-Trigger (via Debug) → Alle Mitglieder werden in einer einzigen Batch-Transaktion aktualisiert. |
@@ -72,6 +72,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-83 | **Deep Link Nav-Fix** | Klick auf Join-Link in bestehender Familie -> Bestätigung führt zum Switch ohne Setup-Screen-Schleife. |
 | TC-84 | **Familien-Löschung** | Als Creator die Familie löschen -> Alle Mitglieder und Familie werden erfolgreich entfernt. |
 | TC-85 | **Settings UI Feedback** | Fehler beim Verlassen/Löschen (z.B. Offline) -> Snackbar mit Fehlermeldung erscheint. |
+| TC-86 | **Autofill-Positionierung** | Autofill-Dropdown erscheint exakt unter dem fokussierten Textfeld (Validierung von `boundsInWindow`). |
 
 
 ### 2. Familien-Konfiguration
