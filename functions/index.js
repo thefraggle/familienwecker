@@ -908,7 +908,7 @@ async function getStatsReport() {
         
         familiesHtml += `
             <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>${family.familyName}</b></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>${family.name || family.familyName || "Unbenannt"}</b></td>
                 <td style="padding: 8px; border-bottom: 1px solid #eee;"><code>${family.joinCode}</code></td>
                 <td style="padding: 8px; border-bottom: 1px solid #eee; font-size: 0.9em; color: #666;">${members}</td>
             </tr>
