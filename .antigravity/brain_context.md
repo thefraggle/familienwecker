@@ -1,9 +1,11 @@
-# Brain Context - FamWake (v1.4.1)
+# Brain Context - FamWake (v1.4.3)
 
 ## Current State
-- **Current Version:** 1.4.1 (RELEASED 2026-03-19)
-- **Changes in 1.4.1:** Fixed Login Crash (email/password/auth), Updated App Icon (adaptive + legacy), Onboarding Design Update (background image), Default Dark Mode, Extended Input Validation (Family, Code, Member), Robust Deep-Link/Join logic (fix duplicate popup & verification).
-- **Consolidated v1.4.0:** Merged all v1.3.1-v1.3.11 fixes into one major update.
+- **Current Version:** 1.4.3 (LOCAL - PREPARING)
+- **Latest Release:** 1.4.2 (2026-03-19)
+- **Changes in 1.4.3:** (Placeholder)
+- **Changes in 1.4.2:** Fixed duplicate join popup in `MainScreen` by removing redundant `AlertDialog` instances.
+- **Changes in 1.4.1:** Fixed Login Crash, Updated App Icon, Onboarding Design, Default Dark Mode, Extended Input Validation, Robust Deep-Link/Join logic.
 - **Key Features:** XSS Security Hotfix, Android Autofill transformation (AutofillNode), Context Menu repair, Cloud-Reset-Logic (2h), Onboarding Tour, RingingScreen redesign.
 - **Local-First Logik:** Wecker-Switch (`isAlarmEnabled`) und "Bereits wach" Wirkung sind lokal pro Gerät; Status-Icon wird via Firestore gesynct.
 - **Architecture:** Android (Kotlin/Compose), Firebase (Auth, Firestore, Functions Node.js europe-west3).

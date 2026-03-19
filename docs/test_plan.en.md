@@ -176,6 +176,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-16 | **Awake – Reset** | Turn off global alarm switch | "Already Awake" status is reset to false. |
 | EC-17 | **Awake – Visibility** | Toggle global alarm switch | Button shows/hides with smooth animation. |
 | EC-18 | **RingingScreen** | Alarm goes off | Lottie Panda, gradient, and random greeting are shown. |
+| TC-56 | **Admin: Statistics Report (Email)** | Click in Settings -> Toast appears -> Email with user/family data arrives. |
+| TC-57 | **Admin: Security (Visibility)** | Login with non-admin user -> Admin buttons in Settings are hidden. |
 | EC-09 | Late-night change (2 AM) | Plan is recalculated and synchronized asynchronously to all. |
 | EC-10 | Multiple Admins | Both simultaneously change a child's bathroom duration -> Last-write-wins or conflict message. |
 

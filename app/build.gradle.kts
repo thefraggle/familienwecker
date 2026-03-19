@@ -27,8 +27,8 @@ android {
         applicationId = "de.familienwecker.famwake"
         minSdk = 26
         targetSdk = 35
-        versionCode = 141
-        versionName = "1.4.1"
+        versionCode = 143
+        versionName = "1.4.3"
 
         buildConfigField("String", "COMMIT_HASH", "\"${commitHash}\"")
         buildConfigField("String", "COMMIT_DATE", "\"${commitDate}\"")

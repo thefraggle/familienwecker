@@ -1,9 +1,11 @@
-# TODO - FamWake (v1.4.0)
+# TODO - FamWake (v1.4.3)
 
 ## Nächste Schritte
 - [ ] Nächste Features planen (Snooze-Sync, Multi-Bad, Widgets)
 
 ### Recently Completed
+- [x] v1.4.2: Duplicate Join Popup Fix (MainScreen) <!-- id: 106 -->
+- [x] v1.4.1: Input Validation, App Icon, Onboarding Assets, Deep Link Fixes (v1.4.1) <!-- id: 105 -->
 - [x] App Icon auf lokale Änderungen umstellen (Test) <!-- id: 104 -->
 - [x] v1.4.0: Consolidated Major Release & Git Cleanup <!-- id: 103 -->
 - [x] v1.3.11: XSS Security Hotfix (Admin Emails) <!-- id: 102 -->
