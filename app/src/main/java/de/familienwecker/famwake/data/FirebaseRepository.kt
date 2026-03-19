@@ -261,8 +261,16 @@ class FirebaseRepository {
         return (1..6).map { chars[secureRandom.nextInt(chars.length)] }.joinToString("")
     }
 
-    // Security: joinCode wird NICHT im User-Profil gespeichert.
-    // Er wird bei Bedarf direkt aus dem Family-Dokument gelesen.
+    suspend fun requestAdminStatsReport(): Result<Unit> {
+        return try {
+            val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
+            functions.getHttpsCallable("sendAdminStatsReport").call().await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     suspend fun saveUserFamily(userId: String, familyId: String): Result<Unit> {
         return try {
             val data = hashMapOf("familyId" to familyId)

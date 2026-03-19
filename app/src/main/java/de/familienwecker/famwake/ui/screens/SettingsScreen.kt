@@ -19,6 +19,8 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.*
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.runtime.*
@@ -791,22 +793,20 @@ fun SettingsScreen(
                 }
             }
 
-            // Admin-Button (nur für daniel.notthoff@gmail.com sichtbar)
-            val adminEmail = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.email
-            if (adminEmail == "daniel.notthoff@gmail.com") {
+            // Admin-Buttons (nur für Admins sichtbar)
+            if (isAdmin) {
                 Spacer(modifier = Modifier.height(16.dp))
-                val adminInteraction = remember { MutableInteractionSource() }
-                var adminConfirmed by remember { mutableStateOf(false) }
+                val adminAlarmInteraction = remember { MutableInteractionSource() }
+                var adminAlarmConfirmed by remember { mutableStateOf(false) }
+                
                 Button(
                     onClick = {
                         viewModel.setDebugAlarmIn5Minutes()
-                        adminConfirmed = true
+                        adminAlarmConfirmed = true
                     },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .bounceClick(adminInteraction),
-                    interactionSource = adminInteraction,
-                    colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                    modifier = Modifier.fillMaxWidth().bounceClick(adminAlarmInteraction),
+                    interactionSource = adminAlarmInteraction,
+                    colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.errorContainer,
                         contentColor = MaterialTheme.colorScheme.onErrorContainer
                     ),
@@ -814,7 +814,30 @@ fun SettingsScreen(
                 ) {
                     Icon(Icons.Default.Tune, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text(if (adminConfirmed) "✓ Wecker in 3 Min gesetzt" else "Admin: Wecker in 3 Min")
+                    Text(if (adminAlarmConfirmed) "✓ Wecker in 3 Min gesetzt" else "Admin: Wecker in 3 Min")
+                }
+
+                val adminReportInteraction = remember { MutableInteractionSource() }
+                var adminReportConfirmed by remember { mutableStateOf(false) }
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(
+                    onClick = {
+                        viewModel.requestAdminStatsReport { success ->
+                            if (success) adminReportConfirmed = true
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth().bounceClick(adminReportInteraction),
+                    interactionSource = adminReportInteraction,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    ),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+                ) {
+                    Icon(Icons.Default.BarChart, contentDescription = null)
+                    Spacer(Modifier.width(8.dp))
+                    Text(if (adminReportConfirmed) "✓ Report per E-Mail angefordert" else "Admin: Statistik-Report per E-Mail")
                 }
             }
 
