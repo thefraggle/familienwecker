@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val appVersion = "1.3.6"
+val appVersion = "1.3.7"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
