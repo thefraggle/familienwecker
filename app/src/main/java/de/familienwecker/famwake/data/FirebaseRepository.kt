@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.data
 
 import de.familienwecker.famwake.model.FamilyMember
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -185,7 +186,7 @@ class FirebaseRepository {
                 "claimedByUserName" to member.claimedByUserName,
                 "sequenceOrder" to member.sequenceOrder,
                 "createdAt" to existingCreatedAt,
-                "lastUpdatedAt" to currentTime,
+                "lastUpdatedAt" to FieldValue.serverTimestamp(),
                 "deviceAlarmEnabled" to member.deviceAlarmEnabled,
                 "dayProfiles" to dayProfilesData
             )
@@ -340,18 +341,18 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun deleteFamily(familyId: String): Result<Unit> {
+    suspend fun deleteFamily(familyId: String, userId: String): Result<Unit> {
         return try {
             val familyRef = db.collection("families").document(familyId)
             val membersCollection = familyRef.collection("members")
+            val userRef = db.collection("users").document(userId)
             val membersSnapshot = membersCollection.get().await()
 
             if (membersSnapshot.documents.isNotEmpty()) {
-                // Erst alle fremden Claims entfernen (Firestore-Rule erlaubt nur
-                // das Löschen von Members mit eigener oder keiner claimedByUserId)
+                // Erst alle fremden Claims entfernen
                 val claimedByOthers = membersSnapshot.documents.filter { doc ->
                     val claimed = doc.getString("claimedByUserId")
-                    claimed != null && claimed != com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+                    claimed != null && claimed != userId
                 }
                 if (claimedByOthers.isNotEmpty()) {
                     val unclaimBatch = db.batch()
@@ -364,7 +365,7 @@ class FirebaseRepository {
                     unclaimBatch.commit().await()
                 }
 
-                // Alle Members in Chunks von max. 500 löschen (Firestore-Batch-Limit)
+                // Alle Members löschen
                 membersSnapshot.documents.chunked(500).forEach { chunk ->
                     val batch = db.batch()
                     chunk.forEach { doc -> batch.delete(doc.reference) }
@@ -372,16 +373,31 @@ class FirebaseRepository {
                 }
             }
 
-            // Familie-Dokument löschen
-            try {
-                familyRef.delete().await()
-            } catch (e: Exception) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.e("FirebaseRepository", "Members gelöscht, aber Familie-Dokument $familyId konnte nicht entfernt werden: ${e.message}")
-                }
-                return Result.failure(e)
-            }
+            // Atomares Löschen: Familie-Dokument UND User-Mapping
+            val finalBatch = db.batch()
+            finalBatch.delete(familyRef)
+            finalBatch.delete(userRef)
+            finalBatch.commit().await()
 
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    /**
+     * Verlässt eine Familie atomar: löscht das Member-Dokument und das User-Mapping in einem Batch.
+     */
+    suspend fun leaveFamilyBatch(userId: String, familyId: String, memberId: String): Result<Unit> {
+        return try {
+            val batch = db.batch()
+            val memberRef = db.collection("families").document(familyId).collection("members").document(memberId)
+            val userRef = db.collection("users").document(userId)
+            
+            batch.delete(memberRef)
+            batch.delete(userRef)
+            
+            batch.commit().await()
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -398,7 +414,7 @@ class FirebaseRepository {
             
             orders.forEach { (memberId, order) ->
                 val docRef = collection.document(memberId)
-                batch.update(docRef, "sequenceOrder", order, "lastUpdatedAt", System.currentTimeMillis())
+                batch.update(docRef, "sequenceOrder", order, "lastUpdatedAt", FieldValue.serverTimestamp())
             }
             
             batch.commit().await()
@@ -406,6 +422,65 @@ class FirebaseRepository {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.e("FirebaseRepository", "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
             }
+        }
+    }
+
+    /**
+     * Aktualisiert mehrere Mitglieder-Dokumente in einem einzigen Batch.
+     * Optimiert für den täglichen Reset oder Massen-Updates.
+     */
+    suspend fun updateMembersBatch(familyId: String, members: List<FamilyMember>) {
+        try {
+            val familyDocRef = db.collection("families").document(familyId)
+            val membersColl = familyDocRef.collection("members")
+            
+            // Firestore limit: 500 operations per batch
+            members.chunked(500).forEach { chunk ->
+                val batch = db.batch()
+                chunk.forEach { member ->
+                    val docRef = membersColl.document(member.id)
+                    val currentTime = System.currentTimeMillis()
+                    val existingCreatedAt = member.createdAt ?: currentTime
+
+                    val dayProfilesData = member.dayProfiles?.mapKeys { it.key.toString() }
+                        ?.mapValues { (_, profile) ->
+                            mapOf(
+                                "isActive" to profile.isActive,
+                                "earliestWakeUp" to profile.earliestWakeUp.toString(),
+                                "latestWakeUp" to profile.latestWakeUp.toString(),
+                                "bathroomDurationMinutes" to profile.bathroomDurationMinutes,
+                                "wantsBreakfast" to profile.wantsBreakfast,
+                                "leaveHomeTime" to profile.leaveHomeTime?.toString()
+                            )
+                        }
+
+                    val data = hashMapOf(
+                        "name" to member.name,
+                        "earliestWakeUp" to member.earliestWakeUp.toString(),
+                        "latestWakeUp" to member.latestWakeUp.toString(),
+                        "bathroomDurationMinutes" to member.bathroomDurationMinutes,
+                        "wantsBreakfast" to member.wantsBreakfast,
+                        "leaveHomeTime" to member.leaveHomeTime?.toString(),
+                        "isPaused" to member.isPaused,
+                        "isAwakeToday" to member.isAwakeToday,
+                        "lastResetDate" to member.lastResetDate,
+                        "claimedByUserId" to member.claimedByUserId,
+                        "claimedByUserName" to member.claimedByUserName,
+                        "sequenceOrder" to member.sequenceOrder,
+                        "createdAt" to existingCreatedAt,
+                        "lastUpdatedAt" to FieldValue.serverTimestamp(),
+                        "deviceAlarmEnabled" to member.deviceAlarmEnabled,
+                        "dayProfiles" to dayProfilesData
+                    )
+                    batch.set(docRef, data)
+                }
+                batch.commit().await()
+            }
+        } catch (e: Exception) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FirebaseRepository", "Fehler im updateMembersBatch für $familyId: ${e.message}")
+            }
+            throw e
         }
     }
 
