@@ -122,11 +122,16 @@ class FamilyViewModel(
     private val _familyCreatorId = MutableStateFlow<String?>(null)
     val familyCreatorId: StateFlow<String?> = _familyCreatorId.asStateFlow()
 
-    private val _isGlobalAdmin = MutableStateFlow(false)
-    val isGlobalAdmin: StateFlow<Boolean> = _isGlobalAdmin.asStateFlow()
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+    val isGlobalAdmin: StateFlow<Boolean> = repository.getAuthStateFlow()
+        .flatMapLatest { user ->
+            user?.uid?.let { uid ->
+                repository.checkIsGlobalAdminFlow(uid)
+            } ?: flowOf(false)
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
-    /** True wenn der eingeloggte User der Ersteller (Admin) der aktuellen Familie ODER der globale Admin ist. */
-    val isAdmin: StateFlow<Boolean> = combine(_isGlobalAdmin, _familyCreatorId) { isGlobal, creatorId ->
+    val isAdmin: StateFlow<Boolean> = combine(isGlobalAdmin, _familyCreatorId) { isGlobal, creatorId ->
         isGlobal || (auth.currentUser?.uid != null && auth.currentUser?.uid == creatorId)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
@@ -144,19 +149,6 @@ class FamilyViewModel(
     val snoozeUntil: StateFlow<java.time.LocalDateTime?> = prefsRepo.snoozeUntil
 
     init {
-        // Globaler Admin-Check (Reaktiv bei Nutzerwechsel)
-        viewModelScope.launch {
-            repository.getAuthStateFlow()
-                .flatMapLatest { user ->
-                    user?.uid?.let { uid ->
-                        repository.checkIsGlobalAdminFlow(uid)
-                    } ?: flowOf(false)
-                }
-                .collect { isGlobal ->
-                    _isGlobalAdmin.value = isGlobal
-                }
-        }
-
         // Observe FamilyId and load members accordingly
         viewModelScope.launch {
             try {
