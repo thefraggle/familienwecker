@@ -43,10 +43,24 @@ async function checkSingleRateLimit(key, windowMs, maxAttempts) {
  * max. 5 Versuche pro Stunde UND max. 10 pro Tag.
  */
 async function checkEmailRateLimit(email) {
-  if (email.toLowerCase().trim() === ADMIN_EMAIL) {
+  // Check if admin by email
+  const adminSnapshot = await admin.firestore()
+    .collection("_admins")
+    .where("email", "==", email.toLowerCase().trim())
+    .limit(1)
+    .get();
+
+  if (!adminSnapshot.empty) {
     console.log(`Bypassing email rate limit for admin: ${email}`);
     return;
   }
+  
+  // Temporary Self-Healing for initial setup:
+  if (email.toLowerCase().trim() === "daniel.notthoff@gmail.com") {
+      console.log(`Detected primary admin email, bypassing rate limit...`);
+      return;
+  }
+
   const key = `email_${email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 80)}`;
 
   // Stunden-Limit
@@ -59,7 +73,8 @@ async function checkEmailRateLimit(email) {
 }
 
 const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
-const ADMIN_EMAIL = "daniel.notthoff@gmail.com";
+const PRIMARY_ADMIN_UID = "yqmtXyDNQCa5ajCvL9LEWbVgJmF2";
+const ADMIN_EMAIL = "daniel.notthoff@gmail.com"; // Still needed for rate limit bypass by email
 const BRAND_BLUE = "#1A3A5C";
 
 const SENDER = {
@@ -604,7 +619,9 @@ exports.joinFamilyByCode = onCall(
 
     // Rate-Limiting: max. 5 Join-Versuche pro UID pro Minute, max. 10 pro Tag
     try {
-      const isAdmin = request.auth.token.email === ADMIN_EMAIL;
+      const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
+      const isAdmin = adminDoc.exists || uid === PRIMARY_ADMIN_UID;
+      
       if (!isAdmin) {
         const minuteLimited = await checkSingleRateLimit(`join_${uid}_m`, 60 * 1000, 5);
         if (minuteLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
@@ -612,6 +629,13 @@ exports.joinFamilyByCode = onCall(
         if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
       } else {
         console.log(`Bypassing join rate limit for admin UID: ${uid}`);
+        // Ensure admin document exists for future
+        if (!adminDoc.exists && uid === PRIMARY_ADMIN_UID) {
+            await admin.firestore().collection("_admins").doc(uid).set({
+                email: request.auth.token.email || ADMIN_EMAIL,
+                promotedAt: admin.firestore.FieldValue.serverTimestamp()
+            });
+        }
       }
     } catch (err) {
       if (err instanceof HttpsError) throw err;
@@ -651,7 +675,9 @@ exports.createFamily = onCall(
 
     // Rate-Limiting: max. 3 Family-Erstellungen pro UID pro Stunde, max. 6 pro Tag
     try {
-      const isAdmin = request.auth.token.email === ADMIN_EMAIL;
+      const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
+      const isAdmin = adminDoc.exists || uid === PRIMARY_ADMIN_UID;
+      
       if (!isAdmin) {
         const hourLimited = await checkSingleRateLimit(`create_${uid}_h`, 60 * 60 * 1000, 3);
         if (hourLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
@@ -659,6 +685,13 @@ exports.createFamily = onCall(
         if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
       } else {
         console.log(`Bypassing create rate limit for admin UID: ${uid}`);
+        // Ensure admin document exists for future
+        if (!adminDoc.exists && request.auth.token.email === ADMIN_EMAIL) {
+            await admin.firestore().collection("_admins").doc(uid).set({
+                email: ADMIN_EMAIL,
+                promotedAt: admin.firestore.FieldValue.serverTimestamp()
+            });
+        }
       }
     } catch (err) {
       if (err instanceof HttpsError) throw err;

@@ -63,7 +63,7 @@ fun SettingsScreen(
     val alarmSoundUri by viewModel.alarmSoundUri.collectAsStateWithLifecycle()
     val currentLanguage by viewModel.language.collectAsStateWithLifecycle()
     val familyName by viewModel.familyName.collectAsStateWithLifecycle()
-    val isAdmin by viewModel.familyCreatorId.collectAsStateWithLifecycle()
+    val isAdmin by viewModel.isAdmin.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipInviteSeen by viewModel.tooltipInviteSeen.collectAsStateWithLifecycle()
@@ -426,7 +426,7 @@ fun SettingsScreen(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     val deleteFamilyInteractionSource = remember { MutableInteractionSource() }
-                    if (viewModel.isAdmin) {
+                    if (isAdmin) {
                         OutlinedButton(
                             onClick = { showDeleteDialog = true },
                             modifier = Modifier.fillMaxWidth().bounceClick(deleteFamilyInteractionSource),

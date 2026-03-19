@@ -29,6 +29,9 @@ import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import de.familienwecker.famwake.util.NetworkUtils
@@ -115,15 +118,13 @@ class FamilyViewModel(
     private val _familyCreatorId = MutableStateFlow<String?>(null)
     val familyCreatorId: StateFlow<String?> = _familyCreatorId.asStateFlow()
 
+    private val _isGlobalAdmin = MutableStateFlow(false)
+    val isGlobalAdmin: StateFlow<Boolean> = _isGlobalAdmin.asStateFlow()
+
     /** True wenn der eingeloggte User der Ersteller (Admin) der aktuellen Familie ODER der globale Admin ist. */
-    val isAdmin: Boolean
-        get() {
-            val user = auth.currentUser
-            val email = user?.email
-            val uid = user?.uid
-            return (email != null && email == "daniel.notthoff@gmail.com") || 
-                   (uid != null && uid == _familyCreatorId.value)
-        }
+    val isAdmin: StateFlow<Boolean> = combine(_isGlobalAdmin, _familyCreatorId) { isGlobal, creatorId ->
+        isGlobal || (auth.currentUser?.uid != null && auth.currentUser?.uid == creatorId)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     private var membersJob: Job? = null
     private var syncStatusJob: Job? = null
@@ -151,6 +152,13 @@ class FamilyViewModel(
                         launch {
                             val data = repository.getFamilyData(currentFamilyId)
                             _familyCreatorId.value = data?.createdByUserId
+                        }
+                        
+                        // Globaler Admin-Check
+                        launch {
+                            auth.currentUser?.uid?.let { uid ->
+                                _isGlobalAdmin.value = repository.checkIsGlobalAdmin(uid)
+                            }
                         }
 
                         syncStatusJob = launch {
