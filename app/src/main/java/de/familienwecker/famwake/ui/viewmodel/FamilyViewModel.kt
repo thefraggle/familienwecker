@@ -115,9 +115,15 @@ class FamilyViewModel(
     private val _familyCreatorId = MutableStateFlow<String?>(null)
     val familyCreatorId: StateFlow<String?> = _familyCreatorId.asStateFlow()
 
-    /** True wenn der eingeloggte User der Ersteller (Admin) der aktuellen Familie ist. */
+    /** True wenn der eingeloggte User der Ersteller (Admin) der aktuellen Familie ODER der globale Admin ist. */
     val isAdmin: Boolean
-        get() = auth.currentUser?.uid != null && auth.currentUser?.uid == _familyCreatorId.value
+        get() {
+            val user = auth.currentUser
+            val email = user?.email
+            val uid = user?.uid
+            return (email != null && email == "daniel.notthoff@gmail.com") || 
+                   (uid != null && uid == _familyCreatorId.value)
+        }
 
     private var membersJob: Job? = null
     private var syncStatusJob: Job? = null
