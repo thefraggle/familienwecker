@@ -35,3 +35,7 @@
 - [2026-03-19] | Firestore Timestamp Mapping | `lastUpdatedAt` saved as Timestamp but expected as Long in Mapper. Solution: Updated `FamilyMemberMapper` to handle both `Number` and `Timestamp` types via `when` expression.
 - [2026-03-19] | Deep Link State Wipe | Successful join via deep link was immediately undone by `leaveFamily()` call in `onLeaveFamily` callback. Solution: Removed `onLeaveFamily()` call from conflict-success handler. Added auto-join to `FamilySetupScreen`.
 - [2026-03-19] | Autofill / Context Menu Blockade (v1.3.8-1.3.10) | OutlinedTextField had semantics/modifiers interfering. Fixed by radical simplification (v1.3.9) and adding `AutofillType.Username` (v1.3.10).
+- [2026-03-19] | XSS in Feedback Emails (v1.3.10) | User inputs were embedded directly in HTML emails. Fixed by adding `escapeHtml()` helper in Cloud Functions (v1.3.11).
+
+## 🛑 Critical & High Severity Issues
+*Currently none open.*

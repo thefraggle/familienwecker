@@ -1,9 +1,10 @@
-# Brain Context - FamWake (v1.3.10-dev)
+# Brain Context - FamWake (v1.3.11)
 
 ## Current State
-- **Current Version:** 1.3.10
+- **Current Version:** 1.3.11
+- **Recent Release (v1.3.11):** 2026-03-19 (XSS Security Hotfix in Feedback Emails)
+- **Recent Release (v1.3.10):** 2026-03-19 (Password Manager fix & Context Menu confirmation)
 - **Recent Release (v1.3.9):** 2026-03-19 (Manual Autofill & Context Menu Fix)
-- **Planned for v1.3.10:** Hotfix for Password Manager (AutofillType.Username) and confirmation of Context Menu fix.
 - v1.3.8 (2026-03-19) (RELEASED) — Login Autofill & Context Menu Fix.
 - v1.3.7 (2026-03-19) (RELEASED) — Cloud Reset, Lazy Refresh, mapping/deep-link/rules fixes.
 - **Awake-Button:** Design angepasst (Sonnen-Icon, Text "Bereits wach", grüner Haken bei Aktivierung).

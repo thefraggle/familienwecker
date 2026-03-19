@@ -4,6 +4,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
  
+## [1.3.11] - 2026-03-19
+### Fixed
+- **Sicherheit:** Behebung einer indirekten XSS-Schwachstelle in Feedback-E-Mails durch serverseitige HTML-Maskierung (`escapeHtml`).
+
+[1.3.11]: https://github.com/thefraggle/familienwecker/compare/v1.3.10...v1.3.11
 ## [1.3.10] - 2026-03-19
 ### Fixed
 - **Login-Screen / Passwort-Manager:** Unterstützung für Passwort-Manager verbessert durch zusätzliche Autofill-Metadaten (`Username`).

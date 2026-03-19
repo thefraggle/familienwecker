@@ -74,6 +74,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-85 | **Settings UI Feedback** | Fehler beim Verlassen/Löschen (z.B. Offline) -> Snackbar mit Fehlermeldung erscheint. |
 | TC-86 | Login (Autofill Position) | Email-Feld antippen. | Autofill-Dropdown erscheint direkt unter dem Feld (nicht verschoben). |
 | TC-87 | Login (Password Manager) | Login-Screen öffnen. | Passwort-Manager (z.B. Google) bietet gespeicherte Zugangsdaten aktiv an. |
+| TC-88 | Security (XSS Feedback) | Feedback mit `<script>alert(1)</script>` senden. | E-Mail zeigt den Code als Text an, keine Ausführung oder Layout-Bruch. |
 
 
 ### 2. Familien-Konfiguration
