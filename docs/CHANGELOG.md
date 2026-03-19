@@ -4,6 +4,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.4.3 - 2026-03-19
+
+### Neu
+- **Admin-Funktionen:** Sicherer, reaktiver Admin-Status via Firestore (`_admins`-Collection) für exklusive Funktionen.
+- **Bericht-System:** Manueller und wöchentlicher Statistik-Report per E-Mail für Admin-Nutzer (Nutzer- & Familien-Zahlen).
+- **Sicherheit:** Umstellung auf Firebase Secrets (Resend API) und Entfernung hartcodierter E-Mail-Adressen.
+
+### Behoben
+- **Performance:** Admin-Status-Listener batterieoptimiert (aktiv nur bei Bedarf).
+- **Stabilität:** Fix für "undefined" Familiennamen und ungültige Absender im E-Mail-Versand.
+
 ## 1.4.2 - 2026-03-19
 
 ### Behoben

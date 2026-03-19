@@ -4,6 +4,17 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.4.3 - 2026-03-19
+
+### Added
+- **Admin Functions:** Secure, reactive admin status via Firestore (`_admins` collection) for exclusive features.
+- **Reporting System:** Manual and weekly statistics report via email for admin users (user & family metrics).
+- **Security:** Migration to Firebase Secrets (Resend API) and removal of hardcoded email addresses.
+
+### Fixed
+- **Performance:** Battery-optimized admin status listeners (only active when needed).
+- **Stability:** Fix for "undefined" family names and invalid sender formats in email delivery.
+
 ## 1.4.2 - 2026-03-19
 
 ### Fixed

@@ -176,6 +176,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-53 | **„Schon wach" – Reset** | Globalen Wecker-Switch ausschalten | „Schon wach"-Status wird auf false zurückgesetzt. |
 | TC-54 | **„Schon wach" – Sichtbar** | Globalen Wecker-Switch ein/aus | Button erscheint/verschwindet mit Animation. |
 | TC-55 | **RingingScreen – Panda** | Wecker klingelt | Lottie-Panda, Gradient und Zufallstext sichtbar. |
+| TC-56 | **Admin: Statistik-Report (E-Mail)** | Klick in Settings -> Toast erscheint -> E-Mail mit Nutzer/Familien-Daten kommt an. |
+| TC-57 | **Admin: Sicherheit (Sichtbarkeit)** | Login mit Nicht-Admin-User -> Admin-Buttons in Settings sind ausgeblendet. |
 | EC-09 | Nachträgliche Änderung (2 Uhr nachts) | Plan wird neu berechnet und asynchron an alle synchronisiert. |
 | EC-10 | Mehrere Admins | Beide ändern gleichzeitig die Badzeit eines Kindes -> Last-Write-Wins oder Konfliktmeldung. |
 
