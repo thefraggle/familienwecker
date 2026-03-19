@@ -67,6 +67,7 @@ fun SettingsScreen(
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipInviteSeen by viewModel.tooltipInviteSeen.collectAsStateWithLifecycle()
+    val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
     var expanded by remember { mutableStateOf(false) }
     var languageExpanded by remember { mutableStateOf(false) }
@@ -99,6 +100,15 @@ fun SettingsScreen(
         "dark" -> true
         "light" -> false
         else -> systemDark
+    }
+
+    // Zeige Error-Messages aus dem ViewModel im Snackbar an
+    LaunchedEffect(errorMessage) {
+        errorMessage?.let { text ->
+            val message = text.asString(context)
+            snackbarHostState.showSnackbar(message)
+            viewModel.clearError()
+        }
     }
     
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(

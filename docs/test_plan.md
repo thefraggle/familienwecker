@@ -67,6 +67,11 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-78 | **Batch-Reset Performance** | Manueller Reset-Trigger (via Debug) → Alle Mitglieder werden in einer einzigen Batch-Transaktion aktualisiert. |
 | TC-79 | **Lazy-Refresh** | UI muss beim Zurückkehren in den Vordergrund sofort resetten falls Threshold > 2h. |
 | TC-80 | **Cloud-Reset** | Status muss auch ohne App-Interaktion nach 2h in Firestore verschwinden. |
+| TC-81 | **Neuanlage Mitglieder** | Neues Mitglied anlegen -> Erscheint sofort in der Liste (Prüfung Firestore Timestamp Mapping). |
+| TC-82 | **Deep Link Auto-Join** | Klick auf Join-Link ohne Familie -> Tritt sofort bei und landet im MainScreen. |
+| TC-83 | **Deep Link Nav-Fix** | Klick auf Join-Link in bestehender Familie -> Bestätigung führt zum Switch ohne Setup-Screen-Schleife. |
+| TC-84 | **Familien-Löschung** | Als Creator die Familie löschen -> Alle Mitglieder und Familie werden erfolgreich entfernt. |
+| TC-85 | **Settings UI Feedback** | Fehler beim Verlassen/Löschen (z.B. Offline) -> Snackbar mit Fehlermeldung erscheint. |
 
 
 ### 2. Familien-Konfiguration

@@ -162,7 +162,9 @@ class FamilyViewModel(
                                     }
                                 }
                             } catch (e: Exception) {
-                                // Silent error for sync status
+                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                    android.util.Log.e("FamilyViewModel", "SyncStatus Flow Error: ${e.message}")
+                                }
                             }
                         }
 
@@ -194,17 +196,14 @@ class FamilyViewModel(
                             } catch (e: CancellationException) {
                                 throw e
                             } catch (e: Exception) {
+                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                    android.util.Log.e("FamilyViewModel", "Members Flow Error: ${e.message}")
+                                }
+                                val errorMsg = e.localizedMessage ?: "Permission Denied"
+                                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
+
                                 // Self-Healing: Bei Permission Denied (veraltete FamilyId) lokal aufräumen.
-                                // Nur wenn die Familie wirklich nicht mehr existiert – verhindert false-positives
-                                // z.B. wenn ein anderer User die Familie verlässt und kurz PERMISSION_DENIED
-                                // auf diesem Gerät ausgelöst wird.
                                 if (e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true) {
-                                    val fId = currentFamilyId
-                                    val stillExists = if (fId != null) repository.checkFamilyExists(fId) else false
-                                    if (!stillExists) {
-                                        leaveFamily()
-                                        _members.value = persistentListOf()
-                                    }
                                 } else {
                                     _errorMessage.value = UiText.StringResource(R.string.error_load_members)
                                 }
@@ -267,6 +266,10 @@ class FamilyViewModel(
 
     fun setError(message: UiText) {
         _errorMessage.value = message
+    }
+
+    fun clearError() {
+        _errorMessage.value = null
     }
 
     fun createFamily(familyName: String, onComplete: (Boolean) -> Unit) {
@@ -455,9 +458,21 @@ class FamilyViewModel(
     }
 
     fun addOrUpdateMember(member: FamilyMember) {
-        val currentFamilyId = familyId.value ?: return
+        val currentFamilyId = familyId.value ?: run {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FamilyViewModel", "Abbruch: familyId ist null beim Speichern von ${member.name}")
+            }
+            return
+        }
         viewModelScope.launch {
-            repository.addOrUpdateMember(currentFamilyId, member)
+            try {
+                repository.addOrUpdateMember(currentFamilyId, member)
+            } catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FamilyViewModel", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
+                }
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: "Unknown")
+            }
         }
     }
 
@@ -731,8 +746,9 @@ class FamilyViewModel(
     }
 
     /**
-     * Manueller Refresh (Lazy Refresh), z.B. wenn die App wieder in den Vordergrund kommt.
-     * Triggert einen sofortigen Reset-Check und frische Daten von Firestore.
+     * ADMIN/DEBUG: Setzt das DayProfile des heutigen Wochentags so,
+     * dass der Wecker in ~5 Minuten klingelt.
+     * DayOfWeek.value: 1=Mo ... 7=So (java.time)
      */
     fun triggerRefresh() {
         refreshData()
@@ -873,17 +889,30 @@ class FamilyViewModel(
         val currentMemberId = myMemberId.value
         cancelAlarmForCurrentUser()
         viewModelScope.launch {
-            // Eigenen Member-Datensatz UND User-Mapping atomar löschen.
-            if (currentFamilyId != null && currentMemberId != null) {
-                repository.leaveFamilyBatch(uid, currentFamilyId, currentMemberId)
-            } else {
-                repository.removeUserFamily(uid)
+            _isSyncing.value = true
+            try {
+                // Eigenen Member-Datensatz UND User-Mapping atomar löschen.
+                val result = if (currentFamilyId != null && currentMemberId != null) {
+                    repository.leaveFamilyBatch(uid, currentFamilyId, currentMemberId)
+                } else {
+                    repository.saveUserFamily(uid, "").map { Unit }
+                }
+                
+                if (result.isSuccess) {
+                    prefsRepo.setFamilyId(null)
+                    prefsRepo.setJoinCode(null)
+                    prefsRepo.setFamilyName(null)
+                    prefsRepo.setMyMemberId(null)
+                    prefsRepo.setMyMemberName(null)
+                } else {
+                    val errorMsg = result.exceptionOrNull()?.message ?: "Leave Failed"
+                    _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: "Unknown")
+            } finally {
+                _isSyncing.value = false
             }
-            prefsRepo.setFamilyId(null)
-            prefsRepo.setJoinCode(null)
-            prefsRepo.setFamilyName(null)
-            prefsRepo.setMyMemberId(null)
-            prefsRepo.setMyMemberName(null)
         }
     }
 

@@ -63,6 +63,7 @@ fun AddMemberScreen(
     val tooltipWakeWindowSeen by viewModel.tooltipWakeWindowSeen.collectAsStateWithLifecycle()
     val tooltipBathroomSeen by viewModel.tooltipBathroomSeen.collectAsStateWithLifecycle()
     val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
+    val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
     var name by remember(memberToEdit) { mutableStateOf(memberToEdit?.name ?: "") }
 
@@ -218,6 +219,24 @@ fun AddMemberScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Spacer(modifier = Modifier.height(8.dp))
+
+                // Fehlermeldung (falls vorhanden)
+                errorMessage?.let { error ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.errorContainer
+                        )
+                    ) {
+                        Text(
+                            text = "⚠️ ${error.asString()}",
+                            modifier = Modifier.padding(16.dp),
+                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
 
                 // Name
                 OutlinedTextField(

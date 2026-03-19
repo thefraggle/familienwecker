@@ -108,9 +108,10 @@ fun MainScreen(
             confirmButton = {
                 TextButton(onClick = {
                     showJoinConflictDialog = false
-                    viewModel.leaveAndJoinPendingCode { success ->
-                        if (success) onLeaveFamily()
-                        // success=false: Dialog geschlossen, pendingCode gecleard, User bleibt in Familie
+                    viewModel.leaveAndJoinPendingCode { _ ->
+                        // Kein onLeaveFamily() nötig! 
+                        // Falls Erfolg: viewModel.familyId ändert sich -> Screen re-composed automatisch
+                        // Falls Fehler: Dialog ist bereits zu, Fehlermeldung via viewModel.errorMessage
                     }
                 }) {
                     Text(stringResource(R.string.join_conflict_confirm), color = MaterialTheme.colorScheme.error)

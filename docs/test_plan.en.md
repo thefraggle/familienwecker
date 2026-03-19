@@ -67,8 +67,13 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-76 | **Debouncing Toggles** | Rapidly clicking Awake/Pause multiple times → Logcat shows only one Firestore write after 2s. |
 | TC-77 | **Master-Switch Debounce** | Rapidly toggling global alarm switch → sync of the status icon to others occurs only once with a delay. |
 | TC-78 | **Batch-Reset Performance** | Manual reset trigger (via debug) → all members are updated in a single batch transaction. |
-| TC-79 | **Lazy-Refresh** | UI must reset immediately when returning to foreground if threshold > 2h. |
+| TC-79 | **Lazy-Refresh** | UI must immediately reset when returning to foreground if threshold > 2h. |
 | TC-80 | **Cloud-Reset** | Status must disappear from Firestore after 2h even without app interaction. |
+| TC-81 | **New Member Creation** | Create new member -> Appears immediately in list (verifies Firestore Timestamp mapping). |
+| TC-82 | **Deep Link Auto-Join** | Click join link without family -> Joins immediately and opens MainScreen. |
+| TC-83 | **Deep Link Nav Fix** | Click join link while in family -> Confirmation switches family without Setup screen loop. |
+| TC-84 | **Family Deletion** | Delete family as creator -> All members and family deleted successfully. |
+| TC-85 | **Settings UI Feedback** | Error during leave/delete (e.g. offline) -> Snackbar with error message appears. |
 
 
 ### 2. Family Configuration

@@ -43,6 +43,20 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         )
     }?.toMap()?.takeIf { it.isNotEmpty() }
 
+    val createdAtVal = get("createdAt")
+    val createdAt = when (createdAtVal) {
+        is Number -> createdAtVal.toLong()
+        is com.google.firebase.Timestamp -> createdAtVal.toDate().time
+        else -> null
+    }
+
+    val lastUpdatedVal = get("lastUpdatedAt")
+    val lastUpdatedAt = when (lastUpdatedVal) {
+        is Number -> lastUpdatedVal.toLong()
+        is com.google.firebase.Timestamp -> lastUpdatedVal.toDate().time
+        else -> null
+    }
+
     return FamilyMember(
         id = id,
         name = getString("name") ?: "Unknown",
@@ -57,8 +71,8 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         claimedByUserId = getString("claimedByUserId"),
         claimedByUserName = getString("claimedByUserName"),
         sequenceOrder = getLong("sequenceOrder")?.toInt() ?: 0,
-        createdAt = getLong("createdAt"),
-        lastUpdatedAt = getLong("lastUpdatedAt"),
+        createdAt = createdAt,
+        lastUpdatedAt = lastUpdatedAt,
         deviceAlarmEnabled = getBoolean("deviceAlarmEnabled"),
         dayProfiles = dayProfiles
     )
