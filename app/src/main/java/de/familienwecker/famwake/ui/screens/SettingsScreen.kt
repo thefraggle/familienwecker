@@ -66,6 +66,7 @@ fun SettingsScreen(
     val currentLanguage by viewModel.language.collectAsStateWithLifecycle()
     val familyName by viewModel.familyName.collectAsStateWithLifecycle()
     val isAdmin by viewModel.isAdmin.collectAsStateWithLifecycle()
+    val isGlobalAdmin by viewModel.isGlobalAdmin.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipInviteSeen by viewModel.tooltipInviteSeen.collectAsStateWithLifecycle()
@@ -793,8 +794,8 @@ fun SettingsScreen(
                 }
             }
 
-            // Admin-Buttons (nur für Admins sichtbar)
-            if (isAdmin) {
+            // Admin-Buttons (NUR für globale Admins sichtbar)
+            if (isGlobalAdmin) {
                 Spacer(modifier = Modifier.height(16.dp))
                 val adminAlarmInteraction = remember { MutableInteractionSource() }
                 var adminAlarmConfirmed by remember { mutableStateOf(false) }
