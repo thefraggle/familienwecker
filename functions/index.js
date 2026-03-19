@@ -6,6 +6,19 @@ const { randomInt } = require("crypto");
 admin.initializeApp();
 
 /**
+ * Escapes HTML special characters to prevent XSS.
+ */
+function escapeHtml(unsafe) {
+  if (!unsafe || typeof unsafe !== "string") return "";
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/**
  * Prüft ein einzelnes Rate-Limit-Fenster.
  * Gibt true zurück wenn das Limit erreicht ist, false wenn OK (und Zähler wird erhöht).
  */
@@ -772,20 +785,23 @@ exports.sendFeedbackEmail = onCall(
       throw new HttpsError("failed-precondition", "Email service not configured.");
     }
 
+    const sanitizedCategory = escapeHtml(category || "Sonstiges");
+    const sanitizedMessage = escapeHtml(message?.trim() || "");
+
     const replyTo = email && email.trim() ? email.trim() : undefined;
-    const subject = `📬 FamWake Feedback: ${category || "Sonstiges"}`;
+    const subject = `📬 FamWake Feedback: ${sanitizedCategory}`;
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
         <h2 style="color: ${BRAND_BLUE};">📬 Neues Feedback</h2>
         <table style="width:100%; border-collapse: collapse; font-size:14px;">
-          <tr><td style="padding:6px 0; color:#666; width:130px;">Kategorie</td><td><strong>${category || "–"}</strong></td></tr>
+          <tr><td style="padding:6px 0; color:#666; width:130px;">Kategorie</td><td><strong>${sanitizedCategory}</strong></td></tr>
           <tr><td style="padding:6px 0; color:#666;">App-Version</td><td>${appVersion || "–"}</td></tr>
           <tr><td style="padding:6px 0; color:#666;">Gerät</td><td>${device || "–"}</td></tr>
           ${replyTo ? `<tr><td style="padding:6px 0; color:#666;">Antwort-E-Mail</td><td><a href="mailto:${replyTo}">${replyTo}</a></td></tr>` : ""}
         </table>
         <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;">
         <h3 style="color: ${BRAND_BLUE};">Nachricht</h3>
-        <p style="background:#f9f9f9; padding:12px; border-radius:6px; white-space: pre-wrap;">${message.trim()}</p>
+        <p style="background:#f9f9f9; padding:12px; border-radius:6px; white-space: pre-wrap;">${sanitizedMessage}</p>
         <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;">
         <p style="font-size:11px; color:#999; text-align:center;">FamWake Familienwecker – automatisch generiert</p>
       </div>

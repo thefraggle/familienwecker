@@ -76,6 +76,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-85 | **Settings UI Feedback** | Error during leave/delete (e.g. offline) -> Snackbar with error message appears. |
 | TC-86 | Login (Autofill Position) | Tap email field. | Autofill dropdown appears directly below the field (not shifted). |
 | TC-87 | Login (Password Manager) | Open login screen. | Password manager (e.g. Google) actively offers saved credentials. |
+| TC-88 | Security (XSS Feedback) | Send feedback with `<script>alert(1)</script>`. | Email shows the code as text, no execution or layout break. |
 
 
 ### 2. Family Configuration
