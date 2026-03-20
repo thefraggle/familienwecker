@@ -760,7 +760,7 @@ exports.leaveFamily = onCall(
     }
     const uid = request.auth.uid;
 
-    const { familyId } = request.data || {};
+    const { familyId, memberId } = request.data || {};
     if (!familyId || typeof familyId !== "string") {
       throw new HttpsError("invalid-argument", "INVALID_FAMILY_ID");
     }
@@ -799,7 +799,7 @@ exports.leaveFamily = onCall(
 
     // If user is the creator and there are other members, reassign creator
     if (familyData.createdByUserId === uid) {
-      const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== uid);
+      const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== (memberId || uid));
       if (otherMembers.length > 0) {
         const newCreatorUid = otherMembers[0].id; // Assign first other member as new creator
         await familyDocRef.update({ createdByUserId: newCreatorUid });
@@ -807,17 +807,19 @@ exports.leaveFamily = onCall(
       }
     }
 
-    // Remove user's member document from the family
-    await familyDocRef.collection("members").doc(uid).delete();
+    // Remove user's member document from the family (using memberId from client or fallback to uid)
+    const finalMemberId = memberId || uid;
+    await familyDocRef.collection("members").doc(finalMemberId).delete();
+    
     // Remove familyId from user's document
     await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
 
-    console.log(`User ${uid} successfully left family ${familyId}.`);
+    console.log(`User ${uid} (Member: ${finalMemberId}) successfully left family ${familyId}.`);
     return { success: true, familyDeleted: false };
   }
 );
 
-// ─── Familie löschen (nur für Ersteller) ─────────────────────────────────────
+// ─── Familie löschen (Ersteller oder Global Admin) ───────────────────────────
 exports.deleteFamily = onCall(
   { region: "europe-west3" },
   async (request) => {
@@ -840,9 +842,13 @@ exports.deleteFamily = onCall(
 
     const familyData = familyDoc.data();
 
-    // Only the creator can delete the family
-    if (familyData.createdByUserId !== uid) {
-      throw new HttpsError("permission-denied", "ONLY_CREATOR_CAN_DELETE_FAMILY");
+    // Global Admin Check
+    const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
+    const isGlobalAdmin = adminDoc.exists || uid === PRIMARY_ADMIN_UID;
+
+    // Only the creator OR global admin can delete the family
+    if (!isGlobalAdmin && familyData.createdByUserId !== uid) {
+      throw new HttpsError("permission-denied", "ONLY_CREATOR_OR_ADMIN_CAN_DELETE_FAMILY");
     }
 
     // Delete all member documents and remove familyId from their user profiles
@@ -850,19 +856,25 @@ exports.deleteFamily = onCall(
     const batch = admin.firestore().batch();
 
     for (const memberDoc of membersSnapshot.docs) {
+      const data = memberDoc.data();
       batch.delete(memberDoc.ref); // Delete member document
-      const memberUid = memberDoc.id;
-      // Remove familyId from user's document
-      batch.update(admin.firestore().collection("users").doc(memberUid), {
-        familyId: admin.firestore.FieldValue.delete()
-      });
+      
+      const claimedUid = data.claimedByUserId;
+      if (claimedUid) {
+        // Remove familyId from user's document using claimed UID
+        // Use set({familyId: delete}, {merge: true}) instead of update to avoid errors if doc doesn't exist
+        batch.set(admin.firestore().collection("users").doc(claimedUid), {
+          familyId: admin.firestore.FieldValue.delete()
+        }, { merge: true });
+      }
     }
 
     // Recursively delete the family document and its subcollections
+    // This is the robust way to ensure everything inside matches/members is gone
     await admin.firestore().recursiveDelete(familyDocRef);
-    await batch.commit(); // Commit batch for member updates
+    await batch.commit(); // Commit batch for user profile updates
 
-    console.log(`Family ${familyId} and all its members deleted by creator ${uid}.`);
+    console.log(`Family ${familyId} and all its members deleted by ${isGlobalAdmin ? "admin" : "creator"} ${uid}.`);
     return { success: true };
   }
 );

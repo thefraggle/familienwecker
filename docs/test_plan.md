@@ -1,4 +1,4 @@
-# 🧪 Testplan - FamWake (v1.5.3)
+# 🧪 Testplan - FamWake (v1.5.4)
 
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -83,6 +83,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-94 | **Admin Modal (Visibility)** | Normaler User öffnet Hilfe & Feedback Kachel. | Admin-Button ist nicht sichtbar. |
 | TC-95 | **Admin Modal (Functional)** | Globaler Admin öffnet Admin-Modal und drückt 3min Wecker. | Modal öffnet sich, Alarm wird wie erwartet nach 3 Min ausgelöst. |
 | TC-96 | **Cloud Mapping (Join)** | Familie beitreten via Code. | `familyId` erscheint im User-Profil (serverseitig geschrieben), obwohl Client kein Write-Recht hat. |
+| TC-97 | **Admin Deletion** | Globaler Admin löscht beliebige Familie. | Familie und alle Mitglieder werden erfolgreich entfernt. |
 
 
 ### 2. Familien-Konfiguration

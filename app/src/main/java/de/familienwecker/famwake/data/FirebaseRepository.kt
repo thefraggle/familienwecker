@@ -373,7 +373,10 @@ class FirebaseRepository {
     suspend fun leaveFamilyBatch(userId: String, familyId: String, memberId: String): Result<Unit> {
         return try {
             val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
-            val data = hashMapOf("familyId" to familyId)
+            val data = hashMapOf(
+                "familyId" to familyId,
+                "memberId" to memberId
+            )
             functions.getHttpsCallable("leaveFamily").call(data).await()
             Result.success(Unit)
         } catch (e: Exception) {
