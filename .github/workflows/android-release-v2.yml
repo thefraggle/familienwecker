@@ -72,26 +72,15 @@ jobs:
           fi
           echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
 
-          # AAB nur wenn manuell angefordert
-          if [[ "${{ github.event.inputs.build_aab }}" == "true" ]]; then
-            echo "build_aab=true" >> $GITHUB_OUTPUT
-            echo "build_apk=false" >> $GITHUB_OUTPUT
-          else
-            echo "build_aab=false" >> $GITHUB_OUTPUT
-            echo "build_apk=true" >> $GITHUB_OUTPUT
-          fi
+          # Immer beides bauen (APK für GitHub, AAB für Play Store)
+          echo "build_aab=true" >> $GITHUB_OUTPUT
+          echo "build_apk=true" >> $GITHUB_OUTPUT
 
-          # Release-Typ: x.x.0 → latest, alles andere → pre-release
-          TAG="${{ github.ref_name }}"
-          if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.0$ ]]; then
-            echo "is_prerelease=false" >> $GITHUB_OUTPUT
-          else
-            echo "is_prerelease=true" >> $GITHUB_OUTPUT
-          fi
+          # Immer als offizielles Release (kein Pre-release)
+          echo "is_prerelease=false" >> $GITHUB_OUTPUT
 
       # APK für alle Tag-Pushes (und manuell wenn kein AAB angefordert)
       - name: Build APK
-        if: steps.metadata.outputs.build_apk == 'true'
         run: |
           ./gradlew assembleRelease \
             --build-cache --parallel --configuration-cache \
@@ -102,7 +91,6 @@ jobs:
 
       # AAB nur bei manueller Anforderung
       - name: Build AAB (Store Release)
-        if: steps.metadata.outputs.build_aab == 'true'
         run: |
           ./gradlew bundleRelease \
             --build-cache --parallel --configuration-cache \
@@ -122,7 +110,6 @@ jobs:
           echo "$BUILD_TOOLS_DIR" >> $GITHUB_PATH
 
       - name: Sign APK
-        if: steps.metadata.outputs.build_apk == 'true'
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
@@ -137,7 +124,6 @@ jobs:
             --out FamWake-${{ github.ref_name }}-release.apk aligned.apk
 
       - name: Sign AAB
-        if: steps.metadata.outputs.build_aab == 'true'
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
@@ -150,19 +136,20 @@ jobs:
             "$AAB_PATH" "$KEY_ALIAS"
           cp "$AAB_PATH" FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
 
-      # GitHub Release mit APK – x.x.0 = latest, x.x.1+ = pre-release
-      - name: Create GitHub Release (APK)
-        if: steps.metadata.outputs.build_apk == 'true' && startsWith(github.ref, 'refs/tags/')
+      # GitHub Release mit APK und AAB
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: FamWake-${{ github.ref_name }}-release.apk
+          files: |
+            FamWake-${{ github.ref_name }}-release.apk
+            FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
           name: Release ${{ github.ref_name }}
           body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
-          prerelease: ${{ steps.metadata.outputs.is_prerelease }}
+          prerelease: false
 
-      # AAB als Artefakt für manuellen Download (kein GitHub Release)
-      - name: Upload AAB as Artifact (manual run)
-        if: steps.metadata.outputs.build_aab == 'true' && github.event_name == 'workflow_dispatch'
+      # AAB als Artefakt für manuellen Download (Backup)
+      - name: Upload AAB as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: FamWake-v${{ steps.metadata.outputs.app_version }}-release
