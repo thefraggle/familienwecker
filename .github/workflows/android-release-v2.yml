@@ -60,12 +60,15 @@ jobs:
         run: |
           echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
-          # Version extraction: Tag (e.g. v1.5.0 → 1.5.0) has priority, then fallback to '1.5.1-DEV'
+          # Extract base version from build.gradle.kts (e.g. 1.5.2)
+          GRADLE_VERSION=$(grep "val appVersion" app/build.gradle.kts | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/-DEV//')
+          
+          # Version naming logic: Tag has priority
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             TAG_NAME="${{ github.ref_name }}"
             APP_VERSION="${TAG_NAME#v}"
           else
-            APP_VERSION="1.5.1-DEV"
+            APP_VERSION="$GRADLE_VERSION"
           fi
           echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
 

@@ -1,4 +1,4 @@
-# 🧪 Test Plan - FamWake (Family Alarm)
+# 🧪 Test Plan - FamWake (v1.5.2)
 
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
