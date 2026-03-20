@@ -1,4 +1,4 @@
-# 🧪 Test Plan - FamWake (v1.5.3)
+# 🧪 Test Plan - FamWake (v1.5.4)
 
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
@@ -171,6 +171,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-94 | **Admin Modal (Visibility)** | Regular user opens Help & Feedback card. | Admin button is not visible. |
 | TC-95 | **Admin Modal (Functional)** | Global admin opens admin modal and taps 3min alarm. | Modal opens, alarm is triggered after 3 min as expected. |
 | TC-96 | **Cloud Mapping (Join)** | Join family via code. | `familyId` appears in user profile (server-side written), even though client has no write access. |
+| TC-97 | **Admin Deletion** | Global admin deletes any family. | Family and all members successfully removed. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |

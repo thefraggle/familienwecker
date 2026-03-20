@@ -4,6 +4,14 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.5.4 - 2026-03-20
+
+### Behoben
+- **Familienlöschung:** Fehler beim ID-Mapping korrigiert; Ersteller und globale Admins können Familien nun wieder zuverlässig löschen (auch mit unbestätigten Mitgliedern).
+
+### Neu
+- **Stabilität:** Unterstützung für explizite `memberId` beim Verlassen der Familie verbessert die Zuverlässigkeit des Join/Leave-Flows.
+
 ## 1.5.3 - 2026-03-20
 
 ### Neu
