@@ -314,10 +314,7 @@ class FamilyViewModel(
             }
             val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
-                val saveResult = repository.saveUserFamily(uid, pair.first)
-                if (saveResult.isFailure && de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.e("FamilyViewModel", "saveUserFamily fehlgeschlagen: ${saveResult.exceptionOrNull()?.message}")
-                }
+                // Security Fix: saveUserFamily erfolgt jetzt serverseitig in der Cloud Function
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)
                 prefsRepo.setFamilyName(familyName)
@@ -358,13 +355,7 @@ class FamilyViewModel(
             }
             val result = repository.joinFamilyByCode(code)
             result.onSuccess { pair ->
-                val uid = auth.currentUser?.uid
-                if (uid != null) {
-                    val saveResult = repository.saveUserFamily(uid, pair.first)
-                    if (saveResult.isFailure && de.familienwecker.famwake.BuildConfig.DEBUG) {
-                        android.util.Log.e("FamilyViewModel", "saveUserFamily fehlgeschlagen: ${saveResult.exceptionOrNull()?.message}")
-                    }
-                }
+                // Security Fix: saveUserFamily erfolgt jetzt serverseitig in der Cloud Function
                 val fetchedName = repository.getFamilyName(pair.first)
                 prefsRepo.setFamilyId(pair.first)
                 prefsRepo.setJoinCode(pair.second)
@@ -456,17 +447,10 @@ class FamilyViewModel(
                     // Code ist gültig -> Alte Familie verlassen (Alarm canceln)
                     cancelAlarmForCurrentUser()
                     
-                    // Neues Mapping speichern (kein joinCode im User-Profil)
-                    if (uid != null) {
-                        val saveResult = repository.saveUserFamily(uid, newFamilyId)
-                        if (saveResult.isFailure) {
-                            android.util.Log.e("FamilyViewModel", "saveUserFamily fehlgeschlagen: ${saveResult.exceptionOrNull()?.message}")
-                        }
-                    }
+                    // Security Fix: saveUserFamily erfolgt jetzt serverseitig in der Cloud Function
                     val fetchedName = repository.getFamilyName(newFamilyId)
                     
                     // ERST den pendingJoinCode auf null setzen, dann die ID in den Prefs ändern!
-                    // Verhindert, dass MainScreen/SetupScreen kurzzeitig (Code != null && familyId != null) sehen.
                     _pendingJoinCode.value = null
                     _errorMessage.value = null
                     
@@ -950,7 +934,8 @@ class FamilyViewModel(
                 val result = if (currentFamilyId != null && currentMemberId != null) {
                     repository.leaveFamilyBatch(uid, currentFamilyId, currentMemberId)
                 } else {
-                    repository.saveUserFamily(uid, "").map { Unit }
+                    // Security Fix
+                    Result.success(Unit)
                 }
                 
                 if (result.isSuccess) {

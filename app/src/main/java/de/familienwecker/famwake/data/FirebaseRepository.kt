@@ -280,18 +280,6 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun saveUserFamily(userId: String, familyId: String): Result<Unit> {
-        return try {
-            val data = hashMapOf("familyId" to familyId)
-            db.collection("users").document(userId).set(data).await()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FirebaseRepository", "Fehler beim Speichern der User-Family-Zuordnung für $userId: ${e.message}")
-            }
-            Result.failure(e)
-        }
-    }
 
     // cachedJoinCode als Fallback, falls das Firestore-Family-Dokument nicht gelesen werden kann
     suspend fun getUserFamily(userId: String, cachedJoinCode: String? = null): Result<Pair<String, String>?> {
@@ -318,12 +306,14 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun removeUserFamily(userId: String) {
+    suspend fun removeUserFamily(userId: String, familyId: String) {
         try {
-            db.collection("users").document(userId).delete().await()
+            val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
+            val data = hashMapOf("familyId" to familyId)
+            functions.getHttpsCallable("leaveFamily").call(data).await()
         } catch (e: Exception) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FirebaseRepository", "Fehler beim Entfernen der User-Family-Zuordnung für $userId: ${e.message}")
+                android.util.Log.e("FirebaseRepository", "Fehler beim Verlassen der Familie für $userId: ${e.message}")
             }
         }
     }
@@ -368,42 +358,9 @@ class FirebaseRepository {
 
     suspend fun deleteFamily(familyId: String, userId: String): Result<Unit> {
         return try {
-            val familyRef = db.collection("families").document(familyId)
-            val membersCollection = familyRef.collection("members")
-            val userRef = db.collection("users").document(userId)
-            val membersSnapshot = membersCollection.get().await()
-
-            if (membersSnapshot.documents.isNotEmpty()) {
-                // Erst alle fremden Claims entfernen
-                val claimedByOthers = membersSnapshot.documents.filter { doc ->
-                    val claimed = doc.getString("claimedByUserId")
-                    claimed != null && claimed != userId
-                }
-                if (claimedByOthers.isNotEmpty()) {
-                    val unclaimBatch = db.batch()
-                    claimedByOthers.forEach { doc ->
-                        unclaimBatch.update(doc.reference, mapOf(
-                            "claimedByUserId" to null,
-                            "claimedByUserName" to null
-                        ))
-                    }
-                    unclaimBatch.commit().await()
-                }
-
-                // Alle Members löschen
-                membersSnapshot.documents.chunked(500).forEach { chunk ->
-                    val batch = db.batch()
-                    chunk.forEach { doc -> batch.delete(doc.reference) }
-                    batch.commit().await()
-                }
-            }
-
-            // Atomares Löschen: Familie-Dokument UND User-Mapping
-            val finalBatch = db.batch()
-            finalBatch.delete(familyRef)
-            finalBatch.delete(userRef)
-            finalBatch.commit().await()
-
+            val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
+            val data = hashMapOf("familyId" to familyId)
+            functions.getHttpsCallable("deleteFamily").call(data).await()
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -415,14 +372,9 @@ class FirebaseRepository {
      */
     suspend fun leaveFamilyBatch(userId: String, familyId: String, memberId: String): Result<Unit> {
         return try {
-            val batch = db.batch()
-            val memberRef = db.collection("families").document(familyId).collection("members").document(memberId)
-            val userRef = db.collection("users").document(userId)
-            
-            batch.delete(memberRef)
-            batch.delete(userRef)
-            
-            batch.commit().await()
+            val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
+            val data = hashMapOf("familyId" to familyId)
+            functions.getHttpsCallable("leaveFamily").call(data).await()
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

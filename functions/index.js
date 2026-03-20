@@ -653,7 +653,11 @@ exports.joinFamilyByCode = onCall(
       throw new HttpsError("not-found", "FAMILY_NOT_FOUND");
     }
 
-    return { familyId: snapshot.docs[0].id, joinCode: code };
+    const familyId = snapshot.docs[0].id;
+    // Security Fix: Write familyId to users collection server-side
+    await admin.firestore().collection("users").doc(uid).set({ familyId }, { merge: true });
+
+    return { familyId, joinCode: code };
   }
 );
 
@@ -736,10 +740,130 @@ exports.createFamily = onCall(
     };
 
     const docRef = await admin.firestore().collection("families").add(familyData);
+    const familyId = docRef.id;
 
-    console.log(`Family '${sanitizedName}' created by ${uid} with id ${docRef.id} and code ${joinCode}`);
+    // Security Fix: Write familyId to users collection server-side
+    await admin.firestore().collection("users").doc(uid).set({ familyId }, { merge: true });
 
-    return { familyId: docRef.id, joinCode };
+    console.log(`Family '${sanitizedName}' created by ${uid} with id ${familyId} and code ${joinCode}`);
+
+    return { familyId, joinCode };
+  }
+);
+
+// ─── Familie verlassen ───────────────────────────────────────────────────────
+exports.leaveFamily = onCall(
+  { region: "europe-west3" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
+    const uid = request.auth.uid;
+
+    const { familyId } = request.data || {};
+    if (!familyId || typeof familyId !== "string") {
+      throw new HttpsError("invalid-argument", "INVALID_FAMILY_ID");
+    }
+
+    const userDocRef = admin.firestore().collection("users").doc(uid);
+    const userDoc = await userDocRef.get();
+
+    if (!userDoc.exists || userDoc.data().familyId !== familyId) {
+      throw new HttpsError("failed-precondition", "NOT_A_MEMBER_OF_THIS_FAMILY");
+    }
+
+    const familyDocRef = admin.firestore().collection("families").doc(familyId);
+    const familyDoc = await familyDocRef.get();
+
+    if (!familyDoc.exists) {
+      // Family might have been deleted by another user
+      await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
+      console.log(`User ${uid} left non-existent family ${familyId}.`);
+      return { success: true };
+    }
+
+    const familyData = familyDoc.data();
+
+    // Check if user is the last member
+    const membersSnapshot = await familyDocRef.collection("members").get();
+    const memberCount = membersSnapshot.size;
+
+    if (memberCount === 1) {
+      // If this user is the only member, delete the family
+      // This also handles the case where the user is the creator
+      console.log(`User ${uid} is the last member of family ${familyId}. Deleting family.`);
+      await admin.firestore().recursiveDelete(familyDocRef);
+      await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
+      return { success: true, familyDeleted: true };
+    }
+
+    // If user is the creator and there are other members, reassign creator
+    if (familyData.createdByUserId === uid) {
+      const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== uid);
+      if (otherMembers.length > 0) {
+        const newCreatorUid = otherMembers[0].id; // Assign first other member as new creator
+        await familyDocRef.update({ createdByUserId: newCreatorUid });
+        console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
+      }
+    }
+
+    // Remove user's member document from the family
+    await familyDocRef.collection("members").doc(uid).delete();
+    // Remove familyId from user's document
+    await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
+
+    console.log(`User ${uid} successfully left family ${familyId}.`);
+    return { success: true, familyDeleted: false };
+  }
+);
+
+// ─── Familie löschen (nur für Ersteller) ─────────────────────────────────────
+exports.deleteFamily = onCall(
+  { region: "europe-west3" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
+    const uid = request.auth.uid;
+
+    const { familyId } = request.data || {};
+    if (!familyId || typeof familyId !== "string") {
+      throw new HttpsError("invalid-argument", "INVALID_FAMILY_ID");
+    }
+
+    const familyDocRef = admin.firestore().collection("families").doc(familyId);
+    const familyDoc = await familyDocRef.get();
+
+    if (!familyDoc.exists) {
+      throw new HttpsError("not-found", "FAMILY_NOT_FOUND");
+    }
+
+    const familyData = familyDoc.data();
+
+    // Only the creator can delete the family
+    if (familyData.createdByUserId !== uid) {
+      throw new HttpsError("permission-denied", "ONLY_CREATOR_CAN_DELETE_FAMILY");
+    }
+
+    // Delete all member documents and remove familyId from their user profiles
+    const membersSnapshot = await familyDocRef.collection("members").get();
+    const batch = admin.firestore().batch();
+
+    for (const memberDoc of membersSnapshot.docs) {
+      batch.delete(memberDoc.ref); // Delete member document
+      const memberUid = memberDoc.id;
+      // Remove familyId from user's document
+      batch.update(admin.firestore().collection("users").doc(memberUid), {
+        familyId: admin.firestore.FieldValue.delete()
+      });
+    }
+
+    // Recursively delete the family document and its subcollections
+    await admin.firestore().recursiveDelete(familyDocRef);
+    await batch.commit(); // Commit batch for member updates
+
+    console.log(`Family ${familyId} and all its members deleted by creator ${uid}.`);
+    return { success: true };
   }
 );
  
