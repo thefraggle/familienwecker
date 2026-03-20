@@ -4,6 +4,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.5.2 - 2026-03-20
+
+### Geändert
+- **CI/CD:** Versionierungsprozess bereinigt; GitHub-Artifacts nutzen nun immer die offizielle Versionsnummer ohne `-DEV` Suffix.
+
 ## 1.5.1 - 2026-03-20
 
 ### Behoben
