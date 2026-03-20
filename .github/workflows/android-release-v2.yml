@@ -147,6 +147,7 @@ jobs:
           name: Release ${{ github.ref_name }}
           body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
           prerelease: false
+          make_latest: true
 
       # AAB als Artefakt für manuellen Download (Backup)
       - name: Upload AAB as Artifact
