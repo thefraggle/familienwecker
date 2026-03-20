@@ -4,6 +4,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.5.3 - 2026-03-20
+
+### Neu
+- **Sicherheits-Fix (IDOR):** Die `familyId`-Lücke wurde geschlossen. Alle Mapping-Operationen (Erstellen, Beitreten, Verlassen, Löschen) erfolgen nun ausschließlich über gesicherte Firebase Cloud Functions.
+- **Admin-Refactoring:** Die Admin-Funktionen (3min Wecker, Admin-Report) wurden in ein gesichertes Modal ausgelagert, das über einen neuen Button in der Hilfe-Kachel erreichbar ist.
+
+### Geändert
+- **Firestore Security Rules:** Direkter Schreibzugriff auf die `users`-Kollektion vom Client aus wurde vollständig gesperrt.
+- **Stabilität:** Atomares Löschen von Familien und Verlassen-Logik via Cloud Functions verbessert die Datenkonsistenz.
+
 ## 1.5.2 - 2026-03-20
 
 ### Geändert

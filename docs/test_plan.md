@@ -1,4 +1,4 @@
-# 🧪 Testplan - FamWake (v1.5.2)
+# 🧪 Testplan - FamWake (v1.5.3)
 
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -79,6 +79,10 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-90 | **Feld-Validierung (Family)** | Neue Familie mit leerem Namen erstellen. | „Erstellen"-Button bleibt deaktiviert (Validierung im ViewModel). |
 | TC-91 | **Feld-Validierung (Join)** | Join-Code mit < 6 Zeichen eingeben. | „Beitreten"-Button bleibt deaktiviert; Fehlermeldung bei falschem Code. |
 | TC-92 | **Validierung (Member-Name)** | Mitglied ohne Namen speichern. | Speichern-Button gesperrt; Fehlermeldung bei leeren Eingaben. |
+| TC-93 | **Security (familyId Write Lock)** | Versuch, `users/{uid}/familyId` via Prototyping-Code zu ändern. | Firestore Rules lehnen Write ab (PERMISSION_DENIED). |
+| TC-94 | **Admin Modal (Visibility)** | Normaler User öffnet Hilfe & Feedback Kachel. | Admin-Button ist nicht sichtbar. |
+| TC-95 | **Admin Modal (Functional)** | Globaler Admin öffnet Admin-Modal und drückt 3min Wecker. | Modal öffnet sich, Alarm wird wie erwartet nach 3 Min ausgelöst. |
+| TC-96 | **Cloud Mapping (Join)** | Familie beitreten via Code. | `familyId` erscheint im User-Profil (serverseitig geschrieben), obwohl Client kein Write-Recht hat. |
 
 
 ### 2. Familien-Konfiguration
