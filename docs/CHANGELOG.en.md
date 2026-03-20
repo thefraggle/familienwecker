@@ -4,7 +4,17 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.5.0 - 2026-03-19
+## 1.5.1 - 2026-03-20
+
+### Fixed
+- **Midnight Conflict:** Removed the restrictive 03:00 AM guard in the algorithm, allowing early alarms (e.g., 00:15) to work correctly.
+
+### Changed
+- **Conflict UX:** Implemented "best-effort" fallback alarms for the active user when a valid schedule cannot be found.
+- **Error Messages:** More detailed tips for resolving conflicts and visual indicators for active fallback alarms on the main screen.
+- **Versioning:** Switched to tag-driven versioning to sync Play Store and codebase.
+
+---
 
 ### New
 - **Admin Console & Statistics:** Secure, reactive admin status via Firestore (`_admins` collection); manual and weekly statistics report via email for admins.

@@ -272,10 +272,13 @@
     <string name="schedule_message_optimal">Here is the calculated family schedule:</string>
     <string name="schedule_message_no_members">No active members. All are paused.</string>
     <string name="schedule_message_no_valid">No valid schedule found. Times overlap too much.</string>
+    <string name="schedule_message_no_valid_desc">Tip: Increase your wake window, shorten bathroom time, or pause another member.</string>
     <string name="schedule_message_time_adjusted">Times adjusted by %d min to keep your order.</string>
     <string name="schedule_message_breakfast_reduced">Breakfast shortened by %d min to fit your order.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Breakfast &#x2212;%1$d min &amp; times adjusted by %2$d min.</string>
     <string name="schedule_message_member_conflict">Conflict for %s: times overlap too much.</string>
+    <string name="schedule_message_member_conflict_desc">Try changing the order or adjusting the times.</string>
+    <string name="main_fallback_alarm_active">⚠️ Fallback alarm active (%s). Please fix the schedule!</string>
 
     <string name="error_password_too_short">Password must be at least 8 characters long.</string>
     <string name="error_email_already_in_use">This email address is already in use by another account.</string>

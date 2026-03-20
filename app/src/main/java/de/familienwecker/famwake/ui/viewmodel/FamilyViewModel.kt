@@ -1019,10 +1019,13 @@ class FamilyViewModel(
                     }
                     _schedule.value = result
 
-                    if (alarmsOn && result.isValid && result.memberSchedules.isNotEmpty()) {
+                    if (alarmsOn && result.memberSchedules.isNotEmpty()) {
+                        if (!result.isValid) {
+                            android.util.Log.w("FamWake_Alarm", "recalculate: Applying FALLBACK alarms for invalid schedule")
+                        }
                         applyAlarms(result)
                     } else {
-                        android.util.Log.w("FamWake_Alarm", "recalculate: cancelling alarms – alarmsOn=$alarmsOn, isValid=${result.isValid}, scheduleEmpty=${result.memberSchedules.isEmpty()}")
+                        android.util.Log.w("FamWake_Alarm", "recalculate: cancelling alarms – alarmsOn=$alarmsOn, hasSchedules=${result.memberSchedules.isNotEmpty()}")
                         currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                     }
                 } catch (e: Exception) {

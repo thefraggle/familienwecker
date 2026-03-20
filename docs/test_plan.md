@@ -156,6 +156,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | EC-33 | **Offline-Icon bei Writes** | Nach 3s Offline → CloudOff-Icon statt Sync-Spinner. |
 | EC-34 | **Familie-Verlassen (Isolation)** | Papa verlässt Familie auf Gerät A → Mamas Session auf Gerät B bleibt unverändert; kein ungewolltes leaveFamily. |
 | EC-35 | **Member-Löschung beim Verlassen** | Nach dem Verlassen ist das eigene Mitglieds-Profil vollständig aus Firestore gelöscht. Nach erneutem Beitreten ist kein altes Profil mehr vorhanden. |
+| EC-39 | **Best-effort Fallback-Wecker** | Unmöglicher Plan -> Aktiver Nutzer erhält dennoch einen Wecker zur bestmöglichen Zeit (Best-effort). |
+| EC-40 | **Mitternachts-Wecker (00:15)** | Wecker auf 00:15 Uhr stellen -> Wird korrekt eingeplant und ausgelöst (kein Mitternachts-Guard-Block). |
 
 
 ### 3. Benutzer-Verhalten

@@ -4,14 +4,15 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val appVersion = "1.5.1"
+// Fallback version if no versionName property is provided (e.g. for local builds)
+val appVersion = project.findProperty("versionName")?.toString() ?: "1.5.1-DEV"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
 
 val versionCodeTimestamp = try {
-    // Minutes since January 1st, 2026
-    val startTime = 1735686000000L // 2026-01-01 00:00:00 UTC
+    // Minutes since January 1st, 2025
+    val startTime = 1735686000000L // 2025-01-01 00:00:00 UTC (roughly)
     ((System.currentTimeMillis() - startTime) / (1000 * 60)).toInt()
 } catch (e: Exception) {
     1

@@ -520,20 +520,55 @@ fun MainScreen(
                             description = stringResource(R.string.empty_schedule_description)
                         )
                     } else if (!currentSchedule.isValid) {
+                        val cardColor = if (isDarkTheme) Color(0xFF332000) else Color(0xFFFFE0B2) // Warm orange/amber
+                        val textColor = if (isDarkTheme) Color(0xFFFFCC80) else Color(0xFFE65100)
+                        
                         Card(
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
                             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                            colors = CardDefaults.cardColors(
-                                containerColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
-                                                 else MaterialTheme.colorScheme.errorContainer
-                            )
+                            border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
+                            colors = CardDefaults.cardColors(containerColor = cardColor)
                         ) {
-                            Text(
-                                text = "❌ " + viewModel.scheduleMessageToUiText(currentSchedule.scheduleMessage).asString(),
-                                modifier = Modifier.padding(16.dp),
-                                color = MaterialTheme.colorScheme.onErrorContainer
-                            )
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(Icons.Default.Warning, contentDescription = null, tint = textColor, modifier = Modifier.size(20.dp))
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = viewModel.scheduleMessageToUiText(currentSchedule.scheduleMessage).asString(),
+                                        fontWeight = FontWeight.Bold,
+                                        color = textColor
+                                    )
+                                }
+                                
+                                val descKey = when (currentSchedule.scheduleMessage) {
+                                    is de.familienwecker.famwake.model.ScheduleMessage.MemberConflict -> R.string.schedule_message_member_conflict_desc
+                                    else -> R.string.schedule_message_no_valid_desc
+                                }
+                                Text(
+                                    text = stringResource(descKey),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = textColor.copy(alpha = 0.8f),
+                                    modifier = Modifier.padding(top = 4.dp, start = 28.dp)
+                                )
+
+                                // Fallback info for claimed user
+                                val myMember = currentSchedule.memberSchedules.find { it.member.id == myMemberId }
+                                if (myMember != null && isAlarmEnabled) {
+                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Card(
+                                        colors = CardDefaults.cardColors(containerColor = textColor.copy(alpha = 0.1f)),
+                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                    ) {
+                                        Text(
+                                            text = stringResource(R.string.main_fallback_alarm_active, myMember.wakeUpTime.toString()),
+                                            style = MaterialTheme.typography.labelMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                                            color = textColor
+                                        )
+                                    }
+                                }
+                            }
                         }
                     } else {
                         Card(

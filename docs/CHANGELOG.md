@@ -4,7 +4,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.5.0 - 2026-03-19
+## 1.5.1 - 2026-03-20
+
+### Behoben
+- **Mitternachts-Konflikt:** Der restriktive 03:00-Uhr-Guard im Algorithmus wurde entfernt, wodurch frühe Weckzeiten (z. B. 00:15 Uhr) nun korrekt funktionieren.
+
+### Geändert
+- **Konflikt-UX:** Bei Zeitplan-Konflikten wird nun ein "Sicherheits-Wecker" (Best-effort) für den aktiven Nutzer gestellt.
+- **Fehlermeldungen:** Detailliertere Tipps zur Konfliktlösung und visuelle Hinweise auf aktive Fallback-Wecker in der Hauptansicht.
+- **Versionierung:** Umstellung auf Tag-basierte Versionierung zur Synchronisation zwischen Play Store und Codebasis.
+
+---
 
 ### Neu
 - **Admin-Konsole & Statistik:** Sicherer, reaktiver Admin-Status via Firestore (`_admins`-Collection); manueller und wöchentlicher Statistik-Report per E-Mail für Admin-Nutzer.
