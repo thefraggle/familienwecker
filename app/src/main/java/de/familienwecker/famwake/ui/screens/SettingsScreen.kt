@@ -76,6 +76,7 @@ fun SettingsScreen(
     var languageExpanded by remember { mutableStateOf(false) }
     var themeExpanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
+    var showAdminDialog by remember { mutableStateOf(false) }
     val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -791,56 +792,92 @@ fun SettingsScreen(
                     ) {
                         Text(stringResource(R.string.settings_rate_app))
                     }
-                }
-            }
 
-            // Admin-Buttons (NUR für globale Admins sichtbar)
-            if (isGlobalAdmin) {
-                Spacer(modifier = Modifier.height(16.dp))
-                val adminAlarmInteraction = remember { MutableInteractionSource() }
-                var adminAlarmConfirmed by remember { mutableStateOf(false) }
-                
-                Button(
-                    onClick = {
-                        viewModel.setDebugAlarmIn5Minutes()
-                        adminAlarmConfirmed = true
-                    },
-                    modifier = Modifier.fillMaxWidth().bounceClick(adminAlarmInteraction),
-                    interactionSource = adminAlarmInteraction,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                        contentColor = MaterialTheme.colorScheme.onErrorContainer
-                    ),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
-                ) {
-                    Icon(Icons.Default.Tune, contentDescription = null)
-                    Spacer(Modifier.width(8.dp))
-                    Text(if (adminAlarmConfirmed) "✓ Wecker in 3 Min gesetzt" else "Admin: Wecker in 3 Min")
-                }
-
-                val adminReportInteraction = remember { MutableInteractionSource() }
-                var adminReportConfirmed by remember { mutableStateOf(false) }
-
-                Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = {
-                        viewModel.requestAdminStatsReport { success ->
-                            if (success) adminReportConfirmed = true
+                    if (isGlobalAdmin) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        val adminInteractionSource = remember { MutableInteractionSource() }
+                        OutlinedButton(
+                            onClick = { showAdminDialog = true },
+                            modifier = Modifier.fillMaxWidth().bounceClick(adminInteractionSource),
+                            interactionSource = adminInteractionSource,
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                contentColor = MaterialTheme.colorScheme.error
+                            ),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f))
+                        ) {
+                            Icon(Icons.Default.Tune, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Admin-Menü")
                         }
-                    },
-                    modifier = Modifier.fillMaxWidth().bounceClick(adminReportInteraction),
-                    interactionSource = adminReportInteraction,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    ),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
-                ) {
-                    Icon(Icons.Default.BarChart, contentDescription = null)
-                    Spacer(Modifier.width(8.dp))
-                    Text(if (adminReportConfirmed) "✓ Report per E-Mail angefordert" else "Admin: Statistik-Report per E-Mail")
+
+                        if (showAdminDialog) {
+                            var adminAlarmConfirmed by remember { mutableStateOf(false) }
+                            var adminReportConfirmed by remember { mutableStateOf(false) }
+
+                            AlertDialog(
+                                onDismissRequest = { showAdminDialog = false },
+                                title = { 
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Icon(Icons.Default.Tune, contentDescription = null, tint = MaterialTheme.colorScheme.error)
+                                        Spacer(Modifier.width(8.dp))
+                                        Text("Admin-Funktionen")
+                                    }
+                                },
+                                text = {
+                                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                        Text("Diese Funktionen sind nur für globale Administratoren verfügbar.")
+                                        
+                                        val adminAlarmInteraction = remember { MutableInteractionSource() }
+                                        Button(
+                                            onClick = {
+                                                viewModel.setDebugAlarmIn5Minutes()
+                                                adminAlarmConfirmed = true
+                                            },
+                                            modifier = Modifier.fillMaxWidth().bounceClick(adminAlarmInteraction),
+                                            interactionSource = adminAlarmInteraction,
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.errorContainer,
+                                                contentColor = MaterialTheme.colorScheme.onErrorContainer
+                                            ),
+                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                        ) {
+                                            Icon(Icons.Default.Notifications, contentDescription = null)
+                                            Spacer(Modifier.width(8.dp))
+                                            Text(if (adminAlarmConfirmed) "✓ Wecker (3 Min) gesetzt" else "Wecker in 3 Min")
+                                        }
+
+                                        val adminReportInteraction = remember { MutableInteractionSource() }
+                                        Button(
+                                            onClick = {
+                                                viewModel.requestAdminStatsReport { success ->
+                                                    if (success) adminReportConfirmed = true
+                                                }
+                                            },
+                                            modifier = Modifier.fillMaxWidth().bounceClick(adminReportInteraction),
+                                            interactionSource = adminReportInteraction,
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                            ),
+                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                        ) {
+                                            Icon(Icons.Default.BarChart, contentDescription = null)
+                                            Spacer(Modifier.width(8.dp))
+                                            Text(if (adminReportConfirmed) "✓ Report angefordert" else "Statistik-Report (E-Mail)")
+                                        }
+                                    }
+                                },
+                                confirmButton = {
+                                    TextButton(onClick = { showAdminDialog = false }) {
+                                        Text("Schließen")
+                                    }
+                                }
+                            )
+                        }
+                    }
                 }
             }
+
 
             Spacer(modifier = Modifier.height(24.dp))
 
