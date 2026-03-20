@@ -270,10 +270,13 @@
     <string name="schedule_message_optimal">Optimaler Plan berechnet</string>
     <string name="schedule_message_no_members">Keine aktiven Mitglieder. Alle sind pausiert.</string>
     <string name="schedule_message_no_valid">Kein gültiger Zeitplan gefunden. Zeiten überschneiden sich zu stark.</string>
+    <string name="schedule_message_no_valid_desc">Tipp: Vergrößere dein Weckfenster, verkürze die Badezeit oder pausiere ein anderes Mitglied.</string>
     <string name="schedule_message_time_adjusted">Zeiten um %d Min. angepasst, um deine Reihenfolge einzuhalten.</string>
     <string name="schedule_message_breakfast_reduced">Frühstück um %d Min. verkürzt, um deine Reihenfolge zu ermöglichen.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Frühstück &#x2212;%1$d Min. &amp; Zeiten um %2$d Min. angepasst.</string>
     <string name="schedule_message_member_conflict">Konflikt bei %s: Zeiten überschneiden sich zu stark.</string>
+    <string name="schedule_message_member_conflict_desc">Versuche die Reihenfolge zu ändern oder die Zeiten anzupassen.</string>
+    <string name="main_fallback_alarm_active">⚠️ Sicherheits-Wecker aktiv (%s). Bitte Plan korrigieren!</string>
 
     <string name="error_password_too_short">Das Passwort muss mindestens 8 Zeichen lang sein.</string>
     <string name="error_email_already_in_use">Diese E-Mail-Adresse wird bereits von einem anderen Konto verwendet.</string>

@@ -60,7 +60,13 @@ jobs:
         run: |
           echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
-          APP_VERSION=$(grep -oP '(?<=appVersion = ")[^"]+' app/build.gradle.kts)
+          # Version extraction: Tag (e.g. v1.5.0 → 1.5.0) has priority, then fallback to '1.5.1-DEV'
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            TAG_NAME="${{ github.ref_name }}"
+            APP_VERSION="${TAG_NAME#v}"
+          else
+            APP_VERSION="1.5.1-DEV"
+          fi
           echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
 
           # AAB nur wenn manuell angefordert
@@ -86,6 +92,7 @@ jobs:
         run: |
           ./gradlew assembleRelease \
             --build-cache --parallel --configuration-cache \
+            -PversionName=${{ steps.metadata.outputs.app_version }} \
             -PcommitHash=${{ steps.metadata.outputs.hash }} \
             -PcommitDate="${{ steps.metadata.outputs.date }}" \
             -Dorg.gradle.jvmargs="-Xmx4g"
@@ -96,6 +103,7 @@ jobs:
         run: |
           ./gradlew bundleRelease \
             --build-cache --parallel --configuration-cache \
+            -PversionName=${{ steps.metadata.outputs.app_version }} \
             -PcommitHash=${{ steps.metadata.outputs.hash }} \
             -PcommitDate="${{ steps.metadata.outputs.date }}" \
             -Dorg.gradle.jvmargs="-Xmx4g"

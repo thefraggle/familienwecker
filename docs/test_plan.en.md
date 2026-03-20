@@ -153,6 +153,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-33 | **Offline Icon with Pending Writes** | After 3s offline → CloudOff icon instead of sync spinner. |
 | EC-34 | **Leave Family (isolation)** | Papa leaves family on Device A → Mama's session on Device B remains unchanged; no unintended leaveFamily triggered. |
 | EC-35 | **Member deletion on leave** | After leaving, the own member profile is completely deleted from Firestore. After rejoining, no old profile is present; a new one must be created. |
+| EC-39 | **Best-effort Fallback Alarm** | Impossible plan -> Active user still receives an alarm at the best-effort time. |
+| EC-40 | **Midnight Alarm (00:15)** | Set alarm to 00:15 -> Correctly scheduled and triggered (no midnight-guard blocking). |
 | EC-36 | **Reboot Alarm Restore** | Alarms are correctly restored after reboot (Locked Boot) via Direct Boot. |
 | EC-37 | **Terms of Use Link** | Terms of Use in Settings open correctly in a browser or webview. |
 | EC-38 | **Registration Disclaimer Link** | Registration disclaimer links open correctly in a browser or webview. |
