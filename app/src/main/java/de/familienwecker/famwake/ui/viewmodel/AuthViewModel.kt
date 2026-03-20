@@ -112,7 +112,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                             prefsRepository.setMyMemberName(claimedMember.name)
                         }
                     } else if (familyExistsResult.getOrNull() == false) {
-                        dbRepository.removeUserFamily(uid)
+                        dbRepository.removeUserFamily(uid, pair.first)
                         prefsRepository.clearAll()
                     }
                 } else {

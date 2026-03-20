@@ -24,12 +24,11 @@ service cloud.firestore {
         ));
     }
 
-    // User-Profile: Nur der Eigentümer kann lesen/schreiben
+    // User-Profile: Nur der Eigentümer kann lesen.
+    // Schreibzugriffe erfolgen ausschließlich über Cloud Functions (Security Fix).
     match /users/{userId} {
       allow read: if request.auth != null && request.auth.uid == userId;
-      // familyId muss auch ohne E-Mail-Verifizierung gespeichert werden können
-      // Wir erlauben hier das Schreiben solange es der eigene Account ist.
-      allow write: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
     }
 
     // Familien-Dokumente
