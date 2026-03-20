@@ -1,4 +1,4 @@
-# 🧪 Test Plan - FamWake (v1.5.2)
+# 🧪 Test Plan - FamWake (v1.5.3)
 
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
@@ -167,6 +167,10 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-52 | **Field Validation (Family)** | Create a new family with an empty name. | "Create" button remains disabled (ViewModel validation). |
 | TC-53 | **Field Validation (Join)** | Enter join code with < 6 characters. | "Join" button remains disabled; error message on invalid code. |
 | TC-54 | **Validation (Member Name)** | Save member without a name. | Save button disabled; error message on empty inputs. |
+| TC-93 | **Security (familyId Write Lock)** | Attempt to modify `users/{uid}/familyId` via prototype code. | Firestore Rules reject write (PERMISSION_DENIED). |
+| TC-94 | **Admin Modal (Visibility)** | Regular user opens Help & Feedback card. | Admin button is not visible. |
+| TC-95 | **Admin Modal (Functional)** | Global admin opens admin modal and taps 3min alarm. | Modal opens, alarm is triggered after 3 min as expected. |
+| TC-96 | **Cloud Mapping (Join)** | Join family via code. | `familyId` appears in user profile (server-side written), even though client has no write access. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |
