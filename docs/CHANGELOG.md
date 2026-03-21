@@ -7,7 +7,8 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ## 1.5.5 - 2026-03-21
 
 ### Neu
-- **DSGVO-Härtung:** Admin-Report vollständig anonymisiert. Join-Codes und Nutzer-E-Mail-Adressen wurden aus dem Report entfernt, während die statistischen Gesamtzahlen beibehalten wurden.
+- **DSGVO-Härtung:** Admin-Report vollständig anonymisiert. Join-Codes und Nutzer-E-Mail-Adressen wurden aus dem Report entfernt (PII-Minimierung).
+- **Sicherheits-Hygiene:** Google Client ID aus dem öffentlichen Quellcode entfernt und in die (git-ignorierte) `local.properties` ausgelagert. Fallback-Logik in Gradle integriert.
 
 ## 1.5.4 - 2026-03-20
 
