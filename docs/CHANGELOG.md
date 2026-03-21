@@ -4,6 +4,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.5.5 - 2026-03-21
+
+### Neu
+- **DSGVO-Härtung:** Admin-Report vollständig anonymisiert. Join-Codes und Nutzer-E-Mail-Adressen wurden aus dem Report entfernt, während die statistischen Gesamtzahlen beibehalten wurden.
+
 ## 1.5.4 - 2026-03-20
 
 ### Behoben

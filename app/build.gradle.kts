@@ -5,7 +5,7 @@ plugins {
 }
 
 // Fallback version if no versionName property is provided (e.g. for local builds)
-val appVersion = project.findProperty("versionName")?.toString() ?: "1.5.4"
+val appVersion = project.findProperty("versionName")?.toString() ?: "1.5.5"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")

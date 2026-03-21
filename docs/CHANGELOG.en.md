@@ -4,6 +4,11 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.5.5 - 2026-03-21
+
+### New
+- **GDPR Hardening:** Admin report fully anonymized. Join codes and user email addresses have been removed from the report, while maintaining statistical aggregate totals.
+
 ## 1.5.4 - 2026-03-20
 
 ### Fixed
