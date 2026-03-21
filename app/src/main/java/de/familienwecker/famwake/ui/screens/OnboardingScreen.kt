@@ -38,7 +38,10 @@ private data class OnboardingSlide(
     val bodyRes: Int,
     val gradient: List<Color>,
     @DrawableRes val imageRes: Int = 0,                // DE image (0 wenn lottieRes gesetzt)
-    @DrawableRes val imageResEn: Int = imageRes,       // EN image (falls abweichend)
+    @DrawableRes val imageResEn: Int = imageRes,       // EN image
+    @DrawableRes val imageResEs: Int = imageResEn,     // ES image
+    @DrawableRes val imageResFr: Int = imageResEn,     // FR image
+    @DrawableRes val imageResIt: Int = imageResEn,     // IT image
     val lottieRes: Int? = null                         // Lottie-Animation (ersetzt imageRes)
 )
 
@@ -48,9 +51,6 @@ fun OnboardingScreen(
     language: String,       // from PreferencesRepository: "de", "en", "system"
     onFinished: () -> Unit
 ) {
-    // Nur bei "de" werden DE-Screenshots verwendet, sonst EN (für en, fr, es, it)
-    val useEnglishImages = language != "de"
-
     val slides = listOf(
         // Slide 0 – emotionale Einstiegs-Slide mit Panda-Lottie
         OnboardingSlide(
@@ -64,28 +64,40 @@ fun OnboardingScreen(
             bodyRes    = R.string.onboarding_slide1_body,
             gradient   = listOf(Color(0xFF1A237E), Color(0xFF283593)),
             imageRes   = R.drawable.onboarding_slide1,
-            imageResEn = R.drawable.onboarding_slide1_en
+            imageResEn = R.drawable.onboarding_slide1_en,
+            imageResEs = R.drawable.onboarding_slide1_es,
+            imageResFr = R.drawable.onboarding_slide1_fr,
+            imageResIt = R.drawable.onboarding_slide1_it
         ),
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide2_title,
             bodyRes    = R.string.onboarding_slide2_body,
             gradient   = listOf(Color(0xFF1B5E20), Color(0xFF2E7D32)),
             imageRes   = R.drawable.onboarding_slide2_de,
-            imageResEn = R.drawable.onboarding_slide2_en
+            imageResEn = R.drawable.onboarding_slide2_en,
+            imageResEs = R.drawable.onboarding_slide2_es,
+            imageResFr = R.drawable.onboarding_slide2_fr,
+            imageResIt = R.drawable.onboarding_slide2_it
         ),
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide3_title,
             bodyRes    = R.string.onboarding_slide3_body,
             gradient   = listOf(Color(0xFF4A148C), Color(0xFF6A1B9A)),
             imageRes   = R.drawable.onboarding_slide3_de,
-            imageResEn = R.drawable.onboarding_slide3_en
+            imageResEn = R.drawable.onboarding_slide3_en,
+            imageResEs = R.drawable.onboarding_slide3_es,
+            imageResFr = R.drawable.onboarding_slide3_fr,
+            imageResIt = R.drawable.onboarding_slide3_it
         ),
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide4_title,
             bodyRes    = R.string.onboarding_slide4_body,
             gradient   = listOf(Color(0xFF880E4F), Color(0xFFAD1457)),
             imageRes   = R.drawable.onboarding_slide4,
-            imageResEn = R.drawable.onboarding_slide4_en
+            imageResEn = R.drawable.onboarding_slide4_en,
+            imageResEs = R.drawable.onboarding_slide4_es,
+            imageResFr = R.drawable.onboarding_slide4_fr,
+            imageResIt = R.drawable.onboarding_slide4_it
         )
     )
 
@@ -114,7 +126,13 @@ fun OnboardingScreen(
             modifier = Modifier.fillMaxSize()
         ) { page ->
             val slide    = slides[page]
-            val imageRes = if (useEnglishImages) slide.imageResEn else slide.imageRes
+            val imageRes = when (language) {
+                "de" -> slide.imageRes
+                "es" -> slide.imageResEs
+                "fr" -> slide.imageResFr
+                "it" -> slide.imageResIt
+                else -> slide.imageResEn
+            }
 
             Box(
                 modifier = Modifier
