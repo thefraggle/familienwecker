@@ -1045,15 +1045,10 @@ async function getStatsReport() {
         familiesHtml += `
             <tr>
                 <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>${family.name || family.familyName || "Unbenannt"}</b></td>
-                <td style="padding: 8px; border-bottom: 1px solid #eee;"><code>${family.joinCode}</code></td>
                 <td style="padding: 8px; border-bottom: 1px solid #eee; font-size: 0.9em; color: #666;">${members}</td>
             </tr>
         `;
     }
-
-    const usersHtml = users.map(u => `
-        <li>${u.email} <small style="color: #999;">(${u.metadata.creationTime})</small></li>
-    `).join("");
 
     return `
         <div style="font-family: sans-serif; max-width: 600px; color: #333;">
@@ -1071,18 +1066,14 @@ async function getStatsReport() {
                 <thead>
                     <tr style="background: #f8f8f8;">
                         <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Name</th>
-                        <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Code</th>
                         <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Mitglieder</th>
                     </tr>
                 </thead>
                 <tbody>${familiesHtml}</tbody>
             </table>
-
-            <h3 style="border-bottom: 2px solid ${BRAND_BLUE}; padding-bottom: 4px; margin-top: 24px;">Registrierte E-Mails</h3>
-            <ul style="font-size: 0.9em;">${usersHtml}</ul>
             
             <hr style="margin-top: 24px; border: 0; border-top: 1px solid #ccc;">
-            <p style="font-size: 0.8em; color: #999;">Dieser Report wurde automatisch generiert.</p>
+            <p style="font-size: 0.8em; color: #999;">Dieser Report wurde automatisch generiert (anonymisiert für DSGVO).</p>
         </div>
     `;
 }
