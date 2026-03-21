@@ -84,6 +84,9 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-95 | **Admin Modal (Functional)** | Globaler Admin öffnet Admin-Modal und drückt 3min Wecker. | Modal öffnet sich, Alarm wird wie erwartet nach 3 Min ausgelöst. |
 | TC-96 | **Cloud Mapping (Join)** | Familie beitreten via Code. | `familyId` erscheint im User-Profil (serverseitig geschrieben), obwohl Client kein Write-Recht hat. |
 | TC-97 | **Admin Deletion** | Globaler Admin löscht beliebige Familie. | Familie und alle Mitglieder werden erfolgreich entfernt. |
+| TC-98 | **Lokalisation (FR/ES/IT)** | App-Sprache auf Französisch/Spanisch/Italienisch stellen. | UI-Texte werden korrekt in der gewählten Sprache angezeigt. |
+| TC-99 | **Onboarding Image Fallback** | Onboarding in FR/ES/IT starten. | Englische Screenshots werden als Fallback angezeigt. |
+| TC-100| **Join-Code Persistenz** | Letzter User verlässt Familie. | Familie bleibt in Firestore bestehen; Code bleibt für neue User gültig. |
 
 
 ### 2. Familien-Konfiguration

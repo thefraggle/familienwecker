@@ -12,9 +12,14 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
     - `createdByUserId` ist nun bei Updates unveränderlich (Ownership-Lock).
     - Direkter Schreibzugriff auf `_admins` und `_rate_limits` für Clients gesperrt.
     - `feedback`-Kollektion durch Sicherheitsregeln geschützt.
+- **Vollständige Lokalisation:** Unterstützung für Französisch, Spanisch und Italienisch inkl. automatischer Erkennung hinzugefügt.
 
 ### Optimiert
 - **Lokalisation:** Alle String-Platzhalter auf numerische Formate (%1$s) umgestellt, um die Robustheit bei Übersetzungen zu erhöhen.
+- **Onboarding:** Verwendet für FR, ES und IT vorerst die englischen Screenshots als Fallback.
+
+### Behoben
+- **Join-Code Validität:** Familien werden nicht mehr automatisch gelöscht, wenn das letzte Mitglied die Familie verlässt, wodurch der Einladungscode gültig bleibt.
 
 ## 1.5.5 - 2026-03-21
 

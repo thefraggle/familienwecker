@@ -172,6 +172,9 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-95 | **Admin Modal (Functional)** | Global admin opens admin modal and taps 3min alarm. | Modal opens, alarm is triggered after 3 min as expected. |
 | TC-96 | **Cloud Mapping (Join)** | Join family via code. | `familyId` appears in user profile (server-side written), even though client has no write access. |
 | TC-97 | **Admin Deletion** | Global admin deletes any family. | Family and all members successfully removed. |
+| TC-98 | **Localization (FR/ES/IT)** | Set app language to French/Spanish/Italian. | UI strings are correctly displayed in the selected language. |
+| TC-99 | **Onboarding Image Fallback** | Start onboarding in FR/ES/IT. | English screenshots are displayed as fallback. |
+| TC-100| **Join-Code Persistence** | Last user leaves the family. | Family persists in Firestore; code remains valid for new users. |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |

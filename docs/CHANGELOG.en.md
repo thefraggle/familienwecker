@@ -12,9 +12,14 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
     - `createdByUserId` is now immutable during updates (Ownership-Lock).
     - Direct write access to `_admins` and `_rate_limits` disabled for clients.
     - `feedback` collection protected by security rules.
+- **Full Localization:** Added support for French, Spanish, and Italian including automatic detection.
 
 ### Optimized
 - **Localization:** All string placeholders migrated to numbered formats (%1$s) for improved translation robustness.
+- **Onboarding:** Uses English screenshots as fallback for FR, ES, and IT for now.
+
+### Fixed
+- **Join-Code Validity:** Families are no longer automatically deleted when the last member leaves, ensuring the invitation code remains valid.
 
 ## 1.5.5 - 2026-03-21
 
