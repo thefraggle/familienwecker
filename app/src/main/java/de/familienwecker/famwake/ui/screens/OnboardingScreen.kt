@@ -48,8 +48,8 @@ fun OnboardingScreen(
     language: String,       // from PreferencesRepository: "de", "en", "system"
     onFinished: () -> Unit
 ) {
-    // "de" und "system" (Deutsch als Standard) → DE-Screenshots, sonst EN
-    val isEnglish = language == "en"
+    // Nur bei "de" werden DE-Screenshots verwendet, sonst EN (für en, fr, es, it)
+    val useEnglishImages = language != "de"
 
     val slides = listOf(
         // Slide 0 – emotionale Einstiegs-Slide mit Panda-Lottie
@@ -114,7 +114,7 @@ fun OnboardingScreen(
             modifier = Modifier.fillMaxSize()
         ) { page ->
             val slide    = slides[page]
-            val imageRes = if (isEnglish) slide.imageResEn else slide.imageRes
+            val imageRes = if (useEnglishImages) slide.imageResEn else slide.imageRes
 
             Box(
                 modifier = Modifier
