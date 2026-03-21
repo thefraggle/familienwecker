@@ -243,6 +243,7 @@
     <string name="error_login_failed_unknown">Unknown login error</string>
     <string name="error_registration_failed">Registration failed: %1$s</string>
     <string name="error_registration_failed_unknown">Could not create user</string>
+    <string name="error_unknown">An unknown error occurred. Please try again.</string>
     <string name="error_google_sign_in_failed">Google Sign-In failed: %1$s</string>
     <string name="error_google_sign_in_failed_unknown">Google Sign-In failed</string>
     <string name="error_empty_email">Please enter an email address.</string>

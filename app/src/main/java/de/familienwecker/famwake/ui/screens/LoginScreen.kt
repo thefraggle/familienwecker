@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.CheckCircle
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
@@ -389,7 +390,8 @@ fun LoginScreen(
                             Spacer(modifier = Modifier.height(16.dp))
                             val errorUiText = (authState as AuthViewModel.AuthState.Error).message
 
-                            val isEmailNotVerified = errorUiText is UiText.DynamicString && errorUiText.value == "EMAIL_NOT_VERIFIED"
+                            val isEmailNotVerified = (errorUiText is UiText.DynamicString && errorUiText.value == "EMAIL_NOT_VERIFIED") ||
+                                                     (errorUiText is UiText.StringResource && errorUiText.resId == R.string.login_verify_email_not_verified)
 
                             val displayMsg = if (isEmailNotVerified) {
                                 stringResource(R.string.login_verify_email_not_verified)
@@ -409,11 +411,28 @@ fun LoginScreen(
 
                         if (authState is AuthViewModel.AuthState.PasswordResetSuccess) {
                             Spacer(modifier = Modifier.height(16.dp))
-                            Text(
-                                text = stringResource(R.string.login_password_reset_sent),
-                                color = MaterialTheme.colorScheme.primary,
-                                style = MaterialTheme.typography.bodyMedium
-                            )
+                            Surface(
+                                color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(12.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.CheckCircle,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = stringResource(R.string.login_password_reset_sent),
+                                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                            }
                         }
                     }
                 }

@@ -4,6 +4,16 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.5.7 - 2026-03-21
+
+### New
+- **Email Localization:** Password reset, confirmation, and verification emails are now fully sent in the language selected in the app (DE, EN, ES, FR, IT).
+- **Password Reset UI:** Added visual feedback (checkmark icon) after successfully sending the reset email.
+- **Sender Localization:** The sender name in emails now adapts to the target language (e.g., "Sveglia Famiglia" for Italian).
+
+### Fixed
+- **Cloud Functions:** Fixed missing translation templates in the cloud that previously caused an unwanted German fallback.
+
 ## 1.5.6 - 2026-03-21
 
 ### New

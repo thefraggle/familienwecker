@@ -1,4 +1,4 @@
-# 🧪 Testplan - FamWake (v1.5.6)
+# 🧪 Testplan - FamWake (v1.5.7)
 
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -87,6 +87,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-98 | **Lokalisation (FR/ES/IT)** | App-Sprache auf Französisch/Spanisch/Italienisch stellen. | UI-Texte werden korrekt in der gewählten Sprache angezeigt. |
 | TC-99 | **Onboarding Image Fallback** | Onboarding in FR/ES/IT starten. | Englische Screenshots werden als Fallback angezeigt. |
 | TC-100| **Join-Code Persistenz** | Letzter User verlässt Familie. | Familie bleibt in Firestore bestehen; Code bleibt für neue User gültig. |
+| TC-101| **E-Mail-Lokalisation (FR/ES/IT)** | Passwort-Reset in FR/ES/IT anfordern. | E-Mail kommt in der gewählten Sprache an (Betreff, Absendername und Inhalt). |
 
 
 ### 2. Familien-Konfiguration

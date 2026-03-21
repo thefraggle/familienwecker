@@ -4,6 +4,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.5.7 - 2026-03-21
+
+### Neu
+- **E-Mail-Lokalisierung:** Passwort-Reset, Bestätigung und Verifizierung werden nun vollständig in der in der App gewählten Sprache (DE, EN, ES, FR, IT) versendet.
+- **Passwort-Reset UI:** Visuelles Feedback (Checkmark-Icon) nach erfolgreichem Absenden der Reset-E-Mail hinzugefügt.
+- **Sender-Lokalisierung:** Der Absendername in E-Mails passt sich der Zielsprache an (z. B. "Sveglia Famiglia" für Italienisch).
+
+### Behoben
+- **Cloud Functions:** Fehlende Übersetzungs-Templates in der Cloud behoben, die zuvor zu einem unerwünschten deutschen Fallback führten.
+
 ## 1.5.6 - 2026-03-21
 
 ### Neu

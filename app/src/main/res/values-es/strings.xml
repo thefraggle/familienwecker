@@ -244,6 +244,7 @@
     <string name="error_login_failed_unknown">Error de inicio de sesión desconocido</string>
     <string name="error_registration_failed">Error de registro: %1$s</string>
     <string name="error_registration_failed_unknown">No se pudo crear el usuario</string>
+    <string name="error_unknown">Ha ocurrido un error desconocido. Inténtalo de nuevo.</string>
     <string name="error_google_sign_in_failed">Error de inicio de sesión con Google: %1$s</string>
     <string name="error_google_sign_in_failed_unknown">Error de inicio de sesión con Google</string>
     <string name="error_empty_email">Por favor, introduce un correo electrónico.</string>

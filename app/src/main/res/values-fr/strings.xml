@@ -244,6 +244,7 @@
     <string name="error_login_failed_unknown">Erreur de connexion inconnue</string>
     <string name="error_registration_failed">Échec de l\'inscription : %1$s</string>
     <string name="error_registration_failed_unknown">Impossible de créer l\'utilisateur</string>
+    <string name="error_unknown">Une erreur inconnue est survenue. Veuillez réessayer.</string>
     <string name="error_google_sign_in_failed">Échec de la connexion Google : %1$s</string>
     <string name="error_google_sign_in_failed_unknown">Échec de la connexion Google</string>
     <string name="error_empty_email">Veuillez entrer une adresse e-mail.</string>

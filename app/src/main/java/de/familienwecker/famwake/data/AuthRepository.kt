@@ -62,39 +62,41 @@ class AuthRepository {
                 .getHttpsCallable("sendBrandedResetEmail")
                 .call(data)
                 .await()
+            android.util.Log.d("AuthRepository", "Cloud function sendBrandedResetEmail success")
             Result.success(Unit)
-        } catch (e: com.google.firebase.functions.FirebaseFunctionsException) {
-            when (e.code) {
-                // Gen2 public function shouldn't return these, but keep as safety net
-                com.google.firebase.functions.FirebaseFunctionsException.Code.PERMISSION_DENIED,
-                com.google.firebase.functions.FirebaseFunctionsException.Code.UNAUTHENTICATED -> {
-                    try {
-                        auth.sendPasswordResetEmail(email.trim()).await()
-                        Result.success(Unit)
-                    } catch (fallbackEx: Exception) {
-                        Result.failure(Exception("RESET_FAILED"))
-                    }
-                }
-                com.google.firebase.functions.FirebaseFunctionsException.Code.INVALID_ARGUMENT ->
-                    Result.failure(Exception("INVALID_EMAIL"))
-                com.google.firebase.functions.FirebaseFunctionsException.Code.NOT_FOUND ->
-                    Result.failure(Exception("USER_NOT_FOUND"))
-                com.google.firebase.functions.FirebaseFunctionsException.Code.RESOURCE_EXHAUSTED ->
-                    Result.failure(Exception("TOO_MANY_REQUESTS"))
-                else -> Result.failure(Exception("RESET_FAILED"))
-            }
         } catch (e: Exception) {
-            // Fallback: FirebaseFunctionsException may not be caught for v2 functions
-            // on older SDK versions. Try to extract the error code from the raw message.
-            val msg = e.message?.uppercase() ?: ""
-            when {
-                msg.contains("NOT_FOUND") || msg.contains("USER_NOT_FOUND") ->
-                    Result.failure(Exception("USER_NOT_FOUND"))
-                msg.contains("INVALID_ARGUMENT") || msg.contains("INVALID_EMAIL") ->
-                    Result.failure(Exception("INVALID_EMAIL"))
-                msg.contains("RESOURCE_EXHAUSTED") || msg.contains("TOO_MANY") ->
-                    Result.failure(Exception("TOO_MANY_REQUESTS"))
-                else -> Result.failure(Exception("RESET_FAILED"))
+            android.util.Log.e("AuthRepository", "Cloud function sendBrandedResetEmail failed: ${e.message}", e)
+            if (e is com.google.firebase.functions.FirebaseFunctionsException) {
+                when (e.code) {
+                    com.google.firebase.functions.FirebaseFunctionsException.Code.PERMISSION_DENIED,
+                    com.google.firebase.functions.FirebaseFunctionsException.Code.UNAUTHENTICATED -> {
+                        try {
+                            android.util.Log.d("AuthRepository", "Triggering standard Firebase password reset fallback")
+                            auth.sendPasswordResetEmail(email.trim()).await()
+                            Result.success(Unit)
+                        } catch (fallbackEx: Exception) {
+                            Result.failure(Exception("RESET_FAILED"))
+                        }
+                    }
+                    com.google.firebase.functions.FirebaseFunctionsException.Code.INVALID_ARGUMENT ->
+                        Result.failure(Exception("INVALID_EMAIL"))
+                    com.google.firebase.functions.FirebaseFunctionsException.Code.NOT_FOUND ->
+                        Result.failure(Exception("USER_NOT_FOUND"))
+                    com.google.firebase.functions.FirebaseFunctionsException.Code.RESOURCE_EXHAUSTED ->
+                        Result.failure(Exception("TOO_MANY_REQUESTS"))
+                    else -> Result.failure(Exception("RESET_FAILED"))
+                }
+            } else {
+                val msg = e.message?.uppercase() ?: ""
+                when {
+                    msg.contains("NOT_FOUND") || msg.contains("USER_NOT_FOUND") ->
+                        Result.failure(Exception("USER_NOT_FOUND"))
+                    msg.contains("INVALID_ARGUMENT") || msg.contains("INVALID_EMAIL") ->
+                        Result.failure(Exception("INVALID_EMAIL"))
+                    msg.contains("RESOURCE_EXHAUSTED") || msg.contains("TOO_MANY") ->
+                        Result.failure(Exception("TOO_MANY_REQUESTS"))
+                    else -> Result.failure(Exception("RESET_FAILED"))
+                }
             }
         }
     }
@@ -115,16 +117,18 @@ class AuthRepository {
                 "email" to email.trim(),
                 "language" to language
             )
-            functions
+            val result = functions
                 .getHttpsCallable("sendVerificationEmail")
                 .call(data)
                 .await()
+            android.util.Log.d("AuthRepository", "Cloud function sendVerificationEmail success")
             Result.success(Unit)
         } catch (e: Exception) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("AuthRepository", "Cloud function sendVerificationEmail failed, fallback to default", e)
+                android.util.Log.e("AuthRepository", "Cloud function sendVerificationEmail failed: ${e.message}", e)
             }
             try {
+                android.util.Log.d("AuthRepository", "Triggering standard Firebase email verification fallback")
                 auth.currentUser?.sendEmailVerification()?.await()
                 Result.success(Unit)
             } catch (fallbackEx: Exception) {
