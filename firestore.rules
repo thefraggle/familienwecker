@@ -39,8 +39,9 @@ service cloud.firestore {
       // Kein direkter Client-Zugriff für Create (nur Cloud Functions)
       allow create: if false;
 
-      // Update nur für Mitglieder
-      allow update: if isFamilyMember(familyId);
+      // Update nur für Mitglieder; createdByUserId darf niemals geändert werden
+      allow update: if isFamilyMember(familyId) && 
+                    (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['createdByUserId']));
       
       // Löschen erlaubt wenn der Nutzer der Ersteller ist ODER Admin
       allow delete: if isAdmin() || (signedIn() && resource.data.createdByUserId == request.auth.uid);
@@ -61,10 +62,18 @@ service cloud.firestore {
       }
     }
 
-    // Rate-Limit-Tracking – nur von Cloud Functions (Admin SDK) beschreibbar
-    // Client-seitiger Zugriff wird explizit verboten
+    // Rate-Limit-Tracking & Admin-Liste – nur von Cloud Functions (Admin SDK) beschreibbar
     match /_rate_limits/{doc} {
       allow read, write: if false;
+    }
+    match /_admins/{doc} {
+      allow read, write: if false;
+    }
+
+    // Feedback: Nur Admins dürfen lesen; jeder Eingeloggte darf schreiben
+    match /feedback/{doc} {
+      allow read: if isAdmin();
+      allow write: if signedIn();
     }
   }
 }

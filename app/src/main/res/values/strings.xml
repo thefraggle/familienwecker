@@ -7,23 +7,23 @@
     <string name="password_label">Password</string>
     <string name="register_button">Register</string>
     <string name="login_button">Login</string>
-    <string name="already_have_account">Already have an account? Login here.</string>
+    <string name="already_have_account">Already have an account? Log in here.</string>
     <string name="no_account">Need an account? Register here.</string>
-    <string name="login_with_google">Login with Google</string>
+    <string name="login_with_google">Log in with Google</string>
     <string name="login_forgot_password">Forgot Password?</string>
     <string name="login_password_reset_sent">Password reset email sent!</string>
     <string name="login_google_error_no_account">No Google account found on this device. Please sign in to Google in Android settings or use Email/Password.</string>
     <!-- Firebase Web Client ID for Google Login -->
 
-
     <string name="setup_title">Family Setup</string>
     <string name="setup_create_tab">Create</string>
     <string name="setup_join_tab">Join</string>
-    <string name="setup_family_name">Family Name (e.g. The Millers)</string>
+    <string name="setup_family_name">Family Name (e.g., The Millers)</string>
     <string name="setup_create_button">Create Family</string>
     <string name="setup_join_code_label">6-digit Join Code</string>
     <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">Join Family</string>
+    <string name="join_loading_text">Joining family…</string>
 
     <string name="main_title">FamWake - Family Alarm</string>
     <string name="main_settings_desc">Settings</string>
@@ -33,14 +33,14 @@
     <string name="main_current_schedule">Current Schedule</string>
     <string name="main_add_members_prompt">Add members to calculate a schedule.</string>
     <string name="main_no_active_schedule">No active wake-up plan.</string>
-    <string name="main_error">Error: %s</string>
+    <string name="main_error">Error: %1$s</string>
     <string name="main_optimal_plan">Here is the calculated family schedule:</string>
     <string name="main_plan_paused">Your alarm is currently paused.</string>
     <string name="main_shared_breakfast">☕ Shared Breakfast: %s</string>
     <string name="main_wake_time">Wake up: %1$s - %2$s</string>
     <string name="main_bathroom_info">Bath: %1$s min | Breakfast: %2$s</string>
     <string name="main_schedule_bathroom">Bathroom: %1$s to %2$s</string>
-    <string name="main_schedule_leave">Leaves Home: %s</string>
+    <string name="main_schedule_leave">Leaves home: %1$s</string>
     <string name="main_member_alarm_on">(Alarm active)</string>
     <string name="main_member_alarm_off">(no alarm)</string>
     <string name="main_member_awake">(already up)</string>
@@ -68,16 +68,16 @@
     <string name="delete_member_text">Do you really want to delete %1$s from the family?</string>
     <string name="delete_confirm">Delete</string>
     <string name="cancel_button">Cancel</string>
-    <string name="add_member_name_label">Name (e.g. Mom, Dad, Child)</string>
+    <string name="add_member_name_label">Name (e.g., Mom, Dad, Child)</string>
     <string name="add_member_unknown">Unknown</string>
     <string name="add_member_earliest_wake">Earliest Wake Time</string>
     <string name="add_member_latest_wake">Latest Wake Time</string>
     <string name="add_member_bathroom_duration">Bathroom Duration (Minutes)</string>
-    <string name="add_member_wants_breakfast">Wants Breakfast</string>
+    <string name="add_member_wants_breakfast">Joins breakfast</string>
     <string name="add_member_leave_home">Leaves home at</string>
     <string name="add_member_error_time_range">Latest wake time must be after earliest wake time.</string>
     <string name="add_member_error_leave_home">Leave home time must be after the latest wake time.</string>
-    <string name="add_member_error_bathroom_duration">Bathroom duration must be between 1 and 120 minutes.</string>
+    <string name="add_member_error_bathroom_duration">Bathroom duration must be between 1 and 120 mins.</string>
     <string name="add_member_day_profiles_title">Weekly Schedule</string>
     <string name="add_member_day_active">Alarm active</string>
     <string name="add_member_error_no_days">At least one day must be active.</string>
@@ -111,14 +111,14 @@
     <string name="settings_battery_warning_text">The alarm may be delayed or blocked. Please disable battery optimization for FamWake.</string>
     <string name="settings_battery_warning_button">Fix now</string>
     <string name="settings_alarm_default">Default</string>
-    <string name="settings_alarm_select">Select sound: %s</string>
+    <string name="settings_alarm_select">Select sound: %1$s</string>
     <string name="settings_alarm_picker_title">Choose an alarm sound</string>
     <string name="settings_account_title">Family &amp; Account</string>
     <string name="settings_join_code">Invitation code for family %1$s:</string>
     <string name="settings_share_code">Share Code</string>
     <string name="settings_share_message">Here is your link for FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGroup: %1$s\n\nJust click, log in, and we are connected. Waking up is more fun together! ⏰❤️</string>
-    <string name="settings_leave_family">Leave Family</string>
-    <string name="settings_delete_family">Delete Family</string>
+    <string name="settings_leave_family">Leave family</string>
+    <string name="settings_delete_family">Delete family</string>
     <string name="settings_delete_family_dialog_title">Delete Family?</string>
     <string name="settings_delete_family_dialog_text">Are you sure you want to permanently delete this family? All members, schedules, and settings will be removed for everyone. This cannot be undone.</string>
     <string name="settings_delete_family_dialog_confirm">Delete</string>
@@ -126,8 +126,8 @@
     <string name="settings_delete_family_warning_title">Other members active!</string>
     <string name="settings_delete_family_warning_text">There are other active members in this family. If you delete it, everyone will lose access. Do you really want to force delete everything?</string>
     <string name="settings_delete_family_warning_confirm">Yes, delete everything</string>
-    <string name="settings_logout">Logout</string>
-    <string name="settings_delete_account">Delete Account (Info)</string>
+    <string name="settings_logout">Log out</string>
+    <string name="settings_delete_account">Delete account (Info)</string>
     <string name="settings_footer_version">FamWake Family Alarm v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">All rights reserved.</string>
@@ -159,7 +159,7 @@
     <string name="onboarding_slide2_title">Your Family</string>
     <string name="onboarding_slide2_body">Your team on board. Connect your family with one tap and plan your mornings together.</string>
     <string name="onboarding_slide3_title">Your Schedule</string>
-    <string name="onboarding_slide3_body">No bathroom traffic jams. We calculate the perfect flow for shower, breakfast and departure.</string>
+    <string name="onboarding_slide3_body">No bathroom traffic jams. We calculate the perfect flow for shower, breakfast, and departure.</string>
     <string name="onboarding_slide4_title">Ready!</string>
     <string name="onboarding_slide4_body">Bring it on, tomorrow! Sit back – our algorithm handles the rest for your whole family.</string>
     <string name="settings_feedback_button">Give Feedback / Report Issue</string>
@@ -173,7 +173,7 @@
     <string name="feedback_category_other">Other</string>
     <string name="feedback_message_label">Message</string>
     <string name="feedback_message_placeholder">Describe your concern briefly…</string>
-    <string name="feedback_email_label">E-Mail (optional)</string>
+    <string name="feedback_email_label">Email (optional)</string>
     <string name="feedback_email_placeholder">Your email (if we may reply)</string>
     <string name="feedback_auto_info_title">Automatically included:</string>
     <string name="feedback_auto_version">App version: v%1$s</string>
@@ -197,16 +197,16 @@
     <string name="settings_theme_dark">Dark</string>
     <string name="settings_theme_system">System</string>
 
-    <string name="ringing_wake_up">Wake up, %s!</string>
+    <string name="ringing_wake_up">Wake up, %1$s!</string>
     <string name="ringing_message">Thanks to the perfect schedule, you have enough time in the bathroom today.</string>
     <string-array name="ringing_messages">
         <item>The bathroom is all yours right now!</item>
-        <item>No traffic, no stress – your slot starts now.</item>
+        <item>No traffic, no stress – your bathroom time starts now.</item>
         <item>Enjoy the peace in the bathroom while it lasts!</item>
         <item>Time for that first coffee. The world is waiting!</item>
         <item>Sleep well? Your schedule for today is ready.</item>
         <item>Ready for the day? Everything is coordinated.</item>
-        <item>Time to rock the day! Your slot begins.</item>
+        <item>Time to rock the day! Your bathroom time begins.</item>
         <item>Wake up and turn it up – the stage is yours!</item>
         <item>Heavy Metal in the morning keeps the worries away!</item>
         <item>Your schedule is live. Let\'s go!</item>
@@ -235,7 +235,7 @@
     <string name="error_calculate_schedule">Error calculating schedule: %1$s</string>
     <string name="error_not_logged_in">User not logged in</string>
     <string name="error_system">System error: %1$s</string>
-    <string name="error_invalid_credentials">Invalid email address or password. Please check the spelling.</string>
+    <string name="error_invalid_credentials">Invalid email or password. Please check your entries.</string>
     <string name="error_login_failed">Login failed: %1$s</string>
     <string name="error_login_failed_unknown">Unknown login error</string>
     <string name="error_registration_failed">Registration failed: %1$s</string>
@@ -254,7 +254,7 @@
     <!-- Alarm Receiver Notification -->
     <string name="alarm_default_member">Family Member</string>
     <string name="alarm_notification_title">FamWake is ringing</string>
-    <string name="alarm_notification_text">Good morning, %s!</string>
+    <string name="alarm_notification_text">Good morning, %1$s!</string>
     <string name="alarm_channel_name">Alarm</string>
 
     <!-- Fallback display name for unclaimed profiles -->
@@ -273,30 +273,28 @@
     <string name="schedule_message_no_members">No active members. All are paused.</string>
     <string name="schedule_message_no_valid">No valid schedule found. Times overlap too much.</string>
     <string name="schedule_message_no_valid_desc">Tip: Increase your wake window, shorten bathroom time, or pause another member.</string>
-    <string name="schedule_message_time_adjusted">Times adjusted by %d min to keep your order.</string>
-    <string name="schedule_message_breakfast_reduced">Breakfast shortened by %d min to fit your order.</string>
+    <string name="schedule_message_time_adjusted">Times adjusted by %1$d min to keep your order.</string>
+    <string name="schedule_message_breakfast_reduced">Breakfast shortened by %1$d min to fit your order.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Breakfast &#x2212;%1$d min &amp; times adjusted by %2$d min.</string>
-    <string name="schedule_message_member_conflict">Conflict for %s: times overlap too much.</string>
+    <string name="schedule_message_member_conflict">Conflict for %1$s: times overlap too much.</string>
     <string name="schedule_message_member_conflict_desc">Try changing the order or adjusting the times.</string>
-    <string name="main_fallback_alarm_active">⚠️ Fallback alarm active (%s). Please fix the schedule!</string>
+    <string name="main_fallback_alarm_active">⚠️ Fallback alarm active (%1$s). Please fix the schedule!</string>
 
     <string name="error_password_too_short">Password must be at least 8 characters long.</string>
     <string name="error_email_already_in_use">This email address is already in use by another account.</string>
     <string name="login_verify_email_title">✉️ Confirm your email</string>
-    <string name="login_verify_email_text">We sent a confirmation email to
-%1$s
-Please click the link in the email to activate your account.</string>
+    <string name="login_verify_email_text">We sent a confirmation email to\n%1$s\nPlease click the link in the email to activate your account.</string>
     <string name="login_verify_email_confirm">I have confirmed ✓</string>
     <string name="login_verify_email_resend">Resend email</string>
     <string name="login_verify_email_not_verified">Email address not yet confirmed. Please check your inbox.</string>
 
     <!-- Tooltips -->
-    <string name="tooltip_awake_button">Already awake early? Tap here to stop your alarm for today – your bathroom slot stays reserved for the family.</string>
+    <string name="tooltip_awake_button">Already awake early? Tap here to stop your alarm for today – your bathroom time stays reserved for the family.</string>
     <string name="tooltip_drag_handle">Hold and drag a tile to manually change your family\'s wake-up order. The algorithm recalculates on the fly.</string>
     <string name="tooltip_wake_window">Give us a time window. The app finds the perfect moment inside it so no one has to wait in front of the bathroom.</string>
     <string name="tooltip_bathroom">Plan this realistically. Your bathroom time sets the pace for the whole family\'s morning.</string>
     <string name="tooltip_invite_code">Share this code with your family. Once they join, they appear automatically in your schedule.</string>
-    <string name="tooltip_alarm_switch">Turning off your alarm doesn\'t just silence your phone – the algorithm instantly re-optimises the whole family\'s morning so everyone can sleep a bit longer or get to the bathroom sooner.</string>
+    <string name="tooltip_alarm_switch">Turning off your alarm doesn\'t just silence your phone – the algorithm instantly recalculates the whole family\'s morning so everyone can sleep a bit longer or get to the bathroom sooner.</string>
     <string name="tooltip_weekdays">Plan your whole week: Tap the individual weekdays to set specific wake and bathroom times – perfect for switching between home-office and office days.</string>
     <string name="settings_tooltips_title">Tips &amp; Hints</string>
     <string name="settings_tooltips_label">Show helpful tips</string>

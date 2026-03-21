@@ -86,6 +86,7 @@ fun MainScreen(
     val tooltipAwakeSeen by viewModel.tooltipAwakeSeen.collectAsStateWithLifecycle()
     val tooltipDragSeen by viewModel.tooltipDragSeen.collectAsStateWithLifecycle()
     val tooltipSwitchSeen by viewModel.tooltipSwitchSeen.collectAsStateWithLifecycle()
+    val isJoiningFamily by viewModel.isJoiningFamily.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
 
@@ -96,6 +97,20 @@ fun MainScreen(
         // während familyId noch nicht im StateFlow propagiert ist.
         if (familyId == null && !isSyncing) {
             onLeaveFamily()
+        }
+    }
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val joiningText = stringResource(R.string.join_loading_text)
+    LaunchedEffect(isJoiningFamily) {
+        if (isJoiningFamily) {
+            snackbarHostState.showSnackbar(
+                message = joiningText,
+                duration = SnackbarDuration.Indefinite
+            )
+        } else {
+            snackbarHostState.currentSnackbarData?.dismiss()
         }
     }
 
@@ -117,7 +132,6 @@ fun MainScreen(
     var draggingOffset by remember { mutableStateOf(0f) }
 
     Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
-        val snackbarHostState = remember { SnackbarHostState() }
         Scaffold(
             containerColor = Color.Transparent,
             snackbarHost = { SnackbarHost(snackbarHostState) },

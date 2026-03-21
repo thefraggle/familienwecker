@@ -789,12 +789,9 @@ exports.leaveFamily = onCall(
     const memberCount = membersSnapshot.size;
 
     if (memberCount === 1) {
-      // If this user is the only member, delete the family
-      // This also handles the case where the user is the creator
-      console.log(`User ${uid} is the last member of family ${familyId}. Deleting family.`);
-      await admin.firestore().recursiveDelete(familyDocRef);
-      await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
-      return { success: true, familyDeleted: true };
+      // Logic changed: Do NOT automatically delete families when the last member leaves,
+      // to keep the joinCode valid for future members. Empty families will be cleaned up later.
+      console.log(`User ${uid} is the last member of family ${familyId}. Keeping family document.`);
     }
 
     // If user is the creator and there are other members, reassign creator
