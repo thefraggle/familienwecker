@@ -149,7 +149,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 val uiMessage = when (error) {
                     is FirebaseAuthInvalidCredentialsException -> UiText.StringResource(R.string.error_invalid_credentials)
                     is LoginFailedException -> UiText.StringResource(R.string.error_login_failed_unknown)
-                    else -> UiText.StringResource(R.string.error_login_failed, error.message ?: "Unknown error")
+                    else -> UiText.StringResource(R.string.error_login_failed, error.message ?: getApplication<Application>().getString(R.string.error_unknown))
                 }
                 _authState.value = AuthState.Error(uiMessage)
             }
@@ -166,7 +166,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         _authState.value = AuthState.Loading
-        val language = java.util.Locale.getDefault().language
+        val language = prefsRepository.language.value
         viewModelScope.launch {
             val result = authRepository.register(email, pass)
             result.onSuccess {
@@ -180,7 +180,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     is FirebaseAuthWeakPasswordException -> UiText.StringResource(R.string.error_password_too_short)
                     is FirebaseAuthUserCollisionException -> UiText.StringResource(R.string.error_email_already_in_use)
                     is RegistrationFailedException -> UiText.StringResource(R.string.error_registration_failed_unknown)
-                    else -> UiText.StringResource(R.string.error_registration_failed, error.message ?: "Unknown error")
+                    else -> UiText.StringResource(R.string.error_registration_failed, error.message ?: getApplication<Application>().getString(R.string.error_unknown))
                 }
                 _authState.value = AuthState.Error(uiMessage)
             }
@@ -288,7 +288,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         _authState.value = AuthState.Loading
-        val language = java.util.Locale.getDefault().language
+        val language = prefsRepository.language.value
         viewModelScope.launch {
             val result = authRepository.sendPasswordResetEmail(email, language)
             result.onSuccess {
@@ -322,14 +322,14 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             } else {
-                _authState.value = AuthState.Error(UiText.DynamicString("EMAIL_NOT_VERIFIED"))
+                _authState.value = AuthState.Error(UiText.StringResource(R.string.login_verify_email_not_verified))
             }
         }
     }
 
     fun resendVerificationEmail() {
         val email = authRepository.currentUser?.email ?: return
-        val language = java.util.Locale.getDefault().language
+        val language = prefsRepository.language.value
         _authState.value = AuthState.Loading
         viewModelScope.launch {
             val result = authRepository.sendVerificationEmail(email, language)

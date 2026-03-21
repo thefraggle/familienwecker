@@ -244,6 +244,7 @@
     <string name="error_login_failed_unknown">Errore di accesso sconosciuto</string>
     <string name="error_registration_failed">Registrazione non riuscita: %1$s</string>
     <string name="error_registration_failed_unknown">Impossibile creare l\'utente</string>
+    <string name="error_unknown">Si è verificato un errore sconosciuto. Riprova.</string>
     <string name="error_google_sign_in_failed">Accesso con Google non riuscito: %1$s</string>
     <string name="error_google_sign_in_failed_unknown">Accesso con Google non riuscito</string>
     <string name="error_empty_email">Inserisci un indirizzo email.</string>
