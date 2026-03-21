@@ -39,7 +39,12 @@ android {
             localProperties.load(localPropertiesFile.inputStream())
         }
         val googleClientId = localProperties.getProperty("DEFAULT_WEB_CLIENT_ID") ?: ""
-        resValue("string", "default_web_client_id", googleClientId)
+        
+        // Only add resValue if it's not already provided by google-services.json
+        val googleServicesFile = rootProject.file("app/google-services.json")
+        if (!googleServicesFile.exists() && googleClientId.isNotEmpty()) {
+            resValue("string", "default_web_client_id", googleClientId)
+        }
 
         buildConfigField("String", "COMMIT_HASH", "\"${commitHash}\"")
         buildConfigField("String", "COMMIT_DATE", "\"${commitDate}\"")
