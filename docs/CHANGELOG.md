@@ -4,6 +4,18 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.5.6 - 2026-03-21
+
+### Neu
+- **Deep-Link UX:** Visuelles Feedback (Snackbar "Trete Familie bei...") während des Beitrittsvorgangs hinzugefügt.
+- **Sicherheits-Härtung:** 
+    - `createdByUserId` ist nun bei Updates unveränderlich (Ownership-Lock).
+    - Direkter Schreibzugriff auf `_admins` und `_rate_limits` für Clients gesperrt.
+    - `feedback`-Kollektion durch Sicherheitsregeln geschützt.
+
+### Optimiert
+- **Lokalisation:** Alle String-Platzhalter auf numerische Formate (%1$s) umgestellt, um die Robustheit bei Übersetzungen zu erhöhen.
+
 ## 1.5.5 - 2026-03-21
 
 ### Neu

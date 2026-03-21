@@ -113,6 +113,9 @@ class FamilyViewModel(
     private val _pendingJoinCode = MutableStateFlow<String?>(null)
     val pendingJoinCode: StateFlow<String?> = _pendingJoinCode.asStateFlow()
 
+    private val _isJoiningFamily = MutableStateFlow(false)
+    val isJoiningFamily: StateFlow<Boolean> = _isJoiningFamily.asStateFlow()
+
 
     // Offline-Debounce – CloudOff-Icon erst nach 3s ohne Verbindung zeigen
     private val _isOffline = MutableStateFlow(false)
@@ -348,6 +351,7 @@ class FamilyViewModel(
         }
 
         viewModelScope.launch {
+            _isJoiningFamily.value = true
             if (!NetworkUtils.isOnline(getApplication())) {
                 _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
                 onComplete(false)
@@ -364,6 +368,7 @@ class FamilyViewModel(
                 if (_pendingJoinCode.value == code) {
                     _pendingJoinCode.value = null
                 }
+                _isJoiningFamily.value = false
                 onComplete(true)
             }.onFailure { error ->
                 when {
@@ -375,6 +380,7 @@ class FamilyViewModel(
                         _errorMessage.value = UiText.StringResource(R.string.error_invalid_code)
                 }
                 _pendingJoinCode.value = null
+                _isJoiningFamily.value = false
                 onComplete(false)
             }
         }
@@ -429,6 +435,7 @@ class FamilyViewModel(
 
         viewModelScope.launch {
             _isSyncing.value = true
+            _isJoiningFamily.value = true
             try {
                 // Netzwerk-Check vor Join-Versuch
                 if (!NetworkUtils.isOnline(getApplication())) {

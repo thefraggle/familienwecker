@@ -4,6 +4,18 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.5.6 - 2026-03-21
+
+### New
+- **Deep-Link UX:** Added visual feedback (Snackbar "Joining family...") during the join process.
+- **Security Hardening:** 
+    - `createdByUserId` is now immutable during updates (Ownership-Lock).
+    - Direct write access to `_admins` and `_rate_limits` disabled for clients.
+    - `feedback` collection protected by security rules.
+
+### Optimized
+- **Localization:** All string placeholders migrated to numbered formats (%1$s) for improved translation robustness.
+
 ## 1.5.5 - 2026-03-21
 
 ### New
