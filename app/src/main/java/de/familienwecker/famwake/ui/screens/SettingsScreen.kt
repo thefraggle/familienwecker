@@ -591,6 +591,9 @@ fun SettingsScreen(
                     ) {
                         val languageLabel = when (currentLanguage) {
                             "de" -> stringResource(R.string.settings_language_german)
+                            "fr" -> stringResource(R.string.settings_language_french)
+                            "es" -> stringResource(R.string.settings_language_spanish)
+                            "it" -> stringResource(R.string.settings_language_italian)
                             else -> stringResource(R.string.settings_language_english)
                         }
                         
@@ -613,6 +616,18 @@ fun SettingsScreen(
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_german)) },
                                 onClick = { viewModel.setLanguage("de"); languageExpanded = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_french)) },
+                                onClick = { viewModel.setLanguage("fr"); languageExpanded = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_spanish)) },
+                                onClick = { viewModel.setLanguage("es"); languageExpanded = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_italian)) },
+                                onClick = { viewModel.setLanguage("it"); languageExpanded = false }
                             )
                         }
                     }
