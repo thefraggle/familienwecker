@@ -141,6 +141,9 @@
     <string name="settings_language_system">System Default</string>
     <string name="settings_language_english">English</string>
     <string name="settings_language_german">Deutsch</string>
+    <string name="settings_language_french">Français</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_language_italian">Italiano</string>
     <string name="settings_appearance_title">Appearance</string>
     <string name="settings_display_title">App Settings</string>
     <string name="settings_help_feedback_title">Help &amp; Feedback</string>
