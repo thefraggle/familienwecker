@@ -31,7 +31,7 @@ fun LoadingScreen(
     val pendingJoinCode by familyViewModel.pendingJoinCode.collectAsStateWithLifecycle()
     val onboardingCompleted by familyViewModel.onboardingCompleted.collectAsStateWithLifecycle()
 
-        LaunchedEffect(authState, isRestoring, familyId, pendingJoinCode, onboardingCompleted) {
+    LaunchedEffect(authState, isRestoring, familyId, pendingJoinCode, onboardingCompleted) {
         // Notfall-Timeout: Wenn nach 2 Sekunden immer noch geladen wird, aber wir eine familyId haben, gehen wir direkt rein.
         val timeoutJob = launch {
             delay(2000)

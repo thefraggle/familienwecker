@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FamWake Familienwecker</string>
     <string name="app_name_short">Familienwecker</string>
-    <string name="login_title">FamWake Familienwecker</string>
     <string name="email_label">E-Mail</string>
     <string name="password_label">Passwort</string>
     <string name="register_button">Registrieren</string>
@@ -14,7 +12,6 @@
     <string name="login_password_reset_sent">E-Mail zum Zurücksetzen gesendet!</string>
     <string name="login_google_error_no_account">Kein Google-Konto auf diesem Gerät gefunden. Bitte melde dich zuerst in den Android-Einstellungen bei Google an oder nutze E-Mail/Passwort.</string>
 
-    <string name="setup_title">Familie einrichten</string>
     <string name="setup_create_tab">Gründen</string>
     <string name="setup_join_tab">Beitreten</string>
     <string name="setup_family_name">Familienname (z.B. Musterfamilie)</string>
@@ -24,21 +21,14 @@
     <string name="setup_join_button">Familie beitreten</string>
     <string name="join_loading_text">Trete der Familie bei…</string>
 
-    <string name="main_title">FamWake - Familienwecker</string>
-    <string name="main_settings_desc">Einstellungen</string>
     <string name="main_add_member_desc">Mitglied hinzufügen</string>
     <string name="main_family_members">Familienmitglieder</string>
-    <string name="main_no_members">Bisher keine Mitglieder. Füge jemanden hinzu!</string>
     <string name="main_current_schedule">Aktueller Weck-Plan</string>
-    <string name="main_add_members_prompt">Füge Mitglieder hinzu, um einen Plan zu berechnen.</string>
     <string name="main_no_active_schedule">Kein aktiver Weckplan.</string>
-    <string name="main_error">Fehler: %1$s</string>
     <string name="main_optimal_plan">Optimaler Weck-Plan berechnet</string>
     <string name="main_plan_paused">Wecker pausiert</string>
     <string name="main_shared_breakfast">Gemeinsames Frühstück ab %1$s</string>
     <string name="main_wake_time">Wecken: %1$s - %2$s</string>
-    <string name="main_sync_success">Erfolgreich synchronisiert</string>
-    <string name="main_sync_desc">Daten aus Firebase laden</string>
     <string name="main_bathroom_info">Bad: %1$s Min | Frühstück: %2$s</string>
     <string name="main_alarm_enabled">Wecker an</string>
     <string name="main_alarm_enabled_desc">Automatisches Wecken aktiv.</string>
@@ -47,8 +37,6 @@
     <string name="main_alarm_disabled_desc">Manuelle Pause aktiv.</string>
     <string name="main_no_profile_warning">Kein Profil ausgewählt!</string>
     <string name="main_no_profile_warning_desc">Bitte wähle dein Profil in den Einstellungen aus, damit der Wecker für dich klingelt.</string>
-    <string name="main_battery_warning">Akku-Optimierung aktiv!</string>
-    <string name="main_battery_warning_desc">Dein System könnte den Wecker verzögern. Tippe hier, um eine Ausnahme für FamWake einzurichten.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="delete_desc">Löschen</string>
@@ -56,7 +44,6 @@
     <string name="main_schedule_leave">Haus verlassen: %1$s</string>
     <string name="main_member_alarm_on">(Wecker aktiviert)</string>
     <string name="main_member_alarm_off">(kein Alarm)</string>
-    <string name="main_member_awake">(bereits wach)</string>
     <string name="main_member_limit_reached">Maximale Anzahl von 6 Mitgliedern erreicht.</string>
 
     <string name="add_member_title_add">Mitglied hinzufügen</string>
@@ -74,12 +61,8 @@
     <string name="add_member_bathroom_duration">Bad-Dauer (Minuten)</string>
     <string name="add_member_wants_breakfast">Frühstückt mit</string>
     <string name="add_member_leave_home">Haus verlassen um</string>
-    <string name="add_member_error_time_range">Die späteste Weckzeit muss nach der frühesten liegen.</string>
-    <string name="add_member_error_leave_home">Die „Haus verlassen"-Zeit muss nach der spätesten Weckzeit liegen.</string>
-    <string name="add_member_error_bathroom_duration">Die Badezimmer-Dauer muss zwischen 1 und 120 Minuten liegen.</string>
     <string name="add_member_day_profiles_title">Wochenplan</string>
     <string name="add_member_day_active">Wecker aktiv</string>
-    <string name="add_member_error_no_days">Mindestens ein Tag muss aktiv sein.</string>
     <string name="add_member_copy_to_days">"%1$s" auf andere Tage kopieren</string>
     <string name="add_member_copy_dialog_title">Auf Tage kopieren</string>
     <string name="add_member_copy_apply">Anwenden</string>
@@ -199,10 +182,8 @@
     <string name="settings_already_claimed">bereits belegt</string>
     <string name="settings_theme_light">Hell</string>
     <string name="settings_theme_dark">Dunkel</string>
-    <string name="settings_theme_system">System</string>
 
     <string name="ringing_wake_up">Aufwachen, %1$s!</string>
-    <string name="ringing_message">Dank des perfekten Plans hast du heute genug Zeit im Bad.</string>
     <string-array name="ringing_messages">
         <item>Das Bad gehört jetzt ganz allein dir!</item>
         <item>Kein Stau, kein Stress – deine Badezimmer-Zeit startet jetzt.</item>
@@ -221,7 +202,6 @@
     <string name="pause_today_desc">Heute pausieren</string>
     <string name="awake_today_desc">Bereits wach</string>
     <string name="awake_active_desc">Bereits wach</string>
-    <string name="awake_undo_desc">Doch noch nicht wach?</string>
 
     <string name="error_load_members">Fehler beim Laden der Mitglieder: %1$s</string>
     <string name="error_create_family">Fehler beim Erstellen der Familie: %1$s</string>
@@ -243,7 +223,6 @@
     <string name="error_login_failed_unknown">Unbekannter Login-Fehler</string>
     <string name="error_registration_failed">Registrierung fehlgeschlagen: %1$s</string>
     <string name="error_registration_failed_unknown">Konnte User nicht anlegen</string>
-    <string name="error_google_sign_in_failed">Google-Anmeldung fehlgeschlagen: %1$s</string>
     <string name="error_google_sign_in_failed_unknown">Google-Anmeldung fehlgeschlagen</string>
     <string name="error_empty_email">Bitte gib eine E-Mail-Adresse ein.</string>
     <string name="error_invalid_email">Ungültige E-Mail-Adresse. Bitte prüfe die Schreibweise.</string>

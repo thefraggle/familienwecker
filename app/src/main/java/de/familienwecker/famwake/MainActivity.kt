@@ -42,6 +42,7 @@ import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.ui.Routes
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
+import androidx.core.net.toUri
 
 class MainActivity : AppCompatActivity() {
 
@@ -111,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                     .setPositiveButton(getString(R.string.permission_fullscreen_open)) { _, _ ->
                         try {
                             val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
-                            intent.data = Uri.parse("package:$packageName")
+                            intent.data = "package:$packageName".toUri()
                             startActivity(intent)
                         } catch (e: Exception) {
                             if (de.familienwecker.famwake.BuildConfig.DEBUG) {

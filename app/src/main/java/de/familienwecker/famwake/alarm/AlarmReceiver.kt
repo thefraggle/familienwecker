@@ -13,6 +13,7 @@ import android.media.RingtoneManager
 import android.net.Uri
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.screens.RingingActivity
+import androidx.core.net.toUri
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -21,7 +22,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val memberId = intent.getStringExtra("MEMBER_ID") ?: memberName
 
         val soundUriString = intent.getStringExtra("SOUND_URI")
-        val soundUri = soundUriString?.let { Uri.parse(it) }
+        val soundUri = soundUriString?.let { it.toUri() }
             ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
 
         // Dynamische Channel-ID basierend auf dem Sound-URI.
@@ -53,21 +54,19 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = context.getString(R.string.alarm_channel_name)
-            val channel = NotificationChannel(dynamicChannelId, channelName, NotificationManager.IMPORTANCE_HIGH).apply {
-                setBypassDnd(true)
-                description = channelName
-                lockscreenVisibility = android.app.Notification.VISIBILITY_PUBLIC
-                enableVibration(true)
-                val audioAttributes = AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build()
-                setSound(soundUri, audioAttributes)
-            }
-            notificationManager.createNotificationChannel(channel)
+        val channelName = context.getString(R.string.alarm_channel_name)
+        val channel = NotificationChannel(dynamicChannelId, channelName, NotificationManager.IMPORTANCE_HIGH).apply {
+            setBypassDnd(true)
+            description = channelName
+            lockscreenVisibility = android.app.Notification.VISIBILITY_PUBLIC
+            enableVibration(true)
+            val audioAttributes = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build()
+            setSound(soundUri, audioAttributes)
         }
+        notificationManager.createNotificationChannel(channel)
 
         val notificationTitle = context.getString(R.string.alarm_notification_title)
         val notificationText = context.getString(R.string.alarm_notification_text, memberName)

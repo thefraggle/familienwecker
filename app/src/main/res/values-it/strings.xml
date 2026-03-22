@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FamWake Sveglia Familiare</string>
     <string name="app_name_short">Sveglia Familiare</string>
-    <string name="login_title">FamWake Sveglia Familiare</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="register_button">Registrati</string>
@@ -14,7 +12,6 @@
     <string name="login_password_reset_sent">Email di ripristino inviata!</string>
     <string name="login_google_error_no_account">Nessun account Google trovato su questo dispositivo. Accedi a Google nelle impostazioni Android o usa Email/Password.</string>
 
-    <string name="setup_title">Configurazione Famiglia</string>
     <string name="setup_create_tab">Crea</string>
     <string name="setup_join_tab">Unisciti</string>
     <string name="setup_family_name">Nome della famiglia (es. I Rossi)</string>
@@ -24,15 +21,10 @@
     <string name="setup_join_button">Unisciti alla famiglia</string>
     <string name="join_loading_text">Connessione alla famiglia…</string>
 
-    <string name="main_title">FamWake - Sveglia Familiare</string>
-    <string name="main_settings_desc">Impostazioni</string>
     <string name="main_add_member_desc">Aggiungi membro</string>
     <string name="main_family_members">Membri della famiglia</string>
-    <string name="main_no_members">Nessun membro per ora. Aggiungi qualcuno!</string>
     <string name="main_current_schedule">Programma attuale</string>
-    <string name="main_add_members_prompt">Aggiungi membri per calcolare un programma.</string>
     <string name="main_no_active_schedule">Nessun programma di sveglia attivo.</string>
-    <string name="main_error">Errore: %1$s</string>
     <string name="main_optimal_plan">Ecco il programma familiare calcolato:</string>
     <string name="main_plan_paused">La tua sveglia è attualmente in pausa.</string>
     <string name="main_shared_breakfast">☕ Colazione insieme: %s</string>
@@ -42,9 +34,6 @@
     <string name="main_schedule_leave">Esce di casa: %1$s</string>
     <string name="main_member_alarm_on">(Sveglia attivata)</string>
     <string name="main_member_alarm_off">(Nessuna sveglia)</string>
-    <string name="main_member_awake">(Già sveglio)</string>
-    <string name="main_sync_success">Sincronizzato con il Cloud</string>
-    <string name="main_sync_desc">Aggiorna dati da Firebase</string>
     <string name="main_member_limit_reached">Limite massimo di 6 membri raggiunto.</string>
     <string name="main_alarm_enabled">Sveglia: ON</string>
     <string name="main_alarm_enabled_desc">Sveglie automatiche attive.</string>
@@ -53,8 +42,6 @@
     <string name="main_alarm_disabled_desc">Pausa manuale attiva.</string>
     <string name="main_no_profile_warning">Nessun profilo selezionato!</string>
     <string name="main_no_profile_warning_desc">Seleziona il tuo profilo nelle impostazioni per far suonare la sveglia per te.</string>
-    <string name="main_battery_warning">Ottimizzazione batteria attiva!</string>
-    <string name="main_battery_warning_desc">Il sistema potrebbe ritardare la sveglia. Tocca qui per aggiungere un\'eccezione per FamWake.</string>
     <string name="yes">Sì</string>
     <string name="no">No</string>
     <string name="delete_desc">Elimina</string>
@@ -74,12 +61,8 @@
     <string name="add_member_bathroom_duration">Durata bagno (minuti)</string>
     <string name="add_member_wants_breakfast">Fa colazione</string>
     <string name="add_member_leave_home">Esce di casa alle</string>
-    <string name="add_member_error_time_range">L\'orario più tardi deve essere successivo a quello prima possibile.</string>
-    <string name="add_member_error_leave_home">L\'orario di uscita deve essere successivo all\'orario della sveglia più tardi.</string>
-    <string name="add_member_error_bathroom_duration">La durata in bagno deve essere tra 1 e 120 min.</string>
     <string name="add_member_day_profiles_title">Programma settimanale</string>
     <string name="add_member_day_active">Sveglia attiva</string>
-    <string name="add_member_error_no_days">Almeno un giorno deve essere attivo.</string>
     <string name="add_member_copy_to_days">Copia "%1$s" su altri giorni</string>
     <string name="add_member_copy_dialog_title">Copia sui giorni</string>
     <string name="add_member_copy_apply">Applica</string>
@@ -199,10 +182,8 @@
     <string name="settings_already_claimed">già in uso</string>
     <string name="settings_theme_light">Chiaro</string>
     <string name="settings_theme_dark">Scuro</string>
-    <string name="settings_theme_system">Sistema</string>
 
     <string name="ringing_wake_up">Sveglia, %1$s!</string>
-    <string name="ringing_message">Grazie al programma perfetto, oggi hai tutto il tempo che ti serve in bagno.</string>
     <string-array name="ringing_messages">
         <item>Il bagno è tutto tuo in questo momento!</item>
         <item>Niente traffico, niente stress: il tuo tempo in bagno inizia ora.</item>
@@ -221,7 +202,6 @@
     <string name="pause_today_desc">Pausa per oggi</string>
     <string name="awake_today_desc">Già sveglio</string>
     <string name="awake_active_desc">Già sveglio</string>
-    <string name="awake_undo_desc">Stai ancora dormendo?</string>
 
     <string name="error_load_members">Errore nel caricamento dei membri: %1$s</string>
     <string name="error_create_family">Errore nella creazione della famiglia: %1$s</string>
@@ -245,7 +225,6 @@
     <string name="error_registration_failed">Registrazione non riuscita: %1$s</string>
     <string name="error_registration_failed_unknown">Impossibile creare l\'utente</string>
     <string name="error_unknown">Si è verificato un errore sconosciuto. Riprova.</string>
-    <string name="error_google_sign_in_failed">Accesso con Google non riuscito: %1$s</string>
     <string name="error_google_sign_in_failed_unknown">Accesso con Google non riuscito</string>
     <string name="error_empty_email">Inserisci un indirizzo email.</string>
     <string name="error_invalid_email">Indirizzo email non valido. Controlla come è scritto.</string>

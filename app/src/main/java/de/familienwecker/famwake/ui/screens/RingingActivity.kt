@@ -38,6 +38,7 @@ import de.familienwecker.famwake.ui.theme.FamilienweckerTheme
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
+import androidx.core.net.toUri
 
 class RingingActivity : AppCompatActivity() {
 
@@ -137,7 +138,7 @@ class RingingActivity : AppCompatActivity() {
 
         // Versuche zunächst den gespeicherten Ton, dann System-Alarm, dann System-Ringtone
         val uriChain = listOfNotNull(
-            savedUriString?.let { Uri.parse(it) },
+            savedUriString?.let { it.toUri() },
             RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
             RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
         )
