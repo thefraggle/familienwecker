@@ -50,6 +50,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.AnnotatedString
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -343,7 +344,7 @@ fun LoginScreen(
                                     onClick = { offset ->
                                         annotatedString.getStringAnnotations(tag = "URL", start = offset, end = offset)
                                             .firstOrNull()?.let { annotation ->
-                                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(annotation.item))
+                                                val intent = Intent(Intent.ACTION_VIEW, annotation.item.toUri())
                                                 context.startActivity(intent)
                                             }
                                     },

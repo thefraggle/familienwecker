@@ -48,6 +48,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import de.familienwecker.famwake.ui.components.TooltipBubble
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -272,8 +273,9 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     val ringtoneName = remember(alarmSoundUri) {
-                        if (alarmSoundUri != null) {
-                            RingtoneManager.getRingtone(context, Uri.parse(alarmSoundUri)).getTitle(context)
+                        val currentUri = alarmSoundUri
+                        if (currentUri != null) {
+                            RingtoneManager.getRingtone(context, currentUri.toUri())?.getTitle(context)
                         } else {
                             context.getString(R.string.settings_alarm_default)
                         }
@@ -287,8 +289,8 @@ fun SettingsScreen(
                                 putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, context.getString(R.string.settings_alarm_picker_title))
                                 putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
                                 putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-                                if (alarmSoundUri != null) {
-                                    putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(alarmSoundUri))
+                                alarmSoundUri?.let {
+                                    putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, it.toUri())
                                 }
                             }
                             ringtonePickerLauncher.launch(intent)
@@ -470,7 +472,7 @@ fun SettingsScreen(
                     val deleteAccountUrl = stringResource(R.string.settings_delete_account_url)
                     TextButton(
                         onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(deleteAccountUrl))
+                            val intent = Intent(Intent.ACTION_VIEW, deleteAccountUrl.toUri())
                             context.startActivity(intent)
                         },
                         modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -766,7 +768,7 @@ fun SettingsScreen(
                         onClick = {
                             val subject = Uri.encode("Feedback: FamWake App")
                             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                                data = Uri.parse("mailto:daniel.notthoff@gmail.com?subject=$subject")
+                                data = "mailto:daniel.notthoff@gmail.com?subject=$subject".toUri()
                             }
                             context.startActivity(intent)
                         },
@@ -794,9 +796,9 @@ fun SettingsScreen(
                                         // Fallback: Play Store direkt öffnen
                                         val pkg = context.packageName
                                         try {
-                                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg")))
+                                            context.startActivity(Intent(Intent.ACTION_VIEW, "market://details?id=$pkg".toUri()))
                                         } catch (e: android.content.ActivityNotFoundException) {
-                                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$pkg")))
+                                            context.startActivity(Intent(Intent.ACTION_VIEW, "https://play.google.com/store/apps/details?id=$pkg".toUri()))
                                         }
                                     }
                                 }
@@ -933,7 +935,7 @@ fun SettingsScreen(
                     TextButton(
                         onClick = {
                             val url = context.getString(R.string.settings_terms_of_use_url)
-                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                            context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
                         contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
                     ) {
@@ -951,7 +953,7 @@ fun SettingsScreen(
                     TextButton(
                         onClick = {
                             val url = context.getString(R.string.settings_privacy_policy_url)
-                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                            context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
                         contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
                     ) {
@@ -969,7 +971,7 @@ fun SettingsScreen(
                     TextButton(
                         onClick = {
                             val url = context.getString(R.string.settings_imprint_url)
-                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                            context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
                         contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
                     ) {

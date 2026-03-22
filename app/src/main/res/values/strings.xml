@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FamWake Family Alarm</string>
     <string name="app_name_short">Family Alarm</string>
-    <string name="login_title">FamWake Family Alarm</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="register_button">Register</string>
@@ -15,7 +13,6 @@
     <string name="login_google_error_no_account">No Google account found on this device. Please sign in to Google in Android settings or use Email/Password.</string>
     <!-- Firebase Web Client ID for Google Login -->
 
-    <string name="setup_title">Family Setup</string>
     <string name="setup_create_tab">Create</string>
     <string name="setup_join_tab">Join</string>
     <string name="setup_family_name">Family Name (e.g., The Millers)</string>
@@ -25,15 +22,10 @@
     <string name="setup_join_button">Join Family</string>
     <string name="join_loading_text">Joining family…</string>
 
-    <string name="main_title">FamWake - Family Alarm</string>
-    <string name="main_settings_desc">Settings</string>
     <string name="main_add_member_desc">Add Member</string>
     <string name="main_family_members">Family Members</string>
-    <string name="main_no_members">No members yet. Add someone!</string>
     <string name="main_current_schedule">Current Schedule</string>
-    <string name="main_add_members_prompt">Add members to calculate a schedule.</string>
     <string name="main_no_active_schedule">No active wake-up plan.</string>
-    <string name="main_error">Error: %1$s</string>
     <string name="main_optimal_plan">Here is the calculated family schedule:</string>
     <string name="main_plan_paused">Your alarm is currently paused.</string>
     <string name="main_shared_breakfast">☕ Shared Breakfast: %s</string>
@@ -43,9 +35,6 @@
     <string name="main_schedule_leave">Leaves home: %1$s</string>
     <string name="main_member_alarm_on">(Alarm active)</string>
     <string name="main_member_alarm_off">(no alarm)</string>
-    <string name="main_member_awake">(already up)</string>
-    <string name="main_sync_success">Synchronized with Cloud</string>
-    <string name="main_sync_desc">Refresh data from Firebase</string>
     <string name="main_member_limit_reached">Maximum of 6 members reached.</string>
     <string name="main_alarm_enabled">Alarm: ON</string>
     <string name="main_alarm_enabled_desc">Automatic wake-ups are active.</string>
@@ -54,8 +43,6 @@
     <string name="main_alarm_disabled_desc">Manual pause is active.</string>
     <string name="main_no_profile_warning">No profile selected!</string>
     <string name="main_no_profile_warning_desc">Please select your profile in Settings so the alarm can ring for you.</string>
-    <string name="main_battery_warning">Battery optimization active!</string>
-    <string name="main_battery_warning_desc">Your system might delay the alarm. Tap here to add an exception for FamWake.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete_desc">Delete</string>
@@ -75,12 +62,8 @@
     <string name="add_member_bathroom_duration">Bathroom Duration (Minutes)</string>
     <string name="add_member_wants_breakfast">Joins breakfast</string>
     <string name="add_member_leave_home">Leaves home at</string>
-    <string name="add_member_error_time_range">Latest wake time must be after earliest wake time.</string>
-    <string name="add_member_error_leave_home">Leave home time must be after the latest wake time.</string>
-    <string name="add_member_error_bathroom_duration">Bathroom duration must be between 1 and 120 mins.</string>
     <string name="add_member_day_profiles_title">Weekly Schedule</string>
     <string name="add_member_day_active">Alarm active</string>
-    <string name="add_member_error_no_days">At least one day must be active.</string>
     <string name="add_member_copy_to_days">Copy "%1$s" to other days</string>
     <string name="add_member_copy_dialog_title">Copy to days</string>
     <string name="add_member_copy_apply">Apply</string>
@@ -198,10 +181,8 @@
     <string name="settings_already_claimed">already claimed</string>
     <string name="settings_theme_light">Light</string>
     <string name="settings_theme_dark">Dark</string>
-    <string name="settings_theme_system">System</string>
 
     <string name="ringing_wake_up">Wake up, %1$s!</string>
-    <string name="ringing_message">Thanks to the perfect schedule, you have enough time in the bathroom today.</string>
     <string-array name="ringing_messages">
         <item>The bathroom is all yours right now!</item>
         <item>No traffic, no stress – your bathroom time starts now.</item>
@@ -220,7 +201,6 @@
     <string name="pause_today_desc">Pause for today</string>
     <string name="awake_today_desc">Already awake</string>
     <string name="awake_active_desc">Already awake</string>
-    <string name="awake_undo_desc">Still sleeping after all?</string>
 
     <string name="error_load_members">Error loading members: %1$s</string>
     <string name="error_create_family">Error creating family: %1$s</string>
@@ -244,7 +224,6 @@
     <string name="error_registration_failed">Registration failed: %1$s</string>
     <string name="error_registration_failed_unknown">Could not create user</string>
     <string name="error_unknown">An unknown error occurred. Please try again.</string>
-    <string name="error_google_sign_in_failed">Google Sign-In failed: %1$s</string>
     <string name="error_google_sign_in_failed_unknown">Google Sign-In failed</string>
     <string name="error_empty_email">Please enter an email address.</string>
     <string name="error_invalid_email">Invalid email address. Please check the spelling.</string>

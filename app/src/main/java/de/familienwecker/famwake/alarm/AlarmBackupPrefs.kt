@@ -23,12 +23,8 @@ object AlarmBackupPrefs {
     private const val KEY_ENABLED      = "alarm_enabled"
 
     private fun prefs(context: Context) =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            context.createDeviceProtectedStorageContext()
-                .getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
-        } else {
-            context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
-        }
+        context.createDeviceProtectedStorageContext()
+            .getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
 
     /** Wird von AlarmScheduler.scheduleWakeUp() aufgerufen. */
     fun save(

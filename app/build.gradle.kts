@@ -24,7 +24,7 @@ android {
     namespace = "de.familienwecker.famwake"
 
 
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "de.familienwecker.famwake"
@@ -88,28 +88,28 @@ base {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.2")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
+    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.fragment.ktx)
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.androidx.compose.material.icons.extended)
     
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.functions)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.play.services.auth)
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
@@ -125,8 +125,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     // Lottie
-    implementation("com.airbnb.android:lottie-compose:6.4.1")
+    implementation(libs.lottie.compose)
 
     // Play In-App Review
-    implementation("com.google.android.play:review-ktx:2.0.1")
+    implementation(libs.play.review.ktx)
 }

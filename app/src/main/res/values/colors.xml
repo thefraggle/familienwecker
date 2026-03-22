@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- ─── Brand Palette ───────────────────────────────────────── -->
-    <!-- Primärfarbe: Deep Night Blue – Ruhe & Schlaf -->
-    <color name="night_blue">#2C3E50</color>
-    <!-- Akzentfarbe: Sunrise Orange – Energie & Weckruf -->
-    <color name="sunrise_orange">#FF8C42</color>
-    <!-- Sekundärfarbe: Soft Mint – Bestätigung & Harmonie -->
-    <color name="soft_mint">#A2D5AB</color>
-
     <!-- Splash Screen & Launcher Icon -->
     <color name="ic_launcher_background">#211954</color>
     <color name="splash_screen_bg">#211954</color>

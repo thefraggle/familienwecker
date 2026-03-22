@@ -4,6 +4,14 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.5.8 - 2026-03-22
+
+### Optimized
+- **Resources:** Removed unused strings and colors; moved onboarding images to `drawable-nodpi`.
+- **Dependencies:** Upgraded AndroidX/Firebase libraries and migrated to `libs.versions.toml`. Increased `compileSdk` to 36.
+- **Codebase:** Migrated from `Uri.parse` to `toUri()` and removed obsolete Android SDK checks.
+- **Localization:** Added missing locales (`es`, `fr`, `it`) to `locales_config.xml`.
+
 ## 1.5.7 - 2026-03-21
 
 ### New
