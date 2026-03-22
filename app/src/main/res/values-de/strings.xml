@@ -302,4 +302,6 @@
     <string name="settings_tooltips_title">Tipps &amp; Hinweise</string>
     <string name="settings_tooltips_label">Hilfreiche Tipps anzeigen</string>
     <string name="settings_tooltips_reset">Alle Tipps zurücksetzen</string>
+    <string name="error_invalid_credentials">Ungültige E-Mail oder Passwort. Bitte überprüfe deine Eingaben.</string>
+    <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.</string>
 </resources>
