@@ -57,16 +57,23 @@ def main():
                 shutil.rmtree(changelog_dir)
                 print(f"Cleaned up legacy directory: {changelog_dir}")
 
-    locales = {
+    # Target locales that are definitely in the 5 languages mentioned by user
+    # We will create both the Short (de) and Long (de-DE) directory versions
+    target_locales = {
         'de-DE': 'docs/CHANGELOG.md',
         'en-US': 'docs/CHANGELOG.en.md',
         'fr-FR': None,
         'it-IT': None,
-        'es-ES': None
+        'es-ES': None,
+        'de': 'docs/CHANGELOG.md',
+        'en': 'docs/CHANGELOG.en.md',
+        'fr': None,
+        'it': None,
+        'es': None
     }
-    changelog_de = get_latest_changelog('docs/CHANGELOG.md') or ""
-    changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or ""
-
+    
+    changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or "Maintenance update and performance optimizations."
+    
     # Use googletrans for other languages if possible
     translator = None
     try:
@@ -77,18 +84,16 @@ def main():
 
     track_name = "FamWake"
 
-    for locale, changelog_path in locales.items():
-        # Flatten directory structure: directly in the locale folder
-        dest_dir = f'android/fastlane/metadata/android/{locale}'
+    for locale, changelog_path in target_locales.items():
+        # New base directory for all metadata
+        dest_dir = f'android/metadata/{locale}'
         os.makedirs(dest_dir, exist_ok=True)
         
         # Multiple naming variants to be absolutely sure the GH Action finds them
         dest_files = [
-            f'{dest_dir}/whatsnew-{track_name}',         # Original (whatsnew-FamWake)
-            f'{dest_dir}/whatsnew-{track_name.lower()}', # Lowercase (whatsnew-famwake)
-            f'{dest_dir}/whatsnew',                      # Standard (whatsnew)
-            f'{dest_dir}/default.txt',                   # Fallback txt
-            f'{dest_dir}/default'                        # Fallback no-extension
+            f'{dest_dir}/whatsnew-{track_name}',         # whatsnew-FamWake
+            f'{dest_dir}/whatsnew-{track_name.lower()}', # whatsnew-famwake
+            f'{dest_dir}/whatsnew'                       # whatsnew
         ]
         
         content = ""
@@ -100,33 +105,32 @@ def main():
             target_lang = locale.split('-')[0]
             if translator and changelog_en:
                 try:
-                    # Translate from English to target language
                     print(f"Translating for {locale}...")
                     translation = translator.translate(changelog_en, dest=target_lang)
                     content = translation.text
                 except Exception as e:
                     print(f"Translation failed for {locale}: {e}")
             
-            # Final fallback to existing default.txt content if we have it
+            # FINAL FALLBACK: Never leave it empty. Use English if translation failed.
             if not content:
-                fallback_path = f'{dest_dir}/default.txt'
-                if os.path.exists(fallback_path):
-                    with open(fallback_path, 'r', encoding='utf-8') as f:
-                        content = f.read().strip()
-                else:
-                    content = changelog_en or "Maintenance update."
+                content = changelog_en
         
         if content:
             # Ensure it's not too long for Play Store (500 char limit)
             if len(content) > 500:
                 content = content[:497] + "..."
+            
+            # Sanitize: remove double dots if they were generated
+            content = content.replace("..", ".")
                 
             # Write to ALL possible locations to be absolutely sure
             for df in dest_files:
                 with open(df, 'w', encoding='utf-8') as f:
                     f.write(content)
             
-            print(f"Generated metadata for {locale} in {dest_dir} (Files: {len(dest_files)})")
+            print(f"--- META FOR {locale} ({len(content)} chars) ---")
+            print(content)
+            print(f"Paths: {', '.join(dest_files)}")
 
 if __name__ == "__main__":
     main()

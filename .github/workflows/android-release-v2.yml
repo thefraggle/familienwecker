@@ -105,7 +105,11 @@ jobs:
           pip3 install googletrans==4.0.0-rc1
           python3 scripts/generate_metadata.py
           echo "Generated Metadata Structure:"
-          ls -R android/fastlane/metadata/android
+          ls -R android/metadata
+          echo "Verifying Content (DE):"
+          cat android/metadata/de/whatsnew || echo "No DE file"
+          echo "Verifying Content (EN):"
+          cat android/metadata/en/whatsnew || echo "No EN file"
 
       # GitHub Release nur mit AAB
       - name: Create GitHub Release
@@ -129,4 +133,4 @@ jobs:
           releaseFiles: FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
           track: FamWake
           status: completed
-          whatsNewDirectory: ${{ github.workspace }}/android/fastlane/metadata/android
+          whatsNewDirectory: ${{ github.workspace }}/android/metadata
