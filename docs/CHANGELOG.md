@@ -53,58 +53,31 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ### Behoben
 - **Einladungscodes:** Codes bleiben nun auch dann gültig, wenn eine Familie vorübergehend leer ist.
 
-## 1.5.5 - 2026-03-21
+## 1.5.0 - 2026-03-21
 
 ### Neu
-- **Datenschutz:** Personenbezogene Daten wurden aus internen Berichten entfernt (Minimierung von Nutzerdaten).
-- **Sicherheit:** Verbesserte Verschlüsselung und Schutz der Zugangsdaten im App-Quellcode.
-
-## 1.5.4 - 2026-03-20
-
-### Behoben
-- **Familienlöschung:** Fehler beim ID-Mapping korrigiert; Ersteller und globale Admins können Familien nun wieder zuverlässig löschen (auch mit unbestätigten Mitgliedern).
-
-### Neu
-- **Stabilität:** Zuverlässigeres Beitreten und Verlassen von Familien.
-
-## 1.5.3 - 2026-03-20
-
-### Neu
-- **Sicherheit:** Schutz privater Familiendaten vor unbefugtem Zugriff verbessert.
+- **Onboarding:** Komplett neue Einführungstour mit Panda-Animationen für einen leichteren Start.
+- **App-Design:** Neues, modernes App-Icon; Dark Mode als Standard für Erstnutzer; verbessertes Design der Wecker-Ansicht.
+- **Admin-Konsole & Statistik:** Sicherer Zugriff auf App-Statistiken für Administratoren; wöchentliche Berichte per E-Mail.
 - **Admin-Bereich:** Verwaltungsfunktionen für Administratoren in ein neues Menü verschoben.
+- **Sicherheit:** Schutz privater Familiendaten vor unbefugtem Zugriff verbessert.
+- **Datenschutz:** Personenbezogene Daten wurden aus internen Berichten entfernt (Minimierung von Nutzerdaten).
+- **Stabilität:** Zuverlässigeres Beitreten und Verlassen von Familien.
+- **Datensynchronisation:** Automatisierte Aktualisierung der Status-Anzeigen im Hintergrund für stets aktuelle Daten.
 
 ### Geändert
 - **Datenschutz:** Erhöhter Schutz von Benutzerprofilen vor unbefugten Zugriffen.
 - **Stabilität:** Sichereres Löschen und Verlassen von Familien durch neue Hintergrund-Logik.
-
-## 1.5.2 - 2026-03-20
-
-### Geändert
 - **Versionierung:** Vereinheitlichung der Versionsnummern für eine bessere Übersicht.
-
-## 1.5.1 - 2026-03-20
-
-### Behoben
-- **Zeitplanung:** Korrektur der Zeitberechnung für Mitternacht; sehr frühe Weckzeiten funktionieren nun korrekt.
-
-### Geändert
 - **Konflikt-Lösung:** Verbesserte Unterstützung und Hinweise bei Zeitüberschneidungen im Familienplan.
 - **System-Updates:** Optimierte App-Aktualisierungen und Tag-basierte Versionierung.
 
----
-
-### Neu
-- **Admin-Konsole & Statistik:** Sicherer Zugriff auf App-Statistiken für Administratoren; wöchentliche Berichte per E-Mail.
-- **Onboarding:** Komplett neue Einführungstour mit Panda-Animationen für einen leichteren Start.
-- **App-Design:** Neues, modernes App-Icon; Dark Mode als Standard für Erstnutzer; verbessertes Design der Wecker-Ansicht.
-- **Datensynchronisation:** Automatisierte Aktualisierung der Status-Anzeigen im Hintergrund für stets aktuelle Daten.
-
 ### Behoben
+- **Zeitplanung:** Korrektur der Zeitberechnung für Mitternacht; sehr frühe Weckzeiten funktionieren nun korrekt.
+- **Familienlöschung:** Fehler beim ID-Mapping korrigiert; Ersteller und globale Admins können Familien nun wieder zuverlässig löschen.
 - **Sicherheit:** Unterstützung für Passwort-Manager verbessert und Schutz vor schädlichen Eingaben aktiviert.
 - **Stabilität:** Fehler beim Anzeigen von Mitgliedern und doppelte Wecktöne behoben; verbesserter Ablauf beim Beitreten via Link.
 - **Interne Optimierungen:** Verbesserte App-Erstellungsprozesse und Dateibenennungen.
-
----
 
 ## 1.4.0 - 2026-03-19
 

@@ -53,58 +53,31 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - **Invitation Codes:** Codes now remain valid even if a family is temporarily empty.
 
-## 1.5.5 - 2026-03-21
+## 1.5.0 - 2026-03-21
 
 ### New
-- **Privacy:** Individual user data removed from internal reports.
-- **Security:** Improved encryption and protection of access credentials.
-
-## 1.5.4 - 2026-03-20
-
-### Fixed
-- **Family Deletion:** Corrected ID mapping error; creators and global admins can now reliably delete families again (even with unconfirmed members).
-
-### New
-- **Stability:** More reliable joining and leaving of families.
-
-## 1.5.3 - 2026-03-20
-
-### New
-- **Security:** Improved protection of private family data from unauthorized access.
+- **Onboarding:** New introduction tour with Panda animations for an easier start.
+- **App Design:** New, modern app icon; Dark Mode as default for new users; improved design of the alarm view.
+- **Admin Console & Statistics:** Secure access to app statistics for administrators; weekly reports via email.
 - **Admin Area:** Management tools for administrators moved to a new menu.
+- **Security:** Improved protection of private family data from unauthorized access.
+- **Privacy:** Individual user data removed from internal reports.
+- **Stability:** More reliable joining and leaving of families.
+- **Data Sync:** Automatic background status updates for accurate information.
 
 ### Changed
 - **Privacy:** Increased protection for user profiles against unauthorized changes.
 - **Stability:** More secure deleting and leaving of families through new background logic.
-
-## 1.5.2 - 2026-03-20
-
-### Changed
 - **Versioning:** Standardized version numbers for better clarity.
-
-## 1.5.1 - 2026-03-20
-
-### Fixed
-- **Scheduling:** Fixed midnight time calculation; early alarms now work correctly.
-
-### Changed
 - **Conflict Resolution:** Improved support and guidance for schedule overlaps.
 - **System Updates:** Optimized app update process.
 
----
-
-### New
-- **Admin Console & Statistics:** Secure access to app statistics for administrators; weekly reports via email.
-- **Onboarding:** New introduction tour with Panda animations for an easier start.
-- **App Design:** New, modern app icon; Dark Mode as default for new users; improved design of the alarm view.
-- **Data Sync:** Automatic background status updates for accurate information.
-
 ### Fixed
+- **Scheduling:** Fixed midnight time calculation; early alarms now work correctly.
+- **Family Deletion:** Corrected ID mapping error; creators and global admins can now reliably delete families again.
 - **Security:** Improved password manager support and protection against malicious inputs.
 - **Stability:** Fixed member display issues and duplicate alarm sounds; improved joining process via link.
 - **Internal Optimizations:** Improved app build processes and file naming.
-
----
 
 ## 1.4.0 - 2026-03-19
 
