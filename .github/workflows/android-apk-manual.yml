@@ -1,0 +1,90 @@
+name: Manual APK Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: 'Versionsname (z.B. 1.5.12)'
+        required: false
+        default: ''
+
+jobs:
+  build-apk:
+    name: Build & Upload APK
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Create Google Services Config
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/google-services.json
+
+      - name: Prepare Build Metadata
+        id: metadata
+        run: |
+          echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
+          
+          GRADLE_VERSION=$(grep "val appVersion" app/build.gradle.kts | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/-DEV//')
+          INPUT_VERSION="${{ github.event.inputs.version_name }}"
+          APP_VERSION="${INPUT_VERSION:-$GRADLE_VERSION}"
+          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build APK (Release)
+        env:
+          REVENUECAT_PUBLIC_API_KEY: ${{ secrets.REVENUECAT_PUBLIC_API_KEY }}
+        run: |
+          ./gradlew assembleRelease \
+            --build-cache --parallel --configuration-cache \
+            -PversionName=${{ steps.metadata.outputs.app_version }} \
+            -PcommitHash=${{ steps.metadata.outputs.hash }} \
+            -PcommitDate="${{ steps.metadata.outputs.date }}" \
+            -Dorg.gradle.jvmargs="-Xmx4g"
+
+      - name: Decode Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: python3 -c "import os, base64; open('app/keystore.jks', 'wb').write(base64.b64decode(os.environ['KEYSTORE_BASE64']))"
+
+      - name: Setup Android Build Tools
+        run: |
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
+          echo "$BUILD_TOOLS_DIR" >> $GITHUB_PATH
+
+      - name: Sign APK
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: |
+          APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
+          zipalign -v 4 "$APK_PATH" aligned.apk
+          apksigner sign --ks app/keystore.jks \
+            --ks-pass env:KEYSTORE_PASSWORD \
+            --key-pass env:KEY_PASSWORD \
+            --ks-key-alias "$KEY_ALIAS" \
+            --out FamWake-${{ steps.metadata.outputs.app_version }}-manual.apk aligned.apk
+
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FamWake-${{ steps.metadata.outputs.app_version }}-manual-apk
+          path: FamWake-${{ steps.metadata.outputs.app_version }}-manual.apk
+          retention-days: 7

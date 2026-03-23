@@ -1096,7 +1096,6 @@ fun SettingsScreen(
                     donationViewModel.purchasePackage(activity, pkg)
                 }
             },
-            onRefresh = { donationViewModel.fetchOfferings() },
             offerings = offerings,
             purchaseState = purchaseState
         )
@@ -1129,7 +1128,6 @@ fun HelpBulletPoint(emoji: String, text: String) {
 fun DonationDialog(
     onDismiss: () -> Unit,
     onDonate: (Package) -> Unit,
-    onRefresh: () -> Unit,
     offerings: Offerings?,
     purchaseState: PurchaseState
 ) {
@@ -1138,17 +1136,12 @@ fun DonationDialog(
         title = { 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Favorite, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                    Spacer(Modifier.width(8.dp))
-                    Text(stringResource(R.string.settings_support_donate))
-                }
-                IconButton(onClick = onRefresh) {
-                    Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.settings_donate_refresh))
-                }
+                Icon(Icons.Default.Favorite, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                // Spacer(Modifier.width(8.dp)) -- Icon takes up space if we use a Row here, but let's keep it clean
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.settings_support_donate))
             }
         },
         text = {
