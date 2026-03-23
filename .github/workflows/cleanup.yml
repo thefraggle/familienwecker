@@ -1,0 +1,16 @@
+name: Alte Releases löschen
+on:
+  release:
+    types: [published] # Startet automatisch bei jedem neuen Release
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Behalte nur die neuesten 10 Releases
+        uses: dev-drprasad/delete-older-releases@v0.3.3
+        with:
+          keep_latest: 10
+          delete_tags: true # Löscht auch die zugehörigen Tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

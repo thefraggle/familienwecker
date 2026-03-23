@@ -104,6 +104,8 @@ jobs:
         run: |
           pip3 install googletrans==4.0.0-rc1
           python3 scripts/generate_metadata.py
+          echo "Generated Metadata Structure:"
+          ls -R android/fastlane/metadata/android
 
       # GitHub Release nur mit AAB
       - name: Create GitHub Release
