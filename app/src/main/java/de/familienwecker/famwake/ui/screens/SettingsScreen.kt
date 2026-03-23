@@ -1128,6 +1128,14 @@ fun DonationDialog(
                 if (purchaseState is PurchaseState.Loading) {
                     CircularProgressIndicator(modifier = Modifier.padding(16.dp))
                     Text(stringResource(R.string.join_loading_text))
+                } else if (purchaseState is PurchaseState.Error) {
+                    Text(
+                        text = purchaseState.message,
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(16.dp)
+                    )
                 } else {
                     val currentOffering = offerings?.current
                     if (currentOffering != null && currentOffering.availablePackages.isNotEmpty()) {

@@ -24,9 +24,15 @@ class FamWakeApplication : Application() {
         instance = this
 
         // Initialize RevenueCat
-        com.revenuecat.purchases.Purchases.debugLogsEnabled = true
-        com.revenuecat.purchases.Purchases.configure(
-            com.revenuecat.purchases.PurchasesConfiguration.Builder(this, "test_yVoDfwjmNSsHXFHCJsIDvZRoGVs").build()
-        )
+        android.util.Log.d("FamWakeDonation", "Initializing RevenueCat...")
+        try {
+            com.revenuecat.purchases.Purchases.debugLogsEnabled = true
+            com.revenuecat.purchases.Purchases.configure(
+                com.revenuecat.purchases.PurchasesConfiguration.Builder(this, "test_yVoDfwjmNSsHXFHCJsIDvZRoGVs").build()
+            )
+            android.util.Log.d("FamWakeDonation", "RevenueCat initialized successfully.")
+        } catch (e: Exception) {
+            android.util.Log.e("FamWakeDonation", "RevenueCat initialization failed: ${e.message}")
+        }
     }
 }

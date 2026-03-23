@@ -23,6 +23,7 @@ class DonationViewModel : ViewModel() {
     val purchaseState: StateFlow<PurchaseState> = _purchaseState
 
     init {
+        android.util.Log.d("FamWakeDonation", "DonationViewModel init")
         fetchOfferings()
     }
 
@@ -34,10 +35,12 @@ class DonationViewModel : ViewModel() {
                 _offerings.value = offerings
                 if (offerings.current == null) {
                     android.util.Log.w("FamWakeDonation", "Warning: No 'current' offering set in RevenueCat dashboard!")
+                    // If no current but we have other offerings, maybe list them or show error
                 }
             }
             override fun onError(error: PurchasesError) {
                 android.util.Log.e("FamWakeDonation", "Error fetching offerings: ${error.message} (${error.code})")
+                _purchaseState.value = PurchaseState.Error("RevenueCat Error: ${error.message}")
             }
         })
     }
