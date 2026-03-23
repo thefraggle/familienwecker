@@ -44,17 +44,18 @@ def get_version_code(aab_path):
     return None
 
 def main():
-    # Find the signed AAB
-    aab_files = glob.glob('FamWake-*-release.aab')
-    if not aab_files:
-        print("No AAB file found.")
-        return
-    aab_path = aab_files[0]
+    # We no longer strictly need the version_code for whatsnew-<track> files,
+    # so we skip the aapt2 check to avoid environment-specific failures.
     
-    version_code = get_version_code(aab_path)
-    if not version_code:
-        print("Could not find versionCode.")
-        return
+    # Cleanup old fastlane structure if it exists to avoid confusion
+    base_dir = 'android/fastlane/metadata/android'
+    if os.path.exists(base_dir):
+        for locale in os.listdir(base_dir):
+            changelog_dir = os.path.join(base_dir, locale, 'changelogs')
+            if os.path.isdir(changelog_dir):
+                import shutil
+                shutil.rmtree(changelog_dir)
+                print(f"Cleaned up legacy directory: {changelog_dir}")
 
     locales = {
         'de-DE': 'docs/CHANGELOG.md',
