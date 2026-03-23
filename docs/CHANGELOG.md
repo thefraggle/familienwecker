@@ -4,6 +4,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.5.11 - 2026-03-23
+    
+### Optimiert
+- **CI/CD Optimierungen:** Verbesserte Zuverlässigkeit bei automatisierten Build-Prozessen.
+
 ## 1.5.10 - 2026-03-23
     
 ### Optimiert
