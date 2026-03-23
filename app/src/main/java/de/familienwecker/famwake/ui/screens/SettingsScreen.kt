@@ -52,6 +52,7 @@ import androidx.core.net.toUri
 import de.familienwecker.famwake.ui.viewmodel.DonationViewModel
 import de.familienwecker.famwake.ui.viewmodel.PurchaseState
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Refresh
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.Offerings
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -1063,6 +1064,7 @@ fun SettingsScreen(
                     donationViewModel.purchasePackage(activity, pkg)
                 }
             },
+            onRefresh = { donationViewModel.fetchOfferings() },
             offerings = offerings,
             purchaseState = purchaseState
         )
@@ -1095,16 +1097,26 @@ fun HelpBulletPoint(emoji: String, text: String) {
 fun DonationDialog(
     onDismiss: () -> Unit,
     onDonate: (Package) -> Unit,
+    onRefresh: () -> Unit,
     offerings: Offerings?,
     purchaseState: PurchaseState
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Favorite, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                Spacer(Modifier.width(8.dp))
-                Text(stringResource(R.string.settings_support_donate))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Default.Favorite, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                    Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.settings_support_donate))
+                }
+                IconButton(onClick = onRefresh) {
+                    Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.settings_donate_refresh))
+                }
             }
         },
         text = {
@@ -1118,7 +1130,7 @@ fun DonationDialog(
                     Text(stringResource(R.string.join_loading_text))
                 } else {
                     val currentOffering = offerings?.current
-                    if (currentOffering != null) {
+                    if (currentOffering != null && currentOffering.availablePackages.isNotEmpty()) {
                         currentOffering.availablePackages.forEach { pkg ->
                             val label = when {
                                 pkg.identifier.contains("coffee", ignoreCase = true) -> stringResource(R.string.settings_donate_coffee)
@@ -1137,8 +1149,16 @@ fun DonationDialog(
                                 Text(label)
                             }
                         }
+                    } else if (offerings != null) {
+                        Text(
+                            text = stringResource(R.string.settings_donate_no_offers),
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                            color = MaterialTheme.colorScheme.error
+                        )
                     } else {
-                        Text(stringResource(R.string.join_loading_text))
+                        CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+                        Text(stringResource(R.string.settings_donate_loading))
                     }
                 }
             }
