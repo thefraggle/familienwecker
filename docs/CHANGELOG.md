@@ -4,59 +4,23 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.5.12 - 2026-03-23
-
-### Optimiert
-- **Zuverlässigkeit:** Regelmäßige Updates zur Verbesserung der Stabilität und Performance.
-
-## 1.5.11 - 2026-03-23
-    
-### Optimiert
-- **Zuverlässigkeit:** Interne Optimierungen für eine stabilere App-Performance.
-
-## 1.5.10 - 2026-03-23
-    
-### Optimiert
-- **Stabilität:** Fehlerbehebungen und Hintergrund-Verbesserungen zur Zuverlässigkeit.
-
-## 1.5.9 - 2026-03-23
-    
-### Neu
-- **Interne Optimierungen:** Vorbereitungen für kommende Features und Stabilitätsverbesserungen im Hintergrund.
-
-## 1.5.8 - 2026-03-22
-
-### Optimiert
-- **Performance:** Optimierung von Ressourcen für eine bessere Nutzererfahrung.
-- **System-Updates:** Anpassung an aktuelle Android-Standards für maximale Kompatibilität.
-- **Lokalisierung:** Unterstützung für Spanisch, Französisch und Italienisch vervollständigt.
-
-## 1.5.7 - 2026-03-21
+## 1.6.0 - 2026-03-23
 
 ### Neu
-- **E-Mail-Lokalisierung:** Passwort-Reset, Bestätigung und Verifizierung werden nun vollständig in der in der App gewählten Sprache (DE, EN, ES, FR, IT) versendet.
-- **Passwort-Reset UI:** Visuelles Feedback (Checkmark-Icon) nach erfolgreichem Absenden der Reset-E-Mail hinzugefügt.
-- **Sender-Lokalisierung:** Der Absendername in E-Mails passt sich der Zielsprache an (z. B. "Sveglia Famiglia" für Italienisch).
-
-### Behoben
-- **E-Mail-Zustellung:** Fehler bei den Übersetzungen behoben, die zuvor zu einem unerwünschten deutschen Fallback führten.
-
-## 1.5.6 - 2026-03-21
-
-### Neu
-- **Deep-Link UX:** Visuelles Feedback (Snackbar "Trete Familie bei...") während des Beitrittsvorgangs hinzugefügt.
-- **Sicherheits-Härtung:** 
-    - Verlässlicherer Schutz der Familiendaten und Eigentumsrechte.
-    - Zugriffsberechtigungen für interne Systembereiche verschärft.
-    - Feedback-Bereich durch zusätzliche Sicherheitsregeln geschützt.
+- **Play Store Optimierung:** Optimierungen für den offiziellen Play Store Release und verbesserte Metadaten.
 - **Vollständige Lokalisation:** Unterstützung für Französisch, Spanisch und Italienisch inkl. automatischer Erkennung hinzugefügt.
+- **E-Mail-System:** Passwort-Reset, Bestätigung und Verifizierung werden nun vollständig in der gewählten App-Sprache versendet.
+- **Deep-Link UX:** Visuelles Feedback beim Beitritt zu einer Familie via Link verbessert.
 
 ### Optimiert
-- **Lokalisation:** Interne Optimierung der Sprachressourcen für eine stabilere Darstellung bei Übersetzungen.
-- **Onboarding:** Verwendet für FR, ES und IT vorerst die englischen Screenshots als Fallback.
+- **Zuverlässigkeit:** Regelmäßige Updates zur Verbesserung der Stabilität und Performance sowie optimierte Synchronisation.
+- **Sicherheits-Check:** Zugriffsberechtigungen für Familiendaten und Eigentumsrechte verschärft; Schutz privater Daten verbessert.
+- **Onboarding:** Modernisierte Einführungstour mit Panda-Animationen und Dark Mode als Standard für Erstnutzer.
 
 ### Behoben
 - **Einladungscodes:** Codes bleiben nun auch dann gültig, wenn eine Familie vorübergehend leer ist.
+- **E-Mail-Zustellung:** Fehler bei den Übersetzungen behoben, die zuvor zu einem deutschen Fallback führten.
+- **Zeitplanung:** Korrektur der Zeitberechnung für Mitternacht und sehr frühe Weckzeiten.
 
 ## 1.5.0 - 2026-03-21
 
