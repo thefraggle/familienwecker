@@ -285,13 +285,15 @@
     <string name="settings_support_title">Support the App</string>
     <string name="settings_support_desc">Do you like the app? We would love your support!</string>
     <string name="settings_support_donate">Donate</string>
-    <string name="settings_donate_coffee">☕️ Coffee (1.79 €)</string>
-    <string name="settings_donate_snack">🥪 Snack (4.79 €)</string>
-    <string name="settings_donate_pizza">🍕 Pizza (9.49 €)</string>
     <string name="settings_donate_success">Thank you so much for your support! ❤️</string>
     <string name="settings_donate_error">Oops, something went wrong.</string>
     <string name="settings_donate_loading">Loading offers…</string>
     <string name="settings_donate_no_offers">No offers available. Please ensure "Current Offering" is set in RevenueCat.</string>
     <string name="settings_donate_refresh">Refresh</string>
     <string name="settings_donate_purchase_loading">Processing donation…</string>
+    <string name="settings_donate_error_not_allowed">The device or user is not allowed to make the purchase.</string>
+    <string name="settings_donate_error_store_problem">There was a problem with the Google Play Store.</string>
+    <string name="settings_donate_error_already_purchased">This product has already been purchased.</string>
+    <string name="settings_donate_error_invalid">The purchase was invalid.</string>
+    <string name="settings_donate_error_generic">An error occurred during the donation process.</string>
 </resources>

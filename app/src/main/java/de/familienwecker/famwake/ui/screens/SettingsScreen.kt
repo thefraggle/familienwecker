@@ -137,8 +137,8 @@ fun SettingsScreen(
                 donationViewModel.resetState()
             }
             is PurchaseState.Error -> {
-                snackbarHostState.showSnackbar((purchaseState as PurchaseState.Error).message)
-                donationViewModel.resetState()
+                // Error is displayed directly in the DonationDialog, 
+                // we don't reset the state automatically here to keep it visible.
             }
             else -> {}
         }
@@ -1153,7 +1153,7 @@ fun DonationDialog(
                     Text(stringResource(R.string.settings_donate_purchase_loading))
                 } else if (purchaseState is PurchaseState.Error) {
                     Text(
-                        text = purchaseState.message,
+                        text = purchaseState.uiText.asString(),
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                         color = MaterialTheme.colorScheme.error,
@@ -1163,22 +1163,10 @@ fun DonationDialog(
                     val currentOffering = offerings?.current
                     if (currentOffering != null && currentOffering.availablePackages.isNotEmpty()) {
                         currentOffering.availablePackages.forEach { pkg ->
-                            val label = when {
-                                pkg.identifier.contains("coffee", ignoreCase = true) || 
-                                pkg.identifier.contains("klein", ignoreCase = true) || 
-                                pkg.identifier.contains("kaffe", ignoreCase = true) || 
-                                pkg.identifier.contains("small", ignoreCase = true) -> stringResource(R.string.settings_donate_coffee)
-                                
-                                pkg.identifier.contains("snack", ignoreCase = true) || 
-                                pkg.identifier.contains("mittel", ignoreCase = true) || 
-                                pkg.identifier.contains("medium", ignoreCase = true) -> stringResource(R.string.settings_donate_snack)
-                                
-                                pkg.identifier.contains("pizza", ignoreCase = true) || 
-                                pkg.identifier.contains("gross", ignoreCase = true) || 
-                                pkg.identifier.contains("big", ignoreCase = true) -> stringResource(R.string.settings_donate_pizza)
-                                
-                                else -> pkg.product.title
-                            }
+                            // Use product name if available (often cleaner), fallback to title
+                            val displayName = if (pkg.product.name.isNotBlank()) pkg.product.name else pkg.product.title.substringBeforeLast(" (").trim()
+                            
+                            val label = "$displayName (${pkg.product.price.formatted})"
                             
                             val interactionSource = remember { MutableInteractionSource() }
                             Button(
