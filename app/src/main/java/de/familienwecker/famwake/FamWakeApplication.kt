@@ -26,7 +26,7 @@ class FamWakeApplication : Application() {
         // Initialize RevenueCat
         com.revenuecat.purchases.Purchases.debugLogsEnabled = true
         com.revenuecat.purchases.Purchases.configure(
-            com.revenuecat.purchases.PurchasesConfiguration.Builder(this, "REVENUECAT_PUBLIC_API_KEY").build()
+            com.revenuecat.purchases.PurchasesConfiguration.Builder(this, "test_yVoDfwjmNSsHXFHCJsIDvZRoGVs").build()
         )
     }
 }
