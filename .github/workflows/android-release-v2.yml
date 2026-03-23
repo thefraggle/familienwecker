@@ -125,6 +125,6 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: de.familienwecker.famwake
           releaseFiles: FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
-          track: 4701411987094144532
+          track: FamWake
           status: completed
           whatsNewDirectory: android/fastlane/metadata/android
