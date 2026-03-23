@@ -4,6 +4,11 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.5.10 - 2026-03-23
+    
+### Optimized
+- **Internal Optimizations:** Background improvements to reliability and security for feature preparations.
+
 ## 1.5.9 - 2026-03-23
     
 ### New
