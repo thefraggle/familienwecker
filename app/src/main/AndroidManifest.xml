@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <!-- Alarm nach Geräteneustart wiederherstellen -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:name=".FamWakeApplication"
