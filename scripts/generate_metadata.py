@@ -76,10 +76,17 @@ def main():
     except Exception as e:
         print(f"googletrans setup failed: {e}")
 
+    track_name = "FamWake"
+
     for locale, changelog_path in locales.items():
-        dest_dir = f'android/fastlane/metadata/android/{locale}/changelogs'
+        # Flatten directory structure: directly in the locale folder
+        dest_dir = f'android/fastlane/metadata/android/{locale}'
         os.makedirs(dest_dir, exist_ok=True)
-        dest_file = f'{dest_dir}/{version_code}.txt'
+        
+        # Primary file for the specific track
+        dest_file_track = f'{dest_dir}/whatsnew-{track_name}'
+        # Fallback file
+        dest_file_default = f'{dest_dir}/default.txt'
         
         content = ""
         if changelog_path:
@@ -97,23 +104,27 @@ def main():
                 except Exception as e:
                     print(f"Translation failed for {locale}: {e}")
             
-            # Final fallback to default.txt
+            # Final fallback to default.txt content if we have it
             if not content:
-                default_file = f'{dest_dir}/default.txt'
-                if os.path.exists(default_file):
-                    with open(default_file, 'r', encoding='utf-8') as f:
+                # Try to find default.txt in the same dir
+                if os.path.exists(dest_file_default):
+                    with open(dest_file_default, 'r', encoding='utf-8') as f:
                         content = f.read().strip()
                 else:
-                    content = changelog_en or "Maintenance update." # Final safety fallback
+                    content = changelog_en or "Maintenance update."
         
         if content:
             # Ensure it's not too long for Play Store (500 char limit)
             if len(content) > 500:
                 content = content[:497] + "..."
                 
-            with open(dest_file, 'w', encoding='utf-8') as f:
+            # Write to both possible locations to be absolutely sure
+            with open(dest_file_track, 'w', encoding='utf-8') as f:
                 f.write(content)
-            print(f"Generated {dest_file}")
+            with open(dest_file_default, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            print(f"Generated metadata for {locale} in {dest_dir}")
 
 if __name__ == "__main__":
     main()
