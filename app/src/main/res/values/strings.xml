@@ -282,4 +282,12 @@
     <string name="settings_tooltips_title">Tips &amp; Hints</string>
     <string name="settings_tooltips_label">Show helpful tips</string>
     <string name="settings_tooltips_reset">Reset all tips</string>
+    <string name="settings_support_title">Support the App</string>
+    <string name="settings_support_desc">Do you like the app? We would love your support!</string>
+    <string name="settings_support_donate">Donate</string>
+    <string name="settings_donate_coffee">☕️ Coffee (2 €)</string>
+    <string name="settings_donate_snack">🥪 Snack (5 €)</string>
+    <string name="settings_donate_pizza">🍕 Pizza (10 €)</string>
+    <string name="settings_donate_success">Thank you so much for your support! ❤️</string>
+    <string name="settings_donate_error">Oops, something went wrong.</string>
 </resources>
