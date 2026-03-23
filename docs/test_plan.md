@@ -1,5 +1,6 @@
-# 🧪 Testplan - FamWake (v1.5.12)
-
+# 🧪# Testplan: Familienwecker
+**Version:** 1.6.0
+**Datum:** 2026-03-23
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---

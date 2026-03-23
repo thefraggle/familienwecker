@@ -99,6 +99,12 @@ jobs:
             "$AAB_PATH" "$KEY_ALIAS"
           cp "$AAB_PATH" FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
 
+      # Automatische Generierung der Play Store Metadaten (Changelogs)
+      - name: Generate Play Store Metadata
+        run: |
+          pip3 install googletrans==4.0.0-rc1
+          python3 scripts/generate_metadata.py
+
       # GitHub Release nur mit AAB
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -119,6 +125,6 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: de.familienwecker.famwake
           releaseFiles: FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
-          track: internal
+          track: 4701411987094144532
           status: completed
           whatsNewDirectory: android/fastlane/metadata/android

@@ -4,59 +4,23 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.5.12 - 2026-03-23
-
-### Optimized
-- **Reliability:** Regular updates to improve stability and performance.
-
-## 1.5.11 - 2026-03-23
-    
-### Optimized
-- **Reliability:** Internal optimizations for a more stable app performance.
-
-## 1.5.10 - 2026-03-23
-    
-### Optimized
-- **Stability:** Bug fixes and background improvements for better reliability.
-
-## 1.5.9 - 2026-03-23
-    
-### New
-- **Internal Optimizations:** Background preparations for upcoming features and stability improvements.
-
-## 1.5.8 - 2026-03-22
-
-### Optimized
-- **Performance:** Optimized resources for a smoother user experience.
-- **System Updates:** Updated to the latest Android standards for maximum compatibility.
-- **Localization:** Completed support for Spanish, French, and Italian.
-
-## 1.5.7 - 2026-03-21
+## 1.6.0 - 2026-03-23
 
 ### New
-- **Email Localization:** Password reset, confirmation, and verification emails are now fully sent in the language selected in the app (DE, EN, ES, FR, IT).
-- **Password Reset UI:** Added visual feedback (checkmark icon) after successfully sending the reset email.
-- **Sender Localization:** The sender name in emails now adapts to the target language (e.g., "Sveglia Famiglia" for Italian).
+- **Play Store Optimization:** Enhanced metadata and optimizations for the official Play Store release.
+- **Full Localization:** Added support for French, Spanish, and Italian with automatic language detection.
+- **Email System:** Password reset, confirmation, and verification emails are now fully translated into the app's selected language.
+- **Deep-Link UX:** Improved visual feedback when joining a family via an invitation link.
+
+### Optimized
+- **Reliability:** Continuous improvements to data synchronization and overall app stability.
+- **Security Audit:** Re-enforced access permissions for family data and strengthened privacy rules.
+- **Onboarding:** Modernized introduction tour with panda animations and Dark Mode as the default for new users.
 
 ### Fixed
-- **Email Delivery:** Fixed translation errors for automated emails.
-
-## 1.5.6 - 2026-03-21
-
-### New
-- **Deep-Link UX:** Added visual feedback (Snackbar "Joining family...") during the join process.
-- **Security Hardening:** 
-    - Enhanced protection for family data and internal system access.
-    - Restricted access to internal system areas.
-    - Feedback section protected by improved security rules.
-- **Full Localization:** Added support for French, Spanish, and Italian including automatic detection.
-
-### Optimized
-- **Localization:** Improved stability for translated texts.
-- **Onboarding:** Uses English screenshots as fallback for FR, ES, and IT for now.
-
-### Fixed
-- **Invitation Codes:** Codes now remain valid even if a family is temporarily empty.
+- **Invitation Codes:** Fixed an issue where codes would become invalid if a family was temporarily empty.
+- **Email Delivery:** Resolved translation issues that previously caused an unwanted fallback to German.
+- **Scheduling:** Fixed time calculations for midnight and very early alarm times.
 
 ## 1.5.0 - 2026-03-21
 
