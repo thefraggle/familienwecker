@@ -81,6 +81,8 @@ jobs:
 
       # APK für alle Tag-Pushes (und manuell wenn kein AAB angefordert)
       - name: Build APK
+        env:
+          REVENUECAT_PUBLIC_API_KEY: ${{ secrets.REVENUECAT_PUBLIC_API_KEY }}
         run: |
           ./gradlew assembleRelease \
             --build-cache --parallel --configuration-cache \
@@ -91,6 +93,8 @@ jobs:
 
       # AAB nur bei manueller Anforderung
       - name: Build AAB (Store Release)
+        env:
+          REVENUECAT_PUBLIC_API_KEY: ${{ secrets.REVENUECAT_PUBLIC_API_KEY }}
         run: |
           ./gradlew bundleRelease \
             --build-cache --parallel --configuration-cache \

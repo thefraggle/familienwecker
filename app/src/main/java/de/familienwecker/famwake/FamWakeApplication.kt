@@ -26,6 +26,10 @@ class FamWakeApplication : Application() {
 
         // Initialize RevenueCat
         android.util.Log.d("FamWakeDonation", "Initializing RevenueCat...")
+        if (BuildConfig.REVENUECAT_PUBLIC_API_KEY.isEmpty()) {
+            android.util.Log.e("FamWakeDonation", "RevenueCat API Key is empty! Please check local.properties or GitHub Secrets.")
+            return
+        }
         try {
             com.revenuecat.purchases.Purchases.debugLogsEnabled = true
             com.revenuecat.purchases.Purchases.configure(

@@ -7,7 +7,7 @@ plugins {
 }
 
 // Fallback version if no versionName property is provided (e.g. for local builds)
-val appVersion = project.findProperty("versionName")?.toString() ?: "1.5.11-DEV"
+val appVersion = project.findProperty("versionName")?.toString() ?: "1.5.11"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -39,7 +39,8 @@ android {
             localProperties.load(localPropertiesFile.inputStream())
         }
         val googleClientId = localProperties.getProperty("DEFAULT_WEB_CLIENT_ID") ?: ""
-        val revenueCatKey = localProperties.getProperty("REVENUECAT_PUBLIC_API_KEY") ?: ""
+        val localRevenueCatKey = localProperties.getProperty("REVENUECAT_PUBLIC_API_KEY")
+        val revenueCatKey = localRevenueCatKey ?: System.getenv("REVENUECAT_PUBLIC_API_KEY") ?: ""
         
         // Only add resValue if it's not already provided by google-services.json
         val googleServicesFile = rootProject.file("app/google-services.json")
