@@ -2,6 +2,7 @@ name: Alte Releases löschen
 on:
   release:
     types: [published] # Startet automatisch bei jedem neuen Release
+  workflow_dispatch: # Erlaubt manuelles Starten im GitHub Actions Tab
 
 jobs:
   clean:
