@@ -2,6 +2,7 @@ package de.familienwecker.famwake
 
 import android.app.Application
 import de.familienwecker.famwake.data.PreferencesRepository
+import de.familienwecker.famwake.BuildConfig
 
 /**
  * Application-Klasse, die Singletons für Repositories bereitstellt.
@@ -28,9 +29,12 @@ class FamWakeApplication : Application() {
         try {
             com.revenuecat.purchases.Purchases.debugLogsEnabled = true
             com.revenuecat.purchases.Purchases.configure(
-                com.revenuecat.purchases.PurchasesConfiguration.Builder(this, "test_yVoDfwjmNSsHXFHCJsIDvZRoGVs").build()
+                com.revenuecat.purchases.PurchasesConfiguration.Builder(
+                    this,
+                    BuildConfig.REVENUECAT_PUBLIC_API_KEY
+                ).build()
             )
-            android.util.Log.d("FamWakeDonation", "RevenueCat initialized successfully.")
+            android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
         } catch (e: Exception) {
             android.util.Log.e("FamWakeDonation", "RevenueCat initialization failed: ${e.message}")
         }

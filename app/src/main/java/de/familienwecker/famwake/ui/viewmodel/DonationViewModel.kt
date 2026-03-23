@@ -24,25 +24,34 @@ class DonationViewModel : ViewModel() {
 
     init {
         android.util.Log.d("FamWakeDonation", "DonationViewModel init")
-        fetchOfferings()
+        try {
+            fetchOfferings()
+        } catch (e: Exception) {
+            android.util.Log.e("FamWakeDonation", "Exception in init: ${e.message}")
+            _purchaseState.value = PurchaseState.Error("RevenueCat not ready")
+        }
     }
 
     fun fetchOfferings() {
         android.util.Log.d("FamWakeDonation", "Fetching offerings from RevenueCat...")
-        Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
-            override fun onReceived(offerings: Offerings) {
-                android.util.Log.d("FamWakeDonation", "Offerings received: ${offerings.all.keys}")
-                _offerings.value = offerings
-                if (offerings.current == null) {
-                    android.util.Log.w("FamWakeDonation", "Warning: No 'current' offering set in RevenueCat dashboard!")
-                    // If no current but we have other offerings, maybe list them or show error
+        try {
+            Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
+                override fun onReceived(offerings: Offerings) {
+                    android.util.Log.d("FamWakeDonation", "Offerings received: ${offerings.all.keys}")
+                    _offerings.value = offerings
+                    if (offerings.current == null) {
+                        android.util.Log.w("FamWakeDonation", "Warning: No 'current' offering set in RevenueCat dashboard!")
+                    }
                 }
-            }
-            override fun onError(error: PurchasesError) {
-                android.util.Log.e("FamWakeDonation", "Error fetching offerings: ${error.message} (${error.code})")
-                _purchaseState.value = PurchaseState.Error("RevenueCat Error: ${error.message}")
-            }
-        })
+                override fun onError(error: PurchasesError) {
+                    android.util.Log.e("FamWakeDonation", "Error fetching offerings: ${error.message} (Underlying: ${error.underlyingErrorMessage})")
+                    _purchaseState.value = PurchaseState.Error("${error.message} ${error.underlyingErrorMessage ?: ""}")
+                }
+            })
+        } catch (e: Exception) {
+            android.util.Log.e("FamWakeDonation", "Purchases.sharedInstance access failed: ${e.message}")
+            _purchaseState.value = PurchaseState.Error("RevenueCat not configured")
+        }
     }
 
     fun purchasePackage(activity: android.app.Activity, packageToPurchase: Package) {

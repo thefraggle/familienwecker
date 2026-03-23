@@ -1173,9 +1173,19 @@ fun DonationDialog(
                     if (currentOffering != null && currentOffering.availablePackages.isNotEmpty()) {
                         currentOffering.availablePackages.forEach { pkg ->
                             val label = when {
-                                pkg.identifier.contains("coffee", ignoreCase = true) || pkg.identifier.contains("klein", ignoreCase = true) -> stringResource(R.string.settings_donate_coffee)
-                                pkg.identifier.contains("snack", ignoreCase = true) || pkg.identifier.contains("mittel", ignoreCase = true) -> stringResource(R.string.settings_donate_snack)
-                                pkg.identifier.contains("pizza", ignoreCase = true) || pkg.identifier.contains("gross", ignoreCase = true) -> stringResource(R.string.settings_donate_pizza)
+                                pkg.identifier.contains("coffee", ignoreCase = true) || 
+                                pkg.identifier.contains("klein", ignoreCase = true) || 
+                                pkg.identifier.contains("kaffe", ignoreCase = true) || 
+                                pkg.identifier.contains("small", ignoreCase = true) -> stringResource(R.string.settings_donate_coffee)
+                                
+                                pkg.identifier.contains("snack", ignoreCase = true) || 
+                                pkg.identifier.contains("mittel", ignoreCase = true) || 
+                                pkg.identifier.contains("medium", ignoreCase = true) -> stringResource(R.string.settings_donate_snack)
+                                
+                                pkg.identifier.contains("pizza", ignoreCase = true) || 
+                                pkg.identifier.contains("gross", ignoreCase = true) || 
+                                pkg.identifier.contains("big", ignoreCase = true) -> stringResource(R.string.settings_donate_pizza)
+                                
                                 else -> pkg.product.title
                             }
                             
