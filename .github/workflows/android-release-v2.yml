@@ -129,4 +129,4 @@ jobs:
           releaseFiles: FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
           track: FamWake
           status: completed
-          whatsNewDirectory: android/fastlane/metadata/android
+          whatsNewDirectory: ${{ github.workspace }}/android/fastlane/metadata/android
