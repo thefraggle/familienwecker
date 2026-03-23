@@ -748,70 +748,102 @@ fun SettingsScreen(
             }
 
             // Support the App
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                     else MaterialTheme.colorScheme.surface
-                )
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Favorite, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.settings_support_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        stringResource(R.string.settings_support_desc),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+            if (isGlobalAdmin) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    border = androidx.compose.foundation.BorderStroke(
+                        1.dp,
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
+                    ),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(
+                            alpha = 0.4f
+                        )
+                        else MaterialTheme.colorScheme.surface
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Default.Favorite,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(R.string.settings_support_title),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            stringResource(R.string.settings_support_desc),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                    // App bewerten (In-App Review API) - Hierher verschoben
-                    val rateInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = {
-                            val activity = context as? android.app.Activity
-                            if (activity != null) {
-                                val manager = com.google.android.play.core.review.ReviewManagerFactory.create(context)
-                                manager.requestReviewFlow().addOnCompleteListener { taskReview ->
-                                    if (taskReview.isSuccessful) {
-                                        manager.launchReviewFlow(activity, taskReview.result)
-                                    } else {
-                                        val pkg = context.packageName
-                                        try {
-                                            context.startActivity(Intent(Intent.ACTION_VIEW, "market://details?id=$pkg".toUri()))
-                                        } catch (e: android.content.ActivityNotFoundException) {
-                                            context.startActivity(Intent(Intent.ACTION_VIEW, "https://play.google.com/store/apps/details?id=$pkg".toUri()))
+                        // App bewerten (In-App Review API) - Hierher verschoben
+                        val rateInteractionSource = remember { MutableInteractionSource() }
+                        OutlinedButton(
+                            onClick = {
+                                val activity = context as? android.app.Activity
+                                if (activity != null) {
+                                    val manager =
+                                        com.google.android.play.core.review.ReviewManagerFactory.create(
+                                            context
+                                        )
+                                    manager.requestReviewFlow().addOnCompleteListener { taskReview ->
+                                        if (taskReview.isSuccessful) {
+                                            manager.launchReviewFlow(activity, taskReview.result)
+                                        } else {
+                                            val pkg = context.packageName
+                                            try {
+                                                context.startActivity(
+                                                    Intent(
+                                                        Intent.ACTION_VIEW,
+                                                        "market://details?id=$pkg".toUri()
+                                                    )
+                                                )
+                                            } catch (e: android.content.ActivityNotFoundException) {
+                                                context.startActivity(
+                                                    Intent(
+                                                        Intent.ACTION_VIEW,
+                                                        "https://play.google.com/store/apps/details?id=$pkg".toUri()
+                                                    )
+                                                )
+                                            }
                                         }
                                     }
                                 }
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth().bounceClick(rateInteractionSource),
-                        interactionSource = rateInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_rate_app))
-                    }
+                            },
+                            modifier = Modifier.fillMaxWidth().bounceClick(rateInteractionSource),
+                            interactionSource = rateInteractionSource
+                        ) {
+                            Text(stringResource(R.string.settings_rate_app))
+                        }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
 
-                    // Spenden Button
-                    val donateInteractionSource = remember { MutableInteractionSource() }
-                    Button(
-                        onClick = { showDonationDialog = true },
-                        modifier = Modifier.fillMaxWidth().bounceClick(donateInteractionSource),
-                        interactionSource = donateInteractionSource,
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
-                    ) {
-                        Icon(Icons.Default.Favorite, contentDescription = null, modifier = Modifier.size(18.dp))
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.settings_support_donate))
+                        // Spenden Button
+                        val donateInteractionSource = remember { MutableInteractionSource() }
+                        Button(
+                            onClick = { showDonationDialog = true },
+                            modifier = Modifier.fillMaxWidth().bounceClick(donateInteractionSource),
+                            interactionSource = donateInteractionSource,
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                        ) {
+                            Icon(
+                                Icons.Default.Favorite,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(R.string.settings_support_donate))
+                        }
                     }
                 }
             }
