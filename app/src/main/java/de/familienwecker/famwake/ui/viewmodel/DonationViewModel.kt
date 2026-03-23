@@ -26,13 +26,18 @@ class DonationViewModel : ViewModel() {
         fetchOfferings()
     }
 
-    private fun fetchOfferings() {
+    fun fetchOfferings() {
+        android.util.Log.d("FamWakeDonation", "Fetching offerings from RevenueCat...")
         Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
             override fun onReceived(offerings: Offerings) {
+                android.util.Log.d("FamWakeDonation", "Offerings received: ${offerings.all.keys}")
                 _offerings.value = offerings
+                if (offerings.current == null) {
+                    android.util.Log.w("FamWakeDonation", "Warning: No 'current' offering set in RevenueCat dashboard!")
+                }
             }
             override fun onError(error: PurchasesError) {
-                // Silently ignore or log error
+                android.util.Log.e("FamWakeDonation", "Error fetching offerings: ${error.message} (${error.code})")
             }
         })
     }

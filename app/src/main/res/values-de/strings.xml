@@ -291,4 +291,7 @@
     <string name="settings_donate_pizza">🍕 Pizza (10 €)</string>
     <string name="settings_donate_success">Vielen Dank für deine Unterstützung! ❤️</string>
     <string name="settings_donate_error">Ups, da ist etwas schief gelaufen.</string>
+    <string name="settings_donate_loading">Lade Angebote…</string>
+    <string name="settings_donate_no_offers">Keine Angebote verfügbar. Bitte prüfe dein RevenueCat-Dashboard.</string>
+    <string name="settings_donate_refresh">Aktualisieren</string>
 </resources>
