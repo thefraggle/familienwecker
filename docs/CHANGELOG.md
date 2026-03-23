@@ -4,6 +4,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.1 - 2026-03-23
+
+### Neu
+- **Support-Bereich für alle:** Die Option, die App zu unterstützen oder zu bewerten, ist nun für alle Nutzer in den Einstellungen sichtbar.
+
+### Optimiert
+- **Spenden-Dialog:** Aktualisierte Tier-Preise (1,79€, 4,79€, 9,49€) und verbesserte Lade-Anzeigen während der Kaufabwicklung.
+- **Vollständige Lokalisation:** Alle Spenden-Texte und Status-Meldungen sind nun in Deutsch, Englisch, Französisch, Italienisch und Spanisch verfügbar.
+- **Play Store Release-Prozess:** Optimierte Bereitstellung der Versionshinweise für eine schnellere Veröffentlichung.
+
 ## 1.6.0 - 2026-03-23
 
 ### Neu

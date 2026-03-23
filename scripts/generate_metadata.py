@@ -44,32 +44,13 @@ def get_version_code(aab_path):
     return None
 
 def main():
-    # We no longer strictly need the version_code for whatsnew-<track> files,
-    # so we skip the aapt2 check to avoid environment-specific failures.
-    
-    # Cleanup old fastlane structure if it exists to avoid confusion
-    base_dir = 'android/fastlane/metadata/android'
-    if os.path.exists(base_dir):
-        for locale in os.listdir(base_dir):
-            changelog_dir = os.path.join(base_dir, locale, 'changelogs')
-            if os.path.isdir(changelog_dir):
-                import shutil
-                shutil.rmtree(changelog_dir)
-                print(f"Cleaned up legacy directory: {changelog_dir}")
-
-    # Target locales that are definitely in the 5 languages mentioned by user
-    # We will create both the Short (de) and Long (de-DE) directory versions
+    # Target locales mentioned by user
     target_locales = {
         'de-DE': 'docs/CHANGELOG.md',
         'en-US': 'docs/CHANGELOG.en.md',
         'fr-FR': None,
         'it-IT': None,
-        'es-ES': None,
-        'de': 'docs/CHANGELOG.md',
-        'en': 'docs/CHANGELOG.en.md',
-        'fr': None,
-        'it': None,
-        'es': None
+        'es-ES': None
     }
     
     changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or "Maintenance update and performance optimizations."
@@ -82,19 +63,16 @@ def main():
     except Exception as e:
         print(f"googletrans setup failed: {e}")
 
-    track_name = "FamWake"
+    # New base directory for all metadata as requested by user
+    dest_dir = 'release-notes'
+    if os.path.exists(dest_dir):
+        import shutil
+        shutil.rmtree(dest_dir)
+    os.makedirs(dest_dir, exist_ok=True)
 
     for locale, changelog_path in target_locales.items():
-        # New base directory for all metadata
-        dest_dir = f'android/metadata/{locale}'
-        os.makedirs(dest_dir, exist_ok=True)
-        
-        # Multiple naming variants to be absolutely sure the GH Action finds them
-        dest_files = [
-            f'{dest_dir}/whatsnew-{track_name}',         # whatsnew-FamWake
-            f'{dest_dir}/whatsnew-{track_name.lower()}', # whatsnew-famwake
-            f'{dest_dir}/whatsnew'                       # whatsnew
-        ]
+        # Flat naming convention: whatsnew-<locale>
+        dest_file = f'{dest_dir}/whatsnew-{locale}'
         
         content = ""
         if changelog_path:
@@ -123,14 +101,12 @@ def main():
             # Sanitize: remove double dots if they were generated
             content = content.replace("..", ".")
                 
-            # Write to ALL possible locations to be absolutely sure
-            for df in dest_files:
-                with open(df, 'w', encoding='utf-8') as f:
-                    f.write(content)
+            with open(dest_file, 'w', encoding='utf-8') as f:
+                f.write(content)
             
             print(f"--- META FOR {locale} ({len(content)} chars) ---")
             print(content)
-            print(f"Paths: {', '.join(dest_files)}")
+            print(f"Path: {dest_file}")
 
 if __name__ == "__main__":
     main()
