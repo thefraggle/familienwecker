@@ -7,12 +7,14 @@ import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
 import com.revenuecat.purchases.models.StoreTransaction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import de.familienwecker.famwake.ui.util.UiText
+import de.familienwecker.famwake.R
 
 sealed class PurchaseState {
     object Idle : PurchaseState()
     object Loading : PurchaseState()
     object Success : PurchaseState()
-    data class Error(val message: String) : PurchaseState()
+    data class Error(val uiText: UiText) : PurchaseState()
 }
 
 class DonationViewModel : ViewModel() {
@@ -28,7 +30,7 @@ class DonationViewModel : ViewModel() {
             fetchOfferings()
         } catch (e: Exception) {
             android.util.Log.e("FamWakeDonation", "Exception in init: ${e.message}")
-            _purchaseState.value = PurchaseState.Error("RevenueCat not ready")
+            _purchaseState.value = PurchaseState.Error(UiText.DynamicString("RevenueCat not ready"))
         }
     }
 
@@ -45,12 +47,13 @@ class DonationViewModel : ViewModel() {
                 }
                 override fun onError(error: PurchasesError) {
                     android.util.Log.e("FamWakeDonation", "Error fetching offerings: ${error.message} (Underlying: ${error.underlyingErrorMessage})")
-                    _purchaseState.value = PurchaseState.Error("${error.message} ${error.underlyingErrorMessage ?: ""}")
+                    val errorMsg = "${error.message} ${error.underlyingErrorMessage ?: ""}"
+                    _purchaseState.value = PurchaseState.Error(UiText.DynamicString(errorMsg))
                 }
             })
         } catch (e: Exception) {
             android.util.Log.e("FamWakeDonation", "Purchases.sharedInstance access failed: ${e.message}")
-            _purchaseState.value = PurchaseState.Error("RevenueCat not configured")
+            _purchaseState.value = PurchaseState.Error(UiText.DynamicString("RevenueCat not configured"))
         }
     }
 
@@ -65,7 +68,19 @@ class DonationViewModel : ViewModel() {
                 }
                 override fun onError(error: PurchasesError, userCancelled: Boolean) {
                     if (!userCancelled) {
-                        _purchaseState.value = PurchaseState.Error(error.message)
+                        val uiText = when (error.code) {
+                            PurchasesErrorCode.PurchaseNotAllowedError -> 
+                                UiText.StringResource(R.string.settings_donate_error_not_allowed)
+                            PurchasesErrorCode.StoreProblemError -> 
+                                UiText.StringResource(R.string.settings_donate_error_store_problem)
+                            PurchasesErrorCode.ProductAlreadyPurchasedError -> 
+                                UiText.StringResource(R.string.settings_donate_error_already_purchased)
+                            PurchasesErrorCode.PurchaseInvalidError -> 
+                                UiText.StringResource(R.string.settings_donate_error_invalid)
+                            else -> 
+                                UiText.StringResource(R.string.settings_donate_error_generic)
+                        }
+                        _purchaseState.value = PurchaseState.Error(uiText)
                     } else {
                         _purchaseState.value = PurchaseState.Idle
                     }

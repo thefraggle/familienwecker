@@ -286,13 +286,15 @@
     <string name="settings_support_title">Unterstütze die App</string>
     <string name="settings_support_desc">Gefällt dir die App? Wir freuen uns riesig über deine Unterstützung!</string>
     <string name="settings_support_donate">Spenden</string>
-    <string name="settings_donate_coffee">☕️ Kaffee (1,79 €)</string>
-    <string name="settings_donate_snack">🥪 Snack (4,79 €)</string>
-    <string name="settings_donate_pizza">🍕 Pizza (9,49 €)</string>
     <string name="settings_donate_success">Vielen Dank für deine Unterstützung! ❤️</string>
     <string name="settings_donate_error">Ups, da ist etwas schief gelaufen.</string>
     <string name="settings_donate_loading">Lade Angebote…</string>
     <string name="settings_donate_no_offers">Keine Angebote verfügbar. Bitte prüfe dein RevenueCat-Dashboard.</string>
     <string name="settings_donate_refresh">Aktualisieren</string>
     <string name="settings_donate_purchase_loading">Spende wird verarbeitet…</string>
+    <string name="settings_donate_error_not_allowed">Käufe sind auf diesem Gerät nicht erlaubt.</string>
+    <string name="settings_donate_error_store_problem">Es gab ein Problem mit dem Google Play Store.</string>
+    <string name="settings_donate_error_already_purchased">Dieses Produkt wurde bereits gekauft.</string>
+    <string name="settings_donate_error_invalid">Der Kauf war ungültig.</string>
+    <string name="settings_donate_error_generic">Ein Fehler ist bei der Spende aufgetreten.</string>
 </resources>
