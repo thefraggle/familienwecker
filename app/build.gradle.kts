@@ -39,6 +39,7 @@ android {
             localProperties.load(localPropertiesFile.inputStream())
         }
         val googleClientId = localProperties.getProperty("DEFAULT_WEB_CLIENT_ID") ?: ""
+        val revenueCatKey = localProperties.getProperty("REVENUECAT_PUBLIC_API_KEY") ?: ""
         
         // Only add resValue if it's not already provided by google-services.json
         val googleServicesFile = rootProject.file("app/google-services.json")
@@ -48,6 +49,7 @@ android {
 
         buildConfigField("String", "COMMIT_HASH", "\"${commitHash}\"")
         buildConfigField("String", "COMMIT_DATE", "\"${commitDate}\"")
+        buildConfigField("String", "REVENUECAT_PUBLIC_API_KEY", "\"${revenueCatKey}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
