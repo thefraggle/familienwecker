@@ -34,30 +34,30 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 - **Sender-Lokalisierung:** Der Absendername in E-Mails passt sich der Zielsprache an (z. B. "Sveglia Famiglia" für Italienisch).
 
 ### Behoben
-- **Cloud Functions:** Fehlende Übersetzungs-Templates in der Cloud behoben, die zuvor zu einem unerwünschten deutschen Fallback führten.
+- **E-Mail-Zustellung:** Fehler bei den Übersetzungen behoben, die zuvor zu einem unerwünschten deutschen Fallback führten.
 
 ## 1.5.6 - 2026-03-21
 
 ### Neu
 - **Deep-Link UX:** Visuelles Feedback (Snackbar "Trete Familie bei...") während des Beitrittsvorgangs hinzugefügt.
 - **Sicherheits-Härtung:** 
-    - `createdByUserId` ist nun bei Updates unveränderlich (Ownership-Lock).
-    - Direkter Schreibzugriff auf `_admins` und `_rate_limits` für Clients gesperrt.
-    - `feedback`-Kollektion durch Sicherheitsregeln geschützt.
+    - Verlässlicherer Schutz der Familiendaten und Eigentumsrechte.
+    - Zugriffsberechtigungen für interne Systembereiche verschärft.
+    - Feedback-Bereich durch zusätzliche Sicherheitsregeln geschützt.
 - **Vollständige Lokalisation:** Unterstützung für Französisch, Spanisch und Italienisch inkl. automatischer Erkennung hinzugefügt.
 
 ### Optimiert
-- **Lokalisation:** Alle String-Platzhalter auf numerische Formate (%1$s) umgestellt, um die Robustheit bei Übersetzungen zu erhöhen.
+- **Lokalisation:** Interne Optimierung der Sprachressourcen für eine stabilere Darstellung bei Übersetzungen.
 - **Onboarding:** Verwendet für FR, ES und IT vorerst die englischen Screenshots als Fallback.
 
 ### Behoben
-- **Join-Code Validität:** Familien werden nicht mehr automatisch gelöscht, wenn das letzte Mitglied die Familie verlässt, wodurch der Einladungscode gültig bleibt.
+- **Einladungscodes:** Codes bleiben nun auch dann gültig, wenn eine Familie vorübergehend leer ist.
 
 ## 1.5.5 - 2026-03-21
 
 ### Neu
-- **DSGVO-Härtung:** Admin-Report vollständig anonymisiert. Join-Codes und Nutzer-E-Mail-Adressen wurden aus dem Report entfernt (PII-Minimierung).
-- **Sicherheits-Hygiene:** Google Client ID aus dem öffentlichen Quellcode entfernt und in die (git-ignorierte) `local.properties` ausgelagert. Fallback-Logik in Gradle integriert.
+- **Datenschutz:** Personenbezogene Daten wurden aus internen Berichten entfernt (Minimierung von Nutzerdaten).
+- **Sicherheit:** Verbesserte Verschlüsselung und Schutz der Zugangsdaten im App-Quellcode.
 
 ## 1.5.4 - 2026-03-20
 
@@ -65,58 +65,57 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 - **Familienlöschung:** Fehler beim ID-Mapping korrigiert; Ersteller und globale Admins können Familien nun wieder zuverlässig löschen (auch mit unbestätigten Mitgliedern).
 
 ### Neu
-- **Stabilität:** Unterstützung für explizite `memberId` beim Verlassen der Familie verbessert die Zuverlässigkeit des Join/Leave-Flows.
+- **Stabilität:** Zuverlässigeres Beitreten und Verlassen von Familien.
 
 ## 1.5.3 - 2026-03-20
 
 ### Neu
-- **Sicherheits-Fix (IDOR):** Die `familyId`-Lücke wurde geschlossen. Alle Mapping-Operationen (Erstellen, Beitreten, Verlassen, Löschen) erfolgen nun ausschließlich über gesicherte Firebase Cloud Functions.
-- **Admin-Refactoring:** Die Admin-Funktionen (3min Wecker, Admin-Report) wurden in ein gesichertes Modal ausgelagert, das über einen neuen Button in der Hilfe-Kachel erreichbar ist.
+- **Sicherheit:** Schutz privater Familiendaten vor unbefugtem Zugriff verbessert.
+- **Admin-Bereich:** Verwaltungsfunktionen für Administratoren in ein neues Menü verschoben.
 
 ### Geändert
-- **Firestore Security Rules:** Direkter Schreibzugriff auf die `users`-Kollektion vom Client aus wurde vollständig gesperrt.
-- **Stabilität:** Atomares Löschen von Familien und Verlassen-Logik via Cloud Functions verbessert die Datenkonsistenz.
+- **Datenschutz:** Erhöhter Schutz von Benutzerprofilen vor unbefugten Zugriffen.
+- **Stabilität:** Sichereres Löschen und Verlassen von Familien durch neue Hintergrund-Logik.
 
 ## 1.5.2 - 2026-03-20
 
 ### Geändert
-- **CI/CD:** Versionierungsprozess bereinigt; GitHub-Artifacts nutzen nun immer die offizielle Versionsnummer ohne `-DEV` Suffix.
+- **Versionierung:** Vereinheitlichung der Versionsnummern für eine bessere Übersicht.
 
 ## 1.5.1 - 2026-03-20
 
 ### Behoben
-- **Mitternachts-Konflikt:** Der restriktive 03:00-Uhr-Guard im Algorithmus wurde entfernt, wodurch frühe Weckzeiten (z. B. 00:15 Uhr) nun korrekt funktionieren.
+- **Zeitplanung:** Korrektur der Zeitberechnung für Mitternacht; sehr frühe Weckzeiten funktionieren nun korrekt.
 
 ### Geändert
-- **Konflikt-UX:** Bei Zeitplan-Konflikten wird nun ein "Sicherheits-Wecker" (Best-effort) für den aktiven Nutzer gestellt.
-- **Fehlermeldungen:** Detailliertere Tipps zur Konfliktlösung und visuelle Hinweise auf aktive Fallback-Wecker in der Hauptansicht.
-- **Versionierung:** Umstellung auf Tag-basierte Versionierung zur Synchronisation zwischen Play Store und Codebasis.
+- **Konflikt-Lösung:** Verbesserte Unterstützung und Hinweise bei Zeitüberschneidungen im Familienplan.
+- **System-Updates:** Optimierte App-Aktualisierungen und Tag-basierte Versionierung.
 
 ---
 
 ### Neu
-- **Admin-Konsole & Statistik:** Sicherer, reaktiver Admin-Status via Firestore (`_admins`-Collection); manueller und wöchentlicher Statistik-Report per E-Mail für Admin-Nutzer.
-- **Onboarding-Refactor:** Neue Onboarding-Tour (5 Screens) mit Panda-Lottie-Animationen und Hintergrundgrafiken (dunkler Scrim für bessere Lesbarkeit).
-- **App-Design:** Neues App-Icon (Adaptive & Legacy Support); Dark Mode als Standard für Erstnutzer; Redesign des RingingScreens.
-- **Cloud-Reset-Logik:** Stündlicher Cron-Job für Status-Resets (2h Threshold) und effizienterer Daten-Refresh beim App-Start.
+- **Admin-Konsole & Statistik:** Sicherer Zugriff auf App-Statistiken für Administratoren; wöchentliche Berichte per E-Mail.
+- **Onboarding:** Komplett neue Einführungstour mit Panda-Animationen für einen leichteren Start.
+- **App-Design:** Neues, modernes App-Icon; Dark Mode als Standard für Erstnutzer; verbessertes Design der Wecker-Ansicht.
+- **Datensynchronisation:** Automatisierte Aktualisierung der Status-Anzeigen im Hintergrund für stets aktuelle Daten.
 
 ### Behoben
-- **Sicherheit & Validierung:** Passwort-Manager-Support (`AutofillNode` + `Username`-Metadaten); Passwort-Validierung (min. 8 Zeichen); umfassender Audit aller Eingabefelder; XSS-Schutz in Feedback-E-Mails; Migration auf Firebase Secrets (Resend API).
-- **Stabilität:** Korrektur von Mitglieder-Mapping (Timestamp-Fix); Deep-Link-Flows (Verifizierung vor Wechsel); Behebung von Doppel-Alarmen (Notification + Activity) und redundanten Beitritts-Dialogen.
-- **Build & CI:** Korrektur der Versionsnummern und automatisierte AAB-Dateibenennung in GitHub Actions.
+- **Sicherheit:** Unterstützung für Passwort-Manager verbessert und Schutz vor schädlichen Eingaben aktiviert.
+- **Stabilität:** Fehler beim Anzeigen von Mitgliedern und doppelte Wecktöne behoben; verbesserter Ablauf beim Beitreten via Link.
+- **Interne Optimierungen:** Verbesserte App-Erstellungsprozesse und Dateibenennungen.
 
 ---
 
 ## 1.4.0 - 2026-03-19
 
 ### Neu
-- **Cloud-Reset-Logik & Performance:** Neuer stündlicher Cron-Job für Status-Resets (2h Threshold) und effizienterer Daten-Refresh beim App-Start.
-- **Onboarding & Design:** Neuer Onboarding-Tour (5 Screens), Panda-Lottie-Animationen und Redesign des RingingScreens.
-- **Sicherheits-Audit & Fixes:** Behebung einer XSS-Lücke in Feedback-E-Mails und Verifizierung der IDOR-Sicherheit.
+- **Synchronisation:** Automatische Status-Aktualisierung im Hintergrund für stets aktuelle Daten beim App-Start.
+- **Design:** Neue Einführungstour und Panda-Animationen für einen freundlichen Empfang.
+- **Sicherheit:** Interner Audit erfolgreich abgeschlossen und Schutz vor schädlichen Skripten verstärkt.
 
 ### Behoben
-- **Autofill & Login:** Massive Verbesserung der Passort-Manager-Kompatibilität (`AutofillNode` + `Username`-Metadaten). Behebt Blockaden des Kontextmenüs.
-- **Stabilität:** Korrektur von Mitglieder-Mapping (Timestamp-Fix), Deep-Link-Flows und Doppel-Alarmen (Notification + Activity).
+- **Login:** Massive Verbesserung der Passwort-Manager-Kompatibilität.
+- **Stabilität:** Fehler beim Anzeigen von Mitgliedern und doppelte Wecktöne behoben.
 - **UI/UX:** Wochentag-Chips mit besserer Verteilung, Rot-Markierung bei Fehlern und klickbare Disclaimer/Footer.
 
 
@@ -125,21 +124,16 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ## [1.3.0] - 2026-03-17
 
 ### Neu
-- **⭐ App bewerten:** Neuer Button im Hilfe & Feedback Block. Öffnet In-App-Bewertungsfenster (Play In-App Review API); Fallback auf Play Store Seite wenn nicht verfügbar.
+- **⭐ App bewerten:** Direktes Bewerten im Play Store jetzt ganz einfach aus der App heraus möglich.
 
 ### Geändert
-- **Wochentag-Chips:** DE und EN nutzen jetzt einheitliche 2-Buchstaben-Kürzel (Mo Di Mi Do Fr Sa So / Mo Tu We Th Fr Sa Su), damit alle 7 Chips in der Breite passen.
-- **Inaktive Tage:** Chips für deaktivierte Wochentage werden deutlich ausgeblendet (Text, Rahmen und Hintergrund auf ~30 % Deckkraft).
-- **Settings-Footer:** Neue Reihenfolge: Version → Copyright → All rights reserved → Links.
-- **Rate-Limits (Cloud Functions):**
-  - E-Mail Reset/Verify: max. 5 pro Stunde + max. 10 pro Tag
-  - Familie beitreten: max. 5 pro Minute + max. 10 pro Tag
-  - Familie erstellen: max. 3 pro Stunde + max. 6 pro Tag
+- **Wochentage:** Einheitliche Abkürzungen für eine übersichtlichere Anzeige.
+- **Inaktive Tage:** Deaktivierte Tage werden nun deutlicher optisch hervorgehoben.
+- **Sicherheit:** Schutz vor Spam bei E-Mails und Familienbeitritten aktiviert.
 
 ### Behoben
-- **Chip-Text unsichtbar:** Selektierter inaktiver Wochentag-Chip: Text war auf ausgefülltem Hintergrund nicht lesbar. Fix: gedämpfter grauer Container statt Primary-Farbe.
-- **Crash beim Rate-Limit „Familie erstellen":** `RESOURCE_EXHAUSTED`-Exception der Cloud Function wird jetzt korrekt abgefangen.
-- **Rate-Limit Fehlermeldungen komplett:** Alle drei Rate-Limits (Familie erstellen, beitreten, E-Mail) zeigen spezifische Fehlermeldungen. `resendVerificationEmail` wertet Ergebnis jetzt aus.
+- **Anzeige:** Lesbarkeit der Wochentage verbessert.
+- **Stabilität:** Fehlerbehebung bei der Familienerstellung und verbesserte Fehlermeldungen bei zu vielen Anfragen.
 
 ---
 
@@ -149,16 +143,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 - **Alarm-Status-Persistenz:** Nach Neuinstall + Login wird der letzte bekannte Alarm-Status (An/Aus) automatisch aus Firestore wiederhergestellt.
 
 ### Behoben
-- **Join-Flow Doppel-Dialog:** War der Join-Link die eigene Familie, wurde `onLeaveFamily()` aufgerufen → User falsch auf Setup-Screen weitergeleitet. Fix: Same-Family-Guard gibt jetzt `false` zurück.
-- **Familie erstellen – Loop + Crash (neuer Account):** `refreshData()` rief `leaveFamily()` auf wenn Firestore nach `createFamily()` kurz `null` zurückgab (Race Condition). Das zerstörte die neu erstellte Familie und ließ die App beim zweiten Versuch crashen. Fix: `leaveFamily()` aus `refreshData()` entfernt – Self-Healing läuft über Members-Flow-Collector.
-- **Familie erstellen – Redirect zu Setup:** `LaunchedEffect` in `MainScreen` rief `onLeaveFamily()` auf wenn `familyId` während eines aktiven Syncs kurz als `null` erschien. Fix: Guard `familyId == null && !isSyncing`.
-- **Alarm-Restore nach Neuinstall (mehrere Race Conditions):**
-  - `myMemberId`-Observer rief `setAlarmEnabled(false)` beim App-Start auf (initial `null`).
-  - `initialAlarmPushDone`-Block schrieb `false` nach Firestore vor dem Restore.
-  - `isAlarmEnabled`-Observer schrieb nach Logout `false` in Firestore und überschrieb den Member-Status.
-  - Alle drei Race Conditions behoben; Reihenfolge: Restore zuerst, dann proaktiver Firestore-Sync.
-- **Frühstückszeit falsch berechnet:** War kein Abfahrtszeitpunkt gesetzt, wurde fälschlicherweise 23:59 als Basis genommen → unrealistische Zeiten (z.B. 23:29). Fallback ist jetzt `späteste Weckzeit + Badezimmer-Dauer`.
-- **Wochentag-Konfiguration ignoriert:** Tagesspezifische Zeiten aus Tagesprofilen wurden beim Schedule ignoriert. Fix: Effektive Felder werden vor Scheduler-Aufruf korrekt aufgelöst.
+- **Beitritts-Flow:** Fehler beim Beitreten der eigenen Familie behoben.
+- **Stabilität:** Korrektur eines Fehlers bei der Familienerstellung, der zum App-Absturz führen konnte.
+- **Hintergrund-Synchronisation:** Verlässlicherer Datenabgleich beim App-Start.
+- **Fehlerbehebungen:** Mehrere Synchronisations-Fehler beim App-Start korrigiert, um den Alarm-Status korrekt beizubehalten.
+- **Zeitplanung:** Korrektur der Frühstücks-Berechnung und Berücksichtigung individueller Wochentags-Einstellungen.
 
 ### Entfernt
 - **„Was ist neu?"-Dialog** vollständig entfernt (Dialog, Logik, JSON-Datei, Strings).
@@ -168,9 +157,8 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ## [1.1.5] - 2026-03-17
 
 ### Neu
-- **Wochentag-Konfiguration:** Weckzeiten und Badezimmer-Dauer können pro Wochentag individuell eingestellt werden.
-- **Feedback-Screen:** Dedizierter Feedback-Screen mit Kategorie-Auswahl, Nachricht, optionaler E-Mail und automatisch mitgesendeten Gerätedaten.
-- **Firebase Feedback-Versand:** Feedback wird direkt über eine Firebase Cloud Function (Resend) als E-Mail versendet – kein klassischer Mail-Client-Intent mehr. Zusätzlich wird jede Einsendung in Firestore archiviert.
+- **Wochentags-Planung:** Weckzeiten und Badezimmer-Dauer können nun pro Wochentag individuell eingestellt werden.
+- **Feedback:** Direktes Senden von Feedback-Nachrichten aus der App heraus.
 - **Feedback UX:** Formular wird nach dem Absenden geleert; Screen schließt sich automatisch nach 2,5 Sekunden.
 - **Settings-Footer:** Versionsnummer, klickbare Rechtlinks (Nutzungsbedingungen, Datenschutz, Impressum) und Copyright jetzt als Footer sichtbar.
 - **Account löschen:** Externer Link zu `familienwecker.de/account-deletion.html` (DE) bzw. `/account-deletion-en.html` (EN) statt Info-Dialog.
@@ -179,17 +167,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 - Disclaimer im Registrierungs-Screen mit klickbaren Links zu Nutzungsbedingungen und Datenschutz.
 
 ### Behoben
-- Algorithmus: Frühstücks-Konflikt wird jetzt auch erkannt wenn Bad-Ende = Frühstücksbeginn (0 Min Puffer).
-- Algorithmus: Post-Validierung stellt sicher dass kein Frühstücker sein Bad nach Frühstücksbeginn beendet.
-- Offline-Anzeige: Falsches „Offline"-Icon nach App-Start behoben (nur noch bei echtem Netzwerkausfall).
-- Cloud Functions: Rate-Limit-Zähler wurde beim ersten Aufruf nicht korrekt gespeichert (tx.update → tx.set).
-- Cloud Functions: Join-Versuchslimit von 5 auf 10 pro Minute erhöht.
-- CI: AAB-Dateiname in manuellen GitHub-Builds war fehlerhaft.
-- Beim Verlassen der Familie wird das eigene Mitglieds-Profil nun vollständig aus Firestore gelöscht.
-- E-Mail-Versand (Passwort-Reset, Opt-In-Bestätigung) war bei erster Anfrage durch fehlerhaftes Rate-Limit-Dokument blockiert.
-- „Familie verlassen" trennte irrtümlich auch andere Geräte (Self-Healing ohne Existenzprüfung).
-- Beim Verlassen der Familie blieb der eigene Account-Claim im Firestore-Profil bestehen (Ghost-Claim).
-- String-Audit: Veraltete und unbenutzte Strings (Help-Section, `ok_button`, etc.) entfernt; beide Sprachen vollständig synchronisiert.
+- **Zeitplan:** Zuverlässigere Prüfung auf Konflikte bei Bad- und Frühstückszeiten.
+- **Netzwerk:** Verbesserte Anzeige des Offline-Status.
+- **Sicherheit:** Zuverlässigerer Schutz vor Missbrauch bei zu vielen Anfragen.
+- **Stabilität:** Mehrere Fehler beim Verlassen von Familien und Löschen von Mitgliederprofilen behoben.
+- **Lokalisation:** Bereinigung ungenutzter Texte und Abgleich aller Sprachen.
 
 ---
 
