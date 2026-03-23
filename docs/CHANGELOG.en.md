@@ -4,6 +4,16 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.1 - 2026-03-23
+
+### New
+- **Support for everyone:** The option to support or rate the app is now visible to all users in the settings.
+
+### Optimized
+- **Donation Dialog:** Updated tier prices (1.79€, 4.79€, 9.49€) and improved loading indicators during checkout.
+- **Full Localization:** All donation texts and status messages are now available in German, English, French, Italian, and Spanish.
+- **Play Store Release Process:** Optimized delivery of release notes for faster publication.
+
 ## 1.6.0 - 2026-03-23
 
 ### New

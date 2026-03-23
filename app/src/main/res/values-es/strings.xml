@@ -286,9 +286,13 @@
     <string name="settings_support_title">Apoyar la aplicación</string>
     <string name="settings_support_desc">¿Te gusta la aplicación? ¡Nos encantaría tu apoyo!</string>
     <string name="settings_support_donate">Donar</string>
-    <string name="settings_donate_coffee">☕️ Café (2 €)</string>
-    <string name="settings_donate_snack">🥪 Snack (5 €)</string>
-    <string name="settings_donate_pizza">🍕 Pizza (10 €)</string>
+    <string name="settings_donate_coffee">☕️ Café (1,79 €)</string>
+    <string name="settings_donate_snack">🥪 Snack (4,79 €)</string>
+    <string name="settings_donate_pizza">🍕 Pizza (9,49 €)</string>
     <string name="settings_donate_success">¡Muchas gracias por tu apoyo! ❤️</string>
     <string name="settings_donate_error">Vaya, algo salió mal.</string>
+    <string name="settings_donate_loading">Cargando ofertas…</string>
+    <string name="settings_donate_no_offers">No hay ofertas disponibles. Por favor, comprueba tu panel de RevenueCat.</string>
+    <string name="settings_donate_refresh">Actualizar</string>
+    <string name="settings_donate_purchase_loading">Procesando donación…</string>
 </resources>
