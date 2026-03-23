@@ -7,12 +7,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## 1.5.11 - 2026-03-23
     
 ### Optimized
-- **CI/CD Optimizations:** Improved reliability for automated build processes.
+- **Reliability:** Internal optimizations for a more stable app performance.
 
 ## 1.5.10 - 2026-03-23
     
 ### Optimized
-- **Internal Optimizations:** Background improvements to reliability and security for feature preparations.
+- **Stability:** Bug fixes and background improvements for better reliability.
 
 ## 1.5.9 - 2026-03-23
     
@@ -22,10 +22,9 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## 1.5.8 - 2026-03-22
 
 ### Optimized
-- **Resources:** Removed unused strings and colors; moved onboarding images to `drawable-nodpi`.
-- **Dependencies:** Upgraded AndroidX/Firebase libraries and migrated to `libs.versions.toml`. Increased `compileSdk` to 36.
-- **Codebase:** Migrated from `Uri.parse` to `toUri()` and removed obsolete Android SDK checks.
-- **Localization:** Added missing locales (`es`, `fr`, `it`) to `locales_config.xml`.
+- **Performance:** Optimized resources for a smoother user experience.
+- **System Updates:** Updated to the latest Android standards for maximum compatibility.
+- **Localization:** Completed support for Spanish, French, and Italian.
 
 ## 1.5.7 - 2026-03-21
 
