@@ -62,9 +62,7 @@ def main():
         'en-US': 'docs/CHANGELOG.en.md',
         'fr-FR': None,
         'it-IT': None,
-        'es-ES': None,
-        'pl-PL': None,
-        'nl-NL': None
+        'es-ES': None
     }
     changelog_de = get_latest_changelog('docs/CHANGELOG.md') or ""
     changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or ""
@@ -84,10 +82,14 @@ def main():
         dest_dir = f'android/fastlane/metadata/android/{locale}'
         os.makedirs(dest_dir, exist_ok=True)
         
-        # Primary file for the specific track
-        dest_file_track = f'{dest_dir}/whatsnew-{track_name}'
-        # Fallback file
-        dest_file_default = f'{dest_dir}/default.txt'
+        # Multiple naming variants to be absolutely sure the GH Action finds them
+        dest_files = [
+            f'{dest_dir}/whatsnew-{track_name}',         # Original (whatsnew-FamWake)
+            f'{dest_dir}/whatsnew-{track_name.lower()}', # Lowercase (whatsnew-famwake)
+            f'{dest_dir}/whatsnew',                      # Standard (whatsnew)
+            f'{dest_dir}/default.txt',                   # Fallback txt
+            f'{dest_dir}/default'                        # Fallback no-extension
+        ]
         
         content = ""
         if changelog_path:
@@ -105,11 +107,11 @@ def main():
                 except Exception as e:
                     print(f"Translation failed for {locale}: {e}")
             
-            # Final fallback to default.txt content if we have it
+            # Final fallback to existing default.txt content if we have it
             if not content:
-                # Try to find default.txt in the same dir
-                if os.path.exists(dest_file_default):
-                    with open(dest_file_default, 'r', encoding='utf-8') as f:
+                fallback_path = f'{dest_dir}/default.txt'
+                if os.path.exists(fallback_path):
+                    with open(fallback_path, 'r', encoding='utf-8') as f:
                         content = f.read().strip()
                 else:
                     content = changelog_en or "Maintenance update."
@@ -119,13 +121,12 @@ def main():
             if len(content) > 500:
                 content = content[:497] + "..."
                 
-            # Write to both possible locations to be absolutely sure
-            with open(dest_file_track, 'w', encoding='utf-8') as f:
-                f.write(content)
-            with open(dest_file_default, 'w', encoding='utf-8') as f:
-                f.write(content)
+            # Write to ALL possible locations to be absolutely sure
+            for df in dest_files:
+                with open(df, 'w', encoding='utf-8') as f:
+                    f.write(content)
             
-            print(f"Generated metadata for {locale} in {dest_dir}")
+            print(f"Generated metadata for {locale} in {dest_dir} (Files: {len(dest_files)})")
 
 if __name__ == "__main__":
     main()
