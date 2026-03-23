@@ -1,4 +1,4 @@
-# 🧪 Test Plan - FamWake (v1.5.8)
+# 🧪 Test Plan - FamWake (v1.5.12)
 
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 

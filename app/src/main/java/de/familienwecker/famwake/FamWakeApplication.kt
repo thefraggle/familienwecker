@@ -31,7 +31,7 @@ class FamWakeApplication : Application() {
             return
         }
         try {
-            com.revenuecat.purchases.Purchases.debugLogsEnabled = true
+            com.revenuecat.purchases.Purchases.debugLogsEnabled = BuildConfig.DEBUG
             com.revenuecat.purchases.Purchases.configure(
                 com.revenuecat.purchases.PurchasesConfiguration.Builder(
                     this,

@@ -5,15 +5,6 @@ on:
     tags:
       - v*
   workflow_dispatch:
-    inputs:
-      build_aab:
-        description: 'AAB bauen (für Play Store)'
-        required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -60,10 +51,9 @@ jobs:
         run: |
           echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
-          # Extract base version from build.gradle.kts (e.g. 1.5.2)
+          # Extract base version from build.gradle.kts
           GRADLE_VERSION=$(grep "val appVersion" app/build.gradle.kts | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/-DEV//')
           
-          # Version naming logic: Tag has priority
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             TAG_NAME="${{ github.ref_name }}"
             APP_VERSION="${TAG_NAME#v}"
@@ -72,26 +62,9 @@ jobs:
           fi
           echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
 
-          # Immer beides bauen (APK für GitHub, AAB für Play Store)
+          # Immer AAB für Play Store
           echo "build_aab=true" >> $GITHUB_OUTPUT
-          echo "build_apk=true" >> $GITHUB_OUTPUT
 
-          # Immer als offizielles Release (kein Pre-release)
-          echo "is_prerelease=false" >> $GITHUB_OUTPUT
-
-      # APK für alle Tag-Pushes (und manuell wenn kein AAB angefordert)
-      - name: Build APK
-        env:
-          REVENUECAT_PUBLIC_API_KEY: ${{ secrets.REVENUECAT_PUBLIC_API_KEY }}
-        run: |
-          ./gradlew assembleRelease \
-            --build-cache --parallel --configuration-cache \
-            -PversionName=${{ steps.metadata.outputs.app_version }} \
-            -PcommitHash=${{ steps.metadata.outputs.hash }} \
-            -PcommitDate="${{ steps.metadata.outputs.date }}" \
-            -Dorg.gradle.jvmargs="-Xmx4g"
-
-      # AAB nur bei manueller Anforderung
       - name: Build AAB (Store Release)
         env:
           REVENUECAT_PUBLIC_API_KEY: ${{ secrets.REVENUECAT_PUBLIC_API_KEY }}
@@ -113,20 +86,6 @@ jobs:
           BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
           echo "$BUILD_TOOLS_DIR" >> $GITHUB_PATH
 
-      - name: Sign APK
-        env:
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-        run: |
-          APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
-          zipalign -v 4 "$APK_PATH" aligned.apk
-          apksigner sign --ks app/keystore.jks \
-            --ks-pass env:KEYSTORE_PASSWORD \
-            --key-pass env:KEY_PASSWORD \
-            --ks-key-alias "$KEY_ALIAS" \
-            --out FamWake-${{ github.ref_name }}-release.apk aligned.apk
-
       - name: Sign AAB
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -140,23 +99,26 @@ jobs:
             "$AAB_PATH" "$KEY_ALIAS"
           cp "$AAB_PATH" FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
 
-      # GitHub Release mit APK und AAB
+      # GitHub Release nur mit AAB
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            FamWake-${{ github.ref_name }}-release.apk
             FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
           name: Release ${{ github.ref_name }}
           body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
           prerelease: false
           make_latest: true
 
-      # AAB als Artefakt für manuellen Download (Backup)
-      - name: Upload AAB as Artifact
-        uses: actions/upload-artifact@v4
+      # Automatische Veröffentlichung in der Play Console
+      - name: Upload to Google Play
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: r0adkll/upload-google-play@v1
         with:
-          name: FamWake-v${{ steps.metadata.outputs.app_version }}-release
-          path: FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
-          retention-days: 14
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: de.familienwecker.famwake
+          releaseFiles: FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
+          track: alpha
+          status: completed
+          whatsNewDirectory: android/fastlane/metadata/android

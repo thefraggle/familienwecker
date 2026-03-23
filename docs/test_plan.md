@@ -1,4 +1,4 @@
-# 🧪 Testplan - FamWake (v1.5.11)
+# 🧪 Testplan - FamWake (v1.5.12)
 
 *[🇬🇧 English version](test_plan.en.md)*
 
