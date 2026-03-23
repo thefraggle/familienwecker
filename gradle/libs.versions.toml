@@ -24,6 +24,7 @@ kotlinxCollectionsImmutable = "0.4.0"
 kotlinxCoroutinesPlayServices = "1.10.2"
 lottieCompose = "6.7.1"
 playReviewKtx = "2.0.2"
+purchases = "8.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -60,6 +61,7 @@ androidx-compose-material-icons-extended = { group = "androidx.compose.material"
 kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesPlayServices" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
 play-review-ktx = { group = "com.google.android.play", name = "review-ktx", version.ref = "playReviewKtx" }
+revenuecat-purchases = { group = "com.revenuecat.purchases", name = "purchases", version.ref = "purchases" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

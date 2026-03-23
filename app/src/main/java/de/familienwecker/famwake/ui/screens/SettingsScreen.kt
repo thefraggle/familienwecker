@@ -49,11 +49,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import de.familienwecker.famwake.ui.components.TooltipBubble
 import androidx.core.net.toUri
+import de.familienwecker.famwake.ui.viewmodel.DonationViewModel
+import de.familienwecker.famwake.ui.viewmodel.PurchaseState
+import androidx.compose.material.icons.filled.Favorite
+import com.revenuecat.purchases.Package
+import com.revenuecat.purchases.Offerings
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     viewModel: FamilyViewModel,
+    donationViewModel: DonationViewModel = viewModel(),
     onNavigateBack: () -> Unit,
     onNavigateToFeedback: () -> Unit,
     onLogout: () -> Unit,
@@ -78,6 +85,10 @@ fun SettingsScreen(
     var themeExpanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showAdminDialog by remember { mutableStateOf(false) }
+    var showDonationDialog by remember { mutableStateOf(false) }
+    
+    val offerings by donationViewModel.offerings.collectAsStateWithLifecycle()
+    val purchaseState by donationViewModel.purchaseState.collectAsStateWithLifecycle()
     val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -113,6 +124,22 @@ fun SettingsScreen(
             val message = text.asString(context)
             snackbarHostState.showSnackbar(message)
             viewModel.clearError()
+        }
+    }
+
+    // Donation Feedback
+    LaunchedEffect(purchaseState) {
+        when (purchaseState) {
+            is PurchaseState.Success -> {
+                snackbarHostState.showSnackbar(context.getString(R.string.settings_donate_success))
+                showDonationDialog = false
+                donationViewModel.resetState()
+            }
+            is PurchaseState.Error -> {
+                snackbarHostState.showSnackbar((purchaseState as PurchaseState.Error).message)
+                donationViewModel.resetState()
+            }
+            else -> {}
         }
     }
     
@@ -719,6 +746,75 @@ fun SettingsScreen(
                 }
             }
 
+            // Support the App
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                     else MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Favorite, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.settings_support_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        stringResource(R.string.settings_support_desc),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // App bewerten (In-App Review API) - Hierher verschoben
+                    val rateInteractionSource = remember { MutableInteractionSource() }
+                    OutlinedButton(
+                        onClick = {
+                            val activity = context as? android.app.Activity
+                            if (activity != null) {
+                                val manager = com.google.android.play.core.review.ReviewManagerFactory.create(context)
+                                manager.requestReviewFlow().addOnCompleteListener { taskReview ->
+                                    if (taskReview.isSuccessful) {
+                                        manager.launchReviewFlow(activity, taskReview.result)
+                                    } else {
+                                        val pkg = context.packageName
+                                        try {
+                                            context.startActivity(Intent(Intent.ACTION_VIEW, "market://details?id=$pkg".toUri()))
+                                        } catch (e: android.content.ActivityNotFoundException) {
+                                            context.startActivity(Intent(Intent.ACTION_VIEW, "https://play.google.com/store/apps/details?id=$pkg".toUri()))
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth().bounceClick(rateInteractionSource),
+                        interactionSource = rateInteractionSource
+                    ) {
+                        Text(stringResource(R.string.settings_rate_app))
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Spenden Button
+                    val donateInteractionSource = remember { MutableInteractionSource() }
+                    Button(
+                        onClick = { showDonationDialog = true },
+                        modifier = Modifier.fillMaxWidth().bounceClick(donateInteractionSource),
+                        interactionSource = donateInteractionSource,
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                    ) {
+                        Icon(Icons.Default.Favorite, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.settings_support_donate))
+                    }
+                }
+            }
+
             // Hilfe & Feedback
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -781,34 +877,6 @@ fun SettingsScreen(
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
-
-                    // App bewerten (In-App Review API)
-                    val rateInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = {
-                            val activity = context as? android.app.Activity
-                            if (activity != null) {
-                                val manager = com.google.android.play.core.review.ReviewManagerFactory.create(context)
-                                manager.requestReviewFlow().addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        manager.launchReviewFlow(activity, task.result)
-                                    } else {
-                                        // Fallback: Play Store direkt öffnen
-                                        val pkg = context.packageName
-                                        try {
-                                            context.startActivity(Intent(Intent.ACTION_VIEW, "market://details?id=$pkg".toUri()))
-                                        } catch (e: android.content.ActivityNotFoundException) {
-                                            context.startActivity(Intent(Intent.ACTION_VIEW, "https://play.google.com/store/apps/details?id=$pkg".toUri()))
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth().bounceClick(rateInteractionSource),
-                        interactionSource = rateInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_rate_app))
-                    }
 
                     if (isGlobalAdmin) {
                         Spacer(modifier = Modifier.height(8.dp))
@@ -985,6 +1053,20 @@ fun SettingsScreen(
             }
         }
     }
+
+    if (showDonationDialog) {
+        val activity = context as? Activity
+        DonationDialog(
+            onDismiss = { showDonationDialog = false },
+            onDonate = { pkg ->
+                if (activity != null) {
+                    donationViewModel.purchasePackage(activity, pkg)
+                }
+            },
+            offerings = offerings,
+            purchaseState = purchaseState
+        )
+    }
 }
 }
 
@@ -1007,4 +1089,64 @@ fun HelpBulletPoint(emoji: String, text: String) {
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
+}
+
+@Composable
+fun DonationDialog(
+    onDismiss: () -> Unit,
+    onDonate: (Package) -> Unit,
+    offerings: Offerings?,
+    purchaseState: PurchaseState
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { 
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Default.Favorite, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.settings_support_donate))
+            }
+        },
+        text = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (purchaseState is PurchaseState.Loading) {
+                    CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+                    Text(stringResource(R.string.join_loading_text))
+                } else {
+                    val currentOffering = offerings?.current
+                    if (currentOffering != null) {
+                        currentOffering.availablePackages.forEach { pkg ->
+                            val label = when {
+                                pkg.identifier.contains("coffee", ignoreCase = true) -> stringResource(R.string.settings_donate_coffee)
+                                pkg.identifier.contains("snack", ignoreCase = true) -> stringResource(R.string.settings_donate_snack)
+                                pkg.identifier.contains("pizza", ignoreCase = true) -> stringResource(R.string.settings_donate_pizza)
+                                else -> pkg.product.title
+                            }
+                            
+                            val interactionSource = remember { MutableInteractionSource() }
+                            Button(
+                                onClick = { onDonate(pkg) },
+                                modifier = Modifier.fillMaxWidth().bounceClick(interactionSource),
+                                interactionSource = interactionSource,
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                            ) {
+                                Text(label)
+                            }
+                        }
+                    } else {
+                        Text(stringResource(R.string.join_loading_text))
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.cancel_button))
+            }
+        }
+    )
 }

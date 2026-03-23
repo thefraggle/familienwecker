@@ -22,5 +22,11 @@ class FamWakeApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        // Initialize RevenueCat
+        com.revenuecat.purchases.Purchases.debugLogsEnabled = true
+        com.revenuecat.purchases.Purchases.configure(
+            com.revenuecat.purchases.PurchasesConfiguration.Builder(this, "REVENUECAT_PUBLIC_API_KEY").build()
+        )
     }
 }

@@ -283,4 +283,12 @@
     <string name="settings_tooltips_reset">Alle Tipps zurücksetzen</string>
     <string name="error_invalid_credentials">Ungültige E-Mail oder Passwort. Bitte überprüfe deine Eingaben.</string>
     <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.</string>
+    <string name="settings_support_title">Unterstütze die App</string>
+    <string name="settings_support_desc">Gefällt dir die App? Wir freuen uns riesig über deine Unterstützung!</string>
+    <string name="settings_support_donate">Spenden</string>
+    <string name="settings_donate_coffee">☕️ Kaffee (2 €)</string>
+    <string name="settings_donate_snack">🥪 Snack (5 €)</string>
+    <string name="settings_donate_pizza">🍕 Pizza (10 €)</string>
+    <string name="settings_donate_success">Vielen Dank für deine Unterstützung! ❤️</string>
+    <string name="settings_donate_error">Ups, da ist etwas schief gelaufen.</string>
 </resources>

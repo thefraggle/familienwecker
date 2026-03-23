@@ -283,4 +283,12 @@
     <string name="settings_tooltips_title">Astuces &amp; Conseils</string>
     <string name="settings_tooltips_label">Afficher les astuces utiles</string>
     <string name="settings_tooltips_reset">Réinitialiser toutes les astuces</string>
+    <string name="settings_support_title">Soutenir l\'application</string>
+    <string name="settings_support_desc">Vous aimez l\'application ? Nous serions ravis de votre soutien !</string>
+    <string name="settings_support_donate">Faire un don</string>
+    <string name="settings_donate_coffee">☕️ Café (2 €)</string>
+    <string name="settings_donate_snack">🥪 Snack (5 €)</string>
+    <string name="settings_donate_pizza">🍕 Pizza (10 €)</string>
+    <string name="settings_donate_success">Merci beaucoup pour votre soutien ! ❤️</string>
+    <string name="settings_donate_error">Oups, un problème est survenu.</string>
 </resources>
