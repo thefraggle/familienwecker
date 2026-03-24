@@ -224,7 +224,11 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                     viewModel = familyViewModel,
                     onNavigateToAddMember = { navController.navigate(Routes.ADD_MEMBER) },
                     onNavigateToEditMember = { id -> navController.navigate(Routes.editMember(id)) },
-                    onNavigateToSettings = { navController.navigate(Routes.SETTINGS) },
+                    onNavigateToSettings = { 
+                        navController.navigate(Routes.SETTINGS) {
+                            launchSingleTop = true
+                        }
+                    },
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
@@ -280,6 +284,8 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
                     onStartOnboarding = {
                         familyViewModel.setOnboardingCompleted(false)
                         navController.navigate(Routes.ONBOARDING) {
+                            // Pop SETTINGS so that we don't have MAIN -> SETTINGS -> MAIN after finishing tour
+                            popUpTo(Routes.SETTINGS) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
