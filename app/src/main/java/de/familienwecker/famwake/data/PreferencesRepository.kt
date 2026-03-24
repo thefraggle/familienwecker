@@ -11,6 +11,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import com.revenuecat.purchases.Purchases
 import android.util.Log
+import com.revenuecat.purchases.Offerings
+import com.revenuecat.purchases.PurchasesError
+import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
+import kotlinx.coroutines.*
 
 private const val PREFS_FILE = "FamilienweckerPrefs"
 private const val ENCRYPTED_PREFS_FILE = "FamilienweckerPrefs_enc"
@@ -40,6 +44,8 @@ class PreferencesRepository(context: Context) {
     private val prefs: SharedPreferences = createEncryptedPrefs(context).also {
         migrateIfNeeded(context, it)
     }
+
+    private val repositoryScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     companion object {
         private fun createEncryptedPrefs(context: Context): SharedPreferences {
@@ -300,36 +306,37 @@ class PreferencesRepository(context: Context) {
         prefs.edit { putString(KEY_LANGUAGE, lang) }
         
         // RevenueCat Sprache synchronisieren
-        try {
-            // Live-Update RevenueCat Locale
-            val fullLocale = when (lang) {
-            "de" -> "de-DE"
-            "en" -> "en-US"
-            "es" -> "es-ES"
-            "fr" -> "fr-FR"
-            "it" -> "it-IT"
-            else -> lang
-        }
-        Log.d("Purchases", "Setting language: $lang (mapped to $fullLocale)")
-        Purchases.sharedInstance.overridePreferredUILocale(fullLocale)
-            Purchases.sharedInstance.invalidateCustomerInfoCache()
-            // Zusätzlicher Force-Refresh für Offerings
+        repositoryScope.launch {
             try {
+                // Live-Update RevenueCat Locale
+                val fullLocale = when (lang) {
+                    "de" -> "de-DE"
+                    "en" -> "en-US"
+                    "es" -> "es-ES"
+                    "fr" -> "fr-FR"
+                    "it" -> "it-IT"
+                    else -> lang
+                }
+                Log.d("Purchases", "Setting language: $lang (mapped to $fullLocale)")
+                Purchases.sharedInstance.overridePreferredUILocale(fullLocale)
+                Purchases.sharedInstance.invalidateCustomerInfoCache()
+                
                 // Kurze Pause, damit das SDK das neue Locale intern verarbeiten kann
-                kotlinx.coroutines.delay(500)
+                delay(500)
                 Log.d("Purchases", "Latest Offerings requested after delay, fetching from network")
-                Purchases.sharedInstance.getOfferings(
-                    onError = { Log.e("Purchases", "Error fetching offerings: ${it.message}") },
-                    onSuccess = {
+                
+                Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
+                    override fun onReceived(offerings: Offerings) {
                         Log.d("Purchases", "Fresh offerings fetch completed successfully for $fullLocale")
                     }
-                )
+                    override fun onError(error: PurchasesError) {
+                        Log.e("Purchases", "Error fetching offerings: ${error.message}")
+                    }
+                })
             } catch (e: Exception) {
-                Log.e("Purchases", "Error calling getOfferings: ${e.message}")
-            }
-        } catch (e: Exception) {
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("PreferencesRepository", "RevenueCat locale override failed: ${e.message}")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    Log.e("PreferencesRepository", "RevenueCat locale override failed: ${e.message}")
+                }
             }
         }
     }
