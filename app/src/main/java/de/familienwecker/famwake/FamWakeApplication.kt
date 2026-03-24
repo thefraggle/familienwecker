@@ -32,11 +32,14 @@ class FamWakeApplication : Application() {
         }
         try {
             com.revenuecat.purchases.Purchases.debugLogsEnabled = BuildConfig.DEBUG
+            val currentLang = preferencesRepository.language.value
             com.revenuecat.purchases.Purchases.configure(
                 com.revenuecat.purchases.PurchasesConfiguration.Builder(
                     this,
                     BuildConfig.REVENUECAT_PUBLIC_API_KEY
-                ).build()
+                )
+                .preferredUILocaleOverride(currentLang)
+                .build()
             )
             android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
         } catch (e: Exception) {

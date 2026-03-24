@@ -9,6 +9,8 @@ import androidx.security.crypto.MasterKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import com.revenuecat.purchases.Purchases
+import android.util.Log
 
 private const val PREFS_FILE = "FamilienweckerPrefs"
 private const val ENCRYPTED_PREFS_FILE = "FamilienweckerPrefs_enc"
@@ -296,6 +298,15 @@ class PreferencesRepository(context: Context) {
     fun setLanguage(lang: String) {
         _language.value = lang
         prefs.edit { putString(KEY_LANGUAGE, lang) }
+        
+        // RevenueCat Sprache synchronisieren
+        try {
+            Purchases.sharedInstance.overridePreferredUILocale(lang)
+        } catch (e: Exception) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("PreferencesRepository", "RevenueCat locale override failed: ${e.message}")
+            }
+        }
     }
 
     fun setThemePreference(theme: String) {

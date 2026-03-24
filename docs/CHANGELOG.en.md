@@ -4,6 +4,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.4 - 2026-03-24
+
+### New
+- **RevenueCat Localization:** Donation product languages are now automatically synchronized with the app's selected language (instead of the system language).
+- **SDK Update:** Updated RevenueCat SDK to version 9.23.1.
+
 ## 1.6.3 - 2026-03-24
 
 ### Fixed

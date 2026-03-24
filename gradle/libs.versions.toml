@@ -24,7 +24,7 @@ kotlinxCollectionsImmutable = "0.4.0"
 kotlinxCoroutinesPlayServices = "1.10.2"
 lottieCompose = "6.7.1"
 playReviewKtx = "2.0.2"
-purchases = "8.6.0"
+purchases = "9.23.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
