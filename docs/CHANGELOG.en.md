@@ -11,6 +11,9 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## 1.6.2 - 2026-03-23
 
+### Optimized
+- Bug fixes and optimizations
+
 ## 1.6.1 - 2026-03-23
 
 ### New
