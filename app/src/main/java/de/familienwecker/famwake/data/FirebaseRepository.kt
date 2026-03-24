@@ -331,7 +331,8 @@ class FirebaseRepository {
         val docRef = db.collection("_admins").document(uid)
         val listener = docRef.addSnapshotListener { snapshot, _ ->
             // Fallback auf PRIMARY_ADMIN_UID für absolute Sicherheit direkt im Code
-            val isGlobal = snapshot?.exists() == true || uid == "yqmtXyDNQCa5ajCvL9LEWbVgJmF2"
+            // Wir verlassen uns auf die Firestore-Dokument-Existenz (Security Rules prüfen!)
+            val isGlobal = snapshot?.exists() == true
             trySend(isGlobal)
         }
         awaitClose { listener.remove() }

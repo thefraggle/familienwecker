@@ -66,8 +66,9 @@ service cloud.firestore {
     match /_rate_limits/{doc} {
       allow read, write: if false;
     }
-    match /_admins/{doc} {
-      allow read, write: if false;
+    match /_admins/{userId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow write: if false;
     }
 
     // Feedback: Nur Admins dürfen lesen; jeder Eingeloggte darf schreiben

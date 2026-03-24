@@ -1084,6 +1084,13 @@ fun SettingsScreen(
             }
         }
     }
+    
+    // Frischen Abruf (oder Cache-Refetech) anstoßen, wenn der Dialog geöffnet wird
+    LaunchedEffect(showDonationDialog) {
+        if (showDonationDialog) {
+            donationViewModel.fetchOfferings()
+        }
+    }
 
     if (showDonationDialog) {
         val activity = context as? Activity
