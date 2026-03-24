@@ -7,7 +7,12 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ## 1.6.4 - 2026-03-24
 
 ### Neu
-- **RevenueCat Lokalisierung:** Die Sprache der Spenden-Produkte wird nun automatisch mit der in der App gewählten Sprache synchronisiert (statt der Systemsprache).
+- **System:** Unterstützung für Predictive Back Gestures (Android 13+) aktiviert.
+- **Sicherheit:** Admin-Status wird nun rein serverseitig über Firestore validiert (Vorbereitung für Multi-Admin-Support).
+- **Firestore:** Security Rules für den Admin-Bereich präzisiert.
+
+### Optimiert
+- **RevenueCat:** Vorbereitungen für verbesserte Sprach-Synchronisation und Optimierung des Datenabrufs (on-demand).
 - **SDK Update:** RevenueCat SDK auf Version 9.23.1 aktualisiert.
 
 ## 1.6.3 - 2026-03-24

@@ -33,12 +33,20 @@ class FamWakeApplication : Application() {
         try {
             com.revenuecat.purchases.Purchases.debugLogsEnabled = BuildConfig.DEBUG
             val currentLang = preferencesRepository.language.value
+            val fullLocale = when (currentLang) {
+                "de" -> "de-DE"
+                "en" -> "en-US"
+                "es" -> "es-ES"
+                "fr" -> "fr-FR"
+                "it" -> "it-IT"
+                else -> currentLang
+            }
             com.revenuecat.purchases.Purchases.configure(
                 com.revenuecat.purchases.PurchasesConfiguration.Builder(
                     this,
                     BuildConfig.REVENUECAT_PUBLIC_API_KEY
                 )
-                .preferredUILocaleOverride(currentLang)
+                .preferredUILocaleOverride(fullLocale)
                 .build()
             )
             android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")

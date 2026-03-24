@@ -1,5 +1,5 @@
 # 🧪# Test Plan: FamWake
-**Version:** 1.6.3  
+**Version:** 1.6.4  
 **Date:** 2026-03-24  
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 

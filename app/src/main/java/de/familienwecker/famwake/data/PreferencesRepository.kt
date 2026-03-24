@@ -301,9 +301,32 @@ class PreferencesRepository(context: Context) {
         
         // RevenueCat Sprache synchronisieren
         try {
-            Purchases.sharedInstance.overridePreferredUILocale(lang)
-            // Hilft dem SDK zu erkennen, dass Daten veraltet sein könnten
+            // Live-Update RevenueCat Locale
+            val fullLocale = when (lang) {
+            "de" -> "de-DE"
+            "en" -> "en-US"
+            "es" -> "es-ES"
+            "fr" -> "fr-FR"
+            "it" -> "it-IT"
+            else -> lang
+        }
+        Log.d("Purchases", "Setting language: $lang (mapped to $fullLocale)")
+        Purchases.sharedInstance.overridePreferredUILocale(fullLocale)
             Purchases.sharedInstance.invalidateCustomerInfoCache()
+            // Zusätzlicher Force-Refresh für Offerings
+            try {
+                // Kurze Pause, damit das SDK das neue Locale intern verarbeiten kann
+                kotlinx.coroutines.delay(500)
+                Log.d("Purchases", "Latest Offerings requested after delay, fetching from network")
+                Purchases.sharedInstance.getOfferings(
+                    onError = { Log.e("Purchases", "Error fetching offerings: ${it.message}") },
+                    onSuccess = {
+                        Log.d("Purchases", "Fresh offerings fetch completed successfully for $fullLocale")
+                    }
+                )
+            } catch (e: Exception) {
+                Log.e("Purchases", "Error calling getOfferings: ${e.message}")
+            }
         } catch (e: Exception) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.e("PreferencesRepository", "RevenueCat locale override failed: ${e.message}")

@@ -26,12 +26,6 @@ class DonationViewModel : ViewModel() {
 
     init {
         android.util.Log.d("FamWakeDonation", "DonationViewModel init")
-        try {
-            fetchOfferings()
-        } catch (e: Exception) {
-            android.util.Log.e("FamWakeDonation", "Exception in init: ${e.message}")
-            _purchaseState.value = PurchaseState.Error(UiText.DynamicString("RevenueCat not ready"))
-        }
     }
 
     fun fetchOfferings() {
@@ -43,6 +37,10 @@ class DonationViewModel : ViewModel() {
                     _offerings.value = offerings
                     if (offerings.current == null) {
                         android.util.Log.w("FamWakeDonation", "Warning: No 'current' offering set in RevenueCat dashboard!")
+                    } else {
+                        offerings.current?.availablePackages?.forEach { pkg ->
+                            android.util.Log.d("FamWakeDonation", "Package: ${pkg.identifier}, Title: ${pkg.product.title}, Desc: ${pkg.product.description}")
+                        }
                     }
                 }
                 override fun onError(error: PurchasesError) {
