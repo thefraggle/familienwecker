@@ -1,6 +1,6 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.2
-**Datum:** 2026-03-23
+**Version:** 1.6.3
+**Datum:** 2026-03-24
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
@@ -91,6 +91,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-101| **E-Mail-Lokalisation (FR/ES/IT)** | Passwort-Reset in FR/ES/IT anfordern. | E-Mail kommt in der gewählten Sprache an (Betreff, Absendername und Inhalt). |
 | TC-102| **Support-Kachel Sichtbarkeit** | Login mit normalem User (nicht Admin). | Support-Kachel (Bewerten/Spenden) ist in den Einstellungen sichtbar. |
 | TC-103| **Spenden-Preise & Lokalisierung** | Spenden-Dialog in verschiedenen Sprachen öffnen. | Preise (1,79€, 4,79€, 9,49€) und Lade-Texte sind korrekt lokalisiert. |
+| TC-104| **Onboarding-Navigations-Fix** | Tour aus Einstellungen starten, abschließen und auf "Los geht's" klicken. | App landet im Hauptbildschirm. Back-Swipe schließt die App (keine alten Instanzen oder Einstellungen im Hintergrund). |
 
 
 ### 2. Familien-Konfiguration

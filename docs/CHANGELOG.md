@@ -4,10 +4,12 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.6.2 - 2026-03-23
+## 1.6.3 - 2026-03-24
 
-### Optimiert
-- Fehlerbereinigung und Optimierungen
+### Behoben
+- **Navigation:** Fehler behoben, bei dem nach Abschluss der Onboarding-Tour eine doppelte Instanz des Hauptbildschirms im Hintergrund verblieb.
+
+## 1.6.2 - 2026-03-23
 
 ## 1.6.1 - 2026-03-23
 

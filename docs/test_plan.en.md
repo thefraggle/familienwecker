@@ -1,6 +1,6 @@
 # 🧪# Test Plan: FamWake
-**Version:** 1.6.2  
-**Date:** 2026-03-23  
+**Version:** 1.6.3  
+**Date:** 2026-03-24  
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
 *[🇩🇪 Deutsche Version](test_plan.md)*
@@ -176,6 +176,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-98 | **Localization (FR/ES/IT)** | Set app language to French/Spanish/Italian. | UI strings are correctly displayed in the selected language. |
 | TC-99 | **Onboarding Image Fallback** | Start onboarding in FR/ES/IT. | English screenshots are displayed as fallback. |
 | TC-100| **Join-Code Persistence** | Last user leaves the family. | Family persists in Firestore; code remains valid for new users. |
+| TC-104| **Onboarding Navigation Fix** | Start tour from settings, complete it and click "Let's go". | App lands in main screen. Back-swipe closes the app (no stale instances or settings in background). |
 
 ### 3. User Behavior
 | ID | Test Case | Expected Result |
