@@ -302,6 +302,8 @@ class PreferencesRepository(context: Context) {
         // RevenueCat Sprache synchronisieren
         try {
             Purchases.sharedInstance.overridePreferredUILocale(lang)
+            // Hilft dem SDK zu erkennen, dass Daten veraltet sein könnten
+            Purchases.sharedInstance.invalidateCustomerInfoCache()
         } catch (e: Exception) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.e("PreferencesRepository", "RevenueCat locale override failed: ${e.message}")
