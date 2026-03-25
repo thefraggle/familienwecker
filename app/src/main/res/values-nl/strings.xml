@@ -49,6 +49,10 @@
     <string name="add_member_title_add">Lid toevoegen</string>
     <string name="add_member_title_edit">Lid bewerken</string>
     <string name="back_desc">Terug</string>
+    <string name="unsaved_changes_title">Niet-opgeslagen wijzigingen</string>
+    <string name="unsaved_changes_message">Wilt u de wijzigingen weggooien?</string>
+    <string name="unsaved_changes_discard">Weggooien</string>
+    <string name="unsaved_changes_keep">Verder bewerken</string>
     <string name="add_member_submit">Opslaan</string>
     <string name="delete_member_title">Lid verwijderen</string>
     <string name="delete_member_text">Weet je zeker dat je %1$s uit de familie wilt verwijderen?</string>
