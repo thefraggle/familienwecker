@@ -57,7 +57,7 @@ fun LoadingScreen(
                         }
                     } else {
                         // Offline: Beitreten unmöglich, gehe zum Setup (ViewModel zeigt Fehler an)
-                        familyViewModel.setError(de.familienwecker.famwake.ui.util.UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, "Offline"))
+                        familyViewModel.setError(de.familienwecker.famwake.ui.util.UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, context.getString(de.familienwecker.famwake.R.string.error_offline)))
                         onNavigateToSetup()
                     }
                 } else {

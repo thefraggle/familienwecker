@@ -296,4 +296,12 @@
     <string name="settings_donate_error_already_purchased">This product has already been purchased.</string>
     <string name="settings_donate_error_invalid">The purchase was invalid.</string>
     <string name="settings_donate_error_generic">An error occurred during the donation process.</string>
+
+    <string name="error_permission_denied">Permission Denied</string>
+    <string name="error_offline">Offline</string>
+    <string name="error_report_failed">Report failed</string>
+    <string name="error_leave_failed">Leave family failed</string>
+    <string name="error_revenuecat_not_configured">RevenueCat not configured</string>
+    <string name="default_someone">Someone</string>
+    <string name="error_label">Error</string>
 </resources>
