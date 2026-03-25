@@ -167,6 +167,8 @@
     <string name="feedback_cancel">Annuleren</string>
     <string name="feedback_send">Feedback verzenden</string>
     <string name="feedback_success">Bedankt! Je feedback is ontvangen en helpt ons enorm.</string>
+    <string name="feedback_success_title">Feedback Verzonden</string>
+    <string name="feedback_success_message">Bedankt voor je feedback! Het helpt ons FamWake voor iedereen te verbeteren.</string>
     <string name="settings_terms_of_use">Gebruiksvoorwaarden</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-nl.html</string>
     <string name="settings_privacy_policy">Privacybeleid</string>
@@ -260,6 +262,7 @@
 
     <string name="error_password_too_short">Wachtwoord moet minimaal 8 tekens lang zijn.</string>
     <string name="error_email_already_in_use">Dit e-mailadres is al in gebruik door een ander account.</string>
+    <string name="error_weak_password">Het wachtwoord is te zwak. Gebruik minimaal 8 tekens en speciale tekens.</string>
     <string name="login_verify_email_title">✉️ Verifieer je e-mail</string>
     <string name="login_verify_email_text">We hebben een verificatie-e-mail gestuurd naar\n%1$s\nKlik op de link in de e-mail om je account te activeren.</string>
     <string name="login_verify_email_confirm">Ik heb geverifieerd ✓</string>
@@ -298,4 +301,5 @@
     <string name="error_revenuecat_not_configured">RevenueCat is niet geconfigureerd</string>
     <string name="default_someone">Iemand</string>
     <string name="error_label">Fout</string>
+    <string name="offline_write_hint">Geen verbinding. Je wijzigingen worden gesynchroniseerd zodra je weer online bent.</string>
 </resources>

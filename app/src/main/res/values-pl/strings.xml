@@ -167,6 +167,8 @@
     <string name="feedback_cancel">Anuluj</string>
     <string name="feedback_send">Wyślij feedback</string>
     <string name="feedback_success">Dziękujemy! Twój feedback został otrzymany i bardzo nam pomaga.</string>
+    <string name="feedback_success_message">Dziękujemy za Twoją opinię! Pomaga nam to ulepszać FamWake dla wszystkich.</string>
+    <string name="feedback_success_title">Opinia Wysłana</string>
     <string name="settings_terms_of_use">Warunki użytkowania</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-pl.html</string>
     <string name="settings_privacy_policy">Polityka prywatności</string>
@@ -260,6 +262,7 @@
 
     <string name="error_password_too_short">Hasło musi mieć co najmniej 8 znaków.</string>
     <string name="error_email_already_in_use">Ten adres e-mail jest już używany przez inne konto.</string>
+    <string name="error_weak_password">Hasło jest zbyt słabe. Użyj co najmniej 8 znaków i znaków specjalnych.</string>
     <string name="login_verify_email_title">✉️ Zweryfikuj swój e-mail</string>
     <string name="login_verify_email_text">Wysłaliśmy e-mail weryfikacyjny na adres\n%1$s\nKliknij link w wiadomości, aby aktywować konto.</string>
     <string name="login_verify_email_confirm">Zweryfikowałem ✓</string>
@@ -298,4 +301,5 @@
     <string name="error_revenuecat_not_configured">RevenueCat nie jest skonfigurowany</string>
     <string name="default_someone">Ktoś</string>
     <string name="error_label">Błąd</string>
+    <string name="offline_write_hint">Brak połączenia. Twoje zmiany zostaną zsynchronizowane, gdy tylko wrócisz do trybu online.</string>
 </resources>

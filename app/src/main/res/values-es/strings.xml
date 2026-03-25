@@ -167,6 +167,8 @@
     <string name="feedback_cancel">Cancelar</string>
     <string name="feedback_send">Enviar feedback</string>
     <string name="feedback_success">¡Gracias! Tu feedback ha llegado y nos ayuda mucho.</string>
+    <string name="feedback_success_title">Comentarios Enviados</string>
+    <string name="feedback_success_message">¡Gracias por tus comentarios! Nos ayudan a mejorar FamWake para todos.</string>
     <string name="settings_terms_of_use">Términos de uso</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-es.html</string>
     <string name="settings_privacy_policy">Política de privacidad</string>
@@ -260,6 +262,7 @@
 
     <string name="error_password_too_short">La contraseña debe tener al menos 8 caracteres.</string>
     <string name="error_email_already_in_use">Esta dirección de correo electrónico ya está siendo utilizada por otra cuenta.</string>
+    <string name="error_weak_password">La contraseña es demasiado débil. Por favor, usa al menos 8 caracteres y caracteres especiales.</string>
     <string name="login_verify_email_title">✉️ Confirma tu correo electrónico</string>
     <string name="login_verify_email_text">Hemos enviado un correo de confirmación a\n%1$s\nHaz clic en el enlace del correo para activar tu cuenta.</string>
     <string name="login_verify_email_confirm">Ya he confirmado ✓</string>
@@ -298,4 +301,5 @@
     <string name="error_revenuecat_not_configured">RevenueCat no configurado</string>
     <string name="default_someone">Alguien</string>
     <string name="error_label">Error</string>
+    <string name="offline_write_hint">Sin conexión. Tus cambios se sincronizarán en cuanto vuelvas a estar conectado.</string>
 </resources>
