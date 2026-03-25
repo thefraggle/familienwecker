@@ -168,12 +168,12 @@
     <string name="feedback_send">Wyślij feedback</string>
     <string name="feedback_success">Dziękujemy! Twój feedback został otrzymany i bardzo nam pomaga.</string>
     <string name="settings_terms_of_use">Warunki użytkowania</string>
-    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms.html</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-pl.html</string>
     <string name="settings_privacy_policy">Polityka prywatności</string>
-    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy.html</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-pl.html</string>
     <string name="settings_imprint">Impressum</string>
-    <string name="settings_imprint_url">https://www.familienwecker.de/imprint.html</string>
-    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion.html</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-pl.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-pl.html</string>
 
     <string name="registration_disclaimer">Rejestrując się, akceptujesz %1$s oraz %2$s.</string>
     <string name="registration_terms_of_use">Warunki użytkowania</string>
