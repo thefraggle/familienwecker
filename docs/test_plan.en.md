@@ -1,5 +1,5 @@
 # 🧪# Test Plan: FamWake
-**Version:** 1.6.6  
+**Version:** 1.6.7  
 **Date:** 2026-03-25  
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
@@ -104,6 +104,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-68 | **Snooze + regular alarm no conflict** | Press snooze → snooze rings → stop alarm → no regular alarm overwrites the running snooze. |
 | TC-69 | **Periodic refresh** | App open, no changes → after max. 5 minutes the schedule is automatically recalculated (Logcat: `applyAlarms: alarm SET` or `day X is inactive`). |
 | TC-70 | **Stale schedule disappears** | Alarm rings and is stopped → after max. 5 minutes the main screen no longer shows the old schedule but the correct state (next day / NoActiveSchedule). |
++| TC-71 | **Unsaved Changes Guard** | Make changes to profile and leave screen via gesture/back → confirmation dialog appears. |
 
 ### 3. Scheduling Logic (Algorithmic Tests)
 | ID | Test Case | Expected Result |
