@@ -4,7 +4,11 @@ import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
 import de.familienwecker.famwake.model.ScheduleResult
-import java.time.LocalTime
+import de.familienwecker.famwake.util.minusMinutes
+import de.familienwecker.famwake.util.plusMinutes
+import de.familienwecker.famwake.util.isBefore
+import de.familienwecker.famwake.util.isAfter
+import kotlinx.datetime.LocalTime
 
 class Scheduler {
 
@@ -81,7 +85,7 @@ class Scheduler {
         var breakfastTime: LocalTime? = null
 
         if (breakfastEaters.isNotEmpty()) {
-            var minLeaveForBreakfastEaters = LocalTime.of(23, 59)
+            var minLeaveForBreakfastEaters = LocalTime(23, 59)
             for (m in breakfastEaters) {
                 val naturalBathEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes)
                 val leave = m.leaveHomeTime ?: naturalBathEnd
@@ -89,14 +93,14 @@ class Scheduler {
                     minLeaveForBreakfastEaters = leave
                 }
             }
-            val startTime = if (minLeaveForBreakfastEaters.isBefore(LocalTime.of(4, 0)))
-                LocalTime.of(4, 0) else minLeaveForBreakfastEaters
+            val startTime = if (minLeaveForBreakfastEaters.isBefore(LocalTime(4, 0)))
+                LocalTime(4, 0) else minLeaveForBreakfastEaters
 
             breakfastTime = startTime.minusMinutes(breakfastDurationMinutes)
         }
 
         val schedules = mutableListOf<ScheduleResult>()
-        var currentLatestBathroomEndTime = LocalTime.of(23, 59)
+        var currentLatestBathroomEndTime = LocalTime(23, 59)
         var isValid = true
 
         for (member in orderedMembers.reversed()) {

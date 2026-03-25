@@ -1,16 +1,19 @@
 package de.familienwecker.famwake.model
 
-import java.time.LocalTime
+import kotlinx.datetime.LocalTime
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class DayProfile(
     val isActive: Boolean = true,
-    val earliestWakeUp: LocalTime = LocalTime.of(6, 0),
-    val latestWakeUp: LocalTime = LocalTime.of(7, 30),
+    val earliestWakeUp: LocalTime = LocalTime(6, 0),
+    val latestWakeUp: LocalTime = LocalTime(7, 30),
     val bathroomDurationMinutes: Long = 20L,
     val wantsBreakfast: Boolean = true,
     val leaveHomeTime: LocalTime? = null
 )
 
+@Serializable
 data class FamilyMember(
     val id: String,
     val name: String,
@@ -32,6 +35,7 @@ data class FamilyMember(
     val dayProfiles: Map<Int, DayProfile>? = null
 )
 
+@Serializable
 data class ScheduleResult(
     val member: FamilyMember,
     val wakeUpTime: LocalTime,
@@ -39,6 +43,7 @@ data class ScheduleResult(
     val bathroomEndTime: LocalTime
 )
 
+@Serializable
 data class FamilySchedule(
     val memberSchedules: List<ScheduleResult>,
     val breakfastTime: LocalTime?,
@@ -46,12 +51,14 @@ data class FamilySchedule(
     val scheduleMessage: ScheduleMessage
 )
 
+@Serializable
 data class FamilyData(
     val id: String,
     val name: String,
     val createdByUserId: String?
 )
 
+@Serializable
 data class SyncStatus(
     val isFromCache: Boolean = false,
     val hasPendingWrites: Boolean = false
