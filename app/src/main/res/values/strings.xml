@@ -59,7 +59,7 @@
     <string name="add_member_earliest_wake">Earliest wake time</string>
     <string name="add_member_latest_wake">Latest wake time</string>
     <string name="add_member_bathroom_duration">Bathroom duration (minutes)</string>
-    <string name="add_member_wants_breakfast">Breakfasts with</string>
+    <string name="add_member_wants_breakfast">With breakfast</string>
     <string name="add_member_leave_home">Leave home at</string>
     <string name="add_member_day_profiles_title">Weekly schedule</string>
     <string name="add_member_day_active">Alarm active</string>
@@ -126,9 +126,9 @@
     <string name="settings_language_french">Français</string>
     <string name="settings_language_spanish">Español</string>
     <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polish</string>
-    <string name="settings_language_dutch">Dutch</string>
-    <string name="settings_language_portuguese">Portuguese</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_appearance_title">Appearance</string>
     <string name="settings_display_title">App settings</string>
     <string name="settings_help_feedback_title">Help &amp; Feedback</string>
@@ -140,7 +140,7 @@
     <string name="onboarding_next">Next</string>
     <string name="onboarding_done">Let\'s go</string>
     <string name="onboarding_slide0_title">Your morning as a team.</string>
-    <string name="onboarding_slide0_body">End the chaos. The family alarm plans your morning so fairly and relaxed that everyone has time for what\'s important.</string>
+    <string name="onboarding_slide0_body">End the chaos. The family alarm plans your morning fairly and smoothly, so everyone has time for what\'s important.</string>
     <string name="onboarding_slide1_title">Everything at a glance</string>
     <string name="onboarding_slide1_body">Avoid morning bottlenecks. FamWake shows every family member in real-time whose turn it is.</string>
     <string name="onboarding_slide2_title">Your family</string>
@@ -248,7 +248,7 @@
     <string name="permission_fullscreen_open">Open Settings</string>
 
     <string name="schedule_message_optimal">Here is the calculated schedule:</string>
-    <string name="schedule_message_no_members">No active people. Everyone is paused.</string>
+    <string name="schedule_message_no_members">No active members. Everyone is paused.</string>
     <string name="schedule_message_no_valid">No valid schedule found. The times overlap too much.</string>
     <string name="schedule_message_no_valid_desc">Tip: Widen your wake window, shorten your bathroom time, or pause another member.</string>
     <string name="schedule_message_time_adjusted">Times adjusted by %1$d min to fit your order.</string>

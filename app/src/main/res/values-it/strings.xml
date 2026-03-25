@@ -59,7 +59,7 @@
     <string name="add_member_earliest_wake">Sveglia prima possibile</string>
     <string name="add_member_latest_wake">Sveglia più tardi possibile</string>
     <string name="add_member_bathroom_duration">Durata bagno (minuti)</string>
-    <string name="add_member_wants_breakfast">Fa colazione con</string>
+    <string name="add_member_wants_breakfast">Con colazione</string>
     <string name="add_member_leave_home">Esce di casa alle</string>
     <string name="add_member_day_profiles_title">Programma settimanale</string>
     <string name="add_member_day_active">Sveglia attiva</string>
@@ -126,9 +126,9 @@
     <string name="settings_language_french">Français</string>
     <string name="settings_language_spanish">Español</string>
     <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polacco</string>
-    <string name="settings_language_dutch">Olandese</string>
-    <string name="settings_language_portuguese">Portoghese</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_appearance_title">Aspetto</string>
     <string name="settings_display_title">Impostazioni app</string>
     <string name="settings_help_feedback_title">Aiuto &amp; Feedback</string>
@@ -248,7 +248,7 @@
     <string name="permission_fullscreen_open">Apri impostazioni</string>
 
     <string name="schedule_message_optimal">Ecco il programma calcolato:</string>
-    <string name="schedule_message_no_members">Nessuna persona attiva. Tutti sono in pausa.</string>
+    <string name="schedule_message_no_members">Nessun membro attivo. Tutti sono in pausa.</string>
     <string name="schedule_message_no_valid">Nessun programma valido trovato. Gli orari si sovrappongono troppo.</string>
     <string name="schedule_message_no_valid_desc">Suggerimento: amplia la tua finestra di sveglia, riduci il tempo in bagno o metti in pausa un altro membro.</string>
     <string name="schedule_message_time_adjusted">Orari modificati di %1$d min per adattarli al vostro ordine.</string>

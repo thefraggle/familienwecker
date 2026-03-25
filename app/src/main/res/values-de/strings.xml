@@ -37,7 +37,7 @@
     <string name="main_member_limit_reached">Maximum von 6 Mitgliedern erreicht.</string>
     <string name="main_alarm_enabled">Wecker: AN</string>
     <string name="main_alarm_enabled_desc">Automatische Weckrufe sind aktiv.</string>
-    <string name="main_snooze_active">Snooze aktiv bis %1$s</string>
+    <string name="main_snooze_active">Schlummern aktiv bis %1$s</string>
     <string name="main_alarm_disabled">Wecker: AUS</string>
     <string name="main_alarm_disabled_desc">Manuelle Pause ist aktiv.</string>
     <string name="main_no_profile_warning">Kein Profil ausgewählt!</string>
@@ -59,14 +59,14 @@
     <string name="add_member_earliest_wake">Früheste Weckzeit</string>
     <string name="add_member_latest_wake">Späteste Weckzeit</string>
     <string name="add_member_bathroom_duration">Bad-Dauer (Minuten)</string>
-    <string name="add_member_wants_breakfast">Frühstückt mit</string>
+    <string name="add_member_wants_breakfast">Mit Frühstück</string>
     <string name="add_member_leave_home">Haus verlassen um</string>
     <string name="add_member_day_profiles_title">Wochenplan</string>
     <string name="add_member_day_active">Wecker aktiv</string>
     <string name="add_member_copy_to_days">"%1$s" auf andere Tage kopieren</string>
     <string name="add_member_copy_dialog_title">Auf Tage kopieren</string>
     <string name="add_member_copy_apply">Anwenden</string>
-    <string name="validation_latest_before_earliest">Späteste Weckzeit muss nach frühester Weckzeit liegen</string>
+    <string name="validation_latest_before_earliest">Die späteste Weckzeit muss nach der frühesten Weckzeit liegen</string>
     <string name="validation_leave_too_early">Die Zeit zum Verlassen des Hauses muss nach der Bad-Zeit liegen (Weckzeit + Bad-Dauer)</string>
     <string name="weekday_1">Montag</string>
     <string name="weekday_2">Dienstag</string>
@@ -125,10 +125,10 @@
     <string name="settings_language_german">Deutsch</string>
     <string name="settings_language_french">Français</string>
     <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italienisch</string>
-    <string name="settings_language_polish">Polnisch</string>
-    <string name="settings_language_dutch">Niederländisch</string>
-    <string name="settings_language_portuguese">Portugiesisch</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_appearance_title">Erscheinungsbild</string>
     <string name="settings_display_title">App-Einstellungen</string>
     <string name="settings_help_feedback_title">Hilfe &amp; Feedback</string>
@@ -245,7 +245,7 @@
 
     <string name="permission_fullscreen_title">Wecker-Berechtigung nötig</string>
     <string name="permission_fullscreen_message">FamWake benötigt die Erlaubnis, den Wecker auf deinem Sperrbildschirm anzuzeigen. Bitte erlaube dies in den Systemeinstellungen.</string>
-    <string name="permission_fullscreen_open">Einst. öffnen</string>
+    <string name="permission_fullscreen_open">Einstellungen öffnen</string>
 
     <string name="schedule_message_optimal">Hier ist der berechnete Zeitplan:</string>
     <string name="schedule_message_no_members">Keine aktiven Personen. Alle sind pausiert.</string>

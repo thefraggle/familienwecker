@@ -59,7 +59,7 @@
     <string name="add_member_earliest_wake">Heure de réveil la plus tôt</string>
     <string name="add_member_latest_wake">Heure de réveil la plus tardive</string>
     <string name="add_member_bathroom_duration">Durée salle de bain (minutes)</string>
-    <string name="add_member_wants_breakfast">Petit-déjeuner avec</string>
+    <string name="add_member_wants_breakfast">Avec petit-déjeuner</string>
     <string name="add_member_leave_home">Départ de la maison à</string>
     <string name="add_member_day_profiles_title">Planning de la semaine</string>
     <string name="add_member_day_active">Réveil actif</string>
@@ -125,10 +125,10 @@
     <string name="settings_language_german">Deutsch</string>
     <string name="settings_language_french">Français</string>
     <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italien</string>
-    <string name="settings_language_polish">Polonais</string>
-    <string name="settings_language_dutch">Néerlandais</string>
-    <string name="settings_language_portuguese">Portugais</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_appearance_title">Apparence</string>
     <string name="settings_display_title">Paramètres de l\'app</string>
     <string name="settings_help_feedback_title">Aide &amp; Feedback</string>
@@ -245,10 +245,10 @@
 
     <string name="permission_fullscreen_title">Autorisation requise</string>
     <string name="permission_fullscreen_message">FamWake a besoin d\'afficher le réveil sur ton écran de verrouillage. Merci de l\'autoriser dans les paramètres.</string>
-    <string name="permission_fullscreen_open">Ouvrir les param.</string>
+    <string name="permission_fullscreen_open">Ouvrir les paramètres</string>
 
     <string name="schedule_message_optimal">Voici le planning calculé :</string>
-    <string name="schedule_message_no_members">Personne d\'actif. Tout le monde est en pause.</string>
+    <string name="schedule_message_no_members">Aucun membre actif. Tout le monde est en pause.</string>
     <string name="schedule_message_no_valid">Aucun planning valide. Les horaires se chevauchent trop.</string>
     <string name="schedule_message_no_valid_desc">Astuce : Élargis ta plage de réveil, réduis le temps de sdb ou mets un membre en pause.</string>
     <string name="schedule_message_time_adjusted">Horaires ajustés de %1$d min pour correspondre à votre ordre.</string>
@@ -272,7 +272,7 @@
     <string name="tooltip_bathroom">Sois réaliste. Ton temps de préparation donne le rythme pour toute la famille.</string>
     <string name="tooltip_invite_code">Partage ce code avec ta famille. Dès qu\'ils rejoindront, ils apparaîtront dans le planning.</string>
     <string name="tooltip_alarm_switch">Si tu éteins ton réveil, l\'algorithme recalcule tout instantanément pour permettre aux autres de dormir plus longtemps ou d\'aller plus tôt à la salle de bain.</string>
-    <string name="tooltip_weekdays">Planifie toute ta semaine : parfait pour l\'alternance entre télétravail et jours au bureau.</string>
+    <string name="tooltip_weekdays">Planifie toute ta semaine : appuie sur les jours pour définir des heures de réveil et de salle de bain spécifiques – parfait pour l\'alternance entre télétravail et jours au bureau.</string>
     <string name="settings_tooltips_title">Astuces &amp; Conseils</string>
     <string name="settings_tooltips_label">Afficher les astuces utiles</string>
     <string name="settings_tooltips_reset">Réinitialiser les astuces</string>

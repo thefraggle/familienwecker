@@ -27,7 +27,7 @@
     <string name="main_no_active_schedule">Nenhum cronograma de alarme ativo.</string>
     <string name="main_optimal_plan">Aqui está o cronograma calculado:</string>
     <string name="main_plan_paused">Seu alarme está pausado no momento.</string>
-    <string name="main_shared_breakfast">☕ Café da manhã coletivo: %s</string>
+    <string name="main_shared_breakfast">☕ Café da manhã em conjunto: %s</string>
     <string name="main_wake_time">Acordar: %1$s - %2$s</string>
     <string name="main_bathroom_info">Banheiro: %1$s min | Café: %2$s</string>
     <string name="main_schedule_bathroom">Banheiro: %1$s às %2$s</string>
@@ -59,7 +59,7 @@
     <string name="add_member_earliest_wake">Horário mais cedo para acordar</string>
     <string name="add_member_latest_wake">Horário limite para acordar</string>
     <string name="add_member_bathroom_duration">Duração no banheiro (minutos)</string>
-    <string name="add_member_wants_breakfast">Café da manhã com</string>
+    <string name="add_member_wants_breakfast">Com café da manhã</string>
     <string name="add_member_leave_home">Sair de casa às</string>
     <string name="add_member_day_profiles_title">Cronograma semanal</string>
     <string name="add_member_day_active">Alarme ativo</string>
@@ -130,11 +130,11 @@
     <string name="settings_language_dutch">Nederlands</string>
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_appearance_title">Aparência</string>
-    <string name="settings_display_title">Configurações da app</string>
+    <string name="settings_display_title">Configurações do app</string>
     <string name="settings_help_feedback_title">Ajuda e Feedback</string>
     <string name="settings_support_button">Email para o desenvolvedor</string>
     <string name="settings_rate_app">⭐ Avaliar App ⭐</string>
-    <string name="settings_start_onboarding">🎓 Tour da App</string>
+    <string name="settings_start_onboarding">🎓 Tour do app</string>
 
     <string name="onboarding_skip">Pular</string>
     <string name="onboarding_next">Próximo</string>
@@ -248,7 +248,7 @@
     <string name="permission_fullscreen_open">Abrir Configurações</string>
 
     <string name="schedule_message_optimal">Aqui está o cronograma calculado:</string>
-    <string name="schedule_message_no_members">Nenhuma pessoa ativa. Todos estão pausados.</string>
+    <string name="schedule_message_no_members">Nenhum membro ativo. Todos estão pausados.</string>
     <string name="schedule_message_no_valid">Nenhum cronograma válido encontrado. Os horários se sobrepõem demais.</string>
     <string name="schedule_message_no_valid_desc">Dica: Aumente sua janela de despertar, diminua o tempo de banheiro ou pause outro membro.</string>
     <string name="schedule_message_time_adjusted">Horários ajustados em %1$d min para caber na sua ordem.</string>
@@ -273,11 +273,11 @@
     <string name="tooltip_invite_code">Compartilhe este código com sua família. Quando entrarem, aparecerão automaticamente no cronograma.</string>
     <string name="tooltip_alarm_switch">Se você desligar o alarme, não apenas o celular silenciará – o algoritmo recalcula instantaneamente a manhã de todos, permitindo dormir mais ou usar o banheiro mais cedo.</string>
     <string name="tooltip_weekdays">Planeje toda a semana: Toque em cada dia da semana para definir horários específicos – ideal para alternar entre home office e escritório.</string>
-    <string name="settings_tooltips_title">Dicas e Avisos</string>
+    <string name="settings_tooltips_title">Dicas e Sugestões</string>
     <string name="settings_tooltips_label">Mostrar dicas úteis</string>
     <string name="settings_tooltips_reset">Redefinir todas as dicas</string>
-    <string name="settings_support_title">Apoie a app</string>
-    <string name="settings_support_desc">Gosta da app? Agradecemos o seu apoio!</string>
+    <string name="settings_support_title">Apoie o app</string>
+    <string name="settings_support_desc">Gosta do app? Agradecemos o seu apoio!</string>
     <string name="settings_support_donate">Doar</string>
     <string name="settings_donate_success">Muito obrigado pelo seu apoio! ❤️</string>
     <string name="settings_donate_error">Ops, algo deu errado.</string>
