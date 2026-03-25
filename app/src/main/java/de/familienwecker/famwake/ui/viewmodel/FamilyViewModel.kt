@@ -674,7 +674,7 @@ class FamilyViewModel(
     fun setDebugAlarmIn5Minutes() {
         val memberId = myMemberId.value ?: return
         val member   = _members.value.find { it.id == memberId } ?: return
-        val now      = java.time.LocalTime.now()
+        val now      = java.time.LocalTime.now().truncatedTo(java.time.temporal.ChronoUnit.MINUTES)
         val target   = now.plusMinutes(3)
         val earliest = target.minusMinutes(1)   // 2 Minuten ab jetzt
         val latest   = target.plusMinutes(1)    // 4 Minuten ab jetzt
