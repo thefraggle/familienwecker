@@ -1,14 +1,15 @@
 package de.familienwecker.famwake.data
 
 import dev.gitlive.firebase.firestore.DocumentSnapshot
-import dev.gitlive.firebase.firestore.Timestamp
 import dev.gitlive.firebase.firestore.android
 import de.familienwecker.famwake.model.DayProfile
 import de.familienwecker.famwake.model.FamilyMember
 import kotlinx.datetime.LocalTime
+import com.google.firebase.Timestamp // Added import for native Firebase Timestamp
 
 /**
  * Mapper: Firestore DocumentSnapshot → FamilyMember (GitLive API)
+ * Nutzt android.get() für alle Felder die Serialization-Probleme verursachen könnten.
  */
 @Suppress("UNCHECKED_CAST")
 fun DocumentSnapshot.toFamilyMember(): FamilyMember {
@@ -40,17 +41,18 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         )
     }?.toMap()?.takeIf { it.isNotEmpty() }
 
-    val createdAtVal = get<Any?>("createdAt")
-    val createdAt = when (createdAtVal) {
-        is Number -> createdAtVal.toLong()
-        is Timestamp -> createdAtVal.seconds * 1000L
+    // android.get() umgeht Serialization-Probleme mit Any? und Timestamp
+    val createdAtRaw = android.get("createdAt")
+    val createdAt: Long? = when (createdAtRaw) {
+        is Timestamp -> createdAtRaw.seconds * 1000L
+        is Number -> createdAtRaw.toLong()
         else -> null
     }
 
-    val lastUpdatedVal = get<Any?>("lastUpdatedAt")
-    val lastUpdatedAt = when (lastUpdatedVal) {
-        is Number -> lastUpdatedVal.toLong()
-        is Timestamp -> lastUpdatedVal.seconds * 1000L
+    val lastUpdatedRaw = android.get("lastUpdatedAt")
+    val lastUpdatedAt: Long? = when (lastUpdatedRaw) {
+        is Timestamp -> lastUpdatedRaw.seconds * 1000L
+        is Number -> lastUpdatedRaw.toLong()
         else -> null
     }
 
