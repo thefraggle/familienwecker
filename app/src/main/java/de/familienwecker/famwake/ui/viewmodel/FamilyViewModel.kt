@@ -43,6 +43,10 @@ import kotlinx.coroutines.flow.first
 import de.familienwecker.famwake.util.NetworkUtils
 import de.familienwecker.famwake.util.ReviewHelper
 import android.app.Activity
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import kotlinx.coroutines.withTimeoutOrNull
 
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
@@ -156,6 +160,23 @@ class FamilyViewModel(
     val pendingPauseIds: StateFlow<Set<String>> = _pendingPauseIds.asStateFlow()
     private var offlineDebounceJob: Job? = null
 
+    // Reaktiver Netzwerk-Callback: erkennt Online/Offline sofort
+    private val connectivityManager =
+        application.getSystemService(ConnectivityManager::class.java)
+    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            offlineDebounceJob?.cancel()
+            _isOffline.value = false
+        }
+        override fun onLost(network: Network) {
+            offlineDebounceJob?.cancel()
+            offlineDebounceJob = viewModelScope.launch {
+                try { delay(3000) } catch (_: Exception) {}
+                _isOffline.value = true
+            }
+        }
+    }
+
     private val _familyCreatorId = MutableStateFlow<String?>(null)
     val familyCreatorId: StateFlow<String?> = _familyCreatorId.asStateFlow()
 
@@ -194,6 +215,13 @@ class FamilyViewModel(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     init {
+        // Netzwerk-Callback registrieren
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+        try {
+            connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
+        } catch (_: Exception) {}
         // UI-Datenfluss: UI beobachtet Room (Local Cache)
         viewModelScope.launch {
             memberRepository.members.collect { membersList ->
@@ -1229,6 +1257,7 @@ class FamilyViewModel(
 
     override fun onCleared() {
         super.onCleared()
+        try { connectivityManager.unregisterNetworkCallback(networkCallback) } catch (_: Exception) {}
         membersJob?.cancel()
         syncStatusJob?.cancel()
         offlineDebounceJob?.cancel()
