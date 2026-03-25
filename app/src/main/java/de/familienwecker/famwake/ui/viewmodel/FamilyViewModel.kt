@@ -185,10 +185,16 @@ class FamilyViewModel(
                     membersJob?.cancel()
                     syncStatusJob?.cancel()
                     if (!currentFamilyId.isNullOrBlank()) {
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.d("FamilyViewModel", "Start sync for family: $currentFamilyId")
+                        }
                         refreshData()
                         // Admin-Status laden
                         launch {
                             val data = repository.getFamilyData(currentFamilyId)
+                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                android.util.Log.d("FamilyViewModel", "Family data loaded: creator=${data?.createdByUserId}")
+                            }
                             _familyCreatorId.value = data?.createdByUserId
                         }
                         
@@ -213,14 +219,21 @@ class FamilyViewModel(
                                 }
                             } catch (e: Exception) {
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                    android.util.Log.e("FamilyViewModel", "SyncStatus Flow Error: ${e.message}")
+                                    android.util.Log.e("FamilyViewModel", "SyncStatus Flow Error: ${e.message}", e)
                                 }
+                                // No error message for sync status failure to avoid cluttering the UI
                             }
                         }
 
                         membersJob = launch {
                             try {
+                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                    android.util.Log.d("FamilyViewModel", "Starting members flow for $currentFamilyId")
+                                }
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
+                                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                        android.util.Log.d("FamilyViewModel", "Received ${membersList.size} members")
+                                    }
                                     val checkedMembers = checkAndResetMembers(membersList)
                                     _members.value = checkedMembers.toPersistentList()
 
@@ -245,6 +258,11 @@ class FamilyViewModel(
                                 }
                             } catch (e: CancellationException) {
                                 throw e
+                            } catch (e: Exception) {
+                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                    android.util.Log.e("FamilyViewModel", "Members Flow Error: ${e.message}", e)
+                                }
+                                _errorMessage.value = UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, e.localizedMessage ?: "")
                             }
                         }
                     } else {
@@ -253,6 +271,9 @@ class FamilyViewModel(
                     }
                 }
             } catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FamilyViewModel", "Outer Init Error: ${e.message}", e)
+                }
                 _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
             }
         }
