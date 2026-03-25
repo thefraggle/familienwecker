@@ -48,7 +48,7 @@ class RingingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val memberId = intent.getStringExtra("MEMBER_ID") ?: ""
-        val memberName = intent.getStringExtra("MEMBER_NAME") ?: "Jemand"
+        val memberName = intent.getStringExtra("MEMBER_NAME") ?: getString(R.string.default_someone)
 
         // WICHTIG: Wenn die Activity startet, canceln wir die Notification.
         // Das stoppt den dortigen Fallback-Sound und verhindert Dopplungen.

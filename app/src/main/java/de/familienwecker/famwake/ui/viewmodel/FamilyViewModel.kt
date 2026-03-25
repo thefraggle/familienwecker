@@ -223,7 +223,7 @@ class FamilyViewModel(
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                                     android.util.Log.e("FamilyViewModel", "Members Flow Error: ${e.message}")
                                 }
-                                val errorMsg = e.localizedMessage ?: "Permission Denied"
+                                val errorMsg = e.localizedMessage ?: getApplication<Application>().getString(R.string.error_permission_denied)
                                 _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
 
                                 // Self-Healing: Bei Permission Denied (veraltete FamilyId) lokal aufräumen.
@@ -239,7 +239,7 @@ class FamilyViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: "Unknown")
+                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
             }
         }
 
@@ -311,7 +311,7 @@ class FamilyViewModel(
         }
         viewModelScope.launch {
             if (!NetworkUtils.isOnline(getApplication())) {
-                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
+                    _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<Application>().getString(R.string.error_offline))
                 onComplete(false)
                 return@launch
             }
@@ -353,7 +353,7 @@ class FamilyViewModel(
         viewModelScope.launch {
             _isJoiningFamily.value = true
             if (!NetworkUtils.isOnline(getApplication())) {
-                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
+                    _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<Application>().getString(R.string.error_offline))
                 onComplete(false)
                 return@launch
             }
@@ -439,7 +439,7 @@ class FamilyViewModel(
             try {
                 // Netzwerk-Check vor Join-Versuch
                 if (!NetworkUtils.isOnline(getApplication())) {
-                    _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Offline")
+                    _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<Application>().getString(R.string.error_offline))
                     _pendingJoinCode.value = null
                     onComplete(false)
                     return@launch
@@ -475,13 +475,13 @@ class FamilyViewModel(
                         error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
                             _errorMessage.value = UiText.StringResource(R.string.error_join_family_rate_limit)
                         else ->
-                            _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: "Unknown")
+                            _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
                     }
                     _pendingJoinCode.value = null
                     onComplete(false)
                 }
             } catch (e: Exception) {
-                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: "Unknown")
+                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
                 _pendingJoinCode.value = null
                 onComplete(false)
             } finally {
@@ -505,7 +505,7 @@ class FamilyViewModel(
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("FamilyViewModel", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
                 }
-                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: "Unknown")
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
             }
         }
     }
@@ -529,7 +529,7 @@ class FamilyViewModel(
         viewModelScope.launch {
             val result = repository.removeMember(currentFamilyId, id)
             if (result.isFailure) {
-                _errorMessage.value = UiText.StringResource(R.string.error_delete_member, result.exceptionOrNull()?.localizedMessage ?: "Unknown")
+                _errorMessage.value = UiText.StringResource(R.string.error_delete_member, result.exceptionOrNull()?.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
             }
         }
         if (myMemberId.value == id) {
@@ -772,7 +772,7 @@ class FamilyViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: "Unknown")
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
             } finally {
                 _isSyncing.value = false
             }
@@ -910,7 +910,7 @@ class FamilyViewModel(
                 prefsRepo.setMyMemberId(null)
                 onComplete(true)
             } else {
-                _errorMessage.value = UiText.StringResource(R.string.error_delete_family, result.exceptionOrNull()?.localizedMessage ?: "Unknown")
+                _errorMessage.value = UiText.StringResource(R.string.error_delete_family, result.exceptionOrNull()?.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
                 onComplete(false)
             }
         }
@@ -922,7 +922,7 @@ class FamilyViewModel(
             if (result.isSuccess) {
                 onComplete(true)
             } else {
-                _errorMessage.value = UiText.DynamicString("Report fehlgeschlagen: ${result.exceptionOrNull()?.localizedMessage ?: "Fehler"}")
+                _errorMessage.value = UiText.StringResource(R.string.error_report_failed, result.exceptionOrNull()?.localizedMessage ?: getApplication<Application>().getString(R.string.error_label))
                 onComplete(false)
             }
         }
@@ -952,11 +952,11 @@ class FamilyViewModel(
                     prefsRepo.setMyMemberId(null)
                     prefsRepo.setMyMemberName(null)
                 } else {
-                    val errorMsg = result.exceptionOrNull()?.message ?: "Leave Failed"
+                    val errorMsg = result.exceptionOrNull()?.message ?: getApplication<Application>().getString(R.string.error_leave_failed)
                     _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
                 }
             } catch (e: Exception) {
-                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: "Unknown")
+                _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
             } finally {
                 _isSyncing.value = false
             }
@@ -1021,7 +1021,7 @@ class FamilyViewModel(
                         currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                     }
                 } catch (e: Exception) {
-                    _errorMessage.value = UiText.StringResource(R.string.error_calculate_schedule, e.localizedMessage ?: "Unknown")
+                    _errorMessage.value = UiText.StringResource(R.string.error_calculate_schedule, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
                     _schedule.value = null
                 }
             }

@@ -51,7 +51,7 @@ class DonationViewModel : ViewModel() {
             })
         } catch (e: Exception) {
             android.util.Log.e("FamWakeDonation", "Purchases.sharedInstance access failed: ${e.message}")
-            _purchaseState.value = PurchaseState.Error(UiText.DynamicString("RevenueCat not configured"))
+            _purchaseState.value = PurchaseState.Error(UiText.StringResource(R.string.error_revenuecat_not_configured))
         }
     }
 
