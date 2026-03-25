@@ -63,7 +63,7 @@ class FamilyViewModel(
     private val _isSendingFeedback = MutableStateFlow(false)
     val isSendingFeedback = _isSendingFeedback.asStateFlow()
 
-    private val _feedbackError = MutableStateFlow<String?>(null)
+    private val _feedbackError = MutableStateFlow<UiText?>(null)
     val feedbackError = _feedbackError.asStateFlow()
 
     private val _feedbackSubmitted = MutableStateFlow(false)
@@ -241,7 +241,6 @@ class FamilyViewModel(
                                 }
                             } catch (e: CancellationException) {
                                 throw e
-                                _errorMessage.value = AppError.fromException(e).uiText
                             }
                         }
                     } else {
@@ -1167,7 +1166,7 @@ class FamilyViewModel(
             if (result.isSuccess) {
                 _feedbackSubmitted.value = true
             } else {
-                _feedbackError.value = "Fehler beim Senden. Bitte versuche es später noch einmal."
+                _feedbackError.value = UiText.StringResource(R.string.error_unknown)
             }
             _isSendingFeedback.value = false
         }

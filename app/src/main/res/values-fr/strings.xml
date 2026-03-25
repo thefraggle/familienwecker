@@ -169,8 +169,6 @@
     <string name="feedback_success">Merci ! Ton message a bien été reçu.</string>
     <string name="feedback_success_title">Commentaires Envoyés</string>
     <string name="feedback_success_message">Merci pour vos commentaires ! Ils nous aident à améliorer FamWake pour tout le monde.</string>
-    <string name="feedback_success_title">Commentaires Envoyés</string>
-    <string name="feedback_success_message">Merci pour vos commentaires ! Ils nous aident à améliorer FamWake pour tout le monde.</string>
     <string name="settings_terms_of_use">Conditions d\'utilisation</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-fr.html</string>
     <string name="settings_privacy_policy">Politique de confidentialité</string>

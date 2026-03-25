@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.R
+import androidx.compose.ui.platform.LocalContext
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import kotlinx.coroutines.delay
@@ -33,6 +34,7 @@ fun FeedbackScreen(
     viewModel: FamilyViewModel,
     onNavigateBack: () -> Unit
 ) {
+    val context = LocalContext.current
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
         "dark" -> true
@@ -139,7 +141,7 @@ fun FeedbackScreen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
-                                text = errorMessage ?: "",
+                                text = errorMessage?.asString(context) ?: "",
                                 color = MaterialTheme.colorScheme.onErrorContainer,
                                 modifier = Modifier.padding(12.dp),
                                 style = MaterialTheme.typography.bodySmall

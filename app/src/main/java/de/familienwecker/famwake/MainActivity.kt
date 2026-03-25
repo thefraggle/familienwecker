@@ -50,6 +50,10 @@ class MainActivity : AppCompatActivity() {
         de.familienwecker.famwake.ui.viewmodel.FamilyViewModelFactory(application)
     }
 
+    private val authViewModel: AuthViewModel by viewModels {
+        de.familienwecker.famwake.ui.viewmodel.AuthViewModelFactory(application)
+    }
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { _ -> /* Berechtigung wird im ViewModel verarbeitet */ }
@@ -75,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             }
             
             FamilienweckerTheme(darkTheme = darkTheme) {
-                FamilienweckerApp(familyViewModel)
+                FamilienweckerApp(familyViewModel, authViewModel)
             }
         }
     }
@@ -128,9 +132,8 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun FamilienweckerApp(familyViewModel: FamilyViewModel) {
+fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewModel) {
     val navController = rememberNavController()
-    val authViewModel: AuthViewModel = viewModel()
 
     val currentLanguage by familyViewModel.language.collectAsStateWithLifecycle()
 

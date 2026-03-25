@@ -120,7 +120,7 @@ class FirebaseRepository {
 
     suspend fun getFamilyName(familyId: String): String? {
         return try {
-            val doc = db.collection("families").document(familyId).get().await()
+            val doc = db.collection(COLLECTION_FAMILIES).document(familyId).get().await()
             doc.getString("name")
         } catch (e: Exception) {
             null
@@ -129,7 +129,7 @@ class FirebaseRepository {
 
     suspend fun getFamilyData(familyId: String): de.familienwecker.famwake.model.FamilyData? {
         return try {
-            val doc = db.collection("families").document(familyId).get().await()
+            val doc = db.collection(COLLECTION_FAMILIES).document(familyId).get().await()
             val name = doc.getString("name") ?: return null
             val createdByUserId = doc.getString("createdByUserId")
             de.familienwecker.famwake.model.FamilyData(id = familyId, name = name, createdByUserId = createdByUserId)

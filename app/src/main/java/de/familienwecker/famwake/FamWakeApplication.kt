@@ -25,9 +25,13 @@ class FamWakeApplication : Application() {
         instance = this
 
         // Initialize RevenueCat
-        android.util.Log.d("FamWakeDonation", "Initializing RevenueCat...")
+        if (BuildConfig.DEBUG) {
+            android.util.Log.d("FamWakeDonation", "Initializing RevenueCat...")
+        }
         if (BuildConfig.REVENUECAT_PUBLIC_API_KEY.isEmpty()) {
+        if (BuildConfig.DEBUG) {
             android.util.Log.e("FamWakeDonation", "RevenueCat API Key is empty! Please check local.properties or GitHub Secrets.")
+        }
             return
         }
         try {
@@ -49,9 +53,13 @@ class FamWakeApplication : Application() {
                 .preferredUILocaleOverride(fullLocale)
                 .build()
             )
-            android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
+            if (BuildConfig.DEBUG) {
+                android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
+            }
         } catch (e: Exception) {
-            android.util.Log.e("FamWakeDonation", "RevenueCat initialization failed: ${e.message}")
+            if (BuildConfig.DEBUG) {
+                android.util.Log.e("FamWakeDonation", "RevenueCat initialization failed: ${e.message}")
+            }
         }
     }
 }
