@@ -361,7 +361,7 @@ fun MainScreen(
                                         val awakeInteractionSource = remember { MutableInteractionSource() }
                                         
                                         Button(
-                                            onClick = { viewModel.toggleAwakeMember(myMemberId!!) },
+                                            onClick = { myMemberId?.let { viewModel.toggleAwakeMember(it) } },
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .height(56.dp)
@@ -462,7 +462,7 @@ fun MainScreen(
                                         )
                                     }
                                     TextButton(
-                                        onClick = { viewModel.cancelSnooze(myMemberId!!) },
+                                        onClick = { myMemberId?.let { viewModel.cancelSnooze(it) } },
                                         contentPadding = PaddingValues(horizontal = 12.dp),
                                         colors = ButtonDefaults.textButtonColors(
                                             contentColor = if (isDarkTheme) OnlineIconDark else OnlineIconLight
