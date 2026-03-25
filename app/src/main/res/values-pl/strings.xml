@@ -49,6 +49,10 @@
     <string name="add_member_title_add">Dodaj członka</string>
     <string name="add_member_title_edit">Edytuj członka</string>
     <string name="back_desc">Wstecz</string>
+    <string name="unsaved_changes_title">Niezapisane zmiany</string>
+    <string name="unsaved_changes_message">Czy chcesz odrzucić zmiany?</string>
+    <string name="unsaved_changes_discard">Odrzuć</string>
+    <string name="unsaved_changes_keep">Edytuj dalej</string>
     <string name="add_member_submit">Zapisz</string>
     <string name="delete_member_title">Usuń członka</string>
     <string name="delete_member_text">Czy na pewno chcesz usunąć %1$s z rodziny?</string>

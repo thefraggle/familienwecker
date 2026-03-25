@@ -1,4 +1,6 @@
 package de.familienwecker.famwake.ui.screens
+ 
+import androidx.activity.compose.BackHandler
 
 import android.app.TimePickerDialog
 import androidx.compose.animation.AnimatedVisibility
@@ -66,7 +68,19 @@ fun AddMemberScreen(
     val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
+    val initialName = remember(memberToEdit) { memberToEdit?.name ?: "" }
     var name by remember(memberToEdit) { mutableStateOf(memberToEdit?.name ?: "") }
+ 
+    // Erkenne Änderungen im Vergleich zum Initialzustand
+    val initialDayProfiles = remember(memberToEdit) {
+        memberToEdit?.dayProfiles ?: defaultDayProfiles(
+            earliestWakeUp = memberToEdit?.earliestWakeUp ?: LocalTime.of(6, 0),
+            latestWakeUp = memberToEdit?.latestWakeUp ?: LocalTime.of(7, 30),
+            bathroomDurationMinutes = memberToEdit?.bathroomDurationMinutes ?: 20L,
+            wantsBreakfast = memberToEdit?.wantsBreakfast ?: true,
+            leaveHomeTime = memberToEdit?.leaveHomeTime
+        )
+    }
 
     // Starte mit bestehenden dayProfiles oder erzeuge Defaults aus alten Feldern
     var dayProfiles by remember(memberToEdit) {
@@ -82,6 +96,21 @@ fun AddMemberScreen(
     }
     var selectedDay by remember { mutableStateOf(1) } // 1=Mo
     var showCopyDialog by remember { mutableStateOf(false) }
+    var showDiscardConfirmDialog by remember { mutableStateOf(false) }
+ 
+    val hasChanges = name != initialName || dayProfiles != initialDayProfiles
+ 
+    val handleBack = {
+        if (hasChanges) {
+            showDiscardConfirmDialog = true
+        } else {
+            onNavigateBack()
+        }
+    }
+ 
+    BackHandler(enabled = true) {
+        handleBack()
+    }
 
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
@@ -148,6 +177,31 @@ fun AddMemberScreen(
         )
     }
 
+    // Bestätigungsdialog für ungespeicherte Änderungen
+    if (showDiscardConfirmDialog) {
+        AlertDialog(
+            onDismissRequest = { showDiscardConfirmDialog = false },
+            title = { Text(stringResource(R.string.unsaved_changes_title)) },
+            text = { Text(stringResource(R.string.unsaved_changes_message)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showDiscardConfirmDialog = false
+                        onNavigateBack()
+                    },
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text(stringResource(R.string.unsaved_changes_discard))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDiscardConfirmDialog = false }) {
+                    Text(stringResource(R.string.unsaved_changes_keep))
+                }
+            }
+        )
+    }
+ 
     Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
         Scaffold(
             containerColor = Color.Transparent,
@@ -162,7 +216,7 @@ fun AddMemberScreen(
                     navigationIcon = {
                         val backInteractionSource = remember { MutableInteractionSource() }
                         IconButton(
-                            onClick = onNavigateBack,
+                            onClick = handleBack,
                             modifier = Modifier.bounceClick(backInteractionSource),
                             interactionSource = backInteractionSource
                         ) {
