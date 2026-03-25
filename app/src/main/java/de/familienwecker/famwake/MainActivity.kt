@@ -241,10 +241,13 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                         }
                     },
                     onLeaveFamily = {
-                        familyViewModel.leaveFamily()
-                        navController.navigate(Routes.SETUP) {
-                            popUpTo(0) { inclusive = true }
-                            launchSingleTop = true
+                        familyViewModel.leaveFamily { success ->
+                            if (success) {
+                                navController.navigate(Routes.SETUP) {
+                                    popUpTo(0) { inclusive = true }
+                                    launchSingleTop = true
+                                }
+                            }
                         }
                     }
                 )
@@ -278,10 +281,13 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                         }
                     },
                     onLeaveFamily = {
-                        familyViewModel.leaveFamily()
-                        navController.navigate(Routes.SETUP) {
-                            popUpTo(0) { inclusive = true }
-                            launchSingleTop = true
+                        familyViewModel.leaveFamily { success ->
+                            if (success) {
+                                navController.navigate(Routes.SETUP) {
+                                    popUpTo(0) { inclusive = true }
+                                    launchSingleTop = true
+                                }
+                            }
                         }
                     },
                     onStartOnboarding = {
