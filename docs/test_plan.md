@@ -1,5 +1,5 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.7
+**Version:** 1.6.10
 **Datum:** 2026-03-25
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -202,6 +202,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-105| **Self-Healing Firestore** | Flugmodus an/aus während Firestore-Listener aktiv ist. | Listener fängt Fehler ab, zeigt kein UI-Flackern und synchronisiert sich lautlos neu, sobald Netz da ist. |
 | TC-106| **Login (Missing Format Fix)** | Login mit absichtlich falschem Passwort oder bei Sync-Fehlern unter Deutsch. | Fehler wird sauber angezeigt, keine `MissingFormatArgumentException` (Crash). |
 | TC-107| **Family Creation (Non-Admin)** | Als normaler User (kein Global Admin) eine Familie gründen. | Funktioniert ohne `PERMISSION_DENIED` direkt nach dem Redirect zum Dashboard. |
+| TC-108| **KMP Einstellungen Persistenz** | App neu starten nach Änderung von Einstellungen (Sprache, Theme). | Einstellungen bleiben erhalten; kein Datenverlust durch neue KMP-Architektur. |
 
 ---
 
