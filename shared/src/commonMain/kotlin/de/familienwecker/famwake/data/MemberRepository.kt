@@ -17,7 +17,13 @@ class MemberRepository(private val memberDao: MemberDao) {
     }
 
     suspend fun cacheMembers(members: List<FamilyMember>) {
+        if (members.isEmpty()) return // Schutz: 0-Docs-Snapshot nicht als "alle gelöscht" interpretieren
+        memberDao.clearAll()
         memberDao.upsertMembers(members.map { it.toEntity() })
+    }
+
+    suspend fun deleteMember(id: String) {
+        memberDao.deleteMember(id)
     }
 
     suspend fun clearCache() {
