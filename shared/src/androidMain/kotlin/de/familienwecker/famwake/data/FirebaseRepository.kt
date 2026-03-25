@@ -43,8 +43,7 @@ class FirebaseRepository : IFirebaseRepository {
             val functions = Firebase.functions("europe-west3")
             val data = mapOf("familyName" to familyName, "userId" to userId)
             @Suppress("UNCHECKED_CAST")
-            val result = functions.httpsCallable("createFamily").invoke(data) as? Map<String, Any>
-                ?: return Result.failure(CodeGenerationFailedException())
+            val result = functions.httpsCallable("createFamily").invoke(data).data<Map<String, Any>>()
             val familyId = result["familyId"] as? String
                 ?: return Result.failure(CodeGenerationFailedException())
             val joinCode = result["joinCode"] as? String
@@ -75,9 +74,9 @@ class FirebaseRepository : IFirebaseRepository {
             val functions = Firebase.functions("europe-west3")
             val data = mapOf("code" to joinCode)
             @Suppress("UNCHECKED_CAST")
-            val result = functions.httpsCallable("joinFamilyByCode").invoke(data) as? Map<String, Any>
-            val familyId = result?.get("familyId") as? String
-            val code = result?.get("joinCode") as? String
+            val result = functions.httpsCallable("joinFamilyByCode").invoke(data).data<Map<String, Any>>()
+            val familyId = result["familyId"] as? String
+            val code = result["joinCode"] as? String
             if (familyId != null && code != null) {
                 Result.success(Pair(familyId, code))
             } else {
