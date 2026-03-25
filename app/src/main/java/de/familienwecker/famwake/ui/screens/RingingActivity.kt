@@ -3,7 +3,8 @@ package de.familienwecker.famwake.ui.screens
 import android.net.Uri
 import android.media.AudioAttributes
 import de.familienwecker.famwake.FamWakeApplication
-import de.familienwecker.famwake.data.PreferencesRepository
+import de.familienwecker.famwake.data.AppSettings
+import de.familienwecker.famwake.model.toKmpLocalDateTime
 import android.app.KeyguardManager
 import android.app.NotificationManager
 import android.content.Context
@@ -62,7 +63,7 @@ class RingingActivity : AppCompatActivity() {
         showOnLockScreenAndTurnScreenOn()
         playRingtone()
 
-        val prefsRepo = (application as FamWakeApplication).preferencesRepository
+        val appSettings = (application as FamWakeApplication).appSettings
         val alarmScheduler = de.familienwecker.famwake.alarm.AlarmScheduler(this)
 
         setContent {
@@ -76,19 +77,19 @@ class RingingActivity : AppCompatActivity() {
                         memberName = memberName,
                         onStopClicked = {
                             // Snooze-Status löschen, damit der Banner auf MainScreen verschwindet
-                            prefsRepo.setSnoozeUntil(null)
+                            appSettings.setSnoozeUntil(null)
                             // Snooze-Alarm-Slot aus dem System entfernen
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
                             stopRingtoneAndFinish()
                         },
                         onSnoozeClicked = {
                             val snoozeTime = java.time.LocalDateTime.now().plusMinutes(5)
-                            prefsRepo.setSnoozeUntil(snoozeTime)
+                            appSettings.setSnoozeUntil(snoozeTime.toKmpLocalDateTime())
                             alarmScheduler.scheduleWakeUp(
                                 wakeUpTime = snoozeTime,
                                 memberId = memberId,
                                 memberName = memberName,
-                                soundUri = prefsRepo.alarmSoundUri.value,
+                                soundUri = appSettings.alarmSoundUri.value,
                                 isSnooze = true
                             )
                             stopRingtoneAndFinish()
@@ -136,8 +137,8 @@ class RingingActivity : AppCompatActivity() {
     }
 
     private fun playRingtone() {
-        val prefsRepo = (application as FamWakeApplication).preferencesRepository
-        val savedUriString = prefsRepo.alarmSoundUri.value
+        val appSettings = (application as FamWakeApplication).appSettings
+        val savedUriString = appSettings.alarmSoundUri.value
 
         // Versuche zunächst den gespeicherten Ton, dann System-Alarm, dann System-Ringtone
         val uriChain = listOfNotNull(
@@ -160,8 +161,8 @@ class RingingActivity : AppCompatActivity() {
     private fun stopRingtoneAndFinish() {
         try {
             // Letzten Alarm-Zeitpunkt für Review-Logik speichern
-            val prefsRepo = (application as FamWakeApplication).preferencesRepository
-            prefsRepo.setLastAlarmTime(System.currentTimeMillis())
+            val appSettings = (application as FamWakeApplication).appSettings
+            appSettings.setLastAlarmTime(System.currentTimeMillis())
             
             mediaPlayer?.stop()
         } catch (_: IllegalStateException) {}

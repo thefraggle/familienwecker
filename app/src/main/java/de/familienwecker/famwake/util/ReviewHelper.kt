@@ -4,7 +4,7 @@ import android.app.Activity
 import android.util.Log
 import android.widget.Toast
 import com.google.android.play.core.review.ReviewManagerFactory
-import de.familienwecker.famwake.data.PreferencesRepository
+import de.familienwecker.famwake.data.AppSettings
 
 object ReviewHelper {
     private const val TAG = "ReviewHelper"
@@ -17,7 +17,7 @@ object ReviewHelper {
      * - Mindestens 2 Stunden seit dem letzten Alarm
      * - Optional: Nicht zu häufig (z.B. nur alle 30 Tage, falls abgelehnt - wird autom. von Play API gehandhabt)
      */
-    fun shouldShowReview(prefs: PreferencesRepository): Boolean {
+    fun shouldShowReview(prefs: AppSettings): Boolean {
         val now = System.currentTimeMillis()
         val installTime = prefs.installTime.value
         val lastAlarmTime = prefs.lastAlarmTime.value
@@ -38,7 +38,7 @@ object ReviewHelper {
      * Startet den In-App Review Flow.
      * @param ignoreConstraints Wenn true (z.B. für Admins), werden die Zeitchecks ignoriert.
      */
-    fun launchReview(activity: Activity, prefs: PreferencesRepository, ignoreConstraints: Boolean = false) {
+    fun launchReview(activity: Activity, prefs: AppSettings, ignoreConstraints: Boolean = false) {
         if (!ignoreConstraints && !shouldShowReview(prefs)) {
             return
         }
