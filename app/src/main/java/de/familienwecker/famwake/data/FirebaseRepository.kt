@@ -265,18 +265,36 @@ class FirebaseRepository {
     suspend fun getUserFamily(uid: String, cachedJoinCode: String? = null): Result<Pair<String, String>?> = coroutineScope {
         try {
             // M-1: Parallel fetching with async for performance optimization
-            val familyIdDeferred = async {
-                db.collection("users").document(uid).get().await().getString("familyId")
-            }
-            val joinCodeDeferred = if (cachedJoinCode == null) {
-                async {
-                    db.collection(COLLECTION_FAMILIES).whereArrayContains("userIds", uid).get().await()
-                        .documents.firstOrNull()?.getString("joinCode")
-                }
-            } else null
+            // M-1: Fetch familyId from user doc first (most efficient)
+            val userDoc = db.collection("users").document(uid).get().await()
+            var familyId = userDoc.getString("familyId")
+            var joinCode: String? = null
 
-            val familyId = familyIdDeferred.await()
-            val joinCode = joinCodeDeferred?.await() ?: cachedJoinCode
+            if (familyId != null) {
+                // Pre-emptive fetch of the specific family document
+                val familyDoc = db.collection(COLLECTION_FAMILIES).document(familyId).get().await()
+                if (familyDoc.exists()) {
+                    joinCode = familyDoc.getString("joinCode")
+                } else {
+                    // Stale familyId in user doc? Clear it or ignore.
+                    familyId = null
+                }
+            }
+
+            // Fallback: Query collection if not found in user doc (e.g. race condition after creation)
+            if (familyId == null || joinCode == null) {
+                val queryResults = db.collection(COLLECTION_FAMILIES)
+                    .whereArrayContains("userIds", uid)
+                    .limit(1)
+                    .get()
+                    .await()
+                
+                val doc = queryResults.documents.firstOrNull()
+                if (doc != null) {
+                    familyId = doc.id
+                    joinCode = doc.getString("joinCode")
+                }
+            }
 
             if (familyId != null && joinCode != null) {
                 Result.success(Pair(familyId, joinCode))

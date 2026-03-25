@@ -34,7 +34,8 @@ service cloud.firestore {
     // Familien-Dokumente
     match /families/{familyId} {
       // Mitglieder dürfen lesen (isFamilyMember deckt auch Creator ab)
-      allow read: if isFamilyMember(familyId);
+      // WICHTIG: userIds-Check ermöglicht Collection-Queries (List-Permission)
+      allow read: if isFamilyMember(familyId) || (signedIn() && request.auth.uid in resource.data.userIds);
 
       // Kein direkter Client-Zugriff für Create (nur Cloud Functions)
       allow create: if false;
@@ -48,6 +49,7 @@ service cloud.firestore {
 
       // Mitglieder-Subcollection
       match /members/{memberId} {
+        // WICHTIG: Erlaubt Queries auf Mitglieder, wenn man Teil der Familie ist
         allow read: if isFamilyMember(familyId);
         
         // Erstellen/Ändern erlaubt für alle Familienmitglieder (ohne E-Mail-Lock)
