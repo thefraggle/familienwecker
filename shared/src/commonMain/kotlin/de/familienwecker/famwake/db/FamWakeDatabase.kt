@@ -35,6 +35,9 @@ interface MemberDao {
     @Query("DELETE FROM members WHERE id = :id")
     suspend fun deleteMember(id: String)
 
+    @Query("DELETE FROM members WHERE id NOT IN (:ids)")
+    suspend fun deleteNotInIds(ids: List<String>)
+
     @Query("DELETE FROM members")
     suspend fun clearAll()
 }

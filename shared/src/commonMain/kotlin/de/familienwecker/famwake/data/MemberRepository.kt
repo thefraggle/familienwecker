@@ -18,8 +18,9 @@ class MemberRepository(private val memberDao: MemberDao) {
 
     suspend fun cacheMembers(members: List<FamilyMember>) {
         if (members.isEmpty()) return // Schutz: 0-Docs-Snapshot nicht als "alle gelöscht" interpretieren
-        memberDao.clearAll()
-        memberDao.upsertMembers(members.map { it.toEntity() })
+        val entities = members.map { it.toEntity() }
+        memberDao.upsertMembers(entities)                           // 1. zuerst einfügen/updaten
+        memberDao.deleteNotInIds(entities.map { it.id })           // 2. dann stale löschen → kein 0-State
     }
 
     suspend fun deleteMember(id: String) {
