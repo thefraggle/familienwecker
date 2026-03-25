@@ -297,6 +297,7 @@ class PreferencesRepository(context: Context) {
     /** Listener deregistrieren – wird von FamilyViewModel.onCleared() aufgerufen. */
     fun unregisterListener() {
         prefs.unregisterOnSharedPreferenceChangeListener(listener)
+        repositoryScope.cancel()
     }
 
     fun setMyMemberId(id: String?) {

@@ -17,6 +17,13 @@ class FirebaseRepository {
     private val db = FirebaseFirestore.getInstance()
     private val auth = com.google.firebase.auth.FirebaseAuth.getInstance()
 
+    companion object {
+        private const val COLLECTION_ADMINS = "_admins"
+        private const val COLLECTION_FAMILIES = "families"
+        private const val COLLECTION_USERS = "users"
+        private const val SUB_COLL_MEMBERS = "members"
+    }
+
     fun getAuthStateFlow(): Flow<com.google.firebase.auth.FirebaseUser?> = callbackFlow {
         val listener = com.google.firebase.auth.FirebaseAuth.AuthStateListener { auth ->
             trySend(auth.currentUser)
@@ -303,11 +310,16 @@ class FirebaseRepository {
         }
     }
 
-    fun checkIsGlobalAdminFlow(uid: String): kotlinx.coroutines.flow.Flow<Boolean> = kotlinx.coroutines.flow.callbackFlow {
-        val docRef = db.collection("_admins").document(uid)
-        val listener = docRef.addSnapshotListener { snapshot, _ ->
-            // Fallback auf PRIMARY_ADMIN_UID für absolute Sicherheit direkt im Code
-            // Wir verlassen uns auf die Firestore-Dokument-Existenz (Security Rules prüfen!)
+    fun checkIsGlobalAdminFlow(uid: String): Flow<Boolean> = callbackFlow {
+        val docRef = db.collection(COLLECTION_ADMINS).document(uid)
+        val listener = docRef.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FirebaseRepository", "Admin-Check-Fehler für $uid: ${error.message}")
+                }
+                trySend(false)
+                return@addSnapshotListener
+            }
             val isGlobal = snapshot?.exists() == true
             trySend(isGlobal)
         }
@@ -446,7 +458,12 @@ class FirebaseRepository {
         }
 
         val familySub = familyRef.addSnapshotListener(com.google.firebase.firestore.MetadataChanges.INCLUDE) { snapshot, error ->
-            if (error != null) { close(error); return@addSnapshotListener }
+            if (error != null) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FirebaseRepository", "SyncStatus (family) Fehler: ${error.message}")
+                }
+                return@addSnapshotListener
+            }
             if (snapshot != null) {
                 familySynced = de.familienwecker.famwake.model.SyncStatus(
                     isFromCache = snapshot.metadata.isFromCache(),
@@ -457,7 +474,12 @@ class FirebaseRepository {
         }
 
         val membersSub = membersRef.addSnapshotListener(com.google.firebase.firestore.MetadataChanges.INCLUDE) { snapshot, error ->
-            if (error != null) { close(error); return@addSnapshotListener }
+            if (error != null) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FirebaseRepository", "SyncStatus (members) Fehler: ${error.message}")
+                }
+                return@addSnapshotListener
+            }
             if (snapshot != null) {
                 membersSynced = de.familienwecker.famwake.model.SyncStatus(
                     isFromCache = snapshot.metadata.isFromCache(),
@@ -470,6 +492,32 @@ class FirebaseRepository {
         awaitClose {
             familySub.remove()
             membersSub.remove()
+        }
+    }
+
+    /**
+     * S-1: Sendet Feedback via Cloud Function.
+     */
+    suspend fun sendFeedback(
+        category: String,
+        message: String,
+        email: String,
+        appVersion: String,
+        device: String
+    ): Result<Unit> {
+        return try {
+            val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
+            val data = hashMapOf(
+                "category" to category,
+                "message" to message,
+                "email" to email,
+                "appVersion" to appVersion,
+                "device" to device
+            )
+            functions.getHttpsCallable("sendFeedbackEmail").call(data).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 }

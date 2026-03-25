@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.firebase.functions.FirebaseFunctions
 import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
@@ -51,13 +51,13 @@ fun FeedbackScreen(
     var selectedCategory by remember { mutableStateOf(categories[0]) }
     var message by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
-    var isLoading by remember { mutableStateOf(false) }
-    var submitted by remember { mutableStateOf(false) }
-    var errorMessage by remember { mutableStateOf<String?>(null) }
+    
+    val isLoading by viewModel.isSendingFeedback.collectAsStateWithLifecycle()
+    val submitted by viewModel.feedbackSubmitted.collectAsStateWithLifecycle()
+    val errorMessage by viewModel.feedbackError.collectAsStateWithLifecycle()
 
     val deviceModel = remember { "${Build.MANUFACTURER} ${Build.MODEL}" }
     val appVersion = BuildConfig.VERSION_NAME
-    val scope = rememberCoroutineScope()
 
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
         colors = if (isDarkTheme) {
@@ -67,10 +67,15 @@ fun FeedbackScreen(
         }
     )
 
+    // Validierung
+    val isEmailValid = email.isBlank() || android.util.Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()
+    val canSend = message.isNotBlank() && isEmailValid && !isLoading
+
     // Auto-Close nach Erfolg
     LaunchedEffect(submitted) {
         if (submitted) {
             delay(2500)
+            viewModel.resetFeedbackState()
             onNavigateBack()
         }
     }
@@ -79,18 +84,14 @@ fun FeedbackScreen(
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {
-                TopAppBar(
+                CenterAlignedTopAppBar(
                     title = { Text(stringResource(R.string.feedback_title)) },
                     navigationIcon = {
                         IconButton(onClick = onNavigateBack) {
                             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                         }
                     },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
-                        titleContentColor = MaterialTheme.colorScheme.onSurface,
-                        navigationIconContentColor = MaterialTheme.colorScheme.onSurface
-                    )
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent)
                 )
             }
         ) { padding ->
@@ -98,52 +99,54 @@ fun FeedbackScreen(
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp)
-                    .verticalScroll(rememberScrollState()),
+                    .verticalScroll(rememberScrollState())
+                    .padding(20.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Spacer(modifier = Modifier.height(4.dp))
-
-                // Erfolgsmeldung
-                AnimatedVisibility(visible = submitted) {
+                if (submitted) {
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-                        shape = RoundedCornerShape(16.dp),
-                        modifier = Modifier.fillMaxWidth()
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer
+                        ),
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp)
                     ) {
-                        Row(
-                            modifier = Modifier.padding(16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        Column(
+                            modifier = Modifier.padding(24.dp).fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
-                            Icon(Icons.Default.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                            Icon(
+                                Icons.Default.Check,
+                                contentDescription = null,
+                                modifier = Modifier.size(40.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
                             Text(
-                                text = stringResource(R.string.feedback_success),
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                                style = MaterialTheme.typography.bodyMedium
+                                text = stringResource(R.string.feedback_success_title),
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                            Text(
+                                text = stringResource(R.string.feedback_success_message),
+                                style = MaterialTheme.typography.bodyMedium,
+                                textAlign = TextAlign.Center
                             )
                         }
                     }
-                }
-
-                // Fehlermeldung
-                AnimatedVisibility(visible = errorMessage != null) {
-                    Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-                        shape = RoundedCornerShape(16.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            text = errorMessage ?: "",
-                            modifier = Modifier.padding(16.dp),
-                            color = MaterialTheme.colorScheme.onErrorContainer,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                } else {
+                    AnimatedVisibility(visible = errorMessage != null) {
+                        Card(
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = errorMessage ?: "",
+                                color = MaterialTheme.colorScheme.onErrorContainer,
+                                modifier = Modifier.padding(12.dp),
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
                     }
-                }
 
-                if (!submitted) {
-                    // Intro
                     Text(
                         text = stringResource(R.string.feedback_intro),
                         style = MaterialTheme.typography.bodyMedium,
@@ -208,7 +211,11 @@ fun FeedbackScreen(
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
+                        isError = !isEmailValid,
                         placeholder = { Text(stringResource(R.string.feedback_email_placeholder)) },
+                        supportingText = if (!isEmailValid) {
+                            { Text(stringResource(R.string.error_invalid_email)) }
+                        } else null,
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
@@ -259,36 +266,15 @@ fun FeedbackScreen(
                         }
                         Button(
                             onClick = {
-                                scope.launch {
-                                    isLoading = true
-                                    errorMessage = null
-                                    try {
-                                        val functions = FirebaseFunctions.getInstance("europe-west3")
-                                        val data = hashMapOf(
-                                            "category" to selectedCategory,
-                                            "message" to message.trim(),
-                                            "email" to email.trim(),
-                                            "appVersion" to appVersion,
-                                            "device" to deviceModel
-                                        )
-                                        functions
-                                            .getHttpsCallable("sendFeedbackEmail")
-                                            .call(data)
-                                            .await()
-
-                                        // Formular leeren
-                                        message = ""
-                                        email = ""
-                                        selectedCategory = categories[0]
-                                        submitted = true
-                                    } catch (e: Exception) {
-                                        errorMessage = "Fehler beim Senden. Bitte versuche es später noch einmal."
-                                    } finally {
-                                        isLoading = false
-                                    }
-                                }
+                                viewModel.sendFeedback(
+                                    category = selectedCategory,
+                                    message = message,
+                                    email = email,
+                                    appVersion = appVersion,
+                                    device = deviceModel
+                                )
                             },
-                            enabled = message.isNotBlank() && !isLoading,
+                            enabled = canSend,
                             modifier = Modifier.weight(1f)
                         ) {
                             if (isLoading) {

@@ -16,6 +16,8 @@ sealed class AppError(val uiText: UiText) {
     object InvalidEmail : AppError(UiText.StringResource(R.string.error_invalid_email))
     object TooManyRequests : AppError(UiText.StringResource(R.string.error_too_many_requests))
     object ResetFailed : AppError(UiText.StringResource(R.string.error_password_reset_failed))
+    object EmailAlreadyInUse : AppError(UiText.StringResource(R.string.error_email_already_in_use))
+    object WeakPassword : AppError(UiText.StringResource(R.string.error_weak_password))
     
     // Family Fehler
     object FamilyNotFound : AppError(UiText.StringResource(R.string.error_family_not_found))
@@ -25,13 +27,15 @@ sealed class AppError(val uiText: UiText) {
     
     // Fallback
     data class Unknown(val message: String?) : AppError(
-        UiText.DynamicString(message ?: "Ein unbekannter Fehler ist aufgetreten")
+        UiText.StringResource(R.string.error_unknown)
     )
 
     companion object {
         fun fromException(e: Exception): AppError {
             val msg = e.message?.uppercase() ?: ""
             return when {
+                e is com.google.firebase.auth.FirebaseAuthUserCollisionException || msg.contains("EMAIL_EXISTS") -> EmailAlreadyInUse
+                e is com.google.firebase.auth.FirebaseAuthWeakPasswordException || msg.contains("WEAK_PASSWORD") -> WeakPassword
                 msg.contains("USER_NOT_FOUND") || msg.contains("NOT_FOUND") -> UserNotFound
                 msg.contains("INVALID_EMAIL") || msg.contains("INVALID_ARGUMENT") -> InvalidEmail
                 msg.contains("RESOURCE_EXHAUSTED") || msg.contains("TOO_MANY") -> TooManyRequests
