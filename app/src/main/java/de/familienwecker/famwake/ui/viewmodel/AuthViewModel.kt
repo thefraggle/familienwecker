@@ -79,46 +79,59 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private fun restoreUserFamily(uid: String) {
         _isRestoringFamily.value = true
         viewModelScope.launch {
-            if (!NetworkUtils.isOnline(getApplication())) {
-                _isRestoringFamily.value = false
-                return@launch
-            }
+            try {
+                if (!NetworkUtils.isOnline(getApplication())) {
+                    _isRestoringFamily.value = false
+                    return@launch
+                }
 
-            val result = withTimeoutOrNull(2000) {
-                dbRepository.getUserFamily(uid, cachedJoinCode = prefsRepository.joinCode.value)
-            }
+                val result = withTimeoutOrNull(2000) {
+                    dbRepository.getUserFamily(uid, cachedJoinCode = prefsRepository.joinCode.value)
+                }
 
-            if (result == null) {
-                _isRestoringFamily.value = false
-                return@launch
-            }
-
-            result.onSuccess { pair ->
-                if (pair != null) {
-                    val familyExistsResult = kotlin.runCatching {
-                        withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
+                if (result == null) {
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.w("AuthViewModel", "User family fetch timed out")
                     }
-                    if (familyExistsResult.getOrNull() == true) {
-                        prefsRepository.setFamilyId(pair.first)
-                        prefsRepository.setJoinCode(pair.second)
+                    _isRestoringFamily.value = false
+                    return@launch
+                }
 
-                        val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(pair.first) }
-                        prefsRepository.setFamilyName(familyName)
-
-                        val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
-                        if (claimedMember != null) {
-                            prefsRepository.setMyMemberId(claimedMember.id)
-                            prefsRepository.setMyMemberName(claimedMember.name)
+                result.onSuccess { pair ->
+                    if (pair != null) {
+                        val familyExistsResult = kotlin.runCatching {
+                            withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
                         }
-                    } else if (familyExistsResult.getOrNull() == false) {
-                        dbRepository.removeUserFamily(uid, pair.first)
+                        if (familyExistsResult.getOrNull() == true) {
+                            prefsRepository.setFamilyId(pair.first)
+                            prefsRepository.setJoinCode(pair.second)
+
+                            val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(pair.first) }
+                            prefsRepository.setFamilyName(familyName)
+
+                            val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
+                            if (claimedMember != null) {
+                                prefsRepository.setMyMemberId(claimedMember.id)
+                                prefsRepository.setMyMemberName(claimedMember.name)
+                            }
+                        } else if (familyExistsResult.getOrNull() == false) {
+                            dbRepository.removeUserFamily(uid, pair.first)
+                            prefsRepository.clearAll()
+                        }
+                    } else {
                         prefsRepository.clearAll()
                     }
-                } else {
-                    prefsRepository.clearAll()
+                    _isRestoringFamily.value = false
+                }.onFailure { error ->
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.e("AuthViewModel", "Restoration failed: ${error.message}")
+                    }
+                    _isRestoringFamily.value = false
                 }
-                _isRestoringFamily.value = false
-            }.onFailure {
+            } catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("AuthViewModel", "Error during restoreUserFamily: ${e.message}")
+                }
                 _isRestoringFamily.value = false
             }
         }

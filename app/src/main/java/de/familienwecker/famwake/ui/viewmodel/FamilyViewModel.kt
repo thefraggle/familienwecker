@@ -15,9 +15,7 @@ import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -152,6 +150,12 @@ class FamilyViewModel(
         .flatMapLatest { user ->
             user?.uid?.let { uid ->
                 repository.checkIsGlobalAdminFlow(uid)
+                    .catch { e ->
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.e("FamilyViewModel", "isGlobalAdmin Flow Error: ${e.message}")
+                        }
+                        emit(false)
+                    }
             } ?: flowOf(false)
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
