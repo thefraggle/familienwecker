@@ -68,11 +68,10 @@ fun AddMemberScreen(
     val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
-    val initialName = remember(memberToEdit) { memberToEdit?.name ?: "" }
-    var name by remember(memberToEdit) { mutableStateOf(memberToEdit?.name ?: "") }
- 
-    // Erkenne Änderungen im Vergleich zum Initialzustand
-    val initialDayProfiles = remember(memberToEdit) {
+    // Wir nutzen memberId als stabilen Key, damit Background-Syncs von 'members'
+    // nicht den Bearbeitungs-Zustand zurücksetzen (da remember(memberToEdit) bei jedem Firestore-Sync triggert).
+    val initialName = remember(memberId) { memberToEdit?.name ?: "" }
+    val initialDayProfiles = remember(memberId) {
         memberToEdit?.dayProfiles ?: defaultDayProfiles(
             earliestWakeUp = memberToEdit?.earliestWakeUp ?: LocalTime.of(6, 0),
             latestWakeUp = memberToEdit?.latestWakeUp ?: LocalTime.of(7, 30),
@@ -81,19 +80,9 @@ fun AddMemberScreen(
             leaveHomeTime = memberToEdit?.leaveHomeTime
         )
     }
-
-    // Starte mit bestehenden dayProfiles oder erzeuge Defaults aus alten Feldern
-    var dayProfiles by remember(memberToEdit) {
-        mutableStateOf(
-            memberToEdit?.dayProfiles ?: defaultDayProfiles(
-                earliestWakeUp = memberToEdit?.earliestWakeUp ?: LocalTime.of(6, 0),
-                latestWakeUp = memberToEdit?.latestWakeUp ?: LocalTime.of(7, 30),
-                bathroomDurationMinutes = memberToEdit?.bathroomDurationMinutes ?: 20L,
-                wantsBreakfast = memberToEdit?.wantsBreakfast ?: true,
-                leaveHomeTime = memberToEdit?.leaveHomeTime
-            )
-        )
-    }
+ 
+    var name by remember(memberId) { mutableStateOf(initialName) }
+    var dayProfiles by remember(memberId) { mutableStateOf(initialDayProfiles) }
     var selectedDay by remember { mutableStateOf(1) } // 1=Mo
     var showCopyDialog by remember { mutableStateOf(false) }
     var showDiscardConfirmDialog by remember { mutableStateOf(false) }
