@@ -626,6 +626,7 @@ fun SettingsScreen(
                             "it" -> stringResource(R.string.settings_language_italian)
                             "pl" -> stringResource(R.string.settings_language_polish)
                             "nl" -> stringResource(R.string.settings_language_dutch)
+                            "pt" -> stringResource(R.string.settings_language_portuguese)
                             else -> stringResource(R.string.settings_language_english)
                         }
                         
@@ -668,6 +669,10 @@ fun SettingsScreen(
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_dutch)) },
                                 onClick = { viewModel.setLanguage("nl"); languageExpanded = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_portuguese)) },
+                                onClick = { viewModel.setLanguage("pt"); languageExpanded = false }
                             )
                         }
                     }
