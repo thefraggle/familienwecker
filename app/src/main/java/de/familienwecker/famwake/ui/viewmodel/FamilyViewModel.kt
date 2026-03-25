@@ -13,6 +13,8 @@ import de.familienwecker.famwake.data.CodeGenerationFailedException
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
+import de.familienwecker.famwake.model.toJavaLocalTime
+import de.familienwecker.famwake.model.toKmpLocalTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
@@ -682,8 +684,8 @@ class FamilyViewModel(
 
         val debugProfile = de.familienwecker.famwake.model.DayProfile(
             isActive = true,
-            earliestWakeUp = earliest,
-            latestWakeUp = latest,
+            earliestWakeUp = earliest.toKmpLocalTime(),
+            latestWakeUp = latest.toKmpLocalTime(),
             bathroomDurationMinutes = 1L,
             wantsBreakfast = false
         )
@@ -738,11 +740,11 @@ class FamilyViewModel(
         val member = _members.value.find { it.id == memberId } ?: return
 
         // Dauer-Berechnung
-        val now = LocalTime.now()
-        val wakeUpTime = member.latestWakeUp
-        val targetDate = if (now.isAfter(wakeUpTime)) LocalDate.now().plusDays(1) else LocalDate.now()
-        val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
-        val hoursUntil = java.time.Duration.between(LocalDateTime.now(), targetDateTime).toHours()
+        val now = java.time.LocalTime.now()
+        val wakeUpTime = member.latestWakeUp.toJavaLocalTime()
+        val targetDate = if (now.isAfter(wakeUpTime)) java.time.LocalDate.now().plusDays(1) else java.time.LocalDate.now()
+        val targetDateTime = java.time.LocalDateTime.of(targetDate, wakeUpTime)
+        val hoursUntil = java.time.Duration.between(java.time.LocalDateTime.now(), targetDateTime).toHours()
 
         // 4-Stunden-Sperre entfernt, damit der Button jederzeit am Tag des Weckers funktioniert.
 
@@ -856,12 +858,12 @@ class FamilyViewModel(
     }
 
     private fun checkAndResetMembers(members: List<FamilyMember>): List<FamilyMember> {
-        val today = LocalDate.now().toString()
-        val now = LocalTime.now()
+        val today = java.time.LocalDate.now().toString()
+        val now = java.time.LocalTime.now()
         val toUpdate = mutableListOf<FamilyMember>()
 
         val result = members.map { member ->
-            val resetThreshold = member.latestWakeUp.plusHours(2)
+            val resetThreshold = member.latestWakeUp.toJavaLocalTime().plusHours(2)
             val isPastResetThreshold = now.isAfter(resetThreshold)
 
             if (isPastResetThreshold && member.lastResetDate != today) {
@@ -912,14 +914,14 @@ class FamilyViewModel(
      */
     private fun resolveEffectiveMember(member: FamilyMember): FamilyMember {
         val profiles = member.dayProfiles ?: return member
-        val now = LocalTime.now()
-        val today = LocalDate.now()
+        val now = java.time.LocalTime.now()
+        val today = java.time.LocalDate.now()
 
         // Heutiges Profil prüfen
         val todayDow = today.dayOfWeek.value // 1=Mo … 7=So
         val todayProfile = profiles[todayDow]
 
-        val targetDate = if (todayProfile != null && todayProfile.isActive && now.isBefore(todayProfile.latestWakeUp)) {
+        val targetDate = if (todayProfile != null && todayProfile.isActive && now.isBefore(todayProfile.latestWakeUp.toJavaLocalTime())) {
             // Heute ist noch Zeit für den Wecker
             today
         } else {
@@ -1043,10 +1045,10 @@ class FamilyViewModel(
                         // (resolveEffectiveMember sieht ihn als "paused", weil todayProfile.latestWakeUp
                         // bereits vorbei ist – aber der echte Alarm könnte noch feuern.)
                         val myMember = currentMembers.find { it.id == currentMyMemberId }
-                        val myProfile = myMember?.dayProfiles?.get(LocalDate.now().dayOfWeek.value)
-                        val myWakeUpToday = myProfile?.latestWakeUp
+                        val myProfile = myMember?.dayProfiles?.get(java.time.LocalDate.now().dayOfWeek.value)
+                        val myWakeUpToday = myProfile?.latestWakeUp?.toJavaLocalTime()
                         val inGrace = if (myWakeUpToday != null) {
-                            val todayAlarmMillis = LocalDateTime.of(LocalDate.now(), myWakeUpToday)
+                            val todayAlarmMillis = java.time.LocalDateTime.of(java.time.LocalDate.now(), myWakeUpToday)
                                 .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
                             val millisSince = System.currentTimeMillis() - todayAlarmMillis
                             millisSince in 0..300_000
@@ -1098,8 +1100,8 @@ class FamilyViewModel(
 
         for (memberSchedule in schedule.memberSchedules) {
             if (memberSchedule.member.id == currentMyMemberId) {
-                val wakeUpTime = memberSchedule.wakeUpTime
-                val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
+                val wakeUpTime = memberSchedule.wakeUpTime.toJavaLocalTime()
+                val targetDate = if (java.time.LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
 
                 // RACE-CONDITION-GUARD (müss als ALLERERSTER Check laufen):
                 // Wenn targetDate == morgen, bedeutet das: die heutige Weckzeit ist gerade eben vorbei.
@@ -1108,7 +1110,7 @@ class FamilyViewModel(
                 // den startenden Alarm abwürgen. Deshalb: 5 Minuten Grace Period – in dieser Zeit
                 // wird NICHTS verändert (weder Cancel noch Reschedule).
                 if (targetDate == tomorrow) {
-                    val todayAlarmMillis = LocalDateTime.of(today, wakeUpTime)
+                    val todayAlarmMillis = java.time.LocalDateTime.of(today, wakeUpTime)
                         .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
                     val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
                     if (millisSinceTodayAlarm in 0..300_000) { // 0..5 Minuten

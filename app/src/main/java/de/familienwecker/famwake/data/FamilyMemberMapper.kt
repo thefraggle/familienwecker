@@ -4,7 +4,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import de.familienwecker.famwake.model.DayProfile
 import de.familienwecker.famwake.model.FamilyMember
-import java.time.LocalTime
+import kotlinx.datetime.LocalTime
 
 /**
  * M-1: Extrahiert das Duplikat-Mapping von Firestore-Dokument zu FamilyMember.
@@ -27,11 +27,11 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         dayNum to DayProfile(
             isActive = map["isActive"] as? Boolean ?: true,
             earliestWakeUp = earliestRaw?.let {
-                try { LocalTime.parse(it) } catch (e: Exception) { LocalTime.of(6, 0) }
-            } ?: LocalTime.of(6, 0),
+                try { LocalTime.parse(it) } catch (e: Exception) { LocalTime(6, 0) }
+            } ?: LocalTime(6, 0),
             latestWakeUp = latestRaw?.let {
-                try { LocalTime.parse(it) } catch (e: Exception) { LocalTime.of(7, 30) }
-            } ?: LocalTime.of(7, 30),
+                try { LocalTime.parse(it) } catch (e: Exception) { LocalTime(7, 30) }
+            } ?: LocalTime(7, 30),
             bathroomDurationMinutes = when (bathroomRaw) {
                 is Long -> bathroomRaw
                 is Number -> bathroomRaw.toLong()
@@ -61,8 +61,8 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
     return FamilyMember(
         id = id,
         name = getString("name") ?: "Unknown",
-        earliestWakeUp = try { LocalTime.parse(earliestStr) } catch (e: Exception) { LocalTime.of(6, 0) },
-        latestWakeUp = try { LocalTime.parse(latestStr) } catch (e: Exception) { LocalTime.of(7, 30) },
+        earliestWakeUp = try { LocalTime.parse(earliestStr) } catch (e: Exception) { LocalTime(6, 0) },
+        latestWakeUp = try { LocalTime.parse(latestStr) } catch (e: Exception) { LocalTime(7, 30) },
         bathroomDurationMinutes = getLong("bathroomDurationMinutes") ?: 20L,
         wantsBreakfast = getBoolean("wantsBreakfast") ?: true,
         leaveHomeTime = leaveStr?.let { try { LocalTime.parse(it) } catch (e: Exception) { null } },

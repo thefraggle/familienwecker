@@ -7,7 +7,7 @@ plugins {
 }
 
 // Fallback version if no versionName property is provided (e.g. for local builds)
-val appVersion = project.findProperty("versionName")?.toString() ?: "1.6.7"
+val appVersion = project.findProperty("versionName")?.toString() ?: "1.6.9"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -91,7 +91,9 @@ base {
 }
 
 dependencies {
+    implementation(project(":shared"))
     implementation(libs.androidx.appcompat)
+
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)

@@ -48,6 +48,7 @@ import kotlin.math.roundToInt
 import androidx.activity.compose.BackHandler
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilyMember
+import de.familienwecker.famwake.model.toJavaLocalTime
 import de.familienwecker.famwake.ui.components.EmptyState
 import de.familienwecker.famwake.ui.components.bounceClick
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
@@ -583,7 +584,7 @@ fun MainScreen(
                                         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
                                     ) {
                                         Text(
-                                            text = stringResource(R.string.main_fallback_alarm_active, myMember.wakeUpTime.format(timeFormatter)),
+                                            text = stringResource(R.string.main_fallback_alarm_active, myMember.wakeUpTime.toJavaLocalTime().format(timeFormatter)),
                                             style = MaterialTheme.typography.labelMedium,
                                             fontWeight = FontWeight.Bold,
                                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
@@ -607,7 +608,7 @@ fun MainScreen(
                                 )
                                 // Datum anzeigen wenn Alarm nicht heute ist
                                 val earliestAlarm = currentSchedule.memberSchedules.minByOrNull { it.wakeUpTime }?.wakeUpTime
-                                if (earliestAlarm != null && java.time.LocalTime.now().isAfter(earliestAlarm)) {
+                                if (earliestAlarm != null && java.time.LocalTime.now().isAfter(earliestAlarm.toJavaLocalTime())) {
                                     val tomorrow = java.time.LocalDate.now().plusDays(1)
                                     val dayName = tomorrow.dayOfWeek
                                         .getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.getDefault())
@@ -634,7 +635,7 @@ fun MainScreen(
                                     )
                                 }
                                 currentSchedule.breakfastTime?.let {
-                                    Text(text = "☕ " + stringResource(R.string.main_shared_breakfast, it.format(timeFormatter)), modifier = Modifier.padding(top = 8.dp))
+                                    Text(text = "☕ " + stringResource(R.string.main_shared_breakfast, it.toJavaLocalTime().format(timeFormatter)), modifier = Modifier.padding(top = 8.dp))
                                 }
                             }
                         }
@@ -758,7 +759,7 @@ fun MainScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text(
-                                        text = "⏰ ${sched.wakeUpTime.format(timeFormatter)} - ${sched.member.name}", 
+                                        text = "⏰ ${sched.wakeUpTime.toJavaLocalTime().format(timeFormatter)} - ${sched.member.name}", 
                                         style = MaterialTheme.typography.titleMedium, 
                                         fontWeight = FontWeight.Bold
                                     )
@@ -769,13 +770,13 @@ fun MainScreen(
                                     )
                                 }
                                 Text(
-                                    text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.format(timeFormatter), sched.bathroomEndTime.format(timeFormatter)),
+                                    text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toJavaLocalTime().format(timeFormatter), sched.bathroomEndTime.toJavaLocalTime().format(timeFormatter)),
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
                                 )
                                 if (sched.member.leaveHomeTime != null) {
                                     Text(
-                                        text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime!!.format(timeFormatter)),
+                                        text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime!!.toJavaLocalTime().format(timeFormatter)),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
                                     )
@@ -1076,11 +1077,11 @@ fun MemberCard(
                         if (profile != null && profile.isActive) date to profile else null
                     }.firstOrNull()
 
-                    val showDayLabel = nextActiveDayResult != null &&
+                        val showDayLabel = nextActiveDayResult != null &&
                         nextActiveDayResult.first != today
 
-                    val displayEarliest = nextActiveDayResult?.second?.earliestWakeUp ?: member.earliestWakeUp
-                    val displayLatest   = nextActiveDayResult?.second?.latestWakeUp   ?: member.latestWakeUp
+                    val displayEarliest = nextActiveDayResult?.second?.earliestWakeUp?.toJavaLocalTime() ?: member.earliestWakeUp.toJavaLocalTime()
+                    val displayLatest   = nextActiveDayResult?.second?.latestWakeUp?.toJavaLocalTime()   ?: member.latestWakeUp.toJavaLocalTime()
 
                     if (showDayLabel && nextActiveDayResult != null) {
                         val dayName = nextActiveDayResult.first.dayOfWeek
