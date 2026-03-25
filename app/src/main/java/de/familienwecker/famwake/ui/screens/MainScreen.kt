@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import java.time.format.DateTimeFormatter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -131,6 +132,7 @@ fun MainScreen(
 
     var draggedItemId by remember { mutableStateOf<String?>(null) }
     var draggingOffset by remember { mutableStateOf(0f) }
+    val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
     Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
         Scaffold(
@@ -454,7 +456,7 @@ fun MainScreen(
                                         Text(
                                             text = stringResource(
                                                 R.string.main_snooze_active,
-                                                snoozeTime.toLocalTime().toString().substring(0, 5)
+                                                snoozeTime.toLocalTime().format(timeFormatter)
                                             ),
                                             style = MaterialTheme.typography.bodyMedium,
                                             fontWeight = FontWeight.Medium,
@@ -581,7 +583,7 @@ fun MainScreen(
                                         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
                                     ) {
                                         Text(
-                                            text = stringResource(R.string.main_fallback_alarm_active, myMember.wakeUpTime.toString()),
+                                            text = stringResource(R.string.main_fallback_alarm_active, myMember.wakeUpTime.format(timeFormatter)),
                                             style = MaterialTheme.typography.labelMedium,
                                             fontWeight = FontWeight.Bold,
                                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
@@ -632,7 +634,7 @@ fun MainScreen(
                                     )
                                 }
                                 currentSchedule.breakfastTime?.let {
-                                    Text(text = "☕ " + stringResource(R.string.main_shared_breakfast, it.toString()), modifier = Modifier.padding(top = 8.dp))
+                                    Text(text = "☕ " + stringResource(R.string.main_shared_breakfast, it.format(timeFormatter)), modifier = Modifier.padding(top = 8.dp))
                                 }
                             }
                         }
@@ -756,7 +758,7 @@ fun MainScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text(
-                                        text = "⏰ ${sched.wakeUpTime} - ${sched.member.name}", 
+                                        text = "⏰ ${sched.wakeUpTime.format(timeFormatter)} - ${sched.member.name}", 
                                         style = MaterialTheme.typography.titleMedium, 
                                         fontWeight = FontWeight.Bold
                                     )
@@ -767,13 +769,13 @@ fun MainScreen(
                                     )
                                 }
                                 Text(
-                                    text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toString(), sched.bathroomEndTime.toString()),
+                                    text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.format(timeFormatter), sched.bathroomEndTime.format(timeFormatter)),
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
                                 )
                                 if (sched.member.leaveHomeTime != null) {
                                     Text(
-                                        text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime.toString()),
+                                        text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime!!.format(timeFormatter)),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
                                     )
@@ -977,6 +979,7 @@ fun MemberCard(
     isAlarmEnabled: Boolean
 ) {
     val isDarkTheme = LocalDarkTheme.current
+    val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
     val backgroundColor = if (member.isPaused) {
         if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
         else MaterialTheme.colorScheme.surfaceVariant
@@ -1090,7 +1093,7 @@ fun MemberCard(
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    Text(stringResource(R.string.main_wake_time, displayEarliest.toString(), displayLatest.toString()), color = textColor)
+                    Text(stringResource(R.string.main_wake_time, displayEarliest.format(timeFormatter), displayLatest.format(timeFormatter)), color = textColor)
                     Text(stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if(member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), color = textColor)
                 }
             }
