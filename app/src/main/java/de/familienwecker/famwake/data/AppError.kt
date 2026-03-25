@@ -9,9 +9,9 @@ import de.familienwecker.famwake.ui.util.UiText
 sealed class AppError(val uiText: UiText) {
     // Auth Fehler
     object EmailOrPasswordEmpty : AppError(UiText.StringResource(R.string.error_invalid_credentials))
-    object LoginFailed : AppError(UiText.StringResource(R.string.error_login_failed))
-    object RegistrationFailed : AppError(UiText.StringResource(R.string.error_registration_failed))
-    object GoogleSignInFailed : AppError(UiText.StringResource(R.string.error_login_failed))
+    object LoginFailed : AppError(UiText.StringResource(R.string.error_login_failed_unknown))
+    object RegistrationFailed : AppError(UiText.StringResource(R.string.error_registration_failed_unknown))
+    object GoogleSignInFailed : AppError(UiText.StringResource(R.string.error_login_failed_unknown))
     object UserNotFound : AppError(UiText.StringResource(R.string.error_user_not_found))
     object InvalidEmail : AppError(UiText.StringResource(R.string.error_invalid_email))
     object TooManyRequests : AppError(UiText.StringResource(R.string.error_too_many_requests))
