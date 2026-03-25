@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import de.familienwecker.famwake.R
 
 // Indigo-Lila – passend zu den Onboarding-Farben
 private val TooltipBackground = Color(0xFF4A148C)
@@ -70,7 +72,7 @@ fun TooltipBubble(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Schließen",
+                        contentDescription = stringResource(R.string.close_desc),
                         tint = TooltipText.copy(alpha = 0.8f),
                         modifier = Modifier.size(16.dp)
                     )

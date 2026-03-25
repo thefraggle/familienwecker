@@ -199,7 +199,7 @@ fun LoginScreen(
                                     Icons.Filled.Visibility
                                 else Icons.Filled.VisibilityOff
 
-                                val description = if (passwordVisible) "Hide password" else "Show password"
+                                val description = if (passwordVisible) stringResource(R.string.password_hide) else stringResource(R.string.password_show)
 
                                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                                     Icon(imageVector = image, contentDescription = description)

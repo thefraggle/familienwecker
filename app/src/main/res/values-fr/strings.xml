@@ -306,4 +306,7 @@
     <string name="default_someone">Quelqu\'un</string>
     <string name="error_label">Erreur</string>
     <string name="offline_write_hint">Pas de connexion. Vos modifications seront synchronisées dès que vous serez de nouveau en ligne.</string>
+    <string name="password_show">Afficher le mot de passe</string>
+    <string name="password_hide">Masquer le mot de passe</string>
+    <string name="close_desc">Fermer</string>
 </resources>
