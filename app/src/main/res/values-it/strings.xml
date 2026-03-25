@@ -175,7 +175,7 @@
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint-it.html</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-it.html</string>
 
-    <string name="registration_disclaimer">Registrandoti, accetti i %1$s e l' %2$s.</string>
+    <string name="registration_disclaimer">Registrandoti, accetti i %1$s e l\' %2$s.</string>
     <string name="registration_terms_of_use">Termini di utilizzo</string>
     <string name="registration_privacy_policy">Informativa sulla privacy</string>
     <string name="settings_already_claimed">Già collegato</string>
