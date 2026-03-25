@@ -22,7 +22,7 @@ import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.*
-import androidx.compose.material3.MenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.runtime.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -144,6 +144,13 @@ fun SettingsScreen(
         }
     }
     
+    // Intelligenten Review-Prompt beim Öffnen der Settings prüfen
+    LaunchedEffect(Unit) {
+        (context as? android.app.Activity)?.let { activity ->
+            viewModel.checkAndShowReview(activity)
+        }
+    }
+    
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
         colors = if (isDarkTheme) {
             listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.background)
@@ -231,7 +238,7 @@ fun SettingsScreen(
                             readOnly = true,
                             enabled = members.isNotEmpty(),
                             trailingIcon = { if (members.isNotEmpty()) ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
+                            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).fillMaxWidth()
                         )
 
                         ExposedDropdownMenu(
@@ -635,7 +642,7 @@ fun SettingsScreen(
                             onValueChange = {},
                             readOnly = true,
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = languageExpanded) },
-                            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
+                            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).fillMaxWidth()
                         )
 
                         ExposedDropdownMenu(
@@ -702,7 +709,7 @@ fun SettingsScreen(
                             onValueChange = {},
                             readOnly = true,
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = themeExpanded) },
-                            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
+                            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).fillMaxWidth()
                         )
 
                         ExposedDropdownMenu(
@@ -800,38 +807,13 @@ fun SettingsScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // App bewerten (In-App Review API) - Hierher verschoben
                     val rateInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
                             val activity = context as? android.app.Activity
                             if (activity != null) {
-                                val manager =
-                                    com.google.android.play.core.review.ReviewManagerFactory.create(
-                                        context
-                                    )
-                                manager.requestReviewFlow().addOnCompleteListener { taskReview ->
-                                    if (taskReview.isSuccessful) {
-                                        manager.launchReviewFlow(activity, taskReview.result)
-                                    } else {
-                                        val pkg = context.packageName
-                                        try {
-                                            context.startActivity(
-                                                Intent(
-                                                    Intent.ACTION_VIEW,
-                                                    "market://details?id=$pkg".toUri()
-                                                )
-                                            )
-                                        } catch (e: android.content.ActivityNotFoundException) {
-                                            context.startActivity(
-                                                Intent(
-                                                    Intent.ACTION_VIEW,
-                                                    "https://play.google.com/store/apps/details?id=$pkg".toUri()
-                                                )
-                                            )
-                                        }
-                                    }
-                                }
+                                // Manueller Aufruf ignoriert die Zeitbeschränkungen
+                                viewModel.checkAndShowReview(activity, ignoreConstraints = true)
                             }
                         },
                         modifier = Modifier.fillMaxWidth().bounceClick(rateInteractionSource),
@@ -996,6 +978,27 @@ fun SettingsScreen(
                                             Spacer(Modifier.width(8.dp))
                                             Text(if (adminReportConfirmed) "✓ Report angefordert" else "Statistik-Report (E-Mail)")
                                         }
+
+                                        val adminReviewInteraction = remember { MutableInteractionSource() }
+                                        Button(
+                                            onClick = {
+                                                val activity = context as? android.app.Activity
+                                                if (activity != null) {
+                                                    viewModel.checkAndShowReview(activity, ignoreConstraints = true)
+                                                }
+                                            },
+                                            modifier = Modifier.fillMaxWidth().bounceClick(adminReviewInteraction),
+                                            interactionSource = adminReviewInteraction,
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                            ),
+                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                        ) {
+                                            Icon(Icons.Default.Refresh, contentDescription = null)
+                                            Spacer(Modifier.width(8.dp))
+                                            Text("Review Flow testen")
+                                        }
                                     }
                                 },
                                 confirmButton = {
@@ -1109,16 +1112,16 @@ fun SettingsScreen(
 
     if (showDonationDialog) {
         val activity = context as? Activity
-        DonationDialog(
-            onDismiss = { showDonationDialog = false },
-            onDonate = { pkg ->
-                if (activity != null) {
+        if (activity != null) {
+            DonationDialog(
+                onDismiss = { showDonationDialog = false },
+                onDonate = { pkg: com.revenuecat.purchases.Package ->
                     donationViewModel.purchasePackage(activity, pkg)
-                }
-            },
-            offerings = offerings,
-            purchaseState = purchaseState
-        )
+                },
+                offerings = offerings,
+                purchaseState = purchaseState
+            )
+        }
     }
 }
 }

@@ -57,6 +57,7 @@ fun AddMemberScreen(
     memberId: String? = null,
     onNavigateBack: () -> Unit
 ) {
+    val context = LocalContext.current
     val members by viewModel.members.collectAsStateWithLifecycle()
     val memberToEdit = remember(memberId, members) { members.find { it.id == memberId } }
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
@@ -202,6 +203,12 @@ fun AddMemberScreen(
                             dayProfiles = dayProfiles
                         )
                         viewModel.addOrUpdateMember(memberToSave)
+                        
+                        // Intelligenten Review-Prompt prüfen
+                        (context as? android.app.Activity)?.let { activity ->
+                            viewModel.checkAndShowReview(activity)
+                        }
+                        
                         onNavigateBack()
                     },
                     enabled = name.isNotBlank() && !hasAnyValidationError
