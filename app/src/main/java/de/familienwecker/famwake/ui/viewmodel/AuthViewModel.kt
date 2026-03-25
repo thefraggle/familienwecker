@@ -139,6 +139,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             val result = authRepository.login(email, pass)
             result.onSuccess { user ->
                 if (user.isEmailVerified) {
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.d("AuthViewModel", "User logged in and verified. Starting restoration...")
+                    }
                     _isRestoringFamily.value = true
                     _authState.value = AuthState.Authenticated(user)
                     restoreUserFamily(user.uid)

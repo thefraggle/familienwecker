@@ -32,10 +32,19 @@ fun LoadingScreen(
     val onboardingCompleted by familyViewModel.onboardingCompleted.collectAsStateWithLifecycle()
 
     LaunchedEffect(authState, isRestoring, familyId, pendingJoinCode, onboardingCompleted) {
+        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+            android.util.Log.d("LoadingScreen", "State: auth=$authState, isRestoring=$isRestoring, familyId=$familyId")
+        }
+
+        // Variable zur Vermeidung von Doppel-Navigation in diesem Effekt-Lauf
+        var navigationTriggered = false
+
         // Notfall-Timeout: Wenn nach 2 Sekunden immer noch geladen wird, aber wir eine familyId haben, gehen wir direkt rein.
         val timeoutJob = launch {
             delay(2000)
-            if (authState is AuthViewModel.AuthState.Authenticated && familyId != null && isRestoring) {
+            if (!navigationTriggered && authState is AuthViewModel.AuthState.Authenticated && familyId != null && isRestoring) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) android.util.Log.w("LoadingScreen", "Timeout reached, force navigating to Main")
+                navigationTriggered = true
                 onNavigateToMain()
             }
         }
@@ -45,15 +54,23 @@ fun LoadingScreen(
         when (authState) {
             is AuthViewModel.AuthState.Authenticated -> {
                 timeoutJob.cancel()
+                if (navigationTriggered) return@LaunchedEffect
+                
                 if (!onboardingCompleted) {
+                    navigationTriggered = true
                     onNavigateToOnboarding()
                 } else if (familyId != null) {
+                    navigationTriggered = true
                     onNavigateToMain()
                 } else if (pendingJoinCode != null) {
                     // Netzwerk-Check vor automatischem Beitritt
                     if (de.familienwecker.famwake.util.NetworkUtils.isOnline(context)) {
                         familyViewModel.handlePendingJoin { success ->
-                            if (success) onNavigateToMain() else onNavigateToSetup()
+                            if (success) {
+                                onNavigateToMain()
+                            } else {
+                                onNavigateToSetup()
+                            }
                         }
                     } else {
                         // Offline: Beitreten unmöglich, gehe zum Setup (ViewModel zeigt Fehler an)
@@ -68,9 +85,7 @@ fun LoadingScreen(
                 timeoutJob.cancel()
                 onNavigateToLogin()
             }
-            AuthViewModel.AuthState.Loading -> {
-                // Wait in loading state
-            }
+            AuthViewModel.AuthState.Loading -> { }
             AuthViewModel.AuthState.AwaitingEmailVerification -> {
                 timeoutJob.cancel()
                 onNavigateToLogin()

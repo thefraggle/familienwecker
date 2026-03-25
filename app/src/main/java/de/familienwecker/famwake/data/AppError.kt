@@ -34,14 +34,20 @@ sealed class AppError(val uiText: UiText) {
         fun fromException(e: Exception): AppError {
             val msg = e.message?.uppercase() ?: ""
             return when {
-                e is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException || msg.contains("INVALID_CREDENTIALS") -> LoginFailed
+                e is com.google.firebase.auth.FirebaseAuthInvalidUserException || msg.contains("USER_NOT_FOUND") -> UserNotFound
+                e is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException || msg.contains("INVALID_CREDENTIALS") -> EmailOrPasswordEmpty
                 e is com.google.firebase.auth.FirebaseAuthUserCollisionException || msg.contains("EMAIL_EXISTS") -> EmailAlreadyInUse
                 e is com.google.firebase.auth.FirebaseAuthWeakPasswordException || msg.contains("WEAK_PASSWORD") -> WeakPassword
-                msg.contains("USER_NOT_FOUND") || msg.contains("NOT_FOUND") -> UserNotFound
                 msg.contains("INVALID_EMAIL") || msg.contains("INVALID_ARGUMENT") -> InvalidEmail
                 msg.contains("RESOURCE_EXHAUSTED") || msg.contains("TOO_MANY") -> TooManyRequests
                 msg.contains("PERMISSION_DENIED") -> PermissionDenied
-                else -> Unknown(e.localizedMessage)
+                else -> {
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        Unknown(e.localizedMessage ?: e.toString())
+                    } else {
+                        Unknown(null)
+                    }
+                }
             }
         }
     }
