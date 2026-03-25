@@ -235,10 +235,13 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun removeMember(familyId: String, id: String): Result<Unit> {
         return try {
+            Log.d(TAG, "removeMember: deleting member $id from family $familyId")
             db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(id).delete()
+            Log.d(TAG, "removeMember: delete() returned for $id")
             Result.success(Unit)
         } catch (e: Exception) {
+            Log.e(TAG, "removeMember: failed for $id: ${e.message}", e)
             Result.failure(e)
         }
     }

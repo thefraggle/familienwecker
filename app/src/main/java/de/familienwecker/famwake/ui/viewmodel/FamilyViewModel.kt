@@ -576,11 +576,20 @@ class FamilyViewModel(
 
     fun removeMember(id: String) {
         checkOfflineAndHint()
-        val currentFamilyId = familyId.value ?: return
+        val currentFamilyId = familyId.value
+        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+            android.util.Log.d("FamilyViewModel", "removeMember: id=$id, familyId=$currentFamilyId, offline=${_isOffline.value}")
+        }
+        if (currentFamilyId == null) return
         alarmScheduler.cancelWakeUp(id)
         viewModelScope.launch {
             val result = repository.removeMember(currentFamilyId, id)
-            if (result.isFailure) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.d("FamilyViewModel", "removeMember result: ${if (result.isSuccess) "SUCCESS" else "FAILURE: ${result.exceptionOrNull()?.message}"}") 
+            }
+            if (result.isSuccess) {
+                memberRepository.deleteMember(id)
+            } else {
                 _errorMessage.value = UiText.StringResource(R.string.error_delete_member, result.exceptionOrNull()?.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
             }
         }
