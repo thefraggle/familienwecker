@@ -67,7 +67,9 @@ class AuthRepository {
             }
             Result.success(Unit)
         } catch (e: Exception) {
-            android.util.Log.e("AuthRepository", "Cloud function sendBrandedResetEmail failed: ${e.message}", e)
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("AuthRepository", "Cloud function sendBrandedResetEmail failed: ${e.message}", e)
+            }
             if (e is com.google.firebase.functions.FirebaseFunctionsException) {
                 when (e.code) {
                     com.google.firebase.functions.FirebaseFunctionsException.Code.PERMISSION_DENIED,

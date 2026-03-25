@@ -25,32 +25,46 @@ class DonationViewModel : ViewModel() {
     val purchaseState: StateFlow<PurchaseState> = _purchaseState
 
     init {
-        android.util.Log.d("FamWakeDonation", "DonationViewModel init")
+        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+            android.util.Log.d("FamWakeDonation", "DonationViewModel init")
+        }
     }
 
     fun fetchOfferings() {
-        android.util.Log.d("FamWakeDonation", "Fetching offerings from RevenueCat...")
+        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+            android.util.Log.d("FamWakeDonation", "Fetching offerings from RevenueCat...")
+        }
         try {
             Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
                 override fun onReceived(offerings: Offerings) {
-                    android.util.Log.d("FamWakeDonation", "Offerings received: ${offerings.all.keys}")
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.d("FamWakeDonation", "Offerings received: ${offerings.all.keys}")
+                    }
                     _offerings.value = offerings
                     if (offerings.current == null) {
-                        android.util.Log.w("FamWakeDonation", "Warning: No 'current' offering set in RevenueCat dashboard!")
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.w("FamWakeDonation", "Warning: No 'current' offering set in RevenueCat dashboard!")
+                        }
                     } else {
                         offerings.current?.availablePackages?.forEach { pkg ->
-                            android.util.Log.d("FamWakeDonation", "Package: ${pkg.identifier}, Title: ${pkg.product.title}, Desc: ${pkg.product.description}")
+                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                android.util.Log.d("FamWakeDonation", "Package: ${pkg.identifier}, Title: ${pkg.product.title}, Desc: ${pkg.product.description}")
+                            }
                         }
                     }
                 }
                 override fun onError(error: PurchasesError) {
-                    android.util.Log.e("FamWakeDonation", "Error fetching offerings: ${error.message} (Underlying: ${error.underlyingErrorMessage})")
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.e("FamWakeDonation", "Error fetching offerings: ${error.message} (Underlying: ${error.underlyingErrorMessage})")
+                    }
                     val errorMsg = "${error.message} ${error.underlyingErrorMessage ?: ""}"
                     _purchaseState.value = PurchaseState.Error(UiText.DynamicString(errorMsg))
                 }
             })
         } catch (e: Exception) {
-            android.util.Log.e("FamWakeDonation", "Purchases.sharedInstance access failed: ${e.message}")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FamWakeDonation", "Purchases.sharedInstance access failed: ${e.message}")
+            }
             _purchaseState.value = PurchaseState.Error(UiText.StringResource(R.string.error_revenuecat_not_configured))
         }
     }
