@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.data.AppError

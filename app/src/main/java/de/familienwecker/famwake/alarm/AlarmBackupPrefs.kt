@@ -34,13 +34,19 @@ object AlarmBackupPrefs {
         soundUri: String?,
         wakeUpMillis: Long
     ) {
-        prefs(context).edit().apply {
-            putString(KEY_MEMBER_ID,   memberId)
-            putString(KEY_MEMBER_NAME, memberName)
-            putString(KEY_SOUND_URI,   soundUri)
-            putLong(KEY_WAKE_MILLIS,   wakeUpMillis)
-            putBoolean(KEY_ENABLED,    true)
-            apply()
+        try {
+            prefs(context).edit().apply {
+                putString(KEY_MEMBER_ID,   memberId)
+                putString(KEY_MEMBER_NAME, memberName)
+                putString(KEY_SOUND_URI,   soundUri)
+                putLong(KEY_WAKE_MILLIS,   wakeUpMillis)
+                putBoolean(KEY_ENABLED,    true)
+                apply()
+            }
+        } catch (e: Exception) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("AlarmBackupPrefs", "Fehler beim Speichern des Backups: ${e.message}")
+            }
         }
     }
 

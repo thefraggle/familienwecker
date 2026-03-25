@@ -60,6 +60,15 @@ class FamilyViewModel(
         }
     }
 
+    private val _isSendingFeedback = MutableStateFlow(false)
+    val isSendingFeedback = _isSendingFeedback.asStateFlow()
+
+    private val _feedbackError = MutableStateFlow<String?>(null)
+    val feedbackError = _feedbackError.asStateFlow()
+
+    private val _feedbackSubmitted = MutableStateFlow(false)
+    val feedbackSubmitted = _feedbackSubmitted.asStateFlow()
+
     private val scheduler = Scheduler()
     private val alarmScheduler = AlarmScheduler(application)
     private val prefsRepo: PreferencesRepository = prefsRepo
@@ -1131,6 +1140,42 @@ class FamilyViewModel(
         is ScheduleMessage.BreakfastAndTimeAdjusted -> UiText.StringResource(R.string.schedule_message_breakfast_and_time_adjusted, msg.breakfast, msg.shift)
         is ScheduleMessage.MemberConflict -> UiText.StringResource(R.string.schedule_message_member_conflict, msg.memberName)
         is ScheduleMessage.NoActiveSchedule -> UiText.StringResource(R.string.main_no_active_schedule)
+    }
+
+    /**
+     * S-1: Sendet Feedback via Repository.
+     */
+    fun sendFeedback(
+        category: String,
+        message: String,
+        email: String,
+        appVersion: String,
+        device: String
+    ) {
+        viewModelScope.launch {
+            _isSendingFeedback.value = true
+            _feedbackError.value = null
+            
+            val result = repository.sendFeedback(
+                category = category,
+                message = message.trim(),
+                email = email.trim(),
+                appVersion = appVersion,
+                device = device
+            )
+            
+            if (result.isSuccess) {
+                _feedbackSubmitted.value = true
+            } else {
+                _feedbackError.value = "Fehler beim Senden. Bitte versuche es später noch einmal."
+            }
+            _isSendingFeedback.value = false
+        }
+    }
+
+    fun resetFeedbackState() {
+        _feedbackSubmitted.value = false
+        _feedbackError.value = null
     }
 
     override fun onCleared() {

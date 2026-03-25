@@ -167,6 +167,8 @@
     <string name="feedback_cancel">Cancel</string>
     <string name="feedback_send">Send feedback</string>
     <string name="feedback_success">Thank you! Your feedback has been received and helps us a lot.</string>
+    <string name="feedback_success_title">Feedback Sent</string>
+    <string name="feedback_success_message">Thank you for your feedback! It helps us improve FamWake for everyone.</string>
     <string name="settings_terms_of_use">Terms of Use</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
     <string name="settings_privacy_policy">Privacy Policy</string>
@@ -260,6 +262,7 @@
 
     <string name="error_password_too_short">Password must be at least 8 characters long.</string>
     <string name="error_email_already_in_use">This email address is already used by another account.</string>
+    <string name="error_weak_password">The password is too weak. Please use at least 8 characters and special characters.</string>
     <string name="login_verify_email_title">✉️ Verify your email</string>
     <string name="login_verify_email_text">We sent a verification email to\n%1$s\nPlease click the link in the email to activate your account.</string>
     <string name="login_verify_email_confirm">I have verified ✓</string>
