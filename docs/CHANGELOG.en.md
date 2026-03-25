@@ -4,7 +4,15 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.10 - 2026-03-25
+
+### Optimized
+- **Stability:** Core architecture significantly refactored for better reliability and future iOS support.
+- **Data Management:** Faster and more robust synchronization between the app and the cloud.
+- **Settings:** Personal preferences are now stored more securely and reliably.
+
 ## 1.6.7 - 2026-03-25
+
 
 ### New
 - **Data Loss Protection:** Added confirmation dialog for unsaved changes in the edit screen (8 languages).
