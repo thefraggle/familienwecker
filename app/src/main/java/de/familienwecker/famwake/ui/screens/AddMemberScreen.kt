@@ -31,6 +31,7 @@ import java.time.format.DateTimeFormatter
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import de.familienwecker.famwake.model.toJavaLocalTime
 import de.familienwecker.famwake.model.toKmpLocalTime
+import de.familienwecker.famwake.ui.components.TooltipBubble
 
 // Mo=1 … So=7 nach java.time.DayOfWeek
 private val WEEKDAY_KEYS = 1..7
@@ -44,11 +45,11 @@ private fun defaultDayProfiles(
 ): Map<Int, DayProfile> = WEEKDAY_KEYS.associateWith { day ->
     DayProfile(
         isActive = day <= 5, // Mo–Fr aktiv, Sa–So aus
-        earliestWakeUp = earliestWakeUp,
-        latestWakeUp = latestWakeUp,
+        earliestWakeUp = earliestWakeUp.toKmpLocalTime(),
+        latestWakeUp = latestWakeUp.toKmpLocalTime(),
         bathroomDurationMinutes = bathroomDurationMinutes,
         wantsBreakfast = wantsBreakfast,
-        leaveHomeTime = leaveHomeTime
+        leaveHomeTime = leaveHomeTime?.toKmpLocalTime()
     )
 }
 
@@ -234,11 +235,11 @@ fun AddMemberScreen(
                         val memberToSave = FamilyMember(
                             id = memberId ?: java.util.UUID.randomUUID().toString(),
                             name = name.ifEmpty { unknownStr },
-                            earliestWakeUp = (refProfile?.earliestWakeUp ?: LocalTime.of(6, 0)).toKmpLocalTime(),
-                            latestWakeUp = (refProfile?.latestWakeUp ?: LocalTime.of(7, 30)).toKmpLocalTime(),
+                            earliestWakeUp = refProfile?.earliestWakeUp ?: LocalTime.of(6, 0).toKmpLocalTime(),
+                            latestWakeUp = refProfile?.latestWakeUp ?: LocalTime.of(7, 30).toKmpLocalTime(),
                             bathroomDurationMinutes = refProfile?.bathroomDurationMinutes ?: 20L,
                             wantsBreakfast = refProfile?.wantsBreakfast ?: true,
-                            leaveHomeTime = refProfile?.leaveHomeTime?.toKmpLocalTime(),
+                            leaveHomeTime = refProfile?.leaveHomeTime,
                             isPaused = memberToEdit?.isPaused ?: false,
                             claimedByUserId = memberToEdit?.claimedByUserId,
                             claimedByUserName = memberToEdit?.claimedByUserName,
