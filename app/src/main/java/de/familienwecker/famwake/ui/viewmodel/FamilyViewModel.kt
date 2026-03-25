@@ -983,7 +983,7 @@ class FamilyViewModel(
         }
     }
 
-    fun leaveFamily() {
+    fun leaveFamily(onComplete: (Boolean) -> Unit = {}) {
         checkOfflineAndHint()
         _errorMessage.value = null
         val uid = auth.currentUser?.uid ?: return
@@ -1007,12 +1007,15 @@ class FamilyViewModel(
                     appSettings.setFamilyName(null)
                     appSettings.setMyMemberId(null)
                     appSettings.setMyMemberName(null)
+                    onComplete(true)
                 } else {
                     val errorMsg = result.exceptionOrNull()?.message ?: getApplication<Application>().getString(R.string.error_leave_failed)
                     _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
+                    onComplete(false)
                 }
             } catch (e: Exception) {
                 _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
+                onComplete(false)
             } finally {
                 _isSyncing.value = false
             }

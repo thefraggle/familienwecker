@@ -792,6 +792,10 @@ exports.joinFamilyByCode = onCall(
     const familyId = snapshot.docs[0].id;
     // Security Fix: Write familyId to users collection server-side
     await admin.firestore().collection("users").doc(uid).set({ familyId }, { merge: true });
+    // Keep userIds array in sync for Firestore Security Rules (read permission)
+    await admin.firestore().collection("families").doc(familyId).update({
+      userIds: admin.firestore.FieldValue.arrayUnion(uid)
+    });
 
     return { familyId, joinCode: code };
   }
@@ -849,15 +853,20 @@ exports.createFamily = onCall(
         CHARS.charAt(randomInt(CHARS.length))
       ).join("");
 
-      const existing = await admin.firestore()
-        .collection("families")
-        .where("joinCode", "==", candidate)
-        .limit(1)
-        .get();
+      try {
+        const existing = await admin.firestore()
+          .collection("families")
+          .where("joinCode", "==", candidate)
+          .limit(1)
+          .get();
 
-      if (existing.empty) {
-        joinCode = candidate;
-        break;
+        if (existing.empty) {
+          joinCode = candidate;
+          break;
+        }
+      } catch (queryErr) {
+        console.error(`Code uniqueness check failed (attempt ${attempts}):`, queryErr.message);
+        // Treat as if code is taken → try again
       }
       attempts++;
     }
@@ -871,6 +880,7 @@ exports.createFamily = onCall(
       name: sanitizedName,
       joinCode,
       createdByUserId: uid,
+      userIds: [uid],
       isAlarmEnabled: true,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     };
@@ -946,6 +956,11 @@ exports.leaveFamily = onCall(
     
     // Remove familyId from user's document
     await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
+
+    // Remove uid from family's userIds array (Firestore Security Rules read access)
+    await familyDocRef.update({
+      userIds: admin.firestore.FieldValue.arrayRemove(uid)
+    });
 
     console.log(`User ${uid} (Member: ${finalMemberId}) successfully left family ${familyId}.`);
     return { success: true, familyDeleted: false };
