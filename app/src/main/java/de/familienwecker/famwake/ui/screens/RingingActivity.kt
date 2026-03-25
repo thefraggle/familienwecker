@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.*
 import de.familienwecker.famwake.ui.theme.FamilienweckerTheme
+import de.familienwecker.famwake.ui.theme.*
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
@@ -197,9 +198,9 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
     // Gradient: Dunkellila oben → Warmes Pfirsich unten
     val gradientBrush = Brush.verticalGradient(
         colors = listOf(
-            Color(0xFF2D1B69), // Dunkellila
-            Color(0xFF6B3FA0), // Mittleres Violett
-            Color(0xFFFFB347)  // Warmes Pfirsich
+            RingingPurpleDark,
+            RingingPurpleMed,
+            RingingPeach
         )
     )
 
@@ -306,7 +307,7 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
                         Icon(
                             imageVector = Icons.Default.AlarmOff,
                             contentDescription = null,
-                            tint = Color(0xFF2D1B69),
+                            tint = RingingPurpleDark,
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(Modifier.width(8.dp))
@@ -314,7 +315,7 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
                             text = stringResource(R.string.ringing_stop),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF2D1B69)
+                            color = RingingPurpleDark
                         )
                     }
                 }

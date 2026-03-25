@@ -111,3 +111,31 @@ val md_theme_dark_onSurface            = Color(0xFFE8EDF2)
 val md_theme_dark_surfaceVariant       = NightBlue800        // #161F2A – für Card-ähnliche Elemente
 val md_theme_dark_onSurfaceVariant     = NightBlue150        // Helleres Blau-Weiß für Fließtexte und Sub-Infos
 val md_theme_dark_outline              = NightBlue600        // #4E657C
+
+// ── Ringing Screen (Hardcoded Fallbacks) ────────────────────────────────────
+val RingingPurpleDark  = Color(0xFF2D1B69)
+val RingingPurpleMed   = Color(0xFF6B3FA0)
+val RingingPeach       = Color(0xFFFFB347)
+
+// ── Snooze & Status Cards (Hardcoded Fallbacks) ─────────────────────────────
+val SnoozeAmberDark    = Color(0xFF332000)
+val SnoozeAmberLight   = Color(0xFFFFE0B2)
+val SnoozeTextDark     = Color(0xFFFFCC80)
+val SnoozeTextLight    = Color(0xFFE65100)
+
+val OnlineGreenDark    = Color(0xFF1B321B)
+val OnlineGreenLight   = Color(0xFFE8F5E9)
+val OnlineIconDark     = Color(0xFF81C784)
+val OnlineIconLight    = Color(0xFF2E7D32)
+
+// ── Onboarding Gradients ───────────────────────────────────────────────────
+val OnboardingWarm1    = Color(0xFFBF360C)
+val OnboardingWarm2    = Color(0xFFE64A19)
+val OnboardingBlue1    = Color(0xFF1A237E)
+val OnboardingBlue2    = Color(0xFF283593)
+val OnboardingGreen1   = Color(0xFF1B5E20)
+val OnboardingGreen2   = Color(0xFF2E7D32)
+val OnboardingPurple1  = Color(0xFF4A148C)
+val OnboardingPurple2  = Color(0xFF6A1B9A)
+val OnboardingPink1    = Color(0xFF880E4F)
+val OnboardingPink2    = Color(0xFFAD1457)

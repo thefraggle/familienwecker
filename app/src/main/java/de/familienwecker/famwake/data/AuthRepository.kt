@@ -20,12 +20,12 @@ class AuthRepository {
     suspend fun login(email: String, pass: String): Result<FirebaseUser> = withContext(Dispatchers.IO) {
         val trimmedEmail = email.trim()
         if (trimmedEmail.isEmpty() || pass.isEmpty()) {
-            return@withContext Result.failure(IllegalArgumentException("Email or password empty"))
+            return@withContext Result.failure(Exception("EMAIL_OR_PASSWORD_EMPTY"))
         }
         try {
             val result = auth.signInWithEmailAndPassword(trimmedEmail, pass).await()
             val user = result.user
-            if (user != null) Result.success(user) else Result.failure(LoginFailedException())
+            if (user != null) Result.success(user) else Result.failure(Exception("LOGIN_FAILED"))
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -34,12 +34,12 @@ class AuthRepository {
     suspend fun register(email: String, pass: String): Result<FirebaseUser> = withContext(Dispatchers.IO) {
         val trimmedEmail = email.trim()
         if (trimmedEmail.isEmpty() || pass.isEmpty()) {
-            return@withContext Result.failure(IllegalArgumentException("Email or password empty"))
+            return@withContext Result.failure(Exception("EMAIL_OR_PASSWORD_EMPTY"))
         }
         try {
             val result = auth.createUserWithEmailAndPassword(trimmedEmail, pass).await()
             val user = result.user
-            if (user != null) Result.success(user) else Result.failure(RegistrationFailedException())
+            if (user != null) Result.success(user) else Result.failure(Exception("REGISTRATION_FAILED"))
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -62,7 +62,9 @@ class AuthRepository {
                 .getHttpsCallable("sendBrandedResetEmail")
                 .call(data)
                 .await()
-            android.util.Log.d("AuthRepository", "Cloud function sendBrandedResetEmail success")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.d("AuthRepository", "Cloud function sendBrandedResetEmail success")
+            }
             Result.success(Unit)
         } catch (e: Exception) {
             android.util.Log.e("AuthRepository", "Cloud function sendBrandedResetEmail failed: ${e.message}", e)
@@ -71,7 +73,9 @@ class AuthRepository {
                     com.google.firebase.functions.FirebaseFunctionsException.Code.PERMISSION_DENIED,
                     com.google.firebase.functions.FirebaseFunctionsException.Code.UNAUTHENTICATED -> {
                         try {
-                            android.util.Log.d("AuthRepository", "Triggering standard Firebase password reset fallback")
+                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                android.util.Log.d("AuthRepository", "Triggering standard Firebase password reset fallback")
+                            }
                             auth.sendPasswordResetEmail(email.trim()).await()
                             Result.success(Unit)
                         } catch (fallbackEx: Exception) {
@@ -121,14 +125,18 @@ class AuthRepository {
                 .getHttpsCallable("sendVerificationEmail")
                 .call(data)
                 .await()
-            android.util.Log.d("AuthRepository", "Cloud function sendVerificationEmail success")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.d("AuthRepository", "Cloud function sendVerificationEmail success")
+            }
             Result.success(Unit)
         } catch (e: Exception) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.e("AuthRepository", "Cloud function sendVerificationEmail failed: ${e.message}", e)
             }
             try {
-                android.util.Log.d("AuthRepository", "Triggering standard Firebase email verification fallback")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.d("AuthRepository", "Triggering standard Firebase email verification fallback")
+                }
                 auth.currentUser?.sendEmailVerification()?.await()
                 Result.success(Unit)
             } catch (fallbackEx: Exception) {

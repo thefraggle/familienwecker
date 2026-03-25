@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.data
 
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import de.familienwecker.famwake.model.DayProfile
 import de.familienwecker.famwake.model.FamilyMember
 import java.time.LocalTime
@@ -75,5 +76,41 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         lastUpdatedAt = lastUpdatedAt,
         deviceAlarmEnabled = getBoolean("deviceAlarmEnabled"),
         dayProfiles = dayProfiles
+    )
+}
+
+/**
+ * L-2: Extrahiert die Serialisierung von FamilyMember in eine Firestore-Map.
+ */
+fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
+    val dayProfilesData = dayProfiles?.mapKeys { it.key.toString() }
+        ?.mapValues { (_, profile) ->
+            mapOf(
+                "isActive" to profile.isActive,
+                "earliestWakeUp" to profile.earliestWakeUp.toString(),
+                "latestWakeUp" to profile.latestWakeUp.toString(),
+                "bathroomDurationMinutes" to profile.bathroomDurationMinutes,
+                "wantsBreakfast" to profile.wantsBreakfast,
+                "leaveHomeTime" to profile.leaveHomeTime?.toString()
+            )
+        }
+
+    return hashMapOf(
+        "name" to name,
+        "earliestWakeUp" to earliestWakeUp.toString(),
+        "latestWakeUp" to latestWakeUp.toString(),
+        "bathroomDurationMinutes" to bathroomDurationMinutes,
+        "wantsBreakfast" to wantsBreakfast,
+        "leaveHomeTime" to leaveHomeTime?.toString(),
+        "isPaused" to isPaused,
+        "isAwakeToday" to isAwakeToday,
+        "lastResetDate" to lastResetDate,
+        "claimedByUserId" to claimedByUserId,
+        "claimedByUserName" to claimedByUserName,
+        "sequenceOrder" to sequenceOrder,
+        "createdAt" to (createdAt ?: System.currentTimeMillis()),
+        "lastUpdatedAt" to FieldValue.serverTimestamp(),
+        "deviceAlarmEnabled" to deviceAlarmEnabled,
+        "dayProfiles" to dayProfilesData
     )
 }
