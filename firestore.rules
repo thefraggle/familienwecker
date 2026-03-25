@@ -20,7 +20,9 @@ service cloud.firestore {
           // Option A: familyId ist im User-Dokument hinterlegt (Check ob Doc existiert)
           (exists(userPath) && get(userPath).data.familyId == familyId) || 
           // Option B: Der Nutzer ist der Ersteller (Fallback für Onboarding)
-          (exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid)
+          (exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid) ||
+          // Option C: uid ist im userIds-Array der Familie (nach arrayUnion durch joinFamilyByCode)
+          (exists(familyPath) && request.auth.uid in get(familyPath).data.userIds)
         ));
     }
 
