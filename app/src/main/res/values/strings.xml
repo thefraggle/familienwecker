@@ -301,5 +301,5 @@
     <string name="error_revenuecat_not_configured">RevenueCat is not configured</string>
     <string name="default_someone">Someone</string>
     <string name="error_label">Error</string>
-    <string name="offline_write_hint">Keine Verbindung. Deine Änderungen werden synchronisiert, sobald du wieder online bist.</string>
+    <string name="offline_write_hint">No connection. Your changes will be synced as soon as you are back online.</string>
 </resources>
