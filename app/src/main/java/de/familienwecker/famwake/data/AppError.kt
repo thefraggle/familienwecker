@@ -22,8 +22,8 @@ sealed class AppError(val uiText: UiText) {
     // Family Fehler
     object FamilyNotFound : AppError(UiText.StringResource(R.string.error_family_not_found))
     object CodeGenerationFailed : AppError(UiText.StringResource(R.string.error_code_generation_failed))
-    object PermissionDenied : AppError(UiText.StringResource(R.string.error_permission_denied))
-    object LoadMembersFailed : AppError(UiText.StringResource(R.string.error_load_members))
+    data class PermissionDenied(val message: String? = null) : AppError(UiText.StringResource(R.string.error_permission_denied))
+    object LoadMembersFailed : AppError(UiText.StringResource(R.string.error_load_members, ""))
     
     // Fallback
     data class Unknown(val message: String?) : AppError(
@@ -40,7 +40,7 @@ sealed class AppError(val uiText: UiText) {
                 e is com.google.firebase.auth.FirebaseAuthWeakPasswordException || msg.contains("WEAK_PASSWORD") -> WeakPassword
                 msg.contains("INVALID_EMAIL") || msg.contains("INVALID_ARGUMENT") -> InvalidEmail
                 msg.contains("RESOURCE_EXHAUSTED") || msg.contains("TOO_MANY") -> TooManyRequests
-                msg.contains("PERMISSION_DENIED") -> PermissionDenied
+                msg.contains("PERMISSION_DENIED") -> PermissionDenied(e.localizedMessage)
                 else -> {
                     if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                         Unknown(e.localizedMessage ?: e.toString())

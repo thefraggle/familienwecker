@@ -204,7 +204,7 @@
     <string name="awake_today_desc">Schon wach</string>
     <string name="awake_active_desc">Schon wach</string>
 
-    <string name="error_load_members">Fehler beim Laden der Mitglieder: %1$s</string>
+    <string name="error_load_members">Fehler beim Laden der Mitglieder</string>
     <string name="error_create_family">Fehler beim Erstellen der Familie: %1$s</string>
     <string name="error_create_family_rate_limit">Du hast in der letzten Stunde bereits 3 Familien erstellt. Bitte warte eine Stunde und versuche es erneut.</string>
     <string name="error_join_family_rate_limit">Zu viele Beitrittsversuche (max. 5 pro Minute). Bitte warte kurz und versuche es erneut.</string>
@@ -215,15 +215,15 @@
     <string name="join_conflict_text">Du bist bereits Mitglied der Familie \"%1$s\". Um der neuen Familie beizutreten, musst du deine aktuelle erst verlassen. Möchtest du \"%1$s\" verlassen und mit Code %2$s beitreten?</string>
     <string name="join_conflict_confirm">Verlassen &amp; Beitreten</string>
     <string name="error_delete_member">Konnte Mitglied nicht löschen: %1$s</string>
-    <string name="error_sync_failed">Synchronisierung fehlgeschlagen: %1$s</string>
+    <string name="error_sync_failed">Synchronisierung fehlgeschlagen</string>
     <string name="error_delete_family">Fehler beim Löschen der Familie: %1$s</string>
     <string name="error_calculate_schedule">Fehler bei der Zeitplan-Berechnung: %1$s</string>
     <string name="error_not_logged_in">Benutzer nicht eingeloggt</string>
-    <string name="error_system">Systemfehler: %1$s</string>
+    <string name="error_system">Systemfehler</string>
     <string name="error_invalid_credentials">E-Mail oder Passwort ungültig. Bitte prüfe deine Eingaben.</string>
-    <string name="error_login_failed">Login fehlgeschlagen: %1$s</string>
+    <string name="error_login_failed">Login fehlgeschlagen</string>
     <string name="error_login_failed_unknown">Unbekannter Login-Fehler</string>
-    <string name="error_registration_failed">Registrierung fehlgeschlagen: %1$s</string>
+    <string name="error_registration_failed">Registrierung fehlgeschlagen</string>
     <string name="error_registration_failed_unknown">Konnte Benutzer nicht anlegen</string>
     <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.</string>
     <string name="error_google_sign_in_failed_unknown">Google-Login fehlgeschlagen</string>
