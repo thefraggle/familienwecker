@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Family Alarm</string>
+    <string name="app_name_short">Familiewekker</string>
     <string name="email_label">E-mail</string>
     <string name="password_label">Wachtwoord</string>
     <string name="register_button">Registreren</string>
@@ -37,7 +37,7 @@
     <string name="main_member_limit_reached">Maximum van 6 leden bereikt.</string>
     <string name="main_alarm_enabled">Wekker: AAN</string>
     <string name="main_alarm_enabled_desc">Automatische wekkers zijn actief.</string>
-    <string name="main_snooze_active">Snooze actief tot %1$s</string>
+    <string name="main_snooze_active">Sluimeren actief tot %1$s</string>
     <string name="main_alarm_disabled">Wekker: UIT</string>
     <string name="main_alarm_disabled_desc">Handmatige pauze is actief.</string>
     <string name="main_no_profile_warning">Geen profiel geselecteerd!</string>
@@ -59,15 +59,15 @@
     <string name="add_member_earliest_wake">Vroegste wektijd</string>
     <string name="add_member_latest_wake">Uiterste wektijd</string>
     <string name="add_member_bathroom_duration">Badkamertijd (minuten)</string>
-    <string name="add_member_wants_breakfast">Ontbijt met</string>
+    <string name="add_member_wants_breakfast">Met ontbijt</string>
     <string name="add_member_leave_home">Huis verlaten om</string>
     <string name="add_member_day_profiles_title">Wekelijks schema</string>
     <string name="add_member_day_active">Wekker actief</string>
     <string name="add_member_copy_to_days">Kopieer \"%1$s\" naar andere dagen</string>
     <string name="add_member_copy_dialog_title">Kopieer naar dagen</string>
     <string name="add_member_copy_apply">Toepassen</string>
-    <string name="validation_latest_before_earliest">Uiterste wektijd moet na vroegste wektijd liggen</string>
-    <string name="validation_leave_too_early">Tijd van vertrek moet na de badkamertijd liggen (Wektijd + Badkamertijd)</string>
+    <string name="validation_latest_before_earliest">De uiterste wektijd moet na de vroegste wektijd liggen</string>
+    <string name="validation_leave_too_early">De tijd van vertrek moet na de badkamertijd liggen (Wektijd + Badkamertijd)</string>
     <string name="weekday_1">Maandag</string>
     <string name="weekday_2">Dinsdag</string>
     <string name="weekday_3">Woensdag</string>
@@ -110,7 +110,7 @@
     <string name="settings_delete_family_warning_confirm">Ja, alles verwijderen</string>
     <string name="settings_logout">Uitloggen</string>
     <string name="settings_delete_account">Account verwijderen</string>
-    <string name="settings_footer_version">FamWake Family Alarm v%1$s</string>
+    <string name="settings_footer_version">FamWake Familiewekker v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rechten voorbehouden.</string>
 
@@ -128,7 +128,7 @@
     <string name="settings_language_italian">Italiano</string>
     <string name="settings_language_polish">Polski</string>
     <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Portugees</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_appearance_title">Uiterlijk</string>
     <string name="settings_display_title">App-instellingen</string>
     <string name="settings_help_feedback_title">Hulp &amp; Feedback</string>
@@ -197,7 +197,7 @@
         <item>Klaar voor vertrek? Het team rekent op je.</item>
     </string-array>
     <string name="ringing_stop">Wekker stoppen</string>
-    <string name="ringing_snooze">Snooze (5 min)</string>
+    <string name="ringing_snooze">Sluimeren (5 min)</string>
     <string name="pause_today_desc">Vandaag pauzeren</string>
     <string name="awake_today_desc">Al wakker</string>
     <string name="awake_active_desc">Al wakker</string>
@@ -248,7 +248,7 @@
     <string name="permission_fullscreen_open">Instellingen openen</string>
 
     <string name="schedule_message_optimal">Hier is het berekende schema:</string>
-    <string name="schedule_message_no_members">Geen actieve personen. Iedereen is gepauzeerd.</string>
+    <string name="schedule_message_no_members">Geen actieve leden. Iedereen is gepauzeerd.</string>
     <string name="schedule_message_no_valid">Geen geldig schema gevonden. De tijden overlappen te veel.</string>
     <string name="schedule_message_no_valid_desc">Tip: Verbreed je wektijdvenster, verkort je badkamertijd of pauzeer een ander lid.</string>
     <string name="schedule_message_time_adjusted">Tijden aangepast met %1$d min om in de volgorde te passen.</string>
@@ -272,7 +272,7 @@
     <string name="tooltip_bathroom">Plan dit realistisch. Je badkamertijd bepaalt het tempo van de ochtend voor het hele gezin.</string>
     <string name="tooltip_invite_code">Deel deze code met je familie. Zodra ze deelnemen, verschijnen ze automatisch in je schema.</string>
     <string name="tooltip_alarm_switch">Als je de wekker uitzet, is niet alleen je telefoon stil – het algoritme herberekent direct de ochtend voor het hele gezin, zodat iedereen wat langer kan slapen of eerder naar de badkamer kan.</string>
-    <string name="tooltip_weekdays">Plan je hele week: Tik op afzonderlijke weekdagen om specifieke wek- en badkamertijden in te stellen – ideaal voor thuiswerkdagen.</string>
+    <string name="tooltip_weekdays">Plan je hele week: Tik op afzonderlijke weekdagen om specifieke wek- en badkamertijden in te stellen – ideaal voor de afwisseling tussen thuiswerk- en kantoordagen.</string>
     <string name="settings_tooltips_title">Tips &amp; Hints</string>
     <string name="settings_tooltips_label">Toon handige tips</string>
     <string name="settings_tooltips_reset">Herstel alle tips</string>

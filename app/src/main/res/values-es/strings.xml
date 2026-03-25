@@ -59,7 +59,7 @@
     <string name="add_member_earliest_wake">Despertar lo antes posible</string>
     <string name="add_member_latest_wake">Despertar lo más tarde posible</string>
     <string name="add_member_bathroom_duration">Duración del baño (minutos)</string>
-    <string name="add_member_wants_breakfast">Desayuna con</string>
+    <string name="add_member_wants_breakfast">Con desayuno</string>
     <string name="add_member_leave_home">Sale de casa a las</string>
     <string name="add_member_day_profiles_title">Horario semanal</string>
     <string name="add_member_day_active">Alarma activa</string>
@@ -126,9 +126,9 @@
     <string name="settings_language_french">Français</string>
     <string name="settings_language_spanish">Español</string>
     <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polaco</string>
-    <string name="settings_language_dutch">Holandés</string>
-    <string name="settings_language_portuguese">Portugués</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_appearance_title">Apariencia</string>
     <string name="settings_display_title">Ajustes de la app</string>
     <string name="settings_help_feedback_title">Ayuda y Comentarios</string>
@@ -248,7 +248,7 @@
     <string name="permission_fullscreen_open">Abrir ajustes</string>
 
     <string name="schedule_message_optimal">Aquí está el horario calculado:</string>
-    <string name="schedule_message_no_members">Ninguna persona activa. Todos están pausados.</string>
+    <string name="schedule_message_no_members">Ningún miembro activo. Todos están pausados.</string>
     <string name="schedule_message_no_valid">No se encontró un horario válido. Las horas se superponen demasiado.</string>
     <string name="schedule_message_no_valid_desc">Consejo: amplía tu ventana de despertar, reduce el tiempo de baño o pausa a otro miembro.</string>
     <string name="schedule_message_time_adjusted">Horas ajustadas %1$d min para que encajen en vuestro orden.</string>

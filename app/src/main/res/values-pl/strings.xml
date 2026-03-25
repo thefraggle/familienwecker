@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Family Alarm</string>
+    <string name="app_name_short">Rodzinny Budzik</string>
     <string name="email_label">Email</string>
     <string name="password_label">Hasło</string>
     <string name="register_button">Zarejestruj się</string>
@@ -59,7 +59,7 @@
     <string name="add_member_earliest_wake">Najwcześniejsza pobudka</string>
     <string name="add_member_latest_wake">Najpóźniejsza pobudka</string>
     <string name="add_member_bathroom_duration">Czas w łazience (minuty)</string>
-    <string name="add_member_wants_breakfast">Śniadanie z</string>
+    <string name="add_member_wants_breakfast">Ze śniadaniem</string>
     <string name="add_member_leave_home">Wyjście z domu o</string>
     <string name="add_member_day_profiles_title">Harmonogram tygodniowy</string>
     <string name="add_member_day_active">Alarm aktywny</string>
@@ -110,7 +110,7 @@
     <string name="settings_delete_family_warning_confirm">Tak, usuń wszystko</string>
     <string name="settings_logout">Wyloguj się</string>
     <string name="settings_delete_account">Usuń konto</string>
-    <string name="settings_footer_version">FamWake Family Alarm v%1$s</string>
+    <string name="settings_footer_version">FamWake Rodzinny Budzik v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Wszelkie prawa zastrzeżone.</string>
 
@@ -128,7 +128,7 @@
     <string name="settings_language_italian">Italiano</string>
     <string name="settings_language_polish">Polski</string>
     <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Portugalski</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_appearance_title">Wygląd</string>
     <string name="settings_display_title">Ustawienia aplikacji</string>
     <string name="settings_help_feedback_title">Pomoc i Feedback</string>
@@ -140,7 +140,7 @@
     <string name="onboarding_next">Dalej</string>
     <string name="onboarding_done">Zaczynajmy</string>
     <string name="onboarding_slide0_title">Twój poranek jako zespół.</string>
-    <string name="onboarding_slide0_body">Koniec z chaosem. Family Alarm planuje Twój poranek tak sprawiedliwie i spokojnie, że każdy ma czas na to, co ważne.</string>
+    <string name="onboarding_slide0_body">Koniec z chaosem. Rodzinny Budzik planuje Twój poranek tak sprawiedliwie i spokojnie, że każdy ma czas na to, co ważne.</string>
     <string name="onboarding_slide1_title">Wszystko pod kontrolą</string>
     <string name="onboarding_slide1_body">Unikaj porannych wąskich gardeł. FamWake pokazuje każdemu członkowi rodziny w czasie rzeczywistym, czyja jest kolej.</string>
     <string name="onboarding_slide2_title">Twoja rodzina</string>
@@ -248,7 +248,7 @@
     <string name="permission_fullscreen_open">Otwórz ustawienia</string>
 
     <string name="schedule_message_optimal">Oto obliczony harmonogram:</string>
-    <string name="schedule_message_no_members">Brak aktywnych osób. Wszyscy są wstrzymani.</string>
+    <string name="schedule_message_no_members">Brak aktywnych członków. Wszyscy są wstrzymani.</string>
     <string name="schedule_message_no_valid">Nie znaleziono prawidłowego harmonogramu. Czasy nakładają się zbyt mocno.</string>
     <string name="schedule_message_no_valid_desc">Wskazówka: Poszerz okno pobudki, skróć czas w łazience lub wstrzymaj innego członka.</string>
     <string name="schedule_message_time_adjusted">Czasy skorygowane o %1$d min, aby pasowały do kolejności.</string>
@@ -272,7 +272,7 @@
     <string name="tooltip_bathroom">Zaplanuj to realistycznie. Twój czas w łazience nadaje rytm porankowi całej rodziny.</string>
     <string name="tooltip_invite_code">Udostępnij ten kod swojej rodzinie. Gdy dołączą, automatycznie pojawią się w Twoim harmonogramie.</string>
     <string name="tooltip_alarm_switch">Wyłączenie alarmu nie tylko ucisza Twój telefon – algorytm natychmiast przelicza poranek dla całej rodziny, pozwalając wszystkim pospać trochę dłużej lub wcześniej dostać się do łazienki.</string>
-    <string name="tooltip_weekdays">Zaplanuj cały tydzień: Dotknij poszczególnych dni tygodnia, aby ustawić konkretne pory pobudki i czas w łazience – idealne przy pracy zdalnej.</string>
+    <string name="tooltip_weekdays">Zaplanuj cały tydzień: Dotknij poszczególnych dni tygodnia, aby ustawić konkretne pory pobudki i czas w łazience – idealne przy naprzemiennej pracy zdalnej i w biurze.</string>
     <string name="settings_tooltips_title">Porady i wskazówki</string>
     <string name="settings_tooltips_label">Pokaż pomocne wskazówki</string>
     <string name="settings_tooltips_reset">Zresetuj wszystkie wskazówki</string>
