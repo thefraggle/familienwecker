@@ -12,6 +12,7 @@ import dev.gitlive.firebase.firestore.firestore
 import dev.gitlive.firebase.firestore.FieldValue
 import dev.gitlive.firebase.functions.FirebaseFunctionsException
 import dev.gitlive.firebase.functions.functions
+import dev.gitlive.firebase.functions.android
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -43,7 +44,8 @@ class FirebaseRepository : IFirebaseRepository {
             val functions = Firebase.functions("europe-west3")
             val data = mapOf("familyName" to familyName, "userId" to userId)
             @Suppress("UNCHECKED_CAST")
-            val result = functions.httpsCallable("createFamily").invoke(data).data<Map<String, Any>>()
+            val result = functions.httpsCallable("createFamily").invoke(data).android.data as? Map<String, Any>
+                ?: return Result.failure(CodeGenerationFailedException())
             val familyId = result["familyId"] as? String
                 ?: return Result.failure(CodeGenerationFailedException())
             val joinCode = result["joinCode"] as? String
@@ -74,9 +76,9 @@ class FirebaseRepository : IFirebaseRepository {
             val functions = Firebase.functions("europe-west3")
             val data = mapOf("code" to joinCode)
             @Suppress("UNCHECKED_CAST")
-            val result = functions.httpsCallable("joinFamilyByCode").invoke(data).data<Map<String, Any>>()
-            val familyId = result["familyId"] as? String
-            val code = result["joinCode"] as? String
+            val resultData = functions.httpsCallable("joinFamilyByCode").invoke(data).android.data as? Map<String, Any>
+            val familyId = resultData?.get("familyId") as? String
+            val code = resultData?.get("joinCode") as? String
             if (familyId != null && code != null) {
                 Result.success(Pair(familyId, code))
             } else {
