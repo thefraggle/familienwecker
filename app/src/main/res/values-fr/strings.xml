@@ -128,6 +128,7 @@
     <string name="settings_language_italian">Italien</string>
     <string name="settings_language_polish">Polonais</string>
     <string name="settings_language_dutch">Néerlandais</string>
+    <string name="settings_language_portuguese">Portugais</string>
     <string name="settings_appearance_title">Apparence</string>
     <string name="settings_display_title">Paramètres de l'app</string>
     <string name="settings_help_feedback_title">Aide &amp; Feedback</string>

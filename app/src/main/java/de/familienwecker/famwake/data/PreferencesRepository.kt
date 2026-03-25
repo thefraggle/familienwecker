@@ -117,7 +117,7 @@ class PreferencesRepository(context: Context) {
     private val _familyName = MutableStateFlow<String?>(prefs.getString(KEY_FAMILY_NAME, null))
     val familyName: StateFlow<String?> = _familyName.asStateFlow()
 
-    private val supportedLangs = listOf("de", "en", "fr", "es", "it", "pl", "nl")
+    private val supportedLangs = listOf("de", "en", "fr", "es", "it", "pl", "nl", "pt")
     private val defaultLang = if (java.util.Locale.getDefault().language in supportedLangs) {
         java.util.Locale.getDefault().language
     } else {
@@ -317,6 +317,7 @@ class PreferencesRepository(context: Context) {
                     "it" -> "it-IT"
                     "pl" -> "pl-PL"
                     "nl" -> "nl-NL"
+                    "pt" -> "pt-BR"
                     else -> lang
                 }
                 Log.d("Purchases", "Setting language: $lang (mapped to $fullLocale)")
