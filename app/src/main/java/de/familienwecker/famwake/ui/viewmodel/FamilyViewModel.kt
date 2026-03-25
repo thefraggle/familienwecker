@@ -711,8 +711,12 @@ class FamilyViewModel(
         if (member.claimedByUserId != null && member.id != myMemberId.value) return
         val updatedMember = member.copy(isPaused = !member.isPaused)
         _pendingPauseIds.value = _pendingPauseIds.value + memberId
-        addOrUpdateMemberDebounced(updatedMember) {
+        viewModelScope.launch {
+            // 1. Sofort lokal in Room speichern → Spinner weg, UI reagiert sofort
+            memberRepository.upsertMember(updatedMember)
             _pendingPauseIds.value = _pendingPauseIds.value - memberId
+            // 2. Im Hintergrund in Firestore schreiben (funktioniert online + offline-pending)
+            addOrUpdateMemberDebounced(updatedMember)
         }
     }
 
