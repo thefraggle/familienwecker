@@ -38,6 +38,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import de.familienwecker.famwake.util.NetworkUtils
+import de.familienwecker.famwake.util.ReviewHelper
+import android.app.Activity
 import kotlinx.coroutines.withTimeoutOrNull
 
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
@@ -508,6 +510,13 @@ class FamilyViewModel(
                 _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
             }
         }
+    }
+
+    /**
+     * Prüft und zeigt den In-App Review Dialog, falls Bedingungen erfüllt sind.
+     */
+    fun checkAndShowReview(activity: Activity, ignoreConstraints: Boolean = false) {
+        ReviewHelper.launchReview(activity, prefsRepo, ignoreConstraints)
     }
 
     /**

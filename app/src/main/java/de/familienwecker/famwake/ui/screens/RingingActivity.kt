@@ -158,6 +158,10 @@ class RingingActivity : AppCompatActivity() {
 
     private fun stopRingtoneAndFinish() {
         try {
+            // Letzten Alarm-Zeitpunkt für Review-Logik speichern
+            val prefsRepo = (application as FamWakeApplication).preferencesRepository
+            prefsRepo.setLastAlarmTime(System.currentTimeMillis())
+            
             mediaPlayer?.stop()
         } catch (_: IllegalStateException) {}
         mediaPlayer?.release()

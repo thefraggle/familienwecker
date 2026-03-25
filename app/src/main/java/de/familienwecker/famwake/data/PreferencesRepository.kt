@@ -39,6 +39,9 @@ private const val KEY_TOOLTIP_BATHROOM = "TOOLTIP_SEEN_BATHROOM"
 private const val KEY_TOOLTIP_INVITE   = "TOOLTIP_SEEN_INVITE"
 private const val KEY_TOOLTIP_SWITCH   = "TOOLTIP_SEEN_SWITCH"
 private const val KEY_TOOLTIP_WEEKDAYS = "TOOLTIP_SEEN_WEEKDAYS"
+private const val KEY_INSTALL_TIME = "INSTALL_TIME"
+private const val KEY_LAST_ALARM_TIME = "LAST_ALARM_TIME"
+private const val KEY_LAST_REVIEW_PROMPT_TIME = "LAST_REVIEW_PROMPT_TIME"
 
 class PreferencesRepository(context: Context) {
     private val prefs: SharedPreferences = createEncryptedPrefs(context).also {
@@ -170,6 +173,15 @@ class PreferencesRepository(context: Context) {
     private val _tooltipWeekdaysSeen = MutableStateFlow(prefs.getBoolean(KEY_TOOLTIP_WEEKDAYS, false))
     val tooltipWeekdaysSeen: StateFlow<Boolean> = _tooltipWeekdaysSeen.asStateFlow()
 
+    private val _installTime = MutableStateFlow(prefs.getLong(KEY_INSTALL_TIME, 0L))
+    val installTime: StateFlow<Long> = _installTime.asStateFlow()
+
+    private val _lastAlarmTime = MutableStateFlow(prefs.getLong(KEY_LAST_ALARM_TIME, 0L))
+    val lastAlarmTime: StateFlow<Long> = _lastAlarmTime.asStateFlow()
+
+    private val _lastReviewPromptTime = MutableStateFlow(prefs.getLong(KEY_LAST_REVIEW_PROMPT_TIME, 0L))
+    val lastReviewPromptTime: StateFlow<Long> = _lastReviewPromptTime.asStateFlow()
+
 
     /**
      * Reagiert nur auf externe Schreiber (z.B. andere Prozesse).
@@ -259,11 +271,27 @@ class PreferencesRepository(context: Context) {
                 val v = sharedPreferences.getBoolean(key, false)
                 if (v != _tooltipWeekdaysSeen.value) _tooltipWeekdaysSeen.value = v
             }
+            KEY_INSTALL_TIME -> {
+                val v = sharedPreferences.getLong(key, 0L)
+                if (v != _installTime.value) _installTime.value = v
+            }
+            KEY_LAST_ALARM_TIME -> {
+                val v = sharedPreferences.getLong(key, 0L)
+                if (v != _lastAlarmTime.value) _lastAlarmTime.value = v
+            }
+            KEY_LAST_REVIEW_PROMPT_TIME -> {
+                val v = sharedPreferences.getLong(key, 0L)
+                if (v != _lastReviewPromptTime.value) _lastReviewPromptTime.value = v
+            }
         }
     }
 
     init {
         prefs.registerOnSharedPreferenceChangeListener(listener)
+        // Initialisiere Installationszeitpunkt, falls noch nicht geschehen
+        if (_installTime.value == 0L) {
+            setInstallTime(System.currentTimeMillis())
+        }
     }
 
     /** Listener deregistrieren – wird von FamilyViewModel.onCleared() aufgerufen. */
@@ -385,6 +413,21 @@ class PreferencesRepository(context: Context) {
             KEY_TOOLTIP_SWITCH      -> _tooltipSwitchSeen.value = seen
             KEY_TOOLTIP_WEEKDAYS    -> _tooltipWeekdaysSeen.value = seen
         }
+    }
+
+    fun setInstallTime(time: Long) {
+        _installTime.value = time
+        prefs.edit { putLong(KEY_INSTALL_TIME, time) }
+    }
+
+    fun setLastAlarmTime(time: Long) {
+        _lastAlarmTime.value = time
+        prefs.edit { putLong(KEY_LAST_ALARM_TIME, time) }
+    }
+
+    fun setLastReviewPromptTime(time: Long) {
+        _lastReviewPromptTime.value = time
+        prefs.edit { putLong(KEY_LAST_REVIEW_PROMPT_TIME, time) }
     }
 
     fun resetAllTooltips() {

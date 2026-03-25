@@ -325,7 +325,13 @@ fun MainScreen(
                                 }
                                 Switch(
                                     checked = isAlarmEnabled,
-                                    onCheckedChange = { viewModel.setAlarmEnabled(it) },
+                                    onCheckedChange = { 
+                                        viewModel.setAlarmEnabled(it)
+                                        // Intelligenten Review-Prompt prüfen
+                                        (context as? android.app.Activity)?.let { activity ->
+                                            viewModel.checkAndShowReview(activity)
+                                        }
+                                    },
                                     enabled = myMemberId != null
                                 )
                             }
