@@ -4,6 +4,19 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.5 - 2026-03-25
+
+### Neu
+- **Sprachen:** Volle Unterstützung für Portugiesisch (pt), Polnisch (pl) und Niederländisch (nl) hinzugefügt. Die App unterstützt nun insgesamt 8 Sprachen.
+- **Rechtliches:** Sprachspezifische Links für Nutzungsbedingungen, Datenschutz, Impressum und Account-Löschung integriert (z.B. `terms-en.html`).
+
+### Optimiert
+- **Lokalisation:** 100% Synchronisation aller 265 Ressourcen-Keys über alle 8 Sprachen sichergestellt.
+- **Onboarding:** Optimierte Fallback-Logik für Screenshots in neu unterstützten Sprachen.
+
+### System
+- **Build:** Fehler bei der JVM Toolchain Resolution behoben und Build-Stabilität verbessert.
+
 ## 1.6.4 - 2026-03-24
 
 ### Neu
