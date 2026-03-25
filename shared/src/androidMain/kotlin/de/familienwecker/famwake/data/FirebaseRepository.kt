@@ -203,14 +203,12 @@ class FirebaseRepository : IFirebaseRepository {
             .orderBy("sequenceOrder", Direction.ASCENDING)
 
         query.snapshots.collect { snapshot ->
-            Log.d(TAG, "getFamilyMembersFlow: received snapshot with ${snapshot.documents.size} docs for family $familyId")
             val members = snapshot.documents.mapNotNull { doc ->
                 try { doc.toFamilyMember() } catch (e: Exception) {
                     Log.e(TAG, "toFamilyMember failed for doc ${doc.id}: ${e.message}", e)
                     null
                 }
             }
-            Log.d(TAG, "getFamilyMembersFlow: mapped ${members.size} members")
             trySend(members)
         }
         awaitClose { }
@@ -235,10 +233,8 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun removeMember(familyId: String, id: String): Result<Unit> {
         return try {
-            Log.d(TAG, "removeMember: deleting member $id from family $familyId")
             db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(id).delete()
-            Log.d(TAG, "removeMember: delete() returned for $id")
             Result.success(Unit)
         } catch (e: Exception) {
             Log.e(TAG, "removeMember: failed for $id: ${e.message}", e)
