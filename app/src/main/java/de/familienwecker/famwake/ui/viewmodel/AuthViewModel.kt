@@ -15,8 +15,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.R
+import de.familienwecker.famwake.data.AppError
 import de.familienwecker.famwake.data.AuthRepository
 import de.familienwecker.famwake.data.FirebaseRepository
 import de.familienwecker.famwake.data.GoogleSignInFailedException
@@ -146,12 +148,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             }.onFailure { error ->
-                val uiMessage = when (error) {
-                    is FirebaseAuthInvalidCredentialsException -> UiText.StringResource(R.string.error_invalid_credentials)
-                    is LoginFailedException -> UiText.StringResource(R.string.error_login_failed_unknown)
-                    else -> UiText.StringResource(R.string.error_login_failed, error.message ?: getApplication<Application>().getString(R.string.error_unknown))
-                }
-                _authState.value = AuthState.Error(uiMessage)
+                _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
             }
         }
     }
@@ -176,13 +173,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                val uiMessage = when (error) {
-                    is FirebaseAuthWeakPasswordException -> UiText.StringResource(R.string.error_password_too_short)
-                    is FirebaseAuthUserCollisionException -> UiText.StringResource(R.string.error_email_already_in_use)
-                    is RegistrationFailedException -> UiText.StringResource(R.string.error_registration_failed_unknown)
-                    else -> UiText.StringResource(R.string.error_registration_failed, error.message ?: getApplication<Application>().getString(R.string.error_unknown))
-                }
-                _authState.value = AuthState.Error(uiMessage)
+                _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
             }
         }
     }
@@ -246,12 +237,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         _authState.value = AuthState.Authenticated(user)
                         restoreUserFamily(user.uid)
                     }.onFailure { error ->
-                        val msg = if (error is GoogleSignInFailedException) {
-                            UiText.StringResource(R.string.error_google_sign_in_failed_unknown)
-                        } else {
-                            UiText.StringResource(R.string.error_google_sign_in_failed_unknown)
-                        }
-                        _authState.value = AuthState.Error(msg)
+                        _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
                     }
                 } else {
                     _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed_unknown))
@@ -294,13 +280,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             result.onSuccess {
                 _authState.value = AuthState.PasswordResetSuccess
             }.onFailure { error ->
-                val message = when (error.message) {
-                    "INVALID_EMAIL" -> UiText.StringResource(R.string.error_invalid_email)
-                    "USER_NOT_FOUND" -> UiText.StringResource(R.string.error_user_not_found)
-                    "TOO_MANY_REQUESTS" -> UiText.StringResource(R.string.error_too_many_requests)
-                    else -> UiText.StringResource(R.string.error_password_reset_failed)
-                }
-                _authState.value = AuthState.Error(message)
+                _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
             }
         }
     }
@@ -336,11 +316,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             result.onSuccess {
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                if (error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true) {
-                    _authState.value = AuthState.Error(UiText.StringResource(R.string.error_too_many_requests))
-                } else {
-                    _authState.value = AuthState.AwaitingEmailVerification
-                }
+                _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
             }
         }
     }

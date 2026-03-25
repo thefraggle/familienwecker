@@ -348,20 +348,28 @@ class PreferencesRepository(context: Context) {
                     "pt" -> "pt-BR"
                     else -> lang
                 }
-                Log.d("Purchases", "Setting language: $lang (mapped to $fullLocale)")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    Log.d("Purchases", "Setting language: $lang (mapped to $fullLocale)")
+                }
                 Purchases.sharedInstance.overridePreferredUILocale(fullLocale)
                 Purchases.sharedInstance.invalidateCustomerInfoCache()
                 
                 // Kurze Pause, damit das SDK das neue Locale intern verarbeiten kann
                 delay(500)
-                Log.d("Purchases", "Latest Offerings requested after delay, fetching from network")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    Log.d("Purchases", "Latest Offerings requested after delay, fetching from network")
+                }
                 
                 Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
                     override fun onReceived(offerings: Offerings) {
-                        Log.d("Purchases", "Fresh offerings fetch completed successfully for $fullLocale")
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            Log.d("Purchases", "Fresh offerings fetch completed successfully for $fullLocale")
+                        }
                     }
                     override fun onError(error: PurchasesError) {
-                        Log.e("Purchases", "Error fetching offerings: ${error.message}")
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            Log.e("Purchases", "Error fetching offerings: ${error.message}")
+                        }
                     }
                 })
             } catch (e: Exception) {

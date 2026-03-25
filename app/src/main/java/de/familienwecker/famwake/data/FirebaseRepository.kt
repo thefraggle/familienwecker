@@ -3,9 +3,9 @@ package de.familienwecker.famwake.data
 import de.familienwecker.famwake.model.FamilyMember
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.tasks.await
 import java.time.LocalTime
 
@@ -17,7 +17,7 @@ class FirebaseRepository {
     private val db = FirebaseFirestore.getInstance()
     private val auth = com.google.firebase.auth.FirebaseAuth.getInstance()
 
-    fun getAuthStateFlow(): kotlinx.coroutines.flow.Flow<com.google.firebase.auth.FirebaseUser?> = kotlinx.coroutines.flow.callbackFlow {
+    fun getAuthStateFlow(): Flow<com.google.firebase.auth.FirebaseUser?> = callbackFlow {
         val listener = com.google.firebase.auth.FirebaseAuth.AuthStateListener { auth ->
             trySend(auth.currentUser)
         }
@@ -130,76 +130,54 @@ class FirebaseRepository {
             null
         }
     }
-
-    fun getFamilyMembersFlow(familyId: String): Flow<List<FamilyMember>> = callbackFlow {
-        val collection = db.collection("families").document(familyId).collection("members")
-        val subscription = collection.addSnapshotListener { snapshot, error ->
-            if (error != null) {
-                android.util.Log.e("FirebaseRepository", "Fehler in getFamilyMembersFlow für $familyId: ${error.message}", error)
-                close(error)
-                return@addSnapshotListener
-            }
-
-            if (snapshot != null) {
-                android.util.Log.d("FirebaseRepository", "Habe ${snapshot.size()} Dokumente für Familie $familyId empfangen")
-                val members = snapshot.documents.mapNotNull { doc ->
-                    try {
-                        doc.toFamilyMember()
-                    } catch (e: Exception) {
+    fun getFamilyMembersFlow(familyId: String): kotlinx.coroutines.flow.Flow<List<FamilyMember>> = kotlinx.coroutines.flow.callbackFlow {
+        var listener: com.google.firebase.firestore.ListenerRegistration? = null
+        
+        fun subscribe() {
+            listener?.remove()
+            listener = db.collection("families").document(familyId)
+                .collection("members")
+                .orderBy("sequenceOrder")
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null) {
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                            android.util.Log.e("FirebaseRepository", "Fehler beim Mapping von ${doc.id}: ${e.message}")
+                            android.util.Log.e("FirebaseRepository", "Listen error: ${error.message}")
                         }
-                        null
+                        // Bei Permission Denied oder anderen Fehlern: Nicht schließen, sondern ggf. später neu versuchen
+                        // (Firestore macht interne Retries bei Connection-Loss automatisch)
+                        return@addSnapshotListener
+                    }
+                    if (snapshot != null) {
+                        val members = snapshot.documents.mapNotNull { doc ->
+                            try { doc.toFamilyMember() } catch (e: Exception) { null }
+                        }
+                        trySend(members)
                     }
                 }
-                val sortedMembers = members.sortedWith(compareBy({ it.sequenceOrder }, { it.createdAt ?: 0L }))
-                trySend(sortedMembers)
-            }
         }
 
-        awaitClose { subscription.remove() }
+        subscribe()
+        awaitClose { listener?.remove() }
+    }.retryWhen { cause, attempt: Long ->
+        // Bei kritischen Fehlern (z.B. Auth-Verlust) mit Backoff neu versuchen
+        if (cause is com.google.firebase.firestore.FirebaseFirestoreException && 
+            cause.code == com.google.firebase.firestore.FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+            false // Bei Permission Denied aufhören (FamilyId wahrscheinlich ungültig)
+        } else {
+            val delayMillis = kotlin.math.min(1000L * (attempt + 1), 10000L)
+            delay(delayMillis)
+            true
+        }
     }
 
     suspend fun addOrUpdateMember(familyId: String, member: FamilyMember) {
         try {
-            val currentTime = System.currentTimeMillis()
             val docRef = db.collection("families").document(familyId)
                 .collection("members").document(member.id)
-            val existingCreatedAt = member.createdAt ?: currentTime
-
-            // dayProfiles: Map<Int, DayProfile> → Map<String, Map<String, Any?>>
-            val dayProfilesData = member.dayProfiles?.mapKeys { it.key.toString() }
-                ?.mapValues { (_, profile) ->
-                    mapOf(
-                        "isActive" to profile.isActive,
-                        "earliestWakeUp" to profile.earliestWakeUp.toString(),
-                        "latestWakeUp" to profile.latestWakeUp.toString(),
-                        "bathroomDurationMinutes" to profile.bathroomDurationMinutes,
-                        "wantsBreakfast" to profile.wantsBreakfast,
-                        "leaveHomeTime" to profile.leaveHomeTime?.toString()
-                    )
-                }
-
-            val data = hashMapOf(
-                "name" to member.name,
-                "earliestWakeUp" to member.earliestWakeUp.toString(),
-                "latestWakeUp" to member.latestWakeUp.toString(),
-                "bathroomDurationMinutes" to member.bathroomDurationMinutes,
-                "wantsBreakfast" to member.wantsBreakfast,
-                "leaveHomeTime" to member.leaveHomeTime?.toString(),
-                "isPaused" to member.isPaused,
-                "isAwakeToday" to member.isAwakeToday,
-                "lastResetDate" to member.lastResetDate,
-                "claimedByUserId" to member.claimedByUserId,
-                "claimedByUserName" to member.claimedByUserName,
-                "sequenceOrder" to member.sequenceOrder,
-                "createdAt" to existingCreatedAt,
-                "lastUpdatedAt" to FieldValue.serverTimestamp(),
-                "deviceAlarmEnabled" to member.deviceAlarmEnabled,
-                "dayProfiles" to dayProfilesData
-            )
-            docRef.set(data).await()
-            android.util.Log.i("FirebaseRepository", "Mitglied ${member.id} ('${member.name}') erfolgreich in Familie $familyId gespeichert")
+            docRef.set(member.toFirestoreMap()).await()
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.i("FirebaseRepository", "Mitglied ${member.id} erfolgreich gespeichert")
+            }
         } catch (e: Exception) {
             android.util.Log.e("FirebaseRepository", "Fehler beim Speichern von Member ${member.id} in Familie $familyId: ${e.message}", e)
             throw e
@@ -263,13 +241,6 @@ class FirebaseRepository {
         }
     }
 
-    private fun generateJoinCode(): String {
-        // Base32 ohne verwechselbare Zeichen (0, O, 1, I)
-        val chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
-        val secureRandom = java.security.SecureRandom()
-        return (1..6).map { chars[secureRandom.nextInt(chars.length)] }.joinToString("")
-    }
-
     suspend fun requestAdminStatsReport(): Result<Unit> {
         return try {
             val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
@@ -281,23 +252,25 @@ class FirebaseRepository {
     }
 
 
-    // cachedJoinCode als Fallback, falls das Firestore-Family-Dokument nicht gelesen werden kann
-    suspend fun getUserFamily(userId: String, cachedJoinCode: String? = null): Result<Pair<String, String>?> {
-        return try {
-            val doc = db.collection("users").document(userId).get().await()
-            if (doc.exists()) {
-                val familyId = doc.getString("familyId")
-                if (familyId != null) {
-                    val familyDoc = db.collection("families").document(familyId).get().await()
-                    val joinCode = familyDoc.getString("joinCode") ?: cachedJoinCode
-                    if (joinCode != null) {
-                        Result.success(Pair(familyId, joinCode))
-                    } else {
-                        Result.success(null)
-                    }
-                } else {
-                    Result.success(null)
+    // M-1: Parallel-Fetching optimiert
+    suspend fun getUserFamily(uid: String, cachedJoinCode: String? = null): Result<Pair<String, String>?> = coroutineScope {
+        try {
+            // M-1: Parallel fetching with async for performance optimization
+            val familyIdDeferred = async {
+                db.collection("users").document(uid).get().await().getString("familyId")
+            }
+            val joinCodeDeferred = if (cachedJoinCode == null) {
+                async {
+                    db.collection("families").whereArrayContains("userIds", uid).get().await()
+                        .documents.firstOrNull()?.getString("joinCode")
                 }
+            } else null
+
+            val familyId = familyIdDeferred.await()
+            val joinCode = joinCodeDeferred?.await() ?: cachedJoinCode
+
+            if (familyId != null && joinCode != null) {
+                Result.success(Pair(familyId, joinCode))
             } else {
                 Result.success(null)
             }
@@ -306,15 +279,18 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun removeUserFamily(userId: String, familyId: String) {
-        try {
+    // M-3: Fehlerpropagierung gefixt
+    suspend fun removeUserFamily(userId: String, familyId: String): Result<Unit> {
+        return try {
             val functions = com.google.firebase.functions.FirebaseFunctions.getInstance("europe-west3")
             val data = hashMapOf("familyId" to familyId)
             functions.getHttpsCallable("leaveFamily").call(data).await()
+            Result.success(Unit)
         } catch (e: Exception) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.e("FirebaseRepository", "Fehler beim Verlassen der Familie für $userId: ${e.message}")
             }
+            Result.failure(e)
         }
     }
 
@@ -420,40 +396,7 @@ class FirebaseRepository {
                 val batch = db.batch()
                 chunk.forEach { member ->
                     val docRef = membersColl.document(member.id)
-                    val currentTime = System.currentTimeMillis()
-                    val existingCreatedAt = member.createdAt ?: currentTime
-
-                    val dayProfilesData = member.dayProfiles?.mapKeys { it.key.toString() }
-                        ?.mapValues { (_, profile) ->
-                            mapOf(
-                                "isActive" to profile.isActive,
-                                "earliestWakeUp" to profile.earliestWakeUp.toString(),
-                                "latestWakeUp" to profile.latestWakeUp.toString(),
-                                "bathroomDurationMinutes" to profile.bathroomDurationMinutes,
-                                "wantsBreakfast" to profile.wantsBreakfast,
-                                "leaveHomeTime" to profile.leaveHomeTime?.toString()
-                            )
-                        }
-
-                    val data = hashMapOf(
-                        "name" to member.name,
-                        "earliestWakeUp" to member.earliestWakeUp.toString(),
-                        "latestWakeUp" to member.latestWakeUp.toString(),
-                        "bathroomDurationMinutes" to member.bathroomDurationMinutes,
-                        "wantsBreakfast" to member.wantsBreakfast,
-                        "leaveHomeTime" to member.leaveHomeTime?.toString(),
-                        "isPaused" to member.isPaused,
-                        "isAwakeToday" to member.isAwakeToday,
-                        "lastResetDate" to member.lastResetDate,
-                        "claimedByUserId" to member.claimedByUserId,
-                        "claimedByUserName" to member.claimedByUserName,
-                        "sequenceOrder" to member.sequenceOrder,
-                        "createdAt" to existingCreatedAt,
-                        "lastUpdatedAt" to FieldValue.serverTimestamp(),
-                        "deviceAlarmEnabled" to member.deviceAlarmEnabled,
-                        "dayProfiles" to dayProfilesData
-                    )
-                    batch.set(docRef, data)
+                    batch.set(docRef, member.toFirestoreMap())
                 }
                 batch.commit().await()
             }
@@ -478,6 +421,7 @@ class FirebaseRepository {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.e("FirebaseRepository", "Fehler beim Schreiben von deviceAlarmEnabled für $memberId: ${e.message}")
             }
+            throw e
         }
     }
 

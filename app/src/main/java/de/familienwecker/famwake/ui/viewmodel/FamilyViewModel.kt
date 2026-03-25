@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import de.familienwecker.famwake.algorithm.Scheduler
 import de.familienwecker.famwake.alarm.AlarmScheduler
+import de.familienwecker.famwake.data.AppError
 import de.familienwecker.famwake.data.FirebaseRepository
 import de.familienwecker.famwake.data.PreferencesRepository
 import de.familienwecker.famwake.data.FamilyNotFoundException
@@ -32,7 +33,6 @@ import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.delay
@@ -48,6 +48,17 @@ class FamilyViewModel(
     private val repository: FirebaseRepository = FirebaseRepository(),
     prefsRepo: PreferencesRepository = PreferencesRepository(application)
 ) : AndroidViewModel(application) {
+
+    private val _offlineWriteHint = MutableStateFlow<UiText?>(null)
+    val offlineWriteHint: StateFlow<UiText?> = _offlineWriteHint.asStateFlow()
+
+    fun clearOfflineWriteHint() { _offlineWriteHint.value = null }
+
+    private fun checkOfflineAndHint() {
+        if (isOffline.value) {
+            _offlineWriteHint.value = UiText.StringResource(R.string.offline_write_hint)
+        }
+    }
 
     private val scheduler = Scheduler()
     private val alarmScheduler = AlarmScheduler(application)
@@ -221,18 +232,7 @@ class FamilyViewModel(
                                 }
                             } catch (e: CancellationException) {
                                 throw e
-                            } catch (e: Exception) {
-                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                    android.util.Log.e("FamilyViewModel", "Members Flow Error: ${e.message}")
-                                }
-                                val errorMsg = e.localizedMessage ?: getApplication<Application>().getString(R.string.error_permission_denied)
-                                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
-
-                                // Self-Healing: Bei Permission Denied (veraltete FamilyId) lokal aufräumen.
-                                if (e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true) {
-                                } else {
-                                    _errorMessage.value = UiText.StringResource(R.string.error_load_members)
-                                }
+                                _errorMessage.value = AppError.fromException(e).uiText
                             }
                         }
                     } else {
@@ -493,6 +493,7 @@ class FamilyViewModel(
     }
 
     fun addOrUpdateMember(member: FamilyMember) {
+        checkOfflineAndHint()
         val currentFamilyId = familyId.value ?: return
         if (member.name.isBlank()) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -533,6 +534,7 @@ class FamilyViewModel(
     }
 
     fun removeMember(id: String) {
+        checkOfflineAndHint()
         val currentFamilyId = familyId.value ?: return
         alarmScheduler.cancelWakeUp(id)
         viewModelScope.launch {
@@ -601,6 +603,7 @@ class FamilyViewModel(
     // erfolgt debounced (2s) für die Anzeige bei anderen Familienmitgliedern.
     fun setAlarmEnabled(enabled: Boolean) {
         if (enabled && myMemberId.value == null) return
+        checkOfflineAndHint()
 
         // Wenn der Wecker ausgeschaltet wird, den "Schon wach"-Status zurücksetzen.
         // Das stellt sicher, dass der Wecker beim Wiedereinschalten normal klingelt.
@@ -678,6 +681,7 @@ class FamilyViewModel(
     }
 
     fun saveMemberOrder() {
+        checkOfflineAndHint()
         val currentFamilyId = familyId.value ?: return
         val updatedMembers = _members.value
         val orderMap = updatedMembers.associate { it.id to it.sequenceOrder }
@@ -938,6 +942,7 @@ class FamilyViewModel(
     }
 
     fun leaveFamily() {
+        checkOfflineAndHint()
         _errorMessage.value = null
         val uid = auth.currentUser?.uid ?: return
         val currentFamilyId = familyId.value
@@ -1107,7 +1112,9 @@ class FamilyViewModel(
                     }
                 )
                 lastScheduledAlarmMillis = newAlarmMillis
-                android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm SET for $targetDateTime")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm SET for $targetDateTime")
+                }
             }
         }
     }

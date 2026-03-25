@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import de.familienwecker.famwake.ui.theme.*
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -56,13 +57,13 @@ fun OnboardingScreen(
         OnboardingSlide(
             titleRes  = R.string.onboarding_slide0_title,
             bodyRes   = R.string.onboarding_slide0_body,
-            gradient  = listOf(Color(0xFFBF360C), Color(0xFFE64A19)),  // warmes Sonnenaufgang-Orange
+            gradient  = listOf(OnboardingWarm1, OnboardingWarm2),  // warmes Sonnenaufgang-Orange
             lottieRes = R.raw.panda
         ),
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide1_title,
             bodyRes    = R.string.onboarding_slide1_body,
-            gradient   = listOf(Color(0xFF1A237E), Color(0xFF283593)),
+            gradient   = listOf(OnboardingBlue1, OnboardingBlue2),
             imageRes   = R.drawable.onboarding_slide1,
             imageResEn = R.drawable.onboarding_slide1_en,
             imageResEs = R.drawable.onboarding_slide1_es,
@@ -72,7 +73,7 @@ fun OnboardingScreen(
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide2_title,
             bodyRes    = R.string.onboarding_slide2_body,
-            gradient   = listOf(Color(0xFF1B5E20), Color(0xFF2E7D32)),
+            gradient   = listOf(OnboardingGreen1, OnboardingGreen2),
             imageRes   = R.drawable.onboarding_slide2_de,
             imageResEn = R.drawable.onboarding_slide2_en,
             imageResEs = R.drawable.onboarding_slide2_es,
@@ -82,7 +83,7 @@ fun OnboardingScreen(
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide3_title,
             bodyRes    = R.string.onboarding_slide3_body,
-            gradient   = listOf(Color(0xFF4A148C), Color(0xFF6A1B9A)),
+            gradient   = listOf(OnboardingPurple1, OnboardingPurple2),
             imageRes   = R.drawable.onboarding_slide3_de,
             imageResEn = R.drawable.onboarding_slide3_en,
             imageResEs = R.drawable.onboarding_slide3_es,
@@ -92,7 +93,7 @@ fun OnboardingScreen(
         OnboardingSlide(
             titleRes   = R.string.onboarding_slide4_title,
             bodyRes    = R.string.onboarding_slide4_body,
-            gradient   = listOf(Color(0xFF880E4F), Color(0xFFAD1457)),
+            gradient   = listOf(OnboardingPink1, OnboardingPink2),
             imageRes   = R.drawable.onboarding_slide4,
             imageResEn = R.drawable.onboarding_slide4_en,
             imageResEs = R.drawable.onboarding_slide4_es,

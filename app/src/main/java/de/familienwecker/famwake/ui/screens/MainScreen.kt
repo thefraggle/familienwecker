@@ -55,6 +55,7 @@ import de.familienwecker.famwake.util.BatteryUtils
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.ui.components.TooltipBubble
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import de.familienwecker.famwake.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -429,7 +430,7 @@ fun MainScreen(
                                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
                                 colors = CardDefaults.cardColors(
-                                    containerColor = if (isDarkTheme) Color(0xFF1B321B) else Color(0xFFE8F5E9)
+                                    containerColor = if (isDarkTheme) OnlineGreenDark else OnlineGreenLight
                                 )
                             ) {
                                 Row(
@@ -446,7 +447,7 @@ fun MainScreen(
                                         Icon(
                                             imageVector = Icons.Default.Snooze,
                                             contentDescription = null,
-                                            tint = if (isDarkTheme) Color(0xFF81C784) else Color(0xFF2E7D32),
+                                            tint = if (isDarkTheme) OnlineIconDark else OnlineIconLight,
                                             modifier = Modifier.size(20.dp)
                                         )
                                         Spacer(modifier = Modifier.width(12.dp))
@@ -457,14 +458,14 @@ fun MainScreen(
                                             ),
                                             style = MaterialTheme.typography.bodyMedium,
                                             fontWeight = FontWeight.Medium,
-                                            color = if (isDarkTheme) Color(0xFFE8F5E9) else Color(0xFF1B5E20)
+                                            color = if (isDarkTheme) OnlineGreenLight else Color(0xFF1B5E20)
                                         )
                                     }
                                     TextButton(
                                         onClick = { viewModel.cancelSnooze(myMemberId!!) },
                                         contentPadding = PaddingValues(horizontal = 12.dp),
                                         colors = ButtonDefaults.textButtonColors(
-                                            contentColor = if (isDarkTheme) Color(0xFF81C784) else Color(0xFF2E7D32)
+                                            contentColor = if (isDarkTheme) OnlineIconDark else OnlineIconLight
                                         )
                                     ) {
                                         Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(14.dp))
@@ -540,8 +541,8 @@ fun MainScreen(
                             description = stringResource(R.string.empty_schedule_description)
                         )
                     } else if (!currentSchedule.isValid) {
-                        val cardColor = if (isDarkTheme) Color(0xFF332000) else Color(0xFFFFE0B2) // Warm orange/amber
-                        val textColor = if (isDarkTheme) Color(0xFFFFCC80) else Color(0xFFE65100)
+                        val cardColor = if (isDarkTheme) SnoozeAmberDark else SnoozeAmberLight // Warm orange/amber
+                        val textColor = if (isDarkTheme) SnoozeTextDark else SnoozeTextLight
                         
                         Card(
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
