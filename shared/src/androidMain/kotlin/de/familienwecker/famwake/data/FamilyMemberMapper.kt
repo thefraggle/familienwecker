@@ -2,6 +2,7 @@ package de.familienwecker.famwake.data
 
 import dev.gitlive.firebase.firestore.DocumentSnapshot
 import dev.gitlive.firebase.firestore.Timestamp
+import dev.gitlive.firebase.firestore.android
 import de.familienwecker.famwake.model.DayProfile
 import de.familienwecker.famwake.model.FamilyMember
 import kotlinx.datetime.LocalTime
@@ -11,7 +12,7 @@ import kotlinx.datetime.LocalTime
  */
 @Suppress("UNCHECKED_CAST")
 fun DocumentSnapshot.toFamilyMember(): FamilyMember {
-    val rawProfiles = get<Map<*, *>?>("dayProfiles")
+    val rawProfiles = android.get("dayProfiles") as? Map<*, *>
     val dayProfiles = rawProfiles?.mapNotNull { (key, value) ->
         val dayNum = key.toString().toIntOrNull() ?: return@mapNotNull null
         val map = value as? Map<*, *> ?: return@mapNotNull null

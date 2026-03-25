@@ -203,9 +203,14 @@ class FirebaseRepository : IFirebaseRepository {
             .orderBy("sequenceOrder", Direction.ASCENDING)
 
         query.snapshots.collect { snapshot ->
+            Log.d(TAG, "getFamilyMembersFlow: received snapshot with ${snapshot.documents.size} docs for family $familyId")
             val members = snapshot.documents.mapNotNull { doc ->
-                try { doc.toFamilyMember() } catch (e: Exception) { null }
+                try { doc.toFamilyMember() } catch (e: Exception) {
+                    Log.e(TAG, "toFamilyMember failed for doc ${doc.id}: ${e.message}", e)
+                    null
+                }
             }
+            Log.d(TAG, "getFamilyMembersFlow: mapped ${members.size} members")
             trySend(members)
         }
         awaitClose { }
