@@ -306,4 +306,7 @@
     <string name="default_someone">Ktoś</string>
     <string name="error_label">Błąd</string>
     <string name="offline_write_hint">Brak połączenia. Twoje zmiany zostaną zsynchronizowane, gdy tylko wrócisz do trybu online.</string>
+    <string name="password_show">Pokaż hasło</string>
+    <string name="password_hide">Ukryj hasło</string>
+    <string name="close_desc">Zamknij</string>
 </resources>

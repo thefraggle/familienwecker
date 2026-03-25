@@ -306,4 +306,7 @@
     <string name="default_someone">Qualcuno</string>
     <string name="error_label">Errore</string>
     <string name="offline_write_hint">Nessuna connessione. Le tue modifiche verranno sincronizzate non appena sarai di nuovo online.</string>
+    <string name="password_show">Mostra password</string>
+    <string name="password_hide">Nascondi password</string>
+    <string name="close_desc">Chiudi</string>
 </resources>

@@ -306,4 +306,7 @@
     <string name="default_someone">Iemand</string>
     <string name="error_label">Fout</string>
     <string name="offline_write_hint">Geen verbinding. Je wijzigingen worden gesynchroniseerd zodra je weer online bent.</string>
+    <string name="password_show">Wachtwoord tonen</string>
+    <string name="password_hide">Wachtwoord verbergen</string>
+    <string name="close_desc">Sluiten</string>
 </resources>
