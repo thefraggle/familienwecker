@@ -191,11 +191,17 @@ class FamilyViewModel(
                         refreshData()
                         // Admin-Status laden
                         launch {
-                            val data = repository.getFamilyData(currentFamilyId)
-                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                android.util.Log.d("FamilyViewModel", "Family data loaded: creator=${data?.createdByUserId}")
+                            try {
+                                val data = repository.getFamilyData(currentFamilyId)
+                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                    android.util.Log.d("FamilyViewModel", "Family data loaded: creator=${data?.createdByUserId}")
+                                }
+                                _familyCreatorId.value = data?.createdByUserId
+                            } catch (e: Exception) {
+                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                    android.util.Log.e("FamilyViewModel", "Error loading family creator: ${e.message}")
+                                }
                             }
-                            _familyCreatorId.value = data?.createdByUserId
                         }
                         
 
@@ -209,8 +215,10 @@ class FamilyViewModel(
                                     if (status.isFromCache && !NetworkUtils.isOnline(getApplication())) {
                                         offlineDebounceJob?.cancel()
                                         offlineDebounceJob = launch {
-                                            delay(3000)
-                                            _isOffline.value = true
+                                            try {
+                                                delay(3000)
+                                                _isOffline.value = true
+                                            } catch (_: Exception) {}
                                         }
                                     } else {
                                         offlineDebounceJob?.cancel()
