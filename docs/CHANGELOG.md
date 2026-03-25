@@ -4,6 +4,15 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.7 - 2026-03-25
+
+### Neu
+- **Datenverlust-Schutz:** Bestätigungsdialog bei ungespeicherten Änderungen im Edit-Screen hinzugefügt (8 Sprachen).
+- **UI-Reinigung:** Zeitanzeigen in der gesamten App werden nun einheitlich auf `HH:mm` formatiert (Sekunden/Millisekunden entfernt).
+
+### Behoben
+- **State-Stabilität:** Fehler behoben, bei dem der Edit-Screen seinen Zustand bei Hintergrund-Synchronisierungen verlor.
+
 ## 1.6.6 - 2026-03-25
 
 ### Behoben

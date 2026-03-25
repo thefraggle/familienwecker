@@ -4,6 +4,15 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.7 - 2026-03-25
+
+### New
+- **Data Loss Protection:** Added confirmation dialog for unsaved changes in the edit screen (8 languages).
+- **UI Cleanup:** Time displays across the app are now uniformly formatted to `HH:mm` (seconds/milliseconds removed).
+
+### Fixed
+- **State Stability:** Fixed a bug where the edit screen lost its state during background synchronizations.
+
 ## 1.6.6 - 2026-03-25
 
 ### Fixed

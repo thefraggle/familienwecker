@@ -1,5 +1,5 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.6
+**Version:** 1.6.7
 **Datum:** 2026-03-25
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -119,6 +119,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-68 | **Snooze + regulärer Alarm kein Konflikt** | Snooze drücken → Snooze klingelt → Wecker beenden → kein regulärer Alarm überschreibt den laufenden Snooze. |
 | TC-69 | **Periodischer Refresh** | App offen, keine Änderungen → nach max. 5 Minuten wird der Zeitplan automatisch neu berechnet (Logcat: `applyAlarms: alarm SET` oder `day X is inactive`). |
 | TC-70 | **Veralteter Zeitplan verschwindet** | Alarm klingelt und wird gestoppt → nach max. 5 Minuten zeigt der Hauptscreen keinen alten Zeitplan mehr, sondern den korrekten Stand (nächster Tag / NoActiveSchedule). |
++| TC-71 | **Ungespeicherte Änderungen Guard** | Änderungen im Profil vornehmen und Screen per Geste/Back verlassen → Bestätigungsdialog erscheint. |
 
 ### 3. Planungs-Logik (Algorithmische Tests)
 | ID | Testfall | Erwartetes Ergebnis |
