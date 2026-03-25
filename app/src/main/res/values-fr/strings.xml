@@ -130,11 +130,11 @@
     <string name="settings_language_dutch">Néerlandais</string>
     <string name="settings_language_portuguese">Portugais</string>
     <string name="settings_appearance_title">Apparence</string>
-    <string name="settings_display_title">Paramètres de l'app</string>
+    <string name="settings_display_title">Paramètres de l\'app</string>
     <string name="settings_help_feedback_title">Aide &amp; Feedback</string>
     <string name="settings_support_button">Contacter le développeur</string>
-    <string name="settings_rate_app">⭐ Évaluer l'app ⭐</string>
-    <string name="settings_start_onboarding">🎓 Tutoriel de l'app</string>
+    <string name="settings_rate_app">⭐ Évaluer l\'app ⭐</string>
+    <string name="settings_start_onboarding">🎓 Tutoriel de l\'app</string>
 
     <string name="onboarding_skip">Passer</string>
     <string name="onboarding_next">Suivant</string>
