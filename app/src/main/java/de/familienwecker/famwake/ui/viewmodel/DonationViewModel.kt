@@ -71,9 +71,9 @@ class DonationViewModel : ViewModel() {
 
     fun purchasePackage(activity: android.app.Activity, packageToPurchase: Package) {
         _purchaseState.value = PurchaseState.Loading
-        Purchases.sharedInstance.purchasePackage(
-            activity,
-            packageToPurchase,
+        val params = PurchaseParams.Builder(activity, packageToPurchase).build()
+        Purchases.sharedInstance.purchase(
+            params,
             object : PurchaseCallback {
                 override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
                     _purchaseState.value = PurchaseState.Success

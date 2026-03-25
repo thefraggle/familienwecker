@@ -21,7 +21,7 @@ class FirebaseRepository {
         private const val COLLECTION_ADMINS = "_admins"
         private const val COLLECTION_FAMILIES = "families"
         private const val COLLECTION_USERS = "users"
-        private const val SUB_COLL_MEMBERS = "members"
+        private const val COLLECTION_MEMBERS = "members"
     }
 
     fun getAuthStateFlow(): Flow<com.google.firebase.auth.FirebaseUser?> = callbackFlow {
@@ -142,8 +142,8 @@ class FirebaseRepository {
         
         fun subscribe() {
             listener?.remove()
-            listener = db.collection("families").document(familyId)
-                .collection("members")
+            listener = db.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS)
                 .orderBy("sequenceOrder")
                 .addSnapshotListener { snapshot, error ->
                     if (error != null) {
@@ -179,8 +179,8 @@ class FirebaseRepository {
 
     suspend fun addOrUpdateMember(familyId: String, member: FamilyMember) {
         try {
-            val docRef = db.collection("families").document(familyId)
-                .collection("members").document(member.id)
+            val docRef = db.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS).document(member.id)
             docRef.set(member.toFirestoreMap()).await()
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.i("FirebaseRepository", "Mitglied ${member.id} erfolgreich gespeichert")
@@ -193,7 +193,7 @@ class FirebaseRepository {
 
     suspend fun removeMember(familyId: String, id: String): Result<Unit> {
         return try {
-            db.collection("families").document(familyId).collection("members").document(id).delete().await()
+            db.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS).document(id).delete().await()
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -202,7 +202,7 @@ class FirebaseRepository {
 
     suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?): Boolean {
         return try {
-            val docRef = db.collection("families").document(familyId).collection("members").document(memberId)
+            val docRef = db.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS).document(memberId)
             // Atomare Transaktion: verhindert Race Condition wenn zwei User
             // gleichzeitig dasselbe Profil beanspruchen wollen.
             db.runTransaction { transaction ->
@@ -225,7 +225,7 @@ class FirebaseRepository {
 
     suspend fun unclaimMember(familyId: String, memberId: String, userId: String): Boolean {
         return try {
-            val docRef = db.collection("families").document(familyId).collection("members").document(memberId)
+            val docRef = db.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS).document(memberId)
             // Atomare Transaktion: verhindert Race Condition beim unclaimen
             db.runTransaction { transaction ->
                 val snapshot = transaction.get(docRef)
@@ -268,7 +268,7 @@ class FirebaseRepository {
             }
             val joinCodeDeferred = if (cachedJoinCode == null) {
                 async {
-                    db.collection("families").whereArrayContains("userIds", uid).get().await()
+                    db.collection(COLLECTION_FAMILIES).whereArrayContains("userIds", uid).get().await()
                         .documents.firstOrNull()?.getString("joinCode")
                 }
             } else null
@@ -303,7 +303,7 @@ class FirebaseRepository {
 
     suspend fun checkFamilyExists(familyId: String): Boolean {
         return try {
-            val doc = db.collection("families").document(familyId).get().await()
+            val doc = db.collection(COLLECTION_FAMILIES).document(familyId).get().await()
             doc.exists()
         } catch (e: Exception) {
             false
@@ -328,8 +328,8 @@ class FirebaseRepository {
 
     suspend fun getClaimedMember(familyId: String, userId: String): FamilyMember? {
         return try {
-            val snapshot = db.collection("families").document(familyId)
-                .collection("members")
+            val snapshot = db.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS)
                 .whereEqualTo("claimedByUserId", userId)
                 .limit(1)
                 .get()
@@ -379,7 +379,7 @@ class FirebaseRepository {
     suspend fun updateMemberOrders(familyId: String, orders: Map<String, Int>) {
         try {
             val batch = db.batch()
-            val collection = db.collection("families").document(familyId).collection("members")
+            val collection = db.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS)
             
             orders.forEach { (memberId, order) ->
                 val docRef = collection.document(memberId)
@@ -400,8 +400,8 @@ class FirebaseRepository {
      */
     suspend fun updateMembersBatch(familyId: String, members: List<FamilyMember>) {
         try {
-            val familyDocRef = db.collection("families").document(familyId)
-            val membersColl = familyDocRef.collection("members")
+            val familyDocRef = db.collection(COLLECTION_FAMILIES).document(familyId)
+            val membersColl = familyDocRef.collection(COLLECTION_MEMBERS)
             
             // Firestore limit: 500 operations per batch
             members.chunked(500).forEach { chunk ->
@@ -425,8 +425,8 @@ class FirebaseRepository {
      */
     suspend fun updateDeviceAlarmEnabled(familyId: String, memberId: String, enabled: Boolean) {
         try {
-            db.collection("families").document(familyId)
-                .collection("members").document(memberId)
+            db.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS).document(memberId)
                 .update("deviceAlarmEnabled", enabled)
                 .await()
         } catch (e: Exception) {
@@ -442,8 +442,8 @@ class FirebaseRepository {
      * Kombiniert members-Subkollektion UND das families-Dokument selbst.
      */
     fun getSyncStatusFlow(familyId: String): Flow<de.familienwecker.famwake.model.SyncStatus> = callbackFlow {
-        val familyRef = db.collection("families").document(familyId)
-        val membersRef = familyRef.collection("members")
+        val familyRef = db.collection(COLLECTION_FAMILIES).document(familyId)
+        val membersRef = familyRef.collection(COLLECTION_MEMBERS)
 
         var familySynced = de.familienwecker.famwake.model.SyncStatus()
         var membersSynced = de.familienwecker.famwake.model.SyncStatus()
