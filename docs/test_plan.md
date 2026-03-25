@@ -1,6 +1,6 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.4
-**Datum:** 2026-03-24
+**Version:** 1.6.5
+**Datum:** 2026-03-25
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
