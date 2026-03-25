@@ -151,6 +151,9 @@ class FamilyViewModel(
     // Offline-Debounce – CloudOff-Icon erst nach 3s ohne Verbindung zeigen
     private val _isOffline = MutableStateFlow(false)
     val isOffline: StateFlow<Boolean> = _isOffline.asStateFlow()
+
+    private val _pendingPauseIds = MutableStateFlow<Set<String>>(emptySet())
+    val pendingPauseIds: StateFlow<Set<String>> = _pendingPauseIds.asStateFlow()
     private var offlineDebounceJob: Job? = null
 
     private val _familyCreatorId = MutableStateFlow<String?>(null)
@@ -565,12 +568,13 @@ class FamilyViewModel(
      * Schreibt ein Mitglied mit 2s Debounce nach Firebase.
      * Nützlich für Toggles im MainScreen um Schreib-Spam zu vermeiden.
      */
-    private fun addOrUpdateMemberDebounced(member: FamilyMember) {
+    private fun addOrUpdateMemberDebounced(member: FamilyMember, onComplete: (() -> Unit)? = null) {
         val currentFamilyId = familyId.value ?: return
         memberUpdateJob?.cancel()
         memberUpdateJob = viewModelScope.launch {
             delay(2000)
             repository.addOrUpdateMember(currentFamilyId, member)
+            onComplete?.invoke()
         }
     }
 
@@ -706,7 +710,10 @@ class FamilyViewModel(
         val member = _members.value.find { it.id == memberId } ?: return
         if (member.claimedByUserId != null && member.id != myMemberId.value) return
         val updatedMember = member.copy(isPaused = !member.isPaused)
-        addOrUpdateMemberDebounced(updatedMember)
+        _pendingPauseIds.value = _pendingPauseIds.value + memberId
+        addOrUpdateMemberDebounced(updatedMember) {
+            _pendingPauseIds.value = _pendingPauseIds.value - memberId
+        }
     }
 
     fun moveMemberOrder(fromIndex: Int, toIndex: Int) {

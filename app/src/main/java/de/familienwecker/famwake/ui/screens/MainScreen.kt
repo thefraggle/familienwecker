@@ -90,6 +90,7 @@ fun MainScreen(
     val tooltipDragSeen by viewModel.tooltipDragSeen.collectAsStateWithLifecycle()
     val tooltipSwitchSeen by viewModel.tooltipSwitchSeen.collectAsStateWithLifecycle()
     val isJoiningFamily by viewModel.isJoiningFamily.collectAsStateWithLifecycle()
+    val pendingPauseIds by viewModel.pendingPauseIds.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
 
@@ -859,7 +860,8 @@ fun MainScreen(
                         onDelete = { showDeleteMemberDialog = member },
                         onTogglePause = { viewModel.togglePauseMember(member.id) },
                         onToggleAwake = { viewModel.toggleAwakeMember(member.id) },
-                        isAlarmEnabled = isAlarmEnabled
+                        isAlarmEnabled = isAlarmEnabled,
+                        isPauseLoading = pendingPauseIds.contains(member.id)
                     )
                 }
             }
@@ -977,7 +979,8 @@ fun MemberCard(
     onDelete: () -> Unit,
     onTogglePause: () -> Unit,
     onToggleAwake: () -> Unit,
-    isAlarmEnabled: Boolean
+    isAlarmEnabled: Boolean,
+    isPauseLoading: Boolean = false
 ) {
     val isDarkTheme = LocalDarkTheme.current
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
@@ -1101,16 +1104,25 @@ fun MemberCard(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (member.claimedByUserId == null) {
                     IconButton(
-                        onClick = onTogglePause,
-                        modifier = Modifier.size(32.dp)
+                        onClick = { if (!isPauseLoading) onTogglePause() },
+                        modifier = Modifier.size(32.dp),
+                        enabled = !isPauseLoading
                     ) {
-                        val icon = if (member.isPaused) Icons.Default.PlayArrow else Icons.Default.Pause
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = stringResource(R.string.pause_today_desc),
-                            tint = textColor.copy(alpha = 0.6f),
-                            modifier = Modifier.size(18.dp)
-                        )
+                        if (isPauseLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                strokeWidth = 2.dp,
+                                color = textColor.copy(alpha = 0.6f)
+                            )
+                        } else {
+                            val icon = if (member.isPaused) Icons.Default.PlayArrow else Icons.Default.Pause
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = stringResource(R.string.pause_today_desc),
+                                tint = textColor.copy(alpha = 0.6f),
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
                     }
                 }
                 if (!isOtherUserClaim) {
