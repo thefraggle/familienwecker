@@ -21,8 +21,8 @@ service cloud.firestore {
           (exists(userPath) && get(userPath).data.familyId == familyId) || 
           // Option B: Der Nutzer ist der Ersteller (Fallback für Onboarding)
           (exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid) ||
-          // Option C: uid ist im userIds-Array der Familie (nach arrayUnion durch joinFamilyByCode)
-          (exists(familyPath) && request.auth.uid in get(familyPath).data.userIds)
+          // Option C: uid ist im userIds-Array (nur wenn Feld existiert – Schutz vor alten Docs)
+          (exists(familyPath) && get(familyPath).data.keys().hasAll(['userIds']) && request.auth.uid in get(familyPath).data.userIds)
         ));
     }
 
