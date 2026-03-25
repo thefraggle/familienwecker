@@ -44,13 +44,16 @@ def get_version_code(aab_path):
     return None
 
 def main():
-    # Target locales mentioned by user
+    # All 8 app languages for Play Store
     target_locales = {
         'de-DE': 'docs/CHANGELOG.md',
         'en-US': 'docs/CHANGELOG.en.md',
         'fr-FR': None,
         'it-IT': None,
-        'es-ES': None
+        'es-ES': None,
+        'pt-PT': None,
+        'pl-PL': None,
+        'nl-NL': None,
     }
     
     changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or "Maintenance update and performance optimizations."

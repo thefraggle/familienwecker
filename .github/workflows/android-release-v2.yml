@@ -99,7 +99,6 @@ jobs:
             "$AAB_PATH" "$KEY_ALIAS"
           cp "$AAB_PATH" FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
 
-      # Automatische Generierung der Play Store Metadaten (Changelogs)
       - name: Generate Play Store Metadata
         run: |
           pip3 install googletrans==4.0.0-rc1
@@ -110,6 +109,19 @@ jobs:
           cat release-notes/whatsnew-de-DE || echo "No DE file"
           echo "Verifying Content (EN):"
           cat release-notes/whatsnew-en-US || echo "No EN file"
+          echo "Verifying Content (FR):"
+          cat release-notes/whatsnew-fr-FR || echo "No FR file"
+          echo "Verifying Content (ES):"
+          cat release-notes/whatsnew-es-ES || echo "No ES file"
+          echo "Verifying Content (IT):"
+          cat release-notes/whatsnew-it-IT || echo "No IT file"
+          echo "Verifying Content (PT):"
+          cat release-notes/whatsnew-pt-PT || echo "No PT file"
+          echo "Verifying Content (PL):"
+          cat release-notes/whatsnew-pl-PL || echo "No PL file"
+          echo "Verifying Content (NL):"
+          cat release-notes/whatsnew-nl-NL || echo "No NL file"
+
 
       # GitHub Release nur mit AAB
       - name: Create GitHub Release
