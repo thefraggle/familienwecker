@@ -23,6 +23,10 @@ class MemberRepository(private val memberDao: MemberDao) {
         memberDao.deleteNotInIds(entities.map { it.id })           // 2. dann stale löschen → kein 0-State
     }
 
+    suspend fun upsertMember(member: FamilyMember) {
+        memberDao.upsertMembers(listOf(member.toEntity()))
+    }
+
     suspend fun deleteMember(id: String) {
         memberDao.deleteMember(id)
     }
