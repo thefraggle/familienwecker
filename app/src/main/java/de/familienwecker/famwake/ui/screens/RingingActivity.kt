@@ -12,6 +12,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -45,6 +46,7 @@ class RingingActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         val memberId = intent.getStringExtra("MEMBER_ID") ?: ""
