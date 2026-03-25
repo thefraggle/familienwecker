@@ -1,5 +1,5 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.5
+**Version:** 1.6.6
 **Datum:** 2026-03-25
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -195,6 +195,12 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-57 | **Admin: Sicherheit (Sichtbarkeit)** | Login mit Nicht-Admin-User -> Admin-Buttons in Settings sind ausgeblendet. |
 | EC-09 | Nachträgliche Änderung (2 Uhr nachts) | Plan wird neu berechnet und asynchron an alle synchronisiert. |
 | EC-10 | Mehrere Admins | Beide ändern gleichzeitig die Badzeit eines Kindes -> Last-Write-Wins oder Konfliktmeldung. |
+
+---
+
+| TC-105| **Self-Healing Firestore** | Flugmodus an/aus während Firestore-Listener aktiv ist. | Listener fängt Fehler ab, zeigt kein UI-Flackern und synchronisiert sich lautlos neu, sobald Netz da ist. |
+| TC-106| **Login (Missing Format Fix)** | Login mit absichtlich falschem Passwort oder bei Sync-Fehlern unter Deutsch. | Fehler wird sauber angezeigt, keine `MissingFormatArgumentException` (Crash). |
+| TC-107| **Family Creation (Non-Admin)** | Als normaler User (kein Global Admin) eine Familie gründen. | Funktioniert ohne `PERMISSION_DENIED` direkt nach dem Redirect zum Dashboard. |
 
 ---
 

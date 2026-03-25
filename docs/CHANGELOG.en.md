@@ -4,6 +4,18 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.6 - 2026-03-25
+
+### Fixed
+- **Login Resilience:** Fixed critical crash (`MissingFormatArgumentException`) in German localization.
+- **Permission Hardening:** Fixed family creation issues for non-admin users (Firestore Rules & Repository optimization).
+- **Stability:** All asynchronous background tasks in `FamilyViewModel` are now wrapped in safety guards.
+- **Self-Healing:** Implemented silent re-sync logic for Firestore listeners to handle transient permission delays.
+
+### Optimized
+- **System:** Completed Android 15 Edge-to-Edge support across all screens.
+- **Completeness:** All 8 languages (DE, EN, ES, FR, IT, NL, PL, PT) are now 100% synchronized (271 keys).
+
 ## 1.6.5 - 2026-03-25
 
 ### New

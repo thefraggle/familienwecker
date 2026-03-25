@@ -1,5 +1,5 @@
 # 🧪# Test Plan: FamWake
-**Version:** 1.6.5  
+**Version:** 1.6.6  
 **Date:** 2026-03-25  
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
@@ -192,6 +192,12 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-57 | **Admin: Security (Visibility)** | Login with non-admin user -> Admin buttons in Settings are hidden. |
 | EC-09 | Late-night change (2 AM) | Plan is recalculated and synchronized asynchronously to all. |
 | EC-10 | Multiple Admins | Both simultaneously change a child's bathroom duration -> Last-write-wins or conflict message. |
+
+---
+
+| TC-105| **Self-Healing Firestore** | Toggle airplane mode while Firestore listener is active. | Listener catches errors, prevents UI flickering, and silently re-syncs as soon as connection is restored. |
+| TC-106| **Login (Missing Format Fix)** | Trigger login errors or sync failures in German localization. | Error is displayed cleanly; no fatal `MissingFormatArgumentException` (crash). |
+| TC-107| **Family Creation (Non-Admin)** | Create a family as a regular user (non-global admin). | Success without `PERMISSION_DENIED` errors upon redirect to the dashboard. |
 
 ---
 
