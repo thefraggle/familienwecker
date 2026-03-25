@@ -1,22 +1,17 @@
 package de.familienwecker.famwake.data
 
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FieldValue
+import dev.gitlive.firebase.firestore.DocumentSnapshot
+import dev.gitlive.firebase.firestore.Timestamp
 import de.familienwecker.famwake.model.DayProfile
 import de.familienwecker.famwake.model.FamilyMember
 import kotlinx.datetime.LocalTime
 
 /**
- * M-1: Extrahiert das Duplikat-Mapping von Firestore-Dokument zu FamilyMember.
+ * Mapper: Firestore DocumentSnapshot → FamilyMember (GitLive API)
  */
 @Suppress("UNCHECKED_CAST")
 fun DocumentSnapshot.toFamilyMember(): FamilyMember {
-    val earliestStr = getString("earliestWakeUp") ?: "06:00"
-    val latestStr = getString("latestWakeUp") ?: "07:30"
-    val leaveStr = getString("leaveHomeTime")
-
-    // dayProfiles: Map<String, Map<*,*>> in Firestore → Map<Int, DayProfile>
-    val rawProfiles = get("dayProfiles") as? Map<*, *>
+    val rawProfiles = get<Map<*, *>?>("dayProfiles")
     val dayProfiles = rawProfiles?.mapNotNull { (key, value) ->
         val dayNum = key.toString().toIntOrNull() ?: return@mapNotNull null
         val map = value as? Map<*, *> ?: return@mapNotNull null
@@ -44,43 +39,49 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         )
     }?.toMap()?.takeIf { it.isNotEmpty() }
 
-    val createdAtVal = get("createdAt")
+    val createdAtVal = get<Any?>("createdAt")
     val createdAt = when (createdAtVal) {
         is Number -> createdAtVal.toLong()
-        is com.google.firebase.Timestamp -> createdAtVal.toDate().time
+        is Timestamp -> createdAtVal.seconds * 1000L
         else -> null
     }
 
-    val lastUpdatedVal = get("lastUpdatedAt")
+    val lastUpdatedVal = get<Any?>("lastUpdatedAt")
     val lastUpdatedAt = when (lastUpdatedVal) {
         is Number -> lastUpdatedVal.toLong()
-        is com.google.firebase.Timestamp -> lastUpdatedVal.toDate().time
+        is Timestamp -> lastUpdatedVal.seconds * 1000L
         else -> null
     }
 
     return FamilyMember(
         id = id,
-        name = getString("name") ?: "Unknown",
-        latestWakeUp = getString("latestWakeUp")?.let { try { LocalTime.parse(it) } catch (e: Exception) { LocalTime(7, 0) } } ?: LocalTime(7, 0),
-        earliestWakeUp = getString("earliestWakeUp")?.let { try { LocalTime.parse(it) } catch (e: Exception) { LocalTime(6, 0) } } ?: LocalTime(6, 0),
-        bathroomDurationMinutes = getLong("bathroomDurationMinutes") ?: 20L,
-        wantsBreakfast = getBoolean("wantsBreakfast") ?: true,
-        leaveHomeTime = getString("leaveHomeTime")?.let { try { LocalTime.parse(it) } catch (e: Exception) { null } },
-        isPaused = getBoolean("isPaused") ?: false,
-        isAwakeToday = getBoolean("isAwakeToday") ?: false,
-        lastResetDate = getString("lastResetDate") ?: "",
-        claimedByUserId = getString("claimedByUserId"),
-        claimedByUserName = getString("claimedByUserName"),
-        sequenceOrder = getLong("sequenceOrder")?.toInt() ?: 0,
+        name = get("name") ?: "Unknown",
+        latestWakeUp = (get<String?>("latestWakeUp"))?.let {
+            try { LocalTime.parse(it) } catch (e: Exception) { LocalTime(7, 0) }
+        } ?: LocalTime(7, 0),
+        earliestWakeUp = (get<String?>("earliestWakeUp"))?.let {
+            try { LocalTime.parse(it) } catch (e: Exception) { LocalTime(6, 0) }
+        } ?: LocalTime(6, 0),
+        bathroomDurationMinutes = get<Long?>("bathroomDurationMinutes") ?: 20L,
+        wantsBreakfast = get<Boolean?>("wantsBreakfast") ?: true,
+        leaveHomeTime = (get<String?>("leaveHomeTime"))?.let {
+            try { LocalTime.parse(it) } catch (e: Exception) { null }
+        },
+        isPaused = get<Boolean?>("isPaused") ?: false,
+        isAwakeToday = get<Boolean?>("isAwakeToday") ?: false,
+        lastResetDate = get("lastResetDate") ?: "",
+        claimedByUserId = get("claimedByUserId"),
+        claimedByUserName = get("claimedByUserName"),
+        sequenceOrder = get<Long?>("sequenceOrder")?.toInt() ?: 0,
         createdAt = createdAt,
         lastUpdatedAt = lastUpdatedAt,
-        deviceAlarmEnabled = getBoolean("deviceAlarmEnabled"),
+        deviceAlarmEnabled = get("deviceAlarmEnabled"),
         dayProfiles = dayProfiles
     )
 }
 
 /**
- * L-2: Extrahiert die Serialisierung von FamilyMember in eine Firestore-Map.
+ * Mapper: FamilyMember → Firestore Map (GitLive API)
  */
 fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
     val dayProfilesData = dayProfiles?.mapKeys { it.key.toString() }
@@ -109,7 +110,7 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
         "claimedByUserName" to claimedByUserName,
         "sequenceOrder" to sequenceOrder,
         "createdAt" to (createdAt ?: System.currentTimeMillis()),
-        "lastUpdatedAt" to FieldValue.serverTimestamp(),
+        "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp,
         "deviceAlarmEnabled" to deviceAlarmEnabled,
         "dayProfiles" to dayProfilesData
     )

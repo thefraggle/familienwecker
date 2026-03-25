@@ -10,11 +10,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
+import dev.gitlive.firebase.auth.FirebaseUser
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.data.AppError
@@ -22,7 +18,7 @@ import de.familienwecker.famwake.data.AuthRepository
 import de.familienwecker.famwake.data.FirebaseRepository
 import de.familienwecker.famwake.data.GoogleSignInFailedException
 import de.familienwecker.famwake.data.LoginFailedException
-import de.familienwecker.famwake.data.PreferencesRepository
+import de.familienwecker.famwake.data.AppSettings
 import de.familienwecker.famwake.data.RegistrationFailedException
 import de.familienwecker.famwake.ui.util.UiText
 import de.familienwecker.famwake.util.NetworkUtils
@@ -36,8 +32,8 @@ import java.util.UUID
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val authRepository: AuthRepository = AuthRepository()
-    private val prefsRepository: PreferencesRepository =
-        (application as FamWakeApplication).preferencesRepository
+    private val appSettings: AppSettings =
+        (application as FamWakeApplication).appSettings
     private val dbRepository: FirebaseRepository = FirebaseRepository()
 
     sealed class AuthState {
@@ -86,7 +82,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 val result = withTimeoutOrNull(2000) {
-                    dbRepository.getUserFamily(uid, cachedJoinCode = prefsRepository.joinCode.value)
+                    dbRepository.getUserFamily(uid, cachedJoinCode = appSettings.joinCode.value)
                 }
 
                 if (result == null) {
@@ -103,23 +99,23 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                             withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
                         }
                         if (familyExistsResult.getOrNull() == true) {
-                            prefsRepository.setFamilyId(pair.first)
-                            prefsRepository.setJoinCode(pair.second)
+                            appSettings.setFamilyId(pair.first)
+                            appSettings.setJoinCode(pair.second)
 
                             val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(pair.first) }
-                            prefsRepository.setFamilyName(familyName)
+                            appSettings.setFamilyName(familyName)
 
                             val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
                             if (claimedMember != null) {
-                                prefsRepository.setMyMemberId(claimedMember.id)
-                                prefsRepository.setMyMemberName(claimedMember.name)
+                                appSettings.setMyMemberId(claimedMember.id)
+                                appSettings.setMyMemberName(claimedMember.name)
                             }
                         } else if (familyExistsResult.getOrNull() == false) {
                             dbRepository.removeUserFamily(uid, pair.first)
-                            prefsRepository.clearAll()
+                            appSettings.clearAll()
                         }
                     } else {
-                        prefsRepository.clearAll()
+                        appSettings.clearAll()
                     }
                     _isRestoringFamily.value = false
                 }.onFailure { error ->
@@ -177,7 +173,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         _authState.value = AuthState.Loading
-        val language = prefsRepository.language.value
+        val language = appSettings.language.value
         viewModelScope.launch {
             val result = authRepository.register(email, pass)
             result.onSuccess {
@@ -244,9 +240,11 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
                 ) {
                     val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                    val firebaseCredential = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
-
-                    val authResult = authRepository.signInWithGoogleCredential(firebaseCredential)
+                    // GoogleAuthProvider aus com.google.firebase.auth ist weiterhin nötig für den Credential-Typ
+                    val firebaseCredential = com.google.firebase.auth.GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
+                    // GitLive erwartet dev.gitlive.firebase.auth.AuthCredential
+                    val gitliveCredential = dev.gitlive.firebase.auth.GoogleAuthProvider.credential(googleIdTokenCredential.idToken, null)
+                    val authResult = authRepository.signInWithGoogleCredential(gitliveCredential)
                     authResult.onSuccess { user ->
                         _authState.value = AuthState.Authenticated(user)
                         restoreUserFamily(user.uid)
@@ -273,8 +271,10 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun logout() {
-        authRepository.logout()
-        prefsRepository.clearAll()
+        viewModelScope.launch {
+            authRepository.logout()
+        }
+        appSettings.clearAll()
         _authState.value = AuthState.Idle
     }
 
@@ -288,7 +288,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         _authState.value = AuthState.Loading
-        val language = prefsRepository.language.value
+        val language = appSettings.language.value
         viewModelScope.launch {
             val result = authRepository.sendPasswordResetEmail(email, language)
             result.onSuccess {
@@ -323,7 +323,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     fun resendVerificationEmail() {
         val email = authRepository.currentUser?.email ?: return
-        val language = prefsRepository.language.value
+        val language = appSettings.language.value
         _authState.value = AuthState.Loading
         viewModelScope.launch {
             val result = authRepository.sendVerificationEmail(email, language)

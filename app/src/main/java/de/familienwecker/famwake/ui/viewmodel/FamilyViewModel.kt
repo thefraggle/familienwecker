@@ -7,7 +7,6 @@ import de.familienwecker.famwake.algorithm.Scheduler
 import de.familienwecker.famwake.alarm.AlarmScheduler
 import de.familienwecker.famwake.data.AppError
 import de.familienwecker.famwake.data.FirebaseRepository
-import de.familienwecker.famwake.data.PreferencesRepository
 import de.familienwecker.famwake.data.FamilyNotFoundException
 import de.familienwecker.famwake.data.CodeGenerationFailedException
 import de.familienwecker.famwake.model.FamilyMember
@@ -15,6 +14,8 @@ import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
 import de.familienwecker.famwake.model.toJavaLocalTime
 import de.familienwecker.famwake.model.toKmpLocalTime
+import de.familienwecker.famwake.model.toJavaLocalDateTime
+import de.familienwecker.famwake.model.toKmpLocalDateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
@@ -28,8 +29,10 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.combine
 import de.familienwecker.famwake.R
+import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.ui.util.UiText
-import com.google.firebase.auth.FirebaseAuth
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.auth.auth
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -46,7 +49,8 @@ import kotlinx.coroutines.withTimeoutOrNull
 class FamilyViewModel(
     application: Application,
     private val repository: FirebaseRepository = FirebaseRepository(),
-    prefsRepo: PreferencesRepository = PreferencesRepository(application)
+    private val appSettings: de.familienwecker.famwake.data.AppSettings = (application as FamWakeApplication).appSettings,
+    private val memberRepository: de.familienwecker.famwake.data.MemberRepository = (application as FamWakeApplication).memberRepository
 ) : AndroidViewModel(application) {
 
     private val _offlineWriteHint = MutableStateFlow<UiText?>(null)
@@ -71,47 +75,52 @@ class FamilyViewModel(
 
     private val scheduler = Scheduler()
     private val alarmScheduler = AlarmScheduler(application)
-    private val prefsRepo: PreferencesRepository = prefsRepo
-    private val auth = FirebaseAuth.getInstance()
-
+    private val auth = Firebase.auth
+ 
     /** UID des aktuell eingeloggten Users (null wenn nicht eingeloggt). */
     val currentUserId: String?
         get() = auth.currentUser?.uid
-
-    val myMemberId: StateFlow<String?> = prefsRepo.myMemberId
-    val alarmSoundUri: StateFlow<String?> = prefsRepo.alarmSoundUri
-    val familyId: StateFlow<String?> = prefsRepo.familyId
-    val joinCode: StateFlow<String?> = prefsRepo.joinCode
-    val familyName: StateFlow<String?> = prefsRepo.familyName
-    val language: StateFlow<String> = prefsRepo.language
-    val themePreference: StateFlow<String> = prefsRepo.themePreference
-    val isAlarmEnabled: StateFlow<Boolean> = prefsRepo.isAlarmEnabled
-    val isAwakeTodayLocal: StateFlow<Boolean> = prefsRepo.isAwakeToday
-    val onboardingCompleted: StateFlow<Boolean> = prefsRepo.onboardingCompleted
-
+ 
+    val myMemberId: StateFlow<String?> = appSettings.myMemberId
+    val alarmSoundUri: StateFlow<String?> = appSettings.alarmSoundUri
+    val familyId: StateFlow<String?> = appSettings.familyId
+    val joinCode: StateFlow<String?> = appSettings.joinCode
+    val familyName: StateFlow<String?> = appSettings.familyName
+    val language: StateFlow<String> = appSettings.language
+    val themePreference: StateFlow<String> = appSettings.theme
+    val isAlarmEnabled: StateFlow<Boolean> = appSettings.isAlarmEnabled
+    val isAwakeTodayLocal: StateFlow<Boolean> = appSettings.isAwakeToday
+    val onboardingCompleted: StateFlow<Boolean> = appSettings.onboardingCompleted
+ 
     // Tooltips
-    val tooltipsEnabled: StateFlow<Boolean>       = prefsRepo.tooltipsEnabled
-    val tooltipAwakeSeen: StateFlow<Boolean>      = prefsRepo.tooltipAwakeSeen
-    val tooltipDragSeen: StateFlow<Boolean>       = prefsRepo.tooltipDragSeen
-    val tooltipWakeWindowSeen: StateFlow<Boolean> = prefsRepo.tooltipWakeWindowSeen
-    val tooltipBathroomSeen: StateFlow<Boolean>   = prefsRepo.tooltipBathroomSeen
-    val tooltipInviteSeen: StateFlow<Boolean>     = prefsRepo.tooltipInviteSeen
-    val tooltipSwitchSeen: StateFlow<Boolean>     = prefsRepo.tooltipSwitchSeen
-    val tooltipWeekdaysSeen: StateFlow<Boolean>   = prefsRepo.tooltipWeekdaysSeen
-
-    fun setOnboardingCompleted(completed: Boolean) = prefsRepo.setOnboardingCompleted(completed)
-    fun setTooltipsEnabled(enabled: Boolean)        = prefsRepo.setTooltipsEnabled(enabled)
-    fun markTooltipSeen(key: String)                = prefsRepo.setTooltipSeen(key)
-    fun resetAllTooltips()                          = prefsRepo.resetAllTooltips()
-
-    // Schlüssel-Accessoren für Composables
-    val tooltipKeyAwake      get() = prefsRepo.tooltipKeyAwake
-    val tooltipKeyDrag       get() = prefsRepo.tooltipKeyDrag
-    val tooltipKeyWakeWindow get() = prefsRepo.tooltipKeyWakeWindow
-    val tooltipKeyBathroom   get() = prefsRepo.tooltipKeyBathroom
-    val tooltipKeyInvite     get() = prefsRepo.tooltipKeyInvite
-    val tooltipKeySwitch     get() = prefsRepo.tooltipKeySwitch
-    val tooltipKeyWeekdays   get() = prefsRepo.tooltipKeyWeekdays
+    val tooltipsEnabled: StateFlow<Boolean> = appSettings.tooltipsEnabled
+    private val _tooltipsSeen = appSettings.tooltipsSeen
+    val tooltipAwakeSeen: StateFlow<Boolean>      = _tooltipsSeen.map { it["TOOLTIP_SEEN_AWAKE"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipDragSeen: StateFlow<Boolean>       = _tooltipsSeen.map { it["TOOLTIP_SEEN_DRAG"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipWakeWindowSeen: StateFlow<Boolean> = _tooltipsSeen.map { it["TOOLTIP_SEEN_WAKE_WINDOW"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipBathroomSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it["TOOLTIP_SEEN_BATHROOM"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipInviteSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it["TOOLTIP_SEEN_INVITE"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipSwitchSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it["TOOLTIP_SEEN_SWITCH"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipWeekdaysSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it["TOOLTIP_SEEN_WEEKDAYS"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+ 
+    fun setOnboardingCompleted(completed: Boolean) = appSettings.setOnboardingCompleted(completed)
+    fun setTooltipsEnabled(enabled: Boolean)        = appSettings.setTooltipsEnabled(enabled)
+    fun markTooltipSeen(key: String)                = appSettings.setTooltipSeen(key, true)
+    fun resetAllTooltips() {
+        listOf("TOOLTIP_SEEN_AWAKE", "TOOLTIP_SEEN_DRAG", "TOOLTIP_SEEN_WAKE_WINDOW", 
+               "TOOLTIP_SEEN_BATHROOM", "TOOLTIP_SEEN_INVITE", "TOOLTIP_SEEN_SWITCH", "TOOLTIP_SEEN_WEEKDAYS").forEach {
+            appSettings.setTooltipSeen(it, false)
+        }
+    }
+ 
+    // Schlüssel-Accessoren für Composables (Konstanten manuell beibehalten für Kompatibilität)
+    val tooltipKeyAwake      get() = "TOOLTIP_SEEN_AWAKE"
+    val tooltipKeyDrag       get() = "TOOLTIP_SEEN_DRAG"
+    val tooltipKeyWakeWindow get() = "TOOLTIP_SEEN_WAKE_WINDOW"
+    val tooltipKeyBathroom   get() = "TOOLTIP_SEEN_BATHROOM"
+    val tooltipKeyInvite     get() = "TOOLTIP_SEEN_INVITE"
+    val tooltipKeySwitch     get() = "TOOLTIP_SEEN_SWITCH"
+    val tooltipKeyWeekdays   get() = "TOOLTIP_SEEN_WEEKDAYS"
 
     private val _members = MutableStateFlow<PersistentList<FamilyMember>>(persistentListOf())
     val members: StateFlow<PersistentList<FamilyMember>> = _members.asStateFlow()
@@ -177,10 +186,37 @@ class FamilyViewModel(
     private var alarmToggleJob: Job? = null
 
     // Snooze-Status: wenn nicht null ist ein Snooze aktiv
-    val snoozeUntil: StateFlow<java.time.LocalDateTime?> = prefsRepo.snoozeUntil
+    val snoozeUntil: StateFlow<java.time.LocalDateTime?> = appSettings.snoozeUntil
+        .map { it?.toJavaLocalDateTime() }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     init {
-        // Observe FamilyId and load members accordingly
+        // UI-Datenfluss: UI beobachtet Room (Local Cache)
+        viewModelScope.launch {
+            memberRepository.members.collect { membersList ->
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.d("FamilyViewModel", "UI Source: Received ${membersList.size} members from Room")
+                }
+                val checkedMembers = checkAndResetMembers(membersList)
+                _members.value = checkedMembers.toPersistentList()
+
+                // Auto-Sync MyMemberId aus Cloud (multi-device resilience)
+                val uid = auth.currentUser?.uid
+                if (uid != null) {
+                    val claimedByMe = checkedMembers.find { it.claimedByUserId == uid }
+                    if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
+                        appSettings.setMyMemberId(claimedByMe.id)
+                        appSettings.setMyMemberName(claimedByMe.name)
+                    } else if (claimedByMe == null && myMemberId.value != null) {
+                        appSettings.setMyMemberId(null)
+                        appSettings.setMyMemberName(null)
+                    }
+                }
+                recalculateSchedule()
+            }
+        }
+
+        // Sync-Datenfluss: Firestore -> Room
         viewModelScope.launch {
             try {
                 familyId.collect { currentFamilyId ->
@@ -195,9 +231,6 @@ class FamilyViewModel(
                         launch {
                             try {
                                 val data = repository.getFamilyData(currentFamilyId)
-                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                    android.util.Log.d("FamilyViewModel", "Family data loaded: creator=${data?.createdByUserId}")
-                                }
                                 _familyCreatorId.value = data?.createdByUserId
                             } catch (e: Exception) {
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -205,15 +238,11 @@ class FamilyViewModel(
                                 }
                             }
                         }
-                        
 
                         syncStatusJob = launch {
                             try {
                                 repository.getSyncStatusFlow(currentFamilyId).collect { status ->
                                     _syncStatus.value = status
-                                    // Offline-Status mit Debounce setzen (3s Wartezeit)
-                                    // Nur offline zeigen wenn isFromCache UND kein validiertes Netz –
-                                    // verhindert False-Positives direkt nach App-Start (Firestore liefert kurz aus Cache)
                                     if (status.isFromCache && !NetworkUtils.isOnline(getApplication())) {
                                         offlineDebounceJob?.cancel()
                                         offlineDebounceJob = launch {
@@ -231,40 +260,16 @@ class FamilyViewModel(
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                                     android.util.Log.e("FamilyViewModel", "SyncStatus Flow Error: ${e.message}", e)
                                 }
-                                // No error message for sync status failure to avoid cluttering the UI
                             }
                         }
 
                         membersJob = launch {
                             try {
-                                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                    android.util.Log.d("FamilyViewModel", "Starting members flow for $currentFamilyId")
-                                }
                                 repository.getFamilyMembersFlow(currentFamilyId).collect { membersList ->
                                     if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                        android.util.Log.d("FamilyViewModel", "Received ${membersList.size} members")
+                                        android.util.Log.d("FamilyViewModel", "Sync: Received ${membersList.size} members from Firestore -> Caching in Room")
                                     }
-                                    val checkedMembers = checkAndResetMembers(membersList)
-                                    _members.value = checkedMembers.toPersistentList()
-
-                                    // Auto-Sync MyMemberId aus Cloud (multi-device resilience)
-                                    val uid = auth.currentUser?.uid
-                                    if (uid != null) {
-                                        val claimedByMe = checkedMembers.find { it.claimedByUserId == uid }
-                                        // Race-Condition-Guard: myMemberId nur überschreiben wenn Cloud-Wert
-                                        // wirklich anders ist als lokal bereits gesetzt
-                                        if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
-                                            prefsRepo.setMyMemberId(claimedByMe.id)
-                                            prefsRepo.setMyMemberName(claimedByMe.name)
-                                        } else if (claimedByMe == null && myMemberId.value != null) {
-                                            // Kein Profil mehr geclaimt – aber nur räumen wenn nicht gerade
-                                            // ein frischer Join-Vorgang läuft (myMemberId wäre dann noch null)
-                                            prefsRepo.setMyMemberId(null)
-                                            prefsRepo.setMyMemberName(null)
-                                        }
-                                    }
-
-                                    recalculateSchedule()
+                                    memberRepository.cacheMembers(membersList)
                                 }
                             } catch (e: CancellationException) {
                                 throw e
@@ -276,8 +281,7 @@ class FamilyViewModel(
                             }
                         }
                     } else {
-                        _members.value = persistentListOf()
-                        recalculateSchedule()
+                        memberRepository.clearCache()
                     }
                 }
             } catch (e: Exception) {
@@ -294,8 +298,6 @@ class FamilyViewModel(
                 var isFirstEmission = true
                 myMemberId.collect { id ->
                     if (id == null && isAlarmEnabled.value && !isFirstEmission) {
-                        // Alarm nur deaktivieren wenn myMemberId aktiv verloren geht
-                        // (nicht beim initialen null-Wert nach Neuinstall/Neustart)
                         setAlarmEnabled(false)
                     }
                     isFirstEmission = false
@@ -311,10 +313,7 @@ class FamilyViewModel(
         // Observer Global Alarm Toggle
         viewModelScope.launch {
             try {
-                isAlarmEnabled.collect { enabled ->
-                    recalculateSchedule()
-                    // Sync zu Firestore (deviceAlarmEnabled) entfernt, da nun rein lokal.
-                }
+                isAlarmEnabled.collect { recalculateSchedule() }
             } catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.w("FamilyViewModel", "isAlarmEnabled observer error: ${e.message}")
@@ -324,13 +323,11 @@ class FamilyViewModel(
 
         // Snooze-Cleanup: Veraltete Snoozes beim Start entfernen
         viewModelScope.launch {
-            val currentSnooze = snoozeUntil.value
-            if (currentSnooze != null && currentSnooze.isBefore(java.time.LocalDateTime.now().minusMinutes(30))) {
-                prefsRepo.setSnoozeUntil(null)
+            val currentSnooze = appSettings.snoozeUntil.value
+            if (currentSnooze != null && currentSnooze.toJavaLocalDateTime().isBefore(java.time.LocalDateTime.now().minusMinutes(30))) {
+                appSettings.setSnoozeUntil(null)
             }
         }
-
-// Periodischer Timer entfernt zugunsten von Lazy-Refresh (onResume) und Cloud-Reset.
     }
 
     fun setError(message: UiText) {
@@ -363,9 +360,9 @@ class FamilyViewModel(
             val result = repository.createFamily(familyName, uid)
             result.onSuccess { pair ->
                 // Security Fix: saveUserFamily erfolgt jetzt serverseitig in der Cloud Function
-                prefsRepo.setFamilyId(pair.first)
-                prefsRepo.setJoinCode(pair.second)
-                prefsRepo.setFamilyName(familyName)
+                appSettings.setFamilyId(pair.first)
+                appSettings.setJoinCode(pair.second)
+                appSettings.setFamilyName(familyName)
                 onComplete(true)
             }.onFailure { error ->
                 when {
@@ -406,9 +403,9 @@ class FamilyViewModel(
             result.onSuccess { pair ->
                 // Security Fix: saveUserFamily erfolgt jetzt serverseitig in der Cloud Function
                 val fetchedName = repository.getFamilyName(pair.first)
-                prefsRepo.setFamilyId(pair.first)
-                prefsRepo.setJoinCode(pair.second)
-                prefsRepo.setFamilyName(fetchedName)
+                appSettings.setFamilyId(pair.first)
+                appSettings.setJoinCode(pair.second)
+                appSettings.setFamilyName(fetchedName)
 
                 if (_pendingJoinCode.value == code) {
                     _pendingJoinCode.value = null
@@ -506,10 +503,11 @@ class FamilyViewModel(
                     _pendingJoinCode.value = null
                     _errorMessage.value = null
                     
-                    prefsRepo.setFamilyId(newFamilyId)
-                    prefsRepo.setJoinCode(newJoinCode)
-                    prefsRepo.setFamilyName(fetchedName)
-                    prefsRepo.setMyMemberId(null)
+                    appSettings.setFamilyId(newFamilyId)
+                    appSettings.setJoinCode(newJoinCode)
+                    appSettings.setFamilyName(fetchedName)
+                    appSettings.setMyMemberId(null)
+                    appSettings.setMyMemberName(null)
 
                     onComplete(true)
                 }.onFailure { error ->
@@ -560,7 +558,7 @@ class FamilyViewModel(
      * Prüft und zeigt den In-App Review Dialog, falls Bedingungen erfüllt sind.
      */
     fun checkAndShowReview(activity: Activity, ignoreConstraints: Boolean = false) {
-        ReviewHelper.launchReview(activity, prefsRepo, ignoreConstraints)
+        ReviewHelper.launchReview(activity, appSettings, ignoreConstraints)
     }
 
     /**
@@ -612,34 +610,34 @@ class FamilyViewModel(
             if (id != null) {
                 val success = repository.claimMember(currentFamilyId, id, userId, userName)
                 if (success) {
-                    prefsRepo.setMyMemberId(id)
+                    appSettings.setMyMemberId(id)
                     // Namen des geclaimten Mitglieds persistieren für BootReceiver
                     val memberName = _members.value.find { it.id == id }?.name
-                    prefsRepo.setMyMemberName(memberName)
-                    prefsRepo.setAlarmEnabled(true)
+                    appSettings.setMyMemberName(memberName)
+                    appSettings.setAlarmEnabled(true)
                     onComplete(true)
                 } else {
                     onComplete(false)
                 }
             } else {
-                prefsRepo.setMyMemberId(null)
-                prefsRepo.setMyMemberName(null)
-                prefsRepo.setAlarmEnabled(false)
+                appSettings.setMyMemberId(null)
+                appSettings.setMyMemberName(null)
+                appSettings.setAlarmEnabled(false)
                 onComplete(true)
             }
         }
     }
 
     fun setAlarmSoundUri(uri: String) {
-        prefsRepo.setAlarmSoundUri(uri)
+        appSettings.setAlarmSoundUri(uri)
     }
 
     fun setLanguage(lang: String) {
-        prefsRepo.setLanguage(lang)
+        appSettings.setLanguage(lang)
     }
 
     fun setThemePreference(theme: String) {
-        prefsRepo.setThemePreference(theme)
+        appSettings.setTheme(theme)
     }
 
     // isAlarmEnabled ist gerätespezifisch. Firestore-Sync (deviceAlarmEnabled)
@@ -651,10 +649,10 @@ class FamilyViewModel(
         // Wenn der Wecker ausgeschaltet wird, den "Schon wach"-Status zurücksetzen.
         // Das stellt sicher, dass der Wecker beim Wiedereinschalten normal klingelt.
         if (!enabled) {
-            prefsRepo.setAwakeToday(false)
+            appSettings.setAwakeToday(false)
         }
 
-        prefsRepo.setAlarmEnabled(enabled)
+        appSettings.setAlarmEnabled(enabled)
         
         // Sync zu Firestore debounced (Icon-Status für andere)
         val currentFamilyId = familyId.value
@@ -699,7 +697,7 @@ class FamilyViewModel(
         )
         addOrUpdateMember(updatedMember)
         // Wecker global einschalten
-        prefsRepo.setAlarmEnabled(true)
+        appSettings.setAlarmEnabled(true)
     }
 
     fun togglePauseMember(memberId: String) {
@@ -749,7 +747,7 @@ class FamilyViewModel(
         // 4-Stunden-Sperre entfernt, damit der Button jederzeit am Tag des Weckers funktioniert.
 
         val newAwakeState = !isAwakeTodayLocal.value
-        prefsRepo.setAwakeToday(newAwakeState)
+        appSettings.setAwakeToday(newAwakeState)
 
         // Status-Sync für andere (Sonnen-Icon)
         val updatedMember = member.copy(isAwakeToday = newAwakeState)
@@ -767,8 +765,8 @@ class FamilyViewModel(
     }
 
     fun snooze(memberId: String, memberName: String) {
-        val snoozeTime = LocalDateTime.now().plusMinutes(5)
-        prefsRepo.setSnoozeUntil(snoozeTime)
+        val snoozeTime = java.time.LocalDateTime.now().plusMinutes(5)
+        appSettings.setSnoozeUntil(snoozeTime.toKmpLocalDateTime())
         alarmScheduler.scheduleWakeUp(
             wakeUpTime = snoozeTime,
             memberId = memberId,
@@ -782,7 +780,7 @@ class FamilyViewModel(
     }
 
     fun cancelSnooze(memberId: String) {
-        prefsRepo.setSnoozeUntil(null)
+        appSettings.setSnoozeUntil(null)
         alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
         lastScheduledAlarmMillis = null
         recalculateSchedule()
@@ -798,7 +796,7 @@ class FamilyViewModel(
             }
             try {
                 val result = withTimeoutOrNull(3000) {
-                    repository.getUserFamily(uid, cachedJoinCode = prefsRepo.joinCode.value)
+                    repository.getUserFamily(uid, cachedJoinCode = appSettings.joinCode.value)
                 }
                 if (result == null) {
                     _isSyncing.value = false
@@ -806,17 +804,17 @@ class FamilyViewModel(
                 }
                 result.onSuccess { pair ->
                     if (pair != null) {
-                        prefsRepo.setFamilyId(pair.first)
-                        prefsRepo.setJoinCode(pair.second)
+                        appSettings.setFamilyId(pair.first)
+                        appSettings.setJoinCode(pair.second)
                         // isAlarmEnabled wird NICHT aus Firestore geladen (gerätespezifisch)
 
                         val fetchedFamilyName = repository.getFamilyName(pair.first)
-                        prefsRepo.setFamilyName(fetchedFamilyName)
+                        appSettings.setFamilyName(fetchedFamilyName)
 
                         val claimedMember = repository.getClaimedMember(pair.first, uid)
                         if (claimedMember != null) {
-                            prefsRepo.setMyMemberId(claimedMember.id)
-                            // Restore von deviceAlarmEnabled aus Firestore entfernt (jetzt rein lokal).
+                            appSettings.setMyMemberId(claimedMember.id)
+                            appSettings.setMyMemberName(claimedMember.name)
                         }
                     } else {
                         // Keine Familie in Firestore gefunden – kein leaveFamily() hier!
@@ -876,7 +874,7 @@ class FamilyViewModel(
                     lastResetDate = today
                 )
                 if (member.id == myMemberId.value) {
-                    prefsRepo.setAwakeToday(false)
+                    appSettings.setAwakeToday(false)
                 }
                 toUpdate.add(updated)
                 updated
@@ -945,8 +943,8 @@ class FamilyViewModel(
     fun logout() {
         _errorMessage.value = null
         cancelAlarmForCurrentUser()
-        prefsRepo.clearAll()
-        auth.signOut()
+        appSettings.clearAll()
+        viewModelScope.launch { auth.signOut() }
     }
 
     private fun cancelAlarmForCurrentUser() {
@@ -960,10 +958,11 @@ class FamilyViewModel(
             val uid = auth.currentUser?.uid ?: return@launch
             val result = repository.deleteFamily(currentFamilyId, uid)
             if (result.isSuccess) {
-                prefsRepo.setFamilyId(null)
-                prefsRepo.setJoinCode(null)
-                prefsRepo.setFamilyName(null)
-                prefsRepo.setMyMemberId(null)
+                appSettings.setFamilyId(null)
+                appSettings.setJoinCode(null)
+                appSettings.setFamilyName(null)
+                appSettings.setMyMemberId(null)
+                appSettings.setMyMemberName(null)
                 onComplete(true)
             } else {
                 _errorMessage.value = UiText.StringResource(R.string.error_delete_family, result.exceptionOrNull()?.localizedMessage ?: getApplication<Application>().getString(R.string.add_member_unknown))
@@ -1003,11 +1002,11 @@ class FamilyViewModel(
                 }
                 
                 if (result.isSuccess) {
-                    prefsRepo.setFamilyId(null)
-                    prefsRepo.setJoinCode(null)
-                    prefsRepo.setFamilyName(null)
-                    prefsRepo.setMyMemberId(null)
-                    prefsRepo.setMyMemberName(null)
+                    appSettings.setFamilyId(null)
+                    appSettings.setJoinCode(null)
+                    appSettings.setFamilyName(null)
+                    appSettings.setMyMemberId(null)
+                    appSettings.setMyMemberName(null)
                 } else {
                     val errorMsg = result.exceptionOrNull()?.message ?: getApplication<Application>().getString(R.string.error_leave_failed)
                     _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
@@ -1214,7 +1213,8 @@ class FamilyViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        // SharedPreferences-Listener deregistrieren um Memory Leaks zu vermeiden
-        prefsRepo.unregisterListener()
+        membersJob?.cancel()
+        syncStatusJob?.cancel()
+        offlineDebounceJob?.cancel()
     }
 }

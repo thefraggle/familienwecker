@@ -1,8 +1,9 @@
 package de.familienwecker.famwake
 
 import android.app.Application
-import de.familienwecker.famwake.data.PreferencesRepository
 import de.familienwecker.famwake.BuildConfig
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import androidx.room.RoomDatabase
 
 /**
  * Application-Klasse, die Singletons für Repositories bereitstellt.
@@ -11,8 +12,17 @@ import de.familienwecker.famwake.BuildConfig
  */
 class FamWakeApplication : Application() {
 
-    val preferencesRepository: PreferencesRepository by lazy {
-        PreferencesRepository(this)
+
+    val appSettings: de.familienwecker.famwake.data.AppSettings by lazy {
+        val settings = de.familienwecker.famwake.data.SettingsFactory(this).createSettings()
+        de.familienwecker.famwake.data.AppSettingsImpl(settings)
+    }
+
+    val memberRepository: de.familienwecker.famwake.data.MemberRepository by lazy {
+        val db = de.familienwecker.famwake.db.getDatabaseBuilder(this)
+            .setDriver(androidx.sqlite.driver.bundled.BundledSQLiteDriver())
+            .build()
+        de.familienwecker.famwake.data.MemberRepository(db.memberDao())
     }
 
     companion object {
@@ -36,7 +46,7 @@ class FamWakeApplication : Application() {
         }
         try {
             com.revenuecat.purchases.Purchases.debugLogsEnabled = BuildConfig.DEBUG
-            val currentLang = preferencesRepository.language.value
+            val currentLang = appSettings.language.value
             val fullLocale = when (currentLang) {
                 "de" -> "de-DE"
                 "en" -> "en-US"
