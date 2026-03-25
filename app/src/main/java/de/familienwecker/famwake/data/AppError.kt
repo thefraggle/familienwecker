@@ -34,6 +34,7 @@ sealed class AppError(val uiText: UiText) {
         fun fromException(e: Exception): AppError {
             val msg = e.message?.uppercase() ?: ""
             return when {
+                e is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException || msg.contains("INVALID_CREDENTIALS") -> LoginFailed
                 e is com.google.firebase.auth.FirebaseAuthUserCollisionException || msg.contains("EMAIL_EXISTS") -> EmailAlreadyInUse
                 e is com.google.firebase.auth.FirebaseAuthWeakPasswordException || msg.contains("WEAK_PASSWORD") -> WeakPassword
                 msg.contains("USER_NOT_FOUND") || msg.contains("NOT_FOUND") -> UserNotFound

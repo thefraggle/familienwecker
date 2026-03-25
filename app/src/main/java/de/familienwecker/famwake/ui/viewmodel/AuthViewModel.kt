@@ -67,6 +67,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         val user = authRepository.currentUser
         if (user != null) {
             if (user.isEmailVerified) {
+                _isRestoringFamily.value = true
                 _authState.value = AuthState.Authenticated(user)
                 restoreUserFamily(user.uid)
             } else {
@@ -98,9 +99,6 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
                     }
                     if (familyExistsResult.getOrNull() == true) {
-                        if (prefsRepository.familyId.value == pair.first) {
-                            prefsRepository.setFamilyId("")
-                        }
                         prefsRepository.setFamilyId(pair.first)
                         prefsRepository.setJoinCode(pair.second)
 
@@ -141,6 +139,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             val result = authRepository.login(email, pass)
             result.onSuccess { user ->
                 if (user.isEmailVerified) {
+                    _isRestoringFamily.value = true
                     _authState.value = AuthState.Authenticated(user)
                     restoreUserFamily(user.uid)
                 } else {
