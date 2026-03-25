@@ -1,0 +1,67 @@
+package de.familienwecker.famwake.data
+
+import de.familienwecker.famwake.db.MemberDao
+import de.familienwecker.famwake.model.FamilyMember
+import de.familienwecker.famwake.model.DayProfile
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.encodeToString
+
+private val json = Json { ignoreUnknownKeys = true }
+
+class MemberRepository(private val memberDao: MemberDao) {
+    
+    val members: Flow<List<FamilyMember>> = memberDao.getAllMembers().map { entities ->
+        entities.map { it.toDomain() }
+    }
+
+    suspend fun cacheMembers(members: List<FamilyMember>) {
+        memberDao.upsertMembers(members.map { it.toEntity() })
+    }
+
+    suspend fun clearCache() {
+        memberDao.clearAll()
+    }
+}
+
+// Mapper-Extensions
+private fun de.familienwecker.famwake.db.FamilyMemberEntity.toDomain(): FamilyMember = FamilyMember(
+    id = id,
+    name = name,
+    earliestWakeUp = kotlinx.datetime.LocalTime.parse(earliestWakeUp),
+    latestWakeUp = kotlinx.datetime.LocalTime.parse(latestWakeUp),
+    bathroomDurationMinutes = bathroomDurationMinutes,
+    wantsBreakfast = wantsBreakfast,
+    leaveHomeTime = leaveHomeTime?.let { kotlinx.datetime.LocalTime.parse(it) },
+    isPaused = isPaused,
+    isAwakeToday = isAwakeToday,
+    lastResetDate = lastResetDate,
+    claimedByUserId = claimedByUserId,
+    claimedByUserName = claimedByUserName,
+    sequenceOrder = sequenceOrder,
+    createdAt = createdAt,
+    lastUpdatedAt = lastUpdatedAt,
+    deviceAlarmEnabled = deviceAlarmEnabled,
+    dayProfiles = dayProfilesJson?.let { json.decodeFromString(it) }
+)
+
+private fun FamilyMember.toEntity(): de.familienwecker.famwake.db.FamilyMemberEntity = de.familienwecker.famwake.db.FamilyMemberEntity(
+    id = id,
+    name = name,
+    earliestWakeUp = earliestWakeUp.toString(),
+    latestWakeUp = latestWakeUp.toString(),
+    bathroomDurationMinutes = bathroomDurationMinutes,
+    wantsBreakfast = wantsBreakfast,
+    leaveHomeTime = leaveHomeTime?.toString(),
+    isPaused = isPaused,
+    isAwakeToday = isAwakeToday,
+    lastResetDate = lastResetDate,
+    claimedByUserId = claimedByUserId,
+    claimedByUserName = claimedByUserName,
+    sequenceOrder = sequenceOrder,
+    createdAt = createdAt,
+    lastUpdatedAt = lastUpdatedAt,
+    deviceAlarmEnabled = deviceAlarmEnabled,
+    dayProfilesJson = dayProfiles?.let { json.encodeToString(it) }
+)

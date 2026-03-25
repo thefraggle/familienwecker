@@ -29,8 +29,9 @@ import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import de.familienwecker.famwake.model.toJavaLocalTime
+import de.familienwecker.famwake.model.toKmpLocalTime
 import de.familienwecker.famwake.ui.components.TooltipBubble
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 // Mo=1 … So=7 nach java.time.DayOfWeek
 private val WEEKDAY_KEYS = 1..7
@@ -44,11 +45,11 @@ private fun defaultDayProfiles(
 ): Map<Int, DayProfile> = WEEKDAY_KEYS.associateWith { day ->
     DayProfile(
         isActive = day <= 5, // Mo–Fr aktiv, Sa–So aus
-        earliestWakeUp = earliestWakeUp,
-        latestWakeUp = latestWakeUp,
+        earliestWakeUp = earliestWakeUp.toKmpLocalTime(),
+        latestWakeUp = latestWakeUp.toKmpLocalTime(),
         bathroomDurationMinutes = bathroomDurationMinutes,
         wantsBreakfast = wantsBreakfast,
-        leaveHomeTime = leaveHomeTime
+        leaveHomeTime = leaveHomeTime?.toKmpLocalTime()
     )
 }
 
@@ -73,11 +74,11 @@ fun AddMemberScreen(
     val initialName = remember(memberId) { memberToEdit?.name ?: "" }
     val initialDayProfiles = remember(memberId) {
         memberToEdit?.dayProfiles ?: defaultDayProfiles(
-            earliestWakeUp = memberToEdit?.earliestWakeUp ?: LocalTime.of(6, 0),
-            latestWakeUp = memberToEdit?.latestWakeUp ?: LocalTime.of(7, 30),
+            earliestWakeUp = memberToEdit?.earliestWakeUp?.toJavaLocalTime() ?: LocalTime.of(6, 0),
+            latestWakeUp = memberToEdit?.latestWakeUp?.toJavaLocalTime() ?: LocalTime.of(7, 30),
             bathroomDurationMinutes = memberToEdit?.bathroomDurationMinutes ?: 20L,
             wantsBreakfast = memberToEdit?.wantsBreakfast ?: true,
-            leaveHomeTime = memberToEdit?.leaveHomeTime
+            leaveHomeTime = memberToEdit?.leaveHomeTime?.toJavaLocalTime()
         )
     }
  
@@ -234,8 +235,8 @@ fun AddMemberScreen(
                         val memberToSave = FamilyMember(
                             id = memberId ?: java.util.UUID.randomUUID().toString(),
                             name = name.ifEmpty { unknownStr },
-                            earliestWakeUp = refProfile?.earliestWakeUp ?: LocalTime.of(6, 0),
-                            latestWakeUp = refProfile?.latestWakeUp ?: LocalTime.of(7, 30),
+                            earliestWakeUp = refProfile?.earliestWakeUp ?: LocalTime.of(6, 0).toKmpLocalTime(),
+                            latestWakeUp = refProfile?.latestWakeUp ?: LocalTime.of(7, 30).toKmpLocalTime(),
                             bathroomDurationMinutes = refProfile?.bathroomDurationMinutes ?: 20L,
                             wantsBreakfast = refProfile?.wantsBreakfast ?: true,
                             leaveHomeTime = refProfile?.leaveHomeTime,
@@ -243,7 +244,7 @@ fun AddMemberScreen(
                             claimedByUserId = memberToEdit?.claimedByUserId,
                             claimedByUserName = memberToEdit?.claimedByUserName,
                             createdAt = memberToEdit?.createdAt,
-                            dayProfiles = dayProfiles
+                            dayProfiles = dayProfiles // DayProfile is already corrected in the logic? Wait.
                         )
                         viewModel.addOrUpdateMember(memberToSave)
                         
@@ -411,13 +412,13 @@ fun AddMemberScreen(
 private fun validateDayProfile(profile: DayProfile): List<Int> {
     val errors = mutableListOf<Int>()
     // 1. latestWakeUp muss NACH earliestWakeUp liegen
-    if (!profile.latestWakeUp.isAfter(profile.earliestWakeUp)) {
+    if (profile.latestWakeUp <= profile.earliestWakeUp) {
         errors.add(R.string.validation_latest_before_earliest)
     }
     // 2. leaveHomeTime (effektiv: gesetzter Wert oder UI-Default 08:00)
     //    muss NACH latestWakeUp + Baddauer liegen
-    val effectiveLeaveTime = profile.leaveHomeTime ?: java.time.LocalTime.of(8, 0)
-    val latestBathroomEnd = profile.latestWakeUp.plusMinutes(profile.bathroomDurationMinutes)
+    val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
+    val latestBathroomEnd = profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes)
     if (!effectiveLeaveTime.isAfter(latestBathroomEnd)) {
         errors.add(R.string.validation_leave_too_early)
     }
@@ -477,24 +478,24 @@ private fun DayProfileCard(
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     HorizontalDivider()
 
-                    val latestBeforeEarliestError = !profile.latestWakeUp.isAfter(profile.earliestWakeUp)
+                    val latestBeforeEarliestError = profile.latestWakeUp <= profile.earliestWakeUp
 
                     // Früheste Weckzeit
                     TimePickerRow(
                         label = stringResource(R.string.add_member_earliest_wake),
-                        time = profile.earliestWakeUp,
+                        time = profile.earliestWakeUp.toJavaLocalTime(),
                         context = context,
                         formatter = formatter,
-                        onTimeSelected = { onProfileChange(profile.copy(earliestWakeUp = it)) }
+                        onTimeSelected = { onProfileChange(profile.copy(earliestWakeUp = it.toKmpLocalTime())) }
                     )
 
                     // Späteste Weckzeit
                     TimePickerRow(
                         label = stringResource(R.string.add_member_latest_wake),
-                        time = profile.latestWakeUp,
+                        time = profile.latestWakeUp.toJavaLocalTime(),
                         context = context,
                         formatter = formatter,
-                        onTimeSelected = { onProfileChange(profile.copy(latestWakeUp = it)) },
+                        onTimeSelected = { onProfileChange(profile.copy(latestWakeUp = it.toKmpLocalTime())) },
                         isError = latestBeforeEarliestError
                     )
                     if (latestBeforeEarliestError) {
@@ -558,16 +559,16 @@ private fun DayProfileCard(
                     }
 
                     // Abfahrtszeit
-                    val effectiveLeaveTime = profile.leaveHomeTime ?: LocalTime.of(8, 0)
+                    val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
                     val leaveTooEarlyError =
-                        !effectiveLeaveTime.isAfter(profile.latestWakeUp.plusMinutes(profile.bathroomDurationMinutes))
+                        !effectiveLeaveTime.isAfter(profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes))
 
                     TimePickerRow(
                         label = stringResource(R.string.add_member_leave_home),
                         time = effectiveLeaveTime,
                         context = context,
                         formatter = formatter,
-                        onTimeSelected = { onProfileChange(profile.copy(leaveHomeTime = it)) },
+                        onTimeSelected = { onProfileChange(profile.copy(leaveHomeTime = it.toKmpLocalTime())) },
                         isError = leaveTooEarlyError
                     )
                     if (leaveTooEarlyError) {

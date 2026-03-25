@@ -2,12 +2,13 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.services)
 }
 
 // Fallback version if no versionName property is provided (e.g. for local builds)
-val appVersion = project.findProperty("versionName")?.toString() ?: "1.6.7"
+val appVersion = project.findProperty("versionName")?.toString() ?: "1.6.10"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -75,7 +76,6 @@ android {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
-            freeCompilerArgs.add("-Xjdk-release=11")
         }
     }
     buildFeatures {
@@ -91,7 +91,9 @@ base {
 }
 
 dependencies {
+    implementation(project(":shared"))
     implementation(libs.androidx.appcompat)
+
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
@@ -111,8 +113,13 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.common.ktx)
     implementation(libs.firebase.functions)
     implementation(libs.kotlinx.coroutines.play.services)
+    // GitLive Auth für FirebaseUser und GoogleAuthProvider.credential()
+    implementation(libs.firebase.gitlive.auth)
+    implementation(libs.firebase.gitlive.firestore)
     implementation(libs.play.services.auth)
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
@@ -135,4 +142,8 @@ dependencies {
 
     // RevenueCat
     implementation(libs.revenuecat.purchases)
+
+    // Room & SQLite
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.sqlite.bundled)
 }
