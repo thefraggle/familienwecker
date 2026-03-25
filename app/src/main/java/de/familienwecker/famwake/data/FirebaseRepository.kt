@@ -147,11 +147,7 @@ class FirebaseRepository {
                 .orderBy("sequenceOrder")
                 .addSnapshotListener { snapshot, error ->
                     if (error != null) {
-                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                            android.util.Log.e("FirebaseRepository", "Listen error: ${error.message}")
-                        }
-                        // Bei Permission Denied oder anderen Fehlern: Nicht schließen, sondern ggf. später neu versuchen
-                        // (Firestore macht interne Retries bei Connection-Loss automatisch)
+                        close(error)
                         return@addSnapshotListener
                     }
                     if (snapshot != null) {
@@ -169,7 +165,13 @@ class FirebaseRepository {
         // Bei kritischen Fehlern (z.B. Auth-Verlust) mit Backoff neu versuchen
         if (cause is com.google.firebase.firestore.FirebaseFirestoreException && 
             cause.code == com.google.firebase.firestore.FirebaseFirestoreException.Code.PERMISSION_DENIED) {
-            false // Bei Permission Denied aufhören (FamilyId wahrscheinlich ungültig)
+            // Bei Permission Denied: Länger warten (5s) und erneut versuchen.
+            // Dies ermöglicht "Self-Healing", sobald der User z.B. zum Family-Member wird.
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.w("FirebaseRepository", "PERMISSION_DENIED. Retrying in 5s (Self-healing mode)...")
+            }
+            delay(5000)
+            true 
         } else {
             val delayMillis = kotlin.math.min(1000L * (attempt + 1), 10000L)
             delay(delayMillis)
@@ -459,9 +461,7 @@ class FirebaseRepository {
 
         val familySub = familyRef.addSnapshotListener(com.google.firebase.firestore.MetadataChanges.INCLUDE) { snapshot, error ->
             if (error != null) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.w("FirebaseRepository", "SyncStatus (family) Fehler: ${error.message}")
-                }
+                close(error)
                 return@addSnapshotListener
             }
             if (snapshot != null) {
@@ -475,9 +475,7 @@ class FirebaseRepository {
 
         val membersSub = membersRef.addSnapshotListener(com.google.firebase.firestore.MetadataChanges.INCLUDE) { snapshot, error ->
             if (error != null) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.w("FirebaseRepository", "SyncStatus (members) Fehler: ${error.message}")
-                }
+                close(error)
                 return@addSnapshotListener
             }
             if (snapshot != null) {
@@ -492,6 +490,16 @@ class FirebaseRepository {
         awaitClose {
             familySub.remove()
             membersSub.remove()
+        }
+    }.retryWhen { cause, attempt ->
+        if (cause is com.google.firebase.firestore.FirebaseFirestoreException && 
+            cause.code == com.google.firebase.firestore.FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+            delay(5000)
+            true
+        } else {
+            val delayMillis = kotlin.math.min(1000L * (attempt + 1), 10000L)
+            delay(delayMillis)
+            true
         }
     }
 
