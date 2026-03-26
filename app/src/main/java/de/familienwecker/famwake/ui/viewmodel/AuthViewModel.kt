@@ -15,6 +15,8 @@ import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.data.AppError
+import de.familienwecker.famwake.data.appErrorFromException
+import de.familienwecker.famwake.data.toUiText
 import de.familienwecker.famwake.data.AuthRepository
 import de.familienwecker.famwake.data.FirebaseRepository
 import de.familienwecker.famwake.data.GoogleSignInFailedException
@@ -181,7 +183,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             }.onFailure { error ->
-                _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
+                _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
             }
         }
     }
@@ -206,7 +208,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
+                _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
             }
         }
     }
@@ -272,7 +274,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         _authState.value = AuthState.Authenticated(user)
                         restoreUserFamily(user.uid)
                     }.onFailure { error ->
-                        _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
+                        _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
                     }
                 } else {
                     _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed_unknown))
@@ -317,7 +319,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             result.onSuccess {
                 _authState.value = AuthState.PasswordResetSuccess
             }.onFailure { error ->
-                _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
+                _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
             }
         }
     }
@@ -353,7 +355,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             result.onSuccess {
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                _authState.value = AuthState.Error(AppError.fromException(error as Exception).uiText)
+                _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
             }
         }
     }
