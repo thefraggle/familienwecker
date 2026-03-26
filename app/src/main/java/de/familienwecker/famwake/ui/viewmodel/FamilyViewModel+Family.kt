@@ -4,7 +4,6 @@ import de.familienwecker.famwake.R
 import de.familienwecker.famwake.data.FamilyNotFoundException
 import de.familienwecker.famwake.data.CodeGenerationFailedException
 import de.familienwecker.famwake.ui.util.UiText
-import de.familienwecker.famwake.util.NetworkUtils
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
@@ -24,7 +23,7 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
         return
     }
     scope.launch {
-        if (!NetworkUtils.isOnline(getApplication())) {
+        if (isOffline.value) {
             _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
             onComplete(false)
             return@launch
@@ -59,7 +58,7 @@ fun FamilyViewModel.joinFamily(code: String, onComplete: (Boolean) -> Unit) {
     }
     scope.launch {
         _isJoiningFamily.value = true
-        if (!NetworkUtils.isOnline(getApplication())) {
+        if (isOffline.value) {
             _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
             onComplete(false)
             return@launch
@@ -127,7 +126,7 @@ fun FamilyViewModel.leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
         _isSyncing.value = true
         _isJoiningFamily.value = true
         try {
-            if (!NetworkUtils.isOnline(getApplication())) {
+            if (isOffline.value) {
                 _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
                 _pendingJoinCode.value = null
                 onComplete(false)
@@ -227,7 +226,7 @@ fun FamilyViewModel.refreshData() {
     val uid = auth.currentUser?.uid ?: return
     _isSyncing.value = true
     scope.launch {
-        if (!NetworkUtils.isOnline(getApplication())) {
+        if (isOffline.value) {
             _isSyncing.value = false
             return@launch
         }
