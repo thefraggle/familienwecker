@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dev.gitlive.firebase.auth.FirebaseUser
+import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.data.AppError
@@ -81,19 +82,40 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     return@launch
                 }
 
-                val result = withTimeoutOrNull(2000) {
-                    dbRepository.getUserFamily(uid, cachedJoinCode = appSettings.joinCode.value)
+                // Primärpfad: getUserContext() via Cloud Function (1 Call statt 3 Reads)
+                val result = withTimeoutOrNull(3000) {
+                    dbRepository.getUserContext(uid)
+                } ?: run {
+                    // Timeout → Fallback auf direkten Firestore-Pfad mit Cache
+                    if (BuildConfig.DEBUG) {
+                        android.util.Log.w("AuthViewModel", "getUserContext timed out, falling back to getUserFamily")
+                    }
+                    withTimeoutOrNull(2000) {
+                        dbRepository.getUserFamily(uid, cachedJoinCode = appSettings.joinCode.value)
+                    }
                 }
 
                 if (result == null) {
-                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                        android.util.Log.w("AuthViewModel", "User family fetch timed out")
+                    if (BuildConfig.DEBUG) {
+                        android.util.Log.w("AuthViewModel", "User family fetch timed out entirely")
                     }
                     _isRestoringFamily.value = false
                     return@launch
                 }
 
-                result.onSuccess { pair ->
+                // Fallback bei CF-Fehler (z.B. noch nicht deployed)
+                val finalResult = if (result.isFailure) {
+                    if (BuildConfig.DEBUG) {
+                        android.util.Log.w("AuthViewModel", "getUserContext failed, falling back: ${result.exceptionOrNull()?.message}")
+                    }
+                    withTimeoutOrNull(2000) {
+                        dbRepository.getUserFamily(uid, cachedJoinCode = appSettings.joinCode.value)
+                    } ?: result
+                } else {
+                    result
+                }
+
+                finalResult.onSuccess { pair ->
                     if (pair != null) {
                         val familyExistsResult = kotlin.runCatching {
                             withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
@@ -119,19 +141,20 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     }
                     _isRestoringFamily.value = false
                 }.onFailure { error ->
-                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    if (BuildConfig.DEBUG) {
                         android.util.Log.e("AuthViewModel", "Restoration failed: ${error.message}")
                     }
                     _isRestoringFamily.value = false
                 }
             } catch (e: Exception) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     android.util.Log.e("AuthViewModel", "Error during restoreUserFamily: ${e.message}")
                 }
                 _isRestoringFamily.value = false
             }
         }
     }
+
 
     fun login(email: String, pass: String) {
         if (!isValidEmail(email)) {

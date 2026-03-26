@@ -26,7 +26,11 @@ interface IFirebaseRepository {
 
     suspend fun getFamilyData(familyId: String): FamilyData?
 
+    /** Familienkontext des Users via Cloud Function (1 Call statt 3 Firestore-Reads). */
+    suspend fun getUserContext(uid: String): Result<Pair<String, String>?>
+
     suspend fun getUserFamily(uid: String, cachedJoinCode: String? = null): Result<Pair<String, String>?>
+
 
     suspend fun checkFamilyExists(familyId: String): Boolean
 
