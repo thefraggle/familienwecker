@@ -29,6 +29,7 @@ class FirebaseRepository : IFirebaseRepository {
 
     companion object {
         private const val TAG = "FirebaseRepository"
+        private const val FIREBASE_REGION = "europe-west3"
         private const val COLLECTION_ADMINS = "_admins"
         private const val COLLECTION_FAMILIES = "families"
         private const val COLLECTION_USERS = "users"
@@ -41,7 +42,7 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun createFamily(familyName: String, userId: String): Result<Pair<String, String>> {
         return try {
-            val functions = Firebase.functions("europe-west3")
+            val functions = Firebase.functions(FIREBASE_REGION)
             val data = mapOf("familyName" to familyName, "userId" to userId)
             @Suppress("UNCHECKED_CAST")
             val result = functions.httpsCallable("createFamily").invoke(data).android.data as? Map<String, Any>
@@ -73,7 +74,7 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun joinFamilyByCode(joinCode: String): Result<Pair<String, String>> {
         return try {
-            val functions = Firebase.functions("europe-west3")
+            val functions = Firebase.functions(FIREBASE_REGION)
             val data = mapOf("code" to joinCode)
             @Suppress("UNCHECKED_CAST")
             val resultData = functions.httpsCallable("joinFamilyByCode").invoke(data).android.data as? Map<String, Any>
@@ -163,7 +164,7 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun removeUserFamily(userId: String, familyId: String): Result<Unit> {
         return try {
-            val functions = Firebase.functions("europe-west3")
+            val functions = Firebase.functions(FIREBASE_REGION)
             val data = mapOf("familyId" to familyId)
             functions.httpsCallable("leaveFamily").invoke(data)
             Result.success(Unit)
@@ -175,7 +176,7 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun deleteFamily(familyId: String, userId: String): Result<Unit> {
         return try {
-            val functions = Firebase.functions("europe-west3")
+            val functions = Firebase.functions(FIREBASE_REGION)
             val data = mapOf("familyId" to familyId)
             functions.httpsCallable("deleteFamily").invoke(data)
             Result.success(Unit)
@@ -186,7 +187,7 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun leaveFamilyBatch(userId: String, familyId: String, memberId: String): Result<Unit> {
         return try {
-            val functions = Firebase.functions("europe-west3")
+            val functions = Firebase.functions(FIREBASE_REGION)
             val data = mapOf("familyId" to familyId, "memberId" to memberId)
             functions.httpsCallable("leaveFamily").invoke(data)
             Result.success(Unit)
