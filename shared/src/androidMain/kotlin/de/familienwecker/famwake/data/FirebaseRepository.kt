@@ -374,7 +374,9 @@ class FirebaseRepository : IFirebaseRepository {
             ))
         }
 
-        val familyJob = CoroutineScope(Dispatchers.IO).launch {
+        // #5 Strukturiertes Concurrency: 'this' nutzt den callbackFlow-Scope statt eines
+        // manuellen CoroutineScope(Dispatchers.IO) – Jobs werden in awaitClose() sauber gecancelt.
+        val familyJob = this.launch {
             familyRef.snapshots.collect { snapshot ->
                 familySynced = SyncStatus(
                     isFromCache = snapshot.metadata.isFromCache,
@@ -383,7 +385,7 @@ class FirebaseRepository : IFirebaseRepository {
                 emitCombined()
             }
         }
-        val membersJob = CoroutineScope(Dispatchers.IO).launch {
+        val membersJob = this.launch {
             membersRef.snapshots.collect { snapshot ->
                 membersSynced = SyncStatus(
                     isFromCache = snapshot.metadata.isFromCache,

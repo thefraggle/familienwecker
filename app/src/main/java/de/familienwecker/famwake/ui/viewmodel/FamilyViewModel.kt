@@ -206,7 +206,8 @@ class FamilyViewModel(
     private var lastScheduledAlarmMillis: Long? = null
 
     // Debounce Jobs für Firebase-Writes
-    private var memberUpdateJob: Job? = null
+    // Per-Member Debounce: Jedes Mitglied hat seinen eigenen Job → kein gegenseitiges Cancel (#4)
+    private val memberDebounceJobs = mutableMapOf<String, Job>()
     private var alarmToggleJob: Job? = null
 
     // Snooze-Status: wenn nicht null ist ein Snooze aktiv
@@ -594,15 +595,19 @@ class FamilyViewModel(
 
     /**
      * Schreibt ein Mitglied mit 2s Debounce nach Firebase.
-     * Nützlich für Toggles im MainScreen um Schreib-Spam zu vermeiden.
+     * Jedes Mitglied hat einen eigenen debounce Job – kein gegenseitiges Cancel (#4).
      */
     private fun addOrUpdateMemberDebounced(member: FamilyMember, onComplete: (() -> Unit)? = null) {
         val currentFamilyId = familyId.value ?: return
-        memberUpdateJob?.cancel()
-        memberUpdateJob = viewModelScope.launch {
+        memberDebounceJobs[member.id]?.cancel()
+        memberDebounceJobs[member.id] = viewModelScope.launch {
             delay(2000)
-            repository.addOrUpdateMember(currentFamilyId, member)
-            onComplete?.invoke()
+            try {
+                repository.addOrUpdateMember(currentFamilyId, member)
+                onComplete?.invoke()
+            } finally {
+                memberDebounceJobs.remove(member.id)
+            }
         }
     }
 
@@ -778,20 +783,22 @@ class FamilyViewModel(
 
         val member = _members.value.find { it.id == memberId } ?: return
 
-        // Dauer-Berechnung
-        val now = java.time.LocalTime.now()
-        val wakeUpTime = member.latestWakeUp.toJavaLocalTime()
-        val targetDate = if (now.isAfter(wakeUpTime)) java.time.LocalDate.now().plusDays(1) else java.time.LocalDate.now()
-        val targetDateTime = java.time.LocalDateTime.of(targetDate, wakeUpTime)
-        val hoursUntil = java.time.Duration.between(java.time.LocalDateTime.now(), targetDateTime).toHours()
-
-        // 4-Stunden-Sperre entfernt, damit der Button jederzeit am Tag des Weckers funktioniert.
-
         val newAwakeState = !isAwakeTodayLocal.value
-        appSettings.setAwakeToday(newAwakeState)
 
-        // Status-Sync für andere (Sonnen-Icon)
+        // 1. Sofort lokal persistieren (AppSettings + Room) → UI reagiert ohne Wartezeit (#7)
+        appSettings.setAwakeToday(newAwakeState)
         val updatedMember = member.copy(isAwakeToday = newAwakeState)
+        viewModelScope.launch {
+            try {
+                memberRepository.upsertMember(updatedMember)
+            } catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamilyViewModel", "toggleAwakeMember: Room write failed: ${e.message}")
+                }
+            }
+        }
+
+        // 2. Status-Sync für andere Geräte (Sonnen-Icon) – async via Firestore
         addOrUpdateMemberDebounced(updatedMember)
 
         if (newAwakeState) {
