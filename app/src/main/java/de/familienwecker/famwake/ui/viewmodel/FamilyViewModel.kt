@@ -288,10 +288,15 @@ class FamilyViewModel(
                                         _isOffline.value = false
                                     }
                                 }
+                            } catch (e: CancellationException) {
+                                // Normaler Abbruch bei Family-Wechsel – kein Fehler
+                                throw e
                             } catch (e: Exception) {
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                                     android.util.Log.e("FamilyViewModel", "SyncStatus Flow Error: ${e.message}", e)
                                 }
+                                // Spinner-Schutz: sicherstellen, dass _isSyncing nicht hängen bleibt
+                                _isSyncing.value = false
                             }
                         }
 
