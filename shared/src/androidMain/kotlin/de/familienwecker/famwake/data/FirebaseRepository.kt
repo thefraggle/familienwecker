@@ -438,7 +438,7 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun requestAdminStatsReport(): Result<Unit> {
         return try {
-            Firebase.functions("europe-west3").httpsCallable("sendAdminStatsReport").invoke()
+            Firebase.functions(FIREBASE_REGION).httpsCallable("sendAdminStatsReport").invoke()
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -462,7 +462,7 @@ class FirebaseRepository : IFirebaseRepository {
                 "appVersion" to appVersion,
                 "device" to device
             )
-            Firebase.functions("europe-west3").httpsCallable("sendFeedbackEmail").invoke(data)
+            Firebase.functions(FIREBASE_REGION).httpsCallable("sendFeedbackEmail").invoke(data)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

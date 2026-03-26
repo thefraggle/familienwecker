@@ -38,7 +38,9 @@ internal fun FamilyViewModel.recalculateSchedule() {
                 val calculationMembers = rawMembers.map { resolveEffectiveMember(it) }
 
                 if (calculationMembers.none { !it.isPaused }) {
-                    android.util.Log.w("FamWake_Alarm", "recalculate: all members paused – checking grace period before cancel")
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.w("FamWake_Alarm", "recalculate: all members paused – checking grace period before cancel")
+                    }
                     _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)
 
                     val myMember = currentMembers.find { it.id == currentMyMemberId }
@@ -52,9 +54,13 @@ internal fun FamilyViewModel.recalculateSchedule() {
                     } else false
 
                     if (inGrace) {
-                        android.util.Log.d("FamWake_Alarm", "recalculate: GRACE PERIOD – skipping cancel (alarm just fired)")
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.d("FamWake_Alarm", "recalculate: GRACE PERIOD – skipping cancel (alarm just fired)")
+                        }
                     } else {
-                        android.util.Log.w("FamWake_Alarm", "recalculate: cancelling all alarms (all paused, outside grace)")
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.w("FamWake_Alarm", "recalculate: cancelling all alarms (all paused, outside grace)")
+                        }
                         currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                     }
                     return@launch
@@ -67,11 +73,15 @@ internal fun FamilyViewModel.recalculateSchedule() {
 
                 if (alarmsOn && result.memberSchedules.isNotEmpty()) {
                     if (!result.isValid) {
-                        android.util.Log.w("FamWake_Alarm", "recalculate: Applying FALLBACK alarms for invalid schedule")
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.w("FamWake_Alarm", "recalculate: Applying FALLBACK alarms for invalid schedule")
+                        }
                     }
                     applyAlarms(result)
                 } else {
-                    android.util.Log.w("FamWake_Alarm", "recalculate: cancelling alarms – alarmsOn=$alarmsOn, hasSchedules=${result.memberSchedules.isNotEmpty()}")
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.w("FamWake_Alarm", "recalculate: cancelling alarms – alarmsOn=$alarmsOn, hasSchedules=${result.memberSchedules.isNotEmpty()}")
+                    }
                     currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                 }
             } catch (e: Exception) {
@@ -93,7 +103,9 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
     val tomorrow = today.plusDays(1)
 
     val currentMyMemberId = myMemberId.value ?: run {
-        android.util.Log.w("FamWake_Alarm", "applyAlarms: myMemberId is null, skipping")
+        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+            android.util.Log.w("FamWake_Alarm", "applyAlarms: myMemberId is null, skipping")
+        }
         return
     }
     if (schedule.memberSchedules.isEmpty()) return
@@ -114,7 +126,9 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
             val dayProfile = memberSchedule.member.dayProfiles?.get(dayOfWeek)
 
             if (dayProfile != null && !dayProfile.isActive) {
-                android.util.Log.w("FamWake_Alarm", "applyAlarms: day $dayOfWeek is inactive, cancelling alarm")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamWake_Alarm", "applyAlarms: day $dayOfWeek is inactive, cancelling alarm")
+                }
                 alarmScheduler.cancelWakeUp(currentMyMemberId)
                 lastScheduledAlarmMillis = null
                 _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)
@@ -127,7 +141,9 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
             if (newAlarmMillis == lastScheduledAlarmMillis) return
 
             if (isAwakeTodayLocal.value && targetDate == today) {
-                android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling alarm")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling alarm")
+                }
                 alarmScheduler.cancelWakeUp(currentMyMemberId)
                 lastScheduledAlarmMillis = null
                 return
@@ -139,7 +155,9 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
                 memberName = memberSchedule.member.name,
                 soundUri = alarmSoundUri.value,
                 onPermissionDenied = {
-                    android.util.Log.e("FamWake_Alarm", "applyAlarms: SCHEDULE_EXACT_ALARM permission denied!")
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.e("FamWake_Alarm", "applyAlarms: SCHEDULE_EXACT_ALARM permission denied!")
+                    }
                     _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
                 }
             )

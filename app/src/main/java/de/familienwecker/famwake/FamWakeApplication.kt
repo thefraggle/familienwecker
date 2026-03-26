@@ -25,15 +25,9 @@ class FamWakeApplication : Application() {
         de.familienwecker.famwake.data.MemberRepository(db.memberDao())
     }
 
-    companion object {
-        lateinit var instance: FamWakeApplication
-            private set
-    }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
-
         // Initialize RevenueCat
         if (BuildConfig.DEBUG) {
             android.util.Log.d("FamWakeDonation", "Initializing RevenueCat...")
