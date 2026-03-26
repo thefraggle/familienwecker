@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlinx.serialization)
@@ -13,6 +15,7 @@ kotlin {
         }
     }
     
+    val xcf = XCFramework("shared")
     listOf(
         iosX64(),
         iosArm64(),
@@ -21,6 +24,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "shared"
             isStatic = true
+            xcf.add(this)
         }
     }
 
@@ -40,6 +44,7 @@ kotlin {
             // Firebase KMP (GitLive)
             api(libs.firebase.gitlive.firestore)
             api(libs.firebase.gitlive.functions)
+            api(libs.firebase.gitlive.auth)
         }
 
         commonTest.dependencies {
@@ -47,8 +52,6 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.androidx.security.crypto)
-            // Firebase Auth (nur Android wegen Google Sign-In)
-            implementation(libs.firebase.gitlive.auth)
             implementation(libs.kotlinx.coroutines.play.services)
         }
         iosMain.dependencies {

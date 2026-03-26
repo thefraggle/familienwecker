@@ -4,12 +4,17 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.13 - 2026-03-26
+
+### Fixed
+- **Sync indicator:** The sync icon could get stuck permanently – now works reliably.
+- **Review prompt:** The "rate the app" reminder now correctly waits 7 days and respects the alarm time buffer.
+
 ## 1.6.12 - 2026-03-26
 
-### Optimized
-- **Audit:** Fixed minor audit findings in Alarm Receiver.
-- **KMP:** Migrated internal time logic from java.time to multiplatform kotlinx.datetime.
-- **Performance:** Drastically reduced startup jank by moving heavy initialization to background threads (Coroutines Dispatchers.IO).
+### Improved
+- **Stability:** Minor internal fixes for more reliable operation.
+- **Performance:** Faster app startup, less lag when opening.
 
 ## 1.6.11 - 2026-03-26
 
@@ -37,14 +42,14 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## 1.6.6 - 2026-03-25
 
 ### Fixed
-- **Login Resilience:** Fixed critical crash (`MissingFormatArgumentException`) in German localization.
-- **Permission Hardening:** Fixed family creation issues for non-admin users (Firestore Rules & Repository optimization).
-- **Stability:** All asynchronous background tasks in `FamilyViewModel` are now wrapped in safety guards.
-- **Self-Healing:** Implemented silent re-sync logic for Firestore listeners to handle transient permission delays.
+- **Login:** Fixed a critical crash in the German localization.
+- **Family creation:** Fixed an issue for non-admin users.
+- **Stability:** All background tasks are now protected against unexpected errors.
+- **Data sync:** Automatic recovery from brief connection issues.
 
-### Optimized
-- **System:** Completed Android 15 Edge-to-Edge support across all screens.
-- **Completeness:** All 8 languages (DE, EN, ES, FR, IT, NL, PL, PT) are now 100% synchronized (271 keys).
+### Improved
+- **System:** Full Android 15 support.
+- **Languages:** All 8 languages are 100% complete.
 
 ## 1.6.5 - 2026-03-25
 

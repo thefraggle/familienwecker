@@ -158,14 +158,15 @@ fun MainScreen(
                         )
                     },
                     actions = {
-                        val syncStatus by viewModel.syncStatus.collectAsStateWithLifecycle()
-                        val isSyncingAnim by animateFloatAsState(
-                            targetValue = if (syncStatus.hasPendingWrites) 1f else 0f,
+                        val syncRotationTransition = rememberInfiniteTransition(label = "syncRotation")
+                        val syncRotation by syncRotationTransition.animateFloat(
+                            initialValue = 0f,
+                            targetValue = 360f,
                             animationSpec = infiniteRepeatable(
                                 animation = tween(1000, easing = LinearEasing),
                                 repeatMode = RepeatMode.Restart
                             ),
-                            label = "syncAnimation"
+                            label = "syncRotationAngle"
                         )
 
                         if (isOffline) {
@@ -177,17 +178,22 @@ fun MainScreen(
                                     modifier = Modifier.size(20.dp)
                                 )
                             }
-                        } else if (syncStatus.hasPendingWrites) {
-                            // Pending Writes: Sync-Icon rotierend anzeigen (nur wenn online)
-                            Box(modifier = Modifier.padding(end = 4.dp)) {
-                                Icon(
-                                    imageVector = Icons.Default.Sync,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier
-                                        .size(20.dp)
-                                        .graphicsLayer { rotationZ = isSyncingAnim * 360f }
-                                )
+                        } else {
+                            AnimatedVisibility(
+                                visible = isSyncing,
+                                enter = fadeIn(),
+                                exit = fadeOut()
+                            ) {
+                                Box(modifier = Modifier.padding(end = 4.dp)) {
+                                    Icon(
+                                        imageVector = Icons.Default.Sync,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier
+                                            .size(20.dp)
+                                            .graphicsLayer { rotationZ = syncRotation }
+                                    )
+                                }
                             }
                         }
 

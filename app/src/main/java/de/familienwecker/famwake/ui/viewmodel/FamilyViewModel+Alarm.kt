@@ -160,7 +160,7 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
             }
 
             alarmScheduler.scheduleWakeUp(
-                wakeUpTime = targetDateTime.toJavaLocalDateTime(),
+                wakeUpTime = targetDateTime,
                 memberId = memberSchedule.member.id,
                 memberName = memberSchedule.member.name,
                 soundUri = alarmSoundUri.value,
@@ -293,7 +293,7 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
     val snoozeTime = snoozeInstant.toLocalDateTime(TimeZone.currentSystemDefault())
     appSettings.setSnoozeUntil(snoozeTime)
     alarmScheduler.scheduleWakeUp(
-        wakeUpTime = snoozeTime.toJavaLocalDateTime(),
+        wakeUpTime = snoozeTime,
         memberId = memberId,
         memberName = memberName,
         soundUri = alarmSoundUri.value,

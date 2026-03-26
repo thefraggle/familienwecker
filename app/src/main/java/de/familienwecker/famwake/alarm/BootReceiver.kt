@@ -3,6 +3,7 @@ package de.familienwecker.famwake.alarm
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import de.familienwecker.famwake.model.toKmpLocalDateTime
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -56,7 +57,7 @@ class BootReceiver : BroadcastReceiver() {
 
         val scheduler = AlarmScheduler(context)
         scheduler.scheduleWakeUp(
-            wakeUpTime = targetDateTime,
+            wakeUpTime = targetDateTime.toKmpLocalDateTime(),
             memberId   = memberId,
             memberName = memberName,
             soundUri   = soundUri
