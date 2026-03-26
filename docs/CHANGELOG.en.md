@@ -4,6 +4,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.11 - 2026-03-26
+
+### Optimized
+- **Code Quality:** Internal cleanup for improved stability and fewer unnecessary cloud requests.
+- **Security:** Firestore rules refined – member profiles are now better protected against unauthorized changes.
+
 ## 1.6.10 - 2026-03-25
 
 ### Optimized
