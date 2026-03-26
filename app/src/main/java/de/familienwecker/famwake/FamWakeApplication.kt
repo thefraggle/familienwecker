@@ -31,6 +31,10 @@ class FamWakeApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        // Installations-Zeitstempel setzen (nur beim allerersten Start)
+        if (appSettings.installTime.value == 0L) {
+            appSettings.setInstallTime(System.currentTimeMillis())
+        }
         // Initialize RevenueCat
         if (BuildConfig.DEBUG) {
             android.util.Log.d("FamWakeDonation", "Initializing RevenueCat...")

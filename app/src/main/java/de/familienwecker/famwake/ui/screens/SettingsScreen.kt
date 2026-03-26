@@ -147,10 +147,9 @@ fun SettingsScreen(
     }
     
     // Intelligenten Review-Prompt beim Öffnen der Settings prüfen
+    val activity = context as? android.app.Activity
     LaunchedEffect(Unit) {
-        (context as? android.app.Activity)?.let { activity ->
-            viewModel.checkAndShowReview(activity)
-        }
+        activity?.let { viewModel.checkAndShowReview(it) }
     }
     
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
@@ -812,7 +811,6 @@ fun SettingsScreen(
                     val rateInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
-                            val activity = context as? android.app.Activity
                             if (activity != null) {
                                 // Manueller Aufruf ignoriert die Zeitbeschränkungen
                                 viewModel.checkAndShowReview(activity, ignoreConstraints = true)
@@ -989,7 +987,6 @@ fun SettingsScreen(
                                         val adminReviewInteraction = remember { MutableInteractionSource() }
                                         Button(
                                             onClick = {
-                                                val activity = context as? android.app.Activity
                                                 if (activity != null) {
                                                     viewModel.checkAndShowReview(activity, ignoreConstraints = true)
                                                 }
