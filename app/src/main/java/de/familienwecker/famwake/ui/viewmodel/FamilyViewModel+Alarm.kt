@@ -197,8 +197,16 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     if (currentFamilyId != null && currentMemberId != null) {
         alarmToggleJob?.cancel()
         alarmToggleJob = scope.launch {
-            kotlinx.coroutines.delay(2000)
-            repository.updateDeviceAlarmEnabled(currentFamilyId, currentMemberId, enabled)
+            try {
+                kotlinx.coroutines.delay(2000)
+                // NonCancellable: delay ist unterbrechbar (Entprellung), Write nicht
+                kotlinx.coroutines.withContext(kotlinx.coroutines.NonCancellable) {
+                    repository.updateDeviceAlarmEnabled(currentFamilyId, currentMemberId, enabled)
+                }
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                // Job wurde durch neuen setAlarmEnabled-Aufruf abgebrochen → kein Error, korrekt
+                throw e
+            }
         }
     }
 }
