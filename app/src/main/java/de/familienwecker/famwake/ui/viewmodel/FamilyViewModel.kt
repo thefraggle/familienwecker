@@ -193,12 +193,8 @@ class FamilyViewModel(
     val familyCreatorId: StateFlow<String?> = _familyCreatorId.asStateFlow()
 
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
-    val isGlobalAdmin: StateFlow<Boolean> = run {
-        // getAuthStateFlow() ist FirebaseRepository-spezifisch (nicht im KMP-Interface).
-        // Cast ist sicher, da der Default-Konstruktor immer FirebaseRepository liefert.
-        val authFlow = (repository as? FirebaseRepository)?.getAuthStateFlow()
-            ?: flowOf(null)
-        authFlow.flatMapLatest { user ->
+    val isGlobalAdmin: StateFlow<Boolean> = repository.getAuthStateFlow()
+        .flatMapLatest { user ->
             user?.uid?.let { uid ->
                 repository.checkIsGlobalAdminFlow(uid)
                     .catch { e ->
@@ -209,7 +205,7 @@ class FamilyViewModel(
                     }
             } ?: flowOf(false)
         }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
 
     val isAdmin: StateFlow<Boolean> = combine(isGlobalAdmin, _familyCreatorId) { isGlobal, creatorId ->

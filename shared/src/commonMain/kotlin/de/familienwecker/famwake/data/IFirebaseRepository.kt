@@ -3,6 +3,7 @@ package de.familienwecker.famwake.data
 import de.familienwecker.famwake.model.FamilyData
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.SyncStatus
+import dev.gitlive.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -11,7 +12,11 @@ import kotlinx.coroutines.flow.Flow
  */
 interface IFirebaseRepository {
 
+    /** Auth-State-Flow – emittiert den aktuellen User (oder null nach Logout). */
+    fun getAuthStateFlow(): Flow<FirebaseUser?>
+
     // ── Familie ──────────────────────────────────────────────────────────────
+
 
     suspend fun createFamily(familyName: String, userId: String): Result<Pair<String, String>>
 
