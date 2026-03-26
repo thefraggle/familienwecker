@@ -4,6 +4,7 @@ import de.familienwecker.famwake.db.MemberDao
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.DayProfile
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.encodeToString
@@ -14,6 +15,9 @@ class MemberRepository(private val memberDao: MemberDao) {
     
     val members: Flow<List<FamilyMember>> = memberDao.getAllMembers().map { entities ->
         entities.map { it.toDomain() }
+    }.distinctUntilChanged { old, new ->
+        old.size == new.size &&
+        old.zip(new).all { (a, b) -> a.id == b.id && a.lastUpdatedAt == b.lastUpdatedAt }
     }
 
     suspend fun cacheMembers(members: List<FamilyMember>) {
