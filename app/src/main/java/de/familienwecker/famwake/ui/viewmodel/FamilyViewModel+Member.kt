@@ -188,7 +188,7 @@ internal fun FamilyViewModel.checkAndResetMembers(members: List<FamilyMember>): 
 
     val familyIdVal = familyId.value
     if (familyIdVal != null && toUpdate.isNotEmpty()) {
-        scope.launch {
+        scope.launch(kotlinx.coroutines.Dispatchers.IO) {
             try {
                 repository.updateMembersBatch(familyIdVal, toUpdate)
             } catch (e: Exception) {
