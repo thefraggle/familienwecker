@@ -19,6 +19,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.launch
 
@@ -240,6 +241,13 @@ class FirebaseRepository : IFirebaseRepository {
         Log.w(TAG, "getFamilyMembersFlow retry (attempt=$attempt): ${cause.message}")
         delay(delayMillis)
         true
+    }.distinctUntilChanged { old, new ->
+        // Snapshot als identisch werten wenn Anzahl, IDs und lastUpdatedAt gleich sind.
+        // Verhindert redundante Room-Writes bei Firestore-Metadaten-Updates (z.B. hasPendingWrites).
+        old.size == new.size &&
+        old.zip(new).all { (a, b) ->
+            a.id == b.id && a.lastUpdatedAt == b.lastUpdatedAt
+        }
     }
 
     override suspend fun addOrUpdateMember(familyId: String, member: FamilyMember) {
