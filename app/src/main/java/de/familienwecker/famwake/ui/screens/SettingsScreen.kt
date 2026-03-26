@@ -940,12 +940,14 @@ fun SettingsScreen(
                                 text = {
                                     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                         Text("Diese Funktionen sind nur für globale Administratoren verfügbar.")
-                                        
+
+                                        var adminSetupStatus by remember { mutableStateOf("") }
                                         val adminAlarmInteraction = remember { MutableInteractionSource() }
                                         Button(
                                             onClick = {
-                                                viewModel.setDebugAlarmIn5Minutes()
-                                                adminAlarmConfirmed = true
+                                                viewModel.setupTestAlarmAndMembers { status ->
+                                                    adminSetupStatus = status
+                                                }
                                             },
                                             modifier = Modifier.fillMaxWidth().bounceClick(adminAlarmInteraction),
                                             interactionSource = adminAlarmInteraction,
@@ -957,31 +959,9 @@ fun SettingsScreen(
                                         ) {
                                             Icon(Icons.Default.Notifications, contentDescription = null)
                                             Spacer(Modifier.width(8.dp))
-                                            Text(if (adminAlarmConfirmed) "✓ Wecker (2 Min) gesetzt" else "Wecker in 2 Min")
-                                        }
-
-                                        var adminSetupStatus by remember { mutableStateOf("") }
-                                        val adminSetupInteraction = remember { MutableInteractionSource() }
-                                        Button(
-                                            onClick = {
-                                                viewModel.setupTestAlarmAndMembers { status ->
-                                                    adminSetupStatus = status
-                                                    adminAlarmConfirmed = true
-                                                }
-                                            },
-                                            modifier = Modifier.fillMaxWidth().bounceClick(adminSetupInteraction),
-                                            interactionSource = adminSetupInteraction,
-                                            colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                            ),
-                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
-                                        ) {
-                                            Icon(Icons.Default.PersonAdd, contentDescription = null)
-                                            Spacer(Modifier.width(8.dp))
                                             Text(
                                                 if (adminSetupStatus.isNotEmpty()) "✓ $adminSetupStatus + 2-Min-Wecker"
-                                                else "Test-Setup (Member + Weckzeit)"
+                                                else "Test-Wecker (2 Min)"
                                             )
                                         }
 
