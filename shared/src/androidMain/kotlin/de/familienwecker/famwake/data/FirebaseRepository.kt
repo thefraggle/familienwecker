@@ -117,35 +117,55 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
+    override suspend fun getUserContext(uid: String): Result<Pair<String, String>?> {
+        return try {
+            val functions = Firebase.functions(FIREBASE_REGION)
+            @Suppress("UNCHECKED_CAST")
+            val resultData = functions.httpsCallable("getUserContext").invoke(mapOf<String, Any>()).android.data as? Map<String, Any?>
+            val familyId = resultData?.get("familyId") as? String
+            val joinCode = resultData?.get("joinCode") as? String
+            if (familyId != null && joinCode != null) {
+                Result.success(Pair(familyId, joinCode))
+            } else {
+                Result.success(null)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "getUserContext error: ${e.message}")
+            Result.failure(e)
+        }
+    }
+
     override suspend fun getUserFamily(uid: String, cachedJoinCode: String?): Result<Pair<String, String>?> {
         return try {
             val userDoc = db.collection(COLLECTION_USERS).document(uid).get()
             var familyId: String? = userDoc.get<String?>("familyId")
-            var joinCode: String? = null
 
-            if (familyId != null) {
-                val familyDoc = db.collection(COLLECTION_FAMILIES).document(familyId).get()
-                if (familyDoc.exists) {
-                    joinCode = familyDoc.get<String?>("joinCode")
-                } else {
-                    familyId = null
-                }
-            }
-
-            if (familyId == null || joinCode == null) {
+            if (familyId == null) {
+                // Kein familyId in users/{uid} → Collection-Query als Fallback
                 val queryResults = db.collection(COLLECTION_FAMILIES)
                     .where { "userIds" equalTo uid }
                     .limit(1)
                     .get()
                 val doc = queryResults.documents.firstOrNull()
                 if (doc != null) {
-                    familyId = doc.id
-                    joinCode = doc.get<String?>("joinCode")
+                    val joinCode = doc.get<String?>("joinCode")
+                    return if (joinCode != null) Result.success(Pair(doc.id, joinCode))
+                    else Result.success(null)
                 }
+                return Result.success(null)
             }
 
-            if (familyId != null && joinCode != null) {
-                Result.success(Pair(familyId, joinCode))
+            // Short-Circuit: familyId bekannt + Code gecacht => kein zweiter Read nötig
+            if (cachedJoinCode != null) {
+                return Result.success(Pair(familyId, cachedJoinCode))
+            }
+
+            // Kein gecachter Code → Familie-Dokument lesen
+            val familyDoc = db.collection(COLLECTION_FAMILIES).document(familyId).get()
+            if (familyDoc.exists) {
+                val joinCode = familyDoc.get<String?>("joinCode")
+                if (joinCode != null) Result.success(Pair(familyId, joinCode))
+                else Result.success(null)
             } else {
                 Result.success(null)
             }
@@ -153,6 +173,8 @@ class FirebaseRepository : IFirebaseRepository {
             Result.failure(e)
         }
     }
+
+
 
     override suspend fun checkFamilyExists(familyId: String): Boolean {
         return try {

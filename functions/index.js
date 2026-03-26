@@ -1278,3 +1278,47 @@ async function sendEmail(to, subject, html) {
         console.error(`Fehler beim Senden der E-Mail an ${to}:`, error);
     }
 }
+
+// ─── Startup-Kontext: Familie des Users in einem Batch-Read ─────────────────
+// Ersetzt den 3-fachen sequenziellen Firestore-Read im Client.
+// Gibt { familyId, joinCode } zurück oder null wenn kein Familien-Kontext gefunden.
+exports.getUserContext = onCall(
+  { region: "europe-west3" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
+    const uid = request.auth.uid;
+
+    try {
+      // Schritt 1: users/{uid} lesen
+      const userDoc = await admin.firestore().collection("users").doc(uid).get();
+      const familyId = userDoc.exists ? userDoc.data().familyId : null;
+
+      if (!familyId) {
+        return { familyId: null, joinCode: null };
+      }
+
+      // Schritt 2: families/{familyId} lesen (Batch mit users/{uid} wäre getAll, aber
+      // da familyId erst aus Step 1 kommt, ist sequenziell hier unvermeidbar.
+      // Gegenüber Client-Pfad: kein 3. Query-Fallback, kein Netz-Overhead pro Read.)
+      const familyDoc = await admin.firestore().collection("families").doc(familyId).get();
+
+      if (!familyDoc.exists) {
+        // Familie gelöscht – users/{uid}.familyId bereinigen
+        await admin.firestore().collection("users").doc(uid).update({
+          familyId: admin.firestore.FieldValue.delete()
+        });
+        console.log(`getUserContext: Family ${familyId} not found, cleaned up user doc for ${uid}`);
+        return { familyId: null, joinCode: null };
+      }
+
+      const joinCode = familyDoc.data().joinCode || null;
+      return { familyId, joinCode };
+
+    } catch (err) {
+      console.error(`getUserContext error for ${uid}:`, err);
+      throw new HttpsError("internal", "INTERNAL_ERROR");
+    }
+  }
+);
