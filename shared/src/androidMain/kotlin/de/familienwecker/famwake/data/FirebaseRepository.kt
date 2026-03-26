@@ -36,7 +36,7 @@ class FirebaseRepository : IFirebaseRepository {
         private const val COLLECTION_MEMBERS = "members"
     }
 
-    fun getAuthStateFlow() = auth.authStateChanged
+    override fun getAuthStateFlow() = auth.authStateChanged
 
     // ── Familie ──────────────────────────────────────────────────────────────
 
