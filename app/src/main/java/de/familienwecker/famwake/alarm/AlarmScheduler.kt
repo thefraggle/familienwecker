@@ -6,10 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import de.familienwecker.famwake.MainActivity
-import java.time.LocalDateTime
-import java.time.ZoneId
+import de.familienwecker.famwake.alarm.AlarmPlatformScheduler
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 
-class AlarmScheduler(private val context: Context) {
+class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     /**
@@ -21,13 +23,13 @@ class AlarmScheduler(private val context: Context) {
      *
      * @param onPermissionDenied Callback wenn SCHEDULE_EXACT_ALARM fehlt (Android 12+).
      */
-    fun scheduleWakeUp(
+    override fun scheduleWakeUp(
         wakeUpTime: LocalDateTime,
         memberId: String,
         memberName: String,
-        soundUri: String? = null,
-        isSnooze: Boolean = false,
-        onPermissionDenied: (() -> Unit)? = null
+        soundUri: String?,
+        isSnooze: Boolean,
+        onPermissionDenied: (() -> Unit)?
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!alarmManager.canScheduleExactAlarms()) {
@@ -68,7 +70,7 @@ class AlarmScheduler(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val timeInMillis = wakeUpTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val timeInMillis = wakeUpTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
         val alarmClockInfo = AlarmManager.AlarmClockInfo(timeInMillis, showIntent)
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
 
@@ -76,7 +78,7 @@ class AlarmScheduler(private val context: Context) {
         AlarmBackupPrefs.save(context, memberId, memberName, soundUri, timeInMillis)
     }
 
-    fun cancelWakeUp(memberId: String, isSnooze: Boolean = false) {
+    override fun cancelWakeUp(memberId: String, isSnooze: Boolean) {
         val intent = Intent(context, AlarmReceiver::class.java)
         // Gleiche Bitmask wie in scheduleWakeUp – damit stimmen schedule und cancel überein
         val idForHash = if (isSnooze) memberId + "_snooze" else memberId

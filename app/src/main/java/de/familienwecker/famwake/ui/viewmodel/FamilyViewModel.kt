@@ -61,7 +61,7 @@ class FamilyViewModel(
     // ── Interne Helfer ────────────────────────────────────────────────────────
 
     internal val scheduler = Scheduler()
-    internal val alarmScheduler = AlarmScheduler(application)
+    internal val alarmScheduler: de.familienwecker.famwake.alarm.AlarmPlatformScheduler = AlarmScheduler(application)
     internal val auth = Firebase.auth
 
     /** UID des aktuell eingeloggten Users (null wenn nicht eingeloggt). */
