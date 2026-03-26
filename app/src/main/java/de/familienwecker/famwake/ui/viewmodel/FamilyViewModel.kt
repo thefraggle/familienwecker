@@ -7,6 +7,7 @@ import de.familienwecker.famwake.algorithm.Scheduler
 import de.familienwecker.famwake.alarm.AlarmScheduler
 import de.familienwecker.famwake.data.AppError
 import de.familienwecker.famwake.data.FirebaseRepository
+import de.familienwecker.famwake.data.IFirebaseRepository
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
@@ -51,7 +52,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class FamilyViewModel(
     application: Application,
-    internal val repository: FirebaseRepository = FirebaseRepository(),
+    internal val repository: IFirebaseRepository = FirebaseRepository(),
     internal val appSettings: de.familienwecker.famwake.data.AppSettings = (application as FamWakeApplication).appSettings,
     internal val memberRepository: de.familienwecker.famwake.data.MemberRepository = (application as FamWakeApplication).memberRepository
 ) : AndroidViewModel(application) {
@@ -192,8 +193,12 @@ class FamilyViewModel(
     val familyCreatorId: StateFlow<String?> = _familyCreatorId.asStateFlow()
 
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
-    val isGlobalAdmin: StateFlow<Boolean> = repository.getAuthStateFlow()
-        .flatMapLatest { user ->
+    val isGlobalAdmin: StateFlow<Boolean> = run {
+        // getAuthStateFlow() ist FirebaseRepository-spezifisch (nicht im KMP-Interface).
+        // Cast ist sicher, da der Default-Konstruktor immer FirebaseRepository liefert.
+        val authFlow = (repository as? FirebaseRepository)?.getAuthStateFlow()
+            ?: flowOf(null)
+        authFlow.flatMapLatest { user ->
             user?.uid?.let { uid ->
                 repository.checkIsGlobalAdminFlow(uid)
                     .catch { e ->
@@ -204,7 +209,8 @@ class FamilyViewModel(
                     }
             } ?: flowOf(false)
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
 
     val isAdmin: StateFlow<Boolean> = combine(isGlobalAdmin, _familyCreatorId) { isGlobal, creatorId ->
         isGlobal || (auth.currentUser?.uid != null && auth.currentUser?.uid == creatorId)
@@ -224,7 +230,9 @@ class FamilyViewModel(
             .build()
         try { connectivityManager.registerNetworkCallback(networkRequest, networkCallback) } catch (_: Exception) {}
 
-        // UI-Datenfluss: UI beobachtet Room (Local Cache)
+        // Offline-Status beim Start einmalig initialisieren (bevor der erste NetworkCallback kommt)
+        _isOffline.value = !NetworkUtils.isOnline(getApplication())
+
         viewModelScope.launch {
             memberRepository.members.collect { membersList ->
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -273,15 +281,8 @@ class FamilyViewModel(
                             try {
                                 repository.getSyncStatusFlow(currentFamilyId).collect { status ->
                                     _syncStatus.value = status
-                                    if (status.isFromCache && !NetworkUtils.isOnline(getApplication())) {
-                                        offlineDebounceJob?.cancel()
-                                        offlineDebounceJob = launch {
-                                            try { delay(3000); _isOffline.value = true } catch (_: Exception) {}
-                                        }
-                                    } else {
-                                        offlineDebounceJob?.cancel()
-                                        _isOffline.value = false
-                                    }
+                                    // SyncStatus dient nur als Info-Quelle; isOffline wird
+                                    // ausschließlich vom NetworkCallback gesteuert (P4: zentralisiert).
                                 }
                             } catch (e: CancellationException) {
                                 throw e

@@ -63,13 +63,6 @@ interface AppSettings {
 
 class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
 
-    private fun <T> keyFlow(key: String, defaultValue: T, getter: (String, T) -> T): StateFlow<T> {
-        val flow = MutableStateFlow(getter(key, defaultValue))
-        settings.addIntListener(key, 0) { /* Dummy to trigger update logic if needed */ }
-        // Note: multiplatform-settings-observable has specific listeners, 
-        // but for simplicity in this migration we'll update the flows in the setters.
-        return flow.asStateFlow()
-    }
 
     private val _myMemberId = MutableStateFlow(settings.getStringOrNull("MY_MEMBER_ID"))
     override val myMemberId = _myMemberId.asStateFlow()
