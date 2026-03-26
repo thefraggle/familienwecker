@@ -7,8 +7,9 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## 1.6.12 - 2026-03-26
 
 ### Optimized
-- **Audit:** Fixed minor audit findings in Alarm Receiver and improved startup initialization.
+- **Audit:** Fixed minor audit findings in Alarm Receiver.
 - **KMP:** Migrated internal time logic from java.time to multiplatform kotlinx.datetime.
+- **Performance:** Drastically reduced startup jank by moving heavy initialization to background threads (Coroutines Dispatchers.IO).
 
 ## 1.6.11 - 2026-03-26
 

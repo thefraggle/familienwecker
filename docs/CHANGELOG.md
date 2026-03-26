@@ -7,8 +7,9 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ## 1.6.12 - 2026-03-26
 
 ### Optimiert
-- **Audit:** Behebung kleinerer Audit-Findings im Alarm-Receiver und Performance-Verbesserungen beim App-Start.
+- **Audit:** Behebung kleinerer Audit-Findings im Alarm-Receiver.
 - **KMP:** Interne Zeitlogik (java.time) auf Multiplatform (kotlinx.datetime) umgestellt.
+- **Performance:** Startup-Jank (übersprungene Frames) durch asynchrone Initialisierung (Coroutines Dispatchers.IO) drastisch reduziert.
 
 ## 1.6.11 - 2026-03-26
 
