@@ -56,8 +56,21 @@ service cloud.firestore {
         // WICHTIG: Erlaubt Queries auf Mitglieder, wenn man Teil der Familie ist
         allow read: if isFamilyMember(familyId);
         
-        // Erstellen/Ändern erlaubt für alle Familienmitglieder (ohne E-Mail-Lock)
-        allow create, update: if isFamilyMember(familyId);
+        // Erstellen erlaubt für alle Familienmitglieder (z.B. neues Profil anlegen)
+        allow create: if isFamilyMember(familyId);
+
+        // Update: Familienmitglieder dürfen isAwakeToday und isPaused für ALLE setzen
+        // (bewusste Design-Entscheidung: Familie koordiniert Wecker gemeinsam).
+        // Schutz: 'name' und 'claimedByUserId' dürfen nur vom Owner oder Admin geändert werden.
+        allow update: if isFamilyMember(familyId) &&
+          (
+            // Alle dürfen diese koordinativen Felder schreiben
+            !request.resource.data.diff(resource.data).affectedKeys()
+              .hasAny(['name', 'claimedByUserId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'])
+            ||
+            // Oder: Admin darf alles
+            isAdmin()
+          );
 
         // Löschen erlaubt für alle Familienmitglieder (Admin oder Mitglied)
         allow delete: if isFamilyMember(familyId) || isAdmin();

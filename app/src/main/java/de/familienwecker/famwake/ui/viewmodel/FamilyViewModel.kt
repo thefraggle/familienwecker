@@ -7,6 +7,7 @@ import de.familienwecker.famwake.algorithm.Scheduler
 import de.familienwecker.famwake.alarm.AlarmScheduler
 import de.familienwecker.famwake.data.AppError
 import de.familienwecker.famwake.data.FirebaseRepository
+import de.familienwecker.famwake.util.TooltipKeys
 import de.familienwecker.famwake.data.IFirebaseRepository
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.FamilySchedule
@@ -93,31 +94,27 @@ class FamilyViewModel(
 
     val tooltipsEnabled: StateFlow<Boolean> = appSettings.tooltipsEnabled
     private val _tooltipsSeen = appSettings.tooltipsSeen
-    val tooltipAwakeSeen: StateFlow<Boolean>      = _tooltipsSeen.map { it["TOOLTIP_SEEN_AWAKE"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipDragSeen: StateFlow<Boolean>       = _tooltipsSeen.map { it["TOOLTIP_SEEN_DRAG"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipWakeWindowSeen: StateFlow<Boolean> = _tooltipsSeen.map { it["TOOLTIP_SEEN_WAKE_WINDOW"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipBathroomSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it["TOOLTIP_SEEN_BATHROOM"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipInviteSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it["TOOLTIP_SEEN_INVITE"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipSwitchSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it["TOOLTIP_SEEN_SWITCH"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipWeekdaysSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it["TOOLTIP_SEEN_WEEKDAYS"] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipAwakeSeen: StateFlow<Boolean>      = _tooltipsSeen.map { it[TooltipKeys.AWAKE]       ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipDragSeen: StateFlow<Boolean>       = _tooltipsSeen.map { it[TooltipKeys.DRAG]        ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipWakeWindowSeen: StateFlow<Boolean> = _tooltipsSeen.map { it[TooltipKeys.WAKE_WINDOW] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipBathroomSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it[TooltipKeys.BATHROOM]    ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipInviteSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.INVITE]      ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipSwitchSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.SWITCH]      ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipWeekdaysSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it[TooltipKeys.WEEKDAYS]    ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     fun setOnboardingCompleted(completed: Boolean) = appSettings.setOnboardingCompleted(completed)
     fun setTooltipsEnabled(enabled: Boolean)        = appSettings.setTooltipsEnabled(enabled)
     fun markTooltipSeen(key: String)                = appSettings.setTooltipSeen(key, true)
-    fun resetAllTooltips() {
-        listOf("TOOLTIP_SEEN_AWAKE", "TOOLTIP_SEEN_DRAG", "TOOLTIP_SEEN_WAKE_WINDOW",
-               "TOOLTIP_SEEN_BATHROOM", "TOOLTIP_SEEN_INVITE", "TOOLTIP_SEEN_SWITCH", "TOOLTIP_SEEN_WEEKDAYS").forEach {
-            appSettings.setTooltipSeen(it, false)
-        }
-    }
+    fun resetAllTooltips() { TooltipKeys.ALL.forEach { appSettings.setTooltipSeen(it, false) } }
 
-    val tooltipKeyAwake      get() = "TOOLTIP_SEEN_AWAKE"
-    val tooltipKeyDrag       get() = "TOOLTIP_SEEN_DRAG"
-    val tooltipKeyWakeWindow get() = "TOOLTIP_SEEN_WAKE_WINDOW"
-    val tooltipKeyBathroom   get() = "TOOLTIP_SEEN_BATHROOM"
-    val tooltipKeyInvite     get() = "TOOLTIP_SEEN_INVITE"
-    val tooltipKeySwitch     get() = "TOOLTIP_SEEN_SWITCH"
-    val tooltipKeyWeekdays   get() = "TOOLTIP_SEEN_WEEKDAYS"
+    val tooltipKeyAwake      get() = TooltipKeys.AWAKE
+    val tooltipKeyDrag       get() = TooltipKeys.DRAG
+    val tooltipKeyWakeWindow get() = TooltipKeys.WAKE_WINDOW
+    val tooltipKeyBathroom   get() = TooltipKeys.BATHROOM
+    val tooltipKeyInvite     get() = TooltipKeys.INVITE
+    val tooltipKeySwitch     get() = TooltipKeys.SWITCH
+    val tooltipKeyWeekdays   get() = TooltipKeys.WEEKDAYS
+
 
     // ── UI-State ──────────────────────────────────────────────────────────────
 
@@ -130,9 +127,10 @@ class FamilyViewModel(
     internal val _errorMessage = MutableStateFlow<UiText?>(null)
     val errorMessage: StateFlow<UiText?> = _errorMessage.asStateFlow()
 
-    fun clearErrorMessage() { _errorMessage.value = null }
     fun setError(message: UiText) { _errorMessage.value = message }
     fun clearError() { _errorMessage.value = null }
+    @Deprecated("Use clearError()", ReplaceWith("clearError()"))
+    fun clearErrorMessage() = clearError()
 
     internal val _isSyncing = MutableStateFlow(false)
     val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
