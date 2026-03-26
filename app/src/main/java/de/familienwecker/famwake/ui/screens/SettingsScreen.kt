@@ -52,6 +52,7 @@ import androidx.core.net.toUri
 import de.familienwecker.famwake.ui.viewmodel.DonationViewModel
 import de.familienwecker.famwake.ui.viewmodel.PurchaseState
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.Refresh
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.Offerings
@@ -956,7 +957,32 @@ fun SettingsScreen(
                                         ) {
                                             Icon(Icons.Default.Notifications, contentDescription = null)
                                             Spacer(Modifier.width(8.dp))
-                                            Text(if (adminAlarmConfirmed) "✓ Wecker (3 Min) gesetzt" else "Wecker in 3 Min")
+                                            Text(if (adminAlarmConfirmed) "✓ Wecker (2 Min) gesetzt" else "Wecker in 2 Min")
+                                        }
+
+                                        var adminSetupStatus by remember { mutableStateOf("") }
+                                        val adminSetupInteraction = remember { MutableInteractionSource() }
+                                        Button(
+                                            onClick = {
+                                                viewModel.setupTestAlarmAndMembers { status ->
+                                                    adminSetupStatus = status
+                                                    adminAlarmConfirmed = true
+                                                }
+                                            },
+                                            modifier = Modifier.fillMaxWidth().bounceClick(adminSetupInteraction),
+                                            interactionSource = adminSetupInteraction,
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                            ),
+                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                        ) {
+                                            Icon(Icons.Default.PersonAdd, contentDescription = null)
+                                            Spacer(Modifier.width(8.dp))
+                                            Text(
+                                                if (adminSetupStatus.isNotEmpty()) "✓ $adminSetupStatus + 2-Min-Wecker"
+                                                else "Test-Setup (Member + Weckzeit)"
+                                            )
                                         }
 
                                         val adminReportInteraction = remember { MutableInteractionSource() }
