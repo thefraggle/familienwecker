@@ -4,12 +4,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.13 - 2026-03-26
+
+### Behoben
+- **Sync-Anzeige:** Synchronisations-Icon blieb manchmal dauerhaft sichtbar – ist jetzt zuverlässig.
+- **App-Review-Erinnerung:** Erinnerung zum Bewerten der App erscheint jetzt korrekt erst nach 7 Tagen und nicht kurz nach dem Wecker.
+
 ## 1.6.12 - 2026-03-26
 
 ### Optimiert
-- **Audit:** Behebung kleinerer Audit-Findings im Alarm-Receiver.
-- **KMP:** Interne Zeitlogik (java.time) auf Multiplatform (kotlinx.datetime) umgestellt.
-- **Performance:** Startup-Jank (übersprungene Frames) durch asynchrone Initialisierung (Coroutines Dispatchers.IO) drastisch reduziert.
+- **Stabilität:** Kleinere interne Korrekturen für einen zuverlässigeren Betrieb.
+- **Performance:** App startet schneller, weniger Ruckler beim Öffnen.
 
 ## 1.6.11 - 2026-03-26
 
@@ -36,14 +41,14 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ## 1.6.6 - 2026-03-25
 
 ### Behoben
-- **Login-Resilienz:** Kritischer Absturz (`MissingFormatArgumentException`) unter Deutsch behoben. 
-- **Permission-Hardening:** Fehler bei der Familienerstellung für normale Nutzer behoben (Firestore Rules & Repository Optimierung).
-- **Härtung:** Alle asynchronen Prozesse im `FamilyViewModel` sind nun gegen Abstürze bei Permissions-Fehlern abgesichert.
-- **Self-Healing:** Firestore-Listener nutzen nun einen lautlosen Re-Sync-Mechanismus bei transienten Rechte-Fehlern.
+- **Login:** Kritischer Absturz in der deutschen Sprachversion behoben.
+- **Familienerstellung:** Fehler für normale Nutzer (ohne Admin-Rechte) behoben.
+- **Stabilität:** Interne Absicherung aller Hintergrundprozesse gegen unerwartete Fehler.
+- **Daten-Sync:** Automatische Wiederherstellung bei kurzen Verbindungsproblemen.
 
 ### Optimiert
-- **System:** Android 15 Edge-to-Edge Unterstützung für alle Screens vervollständigt.
-- **Vollständigkeit:** Alle 8 Sprachen (DE, EN, ES, FR, IT, NL, PL, PT) sind nun zu 100% synchronisiert (271 Keys).
+- **System:** Android 15 vollständig unterstützt.
+- **Sprachen:** Alle 8 Sprachen zu 100% vollständig.
 
 ## 1.6.5 - 2026-03-25
 
