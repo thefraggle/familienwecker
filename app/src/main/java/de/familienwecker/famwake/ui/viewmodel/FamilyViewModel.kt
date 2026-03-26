@@ -216,18 +216,18 @@ class FamilyViewModel(
         .map { it?.toJavaLocalDateTime() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
-    // ── Init ──────────────────────────────────────────────────────────────────
-
     init {
-        val networkRequest = NetworkRequest.Builder()
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .build()
-        try { connectivityManager.registerNetworkCallback(networkRequest, networkCallback) } catch (_: Exception) {}
+        viewModelScope.launch(Dispatchers.IO) {
+            val networkRequest = NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build()
+            try { connectivityManager.registerNetworkCallback(networkRequest, networkCallback) } catch (_: Exception) {}
 
-        // Offline-Status beim Start einmalig initialisieren (bevor der erste NetworkCallback kommt)
-        _isOffline.value = !NetworkUtils.isOnline(getApplication())
+            // Offline-Status beim Start einmalig initialisieren (bevor der erste NetworkCallback kommt)
+            _isOffline.value = !NetworkUtils.isOnline(getApplication())
+        }
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             memberRepository.members.collect { membersList ->
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.d("FamilyViewModel", "UI Source: Received ${membersList.size} members from Room")
@@ -251,7 +251,7 @@ class FamilyViewModel(
         }
 
         // Sync-Datenfluss: Firestore → Room
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 familyId.collect { currentFamilyId ->
                     membersJob?.cancel()
