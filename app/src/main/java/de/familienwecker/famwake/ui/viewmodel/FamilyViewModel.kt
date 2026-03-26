@@ -170,20 +170,7 @@ class FamilyViewModel(
 
     // ── Connectivity ──────────────────────────────────────────────────────────
 
-    private val connectivityManager = application.getSystemService(ConnectivityManager::class.java)
-    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network) {
-            offlineDebounceJob?.cancel()
-            _isOffline.value = false
-        }
-        override fun onLost(network: Network) {
-            offlineDebounceJob?.cancel()
-            offlineDebounceJob = viewModelScope.launch {
-                try { delay(3000) } catch (_: Exception) {}
-                _isOffline.value = true
-            }
-        }
-    }
+    private val networkMonitor = de.familienwecker.famwake.util.createNetworkMonitor(application)
 
     // ── Admin-Status ──────────────────────────────────────────────────────────
 
@@ -217,14 +204,11 @@ class FamilyViewModel(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     init {
+        networkMonitor.startMonitoring()
         viewModelScope.launch(Dispatchers.IO) {
-            val networkRequest = NetworkRequest.Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build()
-            try { connectivityManager.registerNetworkCallback(networkRequest, networkCallback) } catch (_: Exception) {}
-
-            // Offline-Status beim Start einmalig initialisieren (bevor der erste NetworkCallback kommt)
-            _isOffline.value = !NetworkUtils.isOnline(getApplication())
+            networkMonitor.isOnline.collect { online ->
+                _isOffline.value = !online
+            }
         }
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -356,7 +340,7 @@ class FamilyViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        try { connectivityManager.unregisterNetworkCallback(networkCallback) } catch (_: Exception) {}
+        try { networkMonitor.stopMonitoring() } catch (_: Exception) {}
         membersJob?.cancel()
         syncStatusJob?.cancel()
         offlineDebounceJob?.cancel()
