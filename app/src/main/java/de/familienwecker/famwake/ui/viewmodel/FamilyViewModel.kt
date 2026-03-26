@@ -719,19 +719,21 @@ class FamilyViewModel(
         val memberId = myMemberId.value ?: return
         val member   = _members.value.find { it.id == memberId } ?: return
         val now      = java.time.LocalTime.now().truncatedTo(java.time.temporal.ChronoUnit.MINUTES)
-        val target   = now.plusMinutes(3)
-        val earliest = target.minusMinutes(1)   // 2 Minuten ab jetzt
-        val latest   = target.plusMinutes(1)    // 4 Minuten ab jetzt
+        val target   = now.plusMinutes(2)
+        val earliest = target.minusMinutes(1)   // 1 Minute ab jetzt
+        val latest   = target.plusMinutes(1)    // 3 Minuten ab jetzt
         val todayKey = java.time.LocalDate.now().dayOfWeek.value // 1=Mo…7=So
+        // leaveHomeTime = latest + 30min → kein roter Zeitstempel
+        val leaveHomeTime = latest.plusMinutes(30)
 
         val debugProfile = de.familienwecker.famwake.model.DayProfile(
             isActive = true,
             earliestWakeUp = earliest.toKmpLocalTime(),
             latestWakeUp = latest.toKmpLocalTime(),
             bathroomDurationMinutes = 1L,
-            wantsBreakfast = false
+            wantsBreakfast = false,
+            leaveHomeTime = leaveHomeTime.toKmpLocalTime()
         )
-        // Nur den heutigen Tag überschreiben; alle anderen Tage unverändert lassen
         val updatedDayProfiles = (member.dayProfiles ?: mapOf()).toMutableMap()
         updatedDayProfiles[todayKey] = debugProfile
 
@@ -740,8 +742,73 @@ class FamilyViewModel(
             isPaused = false
         )
         addOrUpdateMember(updatedMember)
-        // Wecker global einschalten
         appSettings.setAlarmEnabled(true)
+    }
+
+    /**
+     * Admin-Hilfsfunktion: Stellt Member und Weckzeit für Test-Alarm auf.
+     * - Keine Member → legt "Daniel" an und claimt ihn
+     * - Mehr als 1 Member → löscht alle bis auf den eigenen geclaimten
+     * - Setzt Weckzeit (2min ab jetzt) für geclaimten Member
+     * Callback: (statusMessage: String) → für UI-Feedback
+     */
+    fun setupTestAlarmAndMembers(onStatus: (String) -> Unit) {
+        val currentFamilyId = familyId.value ?: run { onStatus("Fehler: keine FamilyId"); return }
+        val userId = auth.currentUser?.uid ?: run { onStatus("Fehler: nicht eingeloggt"); return }
+        val userName = auth.currentUser?.displayName ?: "Daniel"
+
+        viewModelScope.launch {
+            val members = _members.value
+            val myId    = myMemberId.value
+
+            when {
+                // Fall 1: keine Member → "Daniel" anlegen und claimen
+                members.isEmpty() -> {
+                    val newId = java.util.UUID.randomUUID().toString()
+                    val newMember = de.familienwecker.famwake.model.FamilyMember(
+                        id = newId,
+                        name = "Daniel",
+                        earliestWakeUp = kotlinx.datetime.LocalTime(6, 0),
+                        latestWakeUp = kotlinx.datetime.LocalTime(7, 0),
+                        bathroomDurationMinutes = 10L,
+                        wantsBreakfast = false,
+                        isPaused = false,
+                        claimedByUserId = userId,
+                        claimedByUserName = userName,
+                        sequenceOrder = 0,
+                        createdAt = System.currentTimeMillis()
+                    )
+                    repository.addOrUpdateMember(currentFamilyId, newMember)
+                    appSettings.setMyMemberId(newId)
+                    appSettings.setMyMemberName("Daniel")
+                    onStatus("Daniel angelegt & geclaimed")
+                    // Weckzeit setzen
+                    setDebugAlarmIn5Minutes()
+                }
+                // Fall 2: mehr als 1 Member → alle löschen bis auf meinen
+                members.size > 1 -> {
+                    val keepId = myId
+                    if (keepId == null) {
+                        onStatus("Fehler: kein Member geclaimed")
+                        return@launch
+                    }
+                    val toDelete = members.filter { it.id != keepId }
+                    toDelete.forEach { m ->
+                        alarmScheduler.cancelWakeUp(m.id)
+                        repository.removeMember(currentFamilyId, m.id)
+                        memberRepository.deleteMember(m.id)
+                    }
+                    onStatus("${toDelete.size} Member gelöscht")
+                    // Weckzeit setzen
+                    setDebugAlarmIn5Minutes()
+                }
+                // Fall 3: genau 1 Member → nur Weckzeit setzen
+                else -> {
+                    setDebugAlarmIn5Minutes()
+                    onStatus("Weckzeit gesetzt")
+                }
+            }
+        }
     }
 
     fun togglePauseMember(memberId: String) {
