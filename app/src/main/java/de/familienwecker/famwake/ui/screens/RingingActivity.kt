@@ -86,7 +86,7 @@ class RingingActivity : AppCompatActivity() {
                             val snoozeTime = java.time.LocalDateTime.now().plusMinutes(5)
                             appSettings.setSnoozeUntil(snoozeTime.toKmpLocalDateTime())
                             alarmScheduler.scheduleWakeUp(
-                                wakeUpTime = snoozeTime,
+                                wakeUpTime = snoozeTime.toKmpLocalDateTime(),
                                 memberId = memberId,
                                 memberName = memberName,
                                 soundUri = appSettings.alarmSoundUri.value,
