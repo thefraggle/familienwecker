@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
+import de.familienwecker.famwake.ui.viewmodel.*
 import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.components.bounceClick

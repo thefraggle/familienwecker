@@ -25,6 +25,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
+import de.familienwecker.famwake.ui.viewmodel.*
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.activity.compose.BackHandler
 import android.app.Activity
