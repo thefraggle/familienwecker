@@ -51,10 +51,12 @@ object AlarmBackupPrefs {
     }
 
     /** Wird von AlarmScheduler.cancelWakeUp() aufgerufen. */
-    fun clear(context: Context) {
-        prefs(context).edit().apply {
-            putBoolean(KEY_ENABLED, false)
-            apply()
+    fun clear(context: Context, memberId: String) {
+        if (getMemberId(context) == memberId) {
+            prefs(context).edit().apply {
+                putBoolean(KEY_ENABLED, false)
+                apply()
+            }
         }
     }
 

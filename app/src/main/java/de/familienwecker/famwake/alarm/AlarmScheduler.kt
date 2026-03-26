@@ -89,8 +89,8 @@ class AlarmScheduler(private val context: Context) {
         )
         alarmManager.cancel(pendingIntent)
 
-        // Backup-Eintrag ebenfalls löschen
-        AlarmBackupPrefs.clear(context)
+        // Backup-Eintrag ebenfalls löschen, aber nur wenn er diesem Member gehört
+        AlarmBackupPrefs.clear(context, memberId)
     }
 }
 

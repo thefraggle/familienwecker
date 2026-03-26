@@ -207,7 +207,7 @@ internal fun FamilyViewModel.checkAndResetMembers(members: List<FamilyMember>): 
 fun FamilyViewModel.setupTestAlarmAndMembers(onStatus: (String) -> Unit) {
     val currentFamilyId = familyId.value ?: run { onStatus("Fehler: keine FamilyId"); return }
     val userId = auth.currentUser?.uid ?: run { onStatus("Fehler: nicht eingeloggt"); return }
-    val userName = auth.currentUser?.displayName ?: "Daniel"
+    val userName = auth.currentUser?.displayName ?: "Test User"
 
     scope.launch {
         val members = _members.value
@@ -220,7 +220,7 @@ fun FamilyViewModel.setupTestAlarmAndMembers(onStatus: (String) -> Unit) {
         val newId = java.util.UUID.randomUUID().toString()
         val newMember = FamilyMember(
             id = newId,
-            name = "Daniel",
+            name = userName,
             earliestWakeUp = kotlinx.datetime.LocalTime(6, 0),
             latestWakeUp = kotlinx.datetime.LocalTime(7, 0),
             bathroomDurationMinutes = 10L,
@@ -233,11 +233,11 @@ fun FamilyViewModel.setupTestAlarmAndMembers(onStatus: (String) -> Unit) {
         )
         repository.addOrUpdateMember(currentFamilyId, newMember)
         appSettings.setMyMemberId(newId)
-        appSettings.setMyMemberName("Daniel")
+        appSettings.setMyMemberName(userName)
 
         delay(500)
         setDebugAlarmIn5Minutes()
-        onStatus("Reset & Daniel angelegt")
+        onStatus("Reset & Test User angelegt")
     }
 }
 

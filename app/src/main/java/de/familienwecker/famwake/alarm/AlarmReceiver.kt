@@ -42,12 +42,14 @@ class AlarmReceiver : BroadcastReceiver() {
         try {
             context.startActivity(ringingIntent)
         } catch (e: Exception) {
-            android.util.Log.e("FamWake_Alarm", "AlarmReceiver: startActivity failed: ${e.message}")
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FamWake_Alarm", "AlarmReceiver: startActivity failed: ${e.message}")
+            }
         }
 
         val fullScreenPendingIntent = PendingIntent.getActivity(
             context,
-            memberId.hashCode(),
+            memberId.hashCode().and(0x7fffffff),
             ringingIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )

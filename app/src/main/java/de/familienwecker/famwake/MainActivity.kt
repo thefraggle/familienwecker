@@ -85,9 +85,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
  
+    private var lastRefreshTime = 0L
+
     override fun onResume() {
         super.onResume()
-        familyViewModel.triggerRefresh()
+        val now = android.os.SystemClock.elapsedRealtime()
+        if (now - lastRefreshTime > 30_000L) {
+            familyViewModel.triggerRefresh()
+            lastRefreshTime = now
+        }
     }
  
     override fun onNewIntent(intent: Intent) {

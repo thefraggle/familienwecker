@@ -3,17 +3,25 @@ package de.familienwecker.famwake.ui.viewmodel
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
-import de.familienwecker.famwake.model.toJavaLocalTime
-import de.familienwecker.famwake.model.toKmpLocalTime
 import de.familienwecker.famwake.model.toJavaLocalDateTime
 import de.familienwecker.famwake.model.toKmpLocalDateTime
 import de.familienwecker.famwake.ui.util.UiText
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.CancellationException
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.todayIn
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.plus
 
 // ─── Alarm-Logik ──────────────────────────────────────────────────────────────
 
@@ -44,11 +52,12 @@ internal fun FamilyViewModel.recalculateSchedule() {
                     _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)
 
                     val myMember = currentMembers.find { it.id == currentMyMemberId }
-                    val myProfile = myMember?.dayProfiles?.get(java.time.LocalDate.now().dayOfWeek.value)
-                    val myWakeUpToday = myProfile?.latestWakeUp?.toJavaLocalTime()
+                    val currentDao = Clock.System.todayIn(TimeZone.currentSystemDefault())
+                    val myProfile = myMember?.dayProfiles?.get(currentDao.dayOfWeek.value)
+                    val myWakeUpToday = myProfile?.latestWakeUp
                     val inGrace = if (myWakeUpToday != null) {
-                        val todayAlarmMillis = java.time.LocalDateTime.of(java.time.LocalDate.now(), myWakeUpToday)
-                            .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+                        val todayAlarmMillis = LocalDateTime(currentDao, myWakeUpToday)
+                            .toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
                         val millisSince = System.currentTimeMillis() - todayAlarmMillis
                         millisSince in 0..300_000
                     } else false
@@ -99,8 +108,9 @@ internal fun FamilyViewModel.recalculateSchedule() {
  * Plant den konkreten AlarmManager-Eintrag für den eingeloggten User.
  */
 internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
-    val today = LocalDate.now()
-    val tomorrow = today.plusDays(1)
+    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val tomorrow = today.plus(1, DateTimeUnit.DAY)
+    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
 
     val currentMyMemberId = myMemberId.value ?: run {
         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -112,12 +122,12 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
 
     for (memberSchedule in schedule.memberSchedules) {
         if (memberSchedule.member.id == currentMyMemberId) {
-            val wakeUpTime = memberSchedule.wakeUpTime.toJavaLocalTime()
-            val targetDate = if (LocalTime.now().isAfter(wakeUpTime)) tomorrow else today
+            val wakeUpTime = memberSchedule.wakeUpTime
+            val targetDate = if (now > wakeUpTime) tomorrow else today
 
             if (targetDate == tomorrow) {
-                val todayAlarmMillis = LocalDateTime.of(today, wakeUpTime)
-                    .atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+                val todayAlarmMillis = LocalDateTime(today, wakeUpTime)
+                    .toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
                 val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
                 if (millisSinceTodayAlarm in 0..300_000) return
             }
@@ -135,8 +145,8 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
                 return
             }
 
-            val targetDateTime = LocalDateTime.of(targetDate, wakeUpTime)
-            val newAlarmMillis = targetDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+            val targetDateTime = LocalDateTime(targetDate, wakeUpTime)
+            val newAlarmMillis = targetDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
 
             if (newAlarmMillis == lastScheduledAlarmMillis) return
 
@@ -150,7 +160,7 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
             }
 
             alarmScheduler.scheduleWakeUp(
-                wakeUpTime = targetDateTime,
+                wakeUpTime = targetDateTime.toJavaLocalDateTime(),
                 memberId = memberSchedule.member.id,
                 memberName = memberSchedule.member.name,
                 soundUri = alarmSoundUri.value,
@@ -174,15 +184,15 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
  */
 internal fun FamilyViewModel.resolveEffectiveMember(member: de.familienwecker.famwake.model.FamilyMember): de.familienwecker.famwake.model.FamilyMember {
     val profiles = member.dayProfiles ?: return member
-    val now = LocalTime.now()
-    val today = LocalDate.now()
+    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
+    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
     val todayDow = today.dayOfWeek.value
     val todayProfile = profiles[todayDow]
 
-    val targetDate = if (todayProfile != null && todayProfile.isActive && now.isBefore(todayProfile.latestWakeUp.toJavaLocalTime())) {
+    val targetDate = if (todayProfile != null && todayProfile.isActive && now < todayProfile.latestWakeUp) {
         today
     } else {
-        today.plusDays(1)
+        today.plus(1, DateTimeUnit.DAY)
     }
 
     val targetDow = targetDate.dayOfWeek.value
@@ -240,20 +250,32 @@ fun FamilyViewModel.setAlarmSoundUri(uri: String) {
 fun FamilyViewModel.setDebugAlarmIn5Minutes() {
     val memberId = myMemberId.value ?: return
     val member   = _members.value.find { it.id == memberId } ?: return
-    val now      = LocalTime.now().truncatedTo(java.time.temporal.ChronoUnit.MINUTES)
-    val target   = now.plusMinutes(2)
-    val earliest = target.minusMinutes(1)
-    val latest   = target.plusMinutes(1)
-    val todayKey = LocalDate.now().dayOfWeek.value
-    val leaveHomeTime = latest.plusMinutes(30)
+    
+    val currentInstant = Clock.System.now()
+    val nowLocal = currentInstant.toLocalDateTime(TimeZone.currentSystemDefault())
+    // Truncate to minutes (by zeroing seconds and nanoseconds)
+    val now = LocalDateTime(nowLocal.year, nowLocal.monthNumber, nowLocal.dayOfMonth, nowLocal.hour, nowLocal.minute, 0, 0)
+    
+    // Kotlinx.datetime has no direct plusMinutes, we add to Instant and convert back, or use DateTimePeriod?
+    // Using Instant plus:
+    val targetInstant = currentInstant.plus(2, DateTimeUnit.MINUTE)
+    val earliestInstant = currentInstant.plus(1, DateTimeUnit.MINUTE)
+    val latestInstant = currentInstant.plus(3, DateTimeUnit.MINUTE)
+    val leaveInstant = currentInstant.plus(33, DateTimeUnit.MINUTE)
+
+    val earliest = earliestInstant.toLocalDateTime(TimeZone.currentSystemDefault()).time
+    val latest = latestInstant.toLocalDateTime(TimeZone.currentSystemDefault()).time
+    val leaveHomeTime = leaveInstant.toLocalDateTime(TimeZone.currentSystemDefault()).time
+    
+    val todayKey = Clock.System.todayIn(TimeZone.currentSystemDefault()).dayOfWeek.value
 
     val debugProfile = de.familienwecker.famwake.model.DayProfile(
         isActive = true,
-        earliestWakeUp = earliest.toKmpLocalTime(),
-        latestWakeUp = latest.toKmpLocalTime(),
+        earliestWakeUp = earliest,
+        latestWakeUp = latest,
         bathroomDurationMinutes = 1L,
         wantsBreakfast = false,
-        leaveHomeTime = leaveHomeTime.toKmpLocalTime()
+        leaveHomeTime = leaveHomeTime
     )
     val updatedDayProfiles = (member.dayProfiles ?: mapOf()).toMutableMap()
     updatedDayProfiles[todayKey] = debugProfile
@@ -267,10 +289,11 @@ fun FamilyViewModel.setDebugAlarmIn5Minutes() {
 }
 
 fun FamilyViewModel.snooze(memberId: String, memberName: String) {
-    val snoozeTime = java.time.LocalDateTime.now().plusMinutes(5)
-    appSettings.setSnoozeUntil(snoozeTime.toKmpLocalDateTime())
+    val snoozeInstant = Clock.System.now().plus(5, DateTimeUnit.MINUTE)
+    val snoozeTime = snoozeInstant.toLocalDateTime(TimeZone.currentSystemDefault())
+    appSettings.setSnoozeUntil(snoozeTime)
     alarmScheduler.scheduleWakeUp(
-        wakeUpTime = snoozeTime,
+        wakeUpTime = snoozeTime.toJavaLocalDateTime(),
         memberId = memberId,
         memberName = memberName,
         soundUri = alarmSoundUri.value,

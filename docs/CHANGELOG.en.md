@@ -4,6 +4,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.12 - 2026-03-26
+
+### Optimized
+- **Audit:** Fixed minor audit findings in Alarm Receiver and improved startup initialization.
+- **KMP:** Migrated internal time logic from java.time to multiplatform kotlinx.datetime.
+
 ## 1.6.11 - 2026-03-26
 
 ### Optimized
