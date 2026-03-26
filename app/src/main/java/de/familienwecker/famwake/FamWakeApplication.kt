@@ -2,6 +2,9 @@ package de.familienwecker.famwake
 
 import android.app.Application
 import de.familienwecker.famwake.BuildConfig
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.room.RoomDatabase
 
@@ -38,31 +41,33 @@ class FamWakeApplication : Application() {
         }
             return
         }
-        try {
-            com.revenuecat.purchases.Purchases.debugLogsEnabled = BuildConfig.DEBUG
-            val currentLang = appSettings.language.value
-            val fullLocale = when (currentLang) {
-                "de" -> "de-DE"
-                "en" -> "en-US"
-                "es" -> "es-ES"
-                "fr" -> "fr-FR"
-                "it" -> "it-IT"
-                else -> currentLang
-            }
-            com.revenuecat.purchases.Purchases.configure(
-                com.revenuecat.purchases.PurchasesConfiguration.Builder(
-                    this,
-                    BuildConfig.REVENUECAT_PUBLIC_API_KEY
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+            try {
+                com.revenuecat.purchases.Purchases.debugLogsEnabled = BuildConfig.DEBUG
+                val currentLang = appSettings.language.value
+                val fullLocale = when (currentLang) {
+                    "de" -> "de-DE"
+                    "en" -> "en-US"
+                    "es" -> "es-ES"
+                    "fr" -> "fr-FR"
+                    "it" -> "it-IT"
+                    else -> currentLang
+                }
+                com.revenuecat.purchases.Purchases.configure(
+                    com.revenuecat.purchases.PurchasesConfiguration.Builder(
+                        this@FamWakeApplication,
+                        BuildConfig.REVENUECAT_PUBLIC_API_KEY
+                    )
+                    .preferredUILocaleOverride(fullLocale)
+                    .build()
                 )
-                .preferredUILocaleOverride(fullLocale)
-                .build()
-            )
-            if (BuildConfig.DEBUG) {
-                android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
-            }
-        } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                android.util.Log.e("FamWakeDonation", "RevenueCat initialization failed: ${e.message}")
+                if (BuildConfig.DEBUG) {
+                    android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
+                }
+            } catch (e: Exception) {
+                if (BuildConfig.DEBUG) {
+                    android.util.Log.e("FamWakeDonation", "RevenueCat initialization failed: ${e.message}")
+                }
             }
         }
     }

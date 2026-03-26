@@ -59,7 +59,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     val isRestoringFamily: StateFlow<Boolean> = _isRestoringFamily.asStateFlow()
 
     init {
-        checkCurrentUser()
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            checkCurrentUser()
+        }
     }
 
     private fun checkCurrentUser() {
