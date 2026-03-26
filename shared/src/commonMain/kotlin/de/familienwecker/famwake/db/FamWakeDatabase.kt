@@ -42,6 +42,14 @@ interface MemberDao {
     suspend fun clearAll()
 }
 
+// Migration strategy: fallbackToDestructiveMigration()
+// Rationale: The app has no data worth preserving in Room – all canonical data lives in
+// Firestore. Room is used as a pure local cache. On schema changes, a clean wipe and
+// re-sync from Firestore is the correct and safe strategy.
+// To apply: in FamWakeDatabaseConstructor (androidMain) or the builder call, add
+//   .fallbackToDestructiveMigration()
+// When bumping this version, do NOT add manual migrations – just increment and rely on
+// fallbackToDestructiveMigration.
 @Database(entities = [FamilyMemberEntity::class], version = 1, exportSchema = false)
 @ConstructedBy(FamWakeDatabaseConstructor::class)
 abstract class FamWakeDatabase : RoomDatabase() {
