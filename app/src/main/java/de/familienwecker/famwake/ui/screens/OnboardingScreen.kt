@@ -128,7 +128,7 @@ fun OnboardingScreen(
         ) { page ->
             val slide    = slides[page]
             val imageRes = when (language) {
-                "de" -> slide.imageRes
+                "de", "gsw", "swg", "ksh" -> slide.imageRes
                 "es" -> slide.imageResEs
                 "fr" -> slide.imageResFr
                 "it" -> slide.imageResIt
