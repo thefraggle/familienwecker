@@ -1,4 +1,315 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Schwäbisch (swg) – Spasssprache, April-Scherz -->
 <resources>
+    <string name="app_name_short">Familiewegger</string>
+    <string name="email_label">E-Mail</string>
+    <string name="password_label">Password</string>
+    <string name="register_button">Registriera</string>
+    <string name="login_button">Nei-logga</string>
+    <string name="already_have_account">Hoisch scho a Konto? Do aamelda.</string>
+    <string name="no_account">No koi Konto? Do registriera.</string>
+    <string name="login_with_google">Mit Google aamelda</string>
+    <string name="login_forgot_password">Password vergässa?</string>
+    <string name="login_password_reset_sent">E-Mail zom Zruggsetza ischr dussa!</string>
+    <string name="login_google_error_no_account">Koi Google-Konto uff dem Grät gfonda. Bitte meld di in de Android-Eistellonga bei Google aa oder nutz E-Mail/Password.</string>
+
+    <string name="setup_create_tab">Macha</string>
+    <string name="setup_join_tab">Dazukomma</string>
+    <string name="setup_family_name">Familianama (z.B. Familie Müller)</string>
+    <string name="setup_create_button">Familie grinda</string>
+    <string name="setup_join_code_label">6-stelliger Eiladongscode</string>
+    <string name="setup_join_code_placeholder">ABC123</string>
+    <string name="setup_join_button">Zur Familie beitreta</string>
+    <string name="join_loading_text">Beitritt wird g\'macht…</string>
+
+    <string name="main_add_member_desc">Mitglied nei-tua</string>
+    <string name="main_family_members">Familienmitglieder</string>
+    <string name="main_current_schedule">Aktueller Zeitplan</string>
+    <string name="main_no_active_schedule">Koi aktiver Weckplan do.</string>
+    <string name="main_optimal_plan">Guck, des isch dr berechnete Zeitplan:</string>
+    <string name="main_plan_paused">Dei Wegger hat grad Pause.</string>
+    <string name="main_shared_breakfast">☕ Zämma Frühstücka: %s</string>
+    <string name="main_wake_time">Uffwacha: %1$s - %2$s</string>
+    <string name="main_bathroom_info">Bad: %1$s Min | Frühstück: %2$s</string>
+    <string name="main_schedule_bathroom">Bad: %1$s bis %2$s</string>
+    <string name="main_schedule_leave">Nausganga: %1$s</string>
+    <string name="main_member_alarm_on">(Wegger aa)</string>
+    <string name="main_member_alarm_off">(koi Wegger)</string>
+    <string name="main_member_limit_reached">Oha, meh als 6 ganget net.</string>
+    <string name="main_alarm_enabled">Wegger: AA</string>
+    <string name="main_alarm_enabled_desc">Automatisches Wegga isch aktiv.</string>
+    <string name="main_snooze_active">Schlummera bis %1$s</string>
+    <string name="main_alarm_disabled">Wegger: AUS</string>
+    <string name="main_alarm_disabled_desc">D\'Pause isch drinne.</string>
+    <string name="main_no_profile_warning">Koi Profil ausgwählt!</string>
+    <string name="main_no_profile_warning_desc">Bitte wähl in de Eistellonga dei Profil aus, damit de Wegger für di klingla ko.</string>
+    <string name="yes">Jå</string>
+    <string name="no">Noi</string>
+    <string name="delete_desc">Lescha</string>
+
+    <string name="add_member_title_add">Mitglied nei-tua</string>
+    <string name="add_member_title_edit">Mitglied beabroita</string>
+    <string name="back_desc">Zrugg</string>
+    <string name="unsaved_changes_title">Nix gspeicheret</string>
+    <string name="unsaved_changes_message">Woisch au wirklich dei Zeug wegschmeißa?</string>
+    <string name="unsaved_changes_discard">Weg damit</string>
+    <string name="unsaved_changes_keep">Weitermacha</string>
+    <string name="add_member_submit">Speichera</string>
+    <string name="delete_member_title">Mitglied lescha</string>
+    <string name="delete_member_text">Möchtesch %1$s echt aus der Familie lescha?</string>
+    <string name="delete_confirm">Lescha</string>
+    <string name="cancel_button">Abbrecha</string>
+    <string name="add_member_name_label">Name (z.B. Mama, Papa, Kender)</string>
+    <string name="add_member_unknown">Oibekannt</string>
+    <string name="add_member_earliest_wake">Früheschte Weggzeit</string>
+    <string name="add_member_latest_wake">Späteschte Weggzeit</string>
+    <string name="add_member_bathroom_duration">Zeit im Bad (Minuta)</string>
+    <string name="add_member_wants_breakfast">Mit Frühstück</string>
+    <string name="add_member_leave_home">Haus verlassa om</string>
+    <string name="add_member_day_profiles_title">Wochaplan</string>
+    <string name="add_member_day_active">Wegger aa</string>
+    <string name="add_member_copy_to_days">"%1$s" uff andere Däg kopiera</string>
+    <string name="add_member_copy_dialog_title">Uff Däg kopiera</string>
+    <string name="add_member_copy_apply">Macha</string>
+    <string name="validation_latest_before_earliest">Di späteschte Weggzeit muass noch de früheschte sei</string>
+    <string name="validation_leave_too_early">Die Zeit zom Nausganga muass nach de Bad-Zeit liega (Weggzeit + Bad-Dauer)</string>
+    <string name="weekday_1">Mädich</string>
+    <string name="weekday_2">Zeischtich</string>
+    <string name="weekday_3">Middwoch</string>
+    <string name="weekday_4">Donnerschtich</string>
+    <string name="weekday_5">Freidich</string>
+    <string name="weekday_6">Samschtich</string>
+    <string name="weekday_7">Sonndich</string>
+    <string name="weekday_short_1">Mo</string>
+    <string name="weekday_short_2">Di</string>
+    <string name="weekday_short_3">Mi</string>
+    <string name="weekday_short_4">Do</string>
+    <string name="weekday_short_5">Fr</string>
+    <string name="weekday_short_6">Sa</string>
+    <string name="weekday_short_7">So</string>
+
+    <string name="settings_title">Eistellonga</string>
+    <string name="settings_profile_title">Mei Profil</string>
+    <string name="settings_profile_desc">Dei Händy klinglet bloß für d\'Weggzeit vom do gwählten Profil.</string>
+    <string name="settings_please_select">Bitte wähla</string>
+    <string name="settings_no_members">Koe Mitglieder gfonda</string>
+    <string name="settings_alarm_title">Weggton</string>
+    <string name="settings_battery_warning_title">Akku-Optimiirong aktiv</string>
+    <string name="settings_battery_warning_text">Dr Wegger dät vielleicht z\'schbät komma. Bitte mach d\'Akku-Optimiirong für FamWake aus.</string>
+    <string name="settings_battery_warning_button">Jetzt richta</string>
+    <string name="settings_alarm_default">Standard</string>
+    <string name="settings_alarm_select">Ton wähla: %1$s</string>
+    <string name="settings_alarm_picker_title">Wähl oin Weggton aus</string>
+    <string name="settings_account_title">Familie &amp; Konto</string>
+    <string name="settings_join_code">Eiladongscode für %1$s:</string>
+    <string name="settings_share_code">Code doila</string>
+    <string name="settings_share_message">Do isch dei Link für FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGruppe: %1$s\n\nOifach klicka, nei-logga ond mir send verbonda. Zämma wegga macht meh Spaß! ⏰❤️</string>
+    <string name="settings_leave_family">Familie verlassa</string>
+    <string name="settings_delete_family">Familie lescha</string>
+    <string name="settings_delete_family_dialog_title">Familie lescha?</string>
+    <string name="settings_delete_family_dialog_text">Bisch dir g\'wiß, dass d\'die Familie ganz lescha woisch? Älles goht für älle verlora. Des ka ma net zruggmacha.</string>
+    <string name="settings_delete_family_dialog_confirm">Lescha</string>
+    <string name="settings_delete_family_dialog_cancel">Abbrecha</string>
+    <string name="settings_delete_family_warning_title">Andere no drinne!</string>
+    <string name="settings_delete_family_warning_text">S\'send no andere in dr Familie. Wenn se leschsch, flieged älle naus. Woisch des wirkle durbringa?</string>
+    <string name="settings_delete_family_warning_confirm">Jå, älles wegmacha</string>
+    <string name="settings_logout">Abmelda</string>
+    <string name="settings_delete_account">Konto lescha</string>
+    <string name="settings_footer_version">FamWake Familienwegger v%1$s</string>
+    <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
+    <string name="settings_footer_rights">Älle Rechte gschützt.</string>
+
+    <string name="empty_members_title">No koe Mitglieder do</string>
+    <string name="empty_members_description">Tu Profil nei, om eure Weggzeita zom seha ond eich gägeseitig zom wegga.</string>
+    <string name="empty_schedule_title">Koi aktiver Wegger</string>
+    <string name="empty_schedule_description">Zom Glick isch koin Wegger gstellt. Zeit zom Ausschlafa!</string>
+
+    <string name="settings_language_title">Sproch</string>
+    <string name="settings_language_system">System-Standard</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_german">Deutsch</string>
+    <string name="settings_language_french">Français</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
+    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
+    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_ruhrpott">Ruhrpott</string>
+    <string name="settings_appearance_title">Ausseha</string>
+    <string name="settings_display_title">App-Eistellonga</string>
+    <string name="settings_help_feedback_title">Hilfe &amp; Gschwätz</string>
+    <string name="settings_support_button">Em Entwickler schreiba</string>
+    <string name="settings_rate_app">⭐ App bewerta ⭐</string>
+    <string name="settings_start_onboarding">🎓 App-Aagugga</string>
+
+    <string name="onboarding_skip">Sausen lassa</string>
+    <string name="onboarding_next">Weida</string>
+    <string name="onboarding_done">Uff geht\'s</string>
+    <string name="onboarding_slide0_title">Dei Morga als Team.</string>
+    <string name="onboarding_slide0_body">Schluss mit dem Kladderadatsch. Der Familienwegger plant euren Morga so schä, dass jeder Zeit fürs Gschäft hot.</string>
+    <string name="onboarding_slide1_title">Älles em Blick</string>
+    <string name="onboarding_slide1_body">Koin Stau am Morga. FamWake zeigt jedem, wenn er oder sie drah isch.</string>
+    <string name="onboarding_slide2_title">Dei Familie</string>
+    <string name="onboarding_slide2_body">Dei Leut em Boot. Verbind dei Familie mid em Tippa ond plant euren Morga zämma.</string>
+    <string name="onboarding_slide3_title">Dei Zeitplan</string>
+    <string name="onboarding_slide3_body">Koi Gedrängel em Bad. Mir rechnat des fei aus für Dusche, Frühstück ond\'s Schaffa gau.</string>
+    <string name="onboarding_slide4_title">Grichtet!</string>
+    <string name="onboarding_slide4_body">Dr Morga ko komma! Lehn di zrugg – unser Gerätle macht den Rest für d\'ganz Familie.</string>
+    <string name="settings_feedback_button">Gschwätz hinterlassa / Fehler melda</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_intro">Hilf ons, die App no besser zom macha! Was drückt di?</string>
+    <string name="feedback_category_label">Zort</string>
+    <string name="feedback_category_bug">Fehler gfonda</string>
+    <string name="feedback_category_feature">Idee ghäbet</string>
+    <string name="feedback_category_praise">Lob &amp; Gschimpf</string>
+    <string name="feedback_category_other">Sonschdigs</string>
+    <string name="feedback_message_label">Sächle</string>
+    <string name="feedback_message_placeholder">Was gibts zom saga…</string>
+    <string name="feedback_email_label">E-Mail (optional)</string>
+    <string name="feedback_email_placeholder">Dei E-Mail (falls mr antworta dürfa)</string>
+    <string name="feedback_auto_info_title">Wird oifach midgschickt:</string>
+    <string name="feedback_auto_version">App-Version: v%1$s</string>
+    <string name="feedback_auto_device">Grät: %1$s</string>
+    <string name="feedback_cancel">Abbrecha</string>
+    <string name="feedback_send">Zeug rausschicken</string>
+    <string name="feedback_success">Dangge! Dei Gschwätz is aakomma ond hilft ons sackrisch.</string>
+    <string name="feedback_success_title">Feedback fort</string>
+    <string name="feedback_success_message">Dangge für d\'Mühe! Es hilft ons, FamWake für älle besser zom macha.</string>
+    <string name="settings_terms_of_use">Nutzongsbedingonga</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms.html</string>
+    <string name="settings_privacy_policy">Dateschutzerklärung</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy.html</string>
+    <string name="settings_imprint">Impressum</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion.html</string>
+
+    <string name="registration_disclaimer">Mit em Registriera bisch mit de %1$s ond de %2$s ei\'verstanda.</string>
+    <string name="registration_terms_of_use">Nutzongsbedingonga</string>
+    <string name="registration_privacy_policy">Dateschutzerklärung</string>
+    <string name="settings_already_claimed">Scho verknüpft gwe</string>
+    <string name="settings_theme_light">Hell</string>
+    <string name="settings_theme_dark">Donkel</string>
+
+    <string name="ringing_wake_up">Uffwacha, %1$s!</string>
+    <string-array name="ringing_messages">
+        <item>S\'Bädle ghert jetzt ganz alloim dir!</item>
+        <item>Koi Gschrei, koin Stress – dei Zeit fängt aa.</item>
+        <item>Gnieß d\'Ruha em Bad, solangs goht!</item>
+        <item>Zeit für a Käffle. S\'goht naus!</item>
+        <item>Gud gschlafa? Dei Plan für heit basst.</item>
+        <item>Grichtet für da Dåg? Älles isch schwätzt gwe.</item>
+        <item>Uff gehts, Dåg rocka! Badzeit fängt aa.</item>
+        <item>Wach uff ond dräh uff – d\'Bühne isch dei!</item>
+        <item>Heavy Metal am Morga verdreibt Kummer ond Sorga!</item>
+        <item>Dei Zeit isch komma. S\'goht los!</item>
+        <item>Bisch grichtet? S\'Team wartet uff di.</item>
+    </string-array>
+    <string name="ringing_stop">Wegger halta</string>
+    <string name="ringing_snooze">No a bissle schlafa (5 Min)</string>
+    <string name="pause_today_desc">Heut langts</string>
+    <string name="awake_today_desc">Scho wach gwe</string>
+    <string name="awake_active_desc">Scho wach gwe</string>
+
+    <string name="error_load_members">Fähler beim Lada</string>
+    <string name="error_create_family">Fähler beim Macha vo de Familie: %1$s</string>
+    <string name="error_create_family_rate_limit">Du hosch in de letschte Stond scho 3 Familie gmacht. Mach a Stündle Pause.</string>
+    <string name="error_join_family_rate_limit">Z\'oft probiert. Bitte kurz warta ond nomal guga.</string>
+    <string name="error_invalid_code">Der Code basst net: %1$s</string>
+    <string name="error_family_not_found">Do drunter gabs koi Familie net.</string>
+    <string name="error_code_generation_failed">Hots koin Code gäba kenna. Probier\'s nomal.</string>
+    <string name="join_conflict_title">Neuer Familie dezu?</string>
+    <string name="join_conflict_text">Du bisch scho in \"%1$s\". Zerscht musch raus do. Woisch \"%1$s\" verlassa ond mit Code %2$s nei?</string>
+    <string name="join_conflict_confirm">Naus &amp; Nei</string>
+    <string name="error_delete_member">Konnt\'s net lescha: %1$s</string>
+    <string name="error_sync_failed">S\'hot net naabrocht</string>
+    <string name="error_delete_family">Fähler beim Lescha: %1$s</string>
+    <string name="error_calculate_schedule">Fähler beim Rechna: %1$s</string>
+    <string name="error_not_logged_in">Bisch net aagmeldet</string>
+    <string name="error_system">Des System spinnt</string>
+    <string name="error_invalid_credentials">E-Mail oder Password isch falsch. Guck nomal.</string>
+    <string name="error_login_failed">Hot net basst beim Neikomma</string>
+    <string name="error_login_failed_unknown">Oibekannter Fähler beim Neikomma</string>
+    <string name="error_registration_failed">Registriera hot net klappt</string>
+    <string name="error_registration_failed_unknown">Hot d\'Person net aalege kenna</string>
+    <string name="error_unknown">Ein oibekannter Fähler. Probier\'s nomal, gell.</string>
+    <string name="error_google_sign_in_failed_unknown">Google hot net gwellt</string>
+    <string name="error_empty_email">Bitte schreib dei E-Mail nei.</string>
+    <string name="error_invalid_email">E-Mail basst so net.</string>
+    <string name="error_user_not_found">Koi Konto zu der E-Mail do.</string>
+    <string name="error_too_many_requests">Bisch z\'schnell. Wart a bissle.</string>
+    <string name="error_password_reset_failed">Password-Reset hot net wella. Schau noher nomal.</string>
+    <string name="error_profile_taken">Des isch scho bsetzt.</string>
+    <string name="error_profile_claim_offline">Kois Internet do fürs Profil-Ziga.</string>
+    <string name="error_delete_not_admin">Bloß der, der\'s gmacht hot, derf\'s lescha.</string>
+
+    <string name="alarm_default_member">Familienmensch</string>
+    <string name="alarm_notification_title">Dr Familienwegger bimmelt</string>
+    <string name="alarm_notification_text">Guada Morga, %1$s!</string>
+    <string name="alarm_channel_name">Wegger</string>
+
+    <string name="settings_fallback_username">Elternoel</string>
+
+    <string name="error_alarm_permission">Bitte geb in de Eistellonga d\'Erlaubnis, damit s\'pünktlich klingla ko.</string>
+
+    <string name="permission_fullscreen_title">Erlaubnis nötig</string>
+    <string name="permission_fullscreen_message">Dr Wegger muass de uffm Sperrbildschirm zeiga dürfa. Bittschön eistella.</string>
+    <string name="permission_fullscreen_open">Eistellonga aagugga</string>
+
+    <string name="schedule_message_optimal">Guck, des isch dr Plan:</string>
+    <string name="schedule_message_no_members">Koe Leut aktiv. Älle im Bett.</string>
+    <string name="schedule_message_no_valid">So wird des nix, des überschneidet sich z\'arg.</string>
+    <string name="schedule_message_no_valid_desc">Tipp: Mach s\'Fenschderle greßer, Bad-Zeit kürzer oder lass oin sausen.</string>
+    <string name="schedule_message_time_adjusted">Zeita om %1$d Min verschoba, demit s\'basst.</string>
+    <string name="schedule_message_breakfast_reduced">Frühstück om %1$d Min kürzer, na basst\'s nei.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Frühstück &#x2212;%1$d Min &amp; Zeita om %2$d Min gricht.</string>
+    <string name="schedule_message_member_conflict">S\'klemmt für %1$s: Zeita ganged iber\'nand.</string>
+    <string name="schedule_message_member_conflict_desc">Probiers mol anderstrum ader mach d\'Zeita andersch.</string>
+    <string name="main_fallback_alarm_active">⚠️ Fallback-Alarm drinne (%1$s). Bitte grichta!</string>
+
+    <string name="error_password_too_short">S\'Password muass midischtens 8 Zeiche ha.</string>
+    <string name="error_email_already_in_use">Die E-Mail hot scho ebber andersch gnomma.</string>
+    <string name="error_weak_password">Des isch z\'schwach. Nimm midischtens 8 Zeiche ond Sondrzeiche.</string>
+    <string name="login_verify_email_title">✉️ Gug in dei E-Mail</string>
+    <string name="login_verify_email_text">Mir hänn der was gschiggt an\n%1$s\nBitte druffklicka zum aamacha.</string>
+    <string name="login_verify_email_confirm">Hab\'s bestätiget ✓</string>
+    <string name="login_verify_email_resend">Nomal rausschicken</string>
+    <string name="login_verify_email_not_verified">No net bestätigt. Guck ins Postfach nei.</string>
+
+    <string name="tooltip_awake_button">Scho da? Tipp do, zom de Wegger wegmacha – dei Bad-Zeit bleibt resrviert.</string>
+    <string name="tooltip_drag_handle">Halt on zieh so a Ding, om d\'Reihafolg von hand zom richta. Der Apparat rechnet sofort neu.</string>
+    <string name="tooltip_wake_window">Gib a Fenschderle o. D\'App findt die beste Zeit dadrin.</string>
+    <string name="tooltip_bathroom">Plane des gscheid ei. Des Taktet da Morga für d\'ganze Bande.</string>
+    <string name="tooltip_invite_code">Gib den Code weida. So komscht älle in den gleicha Plan nei.</string>
+    <string name="tooltip_alarm_switch">Machs\'n aus, dann isch net bloß de Händy stumm – mr rechnat älles neu, damit die andere lenger pennen kennet.</string>
+    <string name="tooltip_weekdays">Plan d\'ganz Woch: Drück uff d\'Däg fürs Home-Office ond fürs Gschäft.</string>
+    <string name="settings_tooltips_title">Tipps &amp; Sächle</string>
+    <string name="settings_tooltips_label">Tipps aazeiga</string>
+    <string name="settings_tooltips_reset">Älle Tipps zruggsetza</string>
+    <string name="settings_support_title">Geb ons a bissle Hilf</string>
+    <string name="settings_support_desc">GFällt dr d\'App? Mir freuet ons über oin Zuschuss!</string>
+    <string name="settings_support_donate">Ebbes gäba</string>
+    <string name="settings_donate_success">Viela Dank drfür! ❤️</string>
+    <string name="settings_donate_error">Hoppsala, do isch was deneba ganga.</string>
+    <string name="settings_donate_loading">Läd d\'Sächle…</string>
+    <string name="settings_donate_no_offers">Nix zom kaufa do. Guck in RevenueCat nei.</string>
+    <string name="settings_donate_refresh">Nei lada</string>
+    <string name="settings_donate_purchase_loading">S\'wird grichtet…</string>
+    <string name="settings_donate_error_not_allowed">Des derfscht da net macha.</string>
+    <string name="settings_donate_error_store_problem">Google Play Store hot net gwellt.</string>
+    <string name="settings_donate_error_already_purchased">Des hosch scho kauft.</string>
+    <string name="settings_donate_error_invalid">Der Kauf war nix.</string>
+    <string name="settings_donate_error_generic">Oibekannter Fähler bim Geld gäba.</string>
+
+    <string name="error_permission_denied">Därfscht net nei</string>
+    <string name="error_offline">Kois Internet do</string>
+    <string name="error_report_failed">Bericht isch nent naus</string>
+    <string name="error_leave_failed">Famlie verlassa isch fählgschlaga</string>
+    <string name="error_revenuecat_not_configured">RevenueCat nix eigericht</string>
+    <string name="default_someone">Ebber</string>
+    <string name="error_label">Fähler</string>
+    <string name="offline_write_hint">Kois Netz. Wird gmacht, sobalds wieder goht.</string>
+    <string name="password_show">Password zeiga</string>
+    <string name="password_hide">Password verbaiga</string>
+    <string name="close_desc">Zuemacha</string>
 </resources>

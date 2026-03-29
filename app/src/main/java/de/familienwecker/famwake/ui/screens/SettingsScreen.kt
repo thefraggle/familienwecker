@@ -628,14 +628,17 @@ fun SettingsScreen(
                         onExpandedChange = { languageExpanded = !languageExpanded }
                     ) {
                         val languageLabel = when (currentLanguage) {
-                            "de" -> stringResource(R.string.settings_language_german)
-                            "fr" -> stringResource(R.string.settings_language_french)
-                            "es" -> stringResource(R.string.settings_language_spanish)
-                            "it" -> stringResource(R.string.settings_language_italian)
-                            "pl" -> stringResource(R.string.settings_language_polish)
-                            "nl" -> stringResource(R.string.settings_language_dutch)
-                            "pt" -> stringResource(R.string.settings_language_portuguese)
-                            else -> stringResource(R.string.settings_language_english)
+                            "de"  -> stringResource(R.string.settings_language_german)
+                            "es"  -> stringResource(R.string.settings_language_spanish)
+                            "fr"  -> stringResource(R.string.settings_language_french)
+                            "it"  -> stringResource(R.string.settings_language_italian)
+                            "nl"  -> stringResource(R.string.settings_language_dutch)
+                            "pl"  -> stringResource(R.string.settings_language_polish)
+                            "pt"  -> stringResource(R.string.settings_language_portuguese)
+                            "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
+                            "swg" -> stringResource(R.string.settings_language_schwaebisch)
+                            "ksh" -> stringResource(R.string.settings_language_ruhrpott)
+                            else  -> stringResource(R.string.settings_language_english)
                         }
                         
                         OutlinedTextField(
@@ -651,36 +654,49 @@ fun SettingsScreen(
                             onDismissRequest = { languageExpanded = false }
                         ) {
                             DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_english)) },
-                                onClick = { viewModel.setLanguage("en"); languageExpanded = false }
-                            )
-                            DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_german)) },
                                 onClick = { viewModel.setLanguage("de"); languageExpanded = false }
                             )
                             DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_french)) },
-                                onClick = { viewModel.setLanguage("fr"); languageExpanded = false }
+                                text = { Text(stringResource(R.string.settings_language_english)) },
+                                onClick = { viewModel.setLanguage("en"); languageExpanded = false }
                             )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_spanish)) },
                                 onClick = { viewModel.setLanguage("es"); languageExpanded = false }
                             )
                             DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_italian)) },
-                                onClick = { viewModel.setLanguage("it"); languageExpanded = false }
+                                text = { Text(stringResource(R.string.settings_language_french)) },
+                                onClick = { viewModel.setLanguage("fr"); languageExpanded = false }
                             )
                             DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_polish)) },
-                                onClick = { viewModel.setLanguage("pl"); languageExpanded = false }
+                                text = { Text(stringResource(R.string.settings_language_italian)) },
+                                onClick = { viewModel.setLanguage("it"); languageExpanded = false }
                             )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_dutch)) },
                                 onClick = { viewModel.setLanguage("nl"); languageExpanded = false }
                             )
                             DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_polish)) },
+                                onClick = { viewModel.setLanguage("pl"); languageExpanded = false }
+                            )
+                            DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_portuguese)) },
                                 onClick = { viewModel.setLanguage("pt"); languageExpanded = false }
+                            )
+                            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_ruhrpott)) },
+                                onClick = { viewModel.setLanguage("ksh"); languageExpanded = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_schwaebisch)) },
+                                onClick = { viewModel.setLanguage("swg"); languageExpanded = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_schweizerdeutsch)) },
+                                onClick = { viewModel.setLanguage("gsw"); languageExpanded = false }
                             )
                         }
                     }

@@ -4,6 +4,15 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.14 - 2026-03-29
+
+### New
+- **Dialect languages 🎉** – Because alarm clocks in standard German were always a bit too formal: Swabian (Schwäbsch), Swiss German (Schwiizerdütsch), and Ruhr Valley slang (Ruhrpott) are now available. Being woken up has never felt more like home. (Not an April Fools' joke.)
+- **Language picker:** Dialects are now visually separated at the bottom of the list – so the proper languages don't feel disrespected.
+
+### Improved
+- **Onboarding tour:** Users who pick a dialect language now see German screenshots instead of English ones – lederhosen over London.
+
 ## 1.6.13 - 2026-03-26
 
 ### Fixed

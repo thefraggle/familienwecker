@@ -133,6 +133,9 @@
     <string name="settings_language_polish">Polski</string>
     <string name="settings_language_dutch">Nederlands</string>
     <string name="settings_language_portuguese">Português</string>
+    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
+    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Apparence</string>
     <string name="settings_display_title">Paramètres de l\'app</string>
     <string name="settings_help_feedback_title">Aide &amp; Feedback</string>
