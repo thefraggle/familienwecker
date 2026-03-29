@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>979926159025-fvnvvgap5aop142p2vhubpm7bnq7ma3v.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.979926159025-fvnvvgap5aop142p2vhubpm7bnq7ma3v</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>979926159025-0a6ji5lcom9i0t98c7qamrdvd2o05914.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD1ytkHs4pfl9M6cdIubb7N_q9CvKiEvJs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>979926159025</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>de.familienwecker.FamWake</string>
+	<key>PROJECT_ID</key>
+	<string>familienwecker</string>
+	<key>STORAGE_BUCKET</key>
+	<string>familienwecker.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:979926159025:ios:117c5bfd01dd2d6765dc90</string>
+</dict>
+</plist>

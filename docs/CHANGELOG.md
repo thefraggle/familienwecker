@@ -4,6 +4,15 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.14 - 2026-03-29
+
+### Neu
+- **Dialektsprachen 🎉** – Weil Wecker klingeln auf Hochdeutsch schon immer irgendwie zu ernst klang: Ab sofort gibt's Schwäbsch, Schwiizerdütsch und Ruhrpott. Den Wecker wegdrücken fühlt sich damit gleich viel heimeliger an. (Kein Aprilscherz.)
+- **Sprachwahl:** Dialekte sind im Menü übersichtlich abgetrennt und immer am Ende der Sprachliste – damit die Großen Sprachen nicht beleidigt sind.
+
+### Verbessert
+- **Onboarding-Tour:** Wer die App auf Dialekt nutzt, sieht jetzt die deutschen Screenshots statt englischer – Hopfenblüte statt Big Ben.
+
 ## 1.6.13 - 2026-03-26
 
 ### Behoben

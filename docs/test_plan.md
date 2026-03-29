@@ -1,6 +1,6 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.13
-**Datum:** 2026-03-26
+**Version:** 1.6.14
+**Datum:** 2026-03-29
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
@@ -204,6 +204,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-107| **Family Creation (Non-Admin)** | Als normaler User (kein Global Admin) eine Familie gründen. | Funktioniert ohne `PERMISSION_DENIED` direkt nach dem Redirect zum Dashboard. |
 | TC-108| **KMP Einstellungen Persistenz** | App neu starten nach Änderung von Einstellungen (Sprache, Theme). | Einstellungen bleiben erhalten; kein Datenverlust durch neue KMP-Architektur. |
 | TC-109| **Firestore Rules: Member-Schutz** | Versuch, `name` oder `claimedByUserId` eines anderen Mitglieds direkt zu ändern. | Firestore lehnt Write ab (PERMISSION_DENIED); nur `isAwakeToday` und `isPaused` sind für alle Familienmitglieder beschreibbar. |
+| TC-110| **Dialektsprachen (Picker + Onboarding)** | Sprache auf Schwäbsch, Schwiizerdütsch oder Ruhrpott umstellen. | Dialekte erscheinen unterhalb des Trenners; App-Sprache wechselt; Onboarding zeigt deutsche Screenshots. |
 
 ---
 
