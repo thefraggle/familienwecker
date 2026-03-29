@@ -21,6 +21,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -144,9 +145,14 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
 
     val currentLanguage by familyViewModel.language.collectAsStateWithLifecycle()
 
+    // Beim ersten Compose-Aufbau synchron setzen (verhindert Race Condition)
+    val initialLanguage = remember { familyViewModel.language.value }
+    LaunchedEffect(Unit) {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(initialLanguage))
+    }
+    // Reaktiv bei Änderung
     LaunchedEffect(currentLanguage) {
-        val localeList = LocaleListCompat.forLanguageTags(currentLanguage)
-        AppCompatDelegate.setApplicationLocales(localeList)
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(currentLanguage))
     }
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
