@@ -4,6 +4,11 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.15 - 2026-03-31
+
+### Fixed
+- **Display:** Optimized edge-to-edge display for Android 15 and resolved warnings.
+
 ## 1.6.14 - 2026-03-29
 
 ### New
