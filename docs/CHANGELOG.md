@@ -4,6 +4,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.15 - 2026-03-31
+
+### Behoben
+- **Darstellung:** Randlose Anzeige (Edge-to-Edge) für Android 15 optimiert und Warnungen behoben.
+
 ## 1.6.14 - 2026-03-29
 
 ### Neu
