@@ -6,8 +6,11 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## 1.6.15 - 2026-03-31
 
+### New
+- **Reliable alarms:** If your smartphone accidentally revokes FamWakes alarm permissions, a big red warning tile will instantly pop up on the home screen. That way you will never unexpectedly sleep through an alarm again! (Available right away in all 11 languages).
+
 ### Fixed
-- **Display:** Optimized edge-to-edge display for Android 15 and resolved warnings.
+- **Display:** Optimized edge-to-edge display for the latest Android devices.
 
 ## 1.6.14 - 2026-03-29
 

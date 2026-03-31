@@ -312,4 +312,10 @@
     <string name="password_show">Wachtwoord tonen</string>
     <string name="password_hide">Wachtwoord verbergen</string>
     <string name="close_desc">Sluiten</string>
+
+    <!-- Android 14 Exact Alarm Permissions -->
+    <string name="settings_exact_alarm_warning_title">Wekkerrechten ontbreken</string>
+    <string name="settings_exact_alarm_warning_text">De wekker kan niet afgaan op dit apparaat. Geef FamWake toestemming om exacte wekkers in te stellen.</string>
+    <string name="settings_exact_alarm_warning_button">Wekkers toestaan</string>
+    <string name="main_exact_alarm_banner">⚠️ Wekker geblokkeerd! Geef toestemming in de instellingen zodat je wekker op tijd afgaat.</string>
 </resources>

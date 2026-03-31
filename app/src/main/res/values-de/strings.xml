@@ -312,4 +312,10 @@
     <string name="password_show">Passwort anzeigen</string>
     <string name="password_hide">Passwort verstecken</string>
     <string name="close_desc">Schließen</string>
+
+    <!-- Android 14 Exact Alarm Permissions -->
+    <string name="settings_exact_alarm_warning_title">Wecker-Berechtigung fehlt</string>
+    <string name="settings_exact_alarm_warning_text">Android verhindert das genaue Klingeln des Weckers. Bitte erlaube FamWake die Nutzung von Weckern &amp; Erinnerungen.</string>
+    <string name="settings_exact_alarm_warning_button">Wecker erlauben</string>
+    <string name="main_exact_alarm_banner">⚠️ Wecker darf nicht klingeln! Bitte Berechtigung in den Einstellungen erteilen.</string>
 </resources>

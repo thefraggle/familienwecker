@@ -312,4 +312,10 @@
     <string name="password_show">Afficher le mot de passe</string>
     <string name="password_hide">Masquer le mot de passe</string>
     <string name="close_desc">Fermer</string>
+
+    <!-- Android 14 Exact Alarm Permissions -->
+    <string name="settings_exact_alarm_warning_title">Permission d\'alarme manquante</string>
+    <string name="settings_exact_alarm_warning_text">L\'alarme ne peut pas sonner sur cet appareil. Veuillez autoriser FamWake à programmer des alarmes exactes.</string>
+    <string name="settings_exact_alarm_warning_button">Autoriser les alarmes</string>
+    <string name="main_exact_alarm_banner">⚠️ Alarme bloquée ! Veuillez accorder la permission dans les paramètres pour que l\'alarme sonne à l\'heure.</string>
 </resources>

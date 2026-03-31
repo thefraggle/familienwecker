@@ -95,6 +95,16 @@ fun MainScreen(
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
 
+    val isExactAlarmPermitted = remember { mutableStateOf(de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)) }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                isExactAlarmPermitted.value = de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
 
     LaunchedEffect(familyId, isSyncing) {
         // Guard: onLeaveFamily nur wenn familyId null UND kein aktiver Sync läuft.
@@ -249,6 +259,38 @@ fun MainScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 
+                // Exakter Alarm Warnung (Android 14)
+                item {
+                    val hasActiveSchedule = members.any { !it.isPaused }
+                    if (!isExactAlarmPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null) {
+                        val cardColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.8f) else MaterialTheme.colorScheme.errorContainer
+                        val textColor = MaterialTheme.colorScheme.onErrorContainer
+                        
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) },
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
+                            colors = CardDefaults.cardColors(containerColor = cardColor)
+                        ) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(Icons.Default.Warning, contentDescription = null, tint = textColor, modifier = Modifier.size(20.dp))
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = stringResource(R.string.main_exact_alarm_banner),
+                                        fontWeight = FontWeight.Bold,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = textColor
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 // Fehlermeldung (falls vorhanden)
                 item {
                     errorMessage?.let { error ->
@@ -275,7 +317,7 @@ fun MainScreen(
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Row {
                                     if (isJoinError) {
-                                        TextButton(onClick = { viewModel.clearErrorMessage() }) {
+                                        TextButton(onClick = { viewModel.clearError() }) {
                                             Text(stringResource(R.string.cancel_button))
                                         }
                                     } else {

@@ -93,6 +93,7 @@ fun SettingsScreen(
     val offerings by donationViewModel.offerings.collectAsStateWithLifecycle()
     val purchaseState by donationViewModel.purchaseState.collectAsStateWithLifecycle()
     val isBatteryOptimized = remember { mutableStateOf(!BatteryUtils.isBatteryOptimizationIgnored(context)) }
+    val isExactAlarmPermitted = remember { mutableStateOf(de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -339,12 +340,13 @@ fun SettingsScreen(
                 }
             }
 
-            // Akku-Optimierungs-Warnung
+            // Akku-Optimierungs-Warnung und Exakter Alarm
             val lifecycleOwnerSettings = LocalLifecycleOwner.current
             DisposableEffect(lifecycleOwnerSettings) {
                 val observer = LifecycleEventObserver { _, event ->
                     if (event == Lifecycle.Event.ON_RESUME) {
                         isBatteryOptimized.value = !BatteryUtils.isBatteryOptimizationIgnored(context)
+                        isExactAlarmPermitted.value = de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)
                     }
                 }
                 lifecycleOwnerSettings.lifecycle.addObserver(observer)
@@ -388,6 +390,48 @@ fun SettingsScreen(
                             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                         ) {
                             Text(stringResource(R.string.settings_battery_warning_button))
+                        }
+                    }
+                }
+            }
+
+            if (!isExactAlarmPermitted.value) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                         else MaterialTheme.colorScheme.surface
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.error)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(R.string.settings_exact_alarm_warning_title),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            stringResource(R.string.settings_exact_alarm_warning_text),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        val alarmInteractionSource = remember { MutableInteractionSource() }
+                        Button(
+                            onClick = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) },
+                            modifier = Modifier.fillMaxWidth().bounceClick(alarmInteractionSource),
+                            interactionSource = alarmInteractionSource,
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                        ) {
+                            Text(stringResource(R.string.settings_exact_alarm_warning_button))
                         }
                     }
                 }

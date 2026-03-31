@@ -123,6 +123,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | EC-01 | **Impossible Plan** | Everyone wants the bathroom at the same time. | App shows a conflict warning and compromise suggestions. |
 | EC-02 | **Extreme Bathroom Duration** | Member with 120 min. | Plan shifts others significantly; warning shown if applicable. |
 | EC-03 | **Short Time Windows** | Wake 7:00, leave 7:05. | App warns about the tight time window. |
+| EC-04 | **Permission Loss (Android 14+)** | User manually revokes Exact Alarm rights via `Settings -> Apps`. | Huge red warning tile appears on the MainScreen and Settings to restore permissions with a single click. |
 
 ### 2. Technical Edge Cases
 | ID | Test Case | Expected Result |

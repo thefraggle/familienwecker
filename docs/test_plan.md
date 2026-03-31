@@ -138,6 +138,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | EC-01 | **Unmöglicher Plan** | Alle wollen gleichzeitig ins Bad. | App zeigt Konflikt-Warnung und Kompromissvorschläge. |
 | EC-02 | **Extreme Bad-Dauer** | Mitglied mit 120 Min. | Plan verschiebt andere massiv; ggf. Warnung. |
 | EC-03 | **Kurze Zeitfenster** | Wecken 7:00, Abfahrt 7:05. | App warnt vor zu knappem Zeitfenster. |
+| EC-04 | **Berechtigungsentzug (Android 14+)** | Nutzer entzieht manuell die Wecker-Rechte in `Einstellungen -> Apps`. | Große rote Fehler-Kachel erscheint dominant auf dem MainScreen und Settings-Screen und führt per Klick zur Reparatur zurück. |
 
 ### 2. Technische Grenzfälle
 | ID | Testfall | Erwartetes Ergebnis |

@@ -312,4 +312,10 @@
     <string name="password_show">Zeig ma Passwort</string>
     <string name="password_hide">Passwort wech</string>
     <string name="close_desc">Zumachen</string>
+
+    <!-- Android 14 Exact Alarm Permissions -->
+    <string name="settings_exact_alarm_warning_title">Wecker-Rechte fählen</string>
+    <string name="settings_exact_alarm_warning_text">Dat Android blockiert d\'n Wecker. Bitte erlaub dem FamWake et exakte Bimmeln in de Einstellunge.</string>
+    <string name="settings_exact_alarm_warning_button">Wecker erlaube</string>
+    <string name="main_exact_alarm_banner">⚠️ Wecker darf nit bimmeln! Bitte gib uns d\'n Segen in de Einstellungen, ne.</string>
 </resources>
