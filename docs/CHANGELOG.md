@@ -6,8 +6,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ## 1.6.15 - 2026-03-31
 
+### Neu
+- **Sicher klingeln:** Wenn das Smartphone FamWake versehentlich die Rechte entzieht, warnt dich jetzt sofort eine große rote Kachel auf dem Startbildschirm. So gibt's morgens keine ungewollten Überraschungen mehr! (Direkt in allen 11 Sprachen für euch verfügbar).
+
 ### Behoben
-- **Darstellung:** Randlose Anzeige (Edge-to-Edge) für Android 15 optimiert und Warnungen behoben.
+- **Darstellung:** Randlose Anzeige (Edge-to-Edge) für neueste Android-Versionen optimiert.
 
 ## 1.6.14 - 2026-03-29
 
