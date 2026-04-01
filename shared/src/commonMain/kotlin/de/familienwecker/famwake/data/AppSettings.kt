@@ -104,7 +104,7 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         if (name == null) settings.remove("FAMILY_NAME") else settings["FAMILY_NAME"] = name
     }
 
-    private val _language = MutableStateFlow(settings.getString("APP_LANGUAGE", "de"))
+    private val _language = MutableStateFlow(settings.getString("APP_LANGUAGE", "system"))
     override val language = _language.asStateFlow()
 
     override fun setLanguage(lang: String) {
