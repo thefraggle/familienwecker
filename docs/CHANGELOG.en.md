@@ -4,6 +4,11 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.16 - 2026-04-01
+
+### Fixed
+- **Language Selection:** Fixed a fallback issue where unsupported device languages (e.g. Turkish) incorrectly defaulted to German instead of English.
+
 ## 1.6.15 - 2026-03-31
 
 ### New

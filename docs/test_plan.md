@@ -1,6 +1,6 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.15
-**Datum:** 2026-03-31
+**Version:** 1.6.16
+**Datum:** 2026-04-01
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
@@ -206,6 +206,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-108| **KMP Einstellungen Persistenz** | App neu starten nach Änderung von Einstellungen (Sprache, Theme). | Einstellungen bleiben erhalten; kein Datenverlust durch neue KMP-Architektur. |
 | TC-109| **Firestore Rules: Member-Schutz** | Versuch, `name` oder `claimedByUserId` eines anderen Mitglieds direkt zu ändern. | Firestore lehnt Write ab (PERMISSION_DENIED); nur `isAwakeToday` und `isPaused` sind für alle Familienmitglieder beschreibbar. |
 | TC-110| **Dialektsprachen (Picker + Onboarding)** | Sprache auf Schwäbsch, Schwiizerdütsch oder Ruhrpott umstellen. | Dialekte erscheinen unterhalb des Trenners; App-Sprache wechselt; Onboarding zeigt deutsche Screenshots. |
+| TC-111| **Natürlicher Sprach-Fallback** | Gerätesprache auf Türkisch (oder eine andere nicht-unterstützte Sprache) stellen. | App startet auf Englisch (Standardressourcen) und nicht fälschlicherweise auf Deutsch. |
 
 ---
 

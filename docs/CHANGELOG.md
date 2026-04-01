@@ -4,6 +4,11 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.16 - 2026-04-01
+
+### Behoben
+- **Sprachauswahl:** Fallback-Fehler behoben, durch den auf Geräten in nicht unterstützten Sprachen (z.B. Türkisch) fälschlicherweise Deutsch statt Englisch forciert wurde.
+
 ## 1.6.15 - 2026-03-31
 
 ### Neu

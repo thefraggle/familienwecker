@@ -1,6 +1,6 @@
 # 🧪# Test Plan: FamWake
-**Version:** 1.6.15  
-**Date:** 2026-03-31  
+**Version:** 1.6.16  
+**Date:** 2026-04-01  
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
 *[🇩🇪 Deutsche Version](test_plan.md)*
@@ -202,6 +202,7 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-107| **Family Creation (Non-Admin)** | Create a family as a regular user (non-global admin). | Success without `PERMISSION_DENIED` errors upon redirect to the dashboard. |
 | TC-108| **KMP Settings Persistence** | Restart app after changing settings (language, theme). | Settings are preserved; no data loss due to the new KMP architecture. |
 | TC-109| **Firestore Rules: Member Protection** | Attempt to change `name` or `claimedByUserId` of another member directly. | Firestore rejects write (PERMISSION_DENIED); only `isAwakeToday` and `isPaused` are writable by all family members. |
+| TC-111| **Natural Language Fallback** | Set the device language to Turkish (or any other unsupported language). | The app launches in English (default resources) instead of incorrectly forcing German. |
 
 ---
 
