@@ -143,14 +143,13 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
 
     val currentLanguage by familyViewModel.language.collectAsStateWithLifecycle()
 
-    // Beim ersten Compose-Aufbau synchron setzen (verhindert Race Condition)
-    val initialLanguage = remember { familyViewModel.language.value }
-    LaunchedEffect(Unit) {
-        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(initialLanguage))
-    }
-    // Reaktiv bei Änderung
+    // Beim ersten Compose-Aufbau sowie bei Änderung reagieren
     LaunchedEffect(currentLanguage) {
-        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(currentLanguage))
+        if (currentLanguage == "system" || currentLanguage.isEmpty()) {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+        } else {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(currentLanguage))
+        }
     }
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->

@@ -682,6 +682,7 @@ fun SettingsScreen(
                             "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
                             "swg" -> stringResource(R.string.settings_language_schwaebisch)
                             "ksh" -> stringResource(R.string.settings_language_ruhrpott)
+                            "system" -> stringResource(R.string.settings_language_system)
                             else  -> stringResource(R.string.settings_language_english)
                         }
                         
@@ -697,6 +698,10 @@ fun SettingsScreen(
                             expanded = languageExpanded,
                             onDismissRequest = { languageExpanded = false }
                         ) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_system)) },
+                                onClick = { viewModel.setLanguage("system"); languageExpanded = false }
+                            )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_german)) },
                                 onClick = { viewModel.setLanguage("de"); languageExpanded = false }
