@@ -19,7 +19,8 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val defaultMemberName = context.getString(R.string.alarm_default_member)
         val memberName = intent.getStringExtra("MEMBER_NAME") ?: defaultMemberName
-        val memberId = intent.getStringExtra("MEMBER_ID") ?: memberName
+        // Fallback to UUID to prevent hash collisions when using memberName as ID
+        val memberId = intent.getStringExtra("MEMBER_ID") ?: java.util.UUID.randomUUID().toString()
 
         val soundUriString = intent.getStringExtra("SOUND_URI")
         val soundUri = soundUriString?.let { it.toUri() }

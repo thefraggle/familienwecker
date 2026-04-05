@@ -53,7 +53,12 @@ object AlarmBackupPrefs {
     /** Wird von AlarmScheduler.cancelWakeUp() aufgerufen. */
     fun clear(context: Context, memberId: String) {
         if (getMemberId(context) == memberId) {
+            // Remove all keys – not just the flag – to prevent stale data from being reactivated
             prefs(context).edit().apply {
+                remove(KEY_MEMBER_ID)
+                remove(KEY_MEMBER_NAME)
+                remove(KEY_SOUND_URI)
+                remove(KEY_WAKE_MILLIS)
                 putBoolean(KEY_ENABLED, false)
                 apply()
             }
