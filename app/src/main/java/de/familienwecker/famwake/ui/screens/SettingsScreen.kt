@@ -679,6 +679,7 @@ fun SettingsScreen(
                             "nl"  -> stringResource(R.string.settings_language_dutch)
                             "pl"  -> stringResource(R.string.settings_language_polish)
                             "pt"  -> stringResource(R.string.settings_language_portuguese)
+                            "sv"  -> stringResource(R.string.settings_language_swedish)
                             "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
                             "swg" -> stringResource(R.string.settings_language_schwaebisch)
                             "ksh" -> stringResource(R.string.settings_language_ruhrpott)
@@ -733,6 +734,10 @@ fun SettingsScreen(
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_language_portuguese)) },
                                 onClick = { viewModel.setLanguage("pt"); languageExpanded = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_language_swedish)) },
+                                onClick = { viewModel.setLanguage("sv"); languageExpanded = false }
                             )
                             HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
                             DropdownMenuItem(
