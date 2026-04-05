@@ -162,6 +162,8 @@ fun FamilyViewModel.leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
             onComplete(false)
         } finally {
             _isSyncing.value = false
+            // Ensure loader is always reset – even on unexpected exceptions
+            _isJoiningFamily.value = false
         }
     }
 }
@@ -175,6 +177,13 @@ fun FamilyViewModel.leaveFamily(onComplete: (Boolean) -> Unit = {}) {
     cancelAlarmForCurrentUser()
     scope.launch {
         _isSyncing.value = true
+        // Leaving requires a Cloud Function call – not possible while offline
+        if (isOffline.value) {
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
+            _isSyncing.value = false
+            onComplete(false)
+            return@launch
+        }
         try {
             val result = if (currentFamilyId != null && currentMemberId != null) {
                 repository.leaveFamilyBatch(uid, currentFamilyId, currentMemberId)

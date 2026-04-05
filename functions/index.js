@@ -944,9 +944,15 @@ exports.leaveFamily = onCall(
     if (familyData.createdByUserId === uid) {
       const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== (memberId || uid));
       if (otherMembers.length > 0) {
-        const newCreatorUid = otherMembers[0].id; // Assign first other member as new creator
-        await familyDocRef.update({ createdByUserId: newCreatorUid });
-        console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
+        // Use claimedByUserId (real Auth UID), NOT doc.id (which is the member doc ID, not a user UID)
+        const newCreatorDoc = otherMembers.find(doc => doc.data().claimedByUserId);
+        const newCreatorUid = newCreatorDoc ? newCreatorDoc.data().claimedByUserId : null;
+        if (newCreatorUid) {
+          await familyDocRef.update({ createdByUserId: newCreatorUid });
+          console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
+        } else {
+          console.log(`No claimed member found to reassign creator of family ${familyId}. Field stays stale.`);
+        }
       }
     }
 

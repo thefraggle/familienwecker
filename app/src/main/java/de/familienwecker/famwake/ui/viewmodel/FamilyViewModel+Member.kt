@@ -43,6 +43,12 @@ internal fun FamilyViewModel.addOrUpdateMemberDebounced(member: FamilyMember, on
         try {
             repository.addOrUpdateMember(currentFamilyId, member)
             onComplete?.invoke()
+        } catch (e: Exception) {
+            // Debounced write failed – surface error so the user knows the change wasn't saved
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FamilyViewModel", "addOrUpdateMemberDebounced failed for ${member.id}: ${e.message}")
+            }
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
         } finally {
             memberDebounceJobs.remove(member.id)
         }
