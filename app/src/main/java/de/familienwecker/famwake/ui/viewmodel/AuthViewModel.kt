@@ -185,7 +185,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _authState.value = AuthState.AwaitingEmailVerification
                 }
             }.onFailure { error ->
-                _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
+                _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
             }
         }
     }
@@ -210,7 +210,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
+                _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
             }
         }
     }
@@ -276,7 +276,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         _authState.value = AuthState.Authenticated(user)
                         restoreUserFamily(user.uid)
                     }.onFailure { error ->
-                        _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
+                        _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
                     }
                 } else {
                     _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed_unknown))
@@ -321,7 +321,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             result.onSuccess {
                 _authState.value = AuthState.PasswordResetSuccess
             }.onFailure { error ->
-                _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
+                _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
             }
         }
     }
@@ -357,7 +357,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             result.onSuccess {
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
-                _authState.value = AuthState.Error(appErrorFromException(error as Exception).toUiText())
+                _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
             }
         }
     }
