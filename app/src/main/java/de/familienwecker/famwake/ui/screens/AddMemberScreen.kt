@@ -69,6 +69,7 @@ fun AddMemberScreen(
     val tooltipBathroomSeen by viewModel.tooltipBathroomSeen.collectAsStateWithLifecycle()
     val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
+    val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
 
     // Wir nutzen memberId als stabilen Key, damit Background-Syncs von 'members'
     // nicht den Bearbeitungs-Zustand zurücksetzen (da remember(memberToEdit) bei jedem Firestore-Sync triggert).
@@ -242,8 +243,14 @@ fun AddMemberScreen(
                             wantsBreakfast = refProfile?.wantsBreakfast ?: true,
                             leaveHomeTime = refProfile?.leaveHomeTime,
                             isPaused = memberToEdit?.isPaused ?: false,
-                            claimedByUserId = memberToEdit?.claimedByUserId,
-                            claimedByUserName = memberToEdit?.claimedByUserName,
+                            // Sicherheitsnetz: Falls Room den Claim noch nicht hat (Stale-Cache),
+                            // aber memberId == myMemberId, nehmen wir die UID aus dem Auth-State.
+                            // Verhindert, dass beim Speichern claimedByUserId auf null überschrieben
+                            // wird und die Firestore Security Rule PERMISSION DENIED zurückgibt.
+                            claimedByUserId = memberToEdit?.claimedByUserId
+                                ?: if (memberId != null && memberId == myMemberId) viewModel.currentUserId else null,
+                            claimedByUserName = memberToEdit?.claimedByUserName
+                                ?: if (memberId != null && memberId == myMemberId) viewModel.auth.currentUser?.displayName else null,
                             createdAt = memberToEdit?.createdAt,
                             // sequenceOrder beibehalten – verhindert, dass ein Update die Reihenfolge zurücksetzt
                             sequenceOrder = memberToEdit?.sequenceOrder ?: 0,
