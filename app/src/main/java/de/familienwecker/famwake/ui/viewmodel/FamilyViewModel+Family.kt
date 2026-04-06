@@ -273,6 +273,12 @@ fun FamilyViewModel.refreshData() {
 }
 
 fun FamilyViewModel.triggerRefresh() {
+    // StateFlow mit datumsgebundenem Wach-Status synchronisieren.
+    // Nötig wenn der App-Prozess über Nacht im Hintergrund läuft:
+    // der Flow-Wert könnte noch "true" sein, obwohl das Datum gewechselt hat.
+    if (!appSettings.isAwakeTodayEffective()) {
+        appSettings.setAwakeToday(false)
+    }
     refreshData()
     triggerMemberReset()
     recalculateSchedule()
