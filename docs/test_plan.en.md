@@ -1,5 +1,5 @@
 # 🧪# Test Plan: FamWake
-**Version:** 1.6.17  
+**Version:** 1.6.18  
 **Date:** 2026-04-06  
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
@@ -208,6 +208,12 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-114| **Security: Member deletion ownership** | As a family member, attempt to delete another member's document (via leaveFamily with a foreign memberId). | Cloud Function throws `permission-denied`; the other profile remains untouched. |
 | TC-115| **Auto-claim first member** | Create a new member profile without having claimed any profile before. | Member is automatically claimed (`myMemberId` set, alarm enabled). The manual "This is me" step is not required. |
 | TC-116| **No stale schedule after family switch** | Create (or join) a new family directly after being in another one. | No member or schedule from the previous family appears briefly on the main screen. |
+| TC-117| **2nd family member: edit profile** | As the second user of the family, create a profile, wait for auto-claim, then edit and save it. | No sync error. Changes are saved and shown correctly on the member tile. |
+| TC-118| **2nd family member: tile status after auto-claim** | As the second user, create a first profile. | Tile correctly shows "alarm active" or "alarm inactive" after a brief moment. No permanent missing status badge. |
+| TC-119| **No-profile flash** | As the first user, create the first profile. | The "No profile selected" warning does **not** appear briefly after saving. |
+| TC-120| **No pause button on own profile** | View own (claimed) profile on the main screen. | No pause icon visible. |
+| TC-121| **Pause unclaimed profiles works** | Pause an unclaimed profile. | Profile is paused correctly; no permission or sync error. |
+| TC-122| **Password reset: unknown email** | Request password reset for an unregistered email address. | Always shows the same success message ("email sent"), regardless of whether the address is known. |
 
 ---
 
