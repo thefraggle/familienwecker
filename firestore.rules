@@ -67,8 +67,15 @@ service cloud.firestore {
             !request.resource.data.diff(resource.data).affectedKeys()
               .hasAny(['name', 'claimedByUserId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'])
             ||
+            // Besitzer darf sein eigenes Profil vollständig bearbeiten (name, dayProfiles, etc.).
+            // Erforderlich damit User 2 sein eigenes Member-Profil speichern kann.
+            (
+              resource.data.claimedByUserId == request.auth.uid &&
+              request.resource.data.claimedByUserId == request.auth.uid
+            )
+            ||
             // Claimen: Jedes Familienmitglied darf ein UNGECLAIMTES Profil auf sich selbst setzen.
-            // Umerzeigen (claim von A auf B) bleibt Admin-only.
+            // Umclaimen (claim von A auf B) bleibt Admin-only.
             (
               request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName']) &&
               resource.data.claimedByUserId == null &&
