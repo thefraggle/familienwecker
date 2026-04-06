@@ -8,11 +8,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ### Neu
 - **Schwedisch 🇸🇪** – FamWake spricht jetzt auch Schwedisch. Välkommen!
+- **Automatischer Profil-Claim:** Wer sein erstes Mitgliedsprofil anlegt, wird dabei automatisch damit verknüpft. Der manuelle Schritt „Dieses bin ich“ entfällt.
 
 ### Verbessert
 - **Sicherheit:** Deine Familiendaten sind noch besser geschützt – interne Zugriffsregeln wurden verschärft und bekämpfen potenzielle Missbrauchsszenarien.
 - **Sicherheit:** Das Feedback-Formular kann nur noch von angemeldeten Nutzern verwendet werden.
 - **Sicherheit:** Mitglieder können ausschließlich ihr eigenes Profil löschen, nicht das anderer.
+
+### Behoben
+- **Alte Weckdaten:** Nach dem Erstellen einer neuen Familie wurden kurzzeitig noch Mitglieder und Weckplan der vorherigen Familie angezeigt.
+- **Profil claimen:** Normale Familienmitglieder konnten ein freies Profil nicht beanspruchen (Sicherheitsregel war zu restriktiv).
+- **Firestore-Regeln:** Ein interner Typ-Fehler in den Zugriffsregeln konnte einzelne Schreiboperationen blockieren.
 
 ## 1.6.16 - 2026-04-01
 

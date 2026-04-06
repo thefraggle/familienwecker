@@ -210,6 +210,8 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-112| **Schwedische Lokalisation** | App-Sprache auf Schwedisch stellen. | UI-Texte werden korrekt auf Schwedisch angezeigt; kein Fallback auf Deutsch oder Englisch. |
 | TC-113| **Security: Feedback nur eingeloggt** | Feedback-Funktion ohne Anmeldung aufrufen (direkt via API). | Cloud Function wirft `unauthenticated`-Fehler; kein Eintrag in Firestore. |
 | TC-114| **Security: Member-Löschung Eigentumsschutz** | Als Familienmitglied versuchen, das Member-Dokument eines anderen zu löschen (via leaveFamily mit fremder memberId). | Cloud Function wirft `permission-denied`; fremdes Profil bleibt erhalten. |
+| TC-115| **Auto-Claim erster Member** | Neues Familienmitglied anlegen ohne vorher ein Profil geclaimt zu haben. | Member wird automatisch geclaimt (`myMemberId` gesetzt, Wecker aktiviert). Kein manueller "Das bin ich"-Schritt nötig. |
+| TC-116| **Kein Stale-Schedule nach Familienwechsel** | Neue Familie erstellen (oder beitreten) direkt nach einer anderen. | Kein Zeitplan oder Mitglied einer alten Familie erscheint kurzzeitig im Hauptscreen. |
 
 ---
 
