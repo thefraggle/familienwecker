@@ -4,6 +4,18 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.18 - 2026-04-06
+
+### Behoben
+- **Zweites Familienmitglied (Kritisch):** Wer als zweiter Nutzer einer Familie beittrat, ein Profil anlegte und dieses anschließend bearbeitete oder pausierte, sah die Fehlermeldung „Synchronisierung fehlgeschlagen – Familie verlassen". Das Profil verschwand kurzzeitig aus der Liste. Ursache war eine zu restriktive Firestore-Regel, die Profil-Aktualisierungen des eigenen geclaimten Members blockierte.
+- **Kachel-Anzeige nach Auto-Claim:** Nach dem automatischen Verknüpfen des ersten Profils wurde auf der Kachel nicht angezeigt, ob der Wecker aktiv oder inaktiv ist. Die Claim-Änderung wurde vom internen Daten-Filter herausgefiltert und nie ins lokale Speicher übernommen.
+- **Pausieren-Fehler:** Das Pausieren eines freien (ungeclaimten) Profils schlug mit einem Berechtigungsfehler fehl, weil intern unnötigerweise alle Profil-Felder (inkl. Name) mitgeschrieben wurden.
+- **Kein-Profil-Hinweis blinkt auf:** Nach dem Anlegen des ersten Eigenprofils erschien für ca. 2 Sekunden der Hinweis „Kein Profil ausgewählt", bevor die automatische Verknüpfung abgeschlossen war.
+- **Pausieren-Knopf beim eigenen Profil:** Am eigenen (fest verknüpften) Profil war fälschlicherweise ein Pausieren-Knopf sichtbar. Da man sich selbst nicht pausieren kann, wurde er entfernt.
+
+### Sicherheit
+- **Passwort-Reset:** Bei unbekannter E-Mail-Adresse erscheint jetzt immer dieselbe Erfolgsmeldung – unabhängig davon, ob die Adresse registriert ist. Verhindert, dass Angreifer durch Ausprobieren gültige Adressen ermitteln können (User Enumeration Attack).
+
 ## 1.6.17 - 2026-04-06
 
 ### Neu

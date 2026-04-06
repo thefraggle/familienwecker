@@ -1,5 +1,5 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.17
+**Version:** 1.6.18
 **Datum:** 2026-04-06
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -212,6 +212,12 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-114| **Security: Member-Löschung Eigentumsschutz** | Als Familienmitglied versuchen, das Member-Dokument eines anderen zu löschen (via leaveFamily mit fremder memberId). | Cloud Function wirft `permission-denied`; fremdes Profil bleibt erhalten. |
 | TC-115| **Auto-Claim erster Member** | Neues Familienmitglied anlegen ohne vorher ein Profil geclaimt zu haben. | Member wird automatisch geclaimt (`myMemberId` gesetzt, Wecker aktiviert). Kein manueller "Das bin ich"-Schritt nötig. |
 | TC-116| **Kein Stale-Schedule nach Familienwechsel** | Neue Familie erstellen (oder beitreten) direkt nach einer anderen. | Kein Zeitplan oder Mitglied einer alten Familie erscheint kurzzeitig im Hauptscreen. |
+| TC-117| **2. Familienmitglied: Profil bearbeiten** | Als zweiter Nutzer der Familie ein eigenes Profil anlegen, auto-claim abwarten, dann Profil bearbeiten und speichern. | Kein Sync-Fehler. Änderungen werden gespeichert und auf der Kachel angezeigt. |
+| TC-118| **2. Familienmitglied: Kachel-Anzeige nach Auto-Claim** | Als zweiter Nutzer erstes Profil anlegen. | Kachel zeigt nach kurzer Verzögerung korrekt „Wecker aktiv“ oder „Wecker inaktiv“. Kein dauerhaftes Fehlen des Status-Badges. |
+| TC-119| **Kein-Profil-Flash** | Als erster Nutzer erstes Profil anlegen. | Hinweis „Kein Profil ausgewählt“ erscheint nach dem Speichern **nicht mehr** kurzzeitig. |
+| TC-120| **Kein Pausieren-Knopf am eigenen Profil** | Eigenes (geclaimtes) Profil auf dem Hauptscreen ansehen. | Kein Pausieren-Symbol sichtbar. |
+| TC-121| **Pausieren freier Profile funktioniert** | Ein ungeclaimtes Profil pausieren. | Profil wird korrekt pausiert, kein Berechtigungs- oder Sync-Fehler. |
+| TC-122| **Passwort-Reset: unbekannte Mail** | Passwort-Reset für eine nicht registrierte E-Mail-Adresse anfordern. | Immer dieselbe Erfolgsmeldung („Mail verschickt“), unabhängig ob Adresse bekannt oder nicht. |
 
 ---
 
