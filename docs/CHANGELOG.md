@@ -4,163 +4,29 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.6.20 - 2026-04-06
-
-### Behoben
-- **Wecker klingelt nicht nach Deaktivieren + erneut Aktivieren (Kritisch):** Ein interner Duplikat-Guard merkte sich die zuletzt eingeplante Alarmzeit, setzte den Cache aber beim Deaktivieren nicht zurück. Beim erneuten Aktivieren erkannte der Wächter die identische Zeit als „bereits gesetzt" und übersprach den Alarm stillschweigend.
-- **„Ich bin wach"-Button dauerhaft inaktiv nach Profilneuanlage:** Der Button berechnete sein 2h-Aktivierungsfenster aus dem Fallback-Feld `earliestWakeUp` des Members, nicht aus dem tatsächlich nächsten aktiven Wochentagsprofil. Nach dem Löschen und Neuanlegen eines Mitgliedsprofils blieb der Button dauerhaft ausgegraut, obwohl ein aktives Profil vorhanden war.
-
-## 1.6.19 - 2026-04-06
-
-### Neu
-- **„Ich bin schon wach"-Zeitfenster:** Der Wach-Button ist jetzt erst 2 Stunden vor dem nächsten Wecker aktiv (außerhalb ausgegraut). Wer bereits „wach" ist, kann den Status jederzeit zurücksetzen.
-
-### Behoben
-- **Globaler Wecker nach App-Neustart deaktiviert (Kritisch):** Ein Race Condition beim Start sorgte dafür, dass der aktivierte Wecker nach einem Neustart fälschlich auf „Aus" zurückgesetzt wurde. (Leere Member-Liste während des Starts triggerte fälschlicherweise `setAlarmEnabled(false)`.)
-- **„Schon wach"-Status bleibt nach Tageswechsel erhalten:** Der lokale Wach-Status blieb auch am nächsten Tag sichtbar, wenn die App im Hintergrund lief. Der Status ist jetzt datumsgebunden und wird beim Öffnen der App korrekt zurückgesetzt.
-- **Sonnen-Icon nach Alarm-Toggle:** Das ☀️-Icon im Mitgliederprofil verschwand nach dem Aus- und Einschalten des globalen Weckers nicht zuverlässig. Reset erfolgt jetzt sofort in Room und Firestore.
-- **Login-Screen bei großer Schriftgröße:** Bei Systemschriftgröße 125 % oder 150 % war der Login-Button nicht erreichbar. Der Screen ist jetzt scrollbar und IME-bewusst.
-- **„Schon wach" wird auf neuen Claimer vererbt:** Beim Entclaimen wurde `isAwakeToday` in Firestore nicht zurückgesetzt – ein neuer Nutzer hätte den veralteten Status geerbt.
-
-## 1.6.18 - 2026-04-06
-
-### Behoben
-- **Zweites Familienmitglied (Kritisch):** Wer als zweiter Nutzer einer Familie beittrat, ein Profil anlegte und dieses anschließend bearbeitete oder pausierte, sah die Fehlermeldung „Synchronisierung fehlgeschlagen – Familie verlassen". Das Profil verschwand kurzzeitig aus der Liste. Ursache war eine zu restriktive Firestore-Regel, die Profil-Aktualisierungen des eigenen geclaimten Members blockierte.
-- **Kachel-Anzeige nach Auto-Claim:** Nach dem automatischen Verknüpfen des ersten Profils wurde auf der Kachel nicht angezeigt, ob der Wecker aktiv oder inaktiv ist. Die Claim-Änderung wurde vom internen Daten-Filter herausgefiltert und nie ins lokale Speicher übernommen.
-- **Pausieren-Fehler:** Das Pausieren eines freien (ungeclaimten) Profils schlug mit einem Berechtigungsfehler fehl, weil intern unnötigerweise alle Profil-Felder (inkl. Name) mitgeschrieben wurden.
-- **Kein-Profil-Hinweis blinkt auf:** Nach dem Anlegen des ersten Eigenprofils erschien für ca. 2 Sekunden der Hinweis „Kein Profil ausgewählt", bevor die automatische Verknüpfung abgeschlossen war.
-- **Pausieren-Knopf beim eigenen Profil:** Am eigenen (fest verknüpften) Profil war fälschlicherweise ein Pausieren-Knopf sichtbar. Da man sich selbst nicht pausieren kann, wurde er entfernt.
-
-### Sicherheit
-- **Passwort-Reset:** Bei unbekannter E-Mail-Adresse erscheint jetzt immer dieselbe Erfolgsmeldung – unabhängig davon, ob die Adresse registriert ist. Verhindert, dass Angreifer durch Ausprobieren gültige Adressen ermitteln können (User Enumeration Attack).
-
-## 1.6.17 - 2026-04-06
+## 1.7.0 - 2026-04-06
 
 ### Neu
 - **Schwedisch 🇸🇪** – FamWake spricht jetzt auch Schwedisch. Välkommen!
-- **Automatischer Profil-Claim:** Wer sein erstes Mitgliedsprofil anlegt, wird dabei automatisch damit verknüpft. Der manuelle Schritt „Dieses bin ich“ entfällt.
+- **Dialektsprachen 🎉** – Schwäbsch, Schwiizerdütsch und Ruhrpott. Wecker klingeln auf Heimatstimme. (Kein Aprilscherz.)
+- **Sicher klingeln** – Fehlt die Wecker-Berechtigung, erscheint eine große rote Kachel auf dem Hauptscreen – damit morgens keine ungewollten Überraschungen warten.
+- **Automatische Profilverknüpfung** – Beim Anlegen des ersten Mitgliedsprofils wirst du automatisch damit verbunden. Der manuelle "Das bin ich"-Schritt entfällt.
+
+### Behoben
+- **Wecker klingelt nach Aus/Ein wieder zuverlässig** – Ein interner Fehler sorgte dafür, dass der Wecker nach dem erneuten Einschalten stumm blieb.
+- **„Ich bin wach"-Button** – Der Button blieb nach dem Neuanlegen eines Profils fälschlicherweise dauerhaft ausgegraut.
+- **Stabilitäts- und Sync-Verbesserungen** – Diverse Fehler beim Start, Beitritt zu Familien, Synchronisation und Profilverwaltung behoben.
+- **2. Familienmitglied** – Wer als zweites Mitglied einer Familie beitrat, konnte sein Profil zeitweise nicht bearbeiten oder pausieren.
+- **Globaler Wecker nach Neustart** – Race Condition beim App-Start, die den aktiven Wecker fälschlich auf "Aus" setzte, wurde behoben.
+- **„Schon wach"-Status** – Blieb nach einem Tageswechsel erhalten; ist jetzt datumsgebunden und wird korrekt zurückgesetzt.
+- **Login-Screen bei großer Schrift** – Bei Systemschriftgröße 125 % oder 150 % war der Login-Button nicht erreichbar.
 
 ### Verbessert
-- **Sicherheit:** Deine Familiendaten sind noch besser geschützt – interne Zugriffsregeln wurden verschärft und bekämpfen potenzielle Missbrauchsszenarien.
-- **Sicherheit:** Das Feedback-Formular kann nur noch von angemeldeten Nutzern verwendet werden.
-- **Sicherheit:** Mitglieder können ausschließlich ihr eigenes Profil löschen, nicht das anderer.
+- **Sicherheit** – Zugriffsregeln verschärft, Feedback-Formular nur noch für eingeloggte Nutzer nutzbar, Passwort-Reset ohne Hinweis auf existierende Konten (Datenschutz).
+- **Wochentags-Planung** – Weckzeiten und Badezimmer-Dauer können pro Wochentag individuell eingestellt werden.
+- **Unterstützung für 11 Sprachen** – Vollständige Lokalisation für Portugiesisch, Polnisch und Niederländisch. Alle Systemsprachen werden korrekt erkannt.
 
-### Behoben
-- **Alte Weckdaten:** Nach dem Erstellen einer neuen Familie wurden kurzzeitig noch Mitglieder und Weckplan der vorherigen Familie angezeigt.
-- **Profil claimen:** Normale Familienmitglieder konnten ein freies Profil nicht beanspruchen (Sicherheitsregel war zu restriktiv).
-- **Firestore-Regeln:** Ein interner Typ-Fehler in den Zugriffsregeln konnte einzelne Schreiboperationen blockieren.
-
-## 1.6.16 - 2026-04-01
-
-### Behoben
-- **Sprachauswahl:** Fallback-Fehler behoben, durch den auf Geräten in nicht unterstützten Sprachen (z.B. Türkisch) fälschlicherweise Deutsch statt Englisch forciert wurde.
-
-## 1.6.15 - 2026-03-31
-
-### Neu
-- **Sicher klingeln:** Wenn das Smartphone FamWake versehentlich die Rechte entzieht, warnt dich jetzt sofort eine große rote Kachel auf dem Startbildschirm. So gibt's morgens keine ungewollten Überraschungen mehr! (Direkt in allen 11 Sprachen für euch verfügbar).
-
-### Behoben
-- **Darstellung:** Randlose Anzeige (Edge-to-Edge) für neueste Android-Versionen optimiert.
-
-## 1.6.14 - 2026-03-29
-
-### Neu
-- **Dialektsprachen 🎉** – Weil Wecker klingeln auf Hochdeutsch schon immer irgendwie zu ernst klang: Ab sofort gibt's Schwäbsch, Schwiizerdütsch und Ruhrpott. Den Wecker wegdrücken fühlt sich damit gleich viel heimeliger an. (Kein Aprilscherz.)
-- **Sprachwahl:** Dialekte sind im Menü übersichtlich abgetrennt und immer am Ende der Sprachliste – damit die Großen Sprachen nicht beleidigt sind.
-
-### Verbessert
-- **Onboarding-Tour:** Wer die App auf Dialekt nutzt, sieht jetzt die deutschen Screenshots statt englischer – Hopfenblüte statt Big Ben.
-
-## 1.6.13 - 2026-03-26
-
-### Behoben
-- **Sync-Anzeige:** Synchronisations-Icon blieb manchmal dauerhaft sichtbar – ist jetzt zuverlässig.
-- **App-Review-Erinnerung:** Erinnerung zum Bewerten der App erscheint jetzt korrekt erst nach 7 Tagen und nicht kurz nach dem Wecker.
-
-## 1.6.12 - 2026-03-26
-
-### Optimiert
-- **Stabilität:** Kleinere interne Korrekturen für einen zuverlässigeren Betrieb.
-- **Performance:** App startet schneller, weniger Ruckler beim Öffnen.
-
-## 1.6.11 - 2026-03-26
-
-### Optimiert
-- **Code-Qualität:** Interne Bereinigungen für mehr Stabilität und weniger unnötige Cloud-Zugriffe.
-- **Sicherheit:** Firestore-Regeln präzisiert – Mitgliederprofile sind jetzt besser vor unberechtigten Änderungen geschützt.
-
-## 1.6.10 - 2026-03-25
-
-### Optimiert
-- **Stabilität:** Interne Architektur grundlegend überarbeitet für bessere Zuverlässigkeit und Zukunftsfähigkeit (iOS-Vorbereitung).
-- **Datenverwaltung:** Schnellerer und robusterer Daten-Sync zwischen App und Cloud.
-- **Einstellungen:** Persönliche Einstellungen werden sicherer und zuverlässiger gespeichert.
-
-## 1.6.7 - 2026-03-25
-
-### Neu
-- **Datenverlust-Schutz:** Bestätigungsdialog bei ungespeicherten Änderungen im Edit-Screen hinzugefügt (8 Sprachen).
-- **UI-Reinigung:** Zeitanzeigen in der gesamten App werden nun einheitlich auf `HH:mm` formatiert (Sekunden/Millisekunden entfernt).
-
-### Behoben
-- **State-Stabilität:** Fehler behoben, bei dem der Edit-Screen seinen Zustand bei Hintergrund-Synchronisierungen verlor.
-
-## 1.6.6 - 2026-03-25
-
-### Behoben
-- **Login:** Kritischer Absturz in der deutschen Sprachversion behoben.
-- **Familienerstellung:** Fehler für normale Nutzer (ohne Admin-Rechte) behoben.
-- **Stabilität:** Interne Absicherung aller Hintergrundprozesse gegen unerwartete Fehler.
-- **Daten-Sync:** Automatische Wiederherstellung bei kurzen Verbindungsproblemen.
-
-### Optimiert
-- **System:** Android 15 vollständig unterstützt.
-- **Sprachen:** Alle 8 Sprachen zu 100% vollständig.
-
-## 1.6.5 - 2026-03-25
-
-### Neu
-- **Sprachen:** Volle Unterstützung für Portugiesisch (pt), Polnisch (pl) und Niederländisch (nl) hinzugefügt. Die App unterstützt nun insgesamt 8 Sprachen.
-- **Rechtliches:** Sprachspezifische Links für Nutzungsbedingungen, Datenschutz, Impressum und Account-Löschung integriert (z.B. `terms-en.html`).
-
-### Optimiert
-- **Lokalisation:** 100% Synchronisation aller 265 Ressourcen-Keys über alle 8 Sprachen sichergestellt.
-- **Onboarding:** Optimierte Fallback-Logik für Screenshots in neu unterstützten Sprachen.
-
-### System
-- **Build:** Fehler bei der JVM Toolchain Resolution behoben und Build-Stabilität verbessert.
-
-## 1.6.4 - 2026-03-24
-
-### Neu
-- **System:** Unterstützung für Predictive Back Gestures (Android 13+) aktiviert.
-- **Sicherheit:** Admin-Status wird nun rein serverseitig über Firestore validiert (Vorbereitung für Multi-Admin-Support).
-- **Firestore:** Security Rules für den Admin-Bereich präzisiert.
-
-### Optimiert
-- **RevenueCat:** Vorbereitungen für verbesserte Sprach-Synchronisation und Optimierung des Datenabrufs (on-demand).
-- **SDK Update:** RevenueCat SDK auf Version 9.23.1 aktualisiert.
-
-## 1.6.3 - 2026-03-24
-
-### Behoben
-- **Navigation:** Fehler behoben, bei dem nach Abschluss der Onboarding-Tour eine doppelte Instanz des Hauptbildschirms im Hintergrund verblieb.
-
-## 1.6.2 - 2026-03-23
-
-### Optimiert
-- Fehlerbereinigung und Optimierungen
-
-## 1.6.1 - 2026-03-23
-
-### Neu
-- **Support-Bereich für alle:** Die Option, die App zu unterstützen oder zu bewerten, ist nun für alle Nutzer in den Einstellungen sichtbar.
-
-### Optimiert
-- **Spenden-Dialog:** Aktualisierte Tier-Preise (1,79€, 4,79€, 9,49€) und verbesserte Lade-Anzeigen während der Kaufabwicklung.
-- **Vollständige Lokalisation:** Alle Spenden-Texte und Status-Meldungen sind nun in Deutsch, Englisch, Französisch, Italienisch und Spanisch verfügbar.
-- **Play Store Release-Prozess:** Optimierte Bereitstellung der Versionshinweise für eine schnellere Veröffentlichung.
+---
 
 ## 1.6.0 - 2026-03-23
 
