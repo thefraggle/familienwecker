@@ -146,4 +146,7 @@ dependencies {
     // Room & SQLite
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.sqlite.bundled)
+
+    // TelemetryDeck – anonyme Nutzungsanalyse (privacy-first)
+    implementation("com.telemetrydeck:kotlin-sdk:6.0.1")
 }
