@@ -240,6 +240,10 @@ class FamilyViewModel(
                 familyId.collect { currentFamilyId ->
                     membersJob?.cancel()
                     syncStatusJob?.cancel()
+                    // Sofort leeren: verhindert dass Mitglieder/Zeitplan der Vorgänger-Familie
+                    // kurz angezeigt werden, während der neue Firestore-Sync noch läuft.
+                    memberRepository.clearCache()
+                    _schedule.value = null
                     if (!currentFamilyId.isNullOrBlank()) {
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                             android.util.Log.d("FamilyViewModel", "Start sync for family: $currentFamilyId")
@@ -289,7 +293,7 @@ class FamilyViewModel(
                             }
                         }
                     } else {
-                        memberRepository.clearCache()
+                        // Cache bereits oben geleert – kein weiterer Action nötig
                     }
                 }
             } catch (e: Exception) {
