@@ -314,7 +314,6 @@
     <string name="password_hide">Passwort verstecke</string>
     <string name="close_desc">Schlüsse</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Wecker-Berechtigung fählt</string>
     <string name="settings_exact_alarm_warning_text">Android cha de Wecker nöd gnau lüüte laa. Bitte erlaube FamWake, dass de Wecker lüüte dörf.</string>
     <string name="settings_exact_alarm_warning_button">Wecker erlaube</string>

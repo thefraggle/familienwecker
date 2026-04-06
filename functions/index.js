@@ -45,7 +45,7 @@ async function checkSingleRateLimit(key, windowMs, maxAttempts) {
  * max. 5 Versuche pro Stunde UND max. 10 pro Tag.
  */
 async function checkEmailRateLimit(email) {
-  // Check if admin by email
+  // Admin-Bypass über _admins-Collection (sicher, da serverseitig)
   const adminSnapshot = await admin.firestore()
     .collection("_admins")
     .where("email", "==", email.toLowerCase().trim())
@@ -55,12 +55,6 @@ async function checkEmailRateLimit(email) {
   if (!adminSnapshot.empty) {
     console.log(`Bypassing email rate limit for admin: ${email}`);
     return;
-  }
-  
-  // Temporary Self-Healing for initial setup:
-  if (email.toLowerCase().trim() === "daniel.notthoff@gmail.com") {
-      console.log(`Detected primary admin email, bypassing rate limit...`);
-      return;
   }
 
   const key = `email_${email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 80)}`;
@@ -956,8 +950,16 @@ exports.leaveFamily = onCall(
       }
     }
 
-    // Remove user's member document from the family (using memberId from client or fallback to uid)
+    // Mit memberId vom Client: prüfe dass das Member-Dokument dem User gehört
+    // (Schutz: Familienmitglied darf nicht fremde Member-Profile löschen)
     const finalMemberId = memberId || uid;
+    if (memberId) {
+      const memberDocRef = familyDocRef.collection("members").doc(memberId);
+      const memberDoc = await memberDocRef.get();
+      if (memberDoc.exists && memberDoc.data().claimedByUserId !== uid) {
+        throw new HttpsError("permission-denied", "CANNOT_DELETE_OTHER_MEMBER");
+      }
+    }
     await familyDocRef.collection("members").doc(finalMemberId).delete();
     
     // Remove familyId from user's document
@@ -1113,6 +1115,11 @@ exports.sendFeedbackEmail = onCall(
     invoker: "public",
   },
   async (request) => {
+    // Nur eingeloggte Nutzer dürfen Feedback senden
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
+
     const { category, message, email, appVersion, device } = request.data || {};
 
     if (!message || typeof message !== "string" || message.trim().length === 0) {
@@ -1124,18 +1131,20 @@ exports.sendFeedbackEmail = onCall(
       throw new HttpsError("failed-precondition", "Email service not configured.");
     }
 
-    const sanitizedCategory = escapeHtml(category || "Sonstiges");
-    const sanitizedMessage = escapeHtml(message?.trim() || "");
+    const sanitizedCategory = escapeHtml((category || "Sonstiges").slice(0, 100));
+    const sanitizedMessage = escapeHtml(message?.trim().slice(0, 5000) || "");
+    const sanitizedDevice = escapeHtml((device || "").slice(0, 200));
+    const sanitizedAppVersion = escapeHtml((appVersion || "").slice(0, 50));
 
-    const replyTo = email && email.trim() ? email.trim() : undefined;
+    const replyTo = email && email.trim() ? email.trim().slice(0, 254) : undefined;
     const subject = `📬 FamWake Feedback: ${sanitizedCategory}`;
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
         <h2 style="color: ${BRAND_BLUE};">📬 Neues Feedback</h2>
         <table style="width:100%; border-collapse: collapse; font-size:14px;">
           <tr><td style="padding:6px 0; color:#666; width:130px;">Kategorie</td><td><strong>${sanitizedCategory}</strong></td></tr>
-          <tr><td style="padding:6px 0; color:#666;">App-Version</td><td>${appVersion || "–"}</td></tr>
-          <tr><td style="padding:6px 0; color:#666;">Gerät</td><td>${device || "–"}</td></tr>
+          <tr><td style="padding:6px 0; color:#666;">App-Version</td><td>${sanitizedAppVersion || "–"}</td></tr>
+          <tr><td style="padding:6px 0; color:#666;">Gerät</td><td>${sanitizedDevice || "–"}</td></tr>
           ${replyTo ? `<tr><td style="padding:6px 0; color:#666;">Antwort-E-Mail</td><td><a href="mailto:${replyTo}">${replyTo}</a></td></tr>` : ""}
         </table>
         <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;">
