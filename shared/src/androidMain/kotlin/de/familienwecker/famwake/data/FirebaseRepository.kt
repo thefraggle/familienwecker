@@ -242,11 +242,18 @@ class FirebaseRepository : IFirebaseRepository {
         delay(delayMillis)
         true
     }.distinctUntilChanged { old, new ->
-        // Snapshot als identisch werten wenn Anzahl, IDs und lastUpdatedAt gleich sind.
+        // Snapshot als identisch werten wenn Anzahl, IDs und alle relevanten Felder gleich sind.
         // Verhindert redundante Room-Writes bei Firestore-Metadaten-Updates (z.B. hasPendingWrites).
+        // WICHTIG: lastUpdatedAt allein reicht nicht – Claim und Erstellung können in derselben
+        // Sekunde passieren (Timestamp.seconds * 1000L), was identische Werte ergibt und den
+        // Claim-Update fälschlicherweise herausfiltert. Deshalb auch claimedByUserId + isPaused prüfen.
         old.size == new.size &&
         old.zip(new).all { (a, b) ->
-            a.id == b.id && a.lastUpdatedAt == b.lastUpdatedAt
+            a.id == b.id &&
+            a.lastUpdatedAt == b.lastUpdatedAt &&
+            a.claimedByUserId == b.claimedByUserId &&
+            a.isPaused == b.isPaused &&
+            a.isAwakeToday == b.isAwakeToday
         }
     }
 
