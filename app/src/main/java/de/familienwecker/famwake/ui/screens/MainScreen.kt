@@ -413,7 +413,22 @@ fun MainScreen(
                                     Column {
                                         Spacer(modifier = Modifier.height(16.dp))
                                         val awakeInteractionSource = remember { MutableInteractionSource() }
-                                        
+
+                                        // Button nur 2h vor der Frühest-Weckzeit aktiv.
+                                        // Ist der User bereits als "wach" markiert, bleibt er immer
+                                        // klickbar – damit der Status zurückgesetzt werden kann.
+                                        val earliestWakeUpJava = myMember.earliestWakeUp.toJavaLocalTime()
+                                        val now = java.time.LocalTime.now()
+                                        val twoHoursBefore = earliestWakeUpJava.minusHours(2)
+                                        // Mitternachts-Überlauf: twoHoursBefore > earliestWakeUpJava
+                                        val withinWindow = if (twoHoursBefore <= earliestWakeUpJava) {
+                                            now >= twoHoursBefore
+                                        } else {
+                                            // Fenster geht über Mitternacht (z.B. Weckzeit 01:00)
+                                            now >= twoHoursBefore || now < earliestWakeUpJava
+                                        }
+                                        val isAwakeButtonEnabled = isAwakeTodayLocal || withinWindow
+
                                         Button(
                                             onClick = { myMemberId?.let { viewModel.toggleAwakeMember(it) } },
                                             modifier = Modifier
@@ -422,15 +437,18 @@ fun MainScreen(
                                                 .bounceClick(awakeInteractionSource),
                                             shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                                             interactionSource = awakeInteractionSource,
+                                            enabled = isAwakeButtonEnabled,
                                             colors = ButtonDefaults.buttonColors(
-                                                containerColor = if (isAwakeTodayLocal) 
-                                                    MaterialTheme.colorScheme.secondary // Greenish/Mint
-                                                else 
-                                                    MaterialTheme.colorScheme.primary, // Blueish/NightBlue
+                                                containerColor = if (isAwakeTodayLocal)
+                                                    MaterialTheme.colorScheme.secondary
+                                                else
+                                                    MaterialTheme.colorScheme.primary,
                                                 contentColor = if (isAwakeTodayLocal)
                                                     MaterialTheme.colorScheme.onSecondary
-                                                  else
-                                                    MaterialTheme.colorScheme.onPrimary
+                                                else
+                                                    MaterialTheme.colorScheme.onPrimary,
+                                                disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
+                                                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                                             )
                                         ) {
                                             Icon(
