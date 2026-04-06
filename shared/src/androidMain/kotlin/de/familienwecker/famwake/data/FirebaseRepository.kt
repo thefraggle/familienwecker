@@ -319,6 +319,9 @@ class FirebaseRepository : IFirebaseRepository {
                     update(docRef, mapOf(
                         "claimedByUserId" to null,
                         "claimedByUserName" to null,
+                        // isAwakeToday zurücksetzen – verhindert, dass ein veralteter
+                        // "Schon wach"-Status auf den nächsten Claimer vererbt wird.
+                        "isAwakeToday" to false,
                         "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
                     ))
                     true
