@@ -27,7 +27,7 @@ def get_latest_changelog(file_path):
         
         # Combine into a concise string for Play Store (limited to 500 chars)
         result = ". ".join(cleaned_lines)
-        if len(result) > 497:
+        if len(result) > 500:
             result = result[:497] + "..."
         return result
     return None
@@ -97,12 +97,13 @@ def main():
                 content = changelog_en
         
         if content:
-            # Ensure it's not too long for Play Store (500 char limit)
-            if len(content) > 500:
-                content = content[:497] + "..."
-            
             # Sanitize: remove double dots if they were generated
             content = content.replace("..", ".")
+
+            # Harte Grenze: Play Store erlaubt max. 500 Zeichen (nach Sanitize nochmals prüfen,
+            # da Übersetzungen durch Sonderzeichen oder längere Wörter die Grenze überschreiten können).
+            if len(content) > 500:
+                content = content[:497] + "..."
                 
             with open(dest_file, 'w', encoding='utf-8') as f:
                 f.write(content)
