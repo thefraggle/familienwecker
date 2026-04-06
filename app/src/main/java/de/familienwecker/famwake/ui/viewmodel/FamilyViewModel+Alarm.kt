@@ -1,5 +1,6 @@
 package de.familienwecker.famwake.ui.viewmodel
 
+import com.telemetrydeck.sdk.TelemetryDeck
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
@@ -225,6 +226,7 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     // Cache zurücksetzen damit applyAlarms() beim erneuten Einschalten nicht
     // durch den Duplikat-Guard (newAlarmMillis == lastScheduledAlarmMillis) überspringt.
     if (!enabled) lastScheduledAlarmMillis = null
+    TelemetryDeck.signal(if (enabled) "alarm.globalEnabled" else "alarm.globalDisabled")
     // Auch member.isAwakeToday in Room + Firestore zurücksetzen, damit das
     // ☀️-Icon in der MemberCard sofort verschwindet (liest Firestore, nicht AppSettings).
     val memberId = myMemberId.value
@@ -266,6 +268,7 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
 
 fun FamilyViewModel.setAlarmSoundUri(uri: String) {
     appSettings.setAlarmSoundUri(uri)
+    TelemetryDeck.signal("alarm.soundChanged")
 }
 
 /**
@@ -330,6 +333,7 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
             _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
         }
     )
+    TelemetryDeck.signal("alarm.snoozed")
 }
 
 fun FamilyViewModel.cancelSnooze(memberId: String) {
