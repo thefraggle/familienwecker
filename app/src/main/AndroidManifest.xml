@@ -13,6 +13,8 @@
     <!-- Alarm nach Geräteneustart wiederherstellen -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.vending.BILLING" />
+    <!-- Telemetriedaten senden (auch für Firebase benötigt) -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".FamWakeApplication"
@@ -70,6 +72,11 @@
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <!-- TelemetryDeck: anonyme, datenschutzkonforme Nutzungsanalyse -->
+        <meta-data
+            android:name="com.telemetrydeck.appID"
+            android:value="65B4CF62-F147-42B5-9B7A-14CF0ADF949D" />
             
     </application>
 
