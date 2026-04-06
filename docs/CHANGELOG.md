@@ -4,6 +4,12 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.20 - 2026-04-06
+
+### Behoben
+- **Wecker klingelt nicht nach Deaktivieren + erneut Aktivieren (Kritisch):** Ein interner Duplikat-Guard merkte sich die zuletzt eingeplante Alarmzeit, setzte den Cache aber beim Deaktivieren nicht zurück. Beim erneuten Aktivieren erkannte der Wächter die identische Zeit als „bereits gesetzt" und übersprach den Alarm stillschweigend.
+- **„Ich bin wach"-Button dauerhaft inaktiv nach Profilneuanlage:** Der Button berechnete sein 2h-Aktivierungsfenster aus dem Fallback-Feld `earliestWakeUp` des Members, nicht aus dem tatsächlich nächsten aktiven Wochentagsprofil. Nach dem Löschen und Neuanlegen eines Mitgliedsprofils blieb der Button dauerhaft ausgegraut, obwohl ein aktives Profil vorhanden war.
+
 ## 1.6.19 - 2026-04-06
 
 ### Neu

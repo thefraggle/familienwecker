@@ -4,6 +4,12 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.20 - 2026-04-06
+
+### Fixed
+- **Alarm not ringing after disable + re-enable (Critical):** An internal deduplication guard cached the last scheduled alarm time but did not reset it when the alarm was disabled. When re-enabled, the guard incorrectly treated the same time as "already scheduled" and silently skipped setting the alarm.
+- **"I'm already awake" button permanently inactive after re-creating a profile:** The button calculated its 2-hour activation window using the fallback field `earliestWakeUp` instead of the actual next active weekday profile. After deleting and re-creating a member profile, the button stayed grayed out even though an active profile was present.
+
 ## 1.6.19 - 2026-04-06
 
 ### New
