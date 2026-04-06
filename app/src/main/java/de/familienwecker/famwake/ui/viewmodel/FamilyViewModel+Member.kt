@@ -30,7 +30,9 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                 val userName = auth.currentUser?.displayName
                     ?: getApplication<android.app.Application>().getString(de.familienwecker.famwake.R.string.settings_fallback_username)
                 if (userId != null) {
+                    _isAutoClaimInProgress.value = true
                     val success = repository.claimMember(currentFamilyId, member.id, userId, userName)
+                    _isAutoClaimInProgress.value = false
                     if (success) {
                         appSettings.setMyMemberId(member.id)
                         appSettings.setMyMemberName(member.name)

@@ -92,6 +92,7 @@ fun MainScreen(
     val tooltipSwitchSeen by viewModel.tooltipSwitchSeen.collectAsStateWithLifecycle()
     val isJoiningFamily by viewModel.isJoiningFamily.collectAsStateWithLifecycle()
     val pendingPauseIds by viewModel.pendingPauseIds.collectAsStateWithLifecycle()
+    val isAutoClaimInProgress by viewModel.isAutoClaimInProgress.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
 
@@ -535,9 +536,9 @@ fun MainScreen(
                     }
                 }
 
-                // Fallback: Warnung wenn kein Profil ausgewÃ¤hlt ist (nur wenn Mitglieder vorhanden sind)
+                // Fallback-Warnung wenn kein Profil ausgewählt ist (nur wenn Mitglieder vorhanden und kein Auto-Claim läuft)
                 item {
-                    if (myMemberId == null && members.isNotEmpty()) {
+                    if (myMemberId == null && members.isNotEmpty() && !isAutoClaimInProgress) {
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()

@@ -245,7 +245,9 @@ fun AddMemberScreen(
                             claimedByUserId = memberToEdit?.claimedByUserId,
                             claimedByUserName = memberToEdit?.claimedByUserName,
                             createdAt = memberToEdit?.createdAt,
-                            dayProfiles = dayProfiles // DayProfile is already corrected in the logic? Wait.
+                            // sequenceOrder beibehalten – verhindert, dass ein Update die Reihenfolge zurücksetzt
+                            sequenceOrder = memberToEdit?.sequenceOrder ?: 0,
+                            dayProfiles = dayProfiles
                         )
                         viewModel.addOrUpdateMember(memberToSave)
                         
