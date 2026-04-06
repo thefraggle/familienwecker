@@ -206,6 +206,8 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-112| **Swedish Localization** | Set the app language to Swedish. | UI strings are correctly displayed in Swedish; no fallback to German or English. |
 | TC-113| **Security: Feedback requires login** | Call the feedback function without being logged in (directly via API). | Cloud Function throws `unauthenticated` error; no entry is written to Firestore. |
 | TC-114| **Security: Member deletion ownership** | As a family member, attempt to delete another member's document (via leaveFamily with a foreign memberId). | Cloud Function throws `permission-denied`; the other profile remains untouched. |
+| TC-115| **Auto-claim first member** | Create a new member profile without having claimed any profile before. | Member is automatically claimed (`myMemberId` set, alarm enabled). The manual "This is me" step is not required. |
+| TC-116| **No stale schedule after family switch** | Create (or join) a new family directly after being in another one. | No member or schedule from the previous family appears briefly on the main screen. |
 
 ---
 

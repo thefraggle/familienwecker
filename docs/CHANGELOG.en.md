@@ -8,11 +8,17 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### New
 - **Swedish 🇸🇪** – FamWake now speaks Swedish. Välkommen!
+- **Auto-claim profile:** When creating your first member profile, it is automatically linked to your account. The manual "This is me" step is no longer needed.
 
 ### Improved
 - **Security:** Family data is now even better protected – access rules have been tightened to prevent potential abuse.
 - **Security:** The feedback form can now only be used by logged-in users.
 - **Security:** Members can only delete their own profile, not those of others.
+
+### Fixed
+- **Stale data:** After creating a new family, members and schedule from the previous family were briefly still visible.
+- **Profile claiming:** Regular family members could not claim a free profile (security rule was too restrictive).
+- **Firestore rules:** An internal type error in the access rules could block individual write operations.
 
 ## 1.6.16 - 2026-04-01
 
