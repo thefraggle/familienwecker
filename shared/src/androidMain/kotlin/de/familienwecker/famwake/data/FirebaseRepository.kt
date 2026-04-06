@@ -284,7 +284,10 @@ class FirebaseRepository : IFirebaseRepository {
                 if (existingClaim == null || existingClaim == userId) {
                     update(docRef, mapOf(
                         "claimedByUserId" to userId,
-                        "claimedByUserName" to userName
+                        "claimedByUserName" to userName,
+                        // lastUpdatedAt setzen damit distinctUntilChanged den Snapshot nicht herausfiltert
+                        // und Room den Claim-Status korrekt übernimmt.
+                        "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
                     ))
                     true
                 } else {
@@ -292,6 +295,7 @@ class FirebaseRepository : IFirebaseRepository {
                 }
             }
         } catch (e: Exception) {
+            Log.e(TAG, "claimMember failed for $memberId: ${e.message}")
             false
         }
     }
@@ -307,7 +311,8 @@ class FirebaseRepository : IFirebaseRepository {
                 if (existingClaim == userId) {
                     update(docRef, mapOf(
                         "claimedByUserId" to null,
-                        "claimedByUserName" to null
+                        "claimedByUserName" to null,
+                        "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
                     ))
                     true
                 } else {
@@ -315,6 +320,7 @@ class FirebaseRepository : IFirebaseRepository {
                 }
             }
         } catch (e: Exception) {
+            Log.e(TAG, "unclaimMember failed for $memberId: ${e.message}")
             false
         }
     }
