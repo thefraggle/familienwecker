@@ -1,5 +1,5 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.6.20
+**Version:** 1.7.0
 **Datum:** 2026-04-06
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -49,9 +49,9 @@ Tests validieren nicht nur die UI, sondern insbesondere die Korrektheit des Plan
 |:---|:---|:---|
 | TC-30 | Wecker klingelt (Hintergrund) | App im Hintergrund → Alarm klingelt, RingingActivity öffnet sich. |
 | TC-31 | Wecker nach Neustart | Alarm nach Geräterestart korrekt wiederhergestellt (auch vor PIN-Eingabe). |
-| TC-32 | Wecker nach Deaktivieren + Aktivieren | Wecker aus → Wecker an → Alarm klingelt zum eingeplanten Zeitpunkt. *(v1.6.20)* |
+| TC-32 | Wecker nach Deaktivieren + Aktivieren | Wecker aus → Wecker an → Alarm klingelt zum eingeplanten Zeitpunkt. |
 | TC-33 | „Ich bin wach"-Button – Zeitfenster | Weckzeit morgen 07:00, aktuelle Zeit 15:00 → Button inaktiv. Bei 05:30 → aktiv (2h-Fenster). |
-| TC-34 | „Ich bin wach"-Button nach Profilneuanlage | Member löschen, neu anlegen → Button korrekt aktiv/inaktiv je nach Profil-Weckzeit. *(v1.6.20)* |
+| TC-34 | „Ich bin wach"-Button nach Profilneuanlage | Member löschen, neu anlegen → Button korrekt aktiv/inaktiv je nach Profil-Weckzeit. |
 | TC-35 | „Ich bin wach" – Zurücksetzen | Wacher Status → Status-Reset jederzeit möglich (Button bleibt klickbar). |
 | TC-36 | „Ich bin wach" – Toggle-Effekt | Button stoppt System-Wecker sofort; Farbe/Icon wechselt. Globaler Switch aus → Status zurückgesetzt. |
 | TC-37 | „Ich bin wach" – Tageswechsel | App über Nacht im Hintergrund → Button zeigt am nächsten Morgen wieder Ausgangszustand. |

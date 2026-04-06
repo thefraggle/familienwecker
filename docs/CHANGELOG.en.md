@@ -4,164 +4,29 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.6.20 - 2026-04-06
-
-### Fixed
-- **Alarm not ringing after disable + re-enable (Critical):** An internal deduplication guard cached the last scheduled alarm time but did not reset it when the alarm was disabled. When re-enabled, the guard incorrectly treated the same time as "already scheduled" and silently skipped setting the alarm.
-- **"I'm already awake" button permanently inactive after re-creating a profile:** The button calculated its 2-hour activation window using the fallback field `earliestWakeUp` instead of the actual next active weekday profile. After deleting and re-creating a member profile, the button stayed grayed out even though an active profile was present.
-
-## 1.6.19 - 2026-04-06
-
-### New
-- **"I'm already awake" time window:** The awake button is now only active within 2 hours before the next alarm (grayed out outside this window). Users who have already marked themselves as awake can always reset the status.
-
-### Fixed
-- **Global alarm disabled after app restart (Critical):** A race condition on startup caused the active alarm to be incorrectly reset to "Off" after a restart. (An empty member list during startup falsely triggered `setAlarmEnabled(false)`.)
-- **"Already awake" status persisted after day change:** The local awake status (button color) remained green the next day when the app was running in the background. Status is now date-bound and resets correctly when the app is opened.
-- **Sun icon after alarm toggle:** The ☀️ icon on a member's profile card did not reliably disappear after toggling the global alarm off and on. Reset now happens immediately in Room and Firestore.
-- **Login screen with large font sizes:** At system font size 125% or 150%, the login button was out of view. The screen is now scrollable and IME-aware.
-- **"Already awake" inherited by new claimer:** When unclaiming a member, `isAwakeToday` was not reset in Firestore – a new user could have inherited the stale status.
-
-## 1.6.18 - 2026-04-06
-
-### Fixed
-- **Second family member (Critical):** Users who joined a family as the second member, created their own profile, and then tried to edit or pause it, saw the error “Sync failed – Leave Family. Please check.” The profile briefly disappeared from the list. The root cause was an overly restrictive Firestore rule that blocked profile updates by the profile's own owner.
-- **Tile status after auto-claim:** After the first profile was automatically linked, the member tile did not show whether the alarm was active or inactive. The claim update was filtered out by an internal deduplication check and never reached the local cache.
-- **Pause error:** Pausing an unclaimed profile failed with a permission error, because the full member document (including the name field) was sent instead of only the changed field.
-- **"No profile selected" flash:** After creating the first profile, a warning briefly appeared for about 2 seconds before the auto-link finished.
-- **Pause button on own profile:** The pause button was incorrectly visible on the user’s own linked profile. Since pausing oneself makes no sense, the button is now hidden.
-
-### Security
-- **Password reset:** When an unknown email address is entered, the app now always shows the same success message, regardless of whether the address is registered. This prevents attackers from enumerating valid accounts via the reset flow.
-
-## 1.6.17 - 2026-04-06
+## 1.7.0 - 2026-04-06
 
 ### New
 - **Swedish 🇸🇪** – FamWake now speaks Swedish. Välkommen!
-- **Auto-claim profile:** When creating your first member profile, it is automatically linked to your account. The manual "This is me" step is no longer needed.
+- **Dialect languages 🎉** – Swabian, Swiss German, and Ruhr Valley slang. Wake up in your home dialect. (Not an April Fools' joke.)
+- **Reliable alarms** – If alarm permissions are missing, a large red warning tile appears immediately on the home screen – no more unexpected silent mornings.
+- **Auto-claim profile** – When creating your first member profile, it is automatically linked to your account. No manual "This is me" step required.
+
+### Fixed
+- **Alarm silent after toggling off and on** – An internal error caused the alarm to stay silent after being re-enabled.
+- **"I'm already awake" button** – The button remained permanently grayed out after re-creating a profile.
+- **Stability and sync improvements** – Various bugs fixed during startup, family joining, sync, and profile management.
+- **Second family member** – Users who joined as the second member were sometimes unable to edit or pause their profile.
+- **Global alarm reset on restart** – A startup race condition incorrectly turned the active alarm off after a reboot.
+- **"Already awake" status persisted overnight** – Status is now date-bound and resets correctly on the next morning.
+- **Login screen with large font sizes** – At 125% or 150% system font size, the login button was out of reach.
 
 ### Improved
-- **Security:** Family data is now even better protected – access rules have been tightened to prevent potential abuse.
-- **Security:** The feedback form can now only be used by logged-in users.
-- **Security:** Members can only delete their own profile, not those of others.
+- **Security** – Access rules tightened, feedback form restricted to logged-in users, password reset no longer reveals whether an email is registered.
+- **Weekday scheduling** – Wake times and bathroom duration can be set individually per weekday.
+- **11 languages** – Full localization for Portuguese, Polish, and Dutch. Device language detection now works correctly for all system languages.
 
-### Fixed
-- **Stale data:** After creating a new family, members and schedule from the previous family were briefly still visible.
-- **Profile claiming:** Regular family members could not claim a free profile (security rule was too restrictive).
-- **Firestore rules:** An internal type error in the access rules could block individual write operations.
-
-## 1.6.16 - 2026-04-01
-
-### Fixed
-- **Language Selection:** Fixed a fallback issue where unsupported device languages (e.g. Turkish) incorrectly defaulted to German instead of English.
-
-## 1.6.15 - 2026-03-31
-
-### New
-- **Reliable alarms:** If your smartphone accidentally revokes FamWakes alarm permissions, a big red warning tile will instantly pop up on the home screen. That way you will never unexpectedly sleep through an alarm again! (Available right away in all 11 languages).
-
-### Fixed
-- **Display:** Optimized edge-to-edge display for the latest Android devices.
-
-## 1.6.14 - 2026-03-29
-
-### New
-- **Dialect languages 🎉** – Because alarm clocks in standard German were always a bit too formal: Swabian (Schwäbsch), Swiss German (Schwiizerdütsch), and Ruhr Valley slang (Ruhrpott) are now available. Being woken up has never felt more like home. (Not an April Fools' joke.)
-- **Language picker:** Dialects are now visually separated at the bottom of the list – so the proper languages don't feel disrespected.
-
-### Improved
-- **Onboarding tour:** Users who pick a dialect language now see German screenshots instead of English ones – lederhosen over London.
-
-## 1.6.13 - 2026-03-26
-
-### Fixed
-- **Sync indicator:** The sync icon could get stuck permanently – now works reliably.
-- **Review prompt:** The "rate the app" reminder now correctly waits 7 days and respects the alarm time buffer.
-
-## 1.6.12 - 2026-03-26
-
-### Improved
-- **Stability:** Minor internal fixes for more reliable operation.
-- **Performance:** Faster app startup, less lag when opening.
-
-## 1.6.11 - 2026-03-26
-
-### Optimized
-- **Code Quality:** Internal cleanup for improved stability and fewer unnecessary cloud requests.
-- **Security:** Firestore rules refined – member profiles are now better protected against unauthorized changes.
-
-## 1.6.10 - 2026-03-25
-
-### Optimized
-- **Stability:** Core architecture significantly refactored for better reliability and future iOS support.
-- **Data Management:** Faster and more robust synchronization between the app and the cloud.
-- **Settings:** Personal preferences are now stored more securely and reliably.
-
-## 1.6.7 - 2026-03-25
-
-
-### New
-- **Data Loss Protection:** Added confirmation dialog for unsaved changes in the edit screen (8 languages).
-- **UI Cleanup:** Time displays across the app are now uniformly formatted to `HH:mm` (seconds/milliseconds removed).
-
-### Fixed
-- **State Stability:** Fixed a bug where the edit screen lost its state during background synchronizations.
-
-## 1.6.6 - 2026-03-25
-
-### Fixed
-- **Login:** Fixed a critical crash in the German localization.
-- **Family creation:** Fixed an issue for non-admin users.
-- **Stability:** All background tasks are now protected against unexpected errors.
-- **Data sync:** Automatic recovery from brief connection issues.
-
-### Improved
-- **System:** Full Android 15 support.
-- **Languages:** All 8 languages are 100% complete.
-
-## 1.6.5 - 2026-03-25
-
-### New
-- **Languages:** Added full support for Portuguese (pt), Polish (pl), and Dutch (nl). The app now supports a total of 8 languages.
-- **Legal:** Integrated language-specific links for Terms of Use, Privacy Policy, Imprint, and Account Deletion (e.g., `terms-en.html`).
-
-### Optimized
-- **Localization:** Ensured 100% synchronization of all 265 resource keys across all 8 languages.
-- **Onboarding:** Improved fallback logic for screenshots in newly supported languages.
-
-### System
-- **Build:** Fixed JVM toolchain resolution errors and improved build stability.
-
-## 1.6.4 - 2026-03-24
-
-### New
-- **System:** Enabled support for Predictive Back Gestures (Android 13+).
-- **Security:** Admin status is now validated purely on the server side via Firestore (preparing for multi-admin support).
-- **Firestore:** Refined Security Rules for admin access.
-
-### Optimized
-- **RevenueCat:** Preparations for improved language synchronization and optimized data fetching (on-demand).
-- **SDK Update:** Updated RevenueCat SDK to version 9.23.1.
-
-## 1.6.3 - 2026-03-24
-
-### Fixed
-- **Navigation:** Fixed a bug where a duplicate instance of the main screen remained in the background after completing the onboarding tour.
-
-## 1.6.2 - 2026-03-23
-
-### Optimized
-- Bug fixes and optimizations
-
-## 1.6.1 - 2026-03-23
-
-### New
-- **Support for everyone:** The option to support or rate the app is now visible to all users in the settings.
-
-### Optimized
-- **Donation Dialog:** Updated tier prices (1.79€, 4.79€, 9.49€) and improved loading indicators during checkout.
-- **Full Localization:** All donation texts and status messages are now available in German, English, French, Italian, and Spanish.
-- **Play Store Release Process:** Optimized delivery of release notes for faster publication.
+---
 
 ## 1.6.0 - 2026-03-23
 
