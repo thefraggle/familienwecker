@@ -19,9 +19,28 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
         }
         return
     }
+    val isNewMember = _members.value.none { it.id == member.id }
     scope.launch {
         try {
             repository.addOrUpdateMember(currentFamilyId, member)
+            // Auto-Claim: Erster eigener Member wird automatisch geclaimt.
+            // Nur wenn: (1) neuer Member, (2) noch kein Profil geclaimt, (3) Member ist unclaimed.
+            if (isNewMember && myMemberId.value == null && member.claimedByUserId == null) {
+                val userId = auth.currentUser?.uid
+                val userName = auth.currentUser?.displayName
+                    ?: getApplication<android.app.Application>().getString(de.familienwecker.famwake.R.string.settings_fallback_username)
+                if (userId != null) {
+                    val success = repository.claimMember(currentFamilyId, member.id, userId, userName)
+                    if (success) {
+                        appSettings.setMyMemberId(member.id)
+                        appSettings.setMyMemberName(member.name)
+                        appSettings.setAlarmEnabled(true)
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.i("FamilyViewModel", "Auto-Claim: ${member.name} (${member.id}) automatisch geclaimt")
+                        }
+                    }
+                }
+            }
         } catch (e: Exception) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.e("FamilyViewModel", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
