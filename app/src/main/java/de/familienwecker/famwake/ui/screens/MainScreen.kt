@@ -414,19 +414,17 @@ fun MainScreen(
                                         Spacer(modifier = Modifier.height(16.dp))
                                         val awakeInteractionSource = remember { MutableInteractionSource() }
 
-                                        // Button nur 2h vor der Frühest-Weckzeit aktiv.
-                                        // Ist der User bereits als "wach" markiert, bleibt er immer
-                                        // klickbar – damit der Status zurückgesetzt werden kann.
+                                        // Button nur im 2h-Fenster vor dem NÄCHSTEN Alarm aktiv.
+                                        // LocalDateTime nötig – sonst wird "morgen 07:00" mit
+                                        // "heute 05:00" verglichen und der Button fälschlicherweise aktiv.
+                                        val nowDt = java.time.LocalDateTime.now()
+                                        val todayDate = nowDt.toLocalDate()
                                         val earliestWakeUpJava = myMember.earliestWakeUp.toJavaLocalTime()
-                                        val now = java.time.LocalTime.now()
-                                        val twoHoursBefore = earliestWakeUpJava.minusHours(2)
-                                        // Mitternachts-Überlauf: twoHoursBefore > earliestWakeUpJava
-                                        val withinWindow = if (twoHoursBefore <= earliestWakeUpJava) {
-                                            now >= twoHoursBefore
-                                        } else {
-                                            // Fenster geht über Mitternacht (z.B. Weckzeit 01:00)
-                                            now >= twoHoursBefore || now < earliestWakeUpJava
-                                        }
+                                        // Nächste Weckzeit: heute wenn vor der Weckzeit, sonst morgen
+                                        val targetDate = if (nowDt.toLocalTime() < earliestWakeUpJava) todayDate else todayDate.plusDays(1)
+                                        val targetDt = java.time.LocalDateTime.of(targetDate, earliestWakeUpJava)
+                                        val windowStart = targetDt.minusHours(2)
+                                        val withinWindow = nowDt >= windowStart && nowDt < targetDt
                                         val isAwakeButtonEnabled = isAwakeTodayLocal || withinWindow
 
                                         Button(
