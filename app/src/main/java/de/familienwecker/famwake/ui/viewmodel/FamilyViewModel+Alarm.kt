@@ -216,9 +216,9 @@ internal fun FamilyViewModel.cancelAlarmForCurrentUser() {
 fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     if (enabled && myMemberId.value == null) return
     checkOfflineAndHint()
-    if (!enabled) {
-        appSettings.setAwakeToday(false)
-    }
+    // Beim Aus- UND Einschalten wird „Schon wach" zurückgesetzt.
+    // Bewusster Toggle = expliziter Neustart – unabhängig vom vorherigen Zustand.
+    appSettings.setAwakeToday(false)
     appSettings.setAlarmEnabled(enabled)
     val currentFamilyId = familyId.value
     val currentMemberId = myMemberId.value
