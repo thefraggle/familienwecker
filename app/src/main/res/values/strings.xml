@@ -212,7 +212,7 @@
     <string name="awake_today_desc">Already awake</string>
     <string name="awake_active_desc">Already awake</string>
 
-    <string name="error_load_members">Error loading members: %1$s</string>
+    <string name="error_load_members">Error loading members</string>
     <string name="error_create_family">Error creating family: %1$s</string>
     <string name="error_create_family_rate_limit">You have already created 3 families in the last hour. Please wait an hour and try again.</string>
     <string name="error_join_family_rate_limit">Too many join attempts (max. 5 per minute). Please wait a moment and try again.</string>
@@ -223,15 +223,15 @@
     <string name="join_conflict_text">You are already a member of the family \"%1$s\". To join the new family, you must leave your current one first. Do you want to leave \"%1$s\" and join with code %2$s?</string>
     <string name="join_conflict_confirm">Leave &amp; Join</string>
     <string name="error_delete_member">Could not delete member: %1$s</string>
-    <string name="error_sync_failed">Synchronization failed: %1$s</string>
+    <string name="error_sync_failed">Synchronization failed</string>
     <string name="error_delete_family">Error deleting family: %1$s</string>
     <string name="error_calculate_schedule">Error calculating schedule: %1$s</string>
     <string name="error_not_logged_in">User not logged in</string>
-    <string name="error_system">System error: %1$s</string>
+    <string name="error_system">System error</string>
     <string name="error_invalid_credentials">Invalid email or password. Please check your inputs.</string>
-    <string name="error_login_failed">Login failed: %1$s</string>
+    <string name="error_login_failed">Login failed</string>
     <string name="error_login_failed_unknown">Unknown login error</string>
-    <string name="error_registration_failed">Registration failed: %1$s</string>
+    <string name="error_registration_failed">Registration failed</string>
     <string name="error_registration_failed_unknown">Could not create user</string>
     <string name="error_unknown">An unknown error occurred. Please try again.</string>
     <string name="error_google_sign_in_failed_unknown">Google sign-in failed</string>
@@ -314,9 +314,8 @@
     <string name="password_hide">Hide password</string>
     <string name="close_desc">Close</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Alarm permission missing</string>
-    <string name="settings_exact_alarm_warning_text">The exact alarm cannot ring on this device. Please allow FamWake to schedule exact alarms.</string>
+    <string name="settings_exact_alarm_warning_text">Android prevents the exact alarm from ringing. Please allow FamWake to schedule alarms &amp; reminders.</string>
     <string name="settings_exact_alarm_warning_button">Allow alarms</string>
     <string name="main_exact_alarm_banner">⚠️ Alarm blocked! Please grant the alarm permission in settings so your alarm can ring on time.</string>
 </resources>

@@ -185,7 +185,7 @@
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint-it.html</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-it.html</string>
 
-    <string name="registration_disclaimer">Registrandoti, accetti i %1$s e l\' %2$s.</string>
+    <string name="registration_disclaimer">Registrandoti, accetti i %1$s e l\'%2$s.</string>
     <string name="registration_terms_of_use">Termini di utilizzo</string>
     <string name="registration_privacy_policy">Informativa sulla privacy</string>
     <string name="settings_already_claimed">Già collegato</string>
@@ -212,7 +212,7 @@
     <string name="awake_today_desc">Già sveglio/a</string>
     <string name="awake_active_desc">Già sveglio/a</string>
 
-    <string name="error_load_members">Errore durante il caricamento dei membri: %1$s</string>
+    <string name="error_load_members">Errore durante il caricamento dei membri</string>
     <string name="error_create_family">Errore durante la creazione della famiglia: %1$s</string>
     <string name="error_create_family_rate_limit">Hai già creato 3 famiglie nell\'ultima ora. Attendi un\'ora e riprova.</string>
     <string name="error_join_family_rate_limit">Troppi tentativi (max. 5 al minuto). Attendi un attimo e riprova.</string>
@@ -223,15 +223,15 @@
     <string name="join_conflict_text">Sei già membro della famiglia \"%1$s\". Per unirti alla nuova famiglia, devi prima lasciare quella attuale. Vuoi lasciare \"%1$s\" e unirti con il codice %2$s?</string>
     <string name="join_conflict_confirm">Lascia &amp; Unisciti</string>
     <string name="error_delete_member">Impossibile eliminare il membro: %1$s</string>
-    <string name="error_sync_failed">Sincronizzazione fallita: %1$s</string>
+    <string name="error_sync_failed">Sincronizzazione fallita</string>
     <string name="error_delete_family">Errore durante l\'eliminazione della famiglia: %1$s</string>
     <string name="error_calculate_schedule">Errore nel calcolo del programma: %1$s</string>
     <string name="error_not_logged_in">Utente non connesso</string>
-    <string name="error_system">Errore di sistema: %1$s</string>
+    <string name="error_system">Errore di sistema</string>
     <string name="error_invalid_credentials">Email o password non valide. Controlla i dati inseriti.</string>
-    <string name="error_login_failed">Accesso fallito: %1$s</string>
+    <string name="error_login_failed">Accesso fallito</string>
     <string name="error_login_failed_unknown">Errore di accesso sconosciuto</string>
-    <string name="error_registration_failed">Registrazione fallita: %1$s</string>
+    <string name="error_registration_failed">Registrazione fallita</string>
     <string name="error_registration_failed_unknown">Impossibile creare l\'utente</string>
     <string name="error_unknown">Si è verificato un errore sconosciuto. Riprova.</string>
     <string name="error_google_sign_in_failed_unknown">Accesso con Google fallito</string>
@@ -270,7 +270,7 @@
 
     <string name="error_password_too_short">La password deve contenere almeno 8 caratteri.</string>
     <string name="error_email_already_in_use">Questo indirizzo email è già in uso da un altro account.</string>
-    <string name="error_weak_password">La password è troppo debole. Si prega di utilizzare almeno 8 caratteri e caratteri speciali.</string>
+    <string name="error_weak_password">La password è troppo debole. Utilizza almeno 8 caratteri e caratteri speciali.</string>
     <string name="login_verify_email_title">✉️ Conferma la tua email</string>
     <string name="login_verify_email_text">Abbiamo inviato un\'email di conferma a\n%1$s\nClicca sul link nell\'email per attivare il tuo account.</string>
     <string name="login_verify_email_confirm">Ho confermato ✓</string>
@@ -314,7 +314,6 @@
     <string name="password_hide">Nascondi password</string>
     <string name="close_desc">Chiudi</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Autorizzazione sveglia mancante</string>
     <string name="settings_exact_alarm_warning_text">La sveglia non può suonare su questo dispositivo. Consenti a FamWake di impostare sveglie esatte.</string>
     <string name="settings_exact_alarm_warning_button">Consenti sveglie</string>

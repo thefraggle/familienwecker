@@ -212,7 +212,7 @@
     <string name="awake_today_desc">Já acordei</string>
     <string name="awake_active_desc">Já acordei</string>
 
-    <string name="error_load_members">Erro ao carregar membros: %1$s</string>
+    <string name="error_load_members">Erro ao carregar membros</string>
     <string name="error_create_family">Erro ao criar família: %1$s</string>
     <string name="error_create_family_rate_limit">Você já criou 3 famílias na última hora. Tente novamente em uma hora.</string>
     <string name="error_join_family_rate_limit">Muitas tentativas de entrada (máx. 5 por minuto). Aguarde um momento.</string>
@@ -223,15 +223,15 @@
     <string name="join_conflict_text">Você já é membro da família \"%1$s\". Para entrar na nova família, saia da atual primeiro. Deseja sair de \"%1$s\" e entrar com o código %2$s?</string>
     <string name="join_conflict_confirm">Sair e Entrar</string>
     <string name="error_delete_member">Não foi possível excluir o membro: %1$s</string>
-    <string name="error_sync_failed">Falha na sincronização: %1$s</string>
+    <string name="error_sync_failed">Falha na sincronização</string>
     <string name="error_delete_family">Erro ao excluir família: %1$s</string>
     <string name="error_calculate_schedule">Erro ao calcular cronograma: %1$s</string>
     <string name="error_not_logged_in">Usuário não logado</string>
-    <string name="error_system">Erro de sistema: %1$s</string>
+    <string name="error_system">Erro de sistema</string>
     <string name="error_invalid_credentials">Email ou senha inválidos. Verifique seus dados.</string>
-    <string name="error_login_failed">Falha no login: %1$s</string>
+    <string name="error_login_failed">Falha no login</string>
     <string name="error_login_failed_unknown">Erro de login desconhecido</string>
-    <string name="error_registration_failed">Falha no cadastro: %1$s</string>
+    <string name="error_registration_failed">Falha no cadastro</string>
     <string name="error_registration_failed_unknown">Não foi possível criar o usuário</string>
     <string name="error_unknown">Ocorreu um erro desconhecido. Tente novamente.</string>
     <string name="error_google_sign_in_failed_unknown">Falha no login com Google</string>
@@ -270,7 +270,7 @@
 
     <string name="error_password_too_short">A senha deve ter pelo menos 8 caracteres.</string>
     <string name="error_email_already_in_use">Este email já está sendo usado por outra conta.</string>
-    <string name="error_weak_password">A palavra-passe é demasiado fraca. Por favor, utilize pelo menos 8 caracteres e caracteres especiais.</string>
+    <string name="error_weak_password">A senha é muito fraca. Por favor, use pelo menos 8 caracteres e caracteres especiais.</string>
     <string name="login_verify_email_title">✉️ Verifique seu email</string>
     <string name="login_verify_email_text">Enviamos um email de verificação para\n%1$s\nClique no link no email para ativar sua conta.</string>
     <string name="login_verify_email_confirm">Eu verifiquei ✓</string>
@@ -309,12 +309,11 @@
     <string name="error_revenuecat_not_configured">RevenueCat não está configurado</string>
     <string name="default_someone">Alguém</string>
     <string name="error_label">Erro</string>
-    <string name="offline_write_hint">Sem ligação. As suas alterações serão sincronizadas assim que estiver novamente online.</string>
+    <string name="offline_write_hint">Sem conexão. Suas alterações serão sincronizadas assim que você estiver novamente online.</string>
     <string name="password_show">Mostrar senha</string>
     <string name="password_hide">Ocultar senha</string>
     <string name="close_desc">Fechar</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Permissão de alarme em falta</string>
     <string name="settings_exact_alarm_warning_text">O alarme não pode tocar neste dispositivo. Por favor, permita que o FamWake agende alarmes exatos.</string>
     <string name="settings_exact_alarm_warning_button">Permitir alarmes</string>
