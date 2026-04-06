@@ -153,6 +153,10 @@ class FamilyViewModel(
     internal val _isSendingFeedback = MutableStateFlow(false)
     val isSendingFeedback = _isSendingFeedback.asStateFlow()
 
+    // Verhindert den kurzen "Kein Profil"-Flash während der Auto-Claim läuft
+    internal val _isAutoClaimInProgress = MutableStateFlow(false)
+    val isAutoClaimInProgress: StateFlow<Boolean> = _isAutoClaimInProgress.asStateFlow()
+
     internal val _feedbackError = MutableStateFlow<UiText?>(null)
     val feedbackError = _feedbackError.asStateFlow()
 
