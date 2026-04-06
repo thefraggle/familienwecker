@@ -229,7 +229,11 @@ class FamilyViewModel(
                     if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
                         appSettings.setMyMemberId(claimedByMe.id)
                         appSettings.setMyMemberName(claimedByMe.name)
-                    } else if (claimedByMe == null && myMemberId.value != null) {
+                    } else if (claimedByMe == null && myMemberId.value != null && checkedMembers.isNotEmpty()) {
+                        // Nur zurücksetzen wenn wir echte Daten haben – eine leere Liste bedeutet
+                        // dass clearCache() gerade lief und der Firestore-Sync noch aussteht.
+                        // Leere Liste → false positive: würde myMemberId fälschlich nullen und
+                        // in Folge setAlarmEnabled(false) triggern (Startup-Race-Condition).
                         appSettings.setMyMemberId(null)
                         appSettings.setMyMemberName(null)
                     }
