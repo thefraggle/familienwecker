@@ -1,6 +1,6 @@
 # 🧪# Test Plan: FamWake
-**Version:** 1.6.16  
-**Date:** 2026-04-01  
+**Version:** 1.6.17  
+**Date:** 2026-04-06  
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
 *[🇩🇪 Deutsche Version](test_plan.md)*
@@ -203,6 +203,9 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-108| **KMP Settings Persistence** | Restart app after changing settings (language, theme). | Settings are preserved; no data loss due to the new KMP architecture. |
 | TC-109| **Firestore Rules: Member Protection** | Attempt to change `name` or `claimedByUserId` of another member directly. | Firestore rejects write (PERMISSION_DENIED); only `isAwakeToday` and `isPaused` are writable by all family members. |
 | TC-111| **Natural Language Fallback** | Set the device language to Turkish (or any other unsupported language). | The app launches in English (default resources) instead of incorrectly forcing German. |
+| TC-112| **Swedish Localization** | Set the app language to Swedish. | UI strings are correctly displayed in Swedish; no fallback to German or English. |
+| TC-113| **Security: Feedback requires login** | Call the feedback function without being logged in (directly via API). | Cloud Function throws `unauthenticated` error; no entry is written to Firestore. |
+| TC-114| **Security: Member deletion ownership** | As a family member, attempt to delete another member's document (via leaveFamily with a foreign memberId). | Cloud Function throws `permission-denied`; the other profile remains untouched. |
 
 ---
 
