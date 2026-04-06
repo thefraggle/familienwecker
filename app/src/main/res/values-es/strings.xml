@@ -212,7 +212,7 @@
     <string name="awake_today_desc">Ya estoy despierto/a</string>
     <string name="awake_active_desc">Ya estoy despierto/a</string>
 
-    <string name="error_load_members">Error al cargar los miembros: %1$s</string>
+    <string name="error_load_members">Error al cargar los miembros</string>
     <string name="error_create_family">Error al crear la familia: %1$s</string>
     <string name="error_create_family_rate_limit">Ya has creado 3 familias en la última hora. Por favor, espera una hora y vuelve a intentarlo.</string>
     <string name="error_join_family_rate_limit">Demasiados intentos de unirse (máx. 5 por minuto). Espera un momento y vuelve a intentarlo.</string>
@@ -223,15 +223,15 @@
     <string name="join_conflict_text">Ya eres miembro de la familia \"%1$s\". Para unirte a la nueva, primero debes salir de la actual. ¿Quieres salir de \"%1$s\" y unirte con el código %2$s?</string>
     <string name="join_conflict_confirm">Salir y Unirse</string>
     <string name="error_delete_member">No se pudo eliminar al miembro: %1$s</string>
-    <string name="error_sync_failed">Sincronización fallida: %1$s</string>
+    <string name="error_sync_failed">Sincronización fallida</string>
     <string name="error_delete_family">Error al eliminar la familia: %1$s</string>
     <string name="error_calculate_schedule">Error al calcular el horario: %1$s</string>
     <string name="error_not_logged_in">Usuario no conectado</string>
-    <string name="error_system">Error del sistema: %1$s</string>
+    <string name="error_system">Error del sistema</string>
     <string name="error_invalid_credentials">Correo o contraseña no válidos. Por favor, comprueba tus datos.</string>
-    <string name="error_login_failed">Error al iniciar sesión: %1$s</string>
+    <string name="error_login_failed">Error al iniciar sesión</string>
     <string name="error_login_failed_unknown">Error de inicio de sesión desconocido</string>
-    <string name="error_registration_failed">Error de registro: %1$s</string>
+    <string name="error_registration_failed">Error de registro</string>
     <string name="error_registration_failed_unknown">No se pudo crear el usuario</string>
     <string name="error_unknown">Ha ocurrido un error desconocido. Por favor, inténtalo de nuevo.</string>
     <string name="error_google_sign_in_failed_unknown">Error al iniciar sesión con Google</string>
@@ -314,7 +314,6 @@
     <string name="password_hide">Ocultar contraseña</string>
     <string name="close_desc">Cerrar</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Falta permiso de alarma</string>
     <string name="settings_exact_alarm_warning_text">La alarma no puede sonar en este dispositivo. Por favor, permite que FamWake programe alarmas exactas.</string>
     <string name="settings_exact_alarm_warning_button">Permitir alarmas</string>

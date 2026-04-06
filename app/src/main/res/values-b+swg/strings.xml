@@ -249,7 +249,7 @@
     <string name="alarm_notification_text">Guada Morga, %1$s!</string>
     <string name="alarm_channel_name">Wegger</string>
 
-    <string name="settings_fallback_username">Elternoel</string>
+    <string name="settings_fallback_username">Eldernteil</string>
 
     <string name="error_alarm_permission">Bitte geb in de Eistellonga d\'Erlaubnis, damit s\'pünktlich klingla ko.</string>
 
@@ -304,7 +304,7 @@
 
     <string name="error_permission_denied">Därfscht net nei</string>
     <string name="error_offline">Kois Internet do</string>
-    <string name="error_report_failed">Bericht isch nent naus</string>
+    <string name="error_report_failed">Bericht isch net naus</string>
     <string name="error_leave_failed">Famlie verlassa isch fählgschlaga</string>
     <string name="error_revenuecat_not_configured">RevenueCat nix eigericht</string>
     <string name="default_someone">Ebber</string>
@@ -314,7 +314,6 @@
     <string name="password_hide">Password verbaiga</string>
     <string name="close_desc">Zuemacha</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Wecker-Recht feehlt</string>
     <string name="settings_exact_alarm_warning_text">Dei Händy blockiert da Wecker. Lass FamWake dei Weckzait gscheit iiställä.</string>
     <string name="settings_exact_alarm_warning_button">Wecker erlaubä</string>

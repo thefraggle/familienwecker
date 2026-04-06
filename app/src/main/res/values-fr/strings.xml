@@ -50,7 +50,7 @@
     <string name="add_member_title_edit">Modifier le membre</string>
     <string name="back_desc">Retour</string>
     <string name="unsaved_changes_title">Modifications non enregistrées</string>
-    <string name="unsaved_changes_message">Voulez-vous abandonner vos modifications ?</string>
+    <string name="unsaved_changes_message">Veux-tu abandonner tes modifications ?</string>
     <string name="unsaved_changes_discard">Abandonner</string>
     <string name="unsaved_changes_keep">Continuer l\'édition</string>
     <string name="add_member_submit">Enregistrer</string>
@@ -175,8 +175,8 @@
     <string name="feedback_cancel">Annuler</string>
     <string name="feedback_send">Envoyer</string>
     <string name="feedback_success">Merci ! Ton message a bien été reçu.</string>
-    <string name="feedback_success_title">Commentaires Envoyés</string>
-    <string name="feedback_success_message">Merci pour vos commentaires ! Ils nous aident à améliorer FamWake pour tout le monde.</string>
+    <string name="feedback_success_title">Retour envoyé</string>
+    <string name="feedback_success_message">Merci pour ton retour ! Il nous aide à améliorer FamWake pour tout le monde.</string>
     <string name="settings_terms_of_use">Conditions d\'utilisation</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-fr.html</string>
     <string name="settings_privacy_policy">Politique de confidentialité</string>
@@ -212,7 +212,7 @@
     <string name="awake_today_desc">Déjà réveillé(e)</string>
     <string name="awake_active_desc">Déjà réveillé(e)</string>
 
-    <string name="error_load_members">Erreur de chargement des membres : %1$s</string>
+    <string name="error_load_members">Erreur de chargement des membres</string>
     <string name="error_create_family">Erreur lors de la création de la famille : %1$s</string>
     <string name="error_create_family_rate_limit">Tu as déjà créé 3 familles cette heure. Patiente un peu et réessaie.</string>
     <string name="error_join_family_rate_limit">Trop de tentatives. Patiente un instant et réessaie.</string>
@@ -223,15 +223,15 @@
     <string name="join_conflict_text">Tu es déjà membre de la famille \"%1$s\". Tu dois d\'abord la quitter. Quitter \"%1$s\" et rejoindre avec le code %2$s ?</string>
     <string name="join_conflict_confirm">Quitter &amp; Rejoindre</string>
     <string name="error_delete_member">Impossible de supprimer le membre : %1$s</string>
-    <string name="error_sync_failed">Échec de synchronisation : %1$s</string>
+    <string name="error_sync_failed">Échec de synchronisation</string>
     <string name="error_delete_family">Erreur lors de la suppression de la famille : %1$s</string>
     <string name="error_calculate_schedule">Erreur de calcul du planning : %1$s</string>
     <string name="error_not_logged_in">Utilisateur non connecté</string>
-    <string name="error_system">Erreur système : %1$s</string>
+    <string name="error_system">Erreur système</string>
     <string name="error_invalid_credentials">E-mail ou mot de passe invalide.</string>
-    <string name="error_login_failed">Échec de la connexion : %1$s</string>
+    <string name="error_login_failed">Échec de la connexion</string>
     <string name="error_login_failed_unknown">Erreur de connexion inconnue</string>
-    <string name="error_registration_failed">Échec de l\'inscription : %1$s</string>
+    <string name="error_registration_failed">Échec de l\'inscription</string>
     <string name="error_registration_failed_unknown">Impossible de créer l\'utilisateur</string>
     <string name="error_unknown">Une erreur inconnue s\'est produite. Réessaie.</string>
     <string name="error_google_sign_in_failed_unknown">Échec de la connexion Google</string>
@@ -270,7 +270,7 @@
 
     <string name="error_password_too_short">Le mot de passe doit contenir au moins 8 caractères.</string>
     <string name="error_email_already_in_use">Cette adresse e-mail est déjà utilisée par un autre compte.</string>
-    <string name="error_weak_password">Le mot de passe est trop faible. Veuillez utiliser au moins 8 caractères et des caractères spéciaux.</string>
+    <string name="error_weak_password">Le mot de passe est trop faible. Utilise au moins 8 caractères et des caractères spéciaux.</string>
     <string name="login_verify_email_title">✉️ Confirme ton e-mail</string>
     <string name="login_verify_email_text">Nous avons envoyé un e-mail de confirmation à\n%1$s\nClique sur le lien dans l\'e-mail pour activer ton compte.</string>
     <string name="login_verify_email_confirm">J\'ai confirmé ✓</string>
@@ -294,7 +294,7 @@
     <string name="settings_donate_error">Oups, un problème est survenu.</string>
     <string name="settings_donate_loading">Chargement des offres…</string>
     <string name="settings_donate_no_offers">Aucune offre disponible. Assure-toi que \"Current Offering\" est bien configuré dans RevenueCat.</string>
-    <string name="settings_donate_refresh">Actualiser</string>
+    <string name="settings_donate_refresh">Actualizar</string>
     <string name="settings_donate_purchase_loading">Don en cours de traitement…</string>
     <string name="settings_donate_error_not_allowed">Cet appareil ou utilisateur n\'est pas autorisé à faire des achats.</string>
     <string name="settings_donate_error_store_problem">Problème avec le Google Play Store.</string>
@@ -309,14 +309,13 @@
     <string name="error_revenuecat_not_configured">RevenueCat n\'est pas configuré</string>
     <string name="default_someone">Quelqu\'un</string>
     <string name="error_label">Erreur</string>
-    <string name="offline_write_hint">Pas de connexion. Vos modifications seront synchronisées dès que vous serez de nouveau en ligne.</string>
+    <string name="offline_write_hint">Pas de connexion. Tes modifications seront synchronisées dès que tu seras de nouveau en ligne.</string>
     <string name="password_show">Afficher le mot de passe</string>
     <string name="password_hide">Masquer le mot de passe</string>
     <string name="close_desc">Fermer</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Permission d\'alarme manquante</string>
-    <string name="settings_exact_alarm_warning_text">L\'alarme ne peut pas sonner sur cet appareil. Veuillez autoriser FamWake à programmer des alarmes exactes.</string>
+    <string name="settings_exact_alarm_warning_text">L\'alarme ne peut pas sonner sur cet appareil. Autorise FamWake à programmer des alarmes exactes.</string>
     <string name="settings_exact_alarm_warning_button">Autoriser les alarmes</string>
-    <string name="main_exact_alarm_banner">⚠️ Alarme bloquée ! Veuillez accorder la permission dans les paramètres pour que l\'alarme sonne à l\'heure.</string>
+    <string name="main_exact_alarm_banner">⚠️ Alarme bloquée ! Accorde la permission dans les paramètres pour que l\'alarme sonne à l\'heure.</string>
 </resources>

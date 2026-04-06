@@ -50,8 +50,8 @@
     <string name="add_member_title_edit">Lid bewerken</string>
     <string name="back_desc">Terug</string>
     <string name="unsaved_changes_title">Niet-opgeslagen wijzigingen</string>
-    <string name="unsaved_changes_message">Wilt u de wijzigingen weggooien?</string>
-    <string name="unsaved_changes_discard">Weggooien</string>
+    <string name="unsaved_changes_message">Wil je je wijzigingen echt verwerpen?</string>
+    <string name="unsaved_changes_discard">Verwerpen</string>
     <string name="unsaved_changes_keep">Verder bewerken</string>
     <string name="add_member_submit">Opslaan</string>
     <string name="delete_member_title">Lid verwijderen</string>
@@ -110,7 +110,7 @@
     <string name="settings_delete_family_dialog_confirm">Verwijderen</string>
     <string name="settings_delete_family_dialog_cancel">Annuleren</string>
     <string name="settings_delete_family_warning_title">Andere leden actief!</string>
-    <string name="settings_delete_family_warning_text">Er zijn nog andere actieve leden in deze familie. Als je deze verwijdert, verliest iedereen de toegang. Wil je echt alles forceren te verwijderen?</string>
+    <string name="settings_delete_family_warning_text">Er zijn nog andere actieve leden in deze familie. Als je deze verwijdert, verliest iedereen de toegang. Wil je echt alles geforceerd verwijderen?</string>
     <string name="settings_delete_family_warning_confirm">Ja, alles verwijderen</string>
     <string name="settings_logout">Uitloggen</string>
     <string name="settings_delete_account">Account verwijderen</string>
@@ -212,7 +212,7 @@
     <string name="awake_today_desc">Al wakker</string>
     <string name="awake_active_desc">Al wakker</string>
 
-    <string name="error_load_members">Fout bij laden van leden: %1$s</string>
+    <string name="error_load_members">Fout bij laden van leden</string>
     <string name="error_create_family">Fout bij aanmaken familie: %1$s</string>
     <string name="error_create_family_rate_limit">Je hebt het afgelopen uur al 3 families aangemaakt. Wacht a.u.b. een uur en probeer het opnieuw.</string>
     <string name="error_join_family_rate_limit">Te veel pogingen tot deelname (max. 5 per minuut). Wacht even en probeer het opnieuw.</string>
@@ -223,15 +223,15 @@
     <string name="join_conflict_text">Je bent al lid van de familie „%1$s”. Om lid te worden van de nieuwe familie, moet je eerst je huidige familie verlaten. Wil je „%1$s” verlaten en deelnemen met code %2$s?</string>
     <string name="join_conflict_confirm">Verlaten &amp; Deelnemen</string>
     <string name="error_delete_member">Kon lid niet verwijderen: %1$s</string>
-    <string name="error_sync_failed">Synchronisatie mislukt: %1$s</string>
+    <string name="error_sync_failed">Synchronisatie mislukt</string>
     <string name="error_delete_family">Fout bij verwijderen familie: %1$s</string>
     <string name="error_calculate_schedule">Fout bij berekenen schema: %1$s</string>
     <string name="error_not_logged_in">Gebruiker niet ingelogd</string>
-    <string name="error_system">Systeemfout: %1$s</string>
+    <string name="error_system">Systeemfout</string>
     <string name="error_invalid_credentials">Ongeldig e-mailadres of wachtwoord. Controleer je invoer.</string>
-    <string name="error_login_failed">Inloggen mislukt: %1$s</string>
+    <string name="error_login_failed">Inloggen mislukt</string>
     <string name="error_login_failed_unknown">Onbekende inlogfout</string>
-    <string name="error_registration_failed">Registratie mislukt: %1$s</string>
+    <string name="error_registration_failed">Registratie mislukt</string>
     <string name="error_registration_failed_unknown">Kon gebruiker niet aanmaken</string>
     <string name="error_unknown">Er is een onbekende fout opgetreden. Probeer het a.u.b. opnieuw.</string>
     <string name="error_google_sign_in_failed_unknown">Google-inloggen mislukt</string>
@@ -314,7 +314,6 @@
     <string name="password_hide">Wachtwoord verbergen</string>
     <string name="close_desc">Sluiten</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Wekkerrechten ontbreken</string>
     <string name="settings_exact_alarm_warning_text">De wekker kan niet afgaan op dit apparaat. Geef FamWake toestemming om exacte wekkers in te stellen.</string>
     <string name="settings_exact_alarm_warning_button">Wekkers toestaan</string>

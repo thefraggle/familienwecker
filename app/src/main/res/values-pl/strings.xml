@@ -161,7 +161,7 @@
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Pomóż nam ulepszyć aplikację! Co masz na myśli?</string>
     <string name="feedback_category_label">Kategoria</string>
-    <string name="feedback_category_bug">Znalazłem błąd</string>
+    <string name="feedback_category_bug">Znaleziono błąd</string>
     <string name="feedback_category_feature">Prośba o funkcję</string>
     <string name="feedback_category_praise">Pochwała i Krytyka</string>
     <string name="feedback_category_other">Inne</string>
@@ -175,8 +175,8 @@
     <string name="feedback_cancel">Anuluj</string>
     <string name="feedback_send">Wyślij feedback</string>
     <string name="feedback_success">Dziękujemy! Twój feedback został otrzymany i bardzo nam pomaga.</string>
+    <string name="feedback_success_title">Opinia wysłana</string>
     <string name="feedback_success_message">Dziękujemy za Twoją opinię! Pomaga nam to ulepszać FamWake dla wszystkich.</string>
-    <string name="feedback_success_title">Opinia Wysłana</string>
     <string name="settings_terms_of_use">Warunki użytkowania</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-pl.html</string>
     <string name="settings_privacy_policy">Polityka prywatności</string>
@@ -187,7 +187,7 @@
 
     <string name="registration_disclaimer">Rejestrując się, akceptujesz %1$s oraz %2$s.</string>
     <string name="registration_terms_of_use">Warunki użytkowania</string>
-    <string name="registration_privacy_policy">Polityka prywatności</string>
+    <string name="registration_privacy_policy">Politykę prywatności</string>
     <string name="settings_already_claimed">Już zajęte</string>
     <string name="settings_theme_light">Jasny</string>
     <string name="settings_theme_dark">Ciemny</string>
@@ -212,7 +212,7 @@
     <string name="awake_today_desc">Już nie śpię</string>
     <string name="awake_active_desc">Już nie śpię</string>
 
-    <string name="error_load_members">Błąd ładowania członków: %1$s</string>
+    <string name="error_load_members">Błąd ładowania członków</string>
     <string name="error_create_family">Błąd tworzenia rodziny: %1$s</string>
     <string name="error_create_family_rate_limit">Utworzyłeś już 3 rodziny w ciągu ostatniej godziny. Spróbuj ponownie za godzinę.</string>
     <string name="error_join_family_rate_limit">Zbyt wiele prób dołączenia (maks. 5 na minutę). Spróbuj ponownie za chwilę.</string>
@@ -223,15 +223,15 @@
     <string name="join_conflict_text">Jesteś już członkiem rodziny „%1$s”. Aby dołączyć do nowej rodziny, musisz najpierw opuścić obecną. Czy chcesz opuścić „%1$s” i dołączyć z kodem %2$s?</string>
     <string name="join_conflict_confirm">Opuść i Dołącz</string>
     <string name="error_delete_member">Nie udało się usunąć członka: %1$s</string>
-    <string name="error_sync_failed">Synchronizacja nie powiodła się: %1$s</string>
+    <string name="error_sync_failed">Synchronizacja nie powiodła się</string>
     <string name="error_delete_family">Błąd usuwania rodziny: %1$s</string>
     <string name="error_calculate_schedule">Błąd obliczania harmonogramu: %1$s</string>
     <string name="error_not_logged_in">Użytkownik nie jest zalogowany</string>
-    <string name="error_system">Błąd systemu: %1$s</string>
+    <string name="error_system">Błąd systemu</string>
     <string name="error_invalid_credentials">Nieprawidłowy email lub hasło. Sprawdź swoje dane.</string>
-    <string name="error_login_failed">Logowanie nie powiodło się: %1$s</string>
+    <string name="error_login_failed">Logowanie nie powiodło się</string>
     <string name="error_login_failed_unknown">Nieznany błąd logowania</string>
-    <string name="error_registration_failed">Rejestracja nie powiodła się: %1$s</string>
+    <string name="error_registration_failed">Rejestracja nie powiodła się</string>
     <string name="error_registration_failed_unknown">Nie udało się utworzyć użytkownika</string>
     <string name="error_unknown">Wystąpił nieznany błąd. Spróbuj ponownie.</string>
     <string name="error_google_sign_in_failed_unknown">Logowanie przez Google nie powiodło się</string>
@@ -273,12 +273,12 @@
     <string name="error_weak_password">Hasło jest zbyt słabe. Użyj co najmniej 8 znaków i znaków specjalnych.</string>
     <string name="login_verify_email_title">✉️ Zweryfikuj swój e-mail</string>
     <string name="login_verify_email_text">Wysłaliśmy e-mail weryfikacyjny na adres\n%1$s\nKliknij link w wiadomości, aby aktywować konto.</string>
-    <string name="login_verify_email_confirm">Zweryfikowałem ✓</string>
+    <string name="login_verify_email_confirm">Zweryfikowano ✓</string>
     <string name="login_verify_email_resend">Wyślij ponownie</string>
     <string name="login_verify_email_not_verified">E-mail nie został jeszcze zweryfikowany. Sprawdź swoją skrzynkę.</string>
 
     <string name="tooltip_awake_button">Nie śpisz już? Dotknij tutaj, aby wyłączyć alarm na dziś – Twój czas w łazience pozostaje zarezerwowany dla rodziny.</string>
-    <string name="tooltip_drag_handle">Naciśnij i przeciągnij kafelka, aby ręcznie zmienić kolejność budzenia rodziny. Algorytm przeliczy wszystko natychmiast.</string>
+    <string name="tooltip_drag_handle">Naciśnij i przeciągnij kafelek, aby ręcznie zmienić kolejność budzenia rodziny. Algorytm przeliczy wszystko natychmiast.</string>
     <string name="tooltip_wake_window">Podaj nam okno czasowe. Aplikacja znajdzie idealny moment, aby nikt nie musiał czekać na łazienkę.</string>
     <string name="tooltip_bathroom">Zaplanuj to realistycznie. Twój czas w łazience nadaje rytm porankowi całej rodziny.</string>
     <string name="tooltip_invite_code">Udostępnij ten kod swojej rodzinie. Gdy dołączą, automatycznie pojawią się w Twoim harmonogramie.</string>
@@ -314,7 +314,6 @@
     <string name="password_hide">Ukryj hasło</string>
     <string name="close_desc">Zamknij</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Brak uprawnień alarmu</string>
     <string name="settings_exact_alarm_warning_text">Alarm nie może zadzwonić na tym urządzeniu. Zezwól aplikacji FamWake na ustawianie dokładnych alarmów.</string>
     <string name="settings_exact_alarm_warning_button">Zezwól na alarmy</string>

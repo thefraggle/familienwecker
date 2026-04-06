@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Familärväckarklocka</string>
+    <string name="app_name_short">Familjeväckarklocka</string>
     <string name="email_label">E-post</string>
     <string name="password_label">Lösenord</string>
     <string name="register_button">Registrera</string>
@@ -114,7 +114,7 @@
     <string name="settings_delete_family_warning_confirm">Ja, ta bort allt</string>
     <string name="settings_logout">Logga ut</string>
     <string name="settings_delete_account">Ta bort konto</string>
-    <string name="settings_footer_version">FamWake Familärväckarklocka v%1$s</string>
+    <string name="settings_footer_version">FamWake Familjeväckarklocka v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alla rättigheter förbehållna.</string>
 
@@ -178,12 +178,12 @@
     <string name="feedback_success_title">Feedback skickad</string>
     <string name="feedback_success_message">Tack för din feedback! Det hjälper oss att förbättra FamWake för alla.</string>
     <string name="settings_terms_of_use">Användarvillkor</string>
-    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-sv.html</string>
     <string name="settings_privacy_policy">Integritetspolicy</string>
-    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-sv.html</string>
     <string name="settings_imprint">Impressum</string>
-    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
-    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-sv.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-sv.html</string>
 
     <string name="registration_disclaimer">Genom att registrera dig godkänner du %1$s och %2$s.</string>
     <string name="registration_terms_of_use">Användarvillkor</string>
@@ -212,7 +212,7 @@
     <string name="awake_today_desc">Redan vaken</string>
     <string name="awake_active_desc">Redan vaken</string>
 
-    <string name="error_load_members">Fel vid inläsning av medlemmar: %1$s</string>
+    <string name="error_load_members">Fel vid inläsning av medlemmar</string>
     <string name="error_create_family">Fel vid skapande av familj: %1$s</string>
     <string name="error_create_family_rate_limit">Du har redan skapat 3 familjer den senaste timmen. Vänta en timme och försök igen.</string>
     <string name="error_join_family_rate_limit">För många anslutningsförsök (max 5 per minut). Vänta ett ögonblick och försök igen.</string>
@@ -223,15 +223,15 @@
     <string name="join_conflict_text">Du är redan medlem i familjen \"%1$s\". För att gå med i den nya familjen måste du lämna din nuvarande först. Vill du lämna \"%1$s\" och gå med med koden %2$s?</string>
     <string name="join_conflict_confirm">Lämna &amp; Gå med</string>
     <string name="error_delete_member">Kunde inte ta bort medlem: %1$s</string>
-    <string name="error_sync_failed">Synkronisering misslyckades: %1$s</string>
+    <string name="error_sync_failed">Synkronisering misslyckades</string>
     <string name="error_delete_family">Fel vid borttagning av familj: %1$s</string>
     <string name="error_calculate_schedule">Fel vid schemaberäkning: %1$s</string>
     <string name="error_not_logged_in">Användaren är inte inloggad</string>
-    <string name="error_system">Systemfel: %1$s</string>
+    <string name="error_system">Systemfel</string>
     <string name="error_invalid_credentials">Ogiltig e-post eller lösenord. Kontrollera dina uppgifter.</string>
-    <string name="error_login_failed">Inloggning misslyckades: %1$s</string>
+    <string name="error_login_failed">Inloggning misslyckades</string>
     <string name="error_login_failed_unknown">Okänt inloggningsfel</string>
-    <string name="error_registration_failed">Registrering misslyckades: %1$s</string>
+    <string name="error_registration_failed">Registrering misslyckades</string>
     <string name="error_registration_failed_unknown">Kunde inte skapa användare</string>
     <string name="error_unknown">Ett okänt fel uppstod. Försök igen.</string>
     <string name="error_google_sign_in_failed_unknown">Google-inloggning misslyckades</string>
@@ -314,7 +314,6 @@
     <string name="password_hide">Dölj lösenord</string>
     <string name="close_desc">Stäng</string>
 
-    <!-- Android 14 Exact Alarm Permissions -->
     <string name="settings_exact_alarm_warning_title">Larmbehörighet saknas</string>
     <string name="settings_exact_alarm_warning_text">Det exakta larmet kan inte ringa på den här enheten. Tillåt FamWake att schemalägga exakta larm.</string>
     <string name="settings_exact_alarm_warning_button">Tillåt larm</string>
