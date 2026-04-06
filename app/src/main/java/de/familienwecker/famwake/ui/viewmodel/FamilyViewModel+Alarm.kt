@@ -219,6 +219,25 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     // Beim Aus- UND Einschalten wird „Schon wach" zurückgesetzt.
     // Bewusster Toggle = expliziter Neustart – unabhängig vom vorherigen Zustand.
     appSettings.setAwakeToday(false)
+    // Auch member.isAwakeToday in Room + Firestore zurücksetzen, damit das
+    // ☀️-Icon in der MemberCard sofort verschwindet (liest Firestore, nicht AppSettings).
+    val memberId = myMemberId.value
+    if (memberId != null) {
+        val member = _members.value.find { it.id == memberId }
+        if (member != null && member.isAwakeToday) {
+            val resetMember = member.copy(isAwakeToday = false)
+            scope.launch {
+                try {
+                    memberRepository.upsertMember(resetMember)
+                } catch (e: Exception) {
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.w("FamWake_Alarm", "setAlarmEnabled: Room reset failed: ${e.message}")
+                    }
+                }
+            }
+            addOrUpdateMemberDebounced(resetMember)
+        }
+    }
     appSettings.setAlarmEnabled(enabled)
     val currentFamilyId = familyId.value
     val currentMemberId = myMemberId.value
