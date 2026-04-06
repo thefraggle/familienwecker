@@ -4,6 +4,18 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.19 - 2026-04-06
+
+### New
+- **"I'm already awake" time window:** The awake button is now only active within 2 hours before the next alarm (grayed out outside this window). Users who have already marked themselves as awake can always reset the status.
+
+### Fixed
+- **Global alarm disabled after app restart (Critical):** A race condition on startup caused the active alarm to be incorrectly reset to "Off" after a restart. (An empty member list during startup falsely triggered `setAlarmEnabled(false)`.)
+- **"Already awake" status persisted after day change:** The local awake status (button color) remained green the next day when the app was running in the background. Status is now date-bound and resets correctly when the app is opened.
+- **Sun icon after alarm toggle:** The ☀️ icon on a member's profile card did not reliably disappear after toggling the global alarm off and on. Reset now happens immediately in Room and Firestore.
+- **Login screen with large font sizes:** At system font size 125% or 150%, the login button was out of view. The screen is now scrollable and IME-aware.
+- **"Already awake" inherited by new claimer:** When unclaiming a member, `isAwakeToday` was not reset in Firestore – a new user could have inherited the stale status.
+
 ## 1.6.18 - 2026-04-06
 
 ### Fixed
