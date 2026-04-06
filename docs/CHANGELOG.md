@@ -4,6 +4,18 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.6.19 - 2026-04-06
+
+### Neu
+- **„Ich bin schon wach"-Zeitfenster:** Der Wach-Button ist jetzt erst 2 Stunden vor dem nächsten Wecker aktiv (außerhalb ausgegraut). Wer bereits „wach" ist, kann den Status jederzeit zurücksetzen.
+
+### Behoben
+- **Globaler Wecker nach App-Neustart deaktiviert (Kritisch):** Ein Race Condition beim Start sorgte dafür, dass der aktivierte Wecker nach einem Neustart fälschlich auf „Aus" zurückgesetzt wurde. (Leere Member-Liste während des Starts triggerte fälschlicherweise `setAlarmEnabled(false)`.)
+- **„Schon wach"-Status bleibt nach Tageswechsel erhalten:** Der lokale Wach-Status blieb auch am nächsten Tag sichtbar, wenn die App im Hintergrund lief. Der Status ist jetzt datumsgebunden und wird beim Öffnen der App korrekt zurückgesetzt.
+- **Sonnen-Icon nach Alarm-Toggle:** Das ☀️-Icon im Mitgliederprofil verschwand nach dem Aus- und Einschalten des globalen Weckers nicht zuverlässig. Reset erfolgt jetzt sofort in Room und Firestore.
+- **Login-Screen bei großer Schriftgröße:** Bei Systemschriftgröße 125 % oder 150 % war der Login-Button nicht erreichbar. Der Screen ist jetzt scrollbar und IME-bewusst.
+- **„Schon wach" wird auf neuen Claimer vererbt:** Beim Entclaimen wurde `isAwakeToday` in Firestore nicht zurückgesetzt – ein neuer Nutzer hätte den veralteten Status geerbt.
+
 ## 1.6.18 - 2026-04-06
 
 ### Behoben

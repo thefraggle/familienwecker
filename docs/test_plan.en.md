@@ -1,5 +1,5 @@
 # 🧪# Test Plan: FamWake
-**Version:** 1.6.18  
+**Version:** 1.6.19  
 **Date:** 2026-04-06  
 This documentation describes the testing strategy and test cases for the FamWake app to ensure high reliability of the wake-up logic and a smooth user experience.
 
@@ -214,6 +214,11 @@ The FamWake app is based on a dynamic scheduling algorithm. Tests must therefore
 | TC-120| **No pause button on own profile** | View own (claimed) profile on the main screen. | No pause icon visible. |
 | TC-121| **Pause unclaimed profiles works** | Pause an unclaimed profile. | Profile is paused correctly; no permission or sync error. |
 | TC-122| **Password reset: unknown email** | Request password reset for an unregistered email address. | Always shows the same success message ("email sent"), regardless of whether the address is known. |
+| TC-123| **"Already awake" button – time window (inactive)** | Next alarm tomorrow 07:00, current time 15:00. | Button is grayed out and not clickable. |
+| TC-124| **"Already awake" button – time window (active)** | Next alarm tomorrow 07:00, current time 05:30. | Button is active and clickable (within 2h window). |
+| TC-125| **"Already awake" button – reset always possible** | User is marked as "awake", time window has passed. | Button remains clickable so the status can be reset. |
+| TC-126| **Global alarm stays ON after restart** | Enable global alarm → restart the app. | Alarm remains ON; switch shows "Active". (No false reset from startup race condition.) |
+| TC-127| **"Already awake" status after day change** | Mark "already awake" → keep app in background overnight → open app next morning. | Button shows default state (not awake), no stale green icon. |
 
 ---
 

@@ -1,5 +1,5 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.18
+**Version:** 1.6.19
 **Datum:** 2026-04-06
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -218,6 +218,11 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-120| **Kein Pausieren-Knopf am eigenen Profil** | Eigenes (geclaimtes) Profil auf dem Hauptscreen ansehen. | Kein Pausieren-Symbol sichtbar. |
 | TC-121| **Pausieren freier Profile funktioniert** | Ein ungeclaimtes Profil pausieren. | Profil wird korrekt pausiert, kein Berechtigungs- oder Sync-Fehler. |
 | TC-122| **Passwort-Reset: unbekannte Mail** | Passwort-Reset für eine nicht registrierte E-Mail-Adresse anfordern. | Immer dieselbe Erfolgsmeldung („Mail verschickt“), unabhängig ob Adresse bekannt oder nicht. |
+| TC-123| **„Schon wach“-Button – Zeitfenster (inaktiv)** | Weckzeit morgen 07:00, aktuelle Zeit 15:00. | Button ist ausgegraut und nicht klickbar. |
+| TC-124| **„Schon wach“-Button – Zeitfenster (aktiv)** | Weckzeit morgen 07:00, aktuelle Zeit 05:30. | Button ist aktiv und klickbar (innerhalb 2h-Fenster). |
+| TC-125| **„Schon wach“-Button – Zurücksetzen immer möglich** | User ist als „wach“ markiert, Zeitfenster ist abgelaufen. | Button bleibt klickbar (Status-Reset möglich). |
+| TC-126| **Globaler Wecker nach Neustart AN** | Globalen Wecker einschalten → App neu starten. | Wecker bleibt AN; Switch zeigt „Aktiv“. (Kein false-Reset durch Startup-Race-Condition.) |
+| TC-127| **„Schon wach“-Status nach Tageswechsel** | „Schon wach“ drücken → App über Nacht im Hintergrund → nächsten Morgen öffnen. | Button zeigt wieder Ausgangszustand (nicht wach), kein veraltetes grünes Icon. |
 
 ---
 
