@@ -20,19 +20,23 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
         return
     }
     val isNewMember = _members.value.none { it.id == member.id }
+
+    // Flag SYNCHRON setzen, bevor der Coroutine startet – verhindert den "Kein Profil"-Flash,
+    // da Firestore-Listener schneller feuern können als der Coroutine-Scheduler.
+    val willAutoClaim = isNewMember && myMemberId.value == null && member.claimedByUserId == null && auth.currentUser?.uid != null
+    if (willAutoClaim) _isAutoClaimInProgress.value = true
+
     scope.launch {
         try {
             repository.addOrUpdateMember(currentFamilyId, member)
             // Auto-Claim: Erster eigener Member wird automatisch geclaimt.
             // Nur wenn: (1) neuer Member, (2) noch kein Profil geclaimt, (3) Member ist unclaimed.
-            if (isNewMember && myMemberId.value == null && member.claimedByUserId == null) {
+            if (willAutoClaim) {
                 val userId = auth.currentUser?.uid
                 val userName = auth.currentUser?.displayName
                     ?: getApplication<android.app.Application>().getString(de.familienwecker.famwake.R.string.settings_fallback_username)
                 if (userId != null) {
-                    _isAutoClaimInProgress.value = true
                     val success = repository.claimMember(currentFamilyId, member.id, userId, userName)
-                    _isAutoClaimInProgress.value = false
                     if (success) {
                         appSettings.setMyMemberId(member.id)
                         appSettings.setMyMemberName(member.name)
@@ -42,8 +46,10 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                         }
                     }
                 }
+                _isAutoClaimInProgress.value = false
             }
         } catch (e: Exception) {
+            _isAutoClaimInProgress.value = false
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                 android.util.Log.e("FamilyViewModel", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
             }
@@ -131,13 +137,27 @@ fun FamilyViewModel.setMyMemberId(id: String?, onComplete: (Boolean) -> Unit = {
 
 fun FamilyViewModel.togglePauseMember(memberId: String) {
     val member = _members.value.find { it.id == memberId } ?: return
-    if (member.claimedByUserId != null && member.id != myMemberId.value) return
-    val updatedMember = member.copy(isPaused = !member.isPaused)
+    // Nur unclaimed Member dürfen pausiert werden.
+    // Geclaimte Member (auch das eigene Profil) sind nicht pausierbar.
+    if (member.claimedByUserId != null) return
+    val currentFamilyId = familyId.value ?: return
+    val newPausedState = !member.isPaused
+    val updatedMember = member.copy(isPaused = newPausedState)
     _pendingPauseIds.value = _pendingPauseIds.value + memberId
     scope.launch {
-        memberRepository.upsertMember(updatedMember)
-        _pendingPauseIds.value = _pendingPauseIds.value - memberId
-        addOrUpdateMemberDebounced(updatedMember)
+        try {
+            // Gezieltes Update nur für isPaused – kein volles .set() das name enthält
+            // und die Security Rule für nicht-Admin-Nutzer verletzt.
+            memberRepository.upsertMember(updatedMember)
+            repository.updateMemberPauseState(currentFamilyId, memberId, newPausedState)
+        } catch (e: Exception) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FamilyViewModel", "togglePauseMember failed for $memberId: ${e.message}")
+            }
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+        } finally {
+            _pendingPauseIds.value = _pendingPauseIds.value - memberId
+        }
     }
 }
 

@@ -382,6 +382,21 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
+    override suspend fun updateMemberPauseState(familyId: String, memberId: String, isPaused: Boolean) {
+        try {
+            db.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS).document(memberId)
+                .update(mapOf(
+                    "isPaused" to isPaused,
+                    "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
+                ))
+            Log.i(TAG, "Pause-Status für $memberId gesetzt: isPaused=$isPaused")
+        } catch (e: Exception) {
+            Log.e(TAG, "Fehler beim Setzen von isPaused für $memberId: ${e.message}")
+            throw e
+        }
+    }
+
     // ── Admin / Status ────────────────────────────────────────────────────────
 
     override fun checkIsGlobalAdminFlow(uid: String): Flow<Boolean> = callbackFlow {
