@@ -222,6 +222,9 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     // Beim Aus- UND Einschalten wird „Schon wach" zurückgesetzt.
     // Bewusster Toggle = expliziter Neustart – unabhängig vom vorherigen Zustand.
     appSettings.setAwakeToday(false)
+    // Cache zurücksetzen damit applyAlarms() beim erneuten Einschalten nicht
+    // durch den Duplikat-Guard (newAlarmMillis == lastScheduledAlarmMillis) überspringt.
+    if (!enabled) lastScheduledAlarmMillis = null
     // Auch member.isAwakeToday in Room + Firestore zurücksetzen, damit das
     // ☀️-Icon in der MemberCard sofort verschwindet (liest Firestore, nicht AppSettings).
     val memberId = myMemberId.value
@@ -307,7 +310,10 @@ fun FamilyViewModel.setDebugAlarmIn5Minutes() {
         isPaused = false
     )
     addOrUpdateMember(updatedMember)
-    appSettings.setAlarmEnabled(true)
+    // Öffentliche Funktion nutzen (nicht appSettings direkt) –
+    // setzt lastScheduledAlarmMillis zurück, damit applyAlarms() nach
+    // Deaktivieren + erneut Aktivieren den Alarm nicht als Duplikat überspringt.
+    setAlarmEnabled(true)
 }
 
 fun FamilyViewModel.snooze(memberId: String, memberName: String) {
