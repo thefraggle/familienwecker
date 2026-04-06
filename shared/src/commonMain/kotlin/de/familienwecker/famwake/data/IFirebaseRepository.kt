@@ -60,6 +60,9 @@ interface IFirebaseRepository {
 
     suspend fun updateDeviceAlarmEnabled(familyId: String, memberId: String, enabled: Boolean)
 
+    /** Schreibt nur isPaused + lastUpdatedAt – umgeht das Security-Rule-Problem mit vollem .set(). */
+    suspend fun updateMemberPauseState(familyId: String, memberId: String, isPaused: Boolean)
+
     // ── Admin / Status ────────────────────────────────────────────────────────
 
     fun checkIsGlobalAdminFlow(uid: String): Flow<Boolean>
