@@ -4,6 +4,18 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.18 - 2026-04-06
+
+### Fixed
+- **Second family member (Critical):** Users who joined a family as the second member, created their own profile, and then tried to edit or pause it, saw the error “Sync failed – Leave Family. Please check.” The profile briefly disappeared from the list. The root cause was an overly restrictive Firestore rule that blocked profile updates by the profile's own owner.
+- **Tile status after auto-claim:** After the first profile was automatically linked, the member tile did not show whether the alarm was active or inactive. The claim update was filtered out by an internal deduplication check and never reached the local cache.
+- **Pause error:** Pausing an unclaimed profile failed with a permission error, because the full member document (including the name field) was sent instead of only the changed field.
+- **"No profile selected" flash:** After creating the first profile, a warning briefly appeared for about 2 seconds before the auto-link finished.
+- **Pause button on own profile:** The pause button was incorrectly visible on the user’s own linked profile. Since pausing oneself makes no sense, the button is now hidden.
+
+### Security
+- **Password reset:** When an unknown email address is entered, the app now always shows the same success message, regardless of whether the address is registered. This prevents attackers from enumerating valid accounts via the reset flow.
+
 ## 1.6.17 - 2026-04-06
 
 ### New
