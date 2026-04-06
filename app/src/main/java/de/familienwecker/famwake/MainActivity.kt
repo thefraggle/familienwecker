@@ -44,6 +44,7 @@ import de.familienwecker.famwake.ui.viewmodel.*
 import de.familienwecker.famwake.ui.Routes
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.core.net.toUri
+import com.telemetrydeck.sdk.TelemetryDeck
 
 class MainActivity : AppCompatActivity() {
 
@@ -193,6 +194,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     language   = language,
                     onFinished = {
                         familyViewModel.setOnboardingCompleted(true)
+                        TelemetryDeck.signal("onboarding.completed")
                         val dest = if (familyViewModel.familyId.value != null) Routes.MAIN else Routes.SETUP
                         navController.navigate(dest) {
                             popUpTo(Routes.ONBOARDING) { inclusive = true }
@@ -302,6 +304,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     },
                     onStartOnboarding = {
                         familyViewModel.setOnboardingCompleted(false)
+                        TelemetryDeck.signal("onboarding.tourRestarted")
                         navController.navigate(Routes.ONBOARDING) {
                             // Pop SETTINGS so that we don't have MAIN -> SETTINGS -> MAIN after finishing tour
                             popUpTo(Routes.SETTINGS) { inclusive = true }
