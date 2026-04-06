@@ -64,14 +64,28 @@ service cloud.firestore {
 
         // Update: Familienmitglieder dürfen isAwakeToday und isPaused für ALLE setzen
         // (bewusste Design-Entscheidung: Familie koordiniert Wecker gemeinsam).
-        // Schutz: 'name' und 'claimedByUserId' dürfen nur vom Owner oder Admin geändert werden.
         allow update: if isFamilyMember(familyId) &&
           (
-            // Alle dürfen diese koordinativen Felder schreiben
+            // Alle dürfen koordinative Felder schreiben (Wecker-Koordination).
             !request.resource.data.diff(resource.data).affectedKeys()
               .hasAny(['name', 'claimedByUserId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'])
             ||
-            // Oder: Admin darf alles
+            // Claimen: Jedes Familienmitglied darf ein UNGECLAIMTES Profil auf sich selbst setzen.
+            // Umerzeigen (claim von A auf B) bleibt Admin-only.
+            (
+              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName']) &&
+              resource.data.claimedByUserId == null &&
+              request.resource.data.claimedByUserId == request.auth.uid
+            )
+            ||
+            // Unclaimen: Eigenes Profil darf jeder Nutzer freigeben.
+            (
+              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName']) &&
+              resource.data.claimedByUserId == request.auth.uid &&
+              request.resource.data.claimedByUserId == null
+            )
+            ||
+            // Admin darf alles.
             isAdmin()
           );
 
