@@ -1,6 +1,6 @@
 # 🧪# Testplan: Familienwecker
-**Version:** 1.6.16
-**Datum:** 2026-04-01
+**Version:** 1.6.17
+**Datum:** 2026-04-06
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
@@ -207,6 +207,9 @@ Tests validieren nicht nur die UI, sondern insbesondere die mathematische Korrek
 | TC-109| **Firestore Rules: Member-Schutz** | Versuch, `name` oder `claimedByUserId` eines anderen Mitglieds direkt zu ändern. | Firestore lehnt Write ab (PERMISSION_DENIED); nur `isAwakeToday` und `isPaused` sind für alle Familienmitglieder beschreibbar. |
 | TC-110| **Dialektsprachen (Picker + Onboarding)** | Sprache auf Schwäbsch, Schwiizerdütsch oder Ruhrpott umstellen. | Dialekte erscheinen unterhalb des Trenners; App-Sprache wechselt; Onboarding zeigt deutsche Screenshots. |
 | TC-111| **Natürlicher Sprach-Fallback** | Gerätesprache auf Türkisch (oder eine andere nicht-unterstützte Sprache) stellen. | App startet auf Englisch (Standardressourcen) und nicht fälschlicherweise auf Deutsch. |
+| TC-112| **Schwedische Lokalisation** | App-Sprache auf Schwedisch stellen. | UI-Texte werden korrekt auf Schwedisch angezeigt; kein Fallback auf Deutsch oder Englisch. |
+| TC-113| **Security: Feedback nur eingeloggt** | Feedback-Funktion ohne Anmeldung aufrufen (direkt via API). | Cloud Function wirft `unauthenticated`-Fehler; kein Eintrag in Firestore. |
+| TC-114| **Security: Member-Löschung Eigentumsschutz** | Als Familienmitglied versuchen, das Member-Dokument eines anderen zu löschen (via leaveFamily mit fremder memberId). | Cloud Function wirft `permission-denied`; fremdes Profil bleibt erhalten. |
 
 ---
 
