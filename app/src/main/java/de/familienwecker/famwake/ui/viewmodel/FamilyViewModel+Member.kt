@@ -1,5 +1,6 @@
 package de.familienwecker.famwake.ui.viewmodel
 
+import com.telemetrydeck.sdk.TelemetryDeck
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.toJavaLocalTime
@@ -41,12 +42,17 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                         appSettings.setMyMemberId(member.id)
                         appSettings.setMyMemberName(member.name)
                         appSettings.setAlarmEnabled(true)
+                        TelemetryDeck.signal("member.autoClaimed")
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                             android.util.Log.i("FamilyViewModel", "Auto-Claim: ${member.name} (${member.id}) automatisch geclaimt")
                         }
                     }
                 }
                 _isAutoClaimInProgress.value = false
+            } else if (isNewMember) {
+                TelemetryDeck.signal("member.created")
+            } else {
+                TelemetryDeck.signal("member.updated")
             }
         } catch (e: Exception) {
             _isAutoClaimInProgress.value = false
@@ -86,6 +92,7 @@ fun FamilyViewModel.removeMember(id: String) {
     checkOfflineAndHint()
     val currentFamilyId = familyId.value ?: return
     alarmScheduler.cancelWakeUp(id)
+    TelemetryDeck.signal("member.deleted")
     scope.launch {
         val result = repository.removeMember(currentFamilyId, id)
         if (result.isSuccess) {
@@ -122,6 +129,7 @@ fun FamilyViewModel.setMyMemberId(id: String?, onComplete: (Boolean) -> Unit = {
                 val memberName = _members.value.find { it.id == id }?.name
                 appSettings.setMyMemberName(memberName)
                 appSettings.setAlarmEnabled(true)
+                TelemetryDeck.signal("member.claimed")
                 onComplete(true)
             } else {
                 onComplete(false)
@@ -167,6 +175,7 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
     val newAwakeState = !isAwakeTodayLocal.value
 
     appSettings.setAwakeToday(newAwakeState)
+    TelemetryDeck.signal(if (newAwakeState) "awake.markedAwake" else "awake.reset")
     val updatedMember = member.copy(isAwakeToday = newAwakeState)
     scope.launch {
         try {

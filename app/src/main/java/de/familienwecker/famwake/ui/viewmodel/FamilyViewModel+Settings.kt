@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.ui.viewmodel
 
 import android.app.Activity
+import com.telemetrydeck.sdk.TelemetryDeck
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.util.UiText
 import de.familienwecker.famwake.util.ReviewHelper
@@ -10,10 +11,17 @@ import kotlinx.coroutines.launch
 
 fun FamilyViewModel.setLanguage(lang: String) {
     appSettings.setLanguage(lang)
+    TelemetryDeck.signal("settings.languageChanged", mapOf("language" to lang))
 }
 
 fun FamilyViewModel.setThemePreference(theme: String) {
     appSettings.setTheme(theme)
+    TelemetryDeck.signal("settings.themeChanged", mapOf("theme" to theme))
+}
+
+fun FamilyViewModel.setTooltipsEnabled(enabled: Boolean) {
+    appSettings.setTooltipsEnabled(enabled)
+    TelemetryDeck.signal(if (enabled) "settings.tipsEnabled" else "settings.tipsDisabled")
 }
 
 fun FamilyViewModel.checkAndShowReview(activity: Activity, ignoreConstraints: Boolean = false) {
@@ -51,6 +59,7 @@ fun FamilyViewModel.sendFeedback(
         )
         if (result.isSuccess) {
             _feedbackSubmitted.value = true
+            TelemetryDeck.signal("feedback.sent", mapOf("category" to category))
         } else {
             _feedbackError.value = UiText.StringResource(R.string.error_unknown)
         }
