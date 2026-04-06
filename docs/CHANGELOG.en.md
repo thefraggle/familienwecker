@@ -4,6 +4,16 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.6.17 - 2026-04-06
+
+### New
+- **Swedish 🇸🇪** – FamWake now speaks Swedish. Välkommen!
+
+### Improved
+- **Security:** Family data is now even better protected – access rules have been tightened to prevent potential abuse.
+- **Security:** The feedback form can now only be used by logged-in users.
+- **Security:** Members can only delete their own profile, not those of others.
+
 ## 1.6.16 - 2026-04-01
 
 ### Fixed
