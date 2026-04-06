@@ -70,7 +70,6 @@ async function checkEmailRateLimit(email) {
 
 const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
 const PRIMARY_ADMIN_UID = "yqmtXyDNQCa5ajCvL9LEWbVgJmF2";
-const ADMIN_EMAIL = "daniel.notthoff@gmail.com"; // Still needed for rate limit bypass by email
 const BRAND_BLUE = "#1A3A5C";
 
 const SENDER = {
@@ -760,10 +759,10 @@ exports.joinFamilyByCode = onCall(
         if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
       } else {
         console.log(`Bypassing join rate limit for admin UID: ${uid}`);
-        // Ensure admin document exists for future
+        // Bootstrap: _admins-Eintrag anlegen falls noch nicht vorhanden
         if (!adminDoc.exists && uid === PRIMARY_ADMIN_UID) {
             await admin.firestore().collection("_admins").doc(uid).set({
-                email: request.auth.token.email || ADMIN_EMAIL,
+                email: request.auth.token.email || "",
                 promotedAt: admin.firestore.FieldValue.serverTimestamp()
             });
         }
@@ -824,10 +823,11 @@ exports.createFamily = onCall(
         if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
       } else {
         console.log(`Bypassing create rate limit for admin UID: ${uid}`);
-        // Ensure admin document exists for future
-        if (!adminDoc.exists && request.auth.token.email === ADMIN_EMAIL) {
+        // Bootstrap: _admins-Eintrag anlegen falls noch nicht vorhanden.
+        // E-Mail-Prüfung entfällt – die äußere Bedingung (PRIMARY_ADMIN_UID) ist ausreichend.
+        if (!adminDoc.exists && uid === PRIMARY_ADMIN_UID) {
             await admin.firestore().collection("_admins").doc(uid).set({
-                email: ADMIN_EMAIL,
+                email: request.auth.token.email || "",
                 promotedAt: admin.firestore.FieldValue.serverTimestamp()
             });
         }
@@ -1255,7 +1255,7 @@ exports.sendAdminStatsReport = onCall(
     }
 
     const html = await getStatsReport();
-    await sendEmail(ADMIN_EMAIL, "FamWake: Manueller Admin-Report", html);
+    await sendEmail(NOTIFY_EMAIL, "FamWake: Manueller Admin-Report", html);
     return { success: true };
   }
 );
@@ -1270,7 +1270,7 @@ exports.scheduledAdminStatsReport = onSchedule(
   },
   async (event) => {
     const html = await getStatsReport();
-    await sendEmail(ADMIN_EMAIL, "FamWake: Wöchentlicher Admin-Report", html);
+    await sendEmail(NOTIFY_EMAIL, "FamWake: Wöchentlicher Admin-Report", html);
     console.log("Weekly admin stats report sent.");
   }
 );
