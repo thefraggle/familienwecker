@@ -150,7 +150,10 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
 
             if (newAlarmMillis == lastScheduledAlarmMillis) return
 
-            if (isAwakeTodayLocal.value && targetDate == today) {
+            // isAwakeTodayLocal.value könnte veraltet sein, wenn der App-Prozess über Nacht
+            // im Hintergrund läuft und kein Resume stattfand. Daher appSettings direkt befragen –
+            // isAwakeTodayEffective() prüft das gespeicherte Datum live gegen heute.
+            if (appSettings.isAwakeTodayEffective() && targetDate == today) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling alarm")
                 }
