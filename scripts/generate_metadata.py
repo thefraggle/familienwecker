@@ -3,6 +3,18 @@ import re
 import subprocess
 import glob
 
+def truncate_to_bytes(text, max_bytes=500, suffix="..."):
+    """Play Store zählt UTF-8-Bytes, nicht Unicode-Zeichen.
+    Sonderzeichen wie é, ñ, ó belegen 2 Bytes – daher bytebasiertes Kürzen."""
+    encoded = text.encode('utf-8')
+    if len(encoded) <= max_bytes:
+        return text
+    # Kürzen auf (max_bytes - Suffix-Größe), danach Suffix anhängen
+    suffix_bytes = suffix.encode('utf-8')
+    truncated = encoded[:max_bytes - len(suffix_bytes)]
+    # Sicherstellen, dass kein halbiertes Multibyte-Zeichen entsteht
+    return truncated.decode('utf-8', errors='ignore') + suffix
+
 def get_latest_changelog(file_path):
     if not os.path.exists(file_path):
         return None
@@ -25,11 +37,8 @@ def get_latest_changelog(file_path):
             if line:
                 cleaned_lines.append(line)
         
-        # Combine into a concise string for Play Store (limited to 500 chars)
         result = ". ".join(cleaned_lines)
-        if len(result) > 500:
-            result = result[:497] + "..."
-        return result
+        return truncate_to_bytes(result)
     return None
 
 def get_version_code(aab_path):
@@ -99,16 +108,14 @@ def main():
         if content:
             # Sanitize: remove double dots if they were generated
             content = content.replace("..", ".")
+            # Bytebasiertes Kürzen: Play Store zählt UTF-8-Bytes, nicht Python-Zeichen.
+            content = truncate_to_bytes(content)
 
-            # Harte Grenze: Play Store erlaubt max. 500 Zeichen (nach Sanitize nochmals prüfen,
-            # da Übersetzungen durch Sonderzeichen oder längere Wörter die Grenze überschreiten können).
-            if len(content) > 500:
-                content = content[:497] + "..."
-                
             with open(dest_file, 'w', encoding='utf-8') as f:
                 f.write(content)
             
-            print(f"--- META FOR {locale} ({len(content)} chars) ---")
+            byte_len = len(content.encode('utf-8'))
+            print(f"--- META FOR {locale} ({byte_len} bytes / {len(content)} chars) ---")
             print(content)
             print(f"Path: {dest_file}")
 
