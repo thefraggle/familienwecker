@@ -12,21 +12,18 @@ service cloud.firestore {
     }
 
     // Prüft, ob der Nutzer Teil dieser Familie ist.
-    // Optimiert: familyPath nur einmal als Variable, get() nur einmal aufgerufen
-    // um das Firestore-Rules-Limit von 10 Reads/Request nicht zu gefährden.
+    // get(familyPath) wird von Firestore Rules bei gleichem Pfad gecacht → zählt nur einmal.
     function isFamilyMember(familyId) {
       let userPath = /databases/$(database)/documents/users/$(request.auth.uid);
       let familyPath = /databases/$(database)/documents/families/$(familyId);
-      let familyData = exists(familyPath) ? get(familyPath).data : null;
       return isAdmin() || (signedIn() &&
         (
-          // Option A: familyId ist im User-Dokument hinterlegt
+          // Option A: familyId ist im User-Dokument hinterlegt (häufigster Pfad, schnellste Prüfung)
           (exists(userPath) && get(userPath).data.familyId == familyId) ||
-          // Option B + C: Familie-Dokument einmal lesen, Creator- und userIds-Check kombiniert
-          (familyData != null && (
-            familyData.createdByUserId == request.auth.uid ||
-            (familyData.keys().hasAll(['userIds']) && request.auth.uid in familyData.userIds)
-          ))
+          // Option B: User ist Ersteller der Familie
+          (exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid) ||
+          // Option C: User ist in userIds-Array der Familie (Legacy-Fallback)
+          (exists(familyPath) && get(familyPath).data.keys().hasAll(['userIds']) && request.auth.uid in get(familyPath).data.userIds)
         ));
     }
 
