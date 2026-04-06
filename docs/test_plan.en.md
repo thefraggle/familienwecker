@@ -1,5 +1,5 @@
 # 🧪 Test Plan: FamWake
-**Version:** 1.6.20
+**Version:** 1.7.0
 **Date:** 2026-04-06
 *[🇩🇪 Deutsche Version](test_plan.md)*
 
@@ -49,9 +49,9 @@ Tests validate not only the UI but especially the correctness of the scheduling 
 |:---|:---|:---|
 | TC-30 | Alarm rings (background) | App in background → alarm rings, RingingActivity opens. |
 | TC-31 | Alarm after reboot | Alarm correctly restored after reboot (even before PIN entry). |
-| TC-32 | Alarm after disable + re-enable | Alarm off → alarm on → alarm rings at scheduled time. *(v1.6.20)* |
+| TC-32 | Alarm after disable + re-enable | Alarm off → alarm on → alarm rings at scheduled time. |
 | TC-33 | "I'm awake" button – time window | Alarm tomorrow 07:00, current time 15:00 → button inactive. At 05:30 → active (2h window). |
-| TC-34 | "I'm awake" button after profile re-creation | Delete member, create new → button correctly active/inactive based on new profile. *(v1.6.20)* |
+| TC-34 | "I'm awake" button after profile re-creation | Delete member, create new → button correctly active/inactive based on new profile. |
 | TC-35 | "I'm awake" – reset always possible | Awake state → reset always possible (button stays clickable). |
 | TC-36 | "I'm awake" – toggle effect | Button cancels system alarm immediately; color/icon changes. Global switch off → status reset. |
 | TC-37 | "I'm awake" – day change | App in background overnight → button shows initial state the next morning. |
