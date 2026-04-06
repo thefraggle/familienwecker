@@ -318,11 +318,13 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         val language = appSettings.language.value
         viewModelScope.launch {
             val result = authRepository.sendPasswordResetEmail(email, language)
-            result.onSuccess {
-                _authState.value = AuthState.PasswordResetSuccess
-            }.onFailure { error ->
-                _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
+            // OWASP Best Practice: Immer Erfolg zurückgeben, unabhängig davon ob die
+            // E-Mail-Adresse registriert ist. Verhindert User Enumeration Attacks.
+            // Firebase-seitig: "Email Enumeration Protection" in der Console aktivieren.
+            if (result.isFailure && BuildConfig.DEBUG) {
+                android.util.Log.d("AuthViewModel", "Password reset silenced: ${result.exceptionOrNull()?.message}")
             }
+            _authState.value = AuthState.PasswordResetSuccess
         }
     }
 
