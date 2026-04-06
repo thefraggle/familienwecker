@@ -146,8 +146,9 @@ fun MemberCard(
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                // Pausieren nur für unclaimed Member – eigenes Profil nicht pausierbar
-                if (member.claimedByUserId == null) {
+                // Pausieren nur für unclaimed Member die NICHT das eigene Profil sind.
+                // Doppelte Absicherung: auch myMemberId ausschließen (Auto-Claim könnte kurz verzögert sein).
+                if (member.claimedByUserId == null && member.id != myMemberId) {
                     IconButton(
                         onClick = { if (!isPauseLoading) onTogglePause() },
                         modifier = Modifier.size(32.dp),
