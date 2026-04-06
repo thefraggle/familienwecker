@@ -414,17 +414,34 @@ fun MainScreen(
                                         Spacer(modifier = Modifier.height(16.dp))
                                         val awakeInteractionSource = remember { MutableInteractionSource() }
 
-                                        // Button nur im 2h-Fenster vor dem NÄCHSTEN Alarm aktiv.
-                                        // LocalDateTime nötig – sonst wird "morgen 07:00" mit
-                                        // "heute 05:00" verglichen und der Button fälschlicherweise aktiv.
+                                        // Button nur im 2h-Fenster vor dem NÄCHSTEN aktiven Alarm aktiv.
+                                        // Nutzt das nächste aktive DayProfile (0..6 Tage voraus),
+                                        // nicht den Fallback myMember.earliestWakeUp – der ist u.U.
+                                        // veraltet wenn ein neuer Member angelegt oder Tage umkonfiguriert werden.
                                         val nowDt = java.time.LocalDateTime.now()
                                         val todayDate = nowDt.toLocalDate()
-                                        val earliestWakeUpJava = myMember.earliestWakeUp.toJavaLocalTime()
-                                        // Nächste Weckzeit: heute wenn vor der Weckzeit, sonst morgen
-                                        val targetDate = if (nowDt.toLocalTime() < earliestWakeUpJava) todayDate else todayDate.plusDays(1)
-                                        val targetDt = java.time.LocalDateTime.of(targetDate, earliestWakeUpJava)
-                                        val windowStart = targetDt.minusHours(2)
-                                        val withinWindow = nowDt >= windowStart && nowDt < targetDt
+
+                                        // Nächstes aktives DayProfile ermitteln (heute oder die nächsten 6 Tage)
+                                        val nextActiveProfile = (0..6).mapNotNull { offset ->
+                                            val date = todayDate.plusDays(offset.toLong())
+                                            val dow = date.dayOfWeek.value
+                                            val profile = myMember.dayProfiles?.get(dow)
+                                            if (profile != null && profile.isActive) date to profile else null
+                                        }.firstOrNull { (date, profile) ->
+                                            // Für heute: nur gültig wenn earliestWakeUp noch nicht vorbei
+                                            if (date == todayDate) nowDt.toLocalTime() < profile.earliestWakeUp.toJavaLocalTime()
+                                            else true
+                                        }
+
+                                        val withinWindow = if (nextActiveProfile != null) {
+                                            val (targetDate, profile) = nextActiveProfile
+                                            val targetDt = java.time.LocalDateTime.of(targetDate, profile.earliestWakeUp.toJavaLocalTime())
+                                            val windowStart = targetDt.minusHours(2)
+                                            nowDt >= windowStart && nowDt < targetDt
+                                        } else {
+                                            // Kein aktives Profil → Button bleibt inaktiv (außer bereits wach)
+                                            false
+                                        }
                                         val isAwakeButtonEnabled = isAwakeTodayLocal || withinWindow
 
                                         Button(
