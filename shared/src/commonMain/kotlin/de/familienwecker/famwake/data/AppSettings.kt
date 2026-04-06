@@ -39,6 +39,10 @@ interface AppSettings {
 
     val isAwakeToday: StateFlow<Boolean>
     fun setAwakeToday(awake: Boolean)
+    /** Liest den Wach-Status direkt aus SharedPrefs inkl. Datumsprüfung.
+     *  Sicherer als isAwakeToday.value wenn der Flow veraltet sein könnte
+     *  (App-Prozess läuft über Nacht ohne Resume). */
+    fun isAwakeTodayEffective(): Boolean
 
     val snoozeUntil: StateFlow<kotlinx.datetime.LocalDateTime?>
     fun setSnoozeUntil(time: kotlinx.datetime.LocalDateTime?)
@@ -144,12 +148,28 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         if (uri == null) settings.remove("ALARM_SOUND_URI") else settings["ALARM_SOUND_URI"] = uri
     }
 
-    private val _isAwakeToday = MutableStateFlow(settings.getBoolean("AWAKE_TODAY", false))
+    private fun computeAwakeTodayEffective(): Boolean {
+        if (!settings.getBoolean("AWAKE_TODAY", false)) return false
+        val storedDate = settings.getStringOrNull("AWAKE_TODAY_DATE") ?: return false
+        // java.time ist in AppSettingsImpl (Android-only) verfügbar
+        val today = java.time.LocalDate.now().toString()
+        return storedDate == today
+    }
+
+    private val _isAwakeToday = MutableStateFlow(computeAwakeTodayEffective())
     override val isAwakeToday = _isAwakeToday.asStateFlow()
+
+    /** Live-Abfrage direkt aus SharedPrefs inkl. Datumsprüfung – unabhängig vom Flow-Wert. */
+    override fun isAwakeTodayEffective(): Boolean = computeAwakeTodayEffective()
 
     override fun setAwakeToday(awake: Boolean) {
         _isAwakeToday.value = awake
         settings["AWAKE_TODAY"] = awake
+        if (awake) {
+            settings["AWAKE_TODAY_DATE"] = java.time.LocalDate.now().toString()
+        } else {
+            settings.remove("AWAKE_TODAY_DATE")
+        }
     }
 
     private val _snoozeUntil = MutableStateFlow(settings.getStringOrNull("SNOOZE_UNTIL")?.let {
@@ -217,6 +237,7 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         setFamilyName(null)
         setAlarmEnabled(false)
         setAwakeToday(false)
+        settings.remove("AWAKE_TODAY_DATE")
         setSnoozeUntil(null)
         // Note: language and theme persist
     }
