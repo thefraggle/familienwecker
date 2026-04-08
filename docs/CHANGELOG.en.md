@@ -4,6 +4,15 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.1 - 2026-04-08
+
+### Improved
+- **Time picker** – Time fields now open a clean keyboard-style dialog – no more auto-jumping from hours to minutes.
+- **Keyboard** – Tapping outside the name field now dismisses the keyboard.
+- **Bathroom buttons** – The "−" and "+" buttons remain fully visible on narrow screens and in all languages.
+
+---
+
 ## 1.7.0 - 2026-04-06
 
 ### New

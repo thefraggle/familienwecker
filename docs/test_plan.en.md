@@ -1,6 +1,6 @@
 # 🧪 Test Plan: FamWake
-**Version:** 1.7.0
-**Date:** 2026-04-06
+**Version:** 1.7.1
+**Date:** 2026-04-08
 *[🇩🇪 Deutsche Version](test_plan.md)*
 
 ---
@@ -43,6 +43,7 @@ Tests validate not only the UI but especially the correctness of the scheduling 
 | TC-26 | Weekday validation | latestWakeUp ≤ earliestWakeUp or departure too early → error text, save blocked. |
 | TC-27 | Drag & drop order | Long-press → drag with gap preview. Order persists after restart and on other devices. |
 | TC-28 | Next active day | Today disabled, tomorrow active → main screen shows tomorrow's alarm. No active day → NoActiveSchedule. |
+| TC-29 | Time picker (edit profile) | Tapping a time opens a keyboard-style dialog (no clock). Tapping outside the name field dismisses the keyboard. Bathroom buttons (−/+) always visible. |
 
 ### 3. Alarm
 | ID | Test Case | Expected Result |
