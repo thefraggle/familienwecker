@@ -2,7 +2,9 @@ package de.familienwecker.famwake.ui.screens
  
 import androidx.activity.compose.BackHandler
 
-import android.app.TimePickerDialog
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -70,6 +72,7 @@ fun AddMemberScreen(
     val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
+    val focusManager = LocalFocusManager.current
 
     // Wir nutzen memberId als stabilen Key, damit Background-Syncs von 'members'
     // nicht den Bearbeitungs-Zustand zurücksetzen (da remember(memberToEdit) bei jedem Firestore-Sync triggert).
@@ -194,7 +197,12 @@ fun AddMemberScreen(
         )
     }
  
-    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(backgroundGradient)
+        // Tastatur schließen, wenn der User außerhalb des Namensfeldes tippt
+        .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } }
+    ) {
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {
@@ -530,7 +538,14 @@ private fun DayProfileCard(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(stringResource(R.string.add_member_bathroom_duration), style = MaterialTheme.typography.bodyLarge)
+                        // weight(1f): Label bekommt verbleibenden Platz, Buttons-Row verdrängt nie den +‑Button
+                        Text(
+                            stringResource(R.string.add_member_bathroom_duration),
+                            style = MaterialTheme.typography.bodyLarge,
+                            maxLines = 1,
+                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f).padding(end = 8.dp)
+                        )
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             IconButton(
                                 onClick = { if (profile.bathroomDurationMinutes > 5) onProfileChange(profile.copy(bathroomDurationMinutes = profile.bathroomDurationMinutes - 5)) }
@@ -595,6 +610,7 @@ private fun DayProfileCard(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TimePickerRow(
     label: String,
@@ -604,6 +620,34 @@ private fun TimePickerRow(
     onTimeSelected: (LocalTime) -> Unit,
     isError: Boolean = false
 ) {
+    var showPicker by remember { mutableStateOf(false) }
+
+    // Dialog wird nur gerendert wenn sichtbar – State wird damit jedes Mal frisch
+    // mit den aktuellen Zeitwerten initialisiert (verhindert veraltete Vorauswahl)
+    if (showPicker) {
+        val pickerState = rememberTimePickerState(
+            initialHour = time.hour,
+            initialMinute = time.minute,
+            is24Hour = true
+        )
+        AlertDialog(
+            onDismissRequest = { showPicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    onTimeSelected(LocalTime.of(pickerState.hour, pickerState.minute))
+                    showPicker = false
+                }) { Text("OK") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showPicker = false }) {
+                    Text(stringResource(R.string.cancel_button))
+                }
+            },
+            // TimeInput = Tastatur-Eingabe, kein Uhrzeiger → kein Auto-Sprung zur Minute
+            text = { TimeInput(state = pickerState) }
+        )
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -616,15 +660,7 @@ private fun TimePickerRow(
             style = MaterialTheme.typography.bodyLarge,
             color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
         )
-        TextButton(onClick = {
-            TimePickerDialog(
-                context,
-                { _, hour, minute -> onTimeSelected(LocalTime.of(hour, minute)) },
-                time.hour,
-                time.minute,
-                true
-            ).show()
-        }) {
+        TextButton(onClick = { showPicker = true }) {
             Text(
                 time.format(formatter),
                 style = MaterialTheme.typography.titleMedium,
