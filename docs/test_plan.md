@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.7.0
-**Datum:** 2026-04-06
+**Version:** 1.7.1
+**Datum:** 2026-04-08
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
@@ -43,6 +43,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die Korrektheit des Plan
 | TC-26 | Wochentag-Validierung | latestWakeUp ≤ earliestWakeUp oder Abfahrtszeit zu früh → Fehlertext, Speichern gesperrt. |
 | TC-27 | Drag & Drop Reihenfolge | Long-Press → verschieben mit Gap-Preview. Reihenfolge bleibt nach Neustart und auf anderen Geräten. |
 | TC-28 | Nächster aktiver Tag | Heutigen Tag deaktiviert, morgen aktiv → Hauptscreen zeigt morgigen Wecker korrekt. Kein aktiver Tag → NoActiveSchedule. |
+| TC-29 | Zeitauswahl (Profil bearbeiten) | Tippen auf Uhrzeit öffnet Tastatur-Dialog (kein Uhrzeiger). Tipp außerhalb des Namensfelds schließt Tastatur. Badzeit-Buttons (−/+) immer sichtbar. |
 
 ### 3. Wecker & Alarm
 | ID | Testfall | Erwartetes Ergebnis |

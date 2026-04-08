@@ -4,6 +4,15 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.1 - 2026-04-08
+
+### Verbessert
+- **Zeitauswahl** – Uhrzeit-Felder öffnen jetzt einen übersichtlicheren Tastatur-Dialog – kein automatisches Weiterspringen von Stunden zu Minuten mehr.
+- **Tastatur** – Ein Tipp außerhalb des Namensfelds schließt die Tastatur.
+- **Badzeit-Steuerung** – „−" und „+"-Schaltfläche bleiben auf engen Bildschirmen und in allen Sprachen vollständig sichtbar.
+
+---
+
 ## 1.7.0 - 2026-04-06
 
 ### Neu
