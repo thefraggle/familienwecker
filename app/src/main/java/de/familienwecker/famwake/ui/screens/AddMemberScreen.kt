@@ -615,19 +615,6 @@ private fun DayProfileCard(
                         onDismiss = onDismissTooltipBathroom
                     )
 
-                    // Frühstück
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(stringResource(R.string.add_member_wants_breakfast), style = MaterialTheme.typography.bodyLarge)
-                        Switch(
-                            checked = profile.wantsBreakfast,
-                            onCheckedChange = { onProfileChange(profile.copy(wantsBreakfast = it)) }
-                        )
-                    }
-
                     // Abfahrtszeit
                     val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
                     val leaveTooEarlyError =
@@ -647,6 +634,19 @@ private fun DayProfileCard(
                             color = MaterialTheme.colorScheme.error,
                             style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.padding(start = 4.dp)
+                        )
+                    }
+
+                    // Frühstück (zuletzt – optional, weniger kritisch)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(stringResource(R.string.add_member_wants_breakfast), style = MaterialTheme.typography.bodyLarge)
+                        Switch(
+                            checked = profile.wantsBreakfast,
+                            onCheckedChange = { onProfileChange(profile.copy(wantsBreakfast = it)) }
                         )
                     }
                 }
