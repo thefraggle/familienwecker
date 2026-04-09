@@ -43,6 +43,9 @@ import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import de.familienwecker.famwake.util.BatteryUtils
 import androidx.compose.material.icons.filled.BatteryAlert
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.BrightnessAuto
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -768,19 +771,27 @@ fun SettingsScreen(
                     )
                     Spacer(modifier = Modifier.height(6.dp))
 
+                    data class ThemeOption(val code: String, val icon: androidx.compose.ui.graphics.vector.ImageVector, val description: String)
                     val themeOptions = listOf(
-                        "light"  to stringResource(R.string.settings_theme_light),
-                        "system" to stringResource(R.string.settings_language_system),
-                        "dark"   to stringResource(R.string.settings_theme_dark),
+                        ThemeOption("light",  Icons.Default.WbSunny,       stringResource(R.string.settings_theme_light)),
+                        ThemeOption("system", Icons.Default.BrightnessAuto, stringResource(R.string.settings_language_system)),
+                        ThemeOption("dark",   Icons.Default.DarkMode,       stringResource(R.string.settings_theme_dark)),
                     )
                     SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-                        themeOptions.forEachIndexed { index, (code, label) ->
+                        themeOptions.forEachIndexed { index, option ->
                             SegmentedButton(
-                                selected = themePreference == code ||
-                                    (code == "system" && themePreference != "light" && themePreference != "dark"),
-                                onClick = { viewModel.setThemePreference(code) },
+                                selected = themePreference == option.code ||
+                                    (option.code == "system" && themePreference != "light" && themePreference != "dark"),
+                                onClick = { viewModel.setThemePreference(option.code) },
                                 shape = SegmentedButtonDefaults.itemShape(index, themeOptions.size),
-                                label = { Text(label, style = MaterialTheme.typography.bodySmall) }
+                                icon = {},
+                                label = {
+                                    Icon(
+                                        imageVector = option.icon,
+                                        contentDescription = option.description,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
                             )
                         }
                     }
