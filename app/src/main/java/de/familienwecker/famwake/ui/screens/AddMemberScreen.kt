@@ -440,6 +440,14 @@ fun AddMemberScreen(
                     )
                 }
 
+                // Copy-Link direkt unter den Tages-Tabs – immer sichtbar
+                TextButton(
+                    onClick = { showCopyDialog = true },
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Text(stringResource(R.string.add_member_copy_to_days, dayLabel(selectedDay)))
+                }
+
                 // Tages-Card für selectedDay
                 val selectedProfile = dayProfiles[selectedDay] ?: DayProfile()
                 DayProfileCard(
@@ -453,15 +461,6 @@ fun AddMemberScreen(
                     showTooltipBathroom = tooltipsEnabled && !tooltipBathroomSeen,
                     onDismissTooltipBathroom = { viewModel.markTooltipSeen(viewModel.tooltipKeyBathroom) }
                 )
-
-
-                // Copy-Button
-                TextButton(
-                    onClick = { showCopyDialog = true },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                ) {
-                    Text(stringResource(R.string.add_member_copy_to_days, dayLabel(selectedDay)))
-                }
 
                 Spacer(modifier = Modifier.height(8.dp))
             }
