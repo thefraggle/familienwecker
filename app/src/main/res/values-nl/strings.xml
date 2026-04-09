@@ -58,6 +58,7 @@
     <string name="delete_member_text">Weet je zeker dat je %1$s uit de familie wilt verwijderen?</string>
     <string name="delete_confirm">Verwijderen</string>
     <string name="cancel_button">Annuleren</string>
+    <string name="retry_button">Opnieuw proberen</string>
     <string name="add_member_name_label">Naam (bijv. Mama, Papa, Kind)</string>
     <string name="add_member_unknown">Onbekend</string>
     <string name="add_member_earliest_wake">Vroegste wektijd</string>

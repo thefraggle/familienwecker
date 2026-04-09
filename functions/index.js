@@ -1119,6 +1119,22 @@ exports.sendFeedbackEmail = onCall(
     if (!request.auth) {
       throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
     }
+    const uid = request.auth.uid;
+
+    // S8: Rate-Limiting – max. 3 Feedbacks/Stunde, max. 10/Tag pro UID
+    try {
+      const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
+      const isAdmin = adminDoc.exists || uid === PRIMARY_ADMIN_UID;
+      if (!isAdmin) {
+        const hourLimited = await checkSingleRateLimit(`feedback_${uid}_h`, 60 * 60 * 1000, 3);
+        if (hourLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+        const dayLimited = await checkSingleRateLimit(`feedback_${uid}_d`, 24 * 60 * 60 * 1000, 10);
+        if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      }
+    } catch (err) {
+      if (err instanceof HttpsError) throw err;
+      console.error("Feedback rate-limit check failed (ignored):", err);
+    }
 
     const { category, message, email, appVersion, device } = request.data || {};
 
@@ -1126,10 +1142,17 @@ exports.sendFeedbackEmail = onCall(
       throw new HttpsError("invalid-argument", "INVALID_MESSAGE");
     }
 
+    // S8: E-Mail-Format serverseitig validieren (replyTo ist optional, muss aber valide sein)
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && email.trim() && !EMAIL_REGEX.test(email.trim())) {
+      throw new HttpsError("invalid-argument", "INVALID_EMAIL");
+    }
+
     const resendKey = process.env.RESEND_API_KEY;
     if (!resendKey) {
       throw new HttpsError("failed-precondition", "Email service not configured.");
     }
+
 
     const sanitizedCategory = escapeHtml((category || "Sonstiges").slice(0, 100));
     const sanitizedMessage = escapeHtml(message?.trim().slice(0, 5000) || "");

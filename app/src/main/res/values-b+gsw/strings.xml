@@ -58,6 +58,7 @@
     <string name="delete_member_text">Wottsch %1$s würkli us de Familie lösche?</string>
     <string name="delete_confirm">Lösche</string>
     <string name="cancel_button">Abbräche</string>
+    <string name="retry_button">Nochmal versuche</string>
     <string name="add_member_name_label">Name (z.B. Mami, Papi, Chind)</string>
     <string name="add_member_unknown">Umbekannt</string>
     <string name="add_member_earliest_wake">Früehsti Weckziit</string>

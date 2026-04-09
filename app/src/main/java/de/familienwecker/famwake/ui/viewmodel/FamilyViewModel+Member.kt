@@ -211,7 +211,15 @@ fun FamilyViewModel.saveMemberOrder() {
     val currentFamilyId = familyId.value ?: return
     val orderMap = _members.value.associate { it.id to it.sequenceOrder }
     scope.launch {
-        repository.updateMemberOrders(currentFamilyId, orderMap)
+        try {
+            repository.updateMemberOrders(currentFamilyId, orderMap)
+        } catch (e: Exception) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FamilyViewModel", "saveMemberOrder failed: ${e.message}")
+            }
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed,
+                e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+        }
     }
 }
 

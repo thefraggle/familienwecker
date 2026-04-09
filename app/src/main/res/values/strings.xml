@@ -58,6 +58,7 @@
     <string name="delete_member_text">Are you sure you want to remove %1$s from the family?</string>
     <string name="delete_confirm">Delete</string>
     <string name="cancel_button">Cancel</string>
+    <string name="retry_button">Retry</string>
     <string name="add_member_name_label">Name (e.g. Mom, Dad, Kid)</string>
     <string name="add_member_unknown">Unknown</string>
     <string name="add_member_earliest_wake">Earliest wake time</string>

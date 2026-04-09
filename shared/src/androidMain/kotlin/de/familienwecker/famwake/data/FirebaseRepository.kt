@@ -35,6 +35,21 @@ class FirebaseRepository : IFirebaseRepository {
         private const val COLLECTION_FAMILIES = "families"
         private const val COLLECTION_USERS = "users"
         private const val COLLECTION_MEMBERS = "members"
+
+        /**
+         * O7: Persistente Offline-Persistenz aktivieren – Writes überleben App-Neustart.
+         * Muss einmalig VOR dem ersten Firestore-Aufruf gesetzt werden (z.B. in Application.onCreate).
+         */
+        fun configurePersistentCache() {
+            try {
+                val settings = com.google.firebase.firestore.FirebaseFirestoreSettings.Builder()
+                    .setLocalCacheSettings(com.google.firebase.firestore.PersistentCacheSettings.newBuilder().build())
+                    .build()
+                com.google.firebase.firestore.FirebaseFirestore.getInstance().firestoreSettings = settings
+            } catch (e: Exception) {
+                Log.w(TAG, "Firestore PersistentCache already configured or failed: ${e.message}")
+            }
+        }
     }
 
     override fun getAuthStateFlow() = auth.authStateChanged
@@ -367,6 +382,7 @@ class FirebaseRepository : IFirebaseRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
+            throw e
         }
     }
 
@@ -376,7 +392,14 @@ class FirebaseRepository : IFirebaseRepository {
             members.chunked(500).forEach { chunk ->
                 db.batch().run {
                     chunk.forEach { member ->
-                        set(membersColl.document(member.id), member.toFirestoreMap())
+                        // Nur koordinative Felder updaten – kein volles .set() um Security Rules
+                        // für name/claimedByUserId nicht zu verletzen (betrifft fremde Members).
+                        update(membersColl.document(member.id), mapOf(
+                            "isPaused" to member.isPaused,
+                            "isAwakeToday" to member.isAwakeToday,
+                            "lastResetDate" to member.lastResetDate,
+                            "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
+                        ))
                     }
                     commit()
                 }
@@ -420,6 +443,11 @@ class FirebaseRepository : IFirebaseRepository {
             trySend(snapshot?.exists == true)
         }
         awaitClose { }
+    }.retryWhen { cause, attempt ->
+        val delayMillis = minOf(1000L * (attempt + 1), 10000L)
+        Log.w(TAG, "checkIsGlobalAdminFlow retry (attempt=$attempt): ${cause.message}")
+        delay(delayMillis)
+        true
     }
 
     override fun getSyncStatusFlow(familyId: String): Flow<SyncStatus> = callbackFlow {
