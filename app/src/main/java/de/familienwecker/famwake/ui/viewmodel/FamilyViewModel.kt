@@ -316,9 +316,28 @@ class FamilyViewModel(
         viewModelScope.launch {
             try {
                 var isFirstEmission = true
+                var previousMemberId: String? = null
                 myMemberId.collect { id ->
-                    if (id == null && isAlarmEnabled.value && !isFirstEmission) setAlarmEnabled(false)
+                    if (!isFirstEmission) {
+                        when {
+                            // Logout / Unclaim: State sichern, Alarm abschalten
+                            id == null && previousMemberId != null -> {
+                                appSettings.setAlarmStateBeforeLogout(isAlarmEnabled.value)
+                                if (isAlarmEnabled.value) setAlarmEnabled(false)
+                            }
+                            // Login / Claim: gesicherten State wiederherstellen
+                            id != null && previousMemberId == null -> {
+                                val savedState = appSettings.alarmStateBeforeLogout.value
+                                if (savedState) {
+                                    setAlarmEnabled(true)
+                                    // State-Sicherung zurücksetzen nach Wiederherstellung
+                                    appSettings.setAlarmStateBeforeLogout(false)
+                                }
+                            }
+                        }
+                    }
                     isFirstEmission = false
+                    previousMemberId = id
                     recalculateSchedule()
                 }
             } catch (e: Exception) {
