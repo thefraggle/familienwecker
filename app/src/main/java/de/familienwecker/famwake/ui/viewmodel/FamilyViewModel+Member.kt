@@ -172,6 +172,8 @@ fun FamilyViewModel.togglePauseMember(memberId: String) {
 fun FamilyViewModel.toggleAwakeMember(memberId: String) {
     if (memberId != myMemberId.value) return
     val member = _members.value.find { it.id == memberId } ?: return
+    // O3: Offline-Hinweis – lokale Änderung wird gespeichert, nach Reconnect sync'd
+    checkOfflineAndHint()
     val newAwakeState = !isAwakeTodayLocal.value
 
     appSettings.setAwakeToday(newAwakeState)
