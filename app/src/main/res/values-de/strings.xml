@@ -58,6 +58,7 @@
     <string name="delete_member_text">Möchtest du %1$s wirklich aus der Familie löschen?</string>
     <string name="delete_confirm">Löschen</string>
     <string name="cancel_button">Abbrechen</string>
+    <string name="retry_button">Erneut versuchen</string>
     <string name="add_member_name_label">Name (z.B. Mama, Papa, Kind)</string>
     <string name="add_member_unknown">Unbekannt</string>
     <string name="add_member_earliest_wake">Früheste Weckzeit</string>

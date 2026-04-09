@@ -58,6 +58,7 @@
     <string name="delete_member_text">Soll %1$s wirklich aus der Familie fliegen?</string>
     <string name="delete_confirm">Weg damit</string>
     <string name="cancel_button">Abbrechen</string>
+    <string name="retry_button">Noch ens versöke</string>
     <string name="add_member_name_label">Name (z.B. Mama, Vatta, Kind)</string>
     <string name="add_member_unknown">Kein Plan</string>
     <string name="add_member_earliest_wake">Frühestes Wecken</string>

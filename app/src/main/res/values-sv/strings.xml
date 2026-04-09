@@ -58,6 +58,7 @@
     <string name="delete_member_text">Är du säker på att du vill ta bort %1$s från familjen?</string>
     <string name="delete_confirm">Ta bort</string>
     <string name="cancel_button">Avbryt</string>
+    <string name="retry_button">Försök igen</string>
     <string name="add_member_name_label">Namn (t.ex. Mamma, Pappa, Barn)</string>
     <string name="add_member_unknown">Okänd</string>
     <string name="add_member_earliest_wake">Tidigaste väckningstid</string>

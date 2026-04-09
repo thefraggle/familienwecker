@@ -215,6 +215,12 @@ fun FamilyViewModel.deleteFamily(onComplete: (Boolean) -> Unit) {
     _errorMessage.value = null
     val currentFamilyId = familyId.value ?: return
     scope.launch {
+        if (isOffline.value) {
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed,
+                getApplication<android.app.Application>().getString(R.string.error_offline))
+            onComplete(false)
+            return@launch
+        }
         val uid = auth.currentUser?.uid ?: return@launch
         val result = repository.deleteFamily(currentFamilyId, uid)
         if (result.isSuccess) {
