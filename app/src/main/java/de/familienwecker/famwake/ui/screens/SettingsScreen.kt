@@ -537,39 +537,7 @@ fun SettingsScreen(
                         }
                     }
                     
-                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
-                    
-                    val logoutInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = onLogout,
-                        modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
-                        interactionSource = logoutInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_logout))
-                    }
 
-                    val deleteAccountUrl = stringResource(R.string.settings_delete_account_url)
-                    TextButton(
-                        onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, deleteAccountUrl.toUri())
-                            context.startActivity(intent)
-                        },
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = stringResource(R.string.settings_delete_account),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
                 }
             }
 
@@ -1087,7 +1055,56 @@ fun SettingsScreen(
             }
 
 
-            Spacer(modifier = Modifier.height(24.dp))
+            // Abmelden – eigene Sektion ganz unten, um versehentliche Taps zu vermeiden
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.3f)),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                     else MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    val logoutInteractionSource = remember { MutableInteractionSource() }
+                    OutlinedButton(
+                        onClick = onLogout,
+                        modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                        interactionSource = logoutInteractionSource
+                    ) {
+                        Text(stringResource(R.string.settings_logout))
+                    }
+
+                    val deleteAccountUrl = stringResource(R.string.settings_delete_account_url)
+                    TextButton(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, deleteAccountUrl.toUri())
+                            context.startActivity(intent)
+                        },
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = stringResource(R.string.settings_delete_account),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             Column(
                 modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 28.dp),

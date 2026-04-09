@@ -2,6 +2,7 @@ package de.familienwecker.famwake.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -10,7 +11,9 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -62,6 +65,7 @@ fun LoginScreen(
     onLoginSuccess: () -> Unit
 ) {
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -122,7 +126,12 @@ fun LoginScreen(
         }
     )
 
-    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(backgroundGradient)
+        // Tastatur schließen, wenn der User außerhalb eines Feldes tippt
+        .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } }
+    ) {
         Column(modifier = Modifier.fillMaxSize()) {
             @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(

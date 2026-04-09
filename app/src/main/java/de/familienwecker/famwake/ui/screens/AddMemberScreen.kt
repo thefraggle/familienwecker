@@ -3,7 +3,10 @@ package de.familienwecker.famwake.ui.screens
 import androidx.activity.compose.BackHandler
 
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -312,7 +315,12 @@ fun AddMemberScreen(
                     value = name,
                     onValueChange = { name = it },
                     label = { Text(stringResource(R.string.add_member_name_label)) },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = { focusManager.clearFocus() }
+                    )
                 )
 
                 // Wochentag-Chip-Leiste
