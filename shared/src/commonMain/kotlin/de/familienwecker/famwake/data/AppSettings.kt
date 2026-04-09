@@ -31,6 +31,10 @@ interface AppSettings {
     val isAlarmEnabled: StateFlow<Boolean>
     fun setAlarmEnabled(enabled: Boolean)
 
+    // Speichert den Alarm-State vor dem Logout, damit er nach dem Login wiederhergestellt werden kann.
+    val alarmStateBeforeLogout: StateFlow<Boolean>
+    fun setAlarmStateBeforeLogout(enabled: Boolean)
+
     val onboardingCompleted: StateFlow<Boolean>
     fun setOnboardingCompleted(completed: Boolean)
 
@@ -130,6 +134,14 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     override fun setAlarmEnabled(enabled: Boolean) {
         _isAlarmEnabled.value = enabled
         settings["ALARM_ENABLED"] = enabled
+    }
+
+    private val _alarmStateBeforeLogout = MutableStateFlow(settings.getBoolean("ALARM_STATE_BEFORE_LOGOUT", false))
+    override val alarmStateBeforeLogout = _alarmStateBeforeLogout.asStateFlow()
+
+    override fun setAlarmStateBeforeLogout(enabled: Boolean) {
+        _alarmStateBeforeLogout.value = enabled
+        settings["ALARM_STATE_BEFORE_LOGOUT"] = enabled
     }
 
     private val _onboardingCompleted = MutableStateFlow(settings.getBoolean("ONBOARDING_COMPLETED", false))
