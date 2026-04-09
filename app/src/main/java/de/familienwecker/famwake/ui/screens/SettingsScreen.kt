@@ -85,7 +85,6 @@ fun SettingsScreen(
 
     var expanded by remember { mutableStateOf(false) }
     var showLanguagePicker by remember { mutableStateOf(false) }
-    var themeExpanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showAdminDialog by remember { mutableStateOf(false) }
     var showDonationDialog by remember { mutableStateOf(false) }
@@ -768,40 +767,20 @@ fun SettingsScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(modifier = Modifier.height(6.dp))
-                    
-                    ExposedDropdownMenuBox(
-                        expanded = themeExpanded,
-                        onExpandedChange = { themeExpanded = !themeExpanded }
-                    ) {
-                        val themeLabel = when (themePreference) {
-                            "dark" -> stringResource(R.string.settings_theme_dark)
-                            "light" -> stringResource(R.string.settings_theme_light)
-                            else -> stringResource(R.string.settings_language_system)
-                        }
-                        
-                        OutlinedTextField(
-                            value = themeLabel,
-                            onValueChange = {},
-                            readOnly = true,
-                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = themeExpanded) },
-                            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).fillMaxWidth()
-                        )
 
-                        ExposedDropdownMenu(
-                            expanded = themeExpanded,
-                            onDismissRequest = { themeExpanded = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_theme_light)) },
-                                onClick = { viewModel.setThemePreference("light"); themeExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_theme_dark)) },
-                                onClick = { viewModel.setThemePreference("dark"); themeExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_system)) },
-                                onClick = { viewModel.setThemePreference("system"); themeExpanded = false }
+                    val themeOptions = listOf(
+                        "light"  to stringResource(R.string.settings_theme_light),
+                        "system" to stringResource(R.string.settings_language_system),
+                        "dark"   to stringResource(R.string.settings_theme_dark),
+                    )
+                    SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                        themeOptions.forEachIndexed { index, (code, label) ->
+                            SegmentedButton(
+                                selected = themePreference == code ||
+                                    (code == "system" && themePreference != "light" && themePreference != "dark"),
+                                onClick = { viewModel.setThemePreference(code) },
+                                shape = SegmentedButtonDefaults.itemShape(index, themeOptions.size),
+                                label = { Text(label, style = MaterialTheme.typography.bodySmall) }
                             )
                         }
                     }
