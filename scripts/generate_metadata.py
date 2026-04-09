@@ -53,7 +53,8 @@ def get_version_code(aab_path):
     return None
 
 def main():
-    # All 8 app languages for Play Store
+    # All supported app languages for Play Store release notes.
+    # Play Store silently ignores locales not yet published – safe to add early.
     target_locales = {
         'de-DE': 'docs/CHANGELOG.md',
         'en-US': 'docs/CHANGELOG.en.md',
@@ -63,6 +64,12 @@ def main():
         'pt-PT': None,
         'pl-PL': None,
         'nl-NL': None,
+        'sv-SE': None,   # Swedish – added 1.7.0
+        'tr-TR': None,   # Turkish – added 1.7.0
+        'ru-RU': None,   # Russian – added 1.7.0
+        'uk-UA': None,   # Ukrainian – added 1.7.0
+        'nb-NO': None,   # Norwegian (Bokmål) – added 1.7.2
+        'da-DK': None,   # Danish – added 1.7.2
     }
     
     changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or "Maintenance update and performance optimizations."
