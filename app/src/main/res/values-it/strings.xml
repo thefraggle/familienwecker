@@ -319,4 +319,9 @@
     <string name="settings_exact_alarm_warning_text">La sveglia non può suonare su questo dispositivo. Consenti a FamWake di impostare sveglie esatte.</string>
     <string name="settings_exact_alarm_warning_button">Consenti sveglie</string>
     <string name="main_exact_alarm_banner">⚠️ Sveglia bloccata! Concedi l\'autorizzazione nelle impostazioni affinché suoni in orario.</string>
+    <string name="error_offline_feedback">You are offline. Please check your connection and try again.</string>
+    <string name="error_feedback_rate_limit">Please wait %1$s seconds before sending another message.</string>
+    <string name="error_feedback_rate_limit_server">Too many requests. Please try again later.</string>
+    <string name="error_feedback_empty_message">Message must not be empty.</string>
+    <string name="error_network">Network error. Please check your internet connection.</string>
 </resources>

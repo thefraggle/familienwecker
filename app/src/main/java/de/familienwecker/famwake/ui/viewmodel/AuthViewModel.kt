@@ -287,7 +287,14 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.w("AuthViewModel", "Google Sign-In failed: ${e.message}")
                 }
-                _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed_unknown))
+                // F7: Netzwerk-Fehler vs. unbekannter Fehler differenzieren
+                val isNetworkError = e.message?.contains("network", ignoreCase = true) == true
+                    || e.message?.contains("timeout", ignoreCase = true) == true
+                    || e.message?.contains("unable to resolve", ignoreCase = true) == true
+                _authState.value = AuthState.Error(
+                    if (isNetworkError) UiText.StringResource(R.string.error_network)
+                    else UiText.StringResource(R.string.error_google_sign_in_failed_unknown)
+                )
             } catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("AuthViewModel", "Unexpected Google Sign-In error: ${e.message}")

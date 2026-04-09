@@ -47,6 +47,19 @@ fun FamilyViewModel.sendFeedback(
     appVersion: String,
     device: String
 ) {
+    // O1: Offline-Check vor dem Senden
+    if (_isOffline.value) {
+        _feedbackError.value = UiText.StringResource(R.string.error_offline_feedback)
+        return
+    }
+    // S3: Client-seitiges Rate-Limiting – max. 1 Feedback pro 60 Sekunden
+    val now = System.currentTimeMillis()
+    val lastSent = appSettings.lastFeedbackSentAt.value
+    if (lastSent > 0L && now - lastSent < 60_000L) {
+        val secondsLeft = ((60_000L - (now - lastSent)) / 1000L).coerceAtLeast(1L)
+        _feedbackError.value = UiText.StringResource(R.string.error_feedback_rate_limit, secondsLeft.toString())
+        return
+    }
     scope.launch {
         _isSendingFeedback.value = true
         _feedbackError.value = null
@@ -59,9 +72,20 @@ fun FamilyViewModel.sendFeedback(
         )
         if (result.isSuccess) {
             _feedbackSubmitted.value = true
+            appSettings.setLastFeedbackSentAt(System.currentTimeMillis())
             TelemetryDeck.signal("feedback.sent", mapOf("category" to category))
         } else {
-            _feedbackError.value = UiText.StringResource(R.string.error_unknown)
+            // F3: Fehlertyp differenzieren – Netzwerk vs. Rate-Limit vs. Server
+            val ex = result.exceptionOrNull()
+            _feedbackError.value = when {
+                ex?.message?.contains("TOO_MANY_REQUESTS") == true ->
+                    UiText.StringResource(R.string.error_feedback_rate_limit_server)
+                ex?.message?.contains("INVALID_EMAIL") == true ->
+                    UiText.StringResource(R.string.error_invalid_email)
+                ex?.message?.contains("INVALID_MESSAGE") == true ->
+                    UiText.StringResource(R.string.error_feedback_empty_message)
+                else -> UiText.StringResource(R.string.error_unknown)
+            }
         }
         _isSendingFeedback.value = false
     }

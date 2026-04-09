@@ -319,4 +319,9 @@
     <string name="settings_exact_alarm_warning_text">De wekker kan niet afgaan op dit apparaat. Geef FamWake toestemming om exacte wekkers in te stellen.</string>
     <string name="settings_exact_alarm_warning_button">Wekkers toestaan</string>
     <string name="main_exact_alarm_banner">⚠️ Wekker geblokkeerd! Geef toestemming in de instellingen zodat je wekker op tijd afgaat.</string>
+    <string name="error_offline_feedback">You are offline. Please check your connection and try again.</string>
+    <string name="error_feedback_rate_limit">Please wait %1$s seconds before sending another message.</string>
+    <string name="error_feedback_rate_limit_server">Too many requests. Please try again later.</string>
+    <string name="error_feedback_empty_message">Message must not be empty.</string>
+    <string name="error_network">Network error. Please check your internet connection.</string>
 </resources>
