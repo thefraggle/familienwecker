@@ -196,7 +196,7 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             
-            // Profilauswahl (Wer bin ich?)
+            // Profilauswahl (Wer bin ich?) + Weckton
             Card(
                 modifier = Modifier.fillMaxWidth(), 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
@@ -287,27 +287,19 @@ fun SettingsScreen(
                             }
                         }
                     }
-                }
-            }
 
-            // Weckereinstellungen (Ton)
-            Card(
-                modifier = Modifier.fillMaxWidth(), 
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
-                                     else MaterialTheme.colorScheme.surface
-                )
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
+                    // Alarm-Ton direkt in der Profil-Karte – gehört zum persönlichen Setup
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.settings_alarm_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(
+                            stringResource(R.string.settings_alarm_title),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     val ringtoneName = remember(alarmSoundUri) {
                         val currentUri = alarmSoundUri
