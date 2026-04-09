@@ -246,7 +246,7 @@ fun FamilySetupScreen(
                         if (errorMessage != null) {
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
-                                text = errorMessage!!.asString(),
+                                text = errorMessage?.asString() ?: "",
                                 color = MaterialTheme.colorScheme.error,
                                 style = MaterialTheme.typography.bodyMedium
                             )

@@ -36,6 +36,10 @@ class FirebaseRepository : IFirebaseRepository {
         private const val COLLECTION_USERS = "users"
         private const val COLLECTION_MEMBERS = "members"
 
+        // S2: Debug-Logging-Flag – wird aus FamWakeApplication via BuildConfig.DEBUG gesetzt.
+        // Vermeidet BuildConfig-Dependency im shared-Modul; verhindert Log-Leaks im Release-Build.
+        var debugLogging: Boolean = false
+
         /**
          * O7: Persistente Offline-Persistenz aktivieren – Writes überleben App-Neustart.
          * Muss einmalig VOR dem ersten Firestore-Aufruf gesetzt werden (z.B. in Application.onCreate).
@@ -47,7 +51,7 @@ class FirebaseRepository : IFirebaseRepository {
                     .build()
                 com.google.firebase.firestore.FirebaseFirestore.getInstance().firestoreSettings = settings
             } catch (e: Exception) {
-                Log.w(TAG, "Firestore PersistentCache already configured or failed: ${e.message}")
+                if (debugLogging) Log.w(TAG, "Firestore PersistentCache already configured or failed: ${e.message}")
             }
         }
     }
@@ -146,7 +150,7 @@ class FirebaseRepository : IFirebaseRepository {
                 Result.success(null)
             }
         } catch (e: Exception) {
-            Log.e(TAG, "getUserContext error: ${e.message}")
+            if (debugLogging) Log.e(TAG, "getUserContext error: ${e.message}")
             Result.failure(e)
         }
     }
@@ -207,7 +211,7 @@ class FirebaseRepository : IFirebaseRepository {
             functions.httpsCallable("leaveFamily").invoke(data)
             Result.success(Unit)
         } catch (e: Exception) {
-            Log.e(TAG, "Fehler beim Verlassen der Familie für $userId: ${e.message}")
+            if (debugLogging) Log.e(TAG, "Fehler beim Verlassen der Familie für $userId: ${e.message}")
             Result.failure(e)
         }
     }
@@ -244,7 +248,7 @@ class FirebaseRepository : IFirebaseRepository {
         query.snapshots.collect { snapshot ->
             val members = snapshot.documents.mapNotNull { doc ->
                 try { doc.toFamilyMember() } catch (e: Exception) {
-                    Log.e(TAG, "toFamilyMember failed for doc ${doc.id}: ${e.message}", e)
+                    if (debugLogging) Log.e(TAG, "toFamilyMember failed for doc ${doc.id}: ${e.message}", e)
                     null
                 }
             }
@@ -253,7 +257,7 @@ class FirebaseRepository : IFirebaseRepository {
         awaitClose { }
     }.retryWhen { cause, attempt ->
         val delayMillis = minOf(1000L * (attempt + 1), 10000L)
-        Log.w(TAG, "getFamilyMembersFlow retry (attempt=$attempt): ${cause.message}")
+        if (debugLogging) Log.w(TAG, "getFamilyMembersFlow retry (attempt=$attempt): ${cause.message}")
         delay(delayMillis)
         true
     }.distinctUntilChanged { old, new ->
@@ -277,9 +281,9 @@ class FirebaseRepository : IFirebaseRepository {
             db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(member.id)
                 .set(member.toFirestoreMap())
-            Log.i(TAG, "Mitglied ${member.id} erfolgreich gespeichert")
+            if (debugLogging) Log.i(TAG, "Mitglied ${member.id} erfolgreich gespeichert")
         } catch (e: Exception) {
-            Log.e(TAG, "Fehler beim Speichern von Member ${member.id} in Familie $familyId: ${e.message}", e)
+            if (debugLogging) Log.e(TAG, "Fehler beim Speichern von Member ${member.id} in Familie $familyId: ${e.message}", e)
             throw e
         }
     }
@@ -290,7 +294,7 @@ class FirebaseRepository : IFirebaseRepository {
                 .collection(COLLECTION_MEMBERS).document(id).delete()
             Result.success(Unit)
         } catch (e: Exception) {
-            Log.e(TAG, "removeMember: failed for $id: ${e.message}", e)
+            if (debugLogging) Log.e(TAG, "removeMember: failed for $id: ${e.message}", e)
             Result.failure(e)
         }
     }
@@ -317,7 +321,7 @@ class FirebaseRepository : IFirebaseRepository {
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "claimMember failed for $memberId: ${e.message}")
+            if (debugLogging) Log.e(TAG, "claimMember failed for $memberId: ${e.message}")
             false
         }
     }
@@ -333,7 +337,7 @@ class FirebaseRepository : IFirebaseRepository {
                 "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
             ))
         } catch (e: Exception) {
-            Log.e(TAG, "claimMemberOffline failed for $memberId: ${e.message}")
+            if (debugLogging) Log.e(TAG, "claimMemberOffline failed for $memberId: ${e.message}")
         }
     }
 
@@ -360,7 +364,7 @@ class FirebaseRepository : IFirebaseRepository {
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "unclaimMember failed for $memberId: ${e.message}")
+            if (debugLogging) Log.e(TAG, "unclaimMember failed for $memberId: ${e.message}")
             false
         }
     }
@@ -396,7 +400,7 @@ class FirebaseRepository : IFirebaseRepository {
                 commit()
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
+            if (debugLogging) Log.e(TAG, "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
             throw e
         }
     }
@@ -420,7 +424,7 @@ class FirebaseRepository : IFirebaseRepository {
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Fehler im updateMembersBatch für $familyId: ${e.message}")
+            if (debugLogging) Log.e(TAG, "Fehler im updateMembersBatch für $familyId: ${e.message}")
             throw e
         }
     }
@@ -431,7 +435,7 @@ class FirebaseRepository : IFirebaseRepository {
                 .collection(COLLECTION_MEMBERS).document(memberId)
                 .update(mapOf("deviceAlarmEnabled" to enabled))
         } catch (e: Exception) {
-            Log.e(TAG, "Fehler beim Schreiben von deviceAlarmEnabled für $memberId: ${e.message}")
+            if (debugLogging) Log.e(TAG, "Fehler beim Schreiben von deviceAlarmEnabled für $memberId: ${e.message}")
             throw e
         }
     }
@@ -444,9 +448,9 @@ class FirebaseRepository : IFirebaseRepository {
                     "isPaused" to isPaused,
                     "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
                 ))
-            Log.i(TAG, "Pause-Status für $memberId gesetzt: isPaused=$isPaused")
+            if (debugLogging) Log.i(TAG, "Pause-Status für $memberId gesetzt: isPaused=$isPaused")
         } catch (e: Exception) {
-            Log.e(TAG, "Fehler beim Setzen von isPaused für $memberId: ${e.message}")
+            if (debugLogging) Log.e(TAG, "Fehler beim Setzen von isPaused für $memberId: ${e.message}")
             throw e
         }
     }
@@ -460,7 +464,7 @@ class FirebaseRepository : IFirebaseRepository {
         awaitClose { }
     }.retryWhen { cause, attempt ->
         val delayMillis = minOf(1000L * (attempt + 1), 10000L)
-        Log.w(TAG, "checkIsGlobalAdminFlow retry (attempt=$attempt): ${cause.message}")
+        if (debugLogging) Log.w(TAG, "checkIsGlobalAdminFlow retry (attempt=$attempt): ${cause.message}")
         delay(delayMillis)
         true
     }
