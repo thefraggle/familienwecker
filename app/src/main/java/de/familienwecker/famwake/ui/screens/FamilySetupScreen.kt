@@ -8,16 +8,23 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
 import androidx.compose.ui.text.buildAnnotatedString
@@ -40,6 +47,7 @@ fun FamilySetupScreen(
     onLogout: () -> Unit
 ) {
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
     BackHandler {
         (context as? Activity)?.finish()
     }
@@ -81,7 +89,12 @@ fun FamilySetupScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(backgroundGradient)
+        // Tastatur schließen, wenn der User außerhalb eines Feldes tippt
+        .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } }
+    ) {
         Column(modifier = Modifier.fillMaxSize()) {
             @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(
@@ -147,7 +160,11 @@ fun FamilySetupScreen(
                                         onValueChange = { familyName = it },
                                         label = { Text(stringResource(R.string.setup_family_name)) },
                                         singleLine = true,
-                                        modifier = Modifier.fillMaxWidth()
+                                        modifier = Modifier.fillMaxWidth(),
+                                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                                        keyboardActions = KeyboardActions(
+                                            onDone = { focusManager.clearFocus() }
+                                        )
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
                                     
@@ -186,9 +203,13 @@ fun FamilySetupScreen(
                                         singleLine = true,
                                         modifier = Modifier.fillMaxWidth(),
                                         placeholder = { Text(stringResource(R.string.setup_join_code_placeholder)) },
-                                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                                        keyboardOptions = KeyboardOptions(
                                             capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.Characters,
-                                            autoCorrectEnabled = false
+                                            autoCorrectEnabled = false,
+                                            imeAction = ImeAction.Done
+                                        ),
+                                        keyboardActions = KeyboardActions(
+                                            onDone = { focusManager.clearFocus() }
                                         )
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
