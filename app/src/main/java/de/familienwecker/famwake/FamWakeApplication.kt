@@ -33,6 +33,8 @@ class FamWakeApplication : Application() {
         super.onCreate()
         // O7: Persistente Firestore-Offline-Persistenz konfigurieren – muss VOR dem ersten Firestore-Zugriff sein
         de.familienwecker.famwake.data.FirebaseRepository.configurePersistentCache()
+        // S2: Debug-Logging im shared-Modul an BuildConfig koppeln
+        de.familienwecker.famwake.data.FirebaseRepository.debugLogging = BuildConfig.DEBUG
         // Installations-Zeitstempel setzen (nur beim allerersten Start)
         if (appSettings.installTime.value == 0L) {
             appSettings.setInstallTime(System.currentTimeMillis())
@@ -49,7 +51,10 @@ class FamWakeApplication : Application() {
         }
         kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
             try {
-                com.revenuecat.purchases.Purchases.debugLogsEnabled = BuildConfig.DEBUG
+                // N2: logLevel ersetzt das deprecated debugLogsEnabled
+                com.revenuecat.purchases.Purchases.logLevel =
+                    if (BuildConfig.DEBUG) com.revenuecat.purchases.LogLevel.DEBUG
+                    else com.revenuecat.purchases.LogLevel.WARN
                 val currentLang = appSettings.language.value
                 val fullLocale = when (currentLang) {
                     "de" -> "de-DE"
