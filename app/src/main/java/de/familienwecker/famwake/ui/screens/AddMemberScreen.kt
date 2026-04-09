@@ -430,22 +430,28 @@ fun AddMemberScreen(
                     }
                 }
 
-                // Tooltip G – Wochentage
-                if (tooltipsEnabled && !tooltipWeekdaysSeen) {
-                    TooltipBubble(
-                        visible = true,
-                        text = stringResource(R.string.tooltip_weekdays),
-                        onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyWeekdays) }
-                    )
-                }
-
-                // Copy-Link direkt unter den Tages-Tabs – immer sichtbar, kompaktes Padding
-                TextButton(
-                    onClick = { showCopyDialog = true },
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
+                // Tooltip + Copy-Link als kompakte Einheit (Sub-Column vermeidet 16dp-Abstand der Parent-Column)
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
-                    Text(stringResource(R.string.add_member_copy_to_days, dayLabel(selectedDay)))
+                    // Tooltip G – Wochentage
+                    if (tooltipsEnabled && !tooltipWeekdaysSeen) {
+                        TooltipBubble(
+                            visible = true,
+                            text = stringResource(R.string.tooltip_weekdays),
+                            onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyWeekdays) }
+                        )
+                    }
+
+                    // Copy-Link
+                    TextButton(
+                        onClick = { showCopyDialog = true },
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
+                    ) {
+                        Text(stringResource(R.string.add_member_copy_to_days, dayLabel(selectedDay)))
+                    }
                 }
 
                 // Tages-Card für selectedDay
