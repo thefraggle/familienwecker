@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
 
         checkFullScreenIntentPermission()
         handleDeepLink(intent, familyViewModel)
+
+        // Edge-to-Edge muss vor setContent() aufgerufen werden, damit AppCompat
+        // keine veralteten setStatusBarColor/setNavigationBarColor-Aufrufe absetzt
+        enableEdgeToEdge()
 
         setContent {
             val themePref by familyViewModel.themePreference.collectAsStateWithLifecycle()
