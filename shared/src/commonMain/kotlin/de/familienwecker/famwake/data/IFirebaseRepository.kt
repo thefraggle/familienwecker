@@ -50,6 +50,9 @@ interface IFirebaseRepository {
 
     suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?): Boolean
 
+    /** Offline-Variante ohne Transaction: schreibt claimedByUserId direkt damit Firestore es queuen kann. */
+    suspend fun claimMemberOffline(familyId: String, memberId: String, userId: String, userName: String?)
+
     suspend fun unclaimMember(familyId: String, memberId: String, userId: String): Boolean
 
     suspend fun getClaimedMember(familyId: String, userId: String): FamilyMember?

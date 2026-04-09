@@ -322,6 +322,21 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
+    /** Offline-Variante: Kein Transaction-Roundtrip, Firestore queut den Write bis Reconnect. */
+    override suspend fun claimMemberOffline(familyId: String, memberId: String, userId: String, userName: String?) {
+        try {
+            val docRef = db.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS).document(memberId)
+            docRef.update(mapOf(
+                "claimedByUserId" to userId,
+                "claimedByUserName" to userName,
+                "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
+            ))
+        } catch (e: Exception) {
+            Log.e(TAG, "claimMemberOffline failed for $memberId: ${e.message}")
+        }
+    }
+
     override suspend fun unclaimMember(familyId: String, memberId: String, userId: String): Boolean {
         return try {
             val docRef = db.collection(COLLECTION_FAMILIES).document(familyId)
