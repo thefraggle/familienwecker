@@ -37,14 +37,24 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                 val userName = auth.currentUser?.displayName
                     ?: getApplication<android.app.Application>().getString(de.familienwecker.famwake.R.string.settings_fallback_username)
                 if (userId != null) {
-                    val success = repository.claimMember(currentFamilyId, member.id, userId, userName)
-                    if (success) {
+                    if (_isOffline.value) {
+                        // Offline-First: AppSettings optimistisch setzen, Firestore queut den Write.
+                        // Die Transaction würde offline immer false liefern → stattdessen direkt updaten.
+                        repository.claimMemberOffline(currentFamilyId, member.id, userId, userName)
                         appSettings.setMyMemberId(member.id)
                         appSettings.setMyMemberName(member.name)
                         appSettings.setAlarmEnabled(true)
                         TelemetryDeck.signal("member.autoClaimed")
-                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                            android.util.Log.i("FamilyViewModel", "Auto-Claim: ${member.name} (${member.id}) automatisch geclaimt")
+                    } else {
+                        val success = repository.claimMember(currentFamilyId, member.id, userId, userName)
+                        if (success) {
+                            appSettings.setMyMemberId(member.id)
+                            appSettings.setMyMemberName(member.name)
+                            appSettings.setAlarmEnabled(true)
+                            TelemetryDeck.signal("member.autoClaimed")
+                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                android.util.Log.i("FamilyViewModel", "Auto-Claim: ${member.name} (${member.id}) automatisch geclaimt")
+                            }
                         }
                     }
                 }
