@@ -715,6 +715,8 @@ fun SettingsScreen(
                                 columns = androidx.compose.foundation.lazy.grid.GridCells.Fixed(2),
                                 modifier = Modifier
                                     .fillMaxWidth()
+                                    // Maximalhöhe damit auf kleinen Screens gescrollt werden kann
+                                    .fillMaxHeight(0.85f)
                                     .padding(horizontal = 16.dp),
                                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 verticalArrangement = Arrangement.spacedBy(8.dp),
