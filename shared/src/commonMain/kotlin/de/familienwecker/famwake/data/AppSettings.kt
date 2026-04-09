@@ -66,6 +66,9 @@ interface AppSettings {
     val lastReviewPromptTime: StateFlow<Long>
     fun setLastReviewPromptTime(time: Long)
 
+    val lastFeedbackSentAt: StateFlow<Long>
+    fun setLastFeedbackSentAt(time: Long)
+
     fun clearAll()
 }
 
@@ -239,6 +242,14 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     override fun setLastReviewPromptTime(time: Long) {
         _lastReviewPromptTime.value = time
         settings["LAST_REVIEW_PROMPT_TIME"] = time
+    }
+
+    private val _lastFeedbackSentAt = MutableStateFlow(settings.getLong("LAST_FEEDBACK_SENT_AT", 0L))
+    override val lastFeedbackSentAt = _lastFeedbackSentAt.asStateFlow()
+
+    override fun setLastFeedbackSentAt(time: Long) {
+        _lastFeedbackSentAt.value = time
+        settings["LAST_FEEDBACK_SENT_AT"] = time
     }
 
     override fun clearAll() {

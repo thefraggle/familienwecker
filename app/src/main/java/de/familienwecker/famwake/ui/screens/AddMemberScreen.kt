@@ -75,6 +75,9 @@ fun AddMemberScreen(
     val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
+    // O2: Offline-Status für Hinweis-Banner
+    val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
+    val offlineWriteHint by viewModel.offlineWriteHint.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
 
     // Wir nutzen memberId als stabilen Key, damit Background-Syncs von 'members'
@@ -291,6 +294,41 @@ fun AddMemberScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Spacer(modifier = Modifier.height(8.dp))
+
+                // O2: Offline-Hinweis – Änderungen werden nach Reconnect synchronisiert
+                androidx.compose.animation.AnimatedVisibility(visible = isOffline || offlineWriteHint != null) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                        ),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("☁️", style = MaterialTheme.typography.bodyMedium)
+                            Text(
+                                text = offlineWriteHint?.asString()
+                                    ?: stringResource(R.string.offline_write_hint),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.weight(1f)
+                            )
+                            if (offlineWriteHint != null) {
+                                androidx.compose.material3.IconButton(
+                                    onClick = { viewModel.clearOfflineWriteHint() },
+                                    modifier = Modifier.size(20.dp)
+                                ) {
+                                    Text("✕", style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onTertiaryContainer)
+                                }
+                            }
+                        }
+                    }
+                }
 
                 // Fehlermeldung (falls vorhanden)
                 errorMessage?.let { error ->
