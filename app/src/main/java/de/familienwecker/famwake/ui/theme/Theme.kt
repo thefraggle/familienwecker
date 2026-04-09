@@ -10,10 +10,13 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.activity.ComponentActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 /**
  * N-2: Zentrales CompositionLocal für Dark-Theme-Status.
@@ -89,6 +92,20 @@ fun FamilienweckerTheme(
         }
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
+    }
+
+    val view = LocalView.current
+
+    // Statusbar- und Navigationbar-Icon-Stil dynamisch an Theme anpassen.
+    // Dark Theme → helle Icons (weiß), Light Theme → dunkle Icons – reagiert auch auf Theme-Wechsel zur Laufzeit.
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as? ComponentActivity)?.window ?: return@SideEffect
+            val insetsController = WindowInsetsControllerCompat(window, view)
+            // false = helle Icons (für dunklen Hintergrund), true = dunkle Icons (für hellen Hintergrund)
+            insetsController.isAppearanceLightStatusBars = !darkTheme
+            insetsController.isAppearanceLightNavigationBars = !darkTheme
+        }
     }
 
     // LocalDarkTheme einmalig providen, damit Screens nicht isSystemInDarkTheme() direkt aufrufen
