@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TODO: Übersetzung ausstehend -->
+    <string name="settings_language_turkish">Türkçe</string>
+    <string name="settings_language_ukrainian">Українська</string>
+    <string name="settings_language_russian">Русский</string>
+</resources>

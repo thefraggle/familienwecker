@@ -84,7 +84,7 @@ fun SettingsScreen(
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
     var expanded by remember { mutableStateOf(false) }
-    var languageExpanded by remember { mutableStateOf(false) }
+    var showLanguagePicker by remember { mutableStateOf(false) }
     var themeExpanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showAdminDialog by remember { mutableStateOf(false) }
@@ -619,99 +619,143 @@ fun SettingsScreen(
                     }
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Sprache
+                    // Sprache – Button öffnet BottomSheet
                     Text(
                         stringResource(R.string.settings_language_title),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(modifier = Modifier.height(6.dp))
-                    
-                    ExposedDropdownMenuBox(
-                        expanded = languageExpanded,
-                        onExpandedChange = { languageExpanded = !languageExpanded }
-                    ) {
-                        val languageLabel = when (currentLanguage) {
-                            "de"  -> stringResource(R.string.settings_language_german)
-                            "es"  -> stringResource(R.string.settings_language_spanish)
-                            "fr"  -> stringResource(R.string.settings_language_french)
-                            "it"  -> stringResource(R.string.settings_language_italian)
-                            "nl"  -> stringResource(R.string.settings_language_dutch)
-                            "pl"  -> stringResource(R.string.settings_language_polish)
-                            "pt"  -> stringResource(R.string.settings_language_portuguese)
-                            "sv"  -> stringResource(R.string.settings_language_swedish)
-                            "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
-                            "swg" -> stringResource(R.string.settings_language_schwaebisch)
-                            "ksh" -> stringResource(R.string.settings_language_ruhrpott)
-                            "system" -> stringResource(R.string.settings_language_system)
-                            else  -> stringResource(R.string.settings_language_english)
-                        }
-                        
-                        OutlinedTextField(
-                            value = languageLabel,
-                            onValueChange = {},
-                            readOnly = true,
-                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = languageExpanded) },
-                            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).fillMaxWidth()
-                        )
 
-                        ExposedDropdownMenu(
-                            expanded = languageExpanded,
-                            onDismissRequest = { languageExpanded = false }
+                    val languageLabel = when (currentLanguage) {
+                        "de"  -> stringResource(R.string.settings_language_german)
+                        "es"  -> stringResource(R.string.settings_language_spanish)
+                        "fr"  -> stringResource(R.string.settings_language_french)
+                        "it"  -> stringResource(R.string.settings_language_italian)
+                        "nl"  -> stringResource(R.string.settings_language_dutch)
+                        "pl"  -> stringResource(R.string.settings_language_polish)
+                        "pt"  -> stringResource(R.string.settings_language_portuguese)
+                        "sv"  -> stringResource(R.string.settings_language_swedish)
+                        "tr"  -> stringResource(R.string.settings_language_turkish)
+                        "uk"  -> stringResource(R.string.settings_language_ukrainian)
+                        "ru"  -> stringResource(R.string.settings_language_russian)
+                        "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
+                        "swg" -> stringResource(R.string.settings_language_schwaebisch)
+                        "ksh" -> stringResource(R.string.settings_language_ruhrpott)
+                        "system" -> stringResource(R.string.settings_language_system)
+                        else  -> stringResource(R.string.settings_language_english)
+                    }
+
+                    OutlinedButton(
+                        onClick = { showLanguagePicker = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_system)) },
-                                onClick = { viewModel.setLanguage("system"); languageExpanded = false }
+                            Text(languageLabel, style = MaterialTheme.typography.bodyMedium)
+                            Icon(
+                                androidx.compose.material.icons.Icons.Default.Tune,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
                             )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_german)) },
-                                onClick = { viewModel.setLanguage("de"); languageExpanded = false }
+                        }
+                    }
+
+                    // BottomSheet für Sprachauswahl
+                    if (showLanguagePicker) {
+                        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                        ModalBottomSheet(
+                            onDismissRequest = { showLanguagePicker = false },
+                            sheetState = sheetState
+                        ) {
+                            Text(
+                                text = stringResource(R.string.settings_language_title),
+                                style = MaterialTheme.typography.titleMedium,
+                                modifier = Modifier.padding(horizontal = 20.dp).padding(bottom = 12.dp)
                             )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_english)) },
-                                onClick = { viewModel.setLanguage("en"); languageExpanded = false }
+
+                            data class LangEntry(val code: String, val label: String, val isDialect: Boolean = false)
+
+                            val mainLanguages = listOf(
+                                LangEntry("system", stringResource(R.string.settings_language_system)),
+                                LangEntry("de",     stringResource(R.string.settings_language_german)),
+                                LangEntry("en",     stringResource(R.string.settings_language_english)),
+                                LangEntry("es",     stringResource(R.string.settings_language_spanish)),
+                                LangEntry("fr",     stringResource(R.string.settings_language_french)),
+                                LangEntry("it",     stringResource(R.string.settings_language_italian)),
+                                LangEntry("nl",     stringResource(R.string.settings_language_dutch)),
+                                LangEntry("pl",     stringResource(R.string.settings_language_polish)),
+                                LangEntry("pt",     stringResource(R.string.settings_language_portuguese)),
+                                LangEntry("ru",     stringResource(R.string.settings_language_russian)),
+                                LangEntry("sv",     stringResource(R.string.settings_language_swedish)),
+                                LangEntry("tr",     stringResource(R.string.settings_language_turkish)),
+                                LangEntry("uk",     stringResource(R.string.settings_language_ukrainian)),
                             )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_spanish)) },
-                                onClick = { viewModel.setLanguage("es"); languageExpanded = false }
+                            val dialects = listOf(
+                                LangEntry("gsw", stringResource(R.string.settings_language_schweizerdeutsch), true),
+                                LangEntry("swg", stringResource(R.string.settings_language_schwaebisch), true),
+                                LangEntry("ksh", stringResource(R.string.settings_language_ruhrpott), true),
                             )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_french)) },
-                                onClick = { viewModel.setLanguage("fr"); languageExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_italian)) },
-                                onClick = { viewModel.setLanguage("it"); languageExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_dutch)) },
-                                onClick = { viewModel.setLanguage("nl"); languageExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_polish)) },
-                                onClick = { viewModel.setLanguage("pl"); languageExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_portuguese)) },
-                                onClick = { viewModel.setLanguage("pt"); languageExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_swedish)) },
-                                onClick = { viewModel.setLanguage("sv"); languageExpanded = false }
-                            )
-                            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_ruhrpott)) },
-                                onClick = { viewModel.setLanguage("ksh"); languageExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_schwaebisch)) },
-                                onClick = { viewModel.setLanguage("swg"); languageExpanded = false }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_language_schweizerdeutsch)) },
-                                onClick = { viewModel.setLanguage("gsw"); languageExpanded = false }
-                            )
+
+                            androidx.compose.foundation.lazy.grid.LazyVerticalGrid(
+                                columns = androidx.compose.foundation.lazy.grid.GridCells.Fixed(2),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                contentPadding = PaddingValues(bottom = 24.dp)
+                            ) {
+                                items(mainLanguages.size) { i ->
+                                    val entry = mainLanguages[i]
+                                    val isSelected = currentLanguage == entry.code ||
+                                        (entry.code == "system" && currentLanguage == "system") ||
+                                        (entry.code == "en" && currentLanguage != "de" && currentLanguage != "es" &&
+                                         currentLanguage != "fr" && currentLanguage != "it" && currentLanguage != "nl" &&
+                                         currentLanguage != "pl" && currentLanguage != "pt" && currentLanguage != "sv" &&
+                                         currentLanguage != "tr" && currentLanguage != "uk" && currentLanguage != "ru" &&
+                                         currentLanguage != "gsw" && currentLanguage != "swg" && currentLanguage != "ksh" &&
+                                         currentLanguage != "system")
+                                    FilterChip(
+                                        selected = isSelected,
+                                        onClick = {
+                                            viewModel.setLanguage(entry.code)
+                                            showLanguagePicker = false
+                                        },
+                                        label = { Text(entry.label, style = MaterialTheme.typography.bodyMedium) },
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                }
+
+                                // Trennlinie + Dialekte
+                                item(span = { androidx.compose.foundation.lazy.grid.GridItemSpan(2) }) {
+                                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                                    Text(
+                                        text = "Dialekte",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.padding(bottom = 4.dp)
+                                    )
+                                }
+
+                                items(dialects.size) { i ->
+                                    val entry = dialects[i]
+                                    val isSelected = currentLanguage == entry.code
+                                    FilterChip(
+                                        selected = isSelected,
+                                        onClick = {
+                                            viewModel.setLanguage(entry.code)
+                                            showLanguagePicker = false
+                                        },
+                                        label = { Text(entry.label, style = MaterialTheme.typography.bodyMedium) },
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                }
+                            }
                         }
                     }
 
