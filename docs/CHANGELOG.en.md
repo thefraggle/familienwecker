@@ -4,6 +4,21 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.2 - 2026-04-10
+
+### New
+- **Norsk 🇳🇴 and Dansk 🇩🇰** – FamWake now speaks Norwegian and Danish. Welcome on board!
+- **14 languages** – The language picker now covers 14 world languages plus 3 regional dialects.
+
+### Improved
+- **Language picker** – Cleaner sheet-style selection menu, sorted alphabetically.
+- **Appearance switcher** – Sun/Auto/Moon icons instead of a dropdown – works correctly on narrow devices too.
+- **Weekly schedule** – The "Copy to other days" link is now always visible right below the day tabs.
+- **Schedule field order** – Optimised layout: wake times and bathroom first, then leave time, breakfast last.
+- **Small screens** – All screens are now fully usable; the keyboard no longer pushes content off-screen.
+
+---
+
 ## 1.7.1 - 2026-04-08
 
 ### Improved
