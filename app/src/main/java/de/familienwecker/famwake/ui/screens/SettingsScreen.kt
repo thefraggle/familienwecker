@@ -630,17 +630,19 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(6.dp))
 
                     val languageLabel = when (currentLanguage) {
+                        "da"  -> stringResource(R.string.settings_language_danish)
                         "de"  -> stringResource(R.string.settings_language_german)
                         "es"  -> stringResource(R.string.settings_language_spanish)
                         "fr"  -> stringResource(R.string.settings_language_french)
                         "it"  -> stringResource(R.string.settings_language_italian)
                         "nl"  -> stringResource(R.string.settings_language_dutch)
+                        "no"  -> stringResource(R.string.settings_language_norwegian)
                         "pl"  -> stringResource(R.string.settings_language_polish)
                         "pt"  -> stringResource(R.string.settings_language_portuguese)
+                        "ru"  -> stringResource(R.string.settings_language_russian)
                         "sv"  -> stringResource(R.string.settings_language_swedish)
                         "tr"  -> stringResource(R.string.settings_language_turkish)
                         "uk"  -> stringResource(R.string.settings_language_ukrainian)
-                        "ru"  -> stringResource(R.string.settings_language_russian)
                         "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
                         "swg" -> stringResource(R.string.settings_language_schwaebisch)
                         "ksh" -> stringResource(R.string.settings_language_ruhrpott)
@@ -680,16 +682,19 @@ fun SettingsScreen(
                                 modifier = Modifier.padding(horizontal = 20.dp).padding(bottom = 12.dp)
                             )
 
-                            data class LangEntry(val code: String, val label: String, val isDialect: Boolean = false)
+                            data class LangEntry(val code: String, val label: String)
 
+                            // System oben, dann alphabetisch nach nativem Namen
                             val mainLanguages = listOf(
                                 LangEntry("system", stringResource(R.string.settings_language_system)),
+                                LangEntry("da",     stringResource(R.string.settings_language_danish)),
                                 LangEntry("de",     stringResource(R.string.settings_language_german)),
                                 LangEntry("en",     stringResource(R.string.settings_language_english)),
                                 LangEntry("es",     stringResource(R.string.settings_language_spanish)),
                                 LangEntry("fr",     stringResource(R.string.settings_language_french)),
                                 LangEntry("it",     stringResource(R.string.settings_language_italian)),
                                 LangEntry("nl",     stringResource(R.string.settings_language_dutch)),
+                                LangEntry("no",     stringResource(R.string.settings_language_norwegian)),
                                 LangEntry("pl",     stringResource(R.string.settings_language_polish)),
                                 LangEntry("pt",     stringResource(R.string.settings_language_portuguese)),
                                 LangEntry("ru",     stringResource(R.string.settings_language_russian)),
@@ -698,10 +703,13 @@ fun SettingsScreen(
                                 LangEntry("uk",     stringResource(R.string.settings_language_ukrainian)),
                             )
                             val dialects = listOf(
-                                LangEntry("gsw", stringResource(R.string.settings_language_schweizerdeutsch), true),
-                                LangEntry("swg", stringResource(R.string.settings_language_schwaebisch), true),
-                                LangEntry("ksh", stringResource(R.string.settings_language_ruhrpott), true),
+                                LangEntry("gsw", stringResource(R.string.settings_language_schweizerdeutsch)),
+                                LangEntry("ksh", stringResource(R.string.settings_language_ruhrpott)),
+                                LangEntry("swg", stringResource(R.string.settings_language_schwaebisch)),
                             )
+
+                            // Alle bekannten Hauptsprachcodes für EN-Fallback-Erkennung
+                            val knownCodes = (mainLanguages.map { it.code } + dialects.map { it.code }).toSet()
 
                             androidx.compose.foundation.lazy.grid.LazyVerticalGrid(
                                 columns = androidx.compose.foundation.lazy.grid.GridCells.Fixed(2),
@@ -715,13 +723,7 @@ fun SettingsScreen(
                                 items(mainLanguages.size) { i ->
                                     val entry = mainLanguages[i]
                                     val isSelected = currentLanguage == entry.code ||
-                                        (entry.code == "system" && currentLanguage == "system") ||
-                                        (entry.code == "en" && currentLanguage != "de" && currentLanguage != "es" &&
-                                         currentLanguage != "fr" && currentLanguage != "it" && currentLanguage != "nl" &&
-                                         currentLanguage != "pl" && currentLanguage != "pt" && currentLanguage != "sv" &&
-                                         currentLanguage != "tr" && currentLanguage != "uk" && currentLanguage != "ru" &&
-                                         currentLanguage != "gsw" && currentLanguage != "swg" && currentLanguage != "ksh" &&
-                                         currentLanguage != "system")
+                                        (entry.code == "en" && currentLanguage !in knownCodes)
                                     FilterChip(
                                         selected = isSelected,
                                         onClick = {

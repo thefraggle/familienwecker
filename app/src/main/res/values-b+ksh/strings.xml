@@ -327,4 +327,6 @@
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
+    <string name="settings_language_norwegian">Norsk</string>
+    <string name="settings_language_danish">Dansk</string>
 </resources>
