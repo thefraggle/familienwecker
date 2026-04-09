@@ -105,22 +105,22 @@ jobs:
           python3 scripts/generate_metadata.py
           echo "Generated Metadata Structure:"
           ls -R release-notes
-          echo "Verifying Content (DE):"
+          echo "--- Verifying release notes (DE + EN always present) ---"
           cat release-notes/whatsnew-de-DE || echo "No DE file"
-          echo "Verifying Content (EN):"
           cat release-notes/whatsnew-en-US || echo "No EN file"
-          echo "Verifying Content (FR):"
+          echo "--- Other supported languages (Play Store ignores unknown locales) ---"
           cat release-notes/whatsnew-fr-FR || echo "No FR file"
-          echo "Verifying Content (ES):"
           cat release-notes/whatsnew-es-ES || echo "No ES file"
-          echo "Verifying Content (IT):"
           cat release-notes/whatsnew-it-IT || echo "No IT file"
-          echo "Verifying Content (PT):"
           cat release-notes/whatsnew-pt-PT || echo "No PT file"
-          echo "Verifying Content (PL):"
           cat release-notes/whatsnew-pl-PL || echo "No PL file"
-          echo "Verifying Content (NL):"
           cat release-notes/whatsnew-nl-NL || echo "No NL file"
+          cat release-notes/whatsnew-sv-SE || echo "No SV file"
+          cat release-notes/whatsnew-tr-TR || echo "No TR file"
+          cat release-notes/whatsnew-ru-RU || echo "No RU file"
+          cat release-notes/whatsnew-uk-UA || echo "No UK file"
+          cat release-notes/whatsnew-nb-NO || echo "No NO file"
+          cat release-notes/whatsnew-da-DK || echo "No DA file"
 
 
       # GitHub Release nur mit AAB

@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.7.1
-**Datum:** 2026-04-08
+**Version:** 1.7.2
+**Datum:** 2026-04-10
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
@@ -74,8 +74,10 @@ Tests validieren nicht nur die UI, sondern insbesondere die Korrektheit des Plan
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | TC-60 | Sprach-Fallback | Gerätesprache Türkisch → App startet auf Englisch, nicht Deutsch. |
-| TC-61 | Dialektsprachen | Schwäbsch / Schwiizerdütsch / Ruhrpott auswählen → korrekte Texte, Onboarding zeigt deutsche Screenshots. |
-| TC-62 | Weitere Sprachen | FR/ES/IT/SV → UI-Texte korrekt, keine Fallbacks auf DE. E-Mail-Lokalisation korrekt. |
+| TC-61 | Dialektsprachen | Schwäbsch / Schwiizerdeutsch / Ruhrpott auswählen → korrekte Texte,  kein Absturz. |
+| TC-62 | Weitere Sprachen | FR/ES/IT/SV/TR/UK/RU/NO/DA → UI-Texte korrekt, keine Fallbacks auf DE. |
+| TC-63 | Sprachpicker – alphabetisch | Öffnet BottomSheet, Sprachen in korrekter Reihenfolge, System immer zuerst. |
+| TC-64 | Sprachpicker kleine Screens | Auf kleinem Gerät (360dp Breite): Grid scrollt, kein Abschneiden. |
 
 ---
 
@@ -116,6 +118,13 @@ Tests validieren nicht nur die UI, sondern insbesondere die Korrektheit des Plan
 - **Material You:** Dynamische Farben ab Android 12.
 - **Touch-Targets:** Mindestens 24 dp für alle Interaktionselemente.
 - **Haptik:** Vibrationsmuster für Vor- und Hauptalarm.
+
+| ID | Testfall | Erwartetes Ergebnis |
+|:---|:---|:---|
+| UI-01 | Theme-Switcher | Sonne/Auto/Mond-Icons wechseln sofort; kein Überlauf auf schmalen Geräten. |
+| UI-02 | Wochenplan-Kopierlink | Nach Öffnen des Wochenplanbereichs ist der "Auf andere Tage kopieren"-Link ohne Scrollen sichtbar. |
+| UI-03 | Kleine Screens scrollen | Auf 360dp-Gerät: FamilySetupScreen, SettingsScreen, AddMemberScreen – Tastatur schiebt Content hoch, Button bleibt erreichbar. |
+| UI-04 | Feldreihenfolge | Wochenplan-Card: Frühste Weckzeit, Späteste Weckzeit, Badzeit, Haus verlassen, Frühstück. |
 
 ---
 

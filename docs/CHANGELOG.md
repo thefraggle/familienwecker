@@ -4,6 +4,21 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.2 - 2026-04-10
+
+### Neu
+- **Norsk 🇳🇴 und Dansk 🇩🇰** – FamWake spricht jetzt auch Norwegisch und Dänisch. Willkommen an Bord!
+- **14 Sprachen** – Die Sprachauswahl kennt jetzt 14 Weltsprachen plus 3 Dialekte.
+
+### Verbessert
+- **Sprachauswahl** – Übersichtlicheres Auswahlmenü, alphabetisch sortiert.
+- **Erscheinungsbild-Umschalter** – Sonne/Auto/Mond-Icons statt Dropdown – funktioniert auch auf schmalen Geräten.
+- **Wochenplan** – Der "Auf andere Tage kopieren"-Link ist jetzt immer direkt sichtbar, nicht mehr am unteren Ende versteckt.
+- **Wochenplan-Felder** – Reihenfolge optimiert: Weckzeiten und Badzeit zuerst, dann Abfahrtszeit, Frühstück zuletzt.
+- **Kleine Bildschirme** – Alle Screens sind jetzt vollständig bedienbar; Tastatur schiebt Inhalte nicht mehr aus dem Bild.
+
+---
+
 ## 1.7.1 - 2026-04-08
 
 ### Verbessert
