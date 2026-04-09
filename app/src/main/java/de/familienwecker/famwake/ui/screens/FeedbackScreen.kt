@@ -3,9 +3,12 @@ package de.familienwecker.famwake.ui.screens
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -15,13 +18,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.R
-import androidx.compose.ui.platform.LocalContext
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.ui.viewmodel.*
@@ -36,6 +43,7 @@ fun FeedbackScreen(
     onNavigateBack: () -> Unit
 ) {
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
     val isDarkTheme = when (themePreference) {
         "dark" -> true
@@ -83,7 +91,12 @@ fun FeedbackScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(backgroundGradient)
+        // Tastatur schließen, wenn der User außerhalb eines Feldes tippt
+        .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } }
+    ) {
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {
@@ -221,8 +234,12 @@ fun FeedbackScreen(
                         } else null,
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                            keyboardType = androidx.compose.ui.text.input.KeyboardType.Email
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Email,
+                            imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = { focusManager.clearFocus() }
                         )
                     )
 
