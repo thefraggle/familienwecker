@@ -432,7 +432,6 @@ fun AddMemberScreen(
 
                 // Tooltip G – Wochentage
                 if (tooltipsEnabled && !tooltipWeekdaysSeen) {
-                    Spacer(modifier = Modifier.height(4.dp))
                     TooltipBubble(
                         visible = true,
                         text = stringResource(R.string.tooltip_weekdays),
@@ -440,10 +439,11 @@ fun AddMemberScreen(
                     )
                 }
 
-                // Copy-Link direkt unter den Tages-Tabs – immer sichtbar
+                // Copy-Link direkt unter den Tages-Tabs – immer sichtbar, kompaktes Padding
                 TextButton(
                     onClick = { showCopyDialog = true },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
                 ) {
                     Text(stringResource(R.string.add_member_copy_to_days, dayLabel(selectedDay)))
                 }
