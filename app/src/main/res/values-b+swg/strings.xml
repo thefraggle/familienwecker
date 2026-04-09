@@ -58,6 +58,7 @@
     <string name="delete_member_text">Möchtesch %1$s echt aus der Familie lescha?</string>
     <string name="delete_confirm">Lescha</string>
     <string name="cancel_button">Abbrecha</string>
+    <string name="retry_button">Nochmal versuecha</string>
     <string name="add_member_name_label">Name (z.B. Mama, Papa, Kender)</string>
     <string name="add_member_unknown">Oibekannt</string>
     <string name="add_member_earliest_wake">Früheschte Weggzeit</string>

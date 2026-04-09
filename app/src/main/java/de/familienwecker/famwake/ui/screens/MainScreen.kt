@@ -860,7 +860,7 @@ fun MainScreen(
                                 )
                                 if (sched.member.leaveHomeTime != null) {
                                     Text(
-                                        text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime!!.toJavaLocalTime().format(timeFormatter)),
+                                        text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime?.toJavaLocalTime()?.format(timeFormatter) ?: ""),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
                                     )

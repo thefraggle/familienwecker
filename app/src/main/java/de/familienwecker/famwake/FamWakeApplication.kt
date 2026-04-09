@@ -31,6 +31,8 @@ class FamWakeApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        // O7: Persistente Firestore-Offline-Persistenz konfigurieren – muss VOR dem ersten Firestore-Zugriff sein
+        de.familienwecker.famwake.data.FirebaseRepository.configurePersistentCache()
         // Installations-Zeitstempel setzen (nur beim allerersten Start)
         if (appSettings.installTime.value == 0L) {
             appSettings.setInstallTime(System.currentTimeMillis())
