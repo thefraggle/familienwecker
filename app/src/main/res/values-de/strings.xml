@@ -324,4 +324,7 @@
     <string name="error_feedback_rate_limit_server">Zu viele Anfragen. Bitte versuche es später erneut.</string>
     <string name="error_feedback_empty_message">Die Nachricht darf nicht leer sein.</string>
     <string name="error_network">Netzwerkfehler. Bitte prüfe deine Internetverbindung.</string>
+    <string name="settings_language_turkish">Türkçe</string>
+    <string name="settings_language_ukrainian">Українська</string>
+    <string name="settings_language_russian">Русский</string>
 </resources>
