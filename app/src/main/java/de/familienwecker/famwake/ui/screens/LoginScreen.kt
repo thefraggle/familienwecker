@@ -165,11 +165,12 @@ fun LoginScreen(
 
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    shape = MaterialTheme.shapes.extraLarge,
+                    // Tonal statt Shadow-Elevation: kein Schatten, Farbe differenziert
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
-                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceContainerHigh
                                          else MaterialTheme.colorScheme.surface
                     )
                 ) {
@@ -289,7 +290,7 @@ fun LoginScreen(
                                     .fillMaxWidth()
                                     .height(56.dp)
                                     .bounceClick(loginInteractionSource),
-                                shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                // Kein shape-Override → M3-Default = Pill-förmig
                                 interactionSource = loginInteractionSource,
                                 enabled = email.isNotBlank() && password.isNotBlank()
                             ) {
@@ -427,7 +428,7 @@ fun LoginScreen(
                             Spacer(modifier = Modifier.height(16.dp))
                             Surface(
                                 color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                shape = MaterialTheme.shapes.small,
                                 modifier = Modifier.fillMaxWidth()
                             ) {
                                 Row(

@@ -202,8 +202,8 @@ fun SettingsScreen(
             // Profilauswahl (Wer bin ich?) + Weckton
             Card(
                 modifier = Modifier.fillMaxWidth(), 
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                shape = MaterialTheme.shapes.extraLarge,
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
@@ -238,7 +238,7 @@ fun SettingsScreen(
                             }
                         },
                         modifier = Modifier.fillMaxWidth(),
-                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        shape = MaterialTheme.shapes.small,
                         enabled = members.isNotEmpty()
                     ) {
                         Row(
@@ -385,8 +385,8 @@ fun SettingsScreen(
             if (isBatteryOptimized.value) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    shape = MaterialTheme.shapes.extraLarge,
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
@@ -427,8 +427,8 @@ fun SettingsScreen(
             if (!isExactAlarmPermitted.value) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    shape = MaterialTheme.shapes.extraLarge,
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
@@ -471,8 +471,8 @@ fun SettingsScreen(
             
             Card(
                 modifier = Modifier.fillMaxWidth(), 
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                shape = MaterialTheme.shapes.large,
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
@@ -524,7 +524,7 @@ fun SettingsScreen(
                                 .padding(bottom = 16.dp)
                                 .bounceClick(shareInteractionSource),
                             interactionSource = shareInteractionSource,
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+                            shape = MaterialTheme.shapes.medium
                         ) {
                             Icon(Icons.Default.Groups, contentDescription = null)
                             Spacer(Modifier.width(8.dp))
@@ -631,7 +631,7 @@ fun SettingsScreen(
             // Sprache (Language)
             Card(
                 modifier = Modifier.fillMaxWidth(), 
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                shape = MaterialTheme.shapes.large,
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
@@ -689,7 +689,7 @@ fun SettingsScreen(
                     OutlinedButton(
                         onClick = { showLanguagePicker = true },
                         modifier = Modifier.fillMaxWidth(),
-                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        shape = MaterialTheme.shapes.small
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -878,8 +878,8 @@ fun SettingsScreen(
             // Support the App
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                shape = MaterialTheme.shapes.large,
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 border = androidx.compose.foundation.BorderStroke(
                     1.dp,
                     MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
@@ -951,7 +951,7 @@ fun SettingsScreen(
             // Hilfe & Feedback
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                shape = MaterialTheme.shapes.large,
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                 colors = CardDefaults.cardColors(
@@ -1059,7 +1059,7 @@ fun SettingsScreen(
                                                 containerColor = MaterialTheme.colorScheme.errorContainer,
                                                 contentColor = MaterialTheme.colorScheme.onErrorContainer
                                             ),
-                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                            shape = MaterialTheme.shapes.small
                                         ) {
                                             Icon(Icons.Default.Notifications, contentDescription = null)
                                             Spacer(Modifier.width(8.dp))
@@ -1082,7 +1082,7 @@ fun SettingsScreen(
                                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                                                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
                                             ),
-                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                            shape = MaterialTheme.shapes.small
                                         ) {
                                             Icon(Icons.Default.BarChart, contentDescription = null)
                                             Spacer(Modifier.width(8.dp))
@@ -1102,7 +1102,7 @@ fun SettingsScreen(
                                                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                                                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                                             ),
-                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                            shape = MaterialTheme.shapes.small
                                         ) {
                                             Icon(Icons.Default.Refresh, contentDescription = null)
                                             Spacer(Modifier.width(8.dp))
@@ -1125,7 +1125,7 @@ fun SettingsScreen(
             // Abmelden – eigene Sektion ganz unten, um versehentliche Taps zu vermeiden
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+                shape = MaterialTheme.shapes.large,
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.3f)),
                 colors = CardDefaults.cardColors(
