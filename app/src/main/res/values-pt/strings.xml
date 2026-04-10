@@ -331,4 +331,5 @@
     <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Toque aqui para escolher o seu som de alarme pessoal – escolha a sua melodia favorita em vez do som padrão.</string>
+    <string name="settings_language_dialects">Dialetos</string>
 </resources>

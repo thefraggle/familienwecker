@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
+import de.familienwecker.famwake.util.findActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -158,7 +159,7 @@ fun SettingsScreen(
     }
     
     // Intelligenten Review-Prompt beim Öffnen der Settings prüfen
-    val activity = context as? android.app.Activity
+    val activity = context.findActivity()
     LaunchedEffect(Unit) {
         activity?.let { viewModel.checkAndShowReview(it) }
     }
@@ -704,7 +705,6 @@ fun SettingsScreen(
                         "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
                         "swg" -> stringResource(R.string.settings_language_schwaebisch)
                         "ksh" -> stringResource(R.string.settings_language_ruhrpott)
-                        "system" -> stringResource(R.string.settings_language_system)
                         else  -> stringResource(R.string.settings_language_english)
                     }
 
@@ -742,9 +742,8 @@ fun SettingsScreen(
 
                             data class LangEntry(val code: String, val label: String)
 
-                            // System oben, dann alphabetisch nach nativem Namen
+                            // Alphabetisch nach nativem Namen
                             val mainLanguages = listOf(
-                                LangEntry("system", stringResource(R.string.settings_language_system)),
                                 LangEntry("da",     stringResource(R.string.settings_language_danish)),
                                 LangEntry("de",     stringResource(R.string.settings_language_german)),
                                 LangEntry("en",     stringResource(R.string.settings_language_english)),
@@ -800,7 +799,7 @@ fun SettingsScreen(
                                 item(span = { androidx.compose.foundation.lazy.grid.GridItemSpan(2) }) {
                                     HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                                     Text(
-                                        text = "Dialekte",
+                                        text = stringResource(R.string.settings_language_dialects),
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         modifier = Modifier.padding(bottom = 4.dp)

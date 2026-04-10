@@ -131,8 +131,8 @@ class FamilyViewModel(
 
     fun setError(message: UiText) { _errorMessage.value = message }
     fun clearError() { _errorMessage.value = null }
-    @Deprecated("Use clearError()", ReplaceWith("clearError()"))
-    fun clearErrorMessage() = clearError()
+
+
 
     internal val _isSyncing = MutableStateFlow(false)
     val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()

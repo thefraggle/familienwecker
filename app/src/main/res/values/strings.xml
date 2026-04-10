@@ -331,4 +331,5 @@
     <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Tap here to choose your personal wake-up sound – pick your favorite ringtone instead of the default alarm.</string>
+    <string name="settings_language_dialects">Dialects</string>
 </resources>
