@@ -4,6 +4,17 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.5 - 2026-04-10
+
+### Fixed
+- **Back button** – The back arrow in the header now responds correctly on all screens.
+- **Stability** – Removed several potential crash sources in rare edge cases.
+
+### Improved
+- **Email notifications** – Password reset and account verification emails now arrive in the correct language for all supported languages.
+
+---
+
 ## 1.7.4 - 2026-04-10
 
 ### Improved
