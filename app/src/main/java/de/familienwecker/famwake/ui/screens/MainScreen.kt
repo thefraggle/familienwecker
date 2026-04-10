@@ -55,6 +55,7 @@ import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.ui.viewmodel.*
 import de.familienwecker.famwake.util.BatteryUtils
+import de.familienwecker.famwake.util.findActivity
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.ui.components.TooltipBubble
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -390,7 +391,7 @@ fun MainScreen(
                                     onCheckedChange = { 
                                         viewModel.setAlarmEnabled(it)
                                         // Intelligenten Review-Prompt prüfen
-                                        (context as? android.app.Activity)?.let { activity ->
+                                        context.findActivity()?.let { activity ->
                                             viewModel.checkAndShowReview(activity)
                                         }
                                     },
@@ -701,10 +702,12 @@ fun MainScreen(
                                 val earliestAlarm = currentSchedule.memberSchedules.minByOrNull { it.wakeUpTime }?.wakeUpTime
                                 if (earliestAlarm != null && java.time.LocalTime.now().isAfter(earliestAlarm.toJavaLocalTime())) {
                                     val tomorrow = java.time.LocalDate.now().plusDays(1)
+                                    // App-Locale aus den lokalisierten Resources – nicht Geräte-Locale
+                                    val appLocale = context.resources.configuration.locales[0]
                                     val dayName = tomorrow.dayOfWeek
-                                        .getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.getDefault())
+                                        .getDisplayName(java.time.format.TextStyle.FULL, appLocale)
                                         .replaceFirstChar { it.uppercase() }
-                                    val dateStr = tomorrow.format(java.time.format.DateTimeFormatter.ofPattern("d. MMMM", java.util.Locale.getDefault()))
+                                    val dateStr = tomorrow.format(java.time.format.DateTimeFormatter.ofPattern("d. MMMM", appLocale))
                                     Text(
                                         text = "$dayName, $dateStr",
                                         style = MaterialTheme.typography.bodySmall,
