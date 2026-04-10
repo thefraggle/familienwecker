@@ -13,8 +13,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -285,12 +292,27 @@ fun AddMemberScreen(
                 }
             }
         ) { padding ->
+            val scrollState = rememberScrollState()
+
+            // Scroll-Indicator: sichtbar solange noch Inhalt unter dem sichtbaren Bereich liegt
+            val infiniteTransition = rememberInfiniteTransition(label = "scrollHint")
+            val scrollHintBounce by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = 10f,
+                animationSpec = infiniteRepeatable(
+                    animation = androidx.compose.animation.core.tween(600, easing = LinearEasing),
+                    repeatMode = androidx.compose.animation.core.RepeatMode.Reverse
+                ),
+                label = "scrollHintBounce"
+            )
+
+            Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize()
                     .padding(horizontal = 16.dp)
-                    .verticalScroll(rememberScrollState()),
+                    .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Spacer(modifier = Modifier.height(8.dp))
@@ -470,6 +492,40 @@ fun AddMemberScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
             }
+
+            // Scroll-Hint-Overlay
+            androidx.compose.animation.AnimatedVisibility(
+                visible = scrollState.canScrollForward,
+                enter = androidx.compose.animation.fadeIn(),
+                exit = androidx.compose.animation.fadeOut(),
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 88.dp) // über dem Save-Button
+                        .graphicsLayer { translationY = scrollHintBounce },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(44.dp)
+                            .background(
+                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f),
+                                shape = androidx.compose.foundation.shape.CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowDown,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                }
+            }
+            } // Box
         }
     }
 }
