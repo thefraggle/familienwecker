@@ -1,7 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Japanese (日本語) – strings.xml
-  TODO: Translate all strings from values/strings.xml
--->
 <resources>
+    <string name="app_name_short">ファミリーアラーム</string>
+    <string name="email_label">メールアドレス</string>
+    <string name="password_label">パスワード</string>
+    <string name="register_button">登録</string>
+    <string name="login_button">ログイン</string>
+    <string name="already_have_account">すでにアカウントをお持ちですか？こちらからログインしてください。</string>
+    <string name="no_account">アカウントをお持ちではないですか？こちらから登録してください。</string>
+    <string name="login_with_google">Googleでログイン</string>
+    <string name="login_forgot_password">パスワードを忘れた場合</string>
+    <string name="login_password_reset_sent">パスワード再設定メールを送信しました！</string>
+    <string name="login_google_error_no_account">このデバイスにGoogleアカウントが見つかりません。Androidの設定からGoogleにログインするか、メールアドレスとパスワードを使用してください。</string>
+
+    <string name="setup_create_tab">作成</string>
+    <string name="setup_join_tab">参加</string>
+    <string name="setup_family_name">家族の名前（例：山田家）</string>
+    <string name="setup_create_button">家族を作成</string>
+    <string name="setup_join_code_label">6桁の招待コード</string>
+    <string name="setup_join_code_placeholder">ABC123</string>
+    <string name="setup_join_button">家族に参加</string>
+    <string name="join_loading_text">参加リクエストを処理しています…</string>
+
+    <string name="main_add_member_desc">メンバーを追加</string>
+    <string name="main_family_members">家族のメンバー</string>
+    <string name="main_current_schedule">現在のスケジュール</string>
+    <string name="main_no_active_schedule">アクティブなアラームスケジュールはありません。</string>
+    <string name="main_optimal_plan">計算されたスケジュールはこちらです：</string>
+    <string name="main_plan_paused">現在アラームは一時停止中です。</string>
+    <string name="main_shared_breakfast">☕ 家族での朝食：%s</string>
+    <string name="main_wake_time">起床：%1$s - %2$s</string>
+    <string name="main_bathroom_info">バスルーム：%1$s分 | 朝食：%2$s</string>
+    <string name="main_schedule_bathroom">バスルーム：%1$s から %2$s</string>
+    <string name="main_schedule_leave">家を出る時間：%1$s</string>
+    <string name="main_member_alarm_on">(アラームオン)</string>
+    <string name="main_member_alarm_off">(アラームなし)</string>
+    <string name="main_member_limit_reached">最大6人のメンバーに達しました。</string>
+    <string name="main_alarm_enabled">アラーム：オン</string>
+    <string name="main_alarm_enabled_desc">自動アラームが有効です。</string>
+    <string name="main_snooze_active">%1$sまでスヌーズ中</string>
+    <string name="main_alarm_disabled">アラーム：オフ</string>
+    <string name="main_alarm_disabled_desc">手動の一時停止が有効です。</string>
+    <string name="main_no_profile_warning">プロフィールが選択されていません！</string>
+    <string name="main_no_profile_warning_desc">アラームが鳴るように設定でプロフィールを選択してください。</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="delete_desc">削除</string>
+
+    <string name="add_member_title_add">メンバーを追加</string>
+    <string name="add_member_title_edit">メンバーを編集</string>
+    <string name="back_desc">戻る</string>
+    <string name="unsaved_changes_title">保存されていない変更</string>
+    <string name="unsaved_changes_message">変更を破棄しますか？</string>
+    <string name="unsaved_changes_discard">破棄する</string>
+    <string name="unsaved_changes_keep">編集を続ける</string>
+    <string name="add_member_submit">保存</string>
+    <string name="delete_member_title">メンバーを削除</string>
+    <string name="delete_member_text">本当に%1$sを家族から削除しますか？</string>
+    <string name="delete_confirm">削除</string>
+    <string name="cancel_button">キャンセル</string>
+    <string name="retry_button">再試行</string>
+    <string name="add_member_name_label">名前（例：お母さん、お父さん、子供）</string>
+    <string name="add_member_unknown">不明</string>
+    <string name="add_member_earliest_wake">最も早い起床時間</string>
+    <string name="add_member_latest_wake">最も遅い起床時間</string>
+    <string name="add_member_bathroom_duration">バスルームの利用時間（分）</string>
+    <string name="add_member_wants_breakfast">朝食あり</string>
+    <string name="add_member_leave_home">家を出る時間</string>
+    <string name="add_member_day_profiles_title">週間スケジュール</string>
+    <string name="add_member_day_active">アラームを有効にする</string>
+    <string name="add_member_copy_to_days">\"%1$s\"を他の日にコピー</string>
+    <string name="add_member_copy_dialog_title">別の日にコピー</string>
+    <string name="add_member_copy_apply">適用</string>
+    <string name="validation_latest_before_earliest">最も遅い起床時間は、最も早い起床時間より後である必要があります</string>
+    <string name="validation_leave_too_early">家を出る時間は、バスルームの時間（起床時間＋利用時間）より後である必要があります</string>
+    <string name="weekday_1">月曜日</string>
+    <string name="weekday_2">火曜日</string>
+    <string name="weekday_3">水曜日</string>
+    <string name="weekday_4">木曜日</string>
+    <string name="weekday_5">金曜日</string>
+    <string name="weekday_6">土曜日</string>
+    <string name="weekday_7">日曜日</string>
+    <string name="weekday_short_1">月</string>
+    <string name="weekday_short_2">火</string>
+    <string name="weekday_short_3">水</string>
+    <string name="weekday_short_4">木</string>
+    <string name="weekday_short_5">金</string>
+    <string name="weekday_short_6">土</string>
+    <string name="weekday_short_7">日</string>
+
+    <string name="settings_title">設定</string>
+    <string name="settings_profile_title">マイプロフィール</string>
+    <string name="settings_profile_desc">ここで選択したプロフィールの起床時間にのみ、スマートフォンが鳴ります。</string>
+    <string name="settings_please_select">選択してください</string>
+    <string name="settings_no_members">メンバーが見つかりません</string>
+    <string name="settings_alarm_title">アラーム音</string>
+    <string name="settings_battery_warning_title">バッテリー最適化が有効です</string>
+    <string name="settings_battery_warning_text">アラームが遅延またはブロックされる可能性があります。FamWakeのバッテリー最適化を無効にしてください。</string>
+    <string name="settings_battery_warning_button">今すぐ修正</string>
+    <string name="settings_alarm_default">デフォルト</string>
+    <string name="settings_alarm_select">音声を選択：%1$s</string>
+    <string name="settings_alarm_picker_title">アラーム音を選択してください</string>
+    <string name="settings_account_title">家族とアカウント</string>
+    <string name="settings_join_code">%1$sの招待コード：</string>
+    <string name="settings_share_code">コードを共有</string>
+    <string name="settings_share_message">FamWakeのリンクはこちら：\nhttps://familienwecker.de/join/%2$s\n\nコード: %2$s\nグループ: %1$s\n\nリンクをクリックしてログインするだけで繋がります。みんなで起きればもっと楽しい！ ⏰❤️</string>
+    <string name="settings_leave_family">家族から退会</string>
+    <string name="settings_delete_family">家族を削除</string>
+    <string name="settings_delete_family_dialog_title">家族を削除しますか？</string>
+    <string name="settings_delete_family_dialog_text">本当にこの家族を完全に削除しますか？すべてのメンバー、スケジュール、設定が全員分削除されます。この操作は元に戻せません。</string>
+    <string name="settings_delete_family_dialog_confirm">削除</string>
+    <string name="settings_delete_family_dialog_cancel">キャンセル</string>
+    <string name="settings_delete_family_warning_title">他のメンバーがアクティブです！</string>
+    <string name="settings_delete_family_warning_text">この家族にはまだアクティブなメンバーがいます。削除すると、全員がアクセスできなくなります。本当にすべてを強制的に削除しますか？</string>
+    <string name="settings_delete_family_warning_confirm">はい、すべて削除します</string>
+    <string name="settings_logout">ログアウト</string>
+    <string name="settings_delete_account">アカウントを削除</string>
+    <string name="settings_footer_version">FamWake ファミリーアラーム v%1$s</string>
+    <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
+    <string name="settings_footer_rights">無断複写・転載を禁じます。</string>
+
+    <string name="empty_members_title">メンバーがまだいません</string>
+    <string name="empty_members_description">プロフィールを追加して、お互いの起床時間を確認し、一緒に起きましょう。</string>
+    <string name="empty_schedule_title">アクティブなアラームはありません</string>
+    <string name="empty_schedule_description">現在、誰のアラームも設定されていません。ゆっくり眠りましょう！</string>
+
+    <string name="settings_language_title">言語</string>
+    <string name="settings_language_system">システムのデフォルト</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_german">Deutsch</string>
+    <string name="settings_language_french">Français</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
+    <string name="settings_language_swedish">Svenska</string>
+    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
+    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_ruhrpott">Ruhrpott</string>
+    <string name="settings_appearance_title">外観</string>
+    <string name="settings_display_title">アプリ設定</string>
+    <string name="settings_help_feedback_title">ヘルプとフィードバック</string>
+    <string name="settings_support_button">開発者にメールを送る</string>
+    <string name="settings_rate_app">⭐ アプリを評価 ⭐</string>
+    <string name="settings_start_onboarding">🎓 アプリツアー</string>
+
+    <string name="onboarding_skip">スキップ</string>
+    <string name="onboarding_next">次へ</string>
+    <string name="onboarding_done">はじめる</string>
+    <string name="onboarding_slide0_title">チームとしての朝。</string>
+    <string name="onboarding_slide0_body">朝の混乱を終わらせましょう。ファミリーアラームが朝のスケジュールを公平かつスムーズに計画するので、みんなが大切なことに時間を使えます。</string>
+    <string name="onboarding_slide1_title">すべてをひと目で</string>
+    <string name="onboarding_slide1_body">朝の混雑を避けましょう。FamWakeは誰の順番かをリアルタイムで表示します。</string>
+    <string name="onboarding_slide2_title">家族</string>
+    <string name="onboarding_slide2_body">家族全員で。ワンタップで家族とつながり、一緒に朝の計画を立てましょう。</string>
+    <string name="onboarding_slide3_title">あなたのスケジュール</string>
+    <string name="onboarding_slide3_body">バスルームの渋滞はありません。シャワー、朝食、家を出るまでの完璧な流れを計算します。</string>
+    <string name="onboarding_slide4_title">準備完了！</string>
+    <string name="onboarding_slide4_body">明日を迎えましょう！あとはリラックスするだけ。アルゴリズムが家族全員のスケジュールを管理します。</string>
+    <string name="settings_feedback_button">フィードバックを送る / バグを報告</string>
+    <string name="feedback_title">フィードバック</string>
+    <string name="feedback_intro">アプリをより良くするためにご協力ください！お気づきの点をお聞かせください。</string>
+    <string name="feedback_category_label">カテゴリ</string>
+    <string name="feedback_category_bug">バグを見つけた</string>
+    <string name="feedback_category_feature">機能のリクエスト</string>
+    <string name="feedback_category_praise">評価とご意見</string>
+    <string name="feedback_category_other">その他</string>
+    <string name="feedback_message_label">メッセージ</string>
+    <string name="feedback_message_placeholder">リクエストを簡潔にご記入ください…</string>
+    <string name="feedback_email_label">メールアドレス（任意）</string>
+    <string name="feedback_email_placeholder">メールアドレス（返信をご希望の場合）</string>
+    <string name="feedback_auto_info_title">自動的に含まれる情報：</string>
+    <string name="feedback_auto_version">アプリのバージョン：v%1$s</string>
+    <string name="feedback_auto_device">デバイス：%1$s</string>
+    <string name="feedback_cancel">キャンセル</string>
+    <string name="feedback_send">フィードバックを送信</string>
+    <string name="feedback_success">ありがとうございます！フィードバックを受け取りました。今後の参考にさせていただきます。</string>
+    <string name="feedback_success_title">フィードバック送信完了</string>
+    <string name="feedback_success_message">フィードバックありがとうございます！皆様にとってFamWakeをより良いものにするための助けになります。</string>
+    <string name="settings_terms_of_use">利用規約</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-ja.html</string>
+    <string name="settings_privacy_policy">プライバシーポリシー</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-ja.html</string>
+    <string name="settings_imprint">運営者情報</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-ja.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-ja.html</string>
+
+    <string name="registration_disclaimer">登録することで、%1$sおよび%2$sに同意したことになります。</string>
+    <string name="registration_terms_of_use">利用規約</string>
+    <string name="registration_privacy_policy">プライバシーポリシー</string>
+    <string name="settings_already_claimed">すでに使用されています</string>
+    <string name="settings_theme_light">ライト</string>
+    <string name="settings_theme_dark">ダーク</string>
+
+    <string name="ringing_wake_up">起きて、%1$s！</string>
+    <string-array name="ringing_messages">
+        <item>今すぐバスルームを使えます！</item>
+        <item>渋滞もストレスもありません。あなたのバスルームの時間が始まりました。</item>
+        <item>今のうちに静かなバスルームを満喫してください！</item>
+        <item>朝のコーヒーの時間です。世界があなたを待っています！</item>
+        <item>よく眠れましたか？今日のスケジュールがセットされました。</item>
+        <item>今日の準備はいいですか？すべて調整済みです。</item>
+        <item>今日を素晴らしい1日にしましょう！あなたのバスルームの時間が始まります。</item>
+        <item>起きてボリュームを上げましょう！あなたのステージです！</item>
+        <item>朝のヘヴィメタルで悩みを吹き飛ばしましょう！</item>
+        <item>スケジュールが開始されました。さあ、行きましょう！</item>
+        <item>出発の準備はいいですか？チームがあなたを頼りにしています。</item>
+    </string-array>
+    <string name="ringing_stop">アラームを停止</string>
+    <string name="ringing_snooze">スヌーズ（5分）</string>
+    <string name="pause_today_desc">今日は一時停止</string>
+    <string name="awake_today_desc">すでに起きている</string>
+    <string name="awake_active_desc">すでに起きている</string>
+
+    <string name="error_load_members">メンバーの読み込みエラー</string>
+    <string name="error_create_family">家族の作成エラー：%1$s</string>
+    <string name="error_create_family_rate_limit">過去1時間にすでに3つの家族を作成しました。1時間待ってからもう一度お試しください。</string>
+    <string name="error_join_family_rate_limit">参加リクエストが多すぎます（1分間に最大5回）。しばらく待ってからもう一度お試しください。</string>
+    <string name="error_invalid_code">無効な招待コード：%1$s</string>
+    <string name="error_family_not_found">このコードの家族は見つかりませんでした。</string>
+    <string name="error_code_generation_failed">一意のコードを生成できませんでした。もう一度お試しください。</string>
+    <string name="join_conflict_title">新しい家族に参加しますか？</string>
+    <string name="join_conflict_text">あなたはすでに「%1$s」のメンバーです。新しい家族に参加するには、まず現在の家族を退会する必要があります。「%1$s」を退会してコード %2$s で参加しますか？</string>
+    <string name="join_conflict_confirm">退会して参加</string>
+    <string name="error_delete_member">メンバーを削除できませんでした：%1$s</string>
+    <string name="error_sync_failed">同期に失敗しました</string>
+    <string name="error_delete_family">家族の削除エラー：%1$s</string>
+    <string name="error_calculate_schedule">スケジュールの計算エラー：%1$s</string>
+    <string name="error_not_logged_in">ログインしていません</string>
+    <string name="error_system">システムエラー</string>
+    <string name="error_invalid_credentials">メールアドレスまたはパスワードが無効です。入力内容を確認してください。</string>
+    <string name="error_login_failed">ログインに失敗しました</string>
+    <string name="error_login_failed_unknown">不明なログインエラー</string>
+    <string name="error_registration_failed">登録に失敗しました</string>
+    <string name="error_registration_failed_unknown">ユーザーを作成できませんでした</string>
+    <string name="error_unknown">不明なエラーが発生しました。もう一度お試しください。</string>
+    <string name="error_google_sign_in_failed_unknown">Googleでのログインに失敗しました</string>
+    <string name="error_empty_email">メールアドレスを入力してください。</string>
+    <string name="error_invalid_email">無効なメールアドレスです。スペルを確認してください。</string>
+    <string name="error_user_not_found">このメールアドレスのアカウントは見つかりません。</string>
+    <string name="error_too_many_requests">試行回数が多すぎます。しばらく待ってからもう一度お試しください。</string>
+    <string name="error_password_reset_failed">パスワードの再設定に失敗しました。後でもう一度お試しください。</string>
+    <string name="error_profile_taken">このプロフィールはすでに使用されています。</string>
+    <string name="error_profile_claim_offline">接続されていません。プロフィールの選択にはインターネットへのアクセスが必要です。</string>
+    <string name="error_delete_not_admin">家族を作成した人のみが家族を削除できます。</string>
+
+    <string name="alarm_default_member">家族のメンバー</string>
+    <string name="alarm_notification_title">ファミリーアラームが鳴っています</string>
+    <string name="alarm_notification_text">おはようございます、%1$s！</string>
+    <string name="alarm_channel_name">アラーム</string>
+
+    <string name="settings_fallback_username">親</string>
+
+    <string name="error_alarm_permission">アラームが時間通りに鳴るように、システム設定で正確なアラームを許可してください。</string>
+
+    <string name="permission_fullscreen_title">アラームの権限が必要です</string>
+    <string name="permission_fullscreen_message">FamWakeはロック画面にアラームを表示するための権限を必要とします。システム設定で許可してください。</string>
+    <string name="permission_fullscreen_open">設定を開く</string>
+
+    <string name="schedule_message_optimal">計算されたスケジュールはこちらです：</string>
+    <string name="schedule_message_no_members">アクティブなメンバーがいません。全員が一時停止中です。</string>
+    <string name="schedule_message_no_valid">有効なスケジュールが見つかりません。時間が重なりすぎています。</string>
+    <string name="schedule_message_no_valid_desc">ヒント：起床時間の枠を広げるか、バスルームの利用時間を短くするか、他のメンバーを一時停止してください。</string>
+    <string name="schedule_message_time_adjusted">順番に合わせるため、時間を%1$d分調整しました。</string>
+    <string name="schedule_message_breakfast_reduced">スケジュールに合わせるため、朝食の時間を%1$d分短縮しました。</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">朝食を&#x2212;%1$d分、時間を%2$d分シフトしました。</string>
+    <string name="schedule_message_member_conflict">%1$sの競合：時間が重なりすぎています。</string>
+    <string name="schedule_message_member_conflict_desc">順番を変更するか、時間を調整してみてください。</string>
+    <string name="main_fallback_alarm_active">⚠️ フォールバックアラームが有効です（%1$s）。スケジュールを修正してください！</string>
+
+    <string name="error_password_too_short">パスワードは8文字以上である必要があります。</string>
+    <string name="error_email_already_in_use">このメールアドレスはすでに別のアカウントで使用されています。</string>
+    <string name="error_weak_password">パスワードが弱すぎます。8文字以上で、特殊文字を含めてください。</string>
+    <string name="login_verify_email_title">✉️ メールアドレスの確認</string>
+    <string name="login_verify_email_text">確認メールを送信しました：\n%1$s\nメール内のリンクをクリックしてアカウントを有効にしてください。</string>
+    <string name="login_verify_email_confirm">確認しました ✓</string>
+    <string name="login_verify_email_resend">メールを再送信</string>
+    <string name="login_verify_email_not_verified">メールアドレスがまだ確認されていません。受信トレイを確認してください。</string>
+
+    <string name="tooltip_awake_button">早く起きましたか？ここをタップして今日のアラームを停止してください。あなたのバスルームの時間は家族のために予約されたままです。</string>
+    <string name="tooltip_drag_handle">タイルを長押ししてドラッグし、家族の起床順序を手動で変更します。アルゴリズムがすぐに再計算します。</string>
+    <string name="tooltip_wake_window">時間枠を設定してください。アプリがその中で最適なタイミングを見つけ、誰もバスルームを待つ必要がなくなります。</string>
+    <string name="tooltip_bathroom">現実的な時間を計画してください。あなたのバスルームの時間が、家族全員の朝のペースを決めます。</string>
+    <string name="tooltip_invite_code">このコードを家族と共有してください。参加すると、自動的にスケジュールに表示されます。</string>
+    <string name="tooltip_alarm_switch">アラームをオフにすると、スマホが鳴らなくなるだけでなく、アルゴリズムが瞬時に家族全員の朝を再計算し、他の人が少し長く眠れたり、早くバスルームに行けたりするようになります。</string>
+    <string name="tooltip_weekdays">1週間の計画：各曜日をタップして、特定の起床時間とバスルームの時間を設定します。在宅勤務と出社日を切り替えるのに最適です。</string>
+    <string name="settings_tooltips_title">ヒントとアドバイス</string>
+    <string name="settings_tooltips_label">役立つヒントを表示する</string>
+    <string name="settings_tooltips_reset">すべてのヒントをリセット</string>
+    <string name="settings_support_title">アプリをサポート</string>
+    <string name="settings_support_desc">アプリを気に入っていただけましたか？ご支援に感謝いたします！</string>
+    <string name="settings_support_donate">寄付する</string>
+    <string name="settings_donate_success">ご支援いただき本当にありがとうございます！ ❤️</string>
+    <string name="settings_donate_error">おっと、何か問題が発生しました。</string>
+    <string name="settings_donate_loading">プランを読み込んでいます…</string>
+    <string name="settings_donate_no_offers">利用可能なプランがありません。RevenueCatで「Current Offering」が設定されているか確認してください。</string>
+    <string name="settings_donate_refresh">更新</string>
+    <string name="settings_donate_purchase_loading">寄付を処理しています…</string>
+    <string name="settings_donate_error_not_allowed">このデバイスまたはユーザーは購入を許可されていません。</string>
+    <string name="settings_donate_error_store_problem">Google Playストアで問題が発生しました。</string>
+    <string name="settings_donate_error_already_purchased">この商品はすでに購入されています。</string>
+    <string name="settings_donate_error_invalid">無効な購入です。</string>
+    <string name="settings_donate_error_generic">寄付の処理中にエラーが発生しました。</string>
+
+    <string name="error_permission_denied">アクセスが拒否されました</string>
+    <string name="error_offline">インターネット接続がありません</string>
+    <string name="error_report_failed">報告に失敗しました</string>
+    <string name="error_leave_failed">家族の退会に失敗しました</string>
+    <string name="error_revenuecat_not_configured">RevenueCatが設定されていません</string>
+    <string name="default_someone">誰か</string>
+    <string name="error_label">エラー</string>
+    <string name="offline_write_hint">接続されていません。オンラインに戻り次第、変更が同期されます。</string>
+    <string name="password_show">パスワードを表示</string>
+    <string name="password_hide">パスワードを隠す</string>
+    <string name="close_desc">閉じる</string>
+
+    <string name="settings_exact_alarm_warning_title">アラームの権限がありません</string>
+    <string name="settings_exact_alarm_warning_text">Androidによって正確なアラームが鳴るのがブロックされています。FamWakeがアラームやリマインダーをスケジュールできるように許可してください。</string>
+    <string name="settings_exact_alarm_warning_button">アラームを許可</string>
+    <string name="main_exact_alarm_banner">⚠️ アラームがブロックされました！時間通りに鳴るように、設定でアラームの権限を許可してください。</string>
+    <string name="error_offline_feedback">オフラインです。接続を確認して、もう一度お試しください。</string>
+    <string name="error_feedback_rate_limit">次のメッセージを送信するまで%1$s秒お待ちください。</string>
+    <string name="error_feedback_rate_limit_server">リクエストが多すぎます。後でもう一度お試しください。</string>
+    <string name="error_feedback_empty_message">メッセージは空にできません。</string>
+    <string name="error_network">ネットワークエラー。インターネット接続を確認してください。</string>
+    <string name="settings_language_turkish">Türkçe</string>
+    <string name="settings_language_ukrainian">Українська</string>
+    <string name="settings_language_russian">Русский</string>
+    <string name="settings_language_norwegian">Norsk</string>
+    <string name="settings_language_japanese">日本語</string>
+    <string name="settings_language_danish">Dansk</string>
 </resources>

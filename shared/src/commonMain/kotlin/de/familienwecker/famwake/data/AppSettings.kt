@@ -77,7 +77,7 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     companion object {
         /** All valid language codes the app supports. "en" is the fallback for unknown values. */
         val SUPPORTED_LANGUAGE_CODES = setOf(
-            "system", "en", "da", "de", "es", "fr", "it", "nl",
+            "system", "en", "da", "de", "es", "fr", "it", "ja", "nl",
             "no", "pl", "pt", "ru", "sv", "tr", "uk",
             "gsw", "ksh", "swg"
         )
