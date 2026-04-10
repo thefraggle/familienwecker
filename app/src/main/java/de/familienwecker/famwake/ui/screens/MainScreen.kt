@@ -156,6 +156,8 @@ fun MainScreen(
                 TopAppBar(
                     title = {
                         val appShortName = stringResource(R.string.app_name_short)
+                        // wrapContentHeight(Top) sorgt dafür, dass der Titel bei Zeilenumbruch
+                        // oben am Settings-Icon ausgerichtet bleibt statt vertikal mittig.
                         Text(
                             buildAnnotatedString {
                                 withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Bold)) {
@@ -165,7 +167,8 @@ fun MainScreen(
                                 withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Normal)) {
                                     append(appShortName)
                                 }
-                            }
+                            },
+                            modifier = Modifier.wrapContentHeight(align = Alignment.Top)
                         )
                     },
                     actions = {
