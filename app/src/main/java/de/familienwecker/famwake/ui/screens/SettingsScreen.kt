@@ -1192,10 +1192,10 @@ fun SettingsScreen(
 
                 // Links: Nutzungsbedingungen · Datenschutz · Impressum
                 // FlowRow sorgt für automatischen Umbruch auf kleinen Screens.
-                // Keine separaten Bullet-Elemente – die schweben im FlowRow schwebend.
+                // defaultMinSize überschreibt die 48dp-Mindesthöhe von TextButton → kompakter Zeilenabstand.
                 androidx.compose.foundation.layout.FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
-                    verticalArrangement = Arrangement.Center,
+                    verticalArrangement = Arrangement.spacedBy(0.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     TextButton(
@@ -1203,7 +1203,8 @@ fun SettingsScreen(
                             val url = context.getString(R.string.settings_terms_of_use_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
-                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp)
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                        modifier = Modifier.defaultMinSize(minHeight = 32.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.settings_terms_of_use),
@@ -1216,7 +1217,8 @@ fun SettingsScreen(
                             val url = context.getString(R.string.settings_privacy_policy_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
-                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp)
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                        modifier = Modifier.defaultMinSize(minHeight = 32.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.settings_privacy_policy),
@@ -1229,7 +1231,8 @@ fun SettingsScreen(
                             val url = context.getString(R.string.settings_imprint_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
-                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp)
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                        modifier = Modifier.defaultMinSize(minHeight = 32.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.settings_imprint),
