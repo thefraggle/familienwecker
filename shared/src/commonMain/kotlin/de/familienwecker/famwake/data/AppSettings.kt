@@ -224,7 +224,8 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
 
     private val tooltipKeys = listOf(
         "TOOLTIP_SEEN_AWAKE", "TOOLTIP_SEEN_DRAG", "TOOLTIP_SEEN_WAKE_WINDOW",
-        "TOOLTIP_SEEN_BATHROOM", "TOOLTIP_SEEN_INVITE", "TOOLTIP_SEEN_SWITCH", "TOOLTIP_SEEN_WEEKDAYS"
+        "TOOLTIP_SEEN_BATHROOM", "TOOLTIP_SEEN_INVITE", "TOOLTIP_SEEN_SWITCH",
+        "TOOLTIP_SEEN_WEEKDAYS", "TOOLTIP_SEEN_ALARM_SOUND"
     )
 
     private val _tooltipsSeen = MutableStateFlow(tooltipKeys.associateWith { settings.getBoolean(it, false) })

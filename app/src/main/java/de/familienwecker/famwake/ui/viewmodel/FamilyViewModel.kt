@@ -101,6 +101,7 @@ class FamilyViewModel(
     val tooltipInviteSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.INVITE]      ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
     val tooltipSwitchSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.SWITCH]      ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
     val tooltipWeekdaysSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it[TooltipKeys.WEEKDAYS]    ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipAlarmSoundSeen: StateFlow<Boolean> = _tooltipsSeen.map { it[TooltipKeys.ALARM_SOUND] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     fun setOnboardingCompleted(completed: Boolean) = appSettings.setOnboardingCompleted(completed)
     fun setTooltipsEnabled(enabled: Boolean)        = appSettings.setTooltipsEnabled(enabled)
@@ -114,6 +115,7 @@ class FamilyViewModel(
     val tooltipKeyInvite     get() = TooltipKeys.INVITE
     val tooltipKeySwitch     get() = TooltipKeys.SWITCH
     val tooltipKeyWeekdays   get() = TooltipKeys.WEEKDAYS
+    val tooltipKeyAlarmSound get() = TooltipKeys.ALARM_SOUND
 
 
     // ── UI-State ──────────────────────────────────────────────────────────────

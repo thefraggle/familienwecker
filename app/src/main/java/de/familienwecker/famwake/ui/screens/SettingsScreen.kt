@@ -84,6 +84,7 @@ fun SettingsScreen(
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipInviteSeen by viewModel.tooltipInviteSeen.collectAsStateWithLifecycle()
+    val tooltipAlarmSoundSeen by viewModel.tooltipAlarmSoundSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
     var showMemberPicker by remember { mutableStateOf(false) }
@@ -356,6 +357,14 @@ fun SettingsScreen(
                         interactionSource = ringtoneInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_alarm_select, ringtoneName ?: ""))
+                    }
+
+                    if (tooltipsEnabled && !tooltipAlarmSoundSeen) {
+                        TooltipBubble(
+                            visible = true,
+                            text = stringResource(R.string.tooltip_alarm_sound),
+                            onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyAlarmSound) }
+                        )
                     }
                 }
             }
