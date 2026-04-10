@@ -4,6 +4,15 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.4 - 2026-04-10
+
+### Verbessert
+- **Erscheinungsbild** – Frischerer, modernerer Look: weichere Ecken, klarere Karten, kein überladenes Schattenspiel.
+- **Scroll-Hinweis** – Ein sanft bouncender Pfeil zeigt in Einstellungen und beim Profil anlegen an, dass noch mehr Inhalt scrollbar ist.
+- **Kollabierender Titel** – Der Hauptscreen-Titel ist jetzt beim Öffnen groß und zieht sich beim Scrollen zurück.
+
+---
+
 ## 1.7.3 - 2026-04-10
 
 ### Verbessert
