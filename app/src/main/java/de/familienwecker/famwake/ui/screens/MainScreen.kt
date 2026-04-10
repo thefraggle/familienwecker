@@ -59,6 +59,7 @@ import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.ui.components.TooltipBubble
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import de.familienwecker.famwake.ui.theme.*
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -148,16 +149,17 @@ fun MainScreen(
     var draggingOffset by remember { mutableStateOf(0f) }
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
+    // Scroll-Verhalten für LargeTopAppBar: Titel kollabiert beim Scrollen nach oben
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+
     Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
         Scaffold(
             containerColor = Color.Transparent,
             snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
-                TopAppBar(
+                LargeTopAppBar(
                     title = {
                         val appShortName = stringResource(R.string.app_name_short)
-                        // wrapContentHeight(Top) sorgt dafür, dass der Titel bei Zeilenumbruch
-                        // oben am Settings-Icon ausgerichtet bleibt statt vertikal mittig.
                         Text(
                             buildAnnotatedString {
                                 withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Bold)) {
@@ -167,8 +169,7 @@ fun MainScreen(
                                 withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Normal)) {
                                     append(appShortName)
                                 }
-                            },
-                            modifier = Modifier.wrapContentHeight(align = Alignment.Top)
+                            }
                         )
                     },
                     actions = {
@@ -220,13 +221,16 @@ fun MainScreen(
                             Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title))
                         }
                     },
-                    colors = TopAppBarDefaults.topAppBarColors(
+                    scrollBehavior = scrollBehavior,
+                    colors = TopAppBarDefaults.largeTopAppBarColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,
+                        scrolledContainerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surface,
                         titleContentColor = MaterialTheme.colorScheme.onSurface,
                         actionIconContentColor = MaterialTheme.colorScheme.onSurface
                     )
                 )
-            }
+            },
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
         ) { padding ->
             val lazyListState = androidx.compose.foundation.lazy.rememberLazyListState()
 
