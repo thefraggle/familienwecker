@@ -302,7 +302,7 @@ fun AddMemberScreen(
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.tertiaryContainer
                         ),
-                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        shape = MaterialTheme.shapes.small
                     ) {
                         Row(
                             modifier = Modifier.padding(12.dp),
@@ -334,7 +334,7 @@ fun AddMemberScreen(
                 errorMessage?.let { error ->
                     Card(
                         modifier = Modifier.fillMaxWidth(),
-                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                        shape = MaterialTheme.shapes.medium,
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.errorContainer
                         )
@@ -510,8 +510,9 @@ private fun DayProfileCard(
 
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        shape = MaterialTheme.shapes.medium,
+        // Tonal statt Shadow-Elevation: Pixel/Material-You-Stil
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         border = if (errors.isNotEmpty())
             androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.error)
         else null

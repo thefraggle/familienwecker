@@ -274,8 +274,8 @@ fun MainScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) },
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            shape = MaterialTheme.shapes.large,
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
                             colors = CardDefaults.cardColors(containerColor = cardColor)
                         ) {
@@ -304,8 +304,8 @@ fun MainScreen(
                         
                         Card(
                             modifier = Modifier.fillMaxWidth(),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            shape = MaterialTheme.shapes.large,
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                             colors = CardDefaults.cardColors(
                                 containerColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
@@ -358,8 +358,8 @@ fun MainScreen(
 
                     Card(
                         modifier = Modifier.fillMaxWidth(),
-                        shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                        shape = MaterialTheme.shapes.extraLarge,
+                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                         colors = CardDefaults.cardColors(containerColor = toggleCardColor)
                     ) {
@@ -453,7 +453,7 @@ fun MainScreen(
                                                 .fillMaxWidth()
                                                 .height(56.dp)
                                                 .bounceClick(awakeInteractionSource),
-                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                            shape = MaterialTheme.shapes.medium,
                                             interactionSource = awakeInteractionSource,
                                             enabled = isAwakeButtonEnabled,
                                             colors = ButtonDefaults.buttonColors(
@@ -516,7 +516,7 @@ fun MainScreen(
                         snoozeUntil?.let { snoozeTime ->
                             Card(
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
-                                shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
+                                shape = MaterialTheme.shapes.extraLarge,
                                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
                                 colors = CardDefaults.cardColors(
@@ -579,8 +579,8 @@ fun MainScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { onNavigateToSettings() },
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            shape = MaterialTheme.shapes.large,
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                             colors = CardDefaults.cardColors(
                                 containerColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
@@ -635,8 +635,8 @@ fun MainScreen(
                         val textColor = if (isDarkTheme) SnoozeTextDark else SnoozeTextLight
                         
                         Card(
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            shape = MaterialTheme.shapes.large,
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
                             colors = CardDefaults.cardColors(containerColor = cardColor)
                         ) {
@@ -668,7 +668,7 @@ fun MainScreen(
                                     Spacer(modifier = Modifier.height(12.dp))
                                     Card(
                                         colors = CardDefaults.cardColors(containerColor = textColor.copy(alpha = 0.1f)),
-                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                                        shape = MaterialTheme.shapes.small
                                     ) {
                                         Text(
                                             text = stringResource(R.string.main_fallback_alarm_active, myMember.wakeUpTime.toJavaLocalTime().format(timeFormatter)),
@@ -683,8 +683,8 @@ fun MainScreen(
                         }
                     } else {
                         Card(
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            shape = MaterialTheme.shapes.large,
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                             colors = CardDefaults.cardColors(containerColor = planCardColor)
                         ) {
@@ -828,8 +828,8 @@ fun MainScreen(
                                         }
                                     )
                                 },
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDragging) 32.dp else 6.dp),
+                            shape = MaterialTheme.shapes.medium,
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDragging) 8.dp else 0.dp),
                             border = androidx.compose.foundation.BorderStroke(
                                 width = 1.dp, 
                                 color = if (isDragging) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
