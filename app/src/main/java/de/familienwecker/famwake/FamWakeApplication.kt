@@ -39,6 +39,17 @@ class FamWakeApplication : Application() {
         if (appSettings.installTime.value == 0L) {
             appSettings.setInstallTime(System.currentTimeMillis())
         }
+
+        // Ersten Start erkennen: "system"-Sentinel zur Gerätesprache auflösen und persistent speichern.
+        // Dialekte (gsw/ksh/swg) können vom Gerät nicht erkannt werden → nur Hauptsprachen prüfen.
+        // Alle nicht unterstützten Sprachen fallen auf EN zurück.
+        if (appSettings.language.value == "system") {
+            val deviceLang = java.util.Locale.getDefault().language
+            val supportedMainCodes = de.familienwecker.famwake.data.AppSettingsImpl.SUPPORTED_LANGUAGE_CODES
+                .filter { it.length == 2 } // nur ISO 639-1 Codes, keine Dialekte oder "system"
+            val resolved = if (deviceLang in supportedMainCodes) deviceLang else "en"
+            appSettings.setLanguage(resolved)
+        }
         // Initialize RevenueCat
         if (BuildConfig.DEBUG) {
             android.util.Log.d("FamWakeDonation", "Initializing RevenueCat...")
