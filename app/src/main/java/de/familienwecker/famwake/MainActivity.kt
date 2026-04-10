@@ -153,9 +153,9 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
     val baseContext = LocalContext.current
     val currentLanguage by familyViewModel.language.collectAsStateWithLifecycle()
 
-    // Sofortiger Locale-Override via ConfigurationContext: alle stringResource()-Aufrufe
-    // im Compose-Tree recomposieren unmittelbar, ohne auf eine Activity-Recreation warten
-    // zu müssen (die auf Android 13+ vom OS deferred oder gar nicht ausgelöst wird).
+    // Nur getResources() überschreiben – alle anderen Context-Aufrufe (WindowManager,
+    // ActivityResultRegistry, etc.) delegieren sicher zur echten Activity.
+    // createConfigurationContext() bräche diese Kette und crasht Settings.
     val localizedContext = remember(currentLanguage) {
         if (currentLanguage == "system" || currentLanguage.isEmpty()) {
             baseContext
@@ -163,7 +163,10 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
             val locale = Locale.forLanguageTag(currentLanguage)
             val config = Configuration(baseContext.resources.configuration)
             config.setLocale(locale)
-            baseContext.createConfigurationContext(config)
+            val localizedResources = baseContext.createConfigurationContext(config).resources
+            object : android.content.ContextWrapper(baseContext) {
+                override fun getResources(): android.content.res.Resources = localizedResources
+            }
         }
     }
 
