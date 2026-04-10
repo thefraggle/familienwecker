@@ -331,4 +331,5 @@
     <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Appuyez ici pour choisir votre sonnerie de réveil personnelle – optez pour votre mélodie préférée plutôt que le son par défaut.</string>
+    <string name="settings_language_dialects">Dialectes</string>
 </resources>
