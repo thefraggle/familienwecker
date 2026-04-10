@@ -330,4 +330,5 @@
     <string name="settings_language_norwegian">Norsk</string>
     <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
+    <string name="tooltip_alarm_sound">Trykk her for å velge din personlige vekkelyd – velg din favorittlyd i stedet for standardalarmen.</string>
 </resources>

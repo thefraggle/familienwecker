@@ -330,4 +330,5 @@
     <string name="settings_language_norwegian">Norsk</string>
     <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
+    <string name="tooltip_alarm_sound">Tocca qui per scegliere la tua suoneria di sveglia personale – scegli il tuo brano preferito invece del suono predefinito.</string>
 </resources>
