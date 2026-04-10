@@ -26,6 +26,7 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -1191,55 +1192,39 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // Links: Nutzungsbedingungen · Datenschutz · Impressum
-                // FlowRow sorgt für automatischen Umbruch auf kleinen Screens.
-                // defaultMinSize überschreibt die 48dp-Mindesthöhe von TextButton → kompakter Zeilenabstand.
+                // Einfache klickbare Texte statt TextButton – kein 48dp-Touch-Target-Overhead.
                 androidx.compose.foundation.layout.FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
-                    verticalArrangement = Arrangement.spacedBy(0.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                    modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
                 ) {
-                    TextButton(
-                        onClick = {
+                    Text(
+                        text = stringResource(R.string.settings_terms_of_use),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
                             val url = context.getString(R.string.settings_terms_of_use_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                        },
-                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-                        modifier = Modifier.defaultMinSize(minHeight = 32.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.settings_terms_of_use),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                    TextButton(
-                        onClick = {
+                        }
+                    )
+                    Text(
+                        text = stringResource(R.string.settings_privacy_policy),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
                             val url = context.getString(R.string.settings_privacy_policy_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                        },
-                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-                        modifier = Modifier.defaultMinSize(minHeight = 32.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.settings_privacy_policy),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                    TextButton(
-                        onClick = {
+                        }
+                    )
+                    Text(
+                        text = stringResource(R.string.settings_imprint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
                             val url = context.getString(R.string.settings_imprint_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                        },
-                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-                        modifier = Modifier.defaultMinSize(minHeight = 32.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.settings_imprint),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
+                        }
+                    )
                 }
             }
         }
