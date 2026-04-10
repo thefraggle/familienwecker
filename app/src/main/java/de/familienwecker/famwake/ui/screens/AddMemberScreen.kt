@@ -39,6 +39,7 @@ import de.familienwecker.famwake.ui.components.bounceClick
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.ui.viewmodel.*
+import de.familienwecker.famwake.util.findActivity
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -280,8 +281,8 @@ fun AddMemberScreen(
                         viewModel.addOrUpdateMember(memberToSave)
                         
                         // Intelligenten Review-Prompt prüfen
-                        (context as? android.app.Activity)?.let { activity ->
-                            viewModel.checkAndShowReview(activity)
+                        context.findActivity()?.let {
+                            viewModel.checkAndShowReview(it)
                         }
                         
                         onNavigateBack()

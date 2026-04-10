@@ -998,7 +998,7 @@ fun MainScreen(
     }
 
     if (showDeleteMemberDialog != null) {
-        val member = showDeleteMemberDialog!!
+        showDeleteMemberDialog?.let { member ->
         AlertDialog(
             onDismissRequest = { showDeleteMemberDialog = null },
             title = { Text(stringResource(R.string.delete_member_title)) },
@@ -1019,6 +1019,7 @@ fun MainScreen(
                 }
             }
         )
+        }
     }
 
     if (pendingJoinCode != null && familyId != null) {
@@ -1026,7 +1027,7 @@ fun MainScreen(
         AlertDialog(
             onDismissRequest = { if (!isJoining) viewModel.clearPendingJoinCode() },
             title = { Text(stringResource(R.string.join_conflict_title)) },
-            text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "---", pendingJoinCode!!)) },
+            text = { Text(stringResource(R.string.join_conflict_text, currentFamilyName ?: "---", pendingJoinCode ?: "")) },
             confirmButton = {
                 Button(
                     onClick = {
