@@ -151,12 +151,17 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
 
     // Beim ersten Compose-Aufbau sowie bei Änderung reagieren
     LaunchedEffect(currentLanguage) {
-        if (currentLanguage == "system" || currentLanguage.isEmpty()) {
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
-        } else {
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(currentLanguage))
+        when {
+            currentLanguage == "system" || currentLanguage.isEmpty() ->
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+            currentLanguage in de.familienwecker.famwake.data.AppSettingsImpl.SUPPORTED_LANGUAGE_CODES ->
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(currentLanguage))
+            else ->
+                // Unknown code – fall back to English so valid strings are shown
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
         }
     }
+
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         NavHost(

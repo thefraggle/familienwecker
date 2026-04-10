@@ -74,6 +74,16 @@ interface AppSettings {
 
 class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
 
+    companion object {
+        /** All valid language codes the app supports. "en" is the fallback for unknown values. */
+        val SUPPORTED_LANGUAGE_CODES = setOf(
+            "system", "en", "da", "de", "es", "fr", "it", "nl",
+            "no", "pl", "pt", "ru", "sv", "tr", "uk",
+            "gsw", "ksh", "swg"
+        )
+    }
+
+
 
     private val _myMemberId = MutableStateFlow(settings.getStringOrNull("MY_MEMBER_ID"))
     override val myMemberId = _myMemberId.asStateFlow()
@@ -115,12 +125,19 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         if (name == null) settings.remove("FAMILY_NAME") else settings["FAMILY_NAME"] = name
     }
 
-    private val _language = MutableStateFlow(settings.getString("APP_LANGUAGE", "system"))
+    private val _language = MutableStateFlow(
+        // Normalize stored value: treat unknown codes as "en" on load
+        settings.getString("APP_LANGUAGE", "system").let { stored ->
+            if (stored in SUPPORTED_LANGUAGE_CODES) stored else "en"
+        }
+    )
     override val language = _language.asStateFlow()
 
     override fun setLanguage(lang: String) {
-        _language.value = lang
-        settings["APP_LANGUAGE"] = lang
+        // EN is the default/fallback for any unsupported language code
+        val normalized = if (lang in SUPPORTED_LANGUAGE_CODES) lang else "en"
+        _language.value = normalized
+        settings["APP_LANGUAGE"] = normalized
     }
 
     private val _theme = MutableStateFlow(settings.getString("APP_THEME", "dark"))
