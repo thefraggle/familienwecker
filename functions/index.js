@@ -397,7 +397,7 @@ const EMAIL_CONTENT_CONFIRM = {
 };
 
 function buildEmailHtml(link, lang) {
-  const t = EMAIL_CONTENT[lang] || EMAIL_CONTENT.de;
+  const t = EMAIL_CONTENT[lang] || EMAIL_CONTENT.en;
   const privacyUrl = `https://www.familienwecker.de/privacy-policy${lang === "de" ? "" : "-" + lang}.html`;
   const imprintUrl = `https://www.familienwecker.de/imprint${lang === "de" ? "" : "-" + lang}.html`;
   
@@ -419,7 +419,7 @@ function buildEmailHtml(link, lang) {
     tr: { home: "Web Sitesi", privacy: "Gizlilik Politikası", imprint: "Yasal Uyardı" },
     uk: { home: "Веб-сайт", privacy: "Політика конфіденційності", imprint: "Правова інформація" },
   };
-  const l = labels[lang] || labels.de;
+  const l = labels[lang] || labels.en;
 
   return `
     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -457,7 +457,7 @@ exports.sendBrandedResetEmail = onCall(
     const email = request.data?.email;
     const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
     const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
-    const lang = supportedLangs.includes(requestedLang) ? requestedLang : "de";
+    const lang = supportedLangs.includes(requestedLang) ? requestedLang : "en";
     console.log(`Email request for ${email?.trim()} with language: ${request.data?.language} -> mapped to: ${lang}`);
 
     if (!email) {
@@ -480,10 +480,10 @@ exports.sendBrandedResetEmail = onCall(
         link = link.replace("reset-password.html", `reset-password-${lang}.html`);
       }
 
-      const t = EMAIL_CONTENT[lang] || EMAIL_CONTENT.de;
+      const t = EMAIL_CONTENT[lang] || EMAIL_CONTENT.en;
       const resend = new Resend(resendKey);
       const { error } = await resend.emails.send({
-        from: SENDER[lang] || SENDER.de,
+        from: SENDER[lang] || SENDER.en,
         to: [email.trim()],
         subject: t.subject,
         html: buildEmailHtml(link, lang),
@@ -518,7 +518,7 @@ exports.sendBrandedResetEmail = onCall(
 );
 
 function buildConfirmEmailHtml(lang) {
-  const t = EMAIL_CONTENT_CONFIRM[lang] || EMAIL_CONTENT_CONFIRM.de;
+  const t = EMAIL_CONTENT_CONFIRM[lang] || EMAIL_CONTENT_CONFIRM.en;
   const privacyUrl = `https://www.familienwecker.de/privacy-policy${lang === "de" ? "" : "-" + lang}.html`;
   const imprintUrl = `https://www.familienwecker.de/imprint${lang === "de" ? "" : "-" + lang}.html`;
   
@@ -539,7 +539,7 @@ function buildConfirmEmailHtml(lang) {
     tr: { home: "Web Sitesi", privacy: "Gizlilik Politikası", imprint: "Yasal Uyardı" },
     uk: { home: "Веб-сайт", privacy: "Політика конфіденційності", imprint: "Правова інформація" },
   };
-  const l = labels[lang] || labels.de;
+  const l = labels[lang] || labels.en;
 
   return `
     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -572,7 +572,7 @@ exports.sendBrandedConfirmationEmail = onCall(
     const email = request.data?.email;
     const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
     const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
-    const lang = supportedLangs.includes(requestedLang) ? requestedLang : "de";
+    const lang = supportedLangs.includes(requestedLang) ? requestedLang : "en";
 
     if (!email) {
       throw new HttpsError("invalid-argument", "INVALID_EMAIL");
@@ -586,10 +586,10 @@ exports.sendBrandedConfirmationEmail = onCall(
 
     try {
       await checkEmailRateLimit(email.trim());
-      const t = EMAIL_CONTENT_CONFIRM[lang] || EMAIL_CONTENT_CONFIRM.de;
+      const t = EMAIL_CONTENT_CONFIRM[lang] || EMAIL_CONTENT_CONFIRM.en;
       const resend = new Resend(resendKey);
       const { error } = await resend.emails.send({
-        from: SENDER[lang] || SENDER.de,
+        from: SENDER[lang] || SENDER.en,
         to: [email.trim()],
         subject: t.subject,
         html: buildConfirmEmailHtml(lang),
@@ -792,7 +792,7 @@ const EMAIL_CONTENT_VERIFY = {
 };
 
 function buildVerifyEmailHtml(link, lang) {
-  const t = EMAIL_CONTENT_VERIFY[lang] || EMAIL_CONTENT_VERIFY.de;
+  const t = EMAIL_CONTENT_VERIFY[lang] || EMAIL_CONTENT_VERIFY.en;
   const privacyUrl = `https://www.familienwecker.de/privacy-policy${lang === "de" ? "" : "-" + lang}.html`;
   const imprintUrl = `https://www.familienwecker.de/imprint${lang === "de" ? "" : "-" + lang}.html`;
   
@@ -813,7 +813,7 @@ function buildVerifyEmailHtml(link, lang) {
     tr: { home: "Web Sitesi", privacy: "Gizlilik Politikası", imprint: "Yasal Uyardı" },
     uk: { home: "Веб-сайт", privacy: "Політика конфіденційності", imprint: "Правова інформація" },
   };
-  const l = labels[lang] || labels.de;
+  const l = labels[lang] || labels.en;
 
   return `
     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -851,7 +851,7 @@ exports.sendVerificationEmail = onCall(
   async (request) => {
     const email = request.data?.email;
     const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
-    const lang = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"].includes(requestedLang) ? requestedLang : "de";
+    const lang = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"].includes(requestedLang) ? requestedLang : "en";
 
     if (!email) {
       throw new HttpsError("invalid-argument", "INVALID_EMAIL");
@@ -876,10 +876,10 @@ exports.sendVerificationEmail = onCall(
         link = link.replace("verify-email.html", `verify-email-${lang}.html`);
       }
 
-      const t = EMAIL_CONTENT_VERIFY[lang] || EMAIL_CONTENT_VERIFY.de;
+      const t = EMAIL_CONTENT_VERIFY[lang] || EMAIL_CONTENT_VERIFY.en;
       const resend = new Resend(resendKey);
       const { error } = await resend.emails.send({
-        from: SENDER[lang] || SENDER.de,
+        from: SENDER[lang] || SENDER.en,
         to: [email.trim()],
         subject: t.subject,
         html: buildVerifyEmailHtml(link, lang),
