@@ -4,6 +4,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.5 - 2026-04-10
+
+### Behoben
+- **Zurück-Button** – Der Zurück-Pfeil in der Kopfzeile reagiert jetzt auf allen Screens korrekt.
+- **Stabilität** – Mehrere mögliche Abstürze in seltenen Seiteneffekten beseitigt.
+
+### Verbessert
+- **E-Mail-Benachrichtigungen** – Passwort-Reset und Kontobestätigung kommen jetzt für alle unterstützten Sprachen im richtigen Gewand an.
+
+---
+
 ## 1.7.4 - 2026-04-10
 
 ### Verbessert

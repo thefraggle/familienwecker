@@ -1,5 +1,5 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.7.4
+**Version:** 1.7.5
 **Datum:** 2026-04-10
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -78,6 +78,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die Korrektheit des Plan
 | TC-62 | Weitere Sprachen | FR/ES/IT/SV/TR/UK/RU/NO/DA → UI-Texte korrekt, keine Fallbacks auf DE. |
 | TC-63 | Sprachpicker – alphabetisch | Öffnet BottomSheet, Sprachen in korrekter Reihenfolge, System immer zuerst. |
 | TC-64 | Sprachpicker kleine Screens | Auf kleinem Gerät (360dp Breite): Grid scrollt, kein Abschneiden. |
+| TC-65 | Zurück-Button in Kopfzeile | Settings, Login, FamilySetup: Pfeil-Träger reagiert, Screen schließt sich. |
 
 ---
 

@@ -1,5 +1,5 @@
 # 🧪 Test Plan: FamWake
-**Version:** 1.7.4
+**Version:** 1.7.5
 **Date:** 2026-04-10
 *[🇩🇪 Deutsche Version](test_plan.md)*
 
@@ -76,6 +76,7 @@ Tests validate not only the UI but especially the correctness of the scheduling 
 | TC-60 | Language fallback (unknown code) | Unknown or invalid language code → app falls back to English, not German. Also applies when loading from storage. |
 | TC-61 | Dialect languages | Swabian / Swiss German / Ruhr Valley → correct texts, no crash. |
 | TC-62 | Additional languages | DA/NO/FR/ES/IT/SV/TR/UK/RU/NL/PL/PT → UI texts correct, no DE fallbacks. |
+| TC-65 | Back button in header | Settings, Login, FamilySetup: back arrow responds and closes the screen. |
 
 ---
 
