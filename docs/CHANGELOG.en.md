@@ -4,6 +4,15 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.4 - 2026-04-10
+
+### Improved
+- **Look & Feel** – Fresher, more modern design: softer corners, cleaner cards, no heavy shadows.
+- **Scroll hint** – A gentle bouncing arrow in Settings and Add Member screens shows that more content is available below.
+- **Collapsing title** – The main screen title is now large when opened and collapses smoothly when scrolling.
+
+---
+
 ## 1.7.3 - 2026-04-10
 
 ### Improved

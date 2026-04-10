@@ -1,5 +1,5 @@
 # 🧪 Test Plan: FamWake
-**Version:** 1.7.3
+**Version:** 1.7.4
 **Date:** 2026-04-10
 *[🇩🇪 Deutsche Version](test_plan.md)*
 
@@ -116,6 +116,15 @@ Tests validate not only the UI but especially the correctness of the scheduling 
 - **Material You:** Dynamic colors from Android 12.
 - **Touch Targets:** Minimum 24 dp for all interactive elements.
 - **Haptics:** Vibration patterns for pre-alarm and main alarm.
+
+| ID | Test Case | Expected Result |
+|:---|:---|:---|
+| UI-01 | Theme switcher | Sun/Auto/Moon icons switch immediately; no overflow on narrow devices. |
+| UI-02 | Schedule copy link | After opening the day schedule, the "Copy to other days" link is visible without scrolling. |
+| UI-03 | Small screen scrolling | On 360dp device: FamilySetupScreen, SettingsScreen, AddMemberScreen – keyboard pushes content up, button stays reachable. |
+| UI-04 | Field order | Weekday card: earliest wake, latest wake, bathroom, leave home, breakfast. |
+| UI-05 | Scroll hint | Open Settings/AddMember → bouncing arrow visible. After scrolling to the end: arrow disappears. |
+| UI-06 | Collapsing title | Main screen: title large on open. Scrolling down collapses it cleanly into the compact top bar. |
 
 ---
 
