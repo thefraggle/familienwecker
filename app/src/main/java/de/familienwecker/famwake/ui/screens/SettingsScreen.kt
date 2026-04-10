@@ -158,12 +158,8 @@ fun SettingsScreen(
         }
     }
     
-    // Intelligenten Review-Prompt beim Öffnen der Settings prüfen
-    val activity = context.findActivity()
-    LaunchedEffect(Unit) {
-        activity?.let { viewModel.checkAndShowReview(it) }
-    }
-    
+
+
     val backgroundGradient = androidx.compose.ui.graphics.Brush.verticalGradient(
         colors = if (isDarkTheme) {
             listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.background)
@@ -937,9 +933,9 @@ fun SettingsScreen(
                     val rateInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = {
-                            if (activity != null) {
+                            context.findActivity()?.let {
                                 // Manueller Aufruf ignoriert die Zeitbeschränkungen
-                                viewModel.checkAndShowReview(activity, ignoreConstraints = true)
+                                viewModel.checkAndShowReview(it, ignoreConstraints = true)
                             }
                         },
                         modifier = Modifier.fillMaxWidth().bounceClick(rateInteractionSource),
@@ -1113,8 +1109,8 @@ fun SettingsScreen(
                                         val adminReviewInteraction = remember { MutableInteractionSource() }
                                         Button(
                                             onClick = {
-                                                if (activity != null) {
-                                                    viewModel.checkAndShowReview(activity, ignoreConstraints = true)
+                                                context.findActivity()?.let {
+                                                    viewModel.checkAndShowReview(it, ignoreConstraints = true)
                                                 }
                                             },
                                             modifier = Modifier.fillMaxWidth().bounceClick(adminReviewInteraction),
@@ -1304,7 +1300,7 @@ fun SettingsScreen(
     }
 
     if (showDonationDialog) {
-        val activity = context as? Activity
+        val activity = context.findActivity()
         if (activity != null) {
             DonationDialog(
                 onDismiss = { showDonationDialog = false },
