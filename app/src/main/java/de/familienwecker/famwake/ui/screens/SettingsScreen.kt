@@ -22,7 +22,6 @@ import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.*
-import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.runtime.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -86,7 +85,7 @@ fun SettingsScreen(
     val tooltipInviteSeen by viewModel.tooltipInviteSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
-    var expanded by remember { mutableStateOf(false) }
+    var showMemberPicker by remember { mutableStateOf(false) }
     var showLanguagePicker by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showAdminDialog by remember { mutableStateOf(false) }
@@ -219,73 +218,99 @@ fun SettingsScreen(
                     Text(stringResource(R.string.settings_profile_desc))
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    ExposedDropdownMenuBox(
-                        expanded = expanded,
-                        onExpandedChange = {
+                    // Profil-Claim: Button öffnet BottomSheet mit 2-spaltigem FilterChip-Grid
+                    val selectedMember = members.find { it.id == myMemberId }
+                    val memberButtonLabel = when {
+                        members.isEmpty() -> stringResource(R.string.settings_no_members)
+                        selectedMember != null -> selectedMember.name
+                        else -> stringResource(R.string.settings_please_select)
+                    }
+                    OutlinedButton(
+                        onClick = {
                             if (isOffline) {
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar(context.getString(R.string.error_profile_claim_offline))
                                 }
                             } else if (members.isNotEmpty()) {
-                                expanded = !expanded
+                                showMemberPicker = true
                             }
-                        }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        enabled = members.isNotEmpty()
                     ) {
-                        val selectedMember = members.find { it.id == myMemberId }
-                        OutlinedTextField(
-                            value = when {
-                                members.isEmpty() -> stringResource(R.string.settings_no_members)
-                                selectedMember != null -> selectedMember.name
-                                else -> stringResource(R.string.settings_please_select)
-                            },
-                            onValueChange = {},
-                            readOnly = true,
-                            enabled = members.isNotEmpty(),
-                            trailingIcon = { if (members.isNotEmpty()) ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).fillMaxWidth()
-                        )
-
-                        ExposedDropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            members.forEach { member ->
-                                val currentUid = viewModel.currentUserId
-                                val isClaimedByOther = member.claimedByUserId != null && member.claimedByUserId != currentUid
-                                DropdownMenuItem(
-                                    text = { 
-                                        Column {
-                                            Text(member.name)
-                                            if (isClaimedByOther) {
-                                                Text(
-                                                    text = stringResource(R.string.settings_already_claimed),
-                                                    style = MaterialTheme.typography.labelSmall,
-                                                    color = MaterialTheme.colorScheme.error
-                                                )
-                                            }
-                                        }
-                                    },
-                                    onClick = {
-                                        if (!isClaimedByOther) {
-                                            val errorMessage = context.getString(R.string.error_profile_taken)
-                                            viewModel.setMyMemberId(member.id) { success ->
-                                                if (!success) {
-                                                    coroutineScope.launch {
-                                                        snackbarHostState.showSnackbar(errorMessage)
+                            Text(memberButtonLabel, style = MaterialTheme.typography.bodyMedium)
+                            Icon(
+                                Icons.Default.Person,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                    }
+
+                    if (showMemberPicker) {
+                        val memberSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                        ModalBottomSheet(
+                            onDismissRequest = { showMemberPicker = false },
+                            sheetState = memberSheetState
+                        ) {
+                            Text(
+                                text = stringResource(R.string.settings_profile_title),
+                                style = MaterialTheme.typography.titleMedium,
+                                modifier = Modifier.padding(horizontal = 20.dp).padding(bottom = 12.dp)
+                            )
+                            val currentUid = viewModel.currentUserId
+                            androidx.compose.foundation.lazy.grid.LazyVerticalGrid(
+                                columns = androidx.compose.foundation.lazy.grid.GridCells.Fixed(2),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.6f)
+                                    .padding(horizontal = 16.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                contentPadding = PaddingValues(bottom = 24.dp)
+                            ) {
+                                items(members.size) { i ->
+                                    val member = members[i]
+                                    val isClaimedByOther = member.claimedByUserId != null &&
+                                        member.claimedByUserId != currentUid
+                                    val isSelected = member.id == myMemberId
+                                    FilterChip(
+                                        selected = isSelected,
+                                        enabled = !isClaimedByOther,
+                                        onClick = {
+                                            if (!isClaimedByOther) {
+                                                val errorMsg = context.getString(R.string.error_profile_taken)
+                                                viewModel.setMyMemberId(member.id) { success ->
+                                                    if (!success) {
+                                                        coroutineScope.launch {
+                                                            snackbarHostState.showSnackbar(errorMsg)
+                                                        }
                                                     }
                                                 }
+                                                showMemberPicker = false
                                             }
-                                            expanded = false
-                                        }
-                                    },
-                                    enabled = !isClaimedByOther
-                                )
-                            }
-                            if (members.isEmpty()) {
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.settings_no_members)) },
-                                    onClick = { expanded = false }
-                                )
+                                        },
+                                        label = {
+                                            Column {
+                                                Text(member.name, style = MaterialTheme.typography.bodyMedium)
+                                                if (isClaimedByOther) {
+                                                    Text(
+                                                        text = stringResource(R.string.settings_already_claimed),
+                                                        style = MaterialTheme.typography.labelSmall,
+                                                        color = MaterialTheme.colorScheme.error
+                                                    )
+                                                }
+                                            }
+                                        },
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                }
                             }
                         }
                     }
@@ -1166,9 +1191,11 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // Links: Nutzungsbedingungen • Datenschutz • Impressum
-                Row(
+                // FlowRow sorgt für automatischen Umbruch auf kleinen Screens
+                androidx.compose.foundation.layout.FlowRow(
                     horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     TextButton(
                         onClick = {
