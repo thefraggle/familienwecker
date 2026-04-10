@@ -28,8 +28,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import android.content.res.Configuration
+import java.util.Locale
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalContext
 import de.familienwecker.famwake.ui.screens.AddMemberScreen
 import de.familienwecker.famwake.ui.screens.FamilySetupScreen
 import de.familienwecker.famwake.ui.screens.LoadingScreen
@@ -146,10 +150,25 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewModel) {
     val navController = rememberNavController()
-
+    val baseContext = LocalContext.current
     val currentLanguage by familyViewModel.language.collectAsStateWithLifecycle()
 
-    // Beim ersten Compose-Aufbau sowie bei Änderung reagieren
+    // Sofortiger Locale-Override via ConfigurationContext: alle stringResource()-Aufrufe
+    // im Compose-Tree recomposieren unmittelbar, ohne auf eine Activity-Recreation warten
+    // zu müssen (die auf Android 13+ vom OS deferred oder gar nicht ausgelöst wird).
+    val localizedContext = remember(currentLanguage) {
+        if (currentLanguage == "system" || currentLanguage.isEmpty()) {
+            baseContext
+        } else {
+            val locale = Locale.forLanguageTag(currentLanguage)
+            val config = Configuration(baseContext.resources.configuration)
+            config.setLocale(locale)
+            baseContext.createConfigurationContext(config)
+        }
+    }
+
+    // System-Level Locale-Präferenz setzen (persistiert über Cold Starts,
+    // löst auf Android ≤12 zusätzlich eine Activity-Recreation aus)
     LaunchedEffect(currentLanguage) {
         when {
             currentLanguage == "system" || currentLanguage.isEmpty() ->
@@ -163,6 +182,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
     }
 
 
+    CompositionLocalProvider(LocalContext provides localizedContext) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         NavHost(
             navController = navController,
@@ -331,4 +351,5 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
             }
         }
     }
+    } // CompositionLocalProvider
 }
