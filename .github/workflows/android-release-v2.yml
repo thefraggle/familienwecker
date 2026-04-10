@@ -121,6 +121,7 @@ jobs:
           cat release-notes/whatsnew-uk-UA || echo "No UK file"
           cat release-notes/whatsnew-nb-NO || echo "No NO file"
           cat release-notes/whatsnew-da-DK || echo "No DA file"
+          cat release-notes/whatsnew-ja-JP || echo "No JA file"
 
 
       # GitHub Release nur mit AAB
