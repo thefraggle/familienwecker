@@ -70,6 +70,7 @@ def main():
         'uk-UA': None,   # Ukrainian – added 1.7.0
         'nb-NO': None,   # Norwegian (Bokmål) – added 1.7.2
         'da-DK': None,   # Danish – added 1.7.2
+        'ja-JP': None,   # Japanese – added 1.7.4
     }
     
     changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or "Maintenance update and performance optimizations."
