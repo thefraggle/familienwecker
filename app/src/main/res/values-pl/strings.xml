@@ -328,5 +328,6 @@
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
     <string name="settings_language_norwegian">Norsk</string>
+    <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
 </resources>

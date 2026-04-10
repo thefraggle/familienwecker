@@ -661,6 +661,7 @@ fun SettingsScreen(
                         "es"  -> stringResource(R.string.settings_language_spanish)
                         "fr"  -> stringResource(R.string.settings_language_french)
                         "it"  -> stringResource(R.string.settings_language_italian)
+                        "ja"  -> stringResource(R.string.settings_language_japanese)
                         "nl"  -> stringResource(R.string.settings_language_dutch)
                         "no"  -> stringResource(R.string.settings_language_norwegian)
                         "pl"  -> stringResource(R.string.settings_language_polish)
@@ -719,6 +720,7 @@ fun SettingsScreen(
                                 LangEntry("es",     stringResource(R.string.settings_language_spanish)),
                                 LangEntry("fr",     stringResource(R.string.settings_language_french)),
                                 LangEntry("it",     stringResource(R.string.settings_language_italian)),
+                                LangEntry("ja",     stringResource(R.string.settings_language_japanese)),
                                 LangEntry("nl",     stringResource(R.string.settings_language_dutch)),
                                 LangEntry("no",     stringResource(R.string.settings_language_norwegian)),
                                 LangEntry("pl",     stringResource(R.string.settings_language_polish)),
