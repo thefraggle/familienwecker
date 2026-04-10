@@ -4,6 +4,13 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.3 - 2026-04-10
+
+### Improved
+- **Language fallback** – Unknown or invalid language codes now automatically fall back to English instead of German.
+
+---
+
 ## 1.7.2 - 2026-04-10
 
 ### New
