@@ -44,6 +44,7 @@ import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import android.net.Uri
 import android.content.Intent
 import de.familienwecker.famwake.ui.util.UiText
+import de.familienwecker.famwake.util.findActivity
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
 import androidx.activity.compose.BackHandler
@@ -100,7 +101,7 @@ fun LoginScreen(
     }
 
     BackHandler {
-        (context as? android.app.Activity)?.finish()
+        context.findActivity()?.finish()
     }
 
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
