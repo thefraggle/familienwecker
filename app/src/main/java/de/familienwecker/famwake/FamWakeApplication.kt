@@ -64,7 +64,8 @@ class FamWakeApplication : Application() {
                     "it" -> "it-IT"
                     "sv" -> "sv-SE"
                     "system", "" -> java.util.Locale.getDefault().let { "${it.language}-${it.country}" }
-                    else -> currentLang
+                    // Unknown codes fall back to English
+                    else -> "en-US"
                 }
                 com.revenuecat.purchases.Purchases.configure(
                     com.revenuecat.purchases.PurchasesConfiguration.Builder(
