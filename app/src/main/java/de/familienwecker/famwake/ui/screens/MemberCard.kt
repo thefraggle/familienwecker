@@ -52,8 +52,9 @@ fun MemberCard(
     Card(
         onClick = { if (!isOtherUserClaim) onEdit() },
         modifier = Modifier.fillMaxWidth(),
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        shape = MaterialTheme.shapes.large,
+        // Tonal statt Shadow-Elevation: Pixel/Material-You-Stil
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
         colors = CardDefaults.cardColors(containerColor = backgroundColor)
     ) {

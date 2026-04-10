@@ -129,8 +129,8 @@ fun FamilySetupScreen(
             ) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(32.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                    shape = MaterialTheme.shapes.extraLarge,
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
@@ -186,7 +186,7 @@ fun FamilySetupScreen(
                                             .fillMaxWidth()
                                             .height(56.dp)
                                             .bounceClick(createInteractionSource),
-                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                        shape = MaterialTheme.shapes.medium,
                                         interactionSource = createInteractionSource,
                                         enabled = familyName.isNotBlank() && !isLoading
                                     ) {
@@ -232,7 +232,7 @@ fun FamilySetupScreen(
                                             .fillMaxWidth()
                                             .height(56.dp)
                                             .bounceClick(joinInteractionSource),
-                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                                        shape = MaterialTheme.shapes.medium,
                                         interactionSource = joinInteractionSource,
                                         enabled = joinCode.length == 6 && !isLoading
                                     ) {

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.activity.ComponentActivity
@@ -81,17 +82,32 @@ private val DarkColorScheme = darkColorScheme(
 @Composable
 fun FamilienweckerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic Color vorübergehend aktiviert zum Testen von Material You
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            val base = if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            // OLED-Override: Hintergrund und Surface bleiben echtes Schwarz im Dark-Theme,
+            // unabhängig von der Wallpaper-Farbe des Nutzers.
+            // Im Light-Theme bleibt das dynamische Schema vollständig erhalten.
+            if (darkTheme) {
+                base.copy(
+                    background             = Color.Black,
+                    surface                = Color.Black,
+                    surfaceContainerLowest = Color(0xFF0A0A0A),
+                    surfaceContainerLow    = Color(0xFF111111),
+                    surfaceContainer       = Color(0xFF1A1A1A),
+                    surfaceContainerHigh   = Color(0xFF222222),
+                    surfaceContainerHighest= Color(0xFF2C2C2C),
+                )
+            } else {
+                base
+            }
         }
         darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        else      -> LightColorScheme
     }
 
     val view = LocalView.current
@@ -112,8 +128,9 @@ fun FamilienweckerTheme(
     CompositionLocalProvider(LocalDarkTheme provides darkTheme) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = Typography,
-            content = content
+            shapes      = FamWakeShapes,
+            typography  = Typography,
+            content     = content
         )
     }
 }
