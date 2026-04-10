@@ -38,6 +38,7 @@ import de.familienwecker.famwake.ui.viewmodel.*
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.activity.compose.BackHandler
 import android.app.Activity
+import de.familienwecker.famwake.util.findActivity
 import android.view.WindowManager
 import androidx.compose.ui.platform.LocalContext
 
@@ -51,7 +52,7 @@ fun FamilySetupScreen(
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     BackHandler {
-        (context as? Activity)?.finish()
+        context.findActivity()?.finish()
     }
 
 
@@ -81,9 +82,10 @@ fun FamilySetupScreen(
     val familyId by viewModel.familyId.collectAsStateWithLifecycle()
 
     LaunchedEffect(pendingJoinCode, familyId) {
-        if (pendingJoinCode != null && familyId == null && !isLoading) {
+        val code = pendingJoinCode ?: return@LaunchedEffect
+        if (familyId == null && !isLoading) {
             isLoading = true
-            viewModel.joinFamily(pendingJoinCode!!) { success ->
+            viewModel.joinFamily(code) { success ->
                 isLoading = false
                 viewModel.clearPendingJoinCode()
                 if (success) onSetupComplete()

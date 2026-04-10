@@ -15,6 +15,7 @@ import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.toJavaLocalTime
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
+import androidx.compose.ui.platform.LocalContext
 import java.time.format.DateTimeFormatter
 
 /**
@@ -33,6 +34,7 @@ fun MemberCard(
     isPauseLoading: Boolean = false
 ) {
     val isDarkTheme = LocalDarkTheme.current
+    val context = LocalContext.current
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
     val backgroundColor = if (member.isPaused) {
         if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
@@ -132,7 +134,7 @@ fun MemberCard(
 
                     if (showDayLabel && nextActiveDayResult != null) {
                         val dayName = nextActiveDayResult.first.dayOfWeek
-                            .getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.getDefault())
+                            .getDisplayName(java.time.format.TextStyle.FULL, context.resources.configuration.locales[0])
                             .replaceFirstChar { it.uppercase() }
                         Text(
                             text = dayName,
