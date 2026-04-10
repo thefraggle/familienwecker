@@ -1190,10 +1190,11 @@ fun SettingsScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Links: Nutzungsbedingungen • Datenschutz • Impressum
-                // FlowRow sorgt für automatischen Umbruch auf kleinen Screens
+                // Links: Nutzungsbedingungen · Datenschutz · Impressum
+                // FlowRow sorgt für automatischen Umbruch auf kleinen Screens.
+                // Keine separaten Bullet-Elemente – die schweben im FlowRow schwebend.
                 androidx.compose.foundation.layout.FlowRow(
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -1202,7 +1203,7 @@ fun SettingsScreen(
                             val url = context.getString(R.string.settings_terms_of_use_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
-                        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.settings_terms_of_use),
@@ -1210,17 +1211,12 @@ fun SettingsScreen(
                             color = MaterialTheme.colorScheme.primary
                         )
                     }
-                    Text(
-                        text = "•",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
                     TextButton(
                         onClick = {
                             val url = context.getString(R.string.settings_privacy_policy_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
-                        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.settings_privacy_policy),
@@ -1228,17 +1224,12 @@ fun SettingsScreen(
                             color = MaterialTheme.colorScheme.primary
                         )
                     }
-                    Text(
-                        text = "•",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
                     TextButton(
                         onClick = {
                             val url = context.getString(R.string.settings_imprint_url)
                             context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                         },
-                        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.settings_imprint),
