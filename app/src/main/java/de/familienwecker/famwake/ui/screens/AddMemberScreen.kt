@@ -561,14 +561,15 @@ private fun DayProfileCard(
     onDismissTooltipBathroom: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val isDarkTheme = LocalDarkTheme.current
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
     val errors = if (profile.isActive) validateDayProfile(profile) else emptyList()
 
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
-        // Tonal statt Shadow-Elevation: Pixel/Material-You-Stil
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        // Dark: tonal (kein Schatten), Light: 2dp Schatten für Tiefe
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
         border = if (errors.isNotEmpty())
             androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.error)
         else null

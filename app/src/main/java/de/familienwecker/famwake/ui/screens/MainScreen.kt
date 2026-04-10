@@ -279,7 +279,7 @@ fun MainScreen(
                                 .fillMaxWidth()
                                 .clickable { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) },
                             shape = MaterialTheme.shapes.large,
-                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
                             colors = CardDefaults.cardColors(containerColor = cardColor)
                         ) {
@@ -309,7 +309,7 @@ fun MainScreen(
                         Card(
                             modifier = Modifier.fillMaxWidth(),
                             shape = MaterialTheme.shapes.large,
-                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                             colors = CardDefaults.cardColors(
                                 containerColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
@@ -363,7 +363,7 @@ fun MainScreen(
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         shape = MaterialTheme.shapes.extraLarge,
-                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                         colors = CardDefaults.cardColors(containerColor = toggleCardColor)
                     ) {
@@ -584,7 +584,7 @@ fun MainScreen(
                                 .fillMaxWidth()
                                 .clickable { onNavigateToSettings() },
                             shape = MaterialTheme.shapes.large,
-                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                             colors = CardDefaults.cardColors(
                                 containerColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
@@ -640,7 +640,7 @@ fun MainScreen(
                         
                         Card(
                             shape = MaterialTheme.shapes.large,
-                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
                             colors = CardDefaults.cardColors(containerColor = cardColor)
                         ) {
@@ -688,7 +688,7 @@ fun MainScreen(
                     } else {
                         Card(
                             shape = MaterialTheme.shapes.large,
-                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                             colors = CardDefaults.cardColors(containerColor = planCardColor)
                         ) {
@@ -833,7 +833,7 @@ fun MainScreen(
                                     )
                                 },
                             shape = MaterialTheme.shapes.medium,
-                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDragging) 8.dp else 0.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDragging) 8.dp else if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(
                                 width = 1.dp, 
                                 color = if (isDragging) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
