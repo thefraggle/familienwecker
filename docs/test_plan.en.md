@@ -1,6 +1,6 @@
 # 🧪 Test Plan: FamWake
-**Version:** 1.7.1
-**Date:** 2026-04-08
+**Version:** 1.7.3
+**Date:** 2026-04-10
 *[🇩🇪 Deutsche Version](test_plan.md)*
 
 ---
@@ -73,9 +73,9 @@ Tests validate not only the UI but especially the correctness of the scheduling 
 ### 5. Localization
 | ID | Test Case | Expected Result |
 |:---|:---|:---|
-| TC-60 | Language fallback | Device language Turkish → app starts in English, not German. |
-| TC-61 | Dialect languages | Swabian / Swiss German / Ruhr Valley → correct texts, onboarding shows German screenshots. |
-| TC-62 | Additional languages | FR/ES/IT/SV → correct UI texts, no fallbacks to DE. Email localization correct. |
+| TC-60 | Language fallback (unknown code) | Unknown or invalid language code → app falls back to English, not German. Also applies when loading from storage. |
+| TC-61 | Dialect languages | Swabian / Swiss German / Ruhr Valley → correct texts, no crash. |
+| TC-62 | Additional languages | DA/NO/FR/ES/IT/SV/TR/UK/RU/NL/PL/PT → UI texts correct, no DE fallbacks. |
 
 ---
 

@@ -1,5 +1,5 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.7.2
+**Version:** 1.7.3
 **Datum:** 2026-04-10
 *[🇬🇧 English version](test_plan.en.md)*
 
@@ -73,7 +73,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die Korrektheit des Plan
 ### 5. Lokalisation
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-60 | Sprach-Fallback | Gerätesprache Türkisch → App startet auf Englisch, nicht Deutsch. |
+| TC-60 | Sprach-Fallback (unbekannter Code) | Unbekannter oder ungültiger Sprachcode → App fällt auf Englisch zurück, nicht auf Deutsch. Auch beim Laden aus dem Speicher. |
 | TC-61 | Dialektsprachen | Schwäbsch / Schwiizerdeutsch / Ruhrpott auswählen → korrekte Texte,  kein Absturz. |
 | TC-62 | Weitere Sprachen | FR/ES/IT/SV/TR/UK/RU/NO/DA → UI-Texte korrekt, keine Fallbacks auf DE. |
 | TC-63 | Sprachpicker – alphabetisch | Öffnet BottomSheet, Sprachen in korrekter Reihenfolge, System immer zuerst. |
