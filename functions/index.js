@@ -78,6 +78,16 @@ const SENDER = {
   es: "FamWake Familienwecker <no-reply@familienwecker.de>",
   fr: "FamWake Réveil Familial <no-reply@familienwecker.de>",
   it: "FamWake Sveglia Famiglia <no-reply@familienwecker.de>",
+  da: "FamWake Familievækker <no-reply@familienwecker.de>",
+  ja: "FamWake ファミリーアラーム <no-reply@familienwecker.de>",
+  nl: "FamWake Gezinswekker <no-reply@familienwecker.de>",
+  no: "FamWake Familievekker <no-reply@familienwecker.de>",
+  pl: "FamWake Budzik Rodzinny <no-reply@familienwecker.de>",
+  pt: "FamWake Despertador Familiar <no-reply@familienwecker.de>",
+  ru: "FamWake Семейный Будильник <no-reply@familienwecker.de>",
+  sv: "FamWake Familjens Väckarklocka <no-reply@familienwecker.de>",
+  tr: "FamWake Aile Alarmı <no-reply@familienwecker.de>",
+  uk: "FamWake Сімейний Будильник <no-reply@familienwecker.de>",
 };
 
 const EMAIL_CONTENT = {
@@ -136,6 +146,116 @@ const EMAIL_CONTENT = {
     security: "⚠️ Se non hai richiesto tu questa modifica, puoi ignorare tranquillamente questa email. La tua password rimarrà invariata. Se noti attività sospette, contattaci all'indirizzo: daniel.notthoff@gmail.com",
     footerNote: "Questo è un messaggio generato automaticamente. Si prega di non rispondere direttamente a questa email.",
   },
+  da: {
+    subject: "🔑 Nulstil din adgangskode – FamWake Familievækker",
+    appName: "<strong>FamWake</strong> Familievækker",
+    greeting: "Hej!",
+    intro: "Vi har modtaget en anmodning om at nulstille adgangskoden til din <strong>FamWake</strong> Familievækker-konto.",
+    instruction: "Klik på knappen nedenfor for at angive en ny adgangskode:",
+    button: "Nulstil adgangskode",
+    fallback: "Hvis knappen ikke virker, skal du kopiere dette link til din browser:",
+    security: "⚠️ Hvis du <strong>ikke</strong> har anmodet om dette, kan du blot ignorere denne e-mail. Din adgangskode forbliver uændret. Hvis du bemærker mistanke om aktivitet, kontakt os på: daniel.notthoff@gmail.com",
+    footerNote: "Dette er en automatisk genereret besked. Svar venligst ikke direkte på denne e-mail.",
+  },
+  ja: {
+    subject: "🔑 パスワードのリセット – FamWake ファミリーアラーム",
+    appName: "<strong>FamWake</strong> ファミリーアラーム",
+    greeting: "こんにちは！",
+    intro: "<strong>FamWake</strong> ファミリーアラームのアカウントのパスワードをリセットするリクエストを受け取りました。",
+    instruction: "以下のボタンをクリックして、新しいパスワードを設定してください：",
+    button: "パスワードをリセット",
+    fallback: "ボタンが機能しない場合は、このリンクをブラウザにコピーしてください：",
+    security: "⚠️ このリクエストに<strong>心当たりがない</strong>場合は、このメールを無視してください。パスワードは変更されません。不審なアクティビティに気づいた場合は、こちらまでご連絡ください：daniel.notthoff@gmail.com",
+    footerNote: "これは自動生成されたメッセージです。このメールに直接返信しないでください。",
+  },
+  nl: {
+    subject: "🔑 Wachtwoord opnieuw instellen – FamWake Gezinswekker",
+    appName: "<strong>FamWake</strong> Gezinswekker",
+    greeting: "Hallo!",
+    intro: "We hebben een verzoek ontvangen om het wachtwoord van je <strong>FamWake</strong> Gezinswekker-account opnieuw in te stellen.",
+    instruction: "Klik op de onderstaande knop om een nieuw wachtwoord in te stellen:",
+    button: "Wachtwoord opnieuw instellen",
+    fallback: "Als de knop niet werkt, kopieer dan deze link naar je browser:",
+    security: "⚠️ Als je dit verzoek <strong>niet</strong> hebt gedaan, kun je deze e-mail gewoon negeren. Je wachtwoord blijft ongewijzigd. Als je verdáchte activiteit opmerkt, neem dan contact met ons op: daniel.notthoff@gmail.com",
+    footerNote: "Dit is een automatisch gegenereerd bericht. Reageer niet rechtstreeks op deze e-mail.",
+  },
+  no: {
+    subject: "🔑 Tilbakestill passordet – FamWake Familievekker",
+    appName: "<strong>FamWake</strong> Familievekker",
+    greeting: "Hei!",
+    intro: "Vi har mottatt en forespørsel om å tilbakestille passordet for din <strong>FamWake</strong> Familievekker-konto.",
+    instruction: "Klikk på knappen nedenfor for å angi et nytt passord:",
+    button: "Tilbakestill passord",
+    fallback: "Hvis knappen ikke fungerer, lim inn denne lenken i nettleseren din:",
+    security: "⚠️ Hvis du <strong>ikke</strong> har bedt om dette, kan du trygt ignorere denne e-posten. Passordet ditt forblir uendret. Hvis du merker mistenkelig aktivitet, kontakt oss på: daniel.notthoff@gmail.com",
+    footerNote: "Dette er en automatisk generert melding. Vennligst ikke svar direkte på denne e-posten.",
+  },
+  pl: {
+    subject: "🔑 Resetowanie hasła – FamWake Budzik Rodzinny",
+    appName: "<strong>FamWake</strong> Budzik Rodzinny",
+    greeting: "Cześć!",
+    intro: "Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta <strong>FamWake</strong> Budzik Rodzinny.",
+    instruction: "Kliknij poniższy przycisk, aby ustawić nowe hasło:",
+    button: "Zresetuj hasło",
+    fallback: "Jeśli przycisk nie działa, skopiuj ten link do przeglądarki:",
+    security: "⚠️ Jeśli <strong>nie</strong> wysyłałeś tej prośby, możesz zignorować ten e-mail. Twoje hasło pozostanie bez zmian. Jeśli zauważysz podrzaną aktywność, skontaktuj się z nami: daniel.notthoff@gmail.com",
+    footerNote: "To jest wiadomość wygenerowana automatycznie. Prosimy nie odpowiadać bezpośrednio na ten e-mail.",
+  },
+  pt: {
+    subject: "🔑 Redefinir senha – FamWake Despertador Familiar",
+    appName: "<strong>FamWake</strong> Despertador Familiar",
+    greeting: "Olá!",
+    intro: "Recebemos uma solicitação para redefinir a senha da sua conta <strong>FamWake</strong> Despertador Familiar.",
+    instruction: "Clique no botão abaixo para definir uma nova senha:",
+    button: "Redefinir senha",
+    fallback: "Se o botão não funcionar, copie este link para o seu navegador:",
+    security: "⚠️ Se você <strong>não</strong> fez esta solicitação, pode ignorar este e-mail. Sua senha permanecerá inalterada. Se notar atividade suspeita, entre em contato: daniel.notthoff@gmail.com",
+    footerNote: "Esta é uma mensagem gerada automaticamente. Por favor, não responda diretamente a este e-mail.",
+  },
+  ru: {
+    subject: "🔑 Сброс пароля – FamWake Семейный Будильник",
+    appName: "<strong>FamWake</strong> Семейный Будильник",
+    greeting: "Привет!",
+    intro: "Мы получили запрос на сброс пароля для вашей учётной записи <strong>FamWake</strong> Семейный Будильник.",
+    instruction: "Нажмите на кнопку ниже, чтобы установить новый пароль:",
+    button: "Сбросить пароль",
+    fallback: "Если кнопка не работает, скопируйте эту ссылку в браузер:",
+    security: "⚠️ Если вы <strong>не</strong> запрашивали это, просто проигнорируйте это письмо. Ваш пароль останется без изменений. Если вы заметили подозрительную активность, свяжитесь с нами: daniel.notthoff@gmail.com",
+    footerNote: "Это автоматически сгенерированное сообщение. Пожалуйста, не отвечайте на него напрямую.",
+  },
+  sv: {
+    subject: "🔑 Återställ ditt lösenord – FamWake Familjens Väckarklocka",
+    appName: "<strong>FamWake</strong> Familjens Väckarklocka",
+    greeting: "Hej!",
+    intro: "Vi har tagit emot en begäran om att återställa lösenordet för ditt <strong>FamWake</strong> Familjens Väckarklocka-konto.",
+    instruction: "Klicka på knappen nedan för att ange ett nytt lösenord:",
+    button: "Återställ lösenord",
+    fallback: "Om knappen inte fungerar, kopiera den här länken till din webbläsare:",
+    security: "⚠️ Om du <strong>inte</strong> har begärt detta kan du ignorera detta e-postmeddelande. Ditt lösenord förblir oförändrat. Om du märker misstänkt aktivitet, kontakta oss på: daniel.notthoff@gmail.com",
+    footerNote: "Detta är ett automatiskt genererat meddelande. Svara inte direkt på detta e-postmeddelande.",
+  },
+  tr: {
+    subject: "🔑 Şifrenizi sıfırlayın – FamWake Aile Alarmı",
+    appName: "<strong>FamWake</strong> Aile Alarmı",
+    greeting: "Merhaba!",
+    intro: "<strong>FamWake</strong> Aile Alarmı hesabınızın şifresini sıfırlama talebi aldık.",
+    instruction: "Yeni bir şifre belirlemek için aşağıdaki düğmeye tıklayın:",
+    button: "Şifreyi sıfırla",
+    fallback: "Düğme çalışmıyorsa, bu bağlantıyı tarayıcınıza kopyalayın:",
+    security: "⚠️ Bu talebi siz <strong>yapmadıysanız</strong>, bu e-postayı görmezden gelebilirsiniz. Şifreniz değişmeden kalacak. Şüpheli bir etkinlik fark ederseniz bizimle iletişime geçin: daniel.notthoff@gmail.com",
+    footerNote: "Bu otomatik olarak oluşturulmuş bir mesajdır. Lütfen bu e-postaya doğrudan yanıt vermeyin.",
+  },
+  uk: {
+    subject: "🔑 Скидання пароля – FamWake Сімейний Будильник",
+    appName: "<strong>FamWake</strong> Сімейний Будильник",
+    greeting: "Привіт!",
+    intro: "Ми отримали запит на скидання пароля для вашого облікового запису <strong>FamWake</strong> Сімейний Будильник.",
+    instruction: "Натисніть кнопку нижче, щоб встановити новий пароль:",
+    button: "Скинути пароль",
+    fallback: "Якщо кнопка не працює, скопіюйте це посилання у браузер:",
+    security: "⚠️ Якщо ви <strong>не</strong> робили цей запит, просто ігноруйте цей лист. Ваш пароль залишиться без змін. Якщо ви помітили підозрілу активність, звʼяжіться з нами: daniel.notthoff@gmail.com",
+    footerNote: "Це автоматично згенероване повідомлення. Будь ласка, не відповідайте на нього безпосередньо.",
+  },
 };
 
 const EMAIL_CONTENT_CONFIRM = {
@@ -184,6 +304,96 @@ const EMAIL_CONTENT_CONFIRM = {
     security: "⚠️ Se <strong>non</strong> hai modificato tu la password, contattaci immediatamente: daniel.notthoff@gmail.com",
     footerNote: "Questo è un messaggio generato automaticamente. Si prega di non rispondere direttamente a questa email.",
   },
+  da: {
+    subject: "✅ Adgangskode ændret – FamWake Familievækker",
+    appName: "<strong>FamWake</strong> Familievækker",
+    greeting: "Hej!",
+    intro: "Adgangskoden til din <strong>FamWake</strong> Familievækker-konto er blevet ændret.",
+    instruction: "Du kan nu logge ind på appen med din nye adgangskode.",
+    security: "⚠️ Hvis du <strong>ikke</strong> har ændret din adgangskode, bedes du kontakte os straks: daniel.notthoff@gmail.com",
+    footerNote: "Dette er en automatisk genereret besked. Svar venligst ikke direkte på denne e-mail.",
+  },
+  ja: {
+    subject: "✅ パスワードが変更されました – FamWake ファミリーアラーム",
+    appName: "<strong>FamWake</strong> ファミリーアラーム",
+    greeting: "こんにちは！",
+    intro: "<strong>FamWake</strong> ファミリーアラームのアカウントのパスワードが正常に変更されました。",
+    instruction: "新しいパスワードでアプリにログインできます。",
+    security: "⚠️ パスワードを<strong>変更していない</strong>場合は、すぐにご連絡ください：daniel.notthoff@gmail.com",
+    footerNote: "これは自動生成されたメッセージです。このメールに直接返信しないでください。",
+  },
+  nl: {
+    subject: "✅ Wachtwoord succesvol gewijzigd – FamWake Gezinswekker",
+    appName: "<strong>FamWake</strong> Gezinswekker",
+    greeting: "Hallo!",
+    intro: "Het wachtwoord van je <strong>FamWake</strong> Gezinswekker-account is succesvol gewijzigd.",
+    instruction: "Je kunt nu inloggen in de app met je nieuwe wachtwoord.",
+    security: "⚠️ Als je je wachtwoord <strong>niet</strong> hebt gewijzigd, neem dan onmiddellijk contact met ons op: daniel.notthoff@gmail.com",
+    footerNote: "Dit is een automatisch gegenereerd bericht. Reageer niet rechtstreeks op deze e-mail.",
+  },
+  no: {
+    subject: "✅ Passord endret – FamWake Familievekker",
+    appName: "<strong>FamWake</strong> Familievekker",
+    greeting: "Hei!",
+    intro: "Passordet for din <strong>FamWake</strong> Familievekker-konto er endret.",
+    instruction: "Du kan nå logge inn i appen med ditt nye passord.",
+    security: "⚠️ Hvis du <strong>ikke</strong> har endret passordet ditt, kontakt oss umiddelbart: daniel.notthoff@gmail.com",
+    footerNote: "Dette er en automatisk generert melding. Vennligst ikke svar direkte på denne e-posten.",
+  },
+  pl: {
+    subject: "✅ Hasło zostało zmienione – FamWake Budzik Rodzinny",
+    appName: "<strong>FamWake</strong> Budzik Rodzinny",
+    greeting: "Cześć!",
+    intro: "Hasło do Twojego konta <strong>FamWake</strong> Budzik Rodzinny zostało pomyślnie zmienione.",
+    instruction: "Możesz teraz zalogować się do aplikacji za pomocą nowego hasła.",
+    security: "⚠️ Jeśli <strong>nie</strong> zmieniałeś hasła, skontaktuj się z nami natychmiast: daniel.notthoff@gmail.com",
+    footerNote: "To jest wiadomość wygenerowana automatycznie. Prosimy nie odpowiadać bezpośrednio na ten e-mail.",
+  },
+  pt: {
+    subject: "✅ Senha alterada com sucesso – FamWake Despertador Familiar",
+    appName: "<strong>FamWake</strong> Despertador Familiar",
+    greeting: "Olá!",
+    intro: "A senha da sua conta <strong>FamWake</strong> Despertador Familiar foi alterada com sucesso.",
+    instruction: "Agora você pode fazer login no aplicativo com sua nova senha.",
+    security: "⚠️ Se <strong>não</strong> foi você que alterou a senha, entre em contato conosco imediatamente: daniel.notthoff@gmail.com",
+    footerNote: "Esta é uma mensagem gerada automaticamente. Por favor, não responda diretamente a este e-mail.",
+  },
+  ru: {
+    subject: "✅ Пароль успешно изменён – FamWake Семейный Будильник",
+    appName: "<strong>FamWake</strong> Семейный Будильник",
+    greeting: "Привет!",
+    intro: "Пароль вашей учётной записи <strong>FamWake</strong> Семейный Будильник был успешно изменён.",
+    instruction: "Теперь вы можете войти в приложение с новым паролем.",
+    security: "⚠️ Если вы <strong>не</strong> меняли пароль, немедленно свяжитесь с нами: daniel.notthoff@gmail.com",
+    footerNote: "Это автоматически сгенерированное сообщение. Пожалуйста, не отвечайте на него напрямую.",
+  },
+  sv: {
+    subject: "✅ Lösenord ändrat – FamWake Familjens Väckarklocka",
+    appName: "<strong>FamWake</strong> Familjens Väckarklocka",
+    greeting: "Hej!",
+    intro: "Lösenordet för ditt <strong>FamWake</strong> Familjens Väckarklocka-konto har ändrats.",
+    instruction: "Du kan nu logga in i appen med ditt nya lösenord.",
+    security: "⚠️ Om du <strong>inte</strong> har ändrat ditt lösenord, kontakta oss omedelbart: daniel.notthoff@gmail.com",
+    footerNote: "Detta är ett automatiskt genererat meddelande. Svara inte direkt på detta e-postmeddelande.",
+  },
+  tr: {
+    subject: "✅ Şifre başarıyla değiştirildi – FamWake Aile Alarmı",
+    appName: "<strong>FamWake</strong> Aile Alarmı",
+    greeting: "Merhaba!",
+    intro: "<strong>FamWake</strong> Aile Alarmı hesabınızın şifresi başarıyla değiştirildi.",
+    instruction: "Artık yeni şifrenizle uygulamaya giriş yapabilirsiniz.",
+    security: "⚠️ Şifrenizi <strong>siz değiştirmediyseniz</strong>, lütfen hemen bizimle iletişime geçin: daniel.notthoff@gmail.com",
+    footerNote: "Bu otomatik olarak oluşturulmuş bir mesajdır. Lütfen bu e-postaya doğrudan yanıt vermeyin.",
+  },
+  uk: {
+    subject: "✅ Пароль успішно змінено – FamWake Сімейний Будильник",
+    appName: "<strong>FamWake</strong> Сімейний Будильник",
+    greeting: "Привіт!",
+    intro: "Пароль вашого облікового запису <strong>FamWake</strong> Сімейний Будильник було успішно змінено.",
+    instruction: "Тепер ви можете увійти в застосунок з новим паролем.",
+    security: "⚠️ Якщо ви <strong>не</strong> змінювали пароль, негайно звʼяжіться з нами: daniel.notthoff@gmail.com",
+    footerNote: "Це автоматично згенероване повідомлення. Будь ласка, не відповідайте на нього безпосередньо.",
+  },
 };
 
 function buildEmailHtml(link, lang) {
@@ -197,7 +407,17 @@ function buildEmailHtml(link, lang) {
     en: { home: "Website", privacy: "Privacy Policy", imprint: "Legal Notice" },
     es: { home: "Inicio", privacy: "Política de privacidad", imprint: "Aviso legal" },
     fr: { home: "Accueil", privacy: "Politique de confidentialité", imprint: "Mentions légales" },
-    it: { home: "Home", privacy: "Informativa sulla privacy", imprint: "Note legali" }
+    it: { home: "Home", privacy: "Informativa sulla privacy", imprint: "Note legali" },
+    da: { home: "Hjemmeside", privacy: "Privatlivspolitik", imprint: "Juridisk meddelelse" },
+    ja: { home: "ウェブサイト", privacy: "プライバシーポリシー", imprint: "特定商取引法" },
+    nl: { home: "Website", privacy: "Privacybeleid", imprint: "Juridische kennisgeving" },
+    no: { home: "Nettsted", privacy: "Personvernerklæring", imprint: "Juridisk merknad" },
+    pl: { home: "Strona główna", privacy: "Polityka prywatności", imprint: "Nota prawna" },
+    pt: { home: "Website", privacy: "Política de Privacidade", imprint: "Nota Legal" },
+    ru: { home: "Веб-сайт", privacy: "Политика конфиденциальности", imprint: "Правовые сведения" },
+    sv: { home: "Webbplats", privacy: "Integritetspolicy", imprint: "Juridisk information" },
+    tr: { home: "Web Sitesi", privacy: "Gizlilik Politikası", imprint: "Yasal Uyardı" },
+    uk: { home: "Веб-сайт", privacy: "Політика конфіденційності", imprint: "Правова інформація" },
   };
   const l = labels[lang] || labels.de;
 
@@ -236,7 +456,8 @@ exports.sendBrandedResetEmail = onCall(
   async (request) => {
     const email = request.data?.email;
     const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
-    const lang = ["de", "en", "es", "fr", "it"].includes(requestedLang) ? requestedLang : "de";
+    const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
+    const lang = supportedLangs.includes(requestedLang) ? requestedLang : "de";
     console.log(`Email request for ${email?.trim()} with language: ${request.data?.language} -> mapped to: ${lang}`);
 
     if (!email) {
@@ -306,7 +527,17 @@ function buildConfirmEmailHtml(lang) {
     en: { home: "Website", privacy: "Privacy Policy", imprint: "Legal Notice" },
     es: { home: "Inicio", privacy: "Política de privacidad", imprint: "Aviso legal" },
     fr: { home: "Accueil", privacy: "Politique de confidentialité", imprint: "Mentions légales" },
-    it: { home: "Home", privacy: "Informativa sulla privacy", imprint: "Note legali" }
+    it: { home: "Home", privacy: "Informativa sulla privacy", imprint: "Note legali" },
+    da: { home: "Hjemmeside", privacy: "Privatlivspolitik", imprint: "Juridisk meddelelse" },
+    ja: { home: "ウェブサイト", privacy: "プライバシーポリシー", imprint: "特定商取引法" },
+    nl: { home: "Website", privacy: "Privacybeleid", imprint: "Juridische kennisgeving" },
+    no: { home: "Nettsted", privacy: "Personvernerklæring", imprint: "Juridisk merknad" },
+    pl: { home: "Strona główna", privacy: "Polityka prywatności", imprint: "Nota prawna" },
+    pt: { home: "Website", privacy: "Política de Privacidade", imprint: "Nota Legal" },
+    ru: { home: "Веб-сайт", privacy: "Политика конфиденциальности", imprint: "Правовые сведения" },
+    sv: { home: "Webbplats", privacy: "Integritetspolicy", imprint: "Juridisk information" },
+    tr: { home: "Web Sitesi", privacy: "Gizlilik Politikası", imprint: "Yasal Uyardı" },
+    uk: { home: "Веб-сайт", privacy: "Політика конфіденційності", imprint: "Правова інформація" },
   };
   const l = labels[lang] || labels.de;
 
@@ -340,7 +571,8 @@ exports.sendBrandedConfirmationEmail = onCall(
   async (request) => {
     const email = request.data?.email;
     const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
-    const lang = ["de", "en", "es", "fr", "it"].includes(requestedLang) ? requestedLang : "de";
+    const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
+    const lang = supportedLangs.includes(requestedLang) ? requestedLang : "de";
 
     if (!email) {
       throw new HttpsError("invalid-argument", "INVALID_EMAIL");
@@ -437,6 +669,126 @@ const EMAIL_CONTENT_VERIFY = {
     security: "Se non hai creato tu questo account, puoi ignorare questa email. Nessun dato verrà memorizzato in modo permanente.",
     footerNote: "Questo è un messaggio generato automaticamente. Si prega di non rispondere direttamente a questa email.",
   },
+  da: {
+    subject: "🚀 Bekæft din FamWake Familievækker-konto",
+    appName: "<strong>FamWake</strong> Familievækker",
+    greeting: "Velkommen til FamWake Familievækker!",
+    intro: "Tak for din tilmelding til <strong>FamWake</strong> Familievækker. Vi glæder os til at hjælpe dig og din familie til en rolig morgen uden kaos!",
+    instruction: "Bekæft venligst din e-mailadresse for at aktivere din konto:",
+    button: "Bekæft e-mailadresse",
+    fallback: "Hvis knappen ikke virker, skal du kopiere dette link til din browser:",
+    privacy: "<strong>Bemærk:</strong> Af hensyn til privatlivets fred vil dette link og dine ubekæftede registreringsdata automatisk blive slettet efter 48 timer, hvis ingen aktivering sker.",
+    security: "Hvis du ikke har oprettet denne konto, kan du blot ignorere denne e-mail. Der vil ikke blive gemt nogen data permanent.",
+    footerNote: "Dette er en automatisk genereret besked. Svar venligst ikke direkte på denne e-mail.",
+  },
+  ja: {
+    subject: "🚀 FamWake ファミリーアラームのアカウントを確認してください",
+    appName: "<strong>FamWake</strong> ファミリーアラーム",
+    greeting: "FamWake ファミリーアラームへようこそ！",
+    intro: "<strong>FamWake</strong> ファミリーアラームにご登録いただきありがとうございます。あなたとご家族が毎朝穏やかに過ごせるようお手伝いします！",
+    instruction: "アカウントを有効化するには、メールアドレスを確認してください：",
+    button: "メールアドレスを確認",
+    fallback: "ボタンが機能しない場合は、このリンクをブラウザにコピーしてください：",
+    privacy: "<strong>注意：</strong>プライバシー保護のため、このリンクと未確認の登録データは、認証が行われない場合や48時間後に自動的に削除されます。",
+    security: "このアカウントを作成していない場合は、このメールを無視してください。データは永続的に保存されません。",
+    footerNote: "これは自動生成されたメッセージです。このメールに直接返信しないでください。",
+  },
+  nl: {
+    subject: "🚀 Bevestig je FamWake Gezinswekker-account",
+    appName: "<strong>FamWake</strong> Gezinswekker",
+    greeting: "Welkom bij FamWake Gezinswekker!",
+    intro: "Bedankt voor je registratie bij <strong>FamWake</strong> Gezinswekker. We kijken ernaar uit om jou en je gezin te helpen elke ochtend ontspannen te starten!",
+    instruction: "Bevestig je e-mailadres om je account te activeren:",
+    button: "E-mailadres bevestigen",
+    fallback: "Als de knop niet werkt, kopieer dan deze link naar je browser:",
+    privacy: "<strong>Opmerking:</strong> Om privacyredenen worden deze link en je onbevestigde registratiegegevens automatisch verwijderd na 48 uur als er geen activering plaatsvindt.",
+    security: "Als je dit account niet hebt aangemaakt, kun je deze e-mail gewoon negeren. Er worden geen gegevens permanent opgeslagen.",
+    footerNote: "Dit is een automatisch gegenereerd bericht. Reageer niet rechtstreeks op deze e-mail.",
+  },
+  no: {
+    subject: "🚀 Bekreft FamWake Familievekker-kontoen din",
+    appName: "<strong>FamWake</strong> Familievekker",
+    greeting: "Velkommen til FamWake Familievekker!",
+    intro: "Takk for at du registrerte deg på <strong>FamWake</strong> Familievekker. Vi gleder oss til å hjelpe deg og familien din med å starte morgenen avslappet og stressfritt!",
+    instruction: "Bekreft e-postadressen din for å aktivere kontoen din:",
+    button: "Bekreft e-postadresse",
+    fallback: "Hvis knappen ikke fungerer, lim inn denne lenken i nettleseren din:",
+    privacy: "<strong>Merk:</strong> Av personvernhensyn vil denne lenken og dine ubekreftede registreringsdata slettes automatisk etter 48 timer hvis ingen aktivering skjer.",
+    security: "Hvis du ikke opprettet denne kontoen, kan du trygt ignorere denne e-posten. Ingen data vil bli lagret permanent.",
+    footerNote: "Dette er en automatisk generert melding. Vennligst ikke svar direkte på denne e-posten.",
+  },
+  pl: {
+    subject: "🚀 Potwierdź swoje konto FamWake Budzik Rodzinny",
+    appName: "<strong>FamWake</strong> Budzik Rodzinny",
+    greeting: "Witaj w FamWake Budzik Rodzinny!",
+    intro: "Dziękujemy za rejestrację w <strong>FamWake</strong> Budzik Rodzinny. Cieszymy się, że pomożemy Tobie i Twojej rodzinie zacząć każdy poranek spokojnie i bez chaosu!",
+    instruction: "Potwierdź swój adres e-mail, aby aktywować konto:",
+    button: "Potwierdź adres e-mail",
+    fallback: "Jeśli przycisk nie działa, skopiuj ten link do przeglądarki:",
+    privacy: "<strong>Uwaga:</strong> Ze względów prywatności ten link i Twoje niepotwierdzone dane rejestracyjne zostaną automatycznie usunięte po 48 godzinach, jeśli nie nastąpi aktywacja.",
+    security: "Jeśli nie tworzyłeś tego konta, możesz zignorować ten e-mail. Żadne dane nie będą trwale przechowywane.",
+    footerNote: "To jest wiadomość wygenerowana automatycznie. Prosimy nie odpowiadać bezpośrednio na ten e-mail.",
+  },
+  pt: {
+    subject: "🚀 Confirme sua conta FamWake Despertador Familiar",
+    appName: "<strong>FamWake</strong> Despertador Familiar",
+    greeting: "Bem-vindo ao FamWake Despertador Familiar!",
+    intro: "Obrigado por se registrar no <strong>FamWake</strong> Despertador Familiar. Estamos ansiosos para ajudar você e sua família a ter manhãs tranquilas e sem caos!",
+    instruction: "Por favor, confirme seu endereço de e-mail para ativar sua conta:",
+    button: "Confirmar endereço de e-mail",
+    fallback: "Se o botão não funcionar, copie este link para o seu navegador:",
+    privacy: "<strong>Nota:</strong> Por razões de privacidade, este link e seus dados de registro não confirmados serão excluídos automaticamente após 48 horas se nenhuma ativação ocorrer.",
+    security: "Se você não criou esta conta, pode ignorar este e-mail. Nenhum dado será armazenado permanentemente.",
+    footerNote: "Esta é uma mensagem gerada automaticamente. Por favor, não responda diretamente a este e-mail.",
+  },
+  ru: {
+    subject: "🚀 Подтвердите свою учётную запись FamWake Семейный Будильник",
+    appName: "<strong>FamWake</strong> Семейный Будильник",
+    greeting: "Добро пожаловать в FamWake Семейный Будильник!",
+    intro: "Спасибо за регистрацию в <strong>FamWake</strong> Семейный Будильник. Мы рады помочь вам и вашей семье начинать каждое утро спокойно и без хаоса!",
+    instruction: "Подтвердите свой адрес электронной почты для активации учётной записи:",
+    button: "Подтвердить адрес электронной почты",
+    fallback: "Если кнопка не работает, скопируйте эту ссылку в браузер:",
+    privacy: "<strong>Примечание:</strong> В целях защиты конфиденциальности эта ссылка и ваши неподтверждённые данные будут автоматически удалены через 48 часов, если активация не будет выполнена.",
+    security: "Если вы не создавали этот аккаунт, просто проигнорируйте это письмо. Никакие данные не будут сохранены постоянно.",
+    footerNote: "Это автоматически сгенерированное сообщение. Пожалуйста, не отвечайте на него напрямую.",
+  },
+  sv: {
+    subject: "🚀 Bekäfta ditt FamWake Familjens Väckarklocka-konto",
+    appName: "<strong>FamWake</strong> Familjens Väckarklocka",
+    greeting: "Välkommen till FamWake Familjens Väckarklocka!",
+    intro: "Tack för att du registrerade dig på <strong>FamWake</strong> Familjens Väckarklocka. Vi ser fram emot att hjälpa dig och din familj att börja varje morgon avslappnad och utan kaos!",
+    instruction: "Bekäfta din e-postadress för att aktivera ditt konto:",
+    button: "Bekäfta e-postadress",
+    fallback: "Om knappen inte fungerar, kopiera den här länken till din webbläsare:",
+    privacy: "<strong>Obs:</strong> Av integritetsskydd kommer den här länken och dina obekäftade registreringsdata att raderas automatiskt efter 48 timmar om ingen aktivering sker.",
+    security: "Om du inte skapade det här kontot kan du ignorera det här e-postmeddelandet. Inga data kommer att lagras permanent.",
+    footerNote: "Detta är ett automatiskt genererat meddelande. Svara inte direkt på detta e-postmeddelande.",
+  },
+  tr: {
+    subject: "🚀 FamWake Aile Alarmı hesabınızı onaylayın",
+    appName: "<strong>FamWake</strong> Aile Alarmı",
+    greeting: "FamWake Aile Alarmı'na hoş geldiniz!",
+    intro: "<strong>FamWake</strong> Aile Alarmı'na kaydolduğunuz için teşekkür ederiz. Sizi ve ailenizi her sabah sakin ve stressiz bir şekilde başlatmanıza yardımcı olmak için sabırlanıyoruz!",
+    instruction: "Hesabınızı etkinleştirmek için e-posta adresinizi onaylayın:",
+    button: "E-posta adresini onayla",
+    fallback: "Düğme çalışmıyorsa, bu bağlantıyı tarayıcınıza kopyalayın:",
+    privacy: "<strong>Not:</strong> Gizlilik nedeniyle, bu bağlantı ve onaylanmamış kayıt verileriniz, aktivasyon gerçekleşmezse 48 saat sonra otomatik olarak silinecektir.",
+    security: "Bu hesabı siz oluşturmadıysanız, bu e-postayı görmezden gelebilirsiniz. Hiçbir veri kalıcı olarak depolanmayacak.",
+    footerNote: "Bu otomatik olarak oluşturulmuş bir mesajdır. Lütfen bu e-postaya doğrudan yanıt vermeyin.",
+  },
+  uk: {
+    subject: "🚀 Підтвердьте обліковий запис FamWake Сімейний Будильник",
+    appName: "<strong>FamWake</strong> Сімейний Будильник",
+    greeting: "Ласкаво просимо до FamWake Сімейний Будильник!",
+    intro: "Дякуємо за реєстрацію в <strong>FamWake</strong> Сімейний Будильник. Ми раді допомогти вам і вашій родині починати кожен ранок спокійно та без хаосу!",
+    instruction: "Підтвердьте свою електронну адресу для активації облікового запису:",
+    button: "Підтвердити електронну адресу",
+    fallback: "Якщо кнопка не працює, скопіюйте це посилання у браузер:",
+    privacy: "<strong>Примітка:</strong> З міркувань конфіденційності це посилання та ваші непідтверджені дані реєстрації будуть автоматично видалені через 48 годин, якщо активація не буде виконана.",
+    security: "Якщо ви не створювали цей обліковий запис, просто ігноруйте цей лист. Жодні дані не будуть збережені постійно.",
+    footerNote: "Це автоматично згенероване повідомлення. Будь ласка, не відповідайте на нього безпосередньо.",
+  },
 };
 
 function buildVerifyEmailHtml(link, lang) {
@@ -449,7 +801,17 @@ function buildVerifyEmailHtml(link, lang) {
     en: { home: "Website", privacy: "Privacy Policy", imprint: "Legal Notice" },
     es: { home: "Inicio", privacy: "Política de privacidad", imprint: "Aviso legal" },
     fr: { home: "Accueil", privacy: "Politique de confidentialité", imprint: "Mentions légales" },
-    it: { home: "Home", privacy: "Informativa sulla privacy", imprint: "Note legali" }
+    it: { home: "Home", privacy: "Informativa sulla privacy", imprint: "Note legali" },
+    da: { home: "Hjemmeside", privacy: "Privatlivspolitik", imprint: "Juridisk meddelelse" },
+    ja: { home: "ウェブサイト", privacy: "プライバシーポリシー", imprint: "特定商取引法" },
+    nl: { home: "Website", privacy: "Privacybeleid", imprint: "Juridische kennisgeving" },
+    no: { home: "Nettsted", privacy: "Personvernerklæring", imprint: "Juridisk merknad" },
+    pl: { home: "Strona główna", privacy: "Polityka prywatności", imprint: "Nota prawna" },
+    pt: { home: "Website", privacy: "Política de Privacidade", imprint: "Nota Legal" },
+    ru: { home: "Веб-сайт", privacy: "Политика конфиденциальности", imprint: "Правовые сведения" },
+    sv: { home: "Webbplats", privacy: "Integritetspolicy", imprint: "Juridisk information" },
+    tr: { home: "Web Sitesi", privacy: "Gizlilik Politikası", imprint: "Yasal Uyardı" },
+    uk: { home: "Веб-сайт", privacy: "Політика конфіденційності", imprint: "Правова інформація" },
   };
   const l = labels[lang] || labels.de;
 
@@ -489,7 +851,7 @@ exports.sendVerificationEmail = onCall(
   async (request) => {
     const email = request.data?.email;
     const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
-    const lang = ["de", "en", "es", "fr", "it"].includes(requestedLang) ? requestedLang : "de";
+    const lang = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"].includes(requestedLang) ? requestedLang : "de";
 
     if (!email) {
       throw new HttpsError("invalid-argument", "INVALID_EMAIL");
