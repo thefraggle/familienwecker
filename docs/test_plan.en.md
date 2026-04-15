@@ -1,6 +1,6 @@
 # 🧪 Test Plan: FamWake
-**Version:** 1.7.5
-**Date:** 2026-04-10
+**Version:** 1.7.6
+**Date:** 2026-04-15
 *[🇩🇪 Deutsche Version](test_plan.md)*
 
 ---
@@ -126,6 +126,7 @@ Tests validate not only the UI but especially the correctness of the scheduling 
 | UI-04 | Field order | Weekday card: earliest wake, latest wake, bathroom, leave home, breakfast. |
 | UI-05 | Scroll hint | Open Settings/AddMember → bouncing arrow visible. After scrolling to the end: arrow disappears. |
 | UI-06 | Collapsing title | Main screen: title large on open. Scrolling down collapses it cleanly into the compact top bar. |
+| UI-07 | Times on narrow screens | Edit profile (FR/ES/IT or large font size): all times readable on one line; bathroom label wraps without being cut off. |
 
 ---
 

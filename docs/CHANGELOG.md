@@ -7,7 +7,7 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 ## 1.7.6 - 2026-04-15
 
 ### Behoben
-- **Zeitanzeige auf kleinen Bildschirmen** – Lange Beschriftungen (z. B. auf Französisch) konnten dazu führen, dass die Uhrzeit (HH:MM) umbrach und zeilenweise dargestellt wurde. Label und Zeit werden jetzt korrekt nebeneinander angezeigt.
+- **Uhrzeiten immer lesbar** – Auf schmalen Geräten und in Sprachen mit langen Begriffen (z. B. Französisch) wurden Uhrzeiten bisher manchmal zerrissen dargestellt. Jetzt stehen sie immer vollständig in einer Zeile.
 
 ---
 

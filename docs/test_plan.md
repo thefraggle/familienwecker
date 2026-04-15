@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.7.5
-**Datum:** 2026-04-10
+**Version:** 1.7.6
+**Datum:** 2026-04-15
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
@@ -128,6 +128,7 @@ Tests validieren nicht nur die UI, sondern insbesondere die Korrektheit des Plan
 | UI-04 | Feldreihenfolge | Wochenplan-Card: Frühste Weckzeit, Späteste Weckzeit, Badzeit, Haus verlassen, Frühstück. |
 | UI-05 | Scroll-Hint | Öffne Settings/AddMember → bouncender Pfeil sichtbar. Nach Scrollen ans Ende: Pfeil verschwindet. |
 | UI-06 | Kollabierender Titel | Hauptscreen: Titel groß beim Öffnen. Beim Scrollen nach unten kollabiert er sauber zur kompakten TopBar. |
+| UI-07 | Uhrzeiten auf schmalen Screens | Profil bearbeiten (FR/ES/IT oder kleine Schriftgröße): Alle Uhrzeiten einzeilig lesbar; Baddauer-Label bricht ohne Abschneiden um. |
 
 ---
 
