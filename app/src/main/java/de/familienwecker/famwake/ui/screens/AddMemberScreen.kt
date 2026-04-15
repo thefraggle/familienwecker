@@ -762,19 +762,28 @@ private fun TimePickerRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        // Kein SpaceBetween mehr – Label mit weight() drängt den Button nach rechts
+        horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // weight(1f): Label bekommt den verfügbaren Platz und bricht bei langen
+        // Übersetzungen um – verhindert, dass die Uhrzeit rechts gequetscht wird
         Text(
             label,
             style = MaterialTheme.typography.bodyLarge,
-            color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+            color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.weight(1f).padding(end = 8.dp)
         )
-        TextButton(onClick = { showPicker = true }) {
+        // wrapContentWidth: Uhrzeit behält ihre natürliche Breite und bricht nie um
+        TextButton(
+            onClick = { showPicker = true },
+            modifier = Modifier.wrapContentWidth()
+        ) {
             Text(
                 time.format(formatter),
                 style = MaterialTheme.typography.titleMedium,
-                color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
+                softWrap = false
             )
         }
     }
