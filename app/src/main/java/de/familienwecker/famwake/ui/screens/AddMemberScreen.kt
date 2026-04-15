@@ -652,8 +652,6 @@ private fun DayProfileCard(
                         Text(
                             stringResource(R.string.add_member_bathroom_duration),
                             style = MaterialTheme.typography.bodyLarge,
-                            maxLines = 1,
-                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
                             modifier = Modifier.weight(1f).padding(end = 8.dp)
                         )
                         Row(verticalAlignment = Alignment.CenterVertically) {
