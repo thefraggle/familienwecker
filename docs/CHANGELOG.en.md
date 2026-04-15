@@ -4,6 +4,13 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.6 - 2026-04-15
+
+### Fixed
+- **Time display on narrow screens** – Long labels (e.g. in French) could cause the time value (HH:MM) to wrap across multiple lines. Labels and times are now correctly displayed side by side.
+
+---
+
 ## 1.7.5 - 2026-04-10
 
 ### Fixed
