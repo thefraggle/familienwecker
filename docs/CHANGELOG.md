@@ -4,6 +4,13 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.6 - 2026-04-15
+
+### Behoben
+- **Zeitanzeige auf kleinen Bildschirmen** – Lange Beschriftungen (z. B. auf Französisch) konnten dazu führen, dass die Uhrzeit (HH:MM) umbrach und zeilenweise dargestellt wurde. Label und Zeit werden jetzt korrekt nebeneinander angezeigt.
+
+---
+
 ## 1.7.5 - 2026-04-10
 
 ### Behoben
