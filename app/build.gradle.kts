@@ -140,6 +140,9 @@ dependencies {
     // Play In-App Review
     implementation(libs.play.review.ktx)
 
+    // Play Integrity – Gerätevertrauen prüfen (Monitoring-Modus in v1.7.7)
+    implementation(libs.play.integrity)
+
     // RevenueCat
     implementation(libs.revenuecat.purchases)
 

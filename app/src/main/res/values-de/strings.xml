@@ -320,6 +320,7 @@
     <string name="settings_exact_alarm_warning_button">Wecker erlauben</string>
     <string name="main_exact_alarm_banner">⚠️ Wecker darf nicht klingeln! Bitte Berechtigung in den Einstellungen erteilen.</string>
     <string name="error_offline_feedback">Du bist offline. Bitte prüfe deine Verbindung und versuche es erneut.</string>
+    <string name="error_sync_blocked_device">Synchronisation auf diesem Gerät nicht verfügbar.</string>
     <string name="error_feedback_rate_limit">Bitte warte %1$s Sekunden bevor du eine weitere Nachricht sendest.</string>
     <string name="error_feedback_rate_limit_server">Zu viele Anfragen. Bitte versuche es später erneut.</string>
     <string name="error_feedback_empty_message">Die Nachricht darf nicht leer sein.</string>
