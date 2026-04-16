@@ -8,6 +8,8 @@ import de.familienwecker.famwake.alarm.AlarmScheduler
 import de.familienwecker.famwake.data.AppError
 import de.familienwecker.famwake.data.FirebaseRepository
 import de.familienwecker.famwake.util.TooltipKeys
+import de.familienwecker.famwake.util.DeviceTrustLevel
+import de.familienwecker.famwake.util.DeviceTrustManager
 import de.familienwecker.famwake.data.IFirebaseRepository
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.FamilySchedule
@@ -149,6 +151,16 @@ class FamilyViewModel(
     internal val _isOffline = MutableStateFlow(false)
     val isOffline: StateFlow<Boolean> = _isOffline.asStateFlow()
 
+    // ── Geräteintegrität (Play Integrity API) ─────────────────────────────────
+
+    private val _deviceTrustLevel = MutableStateFlow(DeviceTrustLevel.UNKNOWN)
+    val deviceTrustLevel: StateFlow<DeviceTrustLevel> = _deviceTrustLevel.asStateFlow()
+
+    /** true = gerootetes/manipuliertes Gerät → Firebase-Sync deaktiviert. */
+    val isSyncBlocked: StateFlow<Boolean> = _deviceTrustLevel
+        .map { it == DeviceTrustLevel.UNTRUSTED }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
     internal val _pendingPauseIds = MutableStateFlow<Set<String>>(emptySet())
     val pendingPauseIds: StateFlow<Set<String>> = _pendingPauseIds.asStateFlow()
 
@@ -215,6 +227,14 @@ class FamilyViewModel(
             networkMonitor.isOnline.collect { online ->
                 _isOffline.value = !online
             }
+        }
+
+        // Integritätscheck beim Start – asynchron, blockiert den Init nicht.
+        // Ergebnis wird in TelemetryDeck geloggt ("integrity.check").
+        // Im Monitoring-Modus (v1.7.7) ist isSyncBlocked immer false.
+        viewModelScope.launch(Dispatchers.IO) {
+            val trustManager = DeviceTrustManager(getApplication())
+            _deviceTrustLevel.value = trustManager.checkTrust()
         }
 
         viewModelScope.launch(Dispatchers.IO) {
