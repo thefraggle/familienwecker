@@ -28,6 +28,11 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
             onComplete(false)
             return@launch
         }
+        if (isSyncBlocked.value) {
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_blocked_device)
+            onComplete(false)
+            return@launch
+        }
         val result = repository.createFamily(familyName, uid)
         result.onSuccess { pair ->
             appSettings.setFamilyId(pair.first)
@@ -60,6 +65,12 @@ fun FamilyViewModel.joinFamily(code: String, onComplete: (Boolean) -> Unit) {
         _isJoiningFamily.value = true
         if (isOffline.value) {
             _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
+            onComplete(false)
+            return@launch
+        }
+        if (isSyncBlocked.value) {
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_blocked_device)
+            _isJoiningFamily.value = false
             onComplete(false)
             return@launch
         }

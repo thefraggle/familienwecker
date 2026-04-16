@@ -320,6 +320,7 @@
     <string name="settings_exact_alarm_warning_button">Allow alarms</string>
     <string name="main_exact_alarm_banner">⚠️ Alarm blocked! Please grant the alarm permission in settings so your alarm can ring on time.</string>
     <string name="error_offline_feedback">You are offline. Please check your connection and try again.</string>
+    <string name="error_sync_blocked_device">Sync is not available on this device.</string>
     <string name="error_feedback_rate_limit">Please wait %1$s seconds before sending another message.</string>
     <string name="error_feedback_rate_limit_server">Too many requests. Please try again later.</string>
     <string name="error_feedback_empty_message">Message must not be empty.</string>
