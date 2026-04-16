@@ -123,18 +123,22 @@ class DeviceTrustManager(private val context: Context) {
     /**
      * Loggt das Ergebnis in TelemetryDeck (privacy-first, kein User-Identifier).
      * Sichtbar im TelemetryDeck-Dashboard unter "integrity.check".
+     *
+     * Nur in Release-Builds: Debug/Emulator-Daten würden die Monitoring-Statistik verfälschen.
      */
     private fun logVerdict(verdict: DeviceTrustLevel) {
         val verdictLabel = verdict.name // "TRUSTED", "UNTRUSTED", "UNKNOWN"
-        TelemetryDeck.signal(
-            "integrity.check",
-            mapOf(
-                "verdict" to verdictLabel,
-                "enforcement" to ENFORCEMENT_ENABLED.toString()
+        if (!BuildConfig.DEBUG) {
+            TelemetryDeck.signal(
+                "integrity.check",
+                mapOf(
+                    "verdict" to verdictLabel,
+                    "enforcement" to ENFORCEMENT_ENABLED.toString()
+                )
             )
-        )
+        }
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "Integrity verdict: $verdictLabel (enforcement=$ENFORCEMENT_ENABLED)")
+            Log.d(TAG, "Integrity verdict: $verdictLabel (enforcement=$ENFORCEMENT_ENABLED, telemetry skipped in debug)")
         }
     }
 }
