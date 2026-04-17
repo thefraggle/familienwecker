@@ -13,6 +13,28 @@
       "order": 0
     },
     {
+      "title": "Stop vs. Snooze (Gesamt)",
+      "type": "topN",
+      "displayMode": "donutChart",
+      "groupBy": "all",
+      "signalType": "alarm.dismissed",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 1
+    },
+    {
+      "title": "Alarm gestoppt pro Tag",
+      "type": "timeseries",
+      "displayMode": "lineChart",
+      "groupBy": "day",
+      "signalType": "alarm.dismissed",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 2
+    },
+    {
       "title": "Snooze pro Tag",
       "type": "timeseries",
       "displayMode": "lineChart",
@@ -21,7 +43,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 1
+      "order": 3
     },
     {
       "title": "Snooze abgebrochen (Wöchentlich)",
@@ -32,7 +54,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 2
+      "order": 4
     },
     {
       "title": "Beliebteste Klingeltöne",
@@ -43,12 +65,12 @@
       "breakdownKey": "soundName",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 3
+      "order": 5
     }
   ],
   "_exportMetadata": {
     "version": 1,
-    "exportedAt": "2026-04-17T07:19:01.160Z",
+    "exportedAt": "2026-04-17T15:44:00.000Z",
     "dynamicFields": []
   }
 }
