@@ -41,6 +41,7 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
 import androidx.core.net.toUri
+import com.telemetrydeck.sdk.TelemetryDeck
 
 class RingingActivity : AppCompatActivity() {
 
@@ -60,6 +61,8 @@ class RingingActivity : AppCompatActivity() {
 
         showOnLockScreenAndTurnScreenOn()
         playRingtone()
+        // Tracking: Wecker wurde tatsächlich ausgelöst (getrennt von Snooze tracken)
+        TelemetryDeck.signal("alarm.triggered")
 
         val appSettings = (application as FamWakeApplication).appSettings
         val alarmScheduler = de.familienwecker.famwake.alarm.AlarmScheduler(this)

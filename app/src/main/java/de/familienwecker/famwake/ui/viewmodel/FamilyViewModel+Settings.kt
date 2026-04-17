@@ -21,7 +21,8 @@ fun FamilyViewModel.setThemePreference(theme: String) {
 
 fun FamilyViewModel.setTooltipsEnabled(enabled: Boolean) {
     appSettings.setTooltipsEnabled(enabled)
-    TelemetryDeck.signal(if (enabled) "settings.tipsEnabled" else "settings.tipsDisabled")
+    // Konsolidiert: ein Event mit Payload statt zwei separater Events
+    TelemetryDeck.signal("settings.tipsChanged", mapOf("enabled" to enabled.toString()))
 }
 
 fun FamilyViewModel.checkAndShowReview(activity: Activity, ignoreConstraints: Boolean = false) {
