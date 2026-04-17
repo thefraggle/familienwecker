@@ -4,6 +4,17 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.7 - 2026-04-17
+
+### Neu
+- **Onboarding neu gedacht** – Die Einführungstour erklärt jetzt klarer, was FamWake wirklich kann. Nutzen statt Technik, kompakt und motivierend.
+- **Gerätevertrauen** – FamWake prüft im Hintergrund, ob das Gerät vertrauenswürdig ist. Für dich unsichtbar – sorgt langfristig für mehr Datensicherheit.
+
+### Verbessert
+- **Analytics-Unterbau** – Nutzungsauswertung im Hintergrund ausgebaut. Hilft dabei, FamWake besser zu machen, ohne persönliche Daten zu übertragen.
+
+---
+
 ## 1.7.6 - 2026-04-15
 
 ### Behoben

@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.7.6
-**Datum:** 2026-04-15
+**Version:** 1.7.7
+**Datum:** 2026-04-17
 *[🇬🇧 English version](test_plan.en.md)*
 
 ---
@@ -28,8 +28,9 @@ Tests validieren nicht nur die UI, sondern insbesondere die Korrektheit des Plan
 | TC-08 | Login-Validierung | Zu kurzes Passwort / ungültige E-Mail → Fehlermeldung sofort, kein Absturz. |
 | TC-09 | Familie verlassen / löschen | Eigenes Profil gelöscht. Admin-only Löschen: Nicht-Creator erhält Fehlermeldung. Bei leerer Familie: einfache Bestätigung. |
 | TC-10 | Multi-Account Isolation | User A ausloggen, B einloggen → B sieht nur seine Familie. |
-| TC-11 | Onboarding-Tour | Erststart zeigt 5 Slides mit Panda. Tour aus Einstellungen wieder aufrufbar. Abschluss landet korrekt im Hauptscreen. |
+| TC-11 | Onboarding-Tour | Erststart zeigt 5 Slides mit Panda. Texte sind benefit-fokussiert (kein Tech-Jargon). Tour aus Einstellungen wieder aufrufbar. Abschluss landet korrekt im Hauptscreen. |
 | TC-12 | Rate-Limiting | >5 falsche Codes/min bzw. >5 Reset-Mails/h → serverseitige Blockierung ("Resource Exhausted"). |
+| TC-13 | Device Trust (Monitoring) | App startet normal auf allen Geräten. Im Hintergrund wird ein Integritäts-Check ausgeführt; kein sichtbarer Effekt für den User (Monitoring-Modus). |
 
 ### 2. Mitglieder & Familienkonfiguration
 | ID | Testfall | Erwartetes Ergebnis |

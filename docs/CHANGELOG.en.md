@@ -4,6 +4,17 @@ This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.7 - 2026-04-17
+
+### New
+- **Onboarding reimagined** – The intro tour now explains what FamWake is really about. Benefits first, straight to the point.
+- **Device trust** – FamWake quietly checks in the background whether your device is trustworthy. Invisible to you – adds an extra layer of data security over time.
+
+### Improved
+- **Analytics foundation** – Extended background usage tracking. Helps make FamWake better without transmitting any personal data.
+
+---
+
 ## 1.7.6 - 2026-04-15
 
 ### Fixed
