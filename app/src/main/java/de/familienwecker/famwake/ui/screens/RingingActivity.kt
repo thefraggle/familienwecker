@@ -81,6 +81,8 @@ class RingingActivity : AppCompatActivity() {
                             appSettings.setSnoozeUntil(null)
                             // Snooze-Alarm-Slot aus dem System entfernen
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
+                            // Tracking: Nutzer hat den Alarm aktiv abgebrochen (nicht durch Snooze)
+                            TelemetryDeck.signal("alarm.dismissed")
                             stopRingtoneAndFinish()
                         },
                         onSnoozeClicked = {
@@ -93,6 +95,9 @@ class RingingActivity : AppCompatActivity() {
                                 soundUri = appSettings.alarmSoundUri.value,
                                 isSnooze = true
                             )
+                            // Tracking: Nutzer hat Snooze gewählt (direkt in RingingActivity,
+                            // da viewModel.snooze() hier nicht verfügbar ist)
+                            TelemetryDeck.signal("alarm.snoozed")
                             stopRingtoneAndFinish()
                         }
                     )
