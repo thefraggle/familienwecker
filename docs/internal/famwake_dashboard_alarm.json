@@ -1,0 +1,54 @@
+{
+  "title": "⏰ Alarm-Nutzung",
+  "insights": [
+    {
+      "title": "Alarm-Trigger pro Tag",
+      "type": "timeseries",
+      "displayMode": "lineChart",
+      "groupBy": "day",
+      "signalType": "alarm.triggered",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": true,
+      "order": 0
+    },
+    {
+      "title": "Snooze pro Tag",
+      "type": "timeseries",
+      "displayMode": "lineChart",
+      "groupBy": "day",
+      "signalType": "alarm.snoozed",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 1
+    },
+    {
+      "title": "Snooze abgebrochen (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "alarm.snoozeCancelled",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 2
+    },
+    {
+      "title": "Beliebteste Klingeltöne",
+      "type": "topN",
+      "displayMode": "barChart",
+      "groupBy": "all",
+      "signalType": "alarm.soundChanged",
+      "breakdownKey": "soundName",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 3
+    }
+  ],
+  "_exportMetadata": {
+    "version": 1,
+    "exportedAt": "2026-04-17T07:19:01.160Z",
+    "dynamicFields": []
+  }
+}

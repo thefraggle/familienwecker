@@ -1,0 +1,65 @@
+{
+  "title": "👨‍👩‍👧 Familie & Setup",
+  "insights": [
+    {
+      "title": "Familien erstellt (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "family.created",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 0
+    },
+    {
+      "title": "Familien beigetreten (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "family.joined",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 1
+    },
+    {
+      "title": "Member pausiert",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "member.paused",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 2
+    },
+    {
+      "title": "Member reaktiviert",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "member.unpaused",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 3
+    },
+    {
+      "title": "Reihenfolge per Drag & Drop geändert",
+      "type": "timeseries",
+      "displayMode": "lineChart",
+      "groupBy": "week",
+      "signalType": "member.reordered",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 4
+    }
+  ],
+  "_exportMetadata": {
+    "version": 1,
+    "exportedAt": "2026-04-17T07:19:01.160Z",
+    "dynamicFields": []
+  }
+}

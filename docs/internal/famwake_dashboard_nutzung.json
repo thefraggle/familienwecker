@@ -1,0 +1,54 @@
+{
+  "title": "📱 Nutzung & Wachstum",
+  "insights": [
+    {
+      "title": "Tägliche aktive Nutzer (DAU)",
+      "type": "timeseries",
+      "displayMode": "lineChart",
+      "groupBy": "day",
+      "signalType": "app.launched",
+      "breakdownKey": "",
+      "uniqueUser": true,
+      "isExpanded": true,
+      "order": 0
+    },
+    {
+      "title": "Neue Registrierungen (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "auth.registerSuccess",
+      "breakdownKey": "",
+      "uniqueUser": true,
+      "isExpanded": false,
+      "order": 1
+    },
+    {
+      "title": "Login-Methode (E-Mail vs. Google)",
+      "type": "topN",
+      "displayMode": "donutChart",
+      "groupBy": "all",
+      "signalType": "auth.loginSuccess",
+      "breakdownKey": "method",
+      "uniqueUser": true,
+      "isExpanded": false,
+      "order": 2
+    },
+    {
+      "title": "App-Starts pro Monat",
+      "type": "timeseries",
+      "displayMode": "lineChart",
+      "groupBy": "month",
+      "signalType": "app.launched",
+      "breakdownKey": "",
+      "uniqueUser": true,
+      "isExpanded": false,
+      "order": 3
+    }
+  ],
+  "_exportMetadata": {
+    "version": 1,
+    "exportedAt": "2026-04-17T07:19:01.160Z",
+    "dynamicFields": []
+  }
+}
