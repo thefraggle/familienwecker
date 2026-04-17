@@ -4,7 +4,7 @@
     {
       "title": "Integrity Verdict Verteilung",
       "type": "topN",
-      "displayMode": "donutChart",
+      "displayMode": "barChart",
       "groupBy": "all",
       "signalType": "integrity.check",
       "breakdownKey": "verdict",
