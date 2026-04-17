@@ -15,7 +15,7 @@
     {
       "title": "Stop vs. Snooze (Gesamt)",
       "type": "topN",
-      "displayMode": "donutChart",
+      "displayMode": "barChart",
       "groupBy": "all",
       "signalType": "alarm.dismissed",
       "breakdownKey": "",
