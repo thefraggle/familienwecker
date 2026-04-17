@@ -1,5 +1,6 @@
 package de.familienwecker.famwake.ui.viewmodel
 
+import com.telemetrydeck.sdk.TelemetryDeck
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.data.FamilyNotFoundException
 import de.familienwecker.famwake.data.CodeGenerationFailedException
@@ -38,6 +39,8 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
             appSettings.setFamilyId(pair.first)
             appSettings.setJoinCode(pair.second)
             appSettings.setFamilyName(familyName)
+            // Tracking: Nutzer hat erfolgreich eine neue Familie angelegt
+            TelemetryDeck.signal("family.created")
             onComplete(true)
         }.onFailure { error ->
             when {
@@ -82,6 +85,8 @@ fun FamilyViewModel.joinFamily(code: String, onComplete: (Boolean) -> Unit) {
             appSettings.setFamilyName(fetchedName)
             if (_pendingJoinCode.value == code) _pendingJoinCode.value = null
             _isJoiningFamily.value = false
+            // Tracking: Nutzer ist erfolgreich einer bestehenden Familie beigetreten
+            TelemetryDeck.signal("family.joined")
             onComplete(true)
         }.onFailure { error ->
             when {

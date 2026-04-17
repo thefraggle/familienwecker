@@ -79,6 +79,8 @@ class MainActivity : AppCompatActivity() {
         // Edge-to-Edge muss vor setContent() aufgerufen werden, damit AppCompat
         // keine veralteten setStatusBarColor/setNavigationBarColor-Aufrufe absetzt
         enableEdgeToEdge()
+        // Tracking: App wurde kalt gestartet – gibt grundlegende Nutzungsfrequenz wieder
+        TelemetryDeck.signal("app.launched")
 
         setContent {
             val themePref by familyViewModel.themePreference.collectAsStateWithLifecycle()

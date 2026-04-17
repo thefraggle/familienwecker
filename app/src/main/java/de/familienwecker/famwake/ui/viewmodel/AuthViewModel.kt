@@ -30,6 +30,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
+import com.telemetrydeck.sdk.TelemetryDeck
 import java.security.MessageDigest
 import java.util.UUID
 
@@ -179,6 +180,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         android.util.Log.d("AuthViewModel", "User logged in and verified. Starting restoration...")
                     }
                     _isRestoringFamily.value = true
+                    // Tracking: E-Mail-Login erfolgreich (method-Payload trennt E-Mail von Google Sign-In)
+                    TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "email"))
                     _authState.value = AuthState.Authenticated(user)
                     restoreUserFamily(user.uid)
                 } else {
@@ -208,6 +211,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 if (sendResult.isFailure && de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("AuthViewModel", "Failed to send verification email: ${sendResult.exceptionOrNull()}")
                 }
+                // Tracking: Registrierung erfolgreich (E-Mail-Verifikation steht noch aus)
+                TelemetryDeck.signal("auth.registerSuccess")
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
                 _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
@@ -273,6 +278,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     val gitliveCredential = dev.gitlive.firebase.auth.GoogleAuthProvider.credential(googleIdTokenCredential.idToken, null)
                     val authResult = authRepository.signInWithGoogleCredential(gitliveCredential)
                     authResult.onSuccess { user ->
+                        // Tracking: Google Sign-In erfolgreich (getrennt von E-Mail via method-Payload)
+                        TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "google"))
                         _authState.value = AuthState.Authenticated(user)
                         restoreUserFamily(user.uid)
                     }.onFailure { error ->

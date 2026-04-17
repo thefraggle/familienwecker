@@ -162,6 +162,8 @@ fun FamilyViewModel.togglePauseMember(memberId: String) {
     val newPausedState = !member.isPaused
     val updatedMember = member.copy(isPaused = newPausedState)
     _pendingPauseIds.value = _pendingPauseIds.value + memberId
+    // Tracking: wird Pause-Feature überhaupt genutzt und in welche Richtung?
+    TelemetryDeck.signal(if (newPausedState) "member.paused" else "member.unpaused")
     scope.launch {
         try {
             // Gezieltes Update nur für isPaused – kein volles .set() das name enthält
@@ -222,6 +224,8 @@ fun FamilyViewModel.saveMemberOrder() {
     checkOfflineAndHint()
     val currentFamilyId = familyId.value ?: return
     val orderMap = _members.value.associate { it.id to it.sequenceOrder }
+    // Tracking: Nutzer hat die Reihenfolge via Drag & Drop geändert und gespeichert
+    TelemetryDeck.signal("member.reordered")
     scope.launch {
         try {
             repository.updateMemberOrders(currentFamilyId, orderMap)
