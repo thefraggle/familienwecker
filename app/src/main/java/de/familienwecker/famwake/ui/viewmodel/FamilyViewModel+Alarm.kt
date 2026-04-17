@@ -268,7 +268,9 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
 
 fun FamilyViewModel.setAlarmSoundUri(uri: String) {
     appSettings.setAlarmSoundUri(uri)
-    TelemetryDeck.signal("alarm.soundChanged")
+    // Payload: welcher Sound-Typ wird am meisten genutzt?
+    val soundName = uri.substringAfterLast("/").substringBeforeLast(".")
+    TelemetryDeck.signal("alarm.soundChanged", mapOf("soundName" to soundName))
 }
 
 /**
@@ -340,6 +342,8 @@ fun FamilyViewModel.cancelSnooze(memberId: String) {
     appSettings.setSnoozeUntil(null)
     alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
     lastScheduledAlarmMillis = null
+    // Tracking: Nutzer hat Snooze manuell abgebrochen (Gegenstück zu alarm.snoozed)
+    TelemetryDeck.signal("alarm.snoozeCancelled")
     recalculateSchedule()
 }
 
