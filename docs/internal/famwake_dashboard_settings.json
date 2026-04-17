@@ -1,0 +1,32 @@
+{
+  "title": "⚙️ Settings & Sprache",
+  "insights": [
+    {
+      "title": "Tipps aktiviert vs. deaktiviert",
+      "type": "topN",
+      "displayMode": "donutChart",
+      "groupBy": "all",
+      "signalType": "settings.tipsChanged",
+      "breakdownKey": "enabled",
+      "uniqueUser": false,
+      "isExpanded": true,
+      "order": 0
+    },
+    {
+      "title": "Tipps-Änderungen (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "settings.tipsChanged",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 1
+    }
+  ],
+  "_exportMetadata": {
+    "version": 1,
+    "exportedAt": "2026-04-17T07:19:01.160Z",
+    "dynamicFields": []
+  }
+}
