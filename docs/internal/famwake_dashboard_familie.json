@@ -24,6 +24,39 @@
       "order": 1
     },
     {
+      "title": "Member erstellt (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "member.created",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 2
+    },
+    {
+      "title": "Member geclaimt (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "member.claimed",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 3
+    },
+    {
+      "title": "Member gelöscht (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "member.deleted",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 4
+    },
+    {
       "title": "Member pausiert",
       "type": "timeseries",
       "displayMode": "barChart",
@@ -32,7 +65,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 2
+      "order": 5
     },
     {
       "title": "Member reaktiviert",
@@ -43,7 +76,18 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 3
+      "order": 6
+    },
+    {
+      "title": "Schon wach markiert (Täglich)",
+      "type": "timeseries",
+      "displayMode": "lineChart",
+      "groupBy": "day",
+      "signalType": "awake.markedAwake",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 7
     },
     {
       "title": "Reihenfolge per Drag & Drop geändert",
@@ -54,12 +98,12 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 4
+      "order": 8
     }
   ],
   "_exportMetadata": {
     "version": 1,
-    "exportedAt": "2026-04-17T07:19:01.160Z",
+    "exportedAt": "2026-04-17T15:44:00.000Z",
     "dynamicFields": []
   }
 }
