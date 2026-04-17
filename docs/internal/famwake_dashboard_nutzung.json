@@ -26,11 +26,11 @@
     {
       "title": "Login-Methode (E-Mail vs. Google)",
       "type": "topN",
-      "displayMode": "donutChart",
+      "displayMode": "barChart",
       "groupBy": "all",
       "signalType": "auth.loginSuccess",
       "breakdownKey": "method",
-      "uniqueUser": true,
+      "uniqueUser": false,
       "isExpanded": false,
       "order": 2
     },
