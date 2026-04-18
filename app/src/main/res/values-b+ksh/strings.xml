@@ -342,4 +342,5 @@
     <string name="error_sync_blocked_device">Syncen geht auf dem Gerät hier nich.</string>
     <string name="onboarding_mock_name1">Vatta</string>
     <string name="onboarding_mock_name2">Mudda</string>
+    <string name="onboarding_mock_family_name">Schmitz</string>
 </resources>

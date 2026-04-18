@@ -342,4 +342,5 @@
     <string name="error_sync_blocked_device">Bu cihazda senkronizasyon kullanılamıyor.</string>
     <string name="onboarding_mock_name1">Baba</string>
     <string name="onboarding_mock_name2">Anne</string>
+    <string name="onboarding_mock_family_name">Yılmaz</string>
 </resources>
