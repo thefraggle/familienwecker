@@ -205,6 +205,15 @@
         <item>Heavy metal om morgenen holder bekymringerne væk!</item>
         <item>Din tidsplan er live. Lad os komme afsted!</item>
         <item>Klar til afgang? Teamet regner med dig.</item>
+        <item>Stå op, solskin! Badeværelset er ledigt for dig.</item>
+        <item>Din personlige badeværelsesslot starter nu – udnyt den!</item>
+        <item>Fri bane til badeværelset – din slot er reserveret!</item>
+        <item>Morgenstund har guld i mund – og varmt vand!</item>
+        <item>Fem minutter mere? Nej! Dit tidsvindue venter.</item>
+        <item>I dag bliver en god dag. Den starter nu!</item>
+        <item>Din tandbørste savner dig. Af sted til badeværelset!</item>
+        <item>Alt koordineret, alt planlagt – det er din tur!</item>
+        <item>Den tidlige fugl har badeværelset helt for sig selv.</item>
     </string-array>
     <string name="ringing_stop">Stop alarm</string>
     <string name="ringing_snooze">Slumre (5 min)</string>
