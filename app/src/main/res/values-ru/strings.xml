@@ -310,7 +310,8 @@
     <string name="settings_donate_error_invalid">Покупка была недействительной.</string>
     <string name="settings_donate_error_generic">Во время пожертвования произошла ошибка.</string>
 
-    <string name="error_permission_denied">В доступі відмовлено</string> <string name="error_offline">Нет подключения к интернету</string>
+    <string name="error_permission_denied">Доступ запрещён</string>
+    <string name="error_offline">Нет подключения к интернету</string>
     <string name="error_report_failed">Не удалось отправить отчет</string>
     <string name="error_leave_failed">Не удалось покинуть семью</string>
     <string name="error_revenuecat_not_configured">RevenueCat не настроен</string>
@@ -339,4 +340,6 @@
     <string name="tooltip_alarm_sound">Нажмите здесь, чтобы выбрать личный звук будильника – вместо стандартного сигнала поставьте любимую мелодию.</string>
     <string name="settings_language_dialects">Диалекты</string>
     <string name="error_sync_blocked_device">Синхронизация недоступна на этом устройстве.</string>
+    <string name="onboarding_mock_name1">Папа</string>
+    <string name="onboarding_mock_name2">Мама</string>
 </resources>

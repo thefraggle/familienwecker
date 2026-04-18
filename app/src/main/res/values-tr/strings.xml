@@ -340,4 +340,6 @@
     <string name="tooltip_alarm_sound">Kişisel uyandırma sesini seçmek için buraya dokun – varsayılan alarm yerine en sevdiğin müziği ayarla.</string>
     <string name="settings_language_dialects">Lehçeler</string>
     <string name="error_sync_blocked_device">Bu cihazda senkronizasyon kullanılamıyor.</string>
+    <string name="onboarding_mock_name1">Baba</string>
+    <string name="onboarding_mock_name2">Anne</string>
 </resources>

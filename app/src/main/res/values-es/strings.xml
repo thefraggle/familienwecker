@@ -340,4 +340,6 @@
     <string name="tooltip_alarm_sound">Toca aquí para elegir tu tono de alarma personal – pon tu melodía favorita en lugar del sonido predeterminado.</string>
     <string name="settings_language_dialects">Dialectos</string>
     <string name="error_sync_blocked_device">La sincronización no está disponible en este dispositivo.</string>
+    <string name="onboarding_mock_name1">Papá</string>
+    <string name="onboarding_mock_name2">Mamá</string>
 </resources>
