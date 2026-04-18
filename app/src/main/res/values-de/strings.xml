@@ -208,6 +208,15 @@
         <item>Heavy Metal am Morgen vertreibt Kummer und Sorgen!</item>
         <item>Dein Zeitplan ist live. Los geht’s!</item>
         <item>Bereit für den Abflug? Das Team zählt auf dich.</item>
+        <item>Aufstehen, Sonnenschein! Das Bad ist frei für dich.</item>
+        <item>Dein persönlicher Bad-Slot startet jetzt – nutze ihn!</item>
+        <item>Freie Bahn im Bad – dein Slot ist reserviert!</item>
+        <item>Morgenstund hat Gold im Mund – und warmes Wasser!</item>
+        <item>Noch 5 Minuten? Nein! Dein Zeitfenster wartet.</item>
+        <item>Heute wird ein guter Tag. Er fängt jetzt an!</item>
+        <item>Die Zahnbürste vermisst dich. Ab ins Bad!</item>
+        <item>Alles koordiniert, alles geplant – du bist dran!</item>
+        <item>Der frühe Vogel hat das Bad für sich allein.</item>
     </string-array>
     <string name="ringing_stop">Wecker stopp</string>
     <string name="ringing_snooze">Schlummern (5 Min)</string>

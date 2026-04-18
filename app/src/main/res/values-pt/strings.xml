@@ -205,6 +205,15 @@
         <item>Rock pesado de manhã afasta as preocupações!</item>
         <item>Seu cronograma está no ar. Vamos lá!</item>
         <item>Pronto para decolar? A equipe conta com você.</item>
+        <item>Acorda, raio de sol! O banheiro está livre para ti.</item>
+        <item>O teu slot pessoal começa agora – aproveita!</item>
+        <item>Caminho livre para o banheiro – o teu turno está reservado!</item>
+        <item>Deus ajuda quem cedo madruga – e a água quente também!</item>
+        <item>Mais 5 minutos? Não! A tua janela de tempo espera.</item>
+        <item>Hoje vai ser um ótimo dia. Começa agora!</item>
+        <item>A tua escova de dentes sente a tua falta. Vai ao banheiro!</item>
+        <item>Tudo coordenado, tudo planeado – é a tua vez!</item>
+        <item>Quem madruga tem o banheiro só para si.</item>
     </string-array>
     <string name="ringing_stop">Parar alarme</string>
     <string name="ringing_snooze">Soneca (5 min)</string>

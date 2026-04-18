@@ -205,6 +205,15 @@
         <item>Heavy metal rano odpędza troski!</item>
         <item>Twój harmonogram jest aktywny. Do dzieła!</item>
         <item>Gotowy do startu? Zespół na Ciebie liczy.</item>
+        <item>Wstawaj, słoneczko! Łazienka jest wolna dla ciebie.</item>
+        <item>Twój osobisty slot łazienkowy zaczyna się teraz – wykorzystaj go!</item>
+        <item>Droga do łazienki wolna – twój slot jest zarezerwowany!</item>
+        <item>Kto rano wstaje, temu ciepła woda sprzyja!</item>
+        <item>Jeszcze 5 minut? Nie! Twoje okno czasowe czeka.</item>
+        <item>Dziś będzie dobry dzień. Zaczyna się teraz!</item>
+        <item>Szczoteczka do zębów tęskni za tobą. Do łazienki!</item>
+        <item>Wszystko skoordynowane, wszystko zaplanowane – twoja kolej!</item>
+        <item>Ranny ptaszek ma łazienkę tylko dla siebie.</item>
     </string-array>
     <string name="ringing_stop">Zatrzymaj alarm</string>
     <string name="ringing_snooze">Drzemka (5 min)</string>
