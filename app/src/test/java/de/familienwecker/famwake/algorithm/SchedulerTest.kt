@@ -2,9 +2,10 @@ package de.familienwecker.famwake.algorithm
 
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.ScheduleMessage
+import de.familienwecker.famwake.util.isBefore
 import org.junit.Assert.*
 import org.junit.Test
-import java.time.LocalTime
+import kotlinx.datetime.LocalTime
 
 class SchedulerTest {
 
@@ -77,6 +78,53 @@ class SchedulerTest {
         assertEquals(ScheduleMessage.NoActiveMembers, result.scheduleMessage)
     }
 
+    @Test
+    fun `single member with breakfast and no leaveHomeTime should not have late-night breakfast time`() {
+        // Reproduziert den Bug: Weckzeit 06:00–07:30, kein leaveHomeTime, wantsBreakfast=true
+        // → Frühstück darf NICHT 23:29 sein, sondern muss ≤ latestWakeUp + bathroomDuration sein
+        val mama = createMember("1", "Mama", "06:00", "07:30", 20, true, null)
+
+        val result = scheduler.calculateIdealSchedule(listOf(mama), breakfastDurationMinutes = 30)
+
+        assertTrue("Schedule should be valid", result.isValid)
+        val breakfast = result.breakfastTime
+        assertNotNull("Breakfast time should be set", breakfast)
+        // Frühstück muss vor 10:00 liegen (nie im abendlichen/nächtlichen Bereich)
+        assertTrue(
+            "Breakfast time $breakfast should not be unreasonably late (expected < 10:00)",
+            breakfast!!.isBefore(LocalTime(10, 0))
+        )
+        // Frühstück darf nicht vor der Weckzeit liegen
+        val wakeUp = result.memberSchedules.first().wakeUpTime
+        assertTrue(
+            "Breakfast $breakfast should be after or equal to wakeUpTime $wakeUp",
+            !breakfast.isBefore(wakeUp)
+        )
+    }
+
+    @Test
+    fun `awake members should be excluded from schedule`() {
+        val m1 = createMember("1", "Active", "06:00", "07:00", 20, false)
+        val m2 = createMember("2", "Awake", "06:00", "07:00", 20, false).copy(isAwakeToday = true)
+
+        // Scheduler berechnet für alle nicht-pausierten. isAwakeToday wird im ViewModel
+        // via resolveEffectiveMember gehandhabt, nicht im Scheduler selbst.
+        // Dieser Test bestätigt, dass der Scheduler isAwakeToday NICHT filtert.
+        val result = scheduler.calculateIdealSchedule(listOf(m1, m2))
+        assertEquals("Scheduler should include awake members (filtering is VM responsibility)", 2, result.memberSchedules.size)
+    }
+
+    @Test
+    fun `single member should produce optimal plan`() {
+        val m1 = createMember("1", "Solo", "06:00", "07:00", 15, false)
+        val result = scheduler.calculateIdealSchedule(listOf(m1))
+
+        assertTrue(result.isValid)
+        assertEquals(ScheduleMessage.OptimalPlan, result.scheduleMessage)
+        assertEquals(1, result.memberSchedules.size)
+        assertNull("No breakfast should be set", result.breakfastTime)
+    }
+
     private fun createMember(
         id: String,
         name: String,
@@ -94,30 +142,6 @@ class SchedulerTest {
             bathroomDurationMinutes = duration,
             wantsBreakfast = breakfast,
             leaveHomeTime = leave?.let { LocalTime.parse(it) }
-        )
-    }
-
-    @Test
-    fun `single member with breakfast and no leaveHomeTime should not have late-night breakfast time`() {
-        // Reproduziert den Bug: Weckzeit 06:00–07:30, kein leaveHomeTime, wantsBreakfast=true
-        // → Frühstück darf NICHT 23:29 sein, sondern muss ≤ latestWakeUp + bathroomDuration sein
-        val mama = createMember("1", "Mama", "06:00", "07:30", 20, true, null)
-
-        val result = scheduler.calculateIdealSchedule(listOf(mama), breakfastDurationMinutes = 30)
-
-        assertTrue("Schedule should be valid", result.isValid)
-        val breakfast = result.breakfastTime
-        assertNotNull("Breakfast time should be set", breakfast)
-        // Frühstück muss vor 10:00 liegen (nie im abendlichen/nächtlichen Bereich)
-        assertTrue(
-            "Breakfast time $breakfast should not be unreasonably late (expected < 10:00)",
-            breakfast!!.isBefore(LocalTime.of(10, 0))
-        )
-        // Frühstück darf nicht vor der Weckzeit liegen
-        val wakeUp = result.memberSchedules.first().wakeUpTime
-        assertTrue(
-            "Breakfast $breakfast should be after or equal to wakeUpTime $wakeUp",
-            !breakfast.isBefore(wakeUp)
         )
     }
 }

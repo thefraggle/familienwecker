@@ -423,9 +423,8 @@ fun MainScreen(
                                         val awakeInteractionSource = remember { MutableInteractionSource() }
 
                                         // Button nur im 2h-Fenster vor dem NÄCHSTEN aktiven Alarm aktiv.
-                                        // Nutzt das nächste aktive DayProfile (0..6 Tage voraus),
-                                        // nicht den Fallback myMember.earliestWakeUp – der ist u.U.
-                                        // veraltet wenn ein neuer Member angelegt oder Tage umkonfiguriert werden.
+                                        // Nutzt latestWakeUp als Cutoff (konsistent mit resolveEffectiveMember),
+                                        // und den tatsächlichen Zeitplan-Alarm für das 2h-Fenster.
                                         val nowDt = java.time.LocalDateTime.now()
                                         val todayDate = nowDt.toLocalDate()
 
@@ -436,14 +435,21 @@ fun MainScreen(
                                             val profile = myMember.dayProfiles?.get(dow)
                                             if (profile != null && profile.isActive) date to profile else null
                                         }.firstOrNull { (date, profile) ->
-                                            // Für heute: nur gültig wenn earliestWakeUp noch nicht vorbei
-                                            if (date == todayDate) nowDt.toLocalTime() < profile.earliestWakeUp.toJavaLocalTime()
+                                            // Für heute: gültig solange latestWakeUp nicht vorbei ist
+                                            // (konsistent mit resolveEffectiveMember, das ebenfalls latestWakeUp als Cutoff nutzt)
+                                            if (date == todayDate) nowDt.toLocalTime() < profile.latestWakeUp.toJavaLocalTime()
                                             else true
                                         }
 
                                         val withinWindow = if (nextActiveProfile != null) {
                                             val (targetDate, profile) = nextActiveProfile
-                                            val targetDt = java.time.LocalDateTime.of(targetDate, profile.earliestWakeUp.toJavaLocalTime())
+                                            // Tatsächliche Weckzeit aus dem berechneten Schedule bevorzugen,
+                                            // Fallback auf earliestWakeUp wenn kein Schedule vorhanden
+                                            val myScheduledTime = schedule?.memberSchedules
+                                                ?.find { it.member.id == myMemberId }
+                                                ?.wakeUpTime?.toJavaLocalTime()
+                                            val alarmTime = myScheduledTime ?: profile.earliestWakeUp.toJavaLocalTime()
+                                            val targetDt = java.time.LocalDateTime.of(targetDate, alarmTime)
                                             val windowStart = targetDt.minusHours(2)
                                             nowDt >= windowStart && nowDt < targetDt
                                         } else {
@@ -698,16 +704,17 @@ fun MainScreen(
                                     text = if (isAlarmEnabled) "✅ " + stringResource(R.string.main_optimal_plan) else "⏸️ " + stringResource(R.string.main_plan_paused), 
                                     fontWeight = FontWeight.Bold
                                 )
-                                // Datum anzeigen wenn Alarm nicht heute ist
-                                val earliestAlarm = currentSchedule.memberSchedules.minByOrNull { it.wakeUpTime }?.wakeUpTime
-                                if (earliestAlarm != null && java.time.LocalTime.now().isAfter(earliestAlarm.toJavaLocalTime())) {
-                                    val tomorrow = java.time.LocalDate.now().plusDays(1)
+                                // Datum anzeigen wenn Schedule für einen zukünftigen Tag berechnet wurde
+                                val scheduleTargetDate = currentSchedule.targetDate
+                                val todayJava = java.time.LocalDate.now()
+                                val targetJava = scheduleTargetDate?.let { java.time.LocalDate.of(it.year, it.monthNumber, it.dayOfMonth) }
+                                if (targetJava != null && targetJava != todayJava) {
                                     // App-Locale aus den lokalisierten Resources – nicht Geräte-Locale
                                     val appLocale = context.resources.configuration.locales[0]
-                                    val dayName = tomorrow.dayOfWeek
+                                    val dayName = targetJava.dayOfWeek
                                         .getDisplayName(java.time.format.TextStyle.FULL, appLocale)
                                         .replaceFirstChar { it.uppercase() }
-                                    val dateStr = tomorrow.format(java.time.format.DateTimeFormatter.ofPattern("d. MMMM", appLocale))
+                                    val dateStr = targetJava.format(java.time.format.DateTimeFormatter.ofPattern("d. MMMM", appLocale))
                                     Text(
                                         text = "$dayName, $dateStr",
                                         style = MaterialTheme.typography.bodySmall,

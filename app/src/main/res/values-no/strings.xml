@@ -332,4 +332,5 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Trykk her for å velge din personlige vekkelyd – velg din favorittlyd i stedet for standardalarmen.</string>
     <string name="settings_language_dialects">Dialekter</string>
+    <string name="error_sync_blocked_device">Synkronisering er ikke tilgjengelig på denne enheten.</string>
 </resources>
