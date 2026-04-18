@@ -930,21 +930,7 @@ fun SettingsScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    val rateInteractionSource = remember { MutableInteractionSource() }
-                    OutlinedButton(
-                        onClick = {
-                            context.findActivity()?.let {
-                                // Manueller Aufruf ignoriert die Zeitbeschränkungen
-                                viewModel.checkAndShowReview(it, ignoreConstraints = true)
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth().bounceClick(rateInteractionSource),
-                        interactionSource = rateInteractionSource
-                    ) {
-                        Text(stringResource(R.string.settings_rate_app))
-                    }
 
-                    Spacer(modifier = Modifier.height(8.dp))
 
                     // Spenden Button
                     val donateInteractionSource = remember { MutableInteractionSource() }
@@ -1106,25 +1092,7 @@ fun SettingsScreen(
                                             Text(if (adminReportConfirmed) "✓ Report angefordert" else "Statistik-Report (E-Mail)")
                                         }
 
-                                        val adminReviewInteraction = remember { MutableInteractionSource() }
-                                        Button(
-                                            onClick = {
-                                                context.findActivity()?.let {
-                                                    viewModel.checkAndShowReview(it, ignoreConstraints = true)
-                                                }
-                                            },
-                                            modifier = Modifier.fillMaxWidth().bounceClick(adminReviewInteraction),
-                                            interactionSource = adminReviewInteraction,
-                                            colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                                            ),
-                                            shape = MaterialTheme.shapes.small
-                                        ) {
-                                            Icon(Icons.Default.Refresh, contentDescription = null)
-                                            Spacer(Modifier.width(8.dp))
-                                            Text("Review Flow testen")
-                                        }
+
                                     }
                                 },
                                 confirmButton = {
