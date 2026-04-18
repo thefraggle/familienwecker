@@ -22,8 +22,8 @@
     <string name="join_loading_text">Beitritt wird g\'macht…</string>
 
     <string name="main_add_member_desc">Mitglied nei-tua</string>
-    <string name="main_family_members">Familienmitglieder</string>
-    <string name="main_current_schedule">Aktueller Zeitplan</string>
+    <string name="main_family_members">Familiamitglieder</string>
+    <string name="main_current_schedule">Aktueller Zeitpla</string>
     <string name="main_no_active_schedule">Koi aktiver Weckplan do.</string>
     <string name="main_optimal_plan">Guck, des isch dr berechnete Zeitplan:</string>
     <string name="main_plan_paused">Dei Wegger hat grad Pause.</string>
@@ -330,7 +330,7 @@
     <string name="error_feedback_rate_limit">Wart %1$s Sekunda bevor de nochmal was schicksch.</string>
     <string name="error_feedback_rate_limit_server">Z viel auf oimol. Probiers schpäder nochmal.</string>
     <string name="error_feedback_empty_message">Do muss was drin schdanda, sonscht bringts nix.</string>
-    <string name="error_network">Netzwerkfehler. Guck mol ob dei Internet goht.</string>
+    <string name="error_network">Netzwerkfähler. Guck mol ob dei Internet goht.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -338,6 +338,8 @@
     <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Drück da, um dei persönliche Weckertön auszusuacha – nemm dei Lieblingsklang statt em Standardalarm.</string>
-    <string name="settings_language_dialects">Dialekte</string>
-    <string name="error_sync_blocked_device">Synchronisierung isch uf dem Gerät ned verfügbar.</string>
+    <string name="settings_language_dialects">Dialegde</string>
+    <string name="error_sync_blocked_device">S\'Synca goht uf dem Grät do net.</string>
+    <string name="onboarding_mock_name1">Papa</string>
+    <string name="onboarding_mock_name2">Mama</string>
 </resources>
