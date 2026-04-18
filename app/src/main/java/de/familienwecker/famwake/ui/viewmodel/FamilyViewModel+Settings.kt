@@ -25,8 +25,8 @@ fun FamilyViewModel.setTooltipsEnabled(enabled: Boolean) {
     TelemetryDeck.signal("settings.tipsChanged", mapOf("enabled" to enabled.toString()))
 }
 
-fun FamilyViewModel.checkAndShowReview(activity: Activity, ignoreConstraints: Boolean = false) {
-    ReviewHelper.launchReview(activity, appSettings, ignoreConstraints)
+fun FamilyViewModel.checkAndShowReview(activity: Activity) {
+    ReviewHelper.launchReview(activity, appSettings)
 }
 
 fun FamilyViewModel.requestAdminStatsReport(onComplete: (Boolean) -> Unit) {
