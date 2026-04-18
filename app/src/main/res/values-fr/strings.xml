@@ -342,4 +342,5 @@
     <string name="error_sync_blocked_device">La synchronisation n\'est pas disponible sur cet appareil.</string>
     <string name="onboarding_mock_name1">Papa</string>
     <string name="onboarding_mock_name2">Maman</string>
+    <string name="onboarding_mock_family_name">Martin</string>
 </resources>

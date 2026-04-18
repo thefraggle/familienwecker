@@ -184,7 +184,7 @@ fun Slide2InviteMockup() {
                 }
 
                 // Einladungscode Label
-                Text(stringResource(R.string.settings_join_code, "Mustermann"),
+                Text(stringResource(R.string.settings_join_code, stringResource(R.string.onboarding_mock_family_name)),
                     color = MockSubText, fontSize = 12.sp)
 
                 // Code-Anzeige
