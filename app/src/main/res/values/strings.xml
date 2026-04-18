@@ -149,15 +149,18 @@
     <string name="onboarding_next">Next</string>
     <string name="onboarding_done">Let\'s go</string>
     <string name="onboarding_slide0_title">Your morning as a team.</string>
-    <string name="onboarding_slide0_body">No stress, no rush, no chaos. FamWake makes sure everyone can wake up calmly – without anyone missing out.</string>
-    <string name="onboarding_slide1_title">Everyone\'s in the loop</string>
-    <string name="onboarding_slide1_body">Everyone sees at a glance what the morning looks like. No questions, no searching – just wake up and go.</string>
-    <string name="onboarding_slide2_title">Your family, one plan</string>
-    <string name="onboarding_slide2_body">All family members in one app. Add new people easily – the morning schedule adjusts automatically.</string>
-    <string name="onboarding_slide3_title">Every day, perfectly planned</string>
-    <string name="onboarding_slide3_body">FamWake plans each day of the week individually – wake-up, bathroom, breakfast, departure. You decide what matters.</string>
-    <string name="onboarding_slide4_title">Stress-free mornings. Every day.</string>
-    <string name="onboarding_slide4_body">From now on, mornings run themselves – even offline and reliably after every restart.</string>
+    <string name="onboarding_slide0_body">No arguments, no chaos. FamWake ensures everyone starts the day relaxed – fully automatic.</string>
+    <string name="onboarding_slide1_title">No more waiting.</string>
+    <string name="onboarding_slide1_body">FamWake calculates the ideal wake-up time for every family member – coordinated around bathroom, breakfast, and departure. No more crowding.</string>
+    <string name="onboarding_slide2_title">Every day is different.</string>
+    <string name="onboarding_slide2_body">Monday office, Wednesday home office? Set individual times for each day of the week – the app handles the rest.</string>
+    <string name="onboarding_slide3_title">Connected in seconds.</string>
+    <string name="onboarding_slide3_body">Share a code and your family joins instantly. New members? The schedule adjusts automatically.</string>
+    <string name="onboarding_slide4_title">Let\'s go!</string>
+    <string name="onboarding_slide4_body">Create your family now and enjoy relaxed mornings – reliably, even offline.</string>
+    <!-- Placeholder names used in onboarding mockup screens only -->
+    <string name="onboarding_mock_name1">Dad</string>
+    <string name="onboarding_mock_name2">Mom</string>
     <string name="settings_feedback_button">Give feedback / Report bug</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Help us make the app even better! What\'s on your mind?</string>
