@@ -142,7 +142,6 @@
     <string name="settings_display_title">App-Eistellonga</string>
     <string name="settings_help_feedback_title">Hilfe &amp; Gschwätz</string>
     <string name="settings_support_button">Em Entwickler schreiba</string>
-    <string name="settings_rate_app">⭐ App bewerta ⭐</string>
     <string name="settings_start_onboarding">🎓 App-Aagugga</string>
 
     <string name="onboarding_skip">Sausen lassa</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Hoppsala, do isch was deneba ganga.</string>
     <string name="settings_donate_loading">Läd d\'Sächle…</string>
     <string name="settings_donate_no_offers">Nix zom kaufa do. Guck in RevenueCat nei.</string>
-    <string name="settings_donate_refresh">Nei lada</string>
     <string name="settings_donate_purchase_loading">S\'wird grichtet…</string>
     <string name="settings_donate_error_not_allowed">Des derfscht da net macha.</string>
     <string name="settings_donate_error_store_problem">Google Play Store hot net gwellt.</string>

@@ -142,7 +142,6 @@
     <string name="settings_display_title">Настройки приложения</string>
     <string name="settings_help_feedback_title">Помощь и Отзывы</string>
     <string name="settings_support_button">Написать разработчику</string>
-    <string name="settings_rate_app">⭐ Оценить приложение ⭐</string>
     <string name="settings_start_onboarding">🎓 Тур по приложению</string>
 
     <string name="onboarding_skip">Пропустить</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Ой, что-то пошло не так.</string>
     <string name="settings_donate_loading">Загрузка предложений…</string>
     <string name="settings_donate_no_offers">Предложения недоступны. Убедитесь, что в RevenueCat настроено \"Current Offering\".</string>
-    <string name="settings_donate_refresh">Обновить</string>
     <string name="settings_donate_purchase_loading">Обработка пожертвования…</string>
     <string name="settings_donate_error_not_allowed">Этому устройству или пользователю не разрешено совершать покупки.</string>
     <string name="settings_donate_error_store_problem">Проблема с Google Play Store.</string>
