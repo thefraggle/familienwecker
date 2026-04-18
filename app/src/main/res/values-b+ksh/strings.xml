@@ -142,7 +142,6 @@
     <string name="settings_display_title">App-Einstellungen</string>
     <string name="settings_help_feedback_title">Hilfe &amp; Meckern</string>
     <string name="settings_support_button">Dem Chef schreiben</string>
-    <string name="settings_rate_app">⭐ App bewerten ⭐</string>
     <string name="settings_start_onboarding">🎓 App-Rundgang</string>
 
     <string name="onboarding_skip">Überspringen</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Ups, da is wat schiefgelaufen.</string>
     <string name="settings_donate_loading">Lade den Kram…</string>
     <string name="settings_donate_no_offers">Nix zu kaufen da. Guck in RevenueCat rein.</string>
-    <string name="settings_donate_refresh">Neuladen</string>
     <string name="settings_donate_purchase_loading">Knete wird verbucht…</string>
     <string name="settings_donate_error_not_allowed">Darfse hier nich kaufen.</string>
     <string name="settings_donate_error_store_problem">Google Play Store hat Mucken gemacht.</string>

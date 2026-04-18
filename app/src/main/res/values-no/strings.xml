@@ -142,7 +142,6 @@
     <string name="settings_display_title">App-innstillinger</string>
     <string name="settings_help_feedback_title">Hjelp og tilbakemelding</string>
     <string name="settings_support_button">Send e-post til utvikler</string>
-    <string name="settings_rate_app">⭐ Vurder appen ⭐</string>
     <string name="settings_start_onboarding">🎓 App-omvisning</string>
 
     <string name="onboarding_skip">Hopp over</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Oops, noe gikk galt.</string>
     <string name="settings_donate_loading">Laster inn tilbud…</string>
     <string name="settings_donate_no_offers">Ingen tilbud tilgjengelig. Sørg for at \"Current Offering\" er angitt i RevenueCat.</string>
-    <string name="settings_donate_refresh">Oppdater</string>
     <string name="settings_donate_purchase_loading">Behandler donasjon…</string>
     <string name="settings_donate_error_not_allowed">Enheten eller brukeren har ikke tillatelse til å foreta kjøpet.</string>
     <string name="settings_donate_error_store_problem">Det oppstod et problem med Google Play Butikk.</string>

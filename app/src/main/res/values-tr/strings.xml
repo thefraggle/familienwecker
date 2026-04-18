@@ -142,7 +142,6 @@
     <string name="settings_display_title">Uygulama ayarları</string>
     <string name="settings_help_feedback_title">Yardım ve Geri Bildirim</string>
     <string name="settings_support_button">Geliştiriciye e-posta gönder</string>
-    <string name="settings_rate_app">⭐ Uygulamayı Puanla ⭐</string>
     <string name="settings_start_onboarding">🎓 Uygulama Turu</string>
 
     <string name="onboarding_skip">Geç</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Bir şeyler ters gitti.</string>
     <string name="settings_donate_loading">Teklifler yükleniyor…</string>
     <string name="settings_donate_no_offers">Kullanılabilir teklif yok. Lütfen RevenueCat\'te \"Current Offering\" ayarlandığından emin olun.</string>
-    <string name="settings_donate_refresh">Yenile</string>
     <string name="settings_donate_purchase_loading">Bağış işleniyor…</string>
     <string name="settings_donate_error_not_allowed">Cihazın veya kullanıcının satın alma işlemi yapmasına izin verilmiyor.</string>
     <string name="settings_donate_error_store_problem">Google Play Store ile ilgili bir sorun oluştu.</string>
