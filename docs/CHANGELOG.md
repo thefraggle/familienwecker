@@ -2,6 +2,19 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.9 – 2026-04-18
+
+### Neu
+- **Smartes Review-System** – Die App fragt nach positivem Erlebnis ganz unaufdringlich nach einer Bewertung – nie morgens, nie zu oft.
+- **Mehr Weck-Sprüche** – 20 verschiedene Nachrichten auf dem Weck-Screen, in allen 18 Sprachen.
+
+### Verbessert
+- **Onboarding aufgefrischt** – Einladungsbildschirm zeigt jetzt landesspezifische Beispielnamen (z.B. „Smith Family" statt „Mustermann").
+- **Übersetzungen verbessert** – Fehlende Texte in mehreren Sprachen ergänzt. Dialekte (Schwäbisch, Ruhrpott, Schweizerdeutsch) nochmal überarbeitet.
+- **App-Größe reduziert** – Nicht mehr benötigte Bilder entfernt.
+
+---
+
 ## 1.7.8 – 2026-04-18
 
 ### Behoben

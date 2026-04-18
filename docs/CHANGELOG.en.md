@@ -2,6 +2,19 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.9 – 2026-04-18
+
+### New
+- **Smart review prompts** – The app gently asks for a rating after a positive experience – never in the morning, never too often.
+- **More wake-up messages** – 20 different messages on the alarm screen, in all 18 languages.
+
+### Improved
+- **Onboarding refreshed** – The invite screen now shows country-specific example names (e.g. “Smith Family” instead of “Mustermann”).
+- **Translations improved** – Missing texts added in several languages. Dialects (Swabian, Ruhr Valley, Swiss German) refined.
+- **Smaller app size** – Removed unused images.
+
+---
+
 ## 1.7.8 – 2026-04-18
 
 ### Fixed
