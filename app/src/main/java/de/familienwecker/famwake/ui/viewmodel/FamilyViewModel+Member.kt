@@ -103,16 +103,19 @@ fun FamilyViewModel.removeMember(id: String) {
     val currentFamilyId = familyId.value ?: return
     alarmScheduler.cancelWakeUp(id)
     TelemetryDeck.signal("member.deleted")
+    val wasMyMember = myMemberId.value == id
     scope.launch {
         val result = repository.removeMember(currentFamilyId, id)
         if (result.isSuccess) {
             memberRepository.deleteMember(id)
+            // Eigenes Profil erst NACH erfolgreicher Firestore-Löschung zurücksetzen,
+            // damit der lokale State bei einem Netzwerkfehler nicht inkonsistent wird.
+            if (wasMyMember) {
+                setMyMemberId(null)
+            }
         } else {
             _errorMessage.value = UiText.StringResource(R.string.error_delete_member, result.exceptionOrNull()?.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
         }
-    }
-    if (myMemberId.value == id) {
-        setMyMemberId(null)
     }
 }
 

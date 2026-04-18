@@ -24,6 +24,28 @@
       "order": 1
     },
     {
+      "title": "Familie verlassen (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "family.left",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 2
+    },
+    {
+      "title": "Familie gelöscht (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "family.deleted",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 3
+    },
+    {
       "title": "Member erstellt (Wöchentlich)",
       "type": "timeseries",
       "displayMode": "barChart",
@@ -32,7 +54,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 2
+      "order": 4
     },
     {
       "title": "Member geclaimt (Wöchentlich)",
@@ -43,7 +65,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 3
+      "order": 5
     },
     {
       "title": "Member gelöscht (Wöchentlich)",
@@ -54,7 +76,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 4
+      "order": 6
     },
     {
       "title": "Member pausiert",
@@ -65,7 +87,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 5
+      "order": 7
     },
     {
       "title": "Member reaktiviert",
@@ -76,7 +98,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 6
+      "order": 8
     },
     {
       "title": "Schon wach markiert (Täglich)",
@@ -87,7 +109,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 7
+      "order": 9
     },
     {
       "title": "Reihenfolge per Drag & Drop geändert",
@@ -98,12 +120,12 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 8
+      "order": 10
     }
   ],
   "_exportMetadata": {
     "version": 1,
-    "exportedAt": "2026-04-17T15:44:00.000Z",
+    "exportedAt": "2026-04-18T07:10:00.000Z",
     "dynamicFields": []
   }
 }

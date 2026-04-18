@@ -332,4 +332,5 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Druck hia, um deinen persönlichen Weckton auszusuchen – nimm dein Lieblingsklang statt dem Standardalarm.</string>
     <string name="settings_language_dialects">Dialekte</string>
+    <string name="error_sync_blocked_device">Synchroniseerung es op dissem Jerät nit müjjelesch.</string>
 </resources>

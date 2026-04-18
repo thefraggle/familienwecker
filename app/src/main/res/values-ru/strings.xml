@@ -331,4 +331,5 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Нажмите здесь, чтобы выбрать личный звук будильника – вместо стандартного сигнала поставьте любимую мелодию.</string>
     <string name="settings_language_dialects">Диалекты</string>
+    <string name="error_sync_blocked_device">Синхронизация недоступна на этом устройстве.</string>
 </resources>

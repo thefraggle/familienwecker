@@ -35,6 +35,28 @@
       "order": 2
     },
     {
+      "title": "Logouts pro Woche",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "auth.logout",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 3
+    },
+    {
+      "title": "Onboarding abgeschlossen (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "onboarding.completed",
+      "breakdownKey": "",
+      "uniqueUser": true,
+      "isExpanded": false,
+      "order": 4
+    },
+    {
       "title": "App-Starts pro Monat",
       "type": "timeseries",
       "displayMode": "lineChart",
@@ -43,12 +65,12 @@
       "breakdownKey": "",
       "uniqueUser": true,
       "isExpanded": false,
-      "order": 3
+      "order": 5
     }
   ],
   "_exportMetadata": {
     "version": 1,
-    "exportedAt": "2026-04-17T07:19:01.160Z",
+    "exportedAt": "2026-04-18T07:10:00.000Z",
     "dynamicFields": []
   }
 }

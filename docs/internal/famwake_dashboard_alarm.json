@@ -13,17 +13,6 @@
       "order": 0
     },
     {
-      "title": "Stop vs. Snooze (Gesamt)",
-      "type": "topN",
-      "displayMode": "barChart",
-      "groupBy": "all",
-      "signalType": "alarm.dismissed",
-      "breakdownKey": "",
-      "uniqueUser": false,
-      "isExpanded": false,
-      "order": 1
-    },
-    {
       "title": "Alarm gestoppt pro Tag",
       "type": "timeseries",
       "displayMode": "lineChart",
@@ -32,7 +21,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 2
+      "order": 1
     },
     {
       "title": "Snooze pro Tag",
@@ -43,7 +32,7 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 3
+      "order": 2
     },
     {
       "title": "Snooze abgebrochen (Wöchentlich)",
@@ -54,7 +43,29 @@
       "breakdownKey": "",
       "uniqueUser": false,
       "isExpanded": false,
+      "order": 3
+    },
+    {
+      "title": "Wecker aktiviert (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "alarm.globalEnabled",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
       "order": 4
+    },
+    {
+      "title": "Wecker deaktiviert (Wöchentlich)",
+      "type": "timeseries",
+      "displayMode": "barChart",
+      "groupBy": "week",
+      "signalType": "alarm.globalDisabled",
+      "breakdownKey": "",
+      "uniqueUser": false,
+      "isExpanded": false,
+      "order": 5
     },
     {
       "title": "Beliebteste Klingeltöne",
@@ -65,12 +76,12 @@
       "breakdownKey": "soundName",
       "uniqueUser": false,
       "isExpanded": false,
-      "order": 5
+      "order": 6
     }
   ],
   "_exportMetadata": {
     "version": 1,
-    "exportedAt": "2026-04-17T15:44:00.000Z",
+    "exportedAt": "2026-04-18T07:10:00.000Z",
     "dynamicFields": []
   }
 }

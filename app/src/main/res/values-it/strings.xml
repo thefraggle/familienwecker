@@ -332,4 +332,5 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Tocca qui per scegliere la tua suoneria di sveglia personale – scegli il tuo brano preferito invece del suono predefinito.</string>
     <string name="settings_language_dialects">Dialetti</string>
+    <string name="error_sync_blocked_device">La sincronizzazione non è disponibile su questo dispositivo.</string>
 </resources>

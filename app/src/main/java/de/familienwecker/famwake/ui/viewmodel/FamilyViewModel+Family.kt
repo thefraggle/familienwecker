@@ -212,6 +212,7 @@ fun FamilyViewModel.leaveFamily(onComplete: (Boolean) -> Unit = {}) {
                 appSettings.setFamilyName(null)
                 appSettings.setMyMemberId(null)
                 appSettings.setMyMemberName(null)
+                TelemetryDeck.signal("family.left")
                 onComplete(true)
             } else {
                 val errorMsg = result.exceptionOrNull()?.message ?: getApplication<android.app.Application>().getString(R.string.error_leave_failed)
@@ -245,6 +246,7 @@ fun FamilyViewModel.deleteFamily(onComplete: (Boolean) -> Unit) {
             appSettings.setFamilyName(null)
             appSettings.setMyMemberId(null)
             appSettings.setMyMemberName(null)
+            TelemetryDeck.signal("family.deleted")
             onComplete(true)
         } else {
             _errorMessage.value = UiText.StringResource(R.string.error_delete_family, result.exceptionOrNull()?.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
@@ -308,6 +310,11 @@ fun FamilyViewModel.triggerRefresh() {
 
 fun FamilyViewModel.logout() {
     _errorMessage.value = null
+    // Tracking: Logout-Rate für Retention-Analyse (vor clearAll, da danach User-Kontext weg)
+    TelemetryDeck.signal("auth.logout")
+    // Alarm-Status VOR clearAll() sichern – clearAll() setzt isAlarmEnabled=false synchron,
+    // danach könnte der myMemberId-Observer den bereits gelöschten Wert (false) speichern.
+    appSettings.setAlarmStateBeforeLogout(isAlarmEnabled.value)
     cancelAlarmForCurrentUser()
     appSettings.clearAll()
     scope.launch { auth.signOut() }
