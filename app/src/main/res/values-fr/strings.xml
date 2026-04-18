@@ -326,11 +326,11 @@
     <string name="settings_exact_alarm_warning_text">L\'alarme ne peut pas sonner sur cet appareil. Autorise FamWake à programmer des alarmes exactes.</string>
     <string name="settings_exact_alarm_warning_button">Autoriser les alarmes</string>
     <string name="main_exact_alarm_banner">⚠️ Alarme bloquée ! Accorde la permission dans les paramètres pour que l\'alarme sonne à l\'heure.</string>
-    <string name="error_offline_feedback">You are offline. Please check your connection and try again.</string>
-    <string name="error_feedback_rate_limit">Please wait %1$s seconds before sending another message.</string>
-    <string name="error_feedback_rate_limit_server">Too many requests. Please try again later.</string>
-    <string name="error_feedback_empty_message">Message must not be empty.</string>
-    <string name="error_network">Network error. Please check your internet connection.</string>
+    <string name="error_offline_feedback">Tu es hors ligne. Vérifie ta connexion et réessaie.</string>
+    <string name="error_feedback_rate_limit">Attends %1$s secondes avant d\'envoyer un autre message.</string>
+    <string name="error_feedback_rate_limit_server">Trop de requêtes. Réessaie plus tard.</string>
+    <string name="error_feedback_empty_message">Le message ne peut pas être vide.</string>
+    <string name="error_network">Erreur réseau. Vérifie ta connexion internet.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>

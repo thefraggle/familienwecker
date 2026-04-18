@@ -327,11 +327,11 @@
     <string name="settings_exact_alarm_warning_button">Tillåt larm</string>
     <string name="main_exact_alarm_banner">⚠️ Larm blockerat! Ge larmbehörigheten i inställningarna så att ditt larm kan ringa i tid.</string>
 
-    <string name="error_offline_feedback">You are offline. Please check your connection and try again.</string>
-    <string name="error_feedback_rate_limit">Please wait %1$s seconds before sending another message.</string>
-    <string name="error_feedback_rate_limit_server">Too many requests. Please try again later.</string>
-    <string name="error_feedback_empty_message">Message must not be empty.</string>
-    <string name="error_network">Network error. Please check your internet connection.</string>
+    <string name="error_offline_feedback">Du är offline. Kontrollera din anslutning och försök igen.</string>
+    <string name="error_feedback_rate_limit">Vänta %1$s sekunder innan du skickar ett nytt meddelande.</string>
+    <string name="error_feedback_rate_limit_server">För många förfrågningar. Försök igen senare.</string>
+    <string name="error_feedback_empty_message">Meddelandet får inte vara tomt.</string>
+    <string name="error_network">Nätverksfel. Kontrollera din internetanslutning.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
