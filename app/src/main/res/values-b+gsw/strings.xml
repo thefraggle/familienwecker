@@ -312,7 +312,7 @@
 
     <string name="error_permission_denied">Zuegriff verweigeret</string>
     <string name="error_offline">Kä Internetverbindig</string>
-    <string name="error_report_failed">Bricht fählgschlage</string>
+    <string name="error_report_failed">Bericht fählgschlage</string>
     <string name="error_leave_failed">Verlaa vo de Familie fählgschlage</string>
     <string name="error_revenuecat_not_configured">RevenueCat nöd konfiguriert</string>
     <string name="default_someone">Öpper</string>
@@ -338,6 +338,8 @@
     <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Tipf da druff, zum dinen persönliche Weckerton uuszwähle – nimm dis Lieblingsglüüt statt em Standardsignal.</string>
-    <string name="settings_language_dialects">Dialäkt</string>
+    <string name="settings_language_dialects">Dialäkte</string>
     <string name="error_sync_blocked_device">Synchronisierig isch uf dem Grät nöd verfüegbar.</string>
+    <string name="onboarding_mock_name1">Papi</string>
+    <string name="onboarding_mock_name2">Mami</string>
 </resources>

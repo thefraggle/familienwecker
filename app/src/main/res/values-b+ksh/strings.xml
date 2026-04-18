@@ -340,4 +340,6 @@
     <string name="tooltip_alarm_sound">Druck hia, um deinen persönlichen Weckton auszusuchen – nimm dein Lieblingsklang statt dem Standardalarm.</string>
     <string name="settings_language_dialects">Dialekte</string>
     <string name="error_sync_blocked_device">Syncen geht auf dem Gerät hier nich.</string>
+    <string name="onboarding_mock_name1">Vatta</string>
+    <string name="onboarding_mock_name2">Mudda</string>
 </resources>
