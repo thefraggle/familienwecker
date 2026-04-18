@@ -1,6 +1,6 @@
 package de.familienwecker.famwake.ui.screens
 
-import androidx.annotation.DrawableRes
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -16,8 +16,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -37,13 +35,8 @@ import kotlinx.coroutines.launch
 private data class OnboardingSlide(
     val titleRes: Int,
     val bodyRes: Int,
-    val gradient: List<Color>,
-    @DrawableRes val imageRes: Int = 0,                // DE image (0 wenn lottieRes gesetzt)
-    @DrawableRes val imageResEn: Int = imageRes,       // EN image
-    @DrawableRes val imageResEs: Int = imageResEn,     // ES image
-    @DrawableRes val imageResFr: Int = imageResEn,     // FR image
-    @DrawableRes val imageResIt: Int = imageResEn,     // IT image
-    val lottieRes: Int? = null                         // Lottie-Animation (ersetzt imageRes)
+    val lottieRes: Int? = null,                        // Lottie-Animation (Slide 0)
+    val mockupContent: (@Composable () -> Unit)? = null // Compose-Mockup (Slides 1–4)
 )
 
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
@@ -57,48 +50,29 @@ fun OnboardingScreen(
         OnboardingSlide(
             titleRes  = R.string.onboarding_slide0_title,
             bodyRes   = R.string.onboarding_slide0_body,
-            gradient  = listOf(OnboardingWarm1, OnboardingWarm2),  // warmes Sonnenaufgang-Orange
             lottieRes = R.raw.panda
         ),
+        // Slides 1–4: Compose-Mockups → automatisch lokalisiert, keine PNG-Wartung nötig
+        // Reihenfolge: Zeitplan → Wochentage → Invite → CTA (Nutzen-orientiert)
         OnboardingSlide(
-            titleRes   = R.string.onboarding_slide1_title,
-            bodyRes    = R.string.onboarding_slide1_body,
-            gradient   = listOf(OnboardingBlue1, OnboardingBlue2),
-            imageRes   = R.drawable.onboarding_slide1,
-            imageResEn = R.drawable.onboarding_slide1_en,
-            imageResEs = R.drawable.onboarding_slide1_es,
-            imageResFr = R.drawable.onboarding_slide1_fr,
-            imageResIt = R.drawable.onboarding_slide1_it
+            titleRes      = R.string.onboarding_slide1_title,
+            bodyRes       = R.string.onboarding_slide1_body,
+            mockupContent = { Slide1ScheduleMockup() }
         ),
         OnboardingSlide(
-            titleRes   = R.string.onboarding_slide2_title,
-            bodyRes    = R.string.onboarding_slide2_body,
-            gradient   = listOf(OnboardingGreen1, OnboardingGreen2),
-            imageRes   = R.drawable.onboarding_slide2_de,
-            imageResEn = R.drawable.onboarding_slide2_en,
-            imageResEs = R.drawable.onboarding_slide2_es,
-            imageResFr = R.drawable.onboarding_slide2_fr,
-            imageResIt = R.drawable.onboarding_slide2_it
+            titleRes      = R.string.onboarding_slide2_title,
+            bodyRes       = R.string.onboarding_slide2_body,
+            mockupContent = { Slide3DaySettingsMockup() }
         ),
         OnboardingSlide(
-            titleRes   = R.string.onboarding_slide3_title,
-            bodyRes    = R.string.onboarding_slide3_body,
-            gradient   = listOf(OnboardingPurple1, OnboardingPurple2),
-            imageRes   = R.drawable.onboarding_slide3_de,
-            imageResEn = R.drawable.onboarding_slide3_en,
-            imageResEs = R.drawable.onboarding_slide3_es,
-            imageResFr = R.drawable.onboarding_slide3_fr,
-            imageResIt = R.drawable.onboarding_slide3_it
+            titleRes      = R.string.onboarding_slide3_title,
+            bodyRes       = R.string.onboarding_slide3_body,
+            mockupContent = { Slide2InviteMockup() }
         ),
         OnboardingSlide(
-            titleRes   = R.string.onboarding_slide4_title,
-            bodyRes    = R.string.onboarding_slide4_body,
-            gradient   = listOf(OnboardingPink1, OnboardingPink2),
-            imageRes   = R.drawable.onboarding_slide4,
-            imageResEn = R.drawable.onboarding_slide4_en,
-            imageResEs = R.drawable.onboarding_slide4_es,
-            imageResFr = R.drawable.onboarding_slide4_fr,
-            imageResIt = R.drawable.onboarding_slide4_it
+            titleRes      = R.string.onboarding_slide4_title,
+            bodyRes       = R.string.onboarding_slide4_body,
+            mockupContent = { Slide4ReliableMockup() }
         )
     )
 
@@ -126,14 +100,7 @@ fun OnboardingScreen(
             state    = pagerState,
             modifier = Modifier.fillMaxSize()
         ) { page ->
-            val slide    = slides[page]
-            val imageRes = when (language) {
-                "de", "gsw", "swg", "ksh" -> slide.imageRes
-                "es" -> slide.imageResEs
-                "fr" -> slide.imageResFr
-                "it" -> slide.imageResIt
-                else -> slide.imageResEn
-            }
+            val slide = slides[page]
 
             Box(
                 modifier = Modifier
@@ -147,35 +114,25 @@ fun OnboardingScreen(
                         .padding(horizontal = 28.dp)
                         .padding(top = 56.dp, bottom = 180.dp)
                 ) {
-                    if (slide.lottieRes != null) {
-                        // Lottie-Animation (z. B. Panda auf Slide 0)
-                        val composition by rememberLottieComposition(
-                            LottieCompositionSpec.RawRes(slide.lottieRes)
-                        )
-                        LottieAnimation(
-                            composition = composition,
-                            iterations  = LottieConstants.IterateForever,
-                            speed       = 0.7f,
-                            modifier    = Modifier
-                                .fillMaxWidth()
-                                .aspectRatio(1f)
-                        )
-                    } else {
-                        // Floating screenshot card
-                        androidx.compose.foundation.Image(
-                            painter            = painterResource(imageRes),
-                            contentDescription = null,
-                            contentScale       = ContentScale.FillWidth,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .shadow(
-                                    elevation       = 24.dp,
-                                    shape           = RoundedCornerShape(20.dp),
-                                    ambientColor    = Color.Black.copy(alpha = 0.6f),
-                                    spotColor       = Color.Black.copy(alpha = 0.6f)
-                                )
-                                .clip(RoundedCornerShape(20.dp))
-                        )
+                    when {
+                        slide.mockupContent != null -> {
+                            // Compose-nativer Mockup: vollständig lokalisiert, kein PNG nötig
+                            slide.mockupContent.invoke()
+                        }
+                        slide.lottieRes != null -> {
+                            // Lottie-Animation (Panda auf Slide 0)
+                            val composition by rememberLottieComposition(
+                                LottieCompositionSpec.RawRes(slide.lottieRes)
+                            )
+                            LottieAnimation(
+                                composition = composition,
+                                iterations  = LottieConstants.IterateForever,
+                                speed       = 0.7f,
+                                modifier    = Modifier
+                                    .fillMaxWidth()
+                                    .aspectRatio(1f)
+                            )
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(28.dp))
