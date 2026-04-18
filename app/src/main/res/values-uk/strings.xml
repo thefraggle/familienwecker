@@ -342,4 +342,5 @@
     <string name="error_sync_blocked_device">Синхронізація недоступна на цьому пристрої.</string>
     <string name="onboarding_mock_name1">Тато</string>
     <string name="onboarding_mock_name2">Мама</string>
+    <string name="onboarding_mock_family_name">Іваненко</string>
 </resources>

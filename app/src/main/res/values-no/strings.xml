@@ -342,4 +342,5 @@
     <string name="error_sync_blocked_device">Synkronisering er ikke tilgjengelig på denne enheten.</string>
     <string name="onboarding_mock_name1">Pappa</string>
     <string name="onboarding_mock_name2">Mamma</string>
+    <string name="onboarding_mock_family_name">Hansen</string>
 </resources>

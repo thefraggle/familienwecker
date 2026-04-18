@@ -342,4 +342,5 @@
     <string name="error_sync_blocked_device">Synchronisierig isch uf dem Grät nöd verfüegbar.</string>
     <string name="onboarding_mock_name1">Papi</string>
     <string name="onboarding_mock_name2">Mami</string>
+    <string name="onboarding_mock_family_name">Meier</string>
 </resources>

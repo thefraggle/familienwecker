@@ -160,6 +160,7 @@
     <!-- Platzhalter-Namen nur für Onboarding-Mockup-Screens -->
     <string name="onboarding_mock_name1">Papa</string>
     <string name="onboarding_mock_name2">Mama</string>
+    <string name="onboarding_mock_family_name">Müller</string>
     <string name="settings_feedback_button">Feedback geben / Fehler melden</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hilf uns, die App noch besser zu machen! Was beschäftigt dich?</string>
