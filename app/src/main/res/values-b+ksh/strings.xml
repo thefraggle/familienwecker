@@ -206,14 +206,14 @@
         <item>Plan läuft. Mach hinne!</item>
         <item>Zeit fürn Abflug. Das Team wartet auffe Piste.</item>
         <item>Aufsteen, Sonnenschein! Dat Bad is frei für dich.</item>
-        <item>Dein persönlichet Bad-Slot fängt jetz an – nutz dat!</item>
-        <item>Freie Bahn ins Bad – dein Slot is reserviert!</item>
-        <item>Morgenstund hat Gold im Mund – und warmet Wasser!</item>
-        <item>Noch 5 Minuten? Nee! Dein Zeitfenster wartet.</item>
-        <item>Heute wird ein guter Tach. Der fängt jetz an!</item>
-        <item>Die Zahnbürste vermisst dich. Ab ins Bad!</item>
-        <item>Alles koordiniert, alles geplant – du bis dran!</item>
-        <item>Der frühe Vogel hat dat Bad für sich allein.</item>
+        <item>Dein Bad-Slot fängt jetz an – nutz dat ma!</item>
+        <item>Freie Bahn ins Bad – is alles reserviert für dich!</item>
+        <item>Wer morgens aufsteen tut, der kriecht dat warme Wasser!</item>
+        <item>Noch 5 Minuten? Nee, Alter! Dein Zeitfenster wartet.</item>
+        <item>Heute wird nen geiler Tach. Der fängt jetz an!</item>
+        <item>Die Zahnbürste langweilt sich. Mach hinne, ab ins Bad!</item>
+        <item>Alles getaktet, alles paletti – du bis dran!</item>
+        <item>Der frühe Vogel hat dat Bad für sich allein, wa.</item>
     </string-array>
     <string name="ringing_stop">Wecker stopp</string>
     <string name="ringing_snooze">Noch wat pennen (5 Min)</string>
@@ -322,15 +322,15 @@
     <string name="password_hide">Passwort wech</string>
     <string name="close_desc">Zumachen</string>
 
-    <string name="settings_exact_alarm_warning_title">Wecker-Rechte fählen</string>
-    <string name="settings_exact_alarm_warning_text">Dat Android blockiert d\'n Wecker. Bitte erlaub dem FamWake et exakte Bimmeln in de Einstellunge.</string>
-    <string name="settings_exact_alarm_warning_button">Wecker erlaube</string>
-    <string name="main_exact_alarm_banner">⚠️ Wecker darf nit bimmeln! Bitte gib uns d\'n Segen in de Einstellungen, ne.</string>
-    <string name="error_offline_feedback">You are offline. Please check your connection and try again.</string>
-    <string name="error_feedback_rate_limit">Please wait %1$s seconds before sending another message.</string>
-    <string name="error_feedback_rate_limit_server">Too many requests. Please try again later.</string>
-    <string name="error_feedback_empty_message">Message must not be empty.</string>
-    <string name="error_network">Network error. Please check your internet connection.</string>
+    <string name="settings_exact_alarm_warning_title">Wecker-Rechte fehlen</string>
+    <string name="settings_exact_alarm_warning_text">Android blockiert den Wecker. Bitte erlaub FamWake dat exakte Bimmeln in de Einstellungen.</string>
+    <string name="settings_exact_alarm_warning_button">Wecker erlauben</string>
+    <string name="main_exact_alarm_banner">⚠️ Wecker darf nich bimmeln! Bitte gib uns grünet Licht in de Einstellungen.</string>
+    <string name="error_offline_feedback">Bisse grade offline. Guck ma ob dat Netz da is.</string>
+    <string name="error_feedback_rate_limit">Mach ma %1$s Sekunden Pause, bevor de nochma wat schickst.</string>
+    <string name="error_feedback_rate_limit_server">Zu viel aufm einmal. Probier dat nachher nochmal.</string>
+    <string name="error_feedback_empty_message">Da muss wat drin stehen, sonst bringt dat nix.</string>
+    <string name="error_network">Netz is wech. Guck ma ob de online bis.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -339,5 +339,5 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Druck hia, um deinen persönlichen Weckton auszusuchen – nimm dein Lieblingsklang statt dem Standardalarm.</string>
     <string name="settings_language_dialects">Dialekte</string>
-    <string name="error_sync_blocked_device">Synchroniseerung es op dissem Jerät nit müjjelesch.</string>
+    <string name="error_sync_blocked_device">Syncen geht auf dem Gerät hier nich.</string>
 </resources>
