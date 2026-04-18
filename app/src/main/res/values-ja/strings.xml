@@ -205,6 +205,15 @@
         <item>朝のヘヴィメタルで悩みを吹き飛ばしましょう！</item>
         <item>スケジュールが開始されました。さあ、行きましょう！</item>
         <item>出発の準備はいいですか？チームがあなたを頼りにしています。</item>
+        <item>おはよう！バスルームは君のものだよ。</item>
+        <item>君専用のバスルームタイムが始まるよ！</item>
+        <item>バスルームへの道は空いてる – 君の番だよ！</item>
+        <item>早起きは三文の得 – お湯もたっぷり！</item>
+        <item>あと5分？ダメ！タイムスロットが待ってるよ。</item>
+        <item>今日はいい日になる。今から始めよう！</item>
+        <item>歯ブラシが君を待ってるよ。さあバスルームへ！</item>
+        <item>全部調整済み、全部計画通り – 君の番だ！</item>
+        <item>早起きの鳥はバスルームを独り占め。</item>
     </string-array>
     <string name="ringing_stop">アラームを停止</string>
     <string name="ringing_snooze">スヌーズ（5分）</string>

@@ -205,6 +205,15 @@
         <item>Heavy metal på morgonen håller oro och bekymmer borta!</item>
         <item>Ditt schema är live. Kör igång!</item>
         <item>Redo för avfärd? Teamet räknar med dig.</item>
+        <item>Vakna, solstråle! Badrummet är ledigt för dig.</item>
+        <item>Din personliga badrumsslot börjar nu – använd den!</item>
+        <item>Fri väg till badrummet – din slot är reserverad!</item>
+        <item>Morgonstund har guld i mund – och varmt vatten!</item>
+        <item>Fem minuter till? Nej! Ditt tidsfönster väntar.</item>
+        <item>Idag blir en bra dag. Den börjar nu!</item>
+        <item>Din tandborste saknar dig. Iväg till badrummet!</item>
+        <item>Allt koordinerat, allt planerat – det är din tur!</item>
+        <item>Den tidiga fågeln har badrummet helt för sig själv.</item>
     </string-array>
     <string name="ringing_stop">Stoppa larm</string>
     <string name="ringing_snooze">Snooze (5 min)</string>

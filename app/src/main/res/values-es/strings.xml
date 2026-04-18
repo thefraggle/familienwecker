@@ -205,6 +205,15 @@
         <item>¡Heavy Metal por la mañana alegra la semana!</item>
         <item>Tu horario está en marcha. ¡Vamos!</item>
         <item>¿Listo para despegar? El equipo cuenta contigo.</item>
+        <item>¡Arriba, sol! El baño es todo tuyo.</item>
+        <item>Tu turno personal en el baño empieza ahora – ¡aprovéchalo!</item>
+        <item>Vía libre al baño – ¡tu turno está reservado!</item>
+        <item>A quien madruga, ¡le toca el agua caliente!</item>
+        <item>¿Cinco minutos más? ¡No! Tu ventana de tiempo espera.</item>
+        <item>Hoy va a ser un gran día. ¡Empieza ahora!</item>
+        <item>Tu cepillo de dientes te extraña. ¡Al baño!</item>
+        <item>Todo coordinado, todo planificado – ¡te toca!</item>
+        <item>El que madruga tiene el baño para él solo.</item>
     </string-array>
     <string name="ringing_stop">Detener alarma</string>
     <string name="ringing_snooze">Posponer (5 min)</string>

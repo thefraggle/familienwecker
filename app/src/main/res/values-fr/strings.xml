@@ -205,6 +205,15 @@
         <item>Du Heavy Metal au réveil, c\'est la journée qui s\'éveille !</item>
         <item>Ton planning est en cours. Go !</item>
         <item>Prêt pour le décollage ? L\'équipe compte sur toi.</item>
+        <item>Debout, rayon de soleil ! La salle de bain est libre pour toi.</item>
+        <item>Ton créneau perso commence maintenant – profites-en !</item>
+        <item>Voie libre vers la salle de bain – ton créneau est réservé !</item>
+        <item>L\'avenir appartient à ceux qui se lèvent tôt – et à l\'eau chaude !</item>
+        <item>Encore 5 minutes ? Non ! Ton créneau t\'attend.</item>
+        <item>Aujourd\'hui sera une belle journée. Ça commence maintenant !</item>
+        <item>Ta brosse à dents s\'ennuie. Direction la salle de bain !</item>
+        <item>Tout est coordonné, tout est planifié – c\'est ton tour !</item>
+        <item>Le lève-tôt a la salle de bain pour lui tout seul.</item>
     </string-array>
     <string name="ringing_stop">Arrêter</string>
     <string name="ringing_snooze">Répéter (5 min)</string>

@@ -208,6 +208,15 @@
         <item>Heavy metal in the morning keeps the worries away!</item>
         <item>Your schedule is live. Let\'s go!</item>
         <item>Ready for takeoff? The team is counting on you.</item>
+        <item>Rise and shine! The bathroom is free for you.</item>
+        <item>Your personal bathroom slot starts now – make it count!</item>
+        <item>Clear path to the bathroom – your slot is reserved!</item>
+        <item>The early bird gets the warm water!</item>
+        <item>Five more minutes? Nope! Your time window is waiting.</item>
+        <item>Today is going to be a great day. It starts now!</item>
+        <item>Your toothbrush misses you. Off to the bathroom!</item>
+        <item>All coordinated, all planned – you\'re up!</item>
+        <item>The early bird has the bathroom all to themselves.</item>
     </string-array>
     <string name="ringing_stop">Stop alarm</string>
     <string name="ringing_snooze">Snooze (5 min)</string>

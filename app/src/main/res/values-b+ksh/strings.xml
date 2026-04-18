@@ -205,6 +205,15 @@
         <item>Heavy Metal am Morgen vertreibt Kummer und Sorgen!</item>
         <item>Plan läuft. Mach hinne!</item>
         <item>Zeit fürn Abflug. Das Team wartet auffe Piste.</item>
+        <item>Aufsteen, Sonnenschein! Dat Bad is frei für dich.</item>
+        <item>Dein persönlichet Bad-Slot fängt jetz an – nutz dat!</item>
+        <item>Freie Bahn ins Bad – dein Slot is reserviert!</item>
+        <item>Morgenstund hat Gold im Mund – und warmet Wasser!</item>
+        <item>Noch 5 Minuten? Nee! Dein Zeitfenster wartet.</item>
+        <item>Heute wird ein guter Tach. Der fängt jetz an!</item>
+        <item>Die Zahnbürste vermisst dich. Ab ins Bad!</item>
+        <item>Alles koordiniert, alles geplant – du bis dran!</item>
+        <item>Der frühe Vogel hat dat Bad für sich allein.</item>
     </string-array>
     <string name="ringing_stop">Wecker stopp</string>
     <string name="ringing_snooze">Noch wat pennen (5 Min)</string>

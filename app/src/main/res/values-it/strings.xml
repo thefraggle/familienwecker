@@ -205,6 +205,15 @@
         <item>L\'Heavy Metal al mattino toglie i pensieri di torno!</item>
         <item>Il tuo programma è live. Si va!</item>
         <item>Pronto al decollo? La squadra conta su di te.</item>
+        <item>Sveglia, raggio di sole! Il bagno è libero per te.</item>
+        <item>Il tuo slot personale inizia ora – approfittane!</item>
+        <item>Via libera al bagno – il tuo turno è prenotato!</item>
+        <item>Chi dorme non piglia pesci – né acqua calda!</item>
+        <item>Altri 5 minuti? No! La tua finestra temporale ti aspetta.</item>
+        <item>Oggi sarà una bella giornata. Comincia adesso!</item>
+        <item>Il tuo spazzolino ti aspetta. Vai in bagno!</item>
+        <item>Tutto coordinato, tutto pianificato – tocca a te!</item>
+        <item>Chi si alza presto ha il bagno tutto per sé.</item>
     </string-array>
     <string name="ringing_stop">Ferma sveglia</string>
     <string name="ringing_snooze">Rinvio (5 min)</string>
