@@ -35,7 +35,10 @@ internal fun FamilyViewModel.recalculateSchedule() {
     val alarmsOn = isAlarmEnabled.value
 
     if (currentMembers.isNotEmpty()) {
-        scope.launch {
+        // Cancel-and-replace: verhindert dass eine ältere Berechnung (mit veraltetem
+        // alarmsOn/myMemberId) eine neuere überschreibt – Race Condition bei Login-Flow.
+        scheduleJob?.cancel()
+        scheduleJob = scope.launch {
             try {
                 val currentMyMemberId = myMemberId.value
                 val rawMembers = if (alarmsOn) {
@@ -44,7 +47,32 @@ internal fun FamilyViewModel.recalculateSchedule() {
                     currentMembers.filter { it.id != currentMyMemberId }
                 }
 
-                val calculationMembers = rawMembers.map { resolveEffectiveMember(it) }
+                val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+                val tomorrow = today.plus(1, DateTimeUnit.DAY)
+                val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
+
+                // Two-Pass: Erst heute berechnen, nur auf morgen wechseln wenn ALLE
+                // geplanten Weckzeiten von heute bereits verstrichen sind.
+                // Verhindert den Sprung auf "Sonntag" wenn Kind/Papa noch geweckt werden müssen.
+                val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
+                val todayHasActive = todayMembers.any { !it.isPaused }
+
+                val (calculationMembers, targetDate) = if (todayHasActive) {
+                    val todaySchedule = withContext(Dispatchers.Default) {
+                        scheduler.calculateIdealSchedule(todayMembers)
+                    }
+                    val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
+                    if (latestAlarm != null && now < latestAlarm) {
+                        // Heute hat noch anstehende Alarme – heute verwenden
+                        todayMembers to today
+                    } else {
+                        // Alle Alarme von heute sind vorbei – morgen berechnen
+                        rawMembers.map { resolveEffectiveMember(it, forDate = tomorrow) } to tomorrow
+                    }
+                } else {
+                    // Heute kein aktives Profil – morgen berechnen
+                    rawMembers.map { resolveEffectiveMember(it, forDate = tomorrow) } to tomorrow
+                }
 
                 if (calculationMembers.none { !it.isPaused }) {
                     if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -78,7 +106,7 @@ internal fun FamilyViewModel.recalculateSchedule() {
 
                 val result = withContext(Dispatchers.Default) {
                     scheduler.calculateIdealSchedule(calculationMembers)
-                }
+                }.copy(targetDate = targetDate)
                 _schedule.value = result
 
                 if (alarmsOn && result.memberSchedules.isNotEmpty()) {
@@ -184,19 +212,27 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
 }
 
 /**
- * Löst das effektive DayProfile für den nächsten Alarm-Tag auf.
+ * Löst das effektive DayProfile für ein bestimmtes Datum auf.
+ * @param forDate Zieldatum. null = Auto-Detect (heute wenn latestWakeUp nicht vorbei, sonst morgen).
  */
-internal fun FamilyViewModel.resolveEffectiveMember(member: de.familienwecker.famwake.model.FamilyMember): de.familienwecker.famwake.model.FamilyMember {
+internal fun FamilyViewModel.resolveEffectiveMember(
+    member: de.familienwecker.famwake.model.FamilyMember,
+    forDate: kotlinx.datetime.LocalDate? = null
+): de.familienwecker.famwake.model.FamilyMember {
     val profiles = member.dayProfiles ?: return member
     val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
     val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val todayDow = today.dayOfWeek.value
-    val todayProfile = profiles[todayDow]
 
-    val targetDate = if (todayProfile != null && todayProfile.isActive && now < todayProfile.latestWakeUp) {
-        today
+    val targetDate = if (forDate != null) {
+        forDate
     } else {
-        today.plus(1, DateTimeUnit.DAY)
+        val todayDow = today.dayOfWeek.value
+        val todayProfile = profiles[todayDow]
+        if (todayProfile != null && todayProfile.isActive && now < todayProfile.latestWakeUp) {
+            today
+        } else {
+            today.plus(1, DateTimeUnit.DAY)
+        }
     }
 
     val targetDow = targetDate.dayOfWeek.value

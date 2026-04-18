@@ -185,6 +185,7 @@ class FamilyViewModel(
     internal var lastScheduledAlarmMillis: Long? = null
     internal val memberDebounceJobs = mutableMapOf<String, Job>()
     internal var alarmToggleJob: Job? = null
+    internal var scheduleJob: Job? = null
 
     // ── Connectivity ──────────────────────────────────────────────────────────
 
@@ -397,5 +398,6 @@ class FamilyViewModel(
         membersJob?.cancel()
         syncStatusJob?.cancel()
         offlineDebounceJob?.cancel()
+        scheduleJob?.cancel()
     }
 }

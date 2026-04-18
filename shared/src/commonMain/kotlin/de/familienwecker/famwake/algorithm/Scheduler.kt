@@ -93,6 +93,9 @@ class Scheduler {
                     minLeaveForBreakfastEaters = leave
                 }
             }
+            // Safety-Guard: Wenn leaveHomeTime oder naturalBathEnd vor 04:00 liegt
+            // (z.B. durch Mitternachts-Wrap-Around der plusMinutes-Arithmetik),
+            // auf 04:00 clampen. Verhindert unsinnige Frühstückszeiten um 2 Uhr nachts.
             val startTime = if (minLeaveForBreakfastEaters.isBefore(LocalTime(4, 0)))
                 LocalTime(4, 0) else minLeaveForBreakfastEaters
 

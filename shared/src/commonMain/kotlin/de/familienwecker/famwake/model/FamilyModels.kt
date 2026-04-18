@@ -48,7 +48,9 @@ data class FamilySchedule(
     val memberSchedules: List<ScheduleResult>,
     val breakfastTime: LocalTime?,
     val isValid: Boolean,
-    val scheduleMessage: ScheduleMessage
+    val scheduleMessage: ScheduleMessage,
+    // Zieldatum: für welchen Tag wurde dieser Plan berechnet? null = unbekannt/legacy
+    val targetDate: kotlinx.datetime.LocalDate? = null
 )
 
 @Serializable

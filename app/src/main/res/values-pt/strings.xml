@@ -332,4 +332,5 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Toque aqui para escolher o seu som de alarme pessoal – escolha a sua melodia favorita em vez do som padrão.</string>
     <string name="settings_language_dialects">Dialetos</string>
+    <string name="error_sync_blocked_device">A sincronização não está disponível neste dispositivo.</string>
 </resources>

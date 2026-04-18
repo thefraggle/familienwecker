@@ -2,6 +2,7 @@ package de.familienwecker.famwake.util
 
 import android.app.Activity
 import android.util.Log
+import de.familienwecker.famwake.BuildConfig
 import android.widget.Toast
 import com.google.android.play.core.review.ReviewManagerFactory
 import de.familienwecker.famwake.data.AppSettings
@@ -30,7 +31,7 @@ object ReviewHelper {
 
         val shouldShow = longEnoughInstalled && notTooCloseToAlarm && notRecentlyPrompted
         
-        Log.d(TAG, "shouldShowReview checking: Installed=$longEnoughInstalled, SafeFromAlarm=$notTooCloseToAlarm, NotRecent=$notRecentlyPrompted -> Result=$shouldShow")
+        if (BuildConfig.DEBUG) Log.d(TAG, "shouldShowReview checking: Installed=$longEnoughInstalled, SafeFromAlarm=$notTooCloseToAlarm, NotRecent=$notRecentlyPrompted -> Result=$shouldShow")
         return shouldShow
     }
 
@@ -43,7 +44,7 @@ object ReviewHelper {
             return
         }
 
-        Log.d(TAG, "Launching Review Flow...")
+        if (BuildConfig.DEBUG) Log.d(TAG, "Launching Review Flow...")
         val manager = ReviewManagerFactory.create(activity)
         val request = manager.requestReviewFlow()
         
@@ -54,10 +55,10 @@ object ReviewHelper {
                 flow.addOnCompleteListener { _ ->
                     // Flow abgeschlossen (egal ob erfolgreich oder nicht)
                     prefs.setLastReviewPromptTime(System.currentTimeMillis())
-                    Log.d(TAG, "Review Flow finished and timestamp updated.")
+                    if (BuildConfig.DEBUG) Log.d(TAG, "Review Flow finished and timestamp updated.")
                 }
             } else {
-                Log.e(TAG, "Review request failed: ${task.exception?.message}")
+                if (BuildConfig.DEBUG) Log.e(TAG, "Review request failed: ${task.exception?.message}")
                 if (ignoreConstraints) {
                     Toast.makeText(activity, "Review Flow Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }

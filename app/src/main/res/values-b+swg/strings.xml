@@ -332,4 +332,5 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Drück da, um dei persönliche Weckertön auszusuacha – nemm dei Lieblingsklang statt em Standardalarm.</string>
     <string name="settings_language_dialects">Dialekte</string>
+    <string name="error_sync_blocked_device">Synchronisierung isch uf dem Gerät ned verfügbar.</string>
 </resources>

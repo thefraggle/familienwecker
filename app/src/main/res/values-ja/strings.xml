@@ -332,4 +332,5 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">ここをタップして個人のアラーム音を選択 – デフォルトのアラームの代わりにお気に入りの音楽を設定しましょう。</string>
     <string name="settings_language_dialects">方言</string>
+    <string name="error_sync_blocked_device">このデバイスでは同期を利用できません。</string>
 </resources>
