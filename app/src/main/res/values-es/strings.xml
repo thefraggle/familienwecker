@@ -142,7 +142,6 @@
     <string name="settings_display_title">Ajustes de la app</string>
     <string name="settings_help_feedback_title">Ayuda y Comentarios</string>
     <string name="settings_support_button">Enviar correo al desarrollador</string>
-    <string name="settings_rate_app">⭐ Valorar la app ⭐</string>
     <string name="settings_start_onboarding">🎓 Tour de la app</string>
 
     <string name="onboarding_skip">Omitir</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Vaya, algo salió mal.</string>
     <string name="settings_donate_loading">Cargando ofertas…</string>
     <string name="settings_donate_no_offers">No hay ofertas disponibles. Asegúrate de que \"Current Offering\" esté configurado en RevenueCat.</string>
-    <string name="settings_donate_refresh">Actualizar</string>
     <string name="settings_donate_purchase_loading">Procesando donación…</string>
     <string name="settings_donate_error_not_allowed">El dispositivo o usuario no tiene permitido realizar compras.</string>
     <string name="settings_donate_error_store_problem">Hubo un problema con Google Play Store.</string>

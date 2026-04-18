@@ -142,7 +142,6 @@
     <string name="settings_display_title">App-Iistellige</string>
     <string name="settings_help_feedback_title">Hilf &amp; Feedback</string>
     <string name="settings_support_button">Entwickler maile</string>
-    <string name="settings_rate_app">⭐ App bewerte ⭐</string>
     <string name="settings_start_onboarding">🎓 App-Tour</string>
 
     <string name="onboarding_skip">Überspringe</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Hoppla, da isch öppis schiefggange.</string>
     <string name="settings_donate_loading">Lade Aagebot…</string>
     <string name="settings_donate_no_offers">Kä Aagebot verfüegbar. Bitte sicherstelle, dass \"Current Offering\" im RevenueCat gsetzt isch.</string>
-    <string name="settings_donate_refresh">Aktualisiere</string>
     <string name="settings_donate_purchase_loading">Spände wird verarbeitet…</string>
     <string name="settings_donate_error_not_allowed">S\'Grät oder de Benutzer dörf de Chauf nöd tätige.</string>
     <string name="settings_donate_error_store_problem">Es hät es Problem mit em Google Play Store gäh.</string>

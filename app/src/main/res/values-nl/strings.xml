@@ -142,7 +142,6 @@
     <string name="settings_display_title">App-instellingen</string>
     <string name="settings_help_feedback_title">Hulp &amp; Feedback</string>
     <string name="settings_support_button">E-mail de ontwikkelaar</string>
-    <string name="settings_rate_app">⭐ App beoordelen ⭐</string>
     <string name="settings_start_onboarding">🎓 App Tour</string>
 
     <string name="onboarding_skip">Overslaan</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Oeps, er ging iets mis.</string>
     <string name="settings_donate_loading">Aanbiedingen laden…</string>
     <string name="settings_donate_no_offers">Geen aanbiedingen beschikbaar. Zorg ervoor dat „Current Offering” is ingesteld in RevenueCat.</string>
-    <string name="settings_donate_refresh">Vernieuwen</string>
     <string name="settings_donate_purchase_loading">Donatie verwerken…</string>
     <string name="settings_donate_error_not_allowed">Het apparaat of de gebruiker mag de aankoop niet doen.</string>
     <string name="settings_donate_error_store_problem">Er was een probleem met de Google Play Store.</string>

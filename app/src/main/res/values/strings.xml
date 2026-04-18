@@ -142,7 +142,6 @@
     <string name="settings_display_title">App settings</string>
     <string name="settings_help_feedback_title">Help &amp; Feedback</string>
     <string name="settings_support_button">Email developer</string>
-    <string name="settings_rate_app">⭐ Rate App ⭐</string>
     <string name="settings_start_onboarding">🎓 App Tour</string>
 
     <string name="onboarding_skip">Skip</string>
@@ -298,7 +297,6 @@
     <string name="settings_donate_error">Oops, something went wrong.</string>
     <string name="settings_donate_loading">Loading offers…</string>
     <string name="settings_donate_no_offers">No offers available. Please make sure \"Current Offering\" is set in RevenueCat.</string>
-    <string name="settings_donate_refresh">Refresh</string>
     <string name="settings_donate_purchase_loading">Processing donation…</string>
     <string name="settings_donate_error_not_allowed">The device or user is not allowed to make the purchase.</string>
     <string name="settings_donate_error_store_problem">There was a problem with the Google Play Store.</string>

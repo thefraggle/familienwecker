@@ -142,7 +142,6 @@
     <string name="settings_display_title">アプリ設定</string>
     <string name="settings_help_feedback_title">ヘルプとフィードバック</string>
     <string name="settings_support_button">開発者にメールを送る</string>
-    <string name="settings_rate_app">⭐ アプリを評価 ⭐</string>
     <string name="settings_start_onboarding">🎓 アプリツアー</string>
 
     <string name="onboarding_skip">スキップ</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">おっと、何か問題が発生しました。</string>
     <string name="settings_donate_loading">プランを読み込んでいます…</string>
     <string name="settings_donate_no_offers">利用可能なプランがありません。RevenueCatで「Current Offering」が設定されているか確認してください。</string>
-    <string name="settings_donate_refresh">更新</string>
     <string name="settings_donate_purchase_loading">寄付を処理しています…</string>
     <string name="settings_donate_error_not_allowed">このデバイスまたはユーザーは購入を許可されていません。</string>
     <string name="settings_donate_error_store_problem">Google Playストアで問題が発生しました。</string>

@@ -142,7 +142,6 @@
     <string name="settings_display_title">Appinställningar</string>
     <string name="settings_help_feedback_title">Hjälp &amp; Feedback</string>
     <string name="settings_support_button">E-posta utvecklaren</string>
-    <string name="settings_rate_app">⭐ Betygsätt appen ⭐</string>
     <string name="settings_start_onboarding">🎓 Apptur</string>
 
     <string name="onboarding_skip">Hoppa över</string>
@@ -295,7 +294,6 @@
     <string name="settings_donate_error">Hoppsan, något gick fel.</string>
     <string name="settings_donate_loading">Laddar erbjudanden…</string>
     <string name="settings_donate_no_offers">Inga erbjudanden tillgängliga. Se till att \"Current Offering\" är inställt i RevenueCat.</string>
-    <string name="settings_donate_refresh">Uppdatera</string>
     <string name="settings_donate_purchase_loading">Bearbetar donation…</string>
     <string name="settings_donate_error_not_allowed">Enheten eller användaren får inte göra köpet.</string>
     <string name="settings_donate_error_store_problem">Det uppstod ett problem med Google Play Store.</string>
