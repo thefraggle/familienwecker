@@ -1,5 +1,5 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.7.8
+**Version:** 1.7.9
 **Datum:** 2026-04-18
 
 ---
@@ -50,15 +50,15 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | TC-50 | Firestore Member-Schutz | Versuch, name/claimedByUserId eines fremden Members zu schreiben oder zu löschen → PERMISSION_DENIED. |
-| TC-51 | Admin-Sichtbarkeit | Nicht-Admin sieht keine Admin-Buttons. Globaler Admin sieht Admin-Modal; 2-Min-Testwecker auslösbar. |
-| TC-52 | Feedback-Schutz | Feedback ohne Auth → unauthenticated-Fehler. XSS-Payload → Code als Text in E-Mail, keine Ausführung. |
-| TC-53 | Device Trust (Monitoring) | Integritäts-Check läuft lautlos im Hintergrund. Kein sichtbarer Effekt für den User. |
+| TC-51 | Feedback-Schutz | Versuch, Feedback ohne Auth → unauthenticated-Fehler. XSS-Payload → Code als Text in E-Mail, keine Ausführung. |
+| TC-52 | Device Trust (Monitoring) | Integritäts-Check läuft lautlos im Hintergrund. Kein sichtbarer Effekt für den User. |
+| TC-53 | In-App Review | Review-Prompt erscheint frühestens 7 Tage nach Install, nicht vor 06:00–09:00, max. alle 30 Tage. |
 
 ### 5. Lokalisation
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | TC-60 | Sprach-Fallback | Unbekannter Sprachcode → App fällt auf Englisch zurück, nicht Deutsch. Auch beim Laden aus dem Speicher. |
-| TC-61 | Alle Sprachen + Dialekte | DA/NO/FR/ES/IT/SV/TR/UK/RU/NL/PL/PT + Schwäbisch/Schweizerdeutsch/Ruhrpott → korrekte Texte, kein Absturz, kein DE-Fallback. |
+| TC-61 | Alle Sprachen + Dialekte | DA/NO/FR/ES/IT/SV/TR/UK/RU/NL/PL/PT + Schwäbisch/Schweizerdeutsch/Ruhrpott → korrekte Texte, kein Absturz. 20 Weck-Sprüche pro Sprache vorhanden. |
 | TC-62 | Sprachpicker | BottomSheet, alphabetisch, „System" immer zuerst. Grid scrollt auf 360dp-Geräten ohne Abschneiden. |
 
 ---
