@@ -256,10 +256,17 @@ class FirebaseRepository : IFirebaseRepository {
         }
         awaitClose { }
     }.retryWhen { cause, attempt ->
-        val delayMillis = minOf(1000L * (attempt + 1), 10000L)
-        if (debugLogging) Log.w(TAG, "getFamilyMembersFlow retry (attempt=$attempt): ${cause.message}")
-        delay(delayMillis)
-        true
+        // PERMISSION_DENIED ist permanent (Familie gelöscht/gewechselt) → nicht retrien
+        val isPermissionError = cause.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true
+        if (isPermissionError || attempt >= 5) {
+            if (debugLogging) Log.w(TAG, "getFamilyMembersFlow giving up (attempt=$attempt, permission=$isPermissionError): ${cause.message}")
+            false
+        } else {
+            val delayMillis = minOf(1000L * (attempt + 1), 10000L)
+            if (debugLogging) Log.w(TAG, "getFamilyMembersFlow retry (attempt=$attempt): ${cause.message}")
+            delay(delayMillis)
+            true
+        }
     }.distinctUntilChanged { old, new ->
         // Snapshot als identisch werten wenn Anzahl, IDs und alle relevanten Felder gleich sind.
         // Verhindert redundante Room-Writes bei Firestore-Metadaten-Updates (z.B. hasPendingWrites).
@@ -463,10 +470,16 @@ class FirebaseRepository : IFirebaseRepository {
         }
         awaitClose { }
     }.retryWhen { cause, attempt ->
-        val delayMillis = minOf(1000L * (attempt + 1), 10000L)
-        if (debugLogging) Log.w(TAG, "checkIsGlobalAdminFlow retry (attempt=$attempt): ${cause.message}")
-        delay(delayMillis)
-        true
+        val isPermissionError = cause.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true
+        if (isPermissionError || attempt >= 5) {
+            if (debugLogging) Log.w(TAG, "checkIsGlobalAdminFlow giving up (attempt=$attempt, permission=$isPermissionError): ${cause.message}")
+            false
+        } else {
+            val delayMillis = minOf(1000L * (attempt + 1), 10000L)
+            if (debugLogging) Log.w(TAG, "checkIsGlobalAdminFlow retry (attempt=$attempt): ${cause.message}")
+            delay(delayMillis)
+            true
+        }
     }
 
     override fun getSyncStatusFlow(familyId: String): Flow<SyncStatus> = callbackFlow {
@@ -509,9 +522,15 @@ class FirebaseRepository : IFirebaseRepository {
             membersJob.cancel()
         }
     }.retryWhen { cause, attempt ->
-        val delayMillis = minOf(1000L * (attempt + 1), 10000L)
-        delay(delayMillis)
-        true
+        val isPermissionError = cause.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true
+        if (isPermissionError || attempt >= 5) {
+            if (debugLogging) Log.w(TAG, "getSyncStatusFlow giving up (attempt=$attempt, permission=$isPermissionError): ${cause.message}")
+            false
+        } else {
+            val delayMillis = minOf(1000L * (attempt + 1), 10000L)
+            delay(delayMillis)
+            true
+        }
     }
 
     override suspend fun requestAdminStatsReport(): Result<Unit> {

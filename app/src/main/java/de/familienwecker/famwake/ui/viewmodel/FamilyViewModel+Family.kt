@@ -152,6 +152,10 @@ fun FamilyViewModel.leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
                 onComplete(false)
                 return@launch
             }
+            // Snapshot-Listener VOR dem Join stoppen – joinFamilyByCode ändert
+            // users/{uid}.familyId serverseitig auf die neue Familie, wodurch die
+            // Security Rules den alten Listener mit PERMISSION_DENIED abweisen.
+            stopSyncJobs()
             val result = repository.joinFamilyByCode(code)
             result.onSuccess { pair ->
                 cancelAlarmForCurrentUser()
