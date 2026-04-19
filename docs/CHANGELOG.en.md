@@ -2,6 +2,17 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.10 – 2026-04-19
+
+### Fixed
+- **Create/delete/leave family** – Creating, deleting, or leaving a family could incorrectly show “Synchronization failed” even though the action succeeded. Especially on fresh installations.
+
+### Improved
+- **More accurate alarm sound detection** – The selected alarm sound name is now correctly displayed and tracked.
+- Background improvements for device security checks.
+
+---
+
 ## 1.7.9 – 2026-04-18
 
 ### New
