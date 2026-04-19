@@ -1,0 +1,43 @@
+{
+  "title": "🔒 Sicherheit & Integrität",
+  "insights": [
+    {
+      "breakdownKey": "verdict",
+      "displayMode": "raw",
+      "groupBy": "all",
+      "isExpanded": true,
+      "order": 0,
+      "signalType": "integrity.check",
+      "title": "Integrity Verdict Verteilung",
+      "type": "topN",
+      "uniqueUser": true
+    },
+    {
+      "breakdownKey": "",
+      "displayMode": "lineChart",
+      "groupBy": "week",
+      "isExpanded": false,
+      "order": 1,
+      "signalType": "integrity.check",
+      "title": "Integrity Checks Trend (Wöchentlich)",
+      "type": "timeseries",
+      "uniqueUser": true
+    },
+    {
+      "breakdownKey": "",
+      "displayMode": "barChart",
+      "groupBy": "day",
+      "isExpanded": false,
+      "order": 2,
+      "signalType": "integrity.check",
+      "title": "Integrity Checks täglich",
+      "type": "timeseries",
+      "uniqueUser": false
+    }
+  ],
+  "_exportMetadata": {
+    "version": 1,
+    "exportedAt": "2026-04-19T13:19:08.564Z",
+    "dynamicFields": []
+  }
+}
