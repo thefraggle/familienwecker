@@ -2,6 +2,17 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.10 – 2026-04-19
+
+### Behoben
+- **Familie erstellen/löschen/verlassen** – Beim Erstellen, Löschen oder Verlassen einer Familie konnte fälschlicherweise „Synchronisierung fehlgeschlagen" erscheinen, obwohl die Aktion erfolgreich war. Besonders auf frischen Installationen.
+
+### Verbessert
+- **Genauere Weckton-Erkennung** – Der gewählte Weckton-Name wird jetzt korrekt angezeigt und ausgewertet.
+- Verbesserungen im Hintergrund für die Gerätesicherheits-Prüfung.
+
+---
+
 ## 1.7.9 – 2026-04-18
 
 ### Neu
