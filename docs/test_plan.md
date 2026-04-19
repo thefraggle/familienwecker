@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.7.9
-**Datum:** 2026-04-18
+**Version:** 1.7.10
+**Datum:** 2026-04-19
 
 ---
 
@@ -21,7 +21,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-02 | Google Sign-In | Login erfolgreich, Familienkontext korrekt geladen. |
 | TC-03 | Passwort-Reset | E-Mail wird versendet. Unbekannte E-Mail: immer gleiche Erfolgsmeldung (User Enumeration Prevention). |
 | TC-04 | Familie gründen + beitreten | Familie mit Code erstellt. Zweites Gerät tritt per Code und per `/join/`-Deep-Link bei. Eigenen Code eingeben → kein erneuter Join. |
-| TC-05 | Familie verlassen / löschen | Eigenes Profil gelöscht, Alarm gecancelt. Nur Creator darf Familie löschen. Fehlermeldung für Nicht-Creator. |
+| TC-05 | Familie verlassen / löschen | Eigenes Profil gelöscht, Alarm gecancelt. Nur Creator darf Familie löschen. Fehlermeldung für Nicht-Creator. Keine falsche „Synchronisierung fehlgeschlagen"-Meldung (auch auf Fresh Install). |
 | TC-06 | Logout + Re-Login | Alarm-State bleibt erhalten (kein Race-Condition-Reset). Zweiter User einloggen → sieht nur eigene Familie. |
 | TC-07 | Onboarding-Tour | 5 Slides mit Panda. Tour aus Einstellungen wieder aufrufbar. Abschluss landet im Hauptscreen. |
 | TC-08 | Rate-Limiting | >5 falsche Codes/min oder >5 Reset-Mails/h → serverseitige Blockierung. |

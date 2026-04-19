@@ -39,6 +39,10 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
             appSettings.setFamilyId(pair.first)
             appSettings.setJoinCode(pair.second)
             appSettings.setFamilyName(familyName)
+            // Etwaige Race-Condition-Fehlermeldung aus dem Snapshot-Listener clearen.
+            // Der familyId-Change startet sofort einen Listener, der u.U. scheitert weil
+            // die Security Rules den frischen users/{uid}.familyId noch nicht sehen.
+            _errorMessage.value = null
             // Tracking: Nutzer hat erfolgreich eine neue Familie angelegt
             TelemetryDeck.signal("family.created")
             onComplete(true)
@@ -201,6 +205,9 @@ fun FamilyViewModel.leaveFamily(onComplete: (Boolean) -> Unit = {}) {
             return@launch
         }
         try {
+            // Snapshot-Listener VOR dem Leave stoppen – die Cloud Function entfernt
+            // den User serverseitig, was PERMISSION_DENIED im Listener auslöst.
+            stopSyncJobs()
             val result = if (currentFamilyId != null && currentMemberId != null) {
                 repository.leaveFamilyBatch(uid, currentFamilyId, currentMemberId)
             } else {
@@ -212,6 +219,8 @@ fun FamilyViewModel.leaveFamily(onComplete: (Boolean) -> Unit = {}) {
                 appSettings.setFamilyName(null)
                 appSettings.setMyMemberId(null)
                 appSettings.setMyMemberName(null)
+                // Etwaige Race-Condition-Fehlermeldung clearen
+                _errorMessage.value = null
                 TelemetryDeck.signal("family.left")
                 onComplete(true)
             } else {
@@ -239,6 +248,10 @@ fun FamilyViewModel.deleteFamily(onComplete: (Boolean) -> Unit) {
             return@launch
         }
         val uid = auth.currentUser?.uid ?: return@launch
+        // Snapshot-Listener VOR dem Delete stoppen – sonst crashen sie mit PERMISSION_DENIED
+        // sobald die Cloud Function die Docs löscht und die Error-Message wird gesetzt
+        // bevor familyId=null den Job cancelt (Race Condition).
+        stopSyncJobs()
         val result = repository.deleteFamily(currentFamilyId, uid)
         if (result.isSuccess) {
             appSettings.setFamilyId(null)
@@ -246,6 +259,8 @@ fun FamilyViewModel.deleteFamily(onComplete: (Boolean) -> Unit) {
             appSettings.setFamilyName(null)
             appSettings.setMyMemberId(null)
             appSettings.setMyMemberName(null)
+            // Etwaige Race-Condition-Fehlermeldung aus dem Listener clearen
+            _errorMessage.value = null
             TelemetryDeck.signal("family.deleted")
             onComplete(true)
         } else {

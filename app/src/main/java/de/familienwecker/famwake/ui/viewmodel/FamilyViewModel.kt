@@ -320,7 +320,13 @@ class FamilyViewModel(
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                                     android.util.Log.e("FamilyViewModel", "Members Flow Error: ${e.message}", e)
                                 }
-                                _errorMessage.value = UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, e.localizedMessage ?: "")
+                                // PERMISSION_DENIED tritt regulär auf wenn eine Familie gerade
+                                // gelöscht/gewechselt wird (Race Condition). In dem Fall ist der
+                                // Listener bereits obsolet und wird von familyId.collect gecancelt.
+                                val isPermissionError = e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true
+                                if (!isPermissionError) {
+                                    _errorMessage.value = UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, e.localizedMessage ?: "")
+                                }
                             }
                         }
                     } else {
@@ -388,6 +394,19 @@ class FamilyViewModel(
                 appSettings.setSnoozeUntil(null)
             }
         }
+    }
+
+    // ── Sync Job Management ───────────────────────────────────────────────────
+
+    /** Stoppt die aktiven Firestore-Listener (members + syncStatus).
+     *  Muss VOR destruktiven Cloud-Functions (deleteFamily) aufgerufen werden,
+     *  da die Listener sonst PERMISSION_DENIED sehen und fälschlicherweise
+     *  error_sync_failed setzen, bevor familyId=null sie cancelt. */
+    internal fun stopSyncJobs() {
+        membersJob?.cancel()
+        membersJob = null
+        syncStatusJob?.cancel()
+        syncStatusJob = null
     }
 
     // ── Lifecycle ─────────────────────────────────────────────────────────────
