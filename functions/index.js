@@ -1722,3 +1722,51 @@ exports.getUserContext = onCall(
     }
   }
 );
+
+/**
+ * Verifiziert ein Play Integrity Token serverseitig via Google API.
+ * Client-seitiges Base64-Decoding liefert immer UNKNOWN (JWT ist signiert und
+ * kann client-seitig nicht zuverlässig verifiziert werden). Diese Function ruft
+ * die offizielle Google Play Integrity API auf und gibt das echte Verdict zurück.
+ */
+exports.verifyIntegrityToken = onCall(
+  {
+    region: "europe-west3",
+    invoker: "public",
+  },
+  async (request) => {
+    const token = request.data?.token;
+    if (!token || typeof token !== "string") {
+      throw new HttpsError("invalid-argument", "Token required");
+    }
+
+    try {
+      const { GoogleAuth } = require("google-auth-library");
+      const auth = new GoogleAuth({
+        scopes: ["https://www.googleapis.com/auth/playintegrity"],
+      });
+      const client = await auth.getClient();
+
+      const packageName = "de.familienwecker.famwake";
+      const url = `https://playintegrity.googleapis.com/v1/${packageName}:decodeIntegrityToken`;
+
+      const response = await client.request({
+        url,
+        method: "POST",
+        data: { integrity_token: token },
+      });
+
+      const payload = response.data?.tokenPayloadExternal;
+      const verdictArray = payload?.deviceIntegrity?.deviceRecognitionVerdict ?? [];
+      const trusted = Array.isArray(verdictArray) && verdictArray.includes("MEETS_DEVICE_INTEGRITY");
+
+      console.log(`Play Integrity verdict: ${JSON.stringify(verdictArray)}, trusted=${trusted}`);
+      return { trusted, verdict: verdictArray };
+
+    } catch (err) {
+      // Fail-open: bei API-Fehler UNKNOWN zurückgeben, nicht blocken
+      console.error("verifyIntegrityToken error:", err?.message ?? err);
+      return { trusted: null, verdict: [], error: "API_ERROR" };
+    }
+  }
+);

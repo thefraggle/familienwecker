@@ -304,8 +304,11 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
 
 fun FamilyViewModel.setAlarmSoundUri(uri: String) {
     appSettings.setAlarmSoundUri(uri)
-    // Payload: welcher Sound-Typ wird am meisten genutzt?
-    val soundName = uri.substringAfterLast("/").substringBeforeLast(".")
+    // "title"-Query-Parameter enthält den lesbaren Namen (z.B. "Morning Strum").
+    // Fallback auf letztes Pfadsegment für ältere/custom URIs ohne title-Parameter.
+    val parsedUri = android.net.Uri.parse(uri)
+    val soundName = parsedUri.getQueryParameter("title")
+        ?: uri.substringAfterLast("/").substringBeforeLast(".")
     TelemetryDeck.signal("alarm.soundChanged", mapOf("soundName" to soundName))
 }
 

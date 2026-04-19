@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.google.android.play.core.integrity.IntegrityManagerFactory
 import com.google.android.play.core.integrity.IntegrityTokenRequest
+import com.google.firebase.functions.FirebaseFunctions
 import com.telemetrydeck.sdk.TelemetryDeck
 import de.familienwecker.famwake.BuildConfig
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +26,9 @@ enum class DeviceTrustLevel {
  * aber nie blockiert – der Rückgabewert ist immer UNKNOWN.
  * Erst wenn ENFORCEMENT_ENABLED = true gesetzt wird (v1.7.8+),
  * greift die echte Sperre für UNTRUSTED-Geräte.
+ *
+ * v1.7.10: Server-side Verification via Cloud Function statt lokalem JWT-Decode.
+ * Gibt erstmals echte TRUSTED-Werte zurück (lokaler Decode lieferte immer UNKNOWN).
  */
 class DeviceTrustManager(private val context: Context) {
 
@@ -63,20 +67,18 @@ class DeviceTrustManager(private val context: Context) {
 
     private suspend fun fetchVerdict(): DeviceTrustLevel {
         return try {
-            val result = withTimeoutOrNull(5000L) {
+            val token = withTimeoutOrNull(5000L) {
                 val manager = IntegrityManagerFactory.create(context)
                 val request = IntegrityTokenRequest.builder()
                     .setNonce(generateNonce())
                     .build()
-                manager.requestIntegrityToken(request).await()
+                manager.requestIntegrityToken(request).await().token()
             } ?: return DeviceTrustLevel.UNKNOWN // Timeout → fail-open
 
-            // Token dekodieren: Base64 JWT (Payload ist der mittlere Teil)
-            // Wir parsen nur den Verdict-Teil – vollständige Verifikation
-            // sollte serverseitig erfolgen (für v1.7.8 mit Cloud Function).
-            // In der Monitoring-Phase reicht der lokale Parse für die Telemetry.
-            val token = result.token()
-            parseVerdictFromToken(token)
+            // Token serverseitig via Cloud Function verifizieren.
+            // Lokales JWT-Decoding liefert immer UNKNOWN, da das Token signiert ist
+            // und die Signatur nur mit dem Google-Schlüssel serverseitig prüfbar ist.
+            verifyTokenServerSide(token)
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
                 Log.w(TAG, "Play Integrity check failed: ${e.message}")
@@ -86,35 +88,36 @@ class DeviceTrustManager(private val context: Context) {
     }
 
     /**
-     * Dekodiert den JWT-Payload des Integrity-Tokens (Base64url) und prüft
-     * ob "MEETS_DEVICE_INTEGRITY" im deviceRecognitionVerdict enthalten ist.
-     *
-     * Hinweis: Diese Client-seitige Auswertung dient ausschließlich dem
-     * TelemetryDeck-Logging in der Monitoring-Phase. Für Enforcement (v1.7.8)
-     * wird die Verifikation serverseitig in einer Cloud Function erfolgen.
+     * Sendet das Integrity-Token an die Cloud Function `verifyIntegrityToken`,
+     * die es serverseitig via Google Play Integrity API verifiziert.
+     * Gibt UNKNOWN zurück wenn die Cloud Function nicht erreichbar ist (fail-open).
      */
-    private fun parseVerdictFromToken(token: String): DeviceTrustLevel {
+    private suspend fun verifyTokenServerSide(token: String): DeviceTrustLevel {
         return try {
-            val parts = token.split(".")
-            if (parts.size < 2) return DeviceTrustLevel.UNKNOWN
+            val functions = FirebaseFunctions.getInstance("europe-west3")
+            val data = hashMapOf("token" to token)
 
-            val payload = parts[1]
-            // Base64url → Base64 → String
-            val padded = payload.padEnd(payload.length + (4 - payload.length % 4) % 4, '=')
-            val decoded = android.util.Base64.decode(
-                padded.replace('-', '+').replace('_', '/'),
-                android.util.Base64.DEFAULT
-            ).toString(Charsets.UTF_8)
+            val result = withTimeoutOrNull(8000L) {
+                functions.getHttpsCallable("verifyIntegrityToken")
+                    .call(data)
+                    .await()
+            } ?: run {
+                if (BuildConfig.DEBUG) Log.w(TAG, "Cloud Function timeout → UNKNOWN")
+                return DeviceTrustLevel.UNKNOWN
+            }
 
-            // Einfacher String-Check statt vollständigem JSON-Parse
-            if (decoded.contains("MEETS_DEVICE_INTEGRITY")) {
-                DeviceTrustLevel.TRUSTED
-            } else {
-                DeviceTrustLevel.UNTRUSTED
+            @Suppress("UNCHECKED_CAST")
+            val resultMap = result.data as? Map<String, Any>
+            val trusted = resultMap?.get("trusted") as? Boolean
+
+            when (trusted) {
+                true  -> DeviceTrustLevel.TRUSTED
+                false -> DeviceTrustLevel.UNTRUSTED
+                null  -> DeviceTrustLevel.UNKNOWN // API_ERROR oder kein Ergebnis
             }
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
-                Log.w(TAG, "Token parse failed: ${e.message}")
+                Log.w(TAG, "Server verification failed: ${e.message}")
             }
             DeviceTrustLevel.UNKNOWN
         }
@@ -142,3 +145,4 @@ class DeviceTrustManager(private val context: Context) {
         }
     }
 }
+
