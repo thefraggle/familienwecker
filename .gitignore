@@ -36,6 +36,7 @@ release-notes/
 
 # Internal documentation
 .antigravity/
+docs/internal/
 
 # Firebase Functions
 functions/node_modules/
