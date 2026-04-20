@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Aile Alarmı</string>
+    <string name="app_name_short">Aile Alarm Saati</string>
     <string name="email_label">E-posta</string>
     <string name="password_label">Şifre</string>
     <string name="register_button">Kayıt ol</string>
