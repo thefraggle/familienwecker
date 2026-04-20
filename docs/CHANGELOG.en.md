@@ -2,6 +2,18 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.11 – 2026-04-20
+
+### Fixed
+- **Phantom "calculation error"** – Adding a new family member could incorrectly show a calculation error, even though everything worked correctly.
+- **Spinner when joining a family** – Attempting to join a family while offline left the loading indicator stuck.
+- **Error when editing quickly** – Rapidly changing wake times could briefly show a false sync error.
+
+### Improved
+- **Emails for dialect users** – Password reset and account verification emails now arrive in German when Swabian, Swiss German, or Ruhr Valley dialect is selected (instead of English).
+
+---
+
 ## 1.7.10 – 2026-04-19
 
 ### Fixed

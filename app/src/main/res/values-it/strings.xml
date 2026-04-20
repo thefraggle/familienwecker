@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Sveglia di Famiglia</string>
+    <string name="app_name_short">Sveglia Familiare</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="register_button">Registrati</string>
@@ -115,7 +115,7 @@
     <string name="settings_delete_family_warning_confirm">Sì, elimina tutto</string>
     <string name="settings_logout">Esci</string>
     <string name="settings_delete_account">Elimina account</string>
-    <string name="settings_footer_version">FamWake Sveglia di Famiglia v%1$s</string>
+    <string name="settings_footer_version">FamWake Sveglia Familiare v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Tutti i diritti riservati.</string>
 

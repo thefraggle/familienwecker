@@ -72,6 +72,7 @@ fun FamilyViewModel.joinFamily(code: String, onComplete: (Boolean) -> Unit) {
         _isJoiningFamily.value = true
         if (isOffline.value) {
             _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
+            _isJoiningFamily.value = false
             onComplete(false)
             return@launch
         }
