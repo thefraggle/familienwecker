@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">ファミリーアラーム</string>
+    <string name="app_name_short">ファミリー目覚まし</string>
     <string name="email_label">メールアドレス</string>
     <string name="password_label">パスワード</string>
     <string name="register_button">登録</string>
