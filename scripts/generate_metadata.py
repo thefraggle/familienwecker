@@ -41,17 +41,6 @@ def get_latest_changelog(file_path):
         return truncate_to_bytes(result)
     return None
 
-def get_version_code(aab_path):
-    try:
-        # Use aapt2 to extract versionCode
-        result = subprocess.run(['aapt2', 'dump', 'badging', aab_path], capture_output=True, text=True)
-        match = re.search(r"versionCode='(\d+)'", result.stdout)
-        if match:
-            return match.group(1)
-    except Exception as e:
-        print(f"Error getting versionCode: {e}")
-    return None
-
 def main():
     # All supported app languages for Play Store release notes.
     # Play Store silently ignores locales not yet published – safe to add early.
@@ -72,16 +61,21 @@ def main():
         'da-DK': None,   # Danish – added 1.7.2
         'ja-JP': None,   # Japanese – added 1.7.4
     }
+
+    # deep-translator nutzt 'no' für Norwegisch Bokmål statt 'nb'
+    LANG_CODE_MAP = {
+        'nb': 'no',
+    }
     
     changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or "Maintenance update and performance optimizations."
     
-    # Use googletrans for other languages if possible
-    translator = None
+    # deep-translator statt googletrans: stabil, aktiv gewartet, unterstützt nb/no
     try:
-        from googletrans import Translator
-        translator = Translator()
+        from deep_translator import GoogleTranslator
+        translator_available = True
     except Exception as e:
-        print(f"googletrans setup failed: {e}")
+        print(f"deep-translator setup failed: {e}")
+        translator_available = False
 
     # New base directory for all metadata as requested by user
     dest_dir = 'release-notes'
@@ -100,12 +94,14 @@ def main():
         
         # Translation logic for non-DE/EN
         if not content:
-            target_lang = locale.split('-')[0]
-            if translator and changelog_en:
+            lang_code = locale.split('-')[0]
+            # Mapping für Sprachen mit abweichenden Codes in deep-translator
+            target_lang = LANG_CODE_MAP.get(lang_code, lang_code)
+            if translator_available and changelog_en:
                 try:
                     print(f"Translating for {locale}...")
-                    translation = translator.translate(changelog_en, dest=target_lang)
-                    content = translation.text
+                    translation = GoogleTranslator(source='en', target=target_lang).translate(changelog_en)
+                    content = translation
                 except Exception as e:
                     print(f"Translation failed for {locale}: {e}")
             
