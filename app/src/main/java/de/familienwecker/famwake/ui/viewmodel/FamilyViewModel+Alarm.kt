@@ -122,6 +122,9 @@ internal fun FamilyViewModel.recalculateSchedule() {
                     }
                     currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                 }
+            } catch (e: CancellationException) {
+                // Cancel-and-replace: alter Job wurde durch neuen recalculateSchedule() abgelöst – kein Fehler
+                throw e
             } catch (e: Exception) {
                 _errorMessage.value = UiText.StringResource(R.string.error_calculate_schedule, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
                 _schedule.value = null
