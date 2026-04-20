@@ -2,6 +2,18 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.11 – 2026-04-20
+
+### Behoben
+- **Phantom-Fehlermeldung „Rechenfehler"** – Beim Anlegen eines neuen Familienmitglieds konnte fälschlicherweise ein Rechenfehler angezeigt werden, obwohl alles korrekt funktionierte.
+- **Spinner beim Familien-Beitritt** – Wurde offline versucht einer Familie beizutreten, blieb der Ladeanzeiger hängen.
+- **Fehlermeldung beim schnellen Bearbeiten** – Schnelles Ändern von Weckzeiten konnte kurzzeitig einen falschen Sync-Fehler anzeigen.
+
+### Verbessert
+- **E-Mails für Dialekt-Nutzer** – Passwort-Reset und Konto-Bestätigung kommen jetzt auf Deutsch an, wenn Schwäbisch, Schweizerdeutsch oder Ruhrpott eingestellt ist (statt Englisch).
+
+---
+
 ## 1.7.10 – 2026-04-19
 
 ### Behoben

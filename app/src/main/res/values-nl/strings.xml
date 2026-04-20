@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Familiewekker</string>
+    <string name="app_name_short">Gezinswekker</string>
     <string name="email_label">E-mail</string>
     <string name="password_label">Wachtwoord</string>
     <string name="register_button">Registreren</string>
@@ -115,7 +115,7 @@
     <string name="settings_delete_family_warning_confirm">Ja, alles verwijderen</string>
     <string name="settings_logout">Uitloggen</string>
     <string name="settings_delete_account">Account verwijderen</string>
-    <string name="settings_footer_version">FamWake Familiewekker v%1$s</string>
+    <string name="settings_footer_version">FamWake Gezinswekker v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rechten voorbehouden.</string>
 

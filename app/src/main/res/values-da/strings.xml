@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Familiealarm</string>
+    <string name="app_name_short">Familievækkeur</string>
     <string name="email_label">E-mail</string>
     <string name="password_label">Adgangskode</string>
     <string name="register_button">Opret konto</string>
@@ -115,7 +115,7 @@
     <string name="settings_delete_family_warning_confirm">Ja, slet alt</string>
     <string name="settings_logout">Log ud</string>
     <string name="settings_delete_account">Slet konto</string>
-    <string name="settings_footer_version">FamWake Familiealarm v%1$s</string>
+    <string name="settings_footer_version">FamWake Familievækkeur v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rettigheder forbeholdes.</string>
 
@@ -254,7 +254,7 @@
     <string name="error_delete_not_admin">Kun opretteren kan slette familien.</string>
 
     <string name="alarm_default_member">Familiemedlem</string>
-    <string name="alarm_notification_title">Familiealarmen ringer</string>
+    <string name="alarm_notification_title">Familievækkeuren ringer</string>
     <string name="alarm_notification_text">Godmorgen, %1$s!</string>
     <string name="alarm_channel_name">Alarm</string>
 

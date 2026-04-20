@@ -86,6 +86,9 @@ internal fun FamilyViewModel.addOrUpdateMemberDebounced(member: FamilyMember, on
         try {
             repository.addOrUpdateMember(currentFamilyId, member)
             onComplete?.invoke()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            // Debounce-Cancel: neuer Aufruf hat diesen Job abgelöst – kein Fehler
+            throw e
         } catch (e: Exception) {
             // Debounced write failed – surface error so the user knows the change wasn't saved
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {

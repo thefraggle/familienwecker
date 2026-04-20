@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Alarme de Família</string>
+    <string name="app_name_short">Despertador Familiar</string>
     <string name="email_label">Email</string>
     <string name="password_label">Senha</string>
     <string name="register_button">Cadastrar</string>
@@ -115,7 +115,7 @@
     <string name="settings_delete_family_warning_confirm">Sim, excluir tudo</string>
     <string name="settings_logout">Sair</string>
     <string name="settings_delete_account">Excluir conta</string>
-    <string name="settings_footer_version">FamWake Alarme de Família v%1$s</string>
+    <string name="settings_footer_version">FamWake Despertador Familiar v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Todos os direitos reservados.</string>
 

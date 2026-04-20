@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Familjeväckarklocka</string>
+    <string name="app_name_short">Familjeväckare</string>
     <string name="email_label">E-post</string>
     <string name="password_label">Lösenord</string>
     <string name="register_button">Registrera</string>
@@ -115,7 +115,7 @@
     <string name="settings_delete_family_warning_confirm">Ja, ta bort allt</string>
     <string name="settings_logout">Logga ut</string>
     <string name="settings_delete_account">Ta bort konto</string>
-    <string name="settings_footer_version">FamWake Familjeväckarklocka v%1$s</string>
+    <string name="settings_footer_version">FamWake Familjeväckare v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alla rättigheter förbehållna.</string>
 
@@ -254,7 +254,7 @@
     <string name="error_delete_not_admin">Endast familjens skapare kan ta bort familjen.</string>
 
     <string name="alarm_default_member">Familjemedlem</string>
-    <string name="alarm_notification_title">Familjeväckarklockan ringer</string>
+    <string name="alarm_notification_title">Familjeväckaren ringer</string>
     <string name="alarm_notification_text">God morgon, %1$s!</string>
     <string name="alarm_channel_name">Larm</string>
 

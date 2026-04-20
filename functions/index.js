@@ -72,6 +72,9 @@ const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
 const PRIMARY_ADMIN_UID = "yqmtXyDNQCa5ajCvL9LEWbVgJmF2";
 const BRAND_BLUE = "#1A3A5C";
 
+// Dialekte → Muttersprache für E-Mail-Inhalte (formal/rechtlich → Hochdeutsch)
+const DIALECT_TO_LANG = { gsw: "de", swg: "de", ksh: "de" };
+
 const SENDER = {
   de: "FamWake Familienwecker <no-reply@familienwecker.de>",
   en: "FamWake Family Alarm <no-reply@familienwecker.de>",
@@ -455,7 +458,8 @@ exports.sendBrandedResetEmail = onCall(
   },
   async (request) => {
     const email = request.data?.email;
-    const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
+    const rawLang = (request.data?.language || "de").toLowerCase();
+    const requestedLang = DIALECT_TO_LANG[rawLang] || rawLang.slice(0, 2);
     const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
     const lang = supportedLangs.includes(requestedLang) ? requestedLang : "en";
     console.log(`Email request for ${email?.trim()} with language: ${request.data?.language} -> mapped to: ${lang}`);
@@ -570,7 +574,8 @@ exports.sendBrandedConfirmationEmail = onCall(
   },
   async (request) => {
     const email = request.data?.email;
-    const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
+    const rawLang = (request.data?.language || "de").toLowerCase();
+    const requestedLang = DIALECT_TO_LANG[rawLang] || rawLang.slice(0, 2);
     const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
     const lang = supportedLangs.includes(requestedLang) ? requestedLang : "en";
 
@@ -665,6 +670,7 @@ const EMAIL_CONTENT_VERIFY = {
     intro: "Grazie per esserti registrato a <strong>FamWake</strong> Sveglia Famiglia. Non vediamo l'ora di aiutare te e la tua famiglia a trascorrere una mattinata rilassante e senza caos!",
     instruction: "Conferma il tuo indirizzo email per attivare il tuo account:",
     button: "Conferma indirizzo email",
+    fallback: "Se il pulsante non funziona, copia questo link nel tuo browser:",
     privacy: "<strong>Nota:</strong> Per motivi di privacy, questo link e i tuoi dati di registrazione non confermati verranno cancellati automaticamente dopo 48 ore se non viene effettuata l'attivazione.",
     security: "Se non hai creato tu questo account, puoi ignorare questa email. Nessun dato verrà memorizzato in modo permanente.",
     footerNote: "Questo è un messaggio generato automaticamente. Si prega di non rispondere direttamente a questa email.",
@@ -850,7 +856,8 @@ exports.sendVerificationEmail = onCall(
   },
   async (request) => {
     const email = request.data?.email;
-    const requestedLang = (request.data?.language || "de").toLowerCase().slice(0, 2);
+    const rawLang = (request.data?.language || "de").toLowerCase();
+    const requestedLang = DIALECT_TO_LANG[rawLang] || rawLang.slice(0, 2);
     const lang = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"].includes(requestedLang) ? requestedLang : "en";
 
     if (!email) {

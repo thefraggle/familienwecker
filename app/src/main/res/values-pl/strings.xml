@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_short">Rodzinny Budzik</string>
+    <string name="app_name_short">Budzik Rodzinny</string>
     <string name="email_label">Email</string>
     <string name="password_label">Hasło</string>
     <string name="register_button">Zarejestruj się</string>
@@ -115,7 +115,7 @@
     <string name="settings_delete_family_warning_confirm">Tak, usuń wszystko</string>
     <string name="settings_logout">Wyloguj się</string>
     <string name="settings_delete_account">Usuń konto</string>
-    <string name="settings_footer_version">FamWake Rodzinny Budzik v%1$s</string>
+    <string name="settings_footer_version">FamWake Budzik Rodzinny v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Wszelkie prawa zastrzeżone.</string>
 
