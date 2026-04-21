@@ -2,6 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.7.12 – 2026-04-21
+
+### Verbessert
+- **App-Name in der Kurzanzeige** – Für Englisch, Türkisch, Schwedisch, Norwegisch und Japanisch jetzt korrekt mit dem offiziellen Store-Titel abgestimmt.
+- **Ruhrpott-Dialekt** – App-Name erscheint jetzt korrekt ohne Bindestrich.
+
+---
+
 ## 1.7.11 – 2026-04-20
 
 ### Behoben
