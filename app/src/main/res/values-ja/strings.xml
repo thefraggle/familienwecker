@@ -343,4 +343,18 @@
     <string name="onboarding_mock_name1">パパ</string>
     <string name="onboarding_mock_name2">ママ</string>
     <string name="onboarding_mock_family_name">田中</string>
+
+    <!-- Notification strings -->
+    <string name="notif_channel_schedule_change_name">スケジュール変更</string>
+    <string name="notif_channel_schedule_change_desc">起床時間や順序が変更された際に通知します</string>
+    <string name="notif_channel_family_events_name">ファミリーイベント</string>
+    <string name="notif_channel_family_events_desc">メンバーがファミリーに参加または退出した際に通知します</string>
+    <string name="notif_schedule_changed_title">スケジュールが更新されました</string>
+    <string name="notif_schedule_changed_body">起床時間が変更されました。アプリを開いて新しい時間を確認してください。</string>
+    <string name="notif_member_joined_title">新しいメンバーが参加しました！</string>
+    <string name="notif_member_joined_body">新しいメンバーがファミリーに参加しました。</string>
+    <string name="notif_member_left_title">ファミリーの更新</string>
+    <string name="notif_member_left_body">メンバーがファミリーを退出しました。</string>
+    <string name="notif_permission_title">プッシュ通知</string>
+    <string name="notif_permission_desc">予定が変更されたりメンバーが参加したときに通知を受け取ります。</string>
 </resources>

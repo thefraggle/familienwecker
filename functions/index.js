@@ -1348,10 +1348,9 @@ exports.leaveFamily = onCall(
     console.log(`User ${uid} (Member: ${finalMemberId}) successfully left family ${familyId}.`);
 
     // Feature #4: Verbleibende Members über Austritt informieren (fire-and-forget)
-    // leftMemberName aus dem Member-Dokument (vor dem Delete bereits geladen via membersSnapshot)
-    const leavingMember = membersSnapshot.docs.find(d => d.id === finalMemberId);
-    const leftMemberName = leavingMember?.data().name || "Someone";
-    notifyFamilyMemberLeft(familyId, leftMemberName, uid).catch(err =>
+    // userIds aus dem bereits geladenen familyDoc (vor arrayRemove) – kein extra Read
+    const existingUserIds = familyData.userIds || [];
+    notifyFamilyMemberLeft(existingUserIds, uid).catch(err =>
       console.warn("notifyFamilyMemberLeft failed (non-critical):", err?.message)
     );
 
@@ -1415,6 +1414,13 @@ exports.deleteFamily = onCall(
     await batch.commit(); // Commit batch for user profile updates
 
     console.log(`Family ${familyId} and all its members deleted by ${isGlobalAdmin ? "admin" : "creator"} ${uid}.`);
+
+    // Feature #4: Alle Members über die Auflösung der Familie informieren (vor recursiveDelete)
+    const allUserIds = (familyData.userIds || []).filter(id => id !== uid);
+    notifyFamilyMemberLeft(allUserIds, uid).catch(err =>
+      console.warn("notifyFamilyDeleted push failed (non-critical):", err?.message)
+    );
+
     return { success: true };
   }
 );
@@ -1888,8 +1894,7 @@ exports.onMemberScheduleChanged = onDocumentWritten(
     const changerName = after.name || "Someone";
     await sendPushToUsers(recipientUids, {
       type:  "schedule_change",
-      title: "Schedule updated",
-      body:  `${changerName} has adjusted the alarm times.`,
+      // Android lokalisiert self via type – kein EN-Text vom Server
     });
   }
 );
@@ -1910,23 +1915,19 @@ async function notifyFamilyMemberJoined(familyId, newMemberName, newUid) {
   if (recipientUids.length === 0) return;
 
   await sendPushToUsers(recipientUids, {
-    type:  "family_event",
-    title: "New family member!",
-    body:  `${newMemberName} has joined your family.`,
+    type: "family_joined",
+    // Android lokalisiert self via type
   });
 }
 
-async function notifyFamilyMemberLeft(familyId, leftMemberName, leftUid) {
-  const familyDoc = await admin.firestore().collection("families").doc(familyId).get();
-  if (!familyDoc.exists) return;
+// leftUids: bereits bekannte Liste der verbleibenden UIDs (wird von Caller übergeben)
+// Spart einen extra Firestore-Read nach dem arrayRemove.
+async function notifyFamilyMemberLeft(recipientUids, leftUid) {
+  const filtered = recipientUids.filter(uid => uid !== leftUid);
+  if (filtered.length === 0) return;
 
-  const userIds = familyDoc.data().userIds || [];
-  const recipientUids = userIds.filter(uid => uid !== leftUid);
-  if (recipientUids.length === 0) return;
-
-  await sendPushToUsers(recipientUids, {
-    type:  "family_event",
-    title: "Family update",
-    body:  `${leftMemberName} has left the family.`,
+  await sendPushToUsers(filtered, {
+    type: "family_left",
+    // Android lokalisiert self via type
   });
 }
