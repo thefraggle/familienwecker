@@ -18,6 +18,10 @@ jobs:
     permissions:
       contents: write
 
+    env:
+      # Opt into Node.js 24 for all Actions now – GitHub forces this from June 2026
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
