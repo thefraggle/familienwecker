@@ -352,14 +352,16 @@
     <string name="notif_channel_family_events_desc">Notifies when members join or leave the family</string>
 
     <!-- Push notification texts -->
-    <string name="notif_schedule_changed_title">Schedule updated</string>
-    <string name="notif_schedule_changed_body">%1$s has adjusted the alarm times. Open the app to see your new wake time.</string>
-    <string name="notif_member_joined_title">New family member!</string>
-    <string name="notif_member_joined_body">%1$s has joined your family.</string>
-    <string name="notif_member_left_title">Family update</string>
-    <string name="notif_member_left_body">%1$s has left the family.</string>
+    <string name="notif_schedule_changed_title">FamWake: Schedule updated</string>
+    <string name="notif_schedule_changed_body">The alarm times have been adjusted. Open the app to see your new wake time.</string>
+    <string name="notif_member_joined_title">FamWake: New family member!</string>
+    <string name="notif_member_joined_body">A new member has joined your family.</string>
+    <string name="notif_member_left_title">FamWake: Family update</string>
+    <string name="notif_member_left_body">A member has left the family.</string>
 
     <!-- Notification permission toggle in Settings -->
     <string name="notif_permission_title">Push notifications</string>
     <string name="notif_permission_desc">Get notified when schedules change or family members join.</string>
+    <string name="notif_manage_title">Manage notifications</string>
+    <string name="notif_manage_desc">Change sound, vibration and other notification preferences in system settings.</string>
 </resources>

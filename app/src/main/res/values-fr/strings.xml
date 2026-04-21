@@ -349,11 +349,11 @@
     <string name="notif_channel_schedule_change_desc">Notifie en cas de changement des heures de réveil ou de l’ordre</string>
     <string name="notif_channel_family_events_name">Événements familiaux</string>
     <string name="notif_channel_family_events_desc">Notifie quand des membres rejoignent ou quittent la famille</string>
-    <string name="notif_schedule_changed_title">Plan mis à jour</string>
+    <string name="notif_schedule_changed_title">FamWake: Plan mis à jour</string>
     <string name="notif_schedule_changed_body">Les heures de réveil ont changé. Ouvre l’app pour voir ton nouveau réveil.</string>
-    <string name="notif_member_joined_title">Nouveau membre !</string>
+    <string name="notif_member_joined_title">FamWake: Nouveau membre !</string>
     <string name="notif_member_joined_body">Un nouveau membre a rejoint ta famille.</string>
-    <string name="notif_member_left_title">Mise à jour famille</string>
+    <string name="notif_member_left_title">FamWake: Mise à jour famille</string>
     <string name="notif_member_left_body">Un membre a quitté ta famille.</string>
     <string name="notif_permission_title">Notifications push</string>
     <string name="notif_permission_desc">Sois informé quand le plan change ou que des membres rejoignent.</string>

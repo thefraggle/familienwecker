@@ -349,11 +349,11 @@
     <string name="notif_channel_schedule_change_desc">Uyanma saatleri veya sıra değiştiğinde bildirir</string>
     <string name="notif_channel_family_events_name">Aile olayları</string>
     <string name="notif_channel_family_events_desc">Üyeler aileye katıldığında veya ayrıldığında bildirir</string>
-    <string name="notif_schedule_changed_title">Program güncellendi</string>
+    <string name="notif_schedule_changed_title">FamWake: Program güncellendi</string>
     <string name="notif_schedule_changed_body">Uyanma saatleri değişti. Yeni saatini görmek için uygulamaı aç.</string>
-    <string name="notif_member_joined_title">Yeni aile üyesi!</string>
+    <string name="notif_member_joined_title">FamWake: Yeni aile üyesi!</string>
     <string name="notif_member_joined_body">Yeni bir üye aileye katıldı.</string>
-    <string name="notif_member_left_title">Aile güncellemesi</string>
+    <string name="notif_member_left_title">FamWake: Aile güncellemesi</string>
     <string name="notif_member_left_body">Bir üye aileyi terk etti.</string>
     <string name="notif_permission_title">Anlık bildirimler</string>
     <string name="notif_permission_desc">Program değiştiğinde veya üyeler katıldığında bildirim al.</string>

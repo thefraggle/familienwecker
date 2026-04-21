@@ -234,6 +234,11 @@ fun FamilyViewModel.saveMemberOrder() {
     TelemetryDeck.signal("member.reordered")
     scope.launch {
         try {
+            val currentUid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+            // Meta zuerst schreiben, damit CF weiß wer den Reorder ausgelöst hat → kein Self-Push
+            if (currentUid != null) {
+                repository.setReorderMeta(currentUid, currentFamilyId)
+            }
             repository.updateMemberOrders(currentFamilyId, orderMap)
         } catch (e: Exception) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {

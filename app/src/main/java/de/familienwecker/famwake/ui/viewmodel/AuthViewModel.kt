@@ -70,6 +70,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         if (user != null) {
             if (user.isEmailVerified) {
                 _isRestoringFamily.value = true
+                // Push: Token auch bei Session-Restore sicherstellen
+                de.familienwecker.famwake.FamWakeMessagingService.refreshAndSaveToken()
                 _authState.value = AuthState.Authenticated(user)
                 restoreUserFamily(user.uid)
             } else {

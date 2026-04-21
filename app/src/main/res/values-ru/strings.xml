@@ -349,11 +349,11 @@
     <string name="notif_channel_schedule_change_desc">Уведомляет об изменениях времени пробуждения или порядка</string>
     <string name="notif_channel_family_events_name">Семейные события</string>
     <string name="notif_channel_family_events_desc">Уведомляет, когда участники вступают или покидают семью</string>
-    <string name="notif_schedule_changed_title">Расписание обновлено</string>
+    <string name="notif_schedule_changed_title">FamWake: Расписание обновлено</string>
     <string name="notif_schedule_changed_body">Время пробуждения изменено. Открой приложение, чтобы увидеть новое время.</string>
-    <string name="notif_member_joined_title">Новый участник!</string>
+    <string name="notif_member_joined_title">FamWake: Новый участник!</string>
     <string name="notif_member_joined_body">Новый участник присоединился к твоей семье.</string>
-    <string name="notif_member_left_title">Обновление семьи</string>
+    <string name="notif_member_left_title">FamWake: Обновление семьи</string>
     <string name="notif_member_left_body">Участник покинул твою семью.</string>
     <string name="notif_permission_title">Push-уведомления</string>
     <string name="notif_permission_desc">Получай уведомления об изменениях расписания или вступлении участников.</string>

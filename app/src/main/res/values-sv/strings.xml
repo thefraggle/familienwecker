@@ -350,11 +350,11 @@
     <string name="notif_channel_schedule_change_desc">Meddelar om väckningstider eller ordning ändras</string>
     <string name="notif_channel_family_events_name">Familjehändelser</string>
     <string name="notif_channel_family_events_desc">Meddelar när medlemmar går med i eller lämnar familjen</string>
-    <string name="notif_schedule_changed_title">Schema uppdaterat</string>
+    <string name="notif_schedule_changed_title">FamWake: Schema uppdaterat</string>
     <string name="notif_schedule_changed_body">Väckningstiderna har ändrats. Öppna appen för att se din nya tid.</string>
-    <string name="notif_member_joined_title">Ny familjemedlem!</string>
+    <string name="notif_member_joined_title">FamWake: Ny familjemedlem!</string>
     <string name="notif_member_joined_body">En ny medlem har gått med i din familj.</string>
-    <string name="notif_member_left_title">Familjeuppdatering</string>
+    <string name="notif_member_left_title">FamWake: Familjeuppdatering</string>
     <string name="notif_member_left_body">En medlem har lämnat din familj.</string>
     <string name="notif_permission_title">Push-meddelanden</string>
     <string name="notif_permission_desc">Få meddelanden när schemat ändras eller medlemmar ansluter sig.</string>

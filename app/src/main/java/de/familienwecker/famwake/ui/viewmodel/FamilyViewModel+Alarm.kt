@@ -42,9 +42,10 @@ internal fun FamilyViewModel.recalculateSchedule() {
             try {
                 val currentMyMemberId = myMemberId.value
                 val rawMembers = if (alarmsOn) {
-                    currentMembers
+                    // Members ohne aktiven Gerätealarm ausschließen (z.B. anderes Gerät hat global AUS)
+                    currentMembers.filter { it.deviceAlarmEnabled != false }
                 } else {
-                    currentMembers.filter { it.id != currentMyMemberId }
+                    currentMembers.filter { it.id != currentMyMemberId && it.deviceAlarmEnabled != false }
                 }
 
                 val today = Clock.System.todayIn(TimeZone.currentSystemDefault())

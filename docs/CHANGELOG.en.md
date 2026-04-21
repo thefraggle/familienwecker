@@ -2,134 +2,29 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.7.12 – 2026-04-21
-
-### Improved
-- **App name in short display** – Now correctly aligned with the official store title for English, Turkish, Swedish, Norwegian, and Japanese.
-- **Ruhr Valley dialect** – App name now displays correctly without a hyphen.
-
----
-
-## 1.7.11 – 2026-04-20
-
-### Fixed
-- **Phantom "calculation error"** – Adding a new family member could incorrectly show a calculation error, even though everything worked correctly.
-- **Spinner when joining a family** – Attempting to join a family while offline left the loading indicator stuck.
-- **Error when editing quickly** – Rapidly changing wake times could briefly show a false sync error.
-
-### Improved
-- **Emails for dialect users** – Password reset and account verification emails now arrive in German when Swabian, Swiss German, or Ruhr Valley dialect is selected (instead of English).
-
----
-
-## 1.7.10 – 2026-04-19
-
-### Fixed
-- **Create/delete/leave family** – Creating, deleting, or leaving a family could incorrectly show “Synchronization failed” even though the action succeeded. Especially on fresh installations.
-
-### Improved
-- **More accurate alarm sound detection** – The selected alarm sound name is now correctly displayed and tracked.
-- Background improvements for device security checks.
-
----
-
-## 1.7.9 – 2026-04-18
+## 1.8.0 – 2026-04-21
 
 ### New
-- **Smart review prompts** – The app gently asks for a rating after a positive experience – never in the morning, never too often.
-- **More wake-up messages** – 20 different messages on the alarm screen, in all 18 languages.
+- **Push notifications 🔔** – Get notified automatically when your wake time changes – for example when someone reorders the schedule, turns off their alarm, or pauses a member.
+- **Family events** – Instantly know when someone joins or leaves your family.
+- **Smart review prompts** – The app gently asks for a rating after a positive experience.
+- **20 wake-up messages** – More variety on the alarm screen.
 
 ### Improved
-- **Onboarding refreshed** – The invite screen now shows country-specific example names (e.g. “Smith Family” instead of “Mustermann”).
-- **Translations improved** – Missing texts added in several languages. Dialects (Swabian, Ruhr Valley, Swiss German) refined.
-- **Smaller app size** – Removed unused images.
-
----
-
-## 1.7.8 – 2026-04-18
+- **Live sync** – Toggling the alarm on or off now updates the schedule instantly on all devices.
+- **Smart notifications** – Only affected members are notified.
+- **Onboarding refreshed** – Clearer introduction, country-specific examples.
+- **Fresher design** – Softer corners, scroll hint, collapsible title.
+- **Better time picker** – Clean keyboard-style dialog instead of a clock face.
 
 ### Fixed
-- **Schedule shows correct date** – "Breakfast today at …" is now displayed correctly as long as family members are still being woken up. Only then does the display switch to the next day.
-- **"I'm awake" button** – The button is now reliably active within the correct time window.
-- **Schedule after login** – After logging out and back in, all members now appear correctly in the schedule immediately.
-
-### Improved
-- General stability and reliability improvements.
-
----
-
-## 1.7.7 – 2026-04-17
-
-### New
-- **Onboarding reimagined** – The intro tour now explains more clearly what FamWake is really about.
-
-### Improved
-- Background improvements for better data security.
-
----
-
-## 1.7.6 – 2026-04-15
-
-### Fixed
-- **Times always readable** – On narrow devices and in languages with long labels, times were sometimes cut off.
-
----
-
-## 1.7.5 – 2026-04-10
-
-### Fixed
-- **Back button** – The back arrow in the header now responds correctly on all screens.
-- **Stability** – Removed several potential crash sources in rare scenarios.
-
-### Improved
-- **Emails** – Password reset and account verification emails now arrive in the correct language.
-
----
-
-## 1.7.4 – 2026-04-10
-
-### Improved
-- **Look & Feel** – Fresher, more modern design: softer corners, cleaner cards.
-- **Scroll hint** – A gentle bouncing arrow shows when more content is available below.
-- **Main screen** – Title is now large when opened and collapses smoothly when scrolling.
-
----
-
-## 1.7.3 – 2026-04-10
-
-### Improved
-- **Language fallback** – Unknown language codes now fall back to English instead of German.
-
----
-
-## 1.7.2 – 2026-04-10
-
-### New
-- **Norsk 🇳🇴 and Dansk 🇩🇰** – FamWake now speaks Norwegian and Danish.
-- **14 languages** – The language picker now covers 14 world languages plus 3 regional dialects.
-
-### Improved
-- **Language picker** – Cleaner selection menu, sorted alphabetically.
-- **Appearance** – Sun/Auto/Moon icons instead of a dropdown.
-- **Weekly schedule** – "Copy to other days" always visible. Better field order.
-- **Small screens** – All screens are now fully usable.
-
----
-
-## 1.7.1 – 2026-04-08
-
-### Improved
-- **Time picker** – Clean keyboard-style dialog instead of a clock face.
-- **Keyboard** – Dismisses when tapping outside the input field.
-- **Bathroom buttons** – "−" and "+" always stay visible.
+- Various stability, sync, and reliability improvements.
 
 ---
 
 ## 1.7.0 – 2026-04-06
 
 ### New
-- **Swedish 🇸🇪** – Välkommen!
-- **Dialects 🎉** – Swabian, Swiss German, and Ruhr Valley slang.
 - **Permission warning** – A red tile appears if alarm permissions are missing.
 - **Auto-claim profile** – Your first member profile is automatically linked to your account.
 - **Weekday scheduling** – Wake times and bathroom duration can be set individually per day.
@@ -147,7 +42,6 @@
 ## 1.6.0 – 2026-03-23
 
 ### New
-- **French, Spanish, and Italian** – Three new languages with automatic detection.
 - **Invitation links** – Better feedback when joining via a link.
 
 ### Fixed
@@ -169,6 +63,20 @@
 
 ---
 
+## 1.4.0 – 2026-03-19
+
+### New
+- **Onboarding tour** – 5-screen introduction with panda animations and redesigned alarm screen.
+
+### Improved
+- **Autofill & login** – Much better password manager compatibility.
+- **Security** – XSS protection for feedback emails, cloud reset for status resets.
+
+### Fixed
+- Double alarms, deep link flows, and member mapping corrected.
+
+---
+
 ## 1.3.0 – 2026-03-17
 
 ### New
@@ -177,6 +85,18 @@
 ### Improved
 - Disabled days are now more clearly highlighted.
 - Anti-spam protection for emails and family invites.
+
+---
+
+## 1.2.0 – 2026-03-17
+
+### New
+- **Feedback screen** – Send feedback directly from within the app.
+- **Weekday configuration** – Individual times per weekday.
+
+### Fixed
+- Alarm state restored after reinstallation.
+- Breakfast time calculation and family creation stabilized.
 
 ---
 
@@ -195,5 +115,4 @@
 
 ### First Release 🎉
 - Family alarm clock with coordinated bathroom scheduling.
-- Support for German and English.
 - Invite codes for joining, Google Sign-In.
