@@ -8,7 +8,7 @@ plugins {
 }
 
 // Fallback version if no versionName property is provided (e.g. for local builds)
-val appVersion = project.findProperty("versionName")?.toString() ?: "1.7.12-DEV"
+val appVersion = project.findProperty("versionName")?.toString() ?: "1.8.0-DEV"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -116,6 +116,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.common.ktx)
     implementation(libs.firebase.functions)
+    implementation(libs.firebase.messaging)
     implementation(libs.kotlinx.coroutines.play.services)
     // GitLive Auth für FirebaseUser und GoogleAuthProvider.credential()
     implementation(libs.firebase.gitlive.auth)
