@@ -85,6 +85,7 @@ multiplatform-settings-serialization = { module = "com.russhwolf:multiplatform-s
 firebase-gitlive-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "gitliveFirebase" }
 firebase-gitlive-auth = { module = "dev.gitlive:firebase-auth", version.ref = "gitliveFirebase" }
 firebase-gitlive-functions = { module = "dev.gitlive:firebase-functions", version.ref = "gitliveFirebase" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -69,6 +69,10 @@ import androidx.compose.material.icons.filled.Refresh
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.Offerings
 import androidx.lifecycle.viewmodel.compose.viewModel
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.core.content.ContextCompat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -480,6 +484,58 @@ fun SettingsScreen(
                             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                         ) {
                             Text(stringResource(R.string.settings_exact_alarm_warning_button))
+                        }
+                    }
+                }
+            }
+
+            // Push-Benachrichtigungen (Android 13+)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                val notifPermission = Manifest.permission.POST_NOTIFICATIONS
+                var notifGranted by remember {
+                    mutableStateOf(
+                        ContextCompat.checkSelfPermission(context, notifPermission) == PackageManager.PERMISSION_GRANTED
+                    )
+                }
+                val notifPermLauncher = rememberLauncherForActivityResult(
+                    ActivityResultContracts.RequestPermission()
+                ) { granted -> notifGranted = granted }
+
+                // Nur anzeigen wenn noch nicht gewährt
+                if (!notifGranted) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = MaterialTheme.shapes.extraLarge,
+                        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                        colors = CardDefaults.cardColors(
+                            containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                             else MaterialTheme.colorScheme.surface
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    stringResource(R.string.notif_permission_title),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                                Text(
+                                    stringResource(R.string.notif_permission_desc),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Switch(
+                                checked = false,
+                                onCheckedChange = { notifPermLauncher.launch(notifPermission) }
+                            )
                         }
                     }
                 }
