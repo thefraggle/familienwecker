@@ -357,4 +357,5 @@
     <string name="notif_member_left_body">Een lid heeft je familie verlaten.</string>
     <string name="notif_permission_title">Pushmeldingen</string>
     <string name="notif_permission_desc">Word gewaarschuwd bij schemawijzigingen of als leden toetreden.</string>
+    <string name="notif_permission_button">Meldingen inschakelen</string>
 </resources>

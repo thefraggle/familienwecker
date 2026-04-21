@@ -357,4 +357,5 @@
     <string name="notif_member_left_body">Um membro saiu da sua família.</string>
     <string name="notif_permission_title">Notificações push</string>
     <string name="notif_permission_desc">Seja notificado quando o plano mudar ou membros entrarem.</string>
+    <string name="notif_permission_button">Ativar notificações</string>
 </resources>
