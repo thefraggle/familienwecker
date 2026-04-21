@@ -343,4 +343,18 @@
     <string name="onboarding_mock_name1">Papà</string>
     <string name="onboarding_mock_name2">Mamma</string>
     <string name="onboarding_mock_family_name">Rossi</string>
+
+    <!-- Notification strings -->
+    <string name="notif_channel_schedule_change_name">Modifiche orario</string>
+    <string name="notif_channel_schedule_change_desc">Notifica quando cambiano gli orari o l’ordine della sveglia</string>
+    <string name="notif_channel_family_events_name">Eventi familiari</string>
+    <string name="notif_channel_family_events_desc">Notifica quando i membri si uniscono o lasciano la famiglia</string>
+    <string name="notif_schedule_changed_title">Piano aggiornato</string>
+    <string name="notif_schedule_changed_body">Gli orari sono cambiati. Apri l’app per vedere il tuo nuovo orario.</string>
+    <string name="notif_member_joined_title">Nuovo membro!</string>
+    <string name="notif_member_joined_body">Un nuovo membro si è unito alla tua famiglia.</string>
+    <string name="notif_member_left_title">Aggiornamento famiglia</string>
+    <string name="notif_member_left_body">Un membro ha lasciato la tua famiglia.</string>
+    <string name="notif_permission_title">Notifiche push</string>
+    <string name="notif_permission_desc">Ricevi notifiche quando il piano cambia o i membri si uniscono.</string>
 </resources>
