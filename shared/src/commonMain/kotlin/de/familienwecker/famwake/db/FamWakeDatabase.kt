@@ -26,7 +26,7 @@ data class FamilyMemberEntity(
 
 @Dao
 interface MemberDao {
-    @Query("SELECT * FROM members ORDER BY sequenceOrder ASC")
+    @Query("SELECT * FROM members ORDER BY sequenceOrder ASC, createdAt ASC")
     fun getAllMembers(): Flow<List<FamilyMemberEntity>>
 
     @Upsert
