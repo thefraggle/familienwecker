@@ -273,9 +273,10 @@ fun AddMemberScreen(
                                 ?: if (memberId != null && memberId == myMemberId) viewModel.currentUserId else null,
                             claimedByUserName = memberToEdit?.claimedByUserName
                                 ?: if (memberId != null && memberId == myMemberId) viewModel.auth.currentUser?.displayName else null,
-                            createdAt = memberToEdit?.createdAt,
-                            // sequenceOrder beibehalten – verhindert, dass ein Update die Reihenfolge zurücksetzt
-                            sequenceOrder = memberToEdit?.sequenceOrder ?: 0,
+                            createdAt = memberToEdit?.createdAt ?: System.currentTimeMillis(),
+                            // Neuer Member → ans Ende stellen (members.size = nächster freier Index).
+                            // Bestehender Member → sequenceOrder beibehalten, kein Reset durch Update.
+                            sequenceOrder = memberToEdit?.sequenceOrder ?: members.size,
                             dayProfiles = dayProfiles
                         )
                         viewModel.addOrUpdateMember(memberToSave)
