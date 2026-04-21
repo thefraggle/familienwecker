@@ -1414,13 +1414,6 @@ exports.deleteFamily = onCall(
     await batch.commit(); // Commit batch for user profile updates
 
     console.log(`Family ${familyId} and all its members deleted by ${isGlobalAdmin ? "admin" : "creator"} ${uid}.`);
-
-    // Feature #4: Alle Members über die Auflösung der Familie informieren (vor recursiveDelete)
-    const allUserIds = (familyData.userIds || []).filter(id => id !== uid);
-    notifyFamilyMemberLeft(allUserIds, uid).catch(err =>
-      console.warn("notifyFamilyDeleted push failed (non-critical):", err?.message)
-    );
-
     return { success: true };
   }
 );
