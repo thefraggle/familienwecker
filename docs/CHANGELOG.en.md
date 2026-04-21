@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.7.12 – 2026-04-21
+
+### Improved
+- **App name in short display** – Now correctly aligned with the official store title for English, Turkish, Swedish, Norwegian, and Japanese.
+- **Ruhr Valley dialect** – App name now displays correctly without a hyphen.
+
+---
+
 ## 1.7.11 – 2026-04-20
 
 ### Fixed
