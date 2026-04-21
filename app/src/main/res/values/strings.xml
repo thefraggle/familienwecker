@@ -344,4 +344,22 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="tooltip_alarm_sound">Tap here to choose your personal wake-up sound – pick your favorite ringtone instead of the default alarm.</string>
     <string name="settings_language_dialects">Dialects</string>
+
+    <!-- Notification Channels -->
+    <string name="notif_channel_schedule_change_name">Schedule changes</string>
+    <string name="notif_channel_schedule_change_desc">Notifies when wake times or bathroom order change</string>
+    <string name="notif_channel_family_events_name">Family events</string>
+    <string name="notif_channel_family_events_desc">Notifies when members join or leave the family</string>
+
+    <!-- Push notification texts -->
+    <string name="notif_schedule_changed_title">Schedule updated</string>
+    <string name="notif_schedule_changed_body">%1$s has adjusted the alarm times. Open the app to see your new wake time.</string>
+    <string name="notif_member_joined_title">New family member!</string>
+    <string name="notif_member_joined_body">%1$s has joined your family.</string>
+    <string name="notif_member_left_title">Family update</string>
+    <string name="notif_member_left_body">%1$s has left the family.</string>
+
+    <!-- Notification permission toggle in Settings -->
+    <string name="notif_permission_title">Push notifications</string>
+    <string name="notif_permission_desc">Get notified when schedules change or family members join.</string>
 </resources>

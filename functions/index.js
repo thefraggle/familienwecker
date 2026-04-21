@@ -1159,6 +1159,12 @@ exports.joinFamilyByCode = onCall(
       userIds: admin.firestore.FieldValue.arrayUnion(uid)
     });
 
+    // Feature #4: Bestehende Members über neuen Beitritt informieren (fire-and-forget)
+    const displayName = request.auth.token.name || request.auth.token.email?.split("@")[0] || "Someone";
+    notifyFamilyMemberJoined(familyId, displayName, uid).catch(err =>
+      console.warn("notifyFamilyMemberJoined failed (non-critical):", err?.message)
+    );
+
     return { familyId, joinCode: code };
   }
 );
@@ -1340,6 +1346,15 @@ exports.leaveFamily = onCall(
     });
 
     console.log(`User ${uid} (Member: ${finalMemberId}) successfully left family ${familyId}.`);
+
+    // Feature #4: Verbleibende Members über Austritt informieren (fire-and-forget)
+    // leftMemberName aus dem Member-Dokument (vor dem Delete bereits geladen via membersSnapshot)
+    const leavingMember = membersSnapshot.docs.find(d => d.id === finalMemberId);
+    const leftMemberName = leavingMember?.data().name || "Someone";
+    notifyFamilyMemberLeft(familyId, leftMemberName, uid).catch(err =>
+      console.warn("notifyFamilyMemberLeft failed (non-critical):", err?.message)
+    );
+
     return { success: true, familyDeleted: false };
   }
 );
@@ -1777,3 +1792,141 @@ exports.verifyIntegrityToken = onCall(
     }
   }
 );
+
+// ═══════════════════════════════════════════════════════════════════════════
+// v1.8.0 – Push Notifications Free Tier
+// Features: #2 (Reihenfolge geändert), #4 (Familien-Events)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Liest alle FCM-Tokens eines Users und sendet eine Multicast-Nachricht.
+ * Entfernt automatisch abgelaufene Tokens (HTTP 404 von FCM → Token ungültig).
+ */
+async function sendPushToUser(uid, payload) {
+  const tokensSnap = await admin.firestore()
+    .collection("users").doc(uid)
+    .collection("fcmTokens")
+    .get();
+
+  if (tokensSnap.empty) return;
+
+  const tokens = tokensSnap.docs.map(d => d.id);
+
+  const message = {
+    tokens,
+    data: {
+      type:  payload.type  || "info",
+      title: payload.title || "",
+      body:  payload.body  || "",
+    },
+    // Stille Datennachricht: App zeigt Notification selbst an (voller Channel-Kontrolle)
+    android: { priority: "high" },
+  };
+
+  const response = await admin.messaging().sendEachForMulticast(message);
+
+  // Abgelaufene Tokens direkt löschen – reduziert Firestore-Reads beim nächsten Push
+  const deleteOps = [];
+  response.responses.forEach((res, idx) => {
+    if (!res.success) {
+      const code = res.error?.code || "";
+      if (
+        code === "messaging/registration-token-not-registered" ||
+        code === "messaging/invalid-registration-token"
+      ) {
+        deleteOps.push(
+          admin.firestore()
+            .collection("users").doc(uid)
+            .collection("fcmTokens").doc(tokens[idx])
+            .delete()
+        );
+      }
+    }
+  });
+  if (deleteOps.length > 0) await Promise.all(deleteOps);
+}
+
+async function sendPushToUsers(uids, payload) {
+  await Promise.all(uids.map(uid => sendPushToUser(uid, payload)));
+}
+
+// ─── Feature #2: Reihenfolge / Weckzeit geändert ─────────────────────────────
+exports.onMemberScheduleChanged = onDocumentWritten(
+  {
+    document: "families/{familyId}/members/{memberId}",
+    region: "europe-west3",
+  },
+  async (event) => {
+    const before = event.data.before?.data();
+    const after  = event.data.after?.data();
+
+    // Nur bei echten Updates reagieren (kein Create/Delete)
+    if (!before || !after) return;
+
+    // Relevante Felder prüfen: Weckzeiten + Reihenfolge + Tagesprofile
+    const watchedFields = ["earliestWakeUp", "latestWakeUp", "order", "dayProfiles"];
+    const changed = watchedFields.some(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
+    if (!changed) return;
+
+    const familyId  = event.params.familyId;
+    const changedBy = after.claimedByUserId || null;
+
+    const membersSnap = await admin.firestore()
+      .collection("families").doc(familyId)
+      .collection("members")
+      .get();
+
+    const recipientUids = [];
+    for (const doc of membersSnap.docs) {
+      const uid = doc.data().claimedByUserId;
+      if (!uid || uid === changedBy) continue;
+      recipientUids.push(uid);
+    }
+
+    if (recipientUids.length === 0) return;
+
+    const changerName = after.name || "Someone";
+    await sendPushToUsers(recipientUids, {
+      type:  "schedule_change",
+      title: "Schedule updated",
+      body:  `${changerName} has adjusted the alarm times.`,
+    });
+  }
+);
+
+// ─── Feature #4: Hilfsfunktionen für Join/Leave-Notifications ─────────────────
+async function notifyFamilyMemberJoined(familyId, newMemberName, newUid) {
+  const membersSnap = await admin.firestore()
+    .collection("families").doc(familyId)
+    .collection("members")
+    .get();
+
+  const recipientUids = [];
+  for (const doc of membersSnap.docs) {
+    const uid = doc.data().claimedByUserId;
+    if (!uid || uid === newUid) continue;
+    recipientUids.push(uid);
+  }
+  if (recipientUids.length === 0) return;
+
+  await sendPushToUsers(recipientUids, {
+    type:  "family_event",
+    title: "New family member!",
+    body:  `${newMemberName} has joined your family.`,
+  });
+}
+
+async function notifyFamilyMemberLeft(familyId, leftMemberName, leftUid) {
+  const familyDoc = await admin.firestore().collection("families").doc(familyId).get();
+  if (!familyDoc.exists) return;
+
+  const userIds = familyDoc.data().userIds || [];
+  const recipientUids = userIds.filter(uid => uid !== leftUid);
+  if (recipientUids.length === 0) return;
+
+  await sendPushToUsers(recipientUids, {
+    type:  "family_event",
+    title: "Family update",
+    body:  `${leftMemberName} has left the family.`,
+  });
+}

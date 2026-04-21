@@ -35,6 +35,8 @@ class FamWakeApplication : Application() {
         de.familienwecker.famwake.data.FirebaseRepository.configurePersistentCache()
         // S2: Debug-Logging im shared-Modul an BuildConfig koppeln
         de.familienwecker.famwake.data.FirebaseRepository.debugLogging = BuildConfig.DEBUG
+        // Push: Notification Channels einmalig registrieren (Android 8+, idempotent)
+        NotificationChannels.register(this)
         // Installations-Zeitstempel setzen (nur beim allerersten Start)
         if (appSettings.installTime.value == 0L) {
             appSettings.setInstallTime(System.currentTimeMillis())

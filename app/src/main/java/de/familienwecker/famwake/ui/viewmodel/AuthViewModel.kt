@@ -182,6 +182,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     _isRestoringFamily.value = true
                     // Tracking: E-Mail-Login erfolgreich (method-Payload trennt E-Mail von Google Sign-In)
                     TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "email"))
+                    // Push: Token nach Login sicherstellen
+                    de.familienwecker.famwake.FamWakeMessagingService.refreshAndSaveToken()
                     _authState.value = AuthState.Authenticated(user)
                     restoreUserFamily(user.uid)
                 } else {
@@ -280,6 +282,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     authResult.onSuccess { user ->
                         // Tracking: Google Sign-In erfolgreich (getrennt von E-Mail via method-Payload)
                         TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "google"))
+                        // Push: Token nach Google-Login sicherstellen
+                        de.familienwecker.famwake.FamWakeMessagingService.refreshAndSaveToken()
                         _authState.value = AuthState.Authenticated(user)
                         restoreUserFamily(user.uid)
                     }.onFailure { error ->
@@ -313,6 +317,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     fun logout() {
         viewModelScope.launch {
+            // Push: Token vor Logout aus Firestore entfernen
+            de.familienwecker.famwake.FamWakeMessagingService.deleteTokenOnLogout()
             authRepository.logout()
         }
         appSettings.clearAll()
