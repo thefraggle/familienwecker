@@ -362,6 +362,7 @@
     <!-- Notification permission toggle in Settings -->
     <string name="notif_permission_title">Push notifications</string>
     <string name="notif_permission_desc">Get notified when schedules change or family members join.</string>
+    <string name="notif_permission_button">Enable notifications</string>
     <string name="notif_manage_title">Manage notifications</string>
     <string name="notif_manage_desc">Change sound, vibration and other notification preferences in system settings.</string>
 </resources>

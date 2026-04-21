@@ -357,4 +357,5 @@
     <string name="notif_member_left_body">Un membro ha lasciato la tua famiglia.</string>
     <string name="notif_permission_title">Notifiche push</string>
     <string name="notif_permission_desc">Ricevi notifiche quando il piano cambia o i membri si uniscono.</string>
+    <string name="notif_permission_button">Attiva le notifiche</string>
 </resources>
