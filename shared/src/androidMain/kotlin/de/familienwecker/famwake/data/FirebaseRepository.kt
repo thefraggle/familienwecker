@@ -279,7 +279,8 @@ class FirebaseRepository : IFirebaseRepository {
             a.lastUpdatedAt == b.lastUpdatedAt &&
             a.claimedByUserId == b.claimedByUserId &&
             a.isPaused == b.isPaused &&
-            a.isAwakeToday == b.isAwakeToday
+            a.isAwakeToday == b.isAwakeToday &&
+            a.deviceAlarmEnabled == b.deviceAlarmEnabled
         }
     }
 
@@ -401,7 +402,7 @@ class FirebaseRepository : IFirebaseRepository {
                     val docRef = collection.document(memberId)
                     update(docRef, mapOf(
                         "sequenceOrder" to order,
-                        "lastUpdatedAt" to FieldValue.serverTimestamp
+                        "lastUpdatedAt"  to FieldValue.serverTimestamp
                     ))
                 }
                 commit()
@@ -409,6 +410,20 @@ class FirebaseRepository : IFirebaseRepository {
         } catch (e: Exception) {
             if (debugLogging) Log.e(TAG, "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
             throw e
+        }
+    }
+
+    override suspend fun setReorderMeta(uid: String, familyId: String) {
+        try {
+            db.collection(COLLECTION_USERS).document(uid)
+                .collection("pushMeta").document("reorder")
+                .set(mapOf(
+                    "familyId"  to familyId,
+                    "timestamp" to FieldValue.serverTimestamp
+                ))
+        } catch (e: Exception) {
+            // Non-critical: nur für Self-Push-Filter, kein throw
+            if (debugLogging) Log.w(TAG, "setReorderMeta failed for $uid: ${e.message}")
         }
     }
 
@@ -440,7 +455,10 @@ class FirebaseRepository : IFirebaseRepository {
         try {
             db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(memberId)
-                .update(mapOf("deviceAlarmEnabled" to enabled))
+                .update(mapOf(
+                    "deviceAlarmEnabled" to enabled,
+                    "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
+                ))
         } catch (e: Exception) {
             if (debugLogging) Log.e(TAG, "Fehler beim Schreiben von deviceAlarmEnabled für $memberId: ${e.message}")
             throw e

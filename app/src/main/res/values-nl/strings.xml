@@ -349,11 +349,11 @@
     <string name="notif_channel_schedule_change_desc">Meldt wijzigingen in wektijden of volgorde</string>
     <string name="notif_channel_family_events_name">Familie-evenementen</string>
     <string name="notif_channel_family_events_desc">Meldt wanneer leden de familie toetreden of verlaten</string>
-    <string name="notif_schedule_changed_title">Schema bijgewerkt</string>
+    <string name="notif_schedule_changed_title">FamWake: Schema bijgewerkt</string>
     <string name="notif_schedule_changed_body">De wektijden zijn gewijzigd. Open de app om je nieuwe tijd te zien.</string>
-    <string name="notif_member_joined_title">Nieuw familielid!</string>
+    <string name="notif_member_joined_title">FamWake: Nieuw familielid!</string>
     <string name="notif_member_joined_body">Een nieuw lid heeft zich bij je familie gevoegd.</string>
-    <string name="notif_member_left_title">Familie-update</string>
+    <string name="notif_member_left_title">FamWake: Familie-update</string>
     <string name="notif_member_left_body">Een lid heeft je familie verlaten.</string>
     <string name="notif_permission_title">Pushmeldingen</string>
     <string name="notif_permission_desc">Word gewaarschuwd bij schemawijzigingen of als leden toetreden.</string>
