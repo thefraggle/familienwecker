@@ -34,6 +34,11 @@ jobs:
         with:
           cache-read-only: false
 
+      - name: Export ANDROID_HOME to env context
+        # $ANDROID_HOME is a system env var – not available as ${{ env.ANDROID_HOME }}
+        # without this step, the NDK cache path resolves to /ndk/... (empty prefix)
+        run: echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+
       - name: Cache NDK
         uses: actions/cache@v4
         id: ndk-cache
