@@ -37,6 +37,20 @@ class FamWakeApplication : Application() {
         de.familienwecker.famwake.data.FirebaseRepository.debugLogging = BuildConfig.DEBUG
         // Push: Notification Channels einmalig registrieren (Android 8+, idempotent)
         NotificationChannels.register(this)
+
+        // Ausstehende Firestore-Writes (z.B. lastModifiedByUid) können nach einem
+        // Familienwechsel mit PERMISSION_DENIED abgelehnt werden → dies ist erwartet
+        // und darf nicht crashen. Echte Crashes werden weiter an den System-Handler geleitet.
+        val systemHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            val isFirestorePermissionDenied = throwable is com.google.firebase.firestore.FirebaseFirestoreException &&
+                throwable.code == com.google.firebase.firestore.FirebaseFirestoreException.Code.PERMISSION_DENIED
+            if (isFirestorePermissionDenied) {
+                if (BuildConfig.DEBUG) android.util.Log.w("FamWakeApp", "Ignoring expected PERMISSION_DENIED after family leave: ${throwable.message}")
+            } else {
+                systemHandler?.uncaughtException(thread, throwable)
+            }
+        }
         // Installations-Zeitstempel setzen (nur beim allerersten Start)
         if (appSettings.installTime.value == 0L) {
             appSettings.setInstallTime(System.currentTimeMillis())

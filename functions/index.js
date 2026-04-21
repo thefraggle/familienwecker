@@ -1809,7 +1809,13 @@ async function sendPushToUser(uid, payload) {
 
   if (tokensSnap.empty) return;
 
-  const tokens = tokensSnap.docs.map(d => d.id);
+  // Token ist als Feld gespeichert (Dokument-ID ist SHA-256-Hash, da FCM-Token ':' enthält)
+  const tokenDocs = tokensSnap.docs
+    .map(d => ({ token: d.data().token, docId: d.id }))
+    .filter(t => !!t.token);
+  const tokens = tokenDocs.map(t => t.token);
+
+  if (tokens.length === 0) return;
 
   const message = {
     tokens,
@@ -1836,7 +1842,7 @@ async function sendPushToUser(uid, payload) {
         deleteOps.push(
           admin.firestore()
             .collection("users").doc(uid)
-            .collection("fcmTokens").doc(tokens[idx])
+            .collection("fcmTokens").doc(tokenDocs[idx].docId)
             .delete()
         );
       }
@@ -1862,32 +1868,93 @@ exports.onMemberScheduleChanged = onDocumentWritten(
     // Nur bei echten Updates reagieren (kein Create/Delete)
     if (!before || !after) return;
 
-    // Relevante Felder prüfen: Weckzeiten + Reihenfolge + Tagesprofile
-    const watchedFields = ["earliestWakeUp", "latestWakeUp", "order", "dayProfiles"];
-    const changed = watchedFields.some(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
-    if (!changed) return;
+    // Änderungstyp bestimmen: Schedule-Felder vs. Status-Felder
+    const scheduleFields = ["earliestWakeUp", "latestWakeUp", "sequenceOrder", "dayProfiles"];
+    const scheduleChanged = scheduleFields.some(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
+    const statusChanged = before.isPaused !== after.isPaused ||
+                           before.deviceAlarmEnabled !== after.deviceAlarmEnabled;
 
-    const familyId  = event.params.familyId;
-    const changedBy = after.claimedByUserId || null;
+    if (!scheduleChanged && !statusChanged) return;
 
+    // Ungeclaimte Member bei reinem Reorder skippen: der Push wird durch einen
+    // geclaimten Member-Trigger desselben Batch-Writes abgedeckt.
+    // Status-Änderungen (z.B. Pause) auf ungeclaimten Membern verarbeiten wir weiterhin.
+    if (!after.claimedByUserId && scheduleChanged && !statusChanged) return;
+
+    const familyId = event.params.familyId;
+
+    // Rate-Limit: nur 1 Push pro Familie alle 5 Sekunden.
+    // Fängt Batch-Write-Duplikate ab (2 geclaimte Triggers kommen gleichzeitig).
+    // Ungeclaimte Member werden bereits vorher gefiltert.
+    const lockRef = admin.firestore().collection("_pushLocks").doc(familyId);
+    const now     = Date.now();
+    let shouldSend = false;
+    await admin.firestore().runTransaction(async t => {
+      const lockSnap = await t.get(lockRef);
+      if (!lockSnap.exists || (now - (lockSnap.data().lastPush || 0)) >= 5000) {
+        t.set(lockRef, { lastPush: now });
+        shouldSend = true;
+      }
+    });
+    if (!shouldSend) return;
+
+    // Alle Family-Members laden
     const membersSnap = await admin.firestore()
       .collection("families").doc(familyId)
       .collection("members")
       .get();
 
+    // Positions-Filter bei Reorder: nur Members im betroffenen Bereich [min, max]
+    // benachrichtigen. Drag-and-Drop verschiebt einen Member von Position A→B,
+    // alle dazwischen shiften um 1 → genau der [min,max]-Bereich.
+    // Bei ALLEN anderen Änderungen (Zeiten, Profile, Pause, Alarm-Toggle) werden alle
+    // benachrichtigt, weil der Schedule rückwärts berechnet wird → jede Änderung betrifft alle.
+    const reorderOnly = (before.sequenceOrder !== after.sequenceOrder) &&
+                         !statusChanged &&
+                         scheduleFields.filter(f => f !== "sequenceOrder")
+                           .every(f => JSON.stringify(before[f]) === JSON.stringify(after[f]));
+    const minAffectedOrder = reorderOnly
+      ? Math.min(before.sequenceOrder || 0, after.sequenceOrder || 0) : 0;
+    const maxAffectedOrder = reorderOnly
+      ? Math.max(before.sequenceOrder || 0, after.sequenceOrder || 0) : Infinity;
+
+    // Sender-Erkennung
+    let changedBy = null;
+    if (statusChanged && !scheduleChanged) {
+      changedBy = after.claimedByUserId || null;
+    } else {
+      const REORDER_WINDOW_MS = 15000;
+      for (const doc of membersSnap.docs) {
+        const uid = doc.data().claimedByUserId;
+        if (!uid) continue;
+        const metaSnap = await admin.firestore()
+          .collection("users").doc(uid)
+          .collection("pushMeta").doc("reorder")
+          .get();
+        const meta = metaSnap.data();
+        if (meta?.familyId === familyId &&
+            now - (meta?.timestamp?.toMillis?.() || 0) < REORDER_WINDOW_MS) {
+          changedBy = uid;
+          break;
+        }
+      }
+    }
+
+    // Empfängerliste: bei Reorder nur im betroffenen Bereich [min, max], sonst alle.
     const recipientUids = [];
     for (const doc of membersSnap.docs) {
-      const uid = doc.data().claimedByUserId;
+      const d = doc.data();
+      const uid = d.claimedByUserId;
       if (!uid || uid === changedBy) continue;
+      const order = d.sequenceOrder || 0;
+      if (reorderOnly && (order < minAffectedOrder || order > maxAffectedOrder)) continue;
       recipientUids.push(uid);
     }
 
     if (recipientUids.length === 0) return;
 
-    const changerName = after.name || "Someone";
     await sendPushToUsers(recipientUids, {
-      type:  "schedule_change",
-      // Android lokalisiert self via type – kein EN-Text vom Server
+      type: "schedule_change",
     });
   }
 );

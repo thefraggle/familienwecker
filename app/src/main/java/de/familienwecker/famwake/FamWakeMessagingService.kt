@@ -12,6 +12,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import java.security.MessageDigest
 
 /**
  * Empfängt FCM-Nachrichten und verwaltet den Token-Lifecycle.
@@ -19,6 +20,8 @@ import com.google.firebase.messaging.RemoteMessage
  * damit Cloud Functions Pushes an dieses Gerät senden können.
  */
 class FamWakeMessagingService : FirebaseMessagingService() {
+
+    private val lastNotifTimestamps = HashMap<String, Long>()
 
     companion object {
         private const val TAG = "FamWakeMessaging"
@@ -28,10 +31,19 @@ class FamWakeMessagingService : FirebaseMessagingService() {
          * Stellt sicher, dass der Token auch nach App-Neuinstallationen aktuell ist.
          */
         fun refreshAndSaveToken() {
-            val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-            FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
-                saveTokenToFirestore(uid, token)
+            val uid = FirebaseAuth.getInstance().currentUser?.uid ?: run {
+                Log.w(TAG, "refreshAndSaveToken: kein eingeloggter User – abgebrochen")
+                return
             }
+            Log.d(TAG, "refreshAndSaveToken: Fordere FCM-Token an für UID=$uid")
+            FirebaseMessaging.getInstance().token
+                .addOnSuccessListener { token ->
+                    Log.d(TAG, "FCM-Token erhalten (${token.take(20)}…) → speichere in Firestore")
+                    saveTokenToFirestore(uid, token)
+                }
+                .addOnFailureListener { e ->
+                    Log.e(TAG, "FCM-Token anfordern fehlgeschlagen: ${e.message}")
+                }
         }
 
         /**
@@ -41,30 +53,39 @@ class FamWakeMessagingService : FirebaseMessagingService() {
         fun deleteTokenOnLogout() {
             val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
             FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
-                // Firestore-Entry entfernen (ggf. offline gequeuet, daher auch FCM-seitig löschen)
+                val docId = sha256(token)
                 FirebaseFirestore.getInstance()
                     .collection("users").document(uid)
-                    .collection("fcmTokens").document(token)
+                    .collection("fcmTokens").document(docId)
                     .delete()
                     .addOnFailureListener { Log.w(TAG, "Token-Delete fehlgeschlagen: ${it.message}") }
             }
             // FCM-Token auf Gerät ungültig machen – nächster Server-Push gibt 404
             // → sendPushToUser cleanup-Code löscht den Eintrag dann serverseitig.
-            // Löst das Problem: Offline-Logout queued Firestore-Delete, der nach Auth-Expiry scheitert.
             FirebaseMessaging.getInstance().deleteToken()
                 .addOnFailureListener { Log.w(TAG, "FCM deleteToken fehlgeschlagen: ${it.message}") }
         }
 
         private fun saveTokenToFirestore(uid: String, token: String) {
+            // FCM-Tokens enthalten `:` – als Firestore-ID verboten.
+            // SHA-256-Hash als sichere Dokument-ID; Token selbst als Feld.
+            val docId = sha256(token)
             val tokenData = mapOf(
+                "token"       to token,
                 "platform"    to "android",
                 "lastRefresh" to com.google.firebase.Timestamp.now()
             )
             FirebaseFirestore.getInstance()
                 .collection("users").document(uid)
-                .collection("fcmTokens").document(token)
+                .collection("fcmTokens").document(docId)
                 .set(tokenData, SetOptions.merge())
-                .addOnFailureListener { Log.w(TAG, "Token-Save fehlgeschlagen: ${it.message}") }
+                .addOnSuccessListener { Log.d(TAG, "Token erfolgreich in Firestore gespeichert (docId=$docId)") }
+                .addOnFailureListener { Log.e(TAG, "Token-Save fehlgeschlagen: ${it.message}") }
+        }
+
+        private fun sha256(input: String): String {
+            val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+            return bytes.joinToString("") { "%02x".format(it) }
         }
     }
 
@@ -77,6 +98,12 @@ class FamWakeMessagingService : FirebaseMessagingService() {
     /** Verarbeitet eingehende FCM-Datennachrichten und zeigt Notifications an. */
     override fun onMessageReceived(message: RemoteMessage) {
         val type = message.data["type"] ?: return
+
+        // Client-Debounce: doppelte Pushes desselben Typs innerhalb 10s ignorieren
+        val now = System.currentTimeMillis()
+        val lastTime = lastNotifTimestamps[type] ?: 0L
+        if (now - lastTime < 10_000) return
+        lastNotifTimestamps[type] = now
         val channel = when (type) {
             "schedule_change" -> NotificationChannels.SCHEDULE_CHANGE
             "family_joined", "family_left" -> NotificationChannels.FAMILY_EVENTS
@@ -95,10 +122,17 @@ class FamWakeMessagingService : FirebaseMessagingService() {
                 getString(R.string.notif_member_left_body)
             else -> return
         }
-        showNotification(title, body, channel)
+        // Feste ID pro Typ: Falls doch ein Doppel-Push durchkommt, überschreibt er sich selbst
+        val notifId = when (type) {
+            "schedule_change" -> 1001
+            "family_joined"   -> 1002
+            "family_left"     -> 1003
+            else              -> 1000
+        }
+        showNotification(title, body, channel, notifId)
     }
 
-    private fun showNotification(title: String, body: String, channelId: String) {
+    private fun showNotification(title: String, body: String, channelId: String, notifId: Int) {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
@@ -116,7 +150,6 @@ class FamWakeMessagingService : FirebaseMessagingService() {
             .build()
 
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        // Eindeutige ID via Timestamp verhindert, dass Notifications sich gegenseitig überschreiben
-        manager.notify(System.currentTimeMillis().toInt(), notification)
+        manager.notify(notifId, notification)
     }
 }

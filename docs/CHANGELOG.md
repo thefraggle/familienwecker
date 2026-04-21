@@ -2,134 +2,30 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.7.12 – 2026-04-21
-
-### Verbessert
-- **App-Name in der Kurzanzeige** – Für Englisch, Türkisch, Schwedisch, Norwegisch und Japanisch jetzt korrekt mit dem offiziellen Store-Titel abgestimmt.
-- **Ruhrpott-Dialekt** – App-Name erscheint jetzt korrekt ohne Bindestrich.
-
----
-
-## 1.7.11 – 2026-04-20
-
-### Behoben
-- **Phantom-Fehlermeldung „Rechenfehler"** – Beim Anlegen eines neuen Familienmitglieds konnte fälschlicherweise ein Rechenfehler angezeigt werden, obwohl alles korrekt funktionierte.
-- **Spinner beim Familien-Beitritt** – Wurde offline versucht einer Familie beizutreten, blieb der Ladeanzeiger hängen.
-- **Fehlermeldung beim schnellen Bearbeiten** – Schnelles Ändern von Weckzeiten konnte kurzzeitig einen falschen Sync-Fehler anzeigen.
-
-### Verbessert
-- **E-Mails für Dialekt-Nutzer** – Passwort-Reset und Konto-Bestätigung kommen jetzt auf Deutsch an, wenn Schwäbisch, Schweizerdeutsch oder Ruhrpott eingestellt ist (statt Englisch).
-
----
-
-## 1.7.10 – 2026-04-19
-
-### Behoben
-- **Familie erstellen/löschen/verlassen** – Beim Erstellen, Löschen oder Verlassen einer Familie konnte fälschlicherweise „Synchronisierung fehlgeschlagen" erscheinen, obwohl die Aktion erfolgreich war. Besonders auf frischen Installationen.
-
-### Verbessert
-- **Genauere Weckton-Erkennung** – Der gewählte Weckton-Name wird jetzt korrekt angezeigt und ausgewertet.
-- Verbesserungen im Hintergrund für die Gerätesicherheits-Prüfung.
-
----
-
-## 1.7.9 – 2026-04-18
+## 1.8.0 – 2026-04-21
 
 ### Neu
-- **Smartes Review-System** – Die App fragt nach positivem Erlebnis ganz unaufdringlich nach einer Bewertung – nie morgens, nie zu oft.
-- **Mehr Weck-Sprüche** – 20 verschiedene Nachrichten auf dem Weck-Screen, in allen 18 Sprachen.
+- **Push-Benachrichtigungen 🔔** – Du wirst automatisch informiert, wenn sich deine Weckzeit ändert – z.B. wenn jemand die Reihenfolge anpasst, einen Wecker ausschaltet oder ein Mitglied pausiert.
+- **Familien-Events** – Du erfährst sofort, wenn jemand deiner Familie beitritt oder sie verlässt.
+- **Smartes Review-System** – Die App fragt nach positivem Erlebnis unaufdringlich nach einer Bewertung.
+- **20 Weck-Sprüche** – Abwechslung auf dem Weck-Screen.
 
 ### Verbessert
-- **Onboarding aufgefrischt** – Einladungsbildschirm zeigt jetzt landesspezifische Beispielnamen (z.B. „Smith Family" statt „Mustermann").
-- **Übersetzungen verbessert** – Fehlende Texte in mehreren Sprachen ergänzt. Dialekte (Schwäbisch, Ruhrpott, Schweizerdeutsch) nochmal überarbeitet.
-- **App-Größe reduziert** – Nicht mehr benötigte Bilder entfernt.
-
----
-
-## 1.7.8 – 2026-04-18
+- **Live-Sync** – Wecker ein/aus aktualisiert den Weckplan sofort auf allen Geräten.
+- **Intelligente Benachrichtigungen** – Nur betroffene Mitglieder werden benachrichtigt.
+- **Onboarding überarbeitet** – Klarere Einführung, landesspezifische Beispiele.
+- **Frischeres Design** – Weichere Ecken, Scroll-Hinweis, kollabierbarer Titel.
+- **Übersichtlichere Zeitauswahl** – Tastatur-Dialog statt Uhrzeiger.
 
 ### Behoben
-- **Weckplan zeigt korrektes Datum** – „Frühstück heute um …" wird jetzt korrekt angezeigt, solange noch Familienmitglieder geweckt werden. Erst danach wechselt die Anzeige auf den nächsten Tag.
-- **„Ich bin wach"-Button** – Der Button ist jetzt zuverlässig im richtigen Zeitfenster aktiviert.
-- **Weckplan nach Login** – Nach dem Ausloggen und erneuten Einloggen erscheinen alle Mitglieder sofort korrekt im Weckplan.
-
-### Verbessert
-- Allgemeine Stabilitäts- und Zuverlässigkeitsverbesserungen.
+- Diverse Stabilitäts-, Sync- und Zuverlässigkeitsverbesserungen.
 
 ---
 
-## 1.7.7 – 2026-04-17
-
-### Neu
-- **Onboarding neu gedacht** – Die Einführungstour erklärt jetzt klarer, was FamWake wirklich kann.
-
-### Verbessert
-- Verbesserungen im Hintergrund für mehr Datensicherheit.
-
----
-
-## 1.7.6 – 2026-04-15
-
-### Behoben
-- **Uhrzeiten immer lesbar** – Auf schmalen Geräten und in Sprachen mit langen Begriffen wurden Uhrzeiten zuvor manchmal abgeschnitten.
-
----
-
-## 1.7.5 – 2026-04-10
-
-### Behoben
-- **Zurück-Button** – Der Zurück-Pfeil in der Kopfzeile reagiert jetzt auf allen Screens korrekt.
-- **Stabilität** – Mehrere mögliche Abstürze in seltenen Szenarien beseitigt.
-
-### Verbessert
-- **E-Mails** – Passwort-Reset und Kontobestätigung kommen jetzt in der richtigen Sprache an.
-
----
-
-## 1.7.4 – 2026-04-10
-
-### Verbessert
-- **Erscheinungsbild** – Frischerer, modernerer Look: weichere Ecken, klarere Karten.
-- **Scroll-Hinweis** – Ein sanft bouncender Pfeil zeigt an, dass noch mehr Inhalt scrollbar ist.
-- **Hauptscreen** – Der Titel ist jetzt beim Öffnen groß und zieht sich beim Scrollen zurück.
-
----
-
-## 1.7.3 – 2026-04-10
-
-### Verbessert
-- **Sprachfallback** – Unbekannte Sprachcodes fallen jetzt auf Englisch zurück statt auf Deutsch.
-
----
-
-## 1.7.2 – 2026-04-10
-
-### Neu
-- **Norsk 🇳🇴 und Dansk 🇩🇰** – FamWake spricht jetzt auch Norwegisch und Dänisch.
-- **14 Sprachen** – Die Sprachauswahl kennt jetzt 14 Weltsprachen plus 3 Dialekte.
-
-### Verbessert
-- **Sprachauswahl** – Übersichtlicheres Auswahlmenü, alphabetisch sortiert.
-- **Erscheinungsbild** – Sonne/Auto/Mond-Icons statt Dropdown.
-- **Wochenplan** – „Auf andere Tage kopieren" immer sichtbar. Bessere Reihenfolge der Felder.
-- **Kleine Bildschirme** – Alle Screens jetzt vollständig bedienbar.
-
----
-
-## 1.7.1 – 2026-04-08
-
-### Verbessert
-- **Zeitauswahl** – Übersichtlicherer Tastatur-Dialog statt Uhrzeiger.
-- **Tastatur** – Schließt sich beim Tippen außerhalb des Eingabefelds.
-- **Badzeit-Steuerung** – „−" und „+"-Buttons bleiben immer sichtbar.
-
----
 
 ## 1.7.0 – 2026-04-06
 
 ### Neu
-- **Schwedisch 🇸🇪** – Välkommen!
-- **Dialekte 🎉** – Schwäbisch, Schweizerdeutsch und Ruhrpott.
 - **Berechtigungs-Warnung** – Fehlt die Wecker-Berechtigung, erscheint eine rote Kachel auf dem Hauptscreen.
 - **Automatische Profilverknüpfung** – Beim Anlegen des ersten Profils wirst du automatisch damit verbunden.
 - **Wochentags-Planung** – Weckzeiten und Badezimmer-Dauer pro Wochentag individuell einstellbar.
@@ -147,7 +43,6 @@
 ## 1.6.0 – 2026-03-23
 
 ### Neu
-- **Französisch, Spanisch und Italienisch** – Drei neue Sprachen mit automatischer Erkennung.
 - **Einladungslinks** – Verbessertes Feedback beim Beitritt via Link.
 
 ### Behoben
@@ -169,6 +64,20 @@
 
 ---
 
+## 1.4.0 – 2026-03-19
+
+### Neu
+- **Onboarding-Tour** – 5-Screen-Einführung mit Panda-Animationen und neuem Weck-Screen-Design.
+
+### Verbessert
+- **Autofill & Login** – Deutlich bessere Passwort-Manager-Kompatibilität.
+- **Sicherheit** – XSS-Schutz bei Feedback-E-Mails, Cloud-Reset für Status-Resets.
+
+### Behoben
+- Doppel-Alarme, Deep-Link-Flows und Mitglieder-Mapping korrigiert.
+
+---
+
 ## 1.3.0 – 2026-03-17
 
 ### Neu
@@ -177,6 +86,18 @@
 ### Verbessert
 - Deaktivierte Tage werden deutlicher optisch hervorgehoben.
 - Schutz vor Spam bei E-Mails und Familienbeitritten.
+
+---
+
+## 1.2.0 – 2026-03-17
+
+### Neu
+- **Feedback-Screen** – Feedback direkt aus der App senden.
+- **Wochentag-Konfiguration** – Individuelle Zeiten pro Wochentag.
+
+### Behoben
+- Alarm-Status wird nach Neuinstallation wiederhergestellt.
+- Frühstückszeit-Berechnung und Familien-Erstellung stabilisiert.
 
 ---
 
@@ -195,5 +116,4 @@
 
 ### Erster Release 🎉
 - Familien-Wecker mit koordinierter Badezimmer-Planung.
-- Unterstützung für Deutsch und Englisch.
 - Einladungscodes zum Beitritt, Google Sign-In.
