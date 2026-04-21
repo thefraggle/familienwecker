@@ -343,4 +343,18 @@
     <string name="onboarding_mock_name1">Pappa</string>
     <string name="onboarding_mock_name2">Mamma</string>
     <string name="onboarding_mock_family_name">Hansen</string>
+
+    <!-- Notification strings -->
+    <string name="notif_channel_schedule_change_name">Tidsplanenendringer</string>
+    <string name="notif_channel_schedule_change_desc">Varsler om endringer i vekketider eller rekkefolge</string>
+    <string name="notif_channel_family_events_name">Familiehendelser</string>
+    <string name="notif_channel_family_events_desc">Varsler når medlemmer slutter seg til eller forlater familien</string>
+    <string name="notif_schedule_changed_title">Plan oppdatert</string>
+    <string name="notif_schedule_changed_body">Vekketidene er endret. Åpne appen for å se din nye tid.</string>
+    <string name="notif_member_joined_title">Nytt familiemedlem!</string>
+    <string name="notif_member_joined_body">Et nytt medlem har blitt med i familien din.</string>
+    <string name="notif_member_left_title">Familieoppdatering</string>
+    <string name="notif_member_left_body">Et medlem har forlatt familien din.</string>
+    <string name="notif_permission_title">Push-varsler</string>
+    <string name="notif_permission_desc">Få varsler når planen endres eller familiemedlemmer slutter seg til.</string>
 </resources>

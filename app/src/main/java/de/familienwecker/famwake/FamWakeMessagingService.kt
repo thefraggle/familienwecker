@@ -41,12 +41,18 @@ class FamWakeMessagingService : FirebaseMessagingService() {
         fun deleteTokenOnLogout() {
             val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
             FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+                // Firestore-Entry entfernen (ggf. offline gequeuet, daher auch FCM-seitig löschen)
                 FirebaseFirestore.getInstance()
                     .collection("users").document(uid)
                     .collection("fcmTokens").document(token)
                     .delete()
                     .addOnFailureListener { Log.w(TAG, "Token-Delete fehlgeschlagen: ${it.message}") }
             }
+            // FCM-Token auf Gerät ungültig machen – nächster Server-Push gibt 404
+            // → sendPushToUser cleanup-Code löscht den Eintrag dann serverseitig.
+            // Löst das Problem: Offline-Logout queued Firestore-Delete, der nach Auth-Expiry scheitert.
+            FirebaseMessaging.getInstance().deleteToken()
+                .addOnFailureListener { Log.w(TAG, "FCM deleteToken fehlgeschlagen: ${it.message}") }
         }
 
         private fun saveTokenToFirestore(uid: String, token: String) {
@@ -70,14 +76,24 @@ class FamWakeMessagingService : FirebaseMessagingService() {
 
     /** Verarbeitet eingehende FCM-Datennachrichten und zeigt Notifications an. */
     override fun onMessageReceived(message: RemoteMessage) {
-        val data   = message.data
-        val type   = data["type"] ?: return
-        val title  = data["title"] ?: message.notification?.title ?: return
-        val body   = data["body"]  ?: message.notification?.body  ?: return
+        val type = message.data["type"] ?: return
         val channel = when (type) {
             "schedule_change" -> NotificationChannels.SCHEDULE_CHANGE
-            "family_event"    -> NotificationChannels.FAMILY_EVENTS
-            else              -> NotificationChannels.FAMILY_EVENTS
+            "family_joined", "family_left" -> NotificationChannels.FAMILY_EVENTS
+            else -> NotificationChannels.FAMILY_EVENTS
+        }
+        // Lokalisierung via String-Ressourcen – unabhängig vom Server-Text
+        val (title, body) = when (type) {
+            "schedule_change" ->
+                getString(R.string.notif_schedule_changed_title) to
+                getString(R.string.notif_schedule_changed_body)
+            "family_joined" ->
+                getString(R.string.notif_member_joined_title) to
+                getString(R.string.notif_member_joined_body)
+            "family_left" ->
+                getString(R.string.notif_member_left_title) to
+                getString(R.string.notif_member_left_body)
+            else -> return
         }
         showNotification(title, body, channel)
     }
