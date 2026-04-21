@@ -490,7 +490,9 @@ fun SettingsScreen(
                 }
             }
 
-            // Push-Benachrichtigungen (Android 13+)
+            // Push-Benachrichtigungen: Warnung wenn deaktiviert (Android 13+)
+            // Toggle removed: on Samsung/newer Android, the runtime permission dialog only fires once.
+            // After denial, only system settings can re-enable notifications.
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
                 val notifPermission = Manifest.permission.POST_NOTIFICATIONS
                 var notifGranted by remember {
@@ -498,11 +500,19 @@ fun SettingsScreen(
                         ContextCompat.checkSelfPermission(context, notifPermission) == PackageManager.PERMISSION_GRANTED
                     )
                 }
-                val notifPermLauncher = rememberLauncherForActivityResult(
-                    ActivityResultContracts.RequestPermission()
-                ) { granted -> notifGranted = granted }
 
-                // Nur anzeigen wenn noch nicht gewährt
+                // Re-check on resume (user may return from system settings)
+                val lifecycleOwnerNotif = LocalLifecycleOwner.current
+                DisposableEffect(lifecycleOwnerNotif) {
+                    val observer = LifecycleEventObserver { _, event ->
+                        if (event == Lifecycle.Event.ON_RESUME) {
+                            notifGranted = ContextCompat.checkSelfPermission(context, notifPermission) == PackageManager.PERMISSION_GRANTED
+                        }
+                    }
+                    lifecycleOwnerNotif.lifecycle.addObserver(observer)
+                    onDispose { lifecycleOwnerNotif.lifecycle.removeObserver(observer) }
+                }
+
                 if (!notifGranted) {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
@@ -514,29 +524,38 @@ fun SettingsScreen(
                                              else MaterialTheme.colorScheme.surface
                         )
                     ) {
-                        Row(
-                            modifier = Modifier.padding(16.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Column(modifier = Modifier.weight(1f)) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.error)
+                                Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     stringResource(R.string.notif_permission_title),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                                Text(
-                                    stringResource(R.string.notif_permission_desc),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.error
                                 )
                             }
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Switch(
-                                checked = false,
-                                onCheckedChange = { notifPermLauncher.launch(notifPermission) }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                stringResource(R.string.notif_permission_desc),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
+                            Spacer(modifier = Modifier.height(12.dp))
+                            val notifBtnInteractionSource = remember { MutableInteractionSource() }
+                            Button(
+                                onClick = {
+                                    val intent = Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                                        putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName)
+                                    }
+                                    context.startActivity(intent)
+                                },
+                                modifier = Modifier.fillMaxWidth().bounceClick(notifBtnInteractionSource),
+                                interactionSource = notifBtnInteractionSource,
+                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                            ) {
+                                Text(stringResource(R.string.notif_permission_button))
+                            }
                         }
                     }
                 }
@@ -949,48 +968,56 @@ fun SettingsScreen(
                 }
             }
 
-            // Shortcut zu Android Notification-Einstellungen
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        val intent = Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                            putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName)
-                        }
-                        context.startActivity(intent)
-                    },
-                shape = MaterialTheme.shapes.extraLarge,
-                elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
-                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                     else MaterialTheme.colorScheme.surface
-                )
-            ) {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
+            // Shortcut zu Android Notification-Einstellungen (nur wenn Notifications erlaubt)
+            val isNotifEnabled = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+            } else {
+                true // Pre-Android 13: notifications always enabled by default
+            }
+
+            if (isNotifEnabled) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            val intent = Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                                putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName)
+                            }
+                            context.startActivity(intent)
+                        },
+                    shape = MaterialTheme.shapes.extraLarge,
+                    elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                         else MaterialTheme.colorScheme.surface
+                    )
                 ) {
-                    Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            stringResource(R.string.notif_manage_title),
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Text(
-                            stringResource(R.string.notif_manage_desc),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                    Row(
+                        modifier = Modifier.padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                stringResource(R.string.notif_manage_title),
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Text(
+                                stringResource(R.string.notif_manage_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowForward,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
                 }
             }
 

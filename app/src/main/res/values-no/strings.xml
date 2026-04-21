@@ -357,4 +357,5 @@
     <string name="notif_member_left_body">Et medlem har forlatt familien din.</string>
     <string name="notif_permission_title">Push-varsler</string>
     <string name="notif_permission_desc">Få varsler når planen endres eller familiemedlemmer slutter seg til.</string>
+    <string name="notif_permission_button">Aktiver varsler</string>
 </resources>

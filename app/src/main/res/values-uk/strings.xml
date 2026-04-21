@@ -357,4 +357,5 @@
     <string name="notif_member_left_body">Учасник залишив твою сім’ю.</string>
     <string name="notif_permission_title">Push-сповіщення</string>
     <string name="notif_permission_desc">Отримуй сповіщення про зміни розкладу або приєднання учасників.</string>
+    <string name="notif_permission_button">Увімкнути сповіщення</string>
 </resources>
