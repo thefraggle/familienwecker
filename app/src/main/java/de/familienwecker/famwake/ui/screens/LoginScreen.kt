@@ -41,21 +41,16 @@ import androidx.compose.material.icons.filled.CheckCircle
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
-import android.net.Uri
 import android.content.Intent
 import de.familienwecker.famwake.ui.util.UiText
 import de.familienwecker.famwake.util.findActivity
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.compose.ui.graphics.Color
 import androidx.activity.compose.BackHandler
-import androidx.compose.ui.autofill.*
-import androidx.compose.ui.platform.LocalAutofillTree
-import androidx.compose.ui.platform.LocalAutofill
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.semantics.*
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.core.net.toUri
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -72,33 +67,6 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var isRegistering by remember { mutableStateOf(false) }
-
-    val autofill = LocalAutofill.current
-    val autofillTree = LocalAutofillTree.current
-
-    val emailNode = remember {
-        AutofillNode(
-            autofillTypes = listOf(AutofillType.EmailAddress, AutofillType.Username),
-            onFill = { email = it }
-        )
-    }
-
-    val passwordNode = remember {
-        AutofillNode(
-            autofillTypes = listOf(AutofillType.Password),
-            onFill = { password = it }
-        )
-    }
-
-    DisposableEffect(Unit) {
-        val root = autofillTree.children
-        root[emailNode.hashCode()] = emailNode
-        root[passwordNode.hashCode()] = passwordNode
-        onDispose {
-            root.remove(emailNode.hashCode())
-            root.remove(passwordNode.hashCode())
-        }
-    }
 
     BackHandler {
         context.findActivity()?.finish()
@@ -191,16 +159,8 @@ fun LoginScreen(
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .onGloballyPositioned {
-                                    emailNode.boundingBox = it.boundsInWindow()
-                                }
-                                .onFocusChanged { focusState ->
-                                    if (focusState.isFocused) {
-                                        autofill?.requestAutofillForNode(emailNode)
-                                    } else {
-                                        autofill?.cancelAutofillForNode(emailNode)
-                                    }
-                                }
+                                // Semantics-basiertes Autofill (M3-Nachfolger von AutofillNode)
+                                .semantics { contentType = ContentType.EmailAddress }
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         OutlinedTextField(
@@ -226,16 +186,8 @@ fun LoginScreen(
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .onGloballyPositioned {
-                                    passwordNode.boundingBox = it.boundsInWindow()
-                                }
-                                .onFocusChanged { focusState ->
-                                    if (focusState.isFocused) {
-                                        autofill?.requestAutofillForNode(passwordNode)
-                                    } else {
-                                        autofill?.cancelAutofillForNode(passwordNode)
-                                    }
-                                }
+                                // Semantics-basiertes Autofill (M3-Nachfolger von AutofillNode)
+                                .semantics { contentType = ContentType.Password }
                         )
 
                         Spacer(modifier = Modifier.height(24.dp))
@@ -307,62 +259,60 @@ fun LoginScreen(
                                 val privacyPolicy = stringResource(R.string.registration_privacy_policy)
                                 val disclaimer = stringResource(R.string.registration_disclaimer, termsOfUse, privacyPolicy)
                                 
+                                val linkColor = MaterialTheme.colorScheme.primary
+                                val termsUrl = stringResource(R.string.settings_terms_of_use_url)
+                                val privacyUrl = stringResource(R.string.settings_privacy_policy_url)
+
                                 val annotatedString = buildAnnotatedString {
                                     val termsStart = disclaimer.indexOf(termsOfUse)
                                     val privacyStart = disclaimer.indexOf(privacyPolicy)
-                                    
+
                                     append(disclaimer)
-                                    
+
                                     if (termsStart != -1) {
-                                        addStyle(
-                                            style = SpanStyle(
-                                                color = MaterialTheme.colorScheme.primary,
-                                                fontWeight = FontWeight.Bold,
-                                                textDecoration = androidx.compose.ui.text.style.TextDecoration.Underline
+                                        addLink(
+                                            url = LinkAnnotation.Url(
+                                                url = termsUrl,
+                                                // Linkfarbe explizit gesetzt, da der System-Default
+                                                // den onSurfaceVariant-Kontext ignoriert
+                                                styles = TextLinkStyles(
+                                                    style = SpanStyle(
+                                                        color = linkColor,
+                                                        fontWeight = FontWeight.Bold,
+                                                        textDecoration = androidx.compose.ui.text.style.TextDecoration.Underline
+                                                    )
+                                                )
                                             ),
-                                            start = termsStart,
-                                            end = termsStart + termsOfUse.length
-                                        )
-                                        addStringAnnotation(
-                                            tag = "URL",
-                                            annotation = stringResource(R.string.settings_terms_of_use_url),
                                             start = termsStart,
                                             end = termsStart + termsOfUse.length
                                         )
                                     }
-                                    
+
                                     if (privacyStart != -1) {
-                                        addStyle(
-                                            style = SpanStyle(
-                                                color = MaterialTheme.colorScheme.primary,
-                                                fontWeight = FontWeight.Bold,
-                                                textDecoration = androidx.compose.ui.text.style.TextDecoration.Underline
+                                        addLink(
+                                            url = LinkAnnotation.Url(
+                                                url = privacyUrl,
+                                                styles = TextLinkStyles(
+                                                    style = SpanStyle(
+                                                        color = linkColor,
+                                                        fontWeight = FontWeight.Bold,
+                                                        textDecoration = androidx.compose.ui.text.style.TextDecoration.Underline
+                                                    )
+                                                )
                                             ),
-                                            start = privacyStart,
-                                            end = privacyStart + privacyPolicy.length
-                                        )
-                                        addStringAnnotation(
-                                            tag = "URL",
-                                            annotation = stringResource(R.string.settings_privacy_policy_url),
                                             start = privacyStart,
                                             end = privacyStart + privacyPolicy.length
                                         )
                                     }
                                 }
-                                
-                                androidx.compose.foundation.text.ClickableText(
+
+                                // LinkAnnotation.Url öffnet URLs automatisch – kein onClick-Handler nötig
+                                Text(
                                     text = annotatedString,
                                     style = MaterialTheme.typography.bodySmall.copy(
                                         textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     ),
-                                    onClick = { offset ->
-                                        annotatedString.getStringAnnotations(tag = "URL", start = offset, end = offset)
-                                            .firstOrNull()?.let { annotation ->
-                                                val intent = Intent(Intent.ACTION_VIEW, annotation.item.toUri())
-                                                context.startActivity(intent)
-                                            }
-                                    },
                                     modifier = Modifier.padding(horizontal = 8.dp)
                                 )
                             }

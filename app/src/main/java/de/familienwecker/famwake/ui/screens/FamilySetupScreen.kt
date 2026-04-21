@@ -143,7 +143,7 @@ fun FamilySetupScreen(
                         modifier = Modifier.padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        TabRow(
+                        PrimaryTabRow(
                             selectedTabIndex = if (isCreateMode) 0 else 1,
                             containerColor = Color.Transparent,
                             divider = {}

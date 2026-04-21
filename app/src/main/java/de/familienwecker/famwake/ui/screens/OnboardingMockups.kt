@@ -310,21 +310,21 @@ fun Slide3DaySettingsMockup() {
                     }
                 }
 
-                Divider(modifier = Modifier.padding(vertical = 10.dp), color = MockOutline.copy(alpha = 0.3f))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MockOutline.copy(alpha = 0.3f))
 
                 // Früheste Weckzeit
                 MockSettingsRow(
                     label = stringResource(R.string.add_member_earliest_wake),
                     value = "06:00"
                 )
-                Divider(modifier = Modifier.padding(vertical = 10.dp), color = MockOutline.copy(alpha = 0.15f))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MockOutline.copy(alpha = 0.15f))
 
                 // Späteste Weckzeit
                 MockSettingsRow(
                     label = stringResource(R.string.add_member_latest_wake),
                     value = "07:30"
                 )
-                Divider(modifier = Modifier.padding(vertical = 10.dp), color = MockOutline.copy(alpha = 0.15f))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MockOutline.copy(alpha = 0.15f))
 
                 // Bad-Dauer mit Stepper
                 Row(
