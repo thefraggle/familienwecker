@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">手動の一時停止が有効です。</string>
     <string name="main_no_profile_warning">プロフィールが選択されていません！</string>
     <string name="main_no_profile_warning_desc">アラームが鳴るように設定でプロフィールを選択してください。</string>
+    <string name="main_unclaimed_first_title">%1$sのアラームが鳴りません！</string>
+    <string name="main_unclaimed_first_desc">%1$sは1番目ですが、自分のプロフィールがありません – 時間通りに起きられないかもしれません。</string>
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
     <string name="delete_desc">削除</string>

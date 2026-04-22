@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">Manual pause is active.</string>
     <string name="main_no_profile_warning">No profile selected!</string>
     <string name="main_no_profile_warning_desc">Please select your profile in the settings so the alarm can ring for you.</string>
+    <string name="main_unclaimed_first_title">For %1$s, no alarm will ring!</string>
+    <string name="main_unclaimed_first_desc">%1$s is first in line but has no own profile – and might not wake up in time.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete_desc">Delete</string>

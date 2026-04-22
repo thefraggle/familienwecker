@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">Manuel duraklatma aktif.</string>
     <string name="main_no_profile_warning">Profil seçilmedi!</string>
     <string name="main_no_profile_warning_desc">Alarmın sizin için çalması adına lütfen ayarlardan profilinizi seçin.</string>
+    <string name="main_unclaimed_first_title">%1$s için hiçbir alarm çalmıyor!</string>
+    <string name="main_unclaimed_first_desc">%1$s ilk sırada ama kendi profili yok – ve zamanında uyanmayabilir.</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="delete_desc">Sil</string>
