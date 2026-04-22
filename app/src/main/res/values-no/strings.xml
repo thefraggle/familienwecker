@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">Manuell pause er aktiv.</string>
     <string name="main_no_profile_warning">Ingen profil valgt!</string>
     <string name="main_no_profile_warning_desc">Velg profilen din i innstillingene slik at alarmen kan ringe for deg.</string>
+    <string name="main_unclaimed_first_title">Ingen alarm ringer for %1$s!</string>
+    <string name="main_unclaimed_first_desc">%1$s er først i rekken, men har ingen egen profil – og våkner kanskje ikke i tide.</string>
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
     <string name="delete_desc">Slett</string>

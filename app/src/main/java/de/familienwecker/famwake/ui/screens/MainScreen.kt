@@ -616,6 +616,37 @@ fun MainScreen(
                     }
                 }
 
+                // Warnung: ungeclaimter Member an erster Stelle – nur zeigen wenn kein "Kein Profil"-Banner aktiv ist
+                val firstScheduledMember = schedule?.memberSchedules?.firstOrNull()?.member
+                if (myMemberId != null && firstScheduledMember != null && firstScheduledMember.claimedByUserId == null) {
+                    item(key = "unclaimed_first_warning") {
+                        val cardColor = if (isDarkTheme) SnoozeAmberDark else SnoozeAmberLight
+                        val textColor = if (isDarkTheme) SnoozeTextDark else SnoozeTextLight
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = MaterialTheme.shapes.large,
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.4f)),
+                            colors = CardDefaults.cardColors(containerColor = cardColor)
+                        ) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text(
+                                    text = "⚠️ " + stringResource(R.string.main_unclaimed_first_title, firstScheduledMember.name),
+                                    fontWeight = FontWeight.Bold,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = textColor
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = stringResource(R.string.main_unclaimed_first_desc, firstScheduledMember.name),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = textColor.copy(alpha = 0.85f)
+                                )
+                            }
+                        }
+                    }
+                }
+
                 // Errechneter Wecker-Plan
                 item {
                     Text(stringResource(R.string.main_current_schedule), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
@@ -890,6 +921,7 @@ fun MainScreen(
                 item {
                     HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
                 }
+
 
                 // Liste der Familienmitglieder
                 item {

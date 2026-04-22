@@ -19,6 +19,7 @@
 - **Onboarding refreshed** – Clearer introduction, country-specific examples.
 - **Fresher design** – Softer corners, scroll hint, collapsible title.
 - **Better time picker** – Clean keyboard-style dialog instead of a clock face.
+- **Reorder warning** – A notice appears when a member without their own profile is first in the schedule.
 
 ### Fixed
 - Alarm screen appears over the lock screen without requiring PIN entry.

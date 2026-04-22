@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">La pausa manuale è attiva.</string>
     <string name="main_no_profile_warning">Nessun profilo selezionato!</string>
     <string name="main_no_profile_warning_desc">Seleziona il tuo profilo nelle impostazioni affinché la sveglia possa suonare per te.</string>
+    <string name="main_unclaimed_first_title">Nessuna sveglia suona per %1$s!</string>
+    <string name="main_unclaimed_first_desc">%1$s è al primo posto, ma non ha un profilo proprio – e potrebbe non svegliarsi in tempo.</string>
     <string name="yes">Sì</string>
     <string name="no">No</string>
     <string name="delete_desc">Elimina</string>

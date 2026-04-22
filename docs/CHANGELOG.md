@@ -19,6 +19,7 @@
 - **Onboarding überarbeitet** – Klarere Einführung, landesspezifische Beispiele.
 - **Frischeres Design** – Weichere Ecken, Scroll-Hinweis, kollabierbarer Titel.
 - **Übersichtlichere Zeitauswahl** – Tastatur-Dialog statt Uhrzeiger.
+- **Reorder-Warnung** – Hinweis wenn ein Mitglied ohne eigenes Profil an erster Stelle im Plan steht.
 
 ### Behoben
 - Wecker-Bildschirm erscheint ohne PIN-Abfrage über dem Sperrbildschirm.

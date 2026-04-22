@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">Handmatige pauze is actief.</string>
     <string name="main_no_profile_warning">Geen profiel geselecteerd!</string>
     <string name="main_no_profile_warning_desc">Selecteer je profiel in de instellingen zodat de wekker voor jou kan afgaan.</string>
+    <string name="main_unclaimed_first_title">Voor %1$s gaat er geen wekker af!</string>
+    <string name="main_unclaimed_first_desc">%1$s staat op de eerste plaats, maar heeft geen eigen profiel – en wordt misschien niet op tijd wakker.</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
     <string name="delete_desc">Verwijderen</string>
