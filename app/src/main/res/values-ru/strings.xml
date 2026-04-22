@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Советы и Подсказки</string>
     <string name="settings_tooltips_label">Показывать полезные советы</string>
     <string name="settings_tooltips_reset">Сбросить все советы</string>
+    <string name="settings_push_title">Уведомления</string>
+    <string name="settings_push_label">Получать push-уведомления</string>
     <string name="settings_support_title">Поддержите приложение</string>
     <string name="settings_support_desc">Вам нравится приложение? Будем рады вашей поддержке!</string>
     <string name="settings_support_donate">Пожертвовать</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Новый участник присоединился к твоей семье.</string>
     <string name="notif_member_left_title">FamWake: Обновление семьи</string>
     <string name="notif_member_left_body">Участник покинул твою семью.</string>
-    <string name="notif_permission_title">Push-уведомления</string>
-    <string name="notif_permission_desc">Получай уведомления об изменениях расписания или вступлении участников.</string>
+    <string name="notif_permission_title">Уведомления обязательны</string>
+    <string name="notif_permission_desc">Без уведомлений будильник может не сработать. Включите их для надёжного пробуждения.</string>
     <string name="notif_permission_button">Включить уведомления</string>
 </resources>

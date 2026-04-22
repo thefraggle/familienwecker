@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Astuces &amp; Conseils</string>
     <string name="settings_tooltips_label">Afficher les astuces utiles</string>
     <string name="settings_tooltips_reset">Réinitialiser les astuces</string>
+    <string name="settings_push_title">Notifications</string>
+    <string name="settings_push_label">Recevoir des notifications push</string>
     <string name="settings_support_title">Soutenir l\'app</string>
     <string name="settings_support_desc">Tu aimes l\'app ? Ton soutien est précieux !</string>
     <string name="settings_support_donate">Faire un don</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Un nouveau membre a rejoint ta famille.</string>
     <string name="notif_member_left_title">FamWake: Mise à jour famille</string>
     <string name="notif_member_left_body">Un membre a quitté ta famille.</string>
-    <string name="notif_permission_title">Notifications push</string>
-    <string name="notif_permission_desc">Sois informé quand le plan change ou que des membres rejoignent.</string>
+    <string name="notif_permission_title">Notifications requises</string>
+    <string name="notif_permission_desc">Sans notifications, le réveil pourrait ne pas sonner. Active-les pour un réveil fiable.</string>
     <string name="notif_permission_button">Activer les notifications</string>
 </resources>

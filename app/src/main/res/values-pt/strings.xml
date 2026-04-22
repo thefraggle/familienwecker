@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Dicas e Sugestões</string>
     <string name="settings_tooltips_label">Mostrar dicas úteis</string>
     <string name="settings_tooltips_reset">Redefinir todas as dicas</string>
+    <string name="settings_push_title">Notificações</string>
+    <string name="settings_push_label">Receber notificações push</string>
     <string name="settings_support_title">Apoie o app</string>
     <string name="settings_support_desc">Gosta do app? Agradecemos o seu apoio!</string>
     <string name="settings_support_donate">Doar</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Um novo membro entrou na sua família.</string>
     <string name="notif_member_left_title">FamWake: Atualização da família</string>
     <string name="notif_member_left_body">Um membro saiu da sua família.</string>
-    <string name="notif_permission_title">Notificações push</string>
-    <string name="notif_permission_desc">Seja notificado quando o plano mudar ou membros entrarem.</string>
+    <string name="notif_permission_title">Notificações necessárias</string>
+    <string name="notif_permission_desc">Sem notificações, o alarme pode não tocar. Ative-as para um despertador fiável.</string>
     <string name="notif_permission_button">Ativar notificações</string>
 </resources>

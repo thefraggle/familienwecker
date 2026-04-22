@@ -98,6 +98,7 @@ fun SettingsScreen(
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipInviteSeen by viewModel.tooltipInviteSeen.collectAsStateWithLifecycle()
     val tooltipAlarmSoundSeen by viewModel.tooltipAlarmSoundSeen.collectAsStateWithLifecycle()
+    val pushNotificationsEnabled by viewModel.pushNotificationsEnabled.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
     var showMemberPicker by remember { mutableStateOf(false) }
@@ -965,57 +966,28 @@ fun SettingsScreen(
                             )
                         }
                     }
-                }
-            }
 
-            // Shortcut zu Android Notification-Einstellungen (nur wenn Notifications erlaubt)
-            val isNotifEnabled = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-                ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-            } else {
-                true // Pre-Android 13: notifications always enabled by default
-            }
+                    Spacer(modifier = Modifier.height(20.dp))
 
-            if (isNotifEnabled) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            val intent = Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                                putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName)
-                            }
-                            context.startActivity(intent)
-                        },
-                    shape = MaterialTheme.shapes.extraLarge,
-                    elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                    colors = CardDefaults.cardColors(
-                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                         else MaterialTheme.colorScheme.surface
+                    // Push-Benachrichtigungen
+                    Text(
+                        stringResource(R.string.settings_push_title),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                ) {
+                    Spacer(modifier = Modifier.height(6.dp))
                     Row(
-                        modifier = Modifier.padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                stringResource(R.string.notif_manage_title),
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = FontWeight.SemiBold
-                            )
-                            Text(
-                                stringResource(R.string.notif_manage_desc),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        Text(
+                            stringResource(R.string.settings_push_label),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Switch(
+                            checked = pushNotificationsEnabled,
+                            onCheckedChange = { viewModel.setPushNotificationsEnabled(it) }
                         )
                     }
                 }

@@ -35,6 +35,9 @@ interface AppSettings {
     val alarmStateBeforeLogout: StateFlow<Boolean>
     fun setAlarmStateBeforeLogout(enabled: Boolean)
 
+    // true wenn setAlarmStateBeforeLogout schon einmal aufgerufen wurde (= kein Fresh Install)
+    fun hasAlarmStateBeenSaved(): Boolean
+
     val onboardingCompleted: StateFlow<Boolean>
     fun setOnboardingCompleted(completed: Boolean)
 
@@ -68,6 +71,9 @@ interface AppSettings {
 
     val lastFeedbackSentAt: StateFlow<Long>
     fun setLastFeedbackSentAt(time: Long)
+
+    val pushNotificationsEnabled: StateFlow<Boolean>
+    fun setPushNotificationsEnabled(enabled: Boolean)
 
     fun clearAll()
 }
@@ -163,6 +169,10 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         _alarmStateBeforeLogout.value = enabled
         settings["ALARM_STATE_BEFORE_LOGOUT"] = enabled
     }
+
+    // Key existiert nur wenn setAlarmStateBeforeLogout jemals aufgerufen wurde
+    // → bei Fresh Install existiert er nicht (SharedPrefs leer)
+    override fun hasAlarmStateBeenSaved(): Boolean = settings.hasKey("ALARM_STATE_BEFORE_LOGOUT")
 
     private val _onboardingCompleted = MutableStateFlow(settings.getBoolean("ONBOARDING_COMPLETED", false))
     override val onboardingCompleted = _onboardingCompleted.asStateFlow()
@@ -268,6 +278,14 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     override fun setLastFeedbackSentAt(time: Long) {
         _lastFeedbackSentAt.value = time
         settings["LAST_FEEDBACK_SENT_AT"] = time
+    }
+
+    private val _pushNotificationsEnabled = MutableStateFlow(settings.getBoolean("PUSH_NOTIFICATIONS_ENABLED", true))
+    override val pushNotificationsEnabled = _pushNotificationsEnabled.asStateFlow()
+
+    override fun setPushNotificationsEnabled(enabled: Boolean) {
+        _pushNotificationsEnabled.value = enabled
+        settings["PUSH_NOTIFICATIONS_ENABLED"] = enabled
     }
 
     override fun clearAll() {

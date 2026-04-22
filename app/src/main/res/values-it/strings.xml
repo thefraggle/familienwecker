@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Suggerimenti &amp; Consigli</string>
     <string name="settings_tooltips_label">Mostra suggerimenti utili</string>
     <string name="settings_tooltips_reset">Ripristina tutti i suggerimenti</string>
+    <string name="settings_push_title">Notifiche</string>
+    <string name="settings_push_label">Ricevi notifiche push</string>
     <string name="settings_support_title">Sostieni l\'app</string>
     <string name="settings_support_desc">Ti piace l\'app? Apprezziamo il tuo supporto!</string>
     <string name="settings_support_donate">Fai una donazione</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Un nuovo membro si è unito alla tua famiglia.</string>
     <string name="notif_member_left_title">FamWake: Aggiornamento famiglia</string>
     <string name="notif_member_left_body">Un membro ha lasciato la tua famiglia.</string>
-    <string name="notif_permission_title">Notifiche push</string>
-    <string name="notif_permission_desc">Ricevi notifiche quando il piano cambia o i membri si uniscono.</string>
+    <string name="notif_permission_title">Notifiche necessarie</string>
+    <string name="notif_permission_desc">Senza notifiche, la sveglia potrebbe non suonare. Attivale per una sveglia affidabile.</string>
     <string name="notif_permission_button">Attiva le notifiche</string>
 </resources>

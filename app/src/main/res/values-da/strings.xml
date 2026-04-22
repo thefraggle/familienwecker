@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Tips og Råd</string>
     <string name="settings_tooltips_label">Vis nyttige tips</string>
     <string name="settings_tooltips_reset">Nulstil alle tips</string>
+    <string name="settings_push_title">Notifikationer</string>
+    <string name="settings_push_label">Modtag push-notifikationer</string>
     <string name="settings_support_title">Støt appen</string>
     <string name="settings_support_desc">Kan du lide appen? Vi sætter pris på din støtte!</string>
     <string name="settings_support_donate">Donér</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Et nyt medlem har sluttet sig til din familie.</string>
     <string name="notif_member_left_title">FamWake: Familieopdatering</string>
     <string name="notif_member_left_body">Et medlem har forladt din familie.</string>
-    <string name="notif_permission_title">Push-notifikationer</string>
-    <string name="notif_permission_desc">Få besked når planen ændres eller familiemedlemmer tilslutter sig.</string>
+    <string name="notif_permission_title">Notifikationer påkrævet</string>
+    <string name="notif_permission_desc">Uden notifikationer ringer alarmen muligvis ikke. Aktivér dem for en pålidelig alarm.</string>
     <string name="notif_permission_button">Aktiver notifikationer</string>
 </resources>

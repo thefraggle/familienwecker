@@ -99,6 +99,10 @@ class FamWakeMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         val type = message.data["type"] ?: return
 
+        // Push-Benachrichtigungen in der App deaktiviert → lautlos ignorieren
+        val appSettings = (application as FamWakeApplication).appSettings
+        if (!appSettings.pushNotificationsEnabled.value) return
+
         // Client-Debounce: doppelte Pushes desselben Typs innerhalb 10s ignorieren
         val now = System.currentTimeMillis()
         val lastTime = lastNotifTimestamps[type] ?: 0L
