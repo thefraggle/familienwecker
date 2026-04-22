@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">İpuçları ve Bilgiler</string>
     <string name="settings_tooltips_label">Faydalı ipuçlarını göster</string>
     <string name="settings_tooltips_reset">Tüm ipuçlarını sıfırla</string>
+    <string name="settings_push_title">Bildirimler</string>
+    <string name="settings_push_label">Push bildirimleri al</string>
     <string name="settings_support_title">Uygulamayı destekle</string>
     <string name="settings_support_desc">Uygulamayı beğendiniz mi? Desteğiniz için teşekkür ederiz!</string>
     <string name="settings_support_donate">Bağış yap</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Yeni bir üye aileye katıldı.</string>
     <string name="notif_member_left_title">FamWake: Aile güncellemesi</string>
     <string name="notif_member_left_body">Bir üye aileyi terk etti.</string>
-    <string name="notif_permission_title">Anlık bildirimler</string>
-    <string name="notif_permission_desc">Program değiştiğinde veya üyeler katıldığında bildirim al.</string>
+    <string name="notif_permission_title">Bildirimler gerekli</string>
+    <string name="notif_permission_desc">Bildirimler olmadan alarm çalmayabilir. Güvenilir bir alarm için lütfen etkinleştirin.</string>
     <string name="notif_permission_button">Bildirimleri etkinleştir</string>
 </resources>

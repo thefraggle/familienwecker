@@ -1904,25 +1904,13 @@ exports.onMemberScheduleChanged = onDocumentWritten(
       .collection("members")
       .get();
 
-    // Positions-Filter bei Reorder: nur Members im betroffenen Bereich [min, max]
-    // benachrichtigen. Drag-and-Drop verschiebt einen Member von Position A→B,
-    // alle dazwischen shiften um 1 → genau der [min,max]-Bereich.
-    // Bei ALLEN anderen Änderungen (Zeiten, Profile, Pause, Alarm-Toggle) werden alle
-    // benachrichtigt, weil der Schedule rückwärts berechnet wird → jede Änderung betrifft alle.
-    const reorderOnly = (before.sequenceOrder !== after.sequenceOrder) &&
-                         !statusChanged &&
-                         scheduleFields.filter(f => f !== "sequenceOrder")
-                           .every(f => JSON.stringify(before[f]) === JSON.stringify(after[f]));
-    const minAffectedOrder = reorderOnly
-      ? Math.min(before.sequenceOrder || 0, after.sequenceOrder || 0) : 0;
-    const maxAffectedOrder = reorderOnly
-      ? Math.max(before.sequenceOrder || 0, after.sequenceOrder || 0) : Infinity;
-
-    // Sender-Erkennung
+    // Sender-Erkennung: wer hat die Änderung ausgelöst? → kein Self-Push
     let changedBy = null;
     if (statusChanged && !scheduleChanged) {
+      // Bei reinen Status-Änderungen (Pause, Alarm-Toggle) ist der Auslöser der Member-Owner
       changedBy = after.claimedByUserId || null;
     } else {
+      // Bei Schedule-Änderungen (Reorder, Zeiten) wird der Auslöser über pushMeta erkannt
       const REORDER_WINDOW_MS = 15000;
       for (const doc of membersSnap.docs) {
         const uid = doc.data().claimedByUserId;
@@ -1940,14 +1928,16 @@ exports.onMemberScheduleChanged = onDocumentWritten(
       }
     }
 
-    // Empfängerliste: bei Reorder nur im betroffenen Bereich [min, max], sonst alle.
+    // Empfängerliste: ALLE geclaimten Members außer dem Auslöser.
+    // Kein Positions-Filter: der Schedule wird rückwärts berechnet, daher
+    // betrifft JEDE Änderung (Reorder, Pause, Alarm-Toggle, Zeiten) alle.
+    // Familienmitglieder sollen auch bei nicht-eigener Betroffenheit informiert werden,
+    // damit sie ggf. eingreifen und den Plan anpassen können.
     const recipientUids = [];
     for (const doc of membersSnap.docs) {
       const d = doc.data();
       const uid = d.claimedByUserId;
       if (!uid || uid === changedBy) continue;
-      const order = d.sequenceOrder || 0;
-      if (reorderOnly && (order < minAffectedOrder || order > maxAffectedOrder)) continue;
       recipientUids.push(uid);
     }
 

@@ -300,6 +300,8 @@
     <string name="settings_tooltips_title">Tips &amp; Hints</string>
     <string name="settings_tooltips_label">Show helpful tips</string>
     <string name="settings_tooltips_reset">Reset all tips</string>
+    <string name="settings_push_title">Notifications</string>
+    <string name="settings_push_label">Receive push notifications</string>
     <string name="settings_support_title">Support the app</string>
     <string name="settings_support_desc">Do you like the app? We appreciate your support!</string>
     <string name="settings_support_donate">Donate</string>
@@ -360,8 +362,8 @@
     <string name="notif_member_left_body">A member has left the family.</string>
 
     <!-- Notification permission toggle in Settings -->
-    <string name="notif_permission_title">Push notifications</string>
-    <string name="notif_permission_desc">Get notified when schedules change or family members join.</string>
+    <string name="notif_permission_title">Notifications required</string>
+    <string name="notif_permission_desc">Without notifications, the alarm may not ring. Please enable them for a reliable alarm.</string>
     <string name="notif_permission_button">Enable notifications</string>
     <string name="notif_manage_title">Manage notifications</string>
     <string name="notif_manage_desc">Change sound, vibration and other notification preferences in system settings.</string>

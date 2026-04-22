@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Tips og hint</string>
     <string name="settings_tooltips_label">Vis nyttige tips</string>
     <string name="settings_tooltips_reset">Tilbakestill alle tips</string>
+    <string name="settings_push_title">Varsler</string>
+    <string name="settings_push_label">Motta push-varsler</string>
     <string name="settings_support_title">Støtt appen</string>
     <string name="settings_support_desc">Liker du appen? Vi setter pris på støtten din!</string>
     <string name="settings_support_donate">Doner</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Et nytt medlem har blitt med i familien din.</string>
     <string name="notif_member_left_title">FamWake: Familieoppdatering</string>
     <string name="notif_member_left_body">Et medlem har forlatt familien din.</string>
-    <string name="notif_permission_title">Push-varsler</string>
-    <string name="notif_permission_desc">Få varsler når planen endres eller familiemedlemmer slutter seg til.</string>
+    <string name="notif_permission_title">Varsler påkrevd</string>
+    <string name="notif_permission_desc">Uten varsler kan alarmen kanskje ikke ringe. Aktiver dem for en pålitelig alarm.</string>
     <string name="notif_permission_button">Aktiver varsler</string>
 </resources>

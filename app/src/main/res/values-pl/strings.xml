@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Porady i wskazówki</string>
     <string name="settings_tooltips_label">Pokaż pomocne wskazówki</string>
     <string name="settings_tooltips_reset">Zresetuj wszystkie wskazówki</string>
+    <string name="settings_push_title">Powiadomienia</string>
+    <string name="settings_push_label">Otrzymuj powiadomienia push</string>
     <string name="settings_support_title">Wesprzyj aplikację</string>
     <string name="settings_support_desc">Podoba Ci się aplikacja? Doceniamy Twoje wsparcie!</string>
     <string name="settings_support_donate">Przekaż darowiznę</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Nowy członek dołączył do twojej rodziny.</string>
     <string name="notif_member_left_title">FamWake: Aktualizacja rodziny</string>
     <string name="notif_member_left_body">Członek opuścił twoją rodzinę.</string>
-    <string name="notif_permission_title">Powiadomienia push</string>
-    <string name="notif_permission_desc">Otrzymuj powiadomienia gdy plan się zmienia lub dołączają nowi członkowie.</string>
+    <string name="notif_permission_title">Powiadomienia wymagane</string>
+    <string name="notif_permission_desc">Bez powiadomień budzik może nie zadzwonić. Włącz je, aby alarm działał niezawodnie.</string>
     <string name="notif_permission_button">Włącz powiadomienia</string>
 </resources>

@@ -5,7 +5,6 @@ import android.media.AudioAttributes
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.data.AppSettings
 import de.familienwecker.famwake.model.toKmpLocalDateTime
-import android.app.KeyguardManager
 import android.app.NotificationManager
 import android.content.Context
 import android.media.MediaPlayer
@@ -110,8 +109,8 @@ class RingingActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
-            val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            keyguardManager.requestDismissKeyguard(this, null)
+            // Kein requestDismissKeyguard: Wecker soll ÜBER dem Lockscreen angezeigt werden,
+            // ohne PIN/Fingerprint-Abfrage. User muss Alarm stoppen können ohne zu entsperren.
         }
         // Zusätzliche Window-Flags für OEM-Kompatibilität (Samsung, Xiaomi etc.)
         // Auch auf neueren API-Levels nötig, da manche Hersteller die neuen APIs ignorieren
@@ -119,8 +118,8 @@ class RingingActivity : AppCompatActivity() {
         window.addFlags(
             WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
             WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+            // Kein FLAG_DISMISS_KEYGUARD: würde PIN/Fingerprint-Dialog triggern
         )
     }
 

@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Поради та Підказки</string>
     <string name="settings_tooltips_label">Показувати корисні поради</string>
     <string name="settings_tooltips_reset">Скинути всі поради</string>
+    <string name="settings_push_title">Сповіщення</string>
+    <string name="settings_push_label">Отримувати push-сповіщення</string>
     <string name="settings_support_title">Підтримайте додаток</string>
     <string name="settings_support_desc">Вам подобається додаток? Будемо раді вашій підтримці!</string>
     <string name="settings_support_donate">Пожертвувати</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Новий учасник приєднався до твоєї сім’ї.</string>
     <string name="notif_member_left_title">FamWake: Оновлення сім’ї</string>
     <string name="notif_member_left_body">Учасник залишив твою сім’ю.</string>
-    <string name="notif_permission_title">Push-сповіщення</string>
-    <string name="notif_permission_desc">Отримуй сповіщення про зміни розкладу або приєднання учасників.</string>
+    <string name="notif_permission_title">Сповіщення обов\'язкові</string>
+    <string name="notif_permission_desc">Без сповіщень будильник може не спрацювати. Увімкніть їх для надійного пробудження.</string>
     <string name="notif_permission_button">Увімкнути сповіщення</string>
 </resources>

@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">ヒントとアドバイス</string>
     <string name="settings_tooltips_label">役立つヒントを表示する</string>
     <string name="settings_tooltips_reset">すべてのヒントをリセット</string>
+    <string name="settings_push_title">通知</string>
+    <string name="settings_push_label">プッシュ通知を受信する</string>
     <string name="settings_support_title">アプリをサポート</string>
     <string name="settings_support_desc">アプリを気に入っていただけましたか？ご支援に感謝いたします！</string>
     <string name="settings_support_donate">寄付する</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">新しいメンバーがファミリーに参加しました。</string>
     <string name="notif_member_left_title">FamWake: ファミリーの更新</string>
     <string name="notif_member_left_body">メンバーがファミリーを退出しました。</string>
-    <string name="notif_permission_title">プッシュ通知</string>
-    <string name="notif_permission_desc">予定が変更されたりメンバーが参加したときに通知を受け取ります。</string>
+    <string name="notif_permission_title">通知が必要です</string>
+    <string name="notif_permission_desc">通知がないとアラームが鳴らない場合があります。確実に起きるために有効にしてください。</string>
     <string name="notif_permission_button">通知を有効にする</string>
 </resources>
