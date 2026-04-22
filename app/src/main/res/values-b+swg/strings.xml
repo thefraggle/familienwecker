@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">D\'Pause isch drinne.</string>
     <string name="main_no_profile_warning">Koi Profil ausgwählt!</string>
     <string name="main_no_profile_warning_desc">Bitte wähl in de Eistellonga dei Profil aus, damit de Wegger für di klingla ko.</string>
+    <string name="main_unclaimed_first_title">Für %1$s klingelt koin Wegger!</string>
+    <string name="main_unclaimed_first_desc">%1$s ischt an erster Stell, hat aber koi eigets Profil – und wacht vielleicht ned rechtzeitig auf.</string>
     <string name="yes">Jå</string>
     <string name="no">Noi</string>
     <string name="delete_desc">Lescha</string>

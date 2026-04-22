@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">Активна ручна пауза.</string>
     <string name="main_no_profile_warning">Профіль не вибрано!</string>
     <string name="main_no_profile_warning_desc">Будь ласка, виберіть свій профіль у налаштуваннях, щоб будильник міг дзвонити для вас.</string>
+    <string name="main_unclaimed_first_title">Для %1$s не дзвонить будильник!</string>
+    <string name="main_unclaimed_first_desc">%1$s стоїть на першому місці, але не має власного профілю – і може не прокинутися вчасно.</string>
     <string name="yes">Так</string>
     <string name="no">Ні</string>
     <string name="delete_desc">Видалити</string>

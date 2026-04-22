@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">Ręczne wstrzymanie jest aktywne.</string>
     <string name="main_no_profile_warning">Nie wybrano profilu!</string>
     <string name="main_no_profile_warning_desc">Wybierz swój profil w ustawieniach, aby alarm mógł dzwonić u Ciebie.</string>
+    <string name="main_unclaimed_first_title">Dla %1$s nie dzwoni żaden budzik!</string>
+    <string name="main_unclaimed_first_desc">%1$s jest na pierwszym miejscu, ale nie ma własnego profilu – i może nie obudzić się na czas.</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="delete_desc">Usuń</string>

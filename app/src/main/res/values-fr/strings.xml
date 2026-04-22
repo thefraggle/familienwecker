@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">La pause manuelle est active.</string>
     <string name="main_no_profile_warning">Aucun profil sélectionné !</string>
     <string name="main_no_profile_warning_desc">Sélectionne ton profil dans les paramètres pour que ton réveil puisse sonner.</string>
+    <string name="main_unclaimed_first_title">Aucune alarme ne sonne pour %1$s !</string>
+    <string name="main_unclaimed_first_desc">%1$s est en première position, mais n\'a pas de profil – et ne se réveillera peut-être pas à temps.</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="delete_desc">Supprimer</string>

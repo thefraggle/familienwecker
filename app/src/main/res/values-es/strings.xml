@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">La pausa manual está activa.</string>
     <string name="main_no_profile_warning">¡Ningún perfil seleccionado!</string>
     <string name="main_no_profile_warning_desc">Por favor, selecciona tu perfil en los ajustes para que la alarma pueda sonar para ti.</string>
+    <string name="main_unclaimed_first_title">¡No suena ninguna alarma para %1$s!</string>
+    <string name="main_unclaimed_first_desc">%1$s está en primer lugar, pero no tiene un perfil propio – y puede que no despierte a tiempo.</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="delete_desc">Eliminar</string>

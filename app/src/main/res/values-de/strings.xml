@@ -42,6 +42,8 @@
     <string name="main_alarm_disabled_desc">Manuelle Pause ist aktiv.</string>
     <string name="main_no_profile_warning">Kein Profil ausgewählt!</string>
     <string name="main_no_profile_warning_desc">Bitte wähle in den Einstellungen dein Profil aus, damit der Wecker für dich klingeln kann.</string>
+    <string name="main_unclaimed_first_title">Für %1$s klingelt kein Wecker!</string>
+    <string name="main_unclaimed_first_desc">%1$s steht an erster Stelle, hat aber kein eigenes Profil – und wacht möglicherweise nicht rechtzeitig auf.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="delete_desc">Löschen</string>
