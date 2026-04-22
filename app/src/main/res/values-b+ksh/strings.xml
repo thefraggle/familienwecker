@@ -42,8 +42,8 @@
     <string name="main_alarm_disabled_desc">Manuelle Pause is drinne.</string>
     <string name="main_no_profile_warning">Ker, da is kein Profil ausgewählt!</string>
     <string name="main_no_profile_warning_desc">Bitte wähl in den Einstellungen dein Profil aus, sonst bimmelt der Wecker hier für nix.</string>
-    <string name="main_unclaimed_first_title">Für %1$s küngelt kein Wecker!</string>
-    <string name="main_unclaimed_first_desc">%1$s es aan erster Stell, hat ävver kei eijnet Profil – un wach möjlicherweise nit rechtziitich op.</string>
+    <string name="main_unclaimed_first_title">Für %1$s bimmelt kein Wecker!</string>
+    <string name="main_unclaimed_first_desc">%1$s steht an erster Stelle, hat aber kein eigenes Profil – und wacht vielleicht einfach nich auf.</string>
     <string name="yes">Jau</string>
     <string name="no">Nee</string>
     <string name="delete_desc">Löschen</string>
@@ -155,8 +155,8 @@
     <string name="onboarding_slide1_body">FamWake rechnet für jeden die ideale Weckzeit aus – abgestimmt auf Pötte, Mampfen und Abflug. Kein Gedrängel mehr.</string>
     <string name="onboarding_slide2_title">Jeder Tag is anders.</string>
     <string name="onboarding_slide2_body">Montag Maloche, Mittwoch Homeoffice? Stell für jeden Tag eigene Zeiten ein – die App regelt den Rest.</string>
-    <string name="onboarding_slide3_title">In Sekunden verbunden.</string>
-    <string name="onboarding_slide3_body">Teil nen Code und deine Truppe is sofort dabei. Neue Leute? Der Plan regelt sich von alleine.</string>
+    <string name="onboarding_slide3_title">In Nullkommanix verbunden.</string>
+    <string name="onboarding_slide3_body">Teil nen Code und deine Truppe is sofort dabei. Neue Leute? Der Plan regelt sich von alleine. Un wenn sich wat ändert, weiß dat jeder sofort.</string>
     <string name="onboarding_slide4_title">Los geht\'s!</string>
     <string name="onboarding_slide4_body">Erstell jetzt deine Truppe und freu dich auf entspannte Morgen – zuverlässig, auch offline.</string>
     <string name="settings_feedback_button">Meckern / Fehler rübergeben</string>
