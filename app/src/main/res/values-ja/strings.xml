@@ -156,7 +156,7 @@
     <string name="onboarding_slide2_title">毎日が違う。</string>
     <string name="onboarding_slide2_body">月曜はオフィス、水曜は在宅？曜日ごとに個別の時間を設定 – あとはアプリにおまかせ。</string>
     <string name="onboarding_slide3_title">数秒でつながる。</string>
-    <string name="onboarding_slide3_body">コードを共有するだけで家族がすぐに参加。新メンバー？スケジュールは自動で調整されます。</string>
+    <string name="onboarding_slide3_body">コードを共有するだけで家族がすぐに参加。新メンバー？スケジュールは自動で調整されます。 何かが変わっても、みんなにすぐ伝わります。</string>
     <string name="onboarding_slide4_title">さあ始めよう！</string>
     <string name="onboarding_slide4_body">今すぐ家族を作成して、リラックスした朝を楽しもう – オフラインでも確実に。</string>
     <string name="settings_feedback_button">フィードバックを送る / バグを報告</string>
