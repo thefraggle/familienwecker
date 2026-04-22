@@ -5,19 +5,23 @@
 ## 1.8.0 – 2026-04-21
 
 ### Neu
-- **Push-Benachrichtigungen 🔔** – Du wirst automatisch informiert, wenn sich deine Weckzeit ändert – z.B. wenn jemand die Reihenfolge anpasst, einen Wecker ausschaltet oder ein Mitglied pausiert.
+- **Push-Benachrichtigungen 🔔** – Du wirst automatisch informiert, wenn sich der Familienplan ändert – z.B. bei Reihenfolge, Wecker ein/aus oder Pause. Alle Familienmitglieder werden benachrichtigt.
+- **Push-Toggle** – Push-Benachrichtigungen können in den App-Einstellungen ein- und ausgeschaltet werden.
 - **Familien-Events** – Du erfährst sofort, wenn jemand deiner Familie beitritt oder sie verlässt.
 - **Smartes Review-System** – Die App fragt nach positivem Erlebnis unaufdringlich nach einer Bewertung.
 - **20 Weck-Sprüche** – Abwechslung auf dem Weck-Screen.
 
 ### Verbessert
 - **Live-Sync** – Wecker ein/aus aktualisiert den Weckplan sofort auf allen Geräten.
-- **Intelligente Benachrichtigungen** – Nur betroffene Mitglieder werden benachrichtigt.
+- **Zuverlässigerer Wecker** – Verbessertes Verhalten auf dem Sperrbildschirm, deutlichere Warnung bei fehlenden Berechtigungen.
+- **Fresh Install** – Der Wecker ist nach Neuinstallation automatisch aktiv, wenn bereits ein Profil existiert.
+- **Stille Push-Nachrichten** – Info-Benachrichtigungen sind lautlos und stören nicht.
 - **Onboarding überarbeitet** – Klarere Einführung, landesspezifische Beispiele.
 - **Frischeres Design** – Weichere Ecken, Scroll-Hinweis, kollabierbarer Titel.
 - **Übersichtlichere Zeitauswahl** – Tastatur-Dialog statt Uhrzeiger.
 
 ### Behoben
+- Wecker-Bildschirm erscheint ohne PIN-Abfrage über dem Sperrbildschirm.
 - Diverse Stabilitäts-, Sync- und Zuverlässigkeitsverbesserungen.
 
 ---

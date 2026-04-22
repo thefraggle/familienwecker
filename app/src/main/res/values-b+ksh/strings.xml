@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Tipps &amp; Zeug</string>
     <string name="settings_tooltips_label">Zeig mal Tipps her</string>
     <string name="settings_tooltips_reset">Alle Tipps auf Null setzen</string>
+    <string name="settings_push_title">Benachrichtigungen</string>
+    <string name="settings_push_label">Push-Benachrichtigungen empfangen</string>
     <string name="settings_support_title">Gib n bissel Support</string>
     <string name="settings_support_desc">Bock auf die App? Wir freuen uns übern Groschen!</string>
     <string name="settings_support_donate">Knete dalassen</string>
@@ -355,8 +357,8 @@
     <string name="notif_member_joined_body">Ein neues Mitglied ist deiner Familie beigetreten.</string>
     <string name="notif_member_left_title">FamWake: Familien-Update</string>
     <string name="notif_member_left_body">Ein Mitglied hat deine Familie verlassen.</string>
-    <string name="notif_permission_title">Push-Benachrichtigungen</string>
-    <string name="notif_permission_desc">Werde benachrichtigt, wenn sich der Plan ändert oder Familienmitglieder beitreten.</string>
+    <string name="notif_permission_title">Benachrichtigungen erforderlich</string>
+    <string name="notif_permission_desc">Ohne Benachrichtigungen kann der Wecker möglicherweise nicht klingeln. Bitte aktiviere sie für einen zuverlässigen Alarm.</string>
     <string name="notif_permission_button">Benachrichtigungen aktivieren</string>
     <string name="notif_manage_title">Benachrichtigungen verwalten</string>
     <string name="notif_manage_desc">Ton, Vibration und weitere Einstellungen in den System-Einstellungen anpassen.</string>

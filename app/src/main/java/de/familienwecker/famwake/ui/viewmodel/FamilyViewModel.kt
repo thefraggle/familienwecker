@@ -110,6 +110,11 @@ class FamilyViewModel(
     fun markTooltipSeen(key: String)                = appSettings.setTooltipSeen(key, true)
     fun resetAllTooltips() { TooltipKeys.ALL.forEach { appSettings.setTooltipSeen(it, false) } }
 
+    // ── Push-Notifications ────────────────────────────────────────────────────
+
+    val pushNotificationsEnabled: StateFlow<Boolean> = appSettings.pushNotificationsEnabled
+    fun setPushNotificationsEnabled(enabled: Boolean) = appSettings.setPushNotificationsEnabled(enabled)
+
     val tooltipKeyAwake      get() = TooltipKeys.AWAKE
     val tooltipKeyDrag       get() = TooltipKeys.DRAG
     val tooltipKeyWakeWindow get() = TooltipKeys.WAKE_WINDOW
@@ -354,13 +359,22 @@ class FamilyViewModel(
                                 appSettings.setAlarmStateBeforeLogout(isAlarmEnabled.value)
                                 if (isAlarmEnabled.value) setAlarmEnabled(false)
                             }
-                            // Login / Claim: gesicherten State wiederherstellen
+                            // Login / Claim: Alarm-Status wiederherstellen.
+                            // Unterscheidung Fresh Install vs. Logout/Login:
+                            // - Fresh Install: SharedPrefs leer → kein gespeicherter State → Default ON
+                            // - Logout/Login: State wurde beim Logout gesichert → exakt wiederherstellen
                             id != null && previousMemberId == null -> {
-                                val savedState = appSettings.alarmStateBeforeLogout.value
-                                if (savedState) {
+                                if (!appSettings.hasAlarmStateBeenSaved()) {
+                                    // Fresh Install: kein vorheriger State bekannt → sicher Default ON
                                     setAlarmEnabled(true)
-                                    // State-Sicherung zurücksetzen nach Wiederherstellung
-                                    appSettings.setAlarmStateBeforeLogout(false)
+                                } else {
+                                    // Logout/Login: gespeicherten State exakt wiederherstellen
+                                    val savedState = appSettings.alarmStateBeforeLogout.value
+                                    if (savedState) {
+                                        setAlarmEnabled(true)
+                                        appSettings.setAlarmStateBeforeLogout(false)
+                                    }
+                                    // savedState == false → User hatte bewusst OFF → nicht überschreiben
                                 }
                             }
                         }

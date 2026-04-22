@@ -17,23 +17,24 @@ object NotificationChannels {
     fun register(context: Context) {
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // Reihenfolge/Zeit geändert – hohe Priorität (beeinflusst Morgenroutine direkt)
+        // Push-Channels bewusst IMPORTANCE_LOW: still (kein Ton/Vibration), aber sichtbar im Tray.
+        // Der Alarm-Channel (ALARM_CHANNEL_S_*) in AlarmReceiver bleibt IMPORTANCE_HIGH + USAGE_ALARM.
         manager.createNotificationChannel(
             NotificationChannel(
                 SCHEDULE_CHANGE,
                 context.getString(R.string.notif_channel_schedule_change_name),
-                NotificationManager.IMPORTANCE_HIGH
+                NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = context.getString(R.string.notif_channel_schedule_change_desc)
             }
         )
 
-        // Familien-Events (join/leave) – normale Priorität
+        // Familien-Events (join/leave) – ebenfalls still
         manager.createNotificationChannel(
             NotificationChannel(
                 FAMILY_EVENTS,
                 context.getString(R.string.notif_channel_family_events_name),
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = context.getString(R.string.notif_channel_family_events_desc)
             }

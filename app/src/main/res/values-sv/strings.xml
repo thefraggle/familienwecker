@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Tips &amp; Ledtrådar</string>
     <string name="settings_tooltips_label">Visa hjälpsamma tips</string>
     <string name="settings_tooltips_reset">Återställ alla tips</string>
+    <string name="settings_push_title">Aviseringar</string>
+    <string name="settings_push_label">Ta emot push-aviseringar</string>
     <string name="settings_support_title">Stöd appen</string>
     <string name="settings_support_desc">Gillar du appen? Vi uppskattar ditt stöd!</string>
     <string name="settings_support_donate">Donera</string>
@@ -356,7 +358,7 @@
     <string name="notif_member_joined_body">En ny medlem har gått med i din familj.</string>
     <string name="notif_member_left_title">FamWake: Familjeuppdatering</string>
     <string name="notif_member_left_body">En medlem har lämnat din familj.</string>
-    <string name="notif_permission_title">Push-meddelanden</string>
-    <string name="notif_permission_desc">Få meddelanden när schemat ändras eller medlemmar ansluter sig.</string>
+    <string name="notif_permission_title">Aviseringar krävs</string>
+    <string name="notif_permission_desc">Utan aviseringar kanske alarmet inte ringer. Aktivera dem för ett pålitligt alarm.</string>
     <string name="notif_permission_button">Aktivera aviseringar</string>
 </resources>

@@ -5,19 +5,23 @@
 ## 1.8.0 – 2026-04-21
 
 ### New
-- **Push notifications 🔔** – Get notified automatically when your wake time changes – for example when someone reorders the schedule, turns off their alarm, or pauses a member.
+- **Push notifications 🔔** – Get notified automatically when the family plan changes – e.g. reorder, alarm on/off, or pause. All family members are notified.
+- **Push toggle** – Push notifications can be enabled or disabled in the app settings.
 - **Family events** – Instantly know when someone joins or leaves your family.
 - **Smart review prompts** – The app gently asks for a rating after a positive experience.
 - **20 wake-up messages** – More variety on the alarm screen.
 
 ### Improved
 - **Live sync** – Toggling the alarm on or off now updates the schedule instantly on all devices.
-- **Smart notifications** – Only affected members are notified.
+- **More reliable alarm** – Improved lock screen behavior, clearer warning for missing permissions.
+- **Fresh install** – The alarm is automatically active after reinstallation if a profile already exists.
+- **Silent push notifications** – Info notifications are silent and non-disruptive.
 - **Onboarding refreshed** – Clearer introduction, country-specific examples.
 - **Fresher design** – Softer corners, scroll hint, collapsible title.
 - **Better time picker** – Clean keyboard-style dialog instead of a clock face.
 
 ### Fixed
+- Alarm screen appears over the lock screen without requiring PIN entry.
 - Various stability, sync, and reliability improvements.
 
 ---

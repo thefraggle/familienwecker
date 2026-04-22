@@ -296,6 +296,8 @@
     <string name="settings_tooltips_title">Tips &amp; Hints</string>
     <string name="settings_tooltips_label">Toon handige tips</string>
     <string name="settings_tooltips_reset">Herstel alle tips</string>
+    <string name="settings_push_title">Meldingen</string>
+    <string name="settings_push_label">Pushmeldingen ontvangen</string>
     <string name="settings_support_title">Steun de app</string>
     <string name="settings_support_desc">Vind je de app leuk? We waarderen je steun!</string>
     <string name="settings_support_donate">Doneren</string>
@@ -355,7 +357,7 @@
     <string name="notif_member_joined_body">Een nieuw lid heeft zich bij je familie gevoegd.</string>
     <string name="notif_member_left_title">FamWake: Familie-update</string>
     <string name="notif_member_left_body">Een lid heeft je familie verlaten.</string>
-    <string name="notif_permission_title">Pushmeldingen</string>
-    <string name="notif_permission_desc">Word gewaarschuwd bij schemawijzigingen of als leden toetreden.</string>
+    <string name="notif_permission_title">Meldingen vereist</string>
+    <string name="notif_permission_desc">Zonder meldingen gaat de wekker mogelijk niet af. Schakel ze in voor een betrouwbaar alarm.</string>
     <string name="notif_permission_button">Meldingen inschakelen</string>
 </resources>
