@@ -41,10 +41,11 @@ async function checkSingleRateLimit(key, windowMs, maxAttempts) {
 }
 
 /**
- * Dual Rate-Limit auf E-Mail-Adresse:
- * max. 5 Versuche pro Stunde UND max. 10 pro Tag.
+ * Dual Rate-Limit auf E-Mail-Adresse, getrennt nach Typ (reset/verify/confirm).
+ * Verhindert dass Verifikations-Mails das Reset-Limit beeinflussen.
+ * max. 5 Versuche pro Stunde UND max. 10 pro Tag – je Typ unabhängig.
  */
-async function checkEmailRateLimit(email) {
+async function checkEmailRateLimit(email, type = "email") {
   // Admin-Bypass über _admins-Collection (sicher, da serverseitig)
   const adminSnapshot = await admin.firestore()
     .collection("_admins")
@@ -57,13 +58,15 @@ async function checkEmailRateLimit(email) {
     return;
   }
 
-  const key = `email_${email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 80)}`;
+  // Typ-spezifischer Key: reset/verify/confirm haben unabhängige Zähler
+  const emailKey = email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 70);
+  const key = `${type}_${emailKey}`;
 
   // Stunden-Limit
   const hourLimited = await checkSingleRateLimit(`${key}_h`, 60 * 60 * 1000, 5);
   if (hourLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
 
-  // Tages-Limit (2× stündliches Limit)
+  // Tages-Limit
   const dayLimited = await checkSingleRateLimit(`${key}_d`, 24 * 60 * 60 * 1000, 10);
   if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
 }
@@ -475,7 +478,7 @@ exports.sendBrandedResetEmail = onCall(
     }
 
     try {
-      await checkEmailRateLimit(email.trim());
+      await checkEmailRateLimit(email.trim(), "reset");
       const linkOriginal = await admin.auth().generatePasswordResetLink(email.trim());
       let link = linkOriginal.replace("deine-domain.de", "www.familienwecker.de");
 
@@ -590,7 +593,7 @@ exports.sendBrandedConfirmationEmail = onCall(
     }
 
     try {
-      await checkEmailRateLimit(email.trim());
+      await checkEmailRateLimit(email.trim(), "confirm");
       const t = EMAIL_CONTENT_CONFIRM[lang] || EMAIL_CONTENT_CONFIRM.en;
       const resend = new Resend(resendKey);
       const { error } = await resend.emails.send({
@@ -871,7 +874,7 @@ exports.sendVerificationEmail = onCall(
     }
 
     try {
-      await checkEmailRateLimit(email.trim());
+      await checkEmailRateLimit(email.trim(), "verify");
       const linkOriginal = await admin.auth().generateEmailVerificationLink(email.trim());
       // Firebase uses a single global Action URL configured in the console (currently reset-password.html)
       // So we must string-replace it back to verify-email.html for verification links.
