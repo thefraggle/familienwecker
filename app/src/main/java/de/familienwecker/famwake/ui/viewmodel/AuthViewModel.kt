@@ -138,11 +138,6 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                                 appSettings.setMyMemberId(claimedMember.id)
                                 appSettings.setMyMemberName(claimedMember.name)
                             }
-                            // Alarm-State vom letzten Logout wiederherstellen (nur wenn vorher explizit gespeichert).
-                            // Bei Fresh Install ist kein State vorhanden – Alarm bleibt aus.
-                            if (appSettings.hasAlarmStateBeenSaved()) {
-                                appSettings.setAlarmEnabled(appSettings.alarmStateBeforeLogout.value)
-                            }
                         } else if (familyExistsResult.getOrNull() == false) {
                             dbRepository.removeUserFamily(uid, pair.first)
                             appSettings.clearAll()
@@ -327,8 +322,6 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             de.familienwecker.famwake.FamWakeMessagingService.deleteTokenOnLogout()
             authRepository.logout()
         }
-        // Alarm-State für Logout-/Login-Zyklus sichern, bevor clearAll() ihn auf false setzt.
-        appSettings.setAlarmStateBeforeLogout(appSettings.isAlarmEnabled.value)
         appSettings.clearAll()
         _authState.value = AuthState.Idle
     }
