@@ -113,6 +113,10 @@ service cloud.firestore {
     match /_rate_limits/{doc} {
       allow read, write: if false;
     }
+    // Push-Notification Rate-Limit (5s pro Familie) – nur Cloud Functions dürfen schreiben.
+    match /_pushLocks/{doc} {
+      allow read, write: if false;
+    }
     match /_admins/{userId} {
       allow read: if signedIn() && request.auth.uid == userId;
       allow write: if false;

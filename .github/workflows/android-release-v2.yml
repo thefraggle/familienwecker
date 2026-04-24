@@ -118,7 +118,7 @@ jobs:
 
       - name: Generate Play Store Metadata
         run: |
-          pip3 install deep-translator
+          pip3 install deep-translator==1.11.4
           python3 scripts/generate_metadata.py
           echo "Generated Metadata Structure:"
           ls -R release-notes
