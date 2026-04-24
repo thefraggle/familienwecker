@@ -342,9 +342,8 @@ fun FamilyViewModel.logout() {
     _errorMessage.value = null
     // Tracking: Logout-Rate für Retention-Analyse (vor clearAll, da danach User-Kontext weg)
     TelemetryDeck.signal("auth.logout")
-    // Alarm-Status VOR clearAll() sichern – clearAll() setzt isAlarmEnabled=false synchron,
-    // danach könnte der myMemberId-Observer den bereits gelöschten Wert (false) speichern.
-    appSettings.setAlarmStateBeforeLogout(isAlarmEnabled.value)
+    // Alarm-State persistiert in SharedPrefs (ALARM_ENABLED ist kein Session-State).
+    // clearAll() berührt ihn nicht – kein explizites Save nötig.
     cancelAlarmForCurrentUser()
     appSettings.clearAll()
     scope.launch { auth.signOut() }
