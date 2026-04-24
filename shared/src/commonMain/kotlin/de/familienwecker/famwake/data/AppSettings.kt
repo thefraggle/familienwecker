@@ -31,13 +31,6 @@ interface AppSettings {
     val isAlarmEnabled: StateFlow<Boolean>
     fun setAlarmEnabled(enabled: Boolean)
 
-    // Speichert den Alarm-State vor dem Logout, damit er nach dem Login wiederhergestellt werden kann.
-    val alarmStateBeforeLogout: StateFlow<Boolean>
-    fun setAlarmStateBeforeLogout(enabled: Boolean)
-
-    // true wenn setAlarmStateBeforeLogout schon einmal aufgerufen wurde (= kein Fresh Install)
-    fun hasAlarmStateBeenSaved(): Boolean
-
     val onboardingCompleted: StateFlow<Boolean>
     fun setOnboardingCompleted(completed: Boolean)
 
@@ -165,18 +158,6 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         _isAlarmEnabled.value = enabled
         settings["ALARM_ENABLED"] = enabled
     }
-
-    private val _alarmStateBeforeLogout = MutableStateFlow(settings.getBoolean("ALARM_STATE_BEFORE_LOGOUT", false))
-    override val alarmStateBeforeLogout = _alarmStateBeforeLogout.asStateFlow()
-
-    override fun setAlarmStateBeforeLogout(enabled: Boolean) {
-        _alarmStateBeforeLogout.value = enabled
-        settings["ALARM_STATE_BEFORE_LOGOUT"] = enabled
-    }
-
-    // Key existiert nur wenn setAlarmStateBeforeLogout jemals aufgerufen wurde
-    // → bei Fresh Install existiert er nicht (SharedPrefs leer)
-    override fun hasAlarmStateBeenSaved(): Boolean = settings.hasKey("ALARM_STATE_BEFORE_LOGOUT")
 
     private val _onboardingCompleted = MutableStateFlow(settings.getBoolean("ONBOARDING_COMPLETED", false))
     override val onboardingCompleted = _onboardingCompleted.asStateFlow()
