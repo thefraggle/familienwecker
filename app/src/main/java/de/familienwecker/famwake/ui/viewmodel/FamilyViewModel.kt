@@ -328,7 +328,10 @@ class FamilyViewModel(
                                 // PERMISSION_DENIED tritt regulär auf wenn eine Familie gerade
                                 // gelöscht/gewechselt wird (Race Condition). In dem Fall ist der
                                 // Listener bereits obsolet und wird von familyId.collect gecancelt.
-                                val isPermissionError = e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true
+                                // Beide Firebase-Fehlerformate abfangen (UPPER_CASE + kebab-case).
+                                val isPermissionError =
+                                    e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true ||
+                                    e.message?.contains("permission-denied", ignoreCase = true) == true
                                 if (!isPermissionError) {
                                     _errorMessage.value = UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, e.localizedMessage ?: "")
                                 }
