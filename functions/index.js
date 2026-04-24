@@ -1,6 +1,7 @@
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { onSchedule } = require("firebase-functions/v2/scheduler");
 const { onDocumentWritten } = require("firebase-functions/v2/firestore");
+const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
 const { Resend } = require("resend");
 const { randomInt } = require("crypto");
@@ -72,7 +73,8 @@ async function checkEmailRateLimit(email, type = "email") {
 }
 
 const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
-const PRIMARY_ADMIN_UID = "yqmtXyDNQCa5ajCvL9LEWbVgJmF2";
+// Security: PRIMARY_ADMIN_UID aus Firebase Secret Manager – nicht hartkodiert.
+const primaryAdminUidSecret = defineSecret("PRIMARY_ADMIN_UID");
 const BRAND_BLUE = "#1A3A5C";
 
 // Dialekte → Muttersprache für E-Mail-Inhalte (formal/rechtlich → Hochdeutsch)
@@ -460,7 +462,15 @@ exports.sendBrandedResetEmail = onCall(
     invoker: "public",
   },
   async (request) => {
+    // Security: Nur eingeloggte User dürfen für ihre eigene E-Mail-Adresse eine Reset-Mail anfordern.
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
     const email = request.data?.email;
+    // E-Mail muss mit der des eingeloggten Users übereinstimmen.
+    if (email && request.auth.token.email && email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
+      throw new HttpsError("permission-denied", "EMAIL_MISMATCH");
+    }
     const rawLang = (request.data?.language || "de").toLowerCase();
     const requestedLang = DIALECT_TO_LANG[rawLang] || rawLang.slice(0, 2);
     const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
@@ -611,6 +621,8 @@ exports.sendBrandedConfirmationEmail = onCall(
       return { success: true };
 
     } catch (err) {
+      // HttpsError weitergeben (z.B. Rate-Limit), nicht als interner Fehler verbergen.
+      if (err instanceof HttpsError) throw err;
       console.error("Error in sendBrandedConfirmationEmail:", err);
       throw new HttpsError("internal", err.message || "INTERNAL_ERROR");
     }
@@ -858,7 +870,15 @@ exports.sendVerificationEmail = onCall(
     invoker: "public",
   },
   async (request) => {
+    // Security: Nur eingeloggte User dürfen für ihre eigene E-Mail-Adresse eine Verifikations-Mail anfordern.
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
     const email = request.data?.email;
+    // E-Mail muss mit der des eingeloggten Users übereinstimmen.
+    if (email && request.auth.token.email && email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
+      throw new HttpsError("permission-denied", "EMAIL_MISMATCH");
+    }
     const rawLang = (request.data?.language || "de").toLowerCase();
     const requestedLang = DIALECT_TO_LANG[rawLang] || rawLang.slice(0, 2);
     const lang = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"].includes(requestedLang) ? requestedLang : "en";
@@ -1103,7 +1123,7 @@ exports.cleanupInactiveFamilies = onSchedule(
 // Verhindert direkten Firestore-Zugriff auf alle Familien und ermöglicht
 // serverseitiges Rate-Limiting gegen Brute-Force-Versuche auf Join-Codes.
 exports.joinFamilyByCode = onCall(
-  { region: "europe-west3" },
+  { region: "europe-west3", secrets: ["PRIMARY_ADMIN_UID"] },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
@@ -1122,7 +1142,7 @@ exports.joinFamilyByCode = onCall(
     // Rate-Limiting: max. 5 Join-Versuche pro UID pro Minute, max. 10 pro Tag
     try {
       const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
-      const isAdmin = adminDoc.exists || uid === PRIMARY_ADMIN_UID;
+      const isAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
       
       if (!isAdmin) {
         const minuteLimited = await checkSingleRateLimit(`join_${uid}_m`, 60 * 1000, 5);
@@ -1132,7 +1152,7 @@ exports.joinFamilyByCode = onCall(
       } else {
         console.log(`Bypassing join rate limit for admin UID: ${uid}`);
         // Bootstrap: _admins-Eintrag anlegen falls noch nicht vorhanden
-        if (!adminDoc.exists && uid === PRIMARY_ADMIN_UID) {
+        if (!adminDoc.exists && uid === primaryAdminUidSecret.value()) {
             await admin.firestore().collection("_admins").doc(uid).set({
                 email: request.auth.token.email || "",
                 promotedAt: admin.firestore.FieldValue.serverTimestamp()
@@ -1176,7 +1196,7 @@ exports.joinFamilyByCode = onCall(
 // Generiert den joinCode serverseitig und schreibt das Familie-Dokument.
 // Verhindert client-seitigen Query auf die families-Collection für Eindeutigkeitsprüfung.
 exports.createFamily = onCall(
-  { region: "europe-west3" },
+  { region: "europe-west3", secrets: ["PRIMARY_ADMIN_UID"] },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
@@ -1192,7 +1212,7 @@ exports.createFamily = onCall(
     // Rate-Limiting: max. 3 Family-Erstellungen pro UID pro Stunde, max. 6 pro Tag
     try {
       const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
-      const isAdmin = adminDoc.exists || uid === PRIMARY_ADMIN_UID;
+      const isAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
       
       if (!isAdmin) {
         const hourLimited = await checkSingleRateLimit(`create_${uid}_h`, 60 * 60 * 1000, 3);
@@ -1203,7 +1223,7 @@ exports.createFamily = onCall(
         console.log(`Bypassing create rate limit for admin UID: ${uid}`);
         // Bootstrap: _admins-Eintrag anlegen falls noch nicht vorhanden.
         // E-Mail-Prüfung entfällt – die äußere Bedingung (PRIMARY_ADMIN_UID) ist ausreichend.
-        if (!adminDoc.exists && uid === PRIMARY_ADMIN_UID) {
+        if (!adminDoc.exists && uid === primaryAdminUidSecret.value()) {
             await admin.firestore().collection("_admins").doc(uid).set({
                 email: request.auth.token.email || "",
                 promotedAt: admin.firestore.FieldValue.serverTimestamp()
@@ -1363,7 +1383,7 @@ exports.leaveFamily = onCall(
 
 // ─── Familie löschen (Ersteller oder Global Admin) ───────────────────────────
 exports.deleteFamily = onCall(
-  { region: "europe-west3" },
+  { region: "europe-west3", secrets: ["PRIMARY_ADMIN_UID"] },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
@@ -1386,7 +1406,7 @@ exports.deleteFamily = onCall(
 
     // Global Admin Check
     const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
-    const isGlobalAdmin = adminDoc.exists || uid === PRIMARY_ADMIN_UID;
+    const isGlobalAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
 
     // Only the creator OR global admin can delete the family
     if (!isGlobalAdmin && familyData.createdByUserId !== uid) {
@@ -1497,7 +1517,7 @@ exports.scheduledMemberReset = onSchedule(
 exports.sendFeedbackEmail = onCall(
   {
     region: "europe-west3",
-    secrets: ["RESEND_API_KEY"],
+    secrets: ["RESEND_API_KEY", "PRIMARY_ADMIN_UID"],
     invoker: "public",
   },
   async (request) => {
@@ -1510,7 +1530,7 @@ exports.sendFeedbackEmail = onCall(
     // S8: Rate-Limiting – max. 3 Feedbacks/Stunde, max. 10/Tag pro UID
     try {
       const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
-      const isAdmin = adminDoc.exists || uid === PRIMARY_ADMIN_UID;
+      const isAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
       if (!isAdmin) {
         const hourLimited = await checkSingleRateLimit(`feedback_${uid}_h`, 60 * 60 * 1000, 3);
         if (hourLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
@@ -1652,14 +1672,14 @@ async function getStatsReport() {
 
 /** Manueller Report-Abruf aus der App */
 exports.sendAdminStatsReport = onCall(
-  { region: "europe-west3", secrets: ["RESEND_API_KEY"] },
+  { region: "europe-west3", secrets: ["RESEND_API_KEY", "PRIMARY_ADMIN_UID"] },
   async (request) => {
     if (!request.auth) throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
     
     // Admin check
     const uid = request.auth.uid;
     const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
-    if (!adminDoc.exists && uid !== PRIMARY_ADMIN_UID) {
+    if (!adminDoc.exists && uid !== primaryAdminUidSecret.value()) {
         throw new HttpsError("permission-denied", "ADMIN_ONLY");
     }
 
