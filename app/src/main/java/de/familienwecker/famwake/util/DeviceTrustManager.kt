@@ -34,6 +34,7 @@ class DeviceTrustManager(private val context: Context) {
 
     companion object {
         private const val TAG = "DeviceTrustManager"
+        private const val FIREBASE_REGION = "europe-west3"
 
         // Monitoring-Phase: auf true setzen wenn echte Nutzungsdaten
         // aus TelemetryDeck zeigen, dass keine legitimen Nutzer betroffen sind.
@@ -94,7 +95,7 @@ class DeviceTrustManager(private val context: Context) {
      */
     private suspend fun verifyTokenServerSide(token: String): DeviceTrustLevel {
         return try {
-            val functions = FirebaseFunctions.getInstance("europe-west3")
+            val functions = FirebaseFunctions.getInstance(FIREBASE_REGION)
             val data = hashMapOf("token" to token)
 
             val result = withTimeoutOrNull(8000L) {
