@@ -584,8 +584,14 @@ fun MainScreen(
                 }
 
                 // Fallback-Warnung wenn kein Profil ausgewählt ist (nur wenn Mitglieder vorhanden und kein Auto-Claim läuft)
+                // AnimatedVisibility mit delayMillis: erscheint erst nach 2s – damit kurze Auto-Claim-Phasen
+                // (typisch <2s) keinen Flicker erzeugen.
                 item {
-                    if (myMemberId == null && members.isNotEmpty() && !isAutoClaimInProgress) {
+                    AnimatedVisibility(
+                        visible = myMemberId == null && members.isNotEmpty() && !isAutoClaimInProgress,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 300, delayMillis = 2000)),
+                        exit = fadeOut(animationSpec = tween(durationMillis = 200))
+                    ) {
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
