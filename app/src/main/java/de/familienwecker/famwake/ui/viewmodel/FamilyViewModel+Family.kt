@@ -136,8 +136,7 @@ fun FamilyViewModel.handlePendingJoin(onComplete: (Boolean) -> Unit) {
         return
     }
     joinFamily(code) { success ->
-        if (!success) _pendingJoinCode.value = null
-        else _pendingJoinCode.value = null
+        _pendingJoinCode.value = null
         onComplete(success)
     }
 }
@@ -174,6 +173,9 @@ fun FamilyViewModel.leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
                 appSettings.setFamilyName(fetchedName)
                 appSettings.setMyMemberId(null)
                 appSettings.setMyMemberName(null)
+                // Alarm deaktivieren: kein Member mehr geclaimt – Switch würde sonst ON zeigen
+                // obwohl kein Alarm gesetzt werden kann (myMemberId == null).
+                appSettings.setAlarmEnabled(false)
                 onComplete(true)
             }.onFailure { error ->
                 when {
