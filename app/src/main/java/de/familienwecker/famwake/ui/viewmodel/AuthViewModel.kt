@@ -134,6 +134,18 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                             appSettings.setFamilyName(familyName)
 
                             val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
+
+                            // Alarm-State nur bei User-Wechsel auf neuem Device anpassen.
+                            // Gleiche UID → Logout/Login-Persistenz: State unverändert lassen.
+                            val lastUid = appSettings.lastLoggedInUid.value
+                            val isNewUser = lastUid != null && lastUid != uid
+                            if (isNewUser) {
+                                // Anderer User auf diesem Gerät: Alarm-State auf sicheren Default setzen.
+                                // Claimed = ON (User hat aktiv einen Member gewählt), unclaimed = OFF.
+                                appSettings.setAlarmEnabled(claimedMember != null)
+                            }
+                            appSettings.setLastLoggedInUid(uid)
+
                             if (claimedMember != null) {
                                 appSettings.setMyMemberId(claimedMember.id)
                                 appSettings.setMyMemberName(claimedMember.name)

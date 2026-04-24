@@ -75,6 +75,10 @@ interface AppSettings {
     val pushNotificationsEnabled: StateFlow<Boolean>
     fun setPushNotificationsEnabled(enabled: Boolean)
 
+    /** UID des zuletzt eingeloggten Users – dient zur Erkennung eines User-Wechsels auf gleichem Gerät. */
+    val lastLoggedInUid: StateFlow<String?>
+    fun setLastLoggedInUid(uid: String)
+
     fun clearAll()
 }
 
@@ -286,6 +290,14 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     override fun setPushNotificationsEnabled(enabled: Boolean) {
         _pushNotificationsEnabled.value = enabled
         settings["PUSH_NOTIFICATIONS_ENABLED"] = enabled
+    }
+
+    private val _lastLoggedInUid = MutableStateFlow(settings.getStringOrNull("LAST_LOGGED_IN_UID"))
+    override val lastLoggedInUid = _lastLoggedInUid.asStateFlow()
+
+    override fun setLastLoggedInUid(uid: String) {
+        _lastLoggedInUid.value = uid
+        settings["LAST_LOGGED_IN_UID"] = uid
     }
 
     override fun clearAll() {
