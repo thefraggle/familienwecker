@@ -22,6 +22,16 @@ function escapeHtml(unsafe) {
 }
 
 /**
+ * Normalisiert einen Sprach-String auf einen unterstützten IETF-Code.
+ * Dialekte (gsw, swg, ksh) werden auf "de" gemappt; unbekannte Sprachen auf "en".
+ */
+function resolveLanguage(rawInput) {
+  const raw = (rawInput || "de").toLowerCase();
+  const requested = DIALECT_TO_LANG[raw] || raw.slice(0, 2);
+  return SUPPORTED_LANGS.includes(requested) ? requested : "en";
+}
+
+/**
  * Prüft ein einzelnes Rate-Limit-Fenster.
  * Gibt true zurück wenn das Limit erreicht ist, false wenn OK (und Zähler wird erhöht).
  */
@@ -76,6 +86,9 @@ const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
 // Security: PRIMARY_ADMIN_UID aus Firebase Secret Manager – nicht hartkodiert.
 const primaryAdminUidSecret = defineSecret("PRIMARY_ADMIN_UID");
 const BRAND_BLUE = "#1A3A5C";
+
+// Alle unterstützten E-Mail-Sprachen (15 Lokalisierungen)
+const SUPPORTED_LANGS = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
 
 // Dialekte → Muttersprache für E-Mail-Inhalte (formal/rechtlich → Hochdeutsch)
 const DIALECT_TO_LANG = { gsw: "de", swg: "de", ksh: "de" };
@@ -471,10 +484,7 @@ exports.sendBrandedResetEmail = onCall(
     if (email && request.auth.token.email && email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
       throw new HttpsError("permission-denied", "EMAIL_MISMATCH");
     }
-    const rawLang = (request.data?.language || "de").toLowerCase();
-    const requestedLang = DIALECT_TO_LANG[rawLang] || rawLang.slice(0, 2);
-    const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
-    const lang = supportedLangs.includes(requestedLang) ? requestedLang : "en";
+    const lang = resolveLanguage(request.data?.language);
     console.log(`Email request for ${email?.trim()} with language: ${request.data?.language} -> mapped to: ${lang}`);
 
     if (!email) {
@@ -587,10 +597,7 @@ exports.sendBrandedConfirmationEmail = onCall(
   },
   async (request) => {
     const email = request.data?.email;
-    const rawLang = (request.data?.language || "de").toLowerCase();
-    const requestedLang = DIALECT_TO_LANG[rawLang] || rawLang.slice(0, 2);
-    const supportedLangs = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"];
-    const lang = supportedLangs.includes(requestedLang) ? requestedLang : "en";
+    const lang = resolveLanguage(request.data?.language);
 
     if (!email) {
       throw new HttpsError("invalid-argument", "INVALID_EMAIL");
@@ -879,9 +886,7 @@ exports.sendVerificationEmail = onCall(
     if (email && request.auth.token.email && email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
       throw new HttpsError("permission-denied", "EMAIL_MISMATCH");
     }
-    const rawLang = (request.data?.language || "de").toLowerCase();
-    const requestedLang = DIALECT_TO_LANG[rawLang] || rawLang.slice(0, 2);
-    const lang = ["de", "en", "es", "fr", "it", "da", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"].includes(requestedLang) ? requestedLang : "en";
+    const lang = resolveLanguage(request.data?.language);
 
     if (!email) {
       throw new HttpsError("invalid-argument", "INVALID_EMAIL");

@@ -1,6 +1,8 @@
 package de.familienwecker.famwake.ui.viewmodel
 
+import android.util.Log
 import com.telemetrydeck.sdk.TelemetryDeck
+import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilyMember
 import de.familienwecker.famwake.model.toJavaLocalTime
@@ -35,7 +37,7 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
             if (willAutoClaim) {
                 val userId = auth.currentUser?.uid
                 val userName = auth.currentUser?.displayName
-                    ?: getApplication<android.app.Application>().getString(de.familienwecker.famwake.R.string.settings_fallback_username)
+                    ?: app.getString(de.familienwecker.famwake.R.string.settings_fallback_username)
                 if (userId != null) {
                     if (_isOffline.value) {
                         // Offline-First: AppSettings optimistisch setzen, Firestore queut den Write.
@@ -52,8 +54,8 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                             appSettings.setMyMemberName(member.name)
                             appSettings.setAlarmEnabled(true)
                             TelemetryDeck.signal("member.autoClaimed")
-                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                android.util.Log.i("FamilyViewModel", "Auto-Claim: ${member.name} (${member.id}) automatisch geclaimt")
+                            if (BuildConfig.DEBUG) {
+                                Log.i("FamilyViewModel", "Auto-Claim: ${member.name} (${member.id}) automatisch geclaimt")
                             }
                         }
                     }
@@ -66,10 +68,10 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
             }
         } catch (e: Exception) {
             _isAutoClaimInProgress.value = false
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FamilyViewModel", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
+            if (BuildConfig.DEBUG) {
+                Log.e("FamilyViewModel", "Fehler beim Speichern von Member ${member.id}: ${e.message}")
             }
-            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: app.getString(R.string.add_member_unknown))
         }
     }
 }
@@ -91,10 +93,10 @@ internal fun FamilyViewModel.addOrUpdateMemberDebounced(member: FamilyMember, on
             throw e
         } catch (e: Exception) {
             // Debounced write failed – surface error so the user knows the change wasn't saved
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FamilyViewModel", "addOrUpdateMemberDebounced failed for ${member.id}: ${e.message}")
+            if (BuildConfig.DEBUG) {
+                Log.e("FamilyViewModel", "addOrUpdateMemberDebounced failed for ${member.id}: ${e.message}")
             }
-            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: app.getString(R.string.add_member_unknown))
         } finally {
             memberDebounceJobs.remove(member.id)
         }
@@ -117,7 +119,7 @@ fun FamilyViewModel.removeMember(id: String) {
                 setMyMemberId(null)
             }
         } else {
-            _errorMessage.value = UiText.StringResource(R.string.error_delete_member, result.exceptionOrNull()?.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+            _errorMessage.value = UiText.StringResource(R.string.error_delete_member, result.exceptionOrNull()?.localizedMessage ?: app.getString(R.string.add_member_unknown))
         }
     }
 }
@@ -127,7 +129,7 @@ fun FamilyViewModel.setMyMemberId(id: String?, onComplete: (Boolean) -> Unit = {
     val currentMyMemberId = myMemberId.value
     val userId = auth.currentUser?.uid ?: return
     val userName = auth.currentUser?.displayName
-        ?: getApplication<android.app.Application>().getString(R.string.settings_fallback_username)
+        ?: app.getString(R.string.settings_fallback_username)
 
     if (_isOffline.value) {
         onComplete(false)
@@ -177,10 +179,10 @@ fun FamilyViewModel.togglePauseMember(memberId: String) {
             memberRepository.upsertMember(updatedMember)
             repository.updateMemberPauseState(currentFamilyId, memberId, newPausedState)
         } catch (e: Exception) {
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FamilyViewModel", "togglePauseMember failed for $memberId: ${e.message}")
+            if (BuildConfig.DEBUG) {
+                Log.e("FamilyViewModel", "togglePauseMember failed for $memberId: ${e.message}")
             }
-            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: app.getString(R.string.add_member_unknown))
         } finally {
             _pendingPauseIds.value = _pendingPauseIds.value - memberId
         }
@@ -201,8 +203,8 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
         try {
             memberRepository.upsertMember(updatedMember)
         } catch (e: Exception) {
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.w("FamilyViewModel", "toggleAwakeMember: Room write failed: ${e.message}")
+            if (BuildConfig.DEBUG) {
+                Log.w("FamilyViewModel", "toggleAwakeMember: Room write failed: ${e.message}")
             }
         }
     }
@@ -241,11 +243,11 @@ fun FamilyViewModel.saveMemberOrder() {
             }
             repository.updateMemberOrders(currentFamilyId, orderMap)
         } catch (e: Exception) {
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FamilyViewModel", "saveMemberOrder failed: ${e.message}")
+            if (BuildConfig.DEBUG) {
+                Log.e("FamilyViewModel", "saveMemberOrder failed: ${e.message}")
             }
             _errorMessage.value = UiText.StringResource(R.string.error_sync_failed,
-                e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+                e.localizedMessage ?: app.getString(R.string.add_member_unknown))
         }
     }
 }
@@ -283,8 +285,8 @@ internal fun FamilyViewModel.checkAndResetMembers(members: List<FamilyMember>): 
             try {
                 repository.updateMembersBatch(familyIdVal, toUpdate)
             } catch (e: Exception) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.e("FamilyViewModel", "Failed to reset member status batch: ${e.message}")
+                if (BuildConfig.DEBUG) {
+                    Log.e("FamilyViewModel", "Failed to reset member status batch: ${e.message}")
                 }
             }
         }

@@ -16,6 +16,11 @@ class GoogleSignInFailedException : Exception()
 class AuthRepository {
     private val auth = Firebase.auth
 
+    companion object {
+        // Muss mit FIREBASE_REGION in FirebaseRepository übereinstimmen.
+        private const val FIREBASE_REGION = "europe-west3"
+    }
+
     val currentUser: FirebaseUser?
         get() = auth.currentUser
 
@@ -54,7 +59,7 @@ class AuthRepository {
     suspend fun sendPasswordResetEmail(email: String, language: String = "de"): Result<Unit> {
         return try {
             val data = mapOf("email" to email.trim(), "language" to language)
-            Firebase.functions("europe-west3")
+            Firebase.functions(FIREBASE_REGION)
                 .httpsCallable("sendBrandedResetEmail")
                 .invoke(data)
             Result.success(Unit)
@@ -94,7 +99,7 @@ class AuthRepository {
     suspend fun sendVerificationEmail(email: String, language: String = "de"): Result<Unit> {
         return try {
             val data = mapOf("email" to email.trim(), "language" to language)
-            Firebase.functions("europe-west3")
+            Firebase.functions(FIREBASE_REGION)
                 .httpsCallable("sendVerificationEmail")
                 .invoke(data)
             Result.success(Unit)
