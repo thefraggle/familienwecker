@@ -152,5 +152,5 @@ dependencies {
     implementation(libs.androidx.sqlite.bundled)
 
     // TelemetryDeck – anonyme Nutzungsanalyse (privacy-first)
-    implementation("com.telemetrydeck:kotlin-sdk:6.0.1")
+    implementation(libs.telemetrydeck)
 }
