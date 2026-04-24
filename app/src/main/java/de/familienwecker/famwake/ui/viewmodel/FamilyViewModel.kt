@@ -352,36 +352,12 @@ class FamilyViewModel(
             }
         }
 
-        // Observer MyMemberId
+        // Observer MyMemberId – nur Schedule-Neuberechnung.
+        // Alarm-State-Transitions (ein/aus) werden ausschließlich durch
+        // explizite claim/unclaim-Aufrufe in FamilyViewModel+Member.kt gesteuert.
         viewModelScope.launch {
             try {
-                var isFirstEmission = true
-                var previousMemberId: String? = null
-                myMemberId.collect { id ->
-                    if (!isFirstEmission) {
-                        when {
-                            // Echter Unclaim/Logout: myMemberId geht auf null, NACHDEM Members geladen sind.
-                            // Wenn Members leer sind, ist das ein Cache-Clear (Race) – kein echter Logout.
-                            id == null && previousMemberId != null && _members.value.isNotEmpty() -> {
-                                appSettings.setAlarmStateBeforeLogout(isAlarmEnabled.value)
-                                if (isAlarmEnabled.value) setAlarmEnabled(false)
-                            }
-                            // Claim nach Unclaim: Alarm-Status wiederherstellen.
-                            id != null && previousMemberId == null -> {
-                                if (!appSettings.hasAlarmStateBeenSaved()) {
-                                    setAlarmEnabled(true)
-                                } else {
-                                    val savedState = appSettings.alarmStateBeforeLogout.value
-                                    if (savedState) {
-                                        setAlarmEnabled(true)
-                                        appSettings.setAlarmStateBeforeLogout(false)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    isFirstEmission = false
-                    previousMemberId = id
+                myMemberId.collect { _ ->
                     recalculateSchedule()
                 }
             } catch (e: Exception) {
