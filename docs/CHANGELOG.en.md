@@ -2,6 +2,16 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.1 – 2026-04-24
+
+### Fixed
+- **Alarm switch state preserved** – On/off state is correctly retained after signing out and back in.
+- **Family switch** – When switching to a new family via invitation link, the alarm is safely turned off until a profile is selected.
+- **Password reset** – Reset emails are sent reliably again for all accounts.
+- **Different account on same device** – Signing in with a different account correctly resets the alarm state to match that account.
+
+---
+
 ## 1.8.0 – 2026-04-21
 
 ### New
