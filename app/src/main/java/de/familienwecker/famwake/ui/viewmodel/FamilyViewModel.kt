@@ -66,6 +66,9 @@ class FamilyViewModel(
     internal val alarmScheduler: de.familienwecker.famwake.alarm.AlarmPlatformScheduler = AlarmScheduler(application)
     internal val auth = Firebase.auth
 
+    /** Kurzform für getApplication() – vermeidet voll qualifizierte Wiederholungen in Extensions. */
+    internal val app: Application get() = getApplication()
+
     /** UID des aktuell eingeloggten Users (null wenn nicht eingeloggt). */
     val currentUserId: String?
         get() = auth.currentUser?.uid
