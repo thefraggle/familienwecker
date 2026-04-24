@@ -618,7 +618,9 @@ fun MainScreen(
 
                 // Warnung: ungeclaimter Member an erster Stelle – nur zeigen wenn kein "Kein Profil"-Banner aktiv ist
                 val firstScheduledMember = schedule?.memberSchedules?.firstOrNull()?.member
-                if (myMemberId != null && firstScheduledMember != null && firstScheduledMember.claimedByUserId == null) {
+                if (myMemberId != null && firstScheduledMember != null
+                    && firstScheduledMember.claimedByUserId == null
+                    && firstScheduledMember.id != myMemberId) {
                     item(key = "unclaimed_first_warning") {
                         val cardColor = if (isDarkTheme) SnoozeAmberDark else SnoozeAmberLight
                         val textColor = if (isDarkTheme) SnoozeTextDark else SnoozeTextLight
