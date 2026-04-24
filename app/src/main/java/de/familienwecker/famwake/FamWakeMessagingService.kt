@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import de.familienwecker.famwake.BuildConfig
 import androidx.core.app.NotificationCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -32,17 +33,17 @@ class FamWakeMessagingService : FirebaseMessagingService() {
          */
         fun refreshAndSaveToken() {
             val uid = FirebaseAuth.getInstance().currentUser?.uid ?: run {
-                Log.w(TAG, "refreshAndSaveToken: kein eingeloggter User – abgebrochen")
+                if (BuildConfig.DEBUG) Log.w(TAG, "refreshAndSaveToken: kein eingeloggter User – abgebrochen")
                 return
             }
-            Log.d(TAG, "refreshAndSaveToken: Fordere FCM-Token an für UID=$uid")
+            if (BuildConfig.DEBUG) Log.d(TAG, "refreshAndSaveToken: Fordere FCM-Token an")
             FirebaseMessaging.getInstance().token
                 .addOnSuccessListener { token ->
-                    Log.d(TAG, "FCM-Token erhalten (${token.take(20)}…) → speichere in Firestore")
+                    if (BuildConfig.DEBUG) Log.d(TAG, "FCM-Token erhalten → speichere in Firestore")
                     saveTokenToFirestore(uid, token)
                 }
                 .addOnFailureListener { e ->
-                    Log.e(TAG, "FCM-Token anfordern fehlgeschlagen: ${e.message}")
+                    if (BuildConfig.DEBUG) Log.e(TAG, "FCM-Token anfordern fehlgeschlagen: ${e.message}")
                 }
         }
 
@@ -58,12 +59,12 @@ class FamWakeMessagingService : FirebaseMessagingService() {
                     .collection("users").document(uid)
                     .collection("fcmTokens").document(docId)
                     .delete()
-                    .addOnFailureListener { Log.w(TAG, "Token-Delete fehlgeschlagen: ${it.message}") }
+                    .addOnFailureListener { if (BuildConfig.DEBUG) Log.w(TAG, "Token-Delete fehlgeschlagen: ${it.message}") }
             }
             // FCM-Token auf Gerät ungültig machen – nächster Server-Push gibt 404
             // → sendPushToUser cleanup-Code löscht den Eintrag dann serverseitig.
             FirebaseMessaging.getInstance().deleteToken()
-                .addOnFailureListener { Log.w(TAG, "FCM deleteToken fehlgeschlagen: ${it.message}") }
+                .addOnFailureListener { if (BuildConfig.DEBUG) Log.w(TAG, "FCM deleteToken fehlgeschlagen: ${it.message}") }
         }
 
         private fun saveTokenToFirestore(uid: String, token: String) {
@@ -79,8 +80,8 @@ class FamWakeMessagingService : FirebaseMessagingService() {
                 .collection("users").document(uid)
                 .collection("fcmTokens").document(docId)
                 .set(tokenData, SetOptions.merge())
-                .addOnSuccessListener { Log.d(TAG, "Token erfolgreich in Firestore gespeichert (docId=$docId)") }
-                .addOnFailureListener { Log.e(TAG, "Token-Save fehlgeschlagen: ${it.message}") }
+                .addOnSuccessListener { if (BuildConfig.DEBUG) Log.d(TAG, "Token erfolgreich in Firestore gespeichert") }
+                .addOnFailureListener { if (BuildConfig.DEBUG) Log.e(TAG, "Token-Save fehlgeschlagen: ${it.message}") }
         }
 
         private fun sha256(input: String): String {
