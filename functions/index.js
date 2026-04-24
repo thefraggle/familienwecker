@@ -475,13 +475,12 @@ exports.sendBrandedResetEmail = onCall(
     invoker: "public",
   },
   async (request) => {
-    // Security: Nur eingeloggte User dürfen für ihre eigene E-Mail-Adresse eine Reset-Mail anfordern.
-    if (!request.auth) {
-      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
-    }
+    // Kein harter Auth-Check: Password-Reset ist explizit für User die NICHT eingeloggt sind.
+    // Schutz gegen Missbrauch via Rate-Limiting (checkEmailRateLimit). Wenn ein Auth-Kontext
+    // vorhanden ist (eingeloggter User), muss die E-Mail trotzdem zur eigenen übereinstimmen.
     const email = request.data?.email;
-    // E-Mail muss mit der des eingeloggten Users übereinstimmen.
-    if (email && request.auth.token.email && email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
+    if (request.auth && email && request.auth.token.email &&
+        email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
       throw new HttpsError("permission-denied", "EMAIL_MISMATCH");
     }
     const lang = resolveLanguage(request.data?.language);
