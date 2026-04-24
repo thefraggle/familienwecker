@@ -84,10 +84,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         _isRestoringFamily.value = true
         viewModelScope.launch {
             try {
-                if (!NetworkUtils.isOnline(getApplication())) {
-                    _isRestoringFamily.value = false
-                    return@launch
-                }
+                // isOnline-Check bewusst entfernt: NET_CAPABILITY_VALIDATED wird beim Cold Start
+                // ~1–3s verzögert gesetzt und würde den Restore-Flow vorzeitig abbrechen.
+                // withTimeoutOrNull dient als Safety-Net; Firestore-Cache liefert Daten auch offline.
 
                 // Primärpfad: getUserContext() via Cloud Function (1 Call statt 3 Reads)
                 val result = withTimeoutOrNull(3000) {
