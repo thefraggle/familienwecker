@@ -2,6 +2,16 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.8.1 – 2026-04-24
+
+### Behoben
+- **Wecker-Schalter bleibt erhalten** – An/Aus-Zustand wird nach Abmelden und erneutem Anmelden korrekt beibehalten.
+- **Familienwechsel** – Beim Wechsel in eine neue Familie via Einladungslink wird der Wecker-Schalter sicher deaktiviert, bis ein Profil gewählt wird.
+- **Passwort-Reset** – Zurücksetzen funktioniert wieder zuverlässig für alle Konten.
+- **Anderer Account auf gleichem Gerät** – Login mit einem anderen Konto setzt den Wecker-Status korrekt auf den Zustand dieses Accounts.
+
+---
+
 ## 1.8.0 – 2026-04-21
 
 ### Neu
