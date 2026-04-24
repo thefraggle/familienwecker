@@ -1283,7 +1283,8 @@ exports.createFamily = onCall(
     // Security Fix: Write familyId to users collection server-side
     await admin.firestore().collection("users").doc(uid).set({ familyId }, { merge: true });
 
-    console.log(`Family '${sanitizedName}' created by ${uid} with id ${familyId} and code ${joinCode}`);
+    // Security: joinCode nicht loggen – ist ein Zugangsdaten-Äquivalent.
+    console.log(`Family '${sanitizedName}' created by ${uid} with id ${familyId}`);
 
     return { familyId, joinCode };
   }
@@ -1632,11 +1633,12 @@ async function getStatsReport() {
     for (const doc of familiesSnapshot.docs) {
         const family = doc.data();
         const membersSnapshot = await doc.ref.collection("members").get();
-        const members = membersSnapshot.docs.map(m => m.data().name || "Unbekannt").join(", ");
+        // escapeHtml: Member-Namen könnten HTML-Sonderzeichen enthalten (XSS in Admin-Mail)
+        const members = membersSnapshot.docs.map(m => escapeHtml(m.data().name || "Unbekannt")).join(", ");
         
         familiesHtml += `
             <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>${family.name || family.familyName || "Unbenannt"}</b></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>${escapeHtml(family.name || family.familyName || "Unbenannt")}</b></td>
                 <td style="padding: 8px; border-bottom: 1px solid #eee; font-size: 0.9em; color: #666;">${members}</td>
             </tr>
         `;
