@@ -5,6 +5,7 @@ import de.familienwecker.famwake.R
 import de.familienwecker.famwake.data.FamilyNotFoundException
 import de.familienwecker.famwake.data.CodeGenerationFailedException
 import de.familienwecker.famwake.ui.util.UiText
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
@@ -25,9 +26,14 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
     }
     scope.launch {
         if (isOffline.value) {
-            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
-            onComplete(false)
-            return@launch
+            // Netzwerk kann beim Cold Start kurz als offline erscheinen (~1-3s Delay bis
+            // NET_CAPABILITY_VALIDATED gesetzt ist). Einmalig warten, dann definitiv prüfen.
+            delay(2000)
+            if (isOffline.value) {
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
+                onComplete(false)
+                return@launch
+            }
         }
         if (isSyncBlocked.value) {
             _errorMessage.value = UiText.StringResource(R.string.error_sync_blocked_device)
@@ -309,7 +315,11 @@ fun FamilyViewModel.refreshData() {
                 }
             }
         } catch (e: Exception) {
-            _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+            // Für neue Accounts ohne users/{uid}-Dokument ist ein Fehler hier kein echter Fehler.
+            // Fehlermeldung nur anzeigen wenn User tatsächlich eine Familie hatte.
+            if (appSettings.familyId.value != null) {
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
+            }
         } finally {
             _isSyncing.value = false
         }
