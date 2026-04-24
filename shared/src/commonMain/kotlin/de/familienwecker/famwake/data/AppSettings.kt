@@ -294,10 +294,10 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         setFamilyId(null)
         setJoinCode(null)
         setFamilyName(null)
-        setAlarmEnabled(false)
         setAwakeToday(false)
         settings.remove("AWAKE_TODAY_DATE")
         setSnoozeUntil(null)
-        // Note: language and theme persist
+        // Note: language, theme und isAlarmEnabled persistieren – sind Gerätepräferenzen, kein Session-State.
+        // Alarm-State-Transitions werden ausschließlich vom myMemberId-Observer in FamilyViewModel gesteuert.
     }
 }
