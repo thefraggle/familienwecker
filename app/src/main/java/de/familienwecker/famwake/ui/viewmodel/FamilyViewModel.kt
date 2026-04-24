@@ -360,27 +360,22 @@ class FamilyViewModel(
                 myMemberId.collect { id ->
                     if (!isFirstEmission) {
                         when {
-                            // Logout / Unclaim: State sichern, Alarm abschalten
-                            id == null && previousMemberId != null -> {
+                            // Echter Unclaim/Logout: myMemberId geht auf null, NACHDEM Members geladen sind.
+                            // Wenn Members leer sind, ist das ein Cache-Clear (Race) – kein echter Logout.
+                            id == null && previousMemberId != null && _members.value.isNotEmpty() -> {
                                 appSettings.setAlarmStateBeforeLogout(isAlarmEnabled.value)
                                 if (isAlarmEnabled.value) setAlarmEnabled(false)
                             }
-                            // Login / Claim: Alarm-Status wiederherstellen.
-                            // Unterscheidung Fresh Install vs. Logout/Login:
-                            // - Fresh Install: SharedPrefs leer → kein gespeicherter State → Default ON
-                            // - Logout/Login: State wurde beim Logout gesichert → exakt wiederherstellen
+                            // Claim nach Unclaim: Alarm-Status wiederherstellen.
                             id != null && previousMemberId == null -> {
                                 if (!appSettings.hasAlarmStateBeenSaved()) {
-                                    // Fresh Install: kein vorheriger State bekannt → sicher Default ON
                                     setAlarmEnabled(true)
                                 } else {
-                                    // Logout/Login: gespeicherten State exakt wiederherstellen
                                     val savedState = appSettings.alarmStateBeforeLogout.value
                                     if (savedState) {
                                         setAlarmEnabled(true)
                                         appSettings.setAlarmStateBeforeLogout(false)
                                     }
-                                    // savedState == false → User hatte bewusst OFF → nicht überschreiben
                                 }
                             }
                         }
