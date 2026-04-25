@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.8.2 – 2026-04-25
+
+### Behoben
+- **Sprachauswahl funktioniert wieder zuverlässig** – Wechsel zu Dänisch, Japanisch, Niederländisch, Polnisch, Türkisch und allen anderen Sprachen war auf manchen Geräten wirkungslos (Anzeige blieb auf Englisch). Behoben.
+
+---
+
 ## 1.8.1 – 2026-04-24
 
 ### Behoben
