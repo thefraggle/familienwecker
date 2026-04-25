@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.2 – 2026-04-25
+
+### Fixed
+- **Language switching works reliably again** – Switching to Danish, Japanese, Dutch, Polish, Turkish, and other languages had no effect on some devices (app stayed in English). Fixed.
+
+---
+
 ## 1.8.1 – 2026-04-24
 
 ### Fixed
