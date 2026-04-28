@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.8.3 – 2026-04-28
+
+### Behoben
+- **Doppelter Alarm bei unterschiedlichen Wochentag-Zeiten** – Hatte z.B. Montag/Dienstag 6:30 Uhr und der Rest der Woche 7:30 Uhr, klingelte der Wecker nach dem Di-Alarm nochmal um 7:30 Uhr am selben Tag. Behoben.
+
+---
+
 ## 1.8.2 – 2026-04-25
 
 ### Behoben
