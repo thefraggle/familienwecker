@@ -156,9 +156,17 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
     for (memberSchedule in schedule.memberSchedules) {
         if (memberSchedule.member.id == currentMyMemberId) {
             val wakeUpTime = memberSchedule.wakeUpTime
-            val targetDate = if (now > wakeUpTime) tomorrow else today
 
-            if (targetDate == tomorrow) {
+            // Autoritatives Zieldatum aus dem Two-Pass in recalculateSchedule() übernehmen.
+            // Früher wurde targetDate hier nochmal anhand "now > wakeUpTime" bestimmt –
+            // das ignorierte den Wochentag und führte z.B. dazu, dass nach Di-6:30 der
+            // Mi-7:30-Alarm fälschlicherweise noch am Di-7:30 gesetzt wurde.
+            val targetDate = schedule.targetDate
+                ?: if (now > wakeUpTime) tomorrow else today
+
+            // Grace-Period: verhindert, dass ein soeben gefeuerter Alarm den nächsten
+            // Tag überspringt, weil targetDate nun bereits auf morgen zeigt.
+            if (targetDate != today) {
                 val todayAlarmMillis = LocalDateTime(today, wakeUpTime)
                     .toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
                 val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
