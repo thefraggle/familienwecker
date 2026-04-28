@@ -2,6 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.8.4 – 2026-04-28
+
+### Verbessert
+- **Stabilere Weckplan-Berechnung** – Randfälle bei sehr frühen Frühstückszeiten werden jetzt korrekt abgefangen.
+- **Übersetzungen vervollständigt** – Benachrichtigungs-Einstellungen sind jetzt in allen 15 App-Sprachen korrekt beschriftet.
+
+---
+
 ## 1.8.3 – 2026-04-28
 
 ### Behoben
