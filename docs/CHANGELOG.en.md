@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.4 – 2026-04-28
+
+### Improved
+- **More reliable schedule calculation** – Edge cases with very early breakfast times are now handled correctly.
+- **Translations completed** – Notification settings are now correctly labelled in all 15 app languages.
+
+---
+
 ## 1.8.3 – 2026-04-28
 
 ### Fixed
