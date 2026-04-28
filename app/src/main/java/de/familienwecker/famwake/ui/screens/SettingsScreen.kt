@@ -408,87 +408,23 @@ fun SettingsScreen(
             }
 
             if (isBatteryOptimized.value) {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.extraLarge,
-                    elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                    colors = CardDefaults.cardColors(
-                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                         else MaterialTheme.colorScheme.surface
-                    )
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(Icons.Default.BatteryAlert, contentDescription = null, tint = MaterialTheme.colorScheme.error)
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                stringResource(R.string.settings_battery_warning_title),
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.error
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            stringResource(R.string.settings_battery_warning_text),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        Spacer(modifier = Modifier.height(12.dp))
-                        val batteryInteractionSource = remember { MutableInteractionSource() }
-                        Button(
-                            onClick = { BatteryUtils.requestIgnoreBatteryOptimizations(context) },
-                            modifier = Modifier.fillMaxWidth().bounceClick(batteryInteractionSource),
-                            interactionSource = batteryInteractionSource,
-                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-                        ) {
-                            Text(stringResource(R.string.settings_battery_warning_button))
-                        }
-                    }
-                }
+                PermissionWarningCard(
+                    title = stringResource(R.string.settings_battery_warning_title),
+                    body = stringResource(R.string.settings_battery_warning_text),
+                    buttonLabel = stringResource(R.string.settings_battery_warning_button),
+                    isDarkTheme = isDarkTheme,
+                    onAction = { BatteryUtils.requestIgnoreBatteryOptimizations(context) }
+                )
             }
 
             if (!isExactAlarmPermitted.value) {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.extraLarge,
-                    elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                    colors = CardDefaults.cardColors(
-                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                         else MaterialTheme.colorScheme.surface
-                    )
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.error)
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                stringResource(R.string.settings_exact_alarm_warning_title),
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.error
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            stringResource(R.string.settings_exact_alarm_warning_text),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        Spacer(modifier = Modifier.height(12.dp))
-                        val alarmInteractionSource = remember { MutableInteractionSource() }
-                        Button(
-                            onClick = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) },
-                            modifier = Modifier.fillMaxWidth().bounceClick(alarmInteractionSource),
-                            interactionSource = alarmInteractionSource,
-                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-                        ) {
-                            Text(stringResource(R.string.settings_exact_alarm_warning_button))
-                        }
-                    }
-                }
+                PermissionWarningCard(
+                    title = stringResource(R.string.settings_exact_alarm_warning_title),
+                    body = stringResource(R.string.settings_exact_alarm_warning_text),
+                    buttonLabel = stringResource(R.string.settings_exact_alarm_warning_button),
+                    isDarkTheme = isDarkTheme,
+                    onAction = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) }
+                )
             }
 
             // Push-Benachrichtigungen: Warnung wenn deaktiviert (Android 13+)
@@ -1385,3 +1321,40 @@ fun SettingsScreen(
 }
 
 
+
+// ─── Private Composables ──────────────────────────────────────────────────────
+
+@Composable
+private fun PermissionWarningCard(
+    title: String,
+    body: String,
+    buttonLabel: String,
+    isDarkTheme: Boolean,
+    onAction: () -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.extraLarge,
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                             else MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.error)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(modifier = Modifier.height(12.dp))
+            val interactionSource = remember { MutableInteractionSource() }
+            Button(
+                onClick = onAction,
+                modifier = Modifier.fillMaxWidth().bounceClick(interactionSource),
+                interactionSource = interactionSource,
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+            ) { Text(buttonLabel) }
+        }
+    }
+}
