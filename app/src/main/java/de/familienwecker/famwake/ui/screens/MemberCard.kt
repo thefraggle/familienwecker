@@ -132,16 +132,18 @@ fun MemberCard(
                     val displayEarliest = nextActiveDayResult?.second?.earliestWakeUp?.toJavaLocalTime() ?: member.earliestWakeUp.toJavaLocalTime()
                     val displayLatest   = nextActiveDayResult?.second?.latestWakeUp?.toJavaLocalTime()   ?: member.latestWakeUp.toJavaLocalTime()
 
-                    if (showDayLabel && nextActiveDayResult != null) {
-                        val dayName = nextActiveDayResult.first.dayOfWeek
-                            .getDisplayName(java.time.format.TextStyle.FULL, context.resources.configuration.locales[0])
-                            .replaceFirstChar { it.uppercase() }
-                        Text(
-                            text = dayName,
-                            color = textColor.copy(alpha = 0.7f),
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold
-                        )
+                    if (showDayLabel) {
+                        nextActiveDayResult?.let { (date, _) ->
+                            val dayName = date.dayOfWeek
+                                .getDisplayName(java.time.format.TextStyle.FULL, context.resources.configuration.locales[0])
+                                .replaceFirstChar { it.uppercase() }
+                            Text(
+                                text = dayName,
+                                color = textColor.copy(alpha = 0.7f),
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                     Text(stringResource(R.string.main_wake_time, displayEarliest.format(timeFormatter), displayLatest.format(timeFormatter)), color = textColor)
                     Text(stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if (member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), color = textColor)
