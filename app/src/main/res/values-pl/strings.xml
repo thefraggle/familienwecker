@@ -362,4 +362,6 @@
     <string name="notif_permission_title">Powiadomienia wymagane</string>
     <string name="notif_permission_desc">Bez powiadomień budzik może nie zadzwonić. Włącz je, aby alarm działał niezawodnie.</string>
     <string name="notif_permission_button">Włącz powiadomienia</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>
