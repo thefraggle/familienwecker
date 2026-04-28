@@ -2,7 +2,15 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.3 – 2026-04-28
+
+### Fixed
+- **Duplicate alarm with different weekday times** – If e.g. Monday/Tuesday were set to 6:30 and the rest of the week to 7:30, the alarm fired again at 7:30 on Tuesday after the first 6:30 alarm. Fixed.
+
+---
+
 ## 1.8.2 – 2026-04-25
+
 
 ### Fixed
 - **Language switching works reliably again** – Switching to Danish, Japanese, Dutch, Polish, Turkish, and other languages had no effect on some devices (app stayed in English). Fixed.
