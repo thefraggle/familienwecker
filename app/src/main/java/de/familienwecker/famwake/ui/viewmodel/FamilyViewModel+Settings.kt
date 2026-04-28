@@ -97,7 +97,11 @@ fun FamilyViewModel.resetFeedbackState() {
     _feedbackError.value = null
 }
 
-/** Zeigt einen Offline-Hinweis wenn der Schreibvorgang ohne Verbindung ausgelöst wurde. */
+/**
+ * Zeigt einen Offline-Hinweis wenn der Schreibvorgang ohne Verbindung ausgelöst wurde.
+ * Kein harter Guard – der Schreibvorgang läuft durch (Firestore puffert offline).
+ * Destruktive Operationen (leave/delete/join) haben zusätzliche eigene Guards.
+ */
 internal fun FamilyViewModel.checkOfflineAndHint() {
     if (_isOffline.value) {
         _offlineWriteHint.value = UiText.StringResource(R.string.offline_write_hint)

@@ -76,7 +76,7 @@ class FamWakeApplication : Application() {
         }
             return
         }
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+        kotlinx.coroutines.MainScope().launch {
             try {
                 // N2: logLevel ersetzt das deprecated debugLogsEnabled
                 com.revenuecat.purchases.Purchases.logLevel =

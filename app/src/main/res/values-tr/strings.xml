@@ -362,4 +362,6 @@
     <string name="notif_permission_title">Bildirimler gerekli</string>
     <string name="notif_permission_desc">Bildirimler olmadan alarm çalmayabilir. Güvenilir bir alarm için lütfen etkinleştirin.</string>
     <string name="notif_permission_button">Bildirimleri etkinleştir</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>

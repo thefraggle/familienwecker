@@ -363,4 +363,6 @@
     <string name="notif_permission_title">Aviseringar krävs</string>
     <string name="notif_permission_desc">Utan aviseringar kanske alarmet inte ringer. Aktivera dem för ett pålitligt alarm.</string>
     <string name="notif_permission_button">Aktivera aviseringar</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>

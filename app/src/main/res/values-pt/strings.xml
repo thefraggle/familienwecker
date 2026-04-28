@@ -362,4 +362,6 @@
     <string name="notif_permission_title">Notificações necessárias</string>
     <string name="notif_permission_desc">Sem notificações, o alarme pode não tocar. Ative-as para um despertador fiável.</string>
     <string name="notif_permission_button">Ativar notificações</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>

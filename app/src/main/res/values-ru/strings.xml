@@ -362,4 +362,6 @@
     <string name="notif_permission_title">Уведомления обязательны</string>
     <string name="notif_permission_desc">Без уведомлений будильник может не сработать. Включите их для надёжного пробуждения.</string>
     <string name="notif_permission_button">Включить уведомления</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>

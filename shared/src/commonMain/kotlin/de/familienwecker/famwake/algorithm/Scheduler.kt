@@ -102,7 +102,7 @@ class Scheduler {
             breakfastTime = startTime.minusMinutes(breakfastDurationMinutes)
             // Clamp auch breakfastTime: startTime ist auf 04:00 geclampt, aber
             // breakfastTime = 04:00 - Dauer kann trotzdem in die Nacht rutschen.
-            if (breakfastTime!!.isAfter(startTime)) {
+            if (breakfastTime?.isAfter(startTime) == true) {
                 // plusMinutes-Wraparound aufgetreten → auf 03:30 als hartes Minimum setzen
                 breakfastTime = LocalTime(3, 30)
             }
