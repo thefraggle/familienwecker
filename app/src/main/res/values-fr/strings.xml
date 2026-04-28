@@ -362,4 +362,6 @@
     <string name="notif_permission_title">Notifications requises</string>
     <string name="notif_permission_desc">Sans notifications, le réveil pourrait ne pas sonner. Active-les pour un réveil fiable.</string>
     <string name="notif_permission_button">Activer les notifications</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>

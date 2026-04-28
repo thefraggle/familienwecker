@@ -362,4 +362,6 @@
     <string name="notif_permission_title">Notifiche necessarie</string>
     <string name="notif_permission_desc">Senza notifiche, la sveglia potrebbe non suonare. Attivale per una sveglia affidabile.</string>
     <string name="notif_permission_button">Attiva le notifiche</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>

@@ -362,4 +362,6 @@
     <string name="notif_permission_title">Meldingen vereist</string>
     <string name="notif_permission_desc">Zonder meldingen gaat de wekker mogelijk niet af. Schakel ze in voor een betrouwbaar alarm.</string>
     <string name="notif_permission_button">Meldingen inschakelen</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>

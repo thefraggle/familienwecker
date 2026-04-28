@@ -362,4 +362,6 @@
     <string name="notif_permission_title">Varsler påkrevd</string>
     <string name="notif_permission_desc">Uten varsler kan alarmen kanskje ikke ringe. Aktiver dem for en pålitelig alarm.</string>
     <string name="notif_permission_button">Aktiver varsler</string>
+    <string name="notif_manage_title">Керування сповіщеннями</string>
+    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
 </resources>
