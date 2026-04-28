@@ -271,78 +271,21 @@ fun MainScreen(
                 // Exakter Alarm Warnung (Android 14)
                 item {
                     val hasActiveSchedule = members.any { !it.isPaused }
-                    if (!isExactAlarmPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null) {
-                        val cardColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.8f) else MaterialTheme.colorScheme.errorContainer
-                        val textColor = MaterialTheme.colorScheme.onErrorContainer
-                        
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) },
-                            shape = MaterialTheme.shapes.large,
-                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
-                            colors = CardDefaults.cardColors(containerColor = cardColor)
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Icon(Icons.Default.Warning, contentDescription = null, tint = textColor, modifier = Modifier.size(20.dp))
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = stringResource(R.string.main_exact_alarm_banner),
-                                        fontWeight = FontWeight.Bold,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = textColor
-                                    )
-                                }
-                            }
-                        }
-                    }
+                    ExactAlarmWarningBanner(
+                        isVisible = !isExactAlarmPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null,
+                        isDarkTheme = isDarkTheme,
+                        onRequestPermission = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) }
+                    )
                 }
                 
                 // Fehlermeldung (falls vorhanden)
                 item {
-                    errorMessage?.let { error ->
-                        val errorString = error.asString()
-                        val isJoinError = errorString.contains(stringResource(R.string.error_family_not_found)) || 
-                                          errorString.contains(stringResource(R.string.error_invalid_code))
-                        
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = MaterialTheme.shapes.large,
-                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
-                            colors = CardDefaults.cardColors(
-                                containerColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
-                                                 else MaterialTheme.colorScheme.errorContainer
-                            )
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = "⚠️ $errorString",
-                                    color = MaterialTheme.colorScheme.onErrorContainer,
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Row {
-                                    if (isJoinError) {
-                                        TextButton(onClick = { viewModel.clearError() }) {
-                                            Text(stringResource(R.string.cancel_button))
-                                        }
-                                    } else {
-                                        TextButton(
-                                            onClick = { onLeaveFamily() },
-                                            colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                                        ) {
-                                            Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
-                                            Spacer(modifier = Modifier.width(8.dp))
-                                            Text(stringResource(R.string.settings_leave_family))
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    ErrorMessageBanner(
+                        errorMessage = errorMessage,
+                        isDarkTheme = isDarkTheme,
+                        onClearError = { viewModel.clearError() },
+                        onLeaveFamily = onLeaveFamily
+                    )
                 }
                 
 
@@ -519,68 +462,13 @@ fun MainScreen(
 
                 // Snooze-Banner (sichtbar wenn Snooze aktiv)
                 item {
-                    AnimatedVisibility(
-                        visible = snoozeUntil != null && myMemberId != null,
-                        enter = androidx.compose.animation.expandVertically() + fadeIn(),
-                        exit = androidx.compose.animation.shrinkVertically() + fadeOut()
-                    ) {
-                        snoozeUntil?.let { snoozeTime ->
-                            Card(
-                                modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
-                                shape = MaterialTheme.shapes.extraLarge,
-                                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
-                                colors = CardDefaults.cardColors(
-                                    containerColor = if (isDarkTheme) OnlineGreenDark else OnlineGreenLight
-                                )
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 20.dp, vertical = 10.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween
-                                ) {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier.weight(1f)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Snooze,
-                                            contentDescription = null,
-                                            tint = if (isDarkTheme) OnlineIconDark else OnlineIconLight,
-                                            modifier = Modifier.size(20.dp)
-                                        )
-                                        Spacer(modifier = Modifier.width(12.dp))
-                                        Text(
-                                            text = stringResource(
-                                                R.string.main_snooze_active,
-                                                snoozeTime.toLocalTime().format(timeFormatter)
-                                            ),
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            fontWeight = FontWeight.Medium,
-                                            color = if (isDarkTheme) OnlineGreenLight else Color(0xFF1B5E20)
-                                        )
-                                    }
-                                    TextButton(
-                                        onClick = { myMemberId?.let { viewModel.cancelSnooze(it) } },
-                                        contentPadding = PaddingValues(horizontal = 12.dp),
-                                        colors = ButtonDefaults.textButtonColors(
-                                            contentColor = if (isDarkTheme) OnlineIconDark else OnlineIconLight
-                                        )
-                                    ) {
-                                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(14.dp))
-                                        Spacer(modifier = Modifier.width(6.dp))
-                                        Text(
-                                            stringResource(R.string.cancel_button),
-                                            style = MaterialTheme.typography.labelMedium,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    SnoozeBanner(
+                        snoozeUntil = snoozeUntil,
+                        myMemberId = myMemberId,
+                        isDarkTheme = isDarkTheme,
+                        timeFormatter = timeFormatter,
+                        onCancelSnooze = { myMemberId?.let { viewModel.cancelSnooze(it) } }
+                    )
                 }
 
                 // Fallback-Warnung wenn kein Profil ausgewählt ist (nur wenn Mitglieder vorhanden und kein Auto-Claim läuft)
@@ -628,30 +516,10 @@ fun MainScreen(
                     && firstScheduledMember.claimedByUserId == null
                     && firstScheduledMember.id != myMemberId) {
                     item(key = "unclaimed_first_warning") {
-                        val cardColor = if (isDarkTheme) SnoozeAmberDark else SnoozeAmberLight
-                        val textColor = if (isDarkTheme) SnoozeTextDark else SnoozeTextLight
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = MaterialTheme.shapes.large,
-                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.4f)),
-                            colors = CardDefaults.cardColors(containerColor = cardColor)
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = "⚠️ " + stringResource(R.string.main_unclaimed_first_title, firstScheduledMember.name),
-                                    fontWeight = FontWeight.Bold,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = textColor
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = stringResource(R.string.main_unclaimed_first_desc, firstScheduledMember.name),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = textColor.copy(alpha = 0.85f)
-                                )
-                            }
-                        }
+                        UnclaimedWarningBanner(
+                            memberName = firstScheduledMember.name,
+                            isDarkTheme = isDarkTheme
+                        )
                     }
                 }
 
@@ -1112,4 +980,169 @@ fun MainScreen(
     }
 }
 
+// ─── Private Composables ──────────────────────────────────────────────────────
 
+@Composable
+private fun ExactAlarmWarningBanner(
+    isVisible: Boolean,
+    isDarkTheme: Boolean,
+    onRequestPermission: () -> Unit
+) {
+    if (!isVisible) return
+    val cardColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.8f)
+                    else MaterialTheme.colorScheme.errorContainer
+    val textColor = MaterialTheme.colorScheme.onErrorContainer
+    Card(
+        modifier = Modifier.fillMaxWidth().clickable { onRequestPermission() },
+        shape = MaterialTheme.shapes.large,
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
+        colors = CardDefaults.cardColors(containerColor = cardColor)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Default.Warning, contentDescription = null, tint = textColor, modifier = Modifier.size(20.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(R.string.main_exact_alarm_banner),
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textColor
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ErrorMessageBanner(
+    errorMessage: de.familienwecker.famwake.ui.util.UiText?,
+    isDarkTheme: Boolean,
+    onClearError: () -> Unit,
+    onLeaveFamily: () -> Unit
+) {
+    errorMessage?.let { error ->
+        val errorString = error.asString()
+        val isJoinError = errorString.contains(stringResource(R.string.error_family_not_found)) ||
+                          errorString.contains(stringResource(R.string.error_invalid_code))
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = MaterialTheme.shapes.large,
+            elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+            colors = CardDefaults.cardColors(
+                containerColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
+                                 else MaterialTheme.colorScheme.errorContainer
+            )
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(text = "⚠️ $errorString", color = MaterialTheme.colorScheme.onErrorContainer, style = MaterialTheme.typography.bodyMedium)
+                Spacer(modifier = Modifier.height(8.dp))
+                Row {
+                    if (isJoinError) {
+                        TextButton(onClick = onClearError) { Text(stringResource(R.string.cancel_button)) }
+                    } else {
+                        TextButton(
+                            onClick = onLeaveFamily,
+                            colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                        ) {
+                            Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(R.string.settings_leave_family))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SnoozeBanner(
+    snoozeUntil: java.time.LocalDateTime?,
+    myMemberId: String?,
+    isDarkTheme: Boolean,
+    timeFormatter: java.time.format.DateTimeFormatter,
+    onCancelSnooze: () -> Unit
+) {
+    AnimatedVisibility(
+        visible = snoozeUntil != null && myMemberId != null,
+        enter = androidx.compose.animation.expandVertically() + fadeIn(),
+        exit = androidx.compose.animation.shrinkVertically() + fadeOut()
+    ) {
+        snoozeUntil?.let { snoozeTime ->
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
+                shape = MaterialTheme.shapes.extraLarge,
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isDarkTheme) de.familienwecker.famwake.ui.theme.OnlineGreenDark
+                                     else de.familienwecker.famwake.ui.theme.OnlineGreenLight
+                )
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
+                        Icon(
+                            imageVector = Icons.Default.Snooze, contentDescription = null,
+                            tint = if (isDarkTheme) de.familienwecker.famwake.ui.theme.OnlineIconDark
+                                   else de.familienwecker.famwake.ui.theme.OnlineIconLight,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = stringResource(R.string.main_snooze_active, snoozeTime.toLocalTime().format(timeFormatter)),
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Medium,
+                            color = if (isDarkTheme) de.familienwecker.famwake.ui.theme.OnlineGreenLight
+                                    else Color(0xFF1B5E20)
+                        )
+                    }
+                    TextButton(
+                        onClick = onCancelSnooze,
+                        contentPadding = PaddingValues(horizontal = 12.dp),
+                        colors = ButtonDefaults.textButtonColors(
+                            contentColor = if (isDarkTheme) de.familienwecker.famwake.ui.theme.OnlineIconDark
+                                           else de.familienwecker.famwake.ui.theme.OnlineIconLight
+                        )
+                    ) {
+                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(14.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(stringResource(R.string.cancel_button), style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun UnclaimedWarningBanner(memberName: String, isDarkTheme: Boolean) {
+    val cardColor = if (isDarkTheme) de.familienwecker.famwake.ui.theme.SnoozeAmberDark
+                    else de.familienwecker.famwake.ui.theme.SnoozeAmberLight
+    val textColor = if (isDarkTheme) de.familienwecker.famwake.ui.theme.SnoozeTextDark
+                    else de.familienwecker.famwake.ui.theme.SnoozeTextLight
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.4f)),
+        colors = CardDefaults.cardColors(containerColor = cardColor)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "⚠️ " + stringResource(R.string.main_unclaimed_first_title, memberName),
+                fontWeight = FontWeight.Bold, style = MaterialTheme.typography.bodyMedium, color = textColor
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = stringResource(R.string.main_unclaimed_first_desc, memberName),
+                style = MaterialTheme.typography.bodySmall, color = textColor.copy(alpha = 0.85f)
+            )
+        }
+    }
+}
