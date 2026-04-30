@@ -163,12 +163,15 @@ fun MainScreen(
                         val appShortName = stringResource(R.string.app_name_short)
                         Text(
                             buildAnnotatedString {
-                                withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append("FamWake")
+                                val prefix = "FamWake"
+                                val suffix = appShortName.removePrefix(prefix).trim()
+                                withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.ExtraBold)) {
+                                    append(prefix)
                                 }
-                                append(" ")
-                                withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Normal)) {
-                                    append(appShortName)
+                                if (suffix.isNotEmpty()) {
+                                    withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Normal)) {
+                                        append(" $suffix")
+                                    }
                                 }
                             }
                         )
