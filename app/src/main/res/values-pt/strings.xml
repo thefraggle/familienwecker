@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Despertador Familiar</string>
+    <string name="app_name_short">FamWake Despertador Familiar</string>
     <string name="email_label">Email</string>
     <string name="password_label">Senha</string>
     <string name="register_button">Cadastrar</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Dica: Aumente sua janela de despertar, diminua o tempo de banheiro ou pause outro membro.</string>
     <string name="schedule_message_time_adjusted">Horários ajustados em %1$d min para caber na sua ordem.</string>
     <string name="schedule_message_breakfast_reduced">Tempo de café reduzido em %1$d min para caber no cronograma.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Café &#x2212;%1$d min e horários deslocados em %2$d min.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Café −%1$d min e horários deslocados em %2$d min.</string>
     <string name="schedule_message_member_conflict">Conflito para %1$s: Os horários se sobrepõem demais.</string>
     <string name="schedule_message_member_conflict_desc">Tente mudar a ordem ou ajustar os horários.</string>
     <string name="main_fallback_alarm_active">⚠️ Alarme de reserva ativo (%1$s). Corrija o cronograma!</string>
@@ -350,7 +350,7 @@
     <string name="onboarding_mock_name2">Mãe</string>
     <string name="onboarding_mock_family_name">Silva</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Alterações de horário</string>
     <string name="notif_channel_schedule_change_desc">Notifica alterações nos horários ou ordem de despertar</string>
     <string name="notif_channel_family_events_name">Eventos da família</string>

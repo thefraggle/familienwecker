@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Сімейний Будильник</string>
+    <string name="app_name_short">FamWake Сімейний будильник</string>
     <string name="email_label">Електронна пошта</string>
     <string name="password_label">Пароль</string>
     <string name="register_button">Зареєструватися</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Порада: Збільште вікно підйому, скоротіть час у ванній або поставте іншого учасника на паузу.</string>
     <string name="schedule_message_time_adjusted">Час змінено на %1$d хв., щоб відповідати вашому порядку.</string>
     <string name="schedule_message_breakfast_reduced">Сніданок скорочено на %1$d хв., щоб відповідати розкладу.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Сніданок &#x2212;%1$d хв. &amp; час зсунуто на %2$d хв.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Сніданок −%1$d хв. &amp; час зсунуто на %2$d хв.</string>
     <string name="schedule_message_member_conflict">Конфлікт для %1$s: Час занадто сильно перетинається.</string>
     <string name="schedule_message_member_conflict_desc">Спробуйте змінити порядок або скоригувати час.</string>
     <string name="main_fallback_alarm_active">⚠️ Активний резервний будильник (%1$s). Будь ласка, виправте розклад!</string>
@@ -350,7 +350,7 @@
     <string name="onboarding_mock_name2">Мама</string>
     <string name="onboarding_mock_family_name">Іваненко</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Зміни розкладу</string>
     <string name="notif_channel_schedule_change_desc">Сповіщає про зміни часу будильника або черги</string>
     <string name="notif_channel_family_events_name">Сімейні події</string>
