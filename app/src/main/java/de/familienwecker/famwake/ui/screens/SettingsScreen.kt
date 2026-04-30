@@ -713,6 +713,11 @@ fun SettingsScreen(
                         "tr"  -> stringResource(R.string.settings_language_turkish)
                         "uk"  -> stringResource(R.string.settings_language_ukrainian)
                         "zh"  -> stringResource(R.string.settings_language_chinese)
+                        "id"  -> stringResource(R.string.settings_language_indonesian)
+                        "vi"  -> stringResource(R.string.settings_language_vietnamese)
+                        "bn"  -> stringResource(R.string.settings_language_bengali)
+                        "mr"  -> stringResource(R.string.settings_language_marathi)
+                        "hi"  -> stringResource(R.string.settings_language_hindi)
                         "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
                         "swg" -> stringResource(R.string.settings_language_schwaebisch)
                         "ksh" -> stringResource(R.string.settings_language_ruhrpott)
@@ -772,6 +777,11 @@ fun SettingsScreen(
                                 LangEntry("tr",     stringResource(R.string.settings_language_turkish)),
                                 LangEntry("uk",     stringResource(R.string.settings_language_ukrainian)),
                                 LangEntry("zh",     stringResource(R.string.settings_language_chinese)),
+                                LangEntry("id",     stringResource(R.string.settings_language_indonesian)),
+                                LangEntry("vi",     stringResource(R.string.settings_language_vietnamese)),
+                                LangEntry("bn",     stringResource(R.string.settings_language_bengali)),
+                                LangEntry("mr",     stringResource(R.string.settings_language_marathi)),
+                                LangEntry("hi",     stringResource(R.string.settings_language_hindi)),
                             )
                             val dialects = listOf(
                                 LangEntry("gsw", stringResource(R.string.settings_language_schweizerdeutsch)),

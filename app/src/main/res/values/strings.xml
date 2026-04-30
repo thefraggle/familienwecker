@@ -348,6 +348,11 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Tap here to choose your personal wake-up sound – pick your favorite ringtone instead of the default alarm.</string>
     <string name="settings_language_dialects">Dialects</string>
 
