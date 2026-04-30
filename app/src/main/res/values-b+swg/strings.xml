@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_short">Familiewegger</string>
     <string name="email_label">E-Mail</string>
-    <string name="password_label">Password</string>
+    <string name="password_label">Passwort</string>
     <string name="register_button">Registriera</string>
     <string name="login_button">Nei-logga</string>
     <string name="already_have_account">Hoisch scho a Konto? Do aamelda.</string>
@@ -23,7 +23,7 @@
 
     <string name="main_add_member_desc">Mitglied nei-tua</string>
     <string name="main_family_members">Familiamitglieder</string>
-    <string name="main_current_schedule">Aktueller Zeitpla</string>
+    <string name="main_current_schedule">Aktueller Zeitplan</string>
     <string name="main_no_active_schedule">Koi aktiver Weckplan do.</string>
     <string name="main_optimal_plan">Guck, des isch dr berechnete Zeitplan:</string>
     <string name="main_plan_paused">Dei Wegger hat grad Pause.</string>
@@ -201,7 +201,7 @@
         <item>Gnieß d\'Ruha em Bad, solangs goht!</item>
         <item>Zeit für a Käffle. S\'goht naus!</item>
         <item>Gud gschlafa? Dei Plan für heit basst.</item>
-        <item>Grichtet für da Dåg? Älles isch schwätzt gwe.</item>
+        <item>Grichtet für da Dåg? Älles isch abgstimmt.</item>
         <item>Uff gehts, Dåg rocka! Badzeit fängt aa.</item>
         <item>Wach uff ond dräh uff – d\'Bühne isch dei!</item>
         <item>Heavy Metal am Morga verdreibt Kummer ond Sorga!</item>
@@ -260,7 +260,7 @@
     <string name="alarm_notification_text">Guada Morga, %1$s!</string>
     <string name="alarm_channel_name">Wegger</string>
 
-    <string name="settings_fallback_username">Eldernteil</string>
+    <string name="settings_fallback_username">Elternteil</string>
 
     <string name="error_alarm_permission">Bitte geb in de Eistellonga d\'Erlaubnis, damit s\'pünktlich klingla ko.</string>
 
@@ -288,7 +288,7 @@
     <string name="login_verify_email_resend">Nomal rausschicken</string>
     <string name="login_verify_email_not_verified">No net bestätigt. Guck ins Postfach nei.</string>
 
-    <string name="tooltip_awake_button">Scho da? Tipp do, zom de Wegger wegmacha – dei Bad-Zeit bleibt resrviert.</string>
+    <string name="tooltip_awake_button">Scho da? Tipp do, zom de Wegger wegmacha – dei Bad-Zeit bleibt reserviert.</string>
     <string name="tooltip_drag_handle">Halt on zieh so a Ding, om d\'Reihafolg von hand zom richta. Der Apparat rechnet sofort neu.</string>
     <string name="tooltip_wake_window">Gib a Fenschderle o. D\'App findt die beste Zeit dadrin.</string>
     <string name="tooltip_bathroom">Plane des gscheid ei. Des Taktet da Morga für d\'ganze Bande.</string>
@@ -317,7 +317,7 @@
     <string name="error_permission_denied">Därfscht net nei</string>
     <string name="error_offline">Kois Internet do</string>
     <string name="error_report_failed">Bericht isch net naus</string>
-    <string name="error_leave_failed">Famlie verlassa isch fählgschlaga</string>
+    <string name="error_leave_failed">Familie verlassa isch fählgschlaga</string>
     <string name="error_revenuecat_not_configured">RevenueCat nix eigericht</string>
     <string name="default_someone">Ebber</string>
     <string name="error_label">Fähler</string>
