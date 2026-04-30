@@ -703,6 +703,7 @@ fun SettingsScreen(
                         "fr"  -> stringResource(R.string.settings_language_french)
                         "it"  -> stringResource(R.string.settings_language_italian)
                         "ja"  -> stringResource(R.string.settings_language_japanese)
+                        "ko"  -> stringResource(R.string.settings_language_korean)
                         "nl"  -> stringResource(R.string.settings_language_dutch)
                         "no"  -> stringResource(R.string.settings_language_norwegian)
                         "pl"  -> stringResource(R.string.settings_language_polish)
@@ -711,6 +712,7 @@ fun SettingsScreen(
                         "sv"  -> stringResource(R.string.settings_language_swedish)
                         "tr"  -> stringResource(R.string.settings_language_turkish)
                         "uk"  -> stringResource(R.string.settings_language_ukrainian)
+                        "zh"  -> stringResource(R.string.settings_language_chinese)
                         "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
                         "swg" -> stringResource(R.string.settings_language_schwaebisch)
                         "ksh" -> stringResource(R.string.settings_language_ruhrpott)
@@ -760,6 +762,7 @@ fun SettingsScreen(
                                 LangEntry("fr",     stringResource(R.string.settings_language_french)),
                                 LangEntry("it",     stringResource(R.string.settings_language_italian)),
                                 LangEntry("ja",     stringResource(R.string.settings_language_japanese)),
+                                LangEntry("ko",     stringResource(R.string.settings_language_korean)),
                                 LangEntry("nl",     stringResource(R.string.settings_language_dutch)),
                                 LangEntry("no",     stringResource(R.string.settings_language_norwegian)),
                                 LangEntry("pl",     stringResource(R.string.settings_language_polish)),
@@ -768,6 +771,7 @@ fun SettingsScreen(
                                 LangEntry("sv",     stringResource(R.string.settings_language_swedish)),
                                 LangEntry("tr",     stringResource(R.string.settings_language_turkish)),
                                 LangEntry("uk",     stringResource(R.string.settings_language_ukrainian)),
+                                LangEntry("zh",     stringResource(R.string.settings_language_chinese)),
                             )
                             val dialects = listOf(
                                 LangEntry("gsw", stringResource(R.string.settings_language_schweizerdeutsch)),
