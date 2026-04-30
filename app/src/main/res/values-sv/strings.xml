@@ -342,6 +342,8 @@
     <string name="settings_language_norwegian">Norsk</string>
     <string name="settings_language_japanese">日本語</string>
     <string name="settings_language_danish">Dansk</string>
+    <string name="settings_language_korean">한국어</string>
+    <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Tryck här för att välja din personliga väckningssignal – välj din favoritsång istället för standardlarmet.</string>
     <string name="settings_language_dialects">Dialekter</string>
     <string name="error_sync_blocked_device">Synkronisering är inte tillgänglig på denna enhet.</string>
