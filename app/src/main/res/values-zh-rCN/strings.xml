@@ -184,12 +184,12 @@
     <string name="feedback_success_title">已发送反馈</string>
     <string name="feedback_success_message">感谢您的反馈！它帮助我们为每个人改进 FamWake。</string>
     <string name="settings_terms_of_use">使用条款</string>
-    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-zh.html</string>
     <string name="settings_privacy_policy">隐私政策</string>
-    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-zh.html</string>
     <string name="settings_imprint">印记</string>
-    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
-    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-zh.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-zh.html</string>
 
     <string name="registration_disclaimer">注册即表示您接受 %1$s 和 %2$s。</string>
     <string name="registration_terms_of_use">使用条款</string>
