@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Familjeväckarklocka</string>
+    <string name="app_name_short">FamWake Familjens väckarklocka</string>
     <string name="email_label">E-post</string>
     <string name="password_label">Lösenord</string>
     <string name="register_button">Registrera</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Tips: Bredda ditt väckningsfönster, förkorta badrumsttiden eller pausa en annan medlem.</string>
     <string name="schedule_message_time_adjusted">Tider justerade med %1$d min för att passa din ordning.</string>
     <string name="schedule_message_breakfast_reduced">Frukost minskad med %1$d min för att passa ditt schema.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Frukost &#x2212;%1$d min &amp; tider förskjutna med %2$d min.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Frukost −%1$d min &amp; tider förskjutna med %2$d min.</string>
     <string name="schedule_message_member_conflict">Konflikt för %1$s: Tiderna överlappar för mycket.</string>
     <string name="schedule_message_member_conflict_desc">Försök ändra ordningen eller justera tiderna.</string>
     <string name="main_fallback_alarm_active">⚠️ Reservlarm aktivt (%1$s). Korrigera schemat!</string>
@@ -351,7 +351,7 @@
     <string name="onboarding_mock_name2">Mamma</string>
     <string name="onboarding_mock_family_name">Svensson</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Schemaändringar</string>
     <string name="notif_channel_schedule_change_desc">Meddelar om väckningstider eller ordning ändras</string>
     <string name="notif_channel_family_events_name">Familjehändelser</string>

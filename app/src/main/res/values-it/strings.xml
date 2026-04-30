@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Sveglia Familiare</string>
+    <string name="app_name_short">FamWake Sveglia familiare</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="register_button">Registrati</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Suggerimento: amplia la tua finestra di sveglia, riduci il tempo in bagno o metti in pausa un altro membro.</string>
     <string name="schedule_message_time_adjusted">Orari modificati di %1$d min per adattarli al vostro ordine.</string>
     <string name="schedule_message_breakfast_reduced">Colazione ridotta di %1$d min per rientrare nel programma.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Colazione &#x2212;%1$d min &amp; orari spostati di %2$d min.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Colazione −%1$d min &amp; orari spostati di %2$d min.</string>
     <string name="schedule_message_member_conflict">Conflitto per %1$s: Gli orari si sovrappongono troppo.</string>
     <string name="schedule_message_member_conflict_desc">Prova a cambiare l\'ordine o ad aggiustare gli orari.</string>
     <string name="main_fallback_alarm_active">⚠️ Sveglia di emergenza attiva (%1$s). Correggi il programma!</string>
@@ -350,7 +350,7 @@
     <string name="onboarding_mock_name2">Mamma</string>
     <string name="onboarding_mock_family_name">Rossi</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Modifiche orario</string>
     <string name="notif_channel_schedule_change_desc">Notifica quando cambiano gli orari o l’ordine della sveglia</string>
     <string name="notif_channel_family_events_name">Eventi familiari</string>

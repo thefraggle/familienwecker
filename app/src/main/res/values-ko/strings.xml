@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">가족 알람시계</string>
+    <string name="app_name_short">FamWake 가족 알람시계</string>
     <string name="email_label">이메일</string>
     <string name="password_label">비밀번호</string>
     <string name="register_button">가입</string>
@@ -159,7 +159,7 @@
     <string name="onboarding_slide3_body">코드를 공유하면 가족이 즉시 참여할 수 있습니다. 새로운 회원이신가요? 일정은 자동으로 조정됩니다. 그리고 뭔가 변화가 생기면 모두가 즉시 알 수 있습니다.</string>
     <string name="onboarding_slide4_title">갑시다!</string>
     <string name="onboarding_slide4_body">지금 가족을 만들고 오프라인에서도 안정적으로 편안한 아침을 즐겨보세요.</string>
-    <!-- Placeholder names used in onboarding mockup screens only -->
+    
     <string name="onboarding_mock_name1">아빠</string>
     <string name="onboarding_mock_name2">엄마</string>
     <string name="onboarding_mock_family_name">김</string>
@@ -278,7 +278,7 @@
     <string name="schedule_message_no_valid_desc">팁: 깨우기 시간을 넓히고, 화장실 사용 시간을 줄이거나, 다른 회원을 일시 중지하세요.</string>
     <string name="schedule_message_time_adjusted">주문에 맞게 시간이 %1$d분 조정되었습니다.</string>
     <string name="schedule_message_breakfast_reduced">일정에 맞게 아침 식사를 %1$d분 단축했습니다.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">아침 식사 &#x2212;%1$d분 &amp;번 %2$d분 이동.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">아침 식사 −%1$d분 &amp;번 %2$d분 이동.</string>
     <string name="schedule_message_member_conflict">%1$s에 대한 충돌: 시간이 너무 많이 겹칩니다.</string>
     <string name="schedule_message_member_conflict_desc">순서를 바꾸거나 시간을 조정해 보세요.</string>
     <string name="main_fallback_alarm_active">⚠️ 대체 경보가 활성화되었습니다(%1$s). 일정을 수정해주세요!</string>
@@ -351,13 +351,13 @@
     <string name="tooltip_alarm_sound">개인 모닝콜 사운드를 선택하려면 여기를 탭하세요. 기본 알람 대신 좋아하는 벨소리를 선택하세요.</string>
     <string name="settings_language_dialects">Dialects</string>
 
-    <!-- Notification Channels -->
+    
     <string name="notif_channel_schedule_change_name">일정 변경</string>
     <string name="notif_channel_schedule_change_desc">기상 시간이나 화장실 순서가 변경되면 알려줍니다.</string>
     <string name="notif_channel_family_events_name">가족행사</string>
     <string name="notif_channel_family_events_desc">구성원이 가족에 가입하거나 탈퇴할 때 알림</string>
 
-    <!-- Push notification texts -->
+    
     <string name="notif_schedule_changed_title">FamWake: 일정이 업데이트되었습니다.</string>
     <string name="notif_schedule_changed_body">알람 시간이 조정되었습니다. 앱을 열어 새로운 기상 시간을 확인하세요.</string>
     <string name="notif_member_joined_title">FamWake: 새로운 가족 구성원!</string>
@@ -365,7 +365,7 @@
     <string name="notif_member_left_title">FamWake: 가족 업데이트</string>
     <string name="notif_member_left_body">구성원이 가족을 떠났습니다.</string>
 
-    <!-- Notification permission toggle in Settings -->
+    
     <string name="notif_permission_title">알림이 필요합니다</string>
     <string name="notif_permission_desc">알림이 없으면 알람이 울리지 않을 수 있습니다. 안정적인 알람을 위해 활성화해 주세요.</string>
     <string name="notif_permission_button">알림 활성화</string>

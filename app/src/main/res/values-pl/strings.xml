@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Budzik Rodzinny</string>
+    <string name="app_name_short">FamWake Budzik rodzinny</string>
     <string name="email_label">Email</string>
     <string name="password_label">Hasło</string>
     <string name="register_button">Zarejestruj się</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Wskazówka: Poszerz okno pobudki, skróć czas w łazience lub wstrzymaj innego członka.</string>
     <string name="schedule_message_time_adjusted">Czasy skorygowane o %1$d min, aby pasowały do kolejności.</string>
     <string name="schedule_message_breakfast_reduced">Czas śniadania skrócony o %1$d min, aby pasował do harmonogramu.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Śniadanie &#x2212;%1$d min i czasy przesunięte o %2$d min.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Śniadanie −%1$d min i czasy przesunięte o %2$d min.</string>
     <string name="schedule_message_member_conflict">Konflikt dla %1$s: Czasy nakładają się zbyt mocno.</string>
     <string name="schedule_message_member_conflict_desc">Spróbuj zmienić kolejność lub dostosować czasy.</string>
     <string name="main_fallback_alarm_active">⚠️ Aktywny alarm rezerwowy (%1$s). Popraw harmonogram!</string>
@@ -350,7 +350,7 @@
     <string name="onboarding_mock_name2">Mama</string>
     <string name="onboarding_mock_family_name">Kowalski</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Zmiany harmonogramu</string>
     <string name="notif_channel_schedule_change_desc">Powiadamia o zmianach godzin budzenia lub kolejności</string>
     <string name="notif_channel_family_events_name">Zdarzenia rodzinne</string>

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Réveil Familial</string>
+    <string name="app_name_short">FamWake Réveil familial</string>
     <string name="email_label">E-mail</string>
     <string name="password_label">Mot de passe</string>
     <string name="register_button">S\'inscrire</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Astuce : Élargis ta plage de réveil, réduis le temps de sdb ou mets un membre en pause.</string>
     <string name="schedule_message_time_adjusted">Horaires ajustés de %1$d min pour correspondre à votre ordre.</string>
     <string name="schedule_message_breakfast_reduced">Petit-déj réduit de %1$d min pour coller au planning.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Petit-déj &#x2212;%1$d min &amp; horaires décalés de %2$d min.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Petit-déj −%1$d min &amp; horaires décalés de %2$d min.</string>
     <string name="schedule_message_member_conflict">Conflit pour %1$s : Les heures se chevauchent trop.</string>
     <string name="schedule_message_member_conflict_desc">Essaie de changer l\'ordre ou d\'ajuster les heures.</string>
     <string name="main_fallback_alarm_active">⚠️ Alarme de secours active (%1$s). Corrige le planning !</string>
@@ -350,7 +350,7 @@
     <string name="onboarding_mock_name2">Maman</string>
     <string name="onboarding_mock_family_name">Martin</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Changements d’horaire</string>
     <string name="notif_channel_schedule_change_desc">Notifie en cas de changement des heures de réveil ou de l’ordre</string>
     <string name="notif_channel_family_events_name">Événements familiaux</string>

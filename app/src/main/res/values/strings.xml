@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Family Alarm Clock</string>
+    <string name="app_name_short">FamWake Family Alarm Clock</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="register_button">Sign up</string>
@@ -159,7 +159,7 @@
     <string name="onboarding_slide3_body">Share a code and your family joins instantly. New members? The schedule adjusts automatically. And if something changes, everyone knows right away.</string>
     <string name="onboarding_slide4_title">Let\'s go!</string>
     <string name="onboarding_slide4_body">Create your family now and enjoy relaxed mornings – reliably, even offline.</string>
-    <!-- Placeholder names used in onboarding mockup screens only -->
+    
     <string name="onboarding_mock_name1">Dad</string>
     <string name="onboarding_mock_name2">Mom</string>
     <string name="onboarding_mock_family_name">Smith</string>
@@ -278,7 +278,7 @@
     <string name="schedule_message_no_valid_desc">Tip: Widen your wake window, shorten your bathroom time, or pause another member.</string>
     <string name="schedule_message_time_adjusted">Times adjusted by %1$d min to fit your order.</string>
     <string name="schedule_message_breakfast_reduced">Breakfast reduced by %1$d min to fit your schedule.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Breakfast &#x2212;%1$d min &amp; times shifted by %2$d min.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Breakfast −%1$d min &amp; times shifted by %2$d min.</string>
     <string name="schedule_message_member_conflict">Conflict for %1$s: Times overlap too much.</string>
     <string name="schedule_message_member_conflict_desc">Try changing the order or adjusting the times.</string>
     <string name="main_fallback_alarm_active">⚠️ Fallback alarm active (%1$s). Please correct the schedule!</string>
@@ -356,13 +356,13 @@
     <string name="tooltip_alarm_sound">Tap here to choose your personal wake-up sound – pick your favorite ringtone instead of the default alarm.</string>
     <string name="settings_language_dialects">Dialects</string>
 
-    <!-- Notification Channels -->
+    
     <string name="notif_channel_schedule_change_name">Schedule changes</string>
     <string name="notif_channel_schedule_change_desc">Notifies when wake times or bathroom order change</string>
     <string name="notif_channel_family_events_name">Family events</string>
     <string name="notif_channel_family_events_desc">Notifies when members join or leave the family</string>
 
-    <!-- Push notification texts -->
+    
     <string name="notif_schedule_changed_title">FamWake: Schedule updated</string>
     <string name="notif_schedule_changed_body">The alarm times have been adjusted. Open the app to see your new wake time.</string>
     <string name="notif_member_joined_title">FamWake: New family member!</string>
@@ -370,7 +370,7 @@
     <string name="notif_member_left_title">FamWake: Family update</string>
     <string name="notif_member_left_body">A member has left the family.</string>
 
-    <!-- Notification permission toggle in Settings -->
+    
     <string name="notif_permission_title">Notifications required</string>
     <string name="notif_permission_desc">Without notifications, the alarm may not ring. Please enable them for a reliable alarm.</string>
     <string name="notif_permission_button">Enable notifications</string>

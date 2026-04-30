@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Gezinswekker</string>
+    <string name="app_name_short">FamWake Familiewekker</string>
     <string name="email_label">E-mail</string>
     <string name="password_label">Wachtwoord</string>
     <string name="register_button">Registreren</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Tip: Verbreed je wektijdvenster, verkort je badkamertijd of pauzeer een ander lid.</string>
     <string name="schedule_message_time_adjusted">Tijden aangepast met %1$d min om in de volgorde te passen.</string>
     <string name="schedule_message_breakfast_reduced">Ontbijttijd verkort met %1$d min om in het schema te passen.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Ontbijt &#x2212;%1$d min &amp; tijden verschoven met %2$d min.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Ontbijt −%1$d min &amp; tijden verschoven met %2$d min.</string>
     <string name="schedule_message_member_conflict">Conflict voor %1$s: Tijden overlappen te veel.</string>
     <string name="schedule_message_member_conflict_desc">Probeer de volgorde te wijzigen of de tijden aan te passen.</string>
     <string name="main_fallback_alarm_active">⚠️ Fallback-wekker actief (%1$s). Pas a.u.b. het schema aan!</string>
@@ -350,7 +350,7 @@
     <string name="onboarding_mock_name2">Mama</string>
     <string name="onboarding_mock_family_name">De Vries</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Roosterwijzigingen</string>
     <string name="notif_channel_schedule_change_desc">Meldt wijzigingen in wektijden of volgorde</string>
     <string name="notif_channel_family_events_name">Familie-evenementen</string>
