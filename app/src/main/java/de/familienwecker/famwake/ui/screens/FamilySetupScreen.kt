@@ -105,11 +105,16 @@ fun FamilySetupScreen(
                 title = {
                     Text(
                         buildAnnotatedString {
+                            val appShortName = stringResource(R.string.app_name_short)
+                            val prefix = "FamWake"
+                            val suffix = appShortName.removePrefix(prefix).trim()
                             withStyle(style = SpanStyle(fontWeight = FontWeight.ExtraBold)) {
-                                append("FamWake")
+                                append(prefix)
                             }
-                            withStyle(style = SpanStyle(fontWeight = FontWeight.Normal)) {
-                                append(" " + stringResource(R.string.app_name_short))
+                            if (suffix.isNotEmpty()) {
+                                withStyle(style = SpanStyle(fontWeight = FontWeight.Normal)) {
+                                    append(" $suffix")
+                                }
                             }
                         }
                     )
