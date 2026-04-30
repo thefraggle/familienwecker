@@ -18,4 +18,11 @@
     <locale android:name="gsw"/>
     <locale android:name="ksh"/>
     <locale android:name="swg"/>
+    <locale android:name="zh"/>
+    <locale android:name="ko"/>
+    <locale android:name="id"/>
+    <locale android:name="vi"/>
+    <locale android:name="bn"/>
+    <locale android:name="mr"/>
+    <locale android:name="hi"/>
 </locale-config>
