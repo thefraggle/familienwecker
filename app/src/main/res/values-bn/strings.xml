@@ -1,0 +1,379 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name_short">Family Alarm Clock</string>
+    <string name="email_label">ইমেইল</string>
+    <string name="password_label">পাসওয়ার্ড</string>
+    <string name="register_button">সাইন আপ করুন</string>
+    <string name="login_button">লগ ইন করুন</string>
+    <string name="already_have_account">ইতিমধ্যে একটি অ্যাকাউন্ট আছে? এখানে লগ ইন করুন.</string>
+    <string name="no_account">এখনও কোন অ্যাকাউন্ট? এখানে সাইন আপ করুন.</string>
+    <string name="login_with_google">Google দিয়ে সাইন ইন করুন</string>
+    <string name="login_forgot_password">পাসওয়ার্ড ভুলে গেছেন?</string>
+    <string name="login_password_reset_sent">পাসওয়ার্ড রিসেট ইমেইল পাঠানো হয়েছে!</string>
+    <string name="login_google_error_no_account">এই ডিভাইসে কোনো Google অ্যাকাউন্ট পাওয়া যায়নি। অনুগ্রহ করে আপনার Android সেটিংসে Google-এ সাইন ইন করুন বা ইমেল/পাসওয়ার্ড ব্যবহার করুন।</string>
+
+    <string name="setup_create_tab">তৈরি করুন</string>
+    <string name="setup_join_tab">যোগদান করুন</string>
+    <string name="setup_family_name">পরিবারের নাম (যেমন স্মিথ পরিবার)</string>
+    <string name="setup_create_button">পরিবার তৈরি করুন</string>
+    <string name="setup_join_code_label">6-সংখ্যার আমন্ত্রণ কোড</string>
+    <string name="setup_join_code_placeholder">ABC123</string>
+    <string name="setup_join_button">পরিবারে যোগ দিন</string>
+    <string name="join_loading_text">যোগদানের অনুরোধ প্রক্রিয়া করা হচ্ছে...</string>
+
+    <string name="main_add_member_desc">সদস্য যোগ করুন</string>
+    <string name="main_family_members">পরিবারের সদস্যরা</string>
+    <string name="main_current_schedule">বর্তমান সময়সূচী</string>
+    <string name="main_no_active_schedule">কোন সক্রিয় অ্যালার্ম সময়সূচী নেই।</string>
+    <string name="main_optimal_plan">এখানে গণনা করা সময়সূচী রয়েছে:</string>
+    <string name="main_plan_paused">আপনার অ্যালার্ম বর্তমানে বিরাম দেওয়া হয়েছে।</string>
+    <string name="main_shared_breakfast">☕ শেয়ার্ড ব্রেকফাস্ট: %s</string>
+    <string name="main_wake_time">জাগো: %1$s - %2$s</string>
+    <string name="main_bathroom_info">বাথরুম: %1$s মিনিট | প্রাতঃরাশ: %2$s</string>
+    <string name="main_schedule_bathroom">বাথরুম: %1$s থেকে %2$s</string>
+    <string name="main_schedule_leave">বাড়ি ত্যাগ করুন: %1$s</string>
+    <string name="main_member_alarm_on">(অ্যালার্ম সক্রিয়)</string>
+    <string name="main_member_alarm_off">(কোন অ্যালার্ম নেই)</string>
+    <string name="main_member_limit_reached">সর্বাধিক 6 সদস্য পৌঁছেছেন.</string>
+    <string name="main_alarm_enabled">অ্যালার্ম: চালু</string>
+    <string name="main_alarm_enabled_desc">স্বয়ংক্রিয় অ্যালার্ম সক্রিয়।</string>
+    <string name="main_snooze_active">%1$s পর্যন্ত স্নুজ সক্রিয়</string>
+    <string name="main_alarm_disabled">অ্যালার্ম: বন্ধ</string>
+    <string name="main_alarm_disabled_desc">ম্যানুয়াল বিরতি সক্রিয়।</string>
+    <string name="main_no_profile_warning">কোন প্রোফাইল নির্বাচন করা হয়নি!</string>
+    <string name="main_no_profile_warning_desc">সেটিংসে আপনার প্রোফাইল নির্বাচন করুন যাতে অ্যালার্ম আপনার জন্য বাজতে পারে।</string>
+    <string name="main_unclaimed_first_title">%1$s এর জন্য, কোনো অ্যালার্ম বাজবে না!</string>
+    <string name="main_unclaimed_first_desc">%1$s প্রথম লাইনে আছে কিন্তু তার কোনো নিজস্ব প্রোফাইল নেই - এবং সময়মতো ঘুম থেকে উঠতে পারে না।</string>
+    <string name="yes">হ্যাঁ</string>
+    <string name="no">না</string>
+    <string name="delete_desc">মুছে দিন</string>
+
+    <string name="add_member_title_add">সদস্য যোগ করুন</string>
+    <string name="add_member_title_edit">সদস্য সম্পাদনা করুন</string>
+    <string name="back_desc">ব্যাক</string>
+    <string name="unsaved_changes_title">অসংরক্ষিত পরিবর্তন</string>
+    <string name="unsaved_changes_message">আপনি কি আপনার পরিবর্তনগুলি বাতিল করতে চান?</string>
+    <string name="unsaved_changes_discard">বাতিল করুন</string>
+    <string name="unsaved_changes_keep">সম্পাদনা করতে থাকুন</string>
+    <string name="add_member_submit">সংরক্ষণ করুন</string>
+    <string name="delete_member_title">সদস্য মুছুন</string>
+    <string name="delete_member_text">আপনি কি পরিবার থেকে %1$s সরানোর বিষয়ে নিশ্চিত?</string>
+    <string name="delete_confirm">মুছে দিন</string>
+    <string name="cancel_button">বাতিল করুন</string>
+    <string name="retry_button">আবার চেষ্টা করুন</string>
+    <string name="add_member_name_label">নাম (যেমন মা, বাবা, বাচ্চা)</string>
+    <string name="add_member_unknown">অজানা</string>
+    <string name="add_member_earliest_wake">প্রথম জাগরণের সময়</string>
+    <string name="add_member_latest_wake">সর্বশেষ জেগে ওঠার সময়</string>
+    <string name="add_member_bathroom_duration">বাথরুমের সময়কাল (মিনিট)</string>
+    <string name="add_member_wants_breakfast">সাথে সকালের নাস্তা</string>
+    <string name="add_member_leave_home">এ বাড়ি ছেড়ে যান</string>
+    <string name="add_member_day_profiles_title">সাপ্তাহিক সময়সূচী</string>
+    <string name="add_member_day_active">অ্যালার্ম সক্রিয়</string>
+    <string name="add_member_copy_to_days">অন্যান্য দিনে \"%1$s\" কপি করুন</string>
+    <string name="add_member_copy_dialog_title">দিনে কপি করুন</string>
+    <string name="add_member_copy_apply">আবেদন করুন</string>
+    <string name="validation_latest_before_earliest">সর্বশেষ জেগে ওঠার সময় অবশ্যই প্রথম দিকে জাগ্রত হওয়ার পরে হতে হবে</string>
+    <string name="validation_leave_too_early">বাসা থেকে বের হওয়ার সময় অবশ্যই বাথরুমের পরে হতে হবে (উঠে যাওয়ার সময় + বাথরুমের সময়কাল)</string>
+    <string name="weekday_1">সোমবার</string>
+    <string name="weekday_2">মঙ্গলবার</string>
+    <string name="weekday_3">বুধবার</string>
+    <string name="weekday_4">বৃহস্পতিবার</string>
+    <string name="weekday_5">শুক্রবার</string>
+    <string name="weekday_6">শনিবার</string>
+    <string name="weekday_7">রবিবার</string>
+    <string name="weekday_short_1">সোম</string>
+    <string name="weekday_short_2">মঙ্গল</string>
+    <string name="weekday_short_3">বুধ</string>
+    <string name="weekday_short_4">বৃহ</string>
+    <string name="weekday_short_5">শুক্র</string>
+    <string name="weekday_short_6">শনি</string>
+    <string name="weekday_short_7">সূর্য</string>
+
+    <string name="settings_title">সেটিংস</string>
+    <string name="settings_profile_title">আমার প্রোফাইল</string>
+    <string name="settings_profile_desc">আপনার ফোন শুধুমাত্র এখানে নির্বাচিত প্রোফাইলের জেগে ওঠার সময় বাজবে৷</string>
+    <string name="settings_please_select">অনুগ্রহ করে নির্বাচন করুন</string>
+    <string name="settings_no_members">কোনো সদস্য পাওয়া যায়নি</string>
+    <string name="settings_alarm_title">অ্যালার্ম শব্দ</string>
+    <string name="settings_battery_warning_title">ব্যাটারি অপ্টিমাইজেশান সক্রিয়</string>
+    <string name="settings_battery_warning_text">অ্যালার্ম বিলম্বিত বা অবরুদ্ধ হতে পারে। FamWake-এর জন্য ব্যাটারি অপ্টিমাইজেশন অক্ষম করুন।</string>
+    <string name="settings_battery_warning_button">এখন ঠিক করুন</string>
+    <string name="settings_alarm_default">ডিফল্ট</string>
+    <string name="settings_alarm_select">শব্দ নির্বাচন করুন: %1$s</string>
+    <string name="settings_alarm_picker_title">একটি অ্যালার্ম শব্দ চয়ন করুন</string>
+    <string name="settings_account_title">পরিবার এবং অ্যাকাউন্ট</string>
+    <string name="settings_join_code">%1$s এর জন্য আমন্ত্রণ কোড:</string>
+    <string name="settings_share_code">কোড শেয়ার করুন</string>
+    <string name="settings_share_message">FamWake-এর জন্য এখানে আপনার লিঙ্ক:\nhttps://familienwecker.de/join/%2$s\n\nকোড: %2$s\nগ্রুপ: %1$s\n\nশুধু ক্লিক করুন, লগ ইন করুন এবং আমরা\' সংযুক্ত হয়েছি। একসাথে জেগে ওঠা আরও মজাদার! ⏰❤️</string>
+    <string name="settings_leave_family">পরিবার ছেড়ে</string>
+    <string name="settings_delete_family">পরিবার মুছে ফেলুন</string>
+    <string name="settings_delete_family_dialog_title">পরিবার মুছে ফেলবেন?</string>
+    <string name="settings_delete_family_dialog_text">আপনি কি এই পরিবারটিকে স্থায়ীভাবে মুছে ফেলার বিষয়ে নিশ্চিত? সকল সদস্য, সময়সূচী এবং সেটিংস সকলের জন্য মুছে ফেলা হবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।</string>
+    <string name="settings_delete_family_dialog_confirm">মুছে দিন</string>
+    <string name="settings_delete_family_dialog_cancel">বাতিল করুন</string>
+    <string name="settings_delete_family_warning_title">অন্যান্য সদস্য সক্রিয়!</string>
+    <string name="settings_delete_family_warning_text">এই পরিবারে আরও সক্রিয় সদস্য রয়েছেন। আপনি এটি মুছে ফেললে, সবাই অ্যাক্সেস হারাবে। আপনি কি সত্যিই সবকিছু মুছে ফেলতে চান?</string>
+    <string name="settings_delete_family_warning_confirm">হ্যাঁ, সবকিছু মুছে দিন</string>
+    <string name="settings_logout">লগ আউট করুন</string>
+    <string name="settings_delete_account">অ্যাকাউন্ট মুছুন</string>
+    <string name="settings_footer_version">FamWake Family Alarm v%1$s</string>
+    <string name="settings_footer_copyright">© 2026 ড্যানিয়েল নথফ</string>
+    <string name="settings_footer_rights">সর্বস্বত্ব সংরক্ষিত</string>
+
+    <string name="empty_members_title">এখনো কোনো সদস্য নেই</string>
+    <string name="empty_members_description">আপনার জেগে ওঠার সময় দেখতে এবং একে অপরকে জাগানোর জন্য প্রোফাইল যোগ করুন।</string>
+    <string name="empty_schedule_title">কোনো সক্রিয় অ্যালার্ম নেই</string>
+    <string name="empty_schedule_description">বর্তমানে, কারো জন্য কোনো অ্যালার্ম সেট করা নেই। ঘুমানোর সময়!</string>
+
+    <string name="settings_language_title">ভাষা</string>
+    <string name="settings_language_system">সিস্টেম ডিফল্ট</string>
+    <string name="settings_language_english">ইংরেজি</string>
+    <string name="settings_language_german">ডয়েচ</string>
+    <string name="settings_language_french">Français</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_language_italian">ইতালীয়</string>
+    <string name="settings_language_polish">পোলস্কি</string>
+    <string name="settings_language_dutch">নেদারল্যান্ডস</string>
+    <string name="settings_language_portuguese">পর্তুগিজ</string>
+    <string name="settings_language_swedish">সভেনস্কা</string>
+    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
+    <string name="settings_language_schwaebisch">শোয়াবস্ক</string>
+    <string name="settings_language_ruhrpott">রুহরপট</string>
+    <string name="settings_appearance_title">চেহারা</string>
+    <string name="settings_display_title">অ্যাপ সেটিংস</string>
+    <string name="settings_help_feedback_title">সাহায্য এবং প্রতিক্রিয়া</string>
+    <string name="settings_support_button">ইমেল বিকাশকারী</string>
+    <string name="settings_start_onboarding">🎓 অ্যাপ ট্যুর</string>
+
+    <string name="onboarding_skip">এড়িয়ে যান</string>
+    <string name="onboarding_next">পরবর্তী</string>
+    <string name="onboarding_done">\' যাওয়া যাক</string>
+    <string name="onboarding_slide0_title">একটি দল হিসাবে আপনার সকাল.</string>
+    <string name="onboarding_slide0_body">কোন তর্ক নেই, বিশৃঙ্খলা নেই। FamWake নিশ্চিত করে যে প্রত্যেকের দিনটি আরামদায়ক - সম্পূর্ণ স্বয়ংক্রিয়ভাবে শুরু হয়।</string>
+    <string name="onboarding_slide1_title">আর অপেক্ষা নয়।</string>
+    <string name="onboarding_slide1_body">FamWake পরিবারের প্রতিটি সদস্যের জন্য আদর্শ ঘুম থেকে ওঠার সময় গণনা করে – বাথরুম, প্রাতঃরাশ এবং প্রস্থানের চারপাশে সমন্বিত। আর ভিড় নেই।</string>
+    <string name="onboarding_slide2_title">প্রতিটি দিনই আলাদা।</string>
+    <string name="onboarding_slide2_body">সোমবার অফিস, বুধবার হোম অফিস? সপ্তাহের প্রতিটি দিনের জন্য পৃথক সময় সেট করুন - অ্যাপটি বাকিগুলি পরিচালনা করে।</string>
+    <string name="onboarding_slide3_title">সেকেন্ডের মধ্যে সংযুক্ত।</string>
+    <string name="onboarding_slide3_body">একটি কোড শেয়ার করুন এবং আপনার পরিবার সঙ্গে সঙ্গে যোগদান করবে। নতুন সদস্য? সময়সূচী স্বয়ংক্রিয়ভাবে সামঞ্জস্য হয়। এবং যদি কিছু পরিবর্তন হয়, সবাই এখনই জানে।</string>
+    <string name="onboarding_slide4_title">\' যাওয়া যাক!</string>
+    <string name="onboarding_slide4_body">এখনই আপনার পরিবার তৈরি করুন এবং আরামদায়ক সকাল উপভোগ করুন - নির্ভরযোগ্যভাবে, এমনকি অফলাইনেও।</string>
+    
+    <string name="onboarding_mock_name1">বাবা</string>
+    <string name="onboarding_mock_name2">মা</string>
+    <string name="onboarding_mock_family_name">স্মিথ</string>
+    <string name="settings_feedback_button">মতামত দিন / বাগ রিপোর্ট করুন</string>
+    <string name="feedback_title">প্রতিক্রিয়া</string>
+    <string name="feedback_intro">অ্যাপটিকে আরও ভাল করতে আমাদের সাহায্য করুন! আপনার মনে কি আছে?</string>
+    <string name="feedback_category_label">বিভাগ</string>
+    <string name="feedback_category_bug">একটি বাগ পাওয়া গেছে</string>
+    <string name="feedback_category_feature">বৈশিষ্ট্য অনুরোধ</string>
+    <string name="feedback_category_praise">প্রশংসা ও সমালোচনা</string>
+    <string name="feedback_category_other">অন্যান্য</string>
+    <string name="feedback_message_label">বার্তা</string>
+    <string name="feedback_message_placeholder">আপনার অনুরোধ সংক্ষেপে বর্ণনা করুন...</string>
+    <string name="feedback_email_label">ইমেইল (ঐচ্ছিক)</string>
+    <string name="feedback_email_placeholder">আপনার ইমেইল (যদি আমরা উত্তর দিতে পারি)</string>
+    <string name="feedback_auto_info_title">স্বয়ংক্রিয়ভাবে অন্তর্ভুক্ত:</string>
+    <string name="feedback_auto_version">অ্যাপ সংস্করণ: v%1$s</string>
+    <string name="feedback_auto_device">ডিভাইস: %1$s</string>
+    <string name="feedback_cancel">বাতিল করুন</string>
+    <string name="feedback_send">মতামত পাঠান</string>
+    <string name="feedback_success">ধন্যবাদ! আপনার প্রতিক্রিয়া গৃহীত হয়েছে এবং আমাদের অনেক সাহায্য করে.</string>
+    <string name="feedback_success_title">প্রতিক্রিয়া পাঠানো</string>
+    <string name="feedback_success_message">আপনার প্রতিক্রিয়া জন্য আপনাকে ধন্যবাদ! এটি আমাদের প্রত্যেকের জন্য FamWake উন্নত করতে সাহায্য করে।</string>
+    <string name="settings_terms_of_use">ব্যবহারের শর্তাবলী</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
+    <string name="settings_privacy_policy">গোপনীয়তা নীতি</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
+    <string name="settings_imprint">ছাপ</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
+
+    <string name="registration_disclaimer">সাইন আপ করার মাধ্যমে, আপনি %1$s এবং %2$s স্বীকার করেন।</string>
+    <string name="registration_terms_of_use">ব্যবহারের শর্তাবলী</string>
+    <string name="registration_privacy_policy">গোপনীয়তা নীতি</string>
+    <string name="settings_already_claimed">ইতিমধ্যে দাবি করা হয়েছে</string>
+    <string name="settings_theme_light">আলো</string>
+    <string name="settings_theme_dark">অন্ধকার</string>
+
+    <string name="ringing_wake_up">জাগো, %1$s!</string>
+    <string-array name="ringing_messages">
+        <item>বাথরুম সব এখন আপনার!</item>
+        <item>ট্র্যাফিক নেই, চাপ নেই - আপনার বাথরুমের সময় এখন শুরু হয়।</item>
+        <item>বাথরুমে শান্তি উপভোগ করুন যখন এটি স্থায়ী হয়!</item>
+        <item>প্রথম কফির সময়। পৃথিবী অপেক্ষা করছে!</item>
+        <item>ভালো করে ঘুমাও? আজকের জন্য আপনার সময়সূচী সেট করা আছে.</item>
+        <item>দিনের জন্য প্রস্তুত? সবকিছু সমন্বয় করা হয়।</item>
+        <item>দিন দোলা সময়! আপনার বাথরুম সময় শুরু হয়.</item>
+        <item>জেগে উঠুন এবং এটি চালু করুন - মঞ্চটি আপনার!</item>
+        <item>সকালে হেভি মেটাল দুশ্চিন্তা দূরে রাখে!</item>
+        <item>আপনার সময়সূচী লাইভ. \' যাওয়া যাক!</item>
+        <item>টেকঅফের জন্য প্রস্তুত? দল আপনার উপর নির্ভর করছে।</item>
+        <item>উঠুন এবং চকমক করুন! বাথরুম আপনার জন্য বিনামূল্যে.</item>
+        <item>আপনার ব্যক্তিগত বাথরুম স্লট এখন শুরু হয় - এটি গণনা করুন!</item>
+        <item>বাথরুমে যাওয়ার পথ পরিষ্কার করুন - আপনার স্লট সংরক্ষিত!</item>
+        <item>ভোরের পাখি গরম পানি পায়!</item>
+        <item>আর পাঁচ মিনিট? না! আপনার সময় উইন্ডো অপেক্ষা করছে.</item>
+        <item>আজ একটি মহান দিন হতে যাচ্ছে. এটা এখন শুরু!</item>
+        <item>আপনার টুথব্রাশ আপনাকে মিস করে। বাথরুমে যাও!</item>
+        <item>সমস্ত সমন্বিত, সমস্ত পরিকল্পিত - আপনি \' উঠে এসেছেন!</item>
+        <item>প্রারম্ভিক পাখির নিজের জন্য বাথরুম আছে।</item>
+    </string-array>
+    <string name="ringing_stop">স্টপ অ্যালার্ম</string>
+    <string name="ringing_snooze">স্নুজ (5 মিনিট)</string>
+    <string name="pause_today_desc">আজ বিরতি</string>
+    <string name="awake_today_desc">ইতিমধ্যে জাগ্রত</string>
+    <string name="awake_active_desc">ইতিমধ্যে জাগ্রত</string>
+
+    <string name="error_load_members">সদস্যদের লোড করার সময় ত্রুটি</string>
+    <string name="error_create_family">পরিবার তৈরিতে ত্রুটি: %1$s</string>
+    <string name="error_create_family_rate_limit">আপনি গত এক ঘন্টায় ইতিমধ্যে 3টি পরিবার তৈরি করেছেন। অনুগ্রহ করে এক ঘন্টা অপেক্ষা করুন এবং আবার চেষ্টা করুন।</string>
+    <string name="error_join_family_rate_limit">অনেক বেশি যোগদানের প্রচেষ্টা (সর্বোচ্চ প্রতি মিনিটে 5)। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন এবং আবার চেষ্টা করুন।</string>
+    <string name="error_invalid_code">অবৈধ আমন্ত্রণ কোড: %1$s</string>
+    <string name="error_family_not_found">এই কোড সহ কোন পরিবার পাওয়া যায়নি।</string>
+    <string name="error_code_generation_failed">একটি অনন্য কোড তৈরি করা যায়নি. আবার চেষ্টা করুন.</string>
+    <string name="join_conflict_title">নতুন পরিবারে যোগ দেবেন?</string>
+    <string name="join_conflict_text">আপনি ইতিমধ্যেই পরিবারের একজন সদস্য \"%1$s\"৷ নতুন পরিবারে যোগ দিতে, আপনাকে প্রথমে আপনার বর্তমান পরিবারটি ছেড়ে যেতে হবে৷ আপনি কি \"%1$s\" ছেড়ে কোড %2$s দিয়ে যোগ দিতে চান?</string>
+    <string name="join_conflict_confirm">ছেড়ে দিন এবং যোগ দিন</string>
+    <string name="error_delete_member">সদস্য মুছে ফেলা যায়নি: %1$s</string>
+    <string name="error_sync_failed">সিঙ্ক্রোনাইজেশন ব্যর্থ</string>
+    <string name="error_delete_family">পরিবার মুছে ফেলার সময় ত্রুটি: %1$s</string>
+    <string name="error_calculate_schedule">সময়সূচী গণনা করার সময় ত্রুটি: %1$s</string>
+    <string name="error_not_logged_in">ব্যবহারকারী লগ ইন করেননি</string>
+    <string name="error_system">সিস্টেম ত্রুটি</string>
+    <string name="error_invalid_credentials">অবৈধ ইমেল বা পাসওয়ার্ড। আপনার ইনপুট চেক করুন.</string>
+    <string name="error_login_failed">লগইন ব্যর্থ হয়েছে</string>
+    <string name="error_login_failed_unknown">অজানা লগইন ত্রুটি</string>
+    <string name="error_registration_failed">নিবন্ধন ব্যর্থ</string>
+    <string name="error_registration_failed_unknown">ব্যবহারকারী তৈরি করা যায়নি</string>
+    <string name="error_unknown">একটি অজানা ত্রুটি ঘটেছে. আবার চেষ্টা করুন.</string>
+    <string name="error_google_sign_in_failed_unknown">Google সাইন-ইন ব্যর্থ হয়েছে</string>
+    <string name="error_empty_email">একটি ইমেল ঠিকানা লিখুন.</string>
+    <string name="error_invalid_email">অবৈধ ইমেল ঠিকানা. বানান পরীক্ষা করুন.</string>
+    <string name="error_user_not_found">এই ইমেলের জন্য কোনো অ্যাকাউন্ট পাওয়া যায়নি।</string>
+    <string name="error_too_many_requests">অনেক চেষ্টা. অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন এবং আবার চেষ্টা করুন।</string>
+    <string name="error_password_reset_failed">পাসওয়ার্ড রিসেট ব্যর্থ হয়েছে. পরে আবার চেষ্টা করুন.</string>
+    <string name="error_profile_taken">এই প্রোফাইল ইতিমধ্যে নেওয়া হয়েছে.</string>
+    <string name="error_profile_claim_offline">সংযোগ নেই। প্রোফাইল নির্বাচন ইন্টারনেট অ্যাক্সেস প্রয়োজন.</string>
+    <string name="error_delete_not_admin">শুধুমাত্র পরিবার সৃষ্টিকর্তা পরিবার মুছে ফেলতে পারেন.</string>
+
+    <string name="alarm_default_member">পরিবারের সদস্য</string>
+    <string name="alarm_notification_title">পারিবারিক শঙ্কা বাজছে</string>
+    <string name="alarm_notification_text">শুভ সকাল, %1$s!</string>
+    <string name="alarm_channel_name">অ্যালার্ম</string>
+
+    <string name="settings_fallback_username">অভিভাবক</string>
+
+    <string name="error_alarm_permission">অনুগ্রহ করে সিস্টেম সেটিংসে সঠিক অ্যালার্মের অনুমতি দিন যাতে পারিবারিক অ্যালার্ম সময়মতো বাজতে পারে।</string>
+
+    <string name="permission_fullscreen_title">অ্যালার্ম অনুমতি প্রয়োজন</string>
+    <string name="permission_fullscreen_message">আপনার লক স্ক্রিনে অ্যালার্ম দেখানোর জন্য FamWake-এর অনুমতি প্রয়োজন। সিস্টেম সেটিংসে এটির অনুমতি দিন।</string>
+    <string name="permission_fullscreen_open">সেটিংস খুলুন</string>
+
+    <string name="schedule_message_optimal">এখানে গণনা করা সময়সূচী:</string>
+    <string name="schedule_message_no_members">সক্রিয় সদস্য নেই। সবাই থমকে আছে।</string>
+    <string name="schedule_message_no_valid">কোন বৈধ সময়সূচী পাওয়া যায়নি. সময়গুলো খুব বেশি ওভারল্যাপ করে।</string>
+    <string name="schedule_message_no_valid_desc">পরামর্শ: আপনার ঘুম থেকে ওঠার জানালা প্রশস্ত করুন, আপনার বাথরুমের সময় ছোট করুন বা অন্য সদস্যকে বিরতি দিন।</string>
+    <string name="schedule_message_time_adjusted">আপনার অর্ডার মাপসই করার জন্য সময়গুলি %1$d মিনিট দ্বারা সামঞ্জস্য করা হয়েছে৷</string>
+    <string name="schedule_message_breakfast_reduced">আপনার সময়সূচীর সাথে মানানসই সকালের নাস্তা %1$d মিনিট কমানো হয়েছে।</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">প্রাতঃরাশ −%1$d মিনিট এবং সময়গুলি %2$d মিনিট দ্বারা স্থানান্তরিত হয়৷</string>
+    <string name="schedule_message_member_conflict">%1$s এর জন্য দ্বন্দ্ব: সময়গুলি খুব বেশি ওভারল্যাপ করে।</string>
+    <string name="schedule_message_member_conflict_desc">ক্রম পরিবর্তন বা সময় সামঞ্জস্য করার চেষ্টা করুন.</string>
+    <string name="main_fallback_alarm_active">⚠️ ফলব্যাক অ্যালার্ম সক্রিয় (%1$s)। সময়সূচী সংশোধন করুন!</string>
+
+    <string name="error_password_too_short">পাসওয়ার্ড কমপক্ষে 8 অক্ষরের হতে হবে।</string>
+    <string name="error_email_already_in_use">এই ইমেল ঠিকানাটি ইতিমধ্যেই অন্য অ্যাকাউন্ট দ্বারা ব্যবহৃত হয়েছে৷</string>
+    <string name="error_weak_password">পাসওয়ার্ড খুব দুর্বল. অনুগ্রহ করে কমপক্ষে ৮টি অক্ষর এবং বিশেষ অক্ষর ব্যবহার করুন।</string>
+    <string name="login_verify_email_title">✉️ আপনার ইমেল যাচাই করুন</string>
+    <string name="login_verify_email_text">আমরা একটি যাচাইকরণ ইমেল পাঠিয়েছি \n%1$s\nআপনার অ্যাকাউন্ট সক্রিয় করতে ইমেলের লিঙ্কে ক্লিক করুন</string>
+    <string name="login_verify_email_confirm">আমি যাচাই করেছি ✓</string>
+    <string name="login_verify_email_resend">ইমেল পুনরায় পাঠান</string>
+    <string name="login_verify_email_not_verified">ইমেল এখনও যাচাই করা হয়নি. আপনার ইনবক্স চেক করুন.</string>
+
+    <string name="tooltip_awake_button">তাড়াতাড়ি জাগবেন? আজকের জন্য আপনার অ্যালার্ম বন্ধ করতে এখানে আলতো চাপুন – আপনার বাথরুমের সময় পরিবারের জন্য সংরক্ষিত রয়েছে।</string>
+    <string name="tooltip_drag_handle">আপনার পরিবারের জেগে ওঠার ক্রম ম্যানুয়ালি পরিবর্তন করতে একটি টাইল টিপুন এবং টেনে আনুন। অ্যালগরিদম অবিলম্বে পুনরায় গণনা করে।</string>
+    <string name="tooltip_wake_window">আমাদের একটি সময় উইন্ডো দিন. অ্যাপটি এর মধ্যে নিখুঁত মুহূর্ত খুঁজে পাবে যাতে কাউকে বাথরুমের জন্য অপেক্ষা করতে না হয়।</string>
+    <string name="tooltip_bathroom">বাস্তবসম্মতভাবে এই পরিকল্পনা করুন। আপনার বাথরুমের সময়কাল পুরো পরিবারের \' সকালের গতি নির্ধারণ করে।</string>
+    <string name="tooltip_invite_code">আপনার পরিবারের সাথে এই কোড শেয়ার করুন. একবার তারা যোগ দিলে, তারা স্বয়ংক্রিয়ভাবে আপনার সময়সূচীতে উপস্থিত হবে।</string>
+    <string name="tooltip_alarm_switch">আপনি যদি আপনার অ্যালার্ম বন্ধ করেন, তবে কেবল আপনার ফোনই নীরব থাকে না – অ্যালগরিদম তাত্ক্ষণিকভাবে পুরো পরিবারের জন্য সকালের পুনঃগণনা করে, সবাইকে একটু বেশি ঘুমাতে দেয় বা তাড়াতাড়ি বাথরুমে যেতে দেয়।</string>
+    <string name="tooltip_weekdays">আপনার পুরো সপ্তাহের পরিকল্পনা করুন: নির্দিষ্ট ঘুম থেকে ওঠার এবং বাথরুমের সময় সেট করতে পৃথক সপ্তাহের দিনগুলিতে আলতো চাপুন - হোম অফিস এবং অফিসের দিনগুলির মধ্যে পরিবর্তন করার জন্য উপযুক্ত।</string>
+    <string name="settings_tooltips_title">টিপস এবং ইঙ্গিত</string>
+    <string name="settings_tooltips_label">সহায়ক টিপস দেখান</string>
+    <string name="settings_tooltips_reset">সমস্ত টিপস রিসেট করুন</string>
+    <string name="settings_push_title">বিজ্ঞপ্তি</string>
+    <string name="settings_push_label">পুশ বিজ্ঞপ্তি পান</string>
+    <string name="settings_support_title">অ্যাপটিকে সমর্থন করুন</string>
+    <string name="settings_support_desc">আপনি কি অ্যাপটি পছন্দ করেন? আমরা আপনার সমর্থন প্রশংসা করি!</string>
+    <string name="settings_support_donate">দান করুন</string>
+    <string name="settings_donate_success">আপনার সমর্থনের জন্য আপনাকে অনেক ধন্যবাদ! ❤️</string>
+    <string name="settings_donate_error">ওহো, কিছু ভুল হয়েছে।</string>
+    <string name="settings_donate_loading">অফার লোড হচ্ছে...</string>
+    <string name="settings_donate_no_offers">কোন অফার উপলব্ধ. অনুগ্রহ করে নিশ্চিত করুন যে \"বর্তমান অফার\" RevenueCat-এ সেট করা আছে।</string>
+    <string name="settings_donate_purchase_loading">দান প্রক্রিয়াকরণ...</string>
+    <string name="settings_donate_error_not_allowed">ডিভাইস বা ব্যবহারকারীকে ক্রয় করার অনুমতি নেই।</string>
+    <string name="settings_donate_error_store_problem">গুগল প্লে স্টোরে একটি সমস্যা ছিল।</string>
+    <string name="settings_donate_error_already_purchased">এই পণ্য ইতিমধ্যে কেনা হয়েছে.</string>
+    <string name="settings_donate_error_invalid">ক্রয়টি অবৈধ ছিল৷</string>
+    <string name="settings_donate_error_generic">দান প্রক্রিয়া চলাকালীন একটি ত্রুটি ঘটেছে৷</string>
+
+    <string name="error_permission_denied">প্রবেশাধিকার অস্বীকৃত</string>
+    <string name="error_offline">ইন্টারনেট সংযোগ নেই</string>
+    <string name="error_report_failed">রিপোর্ট ব্যর্থ</string>
+    <string name="error_leave_failed">পরিবার ছেড়ে যেতে ব্যর্থ</string>
+    <string name="error_revenuecat_not_configured">RevenueCat কনফিগার করা নেই</string>
+    <string name="default_someone">কেউ</string>
+    <string name="error_label">ত্রুটি</string>
+    <string name="offline_write_hint">সংযোগ নেই। আপনি অনলাইনে ফিরে আসার সাথে সাথে আপনার পরিবর্তনগুলি সিঙ্ক করা হবে৷</string>
+    <string name="password_show">পাসওয়ার্ড দেখান</string>
+    <string name="password_hide">পাসওয়ার্ড লুকান</string>
+    <string name="close_desc">বন্ধ করুন</string>
+
+    <string name="settings_exact_alarm_warning_title">অ্যালার্ম অনুমতি অনুপস্থিত</string>
+    <string name="settings_exact_alarm_warning_text">অ্যান্ড্রয়েড সঠিক অ্যালার্ম বাজতে বাধা দেয়। অনুগ্রহ করে FamWake কে অ্যালার্ম এবং রিমাইন্ডার শিডিউল করার অনুমতি দিন।</string>
+    <string name="settings_exact_alarm_warning_button">অ্যালার্মের অনুমতি দিন</string>
+    <string name="main_exact_alarm_banner">⚠️ অ্যালার্ম অবরুদ্ধ! অনুগ্রহ করে সেটিংসে অ্যালার্মের অনুমতি দিন যাতে আপনার অ্যালার্ম সময়মতো বাজতে পারে।</string>
+    <string name="error_offline_feedback">আপনি অফলাইনে আছেন। আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন.</string>
+    <string name="error_sync_blocked_device">এই ডিভাইসে সিঙ্ক উপলব্ধ নয়৷</string>
+    <string name="error_feedback_rate_limit">অন্য বার্তা পাঠানোর আগে অনুগ্রহ করে %1$s সেকেন্ড অপেক্ষা করুন।</string>
+    <string name="error_feedback_rate_limit_server">অনেক অনুরোধ. পরে আবার চেষ্টা করুন.</string>
+    <string name="error_feedback_empty_message">বার্তা খালি হওয়া উচিত নয়।</string>
+    <string name="error_network">নেটওয়ার্ক ত্রুটি। আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন.</string>
+    <string name="settings_language_turkish">Türkçe</string>
+    <string name="settings_language_ukrainian">ইউক্রানিকা</string>
+    <string name="settings_language_russian">রুসস্কি</string>
+    <string name="settings_language_norwegian">নরস্ক</string>
+    <string name="settings_language_japanese">日本語</string>
+    <string name="settings_language_danish">ডেনস্ক</string>
+    <string name="settings_language_korean">한국어</string>
+    <string name="settings_language_chinese">中文</string>
+    <string name="settings_language_indonesian">বাহাসা ইন্দোনেশিয়া</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">হিন্দি</string>
+    <string name="tooltip_alarm_sound">আপনার ব্যক্তিগত জেগে ওঠার শব্দ চয়ন করতে এখানে আলতো চাপুন - ডিফল্ট অ্যালার্মের পরিবর্তে আপনার প্রিয় রিংটোন বাছুন৷</string>
+    <string name="settings_language_dialects">উপভাষা</string>
+
+    
+    <string name="notif_channel_schedule_change_name">সময়সূচী পরিবর্তন</string>
+    <string name="notif_channel_schedule_change_desc">ঘুম থেকে ওঠার সময় বা বাথরুমের অর্ডার পরিবর্তন হলে বিজ্ঞপ্তি দেয়</string>
+    <string name="notif_channel_family_events_name">পারিবারিক ঘটনা</string>
+    <string name="notif_channel_family_events_desc">সদস্যরা যখন পরিবারে যোগ দেয় বা ছেড়ে যায় তখন বিজ্ঞপ্তি দেয়</string>
+
+    
+    <string name="notif_schedule_changed_title">FamWake: শিডিউল আপডেট</string>
+    <string name="notif_schedule_changed_body">অ্যালার্ম সময় সামঞ্জস্য করা হয়েছে. আপনার নতুন জেগে ওঠার সময় দেখতে অ্যাপটি খুলুন।</string>
+    <string name="notif_member_joined_title">FamWake: পরিবারের নতুন সদস্য!</string>
+    <string name="notif_member_joined_body">আপনার পরিবারে একজন নতুন সদস্য যোগ দিয়েছেন।</string>
+    <string name="notif_member_left_title">FamWake: পারিবারিক আপডেট</string>
+    <string name="notif_member_left_body">একজন সদস্য পরিবার ছেড়ে চলে গেছেন।</string>
+
+    
+    <string name="notif_permission_title">বিজ্ঞপ্তি প্রয়োজন</string>
+    <string name="notif_permission_desc">বিজ্ঞপ্তি ছাড়া, অ্যালার্ম বাজতে পারে না। একটি নির্ভরযোগ্য অ্যালার্ম জন্য তাদের সক্ষম করুন.</string>
+    <string name="notif_permission_button">বিজ্ঞপ্তি সক্ষম করুন</string>
+    <string name="notif_manage_title">বিজ্ঞপ্তিগুলি পরিচালনা করুন</string>
+    <string name="notif_manage_desc">সিস্টেম সেটিংসে শব্দ, কম্পন এবং অন্যান্য বিজ্ঞপ্তি পছন্দগুলি পরিবর্তন করুন৷</string>
+</resources>
