@@ -82,6 +82,7 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         val SUPPORTED_LANGUAGE_CODES = setOf(
             "system", "en", "da", "de", "es", "fr", "it", "ja", "ko", "nl",
             "no", "pl", "pt", "ru", "sv", "tr", "uk", "zh",
+            "id", "vi", "bn", "mr", "hi",
             "gsw", "ksh", "swg"
         )
     }

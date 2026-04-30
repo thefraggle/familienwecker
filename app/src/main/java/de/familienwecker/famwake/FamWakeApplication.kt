@@ -101,6 +101,11 @@ class FamWakeApplication : Application() {
                     "tr" -> "tr-TR"
                     "uk" -> "uk-UA"
                     "zh" -> "zh-CN"
+                    "id" -> "id-ID"
+                    "vi" -> "vi-VN"
+                    "bn" -> "bn-BD"
+                    "mr" -> "mr-IN"
+                    "hi" -> "hi-IN"
                     "system", "" -> java.util.Locale.getDefault().let { "${it.language}-${it.country}" }
                     else -> "en-US"
                 }
