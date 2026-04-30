@@ -184,12 +184,12 @@
     <string name="feedback_success_title">피드백이 전송되었습니다</string>
     <string name="feedback_success_message">피드백을 보내주셔서 감사합니다! 이는 모든 사람을 위해 FamWake를 개선하는 데 도움이 됩니다.</string>
     <string name="settings_terms_of_use">이용약관</string>
-    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-ko.html</string>
     <string name="settings_privacy_policy">개인 정보 보호 정책</string>
-    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-ko.html</string>
     <string name="settings_imprint">날인</string>
-    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
-    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-ko.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-ko.html</string>
 
     <string name="registration_disclaimer">가입하면 %1$s 및 %2$s에 동의하게 됩니다.</string>
     <string name="registration_terms_of_use">이용약관</string>
