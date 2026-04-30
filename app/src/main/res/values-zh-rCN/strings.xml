@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">家庭闹钟</string>
+    <string name="app_name_short">FamWake 家庭闹钟</string>
     <string name="email_label">电子邮件</string>
     <string name="password_label">密码</string>
     <string name="register_button">报名</string>
@@ -159,7 +159,7 @@
     <string name="onboarding_slide3_body">分享代码，您的家人即可立即加入。新成员？时间表会自动调整。如果有什么变化，每个人都会立即知道。</string>
     <string name="onboarding_slide4_title">我们走吧！</string>
     <string name="onboarding_slide4_body">立即创建您的家庭，享受轻松的早晨——可靠，甚至离线。</string>
-    <!-- Placeholder names used in onboarding mockup screens only -->
+    
     <string name="onboarding_mock_name1">爸爸</string>
     <string name="onboarding_mock_name2">妈妈</string>
     <string name="onboarding_mock_family_name">王</string>
@@ -278,7 +278,7 @@
     <string name="schedule_message_no_valid_desc">提示：扩大您的唤醒窗口、缩短您的卫生间时间或暂停其他成员。</string>
     <string name="schedule_message_time_adjusted">时间调整 %1$d 分钟以适合您的订单。</string>
     <string name="schedule_message_breakfast_reduced">早餐减少 %1$d 分钟，以适应您的日程安排。</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">早餐 &#x2212;%1$d 分钟 &amp; 次，偏移 %2$d 分钟。</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">早餐 −%1$d 分钟 &amp; 次，偏移 %2$d 分钟。</string>
     <string name="schedule_message_member_conflict">%1$s 的冲突：时间重叠太多。</string>
     <string name="schedule_message_member_conflict_desc">尝试更改顺序或调整时间。</string>
     <string name="main_fallback_alarm_active">⚠️ 回退警报已激活 (%1$s)。请更正时间表！</string>
@@ -351,13 +351,13 @@
     <string name="tooltip_alarm_sound">点击此处选择您的个人唤醒声音 - 选择您最喜欢的铃声而不是默认闹钟。</string>
     <string name="settings_language_dialects">Dialects</string>
 
-    <!-- Notification Channels -->
+    
     <string name="notif_channel_schedule_change_name">日程变更</string>
     <string name="notif_channel_schedule_change_desc">当起床时间或浴室顺序发生变化时发出通知</string>
     <string name="notif_channel_family_events_name">家庭活动</string>
     <string name="notif_channel_family_events_desc">当成员加入或离开家庭时发出通知</string>
 
-    <!-- Push notification texts -->
+    
     <string name="notif_schedule_changed_title">FamWake：时间表已更新</string>
     <string name="notif_schedule_changed_body">闹钟时间已调整。打开应用程序即可查看您的新起床时间。</string>
     <string name="notif_member_joined_title">FamWake：新家庭成员！</string>
@@ -365,7 +365,7 @@
     <string name="notif_member_left_title">FamWake：家庭更新</string>
     <string name="notif_member_left_body">一名成员离开了家庭。</string>
 
-    <!-- Notification permission toggle in Settings -->
+    
     <string name="notif_permission_title">需要通知</string>
     <string name="notif_permission_desc">如果没有通知，闹钟可能不会响起。请启用它们以获得可靠的警报。</string>
     <string name="notif_permission_button">启用通知</string>

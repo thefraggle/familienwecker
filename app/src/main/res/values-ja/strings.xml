@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">ファミリー目覚まし</string>
+    <string name="app_name_short">FamWake 家族の目覚まし時計</string>
     <string name="email_label">メールアドレス</string>
     <string name="password_label">パスワード</string>
     <string name="register_button">登録</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">ヒント：起床時間の枠を広げるか、バスルームの利用時間を短くするか、他のメンバーを一時停止してください。</string>
     <string name="schedule_message_time_adjusted">順番に合わせるため、時間を%1$d分調整しました。</string>
     <string name="schedule_message_breakfast_reduced">スケジュールに合わせるため、朝食の時間を%1$d分短縮しました。</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">朝食を&#x2212;%1$d分、時間を%2$d分シフトしました。</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">朝食を−%1$d分、時間を%2$d分シフトしました。</string>
     <string name="schedule_message_member_conflict">%1$sの競合：時間が重なりすぎています。</string>
     <string name="schedule_message_member_conflict_desc">順番を変更するか、時間を調整してみてください。</string>
     <string name="main_fallback_alarm_active">⚠️ フォールバックアラームが有効です（%1$s）。スケジュールを修正してください！</string>
@@ -350,7 +350,7 @@
     <string name="onboarding_mock_name2">ママ</string>
     <string name="onboarding_mock_family_name">田中</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">スケジュール変更</string>
     <string name="notif_channel_schedule_change_desc">起床時間や順序が変更された際に通知します</string>
     <string name="notif_channel_family_events_name">ファミリーイベント</string>

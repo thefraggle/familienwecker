@@ -697,31 +697,32 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(6.dp))
 
                     val languageLabel = when (currentLanguage) {
-                        "da"  -> stringResource(R.string.settings_language_danish)
-                        "de"  -> stringResource(R.string.settings_language_german)
-                        "es"  -> stringResource(R.string.settings_language_spanish)
-                        "fr"  -> stringResource(R.string.settings_language_french)
-                        "it"  -> stringResource(R.string.settings_language_italian)
-                        "ja"  -> stringResource(R.string.settings_language_japanese)
-                        "ko"  -> stringResource(R.string.settings_language_korean)
-                        "nl"  -> stringResource(R.string.settings_language_dutch)
-                        "no"  -> stringResource(R.string.settings_language_norwegian)
-                        "pl"  -> stringResource(R.string.settings_language_polish)
-                        "pt"  -> stringResource(R.string.settings_language_portuguese)
-                        "ru"  -> stringResource(R.string.settings_language_russian)
-                        "sv"  -> stringResource(R.string.settings_language_swedish)
-                        "tr"  -> stringResource(R.string.settings_language_turkish)
-                        "uk"  -> stringResource(R.string.settings_language_ukrainian)
-                        "zh"  -> stringResource(R.string.settings_language_chinese)
-                        "id"  -> stringResource(R.string.settings_language_indonesian)
-                        "vi"  -> stringResource(R.string.settings_language_vietnamese)
-                        "bn"  -> stringResource(R.string.settings_language_bengali)
-                        "mr"  -> stringResource(R.string.settings_language_marathi)
-                        "hi"  -> stringResource(R.string.settings_language_hindi)
-                        "gsw" -> stringResource(R.string.settings_language_schweizerdeutsch)
-                        "swg" -> stringResource(R.string.settings_language_schwaebisch)
-                        "ksh" -> stringResource(R.string.settings_language_ruhrpott)
-                        else  -> stringResource(R.string.settings_language_english)
+                        "da"  -> "Dansk"
+                        "de"  -> "Deutsch"
+                        "en"  -> "English"
+                        "es"  -> "Español"
+                        "fr"  -> "Français"
+                        "it"  -> "Italiano"
+                        "ja"  -> "日本語"
+                        "ko"  -> "한국어"
+                        "nl"  -> "Nederlands"
+                        "no"  -> "Norsk"
+                        "pl"  -> "Polski"
+                        "pt"  -> "Português"
+                        "ru"  -> "Русский"
+                        "sv"  -> "Svenska"
+                        "tr"  -> "Türkçe"
+                        "uk"  -> "Українська"
+                        "zh"  -> "简体中文"
+                        "id"  -> "Bahasa Indonesia"
+                        "vi"  -> "Tiếng Việt"
+                        "bn"  -> "বাংলা"
+                        "mr"  -> "मराठी"
+                        "hi"  -> "हिन्दी"
+                        "gsw" -> "Schweizerdeutsch"
+                        "swg" -> "Schwäbisch"
+                        "ksh" -> "Ruhrpott"
+                        else  -> "English"
                     }
 
                     OutlinedButton(
@@ -760,33 +761,33 @@ fun SettingsScreen(
 
                             // Alphabetisch nach nativem Namen
                             val mainLanguages = listOf(
-                                LangEntry("id", stringResource(R.string.settings_language_indonesian)),
-                                LangEntry("da", stringResource(R.string.settings_language_danish)),
-                                LangEntry("de", stringResource(R.string.settings_language_german)),
-                                LangEntry("en", stringResource(R.string.settings_language_english)),
-                                LangEntry("es", stringResource(R.string.settings_language_spanish)),
-                                LangEntry("fr", stringResource(R.string.settings_language_french)),
-                                LangEntry("it", stringResource(R.string.settings_language_italian)),
-                                LangEntry("nl", stringResource(R.string.settings_language_dutch)),
-                                LangEntry("no", stringResource(R.string.settings_language_norwegian)),
-                                LangEntry("pl", stringResource(R.string.settings_language_polish)),
-                                LangEntry("pt", stringResource(R.string.settings_language_portuguese)),
-                                LangEntry("sv", stringResource(R.string.settings_language_swedish)),
-                                LangEntry("vi", stringResource(R.string.settings_language_vietnamese)),
-                                LangEntry("tr", stringResource(R.string.settings_language_turkish)),
-                                LangEntry("ru", stringResource(R.string.settings_language_russian)),
-                                LangEntry("uk", stringResource(R.string.settings_language_ukrainian)),
-                                LangEntry("bn", stringResource(R.string.settings_language_bengali)),
-                                LangEntry("mr", stringResource(R.string.settings_language_marathi)),
-                                LangEntry("hi", stringResource(R.string.settings_language_hindi)),
-                                LangEntry("ja", stringResource(R.string.settings_language_japanese)),
-                                LangEntry("zh", stringResource(R.string.settings_language_chinese)),
-                                LangEntry("ko", stringResource(R.string.settings_language_korean))
+                                LangEntry("id", "Bahasa Indonesia"),
+                                LangEntry("da", "Dansk"),
+                                LangEntry("de", "Deutsch"),
+                                LangEntry("en", "English"),
+                                LangEntry("es", "Español"),
+                                LangEntry("fr", "Français"),
+                                LangEntry("it", "Italiano"),
+                                LangEntry("nl", "Nederlands"),
+                                LangEntry("no", "Norsk"),
+                                LangEntry("pl", "Polski"),
+                                LangEntry("pt", "Português"),
+                                LangEntry("sv", "Svenska"),
+                                LangEntry("vi", "Tiếng Việt"),
+                                LangEntry("tr", "Türkçe"),
+                                LangEntry("ru", "Русский"),
+                                LangEntry("uk", "Українська"),
+                                LangEntry("bn", "বাংলা"),
+                                LangEntry("mr", "मराठी"),
+                                LangEntry("hi", "हिन्दी"),
+                                LangEntry("ja", "日本語"),
+                                LangEntry("zh", "简体中文"),
+                                LangEntry("ko", "한국어")
                             )
                             val dialects = listOf(
-                                LangEntry("gsw", stringResource(R.string.settings_language_schweizerdeutsch)),
-                                LangEntry("ksh", stringResource(R.string.settings_language_ruhrpott)),
-                                LangEntry("swg", stringResource(R.string.settings_language_schwaebisch)),
+                                LangEntry("gsw", "Schweizerdeutsch"),
+                                LangEntry("ksh", "Ruhrpott"),
+                                LangEntry("swg", "Schwäbisch"),
                             )
 
                             // Alle bekannten Hauptsprachcodes für EN-Fallback-Erkennung

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Familievækkeur</string>
+    <string name="app_name_short">FamWake Familievækkeur</string>
     <string name="email_label">E-mail</string>
     <string name="password_label">Adgangskode</string>
     <string name="register_button">Opret konto</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Tip: Gør dit opvågningsvindue bredere, forkort din badeværelsestid, eller sæt et andet medlem på pause.</string>
     <string name="schedule_message_time_adjusted">Tiderne er justeret med %1$d min for at passe til din rækkefølge.</string>
     <string name="schedule_message_breakfast_reduced">Morgenmaden er reduceret med %1$d min for at passe til din tidsplan.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Morgenmad &#x2212;%1$d min &amp; tider forskudt med %2$d min.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Morgenmad −%1$d min &amp; tider forskudt med %2$d min.</string>
     <string name="schedule_message_member_conflict">Konflikt for %1$s: Tiderne overlapper for meget.</string>
     <string name="schedule_message_member_conflict_desc">Prøv at ændre rækkefølgen eller justere tiderne.</string>
     <string name="main_fallback_alarm_active">⚠️ Reservealarm aktiv (%1$s). Ret venligst tidsplanen!</string>
@@ -350,7 +350,7 @@
     <string name="onboarding_mock_name2">Mor</string>
     <string name="onboarding_mock_family_name">Nielsen</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Tidsplanændringer</string>
     <string name="notif_channel_schedule_change_desc">Giver besked ved ændringer i opvågningstider eller rækkefølge</string>
     <string name="notif_channel_family_events_name">Familiebegivenheder</string>

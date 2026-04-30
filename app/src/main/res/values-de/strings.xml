@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">Familienwecker</string>
+    <string name="app_name_short">FamWake Familienwecker</string>
     <string name="email_label">E-Mail</string>
     <string name="password_label">Passwort</string>
     <string name="register_button">Registrieren</string>
@@ -159,7 +159,7 @@
     <string name="onboarding_slide3_body">Teile einen Code und deine Familie ist sofort dabei. Neue Mitglieder? Der Plan passt sich automatisch an. Und wenn sich etwas ändert, weiß es jeder sofort.</string>
     <string name="onboarding_slide4_title">Los geht\'s!</string>
     <string name="onboarding_slide4_body">Erstelle jetzt deine Familie und erlebe entspannte Morgen – zuverlässig, auch offline.</string>
-    <!-- Platzhalter-Namen nur für Onboarding-Mockup-Screens -->
+    
     <string name="onboarding_mock_name1">Papa</string>
     <string name="onboarding_mock_name2">Mama</string>
     <string name="onboarding_mock_family_name">Müller</string>
@@ -278,7 +278,7 @@
     <string name="schedule_message_no_valid_desc">Tipp: Vergrößere dein Weck-Zeitfenster, verkürze die Bad-Zeit oder pausiere ein anderes Mitglied.</string>
     <string name="schedule_message_time_adjusted">Zeiten um %1$d Min angepasst, damit eure Reihenfolge passt.</string>
     <string name="schedule_message_breakfast_reduced">Frühstück um %1$d Min gekürzt, um in euren Ablauf zu passen.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Frühstück &#x2212;%1$d Min &amp; Zeiten um %2$d Min verschoben.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Frühstück −%1$d Min &amp; Zeiten um %2$d Min verschoben.</string>
     <string name="schedule_message_member_conflict">Konflikt für %1$s: Zeiten überschneiden sich zu stark.</string>
     <string name="schedule_message_member_conflict_desc">Versuche, die Reihenfolge zu ändern oder die Zeiten anzupassen.</string>
     <string name="main_fallback_alarm_active">⚠️ Fallback-Alarm aktiv (%1$s). Bitte Zeitplan korrigieren!</string>
@@ -351,7 +351,7 @@
     <string name="tooltip_alarm_sound">Tippe hier, um deinen persönlichen Weckton auszuwählen – statt dem Standard-Alarm klingt dein Lieblingston.</string>
     <string name="settings_language_dialects">Dialekte</string>
 
-    <!-- Notification strings -->
+    
     <string name="notif_channel_schedule_change_name">Planänderungen</string>
     <string name="notif_channel_schedule_change_desc">Benachrichtigung bei Änderungen der Weckzeiten oder Reihenfolge</string>
     <string name="notif_channel_family_events_name">Familien-Ereignisse</string>
