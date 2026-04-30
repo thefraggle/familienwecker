@@ -84,14 +84,24 @@ class FamWakeApplication : Application() {
                     else com.revenuecat.purchases.LogLevel.WARN
                 val currentLang = appSettings.language.value
                 val fullLocale = when (currentLang) {
+                    "da" -> "da-DK"
                     "de" -> "de-DE"
                     "en" -> "en-US"
                     "es" -> "es-ES"
                     "fr" -> "fr-FR"
                     "it" -> "it-IT"
+                    "ja" -> "ja-JP"
+                    "ko" -> "ko-KR"
+                    "nl" -> "nl-NL"
+                    "no" -> "nb-NO"
+                    "pl" -> "pl-PL"
+                    "pt" -> "pt-BR"
+                    "ru" -> "ru-RU"
                     "sv" -> "sv-SE"
+                    "tr" -> "tr-TR"
+                    "uk" -> "uk-UA"
+                    "zh" -> "zh-CN"
                     "system", "" -> java.util.Locale.getDefault().let { "${it.language}-${it.country}" }
-                    // Unknown codes fall back to English
                     else -> "en-US"
                 }
                 com.revenuecat.purchases.Purchases.configure(
