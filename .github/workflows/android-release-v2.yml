@@ -142,6 +142,13 @@ jobs:
           cat release-notes/whatsnew-nb-NO || echo "No NO file"
           cat release-notes/whatsnew-da-DK || echo "No DA file"
           cat release-notes/whatsnew-ja-JP || echo "No JA file"
+          cat release-notes/whatsnew-id || echo "No ID file"
+          cat release-notes/whatsnew-vi || echo "No VI file"
+          cat release-notes/whatsnew-bn-IN || echo "No BN file"
+          cat release-notes/whatsnew-mr-IN || echo "No MR file"
+          cat release-notes/whatsnew-hi-IN || echo "No HI file"
+          cat release-notes/whatsnew-zh-CN || echo "No ZH-CN file"
+          cat release-notes/whatsnew-ko-KR || echo "No KO file"
 
 
       # GitHub Release nur mit AAB

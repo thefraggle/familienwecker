@@ -60,11 +60,19 @@ def main():
         'nb-NO': None,   # Norwegian (Bokmål) – added 1.7.2
         'da-DK': None,   # Danish – added 1.7.2
         'ja-JP': None,   # Japanese – added 1.7.4
+        'id': None,      # Indonesian
+        'vi': None,      # Vietnamese
+        'bn-IN': None,   # Bengali
+        'mr-IN': None,   # Marathi
+        'hi-IN': None,   # Hindi
+        'zh-CN': None,   # Simplified Chinese
+        'ko-KR': None,   # Korean
     }
 
     # deep-translator nutzt 'no' für Norwegisch Bokmål statt 'nb'
     LANG_CODE_MAP = {
         'nb': 'no',
+        'zh': 'zh-CN',
     }
     
     changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or "Maintenance update and performance optimizations."
