@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.5 – 2026-05-01
+
+### New
+- **Globally available** – FamWake now speaks 7 new languages: Indonesian, Vietnamese, Bengali, Marathi, Hindi, Simplified Chinese, and Korean. We now support 22 languages for families worldwide.
+- **Localized emails** – System emails (such as password reset requests) are now sent in the language of your app.
+
+---
+
 ## 1.8.4 – 2026-04-28
 
 ### Improved
