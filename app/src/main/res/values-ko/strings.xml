@@ -3,7 +3,7 @@
     <string name="app_name_short">FamWake 가족 알람시계</string>
     <string name="email_label">이메일</string>
     <string name="password_label">비밀번호</string>
-    <string name="register_button">가입</string>
+    <string name="register_button">가입하기</string>
     <string name="login_button">로그인</string>
     <string name="already_have_account">이미 계정이 있나요? 여기에 로그인하세요.</string>
     <string name="no_account">아직 계정이 없나요? 여기에서 가입하세요.</string>
@@ -12,69 +12,69 @@
     <string name="login_password_reset_sent">비밀번호 재설정 메일이 발송되었습니다!</string>
     <string name="login_google_error_no_account">이 기기에서 Google 계정을 찾을 수 없습니다. Android 설정에서 Google에 로그인하거나 이메일/비밀번호를 사용하세요.</string>
 
-    <string name="setup_create_tab">만들다</string>
-    <string name="setup_join_tab">가입하다</string>
-    <string name="setup_family_name">성(예: Smith Family)</string>
+    <string name="setup_create_tab">만들기</string>
+    <string name="setup_join_tab">참여하기</string>
+    <string name="setup_family_name">가족 이름 (예: 김씨 가족)</string>
     <string name="setup_create_button">가족 만들기</string>
     <string name="setup_join_code_label">6자리 초대코드</string>
     <string name="setup_join_code_placeholder">ABC123</string>
-    <string name="setup_join_button">가족 가입</string>
-    <string name="join_loading_text">가입 요청 처리 중…</string>
+    <string name="setup_join_button">가족 참여</string>
+    <string name="join_loading_text">참여 요청 처리 중…</string>
 
-    <string name="main_add_member_desc">회원 추가</string>
-    <string name="main_family_members">가족</string>
+    <string name="main_add_member_desc">멤버 추가</string>
+    <string name="main_family_members">가족 멤버</string>
     <string name="main_current_schedule">현재 일정</string>
     <string name="main_no_active_schedule">활성 알람 일정이 없습니다.</string>
-    <string name="main_optimal_plan">계산된 일정은 다음과 같습니다.</string>
-    <string name="main_plan_paused">알람이 현재 일시중지되었습니다.</string>
-    <string name="main_shared_breakfast">낙 공유 아침 식사: %s</string>
-    <string name="main_wake_time">일어나기: %1$s - %2$s</string>
-    <string name="main_bathroom_info">욕실: %1$s분 | 아침 식사: %2$s</string>
-    <string name="main_schedule_bathroom">욕실: %1$s~%2$s</string>
-    <string name="main_schedule_leave">집에서 출발: %1$s</string>
-    <string name="main_member_alarm_on">(알람 활성)</string>
-    <string name="main_member_alarm_off">(알람 없음)</string>
-    <string name="main_member_limit_reached">최대 회원 수는 6명입니다.</string>
+    <string name="main_optimal_plan">계산된 일정은 다음과 같습니다:</string>
+    <string name="main_plan_paused">알람이 현재 일시 정지되었습니다.</string>
+    <string name="main_shared_breakfast">☕ 다 함께 아침 식사: %s</string>
+    <string name="main_wake_time">기상 시간: %1$s - %2$s</string>
+    <string name="main_bathroom_info">화장실: %1$s분 | 아침 식사: %2$s</string>
+    <string name="main_schedule_bathroom">화장실: %1$s ~ %2$s</string>
+    <string name="main_schedule_leave">집에서 나가는 시간: %1$s</string>
+    <string name="main_member_alarm_on">(알람 켜짐)</string>
+    <string name="main_member_alarm_off">(알람 꺼짐)</string>
+    <string name="main_member_limit_reached">최대 6명까지 추가할 수 있습니다.</string>
     <string name="main_alarm_enabled">알람: 켜짐</string>
-    <string name="main_alarm_enabled_desc">자동 경보가 활성화되었습니다.</string>
-    <string name="main_snooze_active">%1$s까지 일시중지 활성화</string>
+    <string name="main_alarm_enabled_desc">자동 알람이 활성화되었습니다.</string>
+    <string name="main_snooze_active">%1$s까지 스누즈 켜짐</string>
     <string name="main_alarm_disabled">알람: 꺼짐</string>
-    <string name="main_alarm_disabled_desc">수동 일시 중지가 활성화되었습니다.</string>
+    <string name="main_alarm_disabled_desc">수동으로 일시 정지되었습니다.</string>
     <string name="main_no_profile_warning">선택된 프로필이 없습니다!</string>
     <string name="main_no_profile_warning_desc">알람이 울릴 수 있도록 설정에서 프로필을 선택하세요.</string>
-    <string name="main_unclaimed_first_title">%1$s의 경우 알람이 울리지 않습니다!</string>
-    <string name="main_unclaimed_first_desc">%1$s은(는) 첫 번째 줄에 있지만 자신의 프로필이 없으며 제 시간에 깨어나지 못할 수도 있습니다.</string>
+    <string name="main_unclaimed_first_title">%1$s님의 알람이 울리지 않습니다!</string>
+    <string name="main_unclaimed_first_desc">%1$s님이 첫 번째 순서지만 자신의 프로필이 없어 제시간에 일어나지 못할 수 있습니다.</string>
     <string name="yes">예</string>
     <string name="no">아니요</string>
     <string name="delete_desc">삭제</string>
 
-    <string name="add_member_title_add">회원 추가</string>
-    <string name="add_member_title_edit">회원 수정</string>
-    <string name="back_desc">뒤쪽에</string>
+    <string name="add_member_title_add">멤버 추가</string>
+    <string name="add_member_title_edit">멤버 수정</string>
+    <string name="back_desc">뒤로</string>
     <string name="unsaved_changes_title">저장되지 않은 변경사항</string>
     <string name="unsaved_changes_message">변경사항을 취소하시겠습니까?</string>
-    <string name="unsaved_changes_discard">버리다</string>
-    <string name="unsaved_changes_keep">계속 수정하세요</string>
-    <string name="add_member_submit">구하다</string>
-    <string name="delete_member_title">회원 삭제</string>
-    <string name="delete_member_text">가족에서 %1$s을(를) 삭제하시겠습니까?</string>
+    <string name="unsaved_changes_discard">변경사항 취소</string>
+    <string name="unsaved_changes_keep">계속 수정하기</string>
+    <string name="add_member_submit">저장</string>
+    <string name="delete_member_title">멤버 삭제</string>
+    <string name="delete_member_text">가족에서 %1$s님을 삭제하시겠습니까?</string>
     <string name="delete_confirm">삭제</string>
     <string name="cancel_button">취소</string>
-    <string name="retry_button">다시 해 보다</string>
-    <string name="add_member_name_label">이름(예: 엄마, 아빠, 아이)</string>
-    <string name="add_member_unknown">알려지지 않은</string>
+    <string name="retry_button">다시 시도</string>
+    <string name="add_member_name_label">이름 (예: 엄마, 아빠, 아이)</string>
+    <string name="add_member_unknown">알 수 없음</string>
     <string name="add_member_earliest_wake">가장 빠른 기상 시간</string>
-    <string name="add_member_latest_wake">최근 기상 시간</string>
+    <string name="add_member_latest_wake">가장 늦은 기상 시간</string>
     <string name="add_member_bathroom_duration">화장실 사용 시간(분)</string>
     <string name="add_member_wants_breakfast">아침 식사 포함</string>
-    <string name="add_member_leave_home">집에서 출발 시간:</string>
+    <string name="add_member_leave_home">집에서 나가는 시간</string>
     <string name="add_member_day_profiles_title">주간 일정</string>
     <string name="add_member_day_active">알람 활성화</string>
-    <string name="add_member_copy_to_days">\"%1$s\"을(를) 다른 날짜에 복사</string>
-    <string name="add_member_copy_dialog_title">일수로 복사</string>
-    <string name="add_member_copy_apply">적용하다</string>
+    <string name="add_member_copy_to_days">\"%1$s\" 일정을 다른 요일에 복사</string>
+    <string name="add_member_copy_dialog_title">요일에 복사</string>
+    <string name="add_member_copy_apply">적용</string>
     <string name="validation_latest_before_earliest">가장 늦은 기상 시간은 가장 빠른 기상 시간 이후여야 합니다.</string>
-    <string name="validation_leave_too_early">집에서 나가는 시간은 화장실 시간 이후여야 합니다. (기상 시간 + 화장실 시간)</string>
+    <string name="validation_leave_too_early">집에서 나가는 시간은 화장실 사용 시간 이후여야 합니다 (기상 시간 + 화장실 사용 시간)</string>
     <string name="weekday_1">월요일</string>
     <string name="weekday_2">화요일</string>
     <string name="weekday_3">수요일</string>
@@ -92,39 +92,39 @@
 
     <string name="settings_title">설정</string>
     <string name="settings_profile_title">내 프로필</string>
-    <string name="settings_profile_desc">여기에서 선택한 프로필의 깨우기 시간에만 전화기가 울립니다.</string>
+    <string name="settings_profile_desc">여기에서 선택한 프로필의 기상 시간에만 휴대폰 알람이 울립니다.</string>
     <string name="settings_please_select">선택해주세요</string>
-    <string name="settings_no_members">회원을 찾을 수 없습니다.</string>
+    <string name="settings_no_members">멤버를 찾을 수 없습니다.</string>
     <string name="settings_alarm_title">알람 소리</string>
-    <string name="settings_battery_warning_title">배터리 최적화 활성화</string>
-    <string name="settings_battery_warning_text">알람이 지연되거나 차단될 수 있습니다. FamWake에 대한 배터리 최적화를 비활성화하십시오.</string>
-    <string name="settings_battery_warning_button">지금 고치세요</string>
-    <string name="settings_alarm_default">기본</string>
+    <string name="settings_battery_warning_title">배터리 최적화 켜짐</string>
+    <string name="settings_battery_warning_text">알람이 지연되거나 차단될 수 있습니다. FamWake에 대한 배터리 최적화를 꺼주세요.</string>
+    <string name="settings_battery_warning_button">지금 해결하기</string>
+    <string name="settings_alarm_default">기본음</string>
     <string name="settings_alarm_select">소리 선택: %1$s</string>
-    <string name="settings_alarm_picker_title">알람 소리를 선택하세요</string>
-    <string name="settings_account_title">가족 &amp; 계정</string>
+    <string name="settings_alarm_picker_title">알람 소리 선택</string>
+    <string name="settings_account_title">가족 및 계정</string>
     <string name="settings_join_code">%1$s의 초대 코드:</string>
     <string name="settings_share_code">코드 공유</string>
-    <string name="settings_share_message">FamWake 링크는 다음과 같습니다.\nhttps://familienwecker.de/join/%2$s\n\n코드: %2$s\n그룹: %1$s\n\n클릭하고 로그인하면 연결됩니다. 함께 일어나면 더 재미있어요! ⏰❤️</string>
-    <string name="settings_leave_family">가족을 떠나다</string>
+    <string name="settings_share_message">FamWake 링크는 다음과 같습니다:\nhttps://familienwecker.de/join/%2$s\n\n코드: %2$s\n그룹: %1$s\n\n클릭하고 로그인하면 연결됩니다. 다 함께 일어나면 더 즐거워요! ⏰❤️</string>
+    <string name="settings_leave_family">가족에서 나가기</string>
     <string name="settings_delete_family">가족 삭제</string>
     <string name="settings_delete_family_dialog_title">가족을 삭제하시겠습니까?</string>
-    <string name="settings_delete_family_dialog_text">이 가족 그룹을 영구적으로 삭제하시겠습니까? 모든 구성원, 일정, 설정이 모두 삭제됩니다. 이 작업은 취소할 수 없습니다.</string>
+    <string name="settings_delete_family_dialog_text">이 가족을 영구적으로 삭제하시겠습니까? 모든 구성원, 일정 및 설정이 삭제됩니다. 이 작업은 되돌릴 수 없습니다.</string>
     <string name="settings_delete_family_dialog_confirm">삭제</string>
     <string name="settings_delete_family_dialog_cancel">취소</string>
-    <string name="settings_delete_family_warning_title">다른 멤버들도 활동 중이에요!</string>
-    <string name="settings_delete_family_warning_text">이 가족에는 아직 활동적인 다른 구성원이 있습니다. 삭제하면 모든 사람이 액세스할 수 없게 됩니다. 정말로 모든 항목을 강제로 삭제하시겠습니까?</string>
-    <string name="settings_delete_family_warning_confirm">응, 다 삭제해</string>
+    <string name="settings_delete_family_warning_title">다른 멤버들이 활동 중입니다!</string>
+    <string name="settings_delete_family_warning_text">이 가족에는 아직 활동 중인 다른 구성원이 있습니다. 삭제하면 모든 사람이 접근할 수 없게 됩니다. 정말로 모두 강제 삭제하시겠습니까?</string>
+    <string name="settings_delete_family_warning_confirm">예, 모두 삭제합니다</string>
     <string name="settings_logout">로그아웃</string>
     <string name="settings_delete_account">계정 삭제</string>
-    <string name="settings_footer_version">FamWake 가족 알람 v%1$s</string>
+    <string name="settings_footer_version">FamWake 가족 알람시계 v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">모든 권리 보유.</string>
 
-    <string name="empty_members_title">아직 회원이 없습니다.</string>
-    <string name="empty_members_description">프로필을 추가하면 기상 시간을 확인하고 서로 깨울 수 있습니다.</string>
-    <string name="empty_schedule_title">활성 알람 없음</string>
-    <string name="empty_schedule_description">현재 누구에게도 설정된 알람이 없습니다. 잠잘 시간이야!</string>
+    <string name="empty_members_title">아직 멤버가 없습니다</string>
+    <string name="empty_members_description">프로필을 추가하여 기상 시간을 확인하고 서로 깨워주세요.</string>
+    <string name="empty_schedule_title">활성화된 알람 없음</string>
+    <string name="empty_schedule_description">현재 설정된 알람이 없습니다. 푹 주무세요!</string>
 
     <string name="settings_language_title">언어</string>
     <string name="settings_language_system">시스템 기본값</string>
@@ -138,208 +138,208 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
-    <string name="settings_appearance_title">모습</string>
+    <string name="settings_appearance_title">테마</string>
     <string name="settings_display_title">앱 설정</string>
-    <string name="settings_help_feedback_title">도움말 &amp; 피드백</string>
-    <string name="settings_support_button">이메일 개발자</string>
+    <string name="settings_help_feedback_title">도움말 및 피드백</string>
+    <string name="settings_support_button">개발자에게 이메일 보내기</string>
     <string name="settings_start_onboarding">🎓 앱 둘러보기</string>
 
-    <string name="onboarding_skip">건너뛰다</string>
+    <string name="onboarding_skip">건너뛰기</string>
     <string name="onboarding_next">다음</string>
-    <string name="onboarding_done">갑시다</string>
-    <string name="onboarding_slide0_title">팀으로서 당신의 아침.</string>
-    <string name="onboarding_slide0_body">논쟁도 없고 혼란도 없습니다. FamWake는 모든 사람이 완전 자동으로 편안하게 하루를 시작할 수 있도록 해줍니다.</string>
+    <string name="onboarding_done">시작하기</string>
+    <string name="onboarding_slide0_title">가족이 함께하는 아침.</string>
+    <string name="onboarding_slide0_body">아침마다 싸울 일도, 혼란도 없습니다. FamWake가 모두의 편안한 하루 시작을 완전 자동으로 도와줍니다.</string>
     <string name="onboarding_slide1_title">더 이상 기다리지 마세요.</string>
-    <string name="onboarding_slide1_body">FamWake는 화장실, 아침 식사, 출발을 중심으로 모든 가족 구성원의 이상적인 기상 시간을 계산합니다. 더 이상 혼잡하지 않습니다.</string>
-    <string name="onboarding_slide2_title">매일이 다릅니다.</string>
-    <string name="onboarding_slide2_body">월요일 사무실, 수요일 홈 오피스? 각 요일에 대해 개별 시간을 설정하세요. 나머지는 앱이 처리합니다.</string>
-    <string name="onboarding_slide3_title">몇 초 안에 연결됩니다.</string>
-    <string name="onboarding_slide3_body">코드를 공유하면 가족이 즉시 참여할 수 있습니다. 새로운 회원이신가요? 일정은 자동으로 조정됩니다. 그리고 뭔가 변화가 생기면 모두가 즉시 알 수 있습니다.</string>
-    <string name="onboarding_slide4_title">갑시다!</string>
-    <string name="onboarding_slide4_body">지금 가족을 만들고 오프라인에서도 안정적으로 편안한 아침을 즐겨보세요.</string>
+    <string name="onboarding_slide1_body">FamWake는 화장실, 아침 식사, 외출 시간을 고려해 가족 모두의 이상적인 기상 시간을 계산합니다. 더 이상 화장실 앞에서 서성이지 마세요.</string>
+    <string name="onboarding_slide2_title">매일매일이 다릅니다.</string>
+    <string name="onboarding_slide2_body">월요일은 출근, 수요일은 재택근무이신가요? 요일별로 각각의 시간을 설정하세요. 나머지는 앱이 알아서 처리합니다.</string>
+    <string name="onboarding_slide3_title">단 몇 초 만에 연결됩니다.</string>
+    <string name="onboarding_slide3_body">코드를 공유하면 가족이 즉시 참여할 수 있습니다. 새로운 멤버가 생겼나요? 일정이 자동으로 조정됩니다. 변동 사항이 생겨도 모두가 즉시 알 수 있습니다.</string>
+    <string name="onboarding_slide4_title">시작해 볼까요!</string>
+    <string name="onboarding_slide4_body">지금 가족 그룹을 만들고 오프라인 환경에서도 안정적으로 작동하는 편안한 아침을 즐겨보세요.</string>
     
     <string name="onboarding_mock_name1">아빠</string>
     <string name="onboarding_mock_name2">엄마</string>
     <string name="onboarding_mock_family_name">김</string>
-    <string name="settings_feedback_button">의견 보내기/버그 신고</string>
+    <string name="settings_feedback_button">피드백 보내기 / 버그 신고</string>
     <string name="feedback_title">피드백</string>
-    <string name="feedback_intro">앱을 더욱 개선할 수 있도록 도와주세요! 무슨 생각을 하고 있나요?</string>
-    <string name="feedback_category_label">범주</string>
-    <string name="feedback_category_bug">버그를 발견했습니다</string>
-    <string name="feedback_category_feature">기능 요청</string>
-    <string name="feedback_category_praise">칭찬 &amp; 비판</string>
-    <string name="feedback_category_other">다른</string>
+    <string name="feedback_intro">앱을 더욱 개선할 수 있도록 도와주세요! 어떤 의견이 있으신가요?</string>
+    <string name="feedback_category_label">카테고리</string>
+    <string name="feedback_category_bug">버그 발견</string>
+    <string name="feedback_category_feature">기능 추가 요청</string>
+    <string name="feedback_category_praise">칭찬 및 건의</string>
+    <string name="feedback_category_other">기타</string>
     <string name="feedback_message_label">메시지</string>
-    <string name="feedback_message_placeholder">요청사항을 간략하게 설명해주세요…</string>
-    <string name="feedback_email_label">이메일(선택사항)</string>
-    <string name="feedback_email_placeholder">귀하의 이메일(답장할 수 있는 경우)</string>
-    <string name="feedback_auto_info_title">자동으로 포함됨:</string>
+    <string name="feedback_message_placeholder">요청 사항을 간략하게 설명해 주세요…</string>
+    <string name="feedback_email_label">이메일 (선택사항)</string>
+    <string name="feedback_email_placeholder">답변 받을 이메일 주소</string>
+    <string name="feedback_auto_info_title">자동으로 포함되는 정보:</string>
     <string name="feedback_auto_version">앱 버전: v%1$s</string>
-    <string name="feedback_auto_device">장치: %1$s</string>
+    <string name="feedback_auto_device">기기: %1$s</string>
     <string name="feedback_cancel">취소</string>
     <string name="feedback_send">피드백 보내기</string>
-    <string name="feedback_success">감사합니다! 귀하의 피드백이 접수되었으며 많은 도움이 되었습니다.</string>
-    <string name="feedback_success_title">피드백이 전송되었습니다</string>
-    <string name="feedback_success_message">피드백을 보내주셔서 감사합니다! 이는 모든 사람을 위해 FamWake를 개선하는 데 도움이 됩니다.</string>
+    <string name="feedback_success">감사합니다! 귀하의 피드백이 잘 접수되었으며 앱 개선에 큰 도움이 됩니다.</string>
+    <string name="feedback_success_title">피드백 전송 완료</string>
+    <string name="feedback_success_message">피드백을 보내주셔서 감사합니다! 모두를 위해 FamWake를 개선하는 데 큰 도움이 됩니다.</string>
     <string name="settings_terms_of_use">이용약관</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-ko.html</string>
-    <string name="settings_privacy_policy">개인 정보 보호 정책</string>
+    <string name="settings_privacy_policy">개인정보 처리방침</string>
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-ko.html</string>
-    <string name="settings_imprint">날인</string>
+    <string name="settings_imprint">회사 소개</string>
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint-ko.html</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-ko.html</string>
 
-    <string name="registration_disclaimer">가입하면 %1$s 및 %2$s에 동의하게 됩니다.</string>
+    <string name="registration_disclaimer">가입 시 %1$s 및 %2$s에 동의하는 것으로 간주됩니다.</string>
     <string name="registration_terms_of_use">이용약관</string>
-    <string name="registration_privacy_policy">개인 정보 보호 정책</string>
-    <string name="settings_already_claimed">이미 소유권이 주장됨</string>
+    <string name="registration_privacy_policy">개인정보 처리방침</string>
+    <string name="settings_already_claimed">이미 연결됨</string>
     <string name="settings_theme_light">라이트</string>
     <string name="settings_theme_dark">다크</string>
 
-    <string name="ringing_wake_up">일어나세요, %1$s!</string>
+    <string name="ringing_wake_up">일어나세요, %1$s님!</string>
     <string-array name="ringing_messages">
-        <item>이제 화장실은 모두 당신의 것입니다!</item>
-        <item>교통체증도 없고 스트레스도 없습니다. 이제 화장실 시간이 시작됩니다.</item>
-        <item>그것이 지속되는 동안 욕실에서 평화를 즐겨보세요!</item>
-        <item>첫 번째 커피를 마실 시간입니다. 세계가 기다리고 있습니다!</item>
-        <item>잘 자다? 오늘 일정이 설정되었습니다.</item>
-        <item>하루를 보낼 준비가 되셨나요? 모든 것이 조정되었습니다.</item>
-        <item>하루를 뒤흔들 시간입니다! 욕실 시간이 시작됩니다.</item>
-        <item>일어나서 볼륨을 높이세요. 무대는 바로 여러분의 것입니다!</item>
-        <item>아침의 헤비메탈이 걱정을 없애줍니다!</item>
-        <item>귀하의 일정은 실시간입니다. 갑시다!</item>
-        <item>이륙 준비가 되셨나요? 팀은 당신을 믿고 있습니다.</item>
-        <item>일어나 빛을 발하라! 화장실은 무료입니다.</item>
-        <item>개인 욕실 슬롯이 지금 시작됩니다. 중요하게 생각하세요!</item>
-        <item>화장실로 가는 명확한 경로 – 귀하의 자리는 예약되어 있습니다!</item>
-        <item>일찍 일어나는 새가 따뜻한 물을 얻습니다!</item>
-        <item>5분 더? 아니요! 귀하의 시간 창이 기다리고 있습니다.</item>
-        <item>오늘은 좋은 하루가 될 것입니다. 이제 시작됩니다!</item>
-        <item>당신의 칫솔이 당신을 그리워합니다. 화장실로 출발!</item>
-        <item>모두 조정되고 모두 계획되었습니다. 이제 성공입니다!</item>
-        <item>일찍 일어나는 새는 화장실을 혼자 사용합니다.</item>
+        <item>지금은 당신 혼자 화장실을 쓸 수 있습니다!</item>
+        <item>눈치 볼 필요 없이 여유롭게 – 당신의 화장실 시간이 시작되었습니다.</item>
+        <item>아무도 방해하지 않는 화장실에서의 평화를 즐기세요!</item>
+        <item>첫 모닝 커피를 마실 시간입니다. 세상이 당신을 기다리고 있습니다!</item>
+        <item>잘 잤나요? 오늘의 일정이 준비되었습니다.</item>
+        <item>오늘 하루를 시작할 준비가 되셨나요? 모든 일정이 완벽하게 맞춰져 있습니다.</item>
+        <item>오늘 하루를 힘차게 시작할 시간입니다! 화장실 사용 시간이 시작되었습니다.</item>
+        <item>일어나세요! 지금부터는 당신의 시간입니다!</item>
+        <item>아침의 헤비메탈이 하루의 걱정을 날려줍니다!</item>
+        <item>당신의 일정이 시작되었습니다. 출발해 볼까요!</item>
+        <item>출발 준비 되셨나요? 가족들이 당신을 기다리고 있습니다.</item>
+        <item>일어나세요! 지금 화장실이 비어 있습니다.</item>
+        <item>당신만의 화장실 시간이 시작되었습니다 - 알차게 보내세요!</item>
+        <item>화장실로 가는 길이 열렸습니다 – 당신의 순서입니다!</item>
+        <item>일찍 일어나는 새가 따뜻한 물을 씁니다!</item>
+        <item>5분만 더? 안 돼요! 당신의 시간이 흘러가고 있습니다.</item>
+        <item>오늘은 좋은 하루가 될 것입니다. 이제 시작합니다!</item>
+        <item>당신의 칫솔이 기다리고 있습니다. 화장실로 출발!</item>
+        <item>모든 것이 완벽하게 계획되었습니다 - 이제 당신 차례입니다!</item>
+        <item>일찍 일어나는 사람이 화장실을 독차지합니다.</item>
     </string-array>
     <string name="ringing_stop">알람 중지</string>
-    <string name="ringing_snooze">다시 알림(5분)</string>
-    <string name="pause_today_desc">오늘 일시중지</string>
-    <string name="awake_today_desc">이미 깨어났어</string>
-    <string name="awake_active_desc">이미 깨어났어</string>
+    <string name="ringing_snooze">스누즈 (5분)</string>
+    <string name="pause_today_desc">오늘 하루 건너뛰기</string>
+    <string name="awake_today_desc">이미 일어났음</string>
+    <string name="awake_active_desc">이미 일어났음</string>
 
-    <string name="error_load_members">회원을 로드하는 중에 오류가 발생했습니다.</string>
+    <string name="error_load_members">멤버를 불러오는 중 오류가 발생했습니다.</string>
     <string name="error_create_family">가족 생성 중 오류 발생: %1$s</string>
-    <string name="error_create_family_rate_limit">지난 한 시간 동안 이미 가족 3개를 만들었습니다. 한 시간 정도 기다린 후 다시 시도해 주세요.</string>
-    <string name="error_join_family_rate_limit">조인 시도 횟수가 너무 많습니다(분당 최대 5회). 잠시 후에 다시 시도해 주세요.</string>
+    <string name="error_create_family_rate_limit">지난 1시간 동안 이미 3개의 가족 그룹을 만들었습니다. 1시간 후에 다시 시도해 주세요.</string>
+    <string name="error_join_family_rate_limit">참여 시도가 너무 많습니다 (분당 최대 5회). 잠시 후 다시 시도해 주세요.</string>
     <string name="error_invalid_code">잘못된 초대 코드: %1$s</string>
-    <string name="error_family_not_found">이 코드에서는 가족을 찾을 수 없습니다.</string>
+    <string name="error_family_not_found">이 코드에 해당하는 가족을 찾을 수 없습니다.</string>
     <string name="error_code_generation_failed">고유 코드를 생성할 수 없습니다. 다시 시도해 주세요.</string>
-    <string name="join_conflict_title">새로운 가족에 합류하시겠습니까?</string>
-    <string name="join_conflict_text">귀하는 이미 \"%1$s\" 가족의 구성원입니다. 새 가족에 가입하려면 먼저 현재 가족에서 탈퇴해야 합니다. \"%1$s\"에서 탈퇴하고 %2$s 코드로 참여하시겠습니까?</string>
-    <string name="join_conflict_confirm">나가기 &amp; 가입</string>
-    <string name="error_delete_member">회원을 삭제할 수 없습니다: %1$s</string>
+    <string name="join_conflict_title">새로운 가족에 참여하시겠습니까?</string>
+    <string name="join_conflict_text">당신은 이미 \"%1$s\" 가족의 멤버입니다. 새 가족에 참여하려면 먼저 현재 가족에서 나가야 합니다. \"%1$s\"에서 나가고 %2$s 코드로 참여하시겠습니까?</string>
+    <string name="join_conflict_confirm">나가기 및 참여</string>
+    <string name="error_delete_member">멤버를 삭제할 수 없습니다: %1$s</string>
     <string name="error_sync_failed">동기화 실패</string>
     <string name="error_delete_family">가족 삭제 오류: %1$s</string>
     <string name="error_calculate_schedule">일정 계산 오류: %1$s</string>
-    <string name="error_not_logged_in">사용자가 로그인하지 않았습니다.</string>
+    <string name="error_not_logged_in">로그인되어 있지 않습니다.</string>
     <string name="error_system">시스템 오류</string>
-    <string name="error_invalid_credentials">이메일이나 비밀번호가 잘못되었습니다. 입력 내용을 확인하세요.</string>
+    <string name="error_invalid_credentials">이메일이나 비밀번호가 잘못되었습니다. 입력 내용을 확인해 주세요.</string>
     <string name="error_login_failed">로그인 실패</string>
     <string name="error_login_failed_unknown">알 수 없는 로그인 오류</string>
-    <string name="error_registration_failed">등록 실패</string>
+    <string name="error_registration_failed">가입 실패</string>
     <string name="error_registration_failed_unknown">사용자를 생성할 수 없습니다.</string>
     <string name="error_unknown">알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.</string>
-    <string name="error_google_sign_in_failed_unknown">구글 로그인 실패</string>
-    <string name="error_empty_email">이메일 주소를 입력해주세요.</string>
-    <string name="error_invalid_email">이메일 주소가 잘못되었습니다. 철자를 확인해주세요.</string>
-    <string name="error_user_not_found">이 이메일에 대한 계정을 찾을 수 없습니다.</string>
-    <string name="error_too_many_requests">시도 횟수가 너무 많습니다. 잠시 후에 다시 시도해 주세요.</string>
+    <string name="error_google_sign_in_failed_unknown">Google 로그인 실패</string>
+    <string name="error_empty_email">이메일 주소를 입력해 주세요.</string>
+    <string name="error_invalid_email">잘못된 이메일 주소입니다. 철자를 확인해 주세요.</string>
+    <string name="error_user_not_found">이 이메일에 해당하는 계정을 찾을 수 없습니다.</string>
+    <string name="error_too_many_requests">시도 횟수가 너무 많습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="error_password_reset_failed">비밀번호 재설정에 실패했습니다. 나중에 다시 시도해 주세요.</string>
     <string name="error_profile_taken">이미 사용 중인 프로필입니다.</string>
-    <string name="error_profile_claim_offline">연결이 없습니다. 프로필을 선택하려면 인터넷 접속이 필요합니다.</string>
-    <string name="error_delete_not_admin">가족 작성자만 가족을 삭제할 수 있습니다.</string>
+    <string name="error_profile_claim_offline">인터넷에 연결되어 있지 않습니다. 프로필을 선택하려면 인터넷 연결이 필요합니다.</string>
+    <string name="error_delete_not_admin">가족을 만든 사람만 가족을 삭제할 수 있습니다.</string>
 
-    <string name="alarm_default_member">가족 구성원</string>
-    <string name="alarm_notification_title">가족 알람이 울리고 있어요</string>
-    <string name="alarm_notification_text">좋은 아침입니다, %1$s!</string>
-    <string name="alarm_channel_name">경보</string>
+    <string name="alarm_default_member">가족 멤버</string>
+    <string name="alarm_notification_title">가족 알람이 울리고 있습니다</string>
+    <string name="alarm_notification_text">좋은 아침입니다, %1$s님!</string>
+    <string name="alarm_channel_name">알람</string>
 
-    <string name="settings_fallback_username">조상</string>
+    <string name="settings_fallback_username">부모님</string>
 
-    <string name="error_alarm_permission">가족 알람이 제 시간에 울릴 수 있도록 시스템 설정에서 정확한 알람을 허용해 주세요.</string>
+    <string name="error_alarm_permission">가족 알람이 제시간에 울릴 수 있도록 시스템 설정에서 정확한 알람 권한을 허용해 주세요.</string>
 
     <string name="permission_fullscreen_title">알람 권한이 필요합니다</string>
     <string name="permission_fullscreen_message">FamWake가 잠금 화면에 알람을 표시하려면 권한이 필요합니다. 시스템 설정에서 이를 허용해 주세요.</string>
     <string name="permission_fullscreen_open">설정 열기</string>
 
-    <string name="schedule_message_optimal">계산된 일정은 다음과 같습니다.</string>
-    <string name="schedule_message_no_members">활동 중인 회원이 없습니다. 모두가 일시중지되었습니다.</string>
-    <string name="schedule_message_no_valid">유효한 일정을 찾을 수 없습니다. 시대가 너무 겹친다.</string>
-    <string name="schedule_message_no_valid_desc">팁: 깨우기 시간을 넓히고, 화장실 사용 시간을 줄이거나, 다른 회원을 일시 중지하세요.</string>
-    <string name="schedule_message_time_adjusted">주문에 맞게 시간이 %1$d분 조정되었습니다.</string>
-    <string name="schedule_message_breakfast_reduced">일정에 맞게 아침 식사를 %1$d분 단축했습니다.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">아침 식사 −%1$d분 &amp;번 %2$d분 이동.</string>
-    <string name="schedule_message_member_conflict">%1$s에 대한 충돌: 시간이 너무 많이 겹칩니다.</string>
+    <string name="schedule_message_optimal">계산된 일정은 다음과 같습니다:</string>
+    <string name="schedule_message_no_members">활동 중인 멤버가 없습니다. 모두 알람이 일시 정지되었습니다.</string>
+    <string name="schedule_message_no_valid">유효한 일정을 찾을 수 없습니다. 시간이 너무 많이 겹칩니다.</string>
+    <string name="schedule_message_no_valid_desc">팁: 기상 시간 범위를 늘리거나, 화장실 사용 시간을 줄이거나, 다른 멤버의 알람을 일시 정지하세요.</string>
+    <string name="schedule_message_time_adjusted">순서에 맞게 시간이 %1$d분 조정되었습니다.</string>
+    <string name="schedule_message_breakfast_reduced">일정에 맞게 아침 식사 시간이 %1$d분 단축되었습니다.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">아침 식사 −%1$d분 및 시간 %2$d분 이동됨.</string>
+    <string name="schedule_message_member_conflict">%1$s님의 일정 충돌: 시간이 너무 많이 겹칩니다.</string>
     <string name="schedule_message_member_conflict_desc">순서를 바꾸거나 시간을 조정해 보세요.</string>
-    <string name="main_fallback_alarm_active">⚠️ 대체 경보가 활성화되었습니다(%1$s). 일정을 수정해주세요!</string>
+    <string name="main_fallback_alarm_active">⚠️ 기본 알람이 활성화되었습니다(%1$s). 일정을 수정해 주세요!</string>
 
     <string name="error_password_too_short">비밀번호는 8자 이상이어야 합니다.</string>
     <string name="error_email_already_in_use">이 이메일 주소는 이미 다른 계정에서 사용 중입니다.</string>
-    <string name="error_weak_password">비밀번호가 너무 취약합니다. 8자 이상, 특수문자를 사용해주세요.</string>
-    <string name="login_verify_email_title">✉️ 이메일을 확인하세요</string>
-    <string name="login_verify_email_text">확인 이메일을\n%1$s로 보냈습니다.\n계정을 활성화하려면 이메일에 있는 링크를 클릭하세요.</string>
-    <string name="login_verify_email_confirm">확인했습니다 ✓</string>
-    <string name="login_verify_email_resend">이메일 재전송</string>
-    <string name="login_verify_email_not_verified">이메일이 아직 확인되지 않았습니다. 받은 편지함을 확인하세요.</string>
+    <string name="error_weak_password">비밀번호가 너무 취약합니다. 8자 이상, 특수문자를 포함해 주세요.</string>
+    <string name="login_verify_email_title">✉️ 이메일을 확인해 주세요</string>
+    <string name="login_verify_email_text">확인 이메일을\n%1$s\n(으)로 보냈습니다.\n계정을 활성화하려면 이메일에 있는 링크를 클릭하세요.</string>
+    <string name="login_verify_email_confirm">확인 완료 ✓</string>
+    <string name="login_verify_email_resend">이메일 다시 보내기</string>
+    <string name="login_verify_email_not_verified">이메일이 아직 확인되지 않았습니다. 메일함을 확인해 주세요.</string>
 
-    <string name="tooltip_awake_button">일찍 일어났나요? 오늘의 알람을 중지하려면 여기를 탭하세요. 욕실 시간은 가족을 위해 예약되어 있습니다.</string>
-    <string name="tooltip_drag_handle">타일을 누르고 드래그하여 가족의 기상 순서를 수동으로 변경할 수 있습니다. 알고리즘은 즉시 다시 계산됩니다.</string>
-    <string name="tooltip_wake_window">우리에게 시간 창을 제공합니다. 이 앱은 그 안에서 완벽한 순간을 찾아주므로 아무도 화장실에 갈 때까지 기다릴 필요가 없습니다.</string>
-    <string name="tooltip_bathroom">이것을 현실적으로 계획하십시오. 화장실에 가는 시간에 따라 온 가족의 아침 시간이 결정됩니다.</string>
-    <string name="tooltip_invite_code">이 코드를 가족과 공유하세요. 일단 참여하면 일정에 자동으로 표시됩니다.</string>
-    <string name="tooltip_alarm_switch">알람을 끄면 전화기가 무음이 될 뿐만 아니라 알고리즘이 온 가족의 아침 시간을 즉시 다시 계산하여 모두가 조금 더 자거나 화장실에 더 빨리 갈 수 있도록 해줍니다.</string>
-    <string name="tooltip_weekdays">일주일 전체를 계획하세요. 개별 평일을 탭하여 특정 기상 시간 및 화장실 시간을 설정하세요. 홈 오피스와 사무실 근무일을 전환하는 데 적합합니다.</string>
-    <string name="settings_tooltips_title">팁 &amp; 힌트</string>
+    <string name="tooltip_awake_button">일찍 일어났나요? 여기를 탭하여 오늘 알람을 중지하세요. 화장실 사용 시간은 그대로 유지됩니다.</string>
+    <string name="tooltip_drag_handle">타일을 길게 누른 후 드래그하여 가족의 기상 순서를 수동으로 변경할 수 있습니다. 알고리즘이 즉시 다시 계산합니다.</string>
+    <string name="tooltip_wake_window">시간 범위를 설정해 주세요. 앱이 그 안에서 아무도 화장실을 기다리지 않아도 될 완벽한 타이밍을 찾아냅니다.</string>
+    <string name="tooltip_bathroom">이를 현실적으로 계획해 보세요. 화장실 사용 시간이 온 가족의 아침 페이스를 결정합니다.</string>
+    <string name="tooltip_invite_code">이 코드를 가족과 공유하세요. 참여하는 즉시 일정에 자동으로 나타납니다.</string>
+    <string name="tooltip_alarm_switch">알람을 끄면 휴대폰이 울리지 않을 뿐만 아니라, 앱이 온 가족의 아침 일정을 즉시 다시 계산하여 다른 사람들이 조금 더 자거나 화장실을 더 빨리 이용할 수 있게 합니다.</string>
+    <string name="tooltip_weekdays">일주일 전체 일정을 계획하세요: 요일을 탭하여 특정 기상 시간과 화장실 시간을 설정하세요. 재택근무와 출근 날을 전환하는 데 완벽합니다.</string>
+    <string name="settings_tooltips_title">팁 및 힌트</string>
     <string name="settings_tooltips_label">유용한 팁 표시</string>
-    <string name="settings_tooltips_reset">모든 팁 재설정</string>
+    <string name="settings_tooltips_reset">모든 팁 초기화</string>
     <string name="settings_push_title">알림</string>
     <string name="settings_push_label">푸시 알림 받기</string>
-    <string name="settings_support_title">앱 지원</string>
-    <string name="settings_support_desc">앱이 마음에 드시나요? 여러분의 지원에 감사드립니다!</string>
-    <string name="settings_support_donate">기부</string>
-    <string name="settings_donate_success">귀하의 지원에 진심으로 감사드립니다! ❤️</string>
+    <string name="settings_support_title">앱 후원하기</string>
+    <string name="settings_support_desc">앱이 마음에 드시나요? 여러분의 후원에 감사드립니다!</string>
+    <string name="settings_support_donate">후원하기</string>
+    <string name="settings_donate_success">후원해 주셔서 진심으로 감사드립니다! ❤️</string>
     <string name="settings_donate_error">이런, 문제가 발생했습니다.</string>
-    <string name="settings_donate_loading">쿠폰 로드 중…</string>
-    <string name="settings_donate_no_offers">사용 가능한 쿠폰이 없습니다. RevenueCat에 \"현재 제공 항목\"이 설정되어 있는지 확인하세요.</string>
-    <string name="settings_donate_purchase_loading">기부 처리 중…</string>
-    <string name="settings_donate_error_not_allowed">기기 또는 사용자가 구매할 수 없습니다.</string>
+    <string name="settings_donate_loading">상품 불러오는 중…</string>
+    <string name="settings_donate_no_offers">이용 가능한 상품이 없습니다. RevenueCat에 \'Current Offering\'이 설정되어 있는지 확인하세요.</string>
+    <string name="settings_donate_purchase_loading">후원 처리 중…</string>
+    <string name="settings_donate_error_not_allowed">해당 기기 또는 사용자는 결제 권한이 없습니다.</string>
     <string name="settings_donate_error_store_problem">Google Play 스토어에 문제가 발생했습니다.</string>
-    <string name="settings_donate_error_already_purchased">이 제품은 이미 구매되었습니다.</string>
-    <string name="settings_donate_error_invalid">구매가 유효하지 않습니다.</string>
-    <string name="settings_donate_error_generic">기부 진행 중 오류가 발생했습니다.</string>
+    <string name="settings_donate_error_already_purchased">이미 구매한 상품입니다.</string>
+    <string name="settings_donate_error_invalid">잘못된 구매입니다.</string>
+    <string name="settings_donate_error_generic">후원 처리 중 오류가 발생했습니다.</string>
 
-    <string name="error_permission_denied">접근 불가</string>
-    <string name="error_offline">인터넷에 연결되어 있지 않음</string>
+    <string name="error_permission_denied">접근이 거부되었습니다.</string>
+    <string name="error_offline">인터넷 연결 없음</string>
     <string name="error_report_failed">신고 실패</string>
-    <string name="error_leave_failed">가족을 탈퇴하지 못했습니다.</string>
+    <string name="error_leave_failed">가족에서 나가지 못했습니다.</string>
     <string name="error_revenuecat_not_configured">RevenueCat이 구성되지 않았습니다.</string>
-    <string name="default_someone">누구</string>
+    <string name="default_someone">누군가</string>
     <string name="error_label">오류</string>
-    <string name="offline_write_hint">연결이 없습니다. 다시 온라인 상태가 되는 즉시 변경사항이 동기화됩니다.</string>
+    <string name="offline_write_hint">인터넷에 연결되어 있지 않습니다. 다시 온라인 상태가 되면 변경사항이 동기화됩니다.</string>
     <string name="password_show">비밀번호 표시</string>
     <string name="password_hide">비밀번호 숨기기</string>
-    <string name="close_desc">닫다</string>
+    <string name="close_desc">닫기</string>
 
-    <string name="settings_exact_alarm_warning_title">알람 권한이 누락되었습니다.</string>
-    <string name="settings_exact_alarm_warning_text">Android는 정확한 알람이 울리는 것을 방지합니다. FamWake가 알람 &amp; 알림을 예약하도록 허용하세요.</string>
+    <string name="settings_exact_alarm_warning_title">알람 권한이 없습니다.</string>
+    <string name="settings_exact_alarm_warning_text">Android에서 정확한 알람이 울리는 것을 차단하고 있습니다. FamWake가 알람 및 미리 알림을 설정할 수 있도록 허용해 주세요.</string>
     <string name="settings_exact_alarm_warning_button">알람 허용</string>
-    <string name="main_exact_alarm_banner">⚠️ 알람이 차단되었습니다! 알람이 제 시간에 울릴 수 있도록 설정에서 알람 권한을 부여해 주세요.</string>
-    <string name="error_offline_feedback">귀하는 오프라인 상태입니다. 연결을 확인하고 다시 시도해 주세요.</string>
+    <string name="main_exact_alarm_banner">⚠️ 알람이 차단되었습니다! 제시간에 알람이 울릴 수 있도록 설정에서 알람 권한을 허용해 주세요.</string>
+    <string name="error_offline_feedback">인터넷에 연결되어 있지 않습니다. 연결을 확인하고 다시 시도해 주세요.</string>
     <string name="error_sync_blocked_device">이 기기에서는 동기화를 사용할 수 없습니다.</string>
-    <string name="error_feedback_rate_limit">다른 메시지를 보내기 전에 %1$s초 동안 기다리십시오.</string>
+    <string name="error_feedback_rate_limit">다음 메시지를 보내려면 %1$s초를 기다려 주세요.</string>
     <string name="error_feedback_rate_limit_server">요청이 너무 많습니다. 나중에 다시 시도해 주세요.</string>
     <string name="error_feedback_empty_message">메시지는 비워둘 수 없습니다.</string>
-    <string name="error_network">네트워크 오류입니다. 인터넷 연결을 확인하세요.</string>
+    <string name="error_network">네트워크 오류. 인터넷 연결을 확인해 주세요.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -348,27 +348,27 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="tooltip_alarm_sound">개인 모닝콜 사운드를 선택하려면 여기를 탭하세요. 기본 알람 대신 좋아하는 벨소리를 선택하세요.</string>
-    <string name="settings_language_dialects">Dialects</string>
+    <string name="tooltip_alarm_sound">기본 알람 대신 좋아하는 음악을 선택하려면 여기를 탭하여 개인 알람 소리를 설정하세요.</string>
+    <string name="settings_language_dialects">사투리</string>
 
     
     <string name="notif_channel_schedule_change_name">일정 변경</string>
-    <string name="notif_channel_schedule_change_desc">기상 시간이나 화장실 순서가 변경되면 알려줍니다.</string>
-    <string name="notif_channel_family_events_name">가족행사</string>
-    <string name="notif_channel_family_events_desc">구성원이 가족에 가입하거나 탈퇴할 때 알림</string>
+    <string name="notif_channel_schedule_change_desc">기상 시간이나 화장실 순서가 변경되면 알림을 보냅니다.</string>
+    <string name="notif_channel_family_events_name">가족 이벤트</string>
+    <string name="notif_channel_family_events_desc">가족 멤버가 들어오거나 나갈 때 알림을 보냅니다.</string>
 
     
-    <string name="notif_schedule_changed_title">FamWake: 일정이 업데이트되었습니다.</string>
-    <string name="notif_schedule_changed_body">알람 시간이 조정되었습니다. 앱을 열어 새로운 기상 시간을 확인하세요.</string>
-    <string name="notif_member_joined_title">FamWake: 새로운 가족 구성원!</string>
-    <string name="notif_member_joined_body">새로운 구성원이 귀하의 가족에 합류했습니다.</string>
+    <string name="notif_schedule_changed_title">FamWake: 일정이 업데이트되었습니다</string>
+    <string name="notif_schedule_changed_body">알람 시간이 변경되었습니다. 앱을 열어 새로운 기상 시간을 확인하세요.</string>
+    <string name="notif_member_joined_title">FamWake: 새로운 가족 멤버!</string>
+    <string name="notif_member_joined_body">새로운 멤버가 가족에 합류했습니다.</string>
     <string name="notif_member_left_title">FamWake: 가족 업데이트</string>
-    <string name="notif_member_left_body">구성원이 가족을 떠났습니다.</string>
+    <string name="notif_member_left_body">멤버가 가족에서 나갔습니다.</string>
 
     
-    <string name="notif_permission_title">알림이 필요합니다</string>
-    <string name="notif_permission_desc">알림이 없으면 알람이 울리지 않을 수 있습니다. 안정적인 알람을 위해 활성화해 주세요.</string>
-    <string name="notif_permission_button">알림 활성화</string>
+    <string name="notif_permission_title">알림 권한 필요</string>
+    <string name="notif_permission_desc">알림이 없으면 알람이 울리지 않을 수 있습니다. 안정적인 알람을 위해 알림을 켜주세요.</string>
+    <string name="notif_permission_button">알림 켜기</string>
     <string name="notif_manage_title">알림 관리</string>
-    <string name="notif_manage_desc">시스템 설정에서 소리, 진동 및 기타 알림 기본 설정을 변경하세요.</string>
+    <string name="notif_manage_desc">시스템 설정에서 소리, 진동 및 기타 알림 설정을 변경합니다.</string>
 </resources>
