@@ -14,7 +14,7 @@
 
     <string name="setup_create_tab">Tạo</string>
     <string name="setup_join_tab">Tham gia</string>
-    <string name="setup_family_name">Họ (ví dụ: Gia đình Smith)</string>
+    <string name="setup_family_name">Tên gia đình (ví dụ: Gia đình Nguyễn)</string>
     <string name="setup_create_button">Tạo gia đình</string>
     <string name="setup_join_code_label">Mã mời gồm 6 chữ số</string>
     <string name="setup_join_code_placeholder">ABC123</string>
@@ -24,25 +24,25 @@
     <string name="main_add_member_desc">Thêm thành viên</string>
     <string name="main_family_members">Thành viên gia đình</string>
     <string name="main_current_schedule">Lịch trình hiện tại</string>
-    <string name="main_no_active_schedule">Không có lịch trình báo động hoạt động.</string>
+    <string name="main_no_active_schedule">Không có lịch trình báo thức nào đang hoạt động.</string>
     <string name="main_optimal_plan">Đây là lịch trình được tính toán:</string>
     <string name="main_plan_paused">Báo thức của bạn hiện đang bị tạm dừng.</string>
     <string name="main_shared_breakfast">☕ Ăn sáng chung: %s</string>
     <string name="main_wake_time">Thức dậy: %1$s - %2$s</string>
     <string name="main_bathroom_info">Phòng tắm: %1$s phút | Bữa sáng: %2$s</string>
     <string name="main_schedule_bathroom">Phòng tắm: %1$s đến %2$s</string>
-    <string name="main_schedule_leave">Bỏ nhà đi: %1$s</string>
-    <string name="main_member_alarm_on">(Báo động đang hoạt động)</string>
-    <string name="main_member_alarm_off">(Không có báo động)</string>
-    <string name="main_member_limit_reached">Đã đạt tối đa 6 thành viên.</string>
+    <string name="main_schedule_leave">Rời khỏi nhà: %1$s</string>
+    <string name="main_member_alarm_on">(Báo thức đang bật)</string>
+    <string name="main_member_alarm_off">(Không có báo thức)</string>
+    <string name="main_member_limit_reached">Đã đạt mức tối đa 6 thành viên.</string>
     <string name="main_alarm_enabled">Báo thức: BẬT</string>
-    <string name="main_alarm_enabled_desc">Báo động tự động đang hoạt động.</string>
-    <string name="main_snooze_active">Báo lại hoạt động cho đến %1$s</string>
-    <string name="main_alarm_disabled">Báo động: TẮT</string>
-    <string name="main_alarm_disabled_desc">Tạm dừng thủ công đang hoạt động.</string>
+    <string name="main_alarm_enabled_desc">Báo thức tự động đang hoạt động.</string>
+    <string name="main_snooze_active">Báo lại đang hoạt động đến %1$s</string>
+    <string name="main_alarm_disabled">Báo thức: TẮT</string>
+    <string name="main_alarm_disabled_desc">Đang tạm dừng thủ công.</string>
     <string name="main_no_profile_warning">Không có hồ sơ nào được chọn!</string>
     <string name="main_no_profile_warning_desc">Vui lòng chọn hồ sơ của bạn trong cài đặt để báo thức có thể đổ chuông cho bạn.</string>
-    <string name="main_unclaimed_first_title">Đối với %1$s, sẽ không có chuông báo nào vang lên!</string>
+    <string name="main_unclaimed_first_title">Đối với %1$s, sẽ không có chuông báo thức nào vang lên!</string>
     <string name="main_unclaimed_first_desc">%1$s xếp hàng đầu tiên nhưng không có hồ sơ riêng – và có thể không thức dậy kịp thời.</string>
     <string name="yes">Có</string>
     <string name="no">Không</string>
@@ -53,51 +53,51 @@
     <string name="back_desc">Quay lại</string>
     <string name="unsaved_changes_title">Những thay đổi chưa được lưu</string>
     <string name="unsaved_changes_message">Bạn có muốn hủy các thay đổi của mình không?</string>
-    <string name="unsaved_changes_discard">Loại bỏ</string>
+    <string name="unsaved_changes_discard">Hủy bỏ</string>
     <string name="unsaved_changes_keep">Tiếp tục chỉnh sửa</string>
     <string name="add_member_submit">Lưu</string>
     <string name="delete_member_title">Xóa thành viên</string>
-    <string name="delete_member_text">Bạn có chắc chắn muốn xóa %1$s khỏi nhóm không?</string>
+    <string name="delete_member_text">Bạn có chắc chắn muốn xóa %1$s khỏi gia đình không?</string>
     <string name="delete_confirm">Xóa</string>
     <string name="cancel_button">Hủy</string>
     <string name="retry_button">Thử lại</string>
     <string name="add_member_name_label">Tên (ví dụ: Mẹ, Bố, Con)</string>
     <string name="add_member_unknown">Không rõ</string>
     <string name="add_member_earliest_wake">Thời gian thức dậy sớm nhất</string>
-    <string name="add_member_latest_wake">Thời gian thức dậy mới nhất</string>
-    <string name="add_member_bathroom_duration">Thời lượng phòng tắm (phút)</string>
-    <string name="add_member_wants_breakfast">Có bữa sáng</string>
+    <string name="add_member_latest_wake">Thời gian thức dậy muộn nhất</string>
+    <string name="add_member_bathroom_duration">Thời gian sử dụng phòng tắm (phút)</string>
+    <string name="add_member_wants_breakfast">Có ăn sáng</string>
     <string name="add_member_leave_home">Rời khỏi nhà lúc</string>
     <string name="add_member_day_profiles_title">Lịch trình hàng tuần</string>
-    <string name="add_member_day_active">Báo động đang hoạt động</string>
-    <string name="add_member_copy_to_days">Sao chép \"%1$s\" sang ngày khác</string>
-    <string name="add_member_copy_dialog_title">Sao chép sang ngày</string>
+    <string name="add_member_day_active">Báo thức đang hoạt động</string>
+    <string name="add_member_copy_to_days">Sao chép \"%1$s\" sang các ngày khác</string>
+    <string name="add_member_copy_dialog_title">Sao chép sang các ngày</string>
     <string name="add_member_copy_apply">Áp dụng</string>
     <string name="validation_latest_before_earliest">Thời gian thức dậy muộn nhất phải sau thời gian thức dậy sớm nhất</string>
-    <string name="validation_leave_too_early">Thời gian ra khỏi nhà phải sau thời gian đi vệ sinh (Thời gian thức + Thời gian đi vệ sinh)</string>
-    <string name="weekday_1">Thứ hai</string>
+    <string name="validation_leave_too_early">Thời gian rời khỏi nhà phải sau thời gian dùng phòng tắm (Giờ thức dậy + Thời gian dùng phòng tắm)</string>
+    <string name="weekday_1">Thứ Hai</string>
     <string name="weekday_2">Thứ Ba</string>
     <string name="weekday_3">Thứ Tư</string>
-    <string name="weekday_4">Thứ năm</string>
+    <string name="weekday_4">Thứ Năm</string>
     <string name="weekday_5">Thứ Sáu</string>
-    <string name="weekday_6">Thứ bảy</string>
+    <string name="weekday_6">Thứ Bảy</string>
     <string name="weekday_7">Chủ Nhật</string>
-    <string name="weekday_short_1">Môn</string>
-    <string name="weekday_short_2">Thứ ba</string>
-    <string name="weekday_short_3">Thứ Tư</string>
-    <string name="weekday_short_4">Thu</string>
-    <string name="weekday_short_5">Thứ Sáu</string>
-    <string name="weekday_short_6">Thứ bảy</string>
-    <string name="weekday_short_7">Mặt Trời</string>
+    <string name="weekday_short_1">T2</string>
+    <string name="weekday_short_2">T3</string>
+    <string name="weekday_short_3">T4</string>
+    <string name="weekday_short_4">T5</string>
+    <string name="weekday_short_5">T6</string>
+    <string name="weekday_short_6">T7</string>
+    <string name="weekday_short_7">CN</string>
 
     <string name="settings_title">Cài đặt</string>
     <string name="settings_profile_title">Hồ sơ của tôi</string>
-    <string name="settings_profile_desc">Điện thoại của bạn sẽ chỉ đổ chuông vào thời điểm đánh thức cấu hình được chọn ở đây.</string>
-    <string name="settings_please_select">Hãy chọn</string>
+    <string name="settings_profile_desc">Điện thoại của bạn sẽ chỉ đổ chuông vào thời gian thức dậy của cấu hình được chọn ở đây.</string>
+    <string name="settings_please_select">Vui lòng chọn</string>
     <string name="settings_no_members">Không tìm thấy thành viên nào</string>
-    <string name="settings_alarm_title">Âm thanh báo động</string>
-    <string name="settings_battery_warning_title">Tối ưu hóa pin đang hoạt động</string>
-    <string name="settings_battery_warning_text">Báo thức có thể bị trì hoãn hoặc bị chặn. Vui lòng tắt tính năng tối ưu hóa pin cho FamWake.</string>
+    <string name="settings_alarm_title">Âm báo thức</string>
+    <string name="settings_battery_warning_title">Đang bật tối ưu hóa pin</string>
+    <string name="settings_battery_warning_text">Báo thức có thể bị trễ hoặc bị chặn. Vui lòng tắt tính năng tối ưu hóa pin cho FamWake.</string>
     <string name="settings_battery_warning_button">Sửa ngay</string>
     <string name="settings_alarm_default">Mặc định</string>
     <string name="settings_alarm_select">Chọn âm thanh: %1$s</string>
@@ -105,15 +105,15 @@
     <string name="settings_account_title">Gia đình &amp; Tài khoản</string>
     <string name="settings_join_code">Mã mời cho %1$s:</string>
     <string name="settings_share_code">Chia sẻ mã</string>
-    <string name="settings_share_message">Đây là liên kết FamWake của bạn:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGroup: %1$s\n\nChỉ cần nhấp chuột, đăng nhập và chúng ta\'đã kết nối lại. Thức dậy cùng nhau sẽ vui hơn! ⏰❤️</string>
-    <string name="settings_leave_family">Rời bỏ gia đình</string>
+    <string name="settings_share_message">Đây là liên kết FamWake của bạn:\nhttps://familienwecker.de/join/%2$s\n\nMã: %2$s\nNhóm: %1$s\n\nChỉ cần nhấp chuột, đăng nhập và chúng ta đã kết nối. Cùng nhau thức dậy sẽ vui hơn! ⏰❤️</string>
+    <string name="settings_leave_family">Rời khỏi gia đình</string>
     <string name="settings_delete_family">Xóa gia đình</string>
     <string name="settings_delete_family_dialog_title">Xóa gia đình?</string>
-    <string name="settings_delete_family_dialog_text">Bạn có chắc chắn muốn xóa vĩnh viễn gia đình này không? Tất cả thành viên, lịch trình và cài đặt sẽ bị xóa đối với mọi người. Điều này không thể hoàn tác được.</string>
+    <string name="settings_delete_family_dialog_text">Bạn có chắc chắn muốn xóa vĩnh viễn gia đình này không? Tất cả thành viên, lịch trình và cài đặt sẽ bị xóa đối với mọi người. Thao tác này không thể hoàn tác.</string>
     <string name="settings_delete_family_dialog_confirm">Xóa</string>
     <string name="settings_delete_family_dialog_cancel">Hủy</string>
     <string name="settings_delete_family_warning_title">Các thành viên khác đang hoạt động!</string>
-    <string name="settings_delete_family_warning_text">Vẫn còn những thành viên tích cực khác trong gia đình này. Nếu bạn xóa nó, mọi người sẽ mất quyền truy cập. Bạn có thực sự muốn buộc xóa mọi thứ?</string>
+    <string name="settings_delete_family_warning_text">Vẫn còn những thành viên đang hoạt động khác trong gia đình này. Nếu bạn xóa nó, mọi người sẽ mất quyền truy cập. Bạn có thực sự muốn xóa mọi thứ không?</string>
     <string name="settings_delete_family_warning_confirm">Có, xóa mọi thứ</string>
     <string name="settings_logout">Đăng xuất</string>
     <string name="settings_delete_account">Xóa tài khoản</string>
@@ -121,208 +121,208 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Mọi quyền được bảo lưu.</string>
 
-    <string name="empty_members_title">Chưa có thành viên</string>
-    <string name="empty_members_description">Thêm hồ sơ để xem thời gian thức dậy của bạn và đánh thức nhau.</string>
-    <string name="empty_schedule_title">Không có báo động nào đang hoạt động</string>
-    <string name="empty_schedule_description">Hiện tại, không có báo thức nào được đặt cho bất kỳ ai. Đến giờ đi ngủ rồi!</string>
+    <string name="empty_members_title">Chưa có thành viên nào</string>
+    <string name="empty_members_description">Thêm hồ sơ để xem thời gian thức dậy và đánh thức nhau.</string>
+    <string name="empty_schedule_title">Không có báo thức nào đang hoạt động</string>
+    <string name="empty_schedule_description">Hiện tại không có báo thức nào được đặt cho bất kỳ ai. Hãy ngủ thêm chút nữa!</string>
 
     <string name="settings_language_title">Ngôn ngữ</string>
     <string name="settings_language_system">Mặc định hệ thống</string>
-    <string name="settings_language_english">Tiếng Anh</string>
-    <string name="settings_language_german">Tiếng Đức</string>
-    <string name="settings_language_french">Tiếng Pháp</string>
-    <string name="settings_language_spanish">Tiếng Tây Ban Nha</string>
-    <string name="settings_language_italian">Tiếng Ý</string>
-    <string name="settings_language_polish">Tiếng Ba Lan</string>
-    <string name="settings_language_dutch">Hà Lan</string>
-    <string name="settings_language_portuguese">Người Bồ Đào Nha</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_german">Deutsch</string>
+    <string name="settings_language_french">Français</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
-    <string name="settings_appearance_title">Ngoại hình</string>
+    <string name="settings_appearance_title">Giao diện</string>
     <string name="settings_display_title">Cài đặt ứng dụng</string>
     <string name="settings_help_feedback_title">Trợ giúp &amp; Phản hồi</string>
-    <string name="settings_support_button">Nhà phát triển email</string>
-    <string name="settings_start_onboarding">🎓 Tham quan ứng dụng</string>
+    <string name="settings_support_button">Gửi email cho nhà phát triển</string>
+    <string name="settings_start_onboarding">🎓 Hướng dẫn sử dụng</string>
 
     <string name="onboarding_skip">Bỏ qua</string>
     <string name="onboarding_next">Tiếp theo</string>
-    <string name="onboarding_done">Hãy\'đi thôi</string>
-    <string name="onboarding_slide0_title">Buổi sáng của bạn với tư cách là một đội.</string>
+    <string name="onboarding_done">Bắt đầu thôi</string>
+    <string name="onboarding_slide0_title">Buổi sáng của gia đình bạn.</string>
     <string name="onboarding_slide0_body">Không tranh cãi, không hỗn loạn. FamWake đảm bảo mọi người bắt đầu ngày mới một cách thoải mái – hoàn toàn tự động.</string>
-    <string name="onboarding_slide1_title">Không còn chờ đợi nữa.</string>
-    <string name="onboarding_slide1_body">FamWake tính toán thời gian thức dậy lý tưởng cho mọi thành viên trong gia đình – phối hợp giữa phòng tắm, bữa sáng và thời gian khởi hành. Không còn đông đúc nữa.</string>
-    <string name="onboarding_slide2_title">Mỗi ngày đều khác nhau.</string>
-    <string name="onboarding_slide2_body">Văn phòng thứ hai, văn phòng tại nhà thứ tư? Đặt thời gian riêng cho từng ngày trong tuần - ứng dụng sẽ xử lý phần còn lại.</string>
+    <string name="onboarding_slide1_title">Không còn phải chờ đợi.</string>
+    <string name="onboarding_slide1_body">FamWake tính toán thời gian thức dậy lý tưởng cho mọi thành viên trong gia đình – phối hợp giữa thời gian dùng phòng tắm, bữa sáng và thời điểm rời khỏi nhà. Không còn cảnh đông đúc nữa.</string>
+    <string name="onboarding_slide2_title">Mỗi ngày đều khác biệt.</string>
+    <string name="onboarding_slide2_body">Thứ Hai làm ở văn phòng, Thứ Tư làm tại nhà? Đặt thời gian riêng cho từng ngày trong tuần - ứng dụng sẽ lo phần còn lại.</string>
     <string name="onboarding_slide3_title">Kết nối trong vài giây.</string>
     <string name="onboarding_slide3_body">Chia sẻ mã và gia đình bạn sẽ tham gia ngay lập tức. Thành viên mới? Lịch trình tự động điều chỉnh. Và nếu có gì đó thay đổi, mọi người đều biết ngay.</string>
-    <string name="onboarding_slide4_title">Hãy \' đi nào!</string>
+    <string name="onboarding_slide4_title">Bắt đầu thôi!</string>
     <string name="onboarding_slide4_body">Tạo gia đình của bạn ngay bây giờ và tận hưởng những buổi sáng thư thái – một cách đáng tin cậy, ngay cả khi ngoại tuyến.</string>
     
     <string name="onboarding_mock_name1">Bố</string>
     <string name="onboarding_mock_name2">Mẹ</string>
-    <string name="onboarding_mock_family_name">Smith</string>
-    <string name="settings_feedback_button">Đưa ra phản hồi/Báo cáo lỗi</string>
+    <string name="onboarding_mock_family_name">Nguyễn</string>
+    <string name="settings_feedback_button">Gửi phản hồi / Báo cáo lỗi</string>
     <string name="feedback_title">Phản hồi</string>
-    <string name="feedback_intro">Hãy giúp chúng tôi làm cho ứng dụng này trở nên tốt hơn nữa! Bạn đang nghĩ gì \' vậy?</string>
-    <string name="feedback_category_label">Thể loại</string>
+    <string name="feedback_intro">Hãy giúp chúng tôi làm cho ứng dụng này trở nên tốt hơn nữa! Bạn đang có ý kiến gì?</string>
+    <string name="feedback_category_label">Danh mục</string>
     <string name="feedback_category_bug">Tìm thấy một lỗi</string>
-    <string name="feedback_category_feature">Yêu cầu tính năng</string>
-    <string name="feedback_category_praise">Khen &amp; Phê Bình</string>
+    <string name="feedback_category_feature">Yêu cầu tính năng mới</string>
+    <string name="feedback_category_praise">Khen ngợi &amp; Góp ý</string>
     <string name="feedback_category_other">Khác</string>
     <string name="feedback_message_label">Tin nhắn</string>
     <string name="feedback_message_placeholder">Mô tả ngắn gọn yêu cầu của bạn…</string>
     <string name="feedback_email_label">Email (tùy chọn)</string>
-    <string name="feedback_email_placeholder">Email của bạn (nếu chúng tôi có thể trả lời)</string>
-    <string name="feedback_auto_info_title">Tự động bao gồm:</string>
+    <string name="feedback_email_placeholder">Email của bạn (nếu chúng tôi cần trả lời)</string>
+    <string name="feedback_auto_info_title">Tự động đính kèm:</string>
     <string name="feedback_auto_version">Phiên bản ứng dụng: v%1$s</string>
     <string name="feedback_auto_device">Thiết bị: %1$s</string>
     <string name="feedback_cancel">Hủy</string>
     <string name="feedback_send">Gửi phản hồi</string>
     <string name="feedback_success">Cảm ơn! Phản hồi của bạn đã được ghi nhận và giúp ích cho chúng tôi rất nhiều.</string>
     <string name="feedback_success_title">Đã gửi phản hồi</string>
-    <string name="feedback_success_message">Cảm ơn bạn đã phản hồi của bạn! Nó giúp chúng tôi cải thiện FamWake cho mọi người.</string>
+    <string name="feedback_success_message">Cảm ơn phản hồi của bạn! Nó giúp chúng tôi cải thiện FamWake cho mọi người.</string>
     <string name="settings_terms_of_use">Điều khoản sử dụng</string>
-    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-vi.html</string>
     <string name="settings_privacy_policy">Chính sách bảo mật</string>
-    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
-    <string name="settings_imprint">Dấu ấn</string>
-    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
-    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-vi.html</string>
+    <string name="settings_imprint">Thông tin nhà phát triển</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-vi.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-vi.html</string>
 
     <string name="registration_disclaimer">Bằng cách đăng ký, bạn chấp nhận %1$s và %2$s.</string>
     <string name="registration_terms_of_use">Điều khoản sử dụng</string>
     <string name="registration_privacy_policy">Chính sách bảo mật</string>
-    <string name="settings_already_claimed">Đã xác nhận quyền sở hữu</string>
-    <string name="settings_theme_light">Ánh sáng</string>
+    <string name="settings_already_claimed">Đã được liên kết</string>
+    <string name="settings_theme_light">Sáng</string>
     <string name="settings_theme_dark">Tối</string>
 
     <string name="ringing_wake_up">Thức dậy đi, %1$s!</string>
     <string-array name="ringing_messages">
-        <item>Phòng tắm bây giờ là của bạn!</item>
-        <item>Không có giao thông, không có căng thẳng - giờ đi vệ sinh của bạn bắt đầu ngay bây giờ.</item>
-        <item>Tận hưởng sự yên bình trong phòng tắm trong khi nó kéo dài!</item>
-        <item>Đã đến lúc uống cà phê đầu tiên. Thế giới đang chờ đợi!</item>
-        <item>Ngủ ngon không? Lịch trình của bạn cho ngày hôm nay đã được thiết lập.</item>
-        <item>Sẵn sàng cho ngày chưa? Mọi thứ đều được phối hợp.</item>
-        <item>Thời gian để khuấy động trong ngày! Giờ đi tắm của bạn bắt đầu.</item>
-        <item>Hãy thức dậy và bật nó lên – sân khấu là của bạn!</item>
-        <item>Kim loại nặng vào buổi sáng giúp xua tan lo lắng!</item>
-        <item>Lịch trình của bạn đang hoạt động. Hãy \' đi nào!</item>
-        <item>Sẵn sàng cất cánh chưa? Nhóm đang trông cậy vào bạn.</item>
-        <item>Hãy trỗi dậy và tỏa sáng! Phòng tắm miễn phí cho bạn.</item>
-        <item>Vị trí phòng tắm cá nhân của bạn bắt đầu ngay bây giờ - hãy làm cho nó có giá trị!</item>
-        <item>Dọn đường vào phòng tắm – chỗ của bạn đã được đặt trước!</item>
-        <item>Con chim sớm nhận được nước ấm!</item>
-        <item>Năm phút nữa? Không! Cửa sổ thời gian của bạn đang chờ đợi.</item>
+        <item>Phòng tắm bây giờ hoàn toàn là của bạn!</item>
+        <item>Không kẹt xe, không căng thẳng - giờ phòng tắm của bạn bắt đầu ngay bây giờ.</item>
+        <item>Tận hưởng sự yên bình trong phòng tắm ngay lúc này!</item>
+        <item>Đã đến lúc uống ly cà phê đầu tiên. Thế giới đang chờ đợi!</item>
+        <item>Ngủ ngon chứ? Lịch trình ngày hôm nay của bạn đã sẵn sàng.</item>
+        <item>Sẵn sàng cho ngày mới chưa? Mọi thứ đã được sắp xếp.</item>
+        <item>Thời gian để bắt đầu ngày mới! Giờ phòng tắm của bạn bắt đầu.</item>
+        <item>Hãy thức dậy và bật nhạc lên – sân khấu là của bạn!</item>
+        <item>Nhạc Heavy Metal vào buổi sáng giúp xua tan mọi âu lo!</item>
+        <item>Lịch trình của bạn đã bắt đầu. Bắt đầu thôi!</item>
+        <item>Sẵn sàng cất cánh chưa? Cả nhà đang trông cậy vào bạn.</item>
+        <item>Dậy thôi, ánh nắng! Phòng tắm đang trống cho bạn.</item>
+        <item>Lượt dùng phòng tắm của bạn bắt đầu ngay bây giờ - hãy tận dụng nhé!</item>
+        <item>Đường vào phòng tắm đã quang đãng – chỗ của bạn đã được đặt trước!</item>
+        <item>Ai dậy sớm sẽ có nước ấm!</item>
+        <item>Năm phút nữa? Không! Lượt của bạn đang chờ.</item>
         <item>Hôm nay sẽ là một ngày tuyệt vời. Nó bắt đầu ngay bây giờ!</item>
-        <item>Bàn chải đánh răng của bạn nhớ bạn. Đi vào phòng tắm!</item>
-        <item>Tất cả đã được phối hợp, tất cả đã được lên kế hoạch – bạn \' đã sẵn sàng!</item>
-        <item>Người đến sớm có phòng tắm riêng.</item>
+        <item>Bàn chải đánh răng đang chờ bạn đấy. Nhanh vào phòng tắm!</item>
+        <item>Tất cả đã được sắp xếp, tất cả đã được lên kế hoạch – đến lượt bạn rồi!</item>
+        <item>Ai dậy sớm sẽ được dùng phòng tắm một mình.</item>
     </string-array>
-    <string name="ringing_stop">Dừng báo động</string>
+    <string name="ringing_stop">Tắt báo thức</string>
     <string name="ringing_snooze">Báo lại (5 phút)</string>
-    <string name="pause_today_desc">Tạm dừng ngay hôm nay</string>
-    <string name="awake_today_desc">Đã thức rồi</string>
-    <string name="awake_active_desc">Đã thức rồi</string>
+    <string name="pause_today_desc">Tạm dừng ngày hôm nay</string>
+    <string name="awake_today_desc">Đã thức dậy</string>
+    <string name="awake_active_desc">Đã thức dậy</string>
 
-    <string name="error_load_members">Lỗi tải thành viên</string>
-    <string name="error_create_family">Lỗi tạo họ: %1$s</string>
+    <string name="error_load_members">Lỗi khi tải danh sách thành viên</string>
+    <string name="error_create_family">Lỗi tạo gia đình: %1$s</string>
     <string name="error_create_family_rate_limit">Bạn đã tạo 3 gia đình trong một giờ qua. Vui lòng đợi một giờ và thử lại.</string>
-    <string name="error_join_family_rate_limit">Quá nhiều lần tham gia (tối đa 5 lần mỗi phút). Vui lòng đợi một lát và thử lại.</string>
+    <string name="error_join_family_rate_limit">Quá nhiều lần thử tham gia (tối đa 5 lần mỗi phút). Vui lòng đợi một lát và thử lại.</string>
     <string name="error_invalid_code">Mã mời không hợp lệ: %1$s</string>
-    <string name="error_family_not_found">Không có gia đình nào được tìm thấy với mã này.</string>
+    <string name="error_family_not_found">Không tìm thấy gia đình nào với mã này.</string>
     <string name="error_code_generation_failed">Không thể tạo mã duy nhất. Vui lòng thử lại.</string>
     <string name="join_conflict_title">Gia nhập gia đình mới?</string>
-    <string name="join_conflict_text">Bạn đã là thành viên của gia đình \"%1$s\". Để gia nhập gia đình mới, trước tiên bạn phải rời khỏi gia đình hiện tại. Bạn có muốn rời \" %1$s \" và tham gia bằng mã %2$s không?</string>
+    <string name="join_conflict_text">Bạn đã là thành viên của gia đình \"%1$s\". Để gia nhập gia đình mới, trước tiên bạn phải rời khỏi gia đình hiện tại. Bạn có muốn rời khỏi \"%1$s\" và tham gia bằng mã %2$s không?</string>
     <string name="join_conflict_confirm">Rời khỏi và tham gia</string>
     <string name="error_delete_member">Không thể xóa thành viên: %1$s</string>
     <string name="error_sync_failed">Đồng bộ hóa không thành công</string>
-    <string name="error_delete_family">Lỗi xóa họ: %1$s</string>
-    <string name="error_calculate_schedule">Lịch tính lỗi: %1$s</string>
+    <string name="error_delete_family">Lỗi khi xóa gia đình: %1$s</string>
+    <string name="error_calculate_schedule">Lỗi tính toán lịch trình: %1$s</string>
     <string name="error_not_logged_in">Người dùng chưa đăng nhập</string>
     <string name="error_system">Lỗi hệ thống</string>
-    <string name="error_invalid_credentials">Email hoặc mật khẩu không hợp lệ. Vui lòng kiểm tra đầu vào của bạn.</string>
+    <string name="error_invalid_credentials">Email hoặc mật khẩu không hợp lệ. Vui lòng kiểm tra lại thông tin.</string>
     <string name="error_login_failed">Đăng nhập thất bại</string>
     <string name="error_login_failed_unknown">Lỗi đăng nhập không xác định</string>
     <string name="error_registration_failed">Đăng ký không thành công</string>
     <string name="error_registration_failed_unknown">Không thể tạo người dùng</string>
     <string name="error_unknown">Đã xảy ra lỗi không xác định. Vui lòng thử lại.</string>
-    <string name="error_google_sign_in_failed_unknown">Đăng nhập Google không thành công</string>
+    <string name="error_google_sign_in_failed_unknown">Đăng nhập bằng Google không thành công</string>
     <string name="error_empty_email">Vui lòng nhập một địa chỉ email.</string>
-    <string name="error_invalid_email">Địa chỉ email không hợp lệ. Vui lòng kiểm tra chính tả.</string>
+    <string name="error_invalid_email">Địa chỉ email không hợp lệ. Vui lòng kiểm tra lại.</string>
     <string name="error_user_not_found">Không tìm thấy tài khoản cho email này.</string>
-    <string name="error_too_many_requests">Quá nhiều nỗ lực. Vui lòng đợi một lát và thử lại.</string>
+    <string name="error_too_many_requests">Thử quá nhiều lần. Vui lòng đợi một lát và thử lại.</string>
     <string name="error_password_reset_failed">Đặt lại mật khẩu không thành công. Vui lòng thử lại sau.</string>
     <string name="error_profile_taken">Hồ sơ này đã được sử dụng.</string>
-    <string name="error_profile_claim_offline">Không có kết nối. Lựa chọn hồ sơ yêu cầu truy cập internet.</string>
-    <string name="error_delete_not_admin">Chỉ người tạo gia đình mới có thể xóa gia đình.</string>
+    <string name="error_profile_claim_offline">Không có kết nối. Việc chọn hồ sơ yêu cầu phải có internet.</string>
+    <string name="error_delete_not_admin">Chỉ người tạo mới có thể xóa gia đình.</string>
 
     <string name="alarm_default_member">Thành viên gia đình</string>
-    <string name="alarm_notification_title">Chuông báo thức của gia đình đang reo</string>
+    <string name="alarm_notification_title">Chuông báo thức gia đình đang reo</string>
     <string name="alarm_notification_text">Chào buổi sáng, %1$s!</string>
-    <string name="alarm_channel_name">Báo động</string>
+    <string name="alarm_channel_name">Báo thức</string>
 
-    <string name="settings_fallback_username">cha mẹ</string>
+    <string name="settings_fallback_username">Phụ huynh</string>
 
-    <string name="error_alarm_permission">Vui lòng cho phép báo thức chính xác trong cài đặt hệ thống để báo thức của gia đình có thể đổ chuông đúng giờ.</string>
+    <string name="error_alarm_permission">Vui lòng cho phép báo thức chính xác trong cài đặt hệ thống để báo thức gia đình có thể đổ chuông đúng giờ.</string>
 
-    <string name="permission_fullscreen_title">Cần có quyền báo động</string>
+    <string name="permission_fullscreen_title">Cần có quyền báo thức</string>
     <string name="permission_fullscreen_message">FamWake cần có quyền hiển thị báo thức trên màn hình khóa của bạn. Vui lòng cho phép điều này trong cài đặt hệ thống.</string>
     <string name="permission_fullscreen_open">Mở Cài đặt</string>
 
     <string name="schedule_message_optimal">Đây là lịch trình được tính toán:</string>
-    <string name="schedule_message_no_members">Không có thành viên tích cực. Mọi người đều bị tạm dừng.</string>
+    <string name="schedule_message_no_members">Không có thành viên nào hoạt động. Mọi người đều đang tạm dừng.</string>
     <string name="schedule_message_no_valid">Không tìm thấy lịch trình hợp lệ. Thời gian chồng chéo quá nhiều.</string>
-    <string name="schedule_message_no_valid_desc">Mẹo: Mở rộng cửa sổ đánh thức của bạn, rút ​​ngắn thời gian đi vệ sinh hoặc tạm dừng một thành viên khác.</string>
-    <string name="schedule_message_time_adjusted">Thời gian được điều chỉnh thêm %1$d phút để phù hợp với đơn hàng của bạn.</string>
-    <string name="schedule_message_breakfast_reduced">Bữa sáng giảm %1$d phút để phù hợp với lịch trình của bạn.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Bữa sáng −%1$d phút &amp; thời gian dịch chuyển %2$d phút.</string>
+    <string name="schedule_message_no_valid_desc">Mẹo: Mở rộng khung giờ thức dậy của bạn, rút ​​ngắn thời gian dùng phòng tắm hoặc tạm dừng một thành viên khác.</string>
+    <string name="schedule_message_time_adjusted">Thời gian được điều chỉnh %1$d phút để phù hợp với thứ tự của gia đình.</string>
+    <string name="schedule_message_breakfast_reduced">Thời gian ăn sáng giảm %1$d phút để phù hợp với lịch trình.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Bữa sáng −%1$d phút &amp; thời gian dời đi %2$d phút.</string>
     <string name="schedule_message_member_conflict">Xung đột đối với %1$s: Thời gian trùng nhau quá nhiều.</string>
     <string name="schedule_message_member_conflict_desc">Hãy thử thay đổi thứ tự hoặc điều chỉnh thời gian.</string>
-    <string name="main_fallback_alarm_active">⚠️ Cảnh báo dự phòng đang hoạt động (%1$s). Xin vui lòng sửa lại lịch trình!</string>
+    <string name="main_fallback_alarm_active">⚠️ Báo thức dự phòng đang hoạt động (%1$s). Vui lòng sửa lại lịch trình!</string>
 
     <string name="error_password_too_short">Mật khẩu phải dài ít nhất 8 ký tự.</string>
     <string name="error_email_already_in_use">Địa chỉ email này đã được sử dụng bởi một tài khoản khác.</string>
-    <string name="error_weak_password">Mật khẩu quá yếu. Vui lòng sử dụng ít nhất 8 ký tự và ký tự đặc biệt.</string>
+    <string name="error_weak_password">Mật khẩu quá yếu. Vui lòng sử dụng ít nhất 8 ký tự và có chứa ký tự đặc biệt.</string>
     <string name="login_verify_email_title">✉️ Xác minh email của bạn</string>
-    <string name="login_verify_email_text">Chúng tôi đã gửi email xác minh tới\n%1$s\nVui lòng nhấp vào liên kết trong email để kích hoạt tài khoản của bạn.</string>
+    <string name="login_verify_email_text">Chúng tôi đã gửi một email xác minh tới\n%1$s\nVui lòng nhấp vào liên kết trong email để kích hoạt tài khoản của bạn.</string>
     <string name="login_verify_email_confirm">Tôi đã xác minh ✓</string>
     <string name="login_verify_email_resend">Gửi lại email</string>
     <string name="login_verify_email_not_verified">Email chưa được xác minh. Vui lòng kiểm tra hộp thư đến của bạn.</string>
 
-    <string name="tooltip_awake_button">Thức dậy sớm? Nhấn vào đây để dừng báo thức cho ngày hôm nay – thời gian đi vệ sinh của bạn vẫn được dành riêng cho gia đình.</string>
-    <string name="tooltip_drag_handle">Nhấn và kéo một ô để thay đổi thứ tự đánh thức của gia đình bạn theo cách thủ công. Thuật toán tính toán lại ngay lập tức.</string>
-    <string name="tooltip_wake_window">Hãy cho chúng tôi một cửa sổ thời gian. Ứng dụng sẽ tìm thấy khoảnh khắc hoàn hảo trong đó để không ai phải đợi vào phòng tắm.</string>
-    <string name="tooltip_bathroom">Lập kế hoạch này một cách thực tế. Thời gian tắm của bạn quyết định nhịp độ cho buổi sáng của cả gia đình\'.</string>
+    <string name="tooltip_awake_button">Thức dậy sớm? Nhấn vào đây để dừng báo thức cho ngày hôm nay – thời gian dùng phòng tắm của bạn vẫn được giữ nguyên cho gia đình.</string>
+    <string name="tooltip_drag_handle">Nhấn và kéo một ô để thay đổi thứ tự thức dậy của gia đình bạn theo cách thủ công. Thuật toán sẽ tính toán lại ngay lập tức.</string>
+    <string name="tooltip_wake_window">Hãy cho chúng tôi một khung thời gian. Ứng dụng sẽ tìm thấy khoảnh khắc hoàn hảo trong đó để không ai phải đợi dùng phòng tắm.</string>
+    <string name="tooltip_bathroom">Hãy lên kế hoạch một cách thực tế. Thời gian dùng phòng tắm của bạn quyết định nhịp độ buổi sáng của cả gia đình.</string>
     <string name="tooltip_invite_code">Hãy chia sẻ mã này với gia đình bạn. Khi họ tham gia, họ sẽ tự động xuất hiện trong lịch trình của bạn.</string>
-    <string name="tooltip_alarm_switch">Nếu bạn tắt báo thức, điện thoại của bạn không chỉ im lặng – thuật toán sẽ ngay lập tức tính toán lại buổi sáng cho cả gia đình, cho phép mọi người ngủ lâu hơn một chút hoặc đi vệ sinh sớm hơn.</string>
-    <string name="tooltip_weekdays">Lập kế hoạch cho cả tuần của bạn: Chạm vào từng ngày trong tuần để đặt thời gian thức dậy và đi vệ sinh cụ thể – hoàn hảo để chuyển đổi giữa ngày làm việc tại nhà và ngày làm việc.</string>
+    <string name="tooltip_alarm_switch">Nếu bạn tắt báo thức, điện thoại của bạn không chỉ im lặng – thuật toán sẽ ngay lập tức tính toán lại buổi sáng cho cả gia đình, cho phép những người khác ngủ lâu hơn một chút hoặc vào phòng tắm sớm hơn.</string>
+    <string name="tooltip_weekdays">Lên kế hoạch cho cả tuần của bạn: Chạm vào từng ngày trong tuần để đặt thời gian thức dậy và thời gian dùng phòng tắm cụ thể – hoàn hảo để chuyển đổi giữa những ngày làm việc tại nhà và những ngày lên văn phòng.</string>
     <string name="settings_tooltips_title">Mẹo &amp; Gợi ý</string>
-    <string name="settings_tooltips_label">Hiển thị lời khuyên hữu ích</string>
+    <string name="settings_tooltips_label">Hiển thị các mẹo hữu ích</string>
     <string name="settings_tooltips_reset">Đặt lại tất cả các mẹo</string>
     <string name="settings_push_title">Thông báo</string>
     <string name="settings_push_label">Nhận thông báo đẩy</string>
-    <string name="settings_support_title">Ủng hộ ứng dụng</string>
+    <string name="settings_support_title">Hỗ trợ ứng dụng</string>
     <string name="settings_support_desc">Bạn có thích ứng dụng này không? Chúng tôi đánh giá cao sự hỗ trợ của bạn!</string>
     <string name="settings_support_donate">Đóng góp</string>
     <string name="settings_donate_success">Cảm ơn bạn rất nhiều vì sự hỗ trợ của bạn! ❤️</string>
     <string name="settings_donate_error">Rất tiếc, đã xảy ra lỗi.</string>
     <string name="settings_donate_loading">Đang tải ưu đãi…</string>
-    <string name="settings_donate_no_offers">Không có ưu đãi nào có sẵn. Vui lòng đảm bảo \"Sản phẩm hiện tại\" được đặt trong RevenueCat.</string>
+    <string name="settings_donate_no_offers">Không có ưu đãi nào khả dụng. Vui lòng đảm bảo \"Current Offering\" đã được thiết lập trong RevenueCat.</string>
     <string name="settings_donate_purchase_loading">Đang xử lý khoản đóng góp…</string>
-    <string name="settings_donate_error_not_allowed">Thiết bị hoặc người dùng không được phép thực hiện mua hàng.</string>
-    <string name="settings_donate_error_store_problem">Đã xảy ra sự cố với Cửa hàng Google Play.</string>
+    <string name="settings_donate_error_not_allowed">Thiết bị hoặc người dùng không được phép thực hiện giao dịch mua.</string>
+    <string name="settings_donate_error_store_problem">Đã xảy ra sự cố với Google Play Store.</string>
     <string name="settings_donate_error_already_purchased">Sản phẩm này đã được mua.</string>
-    <string name="settings_donate_error_invalid">Việc mua hàng không hợp lệ.</string>
+    <string name="settings_donate_error_invalid">Giao dịch mua không hợp lệ.</string>
     <string name="settings_donate_error_generic">Đã xảy ra lỗi trong quá trình quyên góp.</string>
 
     <string name="error_permission_denied">Truy cập bị từ chối</string>
     <string name="error_offline">Không có kết nối internet</string>
     <string name="error_report_failed">Báo cáo thất bại</string>
-    <string name="error_leave_failed">Không thể rời xa gia đình</string>
-    <string name="error_revenuecat_not_configured">RevenueCat chưa được định cấu hình</string>
+    <string name="error_leave_failed">Không thể rời khỏi gia đình</string>
+    <string name="error_revenuecat_not_configured">RevenueCat chưa được thiết lập</string>
     <string name="default_someone">Ai đó</string>
     <string name="error_label">Lỗi</string>
     <string name="offline_write_hint">Không có kết nối. Những thay đổi của bạn sẽ được đồng bộ hóa ngay khi bạn trực tuyến trở lại.</string>
@@ -330,35 +330,35 @@
     <string name="password_hide">Ẩn mật khẩu</string>
     <string name="close_desc">Đóng</string>
 
-    <string name="settings_exact_alarm_warning_title">Thiếu quyền báo động</string>
+    <string name="settings_exact_alarm_warning_title">Thiếu quyền báo thức</string>
     <string name="settings_exact_alarm_warning_text">Android ngăn không cho chuông báo thức chính xác đổ chuông. Vui lòng cho phép FamWake lên lịch báo thức và nhắc nhở.</string>
-    <string name="settings_exact_alarm_warning_button">Cho phép báo động</string>
-    <string name="main_exact_alarm_banner">⚠️ Báo động bị chặn! Vui lòng cấp quyền báo thức trong cài đặt để báo thức của bạn có thể đổ chuông đúng giờ.</string>
+    <string name="settings_exact_alarm_warning_button">Cho phép báo thức</string>
+    <string name="main_exact_alarm_banner">⚠️ Báo thức bị chặn! Vui lòng cấp quyền báo thức trong cài đặt để báo thức của bạn có thể đổ chuông đúng giờ.</string>
     <string name="error_offline_feedback">Bạn đang ngoại tuyến. Vui lòng kiểm tra kết nối của bạn và thử lại.</string>
     <string name="error_sync_blocked_device">Đồng bộ hóa không khả dụng trên thiết bị này.</string>
     <string name="error_feedback_rate_limit">Vui lòng đợi %1$s giây trước khi gửi tin nhắn khác.</string>
     <string name="error_feedback_rate_limit_server">Quá nhiều yêu cầu. Vui lòng thử lại sau.</string>
     <string name="error_feedback_empty_message">Tin nhắn không được để trống.</string>
     <string name="error_network">Lỗi mạng. Vui lòng kiểm tra kết nối internet của bạn.</string>
-    <string name="settings_language_turkish">Thổ Nhĩ Kỳ</string>
+    <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Bắc Âu</string>
+    <string name="settings_language_norwegian">Norsk</string>
     <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Đan Mạch</string>
+    <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Tiếng Bahasa Indonesia</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
     <string name="settings_language_vietnamese">Tiếng Việt</string>
     <string name="settings_language_bengali">বাংলা</string>
     <string name="settings_language_marathi">मराठी</string>
     <string name="settings_language_hindi">हिन्दी</string>
-    <string name="tooltip_alarm_sound">Nhấn vào đây để chọn âm thanh đánh thức của riêng bạn – chọn nhạc chuông yêu thích của bạn thay vì báo thức mặc định.</string>
+    <string name="tooltip_alarm_sound">Nhấn vào đây để chọn âm thanh báo thức của riêng bạn – chọn nhạc chuông yêu thích của bạn thay vì báo thức mặc định.</string>
     <string name="settings_language_dialects">Phương ngữ</string>
 
     
     <string name="notif_channel_schedule_change_name">Lịch trình thay đổi</string>
-    <string name="notif_channel_schedule_change_desc">Thông báo khi thời gian thức dậy hoặc thứ tự phòng tắm thay đổi</string>
+    <string name="notif_channel_schedule_change_desc">Thông báo khi thời gian thức dậy hoặc thứ tự sử dụng phòng tắm thay đổi</string>
     <string name="notif_channel_family_events_name">Sự kiện gia đình</string>
     <string name="notif_channel_family_events_desc">Thông báo khi thành viên tham gia hoặc rời khỏi gia đình</string>
 
@@ -371,8 +371,8 @@
     <string name="notif_member_left_body">Một thành viên đã rời khỏi gia đình.</string>
 
     
-    <string name="notif_permission_title">Yêu cầu thông báo</string>
-    <string name="notif_permission_desc">Nếu không có thông báo, báo thức có thể không đổ chuông. Vui lòng kích hoạt chúng để có cảnh báo đáng tin cậy.</string>
+    <string name="notif_permission_title">Yêu cầu quyền thông báo</string>
+    <string name="notif_permission_desc">Nếu không có thông báo, báo thức có thể không đổ chuông. Vui lòng kích hoạt chúng để có báo thức đáng tin cậy.</string>
     <string name="notif_permission_button">Bật thông báo</string>
     <string name="notif_manage_title">Quản lý thông báo</string>
     <string name="notif_manage_desc">Thay đổi âm thanh, độ rung và các tùy chọn thông báo khác trong cài đặt hệ thống.</string>

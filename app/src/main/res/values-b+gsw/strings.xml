@@ -25,7 +25,7 @@
     <string name="main_family_members">Familiemitgliider</string>
     <string name="main_current_schedule">Aktuelle Ziitplan</string>
     <string name="main_no_active_schedule">Kän aktive Weckplan.</string>
-    <string name="main_optimal_plan">Da isch de grächneti Ziitplan:</string>
+    <string name="main_optimal_plan">Da isch de berächneti Ziitplan:</string>
     <string name="main_plan_paused">Diin Wecker isch grad pausiert.</string>
     <string name="main_shared_breakfast">☕ Gmeinsams Zmorge: %s</string>
     <string name="main_wake_time">Wecke: %1$s - %2$s</string>
@@ -42,8 +42,8 @@
     <string name="main_alarm_disabled_desc">Manuelli Pause isch aktiv.</string>
     <string name="main_no_profile_warning">Käs Profil uusgwählt!</string>
     <string name="main_no_profile_warning_desc">Bitte wähl i de Iistellige diis Profil uus, demit de Wecker für dich lüüte chan.</string>
-    <string name="main_unclaimed_first_title">Für %1$s klingt kei Wegger!</string>
-    <string name="main_unclaimed_first_desc">%1$s isch an erster Stell, het aber kei eigets Profil – und erwacht vilecht nöd rechtziitig.</string>
+    <string name="main_unclaimed_first_title">Für %1$s lüütet kän Wecker!</string>
+    <string name="main_unclaimed_first_desc">%1$s isch a erster Stell, hät aber käs eigets Profil – und wacht villicht nöd rächtziitig uuf.</string>
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
     <string name="delete_desc">Lösche</string>
@@ -60,7 +60,7 @@
     <string name="delete_member_text">Wottsch %1$s würkli us de Familie lösche?</string>
     <string name="delete_confirm">Lösche</string>
     <string name="cancel_button">Abbräche</string>
-    <string name="retry_button">Nochmal versuche</string>
+    <string name="retry_button">Namal probiere</string>
     <string name="add_member_name_label">Name (z.B. Mami, Papi, Chind)</string>
     <string name="add_member_unknown">Umbekannt</string>
     <string name="add_member_earliest_wake">Früehsti Weckziit</string>
@@ -94,7 +94,7 @@
     <string name="settings_profile_title">Miis Profil</string>
     <string name="settings_profile_desc">Diis Handy lüütet nur für d\'Weckziit vom da gwählte Profil.</string>
     <string name="settings_please_select">Bitte wähle</string>
-    <string name="settings_no_members">Kei Mitgliider gfunde</string>
+    <string name="settings_no_members">Kä Mitgliider gfunde</string>
     <string name="settings_alarm_title">Weckton</string>
     <string name="settings_battery_warning_title">Akku-Optimiirig aktiv</string>
     <string name="settings_battery_warning_text">De Wecker chönnt verzögeret oder blockiert wärde. Bitte deaktiviere d\'Akku-Optimiirig für FamWake.</string>
@@ -109,7 +109,7 @@
     <string name="settings_leave_family">Familie verlaa</string>
     <string name="settings_delete_family">Familie lösche</string>
     <string name="settings_delete_family_dialog_title">Familie lösche?</string>
-    <string name="settings_delete_family_dialog_text">Bisch sicher, dass du die Familie duuurhaft lösche wottsch? Alli Mitgliider, Ziitplän und Iistellige wärded für alli glöscht. Das cha nöd rückgängig gmacht wärde.</string>
+    <string name="settings_delete_family_dialog_text">Bisch sicher, dass du die Familie duurhaft lösche wottsch? Alli Mitgliider, Ziitplän und Iistellige wärded für alli glöscht. Das cha nöd rückgängig gmacht wärde.</string>
     <string name="settings_delete_family_dialog_confirm">Lösche</string>
     <string name="settings_delete_family_dialog_cancel">Abbräche</string>
     <string name="settings_delete_family_warning_title">Anderi Mitgliider aktiv!</string>
@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Uusgseh</string>
     <string name="settings_display_title">App-Iistellige</string>
@@ -152,13 +152,13 @@
     <string name="onboarding_slide0_title">Euie Morge als Team.</string>
     <string name="onboarding_slide0_body">Kä Diskussione, kä Chaos. FamWake sorgt defür, dass alli entspannt in Tag starte – voll automatisch.</string>
     <string name="onboarding_slide1_title">Nie meh warte.</string>
-    <string name="onboarding_slide1_body">FamWake berechnet für jedes Familiemitglied di ideal Weckziit – abgstimmt uf Bad, Zmorge und Abfahrt. Kä Gedrängel meh.</string>
+    <string name="onboarding_slide1_body">FamWake berächnet für jedes Familiemitgliid di ideal Weckziit – abgstimmt uf Bad, Zmorge und Abfahrt. Käs Gedrängel meh.</string>
     <string name="onboarding_slide2_title">Jede Tag isch anders.</string>
-    <string name="onboarding_slide2_body">Mäntig Büro, Mittwuch Homeoffice? Stell für jede Wuchetag individuelli Ziite ii – d\'App macht de Räscht.</string>
+    <string name="onboarding_slide2_body">Määntig Büro, Mittwuch Homeoffice? Stell für jede Wuchetag individuelli Ziite ii – d\'App macht de Räscht.</string>
     <string name="onboarding_slide3_title">In Sekunde verbunde.</string>
-    <string name="onboarding_slide3_body">Teil en Code und diini Familie isch sofort debii. Nöi Mitglieder? De Plan passt sich automatisch ah. Und wenn sich öppis änderet, weiss\'s jede sofort.</string>
+    <string name="onboarding_slide3_body">Teil en Code und diini Familie isch sofort debii. Neui Mitgliider? De Plan passt sich automatisch aa. Und wänn sich öppis änderet, weiss es jede sofort.</string>
     <string name="onboarding_slide4_title">Los gaht\'s!</string>
-    <string name="onboarding_slide4_body">Erstell jetzt diini Familie und gniess entspannti Morge – zuverlässig, au offline.</string>
+    <string name="onboarding_slide4_body">Erstell jetzt diini Familie und gnüss entspannti Morge – zueverlässig, au offline.</string>
     <string name="settings_feedback_button">Feedback gäh / Fehler mälde</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hilf ois, d\'App na besser z\'mache! Was beschäftigt dich?</string>
@@ -166,7 +166,7 @@
     <string name="feedback_category_bug">Fehler gfunde</string>
     <string name="feedback_category_feature">Funktionswunsch</string>
     <string name="feedback_category_praise">Lob &amp; Kritik</string>
-    <string name="feedback_category_other">Söschtigs</string>
+    <string name="feedback_category_other">Sustigs</string>
     <string name="feedback_message_label">Nachricht</string>
     <string name="feedback_message_placeholder">Schriib churz um was es gaht…</string>
     <string name="feedback_email_label">E-Mail (optional)</string>
@@ -191,7 +191,7 @@
     <string name="registration_terms_of_use">Nutzigsbedingige</string>
     <string name="registration_privacy_policy">Dateschutzerchlärig</string>
     <string name="settings_already_claimed">Scho verknüpft</string>
-    <string name="settings_theme_light">Hell</string>
+    <string name="settings_theme_light">Häll</string>
     <string name="settings_theme_dark">Dunkel</string>
 
     <string name="ringing_wake_up">Uufwache, %1$s!</string>
@@ -207,15 +207,15 @@
         <item>Heavy Metal am Morge vertriibt Chummer und Sorge!</item>
         <item>Diin Ziitplan isch live. Los gaht’s!</item>
         <item>Parat für de Abfluug? S\'Team zellt uf dich.</item>
-        <item>Ufstah, Sünneschiin! S Bad isch frei für dich.</item>
-        <item>Din persönliche Bad-Slot fangt jetz aa – nütz en!</item>
-        <item>Freii Bahn is Bad – din Slot isch reserviert!</item>
-        <item>Morgästund het Gold im Mund – und warmis Wasser!</item>
-        <item>No 5 Minute? Nei! Dis Ziitfänschter wartet.</item>
+        <item>Ufstah, Sünneschiin! S\'Bad isch frei für dich.</item>
+        <item>Diin persönliche Bad-Slot fangt jetz aa – nutz en!</item>
+        <item>Freii Bahn is Bad – diin Slot isch reserviert!</item>
+        <item>Morgestund hät Gold im Muul – und warms Wasser!</item>
+        <item>Na 5 Minute? Nei! Diis Ziitfänster wartet.</item>
         <item>Hüt wird en guete Tag. Er fangt jetz aa!</item>
-        <item>D Zahnbürschte vermisst dich. Ab is Bad!</item>
+        <item>D\'Zahnbürste vermisst dich. Ab is Bad!</item>
         <item>Alles koordiniert, alles planet – du bisch dra!</item>
-        <item>De früeh Vogel het s Bad für sich elei.</item>
+        <item>De früeh Vogel hät s\'Bad für sich elei.</item>
     </string-array>
     <string name="ringing_stop">Wecker stopp</string>
     <string name="ringing_snooze">Schlummere (5 Min)</string>
@@ -225,13 +225,13 @@
 
     <string name="error_load_members">Fehler bim Lade vo de Mitgliider</string>
     <string name="error_create_family">Fehler bim Erstelle vo de Familie: %1$s</string>
-    <string name="error_create_family_rate_limit">Du häsch i de letschte Stund scho 3 Familie erstellt. Bitte wart eh Stund und probiers namal.</string>
+    <string name="error_create_family_rate_limit">Du häsch i de letschte Stund scho 3 Familie erstellt. Bitte wart e Stund und probiers namal.</string>
     <string name="error_join_family_rate_limit">Z\'vill Biitrittsversüech (max. 5 pro Minute). Bitte wart churz und probiers namal.</string>
     <string name="error_invalid_code">Ungültige Iiladigscode: %1$s</string>
     <string name="error_family_not_found">Under däm Code isch kä Familie gfunde worde.</string>
     <string name="error_code_generation_failed">Hät kän eidüütige Code chönne generiere. Bitte probiers namal.</string>
     <string name="join_conflict_title">Neuer Familie biiträte?</string>
-    <string name="join_conflict_text">Du bisch scho Mitgliid vo de Familie \"%1$s\". Zum de neue Familie biiträte, muesch diini aktülli zerst verlaa. Wottsch \"%1$s\" verlaa und mit em Code %2$s biiträte?</string>
+    <string name="join_conflict_text">Du bisch scho Mitgliid vo de Familie \"%1$s\". Zum de neue Familie biiträte, muesch diini aktülli z\'erst verlaa. Wottsch \"%1$s\" verlaa und mit em Code %2$s biiträte?</string>
     <string name="join_conflict_confirm">Verlaa &amp; Biiträte</string>
     <string name="error_delete_member">Hät s\'Mitgliid nöd lösche chönne: %1$s</string>
     <string name="error_sync_failed">Synchronisierig fählgschlage</string>
@@ -262,13 +262,13 @@
 
     <string name="settings_fallback_username">Eltereteil</string>
 
-    <string name="error_alarm_permission">Bitte erlaube i de Systemiistellige exakti Alarm, demit de Familiewecker pünktlich lüüte chan.</string>
+    <string name="error_alarm_permission">Bitte erlaub i de Systemiistellige exakti Alarm, demit de Familiewecker pünktlich lüüte chan.</string>
 
     <string name="permission_fullscreen_title">Wecker-Berächtigung nötig</string>
-    <string name="permission_fullscreen_message">FamWake bruucht d\'Erlaubnis, de Wecker uf diim Sperrbildschirm aazzeige. Bitte erlaube das i de Systemiistellige.</string>
+    <string name="permission_fullscreen_message">FamWake bruucht d\'Erlaubnis, de Wecker uf diim Sperrbildschirm aazeige z\'dörfe. Bitte erlaub das i de Systemiistellige.</string>
     <string name="permission_fullscreen_open">Iistellige öffne</string>
 
-    <string name="schedule_message_optimal">Da isch de grächneti Ziitplan:</string>
+    <string name="schedule_message_optimal">Da isch de berächneti Ziitplan:</string>
     <string name="schedule_message_no_members">Kä aktivi Persone. Alli sind pausiert.</string>
     <string name="schedule_message_no_valid">Kän gültige Plan gfunde. D\'Ziite überschniided sich z\'starch.</string>
     <string name="schedule_message_no_valid_desc">Tipp: Vergrösser diis Weck-Ziitfänster, verchürz d\'Bad-Ziit oder pausier en anders Mitgliid.</string>
@@ -283,23 +283,23 @@
     <string name="error_email_already_in_use">Die E-Mail-Adrässe wird scho voneme andere Konto bruucht.</string>
     <string name="error_weak_password">S\'Passwort isch z\'schwach. Bitte bruuch mindistens 8 Zeiche und Sonderzeiche.</string>
     <string name="login_verify_email_title">✉️ Bestätig diini E-Mail</string>
-    <string name="login_verify_email_text">Mir händ eh Bestätigungs-E-Mail gschickt a\n%1$s\nBitte klick uf de Link i de E-Mail, zum diis Konto aktiviere.</string>
+    <string name="login_verify_email_text">Mir händ e Bestätigungs-E-Mail gschickt a\n%1$s\nBitte klick uf de Link i de E-Mail, zum diis Konto aktiviere.</string>
     <string name="login_verify_email_confirm">Ich han bestätigt ✓</string>
     <string name="login_verify_email_resend">E-Mail namal schicke</string>
     <string name="login_verify_email_not_verified">E-Mail na nöd bestätigt. Bitte lueg i diim Postfach.</string>
 
     <string name="tooltip_awake_button">Scho früehner wach? Tipp da, zum diin Wecker für hüt z\'stoppe – diini Bad-Ziit bliibt für d\'Familie reserviert.</string>
-    <string name="tooltip_drag_handle">Halt und zieh e Chachle, zum d\'Weckreihenfolge vo diinere Familie manuell z\'ändere. De Algorithmus rächnt sofort neu.</string>
+    <string name="tooltip_drag_handle">Halt und zieh e Chachle, zum d\'Weckreihenfolge vo diinere Familie manuell z\'ändere. De Algorithmus rächnet sofort neu.</string>
     <string name="tooltip_wake_window">Gih ois es Ziitfänster. D\'App findt de perfäkti Momänt dänn, demit niemert vorem Bad warte mues.</string>
     <string name="tooltip_bathroom">Plan das realistisch ii. Diini Bad-Duur git de Takt für de Morge vo de ganze Familie vor.</string>
     <string name="tooltip_invite_code">Teil de Code mit diinere Familie. Sobald si biiträted, erschiined si automatisch i euiem Ziitplan.</string>
     <string name="tooltip_alarm_switch">Schaltisch diin Wecker uus, isch nöd nur diis Handy still – de Algorithmus berächnet sofort de Morge für d\'ganzi Familie neu, demit alli chli länger schlafe oder eher is Bad chönd.</string>
-    <string name="tooltip_weekdays">Plan diini ganzi Wuche: Tipp uf die einzelne Wuchetäg, um spezifischi Weck- und Badziite feszlegge – perfäkt für de Wächsel zwüsched Home-Office und Büro-Täg.</string>
+    <string name="tooltip_weekdays">Plan diini ganzi Wuche: Tipp uf die einzelne Wuchetäg, um spezifischi Weck- und Badziite festzlegge – perfäkt für de Wächsel zwüsched Home-Office und Büro-Täg.</string>
     <string name="settings_tooltips_title">Tipps &amp; Hiiwiis</string>
     <string name="settings_tooltips_label">Hilfriichi Tipps aazeige</string>
     <string name="settings_tooltips_reset">Alli Tipps zruggsetze</string>
-    <string name="settings_push_title">Benachrichtigungen</string>
-    <string name="settings_push_label">Push-Benachrichtigungen empfangen</string>
+    <string name="settings_push_title">Benachrichtigunge</string>
+    <string name="settings_push_label">Push-Benachrichtigunge übercho</string>
     <string name="settings_support_title">Unterstütz d\'App</string>
     <string name="settings_support_desc">Gfallt dir d\'App? Mir freued ois über diini Unterstützig!</string>
     <string name="settings_support_donate">Spände</string>
@@ -327,14 +327,14 @@
     <string name="close_desc">Schlüsse</string>
 
     <string name="settings_exact_alarm_warning_title">Wecker-Berechtigung fählt</string>
-    <string name="settings_exact_alarm_warning_text">Android cha de Wecker nöd gnau lüüte laa. Bitte erlaube FamWake, dass de Wecker lüüte dörf.</string>
+    <string name="settings_exact_alarm_warning_text">Android cha de Wecker nöd gnau lüüte laa. Bitte erlaub FamWake, dass de Wecker lüüte dörf.</string>
     <string name="settings_exact_alarm_warning_button">Wecker erlaube</string>
-    <string name="main_exact_alarm_banner">⚠️ Wecker darf nöd lüüte! Bitte Berechtigung i de Iistellige erteile.</string>
-    <string name="error_offline_feedback">Du bisch offline. Lüeg mal ob d Verbindig goht.</string>
-    <string name="error_feedback_rate_limit">Wart %1$s Sekunde bevor de nomal öppis schicksch.</string>
-    <string name="error_feedback_rate_limit_server">Z vill ufemol. Probiers spööter nomal.</string>
-    <string name="error_feedback_empty_message">D Nachricht dörf nid leer sii.</string>
-    <string name="error_network">Netzwärkfähler. Lüeg mal ob dis Internet goht.</string>
+    <string name="main_exact_alarm_banner">⚠️ Wecker dörf nöd lüüte! Bitte d\'Berechtigung i de Iistellige erteile.</string>
+    <string name="error_offline_feedback">Du bisch offline. Lueg mal öb d\'Verbindig gaht.</string>
+    <string name="error_feedback_rate_limit">Wart %1$s Sekunde bevor nomal öppis schicksch.</string>
+    <string name="error_feedback_rate_limit_server">Z\'vill uuf eimal. Probiers spöter namal.</string>
+    <string name="error_feedback_empty_message">D\'Nachricht dörf nöd leer sii.</string>
+    <string name="error_network">Netzwärkfehler. Lueg mal öb diis Internet gaht.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -343,27 +343,26 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="tooltip_alarm_sound">Tipf da druff, zum dinen persönliche Weckerton uuszwähle – nimm dis Lieblingsglüüt statt em Standardsignal.</string>
-    <string name="settings_language_dialects">Dialäkte</string>
-    <string name="error_sync_blocked_device">Synchronisierig isch uf dem Grät nöd verfüegbar.</string>
+    <string name="tooltip_alarm_sound">Tipp da druff, zum diin persönliche Weckton uuszwähle – nimm diis Lieblingsglüüt statt em Standardsignal.</string>
+    <string name="settings_language_dialects">Dialäkt</string>
+    <string name="error_sync_blocked_device">Synchronisierig isch uf däm Grät nöd verfüegbar.</string>
     <string name="onboarding_mock_name1">Papi</string>
     <string name="onboarding_mock_name2">Mami</string>
     <string name="onboarding_mock_family_name">Meier</string>
 
-    <!-- Notification strings -->
-    <string name="notif_channel_schedule_change_name">Planänderungen</string>
-    <string name="notif_channel_schedule_change_desc">Benachrichtigung bei Änderungen der Weckzeiten oder Reihenfolge</string>
-    <string name="notif_channel_family_events_name">Familien-Ereignisse</string>
-    <string name="notif_channel_family_events_desc">Benachrichtigung wenn Mitglieder der Familie beitreten oder diese verlassen</string>
+    <string name="notif_channel_schedule_change_name">Planänderige</string>
+    <string name="notif_channel_schedule_change_desc">Benachrichtigung bi Änderige vo de Weckziite oder de Reihefolg</string>
+    <string name="notif_channel_family_events_name">Familie-Ereignis</string>
+    <string name="notif_channel_family_events_desc">Benachrichtigung wänn Mitgliider de Familie biiträted oder sie verlaased</string>
     <string name="notif_schedule_changed_title">FamWake: Plan aktualisiert</string>
-    <string name="notif_schedule_changed_body">Die Weckzeiten wurden geändert. Öffne die App, um deine neue Weckzeit zu sehen.</string>
-    <string name="notif_member_joined_title">FamWake: Neues Familienmitglied!</string>
-    <string name="notif_member_joined_body">Ein neues Mitglied ist deiner Familie beigetreten.</string>
-    <string name="notif_member_left_title">FamWake: Familien-Update</string>
-    <string name="notif_member_left_body">Ein Mitglied hat deine Familie verlassen.</string>
-    <string name="notif_permission_title">Benachrichtigungen erforderlich</string>
-    <string name="notif_permission_desc">Ohne Benachrichtigungen kann der Wecker möglicherweise nicht klingeln. Bitte aktiviere sie für einen zuverlässigen Alarm.</string>
-    <string name="notif_permission_button">Benachrichtigungen aktivieren</string>
-    <string name="notif_manage_title">Benachrichtigungen verwalten</string>
-    <string name="notif_manage_desc">Ton, Vibration und weitere Einstellungen in den System-Einstellungen anpassen.</string>
+    <string name="notif_schedule_changed_body">D\'Weckziite sind gänderet worde. Mach d\'App uuf, zum diini neui Weckziit gseh.</string>
+    <string name="notif_member_joined_title">FamWake: Neus Familiemitgliid!</string>
+    <string name="notif_member_joined_body">Es neus Mitgliid isch diinere Familie biiträtte.</string>
+    <string name="notif_member_left_title">FamWake: Familie-Update</string>
+    <string name="notif_member_left_body">Es Mitgliid hät diini Familie verlaa.</string>
+    <string name="notif_permission_title">Benachrichtigunge bruuchts</string>
+    <string name="notif_permission_desc">Ohni Benachrichtigunge chan de Wecker villicht nöd lüüte. Bitte aktivier si für en zueverlässige Wecker.</string>
+    <string name="notif_permission_button">Benachrichtigunge aktiviere</string>
+    <string name="notif_manage_title">Benachrichtigunge verwalte</string>
+    <string name="notif_manage_desc">Ton, Vibration und wiiteri Iistellige i de System-Iistellige aapasse.</string>
 </resources>

@@ -14,7 +14,7 @@
 
     <string name="setup_create_tab">Створити</string>
     <string name="setup_join_tab">Приєднатися</string>
-    <string name="setup_family_name">Назва сім\'ї (напр., Сім\'я Іванових)</string>
+    <string name="setup_family_name">Назва сім\'ї (напр., Сім\'я Іваненків)</string>
     <string name="setup_create_button">Створити сім\'ю</string>
     <string name="setup_join_code_label">6-значний код запрошення</string>
     <string name="setup_join_code_placeholder">ABC123</string>
@@ -117,7 +117,7 @@
     <string name="settings_delete_family_warning_confirm">Так, видалити все</string>
     <string name="settings_logout">Вийти</string>
     <string name="settings_delete_account">Видалити акаунт</string>
-    <string name="settings_footer_version">FamWake Сімейний Будильник v%1$s</string>
+    <string name="settings_footer_version">FamWake Сімейний будильник v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Усі права захищено.</string>
 
@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Зовнішній вигляд</string>
     <string name="settings_display_title">Налаштування додатку</string>
@@ -343,24 +343,29 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Натисніть тут, щоб вибрати власний звук будильника – замість стандартного сигналу оберіть свою улюблену мелодію.</string>
     <string name="settings_language_dialects">Діалекти</string>
-    <string name="error_sync_blocked_device">Синхронізація недоступна на цьому пристрої.</string>
-    <string name="onboarding_mock_name1">Тато</string>
-    <string name="onboarding_mock_name2">Мама</string>
-    <string name="onboarding_mock_family_name">Іваненко</string>
 
     
     <string name="notif_channel_schedule_change_name">Зміни розкладу</string>
     <string name="notif_channel_schedule_change_desc">Сповіщає про зміни часу будильника або черги</string>
     <string name="notif_channel_family_events_name">Сімейні події</string>
     <string name="notif_channel_family_events_desc">Сповіщає, коли учасники приєднуються чи виходять з сім’ї</string>
+
+    
     <string name="notif_schedule_changed_title">FamWake: Розклад оновлено</string>
-    <string name="notif_schedule_changed_body">Час будильника змінено. Відкрий додаток, щоб побачити новий час.</string>
+    <string name="notif_schedule_changed_body">Час будильника змінено. Відкрой додаток, щоб побачити новий час.</string>
     <string name="notif_member_joined_title">FamWake: Новий учасник!</string>
     <string name="notif_member_joined_body">Новий учасник приєднався до твоєї сім’ї.</string>
     <string name="notif_member_left_title">FamWake: Оновлення сім’ї</string>
     <string name="notif_member_left_body">Учасник залишив твою сім’ю.</string>
+
+    
     <string name="notif_permission_title">Сповіщення обов\'язкові</string>
     <string name="notif_permission_desc">Без сповіщень будильник може не спрацювати. Увімкніть їх для надійного пробудження.</string>
     <string name="notif_permission_button">Увімкнути сповіщення</string>
