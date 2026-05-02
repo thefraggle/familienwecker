@@ -43,7 +43,7 @@
     <string name="main_no_profile_warning">Ingen profil valgt!</string>
     <string name="main_no_profile_warning_desc">Vælg din profil i indstillingerne, så alarmen kan ringe for dig.</string>
     <string name="main_unclaimed_first_title">Der ringer ingen alarm for %1$s!</string>
-    <string name="main_unclaimed_first_desc">%1$s er først i rækken, men har ingen egen profil – og vågner måske ikke til tiden.</string>
+    <string name="main_unclaimed_first_desc">%1$s er først i rækken, men har ikke sin egen profil – og vågner måske ikke til tiden.</string>
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
     <string name="delete_desc">Slet</string>
@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Udseende</string>
     <string name="settings_display_title">App-indstillinger</string>
@@ -215,7 +215,7 @@
         <item>I dag bliver en god dag. Den starter nu!</item>
         <item>Din tandbørste savner dig. Af sted til badeværelset!</item>
         <item>Alt koordineret, alt planlagt – det er din tur!</item>
-        <item>Den tidlige fugl har badeværelset helt for sig selv.</item>
+        <item>Morgenfuglen har badeværelset helt for sig selv.</item>
     </string-array>
     <string name="ringing_stop">Stop alarm</string>
     <string name="ringing_snooze">Slumre (5 min)</string>
@@ -235,7 +235,7 @@
     <string name="join_conflict_confirm">Forlad og deltag</string>
     <string name="error_delete_member">Kunne ikke slette medlem: %1$s</string>
     <string name="error_sync_failed">Synkronisering mislykkedes</string>
-    <string name="error_delete_family">Fejl ved sletting af familie: %1$s</string>
+    <string name="error_delete_family">Fejl ved sletning af familie: %1$s</string>
     <string name="error_calculate_schedule">Fejl ved beregning af tidsplan: %1$s</string>
     <string name="error_not_logged_in">Bruger ikke logget ind</string>
     <string name="error_system">Systemfejl</string>
@@ -256,7 +256,7 @@
     <string name="error_delete_not_admin">Kun opretteren kan slette familien.</string>
 
     <string name="alarm_default_member">Familiemedlem</string>
-    <string name="alarm_notification_title">Familievækkeuren ringer</string>
+    <string name="alarm_notification_title">Familievækkeuret ringer</string>
     <string name="alarm_notification_text">Godmorgen, %1$s!</string>
     <string name="alarm_channel_name">Alarm</string>
 
@@ -329,12 +329,12 @@
     <string name="settings_exact_alarm_warning_title">Alarmtilladelse mangler</string>
     <string name="settings_exact_alarm_warning_text">Android forhindrer den nøjagtige alarm i at ringe. Tillad FamWake at planlægge alarmer og påmindelser.</string>
     <string name="settings_exact_alarm_warning_button">Tillad alarmer</string>
-    <string name="main_exact_alarm_banner">⚠️ Alarm blokeret! Giv alarmtilladelsen i indstillingerne, så din alarm kan ringe til tiden.</string>
+    <string name="main_exact_alarm_banner">⚠️ Alarm blokeret! Giv tilladelse til alarmer i indstillingerne, så din alarm kan ringe til tiden.</string>
     <string name="error_offline_feedback">Du er offline. Tjek din forbindelse og prøv igen.</string>
     <string name="error_feedback_rate_limit">Vent %1$s sekunder, før du sender en ny besked.</string>
     <string name="error_feedback_rate_limit_server">For mange anmodninger. Prøv igen senere.</string>
     <string name="error_feedback_empty_message">Beskeden må ikke være tom.</string>
-    <string name="error_network">Netværksfeil. Tjek din internetforbindelse.</string>
+    <string name="error_network">Netværksfejl. Tjek din internetforbindelse.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -355,15 +355,15 @@
     <string name="notif_channel_schedule_change_desc">Giver besked ved ændringer i opvågningstider eller rækkefølge</string>
     <string name="notif_channel_family_events_name">Familiebegivenheder</string>
     <string name="notif_channel_family_events_desc">Giver besked når medlemmer tilslutter sig eller forlader familien</string>
-    <string name="notif_schedule_changed_title">FamWake: Plan opdateret</string>
+    <string name="notif_schedule_changed_title">FamWake: Tidsplan opdateret</string>
     <string name="notif_schedule_changed_body">Vækketiderne er ændret. Åbn appen for at se din nye tid.</string>
     <string name="notif_member_joined_title">FamWake: Nyt familiemedlem!</string>
     <string name="notif_member_joined_body">Et nyt medlem har sluttet sig til din familie.</string>
     <string name="notif_member_left_title">FamWake: Familieopdatering</string>
     <string name="notif_member_left_body">Et medlem har forladt din familie.</string>
     <string name="notif_permission_title">Notifikationer påkrævet</string>
-    <string name="notif_permission_desc">Uden notifikationer ringer alarmen muligvis ikke. Aktivér dem for en pålidelig alarm.</string>
+    <string name="notif_permission_desc">Uden notifikationer ringer alarmen muligvis ikke. Aktivér dem for at få en pålidelig alarm.</string>
     <string name="notif_permission_button">Aktiver notifikationer</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Administrer notifikationer</string>
+    <string name="notif_manage_desc">Tilpas lyd, vibration og andre notifikationsindstillinger i systemindstillingerne.</string>
 </resources>

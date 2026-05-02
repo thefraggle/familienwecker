@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">外観</string>
     <string name="settings_display_title">アプリ設定</string>
@@ -293,7 +293,7 @@
     <string name="tooltip_wake_window">時間枠を設定してください。アプリがその中で最適なタイミングを見つけ、誰もバスルームを待つ必要がなくなります。</string>
     <string name="tooltip_bathroom">現実的な時間を計画してください。あなたのバスルームの時間が、家族全員の朝のペースを決めます。</string>
     <string name="tooltip_invite_code">このコードを家族と共有してください。参加すると、自動的にスケジュールに表示されます。</string>
-    <string name="tooltip_alarm_switch">アラームをオフにすると、スマホが鳴らなくなるだけでなく、アルゴリズムが瞬時に家族全員の朝を再計算し、他の人が少し長く眠れたり、早くバスルームに行けたりするようになります。</string>
+    <string name="tooltip_alarm_switch">アラームをオフすると、スマホが鳴らなくなるだけでなく、アルゴリズムが瞬時に家族全員の朝を再計算し、他の人が少し長く眠れたり、早くバスルームに行けたりするようになります。</string>
     <string name="tooltip_weekdays">1週間の計画：各曜日をタップして、特定の起床時間とバスルームの時間を設定します。在宅勤務と出社日を切り替えるのに最適です。</string>
     <string name="settings_tooltips_title">ヒントとアドバイス</string>
     <string name="settings_tooltips_label">役立つヒントを表示する</string>
@@ -364,6 +364,6 @@
     <string name="notif_permission_title">通知が必要です</string>
     <string name="notif_permission_desc">通知がないとアラームが鳴らない場合があります。確実に起きるために有効にしてください。</string>
     <string name="notif_permission_button">通知を有効にする</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">通知の管理</string>
+    <string name="notif_manage_desc">システム設定で音、バイブレーション、その他の通知設定を変更します。</string>
 </resources>

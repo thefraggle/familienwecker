@@ -14,9 +14,9 @@ app_names = {
     'values-it': 'FamWake Sveglia familiare',
     'values-pt': 'FamWake Despertador Familiar',
     'values-da': 'FamWake Familievækkeur',
-    'values-no': 'FamWake Familie vekkerklokke',
-    'values-sv': 'FamWake Familjens väckarklocka',
-    'values-pl': 'FamWake Budzik rodzinny',
+    'values-no': 'FamWake Familievekkerklokke',
+    'values-sv': 'FamWake Familjeväckarklocka',
+    'values-pl': 'FamWake Budzik Rodzinny',
     'values-ru': 'FamWake Семейный будильник',
     'values-uk': 'FamWake Сімейний будильник',
     'values-tr': 'FamWake Aile Çalar Saati',
@@ -27,9 +27,9 @@ app_names = {
     'values-id': 'FamWake Jam Alarm Keluarga',
     'values-in': 'FamWake Jam Alarm Keluarga',
     'values-vi': 'FamWake Đồng hồ báo thức gia đình',
-    'values-bn': 'FamWake পারিবারিক অ্যালার্ম ঘড়ি',
-    'values-mr': 'FamWake कौटुंबिक अलार्म घड्याळ',
-    'values-hi': 'FamWake पारिवारिक अलार्म घड़ी',
+    'values-bn': 'FamWake পারিবারিক অ্যালার্ম',
+    'values-mr': 'FamWake कौटुंबिक अलार्म',
+    'values-hi': 'FamWake पारिवारिक अलार्म',
 }
 
 base_dir = 'app/src/main/res'

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake Familie vekkerklokke</string>
+    <string name="app_name_short">FamWake Familievekkerklokke</string>
     <string name="email_label">E-post</string>
     <string name="password_label">Passord</string>
     <string name="register_button">Registrer deg</string>
@@ -51,7 +51,7 @@
     <string name="add_member_title_add">Legg til medlem</string>
     <string name="add_member_title_edit">Rediger medlem</string>
     <string name="back_desc">Tilbake</string>
-    <string name="unsaved_changes_title">Ulagede endringer</string>
+    <string name="unsaved_changes_title">Ulagrede endringer</string>
     <string name="unsaved_changes_message">Vil du forkaste endringene dine?</string>
     <string name="unsaved_changes_discard">Forkast</string>
     <string name="unsaved_changes_keep">Fortsett å redigere</string>
@@ -117,7 +117,7 @@
     <string name="settings_delete_family_warning_confirm">Ja, slett alt</string>
     <string name="settings_logout">Logg ut</string>
     <string name="settings_delete_account">Slett konto</string>
-    <string name="settings_footer_version">FamWake Familievekker v%1$s</string>
+    <string name="settings_footer_version">FamWake Familievekkerklokke v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Med enerett.</string>
 
@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Utseende</string>
     <string name="settings_display_title">App-innstillinger</string>
@@ -161,7 +161,7 @@
     <string name="onboarding_slide4_body">Opprett familien din nå og nyt avslappede morgener – pålitelig, også offline.</string>
     <string name="settings_feedback_button">Gi tilbakemelding / Rapporter feil</string>
     <string name="feedback_title">Tilbakemelding</string>
-    <string name="feedback_intro">Hjelp oss å gjøre appen enda bedre! Hva har du på hjertet?</string>
+    <string name="feedback_intro">Hjelp us å gjøre appen enda bedre! Hva har du på hjertet?</string>
     <string name="feedback_category_label">Kategori</string>
     <string name="feedback_category_bug">Fant en feil</string>
     <string name="feedback_category_feature">Forespørsel om funksjon</string>
@@ -215,7 +215,7 @@
         <item>I dag blir en fin dag. Den starter nå!</item>
         <item>Tannbørsten din savner deg. Av gårde til badet!</item>
         <item>Alt koordinert, alt planlagt – det er din tur!</item>
-        <item>Den tidlige fuglen har badet helt for seg selv.</item>
+        <item>Morgenfuglen har badet helt for seg selv.</item>
     </string-array>
     <string name="ringing_stop">Stopp alarm</string>
     <string name="ringing_snooze">Slumre (5 min)</string>
@@ -256,7 +256,7 @@
     <string name="error_delete_not_admin">Bare familieoppretteren kan slette familien.</string>
 
     <string name="alarm_default_member">Familiemedlem</string>
-    <string name="alarm_notification_title">Familievekkeren ringer</string>
+    <string name="alarm_notification_title">Familievekkerklokken ringer</string>
     <string name="alarm_notification_text">God morgen, %1$s!</string>
     <string name="alarm_channel_name">Alarm</string>
 
@@ -351,8 +351,8 @@
     <string name="onboarding_mock_family_name">Hansen</string>
 
     
-    <string name="notif_channel_schedule_change_name">Tidsplanenendringer</string>
-    <string name="notif_channel_schedule_change_desc">Varsler om endringer i vekketider eller rekkefolge</string>
+    <string name="notif_channel_schedule_change_name">Tidsplanendringer</string>
+    <string name="notif_channel_schedule_change_desc">Varsler om endringer i vekketider eller rekkefølge</string>
     <string name="notif_channel_family_events_name">Familiehendelser</string>
     <string name="notif_channel_family_events_desc">Varsler når medlemmer slutter seg til eller forlater familien</string>
     <string name="notif_schedule_changed_title">FamWake: Plan oppdatert</string>
@@ -364,6 +364,6 @@
     <string name="notif_permission_title">Varsler påkrevd</string>
     <string name="notif_permission_desc">Uten varsler kan alarmen kanskje ikke ringe. Aktiver dem for en pålitelig alarm.</string>
     <string name="notif_permission_button">Aktiver varsler</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Administrer varsler</string>
+    <string name="notif_manage_desc">Endre lyd, vibrasjon og andre varslingsinnstillinger i systeminnstillingene.</string>
 </resources>

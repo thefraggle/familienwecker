@@ -3,7 +3,6 @@
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 ## 1.8.5 – 2026-05-01
-
 ### Neu
 - **Weltweit verfügbar** – FamWake unterstützt nun 7 weitere Sprachen: Indonesisch, Vietnamesisch, Bengalisch, Marathi, Hindi, Chinesisch (Vereinfacht) und Koreanisch. Damit ist die App nun in 22 Sprachen verfügbar.
 - **Lokalisierte E-Mails** – System-E-Mails (wie zum Zurücksetzen des Passworts) werden nun ebenfalls in der eingestellten App-Sprache versendet.

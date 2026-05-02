@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake Budzik rodzinny</string>
+    <string name="app_name_short">FamWake Budzik Rodzinny</string>
     <string name="email_label">Email</string>
     <string name="password_label">Hasło</string>
     <string name="register_button">Zarejestruj się</string>
@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Wygląd</string>
     <string name="settings_display_title">Ustawienia aplikacji</string>
@@ -364,6 +364,6 @@
     <string name="notif_permission_title">Powiadomienia wymagane</string>
     <string name="notif_permission_desc">Bez powiadomień budzik może nie zadzwonić. Włącz je, aby alarm działał niezawodnie.</string>
     <string name="notif_permission_button">Włącz powiadomienia</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Zarządzaj powiadomieniami</string>
+    <string name="notif_manage_desc">Zmień dźwięk, wibracje i inne preferencje powiadomień w ustawieniach systemu.</string>
 </resources>

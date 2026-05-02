@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Görünüm</string>
     <string name="settings_display_title">Uygulama ayarları</string>
@@ -286,7 +286,7 @@
     <string name="login_verify_email_text">%1$s\nadresine bir doğrulama e-postası gönderdik.\nHesabınızı aktifleştirmek için lütfen e-postadaki bağlantıya tıklayın.</string>
     <string name="login_verify_email_confirm">Doğruladım ✓</string>
     <string name="login_verify_email_resend">E-postayı tekrar gönder</string>
-    <string name="login_verify_email_not_verified">E-posta henüz doğrulanmadı. Lütfen gelen kutunuzu kontrol edin.</string>
+    <string name="login_verify_email_not_verified">E-post henüz doğrulanmadı. Lütfen gelen kutunuzu kontrol edin.</string>
 
     <string name="tooltip_awake_button">Erken mi uyandınız? Bugün için alarmınızı durdurmak için buraya dokunun – banyo süreniz aileniz için rezerve kalacaktır.</string>
     <string name="tooltip_drag_handle">Ailenizin uyanma sırasını manuel olarak değiştirmek için bir karta basılı tutun ve sürükleyin. Algoritma hemen yeniden hesaplar.</string>
@@ -356,7 +356,7 @@
     <string name="notif_channel_family_events_name">Aile olayları</string>
     <string name="notif_channel_family_events_desc">Üyeler aileye katıldığında veya ayrıldığında bildirir</string>
     <string name="notif_schedule_changed_title">FamWake: Program güncellendi</string>
-    <string name="notif_schedule_changed_body">Uyanma saatleri değişti. Yeni saatini görmek için uygulamaı aç.</string>
+    <string name="notif_schedule_changed_body">Uyanma saatleri değişti. Yeni saatini görmek için uygulamayı aç.</string>
     <string name="notif_member_joined_title">FamWake: Yeni aile üyesi!</string>
     <string name="notif_member_joined_body">Yeni bir üye aileye katıldı.</string>
     <string name="notif_member_left_title">FamWake: Aile güncellemesi</string>
@@ -364,6 +364,6 @@
     <string name="notif_permission_title">Bildirimler gerekli</string>
     <string name="notif_permission_desc">Bildirimler olmadan alarm çalmayabilir. Güvenilir bir alarm için lütfen etkinleştirin.</string>
     <string name="notif_permission_button">Bildirimleri etkinleştir</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Bildirimleri yönet</string>
+    <string name="notif_manage_desc">Sistem ayarlarında sesi, titreşimi ve diğer bildirim tercihlerini değiştirin.</string>
 </resources>

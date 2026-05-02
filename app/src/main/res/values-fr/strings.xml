@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Apparence</string>
     <string name="settings_display_title">Paramètres de l\'app</string>
@@ -149,16 +149,16 @@
     <string name="onboarding_skip">Passer</string>
     <string name="onboarding_next">Suivant</string>
     <string name="onboarding_done">C\'est parti</string>
-    <string name="onboarding_slide0_title">Votre matin en équipe.</string>
+    <string name="onboarding_slide0_title">Tes matins en équipe.</string>
     <string name="onboarding_slide0_body">Plus de disputes, plus de chaos. FamWake fait en sorte que tout le monde commence la journée sereinement – entièrement automatique.</string>
     <string name="onboarding_slide1_title">Fini l\'attente.</string>
     <string name="onboarding_slide1_body">FamWake calcule l\'heure de réveil idéale pour chaque membre – en coordonnant salle de bain, petit-déjeuner et départ. Plus de bousculade.</string>
     <string name="onboarding_slide2_title">Chaque jour est différent.</string>
-    <string name="onboarding_slide2_body">Lundi au bureau, mercredi en télétravail ? Réglez des horaires individuels pour chaque jour – l\'appli s\'occupe du reste.</string>
+    <string name="onboarding_slide2_body">Lundi au bureau, mercredi en télétravail ? Règle des horaires individuels pour chaque jour – l\'appli s\'occupe du reste.</string>
     <string name="onboarding_slide3_title">Connectés en secondes.</string>
-    <string name="onboarding_slide3_body">Partagez un code et votre famille rejoint instantanément. Nouveaux membres ? Le planning s\'adapte automatiquement. Et si quelque chose change, tout le monde le sait aussitôt.</string>
+    <string name="onboarding_slide3_body">Partage un code et ta famille rejoint instantanément. Nouveaux membres ? Le planning s\'adapte automatiquement. Et si quelque chose change, tout le monde le sait aussitôt.</string>
     <string name="onboarding_slide4_title">C\'est parti !</string>
-    <string name="onboarding_slide4_body">Créez votre famille maintenant et profitez de matins détendus – de manière fiable, même hors ligne.</string>
+    <string name="onboarding_slide4_body">Crée ta famille maintenant et profite de matins détendus – de manière fiable, même hors ligne.</string>
     <string name="settings_feedback_button">Donner un avis / Signaler un bug</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Aide-nous à améliorer l\'app ! Dis-nous tout :</string>
@@ -289,7 +289,7 @@
     <string name="login_verify_email_not_verified">E-mail non confirmé. Vérifie ta boîte de réception.</string>
 
     <string name="tooltip_awake_button">Déjà debout ? Appuie ici pour arrêter ton réveil du jour – ton créneau salle de bain reste réservé pour la famille.</string>
-    <string name="tooltip_drag_handle">Maintiens et glisse une carte pour changer l\'ordre de passage. L\'algorithme recalcule instantanément.</string>
+    <string name="tooltip_drag_handle">Maintiens et glisse une carte pour changer manuellement l\'ordre de passage. L\'algorithme recalcule instantanément.</string>
     <string name="tooltip_wake_window">Donne-nous une plage horaire. L\'app trouvera le moment parfait pour que personne ne fasse la queue.</string>
     <string name="tooltip_bathroom">Sois réaliste. Ton temps de préparation donne le rythme pour toute la famille.</string>
     <string name="tooltip_invite_code">Partage ce code avec ta famille. Dès qu\'ils rejoindront, ils apparaîtront dans le planning.</string>
@@ -343,7 +343,7 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="tooltip_alarm_sound">Appuyez ici pour choisir votre sonnerie de réveil personnelle – optez pour votre mélodie préférée plutôt que le son par défaut.</string>
+    <string name="tooltip_alarm_sound">Appuie ici pour choisir ta sonnerie de réveil personnelle – choisis ta mélodie préférée plutôt que le son par défaut.</string>
     <string name="settings_language_dialects">Dialectes</string>
     <string name="error_sync_blocked_device">La synchronisation n\'est pas disponible sur cet appareil.</string>
     <string name="onboarding_mock_name1">Papa</string>
@@ -357,13 +357,13 @@
     <string name="notif_channel_family_events_desc">Notifie quand des membres rejoignent ou quittent la famille</string>
     <string name="notif_schedule_changed_title">FamWake: Plan mis à jour</string>
     <string name="notif_schedule_changed_body">Les heures de réveil ont changé. Ouvre l’app pour voir ton nouveau réveil.</string>
-    <string name="notif_member_joined_title">FamWake: Nouveau membre !</string>
+    <string name="notif_member_joined_title">FamWake: Nouveau membre !</string>
     <string name="notif_member_joined_body">Un nouveau membre a rejoint ta famille.</string>
     <string name="notif_member_left_title">FamWake: Mise à jour famille</string>
     <string name="notif_member_left_body">Un membre a quitté ta famille.</string>
     <string name="notif_permission_title">Notifications requises</string>
     <string name="notif_permission_desc">Sans notifications, le réveil pourrait ne pas sonner. Active-les pour un réveil fiable.</string>
     <string name="notif_permission_button">Activer les notifications</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Gérer les notifications</string>
+    <string name="notif_manage_desc">Modifie le son, la vibration et d\'autres paramètres de notification dans les réglages du système.</string>
 </resources>

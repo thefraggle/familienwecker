@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name_short">FamWake Jam Alarm Keluarga</string>
-    <string name="email_label">Surel</string>
+    <string name="email_label">Email</string>
     <string name="password_label">Kata sandi</string>
     <string name="register_button">Daftar</string>
     <string name="login_button">Masuk</string>
@@ -13,19 +13,19 @@
     <string name="login_google_error_no_account">Tidak ditemukan akun Google di perangkat ini. Silakan masuk ke Google di pengaturan Android Anda atau gunakan email/kata sandi.</string>
 
     <string name="setup_create_tab">Buat</string>
-    <string name="setup_join_tab">Bergabunglah</string>
-    <string name="setup_family_name">Nama keluarga (misalnya Keluarga Smith)</string>
+    <string name="setup_join_tab">Bergabung</string>
+    <string name="setup_family_name">Nama keluarga (misal: Keluarga Smith)</string>
     <string name="setup_create_button">Buat keluarga</string>
     <string name="setup_join_code_label">Kode undangan 6 digit</string>
     <string name="setup_join_code_placeholder">ABC123</string>
-    <string name="setup_join_button">Bergabunglah dengan keluarga</string>
+    <string name="setup_join_button">Bergabung dengan keluarga</string>
     <string name="join_loading_text">Memproses permintaan bergabung…</string>
 
     <string name="main_add_member_desc">Tambahkan anggota</string>
     <string name="main_family_members">Anggota keluarga</string>
     <string name="main_current_schedule">Jadwal saat ini</string>
     <string name="main_no_active_schedule">Tidak ada jadwal alarm aktif.</string>
-    <string name="main_optimal_plan">Berikut perhitungan jadwalnya:</string>
+    <string name="main_optimal_plan">Berikut adalah jadwal yang dihitung:</string>
     <string name="main_plan_paused">Alarm Anda saat ini dijeda.</string>
     <string name="main_shared_breakfast">☕ Sarapan bersama: %s</string>
     <string name="main_wake_time">Bangun: %1$s - %2$s</string>
@@ -37,19 +37,19 @@
     <string name="main_member_limit_reached">Maksimum 6 anggota tercapai.</string>
     <string name="main_alarm_enabled">Alarm: AKTIF</string>
     <string name="main_alarm_enabled_desc">Alarm otomatis aktif.</string>
-    <string name="main_snooze_active">Tunda aktif hingga %1$s</string>
+    <string name="main_snooze_active">Snooze aktif hingga %1$s</string>
     <string name="main_alarm_disabled">Alarm: MATI</string>
     <string name="main_alarm_disabled_desc">Jeda manual aktif.</string>
     <string name="main_no_profile_warning">Tidak ada profil yang dipilih!</string>
     <string name="main_no_profile_warning_desc">Silakan pilih profil Anda di pengaturan sehingga alarm dapat berbunyi untuk Anda.</string>
     <string name="main_unclaimed_first_title">Untuk %1$s, alarm tidak akan berbunyi!</string>
-    <string name="main_unclaimed_first_desc">%1$s berada di urutan pertama tetapi tidak memiliki profil sendiri – dan mungkin tidak bangun tepat waktu.</string>
+    <string name="main_unclaimed_first_desc">%1$s berada di urutan pertama tetapi tidak memiliki profilnya sendiri – dan mungkin tidak bangun tepat waktu.</string>
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="delete_desc">Hapus</string>
 
     <string name="add_member_title_add">Tambahkan anggota</string>
-    <string name="add_member_title_edit">Sunting anggota</string>
+    <string name="add_member_title_edit">Edit anggota</string>
     <string name="back_desc">Kembali</string>
     <string name="unsaved_changes_title">Perubahan yang Belum Disimpan</string>
     <string name="unsaved_changes_message">Apakah Anda ingin membuang perubahan Anda?</string>
@@ -59,21 +59,21 @@
     <string name="delete_member_title">Hapus anggota</string>
     <string name="delete_member_text">Apakah Anda yakin ingin menghapus %1$s dari keluarga?</string>
     <string name="delete_confirm">Hapus</string>
-    <string name="cancel_button">Batalkan</string>
+    <string name="cancel_button">Batal</string>
     <string name="retry_button">Coba lagi</string>
-    <string name="add_member_name_label">Nama (misalnya Ibu, Ayah, Anak)</string>
+    <string name="add_member_name_label">Nama (misal: Ibu, Ayah, Anak)</string>
     <string name="add_member_unknown">Tidak diketahui</string>
     <string name="add_member_earliest_wake">Waktu bangun paling awal</string>
-    <string name="add_member_latest_wake">Waktu bangun terbaru</string>
+    <string name="add_member_latest_wake">Waktu bangun paling lambat</string>
     <string name="add_member_bathroom_duration">Durasi kamar mandi (menit)</string>
     <string name="add_member_wants_breakfast">Dengan sarapan</string>
-    <string name="add_member_leave_home">Berangkat dari rumah pukul</string>
+    <string name="add_member_leave_home">Keluar rumah pukul</string>
     <string name="add_member_day_profiles_title">Jadwal mingguan</string>
     <string name="add_member_day_active">Alarm aktif</string>
     <string name="add_member_copy_to_days">Salin \"%1$s\" ke hari lain</string>
     <string name="add_member_copy_dialog_title">Salin ke hari</string>
     <string name="add_member_copy_apply">Terapkan</string>
-    <string name="validation_latest_before_earliest">Waktu bangun terakhir harus setelah waktu bangun paling awal</string>
+    <string name="validation_latest_before_earliest">Waktu bangun paling lambat harus setelah waktu bangun paling awal</string>
     <string name="validation_leave_too_early">Waktu keluar rumah harus setelah waktu kamar mandi (Waktu bangun + Durasi kamar mandi)</string>
     <string name="weekday_1">Senin</string>
     <string name="weekday_2">Selasa</string>
@@ -82,13 +82,13 @@
     <string name="weekday_5">Jumat</string>
     <string name="weekday_6">Sabtu</string>
     <string name="weekday_7">Minggu</string>
-    <string name="weekday_short_1">Senin</string>
-    <string name="weekday_short_2">Selasa</string>
-    <string name="weekday_short_3">Rabu</string>
+    <string name="weekday_short_1">Sen</string>
+    <string name="weekday_short_2">Sel</string>
+    <string name="weekday_short_3">Rab</string>
     <string name="weekday_short_4">Kam</string>
-    <string name="weekday_short_5">Jumat</string>
-    <string name="weekday_short_6">Sabtu</string>
-    <string name="weekday_short_7">Matahari</string>
+    <string name="weekday_short_5">Jum</string>
+    <string name="weekday_short_6">Sab</string>
+    <string name="weekday_short_7">Min</string>
 
     <string name="settings_title">Pengaturan</string>
     <string name="settings_profile_title">Profil Saya</string>
@@ -105,14 +105,14 @@
     <string name="settings_account_title">Keluarga &amp; Akun</string>
     <string name="settings_join_code">Kode undangan untuk %1$s:</string>
     <string name="settings_share_code">Bagikan kode</string>
-    <string name="settings_share_message">Ini tautan Anda untuk FamWake:\nhttps://familienwecker.de/join/%2$s\n\nKode: %2$s\nGrup: %1$s\n\nCukup klik, masuk, dan kami\'terhubung. Bangun bersama lebih menyenangkan! ⏰❤️</string>
+    <string name="settings_share_message">Ini tautan Anda untuk FamWake:\nhttps://familienwecker.de/join/%2$s\n\nKode: %2$s\nGrup: %1$s\n\nCukup klik, masuk, dan kita pun terhubung. Bangun bersama lebih menyenangkan! ⏰❤️</string>
     <string name="settings_leave_family">Tinggalkan keluarga</string>
     <string name="settings_delete_family">Hapus keluarga</string>
     <string name="settings_delete_family_dialog_title">Hapus keluarga?</string>
     <string name="settings_delete_family_dialog_text">Apakah Anda yakin ingin menghapus keluarga ini secara permanen? Semua anggota, jadwal, dan pengaturan akan dihapus untuk semua orang. Hal ini tidak dapat dibatalkan.</string>
     <string name="settings_delete_family_dialog_confirm">Hapus</string>
-    <string name="settings_delete_family_dialog_cancel">Batalkan</string>
-    <string name="settings_delete_family_warning_title">Anggota lain aktif!</string>
+    <string name="settings_delete_family_dialog_cancel">Batal</string>
+    <string name="settings_delete_family_warning_title">Anggota lain masih aktif!</string>
     <string name="settings_delete_family_warning_text">Masih ada anggota aktif lainnya di keluarga ini. Jika Anda menghapusnya, semua orang akan kehilangan akses. Apakah Anda benar-benar ingin menghapus semuanya secara paksa?</string>
     <string name="settings_delete_family_warning_confirm">Ya, hapus semuanya</string>
     <string name="settings_logout">Keluar</string>
@@ -124,105 +124,105 @@
     <string name="empty_members_title">Belum ada anggota</string>
     <string name="empty_members_description">Tambahkan profil untuk melihat waktu bangun Anda dan saling membangunkan.</string>
     <string name="empty_schedule_title">Tidak ada alarm aktif</string>
-    <string name="empty_schedule_description">Saat ini, tidak ada alarm yang disetel untuk siapa pun. Saatnya tidur!</string>
+    <string name="empty_schedule_description">Saat ini, tidak ada alarm yang disetel untuk siapa pun. Waktunya tidur lebih lama!</string>
 
     <string name="settings_language_title">Bahasa</string>
     <string name="settings_language_system">Bawaan sistem</string>
-    <string name="settings_language_english">Bahasa Inggris</string>
-    <string name="settings_language_german">Jerman</string>
-    <string name="settings_language_french">Perancis</string>
-    <string name="settings_language_spanish">Spanyol</string>
-    <string name="settings_language_italian">Italia</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_german">Deutsch</string>
+    <string name="settings_language_french">Français</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_language_italian">Italiano</string>
     <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Belanda</string>
-    <string name="settings_language_portuguese">Portugis</string>
+    <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
-    <string name="settings_appearance_title">Penampilan</string>
+    <string name="settings_appearance_title">Tampilan</string>
     <string name="settings_display_title">Pengaturan aplikasi</string>
     <string name="settings_help_feedback_title">Bantuan &amp; Masukan</string>
-    <string name="settings_support_button">Pengembang email</string>
+    <string name="settings_support_button">Email pengembang</string>
     <string name="settings_start_onboarding">🎓 Tur Aplikasi</string>
 
     <string name="onboarding_skip">Lewati</string>
     <string name="onboarding_next">Selanjutnya</string>
-    <string name="onboarding_done">Ayo \' pergi</string>
+    <string name="onboarding_done">Ayo mulai!</string>
     <string name="onboarding_slide0_title">Pagi Anda sebagai sebuah tim.</string>
-    <string name="onboarding_slide0_body">Tidak ada argumen, tidak ada kekacauan. FamWake memastikan semua orang memulai hari dengan santai – sepenuhnya otomatis.</string>
-    <string name="onboarding_slide1_title">Tidak perlu menunggu lagi.</string>
-    <string name="onboarding_slide1_body">FamWake menghitung waktu bangun ideal untuk setiap anggota keluarga – dikoordinasikan di sekitar kamar mandi, sarapan, dan keberangkatan. Tidak ada lagi kerumunan.</string>
+    <string name="onboarding_slide0_body">Tanpa perdebatan, tanpa kekacauan. FamWake memastikan semua orang memulai hari dengan santai – sepenuhnya otomatis.</string>
+    <string name="onboarding_slide1_title">Tidak perlu antre lagi.</string>
+    <string name="onboarding_slide1_body">FamWake menghitung waktu bangun ideal untuk setiap anggota keluarga – dikoordinasikan berdasarkan jadwal kamar mandi, sarapan, dan keberangkatan.</string>
     <string name="onboarding_slide2_title">Setiap hari berbeda.</string>
-    <string name="onboarding_slide2_body">Senin kantor, Rabu kantor pusat? Tetapkan waktu individual untuk setiap hari dalam seminggu – aplikasi akan menangani sisanya.</string>
+    <string name="onboarding_slide2_body">Senin di kantor, Rabu kerja dari rumah? Tetapkan waktu individual untuk setiap hari dalam seminggu – aplikasi akan menangani sisanya.</string>
     <string name="onboarding_slide3_title">Terhubung dalam hitungan detik.</string>
     <string name="onboarding_slide3_body">Bagikan kode dan keluarga Anda langsung bergabung. Anggota baru? Jadwalnya menyesuaikan secara otomatis. Dan jika ada perubahan, semua orang akan langsung mengetahuinya.</string>
-    <string name="onboarding_slide4_title">Ayo \' pergi!</string>
-    <string name="onboarding_slide4_body">Ciptakan keluarga Anda sekarang dan nikmati pagi hari yang santai – andal, bahkan saat offline.</string>
+    <string name="onboarding_slide4_title">Ayo mulai!</string>
+    <string name="onboarding_slide4_body">Buat keluarga Anda sekarang dan nikmati pagi hari yang santai – dapat diandalkan, bahkan saat offline.</string>
     
     <string name="onboarding_mock_name1">Ayah</string>
     <string name="onboarding_mock_name2">Ibu</string>
     <string name="onboarding_mock_family_name">Smith</string>
     <string name="settings_feedback_button">Berikan masukan / Laporkan bug</string>
     <string name="feedback_title">Umpan Balik</string>
-    <string name="feedback_intro">Bantu kami menjadikan aplikasi ini lebih baik! Apa\' yang ada di pikiran Anda?</string>
+    <string name="feedback_intro">Bantu kami menjadikan aplikasi ini lebih baik! Apa yang ingin Anda sampaikan?</string>
     <string name="feedback_category_label">Kategori</string>
     <string name="feedback_category_bug">Menemukan bug</string>
     <string name="feedback_category_feature">Permintaan fitur</string>
     <string name="feedback_category_praise">Pujian &amp; Kritik</string>
     <string name="feedback_category_other">Lainnya</string>
     <string name="feedback_message_label">Pesan</string>
-    <string name="feedback_message_placeholder">Jelaskan secara singkat permintaan Anda…</string>
+    <string name="feedback_message_placeholder">Jelaskan secara singkat masalah Anda…</string>
     <string name="feedback_email_label">Email (opsional)</string>
-    <string name="feedback_email_placeholder">Email Anda (kalau boleh kami balas)</string>
+    <string name="feedback_email_placeholder">Email Anda (agar kami dapat membalas)</string>
     <string name="feedback_auto_info_title">Secara otomatis disertakan:</string>
     <string name="feedback_auto_version">Versi aplikasi: v%1$s</string>
     <string name="feedback_auto_device">Perangkat: %1$s</string>
-    <string name="feedback_cancel">Batalkan</string>
+    <string name="feedback_cancel">Batal</string>
     <string name="feedback_send">Kirim masukan</string>
     <string name="feedback_success">Terima kasih! Masukan Anda telah kami terima dan sangat membantu kami.</string>
     <string name="feedback_success_title">Masukan Dikirim</string>
     <string name="feedback_success_message">Terima kasih atas tanggapan Anda! Ini membantu kami meningkatkan FamWake untuk semua orang.</string>
     <string name="settings_terms_of_use">Ketentuan Penggunaan</string>
-    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-id.html</string>
     <string name="settings_privacy_policy">Kebijakan Privasi</string>
-    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
-    <string name="settings_imprint">Jejak</string>
-    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
-    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-id.html</string>
+    <string name="settings_imprint">Imprint</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-id.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-id.html</string>
 
-    <string name="registration_disclaimer">Dengan mendaftar, Anda menerima %1$s dan %2$s.</string>
+    <string name="registration_disclaimer">Dengan mendaftar, Anda menyetujui %1$s dan %2$s.</string>
     <string name="registration_terms_of_use">Ketentuan Penggunaan</string>
     <string name="registration_privacy_policy">Kebijakan Privasi</string>
     <string name="settings_already_claimed">Sudah diklaim</string>
-    <string name="settings_theme_light">Ringan</string>
+    <string name="settings_theme_light">Terang</string>
     <string name="settings_theme_dark">Gelap</string>
 
     <string name="ringing_wake_up">Bangun, %1$s!</string>
     <string-array name="ringing_messages">
         <item>Kamar mandi adalah milikmu sekarang!</item>
-        <item>Tanpa kemacetan, tanpa stres – waktu mandi Anda dimulai sekarang.</item>
-        <item>Nikmati kedamaian di kamar mandi selagi masih ada!</item>
-        <item>Saatnya minum kopi pertama. Dunia sedang menunggu!</item>
-        <item>Tidur nyenyak? Jadwal Anda hari ini sudah ditentukan.</item>
-        <item>Siap untuk hari ini? Semuanya terkoordinasi.</item>
-        <item>Saatnya untuk mengguncang hari ini! Waktu kamar mandi Anda dimulai.</item>
-        <item>Bangun dan nyalakan – panggung milik Anda!</item>
-        <item>Heavy metal di pagi hari menghilangkan kekhawatiran!</item>
-        <item>Jadwal Anda sudah tayang. Ayo \' pergi!</item>
-        <item>Siap lepas landas? Tim mengandalkan Anda.</item>
-        <item>Bangkit dan bersinar! Kamar mandi gratis untuk Anda.</item>
-        <item>Slot kamar mandi pribadi Anda dimulai sekarang – jadikan itu berarti!</item>
-        <item>Bersihkan jalan menuju kamar mandi – slot Anda sudah dipesan!</item>
-        <item>Burung awal mendapat air hangat!</item>
-        <item>Lima menit lagi? Tidak! Jendela waktu Anda sedang menunggu.</item>
-        <item>Hari ini akan menjadi hari yang menyenangkan. Ini dimulai sekarang!</item>
-        <item>Sikat gigimu merindukanmu. Pergi ke kamar mandi!</item>
-        <item>Semua terkoordinasi, semua terencana – Anda \' siap!</item>
-        <item>Burung awal memiliki kamar mandi untuk dirinya sendiri.</item>
+        <item>Tanpa antrean, tanpa stres – waktu mandimu dimulai sekarang.</item>
+        <item>Nikmati kedamaian di kamar mandi selagi masih bisa!</item>
+        <item>Saatnya minum kopi pertama. Dunia sudah menunggu!</item>
+        <item>Tidur nyenyak? Jadwal Anda hari ini sudah disiapkan.</item>
+        <item>Siap untuk hari ini? Semuanya sudah dikoordinasikan.</item>
+        <item>Saatnya memulai hari dengan semangat! Waktu kamar mandimu dimulai.</item>
+        <item>Bangun dan bersiaplah – panggung milikmu!</item>
+        <item>Heavy metal di pagi hari menghilangkan segala kekhawatiran!</item>
+        <item>Jadwal Anda sudah dimulai. Ayo mulai!</item>
+        <item>Siap beraktivitas? Tim mengandalkan Anda.</item>
+        <item>Bangun dan bersinar! Kamar mandi kosong untukmu.</item>
+        <item>Slot kamar mandi pribadimu dimulai sekarang – manfaatkan waktunya!</item>
+        <item>Jalanan bersih menuju kamar mandi – slot Anda sudah dipesan!</item>
+        <item>Siapa cepat, dia dapat air hangat!</item>
+        <item>Lima menit lagi? Tidak! Waktu Anda sudah berjalan.</item>
+        <item>Hari ini akan menjadi hari yang menyenangkan. Mari kita mulai!</item>
+        <item>Sikat gigimu sudah menunggu. Cepat ke kamar mandi!</item>
+        <item>Semua terkoordinasi, semua terencana – Anda sudah siap!</item>
+        <item>Siapa bangun awal dapat kamar mandi untuk dirinya sendiri.</item>
     </string-array>
     <string name="ringing_stop">Hentikan alarm</string>
-    <string name="ringing_snooze">Tunda (5 menit)</string>
+    <string name="ringing_snooze">Snooze (5 menit)</string>
     <string name="pause_today_desc">Jeda hari ini</string>
     <string name="awake_today_desc">Sudah bangun</string>
     <string name="awake_active_desc">Sudah bangun</string>
@@ -234,8 +234,8 @@
     <string name="error_invalid_code">Kode undangan tidak valid: %1$s</string>
     <string name="error_family_not_found">Tidak ada keluarga yang ditemukan dengan kode ini.</string>
     <string name="error_code_generation_failed">Tidak dapat membuat kode unik. Silakan coba lagi.</string>
-    <string name="join_conflict_title">Bergabunglah dengan keluarga baru?</string>
-    <string name="join_conflict_text">Anda sudah menjadi anggota keluarga \"%1$s\". Untuk bergabung dengan keluarga baru, Anda harus meninggalkan keluarga Anda saat ini terlebih dahulu. Apakah Anda ingin keluar dari \"%1$s\" dan bergabung dengan kode %2$s?</string>
+    <string name="join_conflict_title">Bergabung dengan keluarga baru?</string>
+    <string name="join_conflict_text">Anda sudah menjadi anggota keluarga \"%1$s\". Untuk bergabung dengan keluarga baru, Anda harus meninggalkan keluarga Anda saat ini. Apakah Anda ingin keluar dari \"%1$s\" dan bergabung dengan kode %2$s?</string>
     <string name="join_conflict_confirm">Keluar &amp; Bergabung</string>
     <string name="error_delete_member">Tidak dapat menghapus anggota: %1$s</string>
     <string name="error_sync_failed">Sinkronisasi gagal</string>
@@ -256,28 +256,28 @@
     <string name="error_too_many_requests">Terlalu banyak upaya. Harap tunggu sebentar dan coba lagi.</string>
     <string name="error_password_reset_failed">Penyetelan ulang kata sandi gagal. Silakan coba lagi nanti.</string>
     <string name="error_profile_taken">Profil ini sudah dipakai.</string>
-    <string name="error_profile_claim_offline">Tidak ada koneksi. Pemilihan profil memerlukan akses internet.</string>
-    <string name="error_delete_not_admin">Hanya pembuat keluarga yang dapat menghapus keluarga tersebut.</string>
+    <string name="error_profile_claim_offline">Tidak ada koneksi. Memilih profil memerlukan koneksi internet.</string>
+    <string name="error_delete_not_admin">Hanya pembuat keluarga yang dapat menghapus keluarga.</string>
 
     <string name="alarm_default_member">Anggota keluarga</string>
     <string name="alarm_notification_title">Alarm keluarga berbunyi</string>
     <string name="alarm_notification_text">Selamat pagi, %1$s!</string>
     <string name="alarm_channel_name">Alarm</string>
 
-    <string name="settings_fallback_username">Induk</string>
+    <string name="settings_fallback_username">Orang tua</string>
 
-    <string name="error_alarm_permission">Harap izinkan alarm yang tepat dalam pengaturan sistem sehingga alarm keluarga dapat berdering tepat waktu.</string>
+    <string name="error_alarm_permission">Harap izinkan alarm yang tepat di pengaturan sistem sehingga alarm keluarga dapat berdering tepat waktu.</string>
 
     <string name="permission_fullscreen_title">Izin alarm diperlukan</string>
     <string name="permission_fullscreen_message">FamWake memerlukan izin untuk menampilkan alarm di layar kunci Anda. Harap izinkan ini di pengaturan sistem.</string>
     <string name="permission_fullscreen_open">Buka Pengaturan</string>
 
-    <string name="schedule_message_optimal">Berikut perhitungan jadwalnya:</string>
+    <string name="schedule_message_optimal">Berikut adalah jadwal yang dihitung:</string>
     <string name="schedule_message_no_members">Tidak ada anggota aktif. Semua orang dijeda.</string>
     <string name="schedule_message_no_valid">Tidak ditemukan jadwal yang valid. Waktunya terlalu tumpang tindih.</string>
     <string name="schedule_message_no_valid_desc">Tips: Perluas waktu bangun Anda, persingkat waktu ke kamar mandi, atau jeda anggota lain.</string>
-    <string name="schedule_message_time_adjusted">Waktu disesuaikan dengan %1$d menit agar sesuai dengan pesanan Anda.</string>
-    <string name="schedule_message_breakfast_reduced">Sarapan dikurangi %1$d menit agar sesuai dengan jadwal Anda.</string>
+    <string name="schedule_message_time_adjusted">Waktu disesuaikan sebesar %1$d menit agar sesuai dengan urutan Anda.</string>
+    <string name="schedule_message_breakfast_reduced">Waktu sarapan dikurangi %1$d menit agar sesuai dengan jadwal Anda.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Sarapan −%1$d menit &amp; waktu digeser sebanyak %2$d menit.</string>
     <string name="schedule_message_member_conflict">Konflik untuk %1$s: Waktunya terlalu tumpang tindih.</string>
     <string name="schedule_message_member_conflict_desc">Coba ubah urutannya atau sesuaikan waktunya.</string>
@@ -287,30 +287,30 @@
     <string name="error_email_already_in_use">Alamat email ini sudah digunakan oleh akun lain.</string>
     <string name="error_weak_password">Kata sandinya terlalu lemah. Harap gunakan minimal 8 karakter dan karakter khusus.</string>
     <string name="login_verify_email_title">✉️ Verifikasi email Anda</string>
-    <string name="login_verify_email_text">Kami mengirimkan email verifikasi ke\n%1$s\nSilakan klik link di email untuk mengaktifkan akun Anda.</string>
+    <string name="login_verify_email_text">Kami mengirimkan email verifikasi ke\n%1$s\nSilakan klik tautan di email untuk mengaktifkan akun Anda.</string>
     <string name="login_verify_email_confirm">Saya telah memverifikasi ✓</string>
     <string name="login_verify_email_resend">Kirim ulang email</string>
     <string name="login_verify_email_not_verified">Email belum diverifikasi. Silakan periksa kotak masuk Anda.</string>
 
-    <string name="tooltip_awake_button">Bangun pagi? Ketuk di sini untuk menghentikan alarm Anda hari ini – waktu kamar mandi Anda tetap dikhususkan untuk keluarga.</string>
-    <string name="tooltip_drag_handle">Tekan dan seret ubin untuk mengubah urutan bangun keluarga Anda secara manual. Algoritme segera menghitung ulang.</string>
+    <string name="tooltip_awake_button">Bangun lebih awal? Ketuk di sini untuk menghentikan alarm Anda hari ini – waktu kamar mandi Anda tetap dipertahankan untuk keluarga.</string>
+    <string name="tooltip_drag_handle">Tekan dan seret ubin untuk mengubah urutan bangun keluarga Anda secara manual. Algoritme akan langsung menghitung ulang.</string>
     <string name="tooltip_wake_window">Beri kami jendela waktu. Aplikasi ini akan menemukan momen yang tepat di dalamnya sehingga tidak ada yang perlu menunggu ke kamar mandi.</string>
     <string name="tooltip_bathroom">Rencanakan ini secara realistis. Durasi kamar mandi Anda menentukan kecepatan pagi seluruh keluarga.</string>
     <string name="tooltip_invite_code">Bagikan kode ini kepada keluarga Anda. Begitu mereka bergabung, mereka akan otomatis muncul di jadwal Anda.</string>
-    <string name="tooltip_alarm_switch">Jika Anda mematikan alarm, ponsel Anda tidak hanya senyap – algoritme akan langsung menghitung ulang pagi hari untuk seluruh keluarga, sehingga semua orang bisa tidur lebih lama atau pergi ke kamar mandi lebih cepat.</string>
-    <string name="tooltip_weekdays">Rencanakan seluruh minggu Anda: Ketuk setiap hari kerja untuk mengatur waktu bangun dan kamar mandi tertentu – cocok untuk beralih antara hari kerja di rumah dan di kantor.</string>
-    <string name="settings_tooltips_title">Tip &amp; Petunjuk</string>
+    <string name="tooltip_alarm_switch">Jika Anda mematikan alarm, ponsel Anda tidak hanya senyap – algoritme akan langsung menghitung ulang jadwal pagi untuk seluruh keluarga, sehingga semua orang bisa tidur lebih lama atau pergi ke kamar mandi lebih cepat.</string>
+    <string name="tooltip_weekdays">Rencanakan seluruh minggu Anda: Ketuk setiap hari kerja untuk mengatur waktu bangun dan kamar mandi tertentu – cocok untuk beralih antara hari kerja di rumah dan hari kerja di kantor.</string>
+    <string name="settings_tooltips_title">Tips &amp; Petunjuk</string>
     <string name="settings_tooltips_label">Tampilkan tips bermanfaat</string>
-    <string name="settings_tooltips_reset">Setel ulang semua tip</string>
+    <string name="settings_tooltips_reset">Setel ulang semua tips</string>
     <string name="settings_push_title">Pemberitahuan</string>
     <string name="settings_push_label">Terima pemberitahuan push</string>
-    <string name="settings_support_title">Mendukung aplikasi</string>
+    <string name="settings_support_title">Dukung aplikasi</string>
     <string name="settings_support_desc">Apakah Anda menyukai aplikasi ini? Kami menghargai dukungan Anda!</string>
     <string name="settings_support_donate">Donasi</string>
     <string name="settings_donate_success">Terima kasih banyak atas dukungan Anda! ❤️</string>
     <string name="settings_donate_error">Ups, ada yang tidak beres.</string>
     <string name="settings_donate_loading">Memuat penawaran…</string>
-    <string name="settings_donate_no_offers">Tidak ada penawaran yang tersedia. Harap pastikan \"Penawaran Saat Ini\" disetel di RevenueCat.</string>
+    <string name="settings_donate_no_offers">Tidak ada penawaran yang tersedia. Harap pastikan \"Current Offering\" sudah disetel di RevenueCat.</string>
     <string name="settings_donate_purchase_loading">Memproses donasi…</string>
     <string name="settings_donate_error_not_allowed">Perangkat atau pengguna tidak diperbolehkan melakukan pembelian.</string>
     <string name="settings_donate_error_store_problem">Ada masalah dengan Google Play Store.</string>
@@ -331,21 +331,21 @@
     <string name="close_desc">Tutup</string>
 
     <string name="settings_exact_alarm_warning_title">Izin alarm hilang</string>
-    <string name="settings_exact_alarm_warning_text">Android mencegah alarm berbunyi. Izinkan FamWake menjadwalkan alarm &amp; pengingat.</string>
+    <string name="settings_exact_alarm_warning_text">Android mencegah alarm berbunyi dengan tepat. Harap izinkan FamWake untuk menjadwalkan alarm &amp; pengingat.</string>
     <string name="settings_exact_alarm_warning_button">Izinkan alarm</string>
     <string name="main_exact_alarm_banner">⚠️ Alarm diblokir! Harap berikan izin alarm di pengaturan sehingga alarm Anda dapat berdering tepat waktu.</string>
     <string name="error_offline_feedback">Anda sedang luring. Silakan periksa koneksi Anda dan coba lagi.</string>
     <string name="error_sync_blocked_device">Sinkronisasi tidak tersedia di perangkat ini.</string>
     <string name="error_feedback_rate_limit">Harap tunggu %1$s detik sebelum mengirim pesan lain.</string>
     <string name="error_feedback_rate_limit_server">Terlalu banyak permintaan. Silakan coba lagi nanti.</string>
-    <string name="error_feedback_empty_message">Pesan wajib diisi.</string>
+    <string name="error_feedback_empty_message">Pesan tidak boleh kosong.</string>
     <string name="error_network">Kesalahan jaringan. Silakan periksa koneksi internet Anda.</string>
-    <string name="settings_language_turkish">Turki</string>
+    <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norwegia</string>
+    <string name="settings_language_norwegian">Norsk</string>
     <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Denmark</string>
+    <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
     <string name="settings_language_indonesian">Bahasa Indonesia</string>
@@ -358,21 +358,21 @@
 
     
     <string name="notif_channel_schedule_change_name">Perubahan jadwal</string>
-    <string name="notif_channel_schedule_change_desc">Memberi tahu kapan waktu bangun atau pesanan kamar mandi berubah</string>
+    <string name="notif_channel_schedule_change_desc">Memberi tahu jika ada perubahan waktu bangun atau urutan kamar mandi</string>
     <string name="notif_channel_family_events_name">Acara keluarga</string>
-    <string name="notif_channel_family_events_desc">Memberi tahu ketika anggota bergabung atau keluar dari keluarga</string>
+    <string name="notif_channel_family_events_desc">Memberi tahu ketika ada anggota bergabung atau keluar dari keluarga</string>
 
     
     <string name="notif_schedule_changed_title">FamWake: Jadwal diperbarui</string>
     <string name="notif_schedule_changed_body">Waktu alarm telah disesuaikan. Buka aplikasi untuk melihat waktu bangun baru Anda.</string>
     <string name="notif_member_joined_title">FamWake: Anggota keluarga baru!</string>
-    <string name="notif_member_joined_body">Seorang anggota baru telah bergabung dengan keluarga Anda.</string>
+    <string name="notif_member_joined_body">Anggota baru telah bergabung dengan keluarga Anda.</string>
     <string name="notif_member_left_title">FamWake: Pembaruan keluarga</string>
     <string name="notif_member_left_body">Seorang anggota telah meninggalkan keluarga.</string>
 
     
     <string name="notif_permission_title">Pemberitahuan diperlukan</string>
-    <string name="notif_permission_desc">Tanpa pemberitahuan, alarm mungkin tidak berbunyi. Harap aktifkan untuk alarm yang andal.</string>
+    <string name="notif_permission_desc">Tanpa pemberitahuan, alarm mungkin tidak berbunyi. Harap aktifkan untuk penggunaan alarm yang lebih andal.</string>
     <string name="notif_permission_button">Aktifkan notifikasi</string>
     <string name="notif_manage_title">Kelola notifikasi</string>
     <string name="notif_manage_desc">Ubah suara, getaran, dan preferensi notifikasi lainnya di pengaturan sistem.</string>

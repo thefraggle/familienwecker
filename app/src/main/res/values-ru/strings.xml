@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Внешний вид</string>
     <string name="settings_display_title">Настройки приложения</string>
@@ -348,7 +348,7 @@
     <string name="error_sync_blocked_device">Синхронизация недоступна на этом устройстве.</string>
     <string name="onboarding_mock_name1">Папа</string>
     <string name="onboarding_mock_name2">Мама</string>
-    <string name="onboarding_mock_family_name">Иванов</string>
+    <string name="onboarding_mock_family_name">Ивановы</string>
 
     
     <string name="notif_channel_schedule_change_name">Изменения расписания</string>
@@ -364,6 +364,6 @@
     <string name="notif_permission_title">Уведомления обязательны</string>
     <string name="notif_permission_desc">Без уведомлений будильник может не сработать. Включите их для надёжного пробуждения.</string>
     <string name="notif_permission_button">Включить уведомления</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Управление уведомлениями</string>
+    <string name="notif_manage_desc">Измените звук, вибрацию и другие настройки уведомлений в системных настройках.</string>
 </resources>

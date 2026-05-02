@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Aparência</string>
     <string name="settings_display_title">Configurações do app</string>
@@ -149,16 +149,16 @@
     <string name="onboarding_skip">Pular</string>
     <string name="onboarding_next">Próximo</string>
     <string name="onboarding_done">Vamos lá</string>
-    <string name="onboarding_slide0_title">A sua manhã em equipa.</string>
-    <string name="onboarding_slide0_body">Sem discussões, sem caos. O FamWake garante que todos começam o dia relaxados – totalmente automático.</string>
+    <string name="onboarding_slide0_title">Sua manhã em equipe.</string>
+    <string name="onboarding_slide0_body">Sem discussões, sem caos. O FamWake garante que todos comecem o dia relaxados – totalmente automático.</string>
     <string name="onboarding_slide1_title">Nunca mais esperar.</string>
     <string name="onboarding_slide1_body">O FamWake calcula o horário ideal para acordar cada membro – coordenando banheiro, café da manhã e saída. Sem mais apertos.</string>
     <string name="onboarding_slide2_title">Cada dia é diferente.</string>
-    <string name="onboarding_slide2_body">Segunda no escritório, quarta em teletrabalho? Defina horários individuais para cada dia da semana – a app trata do resto.</string>
-    <string name="onboarding_slide3_title">Ligados em segundos.</string>
-    <string name="onboarding_slide3_body">Partilhe um código e a sua família junta-se instantaneamente. Novos membros? O plano ajusta-se automaticamente. E se algo mudar, todos ficam sabendo na hora.</string>
+    <string name="onboarding_slide2_body">Segunda no escritório, quarta em home office? Defina horários individuais para cada dia da semana – o app cuida do resto.</string>
+    <string name="onboarding_slide3_title">Conectados em segundos.</string>
+    <string name="onboarding_slide3_body">Compartilhe um código e sua família se junta instantaneamente. Novos membros? O plano se ajusta automaticamente. E se algo mudar, todos ficam sabendo na hora.</string>
     <string name="onboarding_slide4_title">Vamos lá!</string>
-    <string name="onboarding_slide4_body">Crie a sua família agora e desfrute de manhãs tranquilas – de forma fiável, mesmo offline.</string>
+    <string name="onboarding_slide4_body">Crie sua família agora e desfrute de manhãs tranquilas – de forma confiável, mesmo offline.</string>
     <string name="settings_feedback_button">Dar feedback / Relatar erro</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Ajude-nos a tornar o app ainda melhor! O que você tem em mente?</string>
@@ -177,7 +177,7 @@
     <string name="feedback_cancel">Cancelar</string>
     <string name="feedback_send">Enviar feedback</string>
     <string name="feedback_success">Obrigado! Seu feedback foi recebido e nos ajuda muito.</string>
-    <string name="feedback_success_message">Obrigado pelo seu feedback! Ajuda-nos a melhorar o FamWake para todos.</string>
+    <string name="feedback_success_message">Obrigado pelo seu feedback! Isso nos ajuda a melhorar o FamWake para todos.</string>
     <string name="feedback_success_title">Feedback Enviado</string>
     <string name="settings_terms_of_use">Termos de Uso</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-pt.html</string>
@@ -204,17 +204,17 @@
         <item>Pronto para o dia? Tudo está coordenado.</item>
         <item>Hora de arrasar! Sua vez no banheiro está começando.</item>
         <item>Acorde e aumente o som – o palco é seu!</item>
-        <item>Rock pesado de manhã afasta as preocupações!</item>
+        <item>Heavy Metal de manhã afasta as preocupações!</item>
         <item>Seu cronograma está no ar. Vamos lá!</item>
         <item>Pronto para decolar? A equipe conta com você.</item>
-        <item>Acorda, raio de sol! O banheiro está livre para ti.</item>
-        <item>O teu slot pessoal começa agora – aproveita!</item>
-        <item>Caminho livre para o banheiro – o teu turno está reservado!</item>
+        <item>Acorde, luz do dia! O banheiro está livre para você.</item>
+        <item>Seu horário pessoal começa agora – aproveite!</item>
+        <item>Caminho livre para o banheiro – seu turno está reservado!</item>
         <item>Deus ajuda quem cedo madruga – e a água quente também!</item>
-        <item>Mais 5 minutos? Não! A tua janela de tempo espera.</item>
+        <item>Mais 5 minutos? Não! Sua janela de tempo espera.</item>
         <item>Hoje vai ser um ótimo dia. Começa agora!</item>
-        <item>A tua escova de dentes sente a tua falta. Vai ao banheiro!</item>
-        <item>Tudo coordenado, tudo planeado – é a tua vez!</item>
+        <item>Sua escova de dentes sente sua falta. Vá para o banheiro!</item>
+        <item>Tudo coordenado, tudo planejado – é a sua vez!</item>
         <item>Quem madruga tem o banheiro só para si.</item>
     </string-array>
     <string name="ringing_stop">Parar alarme</string>
@@ -330,11 +330,11 @@
     <string name="settings_exact_alarm_warning_text">O alarme não pode tocar neste dispositivo. Por favor, permita que o FamWake agende alarmes exatos.</string>
     <string name="settings_exact_alarm_warning_button">Permitir alarmes</string>
     <string name="main_exact_alarm_banner">⚠️ Alarme bloqueado! Por favor, conceda a permissão nas configurações para tocar na hora certa.</string>
-    <string name="error_offline_feedback">Estás offline. Verifica a tua ligação e tenta novamente.</string>
-    <string name="error_feedback_rate_limit">Aguarda %1$s segundos antes de enviar outra mensagem.</string>
-    <string name="error_feedback_rate_limit_server">Demasiados pedidos. Tenta mais tarde.</string>
+    <string name="error_offline_feedback">Você está offline. Verifique sua conexão e tente novamente.</string>
+    <string name="error_feedback_rate_limit">Aguarde %1$s segundos antes de enviar outra mensagem.</string>
+    <string name="error_feedback_rate_limit_server">Muitos pedidos. Tente mais tarde.</string>
     <string name="error_feedback_empty_message">A mensagem não pode estar vazia.</string>
-    <string name="error_network">Erro de rede. Verifica a tua ligação à internet.</string>
+    <string name="error_network">Erro de rede. Verifique sua conexão com a internet.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -362,8 +362,8 @@
     <string name="notif_member_left_title">FamWake: Atualização da família</string>
     <string name="notif_member_left_body">Um membro saiu da sua família.</string>
     <string name="notif_permission_title">Notificações necessárias</string>
-    <string name="notif_permission_desc">Sem notificações, o alarme pode não tocar. Ative-as para um despertador fiável.</string>
+    <string name="notif_permission_desc">Sem notificações, o alarme pode não tocar. Ative-as para um despertador confiável.</string>
     <string name="notif_permission_button">Ativar notificações</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Gerenciar notificações</string>
+    <string name="notif_manage_desc">Altere o som, a vibração e outras preferências de notificação nas configurações do sistema.</string>
 </resources>

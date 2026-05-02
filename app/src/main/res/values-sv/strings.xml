@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake Familjens väckarklocka</string>
+    <string name="app_name_short">FamWake Familjeväckarklocka</string>
     <string name="email_label">E-post</string>
     <string name="password_label">Lösenord</string>
     <string name="register_button">Registrera</string>
@@ -42,7 +42,7 @@
     <string name="main_alarm_disabled_desc">Manuell paus är aktiv.</string>
     <string name="main_no_profile_warning">Ingen profil vald!</string>
     <string name="main_no_profile_warning_desc">Välj din profil i inställningarna så att larmet kan ringa för dig.</string>
-    <string name="main_unclaimed_first_title">Ingen alarm ringer för %1$s!</string>
+    <string name="main_unclaimed_first_title">Inget larm ringer för %1$s!</string>
     <string name="main_unclaimed_first_desc">%1$s är först i kön, men har ingen egen profil – och vaknar kanske inte i tid.</string>
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
@@ -74,7 +74,7 @@
     <string name="add_member_copy_dialog_title">Kopiera till dagar</string>
     <string name="add_member_copy_apply">Tillämpa</string>
     <string name="validation_latest_before_earliest">Senaste väckningstid måste vara efter tidigaste väckningstid</string>
-    <string name="validation_leave_too_early">Tid för att lämna hemmet måste vara efter badrumstid (väckningstid + badrumsminuter)</string>
+    <string name="validation_leave_too_early">Tid för att lämna hemmet måste vara efter badrumstid (Väckningstid + Badrumstid)</string>
     <string name="weekday_1">Måndag</string>
     <string name="weekday_2">Tisdag</string>
     <string name="weekday_3">Onsdag</string>
@@ -113,11 +113,11 @@
     <string name="settings_delete_family_dialog_confirm">Ta bort</string>
     <string name="settings_delete_family_dialog_cancel">Avbryt</string>
     <string name="settings_delete_family_warning_title">Andra medlemmar aktiva!</string>
-    <string name="settings_delete_family_warning_text">Det finns fortfarande andra aktiva medlemmar i den här familjen. Om du tar bort den förlorar alla åtkomst. Vill du verkligen tvångsta bort allt?</string>
+    <string name="settings_delete_family_warning_text">Det finns fortfarande andra aktiva medlemmar i den här familjen. Om du tar bort den förlorar alla åtkomst. Vill du verkligen tvinga fram en borttagning av allt?</string>
     <string name="settings_delete_family_warning_confirm">Ja, ta bort allt</string>
     <string name="settings_logout">Logga ut</string>
     <string name="settings_delete_account">Ta bort konto</string>
-    <string name="settings_footer_version">FamWake Familjeväckare v%1$s</string>
+    <string name="settings_footer_version">FamWake Familjeväckarklocka v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alla rättigheter förbehållna.</string>
 
@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Utseende</string>
     <string name="settings_display_title">Appinställningar</string>
@@ -149,7 +149,7 @@
     <string name="onboarding_skip">Hoppa över</string>
     <string name="onboarding_next">Nästa</string>
     <string name="onboarding_done">Kör igång</string>
-    <string name="onboarding_slide0_title">Din morgon som team.</string>
+    <string name="onboarding_slide0_title">Er morgon som ett team.</string>
     <string name="onboarding_slide0_body">Inga diskussioner, inget kaos. FamWake ser till att alla börjar dagen avslappnat – helt automatiskt.</string>
     <string name="onboarding_slide1_title">Aldrig mer väntan.</string>
     <string name="onboarding_slide1_body">FamWake beräknar den ideala väckningstiden för varje familjemedlem – samordnat med badrum, frukost och avresa. Inget mer trängsel.</string>
@@ -215,7 +215,7 @@
         <item>Idag blir en bra dag. Den börjar nu!</item>
         <item>Din tandborste saknar dig. Iväg till badrummet!</item>
         <item>Allt koordinerat, allt planerat – det är din tur!</item>
-        <item>Den tidiga fågeln har badrummet helt för sig själv.</item>
+        <item>Morgonfågeln har badrummet helt för sig själv.</item>
     </string-array>
     <string name="ringing_stop">Stoppa larm</string>
     <string name="ringing_snooze">Snooze (5 min)</string>
@@ -229,7 +229,7 @@
     <string name="error_join_family_rate_limit">För många anslutningsförsök (max 5 per minut). Vänta ett ögonblick och försök igen.</string>
     <string name="error_invalid_code">Ogiltig inbjudningskod: %1$s</string>
     <string name="error_family_not_found">Ingen familj hittades med den här koden.</string>
-    <string name="error_code_generation_failed">Kunde inte generera en unik kod. Försök igen.</string>
+    <string name="error_code_generation_failed">Kunde inte generere en unik kod. Försök igen.</string>
     <string name="join_conflict_title">Gå med i ny familj?</string>
     <string name="join_conflict_text">Du är redan medlem i familjen \"%1$s\". För att gå med i den nya familjen måste du lämna din nuvarande först. Vill du lämna \"%1$s\" och gå med med koden %2$s?</string>
     <string name="join_conflict_confirm">Lämna &amp; Gå med</string>
@@ -256,7 +256,7 @@
     <string name="error_delete_not_admin">Endast familjens skapare kan ta bort familjen.</string>
 
     <string name="alarm_default_member">Familjemedlem</string>
-    <string name="alarm_notification_title">Familjeväckaren ringer</string>
+    <string name="alarm_notification_title">Familjeväckarklockan ringer</string>
     <string name="alarm_notification_text">God morgon, %1$s!</string>
     <string name="alarm_channel_name">Larm</string>
 
@@ -272,7 +272,7 @@
     <string name="schedule_message_no_members">Inga aktiva medlemmar. Alla är pausade.</string>
     <string name="schedule_message_no_valid">Inget giltigt schema hittades. Tiderna överlappar för mycket.</string>
     <string name="schedule_message_no_valid_desc">Tips: Bredda ditt väckningsfönster, förkorta badrumsttiden eller pausa en annan medlem.</string>
-    <string name="schedule_message_time_adjusted">Tider justerade med %1$d min för att passa din ordning.</string>
+    <string name="schedule_message_time_adjusted">Tider justerade med %1$d min för att passa er ordning.</string>
     <string name="schedule_message_breakfast_reduced">Frukost minskad med %1$d min för att passa ditt schema.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Frukost −%1$d min &amp; tider förskjutna med %2$d min.</string>
     <string name="schedule_message_member_conflict">Konflikt för %1$s: Tiderna överlappar för mycket.</string>
@@ -318,7 +318,7 @@
     <string name="error_offline">Ingen internetanslutning</string>
     <string name="error_report_failed">Rapport misslyckades</string>
     <string name="error_leave_failed">Det gick inte att lämna familjen</string>
-    <string name="error_revenuecat_not_configured">RevenueCat är inte konfigurerat</string>
+    <string name="error_revenuecat_not_configured">RevenueCat är inte konfigureret</string>
     <string name="default_someone">Någon</string>
     <string name="error_label">Fel</string>
     <string name="offline_write_hint">Ingen anslutning. Dina ändringar synkroniseras så snart du är online igen.</string>
@@ -327,9 +327,9 @@
     <string name="close_desc">Stäng</string>
 
     <string name="settings_exact_alarm_warning_title">Larmbehörighet saknas</string>
-    <string name="settings_exact_alarm_warning_text">Det exakta larmet kan inte ringa på den här enheten. Tillåt FamWake att schemalägga exakta larm.</string>
+    <string name="settings_exact_alarm_warning_text">Android förhindrar att larmet ringer exakt i tid. Tillåt FamWake att schemalägga exakta larm.</string>
     <string name="settings_exact_alarm_warning_button">Tillåt larm</string>
-    <string name="main_exact_alarm_banner">⚠️ Larm blockerat! Ge larmbehörigheten i inställningarna så att ditt larm kan ringa i tid.</string>
+    <string name="main_exact_alarm_banner">⚠️ Larm blockerat! Ge larmbehörigheten i inställningarna så att ditt larm kan ringe i tid.</string>
 
     <string name="error_offline_feedback">Du är offline. Kontrollera din anslutning och försök igen.</string>
     <string name="error_feedback_rate_limit">Vänta %1$s sekunder innan du skickar ett nytt meddelande.</string>
@@ -354,7 +354,7 @@
     
     <string name="notif_channel_schedule_change_name">Schemaändringar</string>
     <string name="notif_channel_schedule_change_desc">Meddelar om väckningstider eller ordning ändras</string>
-    <string name="notif_channel_family_events_name">Familjehändelser</string>
+    <string name="notif_channel_family_events_name">Familjehändelser</string>
     <string name="notif_channel_family_events_desc">Meddelar när medlemmar går med i eller lämnar familjen</string>
     <string name="notif_schedule_changed_title">FamWake: Schema uppdaterat</string>
     <string name="notif_schedule_changed_body">Väckningstiderna har ändrats. Öppna appen för att se din nya tid.</string>
@@ -365,6 +365,6 @@
     <string name="notif_permission_title">Aviseringar krävs</string>
     <string name="notif_permission_desc">Utan aviseringar kanske alarmet inte ringer. Aktivera dem för ett pålitligt alarm.</string>
     <string name="notif_permission_button">Aktivera aviseringar</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Hantera aviseringar</string>
+    <string name="notif_manage_desc">Ändra ljud, vibration och andra aviseringsinställningar i systeminställningarna.</string>
 </resources>
