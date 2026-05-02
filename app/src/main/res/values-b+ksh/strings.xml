@@ -3,7 +3,7 @@
     <string name="app_name_short">Familienwecker</string>
     <string name="email_label">E-Mail</string>
     <string name="password_label">Passwort</string>
-    <string name="register_button">Anmelden</string>
+    <string name="register_button">Mitmachen</string>
     <string name="login_button">Reinkomm</string>
     <string name="already_have_account">Hasse schon wat? Dann hier rein.</string>
     <string name="no_account">Noch nix? Hier anmelden.</string>
@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Optik</string>
     <string name="settings_display_title">App-Einstellungen</string>
@@ -298,8 +298,8 @@
     <string name="settings_tooltips_title">Tipps &amp; Zeug</string>
     <string name="settings_tooltips_label">Zeig mal Tipps her</string>
     <string name="settings_tooltips_reset">Alle Tipps auf Null setzen</string>
-    <string name="settings_push_title">Benachrichtigungen</string>
-    <string name="settings_push_label">Push-Benachrichtigungen empfangen</string>
+    <string name="settings_push_title">Meldungen</string>
+    <string name="settings_push_label">Meldungen aufs Handy kriegen</string>
     <string name="settings_support_title">Unterstütz die Bude</string>
     <string name="settings_support_desc">Bock auf die App? Wir freuen uns über jeden Groschen!</string>
     <string name="settings_support_donate">Wat dalassen</string>
@@ -350,20 +350,19 @@
     <string name="onboarding_mock_name2">Mudda</string>
     <string name="onboarding_mock_family_name">Schmitz</string>
 
-    <!-- Notification strings -->
-    <string name="notif_channel_schedule_change_name">Planänderungen</string>
-    <string name="notif_channel_schedule_change_desc">Benachrichtigung bei Änderungen der Weckzeiten oder Reihenfolge</string>
-    <string name="notif_channel_family_events_name">Familien-Ereignisse</string>
-    <string name="notif_channel_family_events_desc">Benachrichtigung wenn Mitglieder der Familie beitreten oder diese verlassen</string>
-    <string name="notif_schedule_changed_title">FamWake: Plan aktualisiert</string>
-    <string name="notif_schedule_changed_body">Die Weckzeiten wurden geändert. Öffne die App, um deine neue Weckzeit zu sehen.</string>
-    <string name="notif_member_joined_title">FamWake: Neues Familienmitglied!</string>
-    <string name="notif_member_joined_body">Ein neues Mitglied ist deiner Familie beigetreten.</string>
-    <string name="notif_member_left_title">FamWake: Familien-Update</string>
-    <string name="notif_member_left_body">Ein Mitglied hat deine Familie verlassen.</string>
-    <string name="notif_permission_title">Benachrichtigungen erforderlich</string>
-    <string name="notif_permission_desc">Ohne Benachrichtigungen kann der Wecker möglicherweise nicht klingeln. Bitte aktiviere sie für einen zuverlässigen Alarm.</string>
-    <string name="notif_permission_button">Benachrichtigungen aktivieren</string>
-    <string name="notif_manage_title">Benachrichtigungen verwalten</string>
-    <string name="notif_manage_desc">Ton, Vibration und weitere Einstellungen in den System-Einstellungen anpassen.</string>
+    <string name="notif_channel_schedule_change_name">Plan is neu</string>
+    <string name="notif_channel_schedule_change_desc">Sacht Bescheid, wenn sich beim Wecken oder inne Reihenfolge wat ändert.</string>
+    <string name="notif_channel_family_events_name">Wat so los is</string>
+    <string name="notif_channel_family_events_desc">Sacht Bescheid, wenn einer dazukommt oder abhaut.</string>
+    <string name="notif_schedule_changed_title">FamWake: Plan is neu</string>
+    <string name="notif_schedule_changed_body">Weckzeiten ham sich geändert. Mach die App auf und guck, wann de raus musst.</string>
+    <string name="notif_member_joined_title">FamWake: Neuzugang!</string>
+    <string name="notif_member_joined_body">Ein Neuer is inne Familie reingeschneit.</string>
+    <string name="notif_member_left_title">FamWake: Einer weniger</string>
+    <string name="notif_member_left_body">Einer hat sich ausser Familie verkrümelt.</string>
+    <string name="notif_permission_title">Brauch Rechte fürs Bimmeln</string>
+    <string name="notif_permission_desc">Ohne Rechte darf der Wecker nich rappeln. Mach an den Bums, sonst verpennste.</string>
+    <string name="notif_permission_button">Meldungen anmachen</string>
+    <string name="notif_manage_title">Meldungen einstellen</string>
+    <string name="notif_manage_desc">Ton, Gerappel und den restlichen Kram inne System-Einstellungen anpassen.</string>
 </resources>

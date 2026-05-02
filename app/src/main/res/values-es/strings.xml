@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Apariencia</string>
     <string name="settings_display_title">Ajustes de la app</string>
@@ -364,6 +364,6 @@
     <string name="notif_permission_title">Notificaciones necesarias</string>
     <string name="notif_permission_desc">Sin notificaciones, la alarma podría no sonar. Actívalas para un despertador fiable.</string>
     <string name="notif_permission_button">Activar notificaciones</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Administrar notificaciones</string>
+    <string name="notif_manage_desc">Modifica el sonido, la vibración y otras preferencias de notificación en los ajustes del sistema.</string>
 </resources>

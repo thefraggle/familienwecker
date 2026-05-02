@@ -117,7 +117,7 @@
     <string name="settings_delete_family_warning_confirm">Ja, alles verwijderen</string>
     <string name="settings_logout">Uitloggen</string>
     <string name="settings_delete_account">Account verwijderen</string>
-    <string name="settings_footer_version">FamWake Gezinswekker v%1$s</string>
+    <string name="settings_footer_version">FamWake Familiewekker v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rechten voorbehouden.</string>
 
@@ -138,7 +138,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbsch</string>
+    <string name="settings_language_schwaebisch">Schwäbisch</string>
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Uiterlijk</string>
     <string name="settings_display_title">App-instellingen</string>
@@ -364,6 +364,6 @@
     <string name="notif_permission_title">Meldingen vereist</string>
     <string name="notif_permission_desc">Zonder meldingen gaat de wekker mogelijk niet af. Schakel ze in voor een betrouwbaar alarm.</string>
     <string name="notif_permission_button">Meldingen inschakelen</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
+    <string name="notif_manage_title">Meldingen beheren</string>
+    <string name="notif_manage_desc">Wijzig geluid, trillen en andere meldingsvoorkeuren in de systeeminstellingen.</string>
 </resources>
