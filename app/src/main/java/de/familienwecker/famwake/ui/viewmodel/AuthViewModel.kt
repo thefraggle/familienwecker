@@ -71,7 +71,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private fun checkCurrentUser() {
         val user = authRepository.currentUser
         if (user != null) {
-            if (user.isEmailVerified) {
+            if (user.isEmailVerified || user.isAnonymous) {
                 _isRestoringFamily.value = true
                 // Push: Token auch bei Session-Restore sicherstellen
                 de.familienwecker.famwake.FamWakeMessagingService.refreshAndSaveToken()
