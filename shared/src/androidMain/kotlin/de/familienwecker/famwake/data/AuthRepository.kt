@@ -44,9 +44,13 @@ class AuthRepository {
             return@withContext Result.failure(Exception("EMAIL_OR_PASSWORD_EMPTY"))
         }
         try {
-            val result = auth.createUserWithEmailAndPassword(trimmedEmail, pass)
-            val user = result.user
-            if (user != null) Result.success(user) else Result.failure(Exception("REGISTRATION_FAILED"))
+            val user = auth.currentUser
+            val result = if (user != null && user.isAnonymous) {
+                user.linkWithCredential(dev.gitlive.firebase.auth.EmailAuthProvider.credential(trimmedEmail, pass))
+            } else {
+                auth.createUserWithEmailAndPassword(trimmedEmail, pass)
+            }
+            if (result.user != null) Result.success(result.user!!) else Result.failure(Exception("REGISTRATION_FAILED"))
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -88,9 +92,13 @@ class AuthRepository {
 
     suspend fun signInWithGoogleCredential(credential: AuthCredential): Result<FirebaseUser> = withContext(Dispatchers.IO) {
         try {
-            val result = auth.signInWithCredential(credential)
-            val user = result.user
-            if (user != null) Result.success(user) else Result.failure(GoogleSignInFailedException())
+            val user = auth.currentUser
+            val result = if (user != null && user.isAnonymous) {
+                user.linkWithCredential(credential)
+            } else {
+                auth.signInWithCredential(credential)
+            }
+            if (result.user != null) Result.success(result.user!!) else Result.failure(GoogleSignInFailedException())
         } catch (e: Exception) {
             Result.failure(e)
         }
