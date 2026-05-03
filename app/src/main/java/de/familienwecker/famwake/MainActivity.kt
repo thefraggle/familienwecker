@@ -279,6 +279,13 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                             launchSingleTop = true
                         }
                     },
+                    onNavigateToLogin = {
+                        authViewModel.clearError()
+                        navController.navigate(Routes.LOGIN) {
+                            popUpTo(Routes.SETUP) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    },
                     isAnonymous = authViewModel.isAnonymous
                 )
             }

@@ -76,7 +76,10 @@ fun LoginScreen(
 
     LaunchedEffect(authState) {
         if (authState is AuthViewModel.AuthState.Authenticated) {
-            onLoginSuccess()
+            val user = (authState as AuthViewModel.AuthState.Authenticated).user
+            if (!user.isAnonymous) {
+                onLoginSuccess()
+            }
         }
     }
 
