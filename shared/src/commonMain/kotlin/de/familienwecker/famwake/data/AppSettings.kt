@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 interface AppSettings {
+    val deviceId: String
+
     val myMemberId: StateFlow<String?>
     fun setMyMemberId(id: String?)
     
@@ -88,6 +90,13 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     }
 
 
+
+    override val deviceId: String = settings.getStringOrNull("DEVICE_ID") ?: run {
+        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        val newId = (1..16).map { chars.random() }.joinToString("")
+        settings["DEVICE_ID"] = newId
+        newId
+    }
 
     private val _myMemberId = MutableStateFlow(settings.getStringOrNull("MY_MEMBER_ID"))
     override val myMemberId = _myMemberId.asStateFlow()

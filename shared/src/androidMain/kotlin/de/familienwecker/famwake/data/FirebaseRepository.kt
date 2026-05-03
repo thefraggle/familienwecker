@@ -307,7 +307,7 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
-    override suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?): Boolean {
+    override suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?, deviceId: String): Boolean {
         return try {
             val docRef = db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(memberId)
@@ -319,6 +319,7 @@ class FirebaseRepository : IFirebaseRepository {
                     update(docRef, mapOf(
                         "claimedByUserId" to userId,
                         "claimedByUserName" to userName,
+                        "claimedByDeviceId" to deviceId,
                         // lastUpdatedAt setzen damit distinctUntilChanged den Snapshot nicht herausfiltert
                         // und Room den Claim-Status korrekt übernimmt.
                         "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
@@ -335,13 +336,14 @@ class FirebaseRepository : IFirebaseRepository {
     }
 
     /** Offline-Variante: Kein Transaction-Roundtrip, Firestore queut den Write bis Reconnect. */
-    override suspend fun claimMemberOffline(familyId: String, memberId: String, userId: String, userName: String?) {
+    override suspend fun claimMemberOffline(familyId: String, memberId: String, userId: String, userName: String?, deviceId: String) {
         try {
             val docRef = db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(memberId)
             docRef.update(mapOf(
                 "claimedByUserId" to userId,
                 "claimedByUserName" to userName,
+                "claimedByDeviceId" to deviceId,
                 "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
             ))
         } catch (e: Exception) {
@@ -349,7 +351,7 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
-    override suspend fun unclaimMember(familyId: String, memberId: String, userId: String): Boolean {
+    override suspend fun unclaimMember(familyId: String, memberId: String, userId: String, deviceId: String): Boolean {
         return try {
             val docRef = db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(memberId)
@@ -361,6 +363,7 @@ class FirebaseRepository : IFirebaseRepository {
                     update(docRef, mapOf(
                         "claimedByUserId" to null,
                         "claimedByUserName" to null,
+                        "claimedByDeviceId" to null,
                         // isAwakeToday zurücksetzen – verhindert, dass ein veralteter
                         // "Schon wach"-Status auf den nächsten Claimer vererbt wird.
                         "isAwakeToday" to false,

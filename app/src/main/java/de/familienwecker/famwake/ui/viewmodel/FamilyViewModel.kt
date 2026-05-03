@@ -256,7 +256,13 @@ class FamilyViewModel(
 
                 val uid = auth.currentUser?.uid
                 if (uid != null) {
-                    val claimedByMe = checkedMembers.find { it.claimedByUserId == uid }
+                    // Legacy-Upgrade: Falls ein Member von dieser UID geclaimt ist, aber noch keine Device-ID hat, aktualisieren wir es heimlich
+                    val legacyClaim = checkedMembers.find { it.claimedByUserId == uid && it.claimedByDeviceId == null }
+                    if (legacyClaim != null) {
+                        addOrUpdateMemberDebounced(legacyClaim.copy(claimedByDeviceId = appSettings.deviceId))
+                    }
+
+                    val claimedByMe = checkedMembers.find { it.claimedByUserId == uid && (it.claimedByDeviceId == appSettings.deviceId || it.claimedByDeviceId == null) }
                     if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
                         appSettings.setMyMemberId(claimedByMe.id)
                         appSettings.setMyMemberName(claimedByMe.name)
