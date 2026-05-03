@@ -42,13 +42,13 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                     if (_isOffline.value) {
                         // Offline-First: AppSettings optimistisch setzen, Firestore queut den Write.
                         // Die Transaction würde offline immer false liefern → stattdessen direkt updaten.
-                        repository.claimMemberOffline(currentFamilyId, member.id, userId, userName)
+                        repository.claimMemberOffline(currentFamilyId, member.id, userId, userName, appSettings.deviceId)
                         appSettings.setMyMemberId(member.id)
                         appSettings.setMyMemberName(member.name)
                         appSettings.setAlarmEnabled(true)
                         TelemetryDeck.signal("member.autoClaimed")
                     } else {
-                        val success = repository.claimMember(currentFamilyId, member.id, userId, userName)
+                        val success = repository.claimMember(currentFamilyId, member.id, userId, userName, appSettings.deviceId)
                         if (success) {
                             appSettings.setMyMemberId(member.id)
                             appSettings.setMyMemberName(member.name)
@@ -138,10 +138,10 @@ fun FamilyViewModel.setMyMemberId(id: String?, onComplete: (Boolean) -> Unit = {
 
     scope.launch {
         if (currentMyMemberId != null && currentMyMemberId != id) {
-            repository.unclaimMember(currentFamilyId, currentMyMemberId, userId)
+            repository.unclaimMember(currentFamilyId, currentMyMemberId, userId, appSettings.deviceId)
         }
         if (id != null) {
-            val success = repository.claimMember(currentFamilyId, id, userId, userName)
+            val success = repository.claimMember(currentFamilyId, id, userId, userName, appSettings.deviceId)
             if (success) {
                 appSettings.setMyMemberId(id)
                 val memberName = _members.value.find { it.id == id }?.name
@@ -321,6 +321,7 @@ fun FamilyViewModel.setupTestAlarmAndMembers(onStatus: (String) -> Unit) {
             isPaused = false,
             claimedByUserId = userId,
             claimedByUserName = userName,
+            claimedByDeviceId = appSettings.deviceId,
             sequenceOrder = 0,
             createdAt = System.currentTimeMillis()
         )

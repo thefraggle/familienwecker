@@ -17,6 +17,7 @@ data class FamilyMemberEntity(
     val lastResetDate: String,
     val claimedByUserId: String?,
     val claimedByUserName: String?,
+    val claimedByDeviceId: String?,
     val sequenceOrder: Int,
     val createdAt: Long?,
     val lastUpdatedAt: Long?,
@@ -50,7 +51,7 @@ interface MemberDao {
 //   .fallbackToDestructiveMigration()
 // When bumping this version, do NOT add manual migrations – just increment and rely on
 // fallbackToDestructiveMigration.
-@Database(entities = [FamilyMemberEntity::class], version = 1, exportSchema = false)
+@Database(entities = [FamilyMemberEntity::class], version = 2, exportSchema = false)
 @ConstructedBy(FamWakeDatabaseConstructor::class)
 abstract class FamWakeDatabase : RoomDatabase() {
     abstract fun memberDao(): MemberDao
