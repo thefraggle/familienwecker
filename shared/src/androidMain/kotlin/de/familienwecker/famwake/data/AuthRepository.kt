@@ -94,7 +94,12 @@ class AuthRepository {
         try {
             val user = auth.currentUser
             val result = if (user != null && user.isAnonymous) {
-                user.linkWithCredential(credential)
+                try {
+                    user.linkWithCredential(credential)
+                } catch (e: Exception) {
+                    // Fallback: If linking fails (e.g. Google account already exists), sign in normally
+                    auth.signInWithCredential(credential)
+                }
             } else {
                 auth.signInWithCredential(credential)
             }
