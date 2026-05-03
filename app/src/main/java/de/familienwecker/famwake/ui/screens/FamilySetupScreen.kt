@@ -48,6 +48,7 @@ fun FamilySetupScreen(
     viewModel: FamilyViewModel,
     onSetupComplete: () -> Unit,
     onLogout: () -> Unit,
+    onNavigateToLogin: () -> Unit = {},
     isAnonymous: Boolean = false
 ) {
     val context = LocalContext.current
@@ -276,7 +277,7 @@ fun FamilySetupScreen(
                 val logoutInteractionSource = remember { MutableInteractionSource() }
                 if (isAnonymous) {
                     TextButton(
-                        onClick = onLogout,
+                        onClick = onNavigateToLogin,
                         modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
                         interactionSource = logoutInteractionSource,
                         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary)
