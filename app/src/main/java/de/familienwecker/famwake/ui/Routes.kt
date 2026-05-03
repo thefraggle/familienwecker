@@ -9,6 +9,7 @@ object Routes {
     const val LOGIN = "login"
     const val SETUP = "setup"
     const val ONBOARDING = "onboarding"
+    const val ONBOARDING_WELCOME = "onboarding_welcome"
     const val MAIN = "main"
     const val ADD_MEMBER = "addMember"
     const val SETTINGS = "settings"

@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.8.7 – 2026-05-03
+### Neu
+- **Sofort starten** – App kann jetzt auch ohne Account genutzt werden (Lazy Registration). Man kann direkt eine Familie erstellen und den Wecker nutzen. Ein Account wird erst benötigt, um Codes zu teilen oder einer anderen Familie beizutreten.
+
+---
+
 ## 1.8.6 – 2026-05-03
 ### Verbessert
 - **Angenehmerer Einstieg** – FamWake fragt nun nicht mehr direkt beim ersten Start nach der Berechtigung für den Sperrbildschirm. Ein dezenter Hinweis erscheint erst, wenn auch wirklich ein Wecker gestellt wurde.
