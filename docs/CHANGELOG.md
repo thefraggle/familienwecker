@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.8.6 – 2026-05-03
+### Verbessert
+- **Angenehmerer Einstieg** – FamWake fragt nun nicht mehr direkt beim ersten Start nach der Berechtigung für den Sperrbildschirm. Ein dezenter Hinweis erscheint erst, wenn auch wirklich ein Wecker gestellt wurde.
+- **Bessere Lesbarkeit** – Wir haben den Farbkontrast von Fehlermeldungen erhöht, damit diese nun auf allen Bildschirmen deutlich besser lesbar sind.
+
+---
+
 ## 1.8.5 – 2026-05-01
 ### Neu
 - **Weltweit verfügbar** – FamWake unterstützt nun 7 weitere Sprachen: Indonesisch, Vietnamesisch, Bengalisch, Marathi, Hindi, Chinesisch (Vereinfacht) und Koreanisch. Damit ist die App nun in 22 Sprachen verfügbar.
