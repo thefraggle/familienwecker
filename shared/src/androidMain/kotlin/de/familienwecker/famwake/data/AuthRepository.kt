@@ -96,6 +96,16 @@ class AuthRepository {
         }
     }
 
+    suspend fun signInAnonymously(): Result<FirebaseUser> = withContext(Dispatchers.IO) {
+        try {
+            val result = auth.signInAnonymously()
+            val user = result.user
+            if (user != null) Result.success(user) else Result.failure(Exception("ANONYMOUS_LOGIN_FAILED"))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     suspend fun sendVerificationEmail(email: String, language: String = "de"): Result<Unit> {
         return try {
             val data = mapOf("email" to email.trim(), "language" to language)

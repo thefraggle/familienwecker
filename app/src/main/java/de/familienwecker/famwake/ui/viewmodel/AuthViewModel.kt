@@ -56,6 +56,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     val currentUserEmail: String?
         get() = authRepository.currentUser?.email
 
+    val isAnonymous: Boolean
+        get() = authRepository.currentUser?.isAnonymous == true
+
     private val _isRestoringFamily = MutableStateFlow(false)
     val isRestoringFamily: StateFlow<Boolean> = _isRestoringFamily.asStateFlow()
 
@@ -324,6 +327,21 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     android.util.Log.e("AuthViewModel", "Unexpected Google Sign-In error: ${e.message}")
                 }
                 _authState.value = AuthState.Error(UiText.StringResource(R.string.error_google_sign_in_failed_unknown))
+            }
+        }
+    }
+
+    fun signInAnonymously(onSuccess: () -> Unit) {
+        _authState.value = AuthState.Loading
+        viewModelScope.launch {
+            val result = authRepository.signInAnonymously()
+            result.onSuccess { user ->
+                TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "anonymous"))
+                de.familienwecker.famwake.FamWakeMessagingService.refreshAndSaveToken()
+                _authState.value = AuthState.Authenticated(user)
+                onSuccess()
+            }.onFailure { error ->
+                _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
             }
         }
     }

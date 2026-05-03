@@ -43,7 +43,9 @@ private data class OnboardingSlide(
 @Composable
 fun OnboardingScreen(
     language: String,       // from PreferencesRepository: "de", "en", "system"
-    onFinished: () -> Unit
+    startAtWelcome: Boolean = false,
+    onStartAnonymously: () -> Unit,
+    onLogin: () -> Unit
 ) {
     val slides = listOf(
         // Slide 0 – emotionale Einstiegs-Slide mit Panda-Lottie
@@ -73,10 +75,16 @@ fun OnboardingScreen(
             titleRes      = R.string.onboarding_slide4_title,
             bodyRes       = R.string.onboarding_slide4_body,
             mockupContent = { Slide4ReliableMockup() }
+        ),
+        OnboardingSlide(
+            titleRes      = R.string.onboarding_slide5_title,
+            bodyRes       = R.string.onboarding_slide5_body,
+            lottieRes     = R.raw.panda
         )
     )
 
-    val pagerState    = rememberPagerState(pageCount = { slides.size })
+    val initialPage   = if (startAtWelcome) slides.size - 1 else 0
+    val pagerState    = rememberPagerState(initialPage = initialPage, pageCount = { slides.size })
     val coroutineScope = rememberCoroutineScope()
     val isLastPage    = pagerState.currentPage == slides.size - 1
 
@@ -188,7 +196,7 @@ fun OnboardingScreen(
             Button(
                 onClick = {
                     if (isLastPage) {
-                        onFinished()
+                        onStartAnonymously()
                     } else {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(pagerState.currentPage + 1)
@@ -213,11 +221,30 @@ fun OnboardingScreen(
             }
 
             AnimatedVisibility(
+                visible = isLastPage,
+                enter   = fadeIn(tween(200)),
+                exit    = fadeOut(tween(200))
+            ) {
+                TextButton(onClick = onLogin) {
+                    Text(
+                        text     = stringResource(R.string.onboarding_login_create),
+                        color    = Color.White.copy(alpha = 0.9f),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
+            AnimatedVisibility(
                 visible = !isLastPage,
                 enter   = fadeIn(tween(200)),
                 exit    = fadeOut(tween(200))
             ) {
-                TextButton(onClick = onFinished) {
+                TextButton(onClick = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(slides.size - 1)
+                    }
+                }) {
                     Text(
                         text     = stringResource(R.string.onboarding_skip),
                         color    = Color.White.copy(alpha = 0.7f),

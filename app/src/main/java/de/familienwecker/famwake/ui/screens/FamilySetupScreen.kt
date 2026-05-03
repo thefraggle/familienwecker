@@ -47,7 +47,8 @@ import androidx.compose.ui.platform.LocalContext
 fun FamilySetupScreen(
     viewModel: FamilyViewModel,
     onSetupComplete: () -> Unit,
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    isAnonymous: Boolean = false
 ) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
@@ -229,10 +230,14 @@ fun FamilySetupScreen(
 
                                     Button(
                                         onClick = {
-                                            isLoading = true
-                                            viewModel.joinFamily(joinCode) { success ->
-                                                isLoading = false
-                                                if (success) onSetupComplete()
+                                            if (isAnonymous) {
+                                                android.widget.Toast.makeText(context, context.getString(R.string.settings_join_family_locked), android.widget.Toast.LENGTH_LONG).show()
+                                            } else {
+                                                isLoading = true
+                                                viewModel.joinFamily(joinCode) { success ->
+                                                    isLoading = false
+                                                    if (success) onSetupComplete()
+                                                }
                                             }
                                         },
                                         modifier = Modifier
@@ -269,13 +274,24 @@ fun FamilySetupScreen(
                 Spacer(modifier = Modifier.height(32.dp))
                 
                 val logoutInteractionSource = remember { MutableInteractionSource() }
-                TextButton(
-                    onClick = onLogout,
-                    modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
-                    interactionSource = logoutInteractionSource,
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                ) {
-                    Text(stringResource(R.string.settings_logout))
+                if (isAnonymous) {
+                    TextButton(
+                        onClick = onLogout,
+                        modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
+                        interactionSource = logoutInteractionSource,
+                        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary)
+                    ) {
+                        Text(stringResource(R.string.settings_anonymous_login_button))
+                    }
+                } else {
+                    TextButton(
+                        onClick = onLogout,
+                        modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
+                        interactionSource = logoutInteractionSource,
+                        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                    ) {
+                        Text(stringResource(R.string.settings_logout))
+                    }
                 }
             }
         }

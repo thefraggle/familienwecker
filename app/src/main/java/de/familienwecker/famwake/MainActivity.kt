@@ -202,12 +202,47 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                 val language by familyViewModel.language.collectAsStateWithLifecycle()
                 OnboardingScreen(
                     language   = language,
-                    onFinished = {
+                    startAtWelcome = false,
+                    onStartAnonymously = {
                         familyViewModel.setOnboardingCompleted(true)
-                        TelemetryDeck.signal("onboarding.completed")
-                        val dest = if (familyViewModel.familyId.value != null) Routes.MAIN else Routes.SETUP
-                        navController.navigate(dest) {
+                        TelemetryDeck.signal("onboarding.completed_anonymously")
+                        authViewModel.signInAnonymously {
+                            val dest = if (familyViewModel.familyId.value != null) Routes.MAIN else Routes.SETUP
+                            navController.navigate(dest) {
+                                popUpTo(Routes.ONBOARDING) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        }
+                    },
+                    onLogin = {
+                        familyViewModel.setOnboardingCompleted(true)
+                        navController.navigate(Routes.LOGIN) {
                             popUpTo(Routes.ONBOARDING) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
+            composable(Routes.ONBOARDING_WELCOME) {
+                val language by familyViewModel.language.collectAsStateWithLifecycle()
+                OnboardingScreen(
+                    language   = language,
+                    startAtWelcome = true,
+                    onStartAnonymously = {
+                        familyViewModel.setOnboardingCompleted(true)
+                        TelemetryDeck.signal("onboarding.completed_anonymously")
+                        authViewModel.signInAnonymously {
+                            val dest = if (familyViewModel.familyId.value != null) Routes.MAIN else Routes.SETUP
+                            navController.navigate(dest) {
+                                popUpTo(Routes.ONBOARDING_WELCOME) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        }
+                    },
+                    onLogin = {
+                        familyViewModel.setOnboardingCompleted(true)
+                        navController.navigate(Routes.LOGIN) {
+                            popUpTo(Routes.ONBOARDING_WELCOME) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
@@ -237,11 +272,12 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
-                        navController.navigate(Routes.LOGIN) {
+                        navController.navigate(Routes.ONBOARDING_WELCOME) {
                             popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }
-                    }
+                    },
+                    isAnonymous = authViewModel.isAnonymous
                 )
             }
             composable(Routes.MAIN) {
@@ -257,7 +293,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
-                        navController.navigate(Routes.LOGIN) {
+                        navController.navigate(Routes.ONBOARDING_WELCOME) {
                             popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }
@@ -297,7 +333,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     onLogout = {
                         authViewModel.logout()
                         familyViewModel.logout()
-                        navController.navigate(Routes.LOGIN) {
+                        navController.navigate(Routes.ONBOARDING_WELCOME) {
                             popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }
@@ -317,6 +353,14 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                         TelemetryDeck.signal("onboarding.tourRestarted")
                         navController.navigate(Routes.ONBOARDING) {
                             // Pop SETTINGS so that we don't have MAIN -> SETTINGS -> MAIN after finishing tour
+                            popUpTo(Routes.SETTINGS) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    },
+                    isAnonymous = authViewModel.isAnonymous,
+                    onNavigateToLogin = {
+                        familyViewModel.setOnboardingCompleted(true)
+                        navController.navigate(Routes.LOGIN) {
                             popUpTo(Routes.SETTINGS) { inclusive = true }
                             launchSingleTop = true
                         }
