@@ -6,6 +6,10 @@
 ### Neu
 - **Sofort starten** – App kann jetzt auch ohne Account genutzt werden (Lazy Registration). Man kann direkt eine Familie erstellen und den Wecker nutzen. Ein Account wird erst benötigt, um Codes zu teilen oder einer anderen Familie beizutreten.
 
+### Fehlerbehebungen
+- **Onboarding & Navigation:** Nach der Onboarding-Tour landest du nicht mehr in einer Sackgasse, und fehlgeleitete Logout-Dialoge im Testmodus wurden korrigiert.
+- **Account-Übernahme:** Wenn du dich aus dem Testmodus heraus registrierst, werden deine Testdaten nun verlässlich in deinen neuen Account übernommen.
+
 ---
 
 ## 1.8.6 – 2026-05-03

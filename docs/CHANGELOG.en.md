@@ -4,7 +4,11 @@
 
 ## 1.8.7 – 2026-05-03
 ### New
-- **Start instantly** – The app can now be used without an account (Lazy Registration). You can instantly create a family and use the alarm clock. An account is only required to share codes or join another family.
+- **Instant Start** – The app can now be used without creating an account (Lazy Registration). You can instantly create a family and use the alarm. An account is only required to share join codes or join another family.
+
+### Bugfixes
+- **Onboarding & Navigation:** Fixed an issue where the onboarding tour led to a dead end, and corrected misguided logout dialogs while in test mode.
+- **Account Transition:** If you decide to register from the test mode, your test family and data are now reliably transitioned into your new account.
 
 ---
 
