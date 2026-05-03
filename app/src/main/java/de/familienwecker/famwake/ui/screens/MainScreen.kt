@@ -99,10 +99,12 @@ fun MainScreen(
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
 
     val isExactAlarmPermitted = remember { mutableStateOf(de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)) }
+    val isFullScreenIntentPermitted = remember { mutableStateOf(de.familienwecker.famwake.util.AlarmPermissionUtils.hasFullScreenIntentPermission(context)) }
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
                 isExactAlarmPermitted.value = de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)
+                isFullScreenIntentPermitted.value = de.familienwecker.famwake.util.AlarmPermissionUtils.hasFullScreenIntentPermission(context)
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -278,6 +280,16 @@ fun MainScreen(
                         isVisible = !isExactAlarmPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null,
                         isDarkTheme = isDarkTheme,
                         onRequestPermission = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) }
+                    )
+                }
+                
+                // Full Screen Intent Warnung (Android 14+) - wird erst gezeigt, wenn Exact Alarm erlaubt ist
+                item {
+                    val hasActiveSchedule = members.any { !it.isPaused }
+                    FullScreenIntentWarningBanner(
+                        isVisible = isExactAlarmPermitted.value && !isFullScreenIntentPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null,
+                        isDarkTheme = isDarkTheme,
+                        onRequestPermission = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestFullScreenIntentPermission(context) }
                     )
                 }
                 
@@ -1008,6 +1020,38 @@ private fun ExactAlarmWarningBanner(
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = stringResource(R.string.main_exact_alarm_banner),
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textColor
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun FullScreenIntentWarningBanner(
+    isVisible: Boolean,
+    isDarkTheme: Boolean,
+    onRequestPermission: () -> Unit
+) {
+    if (!isVisible) return
+    val cardColor = if (isDarkTheme) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.8f)
+                    else MaterialTheme.colorScheme.errorContainer
+    val textColor = MaterialTheme.colorScheme.onErrorContainer
+    Card(
+        modifier = Modifier.fillMaxWidth().clickable { onRequestPermission() },
+        shape = MaterialTheme.shapes.large,
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
+        colors = CardDefaults.cardColors(containerColor = cardColor)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Default.Warning, contentDescription = null, tint = textColor, modifier = Modifier.size(20.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(R.string.permission_fullscreen_title) + " - " + stringResource(R.string.permission_fullscreen_message),
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyMedium,
                     color = textColor
