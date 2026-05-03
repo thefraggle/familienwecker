@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.6 – 2026-05-03
+### Improved
+- **Smoother onboarding** – FamWake no longer asks for lock screen permissions right at launch. Instead, you'll see a gentle reminder only when you actually set up an alarm.
+- **Better readability** – We improved the color contrast of error messages and warnings, making them much easier to read on all screens.
+
+---
+
 ## 1.8.5 – 2026-05-01
 ### New
 - **Globally available** – FamWake now speaks 7 new languages: Indonesian, Vietnamese, Bengali, Marathi, Hindi, Simplified Chinese, and Korean. We now support 22 languages for families worldwide.
