@@ -273,6 +273,8 @@ fun AddMemberScreen(
                                 ?: if (memberId != null && memberId == myMemberId) viewModel.currentUserId else null,
                             claimedByUserName = memberToEdit?.claimedByUserName
                                 ?: if (memberId != null && memberId == myMemberId) viewModel.auth.currentUser?.displayName else null,
+                            claimedByDeviceId = memberToEdit?.claimedByDeviceId
+                                ?: if (memberId != null && memberId == myMemberId) viewModel.appSettings.deviceId else null,
                             createdAt = memberToEdit?.createdAt ?: System.currentTimeMillis(),
                             // Neuer Member → ans Ende stellen (members.size = nächster freier Index).
                             // Bestehender Member → sequenceOrder beibehalten, kein Reset durch Update.

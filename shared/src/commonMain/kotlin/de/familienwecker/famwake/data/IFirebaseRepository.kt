@@ -48,12 +48,12 @@ interface IFirebaseRepository {
 
     suspend fun removeMember(familyId: String, id: String): Result<Unit>
 
-    suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?): Boolean
+    suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?, deviceId: String): Boolean
 
     /** Offline-Variante ohne Transaction: schreibt claimedByUserId direkt damit Firestore es queuen kann. */
-    suspend fun claimMemberOffline(familyId: String, memberId: String, userId: String, userName: String?)
+    suspend fun claimMemberOffline(familyId: String, memberId: String, userId: String, userName: String?, deviceId: String)
 
-    suspend fun unclaimMember(familyId: String, memberId: String, userId: String): Boolean
+    suspend fun unclaimMember(familyId: String, memberId: String, userId: String, deviceId: String): Boolean
 
     suspend fun getClaimedMember(familyId: String, userId: String): FamilyMember?
 
