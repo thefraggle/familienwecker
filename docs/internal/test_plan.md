@@ -1,5 +1,5 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.8.6
+**Version:** 1.8.7
 **Datum:** 2026-05-03
 
 ---
@@ -23,8 +23,9 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-04 | Familie gründen + beitreten | Familie mit Code erstellt. Zweites Gerät tritt per Code und per `/join/`-Deep-Link bei. Eigenen Code eingeben → kein erneuter Join. |
 | TC-05 | Familie verlassen / löschen | Eigenes Profil gelöscht, Alarm gecancelt. Nur Creator darf Familie löschen. Fehlermeldung für Nicht-Creator. Keine falsche „Synchronisierung fehlgeschlagen"-Meldung (auch auf Fresh Install). |
 | TC-06 | Logout + Re-Login | Alarm-State bleibt erhalten (kein Race-Condition-Reset). Zweiter User einloggen → sieht nur eigene Familie. |
-| TC-07 | Onboarding-Tour | 5 Slides mit Panda. Tour aus Einstellungen wieder aufrufbar. Abschluss landet im Hauptscreen. |
+| TC-07 | Onboarding-Tour | 5 Slides mit Panda. Tour aus Einstellungen wieder aufrufbar. Abschluss landet im Welcome Screen (Slide 5). |
 | TC-08 | Rate-Limiting | >5 falsche Codes/min oder >5 Reset-Mails/h → serverseitige Blockierung. |
+| TC-09 | Lazy Registration | "Los geht's" im Welcome Screen erstellt anonymen Nutzer. Familie erstellen möglich. Settings: Teilen gesperrt, Code verborgen, kein Logout Button ganz unten, stattdessen Login Button. Join Family im Setup Screen gesperrt. |
 
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |

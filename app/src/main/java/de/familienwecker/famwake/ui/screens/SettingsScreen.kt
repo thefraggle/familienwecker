@@ -84,7 +84,9 @@ fun SettingsScreen(
     onNavigateToFeedback: () -> Unit,
     onLogout: () -> Unit,
     onLeaveFamily: () -> Unit,
-    onStartOnboarding: () -> Unit = {}
+    onStartOnboarding: () -> Unit = {},
+    isAnonymous: Boolean = false,
+    onNavigateToLogin: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val members by viewModel.members.collectAsStateWithLifecycle()
@@ -531,10 +533,28 @@ fun SettingsScreen(
                         Text(stringResource(R.string.settings_account_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
+
+                    if (isAnonymous) {
+                        val loginInteractionSource = remember { MutableInteractionSource() }
+                        Button(
+                            onClick = onNavigateToLogin,
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp).bounceClick(loginInteractionSource),
+                            interactionSource = loginInteractionSource,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            )
+                        ) {
+                            Icon(Icons.Default.PersonAdd, contentDescription = null)
+                            Spacer(Modifier.width(8.dp))
+                            Text(stringResource(R.string.settings_anonymous_login_button))
+                        }
+                    }
+
                     currentJoinCode?.let { code ->
                         Text(stringResource(R.string.settings_join_code, familyName ?: ""))
                         Text(
-                            text = code, 
+                            text = if (isAnonymous) "******" else code, 
                             style = MaterialTheme.typography.headlineMedium, 
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 16.dp)
@@ -556,13 +576,19 @@ fun SettingsScreen(
                         
                         Button(
                             onClick = {
-                                val sendIntent = Intent().apply {
-                                    action = Intent.ACTION_SEND
-                                    putExtra(Intent.EXTRA_TEXT, shareMessage)
-                                    type = "text/plain"
+                                if (isAnonymous) {
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar(context.getString(R.string.settings_share_code_locked))
+                                    }
+                                } else {
+                                    val sendIntent = Intent().apply {
+                                        action = Intent.ACTION_SEND
+                                        putExtra(Intent.EXTRA_TEXT, shareMessage)
+                                        type = "text/plain"
+                                    }
+                                    val shareIntent = Intent.createChooser(sendIntent, null)
+                                    context.startActivity(shareIntent)
                                 }
-                                val shareIntent = Intent.createChooser(sendIntent, null)
-                                context.startActivity(shareIntent)
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -1173,7 +1199,8 @@ fun SettingsScreen(
 
 
             // Abmelden – eigene Sektion ganz unten, um versehentliche Taps zu vermeiden
-            Card(
+            if (!isAnonymous) {
+                Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = MaterialTheme.shapes.large,
                 elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
@@ -1219,6 +1246,7 @@ fun SettingsScreen(
                         )
                     }
                 }
+            }
             }
 
             Spacer(modifier = Modifier.height(8.dp))

@@ -103,6 +103,9 @@
     <string name="settings_alarm_select">Select sound: %1$s</string>
     <string name="settings_alarm_picker_title">Choose an alarm sound</string>
     <string name="settings_account_title">Family &amp; Account</string>
+    <string name="settings_join_family_locked">Please log in to join a family.</string>
+    <string name="settings_share_code_locked">Please log in to share the invite code.</string>
+    <string name="settings_anonymous_login_button">Create Account / Login</string>
     <string name="settings_join_code">Invite code for %1$s:</string>
     <string name="settings_share_code">Share code</string>
     <string name="settings_share_message">Here is your link for FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGroup: %1$s\n\nJust click, log in, and we\'re connected. Waking up together is more fun! ⏰❤️</string>
@@ -149,6 +152,9 @@
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_next">Next</string>
     <string name="onboarding_done">Let\'s go</string>
+    <string name="onboarding_login_create">Login / Create Account</string>
+    <string name="onboarding_slide5_title">Let\'s get started!</string>
+    <string name="onboarding_slide5_body">Start right away or log in to join your family.</string>
     <string name="onboarding_slide0_title">Your morning as a team.</string>
     <string name="onboarding_slide0_body">No arguments, no chaos. FamWake ensures everyone starts the day relaxed – fully automatic.</string>
     <string name="onboarding_slide1_title">No more waiting.</string>

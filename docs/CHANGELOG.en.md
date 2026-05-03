@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.7 – 2026-05-03
+### New
+- **Start instantly** – The app can now be used without an account (Lazy Registration). You can instantly create a family and use the alarm clock. An account is only required to share codes or join another family.
+
+---
+
 ## 1.8.6 – 2026-05-03
 ### Improved
 - **Smoother onboarding** – FamWake no longer asks for lock screen permissions right at launch. Instead, you'll see a gentle reminder only when you actually set up an alarm.

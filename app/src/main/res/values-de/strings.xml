@@ -103,6 +103,9 @@
     <string name="settings_alarm_select">Ton wählen: %1$s</string>
     <string name="settings_alarm_picker_title">Wähle einen Weckton</string>
     <string name="settings_account_title">Familie &amp; Konto</string>
+    <string name="settings_join_family_locked">Bitte logge dich ein, um einer Familie beizutreten.</string>
+    <string name="settings_share_code_locked">Bitte logge dich ein, um den Code zu teilen.</string>
+    <string name="settings_anonymous_login_button">Account erstellen / Einloggen</string>
     <string name="settings_join_code">Einladungscode für %1$s:</string>
     <string name="settings_share_code">Code teilen</string>
     <string name="settings_share_message">Hier ist dein Link für FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGruppe: %1$s\n\nEinfach klicken, einloggen und wir sind verbunden. Gemeinsam wecken macht mehr Spaß! ⏰❤️</string>
@@ -149,6 +152,9 @@
     <string name="onboarding_skip">Überspringen</string>
     <string name="onboarding_next">Weiter</string>
     <string name="onboarding_done">Los geht\'s</string>
+    <string name="onboarding_login_create">Login / Account erstellen</string>
+    <string name="onboarding_slide5_title">Lass uns loslegen!</string>
+    <string name="onboarding_slide5_body">Starte direkt oder logge dich ein, um deiner Familie beizutreten.</string>
     <string name="onboarding_slide0_title">Dein Morgen als Team.</string>
     <string name="onboarding_slide0_body">Keine Diskussionen, kein Chaos. FamWake sorgt dafür, dass alle entspannt in den Tag starten – vollautomatisch.</string>
     <string name="onboarding_slide1_title">Nie wieder warten.</string>
