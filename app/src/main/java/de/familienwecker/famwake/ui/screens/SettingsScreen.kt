@@ -396,11 +396,14 @@ fun SettingsScreen(
 
             // Akku-Optimierungs-Warnung und Exakter Alarm
             val lifecycleOwnerSettings = LocalLifecycleOwner.current
+            val isExactAlarmPermitted = remember { mutableStateOf(de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)) }
+            val isFullScreenIntentPermitted = remember { mutableStateOf(de.familienwecker.famwake.util.AlarmPermissionUtils.hasFullScreenIntentPermission(context)) }
             DisposableEffect(lifecycleOwnerSettings) {
                 val observer = LifecycleEventObserver { _, event ->
                     if (event == Lifecycle.Event.ON_RESUME) {
                         isBatteryOptimized.value = !BatteryUtils.isBatteryOptimizationIgnored(context)
                         isExactAlarmPermitted.value = de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)
+                        isFullScreenIntentPermitted.value = de.familienwecker.famwake.util.AlarmPermissionUtils.hasFullScreenIntentPermission(context)
                     }
                 }
                 lifecycleOwnerSettings.lifecycle.addObserver(observer)
@@ -424,6 +427,16 @@ fun SettingsScreen(
                     buttonLabel = stringResource(R.string.settings_exact_alarm_warning_button),
                     isDarkTheme = isDarkTheme,
                     onAction = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) }
+                )
+            }
+
+            if (!isFullScreenIntentPermitted.value) {
+                PermissionWarningCard(
+                    title = stringResource(R.string.permission_fullscreen_title),
+                    body = stringResource(R.string.permission_fullscreen_message),
+                    buttonLabel = stringResource(R.string.permission_fullscreen_open),
+                    isDarkTheme = isDarkTheme,
+                    onAction = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestFullScreenIntentPermission(context) }
                 )
             }
 

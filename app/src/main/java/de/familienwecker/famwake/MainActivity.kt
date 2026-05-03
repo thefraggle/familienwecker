@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 
-        checkFullScreenIntentPermission()
         handleDeepLink(intent, familyViewModel)
 
         // Edge-to-Edge muss vor setContent() aufgerufen werden, damit AppCompat
@@ -120,30 +119,6 @@ class MainActivity : AppCompatActivity() {
             if (!code.isNullOrBlank() && code != "join") {
                 val sanitized = code.filter { it.isLetterOrDigit() }.uppercase().take(6)
                 viewModel.setPendingJoinCode(sanitized)
-            }
-        }
-    }
-
-    private fun checkFullScreenIntentPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            if (!nm.canUseFullScreenIntent()) {
-                android.app.AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.permission_fullscreen_title))
-                    .setMessage(getString(R.string.permission_fullscreen_message))
-                    .setPositiveButton(getString(R.string.permission_fullscreen_open)) { _, _ ->
-                        try {
-                            val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
-                            intent.data = "package:$packageName".toUri()
-                            startActivity(intent)
-                        } catch (e: Exception) {
-                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                android.util.Log.w("MainActivity", "FullScreenIntent settings not available", e)
-                            }
-                        }
-                    }
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show()
             }
         }
     }

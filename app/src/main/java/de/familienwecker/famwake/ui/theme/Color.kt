@@ -121,7 +121,7 @@ val RingingPeach       = Color(0xFFFFB347)
 val SnoozeAmberDark    = Color(0xFF332000)
 val SnoozeAmberLight   = Color(0xFFFFE0B2)
 val SnoozeTextDark     = Color(0xFFFFCC80)
-val SnoozeTextLight    = Color(0xFFE65100)
+val SnoozeTextLight    = Color(0xFF3E2723)
 
 val OnlineGreenDark    = Color(0xFF1B321B)
 val OnlineGreenLight   = Color(0xFFE8F5E9)
