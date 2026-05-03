@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.8.5
-**Datum:** 2026-05-01
+**Version:** 1.8.6
+**Datum:** 2026-05-03
 
 ---
 
@@ -46,8 +46,9 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-33 | Two-Pass Datumslogik | Mama geweckt, Kind+Papa schlafen noch → Anzeige „Frühstück heute um …" (nicht „morgen"). Erst wenn ALLE heutigen Alarme verstrichen → UI wechselt zu „morgen". |
 | TC-34 | Snooze | Snooze (5 Min) plant neuen Alarm exakt 5 Min später. Banner mit Endzeit + Abbruch-Button. Kein Konflikt mit regulärem Alarm. |
 | TC-35 | Alarm-Sync Multi-Device | Wecker auf Gerät A aus → Gerät B sieht Status sofort. „Schon wach" auf A → Schedule aktualisiert sich auf B. |
-| TC-36 | Berechtigungs-Warnung (Android 14+) | Kein SCHEDULE_EXACT_ALARM → rote Kachel auf Hauptscreen, klickbar zur System-Einstellung. |
+| TC-36 | Exact Alarm Warnung (Android 14+) | Kein SCHEDULE_EXACT_ALARM → rotes Banner auf Hauptscreen und in Settings, klickbar zur System-Einstellung. |
 | TC-37 | DayProfile-Datumssprung | Mo+Di: 6:30, Rest: 7:30. Di-6:30 hat geklingelt → UI zeigt "Mi 7:30". Kein zweiter Alarm mehr am Di um 7:30. Nächster Alarm klingelt am Mi um 7:30. |
+| TC-38 | Lockscreen Alarm Warnung (Android 14+) | Kein USE_FULL_SCREEN_INTENT → **Kein** Popup mehr beim App-Start. Banner im MainScreen erscheint **nur**, wenn Exakter Alarm erlaubt, Wecker aktiv und Zeitplan vorhanden ist. Warnkarte in den Settings ist immer sichtbar, wenn Berechtigung fehlt. |
 
 ### 6. Push-Benachrichtigungen
 | ID | Testfall | Erwartetes Ergebnis |
