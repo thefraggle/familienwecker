@@ -216,6 +216,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     },
                     onLogin = {
                         familyViewModel.setOnboardingCompleted(true)
+                        authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {
                             popUpTo(Routes.ONBOARDING) { inclusive = true }
                             launchSingleTop = true
@@ -241,6 +242,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     },
                     onLogin = {
                         familyViewModel.setOnboardingCompleted(true)
+                        authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {
                             popUpTo(Routes.ONBOARDING_WELCOME) { inclusive = true }
                             launchSingleTop = true
@@ -360,6 +362,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     isAnonymous = authViewModel.isAnonymous,
                     onNavigateToLogin = {
                         familyViewModel.setOnboardingCompleted(true)
+                        authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {
                             popUpTo(Routes.SETTINGS) { inclusive = true }
                             launchSingleTop = true

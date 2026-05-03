@@ -332,8 +332,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun signInAnonymously(onSuccess: () -> Unit) {
-        _authState.value = AuthState.Loading
         viewModelScope.launch {
+            if (authRepository.currentUser != null) {
+                onSuccess()
+                return@launch
+            }
+            _authState.value = AuthState.Loading
             val result = authRepository.signInAnonymously()
             result.onSuccess { user ->
                 TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "anonymous"))
@@ -354,6 +358,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         }
         appSettings.clearAll()
         _authState.value = AuthState.Idle
+    }
+
+    fun clearError() {
+        if (_authState.value is AuthState.Error) {
+            _authState.value = AuthState.Idle
+        }
     }
 
     fun resetPassword(email: String) {
