@@ -10,7 +10,7 @@
     <string name="login_with_google">Zaloguj się przez Google</string>
     <string name="login_forgot_password">Zapomniałeś hasła?</string>
     <string name="login_password_reset_sent">E-mail do resetowania hasła został wysłany!</string>
-    <string name="login_google_error_no_account">Nie znaleziono konta Google na tym urządzeniu. Zaloguj się do Google w ustawieniach telefonu lub użyj e-maila i hasła.</string>
+    <string name="login_google_error_no_account">Nie znaleziono konta Google. Zaloguj się w ustawieniach telefonu lub użyj e-maila.</string>
 
     <string name="setup_create_tab">Utwórz</string>
     <string name="setup_join_tab">Dołącz</string>
@@ -344,10 +344,14 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Dotknij tutaj, aby wybrać swój osobisty dźwięk budzenia – wybierz swoją ulubioną muzykę zamiast zwykłego pikania.</string>
     <string name="settings_language_dialects">Dialekty</string>
 
-    
     <string name="notif_channel_schedule_change_name">Aktualizacje harmonogramu</string>
     <string name="notif_channel_schedule_change_desc">Informuje Cię, czy zmieniły się czasy pobudki lub kolejność w łazience</string>
     <string name="notif_channel_family_events_name">Aktualizacje rodziny</string>
@@ -367,7 +371,7 @@
     <string name="onboarding_slide5_title">Zaczynamy!</string>
     <string name="onboarding_slide5_body">Możesz wypróbować aplikację od razu, bez posiadania konta. Będziesz go potrzebować dopiero wtedy, gdy będziesz chciał zaprosić swoją rodzinę.</string>
     <string name="settings_anonymous_login_button">Zaloguj się / Zarejestruj się</string>
-    <string name="settings_steal_title">Przejąć profil?</string>
-    <string name="settings_steal_text">Profil %1$s jest już zajęty. Czy chcesz go przejąć?</string>
-    <string name="settings_steal_confirm">Przejmij</string>
+    <string name="settings_steal_title">Użyć tego profilu?</string>
+    <string name="settings_steal_text">Profil %1$s jest już zajęty. Czy chcesz go używać dla siebie?</string>
+    <string name="settings_steal_confirm">Tak, użyj</string>
 </resources>

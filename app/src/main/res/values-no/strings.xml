@@ -10,7 +10,7 @@
     <string name="login_with_google">Logg på med Google</string>
     <string name="login_forgot_password">Glemt passord?</string>
     <string name="login_password_reset_sent">E-post for tilbakestilling av passord er sendt!</string>
-    <string name="login_google_error_no_account">Ingen Google-konto funnet. Logg på Google i telefoninnstillingene dine eller bruk e-post og passord.</string>
+    <string name="login_google_error_no_account">Ingen Google-konto funnet. Logg på via telefoninnstillingene eller bruk e-post.</string>
 
     <string name="setup_create_tab">Opprett</string>
     <string name="setup_join_tab">Bli med</string>
@@ -43,7 +43,7 @@
     <string name="main_no_profile_warning">Ingen profil valgt!</string>
     <string name="main_no_profile_warning_desc">Velg profilen din i innstillingene slik at telefonen kan ringe for deg.</string>
     <string name="main_unclaimed_first_title">Ingen alarm ringer for %1$s!</string>
-    <string name="main_unclaimed_first_desc">%1$s er først i rekken, men har ikke valgt profilen sin på en telefon ennå – de kan forsove seg!</string>
+    <string name="main_unclaimed_first_desc">%1$s er først i rekken, men har ikke valgt profilen sin på en telefon ennå – og forsover seg kanskje!</string>
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
     <string name="delete_desc">Slett</string>
@@ -56,7 +56,7 @@
     <string name="unsaved_changes_discard">Forkast</string>
     <string name="unsaved_changes_keep">Fortsett å redigere</string>
     <string name="add_member_submit">Lagre</string>
-    <string name="delete_member_title">Slett medlem</string>
+    <string name="delete_member_title">Fjern medlem</string>
     <string name="delete_member_text">Er du sikker på at du vil fjerne %1$s fra familien?</string>
     <string name="delete_confirm">Fjern</string>
     <string name="cancel_button">Avbryt</string>
@@ -103,6 +103,9 @@
     <string name="settings_alarm_select">Lyd: %1$s</string>
     <string name="settings_alarm_picker_title">Velg alarmlyden din</string>
     <string name="settings_account_title">Familie &amp; Konto</string>
+    <string name="settings_join_family_locked">Logg inn for å bli med i en familie.</string>
+    <string name="settings_share_code_locked">Logg inn for å dele invitasjonskoden din.</string>
+    <string name="settings_anonymous_login_button">Logg inn / Registrer deg</string>
     <string name="settings_join_code">Invitasjonskode for %1$s:</string>
     <string name="settings_share_code">Del invitasjonslenke</string>
     <string name="settings_share_message">Her er lenken din for FamWake:\nhttps://familienwecker.de/join/%2$s\n\nKode: %2$s\nFamilie: %1$s\n\nBare trykk på lenken, logg inn, så er vi koblet sammen. Det er mye enklere å våkne sammen! ⏰❤️</string>
@@ -159,6 +162,10 @@
     <string name="onboarding_slide3_body">Del invitasjonskoden din, så er familien med. Når noen endrer tidene sine, oppdateres alles tidsplan umiddelbart.</string>
     <string name="onboarding_slide4_title">Fungerer alltid.</string>
     <string name="onboarding_slide4_body">Nyt en avslappet morgen hver dag. Selv om internett går ned i løpet av natten, vil alarmen fortsatt ringe i tide.</string>
+    
+    <string name="onboarding_mock_name1">Pappa</string>
+    <string name="onboarding_mock_name2">Mamma</string>
+    <string name="onboarding_mock_family_name">Hansen</string>
     <string name="settings_feedback_button">Gi tilbakemelding / Rapporter en feil</string>
     <string name="feedback_title">Tilbakemelding</string>
     <string name="feedback_intro">Hjelp oss å gjøre appen enda bedre! Hva har du på hjertet?</string>
@@ -344,10 +351,14 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Trykk her for å velge din personlige oppvåkningslyd – velg favorittmusikken din i stedet for den vanlige pipelyden.</string>
     <string name="settings_language_dialects">Dialekter</string>
 
-    
     <string name="notif_channel_schedule_change_name">Tidsplanendringer</string>
     <string name="notif_channel_schedule_change_desc">Gir deg beskjed hvis oppvåkningstider eller rekkefølgen på badet endres</string>
     <string name="notif_channel_family_events_name">Familieoppdateringer</string>
@@ -366,8 +377,8 @@
     <string name="onboarding_login_create">Logg inn / Registrer deg</string>
     <string name="onboarding_slide5_title">La oss komme i gang!</string>
     <string name="onboarding_slide5_body">Du kan prøve appen med en gang uten konto. Du trenger bare en når du vil invitere familien din.</string>
-    <string name="settings_anonymous_login_button">Logg inn / Registrer deg</string>
-    <string name="settings_steal_title">Ta over profil?</string>
-    <string name="settings_steal_text">%1$s er allerede i bruk. Vil du ta over profilen?</string>
-    <string name="settings_steal_confirm">Ta over</string>
+
+    <string name="settings_steal_title">Bruk denne profilen?</string>
+    <string name="settings_steal_text">%1$s er allerede valgt. Vil du bruke denne profilen?</string>
+    <string name="settings_steal_confirm">Ja, bruk den</string>
 </resources>

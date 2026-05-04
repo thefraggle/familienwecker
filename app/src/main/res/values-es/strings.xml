@@ -350,7 +350,6 @@
     <string name="onboarding_mock_name2">Mamá</string>
     <string name="onboarding_mock_family_name">García</string>
 
-    
     <string name="notif_channel_schedule_change_name">Actualizaciones de horario</string>
     <string name="notif_channel_schedule_change_desc">Te avisa si las horas de despertar o el orden en el baño cambian</string>
     <string name="notif_channel_family_events_name">Actualizaciones familiares</string>
@@ -370,7 +369,7 @@
     <string name="onboarding_slide5_title">¡Vamos a empezar!</string>
     <string name="onboarding_slide5_body">Puedes probar la app ahora mismo sin tener cuenta. Solo necesitarás una cuando quieras invitar a tu familia.</string>
     <string name="settings_anonymous_login_button">Iniciar sesión / Registrarse</string>
-    <string name="settings_steal_title">¿Asumir perfil?</string>
-    <string name="settings_steal_text">%1$s ya está ocupado. ¿Quieres asumirlo?</string>
-    <string name="settings_steal_confirm">Asumir</string>
+    <string name="settings_steal_title">¿Usar este perfil?</string>
+    <string name="settings_steal_text">%1$s ya está asignado. ¿Quieres usar este perfil?</string>
+    <string name="settings_steal_confirm">Sí, usarlo</string>
 </resources>

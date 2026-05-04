@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake Familienwegger</string>
+<resources>
+    <string name="app_name_short">FamWake Familienwegger</string>
     <string name="email_label">E-Mail</string>
     <string name="password_label">Passwort</string>
     <string name="register_button">Registriera</string>
@@ -199,7 +200,7 @@
     <string-array name="ringing_messages">
         <item>S\'Bädle ghert jetzt ganz alloim dir!</item>
         <item>Koi Gschrei, koin Stress – dei Badzeit fängt aa.</item>
-        <item>Gnieß d\'Ruha em Bad, solangs goht!</item>
+        <item>Gnieß d\'Ruha em Bad, solang s\'goht!</item>
         <item>Zeit für a Käffle. D\'Welt wartet uff di!</item>
         <item>Gud gschlafa? Dei Plan für heit basst.</item>
         <item>Grichtet für da Dåg? Älles isch subber abgstimmt.</item>
@@ -348,7 +349,6 @@
     <string name="tooltip_alarm_sound">Druck do, om dein persönliche Weggton auszusuacha – nemm dei Lieblingsmusik statt am normale Gepiepse.</string>
     <string name="settings_language_dialects">Dialegde</string>
 
-    
     <string name="notif_channel_schedule_change_name">Plan-Updates</string>
     <string name="notif_channel_schedule_change_desc">Sagt dr Bscheid, wenn sich bei de Weggzeita oder dr Bad-Reihafolg was ändert</string>
     <string name="notif_channel_family_events_name">Familien-Updates</string>
@@ -368,7 +368,7 @@
     <string name="onboarding_slide5_title">Auf goht\'s!</string>
     <string name="onboarding_slide5_body">Du kannsch d\'App direkt ohne Aameldung ausprobiera. A Konto brauchsch erscht, wenn de dei Familie eiladsch.</string>
     <string name="settings_anonymous_login_button">Aamelda / Regischtriera</string>
-    <string name="settings_steal_title">Profil übernehmen?</string>
-    <string name="settings_steal_text">%1$s ist bereits belegt. Möchtest du es übernehmen?</string>
-    <string name="settings_steal_confirm">Übernehmen</string>
+    <string name="settings_steal_title">Profil nemma?</string>
+    <string name="settings_steal_text">%1$s isch scho vergäba. Woisch es für di nemma?</string>
+    <string name="settings_steal_confirm">Jå, nemma</string>
 </resources>

@@ -347,21 +347,16 @@
     <string name="tooltip_alarm_sound">Tik hier om je persoonlijke wekkergeluid te kiezen – neem je favoriete muziek in plaats van het standaard gepiep.</string>
     <string name="settings_language_dialects">Dialecten</string>
 
-    
     <string name="notif_channel_schedule_change_name">Schema-updates</string>
     <string name="notif_channel_schedule_change_desc">Laat het je weten als de wektijden of badkamervolgorde veranderen</string>
     <string name="notif_channel_family_events_name">Familie-updates</string>
     <string name="notif_channel_family_events_desc">Vertelt je wanneer mensen zich aansluiten bij of vertrekken uit je familiegroep</string>
-
-    
     <string name="notif_schedule_changed_title">FamWake: Ochtendschema bijgewerkt</string>
     <string name="notif_schedule_changed_body">De wektijden zijn gewijzigd. Open de app om je nieuwe tijd te bekijken.</string>
     <string name="notif_member_joined_title">FamWake: Nieuw familielid!</string>
     <string name="notif_member_joined_body">Iemand is zojuist toegevoegd aan je familieschema.</string>
     <string name="notif_member_left_title">FamWake: Familie-update</string>
     <string name="notif_member_left_body">Iemand heeft de familiegroep verlaten.</string>
-
-    
     <string name="notif_permission_title">Meldingen vereist</string>
     <string name="notif_permission_desc">Als je meldingen uitschakelt, werkt je wekker mogelijk niet goed. Laat ze a.u.b. ingeschakeld.</string>
     <string name="notif_permission_button">Meldingen aanzetten</string>
@@ -371,7 +366,7 @@
     <string name="onboarding_slide5_title">Laten we beginnen!</string>
     <string name="onboarding_slide5_body">Je kunt de app meteen uitproberen zonder account. Je hebt er pas een nodig als je je familie wilt uitnodigen.</string>
     <string name="settings_anonymous_login_button">Inloggen / Registreren</string>
-    <string name="settings_steal_title">Profiel overnemen?</string>
-    <string name="settings_steal_text">%1$s is al bezet. Wil je dit profiel overnemen?</string>
-    <string name="settings_steal_confirm">Overnemen</string>
+    <string name="settings_steal_title">Dit profiel gebruiken?</string>
+    <string name="settings_steal_text">%1$s is al in gebruik. Wil je dit profiel gebruiken?</string>
+    <string name="settings_steal_confirm">Ja, gebruiken</string>
 </resources>

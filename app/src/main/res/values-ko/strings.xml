@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake 가족 알람시계</string>
+<resources>
+    <string name="app_name_short">FamWake 가족 알람시계</string>
     <string name="email_label">이메일</string>
     <string name="password_label">비밀번호</string>
     <string name="register_button">가입하기</string>
@@ -357,21 +358,16 @@
     <string name="tooltip_alarm_sound">여기를 탭해서 나만의 알람 소리를 골라보세요. 딱딱한 비프음 대신 좋아하는 음악으로 아침을 시작하세요.</string>
     <string name="settings_language_dialects">사투리</string>
 
-    
     <string name="notif_channel_schedule_change_name">일정 업데이트</string>
     <string name="notif_channel_schedule_change_desc">기상 시간이나 화장실 순서가 바뀌면 알려줍니다.</string>
     <string name="notif_channel_family_events_name">가족 업데이트</string>
     <string name="notif_channel_family_events_desc">누군가 가족 그룹에 들어오거나 나갈 때 알려줍니다.</string>
-
-    
     <string name="notif_schedule_changed_title">FamWake: 아침 일정이 업데이트되었습니다</string>
     <string name="notif_schedule_changed_body">일어나는 시간이 변경되었습니다. 앱을 열어서 새로운 시간을 확인해 보세요.</string>
     <string name="notif_member_joined_title">FamWake: 새로운 가족 멤버!</string>
     <string name="notif_member_joined_body">새로운 사람이 가족 일정에 합류했습니다.</string>
     <string name="notif_member_left_title">FamWake: 가족 업데이트</string>
     <string name="notif_member_left_body">누군가 가족 그룹에서 나갔습니다.</string>
-
-    
     <string name="notif_permission_title">알림이 필요해요</string>
     <string name="notif_permission_desc">알림을 끄면 알람이 제대로 작동하지 않을 수 있습니다. 켜두시는 것을 권장합니다.</string>
     <string name="notif_permission_button">알림 켜기</string>
@@ -381,7 +377,7 @@
     <string name="onboarding_slide5_title">시작해 볼까요!</string>
     <string name="onboarding_slide5_body">계정이 없어도 바로 앱을 사용해 볼 수 있습니다. 가족을 초대하고 싶을 때만 계정을 만드시면 됩니다.</string>
     <string name="settings_anonymous_login_button">로그인 / 가입하기</string>
-    <string name="settings_steal_title">프로필 가져오기?</string>
-    <string name="settings_steal_text">%1$s님은 이미 사용 중입니다. 프로필을 가져오시겠습니까?</string>
-    <string name="settings_steal_confirm">가져오기</string>
+    <string name="settings_steal_title">이 프로필을 사용할까요?</string>
+    <string name="settings_steal_text">%1$s 프로필은 이미 선택되어 있습니다. 이 프로필을 내 프로필로 사용하시겠습니까?</string>
+    <string name="settings_steal_confirm">네, 사용할게요</string>
 </resources>

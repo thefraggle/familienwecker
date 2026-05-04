@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake Семейный будильник</string>
+<resources>
+    <string name="app_name_short">FamWake Семейный будильник</string>
     <string name="email_label">Электронная почта</string>
     <string name="password_label">Пароль</string>
     <string name="register_button">Зарегистрироваться</string>
@@ -368,7 +369,7 @@
     <string name="onboarding_slide5_title">Давайте начнем!</string>
     <string name="onboarding_slide5_body">Вы можете попробовать приложение прямо сейчас без аккаунта. Он понадобится вам только тогда, когда вы захотите пригласить свою семью.</string>
     <string name="settings_anonymous_login_button">Войти / Зарегистрироваться</string>
-        <string name="settings_steal_title">Занять профиль?</string>
-    <string name="settings_steal_text">Профиль %1$s уже занят. Хотите занять его?</string>
-    <string name="settings_steal_confirm">Занять</string>
+        <string name="settings_steal_title">Использовать этот профиль?</string>
+    <string name="settings_steal_text">Профиль %1$s уже занят. Хотите использовать его для себя?</string>
+    <string name="settings_steal_confirm">Да, использовать</string>
 </resources>

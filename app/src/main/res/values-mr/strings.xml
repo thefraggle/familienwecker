@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake कौटुंबिक अलार्म</string>
+<resources>
+    <string name="app_name_short">FamWake कौटुंबिक अलार्म</string>
     <string name="email_label">ईमेल</string>
     <string name="password_label">पासवर्ड</string>
     <string name="register_button">साइन अप करा</string>
@@ -9,7 +10,7 @@
     <string name="login_with_google">Google सह साइन इन करा</string>
     <string name="login_forgot_password">पासवर्ड विसरलात?</string>
     <string name="login_password_reset_sent">पासवर्ड रीसेट ईमेल पाठवला!</string>
-    <string name="login_google_error_no_account">कोणतेही Google खाते आढळले नाही. कृपया तुमच्या फोनच्या सेटिंग्जमध्ये Google वर साइन इन करा किंवा ईमेल आणि पासवर्ड वापरा.</string>
+    <string name="login_google_error_no_account">कोणतेही Google खाते आढळले नाही. कृपया फोन सेटिंग्जमधून साइन इन करा किंवा ईमेल वापरा.</string>
 
     <string name="setup_create_tab">तयार करा</string>
     <string name="setup_join_tab">सामील व्हा</string>
@@ -56,7 +57,7 @@
     <string name="unsaved_changes_keep">संपादन करत राहा</string>
     <string name="add_member_submit">जतन करा</string>
     <string name="delete_member_title">सदस्य हटवा</string>
-    <string name="delete_member_text">तुम्हाला खरोखर खात्री आहे की तुम्ही %1$s यांना कुटुंबातून काढून टाकू इच्छिता?</string>
+    <string name="delete_member_text">तुम्हाला %1$s यांना कुटुंबातून खरोखरच हटवायचे आहे का?</string>
     <string name="delete_confirm">हटवा</string>
     <string name="cancel_button">रद्द करा</string>
     <string name="retry_button">पुन्हा प्रयत्न करा</string>
@@ -110,7 +111,7 @@
     <string name="settings_leave_family">कुटुंब सोडा</string>
     <string name="settings_delete_family">कुटुंब हटवा</string>
     <string name="settings_delete_family_dialog_title">संपूर्ण कुटुंब हटवायचे?</string>
-    <string name="settings_delete_family_dialog_text">तुम्हाला खरोखर हे कुटुंब कायमचे हटवायचे आहे का? सर्वांचे सदस्य, वेळा आणि सेटिंग्ज हटवल्या जातील. हे पुन्हा परत मिळवता येणार नाही.</string>
+    <string name="settings_delete_family_dialog_text">तुम्हाला खरोखर हे कुटुंब कायमचे हटवायचे आहे का? सर्वांसाठी सदस्य, वेळा आणि सेटिंग्ज कायमच्या पुसल्या जातील. हे परत मिळवता येणार नाही.</string>
     <string name="settings_delete_family_dialog_confirm">कायमचे हटवा</string>
     <string name="settings_delete_family_dialog_cancel">रद्द करा</string>
     <string name="settings_delete_family_warning_title">इतर सदस्य अजूनही आहेत!</string>
@@ -243,10 +244,10 @@
     <string name="error_delete_family">कुटुंब हटवता आले नाही: %1$s</string>
     <string name="error_calculate_schedule">वेळा मोजता आल्या नाहीत: %1$s</string>
     <string name="error_not_logged_in">तुम्ही लॉग इन केलेले नाही.</string>
-    <string name="error_system">काहीतरी चूक झाली.</string>
+    <string name="error_system">काहीतरी अडचण आली.</string>
     <string name="error_invalid_credentials">ईमेल किंवा पासवर्ड चुकीचा आहे. कृपया तुमची माहिती तपासा.</string>
     <string name="error_login_failed">लॉगिन अयशस्वी</string>
-    <string name="error_login_failed_unknown">लॉगिन करताना काहीतरी चूक झाली</string>
+    <string name="error_login_failed_unknown">लॉगिन करताना काहीतरी अडचण आली</string>
     <string name="error_registration_failed">साइन अप अयशस्वी</string>
     <string name="error_registration_failed_unknown">तुमचे खाते तयार करता आले नाही</string>
     <string name="error_unknown">काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा.</string>
@@ -275,7 +276,7 @@
 
     <string name="schedule_message_optimal">तुमच्या कुटुंबाचे वेळापत्रक येथे आहे:</string>
     <string name="schedule_message_no_members">सध्या कोणीही सक्रिय नाही. सर्व अलार्म थांबवले आहेत.</string>
-    <string name="schedule_message_no_valid">चांगले वेळापत्रक तयार करण्यासाठी वेळा खूप ओव्हरलॅप होत आहेत.</string>
+    <string name="schedule_message_no_valid">चांगले वेळापत्रक तयार करण्यासाठी वेळा खूप जास्त ओव्हरलॅप होत आहेत.</string>
     <string name="schedule_message_no_valid_desc">टीप: तुमची उठण्याची वेळ वाढवा, बाथरूमचा वेळ कमी करा किंवा एखाद्याचा अलार्म थांबवा.</string>
     <string name="schedule_message_time_adjusted">सर्व काही जुळवून घेण्यासाठी वेळ %1$d मिनिटांनी बदलण्यात आली आहे.</string>
     <string name="schedule_message_breakfast_reduced">सर्व काही जुळवून घेण्यासाठी नाश्ता %1$d मिनिटांनी कमी केला.</string>
@@ -357,31 +358,26 @@
     <string name="tooltip_alarm_sound">तुमचा स्वतःचा अलार्मचा आवाज निवडण्यासाठी येथे टॅप करा – नेहमीच्या आवाजाऐवजी तुमचे आवडते संगीत निवडा.</string>
     <string name="settings_language_dialects">बोलीभाषा</string>
 
-    
     <string name="notif_channel_schedule_change_name">वेळापत्रकाचे अपडेट</string>
     <string name="notif_channel_schedule_change_desc">उठण्याची वेळ किंवा बाथरूमचा क्रम बदलल्यास तुम्हाला माहिती देते</string>
     <string name="notif_channel_family_events_name">कौटुंबिक अपडेट</string>
     <string name="notif_channel_family_events_desc">जेव्हा कोणी तुमच्या कुटुंबात सामील होते किंवा कुटुंब सोडते तेव्हा तुम्हाला माहिती देते</string>
-
-    
     <string name="notif_schedule_changed_title">FamWake: सकाळचे वेळापत्रक अपडेट झाले</string>
     <string name="notif_schedule_changed_body">उठण्याच्या वेळा बदलल्या आहेत. तुमची नवीन वेळ पाहण्यासाठी ॲप उघडा.</string>
     <string name="notif_member_joined_title">FamWake: नवीन कुटुंब सदस्य!</string>
     <string name="notif_member_joined_body">कोणीतरी नुकतेच तुमच्या कुटुंबाच्या वेळापत्रकात सामील झाले आहे.</string>
     <string name="notif_member_left_title">FamWake: कौटुंबिक अपडेट</string>
     <string name="notif_member_left_body">कोणीतरी कुटुंब सोडले आहे.</string>
-
-    
     <string name="notif_permission_title">सूचना आवश्यक आहेत</string>
     <string name="notif_permission_desc">तुम्ही सूचना बंद केल्यास, तुमचा अलार्म कदाचित नीट चालणार नाही. कृपया त्या चालू ठेवा.</string>
     <string name="notif_permission_button">सूचना चालू करा</string>
     <string name="notif_manage_title">सूचना सेटिंग्ज</string>
     <string name="notif_manage_desc">तुमच्या फोनच्या सेटिंग्जमध्ये आवाज आणि कंपन बदला.</string>
-<string name="onboarding_login_create">लॉग इन / साइन अप करा</string>
+    <string name="onboarding_login_create">लॉग इन / साइन अप करा</string>
     <string name="onboarding_slide5_title">चला सुरू करूया!</string>
     <string name="onboarding_slide5_body">तुम्ही खाते न बनवताही ॲप लगेच वापरून पाहू शकता. जेव्हा तुम्हाला तुमच्या कुटुंबाला आमंत्रित करायचे असेल तेव्हाच तुम्हाला खात्याची आवश्यकता असेल.</string>
     <string name="settings_anonymous_login_button">लॉग इन / साइन अप करा</string>
-        <string name="settings_steal_title">प्रोफाइल घ्यायची?</string>
-    <string name="settings_steal_text">%1$s आधीच घेतले आहे. तुम्हाला हे घ्यायचे आहे का?</string>
-    <string name="settings_steal_confirm">घ्या</string>
+    <string name="settings_steal_title">हे प्रोफाईल वापरायचे?</string>
+    <string name="settings_steal_text">%1$s आधीच निवडलेले आहे. तुम्हाला हे प्रोफाईल वापरायचे आहे का?</string>
+    <string name="settings_steal_confirm">होय, वापरा</string>
 </resources>

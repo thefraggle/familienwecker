@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake Despertador Familiar</string>
+<resources>
+    <string name="app_name_short">FamWake Despertador Familiar</string>
     <string name="email_label">Email</string>
     <string name="password_label">Senha</string>
     <string name="register_button">Cadastrar</string>
@@ -9,7 +10,7 @@
     <string name="login_with_google">Entrar com o Google</string>
     <string name="login_forgot_password">Esqueceu a senha?</string>
     <string name="login_password_reset_sent">Email de redefinição de senha enviado!</string>
-    <string name="login_google_error_no_account">Não encontramos nenhuma conta do Google. Faça login no Google nas configurações do seu celular ou use email e senha.</string>
+    <string name="login_google_error_no_account">Nenhuma conta do Google encontrada. Faça login nas configurações do celular ou use seu email.</string>
 
     <string name="setup_create_tab">Criar</string>
     <string name="setup_join_tab">Entrar</string>
@@ -104,6 +105,7 @@
     <string name="settings_account_title">Família e Conta</string>
     <string name="settings_join_family_locked">Por favor, faça login para entrar em uma família.</string>
     <string name="settings_share_code_locked">Por favor, faça login para compartilhar seu código.</string>
+    <string name="settings_anonymous_login_button">Entrar / Cadastrar</string>
     <string name="settings_join_code">Código de convite para %1$s:</string>
     <string name="settings_share_code">Compartilhar link de convite</string>
     <string name="settings_share_message">Aqui está o seu link para o FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCódigo: %2$s\nFamília: %1$s\n\nBasta clicar no link, fazer login e estaremos conectados. Acordar juntos é muito mais fácil! ⏰❤️</string>
@@ -345,13 +347,17 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Toque aqui para escolher seu som de alarme pessoal – escolha sua música favorita em vez do toque normal.</string>
     <string name="settings_language_dialects">Dialetos</string>
     <string name="onboarding_mock_name1">Pai</string>
     <string name="onboarding_mock_name2">Mãe</string>
     <string name="onboarding_mock_family_name">Silva</string>
 
-    
     <string name="notif_channel_schedule_change_name">Atualizações de horário</string>
     <string name="notif_channel_schedule_change_desc">Avisa se o horário de acordar ou a ordem do banheiro mudarem</string>
     <string name="notif_channel_family_events_name">Atualizações da família</string>
@@ -367,11 +373,10 @@
     <string name="notif_permission_button">Ativar notificações</string>
     <string name="notif_manage_title">Configurações de notificação</string>
     <string name="notif_manage_desc">Mude os sons e a vibração nas configurações do seu celular.</string>
-<string name="onboarding_login_create">Entrar / Cadastrar</string>
+    <string name="onboarding_login_create">Entrar / Cadastrar</string>
     <string name="onboarding_slide5_title">Vamos começar!</string>
     <string name="onboarding_slide5_body">Você pode testar o app na hora sem uma conta. Você só vai precisar de uma quando quiser convidar sua família.</string>
-    <string name="settings_anonymous_login_button">Entrar / Cadastrar</string>
-        <string name="settings_steal_title">Assumir perfil?</string>
-    <string name="settings_steal_text">%1$s já está ocupado. Deseja assumi-lo?</string>
-    <string name="settings_steal_confirm">Assumir</string>
+    <string name="settings_steal_title">Usar este perfil?</string>
+    <string name="settings_steal_text">O perfil %1$s já está em uso. Quer usar este perfil para você?</string>
+    <string name="settings_steal_confirm">Sim, usar</string>
 </resources>

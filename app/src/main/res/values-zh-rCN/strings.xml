@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake 家庭闹钟</string>
+<resources>
+    <string name="app_name_short">FamWake 家庭闹钟</string>
     <string name="email_label">电子邮件</string>
     <string name="password_label">密码</string>
     <string name="register_button">注册</string>
@@ -9,7 +10,7 @@
     <string name="login_with_google">使用 Google 登录</string>
     <string name="login_forgot_password">忘记密码？</string>
     <string name="login_password_reset_sent">密码重置邮件已发送！</string>
-    <string name="login_google_error_no_account">在此设备上找不到 Google 帐号。请在您的手机设置中登录 Google，或使用电子邮件和密码。</string>
+    <string name="login_google_error_no_account">找不到 Google 帐号。请在手机设置中登录，或使用电子邮件。</string>
 
     <string name="setup_create_tab">创建</string>
     <string name="setup_join_tab">加入</string>
@@ -104,6 +105,7 @@
     <string name="settings_account_title">家庭与帐号</string>
     <string name="settings_join_family_locked">请先登录以加入家庭。</string>
     <string name="settings_share_code_locked">请先登录以分享您的邀请码。</string>
+    <string name="settings_anonymous_login_button">登录 / 注册</string>
     <string name="settings_join_code">%1$s 的邀请码：</string>
     <string name="settings_share_code">分享邀请链接</string>
     <string name="settings_share_message">这是 FamWake 的邀请链接：\nhttps://familienwecker.de/join/%2$s\n\n代码：%2$s\n家庭：%1$s\n\n只需点击链接、登录即可加入。一起起床让早晨更轻松！ ⏰❤️</string>
@@ -349,6 +351,11 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">点击此处选择您的专属起床铃声——用您最喜欢的音乐代替默认的哔哔声。</string>
     <string name="settings_language_dialects">方言</string>
 
@@ -368,10 +375,7 @@
     <string name="notif_manage_title">通知设置</string>
     <string name="notif_manage_desc">在手机设置中更改声音和振动。</string>
     <string name="onboarding_login_create">登录 / 注册</string>
-    <string name="onboarding_slide5_title">我们开始吧！</string>
-    <string name="onboarding_slide5_body">您可以无需帐号直接体验应用。只有在邀请家人时才需要注册帐号。</string>
-    <string name="settings_anonymous_login_button">登录 / 注册</string>
-    <string name="settings_steal_title">接管资料？</string>
-    <string name="settings_steal_text">%1$s 已被占用。您想接管吗？</string>
-    <string name="settings_steal_confirm">接管</string>
+    <string name="settings_steal_title">使用此个人资料？</string>
+    <string name="settings_steal_text">%1$s 已被选择。您想使用这个个人资料吗？</string>
+    <string name="settings_steal_confirm">是的，我要使用</string>
 </resources>
