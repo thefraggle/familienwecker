@@ -38,6 +38,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.viewmodel.AuthViewModel
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
@@ -58,6 +59,7 @@ import androidx.core.net.toUri
 fun LoginScreen(
     authViewModel: AuthViewModel,
     familyViewModel: FamilyViewModel,
+    onNavigateBack: () -> Unit,
     onLoginSuccess: () -> Unit
 ) {
     val context = LocalContext.current
@@ -67,10 +69,6 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var isRegistering by remember { mutableStateOf(false) }
-
-    BackHandler {
-        context.findActivity()?.finish()
-    }
 
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
 
@@ -107,6 +105,11 @@ fun LoginScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    }
+                },
                 title = {
                     Text(
                         buildAnnotatedString {

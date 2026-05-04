@@ -195,6 +195,12 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                             popUpTo(Routes.LOADING) { inclusive = true }
                             launchSingleTop = true
                         }
+                    },
+                    onNavigateToOnboardingWelcome = {
+                        navController.navigate(Routes.ONBOARDING_WELCOME) {
+                            popUpTo(Routes.LOADING) { inclusive = true }
+                            launchSingleTop = true
+                        }
                     }
                 )
             }
@@ -218,7 +224,6 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                         familyViewModel.setOnboardingCompleted(true)
                         authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {
-                            popUpTo(Routes.ONBOARDING) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
@@ -244,7 +249,6 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                         familyViewModel.setOnboardingCompleted(true)
                         authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {
-                            popUpTo(Routes.ONBOARDING_WELCOME) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
@@ -254,9 +258,10 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                 LoginScreen(
                     authViewModel = authViewModel,
                     familyViewModel = familyViewModel,
+                    onNavigateBack = { navController.popBackStack() },
                     onLoginSuccess = {
                         navController.navigate(Routes.LOADING) {
-                            popUpTo(Routes.LOGIN) { inclusive = true }
+                            popUpTo(0) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
@@ -282,7 +287,6 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     onNavigateToLogin = {
                         authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {
-                            popUpTo(Routes.SETUP) { inclusive = true }
                             launchSingleTop = true
                         }
                     },
@@ -371,7 +375,6 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                         familyViewModel.setOnboardingCompleted(true)
                         authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {
-                            popUpTo(Routes.SETTINGS) { inclusive = true }
                             launchSingleTop = true
                         }
                     }
