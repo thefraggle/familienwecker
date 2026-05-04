@@ -10,6 +10,10 @@
 - **Clearer Onboarding** – The introduction tour has been refreshed, featuring a new mascot animation on the final screen and highlighting our offline reliability. Login links are now consistent across all screens and all 25 languages.
 
 ### Bugfixes
+- **Tablet & Layout:** The app is now strictly locked to portrait mode across all devices (including tablets), ensuring layout stability and preventing large animations from overlapping text.
+- **Onboarding Stability:** Fixed an issue where rapid, multiple taps on the "Let's Go" button could cause unexpected behavior.
+- **Error Handling & Network:** Resolved a crash that occurred when encountering SSL or network issues (e.g. on Emulators) during family creation. The app now correctly displays the error message.
+- **Profile Claiming:** Claiming an existing profile on a new device ("Claim Stealing") now works reliably again due to adjusted security rules.
 - **Onboarding & Navigation:** Fixed an issue where the onboarding tour led to a dead end, and corrected misguided logout dialogs while in test mode.
 - **Account Transition:** If you decide to register from the test mode, your test family and data are now reliably transitioned into your new account.
 
