@@ -5,8 +5,8 @@
     <string name="password_label">Senha</string>
     <string name="register_button">Cadastrar</string>
     <string name="login_button">Entrar</string>
-    <string name="already_have_account">Entrar / Cadastrar</string>
-    <string name="no_account">Entrar / Cadastrar</string>
+    <string name="already_have_account">Já tem uma conta? Faça login aqui.</string>
+    <string name="no_account">Ainda não tem conta? Inscreva-se aqui.</string>
     <string name="login_with_google">Entrar com Google</string>
     <string name="login_forgot_password">Esqueceu a senha?</string>
     <string name="login_password_reset_sent">Email de redefinição de senha enviado!</string>

@@ -5,8 +5,8 @@
     <string name="password_label">পাসওয়ার্ড</string>
     <string name="register_button">সাইন আপ করুন</string>
     <string name="login_button">লগ ইন করুন</string>
-    <string name="already_have_account">লগ ইন/রেজিস্টার করুন</string>
-    <string name="no_account">লগ ইন/রেজিস্টার করুন</string>
+    <string name="already_have_account">ইতিমধ্যে একটি অ্যাকাউন্ট আছে? এখানে লগ ইন করুন.</string>
+    <string name="no_account">এখনও কোন অ্যাকাউন্ট? এখানে সাইন আপ করুন.</string>
     <string name="login_with_google">Google দিয়ে সাইন ইন করুন</string>
     <string name="login_forgot_password">পাসওয়ার্ড ভুলে গেছেন?</string>
     <string name="login_password_reset_sent">পাসওয়ার্ড রিসেট ইমেইল পাঠানো হয়েছে!</string>

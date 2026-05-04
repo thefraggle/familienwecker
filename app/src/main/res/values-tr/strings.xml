@@ -5,8 +5,8 @@
     <string name="password_label">Şifre</string>
     <string name="register_button">Kayıt ol</string>
     <string name="login_button">Giriş yap</string>
-    <string name="already_have_account">Giriş yap / Kayıt ol</string>
-    <string name="no_account">Giriş yap / Kayıt ol</string>
+    <string name="already_have_account">Zaten bir hesabınız var mı? Buradan oturum açın.</string>
+    <string name="no_account">Henüz hesabınız yok mu? Buradan kaydolun.</string>
     <string name="login_with_google">Google ile giriş yap</string>
     <string name="login_forgot_password">Şifrenizi mi unuttunuz?</string>
     <string name="login_password_reset_sent">Şifre sıfırlama e-postası gönderildi!</string>

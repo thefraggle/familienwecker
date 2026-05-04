@@ -5,8 +5,8 @@
     <string name="password_label">Wachtwoord</string>
     <string name="register_button">Registreren</string>
     <string name="login_button">Inloggen</string>
-    <string name="already_have_account">Inloggen / Registreren</string>
-    <string name="no_account">Inloggen / Registreren</string>
+    <string name="already_have_account">Heeft u al een account? Log hier in.</string>
+    <string name="no_account">Nog geen account? Meld u hier aan.</string>
     <string name="login_with_google">Inloggen met Google</string>
     <string name="login_forgot_password">Wachtwoord vergeten?</string>
     <string name="login_password_reset_sent">E-mail voor wachtwoordherstel verzonden!</string>

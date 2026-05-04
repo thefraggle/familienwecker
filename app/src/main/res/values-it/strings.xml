@@ -5,8 +5,8 @@
     <string name="password_label">Password</string>
     <string name="register_button">Registrati</string>
     <string name="login_button">Accedi</string>
-    <string name="already_have_account">Accedi/Registrati</string>
-    <string name="no_account">Accedi/Registrati</string>
+    <string name="already_have_account">Hai già un account? Accedi qui.</string>
+    <string name="no_account">Non hai ancora un account? Iscriviti qui.</string>
     <string name="login_with_google">Accedi con Google</string>
     <string name="login_forgot_password">Password dimenticata?</string>
     <string name="login_password_reset_sent">Email di ripristino inviata!</string>

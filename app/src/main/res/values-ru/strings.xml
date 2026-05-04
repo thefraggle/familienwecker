@@ -5,8 +5,8 @@
     <string name="password_label">Пароль</string>
     <string name="register_button">Зарегистрироваться</string>
     <string name="login_button">Войти</string>
-    <string name="already_have_account">Войти / Зарегистрироваться</string>
-    <string name="no_account">Войти / Зарегистрироваться</string>
+    <string name="already_have_account">У вас уже есть аккаунт? Войдите здесь.</string>
+    <string name="no_account">Еще нет аккаунта? Зарегистрируйтесь здесь.</string>
     <string name="login_with_google">Войти через Google</string>
     <string name="login_forgot_password">Забыли пароль?</string>
     <string name="login_password_reset_sent">Письмо для сброса пароля отправлено!</string>

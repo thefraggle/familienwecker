@@ -5,8 +5,8 @@
     <string name="password_label">비밀번호</string>
     <string name="register_button">가입하기</string>
     <string name="login_button">로그인</string>
-    <string name="already_have_account">로그인 / 등록</string>
-    <string name="no_account">로그인 / 등록</string>
+    <string name="already_have_account">이미 계정이 있나요? 여기에 로그인하세요.</string>
+    <string name="no_account">아직 계정이 없나요? 여기에서 가입하세요.</string>
     <string name="login_with_google">Google로 로그인</string>
     <string name="login_forgot_password">비밀번호를 잊으셨나요?</string>
     <string name="login_password_reset_sent">비밀번호 재설정 메일이 발송되었습니다!</string>
