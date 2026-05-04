@@ -5,8 +5,8 @@
     <string name="password_label">Passord</string>
     <string name="register_button">Registrer deg</string>
     <string name="login_button">Logg inn</string>
-    <string name="already_have_account">Logg inn / Registrer deg</string>
-    <string name="no_account">Logg inn / Registrer deg</string>
+    <string name="already_have_account">Har du allerede en konto? Logg inn her.</string>
+    <string name="no_account">Ingen konto ennå? Meld deg på her.</string>
     <string name="login_with_google">Logg på med Google</string>
     <string name="login_forgot_password">Glemt passord?</string>
     <string name="login_password_reset_sent">E-post for tilbakestilling av passord er sendt!</string>
