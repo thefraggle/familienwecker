@@ -366,4 +366,8 @@
     <string name="notif_permission_button">Meldingen inschakelen</string>
     <string name="notif_manage_title">Meldingen beheren</string>
     <string name="notif_manage_desc">Wijzig geluid, trillen en andere meldingsvoorkeuren in de systeeminstellingen.</string>
-</resources>
+<string name="onboarding_login_create">Inloggen / Registreren</string>
+    <string name="onboarding_slide5_title">Laten\'s aan de slag gaan!</string>
+    <string name="onboarding_slide5_body">Je kunt de app meteen uitproberen zonder je aan te melden. Je hebt alleen een account nodig als je je familie uitnodigt.</string>
+    <string name="settings_anonymous_login_button">Inloggen / Registreren</string>
+    </resources>

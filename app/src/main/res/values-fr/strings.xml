@@ -366,4 +366,8 @@
     <string name="notif_permission_button">Activer les notifications</string>
     <string name="notif_manage_title">Gérer les notifications</string>
     <string name="notif_manage_desc">Modifie le son, la vibration et d\'autres paramètres de notification dans les réglages du système.</string>
-</resources>
+<string name="onboarding_login_create">Connexion / S\'inscrire</string>
+    <string name="onboarding_slide5_title">Commençons !</string>
+    <string name="onboarding_slide5_body">Vous pouvez essayer l\'application immédiatement sans vous inscrire. Vous n\'avez besoin d\'un compte que lorsque vous invitez votre famille.</string>
+    <string name="settings_anonymous_login_button">Connexion / S\'inscrire</string>
+    </resources>

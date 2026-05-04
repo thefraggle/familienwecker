@@ -366,4 +366,8 @@
     <string name="notif_permission_button">开启通知</string>
     <string name="notif_manage_title">管理通知</string>
     <string name="notif_manage_desc">在系统设置中更改声音、振动和其他通知偏好设置。</string>
-</resources>
+<string name="onboarding_login_create">登录/注册</string>
+    <string name="onboarding_slide5_title">让\'开始吧！</string>
+    <string name="onboarding_slide5_body">您无需注册即可立即试用该应用程序。 仅当您邀请家人时才需要一个帐户。</string>
+    <string name="settings_anonymous_login_button">登录/注册</string>
+    </resources>

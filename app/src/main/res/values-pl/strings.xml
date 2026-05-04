@@ -366,4 +366,8 @@
     <string name="notif_permission_button">Włącz powiadomienia</string>
     <string name="notif_manage_title">Zarządzaj powiadomieniami</string>
     <string name="notif_manage_desc">Zmień dźwięk, wibracje i inne preferencje powiadomień w ustawieniach systemu.</string>
-</resources>
+<string name="onboarding_login_create">Zaloguj się / Zarejestruj się</string>
+    <string name="onboarding_slide5_title">Zacznijmy \'!</string>
+    <string name="onboarding_slide5_body">Możesz wypróbować aplikację od razu, bez rejestracji. Konto potrzebujesz tylko wtedy, gdy zaprosisz rodzinę.</string>
+    <string name="settings_anonymous_login_button">Zaloguj się / Zarejestruj się</string>
+    </resources>

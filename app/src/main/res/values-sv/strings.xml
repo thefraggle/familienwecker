@@ -367,4 +367,8 @@
     <string name="notif_permission_button">Aktivera aviseringar</string>
     <string name="notif_manage_title">Hantera aviseringar</string>
     <string name="notif_manage_desc">Ändra ljud, vibration och andra aviseringsinställningar i systeminställningarna.</string>
-</resources>
+<string name="onboarding_login_create">Logga in / Registrera dig</string>
+    <string name="onboarding_slide5_title">Låt \'s komma igång!</string>
+    <string name="onboarding_slide5_body">Du kan prova appen direkt utan att registrera dig. Du behöver bara ett konto när du bjuder in din familj.</string>
+    <string name="settings_anonymous_login_button">Logga in / Registrera dig</string>
+    </resources>

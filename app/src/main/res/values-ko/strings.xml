@@ -371,4 +371,8 @@
     <string name="notif_permission_button">알림 켜기</string>
     <string name="notif_manage_title">알림 관리</string>
     <string name="notif_manage_desc">시스템 설정에서 소리, 진동 및 기타 알림 설정을 변경합니다.</string>
-</resources>
+<string name="onboarding_login_create">로그인 / 등록</string>
+    <string name="onboarding_slide5_title">\' 시작해 보세요!</string>
+    <string name="onboarding_slide5_body">회원가입 없이 바로 앱을 사용해 볼 수 있습니다. 가족을 초대할 때만 계정이 필요합니다.</string>
+    <string name="settings_anonymous_login_button">로그인 / 등록</string>
+    </resources>
