@@ -368,4 +368,7 @@
     <string name="onboarding_slide5_title">Давайте начнем!</string>
     <string name="onboarding_slide5_body">Вы можете попробовать приложение прямо сейчас без аккаунта. Он понадобится вам только тогда, когда вы захотите пригласить свою семью.</string>
     <string name="settings_anonymous_login_button">Войти / Зарегистрироваться</string>
-    </resources>
+        <string name="settings_steal_title">Занять профиль?</string>
+    <string name="settings_steal_text">Профиль %1$s уже занят. Хотите занять его?</string>
+    <string name="settings_steal_confirm">Занять</string>
+</resources>

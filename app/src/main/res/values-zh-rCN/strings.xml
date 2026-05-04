@@ -371,4 +371,7 @@
     <string name="onboarding_slide5_title">我们开始吧！</string>
     <string name="onboarding_slide5_body">您可以无需帐号直接体验应用。只有在邀请家人时才需要注册帐号。</string>
     <string name="settings_anonymous_login_button">登录 / 注册</string>
+    <string name="settings_steal_title">接管资料？</string>
+    <string name="settings_steal_text">%1$s 已被占用。您想接管吗？</string>
+    <string name="settings_steal_confirm">接管</string>
 </resources>

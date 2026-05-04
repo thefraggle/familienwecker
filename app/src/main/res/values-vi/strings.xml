@@ -382,4 +382,7 @@
     <string name="notif_permission_button">Bật thông báo</string>
     <string name="notif_manage_title">Cài đặt thông báo</string>
     <string name="notif_manage_desc">Thay đổi âm thanh và độ rung trong cài đặt điện thoại của bạn.</string>
+    <string name="settings_steal_title">Tiếp quản hồ sơ?</string>
+    <string name="settings_steal_text">%1$s đã có người dùng. Bạn có muốn tiếp quản không?</string>
+    <string name="settings_steal_confirm">Tiếp quản</string>
 </resources>

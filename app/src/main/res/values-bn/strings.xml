@@ -382,4 +382,7 @@
     <string name="notif_permission_button">নোটিফিকেশন চালু করুন</string>
     <string name="notif_manage_title">নোটিফিকেশন সেটিংস</string>
     <string name="notif_manage_desc">ফোনের সেটিংসে শব্দ ও ভাইব্রেশন বদলান।</string>
+    <string name="settings_steal_title">প্রোফাইল নেব?</string>
+    <string name="settings_steal_text">%1$s ইতিমধ্যেই নেওয়া হয়েছে। আপনি কি এটি নিতে চান?</string>
+    <string name="settings_steal_confirm">নিন</string>
 </resources>
