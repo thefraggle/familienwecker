@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name_short">FamWake Sveglia familiare</string>
+<resources><string name="app_name_short">FamWake Sveglia familiare</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="register_button">Registrati</string>
@@ -105,7 +104,6 @@
     <string name="settings_account_title">Famiglia &amp; Account</string>
     <string name="settings_join_family_locked">Accedi per unirti a una famiglia.</string>
     <string name="settings_share_code_locked">Accedi per condividere il tuo codice di invito.</string>
-    <string name="settings_anonymous_login_button">Accedi / Registrati</string>
     <string name="settings_join_code">Codice di invito per %1$s:</string>
     <string name="settings_share_code">Condividi link di invito</string>
     <string name="settings_share_message">Ecco il tuo link per FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCodice: %2$s\nFamiglia: %1$s\n\nBasta toccare il link, accedere e saremo connessi. Svegliarsi insieme è molto più facile! ⏰❤️</string>

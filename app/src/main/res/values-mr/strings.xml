@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name_short">FamWake कौटुंबिक अलार्म</string>
+<resources><string name="app_name_short">FamWake कौटुंबिक अलार्म</string>
     <string name="email_label">ईमेल</string>
     <string name="password_label">पासवर्ड</string>
     <string name="register_button">साइन अप करा</string>
@@ -105,7 +104,6 @@
     <string name="settings_account_title">कुटुंब आणि खाते</string>
     <string name="settings_join_family_locked">कुटुंबात सामील होण्यासाठी कृपया लॉग इन करा.</string>
     <string name="settings_share_code_locked">आमंत्रण कोड शेअर करण्यासाठी कृपया लॉग इन करा.</string>
-    <string name="settings_anonymous_login_button">लॉग इन / साइन अप करा</string>
     <string name="settings_join_code">%1$s साठी आमंत्रण कोड:</string>
     <string name="settings_share_code">लिंक शेअर करा</string>
     <string name="settings_share_message">FamWake साठी ही तुमची लिंक आहे:\nhttps://familienwecker.de/join/%2$s\n\nकोड: %2$s\nकुटुंब: %1$s\n\nफक्त लिंकवर टॅप करा, लॉग इन करा आणि आपण कनेक्ट होऊ. एकत्र जागे होणे अधिक मजेदार आहे! ⏰❤️</string>
@@ -152,9 +150,6 @@
     <string name="onboarding_skip">वगळा</string>
     <string name="onboarding_next">पुढे</string>
     <string name="onboarding_done">खात्याशिवाय सुरू करा</string>
-    <string name="onboarding_login_create">लॉग इन / साइन अप करा</string>
-    <string name="onboarding_slide5_title">चला सुरू करूया!</string>
-    <string name="onboarding_slide5_body">तुम्ही खाते न बनवताही ॲप लगेच वापरून पाहू शकता. जेव्हा तुम्हाला तुमच्या कुटुंबाला आमंत्रित करायचे असेल तेव्हाच तुम्हाला खात्याची आवश्यकता असेल.</string>
     <string name="onboarding_slide0_title">एक संघ म्हणून तुमची सकाळ.</string>
     <string name="onboarding_slide0_body">कोणताही वाद नाही, कोणताही गोंधळ नाही. FamWake हे सुनिश्चित करते की प्रत्येकाच्या दिवसाची सुरुवात आरामात होईल – तेही आपोआप.</string>
     <string name="onboarding_slide1_title">आता आणखी प्रतीक्षा नाही.</string>
