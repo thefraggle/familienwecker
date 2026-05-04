@@ -35,7 +35,8 @@ fun LoadingScreen(
     onNavigateToLogin: () -> Unit,
     onNavigateToSetup: () -> Unit,
     onNavigateToMain: () -> Unit,
-    onNavigateToOnboarding: () -> Unit
+    onNavigateToOnboarding: () -> Unit,
+    onNavigateToOnboardingWelcome: () -> Unit
 ) {
     val context = LocalContext.current
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
@@ -101,7 +102,7 @@ fun LoadingScreen(
                 if (!onboardingCompleted) {
                     onNavigateToOnboarding()
                 } else {
-                    onNavigateToLogin()
+                    onNavigateToOnboardingWelcome()
                 }
             }
             AuthViewModel.AuthState.Loading -> { }
