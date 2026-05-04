@@ -2,9 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.8.7 – 2026-05-03
+## 1.8.7 – 2026-05-04
 ### New
-- **Instant Start** – The app can now be used without creating an account (Lazy Registration). You can instantly create a family and use the alarm. An account is only required to share join codes or join another family.
+- **Instant Start & Join** – FamWake can now be used completely without an account! You can instantly create a new family or join your partner's family via invite code or link (Lazy Registration). An account is only required when you want to invite members yourself.
+
+### Improved
+- **Clearer Onboarding** – The introduction tour has been refreshed, featuring a new mascot animation on the final screen and highlighting our offline reliability. Login links are now consistent across all screens and all 25 languages.
 
 ### Bugfixes
 - **Onboarding & Navigation:** Fixed an issue where the onboarding tour led to a dead end, and corrected misguided logout dialogs while in test mode.
