@@ -167,6 +167,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     }
                     _isRestoringFamily.value = false
                 }
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
             } catch (e: Exception) {
                 if (BuildConfig.DEBUG) {
                     android.util.Log.e("AuthViewModel", "Error during restoreUserFamily: ${e.message}")
@@ -322,6 +324,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     if (isNetworkError) UiText.StringResource(R.string.error_network)
                     else UiText.StringResource(R.string.error_google_sign_in_failed_unknown)
                 )
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
             } catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("AuthViewModel", "Unexpected Google Sign-In error: ${e.message}")
