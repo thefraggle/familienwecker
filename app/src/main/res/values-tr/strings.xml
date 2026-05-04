@@ -366,4 +366,8 @@
     <string name="notif_permission_button">Bildirimleri etkinleştir</string>
     <string name="notif_manage_title">Bildirimleri yönet</string>
     <string name="notif_manage_desc">Sistem ayarlarında sesi, titreşimi ve diğer bildirim tercihlerini değiştirin.</string>
-</resources>
+<string name="onboarding_login_create">Giriş yap / Kayıt ol</string>
+    <string name="onboarding_slide5_title">Haydi\'başlayalım!</string>
+    <string name="onboarding_slide5_body">Kayıt olmadan uygulamayı hemen deneyebilirsiniz. Yalnızca ailenizi davet ettiğinizde bir hesaba ihtiyacınız vardır.</string>
+    <string name="settings_anonymous_login_button">Giriş yap / Kayıt ol</string>
+    </resources>

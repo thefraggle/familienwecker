@@ -366,4 +366,8 @@
     <string name="notif_permission_button">Включить уведомления</string>
     <string name="notif_manage_title">Управление уведомлениями</string>
     <string name="notif_manage_desc">Измените звук, вибрацию и другие настройки уведомлений в системных настройках.</string>
-</resources>
+<string name="onboarding_login_create">Войти / Зарегистрироваться</string>
+    <string name="onboarding_slide5_title">Давайте\'начнём!</string>
+    <string name="onboarding_slide5_body">Вы можете попробовать приложение прямо сейчас, без регистрации. Вам понадобится учетная запись только тогда, когда вы пригласите свою семью.</string>
+    <string name="settings_anonymous_login_button">Войти / Зарегистрироваться</string>
+    </resources>

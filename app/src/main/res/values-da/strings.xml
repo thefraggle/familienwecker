@@ -366,4 +366,8 @@
     <string name="notif_permission_button">Aktiver notifikationer</string>
     <string name="notif_manage_title">Administrer notifikationer</string>
     <string name="notif_manage_desc">Tilpas lyd, vibration og andre notifikationsindstillinger i systemindstillingerne.</string>
-</resources>
+<string name="onboarding_login_create">Log ind / Registrer</string>
+    <string name="onboarding_slide5_title">Lad \'s komme i gang!</string>
+    <string name="onboarding_slide5_body">Du kan prøve appen med det samme uden at tilmelde dig. Du har kun brug for en konto, når du inviterer din familie.</string>
+    <string name="settings_anonymous_login_button">Log ind / Registrer</string>
+    </resources>

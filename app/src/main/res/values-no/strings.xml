@@ -366,4 +366,8 @@
     <string name="notif_permission_button">Aktiver varsler</string>
     <string name="notif_manage_title">Administrer varsler</string>
     <string name="notif_manage_desc">Endre lyd, vibrasjon og andre varslingsinnstillinger i systeminnstillingene.</string>
-</resources>
+<string name="onboarding_login_create">Logg inn / Registrer deg</string>
+    <string name="onboarding_slide5_title">La\'s komme i gang!</string>
+    <string name="onboarding_slide5_body">Du kan prøve appen med en gang uten å registrere deg. Du trenger bare en konto når du inviterer familien din.</string>
+    <string name="settings_anonymous_login_button">Logg inn / Registrer deg</string>
+    </resources>

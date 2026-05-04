@@ -366,4 +366,8 @@
     <string name="notif_permission_button">通知を有効にする</string>
     <string name="notif_manage_title">通知の管理</string>
     <string name="notif_manage_desc">システム設定で音、バイブレーション、その他の通知設定を変更します。</string>
-</resources>
+<string name="onboarding_login_create">ログイン/登録</string>
+    <string name="onboarding_slide5_title">\' を始めましょう!</string>
+    <string name="onboarding_slide5_body">サインアップなしですぐにアプリを試すことができます。 アカウントが必要になるのは、家族を招待する場合のみです。</string>
+    <string name="settings_anonymous_login_button">ログイン/登録</string>
+    </resources>

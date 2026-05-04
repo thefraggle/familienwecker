@@ -371,4 +371,8 @@
     <string name="notif_permission_button">Увімкнути сповіщення</string>
     <string name="notif_manage_title">Керування сповіщеннями</string>
     <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
-</resources>
+<string name="onboarding_login_create">Увійти / Зареєструватися</string>
+    <string name="onboarding_slide5_title">Давайте \'почнемо!</string>
+    <string name="onboarding_slide5_body">Ви можете спробувати програму відразу, не реєструючись. Обліковий запис потрібен лише тоді, коли ви запрошуєте свою родину.</string>
+    <string name="settings_anonymous_login_button">Увійти / Зареєструватися</string>
+    </resources>

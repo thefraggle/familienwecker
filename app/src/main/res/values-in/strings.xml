@@ -376,4 +376,8 @@
     <string name="notif_permission_button">Aktifkan notifikasi</string>
     <string name="notif_manage_title">Kelola notifikasi</string>
     <string name="notif_manage_desc">Ubah suara, getaran, dan preferensi notifikasi lainnya di pengaturan sistem.</string>
-</resources>
+<string name="onboarding_login_create">Masuk / Daftar</string>
+    <string name="onboarding_slide5_title">Mari\' kita mulai!</string>
+    <string name="onboarding_slide5_body">Anda dapat langsung mencoba aplikasinya tanpa mendaftar. Anda hanya memerlukan akun saat mengundang keluarga Anda.</string>
+    <string name="settings_anonymous_login_button">Masuk / Daftar</string>
+    </resources>
