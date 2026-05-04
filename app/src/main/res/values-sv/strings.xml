@@ -5,8 +5,8 @@
     <string name="password_label">Lösenord</string>
     <string name="register_button">Registrera</string>
     <string name="login_button">Logga in</string>
-    <string name="already_have_account">Har du redan ett konto? Logga in här.</string>
-    <string name="no_account">Inget konto ännu? Registrera dig här.</string>
+    <string name="already_have_account">Logga in / Registrera dig</string>
+    <string name="no_account">Logga in / Registrera dig</string>
     <string name="login_with_google">Logga in med Google</string>
     <string name="login_forgot_password">Glömt lösenordet?</string>
     <string name="login_password_reset_sent">E-post för återställning skickad!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Hoppa över</string>
     <string name="onboarding_next">Nästa</string>
-    <string name="onboarding_done">Kör igång</string>
+    <string name="onboarding_done">Börja utan konto</string>
     <string name="onboarding_slide0_title">Er morgon som ett team.</string>
     <string name="onboarding_slide0_body">Inga diskussioner, inget kaos. FamWake ser till att alla börjar dagen avslappnat – helt automatiskt.</string>
     <string name="onboarding_slide1_title">Aldrig mer väntan.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Måndag kontor, onsdag hemmakontor? Ställ in individuella tider för varje veckodag – appen sköter resten.</string>
     <string name="onboarding_slide3_title">Uppkopplade på sekunder.</string>
     <string name="onboarding_slide3_body">Dela en kod och din familj ansluter direkt. Nya medlemmar? Schemat anpassar sig automatiskt. Och om något ändras vet alla det direkt.</string>
-    <string name="onboarding_slide4_title">Nu kör vi!</string>
-    <string name="onboarding_slide4_body">Skapa din familj nu och njut av avslappnade morgnar – pålitligt, även offline.</string>
+    <string name="onboarding_slide4_title">Alltid pålitlig</string>
+    <string name="onboarding_slide4_body">Njut av avslappnade morgnar – tillförlitligt, även offline. Om internet går ner ringer larmet fortfarande precis i tid.</string>
     <string name="settings_feedback_button">Ge feedback / Rapportera fel</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hjälp oss göra appen ännu bättre! Vad tänker du på?</string>

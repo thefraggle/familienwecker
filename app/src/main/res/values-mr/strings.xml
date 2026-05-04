@@ -5,8 +5,8 @@
     <string name="password_label">पासवर्ड</string>
     <string name="register_button">साइन अप करा</string>
     <string name="login_button">लॉग इन करा</string>
-    <string name="already_have_account">आधीच खाते आहे? येथे लॉग इन करा.</string>
-    <string name="no_account">अद्याप खाते नाही? येथे साइन अप करा.</string>
+    <string name="already_have_account">लॉग इन / नोंदणी करा</string>
+    <string name="no_account">लॉग इन / नोंदणी करा</string>
     <string name="login_with_google">Google सह साइन इन करा</string>
     <string name="login_forgot_password">पासवर्ड विसरलात?</string>
     <string name="login_password_reset_sent">पासवर्ड रीसेट ईमेल पाठवला!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">वगळा</string>
     <string name="onboarding_next">पुढे</string>
-    <string name="onboarding_done">चला सुरू करूया</string>
+    <string name="onboarding_done">खात्याशिवाय प्रारंभ करा</string>
     <string name="onboarding_slide0_title">एक संघ म्हणून तुमची सकाळ.</string>
     <string name="onboarding_slide0_body">कोणताही वाद नाही, कोणताही गोंधळ नाही. FamWake हे सुनिश्चित करते की प्रत्येकजण दिवसाची सुरुवात आरामात करतो – पूर्णपणे स्वयंचलित.</string>
     <string name="onboarding_slide1_title">आता आणखी प्रतीक्षा नाही.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">सोमवारी ऑफिस, बुधवारी घरून काम? आठवड्याच्या प्रत्येक दिवसासाठी वैयक्तिक वेळ सेट करा - ॲप बाकी सर्व सांभाळेल.</string>
     <string name="onboarding_slide3_title">काही सेकंदात कनेक्ट व्हा.</string>
     <string name="onboarding_slide3_body">कोड शेअर करा आणि तुमचे कुटुंब झटपट सामील होईल. नवीन सदस्य? वेळापत्रक आपोआप अपडेट होते. आणि जर काही बदलले, तर सर्वांना लगेच कळते.</string>
-    <string name="onboarding_slide4_title">चला सुरू करूया!</string>
-    <string name="onboarding_slide4_body">आता तुमचे कुटुंब तयार करा आणि तणावमुक्त सकाळचा आनंद घ्या – अगदी ऑफलाइन असतानाही.</string>
+    <string name="onboarding_slide4_title">नेहमी विश्वासार्ह</string>
+    <string name="onboarding_slide4_body">आरामशीर सकाळचा आनंद घ्या – विश्वासार्हपणे, अगदी ऑफलाइन देखील. इंटरनेट बंद झाल्यास, अलार्म अजूनही वेळेवर वाजतो.</string>
     
     <string name="onboarding_mock_name1">बाबा</string>
     <string name="onboarding_mock_name2">आई</string>

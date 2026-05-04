@@ -5,8 +5,8 @@
     <string name="password_label">Şifre</string>
     <string name="register_button">Kayıt ol</string>
     <string name="login_button">Giriş yap</string>
-    <string name="already_have_account">Zaten bir hesabınız var mı? Buradan giriş yapın.</string>
-    <string name="no_account">Henüz hesabınız yok mu? Buradan kayıt olun.</string>
+    <string name="already_have_account">Giriş yap / Kayıt ol</string>
+    <string name="no_account">Giriş yap / Kayıt ol</string>
     <string name="login_with_google">Google ile giriş yap</string>
     <string name="login_forgot_password">Şifrenizi mi unuttunuz?</string>
     <string name="login_password_reset_sent">Şifre sıfırlama e-postası gönderildi!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Geç</string>
     <string name="onboarding_next">İleri</string>
-    <string name="onboarding_done">Hadi başlayalım</string>
+    <string name="onboarding_done">Hesap olmadan başla</string>
     <string name="onboarding_slide0_title">Takım halinde sabahınız.</string>
     <string name="onboarding_slide0_body">Tartışma yok, kaos yok. FamWake herkesin güne rahat başlamasını sağlar – tamamen otomatik.</string>
     <string name="onboarding_slide1_title">Artık bekleme yok.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Pazartesi ofis, çarşamba evden çalışma? Her gün için ayrı saatler ayarlayın – uygulama gerisini halleder.</string>
     <string name="onboarding_slide3_title">Saniyeler içinde bağlanın.</string>
     <string name="onboarding_slide3_body">Bir kod paylaşın ve aileniz anında katılsın. Yeni üyeler? Plan otomatik olarak uyum sağlar. Ve bir şey değişirse, herkes anında haberdar olur.</string>
-    <string name="onboarding_slide4_title">Haydi başlayalım!</string>
-    <string name="onboarding_slide4_body">Ailenizi şimdi oluşturun ve rahat sabahların keyfini çıkarın – güvenilir şekilde, çevrimdışı bile.</string>
+    <string name="onboarding_slide4_title">Her zaman güvenilir</string>
+    <string name="onboarding_slide4_body">Rahat sabahların keyfini çıkarın; güvenilir bir şekilde, hatta çevrimdışı. İnternet kesilirse alarm yine tam zamanında çalar.</string>
     <string name="settings_feedback_button">Geri bildirim ver / Hata bildir</string>
     <string name="feedback_title">Geri bildirim</string>
     <string name="feedback_intro">Uygulamayı daha iyi yapmamıza yardım edin! Aklınızda ne var?</string>

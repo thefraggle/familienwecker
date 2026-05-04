@@ -5,8 +5,8 @@
     <string name="password_label">Password</string>
     <string name="register_button">Sign up</string>
     <string name="login_button">Log in</string>
-    <string name="already_have_account">Already have an account? Log in here.</string>
-    <string name="no_account">No account yet? Sign up here.</string>
+    <string name="already_have_account">Log in / Register</string>
+    <string name="no_account">Log in / Register</string>
     <string name="login_with_google">Sign in with Google</string>
     <string name="login_forgot_password">Forgot password?</string>
     <string name="login_password_reset_sent">Password reset email sent!</string>
@@ -105,7 +105,7 @@
     <string name="settings_account_title">Family &amp; Account</string>
     <string name="settings_join_family_locked">Please log in to join a family.</string>
     <string name="settings_share_code_locked">Please log in to share the invite code.</string>
-    <string name="settings_anonymous_login_button">Create Account / Login</string>
+    <string name="settings_anonymous_login_button">Log in / Register</string>
     <string name="settings_join_code">Invite code for %1$s:</string>
     <string name="settings_share_code">Share code</string>
     <string name="settings_share_message">Here is your link for FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGroup: %1$s\n\nJust click, log in, and we\'re connected. Waking up together is more fun! ⏰❤️</string>
@@ -151,10 +151,10 @@
 
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_next">Next</string>
-    <string name="onboarding_done">Let\'s go</string>
-    <string name="onboarding_login_create">Login / Create Account</string>
+    <string name="onboarding_done">Start without account</string>
+    <string name="onboarding_login_create">Log in / Register</string>
     <string name="onboarding_slide5_title">Let\'s get started!</string>
-    <string name="onboarding_slide5_body">Start right away or log in to join your family.</string>
+    <string name="onboarding_slide5_body">You can try the app right away without signing up. You only need an account when you invite your family.</string>
     <string name="onboarding_slide0_title">Your morning as a team.</string>
     <string name="onboarding_slide0_body">No arguments, no chaos. FamWake ensures everyone starts the day relaxed – fully automatic.</string>
     <string name="onboarding_slide1_title">No more waiting.</string>
@@ -163,8 +163,8 @@
     <string name="onboarding_slide2_body">Monday office, Wednesday home office? Set individual times for each day of the week – the app handles the rest.</string>
     <string name="onboarding_slide3_title">Connected in seconds.</string>
     <string name="onboarding_slide3_body">Share a code and your family joins instantly. New members? The schedule adjusts automatically. And if something changes, everyone knows right away.</string>
-    <string name="onboarding_slide4_title">Let\'s go!</string>
-    <string name="onboarding_slide4_body">Create your family now and enjoy relaxed mornings – reliably, even offline.</string>
+    <string name="onboarding_slide4_title">Always reliable</string>
+    <string name="onboarding_slide4_body">Enjoy relaxed mornings – reliably, even offline. If the internet goes down, the alarm still rings right on time.</string>
     
     <string name="onboarding_mock_name1">Dad</string>
     <string name="onboarding_mock_name2">Mom</string>

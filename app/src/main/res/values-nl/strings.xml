@@ -5,8 +5,8 @@
     <string name="password_label">Wachtwoord</string>
     <string name="register_button">Registreren</string>
     <string name="login_button">Inloggen</string>
-    <string name="already_have_account">Heb je al een account? Log hier in.</string>
-    <string name="no_account">Nog geen account? Meld je hier aan.</string>
+    <string name="already_have_account">Inloggen / Registreren</string>
+    <string name="no_account">Inloggen / Registreren</string>
     <string name="login_with_google">Inloggen met Google</string>
     <string name="login_forgot_password">Wachtwoord vergeten?</string>
     <string name="login_password_reset_sent">E-mail voor wachtwoordherstel verzonden!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Overslaan</string>
     <string name="onboarding_next">Volgende</string>
-    <string name="onboarding_done">Laten we gaan</string>
+    <string name="onboarding_done">Begin zonder account</string>
     <string name="onboarding_slide0_title">Je ochtend als team.</string>
     <string name="onboarding_slide0_body">Geen discussies, geen chaos. FamWake zorgt ervoor dat iedereen ontspannen de dag begint – volautomatisch.</string>
     <string name="onboarding_slide1_title">Nooit meer wachten.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Maandag kantoor, woensdag thuiswerken? Stel voor elke dag individuele tijden in – de app regelt de rest.</string>
     <string name="onboarding_slide3_title">In seconden verbonden.</string>
     <string name="onboarding_slide3_body">Deel een code en je gezin doet direct mee. Nieuwe leden? Het schema past zich automatisch aan. En als er iets verandert, weet iedereen het meteen.</string>
-    <string name="onboarding_slide4_title">Aan de slag!</string>
-    <string name="onboarding_slide4_body">Maak nu je gezin aan en geniet van ontspannen ochtenden – betrouwbaar, ook offline.</string>
+    <string name="onboarding_slide4_title">Altijd betrouwbaar</string>
+    <string name="onboarding_slide4_body">Geniet van ontspannen ochtenden – betrouwbaar, zelfs offline. Als het internet uitvalt, gaat de wekker nog steeds precies op tijd.</string>
     <string name="settings_feedback_button">Feedback geven / Fout melden</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Help ons de app nog beter te maken! Wat heb je op je hart?</string>
