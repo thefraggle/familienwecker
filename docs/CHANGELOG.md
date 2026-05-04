@@ -16,6 +16,8 @@
 - **Profil-Übernahme:** Das Beanspruchen eines Profils auf einem neuen Gerät ("Profil stehlen") funktioniert dank angepasster Sicherheitsregeln nun wieder problemlos.
 - **Onboarding & Navigation:** Nach der Onboarding-Tour landest du nicht mehr in einer Sackgasse, und fehlgeleitete Logout-Dialoge im Testmodus wurden korrigiert.
 - **Account-Übernahme:** Wenn du dich aus dem Testmodus heraus registrierst, werden deine Testdaten nun verlässlich in deinen neuen Account übernommen.
+- **Familien-Löschung:** Wenn eine Familie durch den Ersteller gelöscht wird, werden nun auf allen Geräten der anderen Mitglieder sofort die lokalen Alarme deaktiviert und die Nutzer auf den Startbildschirm zurückgeleitet.
+- **Auto-Profil:** Nach dem automatischen Zuweisen eines neuen Profils bleibt der globale Wecker-Schalter nun zuverlässig aktiviert.
 
 ---
 
