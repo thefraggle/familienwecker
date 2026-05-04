@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name_short">FamWake 가족 알람시계</string>
+<resources><string name="app_name_short">FamWake 가족 알람시계</string>
     <string name="email_label">이메일</string>
     <string name="password_label">비밀번호</string>
     <string name="register_button">가입하기</string>
@@ -105,7 +104,6 @@
     <string name="settings_account_title">가족 및 계정</string>
     <string name="settings_join_family_locked">가족에 참여하려면 로그인해 주세요.</string>
     <string name="settings_share_code_locked">초대 코드를 공유하려면 로그인해 주세요.</string>
-    <string name="settings_anonymous_login_button">로그인 / 가입하기</string>
     <string name="settings_join_code">%1$s의 초대 코드:</string>
     <string name="settings_share_code">초대 링크 공유</string>
     <string name="settings_share_message">FamWake 초대 링크입니다:\nhttps://familienwecker.de/join/%2$s\n\n코드: %2$s\n가족: %1$s\n\n링크를 탭하고 로그인하면 연결됩니다. 다 함께 일어나면 아침이 훨씬 편해져요! ⏰❤️</string>
@@ -152,9 +150,6 @@
     <string name="onboarding_skip">건너뛰기</string>
     <string name="onboarding_next">다음</string>
     <string name="onboarding_done">계정 없이 시작하기</string>
-    <string name="onboarding_login_create">로그인 / 가입하기</string>
-    <string name="onboarding_slide5_title">시작해 볼까요!</string>
-    <string name="onboarding_slide5_body">계정이 없어도 바로 앱을 사용해 볼 수 있습니다. 가족을 초대하고 싶을 때만 계정을 만드시면 됩니다.</string>
     <string name="onboarding_slide0_title">팀처럼 움직이는 아침.</string>
     <string name="onboarding_slide0_body">아침마다 다툴 일도, 정신없을 일도 없습니다. FamWake가 모두의 편안한 하루 시작을 알아서 챙겨줍니다.</string>
     <string name="onboarding_slide1_title">더 이상 기다리지 마세요.</string>

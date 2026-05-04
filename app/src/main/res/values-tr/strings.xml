@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name_short">FamWake Aile Çalar Saati</string>
+<resources><string name="app_name_short">FamWake Aile Çalar Saati</string>
     <string name="email_label">E-posta</string>
     <string name="password_label">Şifre</string>
     <string name="register_button">Kayıt ol</string>
@@ -105,7 +104,6 @@
     <string name="settings_account_title">Aile ve Hesap</string>
     <string name="settings_join_family_locked">Bir aileye katılmak için lütfen giriş yapın.</string>
     <string name="settings_share_code_locked">Davet kodunuzu paylaşmak için lütfen giriş yapın.</string>
-    <string name="settings_anonymous_login_button">Giriş yap / Kayıt ol</string>
     <string name="settings_join_code">%1$s için davet kodu:</string>
     <string name="settings_share_code">Davet bağlantısını paylaş</string>
     <string name="settings_share_message">İşte FamWake bağlantınız:\nhttps://familienwecker.de/join/%2$s\n\nKod: %2$s\nAile: %1$s\n\nBağlantıya tıklayın, giriş yapın ve bağlanalım. Birlikte uyanmak çok daha kolay! ⏰❤️</string>
