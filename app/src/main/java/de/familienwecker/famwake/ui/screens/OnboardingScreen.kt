@@ -138,6 +138,7 @@ fun OnboardingScreen(
                                 iterations  = LottieConstants.IterateForever,
                                 speed       = 0.7f,
                                 modifier    = Modifier
+                                    .sizeIn(maxWidth = 280.dp, maxHeight = 280.dp)
                                     .fillMaxWidth()
                                     .aspectRatio(1f)
                             )
