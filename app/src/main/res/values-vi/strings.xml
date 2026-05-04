@@ -10,7 +10,7 @@
     <string name="login_with_google">Đăng nhập bằng Google</string>
     <string name="login_forgot_password">Quên mật khẩu?</string>
     <string name="login_password_reset_sent">Đã gửi email đặt lại mật khẩu!</string>
-    <string name="login_google_error_no_account">Không tìm thấy tài khoản Google nào. Vui lòng đăng nhập Google trong cài đặt điện thoại của bạn hoặc dùng email và mật khẩu.</string>
+    <string name="login_google_error_no_account">Không tìm thấy tài khoản Google. Vui lòng đăng nhập trong cài đặt điện thoại hoặc dùng email.</string>
 
     <string name="setup_create_tab">Tạo</string>
     <string name="setup_join_tab">Tham gia</string>
@@ -382,7 +382,7 @@
     <string name="notif_permission_button">Bật thông báo</string>
     <string name="notif_manage_title">Cài đặt thông báo</string>
     <string name="notif_manage_desc">Thay đổi âm thanh và độ rung trong cài đặt điện thoại của bạn.</string>
-    <string name="settings_steal_title">Tiếp quản hồ sơ?</string>
-    <string name="settings_steal_text">%1$s đã có người dùng. Bạn có muốn tiếp quản không?</string>
-    <string name="settings_steal_confirm">Tiếp quản</string>
+    <string name="settings_steal_title">Sử dụng hồ sơ này?</string>
+    <string name="settings_steal_text">Hồ sơ %1$s đã được chọn. Bạn có muốn sử dụng hồ sơ này không?</string>
+    <string name="settings_steal_confirm">Có, sử dụng</string>
 </resources>

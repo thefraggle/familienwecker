@@ -10,16 +10,16 @@
     <string name="login_with_google">Googleでログイン</string>
     <string name="login_forgot_password">パスワードを忘れた場合</string>
     <string name="login_password_reset_sent">パスワード再設定メールを送信しました！</string>
-    <string name="login_google_error_no_account">Googleアカウントが見つかりません。スマートフォンの設定でGoogleにログインするか、メールアドレスとパスワードを使用してください。</string>
+    <string name="login_google_error_no_account">Googleアカウントが見つかりません。スマートフォンの設定からログインするか、メールアドレスを使ってください。</string>
 
-    <string name="setup_create_tab">作成</string>
-    <string name="setup_join_tab">参加</string>
+    <string name="setup_create_tab">作成する</string>
+    <string name="setup_join_tab">参加する</string>
     <string name="setup_family_name">家族の名前（例：山田家）</string>
     <string name="setup_create_button">家族を作成</string>
     <string name="setup_join_code_label">6桁の招待コード</string>
     <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">家族に参加</string>
-    <string name="join_loading_text">家族に接続しています…</string>
+    <string name="join_loading_text">家族のグループに参加しています…</string>
 
     <string name="main_add_member_desc">メンバーを追加</string>
     <string name="main_family_members">家族のメンバー</string>
@@ -52,10 +52,10 @@
     <string name="add_member_title_edit">メンバーを編集</string>
     <string name="back_desc">戻る</string>
     <string name="unsaved_changes_title">保存されていない変更</string>
-    <string name="unsaved_changes_message">変更を破棄しますか？</string>
-    <string name="unsaved_changes_discard">破棄する</string>
+    <string name="unsaved_changes_message">変更を保存せずに閉じますか？</string>
+    <string name="unsaved_changes_discard">保存しない</string>
     <string name="unsaved_changes_keep">編集を続ける</string>
-    <string name="add_member_submit">保存</string>
+    <string name="add_member_submit">保存する</string>
     <string name="delete_member_title">メンバーを削除</string>
     <string name="delete_member_text">本当に%1$sを家族から削除しますか？</string>
     <string name="delete_confirm">削除</string>
@@ -97,7 +97,7 @@
     <string name="settings_no_members">メンバーが見つかりません</string>
     <string name="settings_alarm_title">アラーム音</string>
     <string name="settings_battery_warning_title">バッテリー設定がアラームをブロックする可能性があります</string>
-    <string name="settings_battery_warning_text">スマートフォンがバッテリーを節約するためにアラームを遅らせたり、ブロックしたりするかもしれません。FamWakeがバックグラウンドで動くことを許可してください。</string>
+    <string name="settings_battery_warning_text">スマートフォンの設定によって、アラームが遅れたり鳴らなかったりする場合があります。FamWakeがいつでも動けるように許可してください。</string>
     <string name="settings_battery_warning_button">今すぐ直す</string>
     <string name="settings_alarm_default">デフォルト</string>
     <string name="settings_alarm_select">音：%1$s</string>
@@ -112,7 +112,7 @@
     <string name="settings_leave_family">家族から抜ける</string>
     <string name="settings_delete_family">家族を削除する</string>
     <string name="settings_delete_family_dialog_title">家族全体を削除しますか？</string>
-    <string name="settings_delete_family_dialog_text">本当にこの家族を完全に削除しますか？すべてのメンバー、時間、設定が全員分消去されます。この操作は元に戻せません。</string>
+    <string name="settings_delete_family_dialog_text">この家族を完全に削除しますか？メンバー、時間、設定など、全員のデータが消去されます。この操作は元に戻せません。</string>
     <string name="settings_delete_family_dialog_confirm">完全に削除</string>
     <string name="settings_delete_family_dialog_cancel">キャンセル</string>
     <string name="settings_delete_family_warning_title">他の人がまだ残っています！</string>
@@ -156,7 +156,7 @@
     <string name="onboarding_slide5_title">さあ、始めましょう！</string>
     <string name="onboarding_slide5_body">アカウントがなくてもすぐにアプリを試せます。アカウントが必要になるのは、家族を招待する時だけです。</string>
     <string name="onboarding_slide0_title">チームとしての朝。</string>
-    <string name="onboarding_slide0_body">言い争いも、バタバタもなし。FamWakeがあれば、みんながリラックスして一日を始められます – 全自動で。</string>
+    <string name="onboarding_slide0_body">言い争いも、バタバタもなし。FamWakeがおまかせで、みんながリラックスして一日を始められるようサポートします。</string>
     <string name="onboarding_slide1_title">もう待つ必要はありません。</string>
     <string name="onboarding_slide1_body">バスルームの時間、朝食、家を出る時間に合わせて、FamWakeが全員の完璧な起床時間を見つけます。洗面所の順番待ちはもう終わりです。</string>
     <string name="onboarding_slide2_title">毎日の予定に合わせて。</string>
@@ -235,8 +235,8 @@
 
     <string name="error_load_members">家族のメンバーを読み込めませんでした</string>
     <string name="error_create_family">家族を作成できませんでした：%1$s</string>
-    <string name="error_create_family_rate_limit">最近たくさんの家族を作成しました。少し待ってからもう一度お試しください。</string>
-    <string name="error_join_family_rate_limit">試行回数が多すぎます。少し待ってからもう一度お試しください。</string>
+    <string name="error_create_family_rate_limit">家族を作成しすぎました。少し待ってからもう一度お試しください。</string>
+    <string name="error_join_family_rate_limit">アクセスが多すぎます。少し待ってからもう一度お試しください。</string>
     <string name="error_invalid_code">招待コードが無効です：%1$s</string>
     <string name="error_family_not_found">このコードの家族は見つかりませんでした。</string>
     <string name="error_code_generation_failed">コードを作成できませんでした。もう一度お試しください。</string>
@@ -259,10 +259,10 @@
     <string name="error_empty_email">メールアドレスを入力してください。</string>
     <string name="error_invalid_email">このメールアドレスは正しくないようです。確認してください。</string>
     <string name="error_user_not_found">このメールアドレスのアカウントは見つかりませんでした。</string>
-    <string name="error_too_many_requests">試行回数が多すぎます。少しお待ちください。</string>
+    <string name="error_too_many_requests">アクセスが多すぎます。少しお待ちください。</string>
     <string name="error_password_reset_failed">パスワードをリセットできませんでした。後でもう一度お試しください。</string>
     <string name="error_profile_taken">このプロフィールはすでに誰かが使っています。</string>
-    <string name="error_profile_claim_offline">インターネットに接続されていません。プロフィールを選ぶにはオンラインである必要があります。</string>
+    <string name="error_profile_claim_offline">インターネットがありません。プロフィールを選ぶにはオンラインにする必要があります。</string>
     <string name="error_delete_not_admin">家族を作成した人だけが家族を削除できます。</string>
 
     <string name="alarm_default_member">家族のメンバー</string>
@@ -341,7 +341,7 @@
     <string name="settings_exact_alarm_warning_button">アラームを許可</string>
     <string name="main_exact_alarm_banner">⚠️ アラームがブロックされています！時間通りに起きられるように設定でアラームを許可してください。</string>
     <string name="error_offline_feedback">インターネットがありません。接続してもう一度お試しください。</string>
-    <string name="error_sync_blocked_device">このデバイスでは現在データの更新ができません。</string>
+    <string name="error_sync_blocked_device">現在、このスマートフォンではデータの更新ができません。</string>
     <string name="error_feedback_rate_limit">次のメッセージを送るまで%1$s秒お待ちください。</string>
     <string name="error_feedback_rate_limit_server">送信したメッセージが多すぎます。後でもう一度お試しください。</string>
     <string name="error_feedback_empty_message">メッセージが空です。</string>
@@ -362,27 +362,24 @@
     <string name="tooltip_alarm_sound">ここをタップして自分用のアラーム音を選んでください。普通のピッという音の代わりに好きな音楽を設定できます。</string>
     <string name="settings_language_dialects">方言</string>
 
-    
     <string name="notif_channel_schedule_change_name">スケジュールの更新</string>
     <string name="notif_channel_schedule_change_desc">起きる時間やバスルームの順番が変わった時にお知らせします</string>
     <string name="notif_channel_family_events_name">家族の更新</string>
     <string name="notif_channel_family_events_desc">誰かが家族に参加したり抜けたりした時にお知らせします</string>
-
-    
     <string name="notif_schedule_changed_title">FamWake: 朝のスケジュールが更新されました</string>
     <string name="notif_schedule_changed_body">起きる時間が変更されました。アプリを開いて新しい時間を確認してください。</string>
     <string name="notif_member_joined_title">FamWake: 新しいメンバーです！</string>
     <string name="notif_member_joined_body">新しい人が家族のスケジュールに参加しました。</string>
     <string name="notif_member_left_title">FamWake: 家族の更新</string>
     <string name="notif_member_left_body">誰かが家族のグループから抜けました。</string>
-
-    
     <string name="notif_permission_title">通知が必要です</string>
     <string name="notif_permission_desc">通知をオフにすると、アラームが正しく鳴らない場合があります。オンのままにしてください。</string>
     <string name="notif_permission_button">通知をオンにする</string>
     <string name="notif_manage_title">通知の設定</string>
     <string name="notif_manage_desc">スマートフォンの設定で音やバイブレーションを変更できます。</string>
-    <string name="settings_steal_title">プロファイルを引き継ぎますか？</string>
-    <string name="settings_steal_text">%1$s は既に使用されています。引き継ぎますか？</string>
-    <string name="settings_steal_confirm">引き継ぐ</string>
+
+
+    <string name="settings_steal_title">このプロフィールを使いますか？</string>
+    <string name="settings_steal_text">「%1$s」はすでに選ばれています。このプロフィールを自分のものとして使いますか？</string>
+    <string name="settings_steal_confirm">はい、使います</string>
 </resources>

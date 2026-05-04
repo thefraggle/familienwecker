@@ -357,7 +357,6 @@
     <string name="tooltip_alarm_sound">Tipp da druff für diin persönliche Weckton – wähl diini Lieblingsmusig statt em normale Piepse.</string>
     <string name="settings_language_dialects">Dialäkt</string>
 
-    
     <string name="notif_channel_schedule_change_name">Plan-Updates</string>
     <string name="notif_channel_schedule_change_desc">Säit dir Bscheid, wänn sich Weckziite oder d\'Bad-Reihefolg ändered</string>
     <string name="notif_channel_family_events_name">Familie-Updates</string>
@@ -373,7 +372,7 @@
     <string name="notif_permission_button">Benachrichtigunge aamache</string>
     <string name="notif_manage_title">Benachrichtigungs-Iistellige</string>
     <string name="notif_manage_desc">Änder Tön und Vibration i de Iistellige vo diim Handy.</string>
-    <string name="settings_steal_title">Profil übernehmen?</string>
-    <string name="settings_steal_text">%1$s ist bereits belegt. Möchtest du es übernehmen?</string>
-    <string name="settings_steal_confirm">Übernehmen</string>
+    <string name="settings_steal_title">Profil nutze?</string>
+    <string name="settings_steal_text">%1$s isch scho vergäh. Wottsch es für dich übernäh?</string>
+    <string name="settings_steal_confirm">Ja, übernäh</string>
 </resources>

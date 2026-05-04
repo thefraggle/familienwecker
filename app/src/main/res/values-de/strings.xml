@@ -357,27 +357,22 @@
     <string name="tooltip_alarm_sound">Tippe hier für deinen persönlichen Weckton – wähle deine Lieblingsmusik statt dem normalen Piepen.</string>
     <string name="settings_language_dialects">Dialekte</string>
 
-    
     <string name="notif_channel_schedule_change_name">Plan-Updates</string>
     <string name="notif_channel_schedule_change_desc">Sagt dir Bescheid, wenn sich Weckzeiten oder die Bad-Reihenfolge ändern</string>
     <string name="notif_channel_family_events_name">Familien-Updates</string>
     <string name="notif_channel_family_events_desc">Sagt dir Bescheid, wenn jemand deiner Familie beitritt oder sie verlässt</string>
-
-    
     <string name="notif_schedule_changed_title">FamWake: Morgenplan aktualisiert</string>
     <string name="notif_schedule_changed_body">Die Weckzeiten haben sich geändert. Öffne die App, um deine neue Zeit zu sehen.</string>
     <string name="notif_member_joined_title">FamWake: Neues Familienmitglied!</string>
     <string name="notif_member_joined_body">Jemand Neues ist gerade eurem Plan beigetreten.</string>
     <string name="notif_member_left_title">FamWake: Familien-Update</string>
     <string name="notif_member_left_body">Jemand hat die Familie verlassen.</string>
-
-    
     <string name="notif_permission_title">Benachrichtigungen nötig</string>
     <string name="notif_permission_desc">Wenn du Benachrichtigungen ausschaltest, funktioniert dein Wecker vielleicht nicht richtig. Bitte lass sie an.</string>
     <string name="notif_permission_button">Benachrichtigungen anmachen</string>
     <string name="notif_manage_title">Benachrichtigungs-Einstellungen</string>
     <string name="notif_manage_desc">Ändere Töne und Vibration in den Einstellungen deines Handys.</string>
-    <string name="settings_steal_title">Profil übernehmen?</string>
-    <string name="settings_steal_text">%1$s ist bereits belegt. Möchtest du es übernehmen?</string>
-    <string name="settings_steal_confirm">Übernehmen</string>
+    <string name="settings_steal_title">Profil nutzen?</string>
+    <string name="settings_steal_text">%1$s ist bereits vergeben. Möchtest du es für dich übernehmen?</string>
+    <string name="settings_steal_confirm">Ja, übernehmen</string>
 </resources>
