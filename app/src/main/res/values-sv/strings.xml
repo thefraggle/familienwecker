@@ -103,6 +103,9 @@
     <string name="settings_alarm_select">Ljud: %1$s</string>
     <string name="settings_alarm_picker_title">Välj larmsignal</string>
     <string name="settings_account_title">Familj &amp; Konto</string>
+    <string name="settings_join_family_locked">Logga in för att gå med i en familj.</string>
+    <string name="settings_share_code_locked">Logga in för att dela din inbjudningskod.</string>
+    <string name="settings_anonymous_login_button">Logga in / Registrera</string>
     <string name="settings_join_code">Inbjudningskod för %1$s:</string>
     <string name="settings_share_code">Dela inbjudningslänk</string>
     <string name="settings_share_message">Här är din länk för FamWake:\nhttps://familienwecker.de/join/%2$s\n\nKod: %2$s\nFamilj: %1$s\n\nKlicka bara på länken, logga in så är vi anslutna. Att vakna tillsammans är mycket enklare! ⏰❤️</string>
@@ -149,6 +152,9 @@
     <string name="onboarding_skip">Hoppa över</string>
     <string name="onboarding_next">Nästa</string>
     <string name="onboarding_done">Börja utan konto</string>
+    <string name="onboarding_login_create">Logga in / Registrera dig</string>
+    <string name="onboarding_slide5_title">Låt oss börja!</string>
+    <string name="onboarding_slide5_body">Du kan prova appen direkt utan ett konto. Du behöver bara ett när du vill bjuda in din familj.</string>
     <string name="onboarding_slide0_title">Er morgon som ett team.</string>
     <string name="onboarding_slide0_body">Inga diskussioner, inget kaos. FamWake ser till att alla börjar dagen avslappnat – helt av sig självt.</string>
     <string name="onboarding_slide1_title">Aldrig mer väntan.</string>
@@ -159,6 +165,10 @@
     <string name="onboarding_slide3_body">Dela din inbjudningskod så är din familj med. Om någon ändrar sina tider uppdateras allas schema direkt.</string>
     <string name="onboarding_slide4_title">Fungerar alltid.</string>
     <string name="onboarding_slide4_body">Njut av en avslappnad morgon varje dag. Även om internet går ner under natten kommer larmet fortfarande att ringa i tid.</string>
+    
+    <string name="onboarding_mock_name1">Pappa</string>
+    <string name="onboarding_mock_name2">Mamma</string>
+    <string name="onboarding_mock_family_name">Svensson</string>
     <string name="settings_feedback_button">Ge feedback / Rapportera ett fel</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hjälp oss göra appen ännu bättre! Vad tänker du på?</string>
@@ -344,10 +354,14 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Tryck här för att välja ditt personliga väckningsljud – välj din favoritmusik istället för det vanliga pipandet.</string>
     <string name="settings_language_dialects">Dialekter</string>
 
-    
     <string name="notif_channel_schedule_change_name">Schemaändringar</string>
     <string name="notif_channel_schedule_change_desc">Meddelar dig om väckningstider eller ordningen i badrummet ändras</string>
     <string name="notif_channel_family_events_name">Familjeuppdateringar</string>
@@ -363,11 +377,7 @@
     <string name="notif_permission_button">Slå på aviseringar</string>
     <string name="notif_manage_title">Aviseringsinställningar</string>
     <string name="notif_manage_desc">Ändra ljud och vibrationer i dina telefoninställningar.</string>
-<string name="onboarding_login_create">Logga in / Registrera dig</string>
-    <string name="onboarding_slide5_title">Låt oss börja!</string>
-    <string name="onboarding_slide5_body">Du kan prova appen direkt utan ett konto. Du behöver bara ett när du vill bjuda in din familj.</string>
-    <string name="settings_anonymous_login_button">Logga in / Registrera dig</string>
-        <string name="settings_steal_title">Ta över profil?</string>
-    <string name="settings_steal_text">%1$s är redan upptagen. Vill du ta över profilen?</string>
-    <string name="settings_steal_confirm">Ta över</string>
+    <string name="settings_steal_title">Använda den här profilen?</string>
+    <string name="settings_steal_text">%1$s används redan. Vill du använda den här profilen?</string>
+    <string name="settings_steal_confirm">Ja, använd den</string>
 </resources>

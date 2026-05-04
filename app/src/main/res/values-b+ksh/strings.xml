@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake Familienwecker</string>
+<resources>
+    <string name="app_name_short">FamWake Familienwecker</string>
     <string name="email_label">E-Mail</string>
     <string name="password_label">Passwort</string>
     <string name="register_button">Mitmachen</string>
@@ -332,6 +333,7 @@
     <string name="settings_exact_alarm_warning_button">Wecker erlauben</string>
     <string name="main_exact_alarm_banner">⚠️ Wecker darf nich bimmeln! Gib uns dat grüne Licht inne Einstellungen.</string>
     <string name="error_offline_feedback">Bisse grade offline. Guck ma ob dat Netz da is.</string>
+    <string name="error_sync_blocked_device">Updates gehen auf der Kiste hier grad nich.</string>
     <string name="error_feedback_rate_limit">Mach ma %1$s Sekunden Pause, bevor de nochma wat schickst.</string>
     <string name="error_feedback_rate_limit_server">Zu viel aufm einmal. Probier dat nachher nochmal.</string>
     <string name="error_feedback_empty_message">Da muss wat drin stehen, sonst bringt dat nix.</string>
@@ -346,7 +348,6 @@
     <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Druck hier, um deinen eigenen Weckton auszusuchen – nimm wat Geiles statt dem Standardgebimmel.</string>
     <string name="settings_language_dialects">Dialekte</string>
-    <string name="error_sync_blocked_device">Updates gehen auf der Kiste hier grad nich.</string>
     <string name="onboarding_mock_name1">Vatta</string>
     <string name="onboarding_mock_name2">Mudda</string>
     <string name="onboarding_mock_family_name">Schmitz</string>
@@ -370,7 +371,7 @@
     <string name="onboarding_slide5_title">Auf geht\'s!</string>
     <string name="onboarding_slide5_body">Hör ma, du kanns die App direkt ohne Anmeldung ausprobieren. Ein Konto brauchsse erst, wenn de deine Familie einläds.</string>
     <string name="settings_anonymous_login_button">Anmelden / Registrieren</string>
-    <string name="settings_steal_title">Profil übernehmen?</string>
-    <string name="settings_steal_text">%1$s ist bereits belegt. Möchtest du es übernehmen?</string>
-    <string name="settings_steal_confirm">Übernehmen</string>
+    <string name="settings_steal_title">Profil schnappen?</string>
+    <string name="settings_steal_text">%1$s hat sich schon einer gekrallt. Willze dat für dich haben?</string>
+    <string name="settings_steal_confirm">Jau, her damit</string>
 </resources>

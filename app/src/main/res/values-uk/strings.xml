@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake Сімейний будильник</string>
+<resources>
+    <string name="app_name_short">FamWake Сімейний будильник</string>
     <string name="email_label">Електронна пошта</string>
     <string name="password_label">Пароль</string>
     <string name="register_button">Зареєструватися</string>
@@ -9,7 +10,7 @@
     <string name="login_with_google">Увійти через Google</string>
     <string name="login_forgot_password">Забули пароль?</string>
     <string name="login_password_reset_sent">Лист для скидання пароля надіслано!</string>
-    <string name="login_google_error_no_account">На цьому пристрої не знайдено акаунт Google. Будь ласка, увійдіть у Google в налаштуваннях вашого телефону або використайте email і пароль.</string>
+    <string name="login_google_error_no_account">Акаунт Google не знайдено. Будь ласка, увійдіть через налаштування телефону або використовуйте email.</string>
 
     <string name="setup_create_tab">Створити</string>
     <string name="setup_join_tab">Приєднатися</string>
@@ -56,7 +57,7 @@
     <string name="unsaved_changes_keep">Продовжити редагування</string>
     <string name="add_member_submit">Зберегти</string>
     <string name="delete_member_title">Видалити учасника</string>
-    <string name="delete_member_text">Ви впевнені, що хочете видалити %1$s з сім\'ї?</string>
+    <string name="delete_member_text">Дійсно видалити %1$s із сім\'ї?</string>
     <string name="delete_confirm">Видалити</string>
     <string name="cancel_button">Скасувати</string>
     <string name="retry_button">Повторити</string>
@@ -96,7 +97,7 @@
     <string name="settings_no_members">Учасників не знайдено</string>
     <string name="settings_alarm_title">Мелодія будильника</string>
     <string name="settings_battery_warning_title">Налаштування батареї можуть блокувати будильник</string>
-    <string name="settings_battery_warning_text">Ваш телефон може затримувати або блокувати будильник для економії заряду. Будь ласка, дозвольте FamWake працювати у фоновому режимі.</string>
+    <string name="settings_battery_warning_text">Ваш телефон може затримувати або блокувати будильник для економії заряду. Будь ласка, дозвольте FamWake працювати у фоновом режимі.</string>
     <string name="settings_battery_warning_button">Виправити зараз</string>
     <string name="settings_alarm_default">За замовчуванням</string>
     <string name="settings_alarm_select">Звук: %1$s</string>
@@ -104,6 +105,7 @@
     <string name="settings_account_title">Сім\'я та Акаунт</string>
     <string name="settings_join_family_locked">Будь ласка, увійдіть, щоб приєднатися до сім\'ї.</string>
     <string name="settings_share_code_locked">Будь ласка, увійдіть, щоб поділитися кодом.</string>
+    <string name="settings_anonymous_login_button">Увійти / Зареєструватися</string>
     <string name="settings_join_code">Код запрошення для %1$s:</string>
     <string name="settings_share_code">Поділитися посиланням</string>
     <string name="settings_share_message">Ось ваше посилання для FamWake:\nhttps://familienwecker.de/join/%2$s\n\nКод: %2$s\nСім\'я: %1$s\n\nПросто натисніть на посилання, увійдіть, і ми з\'єднані. Прокидатися разом набагато легше! ⏰❤️</string>
@@ -160,6 +162,10 @@
     <string name="onboarding_slide3_body">Поділіться кодом запрошення, і ваша родина миттєво приєднається. Якщо хтось змінить свій час, розклад оновиться для всіх автоматично.</string>
     <string name="onboarding_slide4_title">Завжди надійний.</string>
     <string name="onboarding_slide4_body">Насолоджуйтесь спокійним ранком щодня. Навіть якщо інтернет зникне вночі, будильник все одно пролунає вчасно.</string>
+    
+    <string name="onboarding_mock_name1">Тато</string>
+    <string name="onboarding_mock_name2">Мама</string>
+    <string name="onboarding_mock_family_name">Коваленко</string>
     <string name="settings_feedback_button">Залишити відгук / Повідомити про помилку</string>
     <string name="feedback_title">Відгук</string>
     <string name="feedback_intro">Допоможіть нам зробити додаток ще кращим! Що у вас на думці?</string>
@@ -373,11 +379,7 @@
     <string name="notif_permission_button">Увімкнути сповіщення</string>
     <string name="notif_manage_title">Налаштування сповіщень</string>
     <string name="notif_manage_desc">Змінюйте звуки та вібрацію в налаштуваннях вашого телефону.</string>
-    <string name="onboarding_login_create">Увійти / Зареєструватися</string>
-    <string name="onboarding_slide5_title">Давайте почнемо!</string>
-    <string name="onboarding_slide5_body">Ви можете спробувати додаток прямо зараз без акаунта. Він знадобиться вам тільки тоді, коли ви захочете запросити свою сім\'ю.</string>
-    <string name="settings_anonymous_login_button">Увійти / Зареєструватися</string>
-    <string name="settings_steal_title">Зайняти профіль?</string>
-    <string name="settings_steal_text">Профіль %1$s вже зайнятий. Бажаєте зайняти його?</string>
-    <string name="settings_steal_confirm">Зайняти</string>
+    <string name="settings_steal_title">Використовувати цей профіль?</string>
+    <string name="settings_steal_text">Профіль %1$s вже кимось вибраний. Бажаєте використовувати його для себе?</string>
+    <string name="settings_steal_confirm">Так, використовувати</string>
 </resources>

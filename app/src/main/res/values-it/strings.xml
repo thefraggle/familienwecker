@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><string name="app_name_short">FamWake Sveglia familiare</string>
+<resources>
+    <string name="app_name_short">FamWake Sveglia familiare</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="register_button">Registrati</string>
@@ -9,7 +10,7 @@
     <string name="login_with_google">Accedi con Google</string>
     <string name="login_forgot_password">Password dimenticata?</string>
     <string name="login_password_reset_sent">Email di ripristino inviata!</string>
-    <string name="login_google_error_no_account">Nessun account Google trovato. Accedi a Google nelle impostazioni del telefono o usa email e password.</string>
+    <string name="login_google_error_no_account">Nessun account Google trovato. Accedi dalle impostazioni del telefono o usa l\'email.</string>
 
     <string name="setup_create_tab">Crea</string>
     <string name="setup_join_tab">Unisciti</string>
@@ -110,11 +111,11 @@
     <string name="settings_leave_family">Lascia la famiglia</string>
     <string name="settings_delete_family">Elimina famiglia</string>
     <string name="settings_delete_family_dialog_title">Eliminare l\'intera famiglia?</string>
-    <string name="settings_delete_family_dialog_text">Sei sicuro di voler eliminare definitivamente questa famiglia? Tutti i membri, gli orari e le impostazioni spariranno per tutti. Questa azione non può essere annullata.</string>
+    <string name="settings_delete_family_dialog_text">Vuoi eliminare questa famiglia per sempre? Tutti i membri, gli orari e le impostazioni spariranno per tutti. Questa azione è irreversibile.</string>
     <string name="settings_delete_family_dialog_confirm">Elimina per sempre</string>
     <string name="settings_delete_family_dialog_cancel">Annulla</string>
     <string name="settings_delete_family_warning_title">Ci sono ancora altri membri!</string>
-    <string name="settings_delete_family_warning_text">Ci sono ancora altre persone in questa famiglia. Se la elimini, tutti perderanno l\'accesso. Sei proprio sicuro?</string>
+    <string name="settings_delete_family_warning_text">Ci sono ancora altre persone in questa famiglia. Se la elimini, tutti perderanno l\'accesso. Sei proprio sicuro/a?</string>
     <string name="settings_delete_family_warning_confirm">Sì, elimina per tutti</string>
     <string name="settings_logout">Esci</string>
     <string name="settings_delete_account">Elimina account</string>
@@ -332,6 +333,7 @@
     <string name="settings_exact_alarm_warning_button">Consenti sveglie</string>
     <string name="main_exact_alarm_banner">⚠️ Sveglia bloccata! Consenti le sveglie nelle impostazioni per poterti svegliare in orario.</string>
     <string name="error_offline_feedback">Non hai internet. Connettiti e riprova.</string>
+    <string name="error_sync_blocked_device">Gli aggiornamenti non sono possibili su questo dispositivo in questo momento.</string>
     <string name="error_feedback_rate_limit">Aspetta %1$s secondi prima di inviare il prossimo messaggio.</string>
     <string name="error_feedback_rate_limit_server">Troppi messaggi inviati. Riprova più tardi.</string>
     <string name="error_feedback_empty_message">Il tuo messaggio è vuoto.</string>
@@ -346,12 +348,10 @@
     <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Tocca qui per scegliere la tua suoneria personale – scegli la tua musica preferita invece del classico bip.</string>
     <string name="settings_language_dialects">Dialetti</string>
-    <string name="error_sync_blocked_device">Gli aggiornamenti non sono possibili su questo dispositivo in questo momento.</string>
     <string name="onboarding_mock_name1">Papà</string>
     <string name="onboarding_mock_name2">Mamma</string>
     <string name="onboarding_mock_family_name">Rossi</string>
 
-    
     <string name="notif_channel_schedule_change_name">Aggiornamenti del programma</string>
     <string name="notif_channel_schedule_change_desc">Ti avvisa se cambiano gli orari di sveglia o l\'ordine in bagno</string>
     <string name="notif_channel_family_events_name">Aggiornamenti della famiglia</string>
@@ -371,7 +371,7 @@
     <string name="onboarding_slide5_title">Cominciamo!</string>
     <string name="onboarding_slide5_body">Puoi provare l\'app fin da subito senza un account. Ne avrai bisogno solo quando vorrai invitare la tua famiglia.</string>
     <string name="settings_anonymous_login_button">Accedi / Registrati</string>
-    <string name="settings_steal_title">Subentrare nel profilo?</string>
-    <string name="settings_steal_text">%1$s è già occupato. Vuoi subentrare?</string>
-    <string name="settings_steal_confirm">Subentrare</string>
+    <string name="settings_steal_title">Usare questo profilo?</string>
+    <string name="settings_steal_text">%1$s è già in uso. Vuoi usare questo profilo per te?</string>
+    <string name="settings_steal_confirm">Sì, usalo</string>
 </resources>

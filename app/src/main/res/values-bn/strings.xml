@@ -10,7 +10,7 @@
     <string name="login_with_google">Google দিয়ে সাইন ইন করুন</string>
     <string name="login_forgot_password">পাসওয়ার্ড ভুলে গেছেন?</string>
     <string name="login_password_reset_sent">পাসওয়ার্ড রিসেট ইমেইল পাঠানো হয়েছে!</string>
-    <string name="login_google_error_no_account">কোনো Google অ্যাকাউন্ট পাওয়া যায়নি। অনুগ্রহ করে আপনার ফোনের সেটিংসে Google-এ সাইন ইন করুন অথবা ইমেল ও পাসওয়ার্ড ব্যবহার করুন।</string>
+    <string name="login_google_error_no_account">কোনো Google অ্যাকাউন্ট পাওয়া যায়নি। ফোনের সেটিংসে লগ ইন করুন বা ইমেইল ব্যবহার করুন।</string>
 
     <string name="setup_create_tab">তৈরি করুন</string>
     <string name="setup_join_tab">যুক্ত হোন</string>
@@ -43,7 +43,7 @@
     <string name="main_no_profile_warning">কোনো প্রোফাইল নির্বাচন করা হয়নি!</string>
     <string name="main_no_profile_warning_desc">সেটিংসে আপনি কে তা বেছে নিন, যাতে অ্যালার্ম আপনার জন্য বাজে।</string>
     <string name="main_unclaimed_first_title">%1$s এর জন্য কোনো অ্যালার্ম বাজবে না!</string>
-    <string name="main_unclaimed_first_desc">%1$s সবার আগে উঠবে, কিন্তু এখনো ফোনে তাদের প্রোফাইল বেছে নেয়নি - তারা দেরি করে ঘুম থেকে উঠতে পারে!</string>
+    <string name="main_unclaimed_first_desc">%1$s সবার আগে উঠবে, কিন্তু ফোনে প্রোফাইল বেছে নেয়নি – ঘুম থেকে উঠতে দেরি হতে পারে!</string>
     <string name="yes">হ্যাঁ</string>
     <string name="no">না</string>
     <string name="delete_desc">মুছুন</string>
@@ -52,12 +52,12 @@
     <string name="add_member_title_edit">সদস্য সম্পাদনা করুন</string>
     <string name="back_desc">পেছনে</string>
     <string name="unsaved_changes_title">অসংরক্ষিত পরিবর্তন</string>
-    <string name="unsaved_changes_message">আপনি কি আপনার পরিবর্তনগুলো বাতিল করতে চান?</string>
+    <string name="unsaved_changes_message">পরিবর্তনগুলো বাতিল করবেন?</string>
     <string name="unsaved_changes_discard">বাতিল করুন</string>
     <string name="unsaved_changes_keep">সম্পাদনা চালিয়ে যান</string>
     <string name="add_member_submit">সংরক্ষণ করুন</string>
     <string name="delete_member_title">সদস্য মুছুন</string>
-    <string name="delete_member_text">আপনি কি নিশ্চিত যে আপনি %1$s কে পরিবার থেকে সরিয়ে দিতে চান?</string>
+    <string name="delete_member_text">আপনি কি %1$s-কে পরিবার থেকে সরিয়ে দিতে চান?</string>
     <string name="delete_confirm">সরিয়ে দিন</string>
     <string name="cancel_button">বাতিল করুন</string>
     <string name="retry_button">আবার চেষ্টা করুন</string>
@@ -73,7 +73,7 @@
     <string name="add_member_copy_to_days">অন্যান্য দিনে \"%1$s\" কপি করুন</string>
     <string name="add_member_copy_dialog_title">দিনে কপি করুন</string>
     <string name="add_member_copy_apply">প্রয়োগ করুন</string>
-    <string name="validation_latest_before_earliest">সবচেয়ে দেরিতে ওঠার সময়টি অবশ্যই আগে ওঠার সময়ের পরে হতে হবে।</string>
+    <string name="validation_latest_before_earliest">সবচেয়ে দেরিতে ওঠার সময়টি আগে ওঠার সময়ের পরে হতে হবে।</string>
     <string name="validation_leave_too_early">বাড়ি থেকে বের হওয়ার সময়টি বাথরুমের কাজ শেষ হওয়ার পরে হতে হবে।</string>
     <string name="weekday_1">সোমবার</string>
     <string name="weekday_2">মঙ্গলবার</string>
@@ -112,12 +112,12 @@
     <string name="settings_leave_family">পরিবার ছাড়ুন</string>
     <string name="settings_delete_family">পরিবার মুছে ফেলুন</string>
     <string name="settings_delete_family_dialog_title">পুরো পরিবার মুছে ফেলবেন?</string>
-    <string name="settings_delete_family_dialog_text">আপনি কি এই পরিবারটিকে স্থায়ীভাবে মুছে ফেলতে চান? সকল সদস্য, সময় এবং সেটিংস সবার জন্য মুছে যাবে। এটি আর ফিরিয়ে আনা যাবে না।</string>
+    <string name="settings_delete_family_dialog_text">আপনি কি পরিবারটিকে স্থায়ীভাবে মুছে ফেলতে চান? সব সদস্য, সময় এবং সেটিংস সবার জন্য মুছে যাবে। এটি আর ফিরিয়ে আনা যাবে না।</string>
     <string name="settings_delete_family_dialog_confirm">চিরতরে মুছে ফেলুন</string>
     <string name="settings_delete_family_dialog_cancel">বাতিল করুন</string>
     <string name="settings_delete_family_warning_title">অন্যান্য সদস্যরা এখনও আছেন!</string>
-    <string name="settings_delete_family_warning_text">এই পরিবারে এখনও অন্যান্য মানুষ আছেন। আপনি যদি এটি মুছে ফেলেন, সবাই অ্যাক্সেস হারাবে। আপনি কি সত্যিই নিশ্চিত?</string>
-    <string name="settings_delete_family_warning_confirm">হ্যাঁ, সবার জন্য মুছে ফেলুন</string>
+    <string name="settings_delete_family_warning_text">এই পরিবারে এখনও অন্যান্য মানুষ আছেন। আপনি মুছলে সবাই অ্যাক্সেস হারাবে। আপনি কি নিশ্চিত?</string>
+    <string name="settings_delete_family_warning_confirm">হ্যাঁ, সবার জন্য মুছুন</string>
     <string name="settings_logout">লগ আউট করুন</string>
     <string name="settings_delete_account">অ্যাকাউন্ট মুছুন</string>
     <string name="settings_footer_version">FamWake v%1$s</string>
@@ -233,9 +233,9 @@
     <string name="awake_today_desc">আমি আগেই উঠে গেছি</string>
     <string name="awake_active_desc">আগে থেকেই জেগে আছেন</string>
 
-    <string name="error_load_members">পরিবারের সদস্যদের লোড করা যায়নি</string>
+    <string name="error_load_members">সদস্যদের লোড করা যায়নি</string>
     <string name="error_create_family">পরিবার তৈরি করা যায়নি: %1$s</string>
-    <string name="error_create_family_rate_limit">আপনি সম্প্রতি অনেকগুলো পরিবার তৈরি করেছেন। একটু অপেক্ষা করে আবার চেষ্টা করুন।</string>
+    <string name="error_create_family_rate_limit">আপনি সম্প্রতি অনেকগুলো পরিবার তৈরি করেছেন। একটু অপেক্ষা করে আবার চেষ্টা করুন。</string>
     <string name="error_join_family_rate_limit">অনেক বেশি চেষ্টা করা হয়েছে। একটু অপেক্ষা করে আবার চেষ্টা করুন।</string>
     <string name="error_invalid_code">আমন্ত্রণ কোডটি সঠিক নয়: %1$s</string>
     <string name="error_family_not_found">এই কোড দিয়ে কোনো পরিবার পাওয়া যায়নি।</string>
@@ -362,13 +362,11 @@
     <string name="tooltip_alarm_sound">আপনার নিজের ওঠার শব্দ বেছে নিতে এখানে ট্যাপ করুন – সাধারণ শব্দের বদলে আপনার পছন্দের মিউজিক দিন।</string>
     <string name="settings_language_dialects">উপভাষা</string>
 
-    
     <string name="notif_channel_schedule_change_name">রুটিন আপডেট</string>
     <string name="notif_channel_schedule_change_desc">ওঠার সময় বা বাথরুমের সিরিয়াল বদলালে আপনাকে জানায়</string>
     <string name="notif_channel_family_events_name">পারিবারিক আপডেট</string>
     <string name="notif_channel_family_events_desc">পরিবারে কেউ যুক্ত হলে বা ছাড়লে আপনাকে জানায়</string>
 
-    
     <string name="notif_schedule_changed_title">FamWake: সকালের রুটিন আপডেট হয়েছে</string>
     <string name="notif_schedule_changed_body">ওঠার সময় বদলানো হয়েছে। আপনার নতুন সময় দেখতে অ্যাপটি খুলুন।</string>
     <string name="notif_member_joined_title">FamWake: পরিবারের নতুন সদস্য!</string>
@@ -376,13 +374,12 @@
     <string name="notif_member_left_title">FamWake: পারিবারিক আপডেট</string>
     <string name="notif_member_left_body">পরিবার থেকে কেউ একজন চলে গেছে।</string>
 
-    
     <string name="notif_permission_title">নোটিফিকেশনের অনুমতি দিন</string>
     <string name="notif_permission_desc">নোটিফিকেশন বন্ধ করলে অ্যালার্ম ঠিকমতো কাজ নাও করতে পারে। এগুলো চালু রাখুন।</string>
     <string name="notif_permission_button">নোটিফিকেশন চালু করুন</string>
     <string name="notif_manage_title">নোটিফিকেশন সেটিংস</string>
     <string name="notif_manage_desc">ফোনের সেটিংসে শব্দ ও ভাইব্রেশন বদলান।</string>
-    <string name="settings_steal_title">প্রোফাইল নেব?</string>
-    <string name="settings_steal_text">%1$s ইতিমধ্যেই নেওয়া হয়েছে। আপনি কি এটি নিতে চান?</string>
-    <string name="settings_steal_confirm">নিন</string>
+    <string name="settings_steal_title">এই প্রোফাইলটি ব্যবহার করবেন?</string>
+    <string name="settings_steal_text">%1$s ইতিমধ্যেই নেওয়া হয়েছে। আপনি কি এটি আপনার জন্য ব্যবহার করতে চান?</string>
+    <string name="settings_steal_confirm">হ্যাঁ, ব্যবহার করুন</string>
 </resources>
