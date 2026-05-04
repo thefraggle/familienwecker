@@ -5,12 +5,12 @@
     <string name="password_label">Şifre</string>
     <string name="register_button">Kayıt ol</string>
     <string name="login_button">Giriş yap</string>
-    <string name="already_have_account">Zaten bir hesabınız var mı? Buradan oturum açın.</string>
+    <string name="already_have_account">Zaten bir hesabınız var mı? Buradan giriş yapın.</string>
     <string name="no_account">Henüz hesabınız yok mu? Buradan kaydolun.</string>
     <string name="login_with_google">Google ile giriş yap</string>
     <string name="login_forgot_password">Şifrenizi mi unuttunuz?</string>
     <string name="login_password_reset_sent">Şifre sıfırlama e-postası gönderildi!</string>
-    <string name="login_google_error_no_account">Bu cihazda Google hesabı bulunamadı. Lütfen Android ayarlarından Google\'a giriş yapın veya e-posta/şifre kullanın.</string>
+    <string name="login_google_error_no_account">Bu telefonda Google hesabı bulunamadı. Lütfen telefonunuzun ayarlarından Google\'a giriş yapın veya e-posta ve şifrenizi kullanın.</string>
 
     <string name="setup_create_tab">Oluştur</string>
     <string name="setup_join_tab">Katıl</string>
@@ -19,13 +19,13 @@
     <string name="setup_join_code_label">6 haneli davet kodu</string>
     <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">Aileye katıl</string>
-    <string name="join_loading_text">Katılım isteği işleniyor…</string>
+    <string name="join_loading_text">Aileye bağlanıyor…</string>
 
     <string name="main_add_member_desc">Üye ekle</string>
     <string name="main_family_members">Aile üyeleri</string>
     <string name="main_current_schedule">Mevcut plan</string>
-    <string name="main_no_active_schedule">Aktif alarm planı yok.</string>
-    <string name="main_optimal_plan">İşte hesaplanan plan:</string>
+    <string name="main_no_active_schedule">Şu anda aktif bir alarm yok.</string>
+    <string name="main_optimal_plan">İşte ailenizin planı:</string>
     <string name="main_plan_paused">Alarmınız şu anda duraklatıldı.</string>
     <string name="main_shared_breakfast">☕ Ortak kahvaltı: %s</string>
     <string name="main_wake_time">Uyanma: %1$s - %2$s</string>
@@ -36,14 +36,14 @@
     <string name="main_member_alarm_off">(Alarm yok)</string>
     <string name="main_member_limit_reached">Maksimum 6 üye sınırına ulaşıldı.</string>
     <string name="main_alarm_enabled">Alarm: AÇIK</string>
-    <string name="main_alarm_enabled_desc">Otomatik alarmlar aktif.</string>
-    <string name="main_snooze_active">Erteleme %1$s saatine kadar aktif</string>
+    <string name="main_alarm_enabled_desc">Alarmlarınız açık.</string>
+    <string name="main_snooze_active">%1$s saatine kadar ertelendi</string>
     <string name="main_alarm_disabled">Alarm: KAPALI</string>
-    <string name="main_alarm_disabled_desc">Manuel duraklatma aktif.</string>
+    <string name="main_alarm_disabled_desc">Alarmlarınız duraklatıldı.</string>
     <string name="main_no_profile_warning">Profil seçilmedi!</string>
-    <string name="main_no_profile_warning_desc">Alarmın sizin için çalması adına lütfen ayarlardan profilinizi seçin.</string>
+    <string name="main_no_profile_warning_desc">Telefonun sizin için çalabilmesi adına lütfen ayarlardan kendi profilinizi seçin.</string>
     <string name="main_unclaimed_first_title">%1$s için hiçbir alarm çalmıyor!</string>
-    <string name="main_unclaimed_first_desc">%1$s ilk sırada ama kendi profili yok – ve zamanında uyanmayabilir.</string>
+    <string name="main_unclaimed_first_desc">%1$s ilk sırada ama henüz telefonunda profilini seçmedi – uyanamayabilir!</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="delete_desc">Sil</string>
@@ -52,8 +52,8 @@
     <string name="add_member_title_edit">Üyeyi düzenle</string>
     <string name="back_desc">Geri</string>
     <string name="unsaved_changes_title">Kaydedilmemiş Değişiklikler</string>
-    <string name="unsaved_changes_message">Değişiklikleri iptal etmek istiyor musunuz?</string>
-    <string name="unsaved_changes_discard">İptal et</string>
+    <string name="unsaved_changes_message">Değişikliklerden vazgeçmek istiyor musunuz?</string>
+    <string name="unsaved_changes_discard">Vazgeç</string>
     <string name="unsaved_changes_keep">Düzenlemeye devam et</string>
     <string name="add_member_submit">Kaydet</string>
     <string name="delete_member_title">Üyeyi sil</string>
@@ -65,16 +65,16 @@
     <string name="add_member_unknown">Bilinmiyor</string>
     <string name="add_member_earliest_wake">En erken uyanma saati</string>
     <string name="add_member_latest_wake">En geç uyanma saati</string>
-    <string name="add_member_bathroom_duration">Banyo süresi (dakika)</string>
-    <string name="add_member_wants_breakfast">Kahvaltılı</string>
-    <string name="add_member_leave_home">Evden çıkış saati</string>
+    <string name="add_member_bathroom_duration">Banyoda gereken süre (dakika)</string>
+    <string name="add_member_wants_breakfast">Kahvaltı yapacak</string>
+    <string name="add_member_leave_home">Evden çıkması gereken saat</string>
     <string name="add_member_day_profiles_title">Haftalık plan</string>
     <string name="add_member_day_active">Alarm aktif</string>
-    <string name="add_member_copy_to_days">\"%1$s\" gününü diğer günlere kopyala</string>
+    <string name="add_member_copy_to_days">\"%1$s\" saatlerini diğer günlere kopyala</string>
     <string name="add_member_copy_dialog_title">Günlere kopyala</string>
     <string name="add_member_copy_apply">Uygula</string>
-    <string name="validation_latest_before_earliest">En geç uyanma saati, en erken uyanma saatinden sonra olmalıdır</string>
-    <string name="validation_leave_too_early">Evden çıkış saati banyo saatinden (Uyanma saati + Banyo süresi) sonra olmalıdır</string>
+    <string name="validation_latest_before_earliest">En geç uyanma saati, en erken uyanma saatinden sonra olmalıdır.</string>
+    <string name="validation_leave_too_early">Evden çıkış saati, banyo işiniz bittikten sonra olmalıdır.</string>
     <string name="weekday_1">Pazartesi</string>
     <string name="weekday_2">Salı</string>
     <string name="weekday_3">Çarşamba</string>
@@ -92,39 +92,42 @@
 
     <string name="settings_title">Ayarlar</string>
     <string name="settings_profile_title">Profilim</string>
-    <string name="settings_profile_desc">Telefonunuz yalnızca burada seçilen profilin uyanma saatinde çalar.</string>
+    <string name="settings_profile_desc">Telefonunuz yalnızca burada seçilen kişinin saatinde çalar.</string>
     <string name="settings_please_select">Lütfen seçin</string>
-    <string name="settings_no_members">Üye bulunamadı</string>
+    <string name="settings_no_members">Aile üyesi bulunamadı</string>
     <string name="settings_alarm_title">Alarm sesi</string>
-    <string name="settings_battery_warning_title">Pil optimizasyonu aktif</string>
-    <string name="settings_battery_warning_text">Alarm gecikebilir veya engellenebilir. Lütfen FamWake için pil optimizasyonunu devre dışı bırakın.</string>
+    <string name="settings_battery_warning_title">Pil ayarları alarmı engelleyebilir</string>
+    <string name="settings_battery_warning_text">Telefonunuz şarjı korumak için alarmı geciktirebilir veya engelleyebilir. Lütfen FamWake\'in arka planda çalışmasına izin verin.</string>
     <string name="settings_battery_warning_button">Şimdi düzelt</string>
     <string name="settings_alarm_default">Varsayılan</string>
-    <string name="settings_alarm_select">Ses seçin: %1$s</string>
-    <string name="settings_alarm_picker_title">Bir alarm sesi seçin</string>
+    <string name="settings_alarm_select">Ses: %1$s</string>
+    <string name="settings_alarm_picker_title">Alarm sesinizi seçin</string>
     <string name="settings_account_title">Aile ve Hesap</string>
+    <string name="settings_join_family_locked">Bir aileye katılmak için lütfen giriş yapın.</string>
+    <string name="settings_share_code_locked">Davet kodunuzu paylaşmak için lütfen giriş yapın.</string>
+    <string name="settings_anonymous_login_button">Giriş yap / Kayıt ol</string>
     <string name="settings_join_code">%1$s için davet kodu:</string>
-    <string name="settings_share_code">Kodu paylaş</string>
-    <string name="settings_share_message">İşte FamWake bağlantınız:\nhttps://familienwecker.de/join/%2$s\n\nKod: %2$s\nGrup: %1$s\n\nTıklayın, giriş yapın ve bağlanalım. Birlikte uyanmak daha eğlenceli! ⏰❤️</string>
+    <string name="settings_share_code">Davet bağlantısını paylaş</string>
+    <string name="settings_share_message">İşte FamWake bağlantınız:\nhttps://familienwecker.de/join/%2$s\n\nKod: %2$s\nAile: %1$s\n\nBağlantıya tıklayın, giriş yapın ve bağlanalım. Birlikte uyanmak çok daha kolay! ⏰❤️</string>
     <string name="settings_leave_family">Aileden ayrıl</string>
     <string name="settings_delete_family">Aileyi sil</string>
-    <string name="settings_delete_family_dialog_title">Aile silinsin mi?</string>
-    <string name="settings_delete_family_dialog_text">Bu aileyi kalıcı olarak silmek istediğinize emin misiniz? Tüm üyeler, planlar ve ayarlar herkes için silinecektir. Bu işlem geri alınamaz.</string>
-    <string name="settings_delete_family_dialog_confirm">Sil</string>
+    <string name="settings_delete_family_dialog_title">Tüm aileyi sil?</string>
+    <string name="settings_delete_family_dialog_text">Bu aileyi kalıcı olarak silmek istediğinize emin misiniz? Tüm üyeler, saatler ve ayarlar herkes için silinecektir. Bu işlem geri alınamaz.</string>
+    <string name="settings_delete_family_dialog_confirm">Kalıcı olarak sil</string>
     <string name="settings_delete_family_dialog_cancel">İptal</string>
-    <string name="settings_delete_family_warning_title">Diğer üyeler aktif!</string>
-    <string name="settings_delete_family_warning_text">Bu ailede hala aktif üyeler var. Silerseniz herkes erişimini kaybedecek. Gerçekten her şeyi zorla silmek istiyor musunuz?</string>
-    <string name="settings_delete_family_warning_confirm">Evet, her şeyi sil</string>
+    <string name="settings_delete_family_warning_title">Diğer üyeler hala burada!</string>
+    <string name="settings_delete_family_warning_text">Bu ailede hala başka kişiler var. Eğer silerseniz herkes erişimini kaybedecek. Gerçekten emin misiniz?</string>
+    <string name="settings_delete_family_warning_confirm">Evet, herkes için sil</string>
     <string name="settings_logout">Çıkış yap</string>
     <string name="settings_delete_account">Hesabı sil</string>
-    <string name="settings_footer_version">FamWake Aile Alarmı v%1$s</string>
+    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Tüm hakları saklıdır.</string>
 
     <string name="empty_members_title">Henüz üye yok</string>
-    <string name="empty_members_description">Uyanma saatlerinizi görmek ve birbirinizi uyandırmak için profiller ekleyin.</string>
+    <string name="empty_members_description">Sabah planınızı oluşturmak için aile üyelerini ekleyin.</string>
     <string name="empty_schedule_title">Aktif alarm yok</string>
-    <string name="empty_schedule_description">Şu anda kimse için ayarlanmış alarm yok. Uyumaya devam edin!</string>
+    <string name="empty_schedule_description">Şu anda açık olan hiçbir alarm yok. Uykuya devam!</string>
 
     <string name="settings_language_title">Dil</string>
     <string name="settings_language_system">Sistem varsayılanı</string>
@@ -144,48 +147,52 @@
     <string name="settings_display_title">Uygulama ayarları</string>
     <string name="settings_help_feedback_title">Yardım ve Geri Bildirim</string>
     <string name="settings_support_button">Geliştiriciye e-posta gönder</string>
-    <string name="settings_start_onboarding">🎓 Uygulama Turu</string>
+    <string name="settings_start_onboarding">🎓 Hızlı Tur</string>
 
     <string name="onboarding_skip">Geç</string>
     <string name="onboarding_next">İleri</string>
     <string name="onboarding_done">Hesap olmadan başla</string>
     <string name="onboarding_slide0_title">Takım halinde sabahınız.</string>
-    <string name="onboarding_slide0_body">Tartışma yok, kaos yok. FamWake herkesin güne rahat başlamasını sağlar – tamamen otomatik.</string>
+    <string name="onboarding_slide0_body">Tartışma yok, kaos yok. FamWake herkesin güne rahat başlamasını sağlar – tamamen kendi kendine.</string>
     <string name="onboarding_slide1_title">Artık bekleme yok.</string>
-    <string name="onboarding_slide1_body">FamWake her aile üyesi için ideal uyanma zamanını hesaplar – banyo, kahvaltı ve çıkışı koordine eder. Artık kalabalık yok.</string>
+    <string name="onboarding_slide1_body">FamWake, ailedeki herkes için en iyi uyanma saatini bulur – banyo, kahvaltı ve evden çıkış saatlerine göre ayarlar. Artık lavabo önünde sıra beklemek yok.</string>
     <string name="onboarding_slide2_title">Her gün farklı.</string>
-    <string name="onboarding_slide2_body">Pazartesi ofis, çarşamba evden çalışma? Her gün için ayrı saatler ayarlayın – uygulama gerisini halleder.</string>
+    <string name="onboarding_slide2_body">Pazartesi ofis, çarşamba evden çalışma? Her gün için saatlerinizi ayarlayın, uygulama gerisini halleder.</string>
     <string name="onboarding_slide3_title">Saniyeler içinde bağlanın.</string>
-    <string name="onboarding_slide3_body">Bir kod paylaşın ve aileniz anında katılsın. Yeni üyeler? Plan otomatik olarak uyum sağlar. Ve bir şey değişirse, herkes anında haberdar olur.</string>
-    <string name="onboarding_slide4_title">Her zaman güvenilir</string>
-    <string name="onboarding_slide4_body">Rahat sabahların keyfini çıkarın; güvenilir bir şekilde, hatta çevrimdışı. İnternet kesilirse alarm yine tam zamanında çalar.</string>
+    <string name="onboarding_slide3_body">Davet kodunuzu paylaşın ve aileniz hemen katılsın. Biri saatlerini değiştirirse, herkesin planı anında güncellenir.</string>
+    <string name="onboarding_slide4_title">Her zaman güvenilir.</string>
+    <string name="onboarding_slide4_body">Her gün rahat bir sabahın tadını çıkarın. Gece internet kesilse bile alarmınız tam zamanında çalar.</string>
+    
+    <string name="onboarding_mock_name1">Baba</string>
+    <string name="onboarding_mock_name2">Anne</string>
+    <string name="onboarding_mock_family_name">Yılmaz</string>
     <string name="settings_feedback_button">Geri bildirim ver / Hata bildir</string>
     <string name="feedback_title">Geri bildirim</string>
-    <string name="feedback_intro">Uygulamayı daha iyi yapmamıza yardım edin! Aklınızda ne var?</string>
+    <string name="feedback_intro">Uygulamayı daha da iyi yapmamıza yardım edin! Aklınızda ne var?</string>
     <string name="feedback_category_label">Kategori</string>
     <string name="feedback_category_bug">Bir hata buldum</string>
-    <string name="feedback_category_feature">Özellik isteği</string>
-    <string name="feedback_category_praise">Övgü ve Eleştiri</string>
+    <string name="feedback_category_feature">Uygulama için bir fikir</string>
+    <string name="feedback_category_praise">Övgü ve Yorumlar</string>
     <string name="feedback_category_other">Diğer</string>
     <string name="feedback_message_label">Mesaj</string>
-    <string name="feedback_message_placeholder">İsteğinizi kısaca açıklayın…</string>
+    <string name="feedback_message_placeholder">Kısaca ne olduğunu açıklayın…</string>
     <string name="feedback_email_label">E-posta (isteğe bağlı)</string>
-    <string name="feedback_email_placeholder">E-postanız (yanıt vermemizi isterseniz)</string>
-    <string name="feedback_auto_info_title">Otomatik olarak eklenenler:</string>
+    <string name="feedback_email_placeholder">Size yanıt verebilmemiz için</string>
+    <string name="feedback_auto_info_title">Otomatik olarak gönderilenler:</string>
     <string name="feedback_auto_version">Uygulama sürümü: v%1$s</string>
-    <string name="feedback_auto_device">Cihaz: %1$s</string>
+    <string name="feedback_auto_device">Telefon: %1$s</string>
     <string name="feedback_cancel">İptal</string>
-    <string name="feedback_send">Geri bildirim gönder</string>
-    <string name="feedback_success">Teşekkürler! Geri bildiriminiz alındı ve bize çok yardımcı oluyor.</string>
-    <string name="feedback_success_title">Geri Bildirim Gönderildi</string>
-    <string name="feedback_success_message">Geri bildiriminiz için teşekkür ederiz! FamWake\'i herkes için geliştirmemize yardımcı oluyor.</string>
+    <string name="feedback_send">Mesajı gönder</string>
+    <string name="feedback_success">Teşekkürler! Mesajınızı aldık.</string>
+    <string name="feedback_success_title">Mesaj Gönderildi</string>
+    <string name="feedback_success_message">Yardımınız için teşekkürler! Geri bildiriminiz FamWake\'i herkes için geliştirmemize yardımcı oluyor.</string>
     <string name="settings_terms_of_use">Kullanım Koşulları</string>
-    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-tr.html</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
     <string name="settings_privacy_policy">Gizlilik Politikası</string>
-    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-tr.html</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
     <string name="settings_imprint">Künye</string>
-    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-tr.html</string>
-    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-tr.html</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
 
     <string name="registration_disclaimer">Kayıt olarak %1$s ve %2$s\'nı kabul etmiş olursunuz.</string>
     <string name="registration_terms_of_use">Kullanım Koşulları</string>
@@ -194,66 +201,66 @@
     <string name="settings_theme_light">Açık</string>
     <string name="settings_theme_dark">Koyu</string>
 
-    <string name="ringing_wake_up">Uyan, %1$s!</string>
+    <string name="ringing_wake_up">Uyanma vakti, %1$s!</string>
     <string-array name="ringing_messages">
         <item>Banyo şu an tamamen senin!</item>
-        <item>Trafik yok, stres yok – banyo zamanın şimdi başlıyor.</item>
-        <item>Sürerken banyodaki huzurun tadını çıkar!</item>
+        <item>Koşturmaca yok, stres yok – banyo zamanın şimdi başlıyor.</item>
+        <item>Hazır boşken banyodaki huzurun tadını çıkar!</item>
         <item>İlk kahve zamanı. Dünya seni bekliyor!</item>
-        <item>İyi uyudun mu? Bugün programın hazır.</item>
-        <item>Güne hazır mısın? Her şey koordine edildi.</item>
-        <item>Günü sarsma zamanı! Banyo zamanın başlıyor.</item>
+        <item>İyi uyudun mu? Bugünkü planın hazır.</item>
+        <item>Güne hazır mısın? Her şey mükemmel şekilde ayarlandı.</item>
+        <item>Günü yakalama zamanı! Banyo sıran başlıyor.</item>
         <item>Uyan ve sesi aç – sahne senin!</item>
-        <item>Sabahları heavy metal dertleri uzak tutar!</item>
-        <item>Planın devrede. Hadi gidelim!</item>
-        <item>Kalkışa hazır mısın? Takım sana güveniyor.</item>
-        <item>Kalk, güneş ışığı! Banyo senin için boş.</item>
-        <item>Kişisel banyo slotun şimdi başlıyor – değerlendir!</item>
-        <item>Banyoya giden yol açık – slotun rezerve edildi!</item>
-        <item>Erken kalkan yolcu sıcak suyu kapar!</item>
-        <item>5 dakika daha mı? Hayır! Zaman pencerem bekliyor.</item>
-        <item>Bugün güzel bir gün olacak. Şimdi başlıyor!</item>
-        <item>Diş fırçan seni özledi. Hadi banyoya!</item>
-        <item>Her şey koordineli, her şey planlı – sıra sende!</item>
-        <item>Erken kalkan kuş banyoyu kendine saklar.</item>
+        <item>Sabahları güzel bir müzik dertleri uzak tutar!</item>
+        <item>Ailenin planı devrede. Hadi başlayalım!</item>
+        <item>Güne başlamaya hazır mısın? Ailen sana güveniyor.</item>
+        <item>Kalkma vakti! Banyo senin için boş.</item>
+        <item>Kişisel banyo süren şimdi başlıyor – tadını çıkar!</item>
+        <item>Lavaboya giden yol açık – sıra sende!</item>
+        <item>Erken kalkan sıcak suyu kapar!</item>
+        <item>5 dakika daha mı? Hayır! Sıran seni bekliyor.</item>
+        <item>Bugün harika bir gün olacak. Ve tam şu an başlıyor!</item>
+        <item>Diş fırçan seni özledi. Doğru banyoya!</item>
+        <item>Her şey ayarlandı, her şey planlandı – sıra sende!</item>
+        <item>Erken kalkan banyoyu kendine saklar.</item>
     </string-array>
     <string name="ringing_stop">Alarmı durdur</string>
     <string name="ringing_snooze">Ertele (5 dk)</string>
-    <string name="pause_today_desc">Bugün duraklat</string>
+    <string name="pause_today_desc">Bugünlük duraklat</string>
     <string name="awake_today_desc">Zaten uyandım</string>
-    <string name="awake_active_desc">Zaten uyandım</string>
+    <string name="awake_active_desc">Zaten uyanık</string>
 
-    <string name="error_load_members">Üyeler yüklenirken hata oluştu</string>
-    <string name="error_create_family">Aile oluşturulurken hata oluştu: %1$s</string>
-    <string name="error_create_family_rate_limit">Son bir saat içinde zaten 3 aile oluşturdunuz. Lütfen bir saat bekleyip tekrar deneyin.</string>
-    <string name="error_join_family_rate_limit">Çok fazla katılım denemesi (dakikada maks. 5). Lütfen biraz bekleyip tekrar deneyin.</string>
-    <string name="error_invalid_code">Geçersiz davet kodu: %1$s</string>
-    <string name="error_family_not_found">Bu kodla herhangi bir aile bulunamadı.</string>
-    <string name="error_code_generation_failed">Benzersiz bir kod oluşturulamadı. Lütfen tekrar deneyin.</string>
+    <string name="error_load_members">Aile üyeleri yüklenemedi</string>
+    <string name="error_create_family">Aile oluşturulamadı: %1$s</string>
+    <string name="error_create_family_rate_limit">Yakın zamanda çok fazla aile oluşturdunuz. Lütfen biraz bekleyip tekrar deneyin.</string>
+    <string name="error_join_family_rate_limit">Çok fazla deneme yapıldı. Lütfen biraz bekleyip tekrar deneyin.</string>
+    <string name="error_invalid_code">Davet kodu geçersiz: %1$s</string>
+    <string name="error_family_not_found">Bu kodla herhangi bir aile bulamadık.</string>
+    <string name="error_code_generation_failed">Kod oluşturulamadı. Lütfen tekrar deneyin.</string>
     <string name="join_conflict_title">Yeni aileye katıl?</string>
-    <string name="join_conflict_text">Zaten \"%1$s\" ailesinin bir üyesisiniz. Yeni aileye katılmak için önce mevcut ailenizden ayrılmalısınız. \"%1$s\" ailesinden ayrılıp %2$s koduyla katılmak istiyor musunuz?</string>
+    <string name="join_conflict_text">Zaten \"%1$s\" ailesindesiniz. Yeni aileye katılmak için önce buradan ayrılmalısınız. \"%1$s\" ailesinden ayrılıp yeni aileye katılmak istiyor musunuz?</string>
     <string name="join_conflict_confirm">Ayrıl ve Katıl</string>
     <string name="error_delete_member">Üye silinemedi: %1$s</string>
-    <string name="error_sync_failed">Senkronizasyon başarısız oldu</string>
-    <string name="error_delete_family">Aile silinirken hata oluştu: %1$s</string>
-    <string name="error_calculate_schedule">Plan hesaplanırken hata oluştu: %1$s</string>
-    <string name="error_not_logged_in">Kullanıcı giriş yapmamış</string>
-    <string name="error_system">Sistem hatası</string>
-    <string name="error_invalid_credentials">Geçersiz e-posta veya şifre. Lütfen bilgilerinizi kontrol edin.</string>
-    <string name="error_login_failed">Giriş başarısız oldu</string>
+    <string name="error_sync_failed">Veriler güncellenemedi</string>
+    <string name="error_delete_family">Aile silinemedi: %1$s</string>
+    <string name="error_calculate_schedule">Saatler hesaplanamadı: %1$s</string>
+    <string name="error_not_logged_in">Giriş yapmadınız.</string>
+    <string name="error_system">Bir şeyler ters gitti.</string>
+    <string name="error_invalid_credentials">Yanlış e-posta veya şifre. Lütfen yazdıklarınızı kontrol edin.</string>
+    <string name="error_login_failed">Giriş yapılamadı</string>
     <string name="error_login_failed_unknown">Bilinmeyen giriş hatası</string>
-    <string name="error_registration_failed">Kayıt başarısız oldu</string>
-    <string name="error_registration_failed_unknown">Kullanıcı oluşturulamadı</string>
-    <string name="error_unknown">Bilinmeyen bir hata oluştu. Lütfen tekrar deneyin.</string>
-    <string name="error_google_sign_in_failed_unknown">Google ile giriş başarısız oldu</string>
-    <string name="error_empty_email">Lütfen bir e-posta adresi girin.</string>
-    <string name="error_invalid_email">Geçersiz e-posta adresi. Lütfen yazılışı kontrol edin.</string>
-    <string name="error_user_not_found">Bu e-posta için hesap bulunamadı.</string>
-    <string name="error_too_many_requests">Çok fazla deneme. Lütfen biraz bekleyip tekrar deneyin.</string>
-    <string name="error_password_reset_failed">Şifre sıfırlama başarısız oldu. Lütfen daha sonra tekrar deneyin.</string>
-    <string name="error_profile_taken">Bu profil zaten alınmış.</string>
-    <string name="error_profile_claim_offline">Bağlantı yok. Profil seçimi internet erişimi gerektirir.</string>
-    <string name="error_delete_not_admin">Sadece aileyi oluşturan kişi aileyi silebilir.</string>
+    <string name="error_registration_failed">Kayıt olunamadı</string>
+    <string name="error_registration_failed_unknown">Hesabınız oluşturulamadı</string>
+    <string name="error_unknown">Bir şeyler ters gitti. Lütfen tekrar deneyin.</string>
+    <string name="error_google_sign_in_failed_unknown">Google ile giriş yapılamadı</string>
+    <string name="error_empty_email">Lütfen e-posta adresinizi girin.</string>
+    <string name="error_invalid_email">Bu e-posta adresi doğru görünmüyor. Lütfen kontrol edin.</string>
+    <string name="error_user_not_found">Bu e-posta için bir hesap bulamadık.</string>
+    <string name="error_too_many_requests">Çok fazla deneme. Lütfen biraz bekleyin.</string>
+    <string name="error_password_reset_failed">Şifre sıfırlanamadı. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="error_profile_taken">Bu profili zaten başka biri kullanıyor.</string>
+    <string name="error_profile_claim_offline">İnternet yok. Kim olduğunuzu seçmek için çevrimiçi olmalısınız.</string>
+    <string name="error_delete_not_admin">Aileyi sadece onu oluşturan kişi silebilir.</string>
 
     <string name="alarm_default_member">Aile üyesi</string>
     <string name="alarm_notification_title">Aile alarmı çalıyor</string>
@@ -262,79 +269,80 @@
 
     <string name="settings_fallback_username">Ebeveyn</string>
 
-    <string name="error_alarm_permission">Aile alarmının zamanında çalabilmesi için lütfen sistem ayarlarından kesin alarmlara izin verin.</string>
+    <string name="error_alarm_permission">Telefonunuzun sizi zamanında uyandırabilmesi için lütfen ayarlardan alarmlara izin verin.</string>
 
-    <string name="permission_fullscreen_title">Alarm izni gerekli</string>
-    <string name="permission_fullscreen_message">FamWake, kilit ekranınızda alarmı gösterebilmek için izne ihtiyaç duyar. Lütfen sistem ayarlarından buna izin verin.</string>
+    <string name="permission_fullscreen_title">Alarm izni gerekiyor</string>
+    <string name="permission_fullscreen_message">FamWake\'in sizi düzgün bir şekilde uyandırabilmesi için izne ihtiyacı var. Lütfen bunu telefonunuzun ayarlarından etkinleştirin.</string>
     <string name="permission_fullscreen_open">Ayarları Aç</string>
 
-    <string name="schedule_message_optimal">İşte hesaplanan plan:</string>
-    <string name="schedule_message_no_members">Aktif üye yok. Herkes duraklatıldı.</string>
-    <string name="schedule_message_no_valid">Geçerli plan bulunamadı. Saatler çok fazla çakışıyor.</string>
-    <string name="schedule_message_no_valid_desc">İpucu: Uyanma pencerenizi genişletin, banyo sürenizi kısaltın veya başka bir üyeyi duraklatın.</string>
-    <string name="schedule_message_time_adjusted">Sıranıza uyması için saatler %1$d dk ayarlandı.</string>
-    <string name="schedule_message_breakfast_reduced">Planınıza uyması için kahvaltı %1$d dk azaltıldı.</string>
+    <string name="schedule_message_optimal">İşte ailenizin planı:</string>
+    <string name="schedule_message_no_members">Kimse aktif değil. Tüm alarmlar duraklatıldı.</string>
+    <string name="schedule_message_no_valid">Saatler, iyi bir plan oluşturmak için çok fazla çakışıyor.</string>
+    <string name="schedule_message_no_valid_desc">İpucu: Uyanma aralığınızı genişletmeyi, banyo sürenizi kısaltmayı veya birinin alarmını duraklatmayı deneyin.</string>
+    <string name="schedule_message_time_adjusted">Her şeyin uyumlu olması için saatler %1$d dakika kaydırıldı.</string>
+    <string name="schedule_message_breakfast_reduced">Her şeyin plana uyması için kahvaltı süresi %1$d dakika kısaltıldı.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Kahvaltı −%1$d dk. &amp; saatler %2$d dk. kaydırıldı.</string>
     <string name="schedule_message_member_conflict">%1$s için çakışma: Saatler çok fazla çakışıyor.</string>
     <string name="schedule_message_member_conflict_desc">Sıralamayı değiştirmeyi veya saatleri ayarlamayı deneyin.</string>
-    <string name="main_fallback_alarm_active">⚠️ Yedek alarm aktif (%1$s). Lütfen planı düzeltin!</string>
+    <string name="main_fallback_alarm_active">⚠️ Uyarı: Plan şu anda uyuşmuyor (%1$s). Lütfen saatlerinizi ayarlayın!</string>
 
-    <string name="error_password_too_short">Şifre en az 8 karakter uzunluğunda olmalıdır.</string>
-    <string name="error_email_already_in_use">Bu e-posta adresi zaten başka bir hesap tarafından kullanılıyor.</string>
-    <string name="error_weak_password">Şifre çok zayıf. Lütfen en az 8 karakter ve özel karakterler kullanın.</string>
+    <string name="error_password_too_short">Şifreniz en az 8 karakter uzunluğunda olmalıdır.</string>
+    <string name="error_email_already_in_use">Bu e-posta adresi zaten kayıtlı.</string>
+    <string name="error_weak_password">Şifrenizin tahmin edilmesi çok kolay. Lütfen en az 8 karakter ve bazı özel semboller kullanın.</string>
     <string name="login_verify_email_title">✉️ E-postanızı doğrulayın</string>
-    <string name="login_verify_email_text">%1$s\nadresine bir doğrulama e-postası gönderdik.\nHesabınızı aktifleştirmek için lütfen e-postadaki bağlantıya tıklayın.</string>
-    <string name="login_verify_email_confirm">Doğruladım ✓</string>
+    <string name="login_verify_email_text">%1$s\nadresine kısa bir e-posta gönderdik. Hesabınızı aktifleştirmek için lütfen içindeki bağlantıya tıklayın.</string>
+    <string name="login_verify_email_confirm">Bağlantıya tıkladım ✓</string>
     <string name="login_verify_email_resend">E-postayı tekrar gönder</string>
-    <string name="login_verify_email_not_verified">E-post henüz doğrulanmadı. Lütfen gelen kutunuzu kontrol edin.</string>
+    <string name="login_verify_email_not_verified">E-posta henüz doğrulanmadı. Lütfen gelen kutunuzu kontrol edin.</string>
 
-    <string name="tooltip_awake_button">Erken mi uyandınız? Bugün için alarmınızı durdurmak için buraya dokunun – banyo süreniz aileniz için rezerve kalacaktır.</string>
-    <string name="tooltip_drag_handle">Ailenizin uyanma sırasını manuel olarak değiştirmek için bir karta basılı tutun ve sürükleyin. Algoritma hemen yeniden hesaplar.</string>
-    <string name="tooltip_wake_window">Bize bir zaman penceresi verin. Uygulama bu pencere içinde kimsenin banyoyu beklemek zorunda kalmayacağı mükemmel anı bulur.</string>
-    <string name="tooltip_bathroom">Bunu gerçekçi planlayın. Banyo süreniz tüm ailenin sabah temposunu belirler.</string>
-    <string name="tooltip_invite_code">Bu kodu ailenizle paylaşın. Katıldıklarında otomatik olarak planınızda görünecekler.</string>
-    <string name="tooltip_alarm_switch">Alarmınızı kapatırsanız sadece telefonunuz sessiz kalmaz – algoritma tüm aile için sabahı anında yeniden hesaplar ve herkesin biraz daha uyumasına veya banyoya daha erken girmesine olanak tanır.</string>
-    <string name="tooltip_weekdays">Tüm haftanızı planlayın: Belirli uyanma ve banyo saatlerini ayarlamak için ayrı ayrı günlere dokunun – ev ofisi ve ofis günleri arasında geçiş yapmak için mükemmel.</string>
-    <string name="settings_tooltips_title">İpuçları ve Bilgiler</string>
-    <string name="settings_tooltips_label">Faydalı ipuçlarını göster</string>
-    <string name="settings_tooltips_reset">Tüm ipuçlarını sıfırla</string>
+    <string name="tooltip_awake_button">Erken mi uyandınız? Bugünlük alarmınızı kapatmak için buraya dokunun – banyo sıranız sizin için ayrılı kalır.</string>
+    <string name="tooltip_drag_handle">Banyoya kimin önce gireceğini değiştirmek için bir isme basılı tutun ve yukarı veya aşağı sürükleyin. Saatler anında güncellenir.</string>
+    <string name="tooltip_wake_window">Bize bir zaman aralığı verin. Uygulama, banyoyu beklemek zorunda kalmayacağınız en mükemmel anı bulup sizi uyandırır.</string>
+    <string name="tooltip_bathroom">Burada gerçekçi olun. Banyo süreniz diğer herkesin sabah temposunu belirler.</string>
+    <string name="tooltip_invite_code">Bunu ailenizle paylaşın. Katıldıklarında, saatleri tam burada görünecektir.</string>
+    <string name="tooltip_alarm_switch">Alarmınızı kapatırsanız, uygulama herkesin sabah planını anında günceller – böylece diğerleri biraz daha fazla uyuyabilir veya banyoya daha erken girebilir.</string>
+    <string name="tooltip_weekdays">Farklı saatler ayarlamak için günlere dokunun. Bazı günler evden çalışıp diğer günler ofise gidiyorsanız mükemmeldir.</string>
+    <string name="settings_tooltips_title">Faydalı İpuçları</string>
+    <string name="settings_tooltips_label">İpuçlarını uygulamada göster</string>
+    <string name="settings_tooltips_reset">Tüm ipuçlarını tekrar göster</string>
     <string name="settings_push_title">Bildirimler</string>
-    <string name="settings_push_label">Push bildirimleri al</string>
-    <string name="settings_support_title">Uygulamayı destekle</string>
-    <string name="settings_support_desc">Uygulamayı beğendiniz mi? Desteğiniz için teşekkür ederiz!</string>
+    <string name="settings_push_label">Bildirimlere izin ver</string>
+    <string name="settings_support_title">FamWake\'i Destekle</string>
+    <string name="settings_support_desc">Uygulamayı beğendiniz mi? Desteğiniz bizi çok mutlu eder!</string>
     <string name="settings_support_donate">Bağış yap</string>
-    <string name="settings_donate_success">Desteğiniz için çok teşekkürler! ❤️</string>
-    <string name="settings_donate_error">Bir şeyler ters gitti.</string>
-    <string name="settings_donate_loading">Teklifler yükleniyor…</string>
-    <string name="settings_donate_no_offers">Kullanılabilir teklif yok. Lütfen RevenueCat\'te \"Current Offering\" ayarlandığından emin olun.</string>
-    <string name="settings_donate_purchase_loading">Bağış işleniyor…</string>
-    <string name="settings_donate_error_not_allowed">Cihazın veya kullanıcının satın alma işlemi yapmasına izin verilmiyor.</string>
-    <string name="settings_donate_error_store_problem">Google Play Store ile ilgili bir sorun oluştu.</string>
-    <string name="settings_donate_error_already_purchased">Bu ürün zaten satın alınmış.</string>
-    <string name="settings_donate_error_invalid">Satın alma geçersizdi.</string>
-    <string name="settings_donate_error_generic">Bağış işlemi sırasında bir hata oluştu.</string>
+    <string name="settings_donate_success">Desteğiniz için çok teşekkür ederiz! ❤️</string>
+    <string name="settings_donate_error">Ups, bir şeyler ters gitti.</string>
+    <string name="settings_donate_loading">Seçenekler yükleniyor…</string>
+    <string name="settings_donate_no_offers">Şu anda herhangi bir seçenek bulunmuyor.</string>
+    <string name="settings_donate_purchase_loading">İşleniyor…</string>
+    <string name="settings_donate_error_not_allowed">Bu telefonda satın alma işlemlerine izin verilmiyor.</string>
+    <string name="settings_donate_error_store_problem">Uygulama mağazasında bir sorun oluştu.</string>
+    <string name="settings_donate_error_already_purchased">Bunu zaten satın aldınız.</string>
+    <string name="settings_donate_error_invalid">Satın alma işlemi tamamlanamadı.</string>
+    <string name="settings_donate_error_generic">Bağış sırasında bir şeyler ters gitti.</string>
 
-    <string name="error_permission_denied">Erişim reddedildi</string>
+    <string name="error_permission_denied">Erişime izin verilmedi</string>
     <string name="error_offline">İnternet bağlantısı yok</string>
-    <string name="error_report_failed">Raporlama başarısız oldu</string>
-    <string name="error_leave_failed">Aileden ayrılma başarısız oldu</string>
-    <string name="error_revenuecat_not_configured">RevenueCat yapılandırılmamış</string>
+    <string name="error_report_failed">Rapor gönderilemedi</string>
+    <string name="error_leave_failed">Aileden ayrılamadı</string>
+    <string name="error_revenuecat_not_configured">Mağaza henüz hazır değil</string>
     <string name="default_someone">Biri</string>
-    <string name="error_label">Hata</string>
-    <string name="offline_write_hint">Bağlantı yok. Değişiklikleriniz çevrimiçi olduğunuzda hemen senkronize edilecektir.</string>
+    <string name="error_label">Sorun</string>
+    <string name="offline_write_hint">İnternet yok. Değişiklikleriniz çevrimiçi olduğunuzda hemen kaydedilecektir.</string>
     <string name="password_show">Şifreyi göster</string>
     <string name="password_hide">Şifreyi gizle</string>
     <string name="close_desc">Kapat</string>
 
-    <string name="settings_exact_alarm_warning_title">Alarm izni eksik</string>
-    <string name="settings_exact_alarm_warning_text">Android tam alarmın çalmasını engelliyor. Lütfen FamWake\'in alarmları ve hatırlatıcıları planlamasına izin verin.</string>
+    <string name="settings_exact_alarm_warning_title">Alarm izni gerekiyor</string>
+    <string name="settings_exact_alarm_warning_text">Telefonunuz alarmı engelliyor. Zamanında uyanabilmek için lütfen FamWake\'e alarm kurma izni verin.</string>
     <string name="settings_exact_alarm_warning_button">Alarmlara izin ver</string>
-    <string name="main_exact_alarm_banner">⚠️ Alarm engellendi! Alarmınızın zamanında çalabilmesi için lütfen ayarlardan alarm iznini verin.</string>
-    <string name="error_offline_feedback">Çevrimdışısınız. Lütfen bağlantınızı kontrol edip tekrar deneyin.</string>
-    <string name="error_feedback_rate_limit">Başka bir mesaj göndermeden önce lütfen %1$s saniye bekleyin.</string>
-    <string name="error_feedback_rate_limit_server">Çok fazla istek. Lütfen daha sonra tekrar deneyin.</string>
-    <string name="error_feedback_empty_message">Mesaj boş bırakılamaz.</string>
-    <string name="error_network">Ağ hatası. Lütfen internet bağlantınızı kontrol edin.</string>
+    <string name="main_exact_alarm_banner">⚠️ Alarm engellendi! Zamanında uyanabilmek için lütfen ayarlardan alarm izni verin.</string>
+    <string name="error_offline_feedback">İnternetiniz yok. Lütfen bağlanıp tekrar deneyin.</string>
+    <string name="error_sync_blocked_device">Bu cihazda güncellemeler şu an yapılamıyor.</string>
+    <string name="error_feedback_rate_limit">Bir sonraki mesajı göndermeden önce lütfen %1$s saniye bekleyin.</string>
+    <string name="error_feedback_rate_limit_server">Çok fazla mesaj gönderildi. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="error_feedback_empty_message">Mesajınız boş.</string>
+    <string name="error_network">Ağ problemi. Lütfen internet bağlantınızı kontrol edin.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -343,31 +351,36 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="tooltip_alarm_sound">Kişisel uyandırma sesini seçmek için buraya dokun – varsayılan alarm yerine en sevdiğin müziği ayarla.</string>
+    <string name="settings_language_indonesian">Bahasa Indonesia</string>
+    <string name="settings_language_vietnamese">Tiếng Việt</string>
+    <string name="settings_language_bengali">বাংলা</string>
+    <string name="settings_language_marathi">मराठी</string>
+    <string name="settings_language_hindi">हिन्दी</string>
+    <string name="tooltip_alarm_sound">Kişisel uyanma sesini seçmek için buraya dokun – normal bip sesi yerine en sevdiğin müziği seç.</string>
     <string name="settings_language_dialects">Lehçeler</string>
-    <string name="error_sync_blocked_device">Bu cihazda senkronizasyon kullanılamıyor.</string>
-    <string name="onboarding_mock_name1">Baba</string>
-    <string name="onboarding_mock_name2">Anne</string>
-    <string name="onboarding_mock_family_name">Yılmaz</string>
 
     
-    <string name="notif_channel_schedule_change_name">Program değişiklikleri</string>
-    <string name="notif_channel_schedule_change_desc">Uyanma saatleri veya sıra değiştiğinde bildirir</string>
-    <string name="notif_channel_family_events_name">Aile olayları</string>
-    <string name="notif_channel_family_events_desc">Üyeler aileye katıldığında veya ayrıldığında bildirir</string>
-    <string name="notif_schedule_changed_title">FamWake: Program güncellendi</string>
-    <string name="notif_schedule_changed_body">Uyanma saatleri değişti. Yeni saatini görmek için uygulamayı aç.</string>
+    <string name="notif_channel_schedule_change_name">Plan güncellemeleri</string>
+    <string name="notif_channel_schedule_change_desc">Uyanma saatleri veya banyo sırası değiştiğinde sana haber verir</string>
+    <string name="notif_channel_family_events_name">Aile güncellemeleri</string>
+    <string name="notif_channel_family_events_desc">İnsanlar aile grubuna katıldığında veya ayrıldığında sana haber verir</string>
+
+    
+    <string name="notif_schedule_changed_title">FamWake: Sabah planı güncellendi</string>
+    <string name="notif_schedule_changed_body">Uyanma saatleri değişti. Yeni saatini kontrol etmek için uygulamayı aç.</string>
     <string name="notif_member_joined_title">FamWake: Yeni aile üyesi!</string>
-    <string name="notif_member_joined_body">Yeni bir üye aileye katıldı.</string>
+    <string name="notif_member_joined_body">Ailenizin planına yeni biri katıldı.</string>
     <string name="notif_member_left_title">FamWake: Aile güncellemesi</string>
-    <string name="notif_member_left_body">Bir üye aileyi terk etti.</string>
+    <string name="notif_member_left_body">Biri aile grubundan ayrıldı.</string>
+
+    
     <string name="notif_permission_title">Bildirimler gerekli</string>
-    <string name="notif_permission_desc">Bildirimler olmadan alarm çalmayabilir. Güvenilir bir alarm için lütfen etkinleştirin.</string>
-    <string name="notif_permission_button">Bildirimleri etkinleştir</string>
-    <string name="notif_manage_title">Bildirimleri yönet</string>
-    <string name="notif_manage_desc">Sistem ayarlarında sesi, titreşimi ve diğer bildirim tercihlerini değiştirin.</string>
+    <string name="notif_permission_desc">Bildirimleri kapatırsan alarmın düzgün çalışmayabilir. Lütfen açık bırak.</string>
+    <string name="notif_permission_button">Bildirimleri aç</string>
+    <string name="notif_manage_title">Bildirim ayarları</string>
+    <string name="notif_manage_desc">Telefonunun ayarlarından sesleri ve titreşimi değiştir.</string>
 <string name="onboarding_login_create">Giriş yap / Kayıt ol</string>
-    <string name="onboarding_slide5_title">Haydi\'başlayalım!</string>
-    <string name="onboarding_slide5_body">Kayıt olmadan uygulamayı hemen deneyebilirsiniz. Yalnızca ailenizi davet ettiğinizde bir hesaba ihtiyacınız vardır.</string>
+    <string name="onboarding_slide5_title">Hadi başlayalım!</string>
+    <string name="onboarding_slide5_body">Hesap oluşturmadan uygulamayı hemen deneyebilirsin. Sadece ailenizi davet etmek istediğinizde bir hesaba ihtiyacınız olacak.</string>
     <string name="settings_anonymous_login_button">Giriş yap / Kayıt ol</string>
     </resources>

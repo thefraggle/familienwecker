@@ -10,7 +10,7 @@
     <string name="login_with_google">Log ind med Google</string>
     <string name="login_forgot_password">Glemt adgangskode?</string>
     <string name="login_password_reset_sent">E-mail til nulstilling af adgangskode er sendt!</string>
-    <string name="login_google_error_no_account">Ingen Google-konto fundet på denne enhed. Log ind på Google i dine Android-indstillinger, eller brug e-mail/adgangskode.</string>
+    <string name="login_google_error_no_account">Ingen Google-konto fundet. Log ind på Google i din telefons indstillinger, eller brug e-mail og adgangskode.</string>
 
     <string name="setup_create_tab">Opret</string>
     <string name="setup_join_tab">Deltag</string>
@@ -19,13 +19,13 @@
     <string name="setup_join_code_label">6-cifret invitationskode</string>
     <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">Deltag i familie</string>
-    <string name="join_loading_text">Behandler anmodning…</string>
+    <string name="join_loading_text">Forbinder til familie…</string>
 
     <string name="main_add_member_desc">Tilføj medlem</string>
     <string name="main_family_members">Familiemedlemmer</string>
     <string name="main_current_schedule">Nuværende tidsplan</string>
-    <string name="main_no_active_schedule">Ingen aktiv alarmplan.</string>
-    <string name="main_optimal_plan">Her er den beregnede tidsplan:</string>
+    <string name="main_no_active_schedule">Ingen aktive alarmer lige nu.</string>
+    <string name="main_optimal_plan">Her er familiens tidsplan:</string>
     <string name="main_plan_paused">Din alarm er sat på pause.</string>
     <string name="main_shared_breakfast">☕ Fælles morgenmad: %s</string>
     <string name="main_wake_time">Vågn op: %1$s - %2$s</string>
@@ -34,16 +34,16 @@
     <string name="main_schedule_leave">Tag hjemmefra: %1$s</string>
     <string name="main_member_alarm_on">(Alarm aktiv)</string>
     <string name="main_member_alarm_off">(Ingen alarm)</string>
-    <string name="main_member_limit_reached">Maksimum på 6 medlemmer er nået.</string>
+    <string name="main_member_limit_reached">Maksimum på 6 familiemedlemmer er nået.</string>
     <string name="main_alarm_enabled">Alarm: TIL</string>
-    <string name="main_alarm_enabled_desc">Automatiske alarmer er aktive.</string>
-    <string name="main_snooze_active">Slumre aktiv indtil %1$s</string>
+    <string name="main_alarm_enabled_desc">Dine alarmer er aktive.</string>
+    <string name="main_snooze_active">Slumrer indtil %1$s</string>
     <string name="main_alarm_disabled">Alarm: FRA</string>
-    <string name="main_alarm_disabled_desc">Manuel pause er aktiv.</string>
+    <string name="main_alarm_disabled_desc">Dine alarmer er sat på pause.</string>
     <string name="main_no_profile_warning">Ingen profil valgt!</string>
-    <string name="main_no_profile_warning_desc">Vælg din profil i indstillingerne, så alarmen kan ringe for dig.</string>
+    <string name="main_no_profile_warning_desc">Vælg venligst hvem du er i indstillingerne, så din telefon ringer for dig.</string>
     <string name="main_unclaimed_first_title">Der ringer ingen alarm for %1$s!</string>
-    <string name="main_unclaimed_first_desc">%1$s er først i rækken, men har ikke sin egen profil – og vågner måske ikke til tiden.</string>
+    <string name="main_unclaimed_first_desc">%1$s er først i rækken, men har ikke valgt sin profil på en telefon endnu – de sover måske over sig!</string>
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
     <string name="delete_desc">Slet</string>
@@ -54,27 +54,27 @@
     <string name="unsaved_changes_title">Ikke-gemte ændringer</string>
     <string name="unsaved_changes_message">Vil du kassere dine ændringer?</string>
     <string name="unsaved_changes_discard">Kassér</string>
-    <string name="unsaved_changes_keep">Fortsæt med at redigere</string>
+    <string name="unsaved_changes_keep">Fortsæt redigering</string>
     <string name="add_member_submit">Gem</string>
-    <string name="delete_member_title">Slet medlem</string>
+    <string name="delete_member_title">Fjern medlem</string>
     <string name="delete_member_text">Er du sikker på, at du vil fjerne %1$s fra familien?</string>
-    <string name="delete_confirm">Slet</string>
+    <string name="delete_confirm">Fjern</string>
     <string name="cancel_button">Annuller</string>
     <string name="retry_button">Prøv igen</string>
     <string name="add_member_name_label">Navn (f.eks. Mor, Far, Barn)</string>
     <string name="add_member_unknown">Ukendt</string>
-    <string name="add_member_earliest_wake">Tidligste opvågningstid</string>
-    <string name="add_member_latest_wake">Seneste opvågningstid</string>
-    <string name="add_member_bathroom_duration">Badeværelsestid (minutter)</string>
-    <string name="add_member_wants_breakfast">Med morgenmad</string>
-    <string name="add_member_leave_home">Tag hjemmefra kl.</string>
+    <string name="add_member_earliest_wake">Tidligste tid at vågne</string>
+    <string name="add_member_latest_wake">Seneste tid at vågne</string>
+    <string name="add_member_bathroom_duration">Tid på badeværelset (minutter)</string>
+    <string name="add_member_wants_breakfast">Vil have morgenmad</string>
+    <string name="add_member_leave_home">Skal ud af døren kl.</string>
     <string name="add_member_day_profiles_title">Ugentlig tidsplan</string>
     <string name="add_member_day_active">Alarm aktiv</string>
     <string name="add_member_copy_to_days">Kopiér \"%1$s\" til andre dage</string>
     <string name="add_member_copy_dialog_title">Kopiér til dage</string>
     <string name="add_member_copy_apply">Anvend</string>
-    <string name="validation_latest_before_earliest">Seneste opvågningstid skal være efter tidligste opvågningstid</string>
-    <string name="validation_leave_too_early">Tidspunkt for afgang skal være efter badeværelsestid (Opvågning + Badeværelse)</string>
+    <string name="validation_latest_before_earliest">Den seneste opvågningstid skal være efter den tidligste opvågningstid.</string>
+    <string name="validation_leave_too_early">Tidspunktet for afgang skal være efter badeværelsestiden er færdig.</string>
     <string name="weekday_1">Mandag</string>
     <string name="weekday_2">Tirsdag</string>
     <string name="weekday_3">Onsdag</string>
@@ -92,39 +92,39 @@
 
     <string name="settings_title">Indstillinger</string>
     <string name="settings_profile_title">Min profil</string>
-    <string name="settings_profile_desc">Din telefon ringer kun på opvågningstidspunktet for den profil, der er valgt her.</string>
+    <string name="settings_profile_desc">Din telefon ringer kun for den person, der er valgt her.</string>
     <string name="settings_please_select">Vælg venligst</string>
-    <string name="settings_no_members">Ingen medlemmer fundet</string>
+    <string name="settings_no_members">Ingen familiemedlemmer fundet</string>
     <string name="settings_alarm_title">Alarmlyd</string>
-    <string name="settings_battery_warning_title">Batterioptimering aktiv</string>
-    <string name="settings_battery_warning_text">Alarmen kan blive forsinket eller blokeret. Deaktiver batterioptimering for FamWake.</string>
+    <string name="settings_battery_warning_title">Batteriindstillinger kan blokere alarmer</string>
+    <string name="settings_battery_warning_text">Din telefon kan forsinke eller blokere alarmen for at spare strøm. Tillad venligst FamWake at køre i baggrunden.</string>
     <string name="settings_battery_warning_button">Ret nu</string>
     <string name="settings_alarm_default">Standard</string>
-    <string name="settings_alarm_select">Vælg lyd: %1$s</string>
-    <string name="settings_alarm_picker_title">Vælg en alarmlyd</string>
+    <string name="settings_alarm_select">Lyd: %1$s</string>
+    <string name="settings_alarm_picker_title">Vælg din alarmlyd</string>
     <string name="settings_account_title">Familie &amp; Konto</string>
     <string name="settings_join_code">Invitationskode for %1$s:</string>
-    <string name="settings_share_code">Del kode</string>
-    <string name="settings_share_message">Her er dit link til FamWake:\nhttps://familienwecker.de/join/%2$s\n\nKode: %2$s\nGruppe: %1$s\n\nBare klik, log ind, og vi er forbundet. Det er sjovere at vågne sammen! ⏰❤️</string>
+    <string name="settings_share_code">Del invitationslink</string>
+    <string name="settings_share_message">Her er dit link til FamWake:\nhttps://familienwecker.de/join/%2$s\n\nKode: %2$s\nFamilie: %1$s\n\nBare tryk på linket, log ind, og vi er forbundet. Det er meget nemmere at vågne sammen! ⏰❤️</string>
     <string name="settings_leave_family">Forlad familie</string>
     <string name="settings_delete_family">Slet familie</string>
-    <string name="settings_delete_family_dialog_title">Slet familie?</string>
-    <string name="settings_delete_family_dialog_text">Er du sikker på, at du vil slette denne familie permanent? Alle medlemmer, tidsplaner og indstillinger vil blive slettet for alle. Dette kan ikke fortrydes.</string>
-    <string name="settings_delete_family_dialog_confirm">Slet</string>
+    <string name="settings_delete_family_dialog_title">Slet hele familien?</string>
+    <string name="settings_delete_family_dialog_text">Er du sikker på, at du vil slette denne familie permanent? Alle medlemmer, tider og indstillinger vil være væk for alle. Dette kan ikke fortrydes.</string>
+    <string name="settings_delete_family_dialog_confirm">Slet for evigt</string>
     <string name="settings_delete_family_dialog_cancel">Annuller</string>
-    <string name="settings_delete_family_warning_title">Andre medlemmer er aktive!</string>
-    <string name="settings_delete_family_warning_text">Der er stadig andre aktive medlemmer i denne familie. Hvis du sletter den, mister alle adgangen. Vil du virkelig gennemtvinge sletning af alt?</string>
-    <string name="settings_delete_family_warning_confirm">Ja, slet alt</string>
+    <string name="settings_delete_family_warning_title">Andre medlemmer er her stadig!</string>
+    <string name="settings_delete_family_warning_text">Der er stadig andre personer i denne familie. Hvis du sletter den, mister alle adgangen. Er du helt sikker?</string>
+    <string name="settings_delete_family_warning_confirm">Ja, slet for alle</string>
     <string name="settings_logout">Log ud</string>
     <string name="settings_delete_account">Slet konto</string>
-    <string name="settings_footer_version">FamWake Familievækkeur v%1$s</string>
+    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rettigheder forbeholdes.</string>
 
     <string name="empty_members_title">Endnu ingen medlemmer</string>
-    <string name="empty_members_description">Tilføj profiler for at se jeres opvågningstider og vække hinanden.</string>
+    <string name="empty_members_description">Tilføj familiemedlemmer for at opsætte jeres morgenrutine.</string>
     <string name="empty_schedule_title">Ingen aktive alarmer</string>
-    <string name="empty_schedule_description">I øjeblikket er der ikke indstillet nogen alarmer for nogen. Tid til at sove længe!</string>
+    <string name="empty_schedule_description">Ingen alarmer er slået til lige nu. Tid til at sove længe!</string>
 
     <string name="settings_language_title">Sprog</string>
     <string name="settings_language_system">Systemstandard</string>
@@ -142,118 +142,118 @@
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Udseende</string>
     <string name="settings_display_title">App-indstillinger</string>
-    <string name="settings_help_feedback_title">Hjælp og Feedback</string>
-    <string name="settings_support_button">Send e-mail til udvikler</string>
-    <string name="settings_start_onboarding">🎓 App-rundtur</string>
+    <string name="settings_help_feedback_title">Hjælp &amp; Feedback</string>
+    <string name="settings_support_button">Send e-mail til udvikleren</string>
+    <string name="settings_start_onboarding">🎓 Hurtig rundtur</string>
 
     <string name="onboarding_skip">Spring over</string>
     <string name="onboarding_next">Næste</string>
     <string name="onboarding_done">Start uden konto</string>
-    <string name="onboarding_slide0_title">Din morgen som team.</string>
-    <string name="onboarding_slide0_body">Ingen diskussioner, intet kaos. FamWake sørger for, at alle starter dagen afslappet – helt automatisk.</string>
-    <string name="onboarding_slide1_title">Aldrig mere ventetid.</string>
-    <string name="onboarding_slide1_body">FamWake beregner det ideelle vækketidspunkt for hvert familiemedlem – koordineret med badeværelse, morgenmad og afgang. Ikke mere trængsel.</string>
+    <string name="onboarding_slide0_title">Din morgen som et team.</string>
+    <string name="onboarding_slide0_body">Ingen diskussioner, intet kaos. FamWake sørger for, at alle starter dagen afslappet – helt af sig selv.</string>
+    <string name="onboarding_slide1_title">Slut med at vente.</string>
+    <string name="onboarding_slide1_body">FamWake finder den perfekte opvågningstid for alle i familien – baseret på badeværelsestid, morgenmad og hvornår I skal ud ad døren. Slut med trængsel ved håndvasken.</string>
     <string name="onboarding_slide2_title">Hver dag er anderledes.</string>
-    <string name="onboarding_slide2_body">Mandag kontor, onsdag hjemmekontor? Indstil individuelle tider for hver ugedag – appen klarer resten.</string>
+    <string name="onboarding_slide2_body">Kontor om mandagen, hjemmearbejde om onsdagen? Indstil bare jeres tider for hver dag, og appen klarer resten.</string>
     <string name="onboarding_slide3_title">Forbundet på sekunder.</string>
-    <string name="onboarding_slide3_body">Del en kode, og din familie er med med det samme. Nye medlemmer? Planen tilpasser sig automatisk. Og hvis noget ændrer sig, ved alle det med det samme.</string>
-    <string name="onboarding_slide4_title">Altid pålidelig</string>
-    <string name="onboarding_slide4_body">Nyd afslappede morgener – pålideligt, endda offline. Hvis internettet går ned, ringer alarmen stadig lige til tiden.</string>
-    <string name="settings_feedback_button">Giv feedback / Rapportér fejl</string>
+    <string name="onboarding_slide3_body">Del din invitationskode, og din familie er med. Hvis nogen ændrer deres tider, opdateres alles tidsplan med det samme.</string>
+    <string name="onboarding_slide4_title">Virker altid.</string>
+    <string name="onboarding_slide4_body">Nyd en afslappet morgen hver dag. Selv hvis internettet ryger i løbet af natten, ringer alarmen stadig til tiden.</string>
+    <string name="settings_feedback_button">Giv feedback / Rapportér en fejl</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hjælp os med at gøre appen endnu bedre! Hvad har du på hjerte?</string>
     <string name="feedback_category_label">Kategori</string>
-    <string name="feedback_category_bug">Fandt en fejl</string>
-    <string name="feedback_category_feature">Anmodning om funktion</string>
-    <string name="feedback_category_praise">Ros og kritik</string>
+    <string name="feedback_category_bug">Har fundet en fejl</string>
+    <string name="feedback_category_feature">Idé til appen</string>
+    <string name="feedback_category_praise">Ros &amp; Feedback</string>
     <string name="feedback_category_other">Andet</string>
     <string name="feedback_message_label">Besked</string>
-    <string name="feedback_message_placeholder">Beskriv kort din anmodning…</string>
+    <string name="feedback_message_placeholder">Beskriv kort, hvad det drejer sig om…</string>
     <string name="feedback_email_label">E-mail (valgfrit)</string>
-    <string name="feedback_email_placeholder">Din e-mail (hvis vi må svare)</string>
-    <string name="feedback_auto_info_title">Inkluderes automatisk:</string>
+    <string name="feedback_email_placeholder">Så vi kan svare dig</string>
+    <string name="feedback_auto_info_title">Sendes automatisk med:</string>
     <string name="feedback_auto_version">App-version: v%1$s</string>
-    <string name="feedback_auto_device">Enhed: %1$s</string>
+    <string name="feedback_auto_device">Telefon: %1$s</string>
     <string name="feedback_cancel">Annuller</string>
-    <string name="feedback_send">Send feedback</string>
-    <string name="feedback_success">Tak! Din feedback er modtaget og hjælper os meget.</string>
-    <string name="feedback_success_title">Feedback sendt</string>
-    <string name="feedback_success_message">Tak for din feedback! Det hjælper os med at forbedre FamWake for alle.</string>
+    <string name="feedback_send">Send besked</string>
+    <string name="feedback_success">Tak! Vi har modtaget din besked.</string>
+    <string name="feedback_success_title">Besked sendt</string>
+    <string name="feedback_success_message">Tak for din hjælp! Din feedback hjælper os med at forbedre FamWake for alle.</string>
     <string name="settings_terms_of_use">Brugsbetingelser</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-da.html</string>
     <string name="settings_privacy_policy">Privatlivspolitik</string>
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-da.html</string>
-    <string name="settings_imprint">Colophon / Impressum</string>
+    <string name="settings_imprint">Kolofon</string>
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint-da.html</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-da.html</string>
 
-    <string name="registration_disclaimer">Ved at oprette en konto accepterer du %1$s og %2$s.</string>
+    <string name="registration_disclaimer">Ved at tilmelde dig accepterer du %1$s og %2$s.</string>
     <string name="registration_terms_of_use">Brugsbetingelser</string>
     <string name="registration_privacy_policy">Privatlivspolitik</string>
-    <string name="settings_already_claimed">Allerede gjort krav på</string>
+    <string name="settings_already_claimed">Allerede i brug</string>
     <string name="settings_theme_light">Lys</string>
     <string name="settings_theme_dark">Mørk</string>
 
-    <string name="ringing_wake_up">Vågn op, %1$s!</string>
+    <string name="ringing_wake_up">Tid til at vågne, %1$s!</string>
     <string-array name="ringing_messages">
         <item>Badeværelset er helt dit lige nu!</item>
         <item>Ingen trafik, intet stress – din tid på badeværelset starter nu.</item>
         <item>Nyd freden på badeværelset, mens den varer!</item>
         <item>Tid til den første kaffe. Verden venter!</item>
         <item>Sovet godt? Din tidsplan for i dag er klar.</item>
-        <item>Klar til dagen? Alt er koordineret.</item>
+        <item>Klar til dagen? Alt er perfekt afstemt.</item>
         <item>Tid til at rocke dagen! Din tid på badeværelset begynder.</item>
         <item>Vågn op og skru op – scenen er din!</item>
-        <item>Heavy metal om morgenen holder bekymringerne væk!</item>
-        <item>Din tidsplan er live. Lad os komme afsted!</item>
-        <item>Klar til afgang? Teamet regner med dig.</item>
-        <item>Stå op, solskin! Badeværelset er ledigt for dig.</item>
-        <item>Din personlige badeværelsesslot starter nu – udnyt den!</item>
-        <item>Fri bane til badeværelset – din slot er reserveret!</item>
-        <item>Morgenstund har guld i mund – og varmt vand!</item>
-        <item>Fem minutter mere? Nej! Dit tidsvindue venter.</item>
-        <item>I dag bliver en god dag. Den starter nu!</item>
+        <item>God musik om morgenen holder bekymringerne væk!</item>
+        <item>Din familietidsplan er live. Lad os komme afsted!</item>
+        <item>Klar til at starte? Familien regner med dig.</item>
+        <item>Stå op, solskin! Badeværelset er ledigt til dig.</item>
+        <item>Din personlige tid på badeværelset starter nu – udnyt den!</item>
+        <item>Fri bane til håndvasken – det er din tur!</item>
+        <item>Morgenfuglen får det varme vand!</item>
+        <item>Fem minutter mere? Nej! Din tid venter på dig.</item>
+        <item>I dag bliver en god dag. Den starter lige nu!</item>
         <item>Din tandbørste savner dig. Af sted til badeværelset!</item>
-        <item>Alt koordineret, alt planlagt – det er din tur!</item>
+        <item>Alt er koordineret og planlagt – det er din tur!</item>
         <item>Morgenfuglen har badeværelset helt for sig selv.</item>
     </string-array>
     <string name="ringing_stop">Stop alarm</string>
     <string name="ringing_snooze">Slumre (5 min)</string>
     <string name="pause_today_desc">Pause i dag</string>
-    <string name="awake_today_desc">Allerede vågen</string>
+    <string name="awake_today_desc">Jeg er allerede vågen</string>
     <string name="awake_active_desc">Allerede vågen</string>
 
-    <string name="error_load_members">Fejl ved indlæsning af medlemmer</string>
-    <string name="error_create_family">Fejl ved oprettelse af familie: %1$s</string>
-    <string name="error_create_family_rate_limit">Du har allerede oprettet 3 familier inden for den sidste time. Vent en time og prøv igen.</string>
-    <string name="error_join_family_rate_limit">For mange forsøg på at deltage (maks. 5 pr. minut). Vent et øjeblik og prøv igen.</string>
-    <string name="error_invalid_code">Ugyldig invitationskode: %1$s</string>
-    <string name="error_family_not_found">Ingen familie blev fundet med denne kode.</string>
-    <string name="error_code_generation_failed">Kunne ikke generere en unik kode. Prøv igen.</string>
-    <string name="join_conflict_title">Deltag i ny familie?</string>
-    <string name="join_conflict_text">Du er allerede medlem af familien \"%1$s\". For at deltage i den nye familie skal du først forlade din nuværende. Vil du forlade \"%1$s\" og deltage med koden %2$s?</string>
+    <string name="error_load_members">Kunne ikke indlæse familiemedlemmer</string>
+    <string name="error_create_family">Kunne ikke oprette familie: %1$s</string>
+    <string name="error_create_family_rate_limit">Du har oprettet for mange familier for nylig. Vent lidt og prøv igen.</string>
+    <string name="error_join_family_rate_limit">For mange forsøg. Vent et øjeblik og prøv igen.</string>
+    <string name="error_invalid_code">Invitationskoden er ikke gyldig: %1$s</string>
+    <string name="error_family_not_found">Vi kunne ikke finde en familie med denne kode.</string>
+    <string name="error_code_generation_failed">Kunne ikke oprette en kode. Prøv venligst igen.</string>
+    <string name="join_conflict_title">Deltag i en ny familie?</string>
+    <string name="join_conflict_text">Du er allerede med i \"%1$s\". For at deltage i den nye familie skal du først forlade denne. Vil du forlade \"%1$s\" og deltage i den nye?</string>
     <string name="join_conflict_confirm">Forlad og deltag</string>
-    <string name="error_delete_member">Kunne ikke slette medlem: %1$s</string>
-    <string name="error_sync_failed">Synkronisering mislykkedes</string>
-    <string name="error_delete_family">Fejl ved sletning af familie: %1$s</string>
-    <string name="error_calculate_schedule">Fejl ved beregning af tidsplan: %1$s</string>
-    <string name="error_not_logged_in">Bruger ikke logget ind</string>
-    <string name="error_system">Systemfejl</string>
-    <string name="error_invalid_credentials">Ugyldig e-mail eller adgangskode. Tjek dine indtastninger.</string>
-    <string name="error_login_failed">Login mislykkedes</string>
+    <string name="error_delete_member">Kunne ikke fjerne medlem: %1$s</string>
+    <string name="error_sync_failed">Kunne ikke opdatere data</string>
+    <string name="error_delete_family">Kunne ikke slette familie: %1$s</string>
+    <string name="error_calculate_schedule">Kunne ikke beregne tider: %1$s</string>
+    <string name="error_not_logged_in">Du er ikke logget ind.</string>
+    <string name="error_system">Noget gik galt.</string>
+    <string name="error_invalid_credentials">Forkert e-mail eller adgangskode. Tjek venligst det du har skrevet.</string>
+    <string name="error_login_failed">Login virkede ikke</string>
     <string name="error_login_failed_unknown">Ukendt loginfejl</string>
-    <string name="error_registration_failed">Registrering mislykkedes</string>
-    <string name="error_registration_failed_unknown">Kunne ikke oprette bruger</string>
-    <string name="error_unknown">Der opstod en ukendt fejl. Prøv igen.</string>
-    <string name="error_google_sign_in_failed_unknown">Google-login mislykkedes</string>
-    <string name="error_empty_email">Indtast venligst en e-mailadresse.</string>
-    <string name="error_invalid_email">Ugyldig e-mailadresse. Tjek stavningen.</string>
-    <string name="error_user_not_found">Ingen konto fundet til denne e-mail.</string>
-    <string name="error_too_many_requests">For mange forsøg. Vent et øjeblik og prøv igen.</string>
-    <string name="error_password_reset_failed">Nulstilling af adgangskode mislykkedes. Prøv igen senere.</string>
-    <string name="error_profile_taken">Denne profil er allerede taget.</string>
-    <string name="error_profile_claim_offline">Ingen forbindelse. Profilvalg kræver internetadgang.</string>
-    <string name="error_delete_not_admin">Kun opretteren kan slette familien.</string>
+    <string name="error_registration_failed">Tilmelding virkede ikke</string>
+    <string name="error_registration_failed_unknown">Kunne ikke oprette din konto</string>
+    <string name="error_unknown">Noget gik galt. Prøv venligst igen.</string>
+    <string name="error_google_sign_in_failed_unknown">Google-login virkede ikke</string>
+    <string name="error_empty_email">Skriv venligst din e-mailadresse.</string>
+    <string name="error_invalid_email">Denne e-mail ser ikke rigtig ud. Tjek den venligst.</string>
+    <string name="error_user_not_found">Vi kunne ikke finde en konto til denne e-mail.</string>
+    <string name="error_too_many_requests">For mange forsøg. Vent venligst lidt.</string>
+    <string name="error_password_reset_failed">Kunne ikke nulstille adgangskoden. Prøv igen senere.</string>
+    <string name="error_profile_taken">En anden bruger allerede denne profil.</string>
+    <string name="error_profile_claim_offline">Ingen internet. Du skal være online for at vælge, hvem du er.</string>
+    <string name="error_delete_not_admin">Kun den person, der oprettede familien, kan slette den.</string>
 
     <string name="alarm_default_member">Familiemedlem</string>
     <string name="alarm_notification_title">Familievækkeuret ringer</string>
@@ -262,79 +262,79 @@
 
     <string name="settings_fallback_username">Forælder</string>
 
-    <string name="error_alarm_permission">Tillad nøjagtige alarmer i systemindstillingerne, så familiealarmen kan ringe til tiden.</string>
+    <string name="error_alarm_permission">Tillad venligst alarmer i din telefons indstillinger, så din telefon kan vække dig til tiden.</string>
 
     <string name="permission_fullscreen_title">Alarmtilladelse påkrævet</string>
-    <string name="permission_fullscreen_message">FamWake har brug for tilladelse til at vise alarmen på din låseskærm. Tillad dette i systemindstillingerne.</string>
+    <string name="permission_fullscreen_message">FamWake har brug for tilladelse til at vække dig ordentligt. Tillad venligst dette i din telefons indstillinger.</string>
     <string name="permission_fullscreen_open">Åbn indstillinger</string>
 
-    <string name="schedule_message_optimal">Her er den beregnede tidsplan:</string>
-    <string name="schedule_message_no_members">Ingen aktive medlemmer. Alle er sat på pause.</string>
-    <string name="schedule_message_no_valid">Ingen gyldig tidsplan fundet. Tiderne overlapper for meget.</string>
-    <string name="schedule_message_no_valid_desc">Tip: Gør dit opvågningsvindue bredere, forkort din badeværelsestid, eller sæt et andet medlem på pause.</string>
-    <string name="schedule_message_time_adjusted">Tiderne er justeret med %1$d min for at passe til din rækkefølge.</string>
-    <string name="schedule_message_breakfast_reduced">Morgenmaden er reduceret med %1$d min for at passe til din tidsplan.</string>
+    <string name="schedule_message_optimal">Her er din families tidsplan:</string>
+    <string name="schedule_message_no_members">Ingen er aktive. Alle alarmer er sat på pause.</string>
+    <string name="schedule_message_no_valid">Tiderne overlapper for meget til at skabe en god tidsplan.</string>
+    <string name="schedule_message_no_valid_desc">Tip: Prøv et bredere opvågningsvindue, kortere badeværelsestid, eller sæt nogens alarm på pause.</string>
+    <string name="schedule_message_time_adjusted">Tiderne blev forskudt med %1$d minutter for at få det hele til at passe.</string>
+    <string name="schedule_message_breakfast_reduced">Morgenmadstiden blev forkortet med %1$d minutter for at få det hele til at passe.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Morgenmad −%1$d min &amp; tider forskudt med %2$d min.</string>
     <string name="schedule_message_member_conflict">Konflikt for %1$s: Tiderne overlapper for meget.</string>
-    <string name="schedule_message_member_conflict_desc">Prøv at ændre rækkefølgen eller justere tiderne.</string>
-    <string name="main_fallback_alarm_active">⚠️ Reservealarm aktiv (%1$s). Ret venligst tidsplanen!</string>
+    <string name="schedule_message_member_conflict_desc">Prøv at ændre rækkefølgen eller tiderne.</string>
+    <string name="main_fallback_alarm_active">⚠️ Advarsel: Tidsplanen passer ikke lige nu (%1$s). Juster venligst jeres tider!</string>
 
-    <string name="error_password_too_short">Adgangskoden skal være mindst 8 tegn lang.</string>
-    <string name="error_email_already_in_use">Denne e-mailadresse bruges allerede af en anden konto.</string>
-    <string name="error_weak_password">Adgangskoden er for svag. Brug mindst 8 tegn og specialtegn.</string>
+    <string name="error_password_too_short">Din adgangskode skal være mindst 8 tegn lang.</string>
+    <string name="error_email_already_in_use">Denne e-mail er allerede registreret.</string>
+    <string name="error_weak_password">Din adgangskode er for nem at gætte. Brug mindst 8 tegn og nogle specialtegn.</string>
     <string name="login_verify_email_title">✉️ Bekræft din e-mail</string>
-    <string name="login_verify_email_text">Vi har sendt en bekræftelses-e-mail til\n%1$s\nKlik på linket i e-mailen for at aktivere din konto.</string>
-    <string name="login_verify_email_confirm">Jeg har bekræftet ✓</string>
+    <string name="login_verify_email_text">Vi har sendt en kort e-mail til\n%1$s\nKlik på linket i den for at aktivere din konto.</string>
+    <string name="login_verify_email_confirm">Jeg har klikket på linket ✓</string>
     <string name="login_verify_email_resend">Send e-mail igen</string>
-    <string name="login_verify_email_not_verified">E-mail er endnu ikke bekræftet. Tjek din indbakke.</string>
+    <string name="login_verify_email_not_verified">E-mail er endnu ikke bekræftet. Tjek venligst din indbakke.</string>
 
-    <string name="tooltip_awake_button">Vågen tidligt? Tryk her for at stoppe din alarm for i dag – din badeværelsestid forbliver reserveret til familien.</string>
-    <string name="tooltip_drag_handle">Tryk og træk et kort for manuelt at ændre familiens opvågningsrækkefølge. Algoritmen genberegner med det samme.</string>
-    <string name="tooltip_wake_window">Giv os et tidsvindue. Appen finder det perfekte øjeblik inden for det, så ingen behøver at vente på badeværelset.</string>
-    <string name="tooltip_bathroom">Planlæg dette realistisk. Din badeværelsestid sætter tempoet for hele familiens morgen.</string>
-    <string name="tooltip_invite_code">Del denne kode med din familie. Når de deltager, vises de automatisk i din tidsplan.</string>
-    <string name="tooltip_alarm_switch">Hvis du slukker for din alarm, bliver din telefon ikke bare lydløs – algoritmen genberegner øjeblikkeligt morgenen for hele familien, så alle kan sove lidt længere eller komme på badeværelset tidligere.</string>
-    <string name="tooltip_weekdays">Planlæg hele din uge: Tryk på de enkelte ugedage for at indstille specifikke opvågnings- og badeværelsestider – perfekt til at skifte mellem hjemmekontor og kontordage.</string>
-    <string name="settings_tooltips_title">Tips og Råd</string>
-    <string name="settings_tooltips_label">Vis nyttige tips</string>
-    <string name="settings_tooltips_reset">Nulstil alle tips</string>
+    <string name="tooltip_awake_button">Vågen tidligt? Tryk her for at slukke din alarm for i dag – din tid på badeværelset forbliver reserveret til dig.</string>
+    <string name="tooltip_drag_handle">Tryk og hold et navn for at trække det op eller ned. Dette ændrer, hvem der bruger badeværelset først. Tiderne opdateres med det samme.</string>
+    <string name="tooltip_wake_window">Giv os et tidsvindue. Appen finder det perfekte øjeblik at vække dig, så du ikke behøver at vente på badeværelset.</string>
+    <string name="tooltip_bathroom">Vær realistisk her. Din tid på badeværelset sætter tempoet for alle andre.</string>
+    <string name="tooltip_invite_code">Del dette med din familie. Når de deltager, vil deres tider dukke op lige her.</string>
+    <string name="tooltip_alarm_switch">Hvis du slukker din alarm, opdaterer appen straks morgenplanen for alle andre – så de får mere søvn eller en tidligere badeværelsestid.</string>
+    <string name="tooltip_weekdays">Tryk på dagene for at indstille forskellige tider. Perfekt, hvis du arbejder hjemmefra nogle dage og pendler andre.</string>
+    <string name="settings_tooltips_title">Nyttige tips</string>
+    <string name="settings_tooltips_label">Vis tips i appen</string>
+    <string name="settings_tooltips_reset">Vis alle tips igen</string>
     <string name="settings_push_title">Notifikationer</string>
-    <string name="settings_push_label">Modtag push-notifikationer</string>
-    <string name="settings_support_title">Støt appen</string>
-    <string name="settings_support_desc">Kan du lide appen? Vi sætter pris på din støtte!</string>
+    <string name="settings_push_label">Tillad notifikationer</string>
+    <string name="settings_support_title">Støt FamWake</string>
+    <string name="settings_support_desc">Kan du lide appen? Vi vil elske din støtte!</string>
     <string name="settings_support_donate">Donér</string>
     <string name="settings_donate_success">Tusind tak for din støtte! ❤️</string>
-    <string name="settings_donate_error">Ups, der gik noget galt.</string>
-    <string name="settings_donate_loading">Indlæser tilbud…</string>
-    <string name="settings_donate_no_offers">Ingen tilbud tilgængelige. Sørg for, at \"Current Offering\" er indstillet i RevenueCat.</string>
-    <string name="settings_donate_purchase_loading">Behandler donation…</string>
-    <string name="settings_donate_error_not_allowed">Enheden eller brugeren har ikke tilladelse til at foretage købet.</string>
-    <string name="settings_donate_error_store_problem">Der opstod et problem med Google Play Butik.</string>
-    <string name="settings_donate_error_already_purchased">Dette produkt er allerede købt.</string>
-    <string name="settings_donate_error_invalid">Købet var ugyldigt.</string>
-    <string name="settings_donate_error_generic">Der opstod en fejl under donationsprocessen.</string>
+    <string name="settings_donate_error">Ups, noget gik galt.</string>
+    <string name="settings_donate_loading">Indlæser muligheder…</string>
+    <string name="settings_donate_no_offers">Ingen muligheder tilgængelige lige nu.</string>
+    <string name="settings_donate_purchase_loading">Behandler…</string>
+    <string name="settings_donate_error_not_allowed">Køb er ikke tilladt på denne telefon.</string>
+    <string name="settings_donate_error_store_problem">Der var et problem med App Store.</string>
+    <string name="settings_donate_error_already_purchased">Du har allerede købt dette.</string>
+    <string name="settings_donate_error_invalid">Købet gik ikke igennem.</string>
+    <string name="settings_donate_error_generic">Noget gik galt under donationen.</string>
 
-    <string name="error_permission_denied">Adgang nægtet</string>
+    <string name="error_permission_denied">Adgang ikke tilladt</string>
     <string name="error_offline">Ingen internetforbindelse</string>
-    <string name="error_report_failed">Rapportering mislykkedes</string>
+    <string name="error_report_failed">Kunne ikke sende rapport</string>
     <string name="error_leave_failed">Kunne ikke forlade familien</string>
-    <string name="error_revenuecat_not_configured">RevenueCat er ikke konfigureret</string>
+    <string name="error_revenuecat_not_configured">Butikken er ikke klar</string>
     <string name="default_someone">Nogen</string>
-    <string name="error_label">Fejl</string>
-    <string name="offline_write_hint">Ingen forbindelse. Dine ændringer synkroniseres, så snart du er online igen.</string>
+    <string name="error_label">Problem</string>
+    <string name="offline_write_hint">Ingen internet. Dine ændringer gemmes, så snart du er online igen.</string>
     <string name="password_show">Vis adgangskode</string>
     <string name="password_hide">Skjul adgangskode</string>
     <string name="close_desc">Luk</string>
 
-    <string name="settings_exact_alarm_warning_title">Alarmtilladelse mangler</string>
-    <string name="settings_exact_alarm_warning_text">Android forhindrer den nøjagtige alarm i at ringe. Tillad FamWake at planlægge alarmer og påmindelser.</string>
+    <string name="settings_exact_alarm_warning_title">Alarmtilladelse påkrævet</string>
+    <string name="settings_exact_alarm_warning_text">Din telefon blokerer alarmen. Tillad venligst FamWake at planlægge alarmer, så du vågner til tiden.</string>
     <string name="settings_exact_alarm_warning_button">Tillad alarmer</string>
-    <string name="main_exact_alarm_banner">⚠️ Alarm blokeret! Giv tilladelse til alarmer i indstillingerne, så din alarm kan ringe til tiden.</string>
-    <string name="error_offline_feedback">Du er offline. Tjek din forbindelse og prøv igen.</string>
-    <string name="error_feedback_rate_limit">Vent %1$s sekunder, før du sender en ny besked.</string>
-    <string name="error_feedback_rate_limit_server">For mange anmodninger. Prøv igen senere.</string>
-    <string name="error_feedback_empty_message">Beskeden må ikke være tom.</string>
-    <string name="error_network">Netværksfejl. Tjek din internetforbindelse.</string>
+    <string name="main_exact_alarm_banner">⚠️ Alarm blokeret! Tillad alarmer i dine indstillinger, så du vågner til tiden.</string>
+    <string name="error_offline_feedback">Du har intet internet. Opret forbindelse og prøv igen.</string>
+    <string name="error_feedback_rate_limit">Vent venligst %1$s sekunder, før du sender næste besked.</string>
+    <string name="error_feedback_rate_limit_server">For mange sendte beskeder. Prøv igen senere.</string>
+    <string name="error_feedback_empty_message">Din besked er tom.</string>
+    <string name="error_network">Netværksproblem. Tjek venligst din internetforbindelse.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -343,31 +343,31 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="tooltip_alarm_sound">Tryk her for at vælge din personlige vækkertone – vælg din yndlingslyd i stedet for standardalarmen.</string>
+    <string name="tooltip_alarm_sound">Tryk her for at vælge din personlige opvågningslyd – vælg din yndlingsmusik i stedet for standard bippet.</string>
     <string name="settings_language_dialects">Dialekter</string>
-    <string name="error_sync_blocked_device">Synkronisering er ikke tilgængelig på denne enhed.</string>
+    <string name="error_sync_blocked_device">Opdateringer er ikke mulige på denne enhed lige nu.</string>
     <string name="onboarding_mock_name1">Far</string>
     <string name="onboarding_mock_name2">Mor</string>
     <string name="onboarding_mock_family_name">Nielsen</string>
 
     
-    <string name="notif_channel_schedule_change_name">Tidsplanændringer</string>
-    <string name="notif_channel_schedule_change_desc">Giver besked ved ændringer i opvågningstider eller rækkefølge</string>
-    <string name="notif_channel_family_events_name">Familiebegivenheder</string>
-    <string name="notif_channel_family_events_desc">Giver besked når medlemmer tilslutter sig eller forlader familien</string>
-    <string name="notif_schedule_changed_title">FamWake: Tidsplan opdateret</string>
-    <string name="notif_schedule_changed_body">Vækketiderne er ændret. Åbn appen for at se din nye tid.</string>
+    <string name="notif_channel_schedule_change_name">Opdateringer af tidsplan</string>
+    <string name="notif_channel_schedule_change_desc">Fortæller dig, hvis opvågningstider eller rækkefølge på badeværelset ændres</string>
+    <string name="notif_channel_family_events_name">Familieopdateringer</string>
+    <string name="notif_channel_family_events_desc">Fortæller dig, når folk slutter sig til eller forlader din familie</string>
+    <string name="notif_schedule_changed_title">FamWake: Morgenplan opdateret</string>
+    <string name="notif_schedule_changed_body">Vækketiderne er ændret. Åbn appen for at tjekke din nye tid.</string>
     <string name="notif_member_joined_title">FamWake: Nyt familiemedlem!</string>
-    <string name="notif_member_joined_body">Et nyt medlem har sluttet sig til din familie.</string>
+    <string name="notif_member_joined_body">Nogen ny har lige sluttet sig til din families tidsplan.</string>
     <string name="notif_member_left_title">FamWake: Familieopdatering</string>
-    <string name="notif_member_left_body">Et medlem har forladt din familie.</string>
+    <string name="notif_member_left_body">Nogen har forladt familiegruppen.</string>
     <string name="notif_permission_title">Notifikationer påkrævet</string>
-    <string name="notif_permission_desc">Uden notifikationer ringer alarmen muligvis ikke. Aktivér dem for at få en pålidelig alarm.</string>
-    <string name="notif_permission_button">Aktiver notifikationer</string>
-    <string name="notif_manage_title">Administrer notifikationer</string>
-    <string name="notif_manage_desc">Tilpas lyd, vibration og andre notifikationsindstillinger i systemindstillingerne.</string>
-<string name="onboarding_login_create">Log ind / Registrer</string>
-    <string name="onboarding_slide5_title">Lad \'s komme i gang!</string>
-    <string name="onboarding_slide5_body">Du kan prøve appen med det samme uden at tilmelde dig. Du har kun brug for en konto, når du inviterer din familie.</string>
-    <string name="settings_anonymous_login_button">Log ind / Registrer</string>
-    </resources>
+    <string name="notif_permission_desc">Hvis du slår notifikationer fra, virker din alarm muligvis ikke ordentligt. Lad dem venligst være slået til.</string>
+    <string name="notif_permission_button">Slå notifikationer til</string>
+    <string name="notif_manage_title">Notifikationsindstillinger</string>
+    <string name="notif_manage_desc">Ændr lyde og vibrationer i din telefons indstillinger.</string>
+    <string name="onboarding_login_create">Log ind / Tilmeld dig</string>
+    <string name="onboarding_slide5_title">Lad os komme i gang!</string>
+    <string name="onboarding_slide5_body">Du kan prøve appen med det samme uden en konto. Du behøver kun en, når du vil invitere din familie.</string>
+    <string name="settings_anonymous_login_button">Log ind / Tilmeld dig</string>
+</resources>
