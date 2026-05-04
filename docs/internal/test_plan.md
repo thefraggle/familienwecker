@@ -16,12 +16,12 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 |:---|:---|:---|
 | TC-01 | Registrierung & Login | E-Mail & Google Login klappt. Passwort-Reset verschickt Mail (Enumeration-Schutz aktiv). |
 | TC-02 | Lazy Registration & Onboarding | Tour mit 5 Slides läuft fehlerfrei. "Los geht's" erstellt anonymen Nutzer (Double-Click geschützt). |
-| TC-03 | Familien-Lifecycle | Gründen + Beitreten per Code/Link. Nur Creator darf löschen. Verlassen löscht eigenen Wecker. Testdaten werden bei Registrierung übernommen. |
+| TC-03 | Familien-Lifecycle | Gründen + Beitreten per Code/Link. Nur Creator darf löschen. Verlassen/Löschen der Familie wirft Mitglieder sofort auf den Startbildschirm zurück und deaktiviert lokale Wecker. Testdaten werden bei Registrierung übernommen. |
 
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-20 | Profil-Verwaltung | Erstes Mitglied auto-geclaimt. Ein fremdes Profil kann übernommen werden (Claim Stealing). Bearbeiten und Pausieren funktioniert fehlerfrei. |
+| TC-20 | Profil-Verwaltung | Erstes Mitglied auto-geclaimt (Wecker-Schalter sofort an). Ein fremdes Profil kann übernommen werden (Claim Stealing). Bearbeiten und Pausieren funktioniert fehlerfrei. |
 | TC-21 | Wochentag-Validierung | latestWakeUp ≤ earliestWakeUp blockiert Speichern. Zügiges Sliden erzeugt keine Sync-Fehler. |
 | TC-22 | Listen-Organisation | Drag & Drop speichert Reihenfolge. Warnbanner erscheint, wenn Position 1 ungeclaimt ist. |
 
