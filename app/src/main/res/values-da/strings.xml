@@ -5,8 +5,8 @@
     <string name="password_label">Adgangskode</string>
     <string name="register_button">Opret konto</string>
     <string name="login_button">Log ind</string>
-    <string name="already_have_account">Har du allerede en konto? Log ind her.</string>
-    <string name="no_account">Ingen konto endnu? Opret en her.</string>
+    <string name="already_have_account">Log ind / Registrer</string>
+    <string name="no_account">Log ind / Registrer</string>
     <string name="login_with_google">Log ind med Google</string>
     <string name="login_forgot_password">Glemt adgangskode?</string>
     <string name="login_password_reset_sent">E-mail til nulstilling af adgangskode er sendt!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Spring over</string>
     <string name="onboarding_next">Næste</string>
-    <string name="onboarding_done">Lad os komme i gang</string>
+    <string name="onboarding_done">Start uden konto</string>
     <string name="onboarding_slide0_title">Din morgen som team.</string>
     <string name="onboarding_slide0_body">Ingen diskussioner, intet kaos. FamWake sørger for, at alle starter dagen afslappet – helt automatisk.</string>
     <string name="onboarding_slide1_title">Aldrig mere ventetid.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Mandag kontor, onsdag hjemmekontor? Indstil individuelle tider for hver ugedag – appen klarer resten.</string>
     <string name="onboarding_slide3_title">Forbundet på sekunder.</string>
     <string name="onboarding_slide3_body">Del en kode, og din familie er med med det samme. Nye medlemmer? Planen tilpasser sig automatisk. Og hvis noget ændrer sig, ved alle det med det samme.</string>
-    <string name="onboarding_slide4_title">Lad os komme i gang!</string>
-    <string name="onboarding_slide4_body">Opret din familie nu og nyd afslappede morgener – pålideligt, også offline.</string>
+    <string name="onboarding_slide4_title">Altid pålidelig</string>
+    <string name="onboarding_slide4_body">Nyd afslappede morgener – pålideligt, endda offline. Hvis internettet går ned, ringer alarmen stadig lige til tiden.</string>
     <string name="settings_feedback_button">Giv feedback / Rapportér fejl</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hjælp os med at gøre appen endnu bedre! Hvad har du på hjerte?</string>

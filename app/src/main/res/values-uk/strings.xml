@@ -5,8 +5,8 @@
     <string name="password_label">Пароль</string>
     <string name="register_button">Зареєструватися</string>
     <string name="login_button">Увійти</string>
-    <string name="already_have_account">Вже є акаунт? Увійдіть тут.</string>
-    <string name="no_account">Ще немає акаунта? Зареєструйтеся тут.</string>
+    <string name="already_have_account">Увійти / Зареєструватися</string>
+    <string name="no_account">Увійти / Зареєструватися</string>
     <string name="login_with_google">Увійти через Google</string>
     <string name="login_forgot_password">Забули пароль?</string>
     <string name="login_password_reset_sent">Лист для скидання пароля надіслано!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Пропустити</string>
     <string name="onboarding_next">Далі</string>
-    <string name="onboarding_done">Поїхали</string>
+    <string name="onboarding_done">Почніть без облікового запису</string>
     <string name="onboarding_slide0_title">Ваш ранок як команда.</string>
     <string name="onboarding_slide0_body">Жодних суперечок, жодного хаосу. FamWake забезпечує спокійний початок дня для всіх – повністю автоматично.</string>
     <string name="onboarding_slide1_title">Більше ніякого очікування.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Понеділок в офісі, середа вдома? Встановіть індивідуальний час для кожного дня тижня – додаток зробить решту.</string>
     <string name="onboarding_slide3_title">З\'єднані за секунди.</string>
     <string name="onboarding_slide3_body">Поділіться кодом, і ваша родина приєднається миттєво. Нові учасники? Розклад адаптується автоматично. А якщо щось зміниться, всі дізнаються одразу.</string>
-    <string name="onboarding_slide4_title">Починаємо!</string>
-    <string name="onboarding_slide4_body">Створіть свою родину зараз і насолоджуйтесь спокійними ранками – надійно, навіть офлайн.</string>
+    <string name="onboarding_slide4_title">Завжди надійний</string>
+    <string name="onboarding_slide4_body">Насолоджуйтесь розслабленим ранком – надійно, навіть офлайн. Якщо Інтернет зникає, будильник все одно дзвонить точно вчасно.</string>
     <string name="settings_feedback_button">Залишити відгук / Повідомити про помилку</string>
     <string name="feedback_title">Відгук</string>
     <string name="feedback_intro">Допоможіть нам зробити додаток ще кращим! Що у вас на думці?</string>

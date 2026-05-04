@@ -5,8 +5,8 @@
     <string name="password_label">Пароль</string>
     <string name="register_button">Зарегистрироваться</string>
     <string name="login_button">Войти</string>
-    <string name="already_have_account">Уже есть аккаунт? Войдите здесь.</string>
-    <string name="no_account">Еще нет аккаунта? Зарегистрируйтесь здесь.</string>
+    <string name="already_have_account">Войти / Зарегистрироваться</string>
+    <string name="no_account">Войти / Зарегистрироваться</string>
     <string name="login_with_google">Войти через Google</string>
     <string name="login_forgot_password">Забыли пароль?</string>
     <string name="login_password_reset_sent">Письмо для сброса пароля отправлено!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Пропустить</string>
     <string name="onboarding_next">Далее</string>
-    <string name="onboarding_done">Поехали</string>
+    <string name="onboarding_done">Начать без аккаунта</string>
     <string name="onboarding_slide0_title">Ваше утро как команда.</string>
     <string name="onboarding_slide0_body">Никаких споров, никакого хаоса. FamWake обеспечивает спокойное начало дня для всей семьи – полностью автоматически.</string>
     <string name="onboarding_slide1_title">Больше никакого ожидания.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Понедельник в офисе, среда дома? Установите индивидуальное время для каждого дня недели – приложение сделает остальное.</string>
     <string name="onboarding_slide3_title">На связи за секунды.</string>
     <string name="onboarding_slide3_body">Поделитесь кодом, и ваша семья присоединится мгновенно. Новые участники? Расписание адаптируется автоматически. А если что-то изменится, все узнают сразу.</string>
-    <string name="onboarding_slide4_title">Начинаем!</string>
-    <string name="onboarding_slide4_body">Создайте свою семью сейчас и наслаждайтесь спокойными утрами – надёжно, даже офлайн.</string>
+    <string name="onboarding_slide4_title">Всегда надежный</string>
+    <string name="onboarding_slide4_body">Наслаждайтесь расслабленным утром — надежно, даже в автономном режиме. Если Интернет отключится, будильник все равно прозвенит вовремя.</string>
     <string name="settings_feedback_button">Оставить отзыв / Сообщить об ошибке</string>
     <string name="feedback_title">Отзыв</string>
     <string name="feedback_intro">Помогите нам сделать приложение еще лучше! Что у вас на уме?</string>
