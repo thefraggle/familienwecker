@@ -124,7 +124,7 @@ fun FamilyViewModel.removeMember(id: String) {
     }
 }
 
-fun FamilyViewModel.setMyMemberId(id: String?, onComplete: (Boolean) -> Unit = {}) {
+fun FamilyViewModel.setMyMemberId(id: String?, force: Boolean = false, onComplete: (Boolean) -> Unit = {}) {
     val currentFamilyId = familyId.value ?: return
     val currentMyMemberId = myMemberId.value
     val userId = auth.currentUser?.uid ?: return
@@ -141,7 +141,7 @@ fun FamilyViewModel.setMyMemberId(id: String?, onComplete: (Boolean) -> Unit = {
             repository.unclaimMember(currentFamilyId, currentMyMemberId, userId, appSettings.deviceId)
         }
         if (id != null) {
-            val success = repository.claimMember(currentFamilyId, id, userId, userName, appSettings.deviceId)
+            val success = repository.claimMember(currentFamilyId, id, userId, userName, appSettings.deviceId, force)
             if (success) {
                 appSettings.setMyMemberId(id)
                 val memberName = _members.value.find { it.id == id }?.name

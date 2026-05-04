@@ -284,6 +284,7 @@ fun SettingsScreen(
 
                     if (showMemberPicker) {
                         val memberSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                        var memberToSteal by remember { mutableStateOf<de.familienwecker.famwake.model.FamilyMember?>(null) }
                         ModalBottomSheet(
                             onDismissRequest = { showMemberPicker = false },
                             sheetState = memberSheetState
@@ -311,9 +312,11 @@ fun SettingsScreen(
                                     val isSelected = member.id == myMemberId
                                     FilterChip(
                                         selected = isSelected,
-                                        enabled = !isClaimedByOther,
+                                        enabled = true,
                                         onClick = {
-                                            if (!isClaimedByOther) {
+                                            if (isClaimedByOther) {
+                                                memberToSteal = member
+                                            } else {
                                                 val errorMsg = context.getString(R.string.error_profile_taken)
                                                 viewModel.setMyMemberId(member.id) { success ->
                                                     if (!success) {
@@ -340,6 +343,23 @@ fun SettingsScreen(
                                         modifier = Modifier.fillMaxWidth()
                                     )
                                 }
+                            }
+                            if (memberToSteal != null) {
+                                AlertDialog(
+                                    onDismissRequest = { memberToSteal = null },
+                                    title = { Text(if (currentLanguage == "de") "Profil übernehmen?" else "Take over profile?") },
+                                    text = { Text(if (currentLanguage == "de") "${memberToSteal!!.name} ist bereits belegt. Möchtest du dieses Profil übernehmen?" else "${memberToSteal!!.name} is already taken. Do you want to take it over?") },
+                                    confirmButton = {
+                                        TextButton(onClick = {
+                                            viewModel.setMyMemberId(memberToSteal!!.id, force = true) { }
+                                            memberToSteal = null
+                                            showMemberPicker = false
+                                        }) { Text(if (currentLanguage == "de") "Übernehmen" else "Take over", color = MaterialTheme.colorScheme.error) }
+                                    },
+                                    dismissButton = {
+                                        TextButton(onClick = { memberToSteal = null }) { Text(stringResource(R.string.settings_delete_family_dialog_cancel)) }
+                                    }
+                                )
                             }
                         }
                     }

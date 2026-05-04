@@ -307,7 +307,7 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
-    override suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?, deviceId: String): Boolean {
+    override suspend fun claimMember(familyId: String, memberId: String, userId: String, userName: String?, deviceId: String, force: Boolean): Boolean {
         return try {
             val docRef = db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(memberId)
@@ -315,7 +315,7 @@ class FirebaseRepository : IFirebaseRepository {
                 val snapshot = get(docRef)
                 @Suppress("UNCHECKED_CAST")
                 val existingClaim = (snapshot.get("claimedByUserId") as? String)
-                if (existingClaim == null || existingClaim == userId) {
+                if (force || existingClaim == null || existingClaim == userId) {
                     update(docRef, mapOf(
                         "claimedByUserId" to userId,
                         "claimedByUserName" to userName,
