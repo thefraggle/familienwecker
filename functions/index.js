@@ -1217,6 +1217,7 @@ exports.cleanupInactiveFamilies = onSchedule(
     schedule: "every sunday 04:00",
     region: "europe-west3",
     timeZone: "Europe/Berlin",
+    timeoutSeconds: 3600, // 1h Timeout (Gen2) für wachsende Datenmengen
     secrets: ["RESEND_API_KEY"],
   },
   async (event) => {
@@ -1226,9 +1227,10 @@ exports.cleanupInactiveFamilies = onSchedule(
 
     console.log(`Running inactive families cleanup. Looking for activity before ${new Date(sixMonthsAgoMs).toISOString()}`);
 
-    const familiesSnapshot = await admin.firestore().collection("families").get();
+    // Stream statt .get() verhindert Memory-Limits bei >10.000 Familien
+    const familiesStream = admin.firestore().collection("families").stream();
 
-    for (const familyDoc of familiesSnapshot.docs) {
+    for await (const familyDoc of familiesStream) {
       // Höre auf das letzte Update eines Mitglieds
       const membersSnapshot = await familyDoc.ref.collection("members")
         .orderBy("lastUpdatedAt", "desc")
