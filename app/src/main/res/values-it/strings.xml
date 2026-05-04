@@ -371,4 +371,7 @@
     <string name="onboarding_slide5_title">Cominciamo!</string>
     <string name="onboarding_slide5_body">Puoi provare l\'app fin da subito senza un account. Ne avrai bisogno solo quando vorrai invitare la tua famiglia.</string>
     <string name="settings_anonymous_login_button">Accedi / Registrati</string>
+    <string name="settings_steal_title">Subentrare nel profilo?</string>
+    <string name="settings_steal_text">%1$s è già occupato. Vuoi subentrare?</string>
+    <string name="settings_steal_confirm">Subentrare</string>
 </resources>

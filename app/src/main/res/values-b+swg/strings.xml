@@ -368,4 +368,7 @@
     <string name="onboarding_slide5_title">Auf goht\'s!</string>
     <string name="onboarding_slide5_body">Du kannsch d\'App direkt ohne Aameldung ausprobiera. A Konto brauchsch erscht, wenn de dei Familie eiladsch.</string>
     <string name="settings_anonymous_login_button">Aamelda / Regischtriera</string>
+    <string name="settings_steal_title">Profil übernehmen?</string>
+    <string name="settings_steal_text">%1$s ist bereits belegt. Möchtest du es übernehmen?</string>
+    <string name="settings_steal_confirm">Übernehmen</string>
 </resources>

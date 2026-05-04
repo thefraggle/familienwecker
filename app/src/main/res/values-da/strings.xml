@@ -370,4 +370,7 @@
     <string name="onboarding_slide5_title">Lad os komme i gang!</string>
     <string name="onboarding_slide5_body">Du kan prøve appen med det samme uden en konto. Du behøver kun en, når du vil invitere din familie.</string>
     <string name="settings_anonymous_login_button">Log ind / Tilmeld dig</string>
+    <string name="settings_steal_title">Overtag profil?</string>
+    <string name="settings_steal_text">%1$s er allerede i brug. Vil du overtage den?</string>
+    <string name="settings_steal_confirm">Overtag</string>
 </resources>
