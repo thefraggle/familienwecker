@@ -59,7 +59,7 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
                 error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
                     _errorMessage.value = UiText.StringResource(R.string.error_create_family_rate_limit)
                 else ->
-                    _errorMessage.value = UiText.StringResource(R.string.error_create_family)
+                    _errorMessage.value = UiText.StringResource(R.string.error_create_family, error.localizedMessage ?: "")
             }
             onComplete(false)
         }
@@ -106,7 +106,7 @@ fun FamilyViewModel.joinFamily(code: String, onComplete: (Boolean) -> Unit) {
                 error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
                     _errorMessage.value = UiText.StringResource(R.string.error_join_family_rate_limit)
                 else ->
-                    _errorMessage.value = UiText.StringResource(R.string.error_invalid_code)
+                    _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, _pendingJoinCode.value ?: "")
             }
             _pendingJoinCode.value = null
             _isJoiningFamily.value = false
