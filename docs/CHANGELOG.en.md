@@ -16,6 +16,8 @@
 - **Profile Claiming:** Claiming an existing profile on a new device ("Claim Stealing") now works reliably again due to adjusted security rules.
 - **Onboarding & Navigation:** Fixed an issue where the onboarding tour led to a dead end, and corrected misguided logout dialogs while in test mode.
 - **Account Transition:** If you decide to register from the test mode, your test family and data are now reliably transitioned into your new account.
+- **Family Deletion:** If a family is deleted by the creator, all other members' devices will now immediately cancel local alarms and redirect users to the start screen.
+- **Auto-Claim:** The global alarm toggle now reliably stays enabled after automatically claiming a newly created profile.
 
 ---
 
