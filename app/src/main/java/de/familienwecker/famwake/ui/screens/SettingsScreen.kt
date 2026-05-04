@@ -344,14 +344,14 @@ fun SettingsScreen(
                                     )
                                 }
                             }
-                            if (memberToSteal != null) {
+                            memberToSteal?.let { member ->
                                 AlertDialog(
                                     onDismissRequest = { memberToSteal = null },
                                     title = { Text(stringResource(R.string.settings_steal_title)) },
-                                    text = { Text(stringResource(R.string.settings_steal_text, memberToSteal!!.name)) },
+                                    text = { Text(stringResource(R.string.settings_steal_text, member.name)) },
                                     confirmButton = {
                                         TextButton(onClick = {
-                                            viewModel.setMyMemberId(memberToSteal!!.id, force = true) { }
+                                            viewModel.setMyMemberId(member.id, force = true) { }
                                             memberToSteal = null
                                             showMemberPicker = false
                                         }) { Text(stringResource(R.string.settings_steal_confirm), color = MaterialTheme.colorScheme.error) }
