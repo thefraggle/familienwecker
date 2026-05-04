@@ -336,15 +336,26 @@ class FamilyViewModel(
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                                     android.util.Log.e("FamilyViewModel", "Members Flow Error: ${e.message}", e)
                                 }
-                                // PERMISSION_DENIED tritt regulär auf wenn eine Familie gerade
-                                // gelöscht/gewechselt wird (Race Condition). In dem Fall ist der
-                                // Listener bereits obsolet und wird von familyId.collect gecancelt.
-                                // Beide Firebase-Fehlerformate abfangen (UPPER_CASE + kebab-case).
+                                // PERMISSION_DENIED tritt auf, wenn eine Familie gelöscht wird
+                                // oder man manuell wechselt. Tritt es auf, ohne dass wir den
+                                // Wechsel initiiert haben (Admin hat Familie gelöscht), müssen wir
+                                // lokal aufräumen, damit der Alarm aufhört und man nicht festhängt.
                                 val isPermissionError =
                                     e.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true ||
                                     e.message?.contains("permission-denied", ignoreCase = true) == true
                                 if (!isPermissionError) {
                                     _errorMessage.value = UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, e.localizedMessage ?: "")
+                                } else {
+                                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                        android.util.Log.w("FamilyViewModel", "Kicked out from family (PERMISSION_DENIED). Forcing local leave.")
+                                    }
+                                    cancelAlarmForCurrentUser()
+                                    appSettings.setFamilyId(null)
+                                    appSettings.setJoinCode(null)
+                                    appSettings.setFamilyName(null)
+                                    appSettings.setMyMemberId(null)
+                                    appSettings.setMyMemberName(null)
+                                    _errorMessage.value = UiText.StringResource(de.familienwecker.famwake.R.string.error_family_not_found)
                                 }
                             }
                         }
