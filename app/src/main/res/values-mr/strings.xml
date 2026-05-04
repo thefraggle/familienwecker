@@ -376,4 +376,8 @@
     <string name="notif_permission_button">सूचना सक्षम करा</string>
     <string name="notif_manage_title">सूचना व्यवस्थापित करा</string>
     <string name="notif_manage_desc">सिस्टम सेटिंग्जमध्ये आवाज, कंपन आणि इतर सूचना प्राधान्ये बदला.</string>
-</resources>
+<string name="onboarding_login_create">लॉग इन / नोंदणी करा</string>
+    <string name="onboarding_slide5_title">चला\' सुरू करूया!</string>
+    <string name="onboarding_slide5_body">तुम्ही साइन अप न करता लगेच ॲप वापरून पाहू शकता. जेव्हा तुम्ही तुमच्या कुटुंबाला आमंत्रित करता तेव्हाच तुम्हाला एका खात्याची आवश्यकता असते.</string>
+    <string name="settings_anonymous_login_button">लॉग इन / नोंदणी करा</string>
+    </resources>
