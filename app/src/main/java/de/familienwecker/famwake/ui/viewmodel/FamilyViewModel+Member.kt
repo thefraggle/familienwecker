@@ -31,34 +31,28 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
 
     scope.launch {
         try {
-            repository.addOrUpdateMember(currentFamilyId, member)
-            // Auto-Claim: Erster eigener Member wird automatisch geclaimt.
-            // Nur wenn: (1) neuer Member, (2) noch kein Profil geclaimt, (3) Member ist unclaimed.
-            if (willAutoClaim) {
+            val finalMember = if (willAutoClaim) {
                 val userId = auth.currentUser?.uid
                 val userName = auth.currentUser?.displayName
                     ?: app.getString(de.familienwecker.famwake.R.string.settings_fallback_username)
                 if (userId != null) {
-                    if (_isOffline.value) {
-                        // Offline-First: AppSettings optimistisch setzen, Firestore queut den Write.
-                        // Die Transaction würde offline immer false liefern → stattdessen direkt updaten.
-                        repository.claimMemberOffline(currentFamilyId, member.id, userId, userName, appSettings.deviceId)
-                        appSettings.setMyMemberId(member.id)
-                        appSettings.setMyMemberName(member.name)
-                        appSettings.setAlarmEnabled(true)
-                        TelemetryDeck.signal("member.autoClaimed")
-                    } else {
-                        val success = repository.claimMember(currentFamilyId, member.id, userId, userName, appSettings.deviceId)
-                        if (success) {
-                            appSettings.setMyMemberId(member.id)
-                            appSettings.setMyMemberName(member.name)
-                            appSettings.setAlarmEnabled(true)
-                            TelemetryDeck.signal("member.autoClaimed")
-                            if (BuildConfig.DEBUG) {
-                                Log.i("FamilyViewModel", "Auto-Claim: ${member.name} (${member.id}) automatisch geclaimt")
-                            }
-                        }
-                    }
+                    member.copy(
+                        claimedByUserId = userId,
+                        claimedByUserName = userName,
+                        claimedByDeviceId = appSettings.deviceId
+                    )
+                } else member
+            } else member
+
+            repository.addOrUpdateMember(currentFamilyId, finalMember)
+            
+            if (willAutoClaim && finalMember.claimedByUserId != null) {
+                appSettings.setMyMemberId(finalMember.id)
+                appSettings.setMyMemberName(finalMember.name)
+                appSettings.setAlarmEnabled(true)
+                TelemetryDeck.signal("member.autoClaimed")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.i("FamilyViewModel", "Auto-Claim: ${finalMember.name} (${finalMember.id}) automatisch geclaimt")
                 }
                 _isAutoClaimInProgress.value = false
             } else if (isNewMember) {
