@@ -10,7 +10,7 @@
     <string name="login_with_google">Увійти через Google</string>
     <string name="login_forgot_password">Забули пароль?</string>
     <string name="login_password_reset_sent">Лист для скидання пароля надіслано!</string>
-    <string name="login_google_error_no_account">На цьому пристрої не знайдено акаунт Google. Будь ласка, увійдіть у Google в налаштуваннях Android або використайте email/пароль.</string>
+    <string name="login_google_error_no_account">На цьому пристрої не знайдено акаунт Google. Будь ласка, увійдіть у Google в налаштуваннях вашого телефону або використайте email і пароль.</string>
 
     <string name="setup_create_tab">Створити</string>
     <string name="setup_join_tab">Приєднатися</string>
@@ -19,13 +19,13 @@
     <string name="setup_join_code_label">6-значний код запрошення</string>
     <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">Приєднатися до сім\'ї</string>
-    <string name="join_loading_text">Обробка запиту на приєднання…</string>
+    <string name="join_loading_text">З\'єднання з сім\'єю…</string>
 
     <string name="main_add_member_desc">Додати учасника</string>
     <string name="main_family_members">Члени сім\'ї</string>
     <string name="main_current_schedule">Поточний розклад</string>
-    <string name="main_no_active_schedule">Немає активного розкладу будильників.</string>
-    <string name="main_optimal_plan">Ось розрахований розклад:</string>
+    <string name="main_no_active_schedule">Зараз немає активних будильників.</string>
+    <string name="main_optimal_plan">Ось розклад вашої родини:</string>
     <string name="main_plan_paused">Ваш будильник зараз на паузі.</string>
     <string name="main_shared_breakfast">☕ Спільний сніданок: %s</string>
     <string name="main_wake_time">Підйом: %1$s - %2$s</string>
@@ -36,14 +36,14 @@
     <string name="main_member_alarm_off">(Без будильника)</string>
     <string name="main_member_limit_reached">Досягнуто максимуму у 6 учасників.</string>
     <string name="main_alarm_enabled">Будильник: УВІМК</string>
-    <string name="main_alarm_enabled_desc">Автоматичні будильники активні.</string>
+    <string name="main_alarm_enabled_desc">Ваші будильники увімкнені.</string>
     <string name="main_snooze_active">Повтор активний до %1$s</string>
     <string name="main_alarm_disabled">Будильник: ВИМК</string>
-    <string name="main_alarm_disabled_desc">Активна ручна пауза.</string>
+    <string name="main_alarm_disabled_desc">Ваші будильники призупинені.</string>
     <string name="main_no_profile_warning">Профіль не вибрано!</string>
-    <string name="main_no_profile_warning_desc">Будь ласка, виберіть свій профіль у налаштуваннях, щоб будильник міг дзвонити для вас.</string>
+    <string name="main_no_profile_warning_desc">Будь ласка, виберіть свій профіль у налаштуваннях, щоб телефон дзвонив саме для вас.</string>
     <string name="main_unclaimed_first_title">Для %1$s не дзвонить будильник!</string>
-    <string name="main_unclaimed_first_desc">%1$s стоїть на першому місці, але не має власного профілю – і може не прокинутися вчасно.</string>
+    <string name="main_unclaimed_first_desc">%1$s стоїть на першому місці, але ще не вибрав свій профіль на телефоні – і може проспати!</string>
     <string name="yes">Так</string>
     <string name="no">Ні</string>
     <string name="delete_desc">Видалити</string>
@@ -52,7 +52,7 @@
     <string name="add_member_title_edit">Змінити учасника</string>
     <string name="back_desc">Назад</string>
     <string name="unsaved_changes_title">Незбережені зміни</string>
-    <string name="unsaved_changes_message">Бажаєте скасувати зміни?</string>
+    <string name="unsaved_changes_message">Бажаєте скасувати ваші зміни?</string>
     <string name="unsaved_changes_discard">Скасувати</string>
     <string name="unsaved_changes_keep">Продовжити редагування</string>
     <string name="add_member_submit">Зберегти</string>
@@ -73,8 +73,8 @@
     <string name="add_member_copy_to_days">Копіювати \"%1$s\" на інші дні</string>
     <string name="add_member_copy_dialog_title">Копіювати на дні</string>
     <string name="add_member_copy_apply">Застосувати</string>
-    <string name="validation_latest_before_earliest">Найпізніший час має бути після найранішого</string>
-    <string name="validation_leave_too_early">Час виходу має бути після ванної (Підйом + Час у ванній)</string>
+    <string name="validation_latest_before_earliest">Найпізніший час підйому має бути після найранішого.</string>
+    <string name="validation_leave_too_early">Час виходу з дому має бути після того, як ви звільните ванну.</string>
     <string name="weekday_1">Понеділок</string>
     <string name="weekday_2">Вівторок</string>
     <string name="weekday_3">Середа</string>
@@ -92,39 +92,42 @@
 
     <string name="settings_title">Налаштування</string>
     <string name="settings_profile_title">Мій профіль</string>
-    <string name="settings_profile_desc">Телефон буде дзвонити тільки відповідно до часу підйому вибраного тут профілю.</string>
+    <string name="settings_profile_desc">Ваш телефон буде дзвонити тільки для вибраної тут людини.</string>
     <string name="settings_please_select">Будь ласка, виберіть</string>
     <string name="settings_no_members">Учасників не знайдено</string>
     <string name="settings_alarm_title">Мелодія будильника</string>
-    <string name="settings_battery_warning_title">Активна оптимізація батареї</string>
-    <string name="settings_battery_warning_text">Будильник може спрацювати із затримкою або не спрацювати. Будь ласка, вимкніть оптимізацію батареї для FamWake.</string>
+    <string name="settings_battery_warning_title">Налаштування батареї можуть блокувати будильник</string>
+    <string name="settings_battery_warning_text">Ваш телефон може затримувати або блокувати будильник для економії заряду. Будь ласка, дозвольте FamWake працювати у фоновому режимі.</string>
     <string name="settings_battery_warning_button">Виправити зараз</string>
     <string name="settings_alarm_default">За замовчуванням</string>
-    <string name="settings_alarm_select">Вибрати звук: %1$s</string>
+    <string name="settings_alarm_select">Звук: %1$s</string>
     <string name="settings_alarm_picker_title">Виберіть мелодію будильника</string>
     <string name="settings_account_title">Сім\'я та Акаунт</string>
+    <string name="settings_join_family_locked">Будь ласка, увійдіть, щоб приєднатися до сім\'ї.</string>
+    <string name="settings_share_code_locked">Будь ласка, увійдіть, щоб поділитися кодом.</string>
+    <string name="settings_anonymous_login_button">Увійти / Зареєструватися</string>
     <string name="settings_join_code">Код запрошення для %1$s:</string>
-    <string name="settings_share_code">Поділитися кодом</string>
-    <string name="settings_share_message">Ось ваше посилання для FamWake:\nhttps://familienwecker.de/join/%2$s\n\nКод: %2$s\nГрупа: %1$s\n\nПросто натисніть, увійдіть, і ми на зв\'язку. Прокидатися разом веселіше! ⏰❤️</string>
+    <string name="settings_share_code">Поділитися посиланням</string>
+    <string name="settings_share_message">Ось ваше посилання для FamWake:\nhttps://familienwecker.de/join/%2$s\n\nКод: %2$s\nСім\'я: %1$s\n\nПросто натисніть на посилання, увійдіть, і ми з\'єднані. Прокидатися разом набагато легше! ⏰❤️</string>
     <string name="settings_leave_family">Покинути сім\'ю</string>
     <string name="settings_delete_family">Видалити сім\'ю</string>
-    <string name="settings_delete_family_dialog_title">Видалити сім\'ю?</string>
-    <string name="settings_delete_family_dialog_text">Ви впевнені, що хочете назавжди видалити цю сім\'ю? Усі учасники, розклади та налаштування будуть видалені для всіх. Цю дію не можна скасувати.</string>
-    <string name="settings_delete_family_dialog_confirm">Видалити</string>
+    <string name="settings_delete_family_dialog_title">Видалити сім\'ю назавжди?</string>
+    <string name="settings_delete_family_dialog_text">Ви впевнені, що хочете назавжди видалити цю сім\'ю? Усі учасники, час та налаштування зникнуть для всіх. Цю дію не можна скасувати.</string>
+    <string name="settings_delete_family_dialog_confirm">Видалити назавжди</string>
     <string name="settings_delete_family_dialog_cancel">Скасувати</string>
-    <string name="settings_delete_family_warning_title">Інші учасники активні!</string>
-    <string name="settings_delete_family_warning_text">У сім\'ї ще є активні учасники. Якщо ви видалите її, усі втратять доступ. Ви дійсно хочете примусово видалити все?</string>
-    <string name="settings_delete_family_warning_confirm">Так, видалити все</string>
+    <string name="settings_delete_family_warning_title">Інші учасники ще тут!</string>
+    <string name="settings_delete_family_warning_text">У цій сім\'ї ще є інші учасники. Якщо ви видалите її, всі втратять доступ. Ви дійсно впевнені?</string>
+    <string name="settings_delete_family_warning_confirm">Так, видалити для всіх</string>
     <string name="settings_logout">Вийти</string>
     <string name="settings_delete_account">Видалити акаунт</string>
-    <string name="settings_footer_version">FamWake Сімейний будильник v%1$s</string>
+    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Усі права захищено.</string>
 
     <string name="empty_members_title">Поки немає учасників</string>
-    <string name="empty_members_description">Додайте профілі, щоб бачити час підйому і будити одне одного.</string>
+    <string name="empty_members_description">Додайте членів сім\'ї, щоб налаштувати ваш ранковий розклад.</string>
     <string name="empty_schedule_title">Немає активних будильників</string>
-    <string name="empty_schedule_description">Наразі ні для кого не встановлено будильників. Можна поспати!</string>
+    <string name="empty_schedule_description">Зараз усі будильники вимкнені. Час виспатися!</string>
 
     <string name="settings_language_title">Мова</string>
     <string name="settings_language_system">Системна за замовчуванням</string>
@@ -144,41 +147,41 @@
     <string name="settings_display_title">Налаштування додатку</string>
     <string name="settings_help_feedback_title">Допомога та Відгуки</string>
     <string name="settings_support_button">Написати розробнику</string>
-    <string name="settings_start_onboarding">🎓 Тур по додатку</string>
+    <string name="settings_start_onboarding">🎓 Швидкий тур</string>
 
     <string name="onboarding_skip">Пропустити</string>
     <string name="onboarding_next">Далі</string>
-    <string name="onboarding_done">Почніть без облікового запису</string>
+    <string name="onboarding_done">Почати без акаунту</string>
     <string name="onboarding_slide0_title">Ваш ранок як команда.</string>
-    <string name="onboarding_slide0_body">Жодних суперечок, жодного хаосу. FamWake забезпечує спокійний початок дня для всіх – повністю автоматично.</string>
+    <string name="onboarding_slide0_body">Жодних суперечок, жодного хаосу. FamWake гарантує, що кожен почне день розслаблено – повністю самостійно.</string>
     <string name="onboarding_slide1_title">Більше ніякого очікування.</string>
-    <string name="onboarding_slide1_body">FamWake розраховує ідеальний час пробудження для кожного члена сім\'ї – координуючи ванну, сніданок і вихід. Більше ніякої тісноти.</string>
-    <string name="onboarding_slide2_title">Кожен день інший.</string>
-    <string name="onboarding_slide2_body">Понеділок в офісі, середа вдома? Встановіть індивідуальний час для кожного дня тижня – додаток зробить решту.</string>
-    <string name="onboarding_slide3_title">З\'єднані за секунди.</string>
-    <string name="onboarding_slide3_body">Поділіться кодом, і ваша родина приєднається миттєво. Нові учасники? Розклад адаптується автоматично. А якщо щось зміниться, всі дізнаються одразу.</string>
-    <string name="onboarding_slide4_title">Завжди надійний</string>
-    <string name="onboarding_slide4_body">Насолоджуйтесь розслабленим ранком – надійно, навіть офлайн. Якщо Інтернет зникає, будильник все одно дзвонить точно вчасно.</string>
+    <string name="onboarding_slide1_body">FamWake знаходить ідеальний час пробудження для кожного члена сім\'ї – враховуючи час у ванній, сніданок та вихід з дому. Більше ніякої штовханини біля умивальника.</string>
+    <string name="onboarding_slide2_title">Кожен день різний.</string>
+    <string name="onboarding_slide2_body">Понеділок в офісі, середа вдома? Просто встановіть свій час для кожного дня, а додаток зробить решту.</string>
+    <string name="onboarding_slide3_title">На зв\'язку за секунди.</string>
+    <string name="onboarding_slide3_body">Поділіться кодом запрошення, і ваша родина миттєво приєднається. Якщо хтось змінить свій час, розклад оновиться для всіх автоматично.</string>
+    <string name="onboarding_slide4_title">Завжди надійний.</string>
+    <string name="onboarding_slide4_body">Насолоджуйтесь спокійним ранком щодня. Навіть якщо інтернет зникне вночі, будильник все одно пролунає вчасно.</string>
     <string name="settings_feedback_button">Залишити відгук / Повідомити про помилку</string>
     <string name="feedback_title">Відгук</string>
     <string name="feedback_intro">Допоможіть нам зробити додаток ще кращим! Що у вас на думці?</string>
     <string name="feedback_category_label">Категорія</string>
     <string name="feedback_category_bug">Знайшов помилку</string>
-    <string name="feedback_category_feature">Запит функції</string>
-    <string name="feedback_category_praise">Похвала та Критика</string>
+    <string name="feedback_category_feature">Ідея для додатку</string>
+    <string name="feedback_category_praise">Похвала та Відгуки</string>
     <string name="feedback_category_other">Інше</string>
     <string name="feedback_message_label">Повідомлення</string>
-    <string name="feedback_message_placeholder">Коротко опишіть ваш запит…</string>
+    <string name="feedback_message_placeholder">Коротко опишіть, у чому річ…</string>
     <string name="feedback_email_label">Email (необов\'язково)</string>
-    <string name="feedback_email_placeholder">Ваш email (якщо ми можемо відповісти)</string>
-    <string name="feedback_auto_info_title">Автоматично включено:</string>
+    <string name="feedback_email_placeholder">Щоб ми могли вам відповісти</string>
+    <string name="feedback_auto_info_title">Автоматично додається:</string>
     <string name="feedback_auto_version">Версія додатку: v%1$s</string>
-    <string name="feedback_auto_device">Пристрій: %1$s</string>
+    <string name="feedback_auto_device">Телефон: %1$s</string>
     <string name="feedback_cancel">Скасувати</string>
-    <string name="feedback_send">Надіслати відгук</string>
-    <string name="feedback_success">Дякуємо! Ваш відгук отримано, він дуже нам допоможе.</string>
-    <string name="feedback_success_title">Відгук надіслано</string>
-    <string name="feedback_success_message">Дякуємо за ваш відгук! Він допомагає нам покращувати FamWake для всіх.</string>
+    <string name="feedback_send">Надіслати повідомлення</string>
+    <string name="feedback_success">Дякуємо! Ми отримали ваше повідомлення.</string>
+    <string name="feedback_success_title">Повідомлення надіслано</string>
+    <string name="feedback_success_message">Дякуємо за вашу допомогу! Ваш відгук допомагає нам покращувати FamWake для всіх.</string>
     <string name="settings_terms_of_use">Умови використання</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-uk.html</string>
     <string name="settings_privacy_policy">Політика конфіденційності</string>
@@ -194,66 +197,66 @@
     <string name="settings_theme_light">Світла</string>
     <string name="settings_theme_dark">Темна</string>
 
-    <string name="ringing_wake_up">Прокидайся, %1$s!</string>
+    <string name="ringing_wake_up">Час прокидатися, %1$s!</string>
     <string-array name="ringing_messages">
-        <item>Ванна кімната зараз повністю у твоєму розпорядженні!</item>
-        <item>Без заторів і стресу – твій час у ванній починається зараз.</item>
-        <item>Насолоджуйся тишею у ванній, поки вона є!</item>
+        <item>Ванна кімната зараз повністю твоя!</item>
+        <item>Без поспіху та стресу – твій час у ванній починається зараз.</item>
+        <item>Насолоджуйся тишею у ванній, поки є можливість!</item>
         <item>Час для першої кави. Світ чекає!</item>
         <item>Добре спалося? Твій розклад на сьогодні готовий.</item>
-        <item>Готовий до нового дня? Все узгоджено.</item>
-        <item>Час запалити цей день! Твій час у ванній починається.</item>
-        <item>Прокидайся і вмикай звук – сцена твоя!</item>
-        <item>Хеві-метал зранку відганяє турботи!</item>
-        <item>Розклад активний. Вперед!</item>
-        <item>Готовий до зльоту? Команда розраховує на тебе.</item>
+        <item>Готовий до нового дня? Усе ідеально сплановано.</item>
+        <item>Час запалювати цей день! Твій час у ванній починається.</item>
+        <item>Прокидайся та роби гучніше – сцена твоя!</item>
+        <item>Хороша музика зранку відганяє турботи!</item>
+        <item>Сімейний розклад запущено. Вперед!</item>
+        <item>Готовий до старту? Сім\'я розраховує на тебе.</item>
         <item>Вставай, сонечко! Ванна вільна для тебе.</item>
-        <item>Твій персональний слот починається – використай його!</item>
-        <item>Вільний шлях до ванної – твій час заброньовано!</item>
-        <item>Хто рано встає, тому гаряча вода дістається!</item>
-        <item>Ще 5 хвилин? Ні! Твоє вікно чекає.</item>
-        <item>Сьогодні буде чудовий день. Він починається зараз!</item>
-        <item>Зубна щітка сумує за тобою. Біжи у ванну!</item>
-        <item>Все скоординовано, все сплановано – твоя черга!</item>
-        <item>Рання пташка має ванну лише для себе.</item>
+        <item>Твій особистий час у ванній починається – використовуй його з користю!</item>
+        <item>Шлях до раковини вільний – твоя черга!</item>
+        <item>Хто рано встає, тому дістається гаряча вода!</item>
+        <item>Ще п\'ять хвилин? Ні! Твій час настав.</item>
+        <item>Сьогодні буде чудовий день. І він починається прямо зараз!</item>
+        <item>Твоя зубна щітка сумує. Бігом у ванну!</item>
+        <item>Усе скоординовано та сплановано – тепер твоя черга!</item>
+        <item>Рання пташка займає ванну першою.</item>
     </string-array>
     <string name="ringing_stop">Вимкнути будильник</string>
     <string name="ringing_snooze">Повтор (5 хв)</string>
     <string name="pause_today_desc">Пауза на сьогодні</string>
-    <string name="awake_today_desc">Вже не сплю</string>
-    <string name="awake_active_desc">Вже не сплю</string>
+    <string name="awake_today_desc">Я вже не сплю</string>
+    <string name="awake_active_desc">Уже не сплю</string>
 
-    <string name="error_load_members">Помилка завантаження учасників</string>
-    <string name="error_create_family">Помилка створення сім\'ї: %1$s</string>
-    <string name="error_create_family_rate_limit">Ви вже створили 3 сім\'ї за останню годину. Будь ласка, зачекайте годину і спробуйте знову.</string>
-    <string name="error_join_family_rate_limit">Занадто багато спроб приєднання (макс. 5 на хвилину). Зачекайте трохи і спробуйте знову.</string>
+    <string name="error_load_members">Не вдалося завантажити членів сім\'ї</string>
+    <string name="error_create_family">Не вдалося створити сім\'ю: %1$s</string>
+    <string name="error_create_family_rate_limit">Ви створили забагато сімей останнім часом. Будь ласка, зачекайте трохи і спробуйте знову.</string>
+    <string name="error_join_family_rate_limit">Занадто багато спроб. Зачекайте трохи і спробуйте знову.</string>
     <string name="error_invalid_code">Невірний код запрошення: %1$s</string>
-    <string name="error_family_not_found">Сім\'ю з таким кодом не знайдено.</string>
-    <string name="error_code_generation_failed">Не вдалося згенерувати унікальний код. Будь ласка, спробуйте ще раз.</string>
+    <string name="error_family_not_found">Ми не знайшли сім\'ю з цим кодом.</string>
+    <string name="error_code_generation_failed">Не вдалося створити код. Будь ласка, спробуйте ще раз.</string>
     <string name="join_conflict_title">Приєднатися до нової сім\'ї?</string>
-    <string name="join_conflict_text">Ви вже є учасником сім\'ї \"%1$s\". Щоб приєднатися до нової, вам потрібно спочатку покинути поточну. Ви хочете покинути \"%1$s\" і приєднатися за кодом %2$s?</string>
+    <string name="join_conflict_text">Ви вже є учасником сім\'ї \"%1$s\". Щоб приєднатися до нової, вам потрібно спочатку покинути поточну. Ви хочете покинути \"%1$s\" і приєднатися до нової?</string>
     <string name="join_conflict_confirm">Покинути і Приєднатися</string>
     <string name="error_delete_member">Не вдалося видалити учасника: %1$s</string>
-    <string name="error_sync_failed">Помилка синхронізації</string>
-    <string name="error_delete_family">Помилка видалення сім\'ї: %1$s</string>
-    <string name="error_calculate_schedule">Помилка розрахунку розкладу: %1$s</string>
-    <string name="error_not_logged_in">Користувач не авторизований</string>
-    <string name="error_system">Системна помилка</string>
+    <string name="error_sync_failed">Не вдалося оновити дані</string>
+    <string name="error_delete_family">Не вдалося видалити сім\'ю: %1$s</string>
+    <string name="error_calculate_schedule">Не вдалося розрахувати час: %1$s</string>
+    <string name="error_not_logged_in">Ви не увійшли в систему.</string>
+    <string name="error_system">Щось пішло не так.</string>
     <string name="error_invalid_credentials">Невірний email або пароль. Будь ласка, перевірте введені дані.</string>
     <string name="error_login_failed">Помилка входу</string>
     <string name="error_login_failed_unknown">Невідома помилка входу</string>
-    <string name="error_registration_failed">Помилка реєстрації</string>
-    <string name="error_registration_failed_unknown">Не вдалося створити користувача</string>
-    <string name="error_unknown">Сталася невідома помилка. Будь ласка, спробуйте ще раз.</string>
-    <string name="error_google_sign_in_failed_unknown">Помилка входу через Google</string>
-    <string name="error_empty_email">Будь ласка, введіть адресу електронної пошти.</string>
-    <string name="error_invalid_email">Невірна адреса електронної пошти. Будь ласка, перевірте написання.</string>
-    <string name="error_user_not_found">Акаунт з таким email не знайдено.</string>
-    <string name="error_too_many_requests">Занадто багато спроб. Будь ласка, зачекайте трохи і спробуйте знову.</string>
-    <string name="error_password_reset_failed">Не вдалося скинути пароль. Будь ласка, спробуйте пізніше.</string>
-    <string name="error_profile_taken">Цей профіль вже зайнятий.</string>
-    <string name="error_profile_claim_offline">Немає з\'єднання. Вибір профілю потребує доступу до інтернету.</string>
-    <string name="error_delete_not_admin">Тільки творець може видалити сім\'ю.</string>
+    <string name="error_registration_failed">Не вдалося зареєструватися</string>
+    <string name="error_registration_failed_unknown">Не вдалося створити ваш акаунт</string>
+    <string name="error_unknown">Щось пішло не так. Будь ласка, спробуйте знову.</string>
+    <string name="error_google_sign_in_failed_unknown">Вхід через Google не спрацював</string>
+    <string name="error_empty_email">Будь ласка, введіть ваш email.</string>
+    <string name="error_invalid_email">Цей email виглядає неправильно. Будь ласка, перевірте його.</string>
+    <string name="error_user_not_found">Ми не знайшли акаунт для цього email.</string>
+    <string name="error_too_many_requests">Занадто багато спроб. Будь ласка, зачекайте трохи.</string>
+    <string name="error_password_reset_failed">Не вдалося скинути пароль. Спробуйте пізніше.</string>
+    <string name="error_profile_taken">Цей профіль вже використовується кимось іншим.</string>
+    <string name="error_profile_claim_offline">Немає інтернету. Ви повинні бути онлайн, щоб вибрати свій профіль.</string>
+    <string name="error_delete_not_admin">Тільки творець сім\'ї може її видалити.</string>
 
     <string name="alarm_default_member">Член сім\'ї</string>
     <string name="alarm_notification_title">Дзвонить сімейний будильник</string>
@@ -262,79 +265,80 @@
 
     <string name="settings_fallback_username">Батьки</string>
 
-    <string name="error_alarm_permission">Будь ласка, дозвольте точні будильники в налаштуваннях системи, щоб сімейний будильник дзвонив вчасно.</string>
+    <string name="error_alarm_permission">Будь ласка, дозвольте будильники в налаштуваннях вашого телефону, щоб він міг будити вас вчасно.</string>
 
     <string name="permission_fullscreen_title">Потрібен дозвіл для будильника</string>
-    <string name="permission_fullscreen_message">FamWake потребує дозволу, щоб показувати будильник на екрані блокування. Будь ласка, дозвольте це в налаштуваннях системи.</string>
+    <string name="permission_fullscreen_message">FamWake потребує дозволу, щоб правильно вас будити. Будь ласка, дозвольте це в налаштуваннях вашого телефону.</string>
     <string name="permission_fullscreen_open">Відкрити налаштування</string>
 
-    <string name="schedule_message_optimal">Ось розрахований розклад:</string>
-    <string name="schedule_message_no_members">Немає активних учасників. Всі на паузі.</string>
-    <string name="schedule_message_no_valid">Дійсний розклад не знайдено. Час занадто сильно збігається.</string>
-    <string name="schedule_message_no_valid_desc">Порада: Збільште вікно підйому, скоротіть час у ванній або поставте іншого учасника на паузу.</string>
-    <string name="schedule_message_time_adjusted">Час змінено на %1$d хв., щоб відповідати вашому порядку.</string>
-    <string name="schedule_message_breakfast_reduced">Сніданок скорочено на %1$d хв., щоб відповідати розкладу.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Сніданок −%1$d хв. &amp; час зсунуто на %2$d хв.</string>
+    <string name="schedule_message_optimal">Ось розклад вашої родини:</string>
+    <string name="schedule_message_no_members">Ніхто не активний. Усі будильники призупинені.</string>
+    <string name="schedule_message_no_valid">Час занадто сильно перетинається, щоб скласти хороший розклад.</string>
+    <string name="schedule_message_no_valid_desc">Порада: Спробуйте розширити вікно пробудження, скоротити час у ванній або поставити чийсь будильник на паузу.</string>
+    <string name="schedule_message_time_adjusted">Час зсунуто на %1$d хвилин, щоб усе помістилося.</string>
+    <string name="schedule_message_breakfast_reduced">Час сніданку скорочено на %1$d хвилин, щоб усе встигнути.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Сніданок −%1$d хв. та час зсунуто на %2$d хв.</string>
     <string name="schedule_message_member_conflict">Конфлікт для %1$s: Час занадто сильно перетинається.</string>
     <string name="schedule_message_member_conflict_desc">Спробуйте змінити порядок або скоригувати час.</string>
-    <string name="main_fallback_alarm_active">⚠️ Активний резервний будильник (%1$s). Будь ласка, виправте розклад!</string>
+    <string name="main_fallback_alarm_active">⚠️ Увага: Розклад зараз не збігається (%1$s). Будь ласка, скоригуйте час!</string>
 
-    <string name="error_password_too_short">Пароль повинен складатися як мінімум з 8 символів.</string>
-    <string name="error_email_already_in_use">Ця адреса електронної пошти вже використовується іншим акаунтом.</string>
-    <string name="error_weak_password">Пароль занадто слабкий. Будь ласка, використовуйте не менше 8 символів і спеціальні знаки.</string>
+    <string name="error_password_too_short">Ваш пароль має складатися мінімум з 8 символів.</string>
+    <string name="error_email_already_in_use">Цей email вже зареєстрований.</string>
+    <string name="error_weak_password">Ваш пароль занадто легко вгадати. Використовуйте щонайменше 8 символів і спеціальні знаки.</string>
     <string name="login_verify_email_title">✉️ Підтвердіть ваш email</string>
-    <string name="login_verify_email_text">Ми надіслали лист для підтвердження на\n%1$s\nБудь ласка, натисніть на посилання в листі, щоб активувати акаунт.</string>
-    <string name="login_verify_email_confirm">Я підтвердив(ла) ✓</string>
-    <string name="login_verify_email_resend">Надіслати лист повторно</string>
-    <string name="login_verify_email_not_verified">Email ще не підтверджено. Будь ласка, перевірте вхідні.</string>
+    <string name="login_verify_email_text">Ми відправили короткий лист на\n%1$s\nБудь ласка, натисніть на посилання в ньому, щоб активувати акаунт.</string>
+    <string name="login_verify_email_confirm">Я натиснув(ла) на посилання ✓</string>
+    <string name="login_verify_email_resend">Відправити лист ще раз</string>
+    <string name="login_verify_email_not_verified">Email ще не підтверджено. Будь ласка, перевірте вашу пошту.</string>
 
-    <string name="tooltip_awake_button">Прокинулися рано? Натисніть тут, щоб зупинити свій будильник на сьогодні – ваш час у ванній залишиться зарезервованим для сім\'ї.</string>
-    <string name="tooltip_drag_handle">Натисніть і перетягніть картку, щоб вручну змінити порядок пробудження сім\'ї. Алгоритм негайно перерахує розклад.</string>
-    <string name="tooltip_wake_window">Задайте нам часове вікно. Додаток знайде в ньому ідеальний момент, щоб нікому не довелося чекати на ванну.</string>
-    <string name="tooltip_bathroom">Плануйте реалістично. Ваша тривалість перебування у ванній задає темп ранку всієї родини.</string>
-    <string name="tooltip_invite_code">Поділіться цим кодом з родиною. Як тільки вони приєднаються, вони автоматично з\'являться у вашому розкладі.</string>
-    <string name="tooltip_alarm_switch">Якщо ви вимкнете свій будильник, телефон не тільки замовкне – алгоритм миттєво перерахує ранок для всієї родини, дозволяючи іншим поспати довше або піти у ванну раніше.</string>
-    <string name="tooltip_weekdays">Сплануйте весь тиждень: натискайте на окремі дні, щоб встановити конкретний час підйому і ванної – ідеально для чергування роботи з дому та в офісі.</string>
-    <string name="settings_tooltips_title">Поради та Підказки</string>
-    <string name="settings_tooltips_label">Показувати корисні поради</string>
-    <string name="settings_tooltips_reset">Скинути всі поради</string>
+    <string name="tooltip_awake_button">Прокинулися раніше? Натисніть тут, щоб вимкнути будильник на сьогодні – ваш час у ванній залишиться зарезервованим для вас.</string>
+    <string name="tooltip_drag_handle">Натисніть і утримуйте ім\'я, щоб перетягнути його вгору або вниз. Це змінює чергу до ванної. Час оновиться миттєво.</string>
+    <string name="tooltip_wake_window">Задайте нам часове вікно. Додаток знайде ідеальний момент, щоб розбудити вас, і вам не доведеться чекати на ванну.</string>
+    <string name="tooltip_bathroom">Оцінюйте час реально. Ваш час у ванній задає темп ранку для всіх інших.</string>
+    <string name="tooltip_invite_code">Поділіться кодом із сім\'єю. Як тільки вони приєднаються, їхній розклад з\'явиться прямо тут.</string>
+    <string name="tooltip_alarm_switch">Якщо ви вимкнете свій будильник, додаток миттєво оновить ранок для всієї родини, дозволяючи іншим поспати довше або піти у ванну раніше.</string>
+    <string name="tooltip_weekdays">Натискайте на дні тижня, щоб задати різний час. Ідеально, якщо в якісь дні ви працюєте вдома, а в інші – їдете в офіс.</string>
+    <string name="settings_tooltips_title">Корисні поради</string>
+    <string name="settings_tooltips_label">Показувати поради в додатку</string>
+    <string name="settings_tooltips_reset">Показати всі поради знову</string>
     <string name="settings_push_title">Сповіщення</string>
-    <string name="settings_push_label">Отримувати push-сповіщення</string>
-    <string name="settings_support_title">Підтримайте додаток</string>
-    <string name="settings_support_desc">Вам подобається додаток? Будемо раді вашій підтримці!</string>
-    <string name="settings_support_donate">Пожертвувати</string>
+    <string name="settings_push_label">Дозволити сповіщення</string>
+    <string name="settings_support_title">Підтримайте FamWake</string>
+    <string name="settings_support_desc">Вам подобається додаток? Ми будемо дуже раді вашій підтримці!</string>
+    <string name="settings_support_donate">Зробити пожертву</string>
     <string name="settings_donate_success">Велике дякую за вашу підтримку! ❤️</string>
     <string name="settings_donate_error">Ой, щось пішло не так.</string>
-    <string name="settings_donate_loading">Завантаження пропозицій…</string>
-    <string name="settings_donate_no_offers">Пропозиції недоступні. Переконайтеся, що в RevenueCat налаштовано \"Current Offering\".</string>
-    <string name="settings_donate_purchase_loading">Обробка пожертви…</string>
-    <string name="settings_donate_error_not_allowed">Цьому пристрою або користувачеві не дозволено здійснювати покупки.</string>
-    <string name="settings_donate_error_store_problem">Проблема з Google Play Store.</string>
-    <string name="settings_donate_error_already_purchased">Цей продукт уже куплено.</string>
-    <string name="settings_donate_error_invalid">Покупка була недійсною.</string>
-    <string name="settings_donate_error_generic">Під час пожертви сталася помилка.</string>
+    <string name="settings_donate_loading">Завантаження варіантів…</string>
+    <string name="settings_donate_no_offers">Наразі немає доступних варіантів.</string>
+    <string name="settings_donate_purchase_loading">Обробка…</string>
+    <string name="settings_donate_error_not_allowed">Покупки заборонені на цьому телефоні.</string>
+    <string name="settings_donate_error_store_problem">Виникла проблема з App Store.</string>
+    <string name="settings_donate_error_already_purchased">Ви вже купили це.</string>
+    <string name="settings_donate_error_invalid">Покупка не була завершена.</string>
+    <string name="settings_donate_error_generic">Щось пішло не так під час пожертви.</string>
 
-    <string name="error_permission_denied">У доступі відмовлено</string>
+    <string name="error_permission_denied">Доступ заборонено</string>
     <string name="error_offline">Немає підключення до інтернету</string>
     <string name="error_report_failed">Не вдалося надіслати звіт</string>
     <string name="error_leave_failed">Не вдалося покинути сім\'ю</string>
-    <string name="error_revenuecat_not_configured">RevenueCat не налаштовано</string>
+    <string name="error_revenuecat_not_configured">Магазин ще не готовий</string>
     <string name="default_someone">Хтось</string>
-    <string name="error_label">Помилка</string>
-    <string name="offline_write_hint">Немає з\'єднання. Ваші зміни будуть синхронізовані, як тільки ви знову будете в мережі.</string>
+    <string name="error_label">Проблема</string>
+    <string name="offline_write_hint">Немає інтернету. Ваші зміни будуть збережені, як тільки ви знову будете в мережі.</string>
     <string name="password_show">Показати пароль</string>
-    <string name="password_hide">Приховати пароль</string>
+    <string name="password_hide">Сховати пароль</string>
     <string name="close_desc">Закрити</string>
 
-    <string name="settings_exact_alarm_warning_title">Немає дозволу для будильника</string>
-    <string name="settings_exact_alarm_warning_text">Android блокує спрацьовування точного будильника. Будь ласка, дозвольте FamWake планувати будильники та нагадування.</string>
+    <string name="settings_exact_alarm_warning_title">Потрібен дозвіл для будильника</string>
+    <string name="settings_exact_alarm_warning_text">Ваш телефон блокує будильник. Будь ласка, дозвольте FamWake встановлювати будильники, щоб прокидатися вчасно.</string>
     <string name="settings_exact_alarm_warning_button">Дозволити будильники</string>
-    <string name="main_exact_alarm_banner">⚠️ Будильник заблоковано! Будь ласка, дайте дозвіл у налаштуваннях, щоб будильник дзвонив вчасно.</string>
-    <string name="error_offline_feedback">Ви не в мережі. Будь ласка, перевірте підключення та спробуйте знову.</string>
-    <string name="error_feedback_rate_limit">Будь ласка, зачекайте %1$s сек. перед відправкою наступного повідомлення.</string>
-    <string name="error_feedback_rate_limit_server">Занадто багато запитів. Будь ласка, спробуйте пізніше.</string>
-    <string name="error_feedback_empty_message">Повідомлення не повинно бути порожнім.</string>
-    <string name="error_network">Помилка мережі. Будь ласка, перевірте інтернет-з\'єднання.</string>
+    <string name="main_exact_alarm_banner">⚠️ Будильник заблоковано! Будь ласка, дозвольте будильники в налаштуваннях, щоб прокидатися вчасно.</string>
+    <string name="error_offline_feedback">У вас немає інтернету. Будь ласка, підключіться і спробуйте знову.</string>
+    <string name="error_sync_blocked_device">Оновлення даних зараз недоступне на цьому пристрої.</string>
+    <string name="error_feedback_rate_limit">Будь ласка, зачекайте %1$s секунд перед відправкою наступного повідомлення.</string>
+    <string name="error_feedback_rate_limit_server">Відправлено занадто багато повідомлень. Будь ласка, спробуйте пізніше.</string>
+    <string name="error_feedback_empty_message">Ваше повідомлення порожнє.</string>
+    <string name="error_network">Проблема з мережею. Будь ласка, перевірте інтернет-з\'єднання.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -348,31 +352,31 @@
     <string name="settings_language_bengali">বাংলা</string>
     <string name="settings_language_marathi">मराठी</string>
     <string name="settings_language_hindi">हिन्दी</string>
-    <string name="tooltip_alarm_sound">Натисніть тут, щоб вибрати власний звук будильника – замість стандартного сигналу оберіть свою улюблену мелодію.</string>
+    <string name="tooltip_alarm_sound">Натисніть тут, щоб вибрати ваш особистий звук будильника – оберіть улюблену музику замість звичайного пищання.</string>
     <string name="settings_language_dialects">Діалекти</string>
 
     
-    <string name="notif_channel_schedule_change_name">Зміни розкладу</string>
-    <string name="notif_channel_schedule_change_desc">Сповіщає про зміни часу будильника або черги</string>
-    <string name="notif_channel_family_events_name">Сімейні події</string>
-    <string name="notif_channel_family_events_desc">Сповіщає, коли учасники приєднуються чи виходять з сім’ї</string>
+    <string name="notif_channel_schedule_change_name">Оновлення розкладу</string>
+    <string name="notif_channel_schedule_change_desc">Повідомляє вам, якщо час пробудження або черга у ванну змінюються</string>
+    <string name="notif_channel_family_events_name">Сімейні оновлення</string>
+    <string name="notif_channel_family_events_desc">Повідомляє вам, коли люди приєднуються або залишають вашу сімейну групу</string>
 
     
-    <string name="notif_schedule_changed_title">FamWake: Розклад оновлено</string>
-    <string name="notif_schedule_changed_body">Час будильника змінено. Відкрой додаток, щоб побачити новий час.</string>
-    <string name="notif_member_joined_title">FamWake: Новий учасник!</string>
-    <string name="notif_member_joined_body">Новий учасник приєднався до твоєї сім’ї.</string>
-    <string name="notif_member_left_title">FamWake: Оновлення сім’ї</string>
-    <string name="notif_member_left_body">Учасник залишив твою сім’ю.</string>
+    <string name="notif_schedule_changed_title">FamWake: Ранковий розклад оновлено</string>
+    <string name="notif_schedule_changed_body">Час пробудження змінився. Відкрийте додаток, щоб перевірити ваш новий час.</string>
+    <string name="notif_member_joined_title">FamWake: Новий член сім\'ї!</string>
+    <string name="notif_member_joined_body">Хтось новий щойно приєднався до вашого сімейного розкладу.</string>
+    <string name="notif_member_left_title">FamWake: Оновлення сім\'ї</string>
+    <string name="notif_member_left_body">Хтось покинув сімейну групу.</string>
 
     
-    <string name="notif_permission_title">Сповіщення обов\'язкові</string>
-    <string name="notif_permission_desc">Без сповіщень будильник може не спрацювати. Увімкніть їх для надійного пробудження.</string>
+    <string name="notif_permission_title">Потрібні сповіщення</string>
+    <string name="notif_permission_desc">Якщо ви вимкнете сповіщення, ваш будильник може працювати неправильно. Будь ласка, залиште їх увімкненими.</string>
     <string name="notif_permission_button">Увімкнути сповіщення</string>
-    <string name="notif_manage_title">Керування сповіщеннями</string>
-    <string name="notif_manage_desc">Змініть звук, вібрацію та інші параметри сповіщень у системних налаштуваннях.</string>
-<string name="onboarding_login_create">Увійти / Зареєструватися</string>
-    <string name="onboarding_slide5_title">Давайте \'почнемо!</string>
-    <string name="onboarding_slide5_body">Ви можете спробувати програму відразу, не реєструючись. Обліковий запис потрібен лише тоді, коли ви запрошуєте свою родину.</string>
+    <string name="notif_manage_title">Налаштування сповіщень</string>
+    <string name="notif_manage_desc">Змінюйте звуки та вібрацію в налаштуваннях вашого телефону.</string>
+    <string name="onboarding_login_create">Увійти / Зареєструватися</string>
+    <string name="onboarding_slide5_title">Давайте почнемо!</string>
+    <string name="onboarding_slide5_body">Ви можете спробувати додаток прямо зараз без акаунта. Він знадобиться вам тільки тоді, коли ви захочете запросити свою сім\'ю.</string>
     <string name="settings_anonymous_login_button">Увійти / Зареєструватися</string>
-    </resources>
+</resources>

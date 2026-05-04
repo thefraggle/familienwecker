@@ -5,12 +5,12 @@
     <string name="password_label">密码</string>
     <string name="register_button">注册</string>
     <string name="login_button">登录</string>
-    <string name="already_have_account">已经有帐户？ 在这里登录。</string>
-    <string name="no_account">还没有帐户？ 在这里注册。</string>
+    <string name="already_have_account">已经有帐号？ 在这里登录。</string>
+    <string name="no_account">还没有帐号？ 在这里注册。</string>
     <string name="login_with_google">使用 Google 登录</string>
     <string name="login_forgot_password">忘记密码？</string>
     <string name="login_password_reset_sent">密码重置邮件已发送！</string>
-    <string name="login_google_error_no_account">在此设备上找不到 Google 帐号。请在您的 Android 设置中登录 Google 或使用电子邮件/密码。</string>
+    <string name="login_google_error_no_account">在此设备上找不到 Google 帐号。请在您的手机设置中登录 Google，或使用电子邮件和密码。</string>
 
     <string name="setup_create_tab">创建</string>
     <string name="setup_join_tab">加入</string>
@@ -19,13 +19,13 @@
     <string name="setup_join_code_label">6位邀请码</string>
     <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">加入家庭</string>
-    <string name="join_loading_text">正在处理加入请求...</string>
+    <string name="join_loading_text">正在连接到家庭...</string>
 
     <string name="main_add_member_desc">添加成员</string>
     <string name="main_family_members">家庭成员</string>
     <string name="main_current_schedule">当前日程表</string>
-    <string name="main_no_active_schedule">没有开启的闹钟。</string>
-    <string name="main_optimal_plan">这是计算出的日程表：</string>
+    <string name="main_no_active_schedule">目前没有开启的闹钟。</string>
+    <string name="main_optimal_plan">这是您家庭的日程表：</string>
     <string name="main_plan_paused">您的闹钟当前已暂停。</string>
     <string name="main_shared_breakfast">☕ 共享早餐：%s</string>
     <string name="main_wake_time">起床：%1$s - %2$s</string>
@@ -36,14 +36,14 @@
     <string name="main_member_alarm_off">（无闹钟）</string>
     <string name="main_member_limit_reached">已达到最多 6 名成员的上限。</string>
     <string name="main_alarm_enabled">闹钟：开启</string>
-    <string name="main_alarm_enabled_desc">自动闹钟已开启。</string>
+    <string name="main_alarm_enabled_desc">您的闹钟已开启。</string>
     <string name="main_snooze_active">小睡至 %1$s</string>
     <string name="main_alarm_disabled">闹钟：关闭</string>
-    <string name="main_alarm_disabled_desc">已手动暂停闹钟。</string>
+    <string name="main_alarm_disabled_desc">您的闹钟已暂停。</string>
     <string name="main_no_profile_warning">未选择个人资料！</string>
-    <string name="main_no_profile_warning_desc">请在设置中选择您的个人资料，以便闹钟为您响起。</string>
+    <string name="main_no_profile_warning_desc">请在设置中选择您的个人资料，以便手机能为您响起闹钟。</string>
     <string name="main_unclaimed_first_title">没有为 %1$s 设置的闹钟！</string>
-    <string name="main_unclaimed_first_desc">%1$s 排在第一位，但没有自己的个人资料——可能会无法按时起床。</string>
+    <string name="main_unclaimed_first_desc">%1$s 排在第一位，但还没有在手机上选择个人资料——可能会睡过头！</string>
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="delete_desc">删除</string>
@@ -52,7 +52,7 @@
     <string name="add_member_title_edit">编辑成员</string>
     <string name="back_desc">返回</string>
     <string name="unsaved_changes_title">未保存的更改</string>
-    <string name="unsaved_changes_message">您想放弃您的更改吗？</string>
+    <string name="unsaved_changes_message">您想放弃这些更改吗？</string>
     <string name="unsaved_changes_discard">放弃</string>
     <string name="unsaved_changes_keep">继续编辑</string>
     <string name="add_member_submit">保存</string>
@@ -67,14 +67,14 @@
     <string name="add_member_latest_wake">最晚起床时间</string>
     <string name="add_member_bathroom_duration">洗漱时间（分钟）</string>
     <string name="add_member_wants_breakfast">含早餐</string>
-    <string name="add_member_leave_home">出门时间</string>
+    <string name="add_member_leave_home">必须出门的时间</string>
     <string name="add_member_day_profiles_title">每周日程</string>
     <string name="add_member_day_active">闹钟开启</string>
     <string name="add_member_copy_to_days">将“%1$s”复制到其他日期</string>
-    <string name="add_member_copy_dialog_title">复制到天</string>
+    <string name="add_member_copy_dialog_title">复制到其他天</string>
     <string name="add_member_copy_apply">应用</string>
-    <string name="validation_latest_before_earliest">最晚起床时间必须晚于最早起床时间</string>
-    <string name="validation_leave_too_early">出门时间必须在洗漱完成之后（起床时间 + 洗漱时间）</string>
+    <string name="validation_latest_before_earliest">最晚起床时间必须晚于最早起床时间。</string>
+    <string name="validation_leave_too_early">出门时间必须在洗漱完成之后。</string>
     <string name="weekday_1">星期一</string>
     <string name="weekday_2">星期二</string>
     <string name="weekday_3">星期三</string>
@@ -92,39 +92,42 @@
 
     <string name="settings_title">设置</string>
     <string name="settings_profile_title">我的个人资料</string>
-    <string name="settings_profile_desc">您的手机只会在此处选择的配置文件的起床时间响起。</string>
+    <string name="settings_profile_desc">您的手机只会为您在此处选择的成员响铃。</string>
     <string name="settings_please_select">请选择</string>
-    <string name="settings_no_members">未找到成员</string>
+    <string name="settings_no_members">未找到家庭成员</string>
     <string name="settings_alarm_title">闹钟铃声</string>
-    <string name="settings_battery_warning_title">电池优化已开启</string>
-    <string name="settings_battery_warning_text">闹钟可能会延迟或被阻止。请为 FamWake 禁用电池优化。</string>
+    <string name="settings_battery_warning_title">电池设置可能会阻止闹钟</string>
+    <string name="settings_battery_warning_text">为了省电，您的手机可能会延迟或阻止闹钟。请允许 FamWake 在后台运行。</string>
     <string name="settings_battery_warning_button">立即修复</string>
     <string name="settings_alarm_default">默认</string>
-    <string name="settings_alarm_select">选择声音：%1$s</string>
-    <string name="settings_alarm_picker_title">选择闹钟铃声</string>
+    <string name="settings_alarm_select">声音：%1$s</string>
+    <string name="settings_alarm_picker_title">选择您的闹钟铃声</string>
     <string name="settings_account_title">家庭与帐号</string>
+    <string name="settings_join_family_locked">请先登录以加入家庭。</string>
+    <string name="settings_share_code_locked">请先登录以分享您的邀请码。</string>
+    <string name="settings_anonymous_login_button">登录 / 注册</string>
     <string name="settings_join_code">%1$s 的邀请码：</string>
-    <string name="settings_share_code">分享代码</string>
-    <string name="settings_share_message">这是 FamWake 的邀请链接：\nhttps://familienwecker.de/join/%2$s\n\n代码：%2$s\n群组：%1$s\n\n只需点击、登录即可加入。一起起床更有趣！ ⏰❤️</string>
+    <string name="settings_share_code">分享邀请链接</string>
+    <string name="settings_share_message">这是 FamWake 的邀请链接：\nhttps://familienwecker.de/join/%2$s\n\n代码：%2$s\n家庭：%1$s\n\n只需点击链接、登录即可加入。一起起床让早晨更轻松！ ⏰❤️</string>
     <string name="settings_leave_family">退出家庭</string>
     <string name="settings_delete_family">解散家庭</string>
-    <string name="settings_delete_family_dialog_title">解散家庭？</string>
-    <string name="settings_delete_family_dialog_text">您确定要永久解散这个家庭吗？所有成员的日程和设置都将被删除。此操作无法撤消。</string>
-    <string name="settings_delete_family_dialog_confirm">删除</string>
+    <string name="settings_delete_family_dialog_title">解散整个家庭？</string>
+    <string name="settings_delete_family_dialog_text">您确定要永久解散这个家庭吗？所有成员、时间和设置都将被彻底删除。此操作无法撤消。</string>
+    <string name="settings_delete_family_dialog_confirm">永久删除</string>
     <string name="settings_delete_family_dialog_cancel">取消</string>
-    <string name="settings_delete_family_warning_title">其他成员仍活跃！</string>
-    <string name="settings_delete_family_warning_text">这个家庭中还有其他活跃成员。如果您解散它，每个人都将失去访问权限。您真的要强制删除所有内容吗？</string>
+    <string name="settings_delete_family_warning_title">还有其他成员！</string>
+    <string name="settings_delete_family_warning_text">这个家庭中还有其他人。如果您解散它，每个人都将失去访问权限。您真的确定吗？</string>
     <string name="settings_delete_family_warning_confirm">是的，全部删除</string>
     <string name="settings_logout">退出登录</string>
     <string name="settings_delete_account">注销帐号</string>
-    <string name="settings_footer_version">FamWake 家庭闹钟 v%1$s</string>
+    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">保留所有权利。</string>
 
     <string name="empty_members_title">还没有成员</string>
-    <string name="empty_members_description">添加个人资料以查看大家的起床时间并互相叫醒。</string>
-    <string name="empty_schedule_title">没有开启的闹钟</string>
-    <string name="empty_schedule_description">目前没有为任何人设置闹钟。是时候好好睡一觉了！</string>
+    <string name="empty_members_description">添加家庭成员来规划你们的早晨日程。</string>
+    <string name="empty_schedule_title">没有活跃的闹钟</string>
+    <string name="empty_schedule_description">目前没有开启的闹钟。是时候好好睡一觉了！</string>
 
     <string name="settings_language_title">语言</string>
     <string name="settings_language_system">系统默认</string>
@@ -144,45 +147,45 @@
     <string name="settings_display_title">应用设置</string>
     <string name="settings_help_feedback_title">帮助与反馈</string>
     <string name="settings_support_button">发送邮件给开发者</string>
-    <string name="settings_start_onboarding">🎓 应用导览</string>
+    <string name="settings_start_onboarding">🎓 快速导览</string>
 
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_next">下一步</string>
-    <string name="onboarding_done">无需帐户即可开始</string>
-    <string name="onboarding_slide0_title">团队般的早晨。</string>
-    <string name="onboarding_slide0_body">没有争吵，没有混乱。FamWake 确保每个人都能轻松地开始新的一天——全自动。</string>
+    <string name="onboarding_done">无需帐号即可开始</string>
+    <string name="onboarding_slide0_title">像团队一样的早晨。</string>
+    <string name="onboarding_slide0_body">告别争吵与混乱。FamWake 让全家人都能轻松开始新的一天——一切全自动。</string>
     <string name="onboarding_slide1_title">无需再等待。</string>
-    <string name="onboarding_slide1_body">FamWake 会计算每个家庭成员的理想起床时间，并协调洗漱、早餐和出门时间。早晨不再拥挤。</string>
+    <string name="onboarding_slide1_body">FamWake 会根据洗漱、早餐和出门时间，为每个人找到最完美的起床时间。洗手间再也不用排长队了。</string>
     <string name="onboarding_slide2_title">每一天都不同。</string>
-    <string name="onboarding_slide2_body">周一去公司，周三在家办公？为一周中的每一天设置单独的时间——应用会处理剩下的事情。</string>
+    <string name="onboarding_slide2_body">周一去公司，周三在家办公？只需为每天设置您的时间，剩下的就交给应用吧。</string>
     <string name="onboarding_slide3_title">几秒钟内即可连接。</string>
-    <string name="onboarding_slide3_body">分享代码，您的家人即可立即加入。新成员？日程会自动调整。如果有什么变化，大家都会立刻知道。</string>
-    <string name="onboarding_slide4_title">始终可靠</string>
-    <string name="onboarding_slide4_body">享受轻松的早晨——可靠，甚至离线。 即使互联网出现故障，闹钟仍会准时响起。</string>
+    <string name="onboarding_slide3_body">分享邀请码，您的家人即可立即加入。如果有人更改了时间，所有人的日程表都会立即更新。</string>
+    <string name="onboarding_slide4_title">始终可靠。</string>
+    <string name="onboarding_slide4_body">每天享受轻松的早晨。即使晚上断网，闹钟依然会准时响起。</string>
     
     <string name="onboarding_mock_name1">爸爸</string>
     <string name="onboarding_mock_name2">妈妈</string>
     <string name="onboarding_mock_family_name">王</string>
     <string name="settings_feedback_button">提供反馈 / 报告错误</string>
     <string name="feedback_title">反馈</string>
-    <string name="feedback_intro">帮助我们让应用变得更好！您在想什么？</string>
+    <string name="feedback_intro">帮助我们改进应用！您有什么想法？</string>
     <string name="feedback_category_label">类别</string>
-    <string name="feedback_category_bug">发现一个错误</string>
+    <string name="feedback_category_bug">发现了一个 Bug</string>
     <string name="feedback_category_feature">功能建议</string>
-    <string name="feedback_category_praise">表扬与批评</string>
+    <string name="feedback_category_praise">表扬与建议</string>
     <string name="feedback_category_other">其他</string>
-    <string name="feedback_message_label">反馈内容</string>
-    <string name="feedback_message_placeholder">简要描述您的反馈...</string>
+    <string name="feedback_message_label">内容</string>
+    <string name="feedback_message_placeholder">简要描述您遇到的情况...</string>
     <string name="feedback_email_label">电子邮件（可选）</string>
-    <string name="feedback_email_placeholder">您的电子邮件（以便我们回复）</string>
+    <string name="feedback_email_placeholder">以便我们能给您回复</string>
     <string name="feedback_auto_info_title">自动包含的信息：</string>
     <string name="feedback_auto_version">应用版本：v%1$s</string>
-    <string name="feedback_auto_device">设备：%1$s</string>
+    <string name="feedback_auto_device">手机：%1$s</string>
     <string name="feedback_cancel">取消</string>
-    <string name="feedback_send">发送反馈</string>
-    <string name="feedback_success">谢谢！您的反馈已收到，对我们帮助很大。</string>
-    <string name="feedback_success_title">反馈已发送</string>
-    <string name="feedback_success_message">感谢您的反馈！它帮助我们为所有人改进 FamWake。</string>
+    <string name="feedback_send">发送消息</string>
+    <string name="feedback_success">谢谢！我们已收到您的消息。</string>
+    <string name="feedback_success_title">消息已发送</string>
+    <string name="feedback_success_message">感谢您的帮助！您的反馈能帮助我们为所有人改进 FamWake。</string>
     <string name="settings_terms_of_use">使用条款</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-zh-CN.html</string>
     <string name="settings_privacy_policy">隐私政策</string>
@@ -198,66 +201,66 @@
     <string name="settings_theme_light">浅色</string>
     <string name="settings_theme_dark">深色</string>
 
-    <string name="ringing_wake_up">醒醒吧，%1$s！</string>
+    <string name="ringing_wake_up">该起床啦，%1$s！</string>
     <string-array name="ringing_messages">
-        <item>浴室现在是你的了！</item>
-        <item>没有拥挤，没有压力——你的洗漱时间现在开始。</item>
-        <item>趁现在好好享受浴室里的宁静吧！</item>
+        <item>现在洗手间全是你的啦！</item>
+        <item>不用赶时间，不用有压力——你的洗漱时间现在开始。</item>
+        <item>趁现在好好享受洗手间的宁静吧！</item>
         <item>该喝第一杯咖啡了。世界在等着你！</item>
-        <item>睡得好吗？今天的日程已为你安排好。</item>
-        <item>准备好迎接新的一天了吗？一切都安排妥当。</item>
-        <item>开启活力满满的一天！你的洗漱时间开始了。</item>
-        <item>醒来并调大音量——舞台是你的！</item>
-        <item>早晨的重金属音乐能赶走一切烦恼！</item>
-        <item>你的日程已启动。出发吧！</item>
-        <item>准备起飞了吗？团队指望你呢。</item>
-        <item>该起床啦！浴室现在为你空着。</item>
-        <item>你的专属洗漱时间开始了——好好利用吧！</item>
-        <item>通往浴室的路畅通无阻——你的位置已保留！</item>
-        <item>早起的鸟儿有热水用！</item>
-        <item>再睡五分钟？不行！你的洗漱时间到了。</item>
-        <item>今天将是美好的一天。现在就开始！</item>
-        <item>你的牙刷想你了。快去洗漱吧！</item>
-        <item>一切协调就绪，计划完美——轮到你了！</item>
-        <item>早起的人可以独享浴室。</item>
+        <item>睡得好吗？你今天的日程已经准备就绪。</item>
+        <item>准备好迎接新的一天了吗？一切都安排得很完美。</item>
+        <item>新的一天开始啦！轮到你洗漱了。</item>
+        <item>醒醒并调大音量——现在是你的主场！</item>
+        <item>清晨来点好音乐，烦恼全都不见！</item>
+        <item>家庭日程已启动。我们走吧！</item>
+        <item>准备好了吗？全家人都在指望你呢。</item>
+        <item>起床啦！洗手间正为你空着。</item>
+        <item>你的专属洗漱时间开始了——好好把握！</item>
+        <item>通往洗手间的路畅通无阻——轮到你啦！</item>
+        <item>早起的人有热水用！</item>
+        <item>再睡五分钟？不行！大家都在按计划进行。</item>
+        <item>今天将会是美好的一天。现在就开始吧！</item>
+        <item>你的牙刷在想你。快去洗手间吧！</item>
+        <item>一切协调就绪，计划完美——到你了！</item>
+        <item>早起的人可以独享洗手间。</item>
     </string-array>
     <string name="ringing_stop">关闭闹钟</string>
     <string name="ringing_snooze">小睡（5 分钟）</string>
     <string name="pause_today_desc">今天暂停</string>
-    <string name="awake_today_desc">已经醒了</string>
+    <string name="awake_today_desc">我已经醒了</string>
     <string name="awake_active_desc">已经醒了</string>
 
-    <string name="error_load_members">加载成员时出错</string>
-    <string name="error_create_family">创建家庭时出错：%1$s</string>
-    <string name="error_create_family_rate_limit">您在过去一小时内已经创建了 3 个家庭。请等待一个小时后再试。</string>
-    <string name="error_join_family_rate_limit">加入尝试次数过多（每分钟最多 5 次）。请稍等片刻再试。</string>
+    <string name="error_load_members">无法加载家庭成员</string>
+    <string name="error_create_family">无法创建家庭：%1$s</string>
+    <string name="error_create_family_rate_limit">您最近创建了太多家庭。请稍等片刻再试。</string>
+    <string name="error_join_family_rate_limit">尝试次数过多。请稍等片刻再试。</string>
     <string name="error_invalid_code">邀请码无效：%1$s</string>
-    <string name="error_family_not_found">没有找到使用此代码的家庭。</string>
-    <string name="error_code_generation_failed">无法生成唯一代码。请重试。</string>
+    <string name="error_family_not_found">找不到使用此代码的家庭。</string>
+    <string name="error_code_generation_failed">无法生成代码。请重试。</string>
     <string name="join_conflict_title">加入新家庭？</string>
-    <string name="join_conflict_text">您已经是“%1$s”的成员。要加入新家庭，您必须先退出当前家庭。您想退出“%1$s”并使用代码 %2$s 加入吗？</string>
+    <string name="join_conflict_text">您已经是“%1$s”的成员。要加入新家庭，您必须先退出当前家庭。您想退出“%1$s”并加入新家庭吗？</string>
     <string name="join_conflict_confirm">退出并加入</string>
-    <string name="error_delete_member">无法删除成员：%1$s</string>
-    <string name="error_sync_failed">同步失败</string>
-    <string name="error_delete_family">删除家庭时出错：%1$s</string>
-    <string name="error_calculate_schedule">计算日程表时出错：%1$s</string>
-    <string name="error_not_logged_in">用户未登录</string>
-    <string name="error_system">系统错误</string>
-    <string name="error_invalid_credentials">电子邮件或密码无效。请检查您的输入。</string>
+    <string name="error_delete_member">无法移除成员：%1$s</string>
+    <string name="error_sync_failed">数据更新失败</string>
+    <string name="error_delete_family">无法删除家庭：%1$s</string>
+    <string name="error_calculate_schedule">无法计算时间：%1$s</string>
+    <string name="error_not_logged_in">您尚未登录。</string>
+    <string name="error_system">出了点问题。</string>
+    <string name="error_invalid_credentials">电子邮件或密码错误。请检查您的输入。</string>
     <string name="error_login_failed">登录失败</string>
     <string name="error_login_failed_unknown">未知的登录错误</string>
     <string name="error_registration_failed">注册失败</string>
-    <string name="error_registration_failed_unknown">无法创建用户</string>
-    <string name="error_unknown">发生未知错误。请重试。</string>
+    <string name="error_registration_failed_unknown">无法创建您的帐号</string>
+    <string name="error_unknown">出了点问题。请重试。</string>
     <string name="error_google_sign_in_failed_unknown">Google 登录失败</string>
-    <string name="error_empty_email">请输入电子邮件地址。</string>
-    <string name="error_invalid_email">电子邮件地址无效。请检查拼写。</string>
+    <string name="error_empty_email">请输入您的电子邮件地址。</string>
+    <string name="error_invalid_email">电子邮件地址格式不正确，请检查。</string>
     <string name="error_user_not_found">找不到此电子邮件的帐号。</string>
-    <string name="error_too_many_requests">尝试次数过多。请稍等片刻再试。</string>
-    <string name="error_password_reset_failed">密码重置失败。请稍后重试。</string>
-    <string name="error_profile_taken">该个人资料已被使用。</string>
-    <string name="error_profile_claim_offline">没有网络连接。选择个人资料需要访问互联网。</string>
-    <string name="error_delete_not_admin">只有家庭创建者才能解散家庭。</string>
+    <string name="error_too_many_requests">尝试次数过多。请稍等片刻。</string>
+    <string name="error_password_reset_failed">无法重置密码。请稍后重试。</string>
+    <string name="error_profile_taken">该个人资料已被其他人使用。</string>
+    <string name="error_profile_claim_offline">没有网络。您必须连接到互联网才能选择个人资料。</string>
+    <string name="error_delete_not_admin">只有家庭的创建者才能删除家庭。</string>
 
     <string name="alarm_default_member">家庭成员</string>
     <string name="alarm_notification_title">家庭闹钟正在响</string>
@@ -266,80 +269,80 @@
 
     <string name="settings_fallback_username">家长</string>
 
-    <string name="error_alarm_permission">请在系统设置中允许精确的闹钟，以便家庭闹钟能够准时响起。</string>
+    <string name="error_alarm_permission">请在手机设置中允许应用设置闹钟，以确保您能准时起床。</string>
 
     <string name="permission_fullscreen_title">需要闹钟权限</string>
-    <string name="permission_fullscreen_message">FamWake 需要获得权限才能在锁定屏幕上显示闹钟。请在系统设置中允许此操作。</string>
+    <string name="permission_fullscreen_message">FamWake 需要获得权限才能正确地叫醒您。请在手机设置中允许此操作。</string>
     <string name="permission_fullscreen_open">打开设置</string>
 
-    <string name="schedule_message_optimal">这是计算出的日程表：</string>
-    <string name="schedule_message_no_members">没有活跃成员。所有人都已暂停。</string>
-    <string name="schedule_message_no_valid">未找到有效的日程。时间重叠太多。</string>
-    <string name="schedule_message_no_valid_desc">提示：扩大您的起床时间范围、缩短洗漱时间或暂停其他成员的闹钟。</string>
-    <string name="schedule_message_time_adjusted">为适应你们的顺序，时间调整了 %1$d 分钟。</string>
-    <string name="schedule_message_breakfast_reduced">为适应日程安排，早餐时间减少了 %1$d 分钟。</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">早餐缩短 %1$d 分钟，时间整体平移 %2$d 分钟。</string>
-    <string name="schedule_message_member_conflict">%1$s 的时间冲突：重叠太多。</string>
+    <string name="schedule_message_optimal">这是您家庭的日程表：</string>
+    <string name="schedule_message_no_members">没有人活跃。所有闹钟均已暂停。</string>
+    <string name="schedule_message_no_valid">时间重叠太多，无法生成合适的日程。</string>
+    <string name="schedule_message_no_valid_desc">提示：尝试扩大起床时间范围、缩短洗漱时间或暂停某人的闹钟。</string>
+    <string name="schedule_message_time_adjusted">为了合理安排，时间调整了 %1$d 分钟。</string>
+    <string name="schedule_message_breakfast_reduced">为了适应日程安排，早餐时间缩短了 %1$d 分钟。</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">早餐缩短 %1$d 分钟，整体时间平移 %2$d 分钟。</string>
+    <string name="schedule_message_member_conflict">%1$s 出现冲突：时间重叠太多。</string>
     <string name="schedule_message_member_conflict_desc">请尝试更改顺序或调整时间。</string>
-    <string name="main_fallback_alarm_active">⚠️ 备用闹钟已激活 (%1$s)。请修正日程表！</string>
+    <string name="main_fallback_alarm_active">⚠️ 警告：当前日程存在冲突 (%1$s)。请调整您的时间！</string>
 
     <string name="error_password_too_short">密码长度必须至少为 8 个字符。</string>
-    <string name="error_email_already_in_use">该电子邮件地址已被其他帐号使用。</string>
-    <string name="error_weak_password">密码太弱。请使用至少 8 个字符并包含特殊字符。</string>
-    <string name="login_verify_email_title">✉️验证您的电子邮件</string>
+    <string name="error_email_already_in_use">该电子邮件已被注册。</string>
+    <string name="error_weak_password">您的密码太容易被猜到。请使用至少 8 个字符并包含一些特殊符号。</string>
+    <string name="login_verify_email_title">✉️ 验证您的电子邮件</string>
     <string name="login_verify_email_text">我们向\n%1$s 发送了一封验证邮件\n请点击邮件中的链接以激活您的帐号。</string>
-    <string name="login_verify_email_confirm">我已验证 ✓</string>
+    <string name="login_verify_email_confirm">我已点击链接 ✓</string>
     <string name="login_verify_email_resend">重新发送邮件</string>
     <string name="login_verify_email_not_verified">电子邮件尚未验证。请检查您的收件箱。</string>
 
-    <string name="tooltip_awake_button">早起了吗？点击此处关闭今天的闹钟——您的洗漱时间仍将为家人保留。</string>
-    <string name="tooltip_drag_handle">长按并拖动卡片即可手动更改家人的起床顺序。算法会立即重新计算。</string>
-    <string name="tooltip_wake_window">给我们一个时间窗口。应用会在其中找到最完美的时刻，确保没人需要排队等浴室。</string>
-    <string name="tooltip_bathroom">请切合实际地规划这一点。您洗漱的时间决定了全家人早上的节奏。</string>
-    <string name="tooltip_invite_code">与您的家人分享此代码。他们加入后会自动出现在您的日程表中。</string>
-    <string name="tooltip_alarm_switch">如果您关掉闹钟，不仅手机会安静下来，算法还会立即为全家人重新计算早晨时间，让其他人多睡一会儿或更早去洗漱。</string>
-    <string name="tooltip_weekdays">规划您的一周：点击各个工作日来设置特定的起床和洗漱时间——非常适合在居家办公和去公司之间灵活切换。</string>
-    <string name="settings_tooltips_title">提示与技巧</string>
-    <string name="settings_tooltips_label">显示有用的提示</string>
-    <string name="settings_tooltips_reset">重置所有提示</string>
+    <string name="tooltip_awake_button">早起了吗？点击此处关闭今天的闹钟——您的洗漱时间仍将为您保留。</string>
+    <string name="tooltip_drag_handle">长按并拖动名字可以更改顺序。这会决定谁先去洗手间。时间会立即自动更新。</string>
+    <string name="tooltip_wake_window">给我们一个时间范围。应用会找到最完美的叫醒时刻，让您无需排队等洗手间。</string>
+    <string name="tooltip_bathroom">请切合实际。您的洗漱时间决定了全家人早上的节奏。</string>
+    <string name="tooltip_invite_code">与家人分享此代码。他们加入后，其时间会自动出现在这里。</string>
+    <string name="tooltip_alarm_switch">如果您关掉闹钟，应用会立即更新其他人的时间——让他们可以多睡一会儿或更早去洗漱。</string>
+    <string name="tooltip_weekdays">点击星期几来设置不同的时间。非常适合居家办公和去公司打卡交替的日子。</string>
+    <string name="settings_tooltips_title">实用提示</string>
+    <string name="settings_tooltips_label">在应用中显示提示</string>
+    <string name="settings_tooltips_reset">重新显示所有提示</string>
     <string name="settings_push_title">通知</string>
-    <string name="settings_push_label">接收推送通知</string>
-    <string name="settings_support_title">支持该应用</string>
-    <string name="settings_support_desc">您喜欢这个应用吗？感谢您的支持！</string>
+    <string name="settings_push_label">允许通知</string>
+    <string name="settings_support_title">支持 FamWake</string>
+    <string name="settings_support_desc">您喜欢这个应用吗？非常感谢您的支持！</string>
     <string name="settings_support_donate">捐助</string>
     <string name="settings_donate_success">非常感谢您的支持！ ❤️</string>
     <string name="settings_donate_error">糟糕，出了点问题。</string>
     <string name="settings_donate_loading">正在加载选项...</string>
-    <string name="settings_donate_no_offers">没有可用的选项。请确保在 RevenueCat 中设置了“Current Offering”。</string>
-    <string name="settings_donate_purchase_loading">正在处理捐助...</string>
-    <string name="settings_donate_error_not_allowed">此设备或用户不允许进行购买。</string>
-    <string name="settings_donate_error_store_problem">Google Play 商店出现问题。</string>
-    <string name="settings_donate_error_already_purchased">该产品已被购买过。</string>
-    <string name="settings_donate_error_invalid">购买无效。</string>
-    <string name="settings_donate_error_generic">捐助过程中出现错误。</string>
+    <string name="settings_donate_no_offers">目前没有可用的选项。</string>
+    <string name="settings_donate_purchase_loading">正在处理...</string>
+    <string name="settings_donate_error_not_allowed">此手机不允许进行购买。</string>
+    <string name="settings_donate_error_store_problem">应用商店出现问题。</string>
+    <string name="settings_donate_error_already_purchased">您已经购买过此项目。</string>
+    <string name="settings_donate_error_invalid">购买未完成。</string>
+    <string name="settings_donate_error_generic">捐助过程中发生错误。</string>
 
-    <string name="error_permission_denied">拒绝访问</string>
+    <string name="error_permission_denied">访问被拒绝</string>
     <string name="error_offline">没有网络连接</string>
-    <string name="error_report_failed">报告失败</string>
-    <string name="error_leave_failed">未能退出家庭</string>
-    <string name="error_revenuecat_not_configured">RevenueCat 未配置</string>
+    <string name="error_report_failed">无法发送报告</string>
+    <string name="error_leave_failed">无法退出家庭</string>
+    <string name="error_revenuecat_not_configured">商店尚未准备就绪</string>
     <string name="default_someone">某人</string>
-    <string name="error_label">错误</string>
-    <string name="offline_write_hint">没有网络。当您重新上线后，更改将立即同步。</string>
+    <string name="error_label">问题</string>
+    <string name="offline_write_hint">没有网络。当您重新上线后，更改将立即保存。</string>
     <string name="password_show">显示密码</string>
     <string name="password_hide">隐藏密码</string>
     <string name="close_desc">关闭</string>
 
-    <string name="settings_exact_alarm_warning_title">缺少闹钟权限</string>
-    <string name="settings_exact_alarm_warning_text">Android 阻止了精确的闹钟响起。请允许 FamWake 安排闹钟和提醒。</string>
+    <string name="settings_exact_alarm_warning_title">需要闹钟权限</string>
+    <string name="settings_exact_alarm_warning_text">您的手机拦截了闹钟。请允许 FamWake 设置闹钟，确保您能准时起床。</string>
     <string name="settings_exact_alarm_warning_button">允许闹钟</string>
-    <string name="main_exact_alarm_banner">⚠️ 闹钟被阻止！请在设置中授予闹钟权限，以便闹钟准时响起。</string>
-    <string name="error_offline_feedback">您已离线。请检查您的连接并重试。</string>
-    <string name="error_sync_blocked_device">此设备上无法进行同步。</string>
-    <string name="error_feedback_rate_limit">请等待 %1$s 秒后再发送另一条消息。</string>
-    <string name="error_feedback_rate_limit_server">请求太多，请稍后重试。</string>
-    <string name="error_feedback_empty_message">留言不能为空。</string>
-    <string name="error_network">网络错误。请检查您的互联网连接。</string>
+    <string name="main_exact_alarm_banner">⚠️ 闹钟被阻止！请在设置中允许闹钟权限，以便您能准时起床。</string>
+    <string name="error_offline_feedback">您没有连接到互联网。请连接后重试。</string>
+    <string name="error_sync_blocked_device">目前无法在此设备上进行更新。</string>
+    <string name="error_feedback_rate_limit">请等待 %1$s 秒后再发送下一条消息。</string>
+    <string name="error_feedback_rate_limit_server">发送的消息太多。请稍后再试。</string>
+    <string name="error_feedback_empty_message">您的消息为空。</string>
+    <string name="error_network">网络问题。请检查您的互联网连接。</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -348,26 +351,26 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="tooltip_alarm_sound">点击此处选择您的专属起床铃声——用您最喜欢的音乐代替默认闹钟。</string>
+    <string name="tooltip_alarm_sound">点击此处选择您的专属起床铃声——用您最喜欢的音乐代替默认的哔哔声。</string>
     <string name="settings_language_dialects">方言</string>
 
-    <string name="notif_channel_schedule_change_name">日程变更</string>
-    <string name="notif_channel_schedule_change_desc">当起床时间或洗漱顺序发生变化时发出通知</string>
+    <string name="notif_channel_schedule_change_name">日程更新</string>
+    <string name="notif_channel_schedule_change_desc">如果起床时间或洗漱顺序发生变化，将通知您</string>
     <string name="notif_channel_family_events_name">家庭动态</string>
-    <string name="notif_channel_family_events_desc">当成员加入或退出家庭时发出通知</string>
-    <string name="notif_schedule_changed_title">FamWake：日程已更新</string>
-    <string name="notif_schedule_changed_body">闹钟时间已调整。请打开应用查看您的新起床时间。</string>
+    <string name="notif_channel_family_events_desc">当有人加入或离开您的家庭群组时通知您</string>
+    <string name="notif_schedule_changed_title">FamWake：早晨日程已更新</string>
+    <string name="notif_schedule_changed_body">起床时间已更改。打开应用查看您的新时间。</string>
     <string name="notif_member_joined_title">FamWake：新家庭成员！</string>
-    <string name="notif_member_joined_body">一位新成员加入了您的家庭。</string>
+    <string name="notif_member_joined_body">有新成员刚刚加入了您的家庭日程。</string>
     <string name="notif_member_left_title">FamWake：家庭动态</string>
-    <string name="notif_member_left_body">一名成员退出了家庭。</string>
+    <string name="notif_member_left_body">有人离开了家庭群组。</string>
     <string name="notif_permission_title">需要通知权限</string>
-    <string name="notif_permission_desc">如果没有通知权限，闹钟可能无法响起。请开启通知以确保闹钟可靠运行。</string>
+    <string name="notif_permission_desc">如果您关闭通知，闹钟可能无法正常工作。请保持开启状态。</string>
     <string name="notif_permission_button">开启通知</string>
-    <string name="notif_manage_title">管理通知</string>
-    <string name="notif_manage_desc">在系统设置中更改声音、振动和其他通知偏好设置。</string>
-<string name="onboarding_login_create">登录/注册</string>
-    <string name="onboarding_slide5_title">让\'开始吧！</string>
-    <string name="onboarding_slide5_body">您无需注册即可立即试用该应用程序。 仅当您邀请家人时才需要一个帐户。</string>
-    <string name="settings_anonymous_login_button">登录/注册</string>
-    </resources>
+    <string name="notif_manage_title">通知设置</string>
+    <string name="notif_manage_desc">在手机设置中更改声音和振动。</string>
+    <string name="onboarding_login_create">登录 / 注册</string>
+    <string name="onboarding_slide5_title">我们开始吧！</string>
+    <string name="onboarding_slide5_body">您可以无需帐号直接体验应用。只有在邀请家人时才需要注册帐号。</string>
+    <string name="settings_anonymous_login_button">登录 / 注册</string>
+</resources>

@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake Despertador familiar</string>
+    <string name="app_name_short">FamWake Despertador Familiar</string>
     <string name="email_label">Correo electrónico</string>
     <string name="password_label">Contraseña</string>
     <string name="register_button">Registrarse</string>
     <string name="login_button">Iniciar sesión</string>
     <string name="already_have_account">¿Ya tienes una cuenta? Inicia sesión aquí.</string>
-    <string name="no_account">¿Aún no tienes cuenta? Regístrese aquí.</string>
+    <string name="no_account">¿Aún no tienes cuenta? Regístrate aquí.</string>
     <string name="login_with_google">Iniciar sesión con Google</string>
     <string name="login_forgot_password">¿Olvidaste tu contraseña?</string>
-    <string name="login_password_reset_sent">¡Correo de restablecimiento enviado!</string>
-    <string name="login_google_error_no_account">No se encontró ninguna cuenta de Google en este dispositivo. Por favor, inicia sesión en Google en los ajustes de Android o usa correo/contraseña.</string>
+    <string name="login_password_reset_sent">¡Correo para restablecer enviado!</string>
+    <string name="login_google_error_no_account">No se encontró ninguna cuenta de Google. Por favor, inicia sesión en Google en los ajustes de tu teléfono o usa correo y contraseña.</string>
 
     <string name="setup_create_tab">Crear</string>
     <string name="setup_join_tab">Unirse</string>
@@ -19,14 +19,14 @@
     <string name="setup_join_code_label">Código de invitación de 6 dígitos</string>
     <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">Unirse a la familia</string>
-    <string name="join_loading_text">Procesando…</string>
+    <string name="join_loading_text">Conectando con la familia…</string>
 
     <string name="main_add_member_desc">Añadir miembro</string>
     <string name="main_family_members">Miembros de la familia</string>
     <string name="main_current_schedule">Horario actual</string>
-    <string name="main_no_active_schedule">Ningún horario de alarma activo.</string>
-    <string name="main_optimal_plan">Aquí está el horario calculado:</string>
-    <string name="main_plan_paused">Tu alarma está pausada actualmente.</string>
+    <string name="main_no_active_schedule">No hay alarmas activas ahora mismo.</string>
+    <string name="main_optimal_plan">Aquí tienes el horario de tu familia:</string>
+    <string name="main_plan_paused">Tu alarma está pausada.</string>
     <string name="main_shared_breakfast">☕ Desayuno compartido: %s</string>
     <string name="main_wake_time">Despertar: %1$s - %2$s</string>
     <string name="main_bathroom_info">Baño: %1$s min | Desayuno: %2$s</string>
@@ -36,14 +36,14 @@
     <string name="main_member_alarm_off">(Sin alarma)</string>
     <string name="main_member_limit_reached">Límite máximo de 6 miembros alcanzado.</string>
     <string name="main_alarm_enabled">Alarma: ENCENDIDA</string>
-    <string name="main_alarm_enabled_desc">Las alarmas automáticas están activas.</string>
-    <string name="main_snooze_active">Posponer activo hasta las %1$s</string>
+    <string name="main_alarm_enabled_desc">Tus alarmas están activas.</string>
+    <string name="main_snooze_active">Posponiendo hasta las %1$s</string>
     <string name="main_alarm_disabled">Alarma: APAGADA</string>
-    <string name="main_alarm_disabled_desc">La pausa manual está activa.</string>
+    <string name="main_alarm_disabled_desc">Tus alarmas están pausadas.</string>
     <string name="main_no_profile_warning">¡Ningún perfil seleccionado!</string>
-    <string name="main_no_profile_warning_desc">Por favor, selecciona tu perfil en los ajustes para que la alarma pueda sonar para ti.</string>
-    <string name="main_unclaimed_first_title">¡No suena ninguna alarma para %1$s!</string>
-    <string name="main_unclaimed_first_desc">%1$s está en primer lugar, pero no tiene un perfil propio – y puede que no despierte a tiempo.</string>
+    <string name="main_no_profile_warning_desc">Por favor, selecciona quién eres en los ajustes para que el teléfono suene para ti.</string>
+    <string name="main_unclaimed_first_title">¡No sonará ninguna alarma para %1$s!</string>
+    <string name="main_unclaimed_first_desc">%1$s es el primero, pero no ha seleccionado su perfil en ningún teléfono – ¡podría quedarse dormido!</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="delete_desc">Eliminar</string>
@@ -52,7 +52,7 @@
     <string name="add_member_title_edit">Editar miembro</string>
     <string name="back_desc">Atrás</string>
     <string name="unsaved_changes_title">Cambios sin guardar</string>
-    <string name="unsaved_changes_message">¿Quieres descartar los cambios?</string>
+    <string name="unsaved_changes_message">¿Quieres descartar tus cambios?</string>
     <string name="unsaved_changes_discard">Descartar</string>
     <string name="unsaved_changes_keep">Seguir editando</string>
     <string name="add_member_submit">Guardar</string>
@@ -63,18 +63,18 @@
     <string name="retry_button">Reintentar</string>
     <string name="add_member_name_label">Nombre (ej. Mamá, Papá, Hijo)</string>
     <string name="add_member_unknown">Desconocido</string>
-    <string name="add_member_earliest_wake">Despertar lo antes posible</string>
-    <string name="add_member_latest_wake">Despertar lo más tarde posible</string>
-    <string name="add_member_bathroom_duration">Duración del baño (minutos)</string>
-    <string name="add_member_wants_breakfast">Con desayuno</string>
-    <string name="add_member_leave_home">Sale de casa a las</string>
+    <string name="add_member_earliest_wake">Hora más temprana para despertar</string>
+    <string name="add_member_latest_wake">Hora más tardía para despertar</string>
+    <string name="add_member_bathroom_duration">Tiempo necesario en el baño (minutos)</string>
+    <string name="add_member_wants_breakfast">Quiere desayunar</string>
+    <string name="add_member_leave_home">Necesita salir de casa a las</string>
     <string name="add_member_day_profiles_title">Horario semanal</string>
     <string name="add_member_day_active">Alarma activa</string>
     <string name="add_member_copy_to_days">Copiar \"%1$s\" a otros días</string>
-    <string name="add_member_copy_dialog_title">Copiar a días</string>
+    <string name="add_member_copy_dialog_title">Copiar a otros días</string>
     <string name="add_member_copy_apply">Aplicar</string>
-    <string name="validation_latest_before_earliest">La última hora de despertar debe ser posterior a la primera</string>
-    <string name="validation_leave_too_early">La hora de salir de casa debe ser posterior al tiempo de baño (Despertar + Duración del baño)</string>
+    <string name="validation_latest_before_earliest">La hora más tardía para despertar debe ser después de la hora más temprana.</string>
+    <string name="validation_leave_too_early">La hora de salir de casa debe ser después de haber terminado en el baño.</string>
     <string name="weekday_1">Lunes</string>
     <string name="weekday_2">Martes</string>
     <string name="weekday_3">Miércoles</string>
@@ -92,39 +92,39 @@
 
     <string name="settings_title">Ajustes</string>
     <string name="settings_profile_title">Mi perfil</string>
-    <string name="settings_profile_desc">Tu móvil solo sonará a la hora de despertar del perfil seleccionado aquí.</string>
+    <string name="settings_profile_desc">Tu teléfono solo sonará para la persona seleccionada aquí.</string>
     <string name="settings_please_select">Por favor, selecciona</string>
-    <string name="settings_no_members">No se encontraron miembros</string>
-    <string name="settings_alarm_title">Tono de alarma</string>
-    <string name="settings_battery_warning_title">Optimización de batería activa</string>
-    <string name="settings_battery_warning_text">La alarma podría retrasarse o bloquearse. Por favor, desactiva la optimización de batería para FamWake.</string>
+    <string name="settings_no_members">No se encontraron miembros de la familia</string>
+    <string name="settings_alarm_title">Sonido de alarma</string>
+    <string name="settings_battery_warning_title">Los ajustes de batería pueden bloquear las alarmas</string>
+    <string name="settings_battery_warning_text">Tu teléfono podría retrasar o bloquear la alarma para ahorrar batería. Por favor, permite que FamWake funcione en segundo plano.</string>
     <string name="settings_battery_warning_button">Solucionar ahora</string>
     <string name="settings_alarm_default">Predeterminado</string>
-    <string name="settings_alarm_select">Elegir tono: %1$s</string>
-    <string name="settings_alarm_picker_title">Elige un tono de alarma</string>
+    <string name="settings_alarm_select">Sonido: %1$s</string>
+    <string name="settings_alarm_picker_title">Elige tu sonido de alarma</string>
     <string name="settings_account_title">Familia y Cuenta</string>
     <string name="settings_join_code">Código de invitación para %1$s:</string>
-    <string name="settings_share_code">Compartir código</string>
-    <string name="settings_share_message">Aquí tienes tu enlace para FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCódigo: %2$s\nGrupo: %1$s\n\nSolo haz clic, inicia sesión y estaremos conectados. ¡Despertar juntos es más divertido! ⏰❤️</string>
+    <string name="settings_share_code">Compartir código de invitación</string>
+    <string name="settings_share_message">Aquí tienes tu enlace para FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCódigo: %2$s\nFamilia: %1$s\n\nSolo toca el enlace, inicia sesión y estaremos conectados. ¡Despertar juntos es mucho más fácil! ⏰❤️</string>
     <string name="settings_leave_family">Dejar la familia</string>
     <string name="settings_delete_family">Eliminar familia</string>
-    <string name="settings_delete_family_dialog_title">¿Eliminar la familia?</string>
-    <string name="settings_delete_family_dialog_text">¿Estás seguro de que quieres eliminar esta familia de forma permanente? Se eliminarán todos los miembros, horarios y ajustes para todos. Esto no se puede deshacer.</string>
-    <string name="settings_delete_family_dialog_confirm">Eliminar</string>
+    <string name="settings_delete_family_dialog_title">¿Eliminar toda la familia?</string>
+    <string name="settings_delete_family_dialog_text">¿Estás seguro de que quieres eliminar esta familia de forma permanente? Se eliminarán todos los miembros, horas y ajustes para todos. Esto no se puede deshacer.</string>
+    <string name="settings_delete_family_dialog_confirm">Eliminar para siempre</string>
     <string name="settings_delete_family_dialog_cancel">Cancelar</string>
-    <string name="settings_delete_family_warning_title">¡Otros miembros activos!</string>
-    <string name="settings_delete_family_warning_text">Aún hay otros miembros activos en esta familia. Si la eliminas, todos perderán el acceso. ¿De verdad quieres forzar la eliminación de todo?</string>
-    <string name="settings_delete_family_warning_confirm">Sí, eliminar todo</string>
+    <string name="settings_delete_family_warning_title">¡Aún hay otras personas!</string>
+    <string name="settings_delete_family_warning_text">Todavía hay otros miembros en esta familia. Si la eliminas, todos perderán el acceso. ¿De verdad estás seguro?</string>
+    <string name="settings_delete_family_warning_confirm">Sí, eliminar para todos</string>
     <string name="settings_logout">Cerrar sesión</string>
     <string name="settings_delete_account">Eliminar cuenta</string>
-    <string name="settings_footer_version">FamWake Despertador Familiar v%1$s</string>
+    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Todos los derechos reservados.</string>
 
-    <string name="empty_members_title">Aún no hay miembros</string>
-    <string name="empty_members_description">Añade perfiles para ver vuestras horas de despertar y despertaros mutuamente.</string>
-    <string name="empty_schedule_title">Ninguna alarma activa</string>
-    <string name="empty_schedule_description">Actualmente no hay alarmas configuradas para nadie. ¡Es hora de dormir un poco más!</string>
+    <string name="empty_members_title">Aún no hay nadie</string>
+    <string name="empty_members_description">Añade a tu familia para organizar vuestras mañanas.</string>
+    <string name="empty_schedule_title">Sin alarmas activas</string>
+    <string name="empty_schedule_description">No hay ninguna alarma encendida en este momento. ¡Es hora de dormir a pierna suelta!</string>
 
     <string name="settings_language_title">Idioma</string>
     <string name="settings_language_system">Predeterminado del sistema</string>
@@ -142,118 +142,118 @@
     <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Apariencia</string>
     <string name="settings_display_title">Ajustes de la app</string>
-    <string name="settings_help_feedback_title">Ayuda y Comentarios</string>
-    <string name="settings_support_button">Enviar correo al desarrollador</string>
-    <string name="settings_start_onboarding">🎓 Tour de la app</string>
+    <string name="settings_help_feedback_title">Ayuda y Sugerencias</string>
+    <string name="settings_support_button">Enviar correo al creador</string>
+    <string name="settings_start_onboarding">🎓 Tour rápido de la app</string>
 
     <string name="onboarding_skip">Omitir</string>
     <string name="onboarding_next">Siguiente</string>
     <string name="onboarding_done">Empezar sin cuenta</string>
     <string name="onboarding_slide0_title">Tu mañana en equipo.</string>
-    <string name="onboarding_slide0_body">Sin discusiones, sin caos. FamWake se asegura de que todos empiecen el día relajados – automáticamente.</string>
-    <string name="onboarding_slide1_title">Se acabó esperar.</string>
-    <string name="onboarding_slide1_body">FamWake calcula el momento ideal para despertar a cada miembro – coordinando baño, desayuno y salida. Sin más aglomeraciones.</string>
+    <string name="onboarding_slide0_body">Sin discusiones, sin caos. FamWake se asegura de que todos empiecen el día relajados, por sí sola.</string>
+    <string name="onboarding_slide1_title">Se acabó el esperar.</string>
+    <string name="onboarding_slide1_body">FamWake encuentra la hora perfecta para que todos despierten, teniendo en cuenta el tiempo de baño, el desayuno y la hora de salir de casa. No más colas en el lavabo.</string>
     <string name="onboarding_slide2_title">Cada día es diferente.</string>
-    <string name="onboarding_slide2_body">¿Lunes oficina, miércoles teletrabajo? Configura horarios individuales para cada día – la app se encarga del resto.</string>
+    <string name="onboarding_slide2_body">¿Oficina el lunes, trabajar desde casa el miércoles? Simplemente ajusta tus horas para cada día y la app hace el resto.</string>
     <string name="onboarding_slide3_title">Conectados en segundos.</string>
-    <string name="onboarding_slide3_body">Comparte un código y tu familia se une al instante. ¿Nuevos miembros? El plan se ajusta automáticamente. Y si algo cambia, todos lo saben al instante.</string>
-    <string name="onboarding_slide4_title">Siempre confiable</string>
-    <string name="onboarding_slide4_body">Disfrute de mañanas relajadas, de forma fiable, incluso sin conexión. Si se corta Internet, la alarma sigue sonando justo a tiempo.</string>
-    <string name="settings_feedback_button">Dar feedback / Reportar error</string>
-    <string name="feedback_title">Feedback</string>
-    <string name="feedback_intro">¡Ayúdanos a mejorar la app! ¿Qué tienes en mente?</string>
+    <string name="onboarding_slide3_body">Comparte tu código de invitación y tu familia estará dentro. Si alguien cambia sus horas, el horario de todos se actualiza al instante.</string>
+    <string name="onboarding_slide4_title">Siempre funciona.</string>
+    <string name="onboarding_slide4_body">Disfruta de una mañana relajada todos los días. Incluso si te quedas sin internet por la noche, tu alarma sonará a su hora.</string>
+    <string name="settings_feedback_button">Danos tu opinión / Informar de un problema</string>
+    <string name="feedback_title">Sugerencias</string>
+    <string name="feedback_intro">¡Ayúdanos a mejorar la app! ¿Qué nos quieres contar?</string>
     <string name="feedback_category_label">Categoría</string>
     <string name="feedback_category_bug">He encontrado un error</string>
-    <string name="feedback_category_feature">Sugerir una función</string>
-    <string name="feedback_category_praise">Elogios y Críticas</string>
+    <string name="feedback_category_feature">Tengo una idea para la app</string>
+    <string name="feedback_category_praise">Me gusta / Comentarios</string>
     <string name="feedback_category_other">Otro</string>
     <string name="feedback_message_label">Mensaje</string>
-    <string name="feedback_message_placeholder">Describe brevemente tu solicitud…</string>
-    <string name="feedback_email_label">Correo electrónico (opcional)</string>
-    <string name="feedback_email_placeholder">Tu correo (si podemos responderte)</string>
-    <string name="feedback_auto_info_title">Incluido automáticamente:</string>
+    <string name="feedback_message_placeholder">Cuéntanos brevemente qué pasa…</string>
+    <string name="feedback_email_label">Correo (opcional)</string>
+    <string name="feedback_email_placeholder">Para que podamos responderte</string>
+    <string name="feedback_auto_info_title">Información enviada automáticamente:</string>
     <string name="feedback_auto_version">Versión de la app: v%1$s</string>
-    <string name="feedback_auto_device">Dispositivo: %1$s</string>
+    <string name="feedback_auto_device">Teléfono: %1$s</string>
     <string name="feedback_cancel">Cancelar</string>
-    <string name="feedback_send">Enviar feedback</string>
-    <string name="feedback_success">¡Gracias! Tu feedback ha llegado y nos ayuda mucho.</string>
-    <string name="feedback_success_title">Comentarios Enviados</string>
-    <string name="feedback_success_message">¡Gracias por tus comentarios! Nos ayudan a mejorar FamWake para todos.</string>
-    <string name="settings_terms_of_use">Términos de uso</string>
+    <string name="feedback_send">Enviar mensaje</string>
+    <string name="feedback_success">¡Gracias! Hemos recibido tu mensaje.</string>
+    <string name="feedback_success_title">Mensaje Enviado</string>
+    <string name="feedback_success_message">¡Gracias por tu ayuda! Tus comentarios nos ayudan a mejorar FamWake para todo el mundo.</string>
+    <string name="settings_terms_of_use">Condiciones de Uso</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-es.html</string>
-    <string name="settings_privacy_policy">Política de privacidad</string>
+    <string name="settings_privacy_policy">Política de Privacidad</string>
     <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-es.html</string>
     <string name="settings_imprint">Aviso legal</string>
     <string name="settings_imprint_url">https://www.familienwecker.de/imprint-es.html</string>
     <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-es.html</string>
 
-    <string name="registration_disclaimer">Al registrarte, aceptas los %1$s y la %2$s.</string>
-    <string name="registration_terms_of_use">Términos de uso</string>
-    <string name="registration_privacy_policy">Política de privacidad</string>
-    <string name="settings_already_claimed">Ya vinculado</string>
+    <string name="registration_disclaimer">Al registrarte, aceptas las %1$s y la %2$s.</string>
+    <string name="registration_terms_of_use">Condiciones de Uso</string>
+    <string name="registration_privacy_policy">Política de Privacidad</string>
+    <string name="settings_already_claimed">Ya ocupado</string>
     <string name="settings_theme_light">Claro</string>
     <string name="settings_theme_dark">Oscuro</string>
 
     <string name="ringing_wake_up">¡Arriba, %1$s!</string>
     <string-array name="ringing_messages">
-        <item>¡El baño es todo tuyo ahora!</item>
+        <item>¡El baño es todo tuyo en este momento!</item>
         <item>Sin prisas, sin estrés: tu tiempo de baño empieza ya.</item>
-        <item>¡Disfruta de la paz en el baño mientras dure!</item>
+        <item>¡Disfruta de la paz del baño mientras puedas!</item>
         <item>Hora del primer café. ¡El mundo te espera!</item>
         <item>¿Has dormido bien? Tu horario para hoy está listo.</item>
-        <item>¿Listo para el día? Todo está coordinado.</item>
+        <item>¿Listo para el día? Todo está perfectamente organizado.</item>
         <item>¡A comerse el mundo! Tu turno en el baño empieza.</item>
         <item>Despierta y sube el volumen: ¡el escenario es tuyo!</item>
-        <item>¡Heavy Metal por la mañana alegra la semana!</item>
-        <item>Tu horario está en marcha. ¡Vamos!</item>
-        <item>¿Listo para despegar? El equipo cuenta contigo.</item>
-        <item>¡Arriba, sol! El baño es todo tuyo.</item>
+        <item>¡Buena música por la mañana alegra toda la semana!</item>
+        <item>El horario familiar está en marcha. ¡Vamos allá!</item>
+        <item>¿Preparado? La familia cuenta contigo.</item>
+        <item>¡Arriba! El baño está libre para ti.</item>
         <item>Tu turno personal en el baño empieza ahora – ¡aprovéchalo!</item>
-        <item>Vía libre al baño – ¡tu turno está reservado!</item>
-        <item>A quien madruga, ¡le toca el agua caliente!</item>
-        <item>¿Cinco minutos más? ¡No! Tu ventana de tiempo espera.</item>
-        <item>Hoy va a ser un gran día. ¡Empieza ahora!</item>
+        <item>Vía libre hacia el lavabo – ¡es tu turno!</item>
+        <item>¡A quien madruga, le toca el agua caliente!</item>
+        <item>¿Cinco minutos más? ¡Ni pensarlo! Tu hora te espera.</item>
+        <item>Hoy va a ser un gran día. ¡Empieza ahora mismo!</item>
         <item>Tu cepillo de dientes te extraña. ¡Al baño!</item>
-        <item>Todo coordinado, todo planificado – ¡te toca!</item>
-        <item>El que madruga tiene el baño para él solo.</item>
+        <item>Todo coordinado, todo planificado – ¡te toca a ti!</item>
+        <item>El que madruga tiene el baño para él solito.</item>
     </string-array>
-    <string name="ringing_stop">Detener alarma</string>
+    <string name="ringing_stop">Apagar alarma</string>
     <string name="ringing_snooze">Posponer (5 min)</string>
-    <string name="pause_today_desc">Pausar hoy</string>
+    <string name="pause_today_desc">Pausar por hoy</string>
     <string name="awake_today_desc">Ya estoy despierto/a</string>
     <string name="awake_active_desc">Ya estoy despierto/a</string>
 
-    <string name="error_load_members">Error al cargar los miembros</string>
-    <string name="error_create_family">Error al crear la familia: %1$s</string>
-    <string name="error_create_family_rate_limit">Ya has creado 3 familias en la última hora. Por favor, espera una hora y vuelve a intentarlo.</string>
-    <string name="error_join_family_rate_limit">Demasiados intentos de unirse (máx. 5 por minuto). Espera un momento y vuelve a intentarlo.</string>
-    <string name="error_invalid_code">Código de invitación no válido: %1$s</string>
-    <string name="error_family_not_found">No se encontró ninguna familia con este código.</string>
-    <string name="error_code_generation_failed">No se pudo generar un código único. Por favor, inténtalo de nuevo.</string>
-    <string name="join_conflict_title">¿Unirse a una nueva familia?</string>
-    <string name="join_conflict_text">Ya eres miembro de la familia \"%1$s\". Para unirte a la nueva, primero debes salir de la actual. ¿Quieres salir de \"%1$s\" y unirte con el código %2$s?</string>
-    <string name="join_conflict_confirm">Salir y Unirse</string>
+    <string name="error_load_members">No se pudieron cargar los miembros de la familia</string>
+    <string name="error_create_family">No se pudo crear la familia: %1$s</string>
+    <string name="error_create_family_rate_limit">Has creado demasiadas familias hace poco. Por favor, espera un poco y vuelve a intentarlo.</string>
+    <string name="error_join_family_rate_limit">Demasiados intentos. Espera un momento y vuelve a intentarlo.</string>
+    <string name="error_invalid_code">El código de invitación no es válido: %1$s</string>
+    <string name="error_family_not_found">No hemos encontrado ninguna familia con este código.</string>
+    <string name="error_code_generation_failed">No se pudo crear un código. Por favor, inténtalo de nuevo.</string>
+    <string name="join_conflict_title">¿Unirte a una nueva familia?</string>
+    <string name="join_conflict_text">Ya estás en \"%1$s\". Para unirte a la nueva, primero tienes que salir de esta. ¿Quieres salir de \"%1$s\" y unirte a la nueva?</string>
+    <string name="join_conflict_confirm">Salir y Unirme</string>
     <string name="error_delete_member">No se pudo eliminar al miembro: %1$s</string>
-    <string name="error_sync_failed">Sincronización fallida</string>
-    <string name="error_delete_family">Error al eliminar la familia: %1$s</string>
-    <string name="error_calculate_schedule">Error al calcular el horario: %1$s</string>
-    <string name="error_not_logged_in">Usuario no conectado</string>
-    <string name="error_system">Error del sistema</string>
-    <string name="error_invalid_credentials">Correo o contraseña no válidos. Por favor, comprueba tus datos.</string>
-    <string name="error_login_failed">Error al iniciar sesión</string>
-    <string name="error_login_failed_unknown">Error de inicio de sesión desconocido</string>
-    <string name="error_registration_failed">Error de registro</string>
-    <string name="error_registration_failed_unknown">No se pudo crear el usuario</string>
-    <string name="error_unknown">Ha ocurrido un error desconocido. Por favor, inténtalo de nuevo.</string>
-    <string name="error_google_sign_in_failed_unknown">Error al iniciar sesión con Google</string>
-    <string name="error_empty_email">Por favor, introduce una dirección de correo electrónico.</string>
-    <string name="error_invalid_email">Dirección de correo electrónico no válida.</string>
-    <string name="error_user_not_found">No se encontró ninguna cuenta para este correo.</string>
-    <string name="error_too_many_requests">Demasiados intentos. Por favor, espera un momento y vuelve a intentarlo.</string>
-    <string name="error_password_reset_failed">Error al restablecer la contraseña. Inténtalo más tarde.</string>
-    <string name="error_profile_taken">Este perfil ya está ocupado.</string>
-    <string name="error_profile_claim_offline">Sin conexión. Seleccionar el perfil requiere internet.</string>
-    <string name="error_delete_not_admin">Solo el creador puede eliminar la familia.</string>
+    <string name="error_sync_failed">No se pudieron actualizar los datos</string>
+    <string name="error_delete_family">No se pudo eliminar la familia: %1$s</string>
+    <string name="error_calculate_schedule">No se calcularon los tiempos: %1$s</string>
+    <string name="error_not_logged_in">No has iniciado sesión.</string>
+    <string name="error_system">Algo ha salido mal.</string>
+    <string name="error_invalid_credentials">Correo o contraseña incorrectos. Por favor, revisa lo que has escrito.</string>
+    <string name="error_login_failed">No se pudo iniciar sesión</string>
+    <string name="error_login_failed_unknown">Error desconocido al iniciar sesión</string>
+    <string name="error_registration_failed">No se pudo registrar la cuenta</string>
+    <string name="error_registration_failed_unknown">No se pudo crear tu cuenta</string>
+    <string name="error_unknown">Algo salió mal. Por favor, inténtalo de nuevo.</string>
+    <string name="error_google_sign_in_failed_unknown">El inicio de sesión con Google no funcionó</string>
+    <string name="error_empty_email">Por favor, escribe tu correo electrónico.</string>
+    <string name="error_invalid_email">Este correo no parece correcto. Por favor, revísalo.</string>
+    <string name="error_user_not_found">No hemos encontrado una cuenta con este correo.</string>
+    <string name="error_too_many_requests">Demasiados intentos. Por favor, espera un poco.</string>
+    <string name="error_password_reset_failed">No se pudo restablecer la contraseña. Inténtalo más tarde.</string>
+    <string name="error_profile_taken">Alguien más ya está usando este perfil.</string>
+    <string name="error_profile_claim_offline">Sin internet. Necesitas conexión para seleccionar quién eres.</string>
+    <string name="error_delete_not_admin">Solo la persona que creó la familia puede eliminarla.</string>
 
     <string name="alarm_default_member">Miembro de la familia</string>
     <string name="alarm_notification_title">El despertador familiar está sonando</string>
@@ -262,79 +262,79 @@
 
     <string name="settings_fallback_username">Padre/Madre</string>
 
-    <string name="error_alarm_permission">Por favor, permite las alarmas exactas en los ajustes del sistema para que el despertador familiar suene a tiempo.</string>
+    <string name="error_alarm_permission">Por favor, permite las alarmas en los ajustes de tu teléfono para que pueda despertarte a tiempo.</string>
 
-    <string name="permission_fullscreen_title">Permiso de alarma necesario</string>
-    <string name="permission_fullscreen_message">FamWake necesita permiso para mostrar la alarma en tu pantalla de bloqueo. Por favor, permítelo en los ajustes del sistema.</string>
+    <string name="permission_fullscreen_title">Se necesita permiso de alarma</string>
+    <string name="permission_fullscreen_message">FamWake necesita permiso para despertarte correctamente. Por favor, permítelo en los ajustes de tu teléfono.</string>
     <string name="permission_fullscreen_open">Abrir ajustes</string>
 
-    <string name="schedule_message_optimal">Aquí está el horario calculado:</string>
-    <string name="schedule_message_no_members">Ningún miembro activo. Todos están pausados.</string>
-    <string name="schedule_message_no_valid">No se encontró un horario válido. Las horas se superponen demasiado.</string>
-    <string name="schedule_message_no_valid_desc">Consejo: amplía tu ventana de despertar, reduce el tiempo de baño o pausa a otro miembro.</string>
-    <string name="schedule_message_time_adjusted">Horas ajustadas %1$d min para que encajen en vuestro orden.</string>
-    <string name="schedule_message_breakfast_reduced">Desayuno reducido %1$d min para ajustarse a vuestro horario.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Desayuno −%1$d min y horas desplazadas %2$d min.</string>
-    <string name="schedule_message_member_conflict">Conflicto para %1$s: Las horas se superponen demasiado.</string>
+    <string name="schedule_message_optimal">Aquí tienes el horario de tu familia:</string>
+    <string name="schedule_message_no_members">No hay nadie activo. Todas las alarmas están pausadas.</string>
+    <string name="schedule_message_no_valid">Las horas se cruzan demasiado para crear un buen horario.</string>
+    <string name="schedule_message_no_valid_desc">Consejo: prueba con un margen de despertar más amplio, menos tiempo de baño, o pausa la alarma de alguien.</string>
+    <string name="schedule_message_time_adjusted">Las horas se movieron %1$d minutos para que todo encaje.</string>
+    <string name="schedule_message_breakfast_reduced">El tiempo de desayuno se acortó %1$d minutos para cuadrar todo.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Desayuno −%1$d min y horas movidas %2$d min.</string>
+    <string name="schedule_message_member_conflict">Problema para %1$s: Las horas se cruzan demasiado.</string>
     <string name="schedule_message_member_conflict_desc">Prueba a cambiar el orden o ajustar las horas.</string>
-    <string name="main_fallback_alarm_active">⚠️ Alarma de emergencia activa (%1$s). ¡Corrige el horario!</string>
+    <string name="main_fallback_alarm_active">⚠️ Aviso: El horario no encaja ahora mismo (%1$s). ¡Por favor, ajusta tus horas!</string>
 
-    <string name="error_password_too_short">La contraseña debe tener al menos 8 caracteres.</string>
-    <string name="error_email_already_in_use">Esta dirección de correo electrónico ya está siendo utilizada por otra cuenta.</string>
-    <string name="error_weak_password">La contraseña es demasiado débil. Por favor, usa al menos 8 caracteres y caracteres especiales.</string>
-    <string name="login_verify_email_title">✉️ Confirma tu correo electrónico</string>
-    <string name="login_verify_email_text">Hemos enviado un correo de confirmación a\n%1$s\nHaz clic en el enlace del correo para activar tu cuenta.</string>
-    <string name="login_verify_email_confirm">Ya he confirmado ✓</string>
+    <string name="error_password_too_short">Tu contraseña debe tener al menos 8 caracteres.</string>
+    <string name="error_email_already_in_use">Este correo ya está registrado.</string>
+    <string name="error_weak_password">Tu contraseña es demasiado fácil de adivinar. Usa al menos 8 caracteres y algún símbolo especial.</string>
+    <string name="login_verify_email_title">✉️ Confirma tu correo</string>
+    <string name="login_verify_email_text">Hemos enviado un correo rápido a\n%1$s\nHaz clic en el enlace del correo para activar tu cuenta.</string>
+    <string name="login_verify_email_confirm">Ya hice clic en el enlace ✓</string>
     <string name="login_verify_email_resend">Reenviar correo</string>
     <string name="login_verify_email_not_verified">Correo aún no confirmado. Por favor, revisa tu bandeja de entrada.</string>
 
-    <string name="tooltip_awake_button">¿Te has despertado antes? Toca aquí para detener tu alarma de hoy; tu tiempo de baño quedará reservado para la familia.</string>
-    <string name="tooltip_drag_handle">Mantén y arrastra un recuadro para cambiar manualmente el orden de despertar de tu familia. El algoritmo recalculará de inmediato.</string>
-    <string name="tooltip_wake_window">Danos una ventana de tiempo. La app encontrará el momento perfecto dentro de ella para que nadie tenga que esperar para ir al baño.</string>
-    <string name="tooltip_bathroom">Sé realista. Tu duración en el baño marca el ritmo de la mañana de toda la familia.</string>
-    <string name="tooltip_invite_code">Comparte este código con tu familia. En cuanto se unan, aparecerán en vuestro horario.</string>
-    <string name="tooltip_alarm_switch">Si apagas tu alarma, no solo tu móvil se queda en silencio: el algoritmo recalcula de inmediato la mañana para toda la familia, permitiendo que otros duerman un poco más o vayan al baño antes.</string>
-    <string name="tooltip_weekdays">Planifica toda tu semana: toca los días para establecer horas específicas de despertar y de baño; perfecto para alternar entre días de teletrabajo y de oficina.</string>
-    <string name="settings_tooltips_title">Consejos y sugerencias</string>
-    <string name="settings_tooltips_label">Mostrar consejos útiles</string>
-    <string name="settings_tooltips_reset">Restablecer todos los consejos</string>
+    <string name="tooltip_awake_button">¿Te has despertado antes? Toca aquí para apagar tu alarma de hoy; tu tiempo en el baño seguirá reservado para ti.</string>
+    <string name="tooltip_drag_handle">Mantén pulsado un nombre para moverlo arriba o abajo. Así cambias quién entra primero al baño. Los tiempos se actualizarán al instante.</string>
+    <string name="tooltip_wake_window">Danos un margen de tiempo. La app encontrará el momento perfecto para despertarte y que no tengas que esperar para ir al baño.</string>
+    <string name="tooltip_bathroom">Sé realista aquí. El tiempo que pasas en el baño marca el ritmo de los demás.</string>
+    <string name="tooltip_invite_code">Comparte esto con tu familia. En cuanto se unan, sus horas aparecerán justo aquí.</string>
+    <string name="tooltip_alarm_switch">Si apagas tu alarma, la app actualiza de inmediato el plan para todos los demás, permitiendo que duerman un poco más o vayan al baño antes.</string>
+    <string name="tooltip_weekdays">Toca los días para establecer horas diferentes. Ideal si algunos días trabajas desde casa y otros tienes que ir a la oficina.</string>
+    <string name="settings_tooltips_title">Consejos útiles</string>
+    <string name="settings_tooltips_label">Mostrar consejos en la app</string>
+    <string name="settings_tooltips_reset">Volver a mostrar todos los consejos</string>
     <string name="settings_push_title">Notificaciones</string>
-    <string name="settings_push_label">Recibir notificaciones push</string>
-    <string name="settings_support_title">Apoya la app</string>
-    <string name="settings_support_desc">¿Te gusta la app? ¡Agradecemos tu apoyo!</string>
+    <string name="settings_push_label">Permitir notificaciones</string>
+    <string name="settings_support_title">Apoya a FamWake</string>
+    <string name="settings_support_desc">¿Te gusta la app? ¡Agradeceríamos mucho tu apoyo!</string>
     <string name="settings_support_donate">Donar</string>
-    <string name="settings_donate_success">¡Muchas gracias por tu apoyo! ❤️</string>
+    <string name="settings_donate_success">¡Muchísimas gracias por tu apoyo! ❤️</string>
     <string name="settings_donate_error">Vaya, algo salió mal.</string>
-    <string name="settings_donate_loading">Cargando ofertas…</string>
-    <string name="settings_donate_no_offers">No hay ofertas disponibles. Asegúrate de que \"Current Offering\" esté configurado en RevenueCat.</string>
-    <string name="settings_donate_purchase_loading">Procesando donación…</string>
-    <string name="settings_donate_error_not_allowed">El dispositivo o usuario no tiene permitido realizar compras.</string>
-    <string name="settings_donate_error_store_problem">Hubo un problema con Google Play Store.</string>
-    <string name="settings_donate_error_already_purchased">Este producto ya ha sido comprado.</string>
-    <string name="settings_donate_error_invalid">La compra no es válida.</string>
-    <string name="settings_donate_error_generic">Ha ocurrido un error durante el proceso de donación.</string>
+    <string name="settings_donate_loading">Cargando opciones…</string>
+    <string name="settings_donate_no_offers">No hay opciones disponibles ahora mismo.</string>
+    <string name="settings_donate_purchase_loading">Procesando…</string>
+    <string name="settings_donate_error_not_allowed">Las compras no están permitidas en este teléfono.</string>
+    <string name="settings_donate_error_store_problem">Hubo un problema con la tienda de aplicaciones.</string>
+    <string name="settings_donate_error_already_purchased">Ya has comprado esto.</string>
+    <string name="settings_donate_error_invalid">La compra no se ha completado.</string>
+    <string name="settings_donate_error_generic">Algo ha salido mal durante la donación.</string>
 
-    <string name="error_permission_denied">Acceso denegado</string>
+    <string name="error_permission_denied">Acceso no permitido</string>
     <string name="error_offline">Sin conexión a internet</string>
-    <string name="error_report_failed">Error al enviar el reporte</string>
-    <string name="error_leave_failed">Error al dejar la familia</string>
-    <string name="error_revenuecat_not_configured">RevenueCat no configurado</string>
+    <string name="error_report_failed">No se pudo enviar el informe</string>
+    <string name="error_leave_failed">No se pudo dejar la familia</string>
+    <string name="error_revenuecat_not_configured">La tienda no está lista</string>
     <string name="default_someone">Alguien</string>
-    <string name="error_label">Error</string>
-    <string name="offline_write_hint">Sin conexión. Tus cambios se sincronizarán en cuanto vuelvas a estar conectado.</string>
+    <string name="error_label">Problema</string>
+    <string name="offline_write_hint">Sin internet. Tus cambios se guardarán en cuanto vuelvas a estar conectado.</string>
     <string name="password_show">Mostrar contraseña</string>
     <string name="password_hide">Ocultar contraseña</string>
     <string name="close_desc">Cerrar</string>
 
-    <string name="settings_exact_alarm_warning_title">Falta permiso de alarma</string>
-    <string name="settings_exact_alarm_warning_text">La alarma no puede sonar en este dispositivo. Por favor, permite que FamWake programe alarmas exactas.</string>
+    <string name="settings_exact_alarm_warning_title">Permiso de alarma necesario</string>
+    <string name="settings_exact_alarm_warning_text">Tu teléfono está bloqueando la alarma. Por favor, permite que FamWake programe alarmas para que te despiertes a tiempo.</string>
     <string name="settings_exact_alarm_warning_button">Permitir alarmas</string>
-    <string name="main_exact_alarm_banner">⚠️ ¡Alarma bloqueada! Por favor, concede el permiso de alarma en la configuración.</string>
-    <string name="error_offline_feedback">Estás sin conexión. Revisa tu conexión e inténtalo de nuevo.</string>
-    <string name="error_feedback_rate_limit">Espera %1$s segundos antes de enviar otro mensaje.</string>
-    <string name="error_feedback_rate_limit_server">Demasiadas solicitudes. Inténtalo más tarde.</string>
-    <string name="error_feedback_empty_message">El mensaje no puede estar vacío.</string>
-    <string name="error_network">Error de red. Revisa tu conexión a internet.</string>
+    <string name="main_exact_alarm_banner">⚠️ ¡Alarma bloqueada! Por favor, permite las alarmas en tus ajustes para que te despiertes a tiempo.</string>
+    <string name="error_offline_feedback">No tienes internet. Conéctate a una red y vuelve a intentarlo.</string>
+    <string name="error_feedback_rate_limit">Espera %1$s segundos antes de enviar el siguiente mensaje.</string>
+    <string name="error_feedback_rate_limit_server">Has enviado demasiados mensajes. Inténtalo de nuevo más tarde.</string>
+    <string name="error_feedback_empty_message">Tu mensaje está vacío.</string>
+    <string name="error_network">Problema de red. Por favor, comprueba tu conexión a internet.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -343,31 +343,31 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="tooltip_alarm_sound">Toca aquí para elegir tu tono de alarma personal – pon tu melodía favorita en lugar del sonido predeterminado.</string>
+    <string name="tooltip_alarm_sound">Toca aquí para elegir tu propio sonido de despertar; pon tu música favorita en lugar del pitido normal.</string>
     <string name="settings_language_dialects">Dialectos</string>
-    <string name="error_sync_blocked_device">La sincronización no está disponible en este dispositivo.</string>
+    <string name="error_sync_blocked_device">Las actualizaciones no son posibles en este dispositivo ahora mismo.</string>
     <string name="onboarding_mock_name1">Papá</string>
     <string name="onboarding_mock_name2">Mamá</string>
     <string name="onboarding_mock_family_name">García</string>
 
     
-    <string name="notif_channel_schedule_change_name">Cambios de horario</string>
-    <string name="notif_channel_schedule_change_desc">Notifica cambios en los horarios o el orden de despertar</string>
-    <string name="notif_channel_family_events_name">Eventos familiares</string>
-    <string name="notif_channel_family_events_desc">Notifica cuando miembros se unen o salen de la familia</string>
-    <string name="notif_schedule_changed_title">FamWake: Plan actualizado</string>
-    <string name="notif_schedule_changed_body">Los horarios han cambiado. Abre la app para ver tu nueva hora.</string>
+    <string name="notif_channel_schedule_change_name">Actualizaciones de horario</string>
+    <string name="notif_channel_schedule_change_desc">Te avisa si las horas de despertar o el orden en el baño cambian</string>
+    <string name="notif_channel_family_events_name">Actualizaciones familiares</string>
+    <string name="notif_channel_family_events_desc">Te avisa cuando alguien entra o sale de tu familia</string>
+    <string name="notif_schedule_changed_title">FamWake: Horario actualizado</string>
+    <string name="notif_schedule_changed_body">Las horas de despertar han cambiado. Abre la app para ver tu nueva hora.</string>
     <string name="notif_member_joined_title">FamWake: ¡Nuevo miembro!</string>
-    <string name="notif_member_joined_body">Un nuevo miembro se ha unido a tu familia.</string>
+    <string name="notif_member_joined_body">Alguien nuevo se acaba de unir al horario de tu familia.</string>
     <string name="notif_member_left_title">FamWake: Actualización familiar</string>
-    <string name="notif_member_left_body">Un miembro ha abandonado tu familia.</string>
+    <string name="notif_member_left_body">Alguien se ha ido del grupo familiar.</string>
     <string name="notif_permission_title">Notificaciones necesarias</string>
-    <string name="notif_permission_desc">Sin notificaciones, la alarma podría no sonar. Actívalas para un despertador fiable.</string>
+    <string name="notif_permission_desc">Si apagas las notificaciones, puede que la alarma no funcione bien. Por favor, déjalas encendidas.</string>
     <string name="notif_permission_button">Activar notificaciones</string>
-    <string name="notif_manage_title">Administrar notificaciones</string>
-    <string name="notif_manage_desc">Modifica el sonido, la vibración y otras preferencias de notificación en los ajustes del sistema.</string>
-<string name="onboarding_login_create">Iniciar sesión / Registrarse</string>
-    <string name="onboarding_slide5_title">¡Empecemos\'!</string>
-    <string name="onboarding_slide5_body">Puedes probar la aplicación de inmediato sin registrarte. Solo necesitas una cuenta cuando invitas a tu familia.</string>
+    <string name="notif_manage_title">Ajustes de notificaciones</string>
+    <string name="notif_manage_desc">Cambia los sonidos y vibraciones en los ajustes de tu teléfono.</string>
+    <string name="onboarding_login_create">Iniciar sesión / Registrarse</string>
+    <string name="onboarding_slide5_title">¡Vamos a empezar!</string>
+    <string name="onboarding_slide5_body">Puedes probar la app ahora mismo sin tener cuenta. Solo necesitarás una cuando quieras invitar a tu familia.</string>
     <string name="settings_anonymous_login_button">Iniciar sesión / Registrarse</string>
-    </resources>
+</resources>

@@ -5,12 +5,12 @@
     <string name="password_label">Wachtwoord</string>
     <string name="register_button">Registreren</string>
     <string name="login_button">Inloggen</string>
-    <string name="already_have_account">Heeft u al een account? Log hier in.</string>
-    <string name="no_account">Nog geen account? Meld u hier aan.</string>
+    <string name="already_have_account">Heb je al een account? Log hier in.</string>
+    <string name="no_account">Nog geen account? Meld je hier aan.</string>
     <string name="login_with_google">Inloggen met Google</string>
     <string name="login_forgot_password">Wachtwoord vergeten?</string>
     <string name="login_password_reset_sent">E-mail voor wachtwoordherstel verzonden!</string>
-    <string name="login_google_error_no_account">Geen Google-account gevonden op dit apparaat. Log in op Google in je Android-instellingen of gebruik e-mail/wachtwoord.</string>
+    <string name="login_google_error_no_account">Geen Google-account gevonden op dit apparaat. Log in op Google in je telefooninstellingen of gebruik e-mail en wachtwoord.</string>
 
     <string name="setup_create_tab">Aanmaken</string>
     <string name="setup_join_tab">Deelnemen</string>
@@ -19,14 +19,14 @@
     <string name="setup_join_code_label">6-cijferige uitnodigingscode</string>
     <string name="setup_join_code_placeholder">ABC123</string>
     <string name="setup_join_button">Deelnemen aan familie</string>
-    <string name="join_loading_text">Deelnameverzoek verwerken…</string>
+    <string name="join_loading_text">Verbinden met familie…</string>
 
     <string name="main_add_member_desc">Lid toevoegen</string>
     <string name="main_family_members">Familieleden</string>
     <string name="main_current_schedule">Actueel schema</string>
-    <string name="main_no_active_schedule">Geen actief alarmschema.</string>
-    <string name="main_optimal_plan">Hier is het berekende schema:</string>
-    <string name="main_plan_paused">Je wekker is momenteel gepauzeerd.</string>
+    <string name="main_no_active_schedule">Geen actieve wekkers op dit moment.</string>
+    <string name="main_optimal_plan">Hier is het schema van je familie:</string>
+    <string name="main_plan_paused">Je wekker staat op pauze.</string>
     <string name="main_shared_breakfast">☕ Gezamenlijk ontbijt: %s</string>
     <string name="main_wake_time">Wekker: %1$s - %2$s</string>
     <string name="main_bathroom_info">Badkamer: %1$s min | Ontbijt: %2$s</string>
@@ -36,14 +36,14 @@
     <string name="main_member_alarm_off">(Geen wekker)</string>
     <string name="main_member_limit_reached">Maximum van 6 leden bereikt.</string>
     <string name="main_alarm_enabled">Wekker: AAN</string>
-    <string name="main_alarm_enabled_desc">Automatische wekkers zijn actief.</string>
-    <string name="main_snooze_active">Sluimeren actief tot %1$s</string>
+    <string name="main_alarm_enabled_desc">Je wekkers staan aan.</string>
+    <string name="main_snooze_active">Sluimeren tot %1$s</string>
     <string name="main_alarm_disabled">Wekker: UIT</string>
-    <string name="main_alarm_disabled_desc">Handmatige pauze is actief.</string>
+    <string name="main_alarm_disabled_desc">Je wekkers staan op pauze.</string>
     <string name="main_no_profile_warning">Geen profiel geselecteerd!</string>
     <string name="main_no_profile_warning_desc">Selecteer je profiel in de instellingen zodat de wekker voor jou kan afgaan.</string>
     <string name="main_unclaimed_first_title">Voor %1$s gaat er geen wekker af!</string>
-    <string name="main_unclaimed_first_desc">%1$s staat op de eerste plaats, maar heeft geen eigen profiel – en wordt misschien niet op tijd wakker.</string>
+    <string name="main_unclaimed_first_desc">%1$s staat op de eerste plaats, maar heeft nog geen eigen profiel gekozen – en verslaapt zich misschien!</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
     <string name="delete_desc">Verwijderen</string>
@@ -65,16 +65,16 @@
     <string name="add_member_unknown">Onbekend</string>
     <string name="add_member_earliest_wake">Vroegste wektijd</string>
     <string name="add_member_latest_wake">Uiterste wektijd</string>
-    <string name="add_member_bathroom_duration">Badkamertijd (minuten)</string>
-    <string name="add_member_wants_breakfast">Met ontbijt</string>
-    <string name="add_member_leave_home">Huis verlaten om</string>
+    <string name="add_member_bathroom_duration">Tijd in de badkamer (minuten)</string>
+    <string name="add_member_wants_breakfast">Wil ontbijten</string>
+    <string name="add_member_leave_home">Moet het huis uit om</string>
     <string name="add_member_day_profiles_title">Wekelijks schema</string>
-    <string name="add_member_day_active">Wekker actief</string>
+    <string name="add_member_day_active">Wekker aan</string>
     <string name="add_member_copy_to_days">Kopieer \"%1$s\" naar andere dagen</string>
     <string name="add_member_copy_dialog_title">Kopieer naar dagen</string>
     <string name="add_member_copy_apply">Toepassen</string>
-    <string name="validation_latest_before_earliest">De uiterste wektijd moet na de vroegste wektijd liggen</string>
-    <string name="validation_leave_too_early">De tijd van vertrek moet na de badkamertijd liggen (Wektijd + Badkamertijd)</string>
+    <string name="validation_latest_before_earliest">De uiterste wektijd moet na de vroegste wektijd liggen.</string>
+    <string name="validation_leave_too_early">De tijd om het huis te verlaten moet na de badkamertijd liggen.</string>
     <string name="weekday_1">Maandag</string>
     <string name="weekday_2">Dinsdag</string>
     <string name="weekday_3">Woensdag</string>
@@ -92,39 +92,39 @@
 
     <string name="settings_title">Instellingen</string>
     <string name="settings_profile_title">Mijn profiel</string>
-    <string name="settings_profile_desc">Je telefoon gaat alleen af voor de wektijd van het hier geselecteerde profiel.</string>
-    <string name="settings_please_select">Selecteer a.u.b.</string>
+    <string name="settings_profile_desc">Je telefoon gaat alleen af voor het hier geselecteerde profiel.</string>
+    <string name="settings_please_select">Kies a.u.b.</string>
     <string name="settings_no_members">Geen leden gevonden</string>
     <string name="settings_alarm_title">Wekkergeluid</string>
-    <string name="settings_battery_warning_title">Batterijoptimalisatie actief</string>
-    <string name="settings_battery_warning_text">De wekker kan vertraagd of geblokkeerd worden. Schakel batterijoptimalisatie uit voor FamWake.</string>
+    <string name="settings_battery_warning_title">Batterij-instellingen kunnen de wekker blokkeren</string>
+    <string name="settings_battery_warning_text">Je telefoon kan de wekker vertragen of blokkeren om batterij te besparen. Sta FamWake toe om op de achtergrond te draaien.</string>
     <string name="settings_battery_warning_button">Nu herstellen</string>
     <string name="settings_alarm_default">Standaard</string>
-    <string name="settings_alarm_select">Geluid kiezen: %1$s</string>
+    <string name="settings_alarm_select">Geluid: %1$s</string>
     <string name="settings_alarm_picker_title">Kies een wekkergeluid</string>
     <string name="settings_account_title">Familie &amp; Account</string>
     <string name="settings_join_code">Uitnodigingscode voor %1$s:</string>
     <string name="settings_share_code">Code delen</string>
-    <string name="settings_share_message">Hier is je link voor FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nGroep: %1$s\n\nKlik gewoon, log in en we zijn verbonden. Samen wakker worden is leuker! ⏰❤️</string>
+    <string name="settings_share_message">Hier is je link voor FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nFamilie: %1$s\n\nKlik gewoon op de link, log in en we zijn verbonden. Samen wakker worden is veel makkelijker! ⏰❤️</string>
     <string name="settings_leave_family">Familie verlaten</string>
     <string name="settings_delete_family">Familie verwijderen</string>
-    <string name="settings_delete_family_dialog_title">Familie verwijderen?</string>
-    <string name="settings_delete_family_dialog_text">Weet je zeker dat je deze familie permanent wilt verwijderen? Alle leden, schema\'s en instellingen worden voor iedereen verwijderd. Dit kan niet ongedaan worden gemaakt.</string>
-    <string name="settings_delete_family_dialog_confirm">Verwijderen</string>
+    <string name="settings_delete_family_dialog_title">Hele familie verwijderen?</string>
+    <string name="settings_delete_family_dialog_text">Weet je zeker dat je deze familie permanent wilt verwijderen? Alle leden, tijden en instellingen worden voor iedereen verwijderd. Dit kan niet ongedaan worden gemaakt.</string>
+    <string name="settings_delete_family_dialog_confirm">Voor altijd verwijderen</string>
     <string name="settings_delete_family_dialog_cancel">Annuleren</string>
-    <string name="settings_delete_family_warning_title">Andere leden actief!</string>
-    <string name="settings_delete_family_warning_text">Er zijn nog andere actieve leden in deze familie. Als je deze verwijdert, verliest iedereen de toegang. Wil je echt alles geforceerd verwijderen?</string>
-    <string name="settings_delete_family_warning_confirm">Ja, alles verwijderen</string>
+    <string name="settings_delete_family_warning_title">Andere leden zijn nog actief!</string>
+    <string name="settings_delete_family_warning_text">Er zijn nog andere personen in deze familie. Als je deze verwijdert, verliest iedereen de toegang. Weet je het echt zeker?</string>
+    <string name="settings_delete_family_warning_confirm">Ja, voor iedereen verwijderen</string>
     <string name="settings_logout">Uitloggen</string>
     <string name="settings_delete_account">Account verwijderen</string>
-    <string name="settings_footer_version">FamWake Familiewekker v%1$s</string>
+    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rechten voorbehouden.</string>
 
     <string name="empty_members_title">Nog geen leden</string>
-    <string name="empty_members_description">Voeg profielen toe om wektijden te zien en elkaar wakker te maken.</string>
+    <string name="empty_members_description">Voeg familieleden toe om jullie ochtend in te plannen.</string>
     <string name="empty_schedule_title">Geen actieve wekkers</string>
-    <string name="empty_schedule_description">Momenteel zijn er geen wekkers ingesteld. Tijd om uit te slapen!</string>
+    <string name="empty_schedule_description">Op dit moment staan er geen wekkers aan. Tijd om uit te slapen!</string>
 
     <string name="settings_language_title">Taal</string>
     <string name="settings_language_system">Systeemstandaard</string>
@@ -143,42 +143,42 @@
     <string name="settings_appearance_title">Uiterlijk</string>
     <string name="settings_display_title">App-instellingen</string>
     <string name="settings_help_feedback_title">Hulp &amp; Feedback</string>
-    <string name="settings_support_button">E-mail de ontwikkelaar</string>
-    <string name="settings_start_onboarding">🎓 App Tour</string>
+    <string name="settings_support_button">E-mail de maker</string>
+    <string name="settings_start_onboarding">🎓 Snelle rondleiding</string>
 
     <string name="onboarding_skip">Overslaan</string>
     <string name="onboarding_next">Volgende</string>
     <string name="onboarding_done">Begin zonder account</string>
-    <string name="onboarding_slide0_title">Je ochtend als team.</string>
-    <string name="onboarding_slide0_body">Geen discussies, geen chaos. FamWake zorgt ervoor dat iedereen ontspannen de dag begint – volautomatisch.</string>
+    <string name="onboarding_slide0_title">Jullie ochtend als team.</string>
+    <string name="onboarding_slide0_body">Geen geruzie, geen chaos. FamWake zorgt ervoor dat iedereen ontspannen aan de dag begint – helemaal vanzelf.</string>
     <string name="onboarding_slide1_title">Nooit meer wachten.</string>
-    <string name="onboarding_slide1_body">FamWake berekent de ideale wektijd voor elk gezinslid – afgestemd op badkamer, ontbijt en vertrek. Geen gedrang meer.</string>
+    <string name="onboarding_slide1_body">FamWake vindt de perfecte wektijd voor elk gezinslid – afgestemd op badkamertijd, ontbijt en de tijd dat je de deur uit moet. Geen gedrang meer voor de spiegel.</string>
     <string name="onboarding_slide2_title">Elke dag is anders.</string>
-    <string name="onboarding_slide2_body">Maandag kantoor, woensdag thuiswerken? Stel voor elke dag individuele tijden in – de app regelt de rest.</string>
+    <string name="onboarding_slide2_body">Maandag naar kantoor, woensdag thuiswerken? Stel voor elke dag afzonderlijke tijden in – de app regelt de rest.</string>
     <string name="onboarding_slide3_title">In seconden verbonden.</string>
-    <string name="onboarding_slide3_body">Deel een code en je gezin doet direct mee. Nieuwe leden? Het schema past zich automatisch aan. En als er iets verandert, weet iedereen het meteen.</string>
-    <string name="onboarding_slide4_title">Altijd betrouwbaar</string>
-    <string name="onboarding_slide4_body">Geniet van ontspannen ochtenden – betrouwbaar, zelfs offline. Als het internet uitvalt, gaat de wekker nog steeds precies op tijd.</string>
-    <string name="settings_feedback_button">Feedback geven / Fout melden</string>
+    <string name="onboarding_slide3_body">Deel je uitnodigingscode en je familie doet direct mee. Als iemand zijn tijden aanpast, wordt het schema van iedereen meteen bijgewerkt.</string>
+    <string name="onboarding_slide4_title">Werkt altijd.</string>
+    <string name="onboarding_slide4_body">Geniet elke dag van een ontspannen ochtend. Zelfs als het internet 's nachts uitvalt, gaat de wekker gewoon op tijd af.</string>
+    <string name="settings_feedback_button">Feedback geven / Probleem melden</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Help ons de app nog beter te maken! Wat heb je op je hart?</string>
     <string name="feedback_category_label">Categorie</string>
-    <string name="feedback_category_bug">Fout gevonden</string>
-    <string name="feedback_category_feature">Functieverzoek</string>
-    <string name="feedback_category_praise">Lof &amp; Kritiek</string>
-    <string name="feedback_category_other">Overig</string>
+    <string name="feedback_category_bug">Probleem gevonden</string>
+    <string name="feedback_category_feature">Idee voor de app</string>
+    <string name="feedback_category_praise">Compliment &amp; Feedback</string>
+    <string name="feedback_category_other">Iets anders</string>
     <string name="feedback_message_label">Bericht</string>
-    <string name="feedback_message_placeholder">Beschrijf kort je verzoek…</string>
+    <string name="feedback_message_placeholder">Beschrijf kort wat er aan de hand is…</string>
     <string name="feedback_email_label">E-mail (optioneel)</string>
-    <string name="feedback_email_placeholder">Je e-mail (als we mogen reageren)</string>
-    <string name="feedback_auto_info_title">Automatisch inbegrepen:</string>
+    <string name="feedback_email_placeholder">Zodat we je kunnen antwoorden</string>
+    <string name="feedback_auto_info_title">Wordt automatisch meegestuurd:</string>
     <string name="feedback_auto_version">App-versie: v%1$s</string>
-    <string name="feedback_auto_device">Apparaat: %1$s</string>
+    <string name="feedback_auto_device">Telefoon: %1$s</string>
     <string name="feedback_cancel">Annuleren</string>
-    <string name="feedback_send">Feedback verzenden</string>
-    <string name="feedback_success">Bedankt! Je feedback is ontvangen en helpt ons enorm.</string>
-    <string name="feedback_success_title">Feedback Verzonden</string>
-    <string name="feedback_success_message">Bedankt voor je feedback! Het helpt ons FamWake voor iedereen te verbeteren.</string>
+    <string name="feedback_send">Bericht verzenden</string>
+    <string name="feedback_success">Bedankt! We hebben je bericht ontvangen.</string>
+    <string name="feedback_success_title">Bericht Verzonden</string>
+    <string name="feedback_success_message">Bedankt voor je hulp! Je feedback helpt ons om FamWake voor iedereen beter te maken.</string>
     <string name="settings_terms_of_use">Gebruiksvoorwaarden</string>
     <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-nl.html</string>
     <string name="settings_privacy_policy">Privacybeleid</string>
@@ -190,151 +190,152 @@
     <string name="registration_disclaimer">Door je aan te melden, accepteer je de %1$s en het %2$s.</string>
     <string name="registration_terms_of_use">Gebruiksvoorwaarden</string>
     <string name="registration_privacy_policy">Privacybeleid</string>
-    <string name="settings_already_claimed">Al geclaimd</string>
+    <string name="settings_already_claimed">Al in gebruik</string>
     <string name="settings_theme_light">Licht</string>
     <string name="settings_theme_dark">Donker</string>
 
     <string name="ringing_wake_up">Wakker worden, %1$s!</string>
     <string-array name="ringing_messages">
-        <item>De badkamer is nu helemaal voor jou!</item>
-        <item>Geen file, geen stress – je badkamertijd begint nu.</item>
+        <item>De badkamer is nu helemaal voor jou alleen!</item>
+        <item>Geen spitsuur, geen stress – jouw badkamertijd begint nu.</item>
         <item>Geniet van de rust in de badkamer zolang het duurt!</item>
-        <item>Tijd voor de eerste koffie. De wereld wacht!</item>
-        <item>Lekker geslapen? Je schema voor vandaag is klaar.</item>
-        <item>Klaar voor de dag? Alles is afgestemd.</item>
-        <item>Tijd om de dag te rocken! Je badkamertijd begint.</item>
-        <item>Word wakker en gooi het open – het podium is voor jou!</item>
-        <item>Heavy metal in de ochtend verdrijft zorgen en verdriet!</item>
-        <item>Je schema is live. Laten we gaan!</item>
-        <item>Klaar voor vertrek? Het team rekent op je.</item>
-        <item>Opstaan, zonneschijn! De badkamer is vrij voor jou.</item>
-        <item>Jouw persoonlijke badkamerslot begint nu – maak er gebruik van!</item>
-        <item>Vrije baan naar de badkamer – jouw slot is gereserveerd!</item>
-        <item>De morgenstond heeft goud in de mond – en warm water!</item>
-        <item>Nog 5 minuten? Nee! Je tijdslot wacht.</item>
-        <item>Vandaag wordt een goede dag. Het begint nu!</item>
-        <item>Je tandenborstel mist je. Naar de badkamer!</item>
+        <item>Tijd voor de eerste koffie. De wereld wacht op je!</item>
+        <item>Lekker geslapen? Het schema voor vandaag staat klaar.</item>
+        <item>Klaar voor de dag? Alles is perfect op elkaar afgestemd.</item>
+        <item>Tijd om de dag te beginnen! Je badkamertijd begint nu.</item>
+        <item>Word wakker en zet de muziek aan – het podium is voor jou!</item>
+        <item>Lekkere muziek in de ochtend verdrijft alle zorgen!</item>
+        <item>Jullie familieschema loopt. Laten we gaan!</item>
+        <item>Klaar voor de start? De rest van de familie rekent op je.</item>
+        <item>Opstaan, zonnetje! De badkamer is vrij voor jou.</item>
+        <item>Jouw persoonlijke tijd in de badkamer begint nu – maak er gebruik van!</item>
+        <item>Vrije baan naar de wastafel – het is jouw beurt!</item>
+        <item>De vroege vogel krijgt het warme water!</item>
+        <item>Nog 5 minuutjes? Nee hoor! Je tijdslot wacht op je.</item>
+        <item>Vandaag wordt een geweldige dag. En het begint nu!</item>
+        <item>Je tandenborstel mist je. Hup, naar de badkamer!</item>
         <item>Alles gecoördineerd, alles gepland – jij bent aan de beurt!</item>
         <item>De vroege vogel heeft de badkamer helemaal voor zichzelf.</item>
     </string-array>
-    <string name="ringing_stop">Wekker stoppen</string>
+    <string name="ringing_stop">Wekker uitzetten</string>
     <string name="ringing_snooze">Sluimeren (5 min)</string>
     <string name="pause_today_desc">Vandaag pauzeren</string>
-    <string name="awake_today_desc">Al wakker</string>
+    <string name="awake_today_desc">Ik ben al wakker</string>
     <string name="awake_active_desc">Al wakker</string>
 
-    <string name="error_load_members">Fout bij laden van leden</string>
-    <string name="error_create_family">Fout bij aanmaken familie: %1$s</string>
-    <string name="error_create_family_rate_limit">Je hebt het afgelopen uur al 3 families aangemaakt. Wacht a.u.b. een uur en probeer het opnieuw.</string>
-    <string name="error_join_family_rate_limit">Te veel pogingen tot deelname (max. 5 per minuut). Wacht even en probeer het opnieuw.</string>
-    <string name="error_invalid_code">Ongeldige uitnodigingscode: %1$s</string>
-    <string name="error_family_not_found">Er is geen familie gevonden met deze code.</string>
-    <string name="error_code_generation_failed">Kon geen unieke code genereren. Probeer het a.u.b. opnieuw.</string>
+    <string name="error_load_members">Kon de familieleden niet laden</string>
+    <string name="error_create_family">Kon de familie niet aanmaken: %1$s</string>
+    <string name="error_create_family_rate_limit">Je hebt recent te veel families aangemaakt. Wacht even en probeer het later opnieuw.</string>
+    <string name="error_join_family_rate_limit">Te veel pogingen. Wacht even en probeer het opnieuw.</string>
+    <string name="error_invalid_code">De uitnodigingscode is niet geldig: %1$s</string>
+    <string name="error_family_not_found">We hebben geen familie gevonden met deze code.</string>
+    <string name="error_code_generation_failed">Kon geen code maken. Probeer het a.u.b. opnieuw.</string>
     <string name="join_conflict_title">Deelnemen aan nieuwe familie?</string>
-    <string name="join_conflict_text">Je bent al lid van de familie „%1$s”. Om lid te worden van de nieuwe familie, moet je eerst je huidige familie verlaten. Wil je „%1$s” verlaten en deelnemen met code %2$s?</string>
+    <string name="join_conflict_text">Je bent al lid van de familie \"%1$s\". Om lid te worden van de nieuwe familie, moet je eerst deze verlaten. Wil je \"%1$s\" verlaten en deelnemen aan de nieuwe?</string>
     <string name="join_conflict_confirm">Verlaten &amp; Deelnemen</string>
     <string name="error_delete_member">Kon lid niet verwijderen: %1$s</string>
-    <string name="error_sync_failed">Synchronisatie mislukt</string>
-    <string name="error_delete_family">Fout bij verwijderen familie: %1$s</string>
-    <string name="error_calculate_schedule">Fout bij berekenen schema: %1$s</string>
-    <string name="error_not_logged_in">Gebruiker niet ingelogd</string>
-    <string name="error_system">Systeemfout</string>
-    <string name="error_invalid_credentials">Ongeldig e-mailadres of wachtwoord. Controleer je invoer.</string>
-    <string name="error_login_failed">Inloggen mislukt</string>
+    <string name="error_sync_failed">Gegevens konden niet worden bijgewerkt</string>
+    <string name="error_delete_family">Kon familie niet verwijderen: %1$s</string>
+    <string name="error_calculate_schedule">Kon de tijden niet berekenen: %1$s</string>
+    <string name="error_not_logged_in">Je bent niet ingelogd.</string>
+    <string name="error_system">Er ging iets mis.</string>
+    <string name="error_invalid_credentials">Verkeerd e-mailadres of wachtwoord. Controleer a.u.b. wat je hebt getypt.</string>
+    <string name="error_login_failed">Inloggen is niet gelukt</string>
     <string name="error_login_failed_unknown">Onbekende inlogfout</string>
-    <string name="error_registration_failed">Registratie mislukt</string>
-    <string name="error_registration_failed_unknown">Kon gebruiker niet aanmaken</string>
-    <string name="error_unknown">Er is een onbekende fout opgetreden. Probeer het a.u.b. opnieuw.</string>
-    <string name="error_google_sign_in_failed_unknown">Google-inloggen mislukt</string>
-    <string name="error_empty_email">Voer a.u.b. een e-mailadres in.</string>
-    <string name="error_invalid_email">Ongeldig e-mailadres. Controleer de spelling.</string>
-    <string name="error_user_not_found">Geen account gevonden voor dit e-mailadres.</string>
-    <string name="error_too_many_requests">Te veel pogingen. Wacht even en probeer het opnieuw.</string>
-    <string name="error_password_reset_failed">Wachtwoord herstellen mislukt. Probeer het later opnieuw.</string>
-    <string name="error_profile_taken">Dit profiel is al in gebruik.</string>
-    <string name="error_profile_claim_offline">Geen verbinding. Profielselectie vereist internettoegang.</string>
-    <string name="error_delete_not_admin">Alleen de oprichter van de familie kan de familie verwijderen.</string>
+    <string name="error_registration_failed">Registreren is niet gelukt</string>
+    <string name="error_registration_failed_unknown">Kon je account niet aanmaken</string>
+    <string name="error_unknown">Er ging iets mis. Probeer het a.u.b. opnieuw.</string>
+    <string name="error_google_sign_in_failed_unknown">Inloggen met Google werkte niet</string>
+    <string name="error_empty_email">Vul a.u.b. je e-mailadres in.</string>
+    <string name="error_invalid_email">Dit e-mailadres ziet er niet juist uit. Controleer het even.</string>
+    <string name="error_user_not_found">We konden geen account vinden met dit e-mailadres.</string>
+    <string name="error_too_many_requests">Te veel pogingen. Wacht a.u.b. even.</string>
+    <string name="error_password_reset_failed">Kon wachtwoord niet herstellen. Probeer het later nog eens.</string>
+    <string name="error_profile_taken">Iemand anders gebruikt dit profiel al.</string>
+    <string name="error_profile_claim_offline">Geen internet. Je moet online zijn om te kiezen wie je bent.</string>
+    <string name="error_delete_not_admin">Alleen de persoon die de familie heeft gemaakt, kan deze verwijderen.</string>
 
     <string name="alarm_default_member">Familielid</string>
     <string name="alarm_notification_title">De gezinswekker gaat af</string>
     <string name="alarm_notification_text">Goedemorgen, %1$s!</string>
-    <string name="alarm_channel_name">Alarm</string>
+    <string name="alarm_channel_name">Wekker</string>
 
     <string name="settings_fallback_username">Ouder</string>
 
-    <string name="error_alarm_permission">Sta a.u.b. exacte wekkers toe in de systeeminstellingen, zodat de gezinswekker op tijd kan afgaan.</string>
+    <string name="error_alarm_permission">Sta a.u.b. wekkers toe in je telefooninstellingen, zodat je telefoon je op tijd wakker kan maken.</string>
 
-    <string name="permission_fullscreen_title">Wekkermachtigingen vereist</string>
-    <string name="permission_fullscreen_message">FamWake heeft toestemming nodig om de wekker op je vergrendelscherm te tonen. Sta dit a.u.b. toe in de systeeminstellingen.</string>
+    <string name="permission_fullscreen_title">Wekkertoestemming nodig</string>
+    <string name="permission_fullscreen_message">FamWake heeft toestemming nodig om je goed wakker te maken. Sta dit a.u.b. toe in de instellingen van je telefoon.</string>
     <string name="permission_fullscreen_open">Instellingen openen</string>
 
-    <string name="schedule_message_optimal">Hier is het berekende schema:</string>
-    <string name="schedule_message_no_members">Geen actieve leden. Iedereen is gepauzeerd.</string>
-    <string name="schedule_message_no_valid">Geen geldig schema gevonden. De tijden overlappen te veel.</string>
-    <string name="schedule_message_no_valid_desc">Tip: Verbreed je wektijdvenster, verkort je badkamertijd of pauzeer een ander lid.</string>
-    <string name="schedule_message_time_adjusted">Tijden aangepast met %1$d min om in de volgorde te passen.</string>
-    <string name="schedule_message_breakfast_reduced">Ontbijttijd verkort met %1$d min om in het schema te passen.</string>
+    <string name="schedule_message_optimal">Hier is het schema van je familie:</string>
+    <string name="schedule_message_no_members">Niemand is actief. Alle wekkers staan op pauze.</string>
+    <string name="schedule_message_no_valid">De tijden overlappen te veel om een goed schema te maken.</string>
+    <string name="schedule_message_no_valid_desc">Tip: Probeer de wektijd te verruimen, de badkamertijd in te korten of zet iemands wekker op pauze.</string>
+    <string name="schedule_message_time_adjusted">De tijden zijn %1$d minuten opgeschoven zodat alles in het schema past.</string>
+    <string name="schedule_message_breakfast_reduced">De ontbijttijd is met %1$d minuten ingekort zodat alles past.</string>
     <string name="schedule_message_breakfast_and_time_adjusted">Ontbijt −%1$d min &amp; tijden verschoven met %2$d min.</string>
-    <string name="schedule_message_member_conflict">Conflict voor %1$s: Tijden overlappen te veel.</string>
-    <string name="schedule_message_member_conflict_desc">Probeer de volgorde te wijzigen of de tijden aan te passen.</string>
-    <string name="main_fallback_alarm_active">⚠️ Fallback-wekker actief (%1$s). Pas a.u.b. het schema aan!</string>
+    <string name="schedule_message_member_conflict">Probleem voor %1$s: De tijden overlappen te veel.</string>
+    <string name="schedule_message_member_conflict_desc">Probeer de volgorde te wijzigen of pas je tijden aan.</string>
+    <string name="main_fallback_alarm_active">⚠️ Let op: Het schema past momenteel niet (%1$s). Pas a.u.b. je tijden aan!</string>
 
-    <string name="error_password_too_short">Wachtwoord moet minimaal 8 tekens lang zijn.</string>
-    <string name="error_email_already_in_use">Dit e-mailadres is al in gebruik door een ander account.</string>
-    <string name="error_weak_password">Het wachtwoord is te zwak. Gebruik minimaal 8 tekens en speciale tekens.</string>
-    <string name="login_verify_email_title">✉️ Verifieer je e-mail</string>
-    <string name="login_verify_email_text">We hebben een verificatie-e-mail gestuurd naar\n%1$s\nKlik op de link in de e-mail om je account te activeren.</string>
-    <string name="login_verify_email_confirm">Ik heb geverifieerd ✓</string>
-    <string name="login_verify_email_resend">E-mail opnieuw verzenden</string>
-    <string name="login_verify_email_not_verified">E-mail nog niet geverifieerd. Controleer je inbox.</string>
+    <string name="error_password_too_short">Je wachtwoord moet uit minstens 8 tekens bestaan.</string>
+    <string name="error_email_already_in_use">Dit e-mailadres is al geregistreerd.</string>
+    <string name="error_weak_password">Je wachtwoord is te makkelijk te raden. Gebruik minstens 8 tekens en enkele speciale symbolen.</string>
+    <string name="login_verify_email_title">✉️ Bevestig je e-mailadres</string>
+    <string name="login_verify_email_text">We hebben zojuist een e-mail gestuurd naar\n%1$s\nKlik op de link in het bericht om je account te activeren.</string>
+    <string name="login_verify_email_confirm">Ik heb op de link geklikt ✓</string>
+    <string name="login_verify_email_resend">E-mail opnieuw versturen</string>
+    <string name="login_verify_email_not_verified">Je e-mailadres is nog niet bevestigd. Controleer je inbox.</string>
 
-    <string name="tooltip_awake_button">Al wakker? Tik hier om je wekker voor vandaag te stoppen – je badkamertijd blijft gereserveerd voor de familie.</string>
-    <string name="tooltip_drag_handle">Druk op een tegel en sleep deze om de wekvolgorde handmatig te wijzigen. Het algoritme berekent alles direct opnieuw.</string>
-    <string name="tooltip_wake_window">Geef ons een tijdsvenster. De app vindt het perfecte moment daarbinnen, zodat niemand op de badkamer hoeft te wachten.</string>
-    <string name="tooltip_bathroom">Plan dit realistisch. Je badkamertijd bepaalt het tempo van de ochtend voor het hele gezin.</string>
-    <string name="tooltip_invite_code">Deel deze code met je familie. Zodra ze deelnemen, verschijnen ze automatisch in je schema.</string>
-    <string name="tooltip_alarm_switch">Als je de wekker uitzet, is niet alleen je telefoon stil – het algoritme herberekent direct de ochtend voor het hele gezin, zodat iedereen wat langer kan slapen of eerder naar de badkamer kan.</string>
-    <string name="tooltip_weekdays">Plan je hele week: Tik op afzonderlijke weekdagen om specifieke wek- en badkamertijden in te stellen – ideaal voor de afwisseling tussen thuiswerk- en kantoordagen.</string>
-    <string name="settings_tooltips_title">Tips &amp; Hints</string>
-    <string name="settings_tooltips_label">Toon handige tips</string>
-    <string name="settings_tooltips_reset">Herstel alle tips</string>
+    <string name="tooltip_awake_button">Al vroeg wakker? Tik hier om je wekker voor vandaag uit te zetten – jouw tijd in de badkamer blijft gewoon voor jou gereserveerd.</string>
+    <string name="tooltip_drag_handle">Houd een naam ingedrukt om deze omhoog of omlaag te slepen. Dit verandert wie er als eerste naar de badkamer gaat. Het schema past zich direct aan.</string>
+    <string name="tooltip_wake_window">Geef ons een tijdsvenster. De app vindt het perfecte moment daarbinnen om je wakker te maken, zodat je niet op de badkamer hoeft te wachten.</string>
+    <string name="tooltip_bathroom">Wees hier een beetje realistisch. Jouw badkamertijd bepaalt het tempo voor de rest van de ochtend.</string>
+    <string name="tooltip_invite_code">Deel dit met je familie. Zodra ze meedoen, verschijnen hun tijden direct hier in de app.</string>
+    <string name="tooltip_alarm_switch">Als je de wekker uitzet, past de app direct de ochtend voor het hele gezin aan – zodat anderen wat langer kunnen slapen of eerder naar de badkamer kunnen.</string>
+    <string name="tooltip_weekdays">Tik op de dagen om verschillende tijden in te stellen. Ideaal als je de ene dag thuiswerkt en de andere dag naar kantoor gaat.</string>
+    <string name="settings_tooltips_title">Handige Tips</string>
+    <string name="settings_tooltips_label">Toon tips in de app</string>
+    <string name="settings_tooltips_reset">Toon alle tips opnieuw</string>
     <string name="settings_push_title">Meldingen</string>
-    <string name="settings_push_label">Pushmeldingen ontvangen</string>
-    <string name="settings_support_title">Steun de app</string>
-    <string name="settings_support_desc">Vind je de app leuk? We waarderen je steun!</string>
+    <string name="settings_push_label">Sta meldingen toe</string>
+    <string name="settings_support_title">Steun FamWake</string>
+    <string name="settings_support_desc">Vind je de app leuk? We zouden je steun erg waarderen!</string>
     <string name="settings_support_donate">Doneren</string>
     <string name="settings_donate_success">Heel erg bedankt voor je steun! ❤️</string>
     <string name="settings_donate_error">Oeps, er ging iets mis.</string>
-    <string name="settings_donate_loading">Aanbiedingen laden…</string>
-    <string name="settings_donate_no_offers">Geen aanbiedingen beschikbaar. Zorg ervoor dat „Current Offering” is ingesteld in RevenueCat.</string>
-    <string name="settings_donate_purchase_loading">Donatie verwerken…</string>
-    <string name="settings_donate_error_not_allowed">Het apparaat of de gebruiker mag de aankoop niet doen.</string>
-    <string name="settings_donate_error_store_problem">Er was een probleem met de Google Play Store.</string>
-    <string name="settings_donate_error_already_purchased">Dit product is al gekocht.</string>
-    <string name="settings_donate_error_invalid">De aankoop was ongeldig.</string>
-    <string name="settings_donate_error_generic">Er is een fout opgetreden tijdens het donatieproces.</string>
+    <string name="settings_donate_loading">Opties laden…</string>
+    <string name="settings_donate_no_offers">Op dit moment zijn er geen opties beschikbaar.</string>
+    <string name="settings_donate_purchase_loading">Verwerken…</string>
+    <string name="settings_donate_error_not_allowed">Aankopen zijn niet toegestaan op deze telefoon.</string>
+    <string name="settings_donate_error_store_problem">Er was een probleem met de App Store.</string>
+    <string name="settings_donate_error_already_purchased">Je hebt dit al gekocht.</string>
+    <string name="settings_donate_error_invalid">De aankoop is niet gelukt.</string>
+    <string name="settings_donate_error_generic">Er is iets misgegaan tijdens het doneren.</string>
 
-    <string name="error_permission_denied">Toegang geweigerd</string>
+    <string name="error_permission_denied">Toegang niet toegestaan</string>
     <string name="error_offline">Geen internetverbinding</string>
-    <string name="error_report_failed">Melding mislukt</string>
+    <string name="error_report_failed">Kon de melding niet versturen</string>
     <string name="error_leave_failed">Kon de familie niet verlaten</string>
-    <string name="error_revenuecat_not_configured">RevenueCat is niet geconfigureerd</string>
+    <string name="error_revenuecat_not_configured">De winkel is nog niet klaar</string>
     <string name="default_someone">Iemand</string>
-    <string name="error_label">Fout</string>
-    <string name="offline_write_hint">Geen verbinding. Je wijzigingen worden gesynchroniseerd zodra je weer online bent.</string>
+    <string name="error_label">Probleem</string>
+    <string name="offline_write_hint">Geen internet. Je wijzigingen worden bewaard zodra je weer online bent.</string>
     <string name="password_show">Wachtwoord tonen</string>
     <string name="password_hide">Wachtwoord verbergen</string>
     <string name="close_desc">Sluiten</string>
 
-    <string name="settings_exact_alarm_warning_title">Wekkerrechten ontbreken</string>
-    <string name="settings_exact_alarm_warning_text">De wekker kan niet afgaan op dit apparaat. Geef FamWake toestemming om exacte wekkers in te stellen.</string>
+    <string name="settings_exact_alarm_warning_title">Wekkertoestemming nodig</string>
+    <string name="settings_exact_alarm_warning_text">Je telefoon blokkeert de wekker. Geef FamWake toestemming om wekkers in te stellen, zodat je op tijd wakker wordt.</string>
     <string name="settings_exact_alarm_warning_button">Wekkers toestaan</string>
-    <string name="main_exact_alarm_banner">⚠️ Wekker geblokkeerd! Geef toestemming in de instellingen zodat je wekker op tijd afgaat.</string>
-    <string name="error_offline_feedback">Je bent offline. Controleer je verbinding en probeer het opnieuw.</string>
-    <string name="error_feedback_rate_limit">Wacht %1$s seconden voordat je een nieuw bericht stuurt.</string>
-    <string name="error_feedback_rate_limit_server">Te veel verzoeken. Probeer het later opnieuw.</string>
-    <string name="error_feedback_empty_message">Het bericht mag niet leeg zijn.</string>
-    <string name="error_network">Netwerkfout. Controleer je internetverbinding.</string>
+    <string name="main_exact_alarm_banner">⚠️ Wekker geblokkeerd! Geef toestemming in je instellingen zodat je wekker op tijd afgaat.</string>
+    <string name="error_offline_feedback">Je hebt geen internet. Maak verbinding en probeer het opnieuw.</string>
+    <string name="error_sync_blocked_device">Updates zijn momenteel niet mogelijk op dit apparaat.</string>
+    <string name="error_feedback_rate_limit">Wacht a.u.b. %1$s seconden voordat je het volgende bericht verstuurt.</string>
+    <string name="error_feedback_rate_limit_server">Te veel berichten verstuurd. Probeer het later nog eens.</string>
+    <string name="error_feedback_empty_message">Je bericht is leeg.</string>
+    <string name="error_network">Netwerkprobleem. Controleer je internetverbinding.</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_russian">Русский</string>
@@ -343,31 +344,31 @@
     <string name="settings_language_danish">Dansk</string>
     <string name="settings_language_korean">한국어</string>
     <string name="settings_language_chinese">中文</string>
-    <string name="tooltip_alarm_sound">Tik hier om je persoonlijke wektoon te kiezen – kies je favoriete beltoon in plaats van het standaardgeluid.</string>
+    <string name="tooltip_alarm_sound">Tik hier om je persoonlijke wekkergeluid te kiezen – neem je favoriete muziek in plaats van het standaard gepiep.</string>
     <string name="settings_language_dialects">Dialecten</string>
-    <string name="error_sync_blocked_device">Synchronisatie is niet beschikbaar op dit apparaat.</string>
-    <string name="onboarding_mock_name1">Papa</string>
-    <string name="onboarding_mock_name2">Mama</string>
-    <string name="onboarding_mock_family_name">De Vries</string>
 
     
-    <string name="notif_channel_schedule_change_name">Roosterwijzigingen</string>
-    <string name="notif_channel_schedule_change_desc">Meldt wijzigingen in wektijden of volgorde</string>
-    <string name="notif_channel_family_events_name">Familie-evenementen</string>
-    <string name="notif_channel_family_events_desc">Meldt wanneer leden de familie toetreden of verlaten</string>
-    <string name="notif_schedule_changed_title">FamWake: Schema bijgewerkt</string>
-    <string name="notif_schedule_changed_body">De wektijden zijn gewijzigd. Open de app om je nieuwe tijd te zien.</string>
+    <string name="notif_channel_schedule_change_name">Schema-updates</string>
+    <string name="notif_channel_schedule_change_desc">Laat het je weten als de wektijden of badkamervolgorde veranderen</string>
+    <string name="notif_channel_family_events_name">Familie-updates</string>
+    <string name="notif_channel_family_events_desc">Vertelt je wanneer mensen zich aansluiten bij of vertrekken uit je familiegroep</string>
+
+    
+    <string name="notif_schedule_changed_title">FamWake: Ochtendschema bijgewerkt</string>
+    <string name="notif_schedule_changed_body">De wektijden zijn gewijzigd. Open de app om je nieuwe tijd te bekijken.</string>
     <string name="notif_member_joined_title">FamWake: Nieuw familielid!</string>
-    <string name="notif_member_joined_body">Een nieuw lid heeft zich bij je familie gevoegd.</string>
+    <string name="notif_member_joined_body">Iemand is zojuist toegevoegd aan je familieschema.</string>
     <string name="notif_member_left_title">FamWake: Familie-update</string>
-    <string name="notif_member_left_body">Een lid heeft je familie verlaten.</string>
+    <string name="notif_member_left_body">Iemand heeft de familiegroep verlaten.</string>
+
+    
     <string name="notif_permission_title">Meldingen vereist</string>
-    <string name="notif_permission_desc">Zonder meldingen gaat de wekker mogelijk niet af. Schakel ze in voor een betrouwbaar alarm.</string>
-    <string name="notif_permission_button">Meldingen inschakelen</string>
-    <string name="notif_manage_title">Meldingen beheren</string>
-    <string name="notif_manage_desc">Wijzig geluid, trillen en andere meldingsvoorkeuren in de systeeminstellingen.</string>
-<string name="onboarding_login_create">Inloggen / Registreren</string>
-    <string name="onboarding_slide5_title">Laten\'s aan de slag gaan!</string>
-    <string name="onboarding_slide5_body">Je kunt de app meteen uitproberen zonder je aan te melden. Je hebt alleen een account nodig als je je familie uitnodigt.</string>
+    <string name="notif_permission_desc">Als je meldingen uitschakelt, werkt je wekker mogelijk niet goed. Laat ze a.u.b. ingeschakeld.</string>
+    <string name="notif_permission_button">Meldingen aanzetten</string>
+    <string name="notif_manage_title">Meldingsinstellingen</string>
+    <string name="notif_manage_desc">Wijzig geluiden en trillen in de instellingen van je telefoon.</string>
+    <string name="onboarding_login_create">Inloggen / Registreren</string>
+    <string name="onboarding_slide5_title">Laten we beginnen!</string>
+    <string name="onboarding_slide5_body">Je kunt de app meteen uitproberen zonder account. Je hebt er pas een nodig als je je familie wilt uitnodigen.</string>
     <string name="settings_anonymous_login_button">Inloggen / Registreren</string>
-    </resources>
+</resources>
