@@ -5,8 +5,8 @@
     <string name="password_label">পাসওয়ার্ড</string>
     <string name="register_button">সাইন আপ করুন</string>
     <string name="login_button">লগ ইন করুন</string>
-    <string name="already_have_account">ইতিমধ্যে একটি অ্যাকাউন্ট আছে? এখানে লগ ইন করুন.</string>
-    <string name="no_account">এখনও কোন অ্যাকাউন্ট? এখানে সাইন আপ করুন.</string>
+    <string name="already_have_account">লগ ইন/রেজিস্টার করুন</string>
+    <string name="no_account">লগ ইন/রেজিস্টার করুন</string>
     <string name="login_with_google">Google দিয়ে সাইন ইন করুন</string>
     <string name="login_forgot_password">পাসওয়ার্ড ভুলে গেছেন?</string>
     <string name="login_password_reset_sent">পাসওয়ার্ড রিসেট ইমেইল পাঠানো হয়েছে!</string>
@@ -105,7 +105,7 @@
     <string name="settings_account_title">পরিবার এবং অ্যাকাউন্ট</string>
     <string name="settings_join_family_locked">একটি পরিবারে যোগ দিতে লগ ইন করুন.</string>
     <string name="settings_share_code_locked">আমন্ত্রণ কোড শেয়ার করতে লগ ইন করুন.</string>
-    <string name="settings_anonymous_login_button">অ্যাকাউন্ট তৈরি করুন / লগইন করুন</string>
+    <string name="settings_anonymous_login_button">লগ ইন/রেজিস্টার করুন</string>
     <string name="settings_join_code">%1$s এর জন্য আমন্ত্রণ কোড:</string>
     <string name="settings_share_code">কোড শেয়ার করুন</string>
     <string name="settings_share_message">FamWake-এর জন্য এখানে আপনার লিঙ্ক:\nhttps://familienwecker.de/join/%2$s\n\nকোড: %2$s\nগ্রুপ: %1$s\n\nশুধু ক্লিক করুন, লগ ইন করুন এবং আমরা\' সংযুক্ত হয়েছি। একসাথে জেগে ওঠা আরও মজাদার! ⏰❤️</string>
@@ -151,10 +151,10 @@
 
     <string name="onboarding_skip">এড়িয়ে যান</string>
     <string name="onboarding_next">পরবর্তী</string>
-    <string name="onboarding_done">\' যাওয়া যাক</string>
-    <string name="onboarding_login_create">লগইন / অ্যাকাউন্ট তৈরি করুন</string>
+    <string name="onboarding_done">অ্যাকাউন্ট ছাড়াই শুরু করুন</string>
+    <string name="onboarding_login_create">লগ ইন/রেজিস্টার করুন</string>
     <string name="onboarding_slide5_title">আসুন \' শুরু করা যাক!</string>
-    <string name="onboarding_slide5_body">এখনই শুরু করুন বা আপনার পরিবারে যোগ দিতে লগ ইন করুন৷</string>
+    <string name="onboarding_slide5_body">আপনি সাইন আপ না করেই অ্যাপটি ব্যবহার করে দেখতে পারেন। আপনি যখন আপনার পরিবারকে আমন্ত্রণ জানান তখনই আপনার একটি অ্যাকাউন্টের প্রয়োজন৷</string>
     <string name="onboarding_slide0_title">একটি দল হিসাবে আপনার সকাল.</string>
     <string name="onboarding_slide0_body">কোন তর্ক নেই, বিশৃঙ্খলা নেই। FamWake নিশ্চিত করে যে প্রত্যেকের দিনটি আরামদায়ক - সম্পূর্ণ স্বয়ংক্রিয়ভাবে শুরু হয়।</string>
     <string name="onboarding_slide1_title">আর অপেক্ষা নয়।</string>
@@ -163,8 +163,8 @@
     <string name="onboarding_slide2_body">সোমবার অফিস, বুধবার হোম অফিস? সপ্তাহের প্রতিটি দিনের জন্য পৃথক সময় সেট করুন - অ্যাপটি বাকিগুলি পরিচালনা করে।</string>
     <string name="onboarding_slide3_title">সেকেন্ডের মধ্যে সংযুক্ত।</string>
     <string name="onboarding_slide3_body">একটি কোড শেয়ার করুন এবং আপনার পরিবার সঙ্গে সঙ্গে যোগদান করবে। নতুন সদস্য? সময়সূচী স্বয়ংক্রিয়ভাবে সামঞ্জস্য হয়। এবং যদি কিছু পরিবর্তন হয়, সবাই এখনই জানে।</string>
-    <string name="onboarding_slide4_title">\' যাওয়া যাক!</string>
-    <string name="onboarding_slide4_body">এখনই আপনার পরিবার তৈরি করুন এবং আরামদায়ক সকাল উপভোগ করুন - নির্ভরযোগ্যভাবে, এমনকি অফলাইনেও।</string>
+    <string name="onboarding_slide4_title">সর্বদা নির্ভরযোগ্য</string>
+    <string name="onboarding_slide4_body">আরামদায়ক সকাল উপভোগ করুন - নির্ভরযোগ্যভাবে, এমনকি অফলাইনেও। ইন্টারনেট বন্ধ হয়ে গেলেও ঠিক সময়ে অ্যালার্ম বাজবে।</string>
     
     <string name="onboarding_mock_name1">বাবা</string>
     <string name="onboarding_mock_name2">মা</string>

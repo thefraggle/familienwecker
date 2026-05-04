@@ -5,8 +5,8 @@
     <string name="password_label">Password</string>
     <string name="register_button">Registrati</string>
     <string name="login_button">Accedi</string>
-    <string name="already_have_account">Hai già un account? Accedi qui.</string>
-    <string name="no_account">Non hai un account? Registrati qui.</string>
+    <string name="already_have_account">Accedi/Registrati</string>
+    <string name="no_account">Accedi/Registrati</string>
     <string name="login_with_google">Accedi con Google</string>
     <string name="login_forgot_password">Password dimenticata?</string>
     <string name="login_password_reset_sent">Email di ripristino inviata!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Salta</string>
     <string name="onboarding_next">Avanti</string>
-    <string name="onboarding_done">Iniziamo</string>
+    <string name="onboarding_done">Inizia senza account</string>
     <string name="onboarding_slide0_title">La tua mattina in squadra.</string>
     <string name="onboarding_slide0_body">Niente discussioni, niente caos. FamWake fa in modo che tutti inizino la giornata rilassati – in modo completamente automatico.</string>
     <string name="onboarding_slide1_title">Mai più attese.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Lunedì in ufficio, mercoledì da casa? Imposta orari individuali per ogni giorno della settimana – l\'app fa il resto.</string>
     <string name="onboarding_slide3_title">Connessi in pochi secondi.</string>
     <string name="onboarding_slide3_body">Condividi un codice e la tua famiglia si unisce all\'istante. Nuovi membri? Il piano si adatta automaticamente. E se qualcosa cambia, tutti lo sanno subito.</string>
-    <string name="onboarding_slide4_title">Si parte!</string>
-    <string name="onboarding_slide4_body">Crea la tua famiglia ora e goditi mattine rilassate – in modo affidabile, anche offline.</string>
+    <string name="onboarding_slide4_title">Sempre affidabile</string>
+    <string name="onboarding_slide4_body">Goditi mattine rilassate, in modo affidabile, anche offline. Se Internet non funziona, la sveglia suona comunque puntualmente.</string>
     <string name="settings_feedback_button">Invia feedback / Segnala bug</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Aiutaci a migliorare l\'app! A cosa stai pensando?</string>

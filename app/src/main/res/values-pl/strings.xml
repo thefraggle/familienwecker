@@ -5,8 +5,8 @@
     <string name="password_label">Hasło</string>
     <string name="register_button">Zarejestruj się</string>
     <string name="login_button">Zaloguj się</string>
-    <string name="already_have_account">Masz już konto? Zaloguj się tutaj.</string>
-    <string name="no_account">Nie masz jeszcze konta? Zarejestruj się tutaj.</string>
+    <string name="already_have_account">Zaloguj się / Zarejestruj się</string>
+    <string name="no_account">Zaloguj się / Zarejestruj się</string>
     <string name="login_with_google">Zaloguj się przez Google</string>
     <string name="login_forgot_password">Zapomniałeś hasła?</string>
     <string name="login_password_reset_sent">E-mail do resetowania hasła został wysłany!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Pomiń</string>
     <string name="onboarding_next">Dalej</string>
-    <string name="onboarding_done">Zaczynajmy</string>
+    <string name="onboarding_done">Zacznij bez konta</string>
     <string name="onboarding_slide0_title">Twój poranek jako zespół.</string>
     <string name="onboarding_slide0_body">Żadnych dyskusji, żadnego chaosu. FamWake sprawia, że każdy zaczyna dzień spokojnie – w pełni automatycznie.</string>
     <string name="onboarding_slide1_title">Koniec z czekaniem.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Poniedziałek biuro, środa praca zdalna? Ustaw indywidualne godziny na każdy dzień tygodnia – aplikacja zajmie się resztą.</string>
     <string name="onboarding_slide3_title">Połączeni w sekundy.</string>
     <string name="onboarding_slide3_body">Udostępnij kod, a Twoja rodzina dołączy natychmiast. Nowi członkowie? Plan dostosuje się automatycznie. A jeśli coś się zmieni, wszyscy wiedzą o tym od razu.</string>
-    <string name="onboarding_slide4_title">Zaczynamy!</string>
-    <string name="onboarding_slide4_body">Utwórz swoją rodzinę i ciesz się spokojnymi porankami – niezawodnie, nawet offline.</string>
+    <string name="onboarding_slide4_title">Zawsze niezawodny</string>
+    <string name="onboarding_slide4_body">Ciesz się zrelaksowanymi porankami – niezawodnie, nawet offline. Jeśli internet ulegnie awarii, alarm nadal zadzwoni na czas.</string>
     <string name="settings_feedback_button">Daj znać / Zgłoś błąd</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Pomóż nam ulepszyć aplikację! Co masz na myśli?</string>

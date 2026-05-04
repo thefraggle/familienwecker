@@ -5,8 +5,8 @@
     <string name="password_label">Senha</string>
     <string name="register_button">Cadastrar</string>
     <string name="login_button">Entrar</string>
-    <string name="already_have_account">Já tem uma conta? Entre aqui.</string>
-    <string name="no_account">Ainda não tem conta? Cadastre-se aqui.</string>
+    <string name="already_have_account">Entrar / Cadastrar</string>
+    <string name="no_account">Entrar / Cadastrar</string>
     <string name="login_with_google">Entrar com Google</string>
     <string name="login_forgot_password">Esqueceu a senha?</string>
     <string name="login_password_reset_sent">Email de redefinição de senha enviado!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Pular</string>
     <string name="onboarding_next">Próximo</string>
-    <string name="onboarding_done">Vamos lá</string>
+    <string name="onboarding_done">Comece sem conta</string>
     <string name="onboarding_slide0_title">Sua manhã em equipe.</string>
     <string name="onboarding_slide0_body">Sem discussões, sem caos. O FamWake garante que todos comecem o dia relaxados – totalmente automático.</string>
     <string name="onboarding_slide1_title">Nunca mais esperar.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Segunda no escritório, quarta em home office? Defina horários individuais para cada dia da semana – o app cuida do resto.</string>
     <string name="onboarding_slide3_title">Conectados em segundos.</string>
     <string name="onboarding_slide3_body">Compartilhe um código e sua família se junta instantaneamente. Novos membros? O plano se ajusta automaticamente. E se algo mudar, todos ficam sabendo na hora.</string>
-    <string name="onboarding_slide4_title">Vamos lá!</string>
-    <string name="onboarding_slide4_body">Crie sua família agora e desfrute de manhãs tranquilas – de forma confiável, mesmo offline.</string>
+    <string name="onboarding_slide4_title">Sempre confiável</string>
+    <string name="onboarding_slide4_body">Desfrute de manhãs descontraídas – de forma confiável, mesmo offline. Se a internet cair, o alarme ainda toca na hora certa.</string>
     <string name="settings_feedback_button">Dar feedback / Relatar erro</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Ajude-nos a tornar o app ainda melhor! O que você tem em mente?</string>

@@ -5,8 +5,8 @@
     <string name="password_label">비밀번호</string>
     <string name="register_button">가입하기</string>
     <string name="login_button">로그인</string>
-    <string name="already_have_account">이미 계정이 있나요? 여기에 로그인하세요.</string>
-    <string name="no_account">아직 계정이 없나요? 여기에서 가입하세요.</string>
+    <string name="already_have_account">로그인 / 등록</string>
+    <string name="no_account">로그인 / 등록</string>
     <string name="login_with_google">Google로 로그인</string>
     <string name="login_forgot_password">비밀번호를 잊으셨나요?</string>
     <string name="login_password_reset_sent">비밀번호 재설정 메일이 발송되었습니다!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">건너뛰기</string>
     <string name="onboarding_next">다음</string>
-    <string name="onboarding_done">시작하기</string>
+    <string name="onboarding_done">계정 없이 시작하기</string>
     <string name="onboarding_slide0_title">가족이 함께하는 아침.</string>
     <string name="onboarding_slide0_body">아침마다 싸울 일도, 혼란도 없습니다. FamWake가 모두의 편안한 하루 시작을 완전 자동으로 도와줍니다.</string>
     <string name="onboarding_slide1_title">더 이상 기다리지 마세요.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">월요일은 출근, 수요일은 재택근무이신가요? 요일별로 각각의 시간을 설정하세요. 나머지는 앱이 알아서 처리합니다.</string>
     <string name="onboarding_slide3_title">단 몇 초 만에 연결됩니다.</string>
     <string name="onboarding_slide3_body">코드를 공유하면 가족이 즉시 참여할 수 있습니다. 새로운 멤버가 생겼나요? 일정이 자동으로 조정됩니다. 변동 사항이 생겨도 모두가 즉시 알 수 있습니다.</string>
-    <string name="onboarding_slide4_title">시작해 볼까요!</string>
-    <string name="onboarding_slide4_body">지금 가족 그룹을 만들고 오프라인 환경에서도 안정적으로 작동하는 편안한 아침을 즐겨보세요.</string>
+    <string name="onboarding_slide4_title">항상 신뢰할 수 있음</string>
+    <string name="onboarding_slide4_body">오프라인에서도 안정적으로 편안한 아침을 즐겨보세요. 인터넷이 다운되더라도 알람은 제 시간에 맞춰 울립니다.</string>
     
     <string name="onboarding_mock_name1">아빠</string>
     <string name="onboarding_mock_name2">엄마</string>

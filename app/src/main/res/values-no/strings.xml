@@ -5,8 +5,8 @@
     <string name="password_label">Passord</string>
     <string name="register_button">Registrer deg</string>
     <string name="login_button">Logg inn</string>
-    <string name="already_have_account">Har du allerede en konto? Logg inn her.</string>
-    <string name="no_account">Ingen konto ennå? Registrer deg her.</string>
+    <string name="already_have_account">Logg inn / Registrer deg</string>
+    <string name="no_account">Logg inn / Registrer deg</string>
     <string name="login_with_google">Logg på med Google</string>
     <string name="login_forgot_password">Glemt passord?</string>
     <string name="login_password_reset_sent">E-post for tilbakestilling av passord er sendt!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Hopp over</string>
     <string name="onboarding_next">Neste</string>
-    <string name="onboarding_done">La oss gå</string>
+    <string name="onboarding_done">Start uten konto</string>
     <string name="onboarding_slide0_title">Din morgen som team.</string>
     <string name="onboarding_slide0_body">Ingen diskusjoner, ikke noe kaos. FamWake sørger for at alle starter dagen avslappet – helt automatisk.</string>
     <string name="onboarding_slide1_title">Aldri mer venting.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Mandag kontor, onsdag hjemmekontor? Still inn individuelle tider for hver ukedag – appen tar seg av resten.</string>
     <string name="onboarding_slide3_title">Tilkoblet på sekunder.</string>
     <string name="onboarding_slide3_body">Del en kode, og familien din er med umiddelbart. Nye medlemmer? Planen tilpasser seg automatisk. Og hvis noe endres, vet alle det med en gang.</string>
-    <string name="onboarding_slide4_title">La oss kjøre!</string>
-    <string name="onboarding_slide4_body">Opprett familien din nå og nyt avslappede morgener – pålitelig, også offline.</string>
+    <string name="onboarding_slide4_title">Alltid pålitelig</string>
+    <string name="onboarding_slide4_body">Nyt avslappede morgener – pålitelig, selv offline. Hvis internett går ned, ringer alarmen fortsatt rett i tide.</string>
     <string name="settings_feedback_button">Gi tilbakemelding / Rapporter feil</string>
     <string name="feedback_title">Tilbakemelding</string>
     <string name="feedback_intro">Hjelp us å gjøre appen enda bedre! Hva har du på hjertet?</string>

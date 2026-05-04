@@ -5,8 +5,8 @@
     <string name="password_label">パスワード</string>
     <string name="register_button">登録</string>
     <string name="login_button">ログイン</string>
-    <string name="already_have_account">すでにアカウントをお持ちですか？こちらからログインしてください。</string>
-    <string name="no_account">アカウントをお持ちではないですか？こちらから登録してください。</string>
+    <string name="already_have_account">ログイン/登録</string>
+    <string name="no_account">ログイン/登録</string>
     <string name="login_with_google">Googleでログイン</string>
     <string name="login_forgot_password">パスワードを忘れた場合</string>
     <string name="login_password_reset_sent">パスワード再設定メールを送信しました！</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">スキップ</string>
     <string name="onboarding_next">次へ</string>
-    <string name="onboarding_done">はじめる</string>
+    <string name="onboarding_done">アカウントなしで始める</string>
     <string name="onboarding_slide0_title">チームとしての朝。</string>
     <string name="onboarding_slide0_body">議論もカオスもなし。FamWakeが家族全員のリラックスした朝を実現します – 全自動で。</string>
     <string name="onboarding_slide1_title">もう待たなくていい。</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">月曜はオフィス、水曜は在宅？曜日ごとに個別の時間を設定 – あとはアプリにおまかせ。</string>
     <string name="onboarding_slide3_title">数秒でつながる。</string>
     <string name="onboarding_slide3_body">コードを共有するだけで家族がすぐに参加。新メンバー？スケジュールは自動で調整されます。 何かが変わっても、みんなにすぐ伝わります。</string>
-    <string name="onboarding_slide4_title">さあ始めよう！</string>
-    <string name="onboarding_slide4_body">今すぐ家族を作成して、リラックスした朝を楽しもう – オフラインでも確実に。</string>
+    <string name="onboarding_slide4_title">常に信頼できる</string>
+    <string name="onboarding_slide4_body">オフラインでも確実に、リラックスした朝をお楽しみください。 インターネットがダウンしても、アラームは時間通りに鳴ります。</string>
     <string name="settings_feedback_button">フィードバックを送る / バグを報告</string>
     <string name="feedback_title">フィードバック</string>
     <string name="feedback_intro">アプリをより良くするためにご協力ください！お気づきの点をお聞かせください。</string>

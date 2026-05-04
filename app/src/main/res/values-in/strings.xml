@@ -5,8 +5,8 @@
     <string name="password_label">Kata sandi</string>
     <string name="register_button">Daftar</string>
     <string name="login_button">Masuk</string>
-    <string name="already_have_account">Sudah punya akun? Masuk di sini.</string>
-    <string name="no_account">Belum punya akun? Daftar di sini.</string>
+    <string name="already_have_account">Masuk / Daftar</string>
+    <string name="no_account">Masuk / Daftar</string>
     <string name="login_with_google">Masuk dengan Google</string>
     <string name="login_forgot_password">Lupa kata sandi?</string>
     <string name="login_password_reset_sent">Email pengaturan ulang kata sandi terkirim!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Lewati</string>
     <string name="onboarding_next">Selanjutnya</string>
-    <string name="onboarding_done">Ayo mulai!</string>
+    <string name="onboarding_done">Mulai tanpa akun</string>
     <string name="onboarding_slide0_title">Pagi Anda sebagai sebuah tim.</string>
     <string name="onboarding_slide0_body">Tanpa perdebatan, tanpa kekacauan. FamWake memastikan semua orang memulai hari dengan santai – sepenuhnya otomatis.</string>
     <string name="onboarding_slide1_title">Tidak perlu antre lagi.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Senin di kantor, Rabu kerja dari rumah? Tetapkan waktu individual untuk setiap hari dalam seminggu – aplikasi akan menangani sisanya.</string>
     <string name="onboarding_slide3_title">Terhubung dalam hitungan detik.</string>
     <string name="onboarding_slide3_body">Bagikan kode dan keluarga Anda langsung bergabung. Anggota baru? Jadwalnya menyesuaikan secara otomatis. Dan jika ada perubahan, semua orang akan langsung mengetahuinya.</string>
-    <string name="onboarding_slide4_title">Ayo mulai!</string>
-    <string name="onboarding_slide4_body">Buat keluarga Anda sekarang dan nikmati pagi hari yang santai – dapat diandalkan, bahkan saat offline.</string>
+    <string name="onboarding_slide4_title">Selalu dapat diandalkan</string>
+    <string name="onboarding_slide4_body">Nikmati pagi yang santai – andal, bahkan saat offline. Jika internet mati, alarm tetap berbunyi tepat waktu.</string>
     
     <string name="onboarding_mock_name1">Ayah</string>
     <string name="onboarding_mock_name2">Ibu</string>

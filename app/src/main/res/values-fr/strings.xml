@@ -5,8 +5,8 @@
     <string name="password_label">Mot de passe</string>
     <string name="register_button">S\'inscrire</string>
     <string name="login_button">Se connecter</string>
-    <string name="already_have_account">Déjà un compte ? Se connecter ici.</string>
-    <string name="no_account">Pas encore de compte ? S\'inscrire ici.</string>
+    <string name="already_have_account">Connexion / S\'inscrire</string>
+    <string name="no_account">Connexion / S\'inscrire</string>
     <string name="login_with_google">Se connecter avec Google</string>
     <string name="login_forgot_password">Mot de passe oublié ?</string>
     <string name="login_password_reset_sent">E-mail de réinitialisation envoyé !</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Passer</string>
     <string name="onboarding_next">Suivant</string>
-    <string name="onboarding_done">C\'est parti</string>
+    <string name="onboarding_done">Commencer sans compte</string>
     <string name="onboarding_slide0_title">Tes matins en équipe.</string>
     <string name="onboarding_slide0_body">Plus de disputes, plus de chaos. FamWake fait en sorte que tout le monde commence la journée sereinement – entièrement automatique.</string>
     <string name="onboarding_slide1_title">Fini l\'attente.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Lundi au bureau, mercredi en télétravail ? Règle des horaires individuels pour chaque jour – l\'appli s\'occupe du reste.</string>
     <string name="onboarding_slide3_title">Connectés en secondes.</string>
     <string name="onboarding_slide3_body">Partage un code et ta famille rejoint instantanément. Nouveaux membres ? Le planning s\'adapte automatiquement. Et si quelque chose change, tout le monde le sait aussitôt.</string>
-    <string name="onboarding_slide4_title">C\'est parti !</string>
-    <string name="onboarding_slide4_body">Crée ta famille maintenant et profite de matins détendus – de manière fiable, même hors ligne.</string>
+    <string name="onboarding_slide4_title">Toujours fiable</string>
+    <string name="onboarding_slide4_body">Profitez de matinées détendues – de manière fiable, même hors ligne. Si Internet tombe en panne, l’alarme sonne toujours à temps.</string>
     <string name="settings_feedback_button">Donner un avis / Signaler un bug</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Aide-nous à améliorer l\'app ! Dis-nous tout :</string>

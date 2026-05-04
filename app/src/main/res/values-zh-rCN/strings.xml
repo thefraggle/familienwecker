@@ -5,8 +5,8 @@
     <string name="password_label">密码</string>
     <string name="register_button">注册</string>
     <string name="login_button">登录</string>
-    <string name="already_have_account">已经有帐号？在此登录。</string>
-    <string name="no_account">还没有帐号？在此注册。</string>
+    <string name="already_have_account">登录/注册</string>
+    <string name="no_account">登录/注册</string>
     <string name="login_with_google">使用 Google 登录</string>
     <string name="login_forgot_password">忘记密码？</string>
     <string name="login_password_reset_sent">密码重置邮件已发送！</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_next">下一步</string>
-    <string name="onboarding_done">开始使用</string>
+    <string name="onboarding_done">无需帐户即可开始</string>
     <string name="onboarding_slide0_title">团队般的早晨。</string>
     <string name="onboarding_slide0_body">没有争吵，没有混乱。FamWake 确保每个人都能轻松地开始新的一天——全自动。</string>
     <string name="onboarding_slide1_title">无需再等待。</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">周一去公司，周三在家办公？为一周中的每一天设置单独的时间——应用会处理剩下的事情。</string>
     <string name="onboarding_slide3_title">几秒钟内即可连接。</string>
     <string name="onboarding_slide3_body">分享代码，您的家人即可立即加入。新成员？日程会自动调整。如果有什么变化，大家都会立刻知道。</string>
-    <string name="onboarding_slide4_title">出发吧！</string>
-    <string name="onboarding_slide4_body">立即创建您的家庭，享受轻松的早晨——不仅可靠，而且支持离线运行。</string>
+    <string name="onboarding_slide4_title">始终可靠</string>
+    <string name="onboarding_slide4_body">享受轻松的早晨——可靠，甚至离线。 即使互联网出现故障，闹钟仍会准时响起。</string>
     
     <string name="onboarding_mock_name1">爸爸</string>
     <string name="onboarding_mock_name2">妈妈</string>
