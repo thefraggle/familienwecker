@@ -5,8 +5,8 @@
     <string name="password_label">密码</string>
     <string name="register_button">注册</string>
     <string name="login_button">登录</string>
-    <string name="already_have_account">登录/注册</string>
-    <string name="no_account">登录/注册</string>
+    <string name="already_have_account">已经有帐户？ 在这里登录。</string>
+    <string name="no_account">还没有帐户？ 在这里注册。</string>
     <string name="login_with_google">使用 Google 登录</string>
     <string name="login_forgot_password">忘记密码？</string>
     <string name="login_password_reset_sent">密码重置邮件已发送！</string>

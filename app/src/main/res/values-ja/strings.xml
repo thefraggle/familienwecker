@@ -5,8 +5,8 @@
     <string name="password_label">パスワード</string>
     <string name="register_button">登録</string>
     <string name="login_button">ログイン</string>
-    <string name="already_have_account">ログイン/登録</string>
-    <string name="no_account">ログイン/登録</string>
+    <string name="already_have_account">すでにアカウントをお持ちですか? ここからログインしてください。</string>
+    <string name="no_account">まだアカウントをお持ちですか? ここからサインアップしてください。</string>
     <string name="login_with_google">Googleでログイン</string>
     <string name="login_forgot_password">パスワードを忘れた場合</string>
     <string name="login_password_reset_sent">パスワード再設定メールを送信しました！</string>

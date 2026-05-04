@@ -5,8 +5,8 @@
     <string name="password_label">Mật khẩu</string>
     <string name="register_button">Đăng ký</string>
     <string name="login_button">Đăng nhập</string>
-    <string name="already_have_account">Đăng nhập / Đăng ký</string>
-    <string name="no_account">Đăng nhập / Đăng ký</string>
+    <string name="already_have_account">Đã có tài khoản? Đăng nhập tại đây.</string>
+    <string name="no_account">Chưa có tài khoản? Đăng ký tại đây.</string>
     <string name="login_with_google">Đăng nhập bằng Google</string>
     <string name="login_forgot_password">Quên mật khẩu?</string>
     <string name="login_password_reset_sent">Đã gửi email đặt lại mật khẩu!</string>
