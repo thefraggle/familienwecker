@@ -1217,7 +1217,7 @@ exports.cleanupInactiveFamilies = onSchedule(
     schedule: "every sunday 04:00",
     region: "europe-west3",
     timeZone: "Europe/Berlin",
-    timeoutSeconds: 3600, // 1h Timeout (Gen2) für wachsende Datenmengen
+    timeoutSeconds: 1800, // 30 Min Timeout (Firebase Max) für wachsende Datenmengen
     secrets: ["RESEND_API_KEY"],
   },
   async (event) => {
