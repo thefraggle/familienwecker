@@ -382,4 +382,7 @@
     <string name="notif_permission_button">通知をオンにする</string>
     <string name="notif_manage_title">通知の設定</string>
     <string name="notif_manage_desc">スマートフォンの設定で音やバイブレーションを変更できます。</string>
+    <string name="settings_steal_title">プロファイルを引き継ぎますか？</string>
+    <string name="settings_steal_text">%1$s は既に使用されています。引き継ぎますか？</string>
+    <string name="settings_steal_confirm">引き継ぐ</string>
 </resources>

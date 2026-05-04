@@ -377,4 +377,7 @@
     <string name="onboarding_slide5_title">Давайте почнемо!</string>
     <string name="onboarding_slide5_body">Ви можете спробувати додаток прямо зараз без акаунта. Він знадобиться вам тільки тоді, коли ви захочете запросити свою сім\'ю.</string>
     <string name="settings_anonymous_login_button">Увійти / Зареєструватися</string>
+    <string name="settings_steal_title">Зайняти профіль?</string>
+    <string name="settings_steal_text">Профіль %1$s вже зайнятий. Бажаєте зайняти його?</string>
+    <string name="settings_steal_confirm">Зайняти</string>
 </resources>

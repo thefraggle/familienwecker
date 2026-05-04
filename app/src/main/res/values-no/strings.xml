@@ -367,4 +367,7 @@
     <string name="onboarding_slide5_title">La oss komme i gang!</string>
     <string name="onboarding_slide5_body">Du kan prøve appen med en gang uten konto. Du trenger bare en når du vil invitere familien din.</string>
     <string name="settings_anonymous_login_button">Logg inn / Registrer deg</string>
+    <string name="settings_steal_title">Ta over profil?</string>
+    <string name="settings_steal_text">%1$s er allerede i bruk. Vil du ta over profilen?</string>
+    <string name="settings_steal_confirm">Ta over</string>
 </resources>

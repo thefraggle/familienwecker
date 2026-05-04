@@ -381,4 +381,7 @@
     <string name="onboarding_slide5_title">Hadi başlayalım!</string>
     <string name="onboarding_slide5_body">Hesap oluşturmadan uygulamayı hemen deneyebilirsin. Sadece ailenizi davet etmek istediğinizde bir hesaba ihtiyacınız olacak.</string>
     <string name="settings_anonymous_login_button">Giriş yap / Kayıt ol</string>
-    </resources>
+        <string name="settings_steal_title">Profili devral?</string>
+    <string name="settings_steal_text">%1$s zaten kullanımda. Profili devralmak istiyor musunuz?</string>
+    <string name="settings_steal_confirm">Devral</string>
+</resources>

@@ -367,4 +367,7 @@
     <string name="onboarding_slide5_title">Zaczynamy!</string>
     <string name="onboarding_slide5_body">Możesz wypróbować aplikację od razu, bez posiadania konta. Będziesz go potrzebować dopiero wtedy, gdy będziesz chciał zaprosić swoją rodzinę.</string>
     <string name="settings_anonymous_login_button">Zaloguj się / Zarejestruj się</string>
+    <string name="settings_steal_title">Przejąć profil?</string>
+    <string name="settings_steal_text">Profil %1$s jest już zajęty. Czy chcesz go przejąć?</string>
+    <string name="settings_steal_confirm">Przejmij</string>
 </resources>

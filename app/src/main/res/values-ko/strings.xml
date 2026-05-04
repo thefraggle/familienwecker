@@ -381,4 +381,7 @@
     <string name="onboarding_slide5_title">시작해 볼까요!</string>
     <string name="onboarding_slide5_body">계정이 없어도 바로 앱을 사용해 볼 수 있습니다. 가족을 초대하고 싶을 때만 계정을 만드시면 됩니다.</string>
     <string name="settings_anonymous_login_button">로그인 / 가입하기</string>
+    <string name="settings_steal_title">프로필 가져오기?</string>
+    <string name="settings_steal_text">%1$s님은 이미 사용 중입니다. 프로필을 가져오시겠습니까?</string>
+    <string name="settings_steal_confirm">가져오기</string>
 </resources>

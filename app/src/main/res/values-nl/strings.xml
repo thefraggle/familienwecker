@@ -371,4 +371,7 @@
     <string name="onboarding_slide5_title">Laten we beginnen!</string>
     <string name="onboarding_slide5_body">Je kunt de app meteen uitproberen zonder account. Je hebt er pas een nodig als je je familie wilt uitnodigen.</string>
     <string name="settings_anonymous_login_button">Inloggen / Registreren</string>
+    <string name="settings_steal_title">Profiel overnemen?</string>
+    <string name="settings_steal_text">%1$s is al bezet. Wil je dit profiel overnemen?</string>
+    <string name="settings_steal_confirm">Overnemen</string>
 </resources>

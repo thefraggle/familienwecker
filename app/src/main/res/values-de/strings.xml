@@ -377,4 +377,7 @@
     <string name="notif_permission_button">Benachrichtigungen anmachen</string>
     <string name="notif_manage_title">Benachrichtigungs-Einstellungen</string>
     <string name="notif_manage_desc">Ändere Töne und Vibration in den Einstellungen deines Handys.</string>
+    <string name="settings_steal_title">Profil übernehmen?</string>
+    <string name="settings_steal_text">%1$s ist bereits belegt. Möchtest du es übernehmen?</string>
+    <string name="settings_steal_confirm">Übernehmen</string>
 </resources>

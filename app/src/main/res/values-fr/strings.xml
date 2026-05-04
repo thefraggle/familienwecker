@@ -370,4 +370,7 @@
     <string name="onboarding_slide5_title">C\'est parti !</string>
     <string name="onboarding_slide5_body">Tu peux essayer l\'appli tout de suite sans avoir de compte. Tu n\'en auras besoin que lorsque tu voudras inviter ta famille.</string>
     <string name="settings_anonymous_login_button">Connexion / S\'inscrire</string>
+    <string name="settings_steal_title">Reprendre le profil ?</string>
+    <string name="settings_steal_text">%1$s est déjà pris. Voulez-vous le reprendre ?</string>
+    <string name="settings_steal_confirm">Reprendre</string>
 </resources>

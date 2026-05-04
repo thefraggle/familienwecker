@@ -382,4 +382,7 @@
     <string name="notif_permission_button">नोटिफ़िकेशन चालू करें</string>
     <string name="notif_manage_title">नोटिफ़िकेशन की सेटिंग्स</string>
     <string name="notif_manage_desc">अपने फ़ोन की सेटिंग्स में आवाज़ और वाइब्रेशन बदलें।</string>
+    <string name="settings_steal_title">प्रोफ़ाइल लें?</string>
+    <string name="settings_steal_text">%1$s पहले ही लिया जा चुका है। क्या आप इसे लेना चाहते हैं?</string>
+    <string name="settings_steal_confirm">लें</string>
 </resources>

@@ -347,14 +347,14 @@ fun SettingsScreen(
                             if (memberToSteal != null) {
                                 AlertDialog(
                                     onDismissRequest = { memberToSteal = null },
-                                    title = { Text(if (currentLanguage == "de") "Profil übernehmen?" else "Take over profile?") },
-                                    text = { Text(if (currentLanguage == "de") "${memberToSteal!!.name} ist bereits belegt. Möchtest du dieses Profil übernehmen?" else "${memberToSteal!!.name} is already taken. Do you want to take it over?") },
+                                    title = { Text(stringResource(R.string.settings_steal_title)) },
+                                    text = { Text(stringResource(R.string.settings_steal_text, memberToSteal!!.name)) },
                                     confirmButton = {
                                         TextButton(onClick = {
                                             viewModel.setMyMemberId(memberToSteal!!.id, force = true) { }
                                             memberToSteal = null
                                             showMemberPicker = false
-                                        }) { Text(if (currentLanguage == "de") "Übernehmen" else "Take over", color = MaterialTheme.colorScheme.error) }
+                                        }) { Text(stringResource(R.string.settings_steal_confirm), color = MaterialTheme.colorScheme.error) }
                                     },
                                     dismissButton = {
                                         TextButton(onClick = { memberToSteal = null }) { Text(stringResource(R.string.settings_delete_family_dialog_cancel)) }

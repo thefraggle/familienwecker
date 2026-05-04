@@ -370,4 +370,7 @@
     <string name="onboarding_slide5_title">Auf geht\'s!</string>
     <string name="onboarding_slide5_body">Hör ma, du kanns die App direkt ohne Anmeldung ausprobieren. Ein Konto brauchsse erst, wenn de deine Familie einläds.</string>
     <string name="settings_anonymous_login_button">Anmelden / Registrieren</string>
+    <string name="settings_steal_title">Profil übernehmen?</string>
+    <string name="settings_steal_text">%1$s ist bereits belegt. Möchtest du es übernehmen?</string>
+    <string name="settings_steal_confirm">Übernehmen</string>
 </resources>

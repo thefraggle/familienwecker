@@ -382,4 +382,7 @@
     <string name="notif_permission_button">Turn on notifications</string>
     <string name="notif_manage_title">Notification settings</string>
     <string name="notif_manage_desc">Change sounds and vibrations in your phone settings.</string>
+    <string name="settings_steal_title">Take over profile?</string>
+    <string name="settings_steal_text">%1$s is already taken. Do you want to take it over?</string>
+    <string name="settings_steal_confirm">Take over</string>
 </resources>

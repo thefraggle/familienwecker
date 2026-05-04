@@ -381,4 +381,7 @@
     <string name="onboarding_slide5_title">चला सुरू करूया!</string>
     <string name="onboarding_slide5_body">तुम्ही खाते न बनवताही ॲप लगेच वापरून पाहू शकता. जेव्हा तुम्हाला तुमच्या कुटुंबाला आमंत्रित करायचे असेल तेव्हाच तुम्हाला खात्याची आवश्यकता असेल.</string>
     <string name="settings_anonymous_login_button">लॉग इन / साइन अप करा</string>
-    </resources>
+        <string name="settings_steal_title">प्रोफाइल घ्यायची?</string>
+    <string name="settings_steal_text">%1$s आधीच घेतले आहे. तुम्हाला हे घ्यायचे आहे का?</string>
+    <string name="settings_steal_confirm">घ्या</string>
+</resources>

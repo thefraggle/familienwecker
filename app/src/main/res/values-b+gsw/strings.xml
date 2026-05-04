@@ -373,4 +373,7 @@
     <string name="notif_permission_button">Benachrichtigunge aamache</string>
     <string name="notif_manage_title">Benachrichtigungs-Iistellige</string>
     <string name="notif_manage_desc">Änder Tön und Vibration i de Iistellige vo diim Handy.</string>
+    <string name="settings_steal_title">Profil übernehmen?</string>
+    <string name="settings_steal_text">%1$s ist bereits belegt. Möchtest du es übernehmen?</string>
+    <string name="settings_steal_confirm">Übernehmen</string>
 </resources>

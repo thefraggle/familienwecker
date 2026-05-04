@@ -380,4 +380,7 @@
     <string name="onboarding_slide5_title">Mari kita mulai!</string>
     <string name="onboarding_slide5_body">Anda dapat langsung mencoba aplikasinya tanpa akun. Anda hanya memerlukan akun saat ingin mengundang keluarga Anda.</string>
     <string name="settings_anonymous_login_button">Masuk / Daftar</string>
+    <string name="settings_steal_title">Ambil alih profil?</string>
+    <string name="settings_steal_text">%1$s sudah digunakan. Apakah Anda ingin mengambil alih?</string>
+    <string name="settings_steal_confirm">Ambil alih</string>
 </resources>

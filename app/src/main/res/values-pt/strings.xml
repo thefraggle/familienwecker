@@ -371,4 +371,7 @@
     <string name="onboarding_slide5_title">Vamos começar!</string>
     <string name="onboarding_slide5_body">Você pode testar o app na hora sem uma conta. Você só vai precisar de uma quando quiser convidar sua família.</string>
     <string name="settings_anonymous_login_button">Entrar / Cadastrar</string>
-    </resources>
+        <string name="settings_steal_title">Assumir perfil?</string>
+    <string name="settings_steal_text">%1$s já está ocupado. Deseja assumi-lo?</string>
+    <string name="settings_steal_confirm">Assumir</string>
+</resources>
