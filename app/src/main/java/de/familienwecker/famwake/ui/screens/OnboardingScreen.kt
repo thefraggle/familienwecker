@@ -79,7 +79,7 @@ fun OnboardingScreen(
         OnboardingSlide(
             titleRes      = R.string.onboarding_slide5_title,
             bodyRes       = R.string.onboarding_slide5_body,
-            lottieRes     = R.raw.panda
+            lottieRes     = R.raw.wakeup
         )
     )
 
