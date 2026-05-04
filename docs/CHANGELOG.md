@@ -2,9 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.8.7 – 2026-05-03
+## 1.8.7 – 2026-05-04
 ### Neu
-- **Sofort starten** – App kann jetzt auch ohne Account genutzt werden (Lazy Registration). Man kann direkt eine Familie erstellen und den Wecker nutzen. Ein Account wird erst benötigt, um Codes zu teilen oder einer anderen Familie beizutreten.
+- **Sofort starten & beitreten** – FamWake kann jetzt komplett ohne Account ausprobiert werden! Du kannst sofort eine Familie erstellen, oder per Code / Link der Familie deines Partners beitreten (Lazy Registration). Ein Account wird erst benötigt, wenn du selbst Familienmitglieder einladen möchtest.
+
+### Verbessert
+- **Klareres Onboarding** – Die Einführung wurde überarbeitet, inklusive neuem Maskottchen auf der letzten Seite und einem expliziten Hinweis auf die Offline-Zuverlässigkeit des Weckers. Die "Anmelden"-Links sind nun über alle Ansichten und 25 Sprachen hinweg einheitlich.
 
 ### Fehlerbehebungen
 - **Onboarding & Navigation:** Nach der Onboarding-Tour landest du nicht mehr in einer Sackgasse, und fehlgeleitete Logout-Dialoge im Testmodus wurden korrigiert.
