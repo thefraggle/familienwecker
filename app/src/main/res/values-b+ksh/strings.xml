@@ -346,7 +346,7 @@
     <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Druck hier, um deinen eigenen Weckton auszusuchen – nimm wat Geiles statt dem Standardgebimmel.</string>
     <string name="settings_language_dialects">Dialekte</string>
-    <string name="error_sync_blocked_device">Syncen geht auf dem Gerät hier nich.</string>
+    <string name="error_sync_blocked_device">Updates gehen auf der Kiste hier grad nich.</string>
     <string name="onboarding_mock_name1">Vatta</string>
     <string name="onboarding_mock_name2">Mudda</string>
     <string name="onboarding_mock_family_name">Schmitz</string>
