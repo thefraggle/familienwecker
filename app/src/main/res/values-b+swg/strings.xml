@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name_short">Familiewegger</string>
     <string name="email_label">E-Mail</string>
     <string name="password_label">Passwort</string>
     <string name="register_button">Registriera</string>
     <string name="login_button">Nei-logga</string>
-    <string name="already_have_account">Hoisch scho a Konto? Do aamelda.</string>
-    <string name="no_account">No koi Konto? Do registriera.</string>
+    <string name="already_have_account">Aamelda / Regischtriera</string>
+    <string name="no_account">Aamelda / Regischtriera</string>
     <string name="login_with_google">Mit Google aamelda</string>
     <string name="login_forgot_password">Passwort vergässa?</string>
     <string name="login_password_reset_sent">E-Mail zom Zruggsetza ischr dussa!</string>
@@ -148,7 +148,7 @@
 
     <string name="onboarding_skip">Sausen lassa</string>
     <string name="onboarding_next">Weida</string>
-    <string name="onboarding_done">Uff geht\'s</string>
+    <string name="onboarding_done">Ohne Account schtarta</string>
     <string name="onboarding_slide0_title">Dei Morga als Team.</string>
     <string name="onboarding_slide0_body">Koi Diskussiona, koi Chaos. FamWake sorgt dafür, dass alle entspannt in Tag starta – vollautomaadisch.</string>
     <string name="onboarding_slide1_title">Nie meh warta.</string>
@@ -157,8 +157,8 @@
     <string name="onboarding_slide2_body">Montag Büro, Mittwoch Dahoim? Stell für jede Wochadag individuelli Zeita ei – d\'App rechnet de Rest.</string>
     <string name="onboarding_slide3_title">In Sekunda verbonda.</string>
     <string name="onboarding_slide3_body">Teil en Code ond dei Familie isch sofort debei. Neue Mitglieder? Dr Plan passt sich automatisch ah. Ond wenn sich öbbas änderet, wisset\'s alle sofort.</string>
-    <string name="onboarding_slide4_title">Los geht\'s!</string>
-    <string name="onboarding_slide4_body">Erstell jetzt dei Familie ond erleb entspannde Morga – zuverlässig, au offline.</string>
+    <string name="onboarding_slide4_title">Immer zuaverlässig</string>
+    <string name="onboarding_slide4_body">Entschpannte Morga, zuaverlässig ond offline. Wenn s\'Internet mol ausfällt, klingelt dr Wecker trotzdem pünktlich.</string>
     <string name="settings_feedback_button">Gschwätz hinterlassa / Fehler melda</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hilf ons, die App no besser zom macha! Was drückt di?</string>
@@ -274,7 +274,7 @@
     <string name="schedule_message_no_valid_desc">Tipp: Mach s\'Fenschderle greßer, Bad-Zeit kürzer oder lass oin sausen.</string>
     <string name="schedule_message_time_adjusted">Zeita om %1$d Min verschoba, demit s\'basst.</string>
     <string name="schedule_message_breakfast_reduced">Frühstück om %1$d Min kürzer, na basst\'s nei.</string>
-    <string name="schedule_message_breakfast_and_time_adjusted">Frühstück &#x2212;%1$d Min &amp; Zeita om %2$d Min gricht.</string>
+    <string name="schedule_message_breakfast_and_time_adjusted">Frühstück −%1$d Min &amp; Zeita om %2$d Min gricht.</string>
     <string name="schedule_message_member_conflict">S\'klemmt für %1$s: Zeita ganged iber\'nand.</string>
     <string name="schedule_message_member_conflict_desc">Probiers mol anderstrum ader mach d\'Zeita andersch.</string>
     <string name="main_fallback_alarm_active">⚠️ Fallback-Alarm drinne (%1$s). Bitte grichta!</string>
@@ -365,4 +365,8 @@
     <string name="notif_permission_button">Meldonga aamacha</string>
     <string name="notif_manage_title">Meldonga eistella</string>
     <string name="notif_manage_desc">Ton, Gschepper ond älles andere in de System-Eistellonga aabassa.</string>
-</resources>
+<string name="onboarding_login_create">Aamelda / Regischtriera</string>
+    <string name="onboarding_slide5_title">Auf goht\'s!</string>
+    <string name="onboarding_slide5_body">Du kannsch d\'App direkt ohne Aameldung ausprobiera. A Konto brauchsch erscht, wenn de dei Familie eiladsch.</string>
+    <string name="settings_anonymous_login_button">Aamelda / Regischtriera</string>
+    </resources>
