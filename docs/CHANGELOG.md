@@ -10,6 +10,10 @@
 - **Klareres Onboarding** – Die Einführung wurde überarbeitet, inklusive neuem Maskottchen auf der letzten Seite und einem expliziten Hinweis auf die Offline-Zuverlässigkeit des Weckers. Die "Anmelden"-Links sind nun über alle Ansichten und 25 Sprachen hinweg einheitlich.
 
 ### Fehlerbehebungen
+- **Tablet & Layout:** Die App wird nun auf allen Geräten (auch Tablets) zuverlässig im Hochformat angezeigt, und zu große Animationen verdecken keinen Text mehr.
+- **Onboarding-Stabilität:** Ein Problem wurde behoben, durch das mehrfaches Klicken des "Los geht's"-Buttons zu unerwartetem Verhalten führen konnte.
+- **Fehlermeldungen & Netzwerk:** Bei SSL-/Netzwerkproblemen (z. B. auf Emulatoren) während der Familienerstellung stürzt die App nicht mehr ab, sondern zeigt die korrekte Fehlermeldung.
+- **Profil-Übernahme:** Das Beanspruchen eines Profils auf einem neuen Gerät ("Profil stehlen") funktioniert dank angepasster Sicherheitsregeln nun wieder problemlos.
 - **Onboarding & Navigation:** Nach der Onboarding-Tour landest du nicht mehr in einer Sackgasse, und fehlgeleitete Logout-Dialoge im Testmodus wurden korrigiert.
 - **Account-Übernahme:** Wenn du dich aus dem Testmodus heraus registrierst, werden deine Testdaten nun verlässlich in deinen neuen Account übernommen.
 

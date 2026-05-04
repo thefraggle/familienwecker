@@ -25,8 +25,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-06 | Logout + Re-Login | Alarm-State bleibt erhalten (kein Race-Condition-Reset). Zweiter User einloggen → sieht nur eigene Familie. |
 | TC-07 | Onboarding-Tour | 5 Slides mit Panda. Tour aus Einstellungen wieder aufrufbar. Abschluss landet im Welcome Screen (Slide 5). |
 | TC-08 | Rate-Limiting | >5 falsche Codes/min oder >5 Reset-Mails/h → serverseitige Blockierung. |
-| TC-09 | Lazy Registration | "Los geht's" im Welcome Screen erstellt anonymen Nutzer. Familie erstellen möglich. Settings: Teilen gesperrt, Code verborgen, kein Logout Button ganz unten, stattdessen Login Button. Join Family im Setup Screen gesperrt. |
-
+| TC-09 | Lazy Registration | "Los geht's" im Welcome Screen erstellt anonymen Nutzer. Familie erstellen möglich. Settings: Teilen gesperrt, Code verborgen, kein Logout Button ganz unten, stattdessen Login Button. Join Family im Setup Screen gesperrt. Mehrfaches Klicken auf "Los geht's" führt nicht zu Fehlern. |
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
@@ -37,6 +36,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-23 | Pausieren + Eigentums-Schutz | Unclaimed Member pausieren → korrekt aus Plan entfernt. Eigenes Profil: kein Pausieren-Button. Member löschen → myMemberId erst NACH Firestore-Bestätigung null. |
 | TC-24 | Drag & Drop Reihenfolge | Long-Press → verschieben mit Gap-Preview. Reihenfolge bleibt nach Neustart und auf anderen Geräten. Limit: max 6 Mitglieder. |
 | TC-24b | Unclaimed-Member-Warnung | Ungeclaimtes Mitglied an Position 1 → Amber-Banner erscheint (unterhalb der Kein-Profil-Card). Kein-Profil-Banner aktiv → kein Amber-Banner. Mitglied auf Position 2 verschoben → Banner verschwindet. |
+| TC-26 | Profil stehlen (Claim Stealing) | Ein bereits geclaimtes Profil kann von einem anderen Gerät aus beansprucht werden. Der `deviceId`-Check lässt das Überschreiben des Claims zu. |
 
 ### 3. Wecker & Alarm
 | ID | Testfall | Erwartetes Ergebnis |
@@ -112,7 +112,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | UI-01 | Theme-Switcher | Sonne/Auto/Mond-Icons wechseln sofort; kein Überlauf auf schmalen Geräten. |
-| UI-02 | Kleine Screens (360dp) | FamilySetupScreen, SettingsScreen, AddMemberScreen – Tastatur schiebt Content hoch, Button bleibt erreichbar. Uhrzeiten einzeilig lesbar; Baddauer-Label bricht ohne Abschneiden um. |
+| UI-02 | Formfaktoren (Kleine Screens & Tablets) | Kleine Screens: Tastatur schiebt Content hoch, Button bleibt erreichbar. Tablets: App ist strikt im Hochformat (Portrait) arretiert. Lottie-Animationen skalieren nicht endlos mit und verdecken keine Texte. |
 | UI-03 | Scroll-Verhalten | Bouncender Pfeil bei langen Seiten. Kollabierender Titel auf Hauptscreen. Wochenplan-„Kopierlink" ohne Scrollen sichtbar. |
 | UI-04 | Navigation | Zurück-Button in Settings/Login/FamilySetup. Feldreihenfolge in Wochentag-Card: Frühste Weckzeit → Späteste → Badzeit → Abfahrt → Frühstück. |
 
