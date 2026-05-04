@@ -87,6 +87,7 @@ fun OnboardingScreen(
     val pagerState    = rememberPagerState(initialPage = initialPage, pageCount = { slides.size })
     val coroutineScope = rememberCoroutineScope()
     val isLastPage    = pagerState.currentPage == slides.size - 1
+    var isStarting    by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Globaler Hintergrund (onboarding_bg.png)
@@ -196,7 +197,10 @@ fun OnboardingScreen(
             Button(
                 onClick = {
                     if (isLastPage) {
-                        onStartAnonymously()
+                        if (!isStarting) {
+                            isStarting = true
+                            onStartAnonymously()
+                        }
                     } else {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(pagerState.currentPage + 1)
@@ -207,17 +211,28 @@ fun OnboardingScreen(
                     .fillMaxWidth()
                     .height(52.dp),
                 shape  = RoundedCornerShape(16.dp),
+                enabled = !isStarting,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
-                    contentColor   = Color(0xFF1A237E)
+                    contentColor   = Color(0xFF1A237E),
+                    disabledContainerColor = Color.White.copy(alpha = 0.5f),
+                    disabledContentColor = Color(0xFF1A237E).copy(alpha = 0.5f)
                 )
             ) {
-                Text(
-                    text       = if (isLastPage) stringResource(R.string.onboarding_done)
-                                 else stringResource(R.string.onboarding_next),
-                    fontWeight = FontWeight.Bold,
-                    fontSize   = 16.sp
-                )
+                if (isStarting) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = Color(0xFF1A237E),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text(
+                        text       = if (isLastPage) stringResource(R.string.onboarding_done)
+                                     else stringResource(R.string.onboarding_next),
+                        fontWeight = FontWeight.Bold,
+                        fontSize   = 16.sp
+                    )
+                }
             }
 
             AnimatedVisibility(
