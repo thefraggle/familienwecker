@@ -231,14 +231,10 @@ fun FamilySetupScreen(
 
                                     Button(
                                         onClick = {
-                                            if (isAnonymous) {
-                                                android.widget.Toast.makeText(context, context.getString(R.string.settings_join_family_locked), android.widget.Toast.LENGTH_LONG).show()
-                                            } else {
-                                                isLoading = true
-                                                viewModel.joinFamily(joinCode) { success ->
-                                                    isLoading = false
-                                                    if (success) onSetupComplete()
-                                                }
+                                            isLoading = true
+                                            viewModel.joinFamily(joinCode) { success ->
+                                                isLoading = false
+                                                if (success) onSetupComplete()
                                             }
                                         },
                                         modifier = Modifier
