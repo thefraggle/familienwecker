@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name_short">FamWake Семейный будильник</string>
+<resources><string name="app_name_short">FamWake Семейный будильник</string>
     <string name="email_label">Электронная почта</string>
     <string name="password_label">Пароль</string>
     <string name="register_button">Зарегистрироваться</string>
@@ -105,7 +104,6 @@
     <string name="settings_account_title">Семья и Аккаунт</string>
     <string name="settings_join_family_locked">Пожалуйста, войдите, чтобы присоединиться к семье.</string>
     <string name="settings_share_code_locked">Пожалуйста, войдите, чтобы поделиться кодом.</string>
-    <string name="settings_anonymous_login_button">Войти / Зарегистрироваться</string>
     <string name="settings_join_code">Код приглашения для %1$s:</string>
     <string name="settings_share_code">Поделиться кодом</string>
     <string name="settings_share_message">Вот ваша ссылка для FamWake:\nhttps://familienwecker.de/join/%2$s\n\nКод: %2$s\nГруппа: %1$s\n\nПросто нажмите на ссылку, войдите, и мы на связи. Просыпаться вместе намного проще! ⏰❤️</string>

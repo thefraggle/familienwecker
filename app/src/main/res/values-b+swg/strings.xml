@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name_short">FamWake Familienwegger</string>
+<resources><string name="app_name_short">FamWake Familienwegger</string>
     <string name="email_label">E-Mail</string>
     <string name="password_label">Passwort</string>
     <string name="register_button">Registriera</string>
@@ -105,7 +104,6 @@
     <string name="settings_account_title">Familie &amp; Konto</string>
     <string name="settings_join_family_locked">Bitte logg di ei, om ra Familie beizutreta.</string>
     <string name="settings_share_code_locked">Bitte logg di ei, om dein Code zom doila.</string>
-    <string name="settings_anonymous_login_button">Aamelda / Regischtriera</string>
     <string name="settings_join_code">Eiladongscode für %1$s:</string>
     <string name="settings_share_code">Code doila</string>
     <string name="settings_share_message">Do isch dei Link für FamWake:\nhttps://familienwecker.de/join/%2$s\n\nCode: %2$s\nFamilie: %1$s\n\nOifach klicka, nei-logga ond mir send verbonda. Zämma wegga macht meh Spaß! ⏰❤️</string>

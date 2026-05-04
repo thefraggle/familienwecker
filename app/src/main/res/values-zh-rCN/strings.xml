@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name_short">FamWake 家庭闹钟</string>
+<resources><string name="app_name_short">FamWake 家庭闹钟</string>
     <string name="email_label">电子邮件</string>
     <string name="password_label">密码</string>
     <string name="register_button">注册</string>
@@ -105,7 +104,6 @@
     <string name="settings_account_title">家庭与帐号</string>
     <string name="settings_join_family_locked">请先登录以加入家庭。</string>
     <string name="settings_share_code_locked">请先登录以分享您的邀请码。</string>
-    <string name="settings_anonymous_login_button">登录 / 注册</string>
     <string name="settings_join_code">%1$s 的邀请码：</string>
     <string name="settings_share_code">分享邀请链接</string>
     <string name="settings_share_message">这是 FamWake 的邀请链接：\nhttps://familienwecker.de/join/%2$s\n\n代码：%2$s\n家庭：%1$s\n\n只需点击链接、登录即可加入。一起起床让早晨更轻松！ ⏰❤️</string>
