@@ -98,7 +98,11 @@ fun LoadingScreen(
             }
             is AuthViewModel.AuthState.Error, AuthViewModel.AuthState.Idle, AuthViewModel.AuthState.PasswordResetSuccess -> {
                 timeoutJob.cancel()
-                onNavigateToLogin()
+                if (!onboardingCompleted) {
+                    onNavigateToOnboarding()
+                } else {
+                    onNavigateToLogin()
+                }
             }
             AuthViewModel.AuthState.Loading -> { }
             AuthViewModel.AuthState.AwaitingEmailVerification -> {
