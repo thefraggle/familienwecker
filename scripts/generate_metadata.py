@@ -67,6 +67,9 @@ def main():
         'hi-IN': None,   # Hindi
         'zh-CN': None,   # Simplified Chinese
         'ko-KR': None,   # Korean
+        'pt-BR': None,   # Brazilian Portuguese
+        'bn-BD': None,   # Bengali (Bangladesh)
+        'en-GB': 'docs/CHANGELOG.en.md', # English (UK)
     }
 
     # deep-translator nutzt 'no' für Norwegisch Bokmål statt 'nb'
