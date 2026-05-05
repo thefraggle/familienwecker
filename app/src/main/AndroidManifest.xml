@@ -42,13 +42,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Deep Linking für Familien-Einladungen (App Links) -->
+            <!-- Deep Linking für Familien-Einladungen und E-Mail-Verifizierung (App Links) -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 
                 <data android:scheme="https" android:host="familienwecker.de" android:pathPrefix="/join/" />
+                <data android:scheme="https" android:host="www.familienwecker.de" android:pathPrefix="/join/" />
+                <data android:scheme="https" android:host="familienwecker.de" android:pathPrefix="/auth/verify-email" />
+                <data android:scheme="https" android:host="www.familienwecker.de" android:pathPrefix="/auth/verify-email" />
+                <data android:scheme="https" android:host="familienwecker.de" android:pathPrefix="/verify-email" />
+                <data android:scheme="https" android:host="www.familienwecker.de" android:pathPrefix="/verify-email" />
             </intent-filter>
         </activity>
 

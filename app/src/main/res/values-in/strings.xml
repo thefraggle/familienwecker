@@ -152,7 +152,7 @@
     <string name="onboarding_skip">Lewati</string>
     <string name="onboarding_next">Selanjutnya</string>
     <string name="onboarding_done">Mulai tanpa akun</string>
-    <string name="onboarding_slide0_title">Pagi Anda sebagai sebuah tim.</string>
+    <string name="onboarding_slide0_title">Memulai hari dengan santai bersama.</string>
     <string name="onboarding_slide0_body">Tanpa perdebatan, tanpa kekacauan. FamWake memastikan semua orang memulai hari dengan santai – dengan sendirinya.</string>
     <string name="onboarding_slide1_title">Tidak perlu antre lagi.</string>
     <string name="onboarding_slide1_body">FamWake menemukan waktu bangun yang tepat untuk semua orang di keluarga – berdasarkan waktu mandi, sarapan, dan jam berangkat.</string>
@@ -381,4 +381,5 @@
     <string name="settings_steal_title">Gunakan profil ini?</string>
     <string name="settings_steal_text">Profil %1$s sudah dipakai orang lain. Apakah Anda ingin menggunakannya?</string>
     <string name="settings_steal_confirm">Ya, gunakan</string>
+    <string name="schedule_auto_fix">✨ Sesuaikan waktu secara otomatis</string>
 </resources>

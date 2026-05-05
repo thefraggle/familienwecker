@@ -612,6 +612,22 @@ fun MainScreen(
                                         )
                                     }
                                 }
+
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Button(
+                                    onClick = { viewModel.applyAutoFix() },
+                                    modifier = Modifier.padding(start = 28.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.primary,
+                                        contentColor = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.schedule_auto_fix),
+                                        style = MaterialTheme.typography.labelLarge,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
                             }
                         }
                     } else {

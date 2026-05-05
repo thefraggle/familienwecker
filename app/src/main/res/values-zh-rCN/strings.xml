@@ -152,7 +152,7 @@
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_next">下一步</string>
     <string name="onboarding_done">无需帐号即可开始</string>
-    <string name="onboarding_slide0_title">像团队一样的早晨。</string>
+    <string name="onboarding_slide0_title">一起轻松开启新的一天。</string>
     <string name="onboarding_slide0_body">告别争吵与混乱。FamWake 让全家人都能轻松开始新的一天——一切全自动。</string>
     <string name="onboarding_slide1_title">无需再等待。</string>
     <string name="onboarding_slide1_body">FamWake 会根据洗漱、早餐和出门时间，为每个人找到最完美的起床时间。洗手间再也不用排长队了。</string>
@@ -378,4 +378,5 @@
     <string name="settings_steal_title">使用此个人资料？</string>
     <string name="settings_steal_text">%1$s 已被选择。您想使用这个个人资料吗？</string>
     <string name="settings_steal_confirm">是的，我要使用</string>
+    <string name="schedule_auto_fix">✨ 自动调整时间</string>
 </resources>

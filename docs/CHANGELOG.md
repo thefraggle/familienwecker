@@ -2,6 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.8.8 – 2026-05-05
+### Verbessert
+- **Smarter Auto-Fix** – Bei überschnittenen Zeiten im Familienplan dehnt der Auto-Fix die Einstellungen nun zielgenau und speichert diese direkt im aktiven Tagesprofil.
+- **Login-Screen optimiert** – Die Anordnung der Buttons und Text-Links wurde aufgeräumt und an gängige UX-Standards angepasst.
+- **Deep-Links (Magic Links)** – Verifizierungs-E-Mails springen nun noch zuverlässiger direkt in die App zurück und loggen den Nutzer automatisch ein.
+
+---
+
 ## 1.8.7 – 2026-05-04
 ### Neu
 - **Sofort starten & beitreten** – FamWake kann jetzt komplett ohne Account ausprobiert werden! Du kannst sofort eine Familie erstellen, oder per Code / Link der Familie deines Partners beitreten (Lazy Registration). Ein Account wird erst benötigt, wenn du selbst Familienmitglieder einladen möchtest.

@@ -151,7 +151,7 @@
     <string name="onboarding_skip">Überspringen</string>
     <string name="onboarding_next">Weiter</string>
     <string name="onboarding_done">Ohne Account loslegen</string>
-    <string name="onboarding_slide0_title">Morgens als Truppe.</string>
+    <string name="onboarding_slide0_title">Zusammen janz entspannt in den Tach.</string>
     <string name="onboarding_slide0_body">Kein Gekeife, kein Chaos. FamWake sorgt dafür, dat alle entspannt inne Tag starten – vollautomatisch.</string>
     <string name="onboarding_slide1_title">Nie wieder anstehen.</string>
     <string name="onboarding_slide1_body">FamWake rechnet für jeden die perfekte Weckzeit aus – abgestimmt auf Bad, Mampfen und Abmarsch. Kein Gedrängel mehr am Waschbecken, wa.</string>
@@ -374,4 +374,5 @@
     <string name="settings_steal_title">Profil schnappen?</string>
     <string name="settings_steal_text">%1$s hat sich schon einer gekrallt. Willze dat für dich haben?</string>
     <string name="settings_steal_confirm">Jau, her damit</string>
+    <string name="schedule_auto_fix">✨ Zeiten von alleine anpassen</string>
 </resources>

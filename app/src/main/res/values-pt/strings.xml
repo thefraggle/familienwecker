@@ -152,7 +152,7 @@
     <string name="onboarding_skip">Pular</string>
     <string name="onboarding_next">Próximo</string>
     <string name="onboarding_done">Começar sem conta</string>
-    <string name="onboarding_slide0_title">Sua manhã em equipe.</string>
+    <string name="onboarding_slide0_title">Começar o dia juntos e relaxados.</string>
     <string name="onboarding_slide0_body">Sem brigas, sem caos. O FamWake garante que todo mundo comece o dia relaxado – de forma totalmente automática.</string>
     <string name="onboarding_slide1_title">Nunca mais espere.</string>
     <string name="onboarding_slide1_body">O FamWake encontra a hora perfeita para cada um acordar – com base no tempo de banheiro, café da manhã e hora de sair. Fim da fila na pia.</string>
@@ -379,4 +379,5 @@
     <string name="settings_steal_title">Usar este perfil?</string>
     <string name="settings_steal_text">O perfil %1$s já está em uso. Quer usar este perfil para você?</string>
     <string name="settings_steal_confirm">Sim, usar</string>
+    <string name="schedule_auto_fix">✨ Ajustar horários automaticamente</string>
 </resources>

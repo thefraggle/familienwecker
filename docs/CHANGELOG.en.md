@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.8 – 2026-05-05
+### Improved
+- **Smarter Auto-Fix** – When times overlap in the family schedule, Auto-Fix now accurately stretches the settings and saves them directly to the active day profile.
+- **Optimized Login Screen** – Reordered buttons and text links for better usability and UX standards.
+- **Deep Links (Magic Links)** – Verification emails now reliably return directly to the app and automatically log the user in.
+
+---
+
 ## 1.8.7 – 2026-05-04
 ### New
 - **Instant Start & Join** – FamWake can now be used completely without an account! You can instantly create a new family or join your partner's family via invite code or link (Lazy Registration). An account is only required when you want to invite members yourself.

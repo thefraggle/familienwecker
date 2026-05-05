@@ -155,7 +155,7 @@
     <string name="onboarding_login_create">Giriş yap / Kayıt ol</string>
     <string name="onboarding_slide5_title">Hadi başlayalım!</string>
     <string name="onboarding_slide5_body">Hesap oluşturmadan uygulamayı hemen deneyebilirsin. Sadece ailenizi davet etmek istediğinizde bir hesaba ihtiyacınız olacak.</string>
-    <string name="onboarding_slide0_title">Takım halinde sabahınız.</string>
+    <string name="onboarding_slide0_title">Güne birlikte huzurla başlamak.</string>
     <string name="onboarding_slide0_body">Tartışma yok, kaos yok. FamWake herkesin güne rahat başlamasını sağlar – tamamen kendi kendine.</string>
     <string name="onboarding_slide1_title">Artık bekleme yok.</string>
     <string name="onboarding_slide1_body">FamWake, ailedeki herkes için en iyi uyanma saatini bulur – banyo, kahvaltı ve evden çıkış saatlerine göre ayarlar. Artık lavabo önünde sıra beklemek yok.</string>
@@ -385,4 +385,5 @@
     <string name="settings_steal_title">Bu profili kullan?</string>
     <string name="settings_steal_text">%1$s zaten kullanımda. Bu profili kendiniz için kullanmak ister misiniz?</string>
     <string name="settings_steal_confirm">Evet, kullan</string>
+    <string name="schedule_auto_fix">✨ Saatleri otomatik ayarla</string>
 </resources>

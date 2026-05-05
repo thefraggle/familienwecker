@@ -155,7 +155,7 @@
     <string name="onboarding_login_create">लॉग इन / साइन अप करें</string>
     <string name="onboarding_slide5_title">चलिए शुरू करते हैं!</string>
     <string name="onboarding_slide5_body">आप बिना अकाउंट बनाए भी तुरंत ऐप आज़मा सकते हैं। आपको अकाउंट की ज़रूरत सिर्फ़ तब पड़ेगी जब आप अपने परिवार को जोड़ना चाहेंगे।</string>
-    <string name="onboarding_slide0_title">आपकी सुबह, एक टीम की तरह।</string>
+    <string name="onboarding_slide0_title">एक साथ सुकून से दिन की शुरुआत।</string>
     <string name="onboarding_slide0_body">कोई बहस नहीं, कोई अफ़रातफ़री नहीं। FamWake यह सुनिश्चित करता है कि सबकी सुबह आराम से शुरू हो – वह भी अपने आप।</string>
     <string name="onboarding_slide1_title">अब इंतज़ार ख़त्म।</string>
     <string name="onboarding_slide1_body">FamWake परिवार के हर सदस्य के लिए उठने का सही समय ढूँढता है – बाथरूम, नाश्ते और घर से निकलने के समय के आधार पर। अब सिंक पर कोई भीड़ नहीं।</string>
@@ -382,4 +382,5 @@
     <string name="settings_steal_title">यह प्रोफ़ाइल इस्तेमाल करें?</string>
     <string name="settings_steal_text">%1$s पहले ही किसी ने चुन लिया है। क्या आप इसे अपने लिए इस्तेमाल करना चाहते हैं?</string>
     <string name="settings_steal_confirm">हाँ, इस्तेमाल करें</string>
+    <string name="schedule_auto_fix">✨ समय अपने आप सेट करें</string>
 </resources>

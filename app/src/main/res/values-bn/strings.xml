@@ -155,7 +155,7 @@
     <string name="onboarding_login_create">লগ ইন / সাইন আপ করুন</string>
     <string name="onboarding_slide5_title">চলুন শুরু করি!</string>
     <string name="onboarding_slide5_body">আপনি অ্যাকাউন্ট ছাড়াই অ্যাপটি ব্যবহার করে দেখতে পারেন। আপনি যখন পরিবারকে আমন্ত্রণ জানাতে চাইবেন, তখনই অ্যাকাউন্টের প্রয়োজন হবে।</string>
-    <string name="onboarding_slide0_title">সকাল হোক টিমের মতো।</string>
+    <string name="onboarding_slide0_title">একসাথে শান্তিতে দিন শুরু করা।</string>
     <string name="onboarding_slide0_body">কোনো ঝামেলা বা বিশৃঙ্খলা নেই। FamWake নিশ্চিত করে যে সবার দিনটা খুব শান্তিতে শুরু হয় – একদম নিজে থেকেই।</string>
     <string name="onboarding_slide1_title">আর অপেক্ষা করতে হবে না।</string>
     <string name="onboarding_slide1_body">FamWake সবার জন্য ঘুম থেকে ওঠার সঠিক সময় খুঁজে বের করে – বাথরুম, নাস্তা এবং বের হওয়ার সময়ের ওপর ভিত্তি করে। বাথরুমের সামনে আর ভিড় হবে না।</string>
@@ -382,4 +382,5 @@
     <string name="settings_steal_title">এই প্রোফাইলটি ব্যবহার করবেন?</string>
     <string name="settings_steal_text">%1$s ইতিমধ্যেই নেওয়া হয়েছে। আপনি কি এটি আপনার জন্য ব্যবহার করতে চান?</string>
     <string name="settings_steal_confirm">হ্যাঁ, ব্যবহার করুন</string>
+    <string name="schedule_auto_fix">✨ স্বয়ংক্রিয়ভাবে সময় সামঞ্জস্য করুন</string>
 </resources>

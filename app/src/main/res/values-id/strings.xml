@@ -155,7 +155,7 @@
     <string name="onboarding_login_create">Masuk / Daftar</string>
     <string name="onboarding_slide5_title">Mari kita mulai!</string>
     <string name="onboarding_slide5_body">Anda dapat langsung mencoba aplikasinya tanpa akun. Anda hanya memerlukan akun saat ingin mengundang keluarga Anda.</string>
-    <string name="onboarding_slide0_title">Pagi Anda sebagai sebuah tim.</string>
+    <string name="onboarding_slide0_title">Memulai hari dengan santai bersama.</string>
     <string name="onboarding_slide0_body">Tanpa perdebatan, tanpa kekacauan. FamWake memastikan semua orang memulai hari dengan santai – dengan sendirinya.</string>
     <string name="onboarding_slide1_title">Tidak perlu menunggu lagi.</string>
     <string name="onboarding_slide1_body">FamWake menemukan waktu bangun yang tepat untuk semua orang di keluarga – berdasarkan waktu mandi, sarapan, dan jam berangkat. Tidak ada lagi antrean di kamar mandi.</string>
@@ -380,4 +380,5 @@
     <string name="settings_steal_title">Gunakan profil ini?</string>
     <string name="settings_steal_text">Profil %1$s sudah dipakai orang lain. Apakah Anda ingin menggunakannya?</string>
     <string name="settings_steal_confirm">Ya, gunakan</string>
+    <string name="schedule_auto_fix">✨ Sesuaikan waktu secara otomatis</string>
 </resources>

@@ -155,7 +155,7 @@
     <string name="onboarding_login_create">Log ind / Tilmeld dig</string>
     <string name="onboarding_slide5_title">Lad os komme i gang!</string>
     <string name="onboarding_slide5_body">Du kan prøve appen med det samme uden en konto. Du behøver kun en, når du vil invitere din familie.</string>
-    <string name="onboarding_slide0_title">Din morgen som et team.</string>
+    <string name="onboarding_slide0_title">En rolig start på dagen sammen.</string>
     <string name="onboarding_slide0_body">Ingen diskussioner, intet kaos. FamWake sørger for, at alle starter dagen afslappet – helt af sig selv.</string>
     <string name="onboarding_slide1_title">Slut med at vente.</string>
     <string name="onboarding_slide1_body">FamWake finder den perfekte opvågningstid for alle i familien – baseret på badeværelsestid, morgenmad og hvornår I skal ud ad døren. Slut med trængsel ved håndvasken.</string>
@@ -380,4 +380,5 @@
     <string name="settings_steal_title">Brug denne profil?</string>
     <string name="settings_steal_text">%1$s er allerede valgt. Vil du bruge denne profil?</string>
     <string name="settings_steal_confirm">Ja, brug den</string>
+    <string name="schedule_auto_fix">✨ Tilpas tider automatisk</string>
 </resources>
