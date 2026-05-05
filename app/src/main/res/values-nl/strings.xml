@@ -149,7 +149,7 @@
     <string name="onboarding_skip">Overslaan</string>
     <string name="onboarding_next">Volgende</string>
     <string name="onboarding_done">Begin zonder account</string>
-    <string name="onboarding_slide0_title">Jullie ochtend als team.</string>
+    <string name="onboarding_slide0_title">Samen ontspannen de dag in.</string>
     <string name="onboarding_slide0_body">Geen geruzie, geen chaos. FamWake zorgt ervoor dat iedereen ontspannen aan de dag begint – helemaal vanzelf.</string>
     <string name="onboarding_slide1_title">Nooit meer wachten.</string>
     <string name="onboarding_slide1_body">FamWake vindt de perfecte wektijd voor elk gezinslid – afgestemd op badkamertijd, ontbijt en de tijd dat je de deur uit moet. Geen gedrang meer voor de spiegel.</string>
@@ -369,4 +369,5 @@
     <string name="settings_steal_title">Dit profiel gebruiken?</string>
     <string name="settings_steal_text">%1$s is al in gebruik. Wil je dit profiel gebruiken?</string>
     <string name="settings_steal_confirm">Ja, gebruiken</string>
+    <string name="schedule_auto_fix">✨ Tijden automatisch aanpassen</string>
 </resources>

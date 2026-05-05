@@ -151,7 +151,7 @@
     <string name="onboarding_skip">Sausen lassa</string>
     <string name="onboarding_next">Weida</string>
     <string name="onboarding_done">Ohne Account schtarta</string>
-    <string name="onboarding_slide0_title">Dei Morga als Team.</string>
+    <string name="onboarding_slide0_title">Gmiatlich zamma in da Dag.</string>
     <string name="onboarding_slide0_body">Koi Diskussiona, koi Chaos. FamWake sorgt drfür, dass älle entspannt in Tag starta – ganz vo alloi.</string>
     <string name="onboarding_slide1_title">Nie meh warta.</string>
     <string name="onboarding_slide1_body">FamWake findt für jedes Familiamitglied d\'perfekte Weggzeit – abgstimmt uffs Bad, Frühstück ond d\'Abfahrt. Koi Gedrängel meh am Waschbegga.</string>
@@ -371,4 +371,5 @@
     <string name="settings_steal_title">Profil nemma?</string>
     <string name="settings_steal_text">%1$s isch scho vergäba. Woisch es für di nemma?</string>
     <string name="settings_steal_confirm">Jå, nemma</string>
+    <string name="schedule_auto_fix">✨ Zeita automatisch aabassa</string>
 </resources>

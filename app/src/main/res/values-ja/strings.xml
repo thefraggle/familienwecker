@@ -155,7 +155,7 @@
     <string name="onboarding_login_create">ログイン / 登録</string>
     <string name="onboarding_slide5_title">さあ、始めましょう！</string>
     <string name="onboarding_slide5_body">アカウントがなくてもすぐにアプリを試せます。アカウントが必要になるのは、家族を招待する時だけです。</string>
-    <string name="onboarding_slide0_title">チームとしての朝。</string>
+    <string name="onboarding_slide0_title">一緒にリラックスして一日を。</string>
     <string name="onboarding_slide0_body">言い争いも、バタバタもなし。FamWakeがおまかせで、みんながリラックスして一日を始められるようサポートします。</string>
     <string name="onboarding_slide1_title">もう待つ必要はありません。</string>
     <string name="onboarding_slide1_body">バスルームの時間、朝食、家を出る時間に合わせて、FamWakeが全員の完璧な起床時間を見つけます。洗面所の順番待ちはもう終わりです。</string>
@@ -382,4 +382,5 @@
     <string name="settings_steal_title">このプロフィールを使いますか？</string>
     <string name="settings_steal_text">「%1$s」はすでに選ばれています。このプロフィールを自分のものとして使いますか？</string>
     <string name="settings_steal_confirm">はい、使います</string>
+    <string name="schedule_auto_fix">✨ 時間を自動調整</string>
 </resources>

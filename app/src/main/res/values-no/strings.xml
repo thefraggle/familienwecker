@@ -152,7 +152,7 @@
     <string name="onboarding_skip">Hopp over</string>
     <string name="onboarding_next">Neste</string>
     <string name="onboarding_done">Start uten konto</string>
-    <string name="onboarding_slide0_title">Din morgen som et team.</string>
+    <string name="onboarding_slide0_title">En rolig start på dagen sammen.</string>
     <string name="onboarding_slide0_body">Ingen diskusjoner, ikke noe kaos. FamWake sørger for at alle starter dagen avslappet – helt av seg selv.</string>
     <string name="onboarding_slide1_title">Slutt på ventingen.</string>
     <string name="onboarding_slide1_body">FamWake finner det perfekte vekketidspunktet for alle i familien – basert på badetid, frokost og når dere må dra. Ikke mer trengsel på badet.</string>
@@ -381,4 +381,5 @@
     <string name="settings_steal_title">Bruk denne profilen?</string>
     <string name="settings_steal_text">%1$s er allerede valgt. Vil du bruke denne profilen?</string>
     <string name="settings_steal_confirm">Ja, bruk den</string>
+    <string name="schedule_auto_fix">✨ Tilpass tider automatisk</string>
 </resources>

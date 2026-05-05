@@ -145,4 +145,13 @@ class AuthRepository {
             false
         }
     }
+
+    suspend fun applyActionCode(oobCode: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            auth.applyActionCode(oobCode)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

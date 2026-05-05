@@ -149,7 +149,7 @@
     <string name="onboarding_skip">Pomiń</string>
     <string name="onboarding_next">Dalej</string>
     <string name="onboarding_done">Zacznij bez konta</string>
-    <string name="onboarding_slide0_title">Wasz poranek jako zespół.</string>
+    <string name="onboarding_slide0_title">Wspólny, spokojny początek dnia.</string>
     <string name="onboarding_slide0_body">Żadnych kłótni, żadnego chaosu. FamWake dba o to, by każdy zaczął dzień zrelaksowany – zupełnie automatycznie.</string>
     <string name="onboarding_slide1_title">Koniec z czekaniem.</string>
     <string name="onboarding_slide1_body">FamWake znajduje idealny czas pobudki dla każdego członka rodziny – biorąc pod uwagę czas w łazience, śniadanie i wyjście. Koniec ze ściskiem przy umywalce.</string>
@@ -374,4 +374,5 @@
     <string name="settings_steal_title">Użyć tego profilu?</string>
     <string name="settings_steal_text">Profil %1$s jest już zajęty. Czy chcesz go używać dla siebie?</string>
     <string name="settings_steal_confirm">Tak, użyj</string>
+    <string name="schedule_auto_fix">✨ Automatycznie dostosuj czasy</string>
 </resources>

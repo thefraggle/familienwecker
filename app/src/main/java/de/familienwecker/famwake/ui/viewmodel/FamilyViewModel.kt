@@ -25,6 +25,8 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CancellationException
+import kotlinx.datetime.todayIn
+import de.familienwecker.famwake.util.isBefore
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.combine
@@ -402,6 +404,80 @@ class FamilyViewModel(
             val currentSnooze = appSettings.snoozeUntil.value
             if (currentSnooze != null && currentSnooze.toJavaLocalDateTime().isBefore(java.time.LocalDateTime.now().minusMinutes(30))) {
                 appSettings.setSnoozeUntil(null)
+            }
+        }
+    }
+
+    fun applyAutoFix() {
+        val currentSchedule = _schedule.value ?: return
+        if (currentSchedule.isValid) return
+
+        val family = familyId.value ?: return
+
+        scope.launch {
+            val updatedMembersMap = mutableMapOf<String, de.familienwecker.famwake.model.FamilyMember>()
+
+            val todayKey = kotlinx.datetime.Clock.System.todayIn(kotlinx.datetime.TimeZone.currentSystemDefault()).dayOfWeek.value
+            val targetKey = currentSchedule.targetDate?.dayOfWeek?.value ?: todayKey
+
+            currentSchedule.memberSchedules.forEach { s ->
+                val member = s.member
+                
+                // Wir aktualisieren auch das DayProfile, da der Scheduler dieses bevorzugt
+                val updatedProfiles = (member.dayProfiles ?: mapOf()).toMutableMap()
+                val currentProfile = updatedProfiles[targetKey]
+                if (currentProfile != null) {
+                    var newEarliest = currentProfile.earliestWakeUp
+                    var newLatest = currentProfile.latestWakeUp
+                    
+                    if (s.wakeUpTime.isBefore(newEarliest)) {
+                        newEarliest = s.wakeUpTime
+                    }
+                    if (newLatest.isBefore(newEarliest)) {
+                        newLatest = newEarliest
+                    }
+                    
+                    updatedProfiles[targetKey] = currentProfile.copy(
+                        earliestWakeUp = newEarliest,
+                        latestWakeUp = newLatest
+                    )
+                }
+
+                var newTopEarliest = member.earliestWakeUp
+                var newTopLatest = member.latestWakeUp
+                if (s.wakeUpTime.isBefore(newTopEarliest)) {
+                    newTopEarliest = s.wakeUpTime
+                }
+                if (newTopLatest.isBefore(newTopEarliest)) {
+                    newTopLatest = newTopEarliest
+                }
+
+                val updatedMember = member.copy(
+                    latestWakeUp = newTopLatest,
+                    earliestWakeUp = newTopEarliest,
+                    dayProfiles = updatedProfiles
+                )
+                updatedMembersMap[member.id] = updatedMember
+            }
+
+            // Lokales Update für sofortiges Feedback
+            val currentList = _members.value
+            val newList = currentList.map { m ->
+                updatedMembersMap[m.id] ?: m
+            }
+            _members.value = newList.toPersistentList()
+            recalculateSchedule()
+
+            // Änderungen speichern
+            updatedMembersMap.values.forEach { updatedMember ->
+                try {
+                    memberRepository.upsertMember(updatedMember)
+                } catch (e: Exception) {
+                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                        android.util.Log.e("FamilyViewModel", "Room AutoFix write failed: ${e.message}")
+                    }
+                }
+                addOrUpdateMemberDebounced(updatedMember)
             }
         }
     }

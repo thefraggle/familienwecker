@@ -429,6 +429,18 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun applyActionCode(oobCode: String) {
+        _authState.value = AuthState.Loading
+        viewModelScope.launch {
+            val result = authRepository.applyActionCode(oobCode)
+            result.onSuccess {
+                checkEmailVerified()
+            }.onFailure { error ->
+                _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
+            }
+        }
+    }
+
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()
     }
