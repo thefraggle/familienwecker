@@ -149,6 +149,9 @@ jobs:
           cat release-notes/whatsnew-hi-IN || echo "No HI file"
           cat release-notes/whatsnew-zh-CN || echo "No ZH-CN file"
           cat release-notes/whatsnew-ko-KR || echo "No KO file"
+          cat release-notes/whatsnew-pt-BR || echo "No PT-BR file"
+          cat release-notes/whatsnew-bn-BD || echo "No BN-BD file"
+          cat release-notes/whatsnew-en-GB || echo "No EN-GB file"
 
 
       # GitHub Release nur mit AAB
