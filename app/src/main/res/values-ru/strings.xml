@@ -151,7 +151,7 @@
     <string name="onboarding_skip">Пропустить</string>
     <string name="onboarding_next">Далее</string>
     <string name="onboarding_done">Начать без аккаунта</string>
-    <string name="onboarding_slide0_title">Ваше утро как команда.</string>
+    <string name="onboarding_slide0_title">Спокойное начало дня вместе.</string>
     <string name="onboarding_slide0_body">Никаких споров, никакого хаоса. FamWake обеспечивает спокойное начало дня для всей семьи – полностью автоматически.</string>
     <string name="onboarding_slide1_title">Больше никакого ожидания.</string>
     <string name="onboarding_slide1_body">FamWake рассчитывает идеальное время пробуждения для каждого члена семьи – учитывая время в ванной, завтрак и время выхода из дома. Никакой больше толкучки у раковины.</string>
@@ -372,4 +372,5 @@
         <string name="settings_steal_title">Использовать этот профиль?</string>
     <string name="settings_steal_text">Профиль %1$s уже занят. Хотите использовать его для себя?</string>
     <string name="settings_steal_confirm">Да, использовать</string>
+    <string name="schedule_auto_fix">✨ Автоматически настроить время</string>
 </resources>

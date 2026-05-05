@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 
-        handleDeepLink(intent, familyViewModel)
+        handleDeepLink(intent, familyViewModel, authViewModel)
 
         // Edge-to-Edge muss vor setContent() aufgerufen werden, damit AppCompat
         // keine veralteten setStatusBarColor/setNavigationBarColor-Aufrufe absetzt
@@ -109,16 +109,23 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        handleDeepLink(intent, familyViewModel)
+        handleDeepLink(intent, familyViewModel, authViewModel)
     }
 
-    private fun handleDeepLink(intent: Intent?, viewModel: FamilyViewModel) {
+    private fun handleDeepLink(intent: Intent?, familyViewModel: FamilyViewModel, authViewModel: AuthViewModel) {
         val data: Uri? = intent?.data
-        if (data != null && data.scheme == "https" && data.host == "familienwecker.de" && data.path?.startsWith("/join/") == true) {
-            val code = data.lastPathSegment
-            if (!code.isNullOrBlank() && code != "join") {
-                val sanitized = code.filter { it.isLetterOrDigit() }.uppercase().take(6)
-                viewModel.setPendingJoinCode(sanitized)
+        if (data != null && data.scheme == "https" && (data.host == "familienwecker.de" || data.host == "www.familienwecker.de")) {
+            if (data.path?.startsWith("/join/") == true) {
+                val code = data.lastPathSegment
+                if (!code.isNullOrBlank() && code != "join") {
+                    val sanitized = code.filter { it.isLetterOrDigit() }.uppercase().take(6)
+                    familyViewModel.setPendingJoinCode(sanitized)
+                }
+            } else if (data.path?.contains("/verify-email") == true) {
+                val oobCode = data.getQueryParameter("oobCode")
+                if (!oobCode.isNullOrBlank()) {
+                    authViewModel.applyActionCode(oobCode)
+                }
             }
         }
     }

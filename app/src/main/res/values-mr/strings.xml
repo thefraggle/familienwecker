@@ -151,7 +151,7 @@
     <string name="onboarding_skip">वगळा</string>
     <string name="onboarding_next">पुढे</string>
     <string name="onboarding_done">खात्याशिवाय सुरू करा</string>
-    <string name="onboarding_slide0_title">एक संघ म्हणून तुमची सकाळ.</string>
+    <string name="onboarding_slide0_title">एकत्र आरामात दिवसाची सुरुवात.</string>
     <string name="onboarding_slide0_body">कोणताही वाद नाही, कोणताही गोंधळ नाही. FamWake हे सुनिश्चित करते की प्रत्येकाच्या दिवसाची सुरुवात आरामात होईल – तेही आपोआप.</string>
     <string name="onboarding_slide1_title">आता आणखी प्रतीक्षा नाही.</string>
     <string name="onboarding_slide1_body">FamWake कुटुंबातील प्रत्येकासाठी उठण्याची योग्य वेळ शोधते - बाथरूम, नाश्ता आणि घरातून बाहेर पडण्याच्या वेळेनुसार. आता बाथरूमबाहेर रांग लागणार नाही.</string>
@@ -380,4 +380,5 @@
     <string name="settings_steal_title">हे प्रोफाईल वापरायचे?</string>
     <string name="settings_steal_text">%1$s आधीच निवडलेले आहे. तुम्हाला हे प्रोफाईल वापरायचे आहे का?</string>
     <string name="settings_steal_confirm">होय, वापरा</string>
+    <string name="schedule_auto_fix">✨ वेळा स्वयंचलितपणे समायोजित करा</string>
 </resources>

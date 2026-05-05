@@ -326,21 +326,25 @@ fun LoginScreen(
                                     ),
                                     modifier = Modifier.padding(horizontal = 8.dp)
                                 )
+                                Spacer(modifier = Modifier.height(8.dp))
+                            } else {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                TextButton(onClick = { authViewModel.resetPassword(email) }) {
+                                    Text(stringResource(R.string.login_forgot_password))
+                                }
                             }
 
                             Spacer(modifier = Modifier.height(8.dp))
 
-                            TextButton(onClick = { isRegistering = !isRegistering }) {
+                            OutlinedButton(
+                                onClick = { isRegistering = !isRegistering },
+                                modifier = Modifier.fillMaxWidth().height(56.dp)
+                            ) {
                                 Text(
                                     if (isRegistering) stringResource(R.string.already_have_account)
-                                    else stringResource(R.string.no_account)
+                                    else stringResource(R.string.no_account),
+                                    style = MaterialTheme.typography.titleMedium
                                 )
-                            }
-
-                            if (!isRegistering) {
-                                TextButton(onClick = { authViewModel.resetPassword(email) }) {
-                                    Text(stringResource(R.string.login_forgot_password))
-                                }
                             }
 
                             Spacer(modifier = Modifier.height(16.dp))

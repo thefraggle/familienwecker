@@ -155,7 +155,7 @@
     <string name="onboarding_login_create">Anmelden / Registrieren</string>
     <string name="onboarding_slide5_title">Los geht\'s!</string>
     <string name="onboarding_slide5_body">Du kannst die App direkt ohne Konto ausprobieren. Du brauchst erst eins, wenn du deine Familie einladen möchtest.</string>
-    <string name="onboarding_slide0_title">Euer Morgen als Team.</string>
+    <string name="onboarding_slide0_title">Gemeinsam entspannt in den Tag.</string>
     <string name="onboarding_slide0_body">Kein Stress, kein Chaos. FamWake sorgt dafür, dass alle entspannt in den Tag starten – ganz von allein.</string>
     <string name="onboarding_slide1_title">Nie wieder warten.</string>
     <string name="onboarding_slide1_body">FamWake findet für jeden in der Familie die perfekte Weckzeit – passend zu Badzeit, Frühstück und Abfahrt. Kein Gedrängel mehr am Waschbecken.</string>
@@ -375,4 +375,5 @@
     <string name="settings_steal_title">Profil nutzen?</string>
     <string name="settings_steal_text">%1$s ist bereits vergeben. Möchtest du es für dich übernehmen?</string>
     <string name="settings_steal_confirm">Ja, übernehmen</string>
+    <string name="schedule_auto_fix">✨ Zeiten automatisch anpassen</string>
 </resources>
