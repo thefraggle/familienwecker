@@ -306,7 +306,7 @@ fun FamilyViewModel.refreshData() {
                     val fetchedFamilyName = repository.getFamilyName(pair.first)
                     appSettings.setFamilyName(fetchedFamilyName)
                     val claimedMember = repository.getClaimedMember(pair.first, uid)
-                    if (claimedMember != null) {
+                    if (claimedMember != null && (claimedMember.claimedByDeviceId == appSettings.deviceId || claimedMember.claimedByDeviceId == null)) {
                         appSettings.setMyMemberId(claimedMember.id)
                         appSettings.setMyMemberName(claimedMember.name)
                     }
