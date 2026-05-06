@@ -47,35 +47,40 @@ def main():
     target_locales = {
         'de-DE': 'docs/CHANGELOG.md',
         'en-US': 'docs/CHANGELOG.en.md',
+        'en-GB': 'docs/CHANGELOG.en.md', # English (UK)
+        'en-IN': 'docs/CHANGELOG.en.md', # English (India)
         'fr-FR': None,
+        'fr-CA': None,   # French (Canada)
         'it-IT': None,
         'es-ES': None,
+        'es-US': None,   # Spanish (US)
+        'es-419': None,  # Spanish (Latin America)
         'pt-PT': None,
+        'pt-BR': None,   # Brazilian Portuguese
         'pl-PL': None,
         'nl-NL': None,
-        'sv-SE': None,   # Swedish – added 1.7.0
-        'tr-TR': None,   # Turkish – added 1.7.0
-        'ru-RU': None,   # Russian – added 1.7.0
-        'uk-UA': None,   # Ukrainian – added 1.7.0
-        'nb-NO': None,   # Norwegian (Bokmål) – added 1.7.2
-        'da-DK': None,   # Danish – added 1.7.2
-        'ja-JP': None,   # Japanese – added 1.7.4
+        'sv-SE': None,   # Swedish
+        'tr-TR': None,   # Turkish
+        'ru-RU': None,   # Russian
+        'uk': None,       # Ukrainian – Play Store uses 'uk', not 'uk-UA'
+        'nb-NO': None,   # Norwegian (Bokmål)
+        'da-DK': None,   # Danish
+        'ja-JP': None,   # Japanese
         'id': None,      # Indonesian
         'vi': None,      # Vietnamese
-        'bn-IN': None,   # Bengali
+        'bn-IN': None,   # Bengali (India)
+        'bn-BD': None,   # Bengali (Bangladesh)
         'mr-IN': None,   # Marathi
         'hi-IN': None,   # Hindi
         'zh-CN': None,   # Simplified Chinese
         'ko-KR': None,   # Korean
-        'pt-BR': None,   # Brazilian Portuguese
-        'bn-BD': None,   # Bengali (Bangladesh)
-        'en-GB': 'docs/CHANGELOG.en.md', # English (UK)
     }
 
     # deep-translator nutzt 'no' für Norwegisch Bokmål statt 'nb'
     LANG_CODE_MAP = {
         'nb': 'no',
         'zh': 'zh-CN',
+        'es': 'es',      # es-419 / es-US → split ergibt 'es', passt direkt
     }
     
     changelog_en = get_latest_changelog('docs/CHANGELOG.en.md') or "Maintenance update and performance optimizations."
