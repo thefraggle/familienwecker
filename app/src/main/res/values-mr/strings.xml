@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake कौटुंबिक अलार्म</string>
+    <string name="app_name_short">कौटुंबिक अलार्म</string>
     <string name="email_label">ईमेल</string>
     <string name="password_label">पासवर्ड</string>
     <string name="register_button">साइन अप करा</string>

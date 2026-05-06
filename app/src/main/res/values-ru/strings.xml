@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake Семейный будильник</string>
+    <string name="app_name_short">Семейный будильник</string>
     <string name="email_label">Электронная почта</string>
     <string name="password_label">Пароль</string>
     <string name="register_button">Зарегистрироваться</string>

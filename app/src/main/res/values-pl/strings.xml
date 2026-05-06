@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake Budzik Rodzinny</string>
+    <string name="app_name_short">Budzik Rodzinny</string>
     <string name="email_label">Email</string>
     <string name="password_label">Hasło</string>
     <string name="register_button">Zarejestruj się</string>
