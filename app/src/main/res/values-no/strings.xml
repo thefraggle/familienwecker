@@ -382,4 +382,5 @@
     <string name="settings_steal_text">%1$s er allerede valgt. Vil du bruke denne profilen?</string>
     <string name="settings_steal_confirm">Ja, bruk den</string>
     <string name="schedule_auto_fix">✨ Tilpass tider automatisk</string>
+    <string name="onboarding_enable_tooltips">Vis nyttige tips ved første bruk</string>
 </resources>

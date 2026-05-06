@@ -380,4 +380,5 @@
     <string name="settings_steal_text">O perfil %1$s já está em uso. Quer usar este perfil para você?</string>
     <string name="settings_steal_confirm">Sim, usar</string>
     <string name="schedule_auto_fix">✨ Ajustar horários automaticamente</string>
+    <string name="onboarding_enable_tooltips">Mostrar dicas úteis no primeiro uso</string>
 </resources>

@@ -383,4 +383,5 @@
     <string name="settings_steal_text">「%1$s」はすでに選ばれています。このプロフィールを自分のものとして使いますか？</string>
     <string name="settings_steal_confirm">はい、使います</string>
     <string name="schedule_auto_fix">✨ 時間を自動調整</string>
+    <string name="onboarding_enable_tooltips">初回使用時に役立つヒントを表示する</string>
 </resources>

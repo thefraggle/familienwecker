@@ -381,4 +381,5 @@
     <string name="settings_steal_text">%1$s 프로필은 이미 선택되어 있습니다. 이 프로필을 내 프로필로 사용하시겠습니까?</string>
     <string name="settings_steal_confirm">네, 사용할게요</string>
     <string name="schedule_auto_fix">✨ 시간 자동 조정</string>
+    <string name="onboarding_enable_tooltips">처음 사용할 때 유용한 팁 표시</string>
 </resources>

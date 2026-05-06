@@ -386,4 +386,5 @@
     <string name="settings_steal_text">%1$s zaten kullanımda. Bu profili kendiniz için kullanmak ister misiniz?</string>
     <string name="settings_steal_confirm">Evet, kullan</string>
     <string name="schedule_auto_fix">✨ Saatleri otomatik ayarla</string>
+    <string name="onboarding_enable_tooltips">İlk kullanımda faydalı ipuçları göster</string>
 </resources>
