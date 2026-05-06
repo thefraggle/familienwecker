@@ -1278,7 +1278,7 @@ fun SettingsScreen(
             ) {
                 // Version
                 Text(
-                    text = "${stringResource(R.string.app_name_short)} v${de.familienwecker.famwake.BuildConfig.VERSION_NAME}",
+                    text = "FamWake ${stringResource(R.string.app_name_short)} v${de.familienwecker.famwake.BuildConfig.VERSION_NAME}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
