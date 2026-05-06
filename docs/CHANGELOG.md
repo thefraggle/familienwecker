@@ -2,6 +2,16 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.8.9 – 2026-05-06
+### Verbessert
+- **Zuverlässigeres Profil** – Nach Neuinstallation der App wird das gewählte Profil nun korrekt erkannt und der Weckplan sofort berechnet. Kein manuelles Aus-/Einschalten mehr nötig.
+- **Smartere App-Tour** – Die Tour aus den Einstellungen überspringt nun den Login-Screen, wenn du bereits angemeldet bist. Außerdem wird deine Tipps-Einstellung korrekt beibehalten.
+
+### Neu
+- **Hilfreiche Tipps ein-/ausschalten** – Auf der letzten Onboarding-Seite kannst du jetzt wählen, ob die App dir beim ersten Nutzen hilfreiche Tipps anzeigen soll.
+
+---
+
 ## 1.8.8 – 2026-05-05
 ### Verbessert
 - **Smarter Auto-Fix** – Bei überschnittenen Zeiten im Familienplan dehnt der Auto-Fix die Einstellungen nun zielgenau und speichert diese direkt im aktiven Tagesprofil.

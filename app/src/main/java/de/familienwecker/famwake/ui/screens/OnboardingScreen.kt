@@ -45,6 +45,8 @@ private data class OnboardingSlide(
 fun OnboardingScreen(
     language: String,       // from PreferencesRepository: "de", "en", "system"
     startAtWelcome: Boolean = false,
+    initialTooltipsEnabled: Boolean = true,
+    isLoggedIn: Boolean = false,
     onStartAnonymously: (Boolean) -> Unit,
     onLogin: (Boolean) -> Unit
 ) {
@@ -82,14 +84,16 @@ fun OnboardingScreen(
             bodyRes       = R.string.onboarding_slide5_body,
             lottieRes     = R.raw.wakeup
         )
-    )
+    ).let { list ->
+        if (isLoggedIn) list.dropLast(1) else list
+    }
 
     val initialPage   = if (startAtWelcome) slides.size - 1 else 0
     val pagerState    = rememberPagerState(initialPage = initialPage, pageCount = { slides.size })
     val coroutineScope = rememberCoroutineScope()
     val isLastPage    = pagerState.currentPage == slides.size - 1
     var isStarting    by remember { mutableStateOf(false) }
-    var tooltipsEnabled by remember { mutableStateOf(true) }
+    var tooltipsEnabled by remember { mutableStateOf(initialTooltipsEnabled) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Globaler Hintergrund (onboarding_bg.png)
@@ -256,8 +260,10 @@ fun OnboardingScreen(
                     )
                 } else {
                     Text(
-                        text       = if (isLastPage) stringResource(R.string.onboarding_done)
-                                     else stringResource(R.string.onboarding_next),
+                        text       = if (isLastPage) {
+                                         if (isLoggedIn) stringResource(R.string.close_desc)
+                                         else stringResource(R.string.onboarding_done)
+                                     } else stringResource(R.string.onboarding_next),
                         fontWeight = FontWeight.Bold,
                         fontSize   = 16.sp
                     )
@@ -265,7 +271,7 @@ fun OnboardingScreen(
             }
 
             AnimatedVisibility(
-                visible = isLastPage,
+                visible = isLastPage && !isLoggedIn,
                 enter   = fadeIn(tween(200)),
                 exit    = fadeOut(tween(200))
             ) {
