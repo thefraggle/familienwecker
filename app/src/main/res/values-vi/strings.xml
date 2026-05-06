@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake Báo thức Gia đình</string>
+    <string name="app_name_short">Báo thức Gia đình</string>
     <string name="email_label">Email</string>
     <string name="password_label">Mật khẩu</string>
     <string name="register_button">Đăng ký</string>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake ফ্যামিলি অ্যালার্ম ঘড়ি</string>
+    <string name="app_name_short">ফ্যামিলি অ্যালার্ম ঘড়ি</string>
     <string name="email_label">ইমেইল</string>
     <string name="password_label">পাসওয়ার্ড</string>
     <string name="register_button">সাইন আপ করুন</string>

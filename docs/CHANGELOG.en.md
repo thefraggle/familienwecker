@@ -2,87 +2,24 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.8.9 – 2026-05-06
-### Improved
-- **More reliable profile** – After reinstalling the app, your selected profile is now correctly recognized and the alarm schedule is calculated immediately. No more manual toggling needed.
-- **Smarter app tour** – The tour from settings now skips the login screen if you're already signed in. Your tips preference is also correctly preserved.
-
+## 1.9.0 – 2026-05-06
 ### New
-- **Toggle helpful tips** – On the final onboarding screen, you can now choose whether the app should show helpful tips during first use.
-
----
-
-## 1.8.8 – 2026-05-05
-### Improved
-- **Smarter Auto-Fix** – When times overlap in the family schedule, Auto-Fix now accurately stretches the settings and saves them directly to the active day profile.
-- **Optimized Login Screen** – Reordered buttons and text links for better usability and UX standards.
-- **Deep Links (Magic Links)** – Verification emails now reliably return directly to the app and automatically log the user in.
-
----
-
-## 1.8.7 – 2026-05-04
-### New
-- **Instant Start & Join** – FamWake can now be used completely without an account! You can instantly create a new family or join your partner's family via invite code or link (Lazy Registration). An account is only required when you want to invite members yourself.
+- **Get started instantly – no account needed** – FamWake can now be used without signing up. Create a family or join one via code or link. You only need an account when you want to invite others.
+- **7 new languages** – Indonesian, Vietnamese, Bengali, Marathi, Hindi, Chinese, and Korean. FamWake is now available in 22 languages.
 
 ### Improved
-- **Clearer Onboarding** – The introduction tour has been refreshed, featuring a new mascot animation on the final screen and highlighting our offline reliability. Login links are now consistent across all screens and all 25 languages.
+- **More reliable profile** – After reinstalling, your profile is recognized immediately and the alarm schedule is calculated right away. No more manual toggling.
+- **Smarter Auto-Fix** – When times overlap, Auto-Fix now adjusts settings precisely and saves them directly.
+- **Refreshed onboarding** – Clearer introduction, new mascot, and you can now toggle helpful tips on or off.
+- **Better login flow** – Verification emails open the app directly and log you in automatically.
 
 ### Bugfixes
-- **Tablet & Layout:** The app is now strictly locked to portrait mode across all devices (including tablets), ensuring layout stability and preventing large animations from overlapping text.
-- **Onboarding Stability:** Fixed an issue where rapid, multiple taps on the "Let's Go" button could cause unexpected behavior.
-- **Error Handling & Network:** Resolved a crash that occurred when encountering SSL or network issues (e.g. on Emulators) during family creation. The app now correctly displays the error message.
-- **Profile Claiming:** Claiming an existing profile on a new device ("Claim Stealing") now works reliably again due to adjusted security rules.
-- **Onboarding & Navigation:** Fixed an issue where the onboarding tour led to a dead end, and corrected misguided logout dialogs while in test mode.
-- **Account Transition:** If you decide to register from the test mode, your test family and data are now reliably transitioned into your new account.
-- **Family Deletion:** If a family is deleted by the creator, all other members' devices will now immediately cancel local alarms and redirect users to the start screen.
-- **Auto-Claim:** The global alarm toggle now reliably stays enabled after automatically claiming a newly created profile.
-
----
-
-## 1.8.6 – 2026-05-03
-### Improved
-- **Smoother onboarding** – FamWake no longer asks for lock screen permissions right at launch. Instead, you'll see a gentle reminder only when you actually set up an alarm.
-- **Better readability** – We improved the color contrast of error messages and warnings, making them much easier to read on all screens.
-
----
-
-## 1.8.5 – 2026-05-01
-### New
-- **Globally available** – FamWake now speaks 7 new languages: Indonesian, Vietnamese, Bengali, Marathi, Hindi, Simplified Chinese, and Korean. We now support 22 languages for families worldwide.
-- **Localized emails** – System emails (such as password reset requests) are now sent in the language of your app.
-
----
-
-## 1.8.4 – 2026-04-28
-
-### Improved
-- **More reliable schedule calculation** – Edge cases with very early breakfast times are now handled correctly.
-- **Translations completed** – Notification settings are now correctly labelled in all 15 app languages.
-
----
-
-## 1.8.3 – 2026-04-28
-
-### Fixed
-- **Duplicate alarm with different weekday times** – If e.g. Monday/Tuesday were set to 6:30 and the rest of the week to 7:30, the alarm fired again at 7:30 on Tuesday after the first 6:30 alarm. Fixed.
-
----
-
-## 1.8.2 – 2026-04-25
-
-
-### Fixed
-- **Language switching works reliably again** – Switching to Danish, Japanese, Dutch, Polish, Turkish, and other languages had no effect on some devices (app stayed in English). Fixed.
-
----
-
-## 1.8.1 – 2026-04-24
-
-### Fixed
-- **Alarm switch state preserved** – On/off state is correctly retained after signing out and back in.
-- **Family switch** – When switching to a new family via invitation link, the alarm is safely turned off until a profile is selected.
-- **Password reset** – Reset emails are sent reliably again for all accounts.
-- **Different account on same device** – Signing in with a different account correctly resets the alarm state to match that account.
+- Fixed duplicate alarms when different weekdays had different wake-up times.
+- Language switching now works reliably on all devices.
+- Alarm toggle state is correctly preserved after login/logout.
+- Profile claiming on new devices works reliably again.
+- Family deletion now immediately disables alarms on all devices.
+- Various stability and sync improvements.
 
 ---
 

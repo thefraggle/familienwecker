@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake 家庭闹钟</string>
+    <string name="app_name_short">家庭闹钟</string>
     <string name="email_label">电子邮件</string>
     <string name="password_label">密码</string>
     <string name="register_button">注册</string>

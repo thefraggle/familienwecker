@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake 家族の目覚まし時計</string>
+    <string name="app_name_short">家族の目覚まし時計</string>
     <string name="email_label">メールアドレス</string>
     <string name="password_label">パスワード</string>
     <string name="register_button">登録</string>

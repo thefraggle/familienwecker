@@ -2,86 +2,24 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.8.9 – 2026-05-06
-### Verbessert
-- **Zuverlässigeres Profil** – Nach Neuinstallation der App wird das gewählte Profil nun korrekt erkannt und der Weckplan sofort berechnet. Kein manuelles Aus-/Einschalten mehr nötig.
-- **Smartere App-Tour** – Die Tour aus den Einstellungen überspringt nun den Login-Screen, wenn du bereits angemeldet bist. Außerdem wird deine Tipps-Einstellung korrekt beibehalten.
-
+## 1.9.0 – 2026-05-06
 ### Neu
-- **Hilfreiche Tipps ein-/ausschalten** – Auf der letzten Onboarding-Seite kannst du jetzt wählen, ob die App dir beim ersten Nutzen hilfreiche Tipps anzeigen soll.
-
----
-
-## 1.8.8 – 2026-05-05
-### Verbessert
-- **Smarter Auto-Fix** – Bei überschnittenen Zeiten im Familienplan dehnt der Auto-Fix die Einstellungen nun zielgenau und speichert diese direkt im aktiven Tagesprofil.
-- **Login-Screen optimiert** – Die Anordnung der Buttons und Text-Links wurde aufgeräumt und an gängige UX-Standards angepasst.
-- **Deep-Links (Magic Links)** – Verifizierungs-E-Mails springen nun noch zuverlässiger direkt in die App zurück und loggen den Nutzer automatisch ein.
-
----
-
-## 1.8.7 – 2026-05-04
-### Neu
-- **Sofort starten & beitreten** – FamWake kann jetzt komplett ohne Account ausprobiert werden! Du kannst sofort eine Familie erstellen, oder per Code / Link der Familie deines Partners beitreten (Lazy Registration). Ein Account wird erst benötigt, wenn du selbst Familienmitglieder einladen möchtest.
+- **Sofort loslegen – ohne Account** – FamWake kann jetzt komplett ohne Registrierung ausprobiert werden. Erstelle eine Familie oder tritt per Code/Link bei. Ein Konto brauchst du erst, wenn du selbst einladen möchtest.
+- **7 neue Sprachen** – Indonesisch, Vietnamesisch, Bengalisch, Marathi, Hindi, Chinesisch und Koreanisch. FamWake gibt es jetzt in 22 Sprachen.
 
 ### Verbessert
-- **Klareres Onboarding** – Die Einführung wurde überarbeitet, inklusive neuem Maskottchen auf der letzten Seite und einem expliziten Hinweis auf die Offline-Zuverlässigkeit des Weckers. Die "Anmelden"-Links sind nun über alle Ansichten und 25 Sprachen hinweg einheitlich.
+- **Zuverlässigeres Profil** – Nach Neuinstallation wird dein Profil sofort erkannt und der Weckplan berechnet. Kein manuelles Umschalten mehr nötig.
+- **Smarter Auto-Fix** – Bei Zeitkonflikten passt der Auto-Fix die Einstellungen jetzt zielgenau an und speichert sie direkt.
+- **Überarbeitetes Onboarding** – Klarere Einführung, neues Maskottchen, und du kannst Tipps jetzt ein- oder ausschalten.
+- **Besserer Login-Flow** – Verifizierungs-E-Mails öffnen die App direkt und loggen dich automatisch ein.
 
 ### Fehlerbehebungen
-- **Tablet & Layout:** Die App wird nun auf allen Geräten (auch Tablets) zuverlässig im Hochformat angezeigt, und zu große Animationen verdecken keinen Text mehr.
-- **Onboarding-Stabilität:** Ein Problem wurde behoben, durch das mehrfaches Klicken des "Los geht's"-Buttons zu unerwartetem Verhalten führen konnte.
-- **Fehlermeldungen & Netzwerk:** Bei SSL-/Netzwerkproblemen (z. B. auf Emulatoren) während der Familienerstellung stürzt die App nicht mehr ab, sondern zeigt die korrekte Fehlermeldung.
-- **Profil-Übernahme:** Das Beanspruchen eines Profils auf einem neuen Gerät ("Profil stehlen") funktioniert dank angepasster Sicherheitsregeln nun wieder problemlos.
-- **Onboarding & Navigation:** Nach der Onboarding-Tour landest du nicht mehr in einer Sackgasse, und fehlgeleitete Logout-Dialoge im Testmodus wurden korrigiert.
-- **Account-Übernahme:** Wenn du dich aus dem Testmodus heraus registrierst, werden deine Testdaten nun verlässlich in deinen neuen Account übernommen.
-- **Familien-Löschung:** Wenn eine Familie durch den Ersteller gelöscht wird, werden nun auf allen Geräten der anderen Mitglieder sofort die lokalen Alarme deaktiviert und die Nutzer auf den Startbildschirm zurückgeleitet.
-- **Auto-Profil:** Nach dem automatischen Zuweisen eines neuen Profils bleibt der globale Wecker-Schalter nun zuverlässig aktiviert.
-
----
-
-## 1.8.6 – 2026-05-03
-### Verbessert
-- **Angenehmerer Einstieg** – FamWake fragt nun nicht mehr direkt beim ersten Start nach der Berechtigung für den Sperrbildschirm. Ein dezenter Hinweis erscheint erst, wenn auch wirklich ein Wecker gestellt wurde.
-- **Bessere Lesbarkeit** – Wir haben den Farbkontrast von Fehlermeldungen erhöht, damit diese nun auf allen Bildschirmen deutlich besser lesbar sind.
-
----
-
-## 1.8.5 – 2026-05-01
-### Neu
-- **Weltweit verfügbar** – FamWake unterstützt nun 7 weitere Sprachen: Indonesisch, Vietnamesisch, Bengalisch, Marathi, Hindi, Chinesisch (Vereinfacht) und Koreanisch. Damit ist die App nun in 22 Sprachen verfügbar.
-- **Lokalisierte E-Mails** – System-E-Mails (wie zum Zurücksetzen des Passworts) werden nun ebenfalls in der eingestellten App-Sprache versendet.
-
----
-
-## 1.8.4 – 2026-04-28
-
-### Verbessert
-- **Stabilere Weckplan-Berechnung** – Randfälle bei sehr frühen Frühstückszeiten werden jetzt korrekt abgefangen.
-- **Übersetzungen vervollständigt** – Benachrichtigungs-Einstellungen sind jetzt in allen 15 App-Sprachen korrekt beschriftet.
-
----
-
-## 1.8.3 – 2026-04-28
-
-### Behoben
-- **Doppelter Alarm bei unterschiedlichen Wochentag-Zeiten** – Hatte z.B. Montag/Dienstag 6:30 Uhr und der Rest der Woche 7:30 Uhr, klingelte der Wecker nach dem Di-Alarm nochmal um 7:30 Uhr am selben Tag. Behoben.
-
----
-
-## 1.8.2 – 2026-04-25
-
-### Behoben
-- **Sprachauswahl funktioniert wieder zuverlässig** – Wechsel zu Dänisch, Japanisch, Niederländisch, Polnisch, Türkisch und allen anderen Sprachen war auf manchen Geräten wirkungslos (Anzeige blieb auf Englisch). Behoben.
-
----
-
-## 1.8.1 – 2026-04-24
-
-### Behoben
-- **Wecker-Schalter bleibt erhalten** – An/Aus-Zustand wird nach Abmelden und erneutem Anmelden korrekt beibehalten.
-- **Familienwechsel** – Beim Wechsel in eine neue Familie via Einladungslink wird der Wecker-Schalter sicher deaktiviert, bis ein Profil gewählt wird.
-- **Passwort-Reset** – Zurücksetzen funktioniert wieder zuverlässig für alle Konten.
-- **Anderer Account auf gleichem Gerät** – Login mit einem anderen Konto setzt den Wecker-Status korrekt auf den Zustand dieses Accounts.
+- Doppelte Wecker bei unterschiedlichen Wochentag-Zeiten behoben.
+- Sprachauswahl funktioniert jetzt auf allen Geräten zuverlässig.
+- Wecker-Schalter bleibt nach Login/Logout korrekt erhalten.
+- Profil-Übernahme auf neuen Geräten funktioniert wieder problemlos.
+- Familien-Löschung deaktiviert Alarme auf allen Geräten sofort.
+- Diverse Stabilitäts- und Sync-Verbesserungen.
 
 ---
 

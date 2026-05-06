@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name_short">FamWake Familjeväckarklocka</string>
+    <string name="app_name_short">Familjeväckarklocka</string>
     <string name="email_label">E-post</string>
     <string name="password_label">Lösenord</string>
     <string name="register_button">Registrera</string>
