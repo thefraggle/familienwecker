@@ -268,7 +268,7 @@ class FamilyViewModel(
                     if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
                         appSettings.setMyMemberId(claimedByMe.id)
                         appSettings.setMyMemberName(claimedByMe.name)
-                    } else if (claimedByMe == null && myMemberId.value != null && checkedMembers.isNotEmpty()) {
+                    } else if (claimedByMe == null && myMemberId.value != null && checkedMembers.isNotEmpty() && !_isAutoClaimInProgress.value) {
                         // Profil wurde von einem anderen Gerät "gestohlen"
                         val oldMemberId = myMemberId.value
                         if (oldMemberId != null) {

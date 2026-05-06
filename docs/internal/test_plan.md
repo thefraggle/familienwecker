@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.8.8
-**Datum:** 2026-05-05
+**Version:** 1.8.9
+**Datum:** 2026-05-06
 
 ---
 
@@ -15,13 +15,15 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | TC-01 | Registrierung & Login | E-Mail & Google Login klappt. Passwort-Reset verschickt Mail (Enumeration-Schutz aktiv). |
-| TC-02 | Lazy Registration & Onboarding | Tour mit 5 Slides läuft fehlerfrei. "Los geht's" erstellt anonymen Nutzer (Double-Click geschützt). |
+| TC-02 | Lazy Registration & Onboarding | Tour mit 5 Slides läuft fehlerfrei. "Los geht's" erstellt anonymen Nutzer (Double-Click geschützt). Tooltip-Toggle speichert Präferenz korrekt. |
 | TC-03 | Familien-Lifecycle | Gründen + Beitreten per Code/Link. Nur Creator darf löschen. Verlassen/Löschen der Familie wirft Mitglieder sofort auf den Startbildschirm zurück und deaktiviert lokale Wecker. Testdaten werden bei Registrierung übernommen. |
+| TC-04 | Tour-Replay (Settings) | Eingeloggt: Letzter Slide (Login/Anonym) wird übersprungen. Button zeigt "Schließen". Tooltip-Checkbox übernimmt gespeicherte Einstellung. Nicht eingeloggt: Alle 5 Slides, originale Buttons. |
 
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-20 | Profil-Verwaltung | Erstes Mitglied auto-geclaimt (Wecker-Schalter sofort an). Ein fremdes Profil kann übernommen werden (Claim Stealing). Bearbeiten und Pausieren funktioniert fehlerfrei. |
+| TC-20 | Profil-Verwaltung | Erstes Mitglied auto-geclaimt (Wecker-Schalter sofort an). Ein fremdes Profil kann übernommen werden (Claim Stealing). Beim Claim wird `deviceAlarmEnabled` in Room + Firestore sofort auf `true` gesetzt, damit der Zeitplan direkt berechnet wird. Bearbeiten und Pausieren funktioniert fehlerfrei. |
+| TC-20b | Profil nach Neuinstallation | App deinstallieren → neu installieren → einloggen. Profil wird NICHT automatisch übernommen (neue Device-ID). Nach manuellem Claim: Weckplan erscheint sofort, kein manuelles Toggle nötig. |
 | TC-21 | Wochentag-Validierung | latestWakeUp ≤ earliestWakeUp blockiert Speichern. Zügiges Sliden erzeugt keine Sync-Fehler. |
 | TC-22 | Listen-Organisation | Drag & Drop speichert Reihenfolge. Warnbanner erscheint, wenn Position 1 ungeclaimt ist. |
 
@@ -53,7 +55,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | UI-01 | Layout-Responsivität | Tastatur verdeckt keine Buttons. App ist auf Tablets strikt im Hochformat, Animationen verdecken keinen Text. |
-| UI-02 | Sprachen & Themes | 22 Sprachen funktionieren absturzfrei. Dark/Light-Mode wechselt sofort, AMOLED Black greift. |
+| UI-02 | Sprachen & Themes | 25 Sprachen funktionieren absturzfrei. Dark/Light-Mode wechselt sofort, AMOLED Black greift. |
 
 ---
 

@@ -213,9 +213,14 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
             }
             composable(Routes.ONBOARDING) {
                 val language by familyViewModel.language.collectAsStateWithLifecycle()
+                val initialTooltipsEnabled by familyViewModel.tooltipsEnabled.collectAsStateWithLifecycle()
+                val authState by authViewModel.authState.collectAsStateWithLifecycle()
+                val isLoggedIn = authState is AuthViewModel.AuthState.Authenticated || authViewModel.isAnonymous
                 OnboardingScreen(
                     language   = language,
                     startAtWelcome = false,
+                    initialTooltipsEnabled = initialTooltipsEnabled,
+                    isLoggedIn = isLoggedIn,
                     onStartAnonymously = { tooltipsEnabled ->
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         familyViewModel.setOnboardingCompleted(true)
@@ -240,9 +245,14 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
             }
             composable(Routes.ONBOARDING_WELCOME) {
                 val language by familyViewModel.language.collectAsStateWithLifecycle()
+                val initialTooltipsEnabled by familyViewModel.tooltipsEnabled.collectAsStateWithLifecycle()
+                val authState by authViewModel.authState.collectAsStateWithLifecycle()
+                val isLoggedIn = authState is AuthViewModel.AuthState.Authenticated || authViewModel.isAnonymous
                 OnboardingScreen(
                     language   = language,
                     startAtWelcome = true,
+                    initialTooltipsEnabled = initialTooltipsEnabled,
+                    isLoggedIn = isLoggedIn,
                     onStartAnonymously = { tooltipsEnabled ->
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         familyViewModel.setOnboardingCompleted(true)

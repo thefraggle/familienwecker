@@ -131,26 +131,45 @@ fun FamilyViewModel.setMyMemberId(id: String?, force: Boolean = false, onComplet
     }
 
     scope.launch {
-        if (currentMyMemberId != null && currentMyMemberId != id) {
-            repository.unclaimMember(currentFamilyId, currentMyMemberId, userId, appSettings.deviceId)
-        }
-        if (id != null) {
-            val success = repository.claimMember(currentFamilyId, id, userId, userName, appSettings.deviceId, force)
-            if (success) {
-                appSettings.setMyMemberId(id)
-                val memberName = _members.value.find { it.id == id }?.name
-                appSettings.setMyMemberName(memberName)
-                appSettings.setAlarmEnabled(true)
-                TelemetryDeck.signal("member.claimed")
-                onComplete(true)
-            } else {
-                onComplete(false)
+        _isAutoClaimInProgress.value = true
+        try {
+            if (currentMyMemberId != null && currentMyMemberId != id) {
+                repository.unclaimMember(currentFamilyId, currentMyMemberId, userId, appSettings.deviceId)
             }
-        } else {
-            appSettings.setMyMemberId(null)
-            appSettings.setMyMemberName(null)
-            appSettings.setAlarmEnabled(false)
-            onComplete(true)
+            if (id != null) {
+                val success = repository.claimMember(currentFamilyId, id, userId, userName, appSettings.deviceId, force)
+                if (success) {
+                    // Sofortiges lokales Update in Room, um Race-Conditions mit langsamen Snapshots zu verhindern.
+                    val currentMember = _members.value.find { it.id == id }
+                    if (currentMember != null) {
+                        val updatedMember = currentMember.copy(
+                            claimedByDeviceId = appSettings.deviceId,
+                            claimedByUserId = userId,
+                            claimedByUserName = userName,
+                            deviceAlarmEnabled = true
+                        )
+                        memberRepository.upsertMember(updatedMember)
+                    }
+
+                    appSettings.setMyMemberId(id)
+                    val memberName = currentMember?.name ?: _members.value.find { it.id == id }?.name
+                    appSettings.setMyMemberName(memberName)
+                    appSettings.setAlarmEnabled(true)
+                    TelemetryDeck.signal("member.claimed")
+                    onComplete(true)
+                } else {
+                    onComplete(false)
+                }
+            } else {
+                appSettings.setMyMemberId(null)
+                appSettings.setMyMemberName(null)
+                appSettings.setAlarmEnabled(false)
+                onComplete(true)
+            }
+        } finally {
+            // Ein minimaler Delay, falls Flow-Emissions sich überschneiden.
+            kotlinx.coroutines.delay(500)
+            _isAutoClaimInProgress.value = false
         }
     }
 }
