@@ -373,4 +373,5 @@
     <string name="settings_steal_text">%1$s ya está asignado. ¿Quieres usar este perfil?</string>
     <string name="settings_steal_confirm">Sí, usarlo</string>
     <string name="schedule_auto_fix">✨ Ajustar horas automáticamente</string>
+    <string name="onboarding_enable_tooltips">Mostrar consejos útiles en el primer uso</string>
 </resources>

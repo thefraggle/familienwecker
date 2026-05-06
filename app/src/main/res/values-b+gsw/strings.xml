@@ -376,4 +376,5 @@
     <string name="settings_steal_text">%1$s isch scho vergäh. Wottsch es für dich übernäh?</string>
     <string name="settings_steal_confirm">Ja, übernäh</string>
     <string name="schedule_auto_fix">✨ Ziite automatisch aapasse</string>
+    <string name="onboarding_enable_tooltips">Zeig hilfriichi Tipps bi de erschte Nutzig</string>
 </resources>

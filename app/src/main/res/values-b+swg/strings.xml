@@ -372,4 +372,5 @@
     <string name="settings_steal_text">%1$s isch scho vergäba. Woisch es für di nemma?</string>
     <string name="settings_steal_confirm">Jå, nemma</string>
     <string name="schedule_auto_fix">✨ Zeita automatisch aabassa</string>
+    <string name="onboarding_enable_tooltips">Zeig hilfreiche Tipps bei dr erschda Nutzung</string>
 </resources>
