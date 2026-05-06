@@ -149,7 +149,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                             }
                             appSettings.setLastLoggedInUid(uid)
 
-                            if (claimedMember != null) {
+                            if (claimedMember != null && (claimedMember.claimedByDeviceId == appSettings.deviceId || claimedMember.claimedByDeviceId == null)) {
                                 appSettings.setMyMemberId(claimedMember.id)
                                 appSettings.setMyMemberName(claimedMember.name)
                             }

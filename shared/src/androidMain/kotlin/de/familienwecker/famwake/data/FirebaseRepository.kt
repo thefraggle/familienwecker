@@ -320,6 +320,7 @@ class FirebaseRepository : IFirebaseRepository {
                         "claimedByUserId" to userId,
                         "claimedByUserName" to userName,
                         "claimedByDeviceId" to deviceId,
+                        "deviceAlarmEnabled" to true,
                         // lastUpdatedAt setzen damit distinctUntilChanged den Snapshot nicht herausfiltert
                         // und Room den Claim-Status korrekt übernimmt.
                         "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
@@ -344,6 +345,7 @@ class FirebaseRepository : IFirebaseRepository {
                 "claimedByUserId" to userId,
                 "claimedByUserName" to userName,
                 "claimedByDeviceId" to deviceId,
+                "deviceAlarmEnabled" to true,
                 "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
             ))
         } catch (e: Exception) {

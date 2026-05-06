@@ -2,6 +2,16 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.8.9 – 2026-05-06
+### Improved
+- **More reliable profile** – After reinstalling the app, your selected profile is now correctly recognized and the alarm schedule is calculated immediately. No more manual toggling needed.
+- **Smarter app tour** – The tour from settings now skips the login screen if you're already signed in. Your tips preference is also correctly preserved.
+
+### New
+- **Toggle helpful tips** – On the final onboarding screen, you can now choose whether the app should show helpful tips during first use.
+
+---
+
 ## 1.8.8 – 2026-05-05
 ### Improved
 - **Smarter Auto-Fix** – When times overlap in the family schedule, Auto-Fix now accurately stretches the settings and saves them directly to the active day profile.
