@@ -379,4 +379,5 @@
     <string name="settings_steal_text">%1$s 已被选择。您想使用这个个人资料吗？</string>
     <string name="settings_steal_confirm">是的，我要使用</string>
     <string name="schedule_auto_fix">✨ 自动调整时间</string>
+    <string name="onboarding_enable_tooltips">首次使用时显示实用提示</string>
 </resources>

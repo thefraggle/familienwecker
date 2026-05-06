@@ -376,4 +376,5 @@
     <string name="settings_steal_text">%1$s ist bereits vergeben. Möchtest du es für dich übernehmen?</string>
     <string name="settings_steal_confirm">Ja, übernehmen</string>
     <string name="schedule_auto_fix">✨ Zeiten automatisch anpassen</string>
+    <string name="onboarding_enable_tooltips">Zeige hilfreiche Tipps bei der ersten Nutzung</string>
 </resources>

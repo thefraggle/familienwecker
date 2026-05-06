@@ -381,4 +381,5 @@
     <string name="settings_steal_text">Profil %1$s sudah dipakai orang lain. Apakah Anda ingin menggunakannya?</string>
     <string name="settings_steal_confirm">Ya, gunakan</string>
     <string name="schedule_auto_fix">✨ Sesuaikan waktu secara otomatis</string>
+    <string name="onboarding_enable_tooltips">Tampilkan tips bermanfaat pada penggunaan pertama</string>
 </resources>

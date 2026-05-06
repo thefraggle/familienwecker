@@ -373,4 +373,5 @@
     <string name="settings_steal_text">Профиль %1$s уже занят. Хотите использовать его для себя?</string>
     <string name="settings_steal_confirm">Да, использовать</string>
     <string name="schedule_auto_fix">✨ Автоматически настроить время</string>
+    <string name="onboarding_enable_tooltips">Показывать полезные советы при первом использовании</string>
 </resources>

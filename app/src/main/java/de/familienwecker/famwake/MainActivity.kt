@@ -216,7 +216,8 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                 OnboardingScreen(
                     language   = language,
                     startAtWelcome = false,
-                    onStartAnonymously = {
+                    onStartAnonymously = { tooltipsEnabled ->
+                        familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         familyViewModel.setOnboardingCompleted(true)
                         TelemetryDeck.signal("onboarding.completed_anonymously")
                         authViewModel.signInAnonymously {
@@ -227,7 +228,8 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                             }
                         }
                     },
-                    onLogin = {
+                    onLogin = { tooltipsEnabled ->
+                        familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         familyViewModel.setOnboardingCompleted(true)
                         authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {
@@ -241,7 +243,8 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                 OnboardingScreen(
                     language   = language,
                     startAtWelcome = true,
-                    onStartAnonymously = {
+                    onStartAnonymously = { tooltipsEnabled ->
+                        familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         familyViewModel.setOnboardingCompleted(true)
                         TelemetryDeck.signal("onboarding.completed_anonymously")
                         authViewModel.signInAnonymously {
@@ -252,7 +255,8 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                             }
                         }
                     },
-                    onLogin = {
+                    onLogin = { tooltipsEnabled ->
+                        familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         familyViewModel.setOnboardingCompleted(true)
                         authViewModel.clearError()
                         navController.navigate(Routes.LOGIN) {

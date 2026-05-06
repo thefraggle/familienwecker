@@ -383,4 +383,5 @@
     <string name="settings_steal_text">%1$s ইতিমধ্যেই নেওয়া হয়েছে। আপনি কি এটি আপনার জন্য ব্যবহার করতে চান?</string>
     <string name="settings_steal_confirm">হ্যাঁ, ব্যবহার করুন</string>
     <string name="schedule_auto_fix">✨ স্বয়ংক্রিয়ভাবে সময় সামঞ্জস্য করুন</string>
+    <string name="onboarding_enable_tooltips">প্রথম ব্যবহারের সময় সহায়ক টিপস দেখান</string>
 </resources>

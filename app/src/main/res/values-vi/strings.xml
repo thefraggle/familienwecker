@@ -386,4 +386,5 @@
     <string name="settings_steal_text">Hồ sơ %1$s đã được chọn. Bạn có muốn sử dụng hồ sơ này không?</string>
     <string name="settings_steal_confirm">Có, sử dụng</string>
     <string name="schedule_auto_fix">✨ Tự động điều chỉnh thời gian</string>
+    <string name="onboarding_enable_tooltips">Hiển thị các mẹo hữu ích trong lần sử dụng đầu tiên</string>
 </resources>

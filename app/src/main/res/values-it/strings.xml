@@ -375,4 +375,5 @@
     <string name="settings_steal_text">%1$s è già in uso. Vuoi usare questo profilo per te?</string>
     <string name="settings_steal_confirm">Sì, usalo</string>
     <string name="schedule_auto_fix">✨ Adatta gli orari automaticamente</string>
+    <string name="onboarding_enable_tooltips">Mostra consigli utili al primo utilizzo</string>
 </resources>

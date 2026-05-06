@@ -11,6 +11,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -44,8 +45,8 @@ private data class OnboardingSlide(
 fun OnboardingScreen(
     language: String,       // from PreferencesRepository: "de", "en", "system"
     startAtWelcome: Boolean = false,
-    onStartAnonymously: () -> Unit,
-    onLogin: () -> Unit
+    onStartAnonymously: (Boolean) -> Unit,
+    onLogin: (Boolean) -> Unit
 ) {
     val slides = listOf(
         // Slide 0 – emotionale Einstiegs-Slide mit Panda-Lottie
@@ -88,6 +89,7 @@ fun OnboardingScreen(
     val coroutineScope = rememberCoroutineScope()
     val isLastPage    = pagerState.currentPage == slides.size - 1
     var isStarting    by remember { mutableStateOf(false) }
+    var tooltipsEnabled by remember { mutableStateOf(true) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Globaler Hintergrund (onboarding_bg.png)
@@ -195,12 +197,38 @@ fun OnboardingScreen(
                 }
             }
 
+            AnimatedVisibility(
+                visible = isLastPage,
+                enter   = fadeIn(tween(200)),
+                exit    = fadeOut(tween(200))
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.clickable { tooltipsEnabled = !tooltipsEnabled }.padding(horizontal = 8.dp)
+                ) {
+                    Checkbox(
+                        checked = tooltipsEnabled,
+                        onCheckedChange = { tooltipsEnabled = it },
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = Color.White,
+                            checkmarkColor = Color(0xFF1A237E),
+                            uncheckedColor = Color.White.copy(alpha = 0.7f)
+                        )
+                    )
+                    Text(
+                        text = stringResource(R.string.onboarding_enable_tooltips),
+                        color = Color.White,
+                        fontSize = 14.sp
+                    )
+                }
+            }
+
             Button(
                 onClick = {
                     if (isLastPage) {
                         if (!isStarting) {
                             isStarting = true
-                            onStartAnonymously()
+                            onStartAnonymously(tooltipsEnabled)
                         }
                     } else {
                         coroutineScope.launch {
@@ -241,7 +269,7 @@ fun OnboardingScreen(
                 enter   = fadeIn(tween(200)),
                 exit    = fadeOut(tween(200))
             ) {
-                TextButton(onClick = onLogin) {
+                TextButton(onClick = { onLogin(tooltipsEnabled) }) {
                     Text(
                         text     = stringResource(R.string.onboarding_login_create),
                         color    = Color.White.copy(alpha = 0.9f),
