@@ -45,7 +45,7 @@ fun MemberCard(
         MaterialTheme.colorScheme.primaryContainer
     }
     val textColor = if (member.isPaused)
-        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+        MaterialTheme.colorScheme.onSurfaceVariant
     else
         MaterialTheme.colorScheme.onPrimaryContainer
 
@@ -54,7 +54,7 @@ fun MemberCard(
     Card(
         onClick = { if (!isOtherUserClaim) onEdit() },
         modifier = Modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.large,
+        shape = MaterialTheme.shapes.extraLarge,
         // Tonal statt Shadow-Elevation: Pixel/Material-You-Stil
         elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
@@ -145,8 +145,16 @@ fun MemberCard(
                             )
                         }
                     }
-                    Text(stringResource(R.string.main_wake_time, displayEarliest.format(timeFormatter), displayLatest.format(timeFormatter)), color = textColor)
-                    Text(stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if (member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), color = textColor)
+                    Text(
+                        stringResource(R.string.main_wake_time, displayEarliest.format(timeFormatter), displayLatest.format(timeFormatter)), 
+                        color = textColor,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if (member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), 
+                        color = textColor.copy(alpha = 0.9f)
+                    )
                 }
             }
 

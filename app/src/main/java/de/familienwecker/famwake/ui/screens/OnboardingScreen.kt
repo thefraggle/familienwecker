@@ -58,26 +58,16 @@ fun OnboardingScreen(
             lottieRes = R.raw.panda
         ),
         // Slides 1–4: Compose-Mockups → automatisch lokalisiert, keine PNG-Wartung nötig
-        // Reihenfolge: Zeitplan → Wochentage → Invite → CTA (Nutzen-orientiert)
+        // Reihenfolge: Zeitplan → Invite
         OnboardingSlide(
             titleRes      = R.string.onboarding_slide1_title,
             bodyRes       = R.string.onboarding_slide1_body,
             mockupContent = { Slide1ScheduleMockup() }
         ),
         OnboardingSlide(
-            titleRes      = R.string.onboarding_slide2_title,
-            bodyRes       = R.string.onboarding_slide2_body,
-            mockupContent = { Slide3DaySettingsMockup() }
-        ),
-        OnboardingSlide(
             titleRes      = R.string.onboarding_slide3_title,
             bodyRes       = R.string.onboarding_slide3_body,
             mockupContent = { Slide2InviteMockup() }
-        ),
-        OnboardingSlide(
-            titleRes      = R.string.onboarding_slide4_title,
-            bodyRes       = R.string.onboarding_slide4_body,
-            mockupContent = { Slide4ReliableMockup() }
         ),
         OnboardingSlide(
             titleRes      = R.string.onboarding_slide5_title,

@@ -157,8 +157,8 @@
     <string name="onboarding_slide5_body">You can try the app right away without an account. You only need one when you want to invite your family.</string>
     <string name="onboarding_slide0_title">A relaxed start to the day, together.</string>
     <string name="onboarding_slide0_body">No arguments, no chaos. FamWake makes sure everyone starts the day relaxed – all by itself.</string>
-    <string name="onboarding_slide1_title">No more waiting.</string>
-    <string name="onboarding_slide1_body">FamWake finds the perfect wake-up time for everyone in the family – based on bathroom time, breakfast, and when you need to leave. No more crowding at the sink.</string>
+    <string name="onboarding_slide1_title">Smart plans for every day</string>
+    <string name="onboarding_slide1_body">Whether office, school, or home office – FamWake calculates the perfect wake-up and bathroom time for the whole family. Without the morning traffic jam.</string>
     <string name="onboarding_slide2_title">Every day is different.</string>
     <string name="onboarding_slide2_body">Office on Monday, working from home on Wednesday? Just set your times for each day, and the app handles the rest.</string>
     <string name="onboarding_slide3_title">Connected in seconds.</string>
