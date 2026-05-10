@@ -151,8 +151,8 @@
     <string name="onboarding_done">Zacznij bez konta</string>
     <string name="onboarding_slide0_title">Wspólny, spokojny początek dnia.</string>
     <string name="onboarding_slide0_body">Żadnych kłótni, żadnego chaosu. FamWake dba o to, by każdy zaczął dzień zrelaksowany – zupełnie automatycznie.</string>
-    <string name="onboarding_slide1_title">Koniec z czekaniem.</string>
-    <string name="onboarding_slide1_body">FamWake znajduje idealny czas pobudki dla każdego członka rodziny – biorąc pod uwagę czas w łazience, śniadanie i wyjście. Koniec ze ściskiem przy umywalce.</string>
+    <string name="onboarding_slide1_title">Inteligentne plany na każdy dzień</string>
+    <string name="onboarding_slide1_body">Biuro, szkoła czy home office – FamWake oblicza idealny czas pobudki i łazienki dla całej rodziny. Bez porannych korków.</string>
     <string name="onboarding_slide2_title">Każdy dzień jest inny.</string>
     <string name="onboarding_slide2_body">Poniedziałek w biurze, środa praca zdalna? Po prostu ustaw swoje godziny na każdy dzień, a aplikacja zajmie się resztą.</string>
     <string name="onboarding_slide3_title">Połączeni w sekundy.</string>

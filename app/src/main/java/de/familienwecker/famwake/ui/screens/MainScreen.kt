@@ -159,6 +159,18 @@ fun MainScreen(
         Scaffold(
             containerColor = Color.Transparent,
             snackbarHost = { SnackbarHost(snackbarHostState) },
+            floatingActionButton = {
+                val memberLimitReached = members.size >= 6
+                if (!memberLimitReached) {
+                    ExtendedFloatingActionButton(
+                        onClick = onNavigateToAddMember,
+                        icon = { Icon(Icons.Default.Add, contentDescription = null) },
+                        text = { Text(stringResource(R.string.main_add_member_desc)) },
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+            },
             topBar = {
                 LargeTopAppBar(
                     title = {
@@ -368,53 +380,48 @@ fun MainScreen(
                                 )
                             }
 
+                            val myMember = members.find { it.id == myMemberId }
+                            val isAwakeButtonVisible = remember(myMember, isAlarmEnabled, schedule, isAwakeTodayLocal) {
+                                if (myMember == null || !isAlarmEnabled) return@remember false
+                                if (isAwakeTodayLocal) return@remember true
+
+                                val nowDt = java.time.LocalDateTime.now()
+                                val todayDate = nowDt.toLocalDate()
+                                
+                                val nextActiveProfile = (0..6).mapNotNull { offset ->
+                                    val date = todayDate.plusDays(offset.toLong())
+                                    val dow = date.dayOfWeek.value
+                                    val profile = myMember.dayProfiles?.get(dow)
+                                    if (profile != null && profile.isActive) date to profile else null
+                                }.firstOrNull { (date, profile) ->
+                                    if (date == todayDate) nowDt.toLocalTime() < profile.latestWakeUp.toJavaLocalTime()
+                                    else true
+                                }
+                                
+                                if (nextActiveProfile != null) {
+                                    val (targetDate, profile) = nextActiveProfile
+                                    val myScheduledTime = schedule?.memberSchedules
+                                        ?.find { it.member.id == myMemberId }
+                                        ?.wakeUpTime?.toJavaLocalTime()
+                                    val alarmTime = myScheduledTime ?: profile.earliestWakeUp.toJavaLocalTime()
+                                    val targetDt = java.time.LocalDateTime.of(targetDate, alarmTime)
+                                    val windowStart = targetDt.minusHours(2)
+                                    nowDt >= windowStart && nowDt < targetDt
+                                } else {
+                                    false
+                                }
+                            }
+
                             // "Ich bin wach" button for the current user (only when alarm is enabled)
                             AnimatedVisibility(
-                                visible = myMemberId != null && isAlarmEnabled,
+                                visible = isAwakeButtonVisible,
                                 enter = androidx.compose.animation.expandVertically() + fadeIn(),
                                 exit = androidx.compose.animation.shrinkVertically() + fadeOut()
                             ) {
-                                val myMember = members.find { it.id == myMemberId }
                                 if (myMember != null) {
                                     Column {
                                         Spacer(modifier = Modifier.height(16.dp))
                                         val awakeInteractionSource = remember { MutableInteractionSource() }
-
-                                        // Button nur im 2h-Fenster vor dem NÄCHSTEN aktiven Alarm aktiv.
-                                        // Nutzt latestWakeUp als Cutoff (konsistent mit resolveEffectiveMember),
-                                        // und den tatsächlichen Zeitplan-Alarm für das 2h-Fenster.
-                                        val nowDt = java.time.LocalDateTime.now()
-                                        val todayDate = nowDt.toLocalDate()
-
-                                        // Nächstes aktives DayProfile ermitteln (heute oder die nächsten 6 Tage)
-                                        val nextActiveProfile = (0..6).mapNotNull { offset ->
-                                            val date = todayDate.plusDays(offset.toLong())
-                                            val dow = date.dayOfWeek.value
-                                            val profile = myMember.dayProfiles?.get(dow)
-                                            if (profile != null && profile.isActive) date to profile else null
-                                        }.firstOrNull { (date, profile) ->
-                                            // Für heute: gültig solange latestWakeUp nicht vorbei ist
-                                            // (konsistent mit resolveEffectiveMember, das ebenfalls latestWakeUp als Cutoff nutzt)
-                                            if (date == todayDate) nowDt.toLocalTime() < profile.latestWakeUp.toJavaLocalTime()
-                                            else true
-                                        }
-
-                                        val withinWindow = if (nextActiveProfile != null) {
-                                            val (targetDate, profile) = nextActiveProfile
-                                            // Tatsächliche Weckzeit aus dem berechneten Schedule bevorzugen,
-                                            // Fallback auf earliestWakeUp wenn kein Schedule vorhanden
-                                            val myScheduledTime = schedule?.memberSchedules
-                                                ?.find { it.member.id == myMemberId }
-                                                ?.wakeUpTime?.toJavaLocalTime()
-                                            val alarmTime = myScheduledTime ?: profile.earliestWakeUp.toJavaLocalTime()
-                                            val targetDt = java.time.LocalDateTime.of(targetDate, alarmTime)
-                                            val windowStart = targetDt.minusHours(2)
-                                            nowDt >= windowStart && nowDt < targetDt
-                                        } else {
-                                            // Kein aktives Profil → Button bleibt inaktiv (außer bereits wach)
-                                            false
-                                        }
-                                        val isAwakeButtonEnabled = isAwakeTodayLocal || withinWindow
 
                                         Button(
                                             onClick = { myMemberId?.let { viewModel.toggleAwakeMember(it) } },
@@ -424,7 +431,7 @@ fun MainScreen(
                                                 .bounceClick(awakeInteractionSource),
                                             shape = MaterialTheme.shapes.medium,
                                             interactionSource = awakeInteractionSource,
-                                            enabled = isAwakeButtonEnabled,
+                                            enabled = true,
                                             colors = ButtonDefaults.buttonColors(
                                                 containerColor = if (isAwakeTodayLocal)
                                                     MaterialTheme.colorScheme.secondary
@@ -433,9 +440,7 @@ fun MainScreen(
                                                 contentColor = if (isAwakeTodayLocal)
                                                     MaterialTheme.colorScheme.onSecondary
                                                 else
-                                                    MaterialTheme.colorScheme.onPrimary,
-                                                disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
-                                                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                                                    MaterialTheme.colorScheme.onPrimary
                                             )
                                         ) {
                                             Icon(
@@ -499,7 +504,7 @@ fun MainScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { onNavigateToSettings() },
-                            shape = MaterialTheme.shapes.large,
+                            shape = MaterialTheme.shapes.extraLarge,
                             elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                             colors = CardDefaults.cardColors(
@@ -568,7 +573,7 @@ fun MainScreen(
                         val textColor = if (isDarkTheme) SnoozeTextDark else SnoozeTextLight
                         
                         Card(
-                            shape = MaterialTheme.shapes.large,
+                            shape = MaterialTheme.shapes.extraLarge,
                             elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
                             colors = CardDefaults.cardColors(containerColor = cardColor)
@@ -632,7 +637,7 @@ fun MainScreen(
                         }
                     } else {
                         Card(
-                            shape = MaterialTheme.shapes.large,
+                            shape = MaterialTheme.shapes.extraLarge,
                             elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                             colors = CardDefaults.cardColors(containerColor = planCardColor)
@@ -1025,7 +1030,7 @@ private fun ExactAlarmWarningBanner(
     val textColor = MaterialTheme.colorScheme.onErrorContainer
     Card(
         modifier = Modifier.fillMaxWidth().clickable { onRequestPermission() },
-        shape = MaterialTheme.shapes.large,
+        shape = MaterialTheme.shapes.extraLarge,
         elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
         colors = CardDefaults.cardColors(containerColor = cardColor)
@@ -1057,7 +1062,7 @@ private fun FullScreenIntentWarningBanner(
     val textColor = MaterialTheme.colorScheme.onErrorContainer
     Card(
         modifier = Modifier.fillMaxWidth().clickable { onRequestPermission() },
-        shape = MaterialTheme.shapes.large,
+        shape = MaterialTheme.shapes.extraLarge,
         elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f)),
         colors = CardDefaults.cardColors(containerColor = cardColor)
@@ -1090,7 +1095,7 @@ private fun ErrorMessageBanner(
                           errorString.contains(stringResource(R.string.error_invalid_code))
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.large,
+            shape = MaterialTheme.shapes.extraLarge,
             elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
             border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
             colors = CardDefaults.cardColors(
@@ -1191,7 +1196,7 @@ private fun UnclaimedWarningBanner(memberName: String, isDarkTheme: Boolean) {
                     else de.familienwecker.famwake.ui.theme.SnoozeTextLight
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.large,
+        shape = MaterialTheme.shapes.extraLarge,
         elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.4f)),
         colors = CardDefaults.cardColors(containerColor = cardColor)
