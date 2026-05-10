@@ -860,14 +860,7 @@ fun MainScreen(
                         EmptyState(
                             lottieRes = R.raw.family,
                             title = stringResource(R.string.empty_members_title),
-                            description = stringResource(R.string.empty_members_description),
-                            action = {
-                                Button(onClick = onNavigateToAddMember) {
-                                    Icon(Icons.Default.Add, contentDescription = null)
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(stringResource(R.string.main_add_member_desc))
-                                }
-                            }
+                            description = stringResource(R.string.empty_members_description)
                         )
                     }
                 }
