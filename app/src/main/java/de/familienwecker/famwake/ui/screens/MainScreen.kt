@@ -837,31 +837,11 @@ fun MainScreen(
 
                 // Liste der Familienmitglieder
                 item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = stringResource(R.string.main_family_members),
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Black
-                        )
-                        val memberLimitReached = members.size >= 6
-                        val addMemberInteractionSource = remember { MutableInteractionSource() }
-                        IconButton(
-                            onClick = onNavigateToAddMember,
-                            enabled = !memberLimitReached,
-                            modifier = Modifier.bounceClick(addMemberInteractionSource),
-                            interactionSource = addMemberInteractionSource
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Add,
-                                contentDescription = stringResource(R.string.main_add_member_desc),
-                                tint = if (memberLimitReached) MaterialTheme.colorScheme.outline else MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    }
+                    Text(
+                        text = stringResource(R.string.main_family_members),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Black
+                    )
                 }
 
                 if (members.size >= 6) {
@@ -907,6 +887,11 @@ fun MainScreen(
                         isAlarmEnabled = isAlarmEnabled,
                         isPauseLoading = pendingPauseIds.contains(member.id)
                     )
+                }
+
+                // Platzhalter am Ende, damit der FAB die letzte Karte nicht verdeckt
+                item {
+                    Spacer(modifier = Modifier.height(88.dp))
                 }
             }
 
