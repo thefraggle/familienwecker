@@ -252,22 +252,6 @@ fun MainScreen(
         ) { padding ->
             val lazyListState = androidx.compose.foundation.lazy.rememberLazyListState()
 
-            // Scroll-Indicator: nur wenn members leer und noch nicht gescrollt
-            val showScrollHint = members.isEmpty() &&
-                lazyListState.firstVisibleItemIndex == 0 &&
-                lazyListState.firstVisibleItemScrollOffset == 0
-
-            // Echter infinite Bounce – muss rememberInfiniteTransition verwenden
-            val infiniteTransition = rememberInfiniteTransition(label = "scrollHint")
-            val scrollHintBounce by infiniteTransition.animateFloat(
-                initialValue = 0f,
-                targetValue = 10f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(600, easing = LinearEasing),
-                    repeatMode = RepeatMode.Reverse
-                ),
-                label = "scrollHintBounce"
-            )
 
             Box(modifier = Modifier.fillMaxSize()) {
             val itemHeightPx = remember(lazyListState.layoutInfo) {
@@ -885,40 +869,6 @@ fun MainScreen(
                 // Platzhalter am Ende, damit der FAB die letzte Karte nicht verdeckt
                 item {
                     Spacer(modifier = Modifier.height(88.dp))
-                }
-            }
-
-            // Scroll-Indicator Overlay
-            AnimatedVisibility(
-                visible = showScrollHint,
-                enter = fadeIn(),
-                exit = fadeOut(),
-                modifier = Modifier.align(Alignment.BottomCenter)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 32.dp)
-                        .graphicsLayer { translationY = scrollHintBounce },
-                    contentAlignment = Alignment.Center
-                ) {
-                    // Pill-Hintergrund: Icon hebt sich klar vom Text ab
-                    Box(
-                        modifier = Modifier
-                            .size(44.dp)
-                            .background(
-                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f),
-                                shape = androidx.compose.foundation.shape.CircleShape
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowDown,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(28.dp)
-                        )
-                    }
                 }
             }
 
