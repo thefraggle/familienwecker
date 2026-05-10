@@ -2,6 +2,15 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.1 – 2026-05-10
+### Improved
+- **Faster onboarding** – The introduction has been shortened and focused so you can get started quicker.
+- **Cleaner overview** – The "Add member" button is now always accessible at the bottom right.
+- **Better readability** – Alarm times and status info on member cards stand out more with higher contrast.
+- **Smarter "Awake" button** – The "I'm already awake" button now only appears 2 hours before your scheduled alarm.
+
+---
+
 ## 1.9.0 – 2026-05-06
 ### New
 - **Get started instantly – no account needed** – FamWake can now be used without signing up. Create a family or join one via code or link. You only need an account when you want to invite others.

@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.0
-**Datum:** 2026-05-06
+**Version:** 1.9.1
+**Datum:** 2026-05-10
 
 ---
 
@@ -15,9 +15,9 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | TC-01 | Registrierung & Login | E-Mail & Google Login klappt. Passwort-Reset verschickt Mail (Enumeration-Schutz aktiv). |
-| TC-02 | Lazy Registration & Onboarding | Tour mit 5 Slides läuft fehlerfrei. "Los geht's" erstellt anonymen Nutzer (Double-Click geschützt). Tooltip-Toggle speichert Präferenz korrekt. |
+| TC-02 | Lazy Registration & Onboarding | Tour mit 4 Slides läuft fehlerfrei. "Los geht's" erstellt anonymen Nutzer (Double-Click geschützt). Tooltip-Toggle am Ende speichert Präferenz korrekt. |
 | TC-03 | Familien-Lifecycle | Gründen + Beitreten per Code/Link. Nur Creator darf löschen. Verlassen/Löschen der Familie wirft Mitglieder sofort auf den Startbildschirm zurück und deaktiviert lokale Wecker. Testdaten werden bei Registrierung übernommen. |
-| TC-04 | Tour-Replay (Settings) | Eingeloggt: Letzter Slide (Login/Anonym) wird übersprungen. Button zeigt "Schließen". Tooltip-Checkbox übernimmt gespeicherte Einstellung. Nicht eingeloggt: Alle 5 Slides, originale Buttons. |
+| TC-04 | Tour-Replay (Settings) | Eingeloggt: Letzter Slide (Login/Anonym) wird übersprungen. Button zeigt "Schließen". Tooltip-Checkbox übernimmt gespeicherte Einstellung. Nicht eingeloggt: Alle 4 Slides, originale Buttons. |
 
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |
