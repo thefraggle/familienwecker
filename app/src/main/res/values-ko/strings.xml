@@ -153,8 +153,8 @@
     <string name="onboarding_done">계정 없이 시작하기</string>
     <string name="onboarding_slide0_title">함께 편안하게 시작하는 하루.</string>
     <string name="onboarding_slide0_body">아침마다 다툴 일도, 정신없을 일도 없습니다. FamWake가 모두의 편안한 하루 시작을 알아서 챙겨줍니다.</string>
-    <string name="onboarding_slide1_title">더 이상 기다리지 마세요.</string>
-    <string name="onboarding_slide1_body">FamWake는 화장실, 아침 식사, 외출 시간을 고려해 가족 모두에게 딱 맞는 기상 시간을 찾아줍니다. 화장실 앞에서의 기다림은 이제 끝입니다.</string>
+    <string name="onboarding_slide1_title">매일을 위한 스마트한 계획</string>
+    <string name="onboarding_slide1_body">사무실, 학교 또는 재택근무 등 상황에 관계없이 FamWake는 온 가족을 위한 완벽한 기상 및 욕실 사용 시간을 계산해 줍니다. 아침의 혼잡함은 이제 그만.</string>
     <string name="onboarding_slide2_title">매일매일이 다릅니다.</string>
     <string name="onboarding_slide2_body">월요일은 출근, 수요일은 재택근무이신가요? 요일별로 시간을 설정해 두기만 하면, 나머지는 앱이 알아서 해줍니다.</string>
     <string name="onboarding_slide3_title">단 몇 초 만에 연결됩니다.</string>
