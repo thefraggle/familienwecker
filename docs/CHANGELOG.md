@@ -2,6 +2,15 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.1 – 2026-05-10
+### Verbessert
+- **Schneller startklar** – Das Onboarding wurde fokussiert und gekürzt.
+- **Mehr Übersicht** – Der neue „Mitglied hinzufügen“-Button ist nun immer griffbereit unten rechts.
+- **Bessere Lesbarkeit** – Weckzeiten und Status-Infos auf den Familien-Karten sind dank mehr Kontrast jetzt noch leichter ablesbar.
+- **Smarter „Wach“-Button** – Der „Ich bin schon wach“-Button erscheint ab sofort erst im 2-Stunden-Fenster vor deinem Wecker.
+
+---
+
 ## 1.9.0 – 2026-05-06
 ### Neu
 - **Sofort loslegen – ohne Account** – FamWake kann jetzt komplett ohne Registrierung ausprobiert werden. Erstelle eine Familie oder tritt per Code/Link bei. Ein Konto brauchst du erst, wenn du selbst einladen möchtest.
