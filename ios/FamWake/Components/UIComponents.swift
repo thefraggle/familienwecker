@@ -21,14 +21,15 @@ struct FamWakeCard: ViewModifier {
     var isDark: Bool = false
 
     func body(content: Content) -> some View {
+        let theme = isDark ? FamWakeTheme.dark : FamWakeTheme.light
         content
             .background(
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(isDark ? Color(.systemGray6).opacity(0.4) : Color(.systemBackground))
-                    .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+                    .fill(isDark ? theme.primaryContainer : theme.surface)
+                    .shadow(color: .black.opacity(isDark ? 0 : 0.08), radius: 8, x: 0, y: 4)
                     .overlay(
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(Color(.separator).opacity(0.2), lineWidth: 1)
+                            .stroke(theme.outline.opacity(0.15), lineWidth: 1)
                     )
             )
     }
@@ -45,11 +46,12 @@ struct FamWakeBackground: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
 
     func body(content: Content) -> some View {
+        let theme = FamWakeTheme.current(for: colorScheme)
         ZStack {
             LinearGradient(
                 colors: colorScheme == .dark
-                    ? [Color(.systemBackground), Color(.secondarySystemBackground)]
-                    : [Color.accentColor.opacity(0.08), Color(.systemBackground)],
+                    ? [theme.surface, theme.background]
+                    : [theme.primaryContainer.opacity(0.5), theme.background],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -73,7 +75,7 @@ struct TooltipBubble: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "lightbulb.fill")
-                .foregroundColor(.yellow)
+                .foregroundColor(.sunriseOrange500)
                 .font(.caption)
             Text(text)
                 .font(.caption)
@@ -88,10 +90,10 @@ struct TooltipBubble: View {
         .padding(10)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.accentColor.opacity(0.1))
+                .fill(Color.sunriseOrange100.opacity(0.5))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.accentColor.opacity(0.2), lineWidth: 1)
+                        .stroke(Color.sunriseOrange500.opacity(0.2), lineWidth: 1)
                 )
         )
     }
