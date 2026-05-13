@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Ton: %1$s</string>
     <string name="settings_alarm_picker_title">Wähl diin Weckton</string>
     <string name="settings_account_title">Familie &amp; Konto</string>
-    <string name="settings_join_family_locked">Bitte logg dich ii, zum ere Familie biiträte.</string>
     <string name="settings_share_code_locked">Bitte logg dich ii, zum diin Code teile.</string>
     <string name="settings_anonymous_login_button">Aamelde / Registriere</string>
     <string name="settings_join_code">Iiladigscode für %1$s:</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">Ja, für alli lösche</string>
     <string name="settings_logout">Abmälde</string>
     <string name="settings_delete_account">Konto lösche</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alli Rächt vorbhalte.</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">Spraach</string>
     <string name="settings_language_system">System-Standard</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Uusgseh</string>
     <string name="settings_display_title">App-Iistellige</string>
     <string name="settings_help_feedback_title">Hilf &amp; Feedback</string>
@@ -159,12 +145,8 @@
     <string name="onboarding_slide0_body">Kä Diskussione, kän Stress. FamWake sorgt defür, dass alli entspannt in Tag starte – ganz vo elei.</string>
     <string name="onboarding_slide1_title">Nie meh warte.</string>
     <string name="onboarding_slide1_body">FamWake findt für jede i de Familie di perfäkti Weckziit – passend zu Badziit, Zmorge und Abfahrt. Käs Gedrängel meh am Lavabo.</string>
-    <string name="onboarding_slide2_title">Jede Tag isch anders.</string>
-    <string name="onboarding_slide2_body">Määntig im Büro, Mittwuch Home-Office? Stell eifach diini Ziite für di jewiilige Täg ii, d\'App macht de Räscht.</string>
     <string name="onboarding_slide3_title">In Sekunde verbunde.</string>
     <string name="onboarding_slide3_body">Teil diin Code und diini Familie isch debii. Ändert öpper sini Ziite, passt sich de Plan für alli sofort aa.</string>
-    <string name="onboarding_slide4_title">Immer zueverlässig.</string>
-    <string name="onboarding_slide4_body">Gnüss jede Tag en entspannte Morge. Sälbscht wänn z\'Nacht s\'Internet uusfallt, lüütet de Wecker pünktlich.</string>
     
     <string name="onboarding_mock_name1">Papi</string>
     <string name="onboarding_mock_name2">Mami</string>
@@ -186,7 +168,6 @@
     <string name="feedback_auto_device">Grät: %1$s</string>
     <string name="feedback_cancel">Abbräche</string>
     <string name="feedback_send">Nachricht schicke</string>
-    <string name="feedback_success">Danke! Mir händ diini Nachricht übercho.</string>
     <string name="feedback_success_title">Nachricht gschickt</string>
     <string name="feedback_success_message">Danke für diini Hilf! Diis Feedback hilft ois, FamWake für alli z\'verbessere.</string>
     <string name="settings_terms_of_use">Nutzigsbedingige</string>
@@ -250,9 +231,7 @@
     <string name="error_not_logged_in">Du bisch nöd iigloggt.</string>
     <string name="error_system">Öppis isch schiefggange.</string>
     <string name="error_invalid_credentials">Falschi E-Mail oder Passwort. Bitte prüef diini Iigabe.</string>
-    <string name="error_login_failed">Login hät nöd funktioniert</string>
     <string name="error_login_failed_unknown">Umbekannte Login-Fehler</string>
-    <string name="error_registration_failed">Registrierig hät nöd funktioniert</string>
     <string name="error_registration_failed_unknown">Diis Konto hät nöd chönne erstellt wärde</string>
     <string name="error_unknown">Öppis isch schiefggange. Bitte probiers namal.</string>
     <string name="error_google_sign_in_failed_unknown">Google-Login hät nöd funktioniert</string>
@@ -314,7 +293,6 @@
     <string name="settings_support_desc">Gfallt dir d\'App? Mir freued ois riesig über diini Unterstützig!</string>
     <string name="settings_support_donate">Spände</string>
     <string name="settings_donate_success">Vile Dank für diini Unterstützig! ❤️</string>
-    <string name="settings_donate_error">Hoppla, da hät öppis nöd funktioniert.</string>
     <string name="settings_donate_loading">Lade Optione…</string>
     <string name="settings_donate_no_offers">Zurziit sind kä Optione verfüegbar.</string>
     <string name="settings_donate_purchase_loading">Wird verarbeitet…</string>
@@ -346,14 +324,6 @@
     <string name="error_feedback_rate_limit_server">Z\'vill Nachrichte gschickt. Bitte probiers spöter namal.</string>
     <string name="error_feedback_empty_message">Diini Nachricht isch leer.</string>
     <string name="error_network">Netzwärkproblem. Bitte prüef diini Internetverbindig.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Tipp da druff für diin persönliche Weckton – wähl diini Lieblingsmusig statt em normale Piepse.</string>
     <string name="settings_language_dialects">Dialäkt</string>
 
@@ -370,8 +340,6 @@
     <string name="notif_permission_title">Benachrichtigunge nötig</string>
     <string name="notif_permission_desc">Wänn du Benachrichtigunge uusschaltisch, funktioniert diin Wecker villicht nöd richtig. Bitte laa si aa.</string>
     <string name="notif_permission_button">Benachrichtigunge aamache</string>
-    <string name="notif_manage_title">Benachrichtigungs-Iistellige</string>
-    <string name="notif_manage_desc">Änder Tön und Vibration i de Iistellige vo diim Handy.</string>
     <string name="settings_steal_title">Profil nutze?</string>
     <string name="settings_steal_text">%1$s isch scho vergäh. Wottsch es für dich übernäh?</string>
     <string name="settings_steal_confirm">Ja, übernäh</string>

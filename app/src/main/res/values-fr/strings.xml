@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Sonnerie : %1$s</string>
     <string name="settings_alarm_picker_title">Choisis ta sonnerie de réveil</string>
     <string name="settings_account_title">Famille &amp; Compte</string>
-    <string name="settings_join_family_locked">Connecte-toi pour rejoindre une famille.</string>
     <string name="settings_share_code_locked">Connecte-toi pour partager ton code d\'invitation.</string>
     <string name="settings_anonymous_login_button">Se connecter / S\'inscrire</string>
     <string name="settings_join_code">Code d\'invitation pour %1$s :</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">Oui, supprimer pour tous</string>
     <string name="settings_logout">Se déconnecter</string>
     <string name="settings_delete_account">Supprimer le compte</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Tous droits réservés.</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">Langue</string>
     <string name="settings_language_system">Langue du système</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Apparence</string>
     <string name="settings_display_title">Paramètres de l\'appli</string>
     <string name="settings_help_feedback_title">Aide &amp; Retours</string>
@@ -156,12 +142,8 @@
     <string name="onboarding_slide0_body">Fini les disputes, fini le chaos. FamWake s\'assure que tout le monde commence la journée de façon détendue – automatiquement.</string>
     <string name="onboarding_slide1_title">Des plans intelligents pour chaque jour</string>
     <string name="onboarding_slide1_body">Que ce soit au bureau, à l\'école ou en télétravail, FamWake calcule l\'heure idéale de réveil et de salle de bain pour toute la famille. Sans embouteillage le matin.</string>
-    <string name="onboarding_slide2_title">Chaque jour est différent.</string>
-    <string name="onboarding_slide2_body">Lundi au bureau, mercredi en télétravail ? Règle simplement tes horaires pour chaque jour et l\'appli s\'occupe du reste.</string>
     <string name="onboarding_slide3_title">Connectés en quelques secondes.</string>
     <string name="onboarding_slide3_body">Partage ton code et ta famille est intégrée. Si quelqu\'un modifie ses horaires, le planning de tout le monde se met à jour instantanément.</string>
-    <string name="onboarding_slide4_title">Fonctionne toujours.</string>
-    <string name="onboarding_slide4_body">Profitez d\'une matinée détendue tous les jours. Même sans Internet pendant la nuit, le réveil sonnera toujours à l\'heure.</string>
     <string name="settings_feedback_button">Donner son avis / Signaler un bug</string>
     <string name="feedback_title">Tes retours</string>
     <string name="feedback_intro">Aide-nous à rendre l\'appli encore meilleure ! Qu\'as-tu en tête ?</string>
@@ -179,7 +161,6 @@
     <string name="feedback_auto_device">Téléphone : %1$s</string>
     <string name="feedback_cancel">Annuler</string>
     <string name="feedback_send">Envoyer</string>
-    <string name="feedback_success">Merci ! Nous avons bien reçu ton message.</string>
     <string name="feedback_success_title">Message envoyé</string>
     <string name="feedback_success_message">Merci pour ton aide ! Tes retours nous aident à améliorer FamWake pour tout le monde.</string>
     <string name="settings_terms_of_use">Conditions d\'utilisation</string>
@@ -243,9 +224,7 @@
     <string name="error_not_logged_in">Tu n\'es pas connecté(e).</string>
     <string name="error_system">Quelque chose s\'est mal passé.</string>
     <string name="error_invalid_credentials">Mauvais e-mail ou mot de passe. Vérifie.</string>
-    <string name="error_login_failed">La connexion a échoué</string>
     <string name="error_login_failed_unknown">Erreur de connexion inconnue</string>
-    <string name="error_registration_failed">L\'inscription a échoué</string>
     <string name="error_registration_failed_unknown">Impossible de créer ton compte</string>
     <string name="error_unknown">Quelque chose a mal tourné. Merci de réessayer.</string>
     <string name="error_google_sign_in_failed_unknown">La connexion avec Google a échoué</string>
@@ -307,7 +286,6 @@
     <string name="settings_support_desc">Tu aimes l\'appli ? Ton soutien nous ferait très plaisir !</string>
     <string name="settings_support_donate">Faire un don</string>
     <string name="settings_donate_success">Merci beaucoup pour ton soutien ! ❤️</string>
-    <string name="settings_donate_error">Oups, un problème est survenu.</string>
     <string name="settings_donate_loading">Chargement des options…</string>
     <string name="settings_donate_no_offers">Aucune option disponible pour le moment.</string>
     <string name="settings_donate_purchase_loading">Traitement en cours…</string>
@@ -339,19 +317,6 @@
     <string name="error_feedback_rate_limit_server">Trop de messages envoyés. Essaie de nouveau plus tard.</string>
     <string name="error_feedback_empty_message">Ton message est vide.</string>
     <string name="error_network">Problème de réseau. Vérifie ta connexion Internet.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Appuie ici pour choisir ta propre sonnerie de réveil – mets ta musique préférée au lieu du bip classique.</string>
     <string name="settings_language_dialects">Dialectes</string>
     <string name="onboarding_mock_name1">Papa</string>
@@ -371,8 +336,6 @@
     <string name="notif_permission_title">Notifications nécessaires</string>
     <string name="notif_permission_desc">Si tu désactives les notifications, ton réveil risque de ne pas fonctionner correctement. Merci de les laisser activées.</string>
     <string name="notif_permission_button">Activer les notifications</string>
-    <string name="notif_manage_title">Paramètres de notification</string>
-    <string name="notif_manage_desc">Change les sons et vibrations dans les paramètres de ton téléphone.</string>
     <string name="onboarding_login_create">Connexion / S\'inscrire</string>
     <string name="onboarding_slide5_title">C\'est parti !</string>
     <string name="onboarding_slide5_body">Tu peux essayer l\'appli tout de suite sans avoir de compte. Tu n\'en auras besoin que lorsque tu voudras inviter ta famille.</string>

@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Ses: %1$s</string>
     <string name="settings_alarm_picker_title">Alarm sesinizi seçin</string>
     <string name="settings_account_title">Aile ve Hesap</string>
-    <string name="settings_join_family_locked">Bir aileye katılmak için lütfen giriş yapın.</string>
     <string name="settings_share_code_locked">Davet kodunuzu paylaşmak için lütfen giriş yapın.</string>
     <string name="settings_anonymous_login_button">Giriş yap / Kayıt ol</string>
     <string name="settings_join_code">%1$s için davet kodu:</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">Evet, herkes için sil</string>
     <string name="settings_logout">Çıkış yap</string>
     <string name="settings_delete_account">Hesabı sil</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Tüm hakları saklıdır.</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">Dil</string>
     <string name="settings_language_system">Sistem varsayılanı</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Görünüm</string>
     <string name="settings_display_title">Uygulama ayarları</string>
     <string name="settings_help_feedback_title">Yardım ve Geri Bildirim</string>
@@ -159,12 +145,8 @@
     <string name="onboarding_slide0_body">Tartışma yok, kaos yok. FamWake herkesin güne rahat başlamasını sağlar – tamamen kendi kendine.</string>
     <string name="onboarding_slide1_title">Her gün için akıllı planlar</string>
     <string name="onboarding_slide1_body">İster ofis, ister okul veya evden çalışma olsun - FamWake tüm aile için mükemmel uyanma ve banyo saatini hesaplar. Sabahları sıra beklemeden.</string>
-    <string name="onboarding_slide2_title">Her gün farklı.</string>
-    <string name="onboarding_slide2_body">Pazartesi ofis, çarşamba evden çalışma? Her gün için saatlerinizi ayarlayın, uygulama gerisini halleder.</string>
     <string name="onboarding_slide3_title">Saniyeler içinde bağlanın.</string>
     <string name="onboarding_slide3_body">Davet kodunuzu paylaşın ve aileniz hemen katılsın. Biri saatlerini değiştirirse, herkesin planı anında güncellenir.</string>
-    <string name="onboarding_slide4_title">Her zaman güvenilir.</string>
-    <string name="onboarding_slide4_body">Her gün rahat bir sabahın tadını çıkarın. Gece internet kesilse bile alarmınız tam zamanında çalar.</string>
     
     <string name="onboarding_mock_name1">Baba</string>
     <string name="onboarding_mock_name2">Anne</string>
@@ -186,7 +168,6 @@
     <string name="feedback_auto_device">Telefon: %1$s</string>
     <string name="feedback_cancel">İptal</string>
     <string name="feedback_send">Mesajı gönder</string>
-    <string name="feedback_success">Teşekkürler! Mesajınızı aldık.</string>
     <string name="feedback_success_title">Mesaj Gönderildi</string>
     <string name="feedback_success_message">Yardımınız için teşekkürler! Geri bildiriminiz FamWake\'i herkes için geliştirmemize yardımcı oluyor.</string>
     <string name="settings_terms_of_use">Kullanım Koşulları</string>
@@ -250,9 +231,7 @@
     <string name="error_not_logged_in">Giriş yapmadınız.</string>
     <string name="error_system">Bir şeyler ters gitti.</string>
     <string name="error_invalid_credentials">Yanlış e-posta veya şifre. Lütfen yazdıklarınızı kontrol edin.</string>
-    <string name="error_login_failed">Giriş yapılamadı</string>
     <string name="error_login_failed_unknown">Bilinmeyen giriş hatası</string>
-    <string name="error_registration_failed">Kayıt olunamadı</string>
     <string name="error_registration_failed_unknown">Hesabınız oluşturulamadı</string>
     <string name="error_unknown">Bir şeyler ters gitti. Lütfen tekrar deneyin.</string>
     <string name="error_google_sign_in_failed_unknown">Google ile giriş yapılamadı</string>
@@ -314,7 +293,6 @@
     <string name="settings_support_desc">Uygulamayı beğendiniz mi? Desteğiniz bizi çok mutlu eder!</string>
     <string name="settings_support_donate">Bağış yap</string>
     <string name="settings_donate_success">Desteğiniz için çok teşekkür ederiz! ❤️</string>
-    <string name="settings_donate_error">Ups, bir şeyler ters gitti.</string>
     <string name="settings_donate_loading">Seçenekler yükleniyor…</string>
     <string name="settings_donate_no_offers">Şu anda herhangi bir seçenek bulunmuyor.</string>
     <string name="settings_donate_purchase_loading">İşleniyor…</string>
@@ -346,19 +324,6 @@
     <string name="error_feedback_rate_limit_server">Çok fazla mesaj gönderildi. Lütfen daha sonra tekrar deneyin.</string>
     <string name="error_feedback_empty_message">Mesajınız boş.</string>
     <string name="error_network">Ağ problemi. Lütfen internet bağlantınızı kontrol edin.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Kişisel uyanma sesini seçmek için buraya dokun – normal bip sesi yerine en sevdiğin müziği seç.</string>
     <string name="settings_language_dialects">Lehçeler</string>
 
@@ -380,8 +345,6 @@
     <string name="notif_permission_title">Bildirimler gerekli</string>
     <string name="notif_permission_desc">Bildirimleri kapatırsan alarmın düzgün çalışmayabilir. Lütfen açık bırak.</string>
     <string name="notif_permission_button">Bildirimleri aç</string>
-    <string name="notif_manage_title">Bildirim ayarları</string>
-    <string name="notif_manage_desc">Telefonunun ayarlarından sesleri ve titreşimi değiştir.</string>
     <string name="settings_steal_title">Bu profili kullan?</string>
     <string name="settings_steal_text">%1$s zaten kullanımda. Bu profili kendiniz için kullanmak ister misiniz?</string>
     <string name="settings_steal_confirm">Evet, kullan</string>

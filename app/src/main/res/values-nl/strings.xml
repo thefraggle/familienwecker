@@ -117,7 +117,6 @@
     <string name="settings_delete_family_warning_confirm">Ja, voor iedereen verwijderen</string>
     <string name="settings_logout">Uitloggen</string>
     <string name="settings_delete_account">Account verwijderen</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rechten voorbehouden.</string>
 
@@ -128,18 +127,6 @@
 
     <string name="settings_language_title">Taal</string>
     <string name="settings_language_system">Systeemstandaard</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Uiterlijk</string>
     <string name="settings_display_title">App-instellingen</string>
     <string name="settings_help_feedback_title">Hulp &amp; Feedback</string>
@@ -153,12 +140,8 @@
     <string name="onboarding_slide0_body">Geen geruzie, geen chaos. FamWake zorgt ervoor dat iedereen ontspannen aan de dag begint – helemaal vanzelf.</string>
     <string name="onboarding_slide1_title">Slimme plannen voor elke dag</string>
     <string name="onboarding_slide1_body">Of het nu kantoor, school of thuiswerken is – FamWake berekent de perfecte wek- en badkamertijd voor het hele gezin. Zonder file in de ochtend.</string>
-    <string name="onboarding_slide2_title">Elke dag is anders.</string>
-    <string name="onboarding_slide2_body">Maandag naar kantoor, woensdag thuiswerken? Stel voor elke dag afzonderlijke tijden in – de app regelt de rest.</string>
     <string name="onboarding_slide3_title">In seconden verbonden.</string>
     <string name="onboarding_slide3_body">Deel je uitnodigingscode en je familie doet direct mee. Als iemand zijn tijden aanpast, wordt het schema van iedereen meteen bijgewerkt.</string>
-    <string name="onboarding_slide4_title">Werkt altijd.</string>
-    <string name="onboarding_slide4_body">Geniet elke dag van een ontspannen ochtend. Zelfs als het internet \'s nachts uitvalt, gaat de wekker gewoon op tijd af.</string>
     <string name="settings_feedback_button">Feedback geven / Probleem melden</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Help ons de app nog beter te maken! Wat heb je op je hart?</string>
@@ -176,7 +159,6 @@
     <string name="feedback_auto_device">Telefoon: %1$s</string>
     <string name="feedback_cancel">Annuleren</string>
     <string name="feedback_send">Bericht verzenden</string>
-    <string name="feedback_success">Bedankt! We hebben je bericht ontvangen.</string>
     <string name="feedback_success_title">Bericht Verzonden</string>
     <string name="feedback_success_message">Bedankt voor je hulp! Je feedback helpt ons om FamWake voor iedereen beter te maken.</string>
     <string name="settings_terms_of_use">Gebruiksvoorwaarden</string>
@@ -240,9 +222,7 @@
     <string name="error_not_logged_in">Je bent niet ingelogd.</string>
     <string name="error_system">Er ging iets mis.</string>
     <string name="error_invalid_credentials">Verkeerd e-mailadres of wachtwoord. Controleer a.u.b. wat je hebt getypt.</string>
-    <string name="error_login_failed">Inloggen is niet gelukt</string>
     <string name="error_login_failed_unknown">Onbekende inlogfout</string>
-    <string name="error_registration_failed">Registreren is niet gelukt</string>
     <string name="error_registration_failed_unknown">Kon je account niet aanmaken</string>
     <string name="error_unknown">Er ging iets mis. Probeer het a.u.b. opnieuw.</string>
     <string name="error_google_sign_in_failed_unknown">Inloggen met Google werkte niet</string>
@@ -304,7 +284,6 @@
     <string name="settings_support_desc">Vind je de app leuk? We zouden je steun erg waarderen!</string>
     <string name="settings_support_donate">Doneren</string>
     <string name="settings_donate_success">Heel erg bedankt voor je steun! ❤️</string>
-    <string name="settings_donate_error">Oeps, er ging iets mis.</string>
     <string name="settings_donate_loading">Opties laden…</string>
     <string name="settings_donate_no_offers">Op dit moment zijn er geen opties beschikbaar.</string>
     <string name="settings_donate_purchase_loading">Verwerken…</string>
@@ -336,14 +315,6 @@
     <string name="error_feedback_rate_limit_server">Te veel berichten verstuurd. Probeer het later nog eens.</string>
     <string name="error_feedback_empty_message">Je bericht is leeg.</string>
     <string name="error_network">Netwerkprobleem. Controleer je internetverbinding.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Tik hier om je persoonlijke wekkergeluid te kiezen – neem je favoriete muziek in plaats van het standaard gepiep.</string>
     <string name="settings_language_dialects">Dialecten</string>
 
@@ -360,8 +331,6 @@
     <string name="notif_permission_title">Meldingen vereist</string>
     <string name="notif_permission_desc">Als je meldingen uitschakelt, werkt je wekker mogelijk niet goed. Laat ze a.u.b. ingeschakeld.</string>
     <string name="notif_permission_button">Meldingen aanzetten</string>
-    <string name="notif_manage_title">Meldingsinstellingen</string>
-    <string name="notif_manage_desc">Wijzig geluiden en trillen in de instellingen van je telefoon.</string>
     <string name="onboarding_login_create">Inloggen / Registreren</string>
     <string name="onboarding_slide5_title">Laten we beginnen!</string>
     <string name="onboarding_slide5_body">Je kunt de app meteen uitproberen zonder account. Je hebt er pas een nodig als je je familie wilt uitnodigen.</string>

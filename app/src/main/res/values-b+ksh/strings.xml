@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Ton nehmen: %1$s</string>
     <string name="settings_alarm_picker_title">Such dir n Ton aus</string>
     <string name="settings_account_title">Familie &amp; Konto</string>
-    <string name="settings_join_family_locked">Log dich ersma ein, bevor de inne Familie kannst.</string>
     <string name="settings_share_code_locked">Log dich ersma ein, bevor de den Code teilen kannst.</string>
     <string name="settings_join_code">Code für %1$s:</string>
     <string name="settings_share_code">Link rüberschieben</string>
@@ -119,7 +118,6 @@
     <string name="settings_delete_family_warning_confirm">Jau, alles platt</string>
     <string name="settings_logout">Abmelden</string>
     <string name="settings_delete_account">Konto plattmachen</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle Rechte vorbehalten.</string>
 
@@ -130,18 +128,6 @@
 
     <string name="settings_language_title">Sprache</string>
     <string name="settings_language_system">System-Standard</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Optik</string>
     <string name="settings_display_title">App-Einstellungen</string>
     <string name="settings_help_feedback_title">Hilfe &amp; Meckern</string>
@@ -155,12 +141,8 @@
     <string name="onboarding_slide0_body">Kein Gekeife, kein Chaos. FamWake sorgt dafür, dat alle entspannt inne Tag starten – vollautomatisch.</string>
     <string name="onboarding_slide1_title">Patente Pläne für jeden Tach</string>
     <string name="onboarding_slide1_body">Ejal ob Maloche, Schule oder Home-Office – FamWake rechnet dir die perfekte Weck- und Badzeit für die ganze Bagage aus. Ohne Stau am Morgen.</string>
-    <string name="onboarding_slide2_title">Jeder Tach is anders.</string>
-    <string name="onboarding_slide2_body">Montag Maloche, Mittwoch Homeoffice? Stell für jeden Tach eigene Zeiten ein – die App regelt den Rest.</string>
     <string name="onboarding_slide3_title">Zack, verbunden.</string>
     <string name="onboarding_slide3_body">Teil nen Code und deine Truppe is dabei. Wenn einer wat ändert, is der Plan für alle direkt neu.</string>
-    <string name="onboarding_slide4_title">Immer verlass drauf</string>
-    <string name="onboarding_slide4_body">Entspannte Morgen, zuverlässig und offline. Wenn dat Internet mal wech is, klingelt der Wecker trotzdem pünktlich.</string>
     <string name="settings_feedback_button">Meckern / Fehler rübergeben</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hilf uns, die Bude besser zu machen! Wat drückt?</string>
@@ -178,7 +160,6 @@
     <string name="feedback_auto_device">Gerät: %1$s</string>
     <string name="feedback_cancel">Abbrechen</string>
     <string name="feedback_send">Rüberschicken</string>
-    <string name="feedback_success">Sauber! Is angekommen, dat hilft uns derbe.</string>
     <string name="feedback_success_title">Is raus</string>
     <string name="feedback_success_message">Danke dir! Hilft uns, die App für alle noch nen Ticken geiler zu machen.</string>
     <string name="settings_terms_of_use">Nutzungsbedingungen</string>
@@ -242,9 +223,7 @@
     <string name="error_not_logged_in">Bisse nich eingeloggt.</string>
     <string name="error_system">System spinnt.</string>
     <string name="error_invalid_credentials">E-Mail oder Passwort is fürn Eimer. Guck nochma.</string>
-    <string name="error_login_failed">Einloggen kaputt</string>
     <string name="error_login_failed_unknown">Da ging wat beim Einloggen schief, kein Plan was.</string>
-    <string name="error_registration_failed">Registrieren is abgebrochen</string>
     <string name="error_registration_failed_unknown">Konto konnte nich gemacht werden</string>
     <string name="error_unknown">Kein Plan was das war. Probier nochmal.</string>
     <string name="error_google_sign_in_failed_unknown">Google zickt rum</string>
@@ -306,7 +285,6 @@
     <string name="settings_support_desc">Bock auf die App? Wir freuen uns über jeden Groschen!</string>
     <string name="settings_support_donate">Wat dalassen</string>
     <string name="settings_donate_success">Fetten Dank dir! ❤️</string>
-    <string name="settings_donate_error">Ups, da is wat schiefgelaufen.</string>
     <string name="settings_donate_loading">Lade den Kram…</string>
     <string name="settings_donate_no_offers">Nix zu kaufen da.</string>
     <string name="settings_donate_purchase_loading">Knete wird verbucht…</string>
@@ -338,14 +316,6 @@
     <string name="error_feedback_rate_limit_server">Zu viel aufm einmal. Probier dat nachher nochmal.</string>
     <string name="error_feedback_empty_message">Da muss wat drin stehen, sonst bringt dat nix.</string>
     <string name="error_network">Netz is wech. Guck ma ob de online bis.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Druck hier, um deinen eigenen Weckton auszusuchen – nimm wat Geiles statt dem Standardgebimmel.</string>
     <string name="settings_language_dialects">Dialekte</string>
     <string name="onboarding_mock_name1">Vatta</string>
@@ -365,8 +335,6 @@
     <string name="notif_permission_title">Brauch Rechte fürs Bimmeln</string>
     <string name="notif_permission_desc">Ohne Rechte darf der Wecker nich rappeln. Mach an den Bums, sonst verpennste.</string>
     <string name="notif_permission_button">Meldungen anmachen</string>
-    <string name="notif_manage_title">Meldungen einstellen</string>
-    <string name="notif_manage_desc">Ton, Gerappel und den restlichen Kram inne System-Einstellungen anpassen.</string>
     <string name="onboarding_login_create">Anmelden / Registrieren</string>
     <string name="onboarding_slide5_title">Auf geht\'s!</string>
     <string name="onboarding_slide5_body">Hör ma, du kanns die App direkt ohne Anmeldung ausprobieren. Ein Konto brauchsse erst, wenn de deine Familie einläds.</string>

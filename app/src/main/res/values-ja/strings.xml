@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">音：%1$s</string>
     <string name="settings_alarm_picker_title">アラーム音を選択してください</string>
     <string name="settings_account_title">家族とアカウント</string>
-    <string name="settings_join_family_locked">家族に参加するにはログインしてください。</string>
     <string name="settings_share_code_locked">招待コードを共有するにはログインしてください。</string>
     <string name="settings_anonymous_login_button">ログイン / 登録</string>
     <string name="settings_join_code">%1$sの招待コード：</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">はい、全員分を削除します</string>
     <string name="settings_logout">ログアウト</string>
     <string name="settings_delete_account">アカウントを削除</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">無断複写・転載を禁じます。</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">言語</string>
     <string name="settings_language_system">システムのデフォルト</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">デザイン</string>
     <string name="settings_display_title">アプリ設定</string>
     <string name="settings_help_feedback_title">ヘルプとフィードバック</string>
@@ -159,12 +145,8 @@
     <string name="onboarding_slide0_body">言い争いも、バタバタもなし。FamWakeがおまかせで、みんながリラックスして一日を始められるようサポートします。</string>
     <string name="onboarding_slide1_title">毎日のためのスマートな計画</string>
     <string name="onboarding_slide1_body">オフィス、学校、またはホームオフィスに関係なく、FamWakeは家族全員にとって最適な起床時間とバスタイムを計算します。朝の渋滞はもうありません。</string>
-    <string name="onboarding_slide2_title">毎日の予定に合わせて。</string>
-    <string name="onboarding_slide2_body">月曜は出社、水曜はリモートワーク？曜日ごとに時間を設定しておけば、あとはアプリにおまかせ。</string>
     <string name="onboarding_slide3_title">数秒で繋がる。</string>
     <string name="onboarding_slide3_body">招待コードを共有すれば、家族がすぐに参加できます。誰かが時間を変更しても、全員のスケジュールがすぐに更新されます。</string>
-    <string name="onboarding_slide4_title">いつでも確実。</string>
-    <string name="onboarding_slide4_body">毎日リラックスした朝を楽しんでください。夜中にインターネットが切れても、アラームは時間通りに鳴ります。</string>
     
     <string name="onboarding_mock_name1">お父さん</string>
     <string name="onboarding_mock_name2">お母さん</string>
@@ -186,7 +168,6 @@
     <string name="feedback_auto_device">スマートフォン：%1$s</string>
     <string name="feedback_cancel">キャンセル</string>
     <string name="feedback_send">メッセージを送信</string>
-    <string name="feedback_success">ありがとうございます！メッセージを受け取りました。</string>
     <string name="feedback_success_title">送信完了</string>
     <string name="feedback_success_message">ご協力ありがとうございます！皆様のフィードバックがFamWakeをさらに良くします。</string>
     <string name="settings_terms_of_use">利用規約</string>
@@ -250,9 +231,7 @@
     <string name="error_not_logged_in">ログインしていません。</string>
     <string name="error_system">問題が発生しました。</string>
     <string name="error_invalid_credentials">メールアドレスまたはパスワードが間違っています。入力内容を確認してください。</string>
-    <string name="error_login_failed">ログインできませんでした</string>
     <string name="error_login_failed_unknown">不明なログインエラー</string>
-    <string name="error_registration_failed">登録できませんでした</string>
     <string name="error_registration_failed_unknown">アカウントを作成できませんでした</string>
     <string name="error_unknown">問題が発生しました。もう一度お試しください。</string>
     <string name="error_google_sign_in_failed_unknown">Googleでのログインができませんでした</string>
@@ -314,7 +293,6 @@
     <string name="settings_support_desc">アプリを気に入っていただけましたか？ご支援いただけると大変嬉しいです！</string>
     <string name="settings_support_donate">寄付する</string>
     <string name="settings_donate_success">ご支援本当にありがとうございます！ ❤️</string>
-    <string name="settings_donate_error">おっと、問題が発生しました。</string>
     <string name="settings_donate_loading">オプションを読み込んでいます…</string>
     <string name="settings_donate_no_offers">現在利用できるプランはありません。</string>
     <string name="settings_donate_purchase_loading">処理中…</string>
@@ -346,19 +324,6 @@
     <string name="error_feedback_rate_limit_server">送信したメッセージが多すぎます。後でもう一度お試しください。</string>
     <string name="error_feedback_empty_message">メッセージが空です。</string>
     <string name="error_network">ネットワークの問題です。インターネット接続を確認してください。</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">ここをタップして自分用のアラーム音を選んでください。普通のピッという音の代わりに好きな音楽を設定できます。</string>
     <string name="settings_language_dialects">方言</string>
 
@@ -375,8 +340,6 @@
     <string name="notif_permission_title">通知が必要です</string>
     <string name="notif_permission_desc">通知をオフにすると、アラームが正しく鳴らない場合があります。オンのままにしてください。</string>
     <string name="notif_permission_button">通知をオンにする</string>
-    <string name="notif_manage_title">通知の設定</string>
-    <string name="notif_manage_desc">スマートフォンの設定で音やバイブレーションを変更できます。</string>
 
 
     <string name="settings_steal_title">このプロフィールを使いますか？</string>

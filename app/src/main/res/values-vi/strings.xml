@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Âm thanh: %1$s</string>
     <string name="settings_alarm_picker_title">Chọn âm thanh báo thức</string>
     <string name="settings_account_title">Gia đình &amp; Tài khoản</string>
-    <string name="settings_join_family_locked">Vui lòng đăng nhập để tham gia một gia đình.</string>
     <string name="settings_share_code_locked">Vui lòng đăng nhập để chia sẻ mã mời.</string>
     <string name="settings_anonymous_login_button">Đăng nhập / Đăng ký</string>
     <string name="settings_join_code">Mã mời cho %1$s:</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">Có, xóa cho tất cả mọi người</string>
     <string name="settings_logout">Đăng xuất</string>
     <string name="settings_delete_account">Xóa tài khoản</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Mọi quyền được bảo lưu.</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">Ngôn ngữ</string>
     <string name="settings_language_system">Mặc định hệ thống</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Giao diện</string>
     <string name="settings_display_title">Cài đặt ứng dụng</string>
     <string name="settings_help_feedback_title">Trợ giúp &amp; Phản hồi</string>
@@ -159,12 +145,8 @@
     <string name="onboarding_slide0_body">Không tranh cãi, không hỗn loạn. FamWake đảm bảo mọi người bắt đầu ngày mới một cách thư giãn – hoàn toàn tự động.</string>
     <string name="onboarding_slide1_title">Kế hoạch thông minh cho mỗi ngày</string>
     <string name="onboarding_slide1_body">Dù là văn phòng, trường học hay làm việc tại nhà – FamWake tính toán thời gian thức dậy và dùng phòng tắm hoàn hảo cho cả gia đình. Không còn tắc nghẽn buổi sáng.</string>
-    <string name="onboarding_slide2_title">Mỗi ngày đều khác nhau.</string>
-    <string name="onboarding_slide2_body">Thứ Hai làm ở văn phòng, Thứ Tư làm tại nhà? Chỉ cần đặt thời gian của bạn cho từng ngày, ứng dụng sẽ xử lý phần còn lại.</string>
     <string name="onboarding_slide3_title">Kết nối trong vài giây.</string>
     <string name="onboarding_slide3_body">Chia sẻ mã mời và gia đình bạn sẽ tham gia ngay. Nếu ai đó thay đổi thời gian, lịch trình của mọi người sẽ cập nhật tức thì.</string>
-    <string name="onboarding_slide4_title">Luôn luôn hoạt động.</string>
-    <string name="onboarding_slide4_body">Tận hưởng buổi sáng thư thái mỗi ngày. Ngay cả khi rớt mạng vào ban đêm, báo thức vẫn sẽ reo đúng giờ.</string>
     
     <string name="onboarding_mock_name1">Bố</string>
     <string name="onboarding_mock_name2">Mẹ</string>
@@ -186,7 +168,6 @@
     <string name="feedback_auto_device">Điện thoại: %1$s</string>
     <string name="feedback_cancel">Hủy</string>
     <string name="feedback_send">Gửi tin nhắn</string>
-    <string name="feedback_success">Cảm ơn bạn! Chúng tôi đã nhận được tin nhắn.</string>
     <string name="feedback_success_title">Đã gửi tin nhắn</string>
     <string name="feedback_success_message">Cảm ơn bạn đã giúp đỡ! Phản hồi của bạn giúp chúng tôi cải thiện FamWake cho tất cả mọi người.</string>
     <string name="settings_terms_of_use">Điều khoản sử dụng</string>
@@ -250,9 +231,7 @@
     <string name="error_not_logged_in">Bạn chưa đăng nhập.</string>
     <string name="error_system">Đã có lỗi xảy ra.</string>
     <string name="error_invalid_credentials">Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại.</string>
-    <string name="error_login_failed">Đăng nhập thất bại</string>
     <string name="error_login_failed_unknown">Lỗi đăng nhập không xác định</string>
-    <string name="error_registration_failed">Đăng ký không thành công</string>
     <string name="error_registration_failed_unknown">Không thể tạo tài khoản của bạn</string>
     <string name="error_unknown">Đã có lỗi xảy ra. Vui lòng thử lại.</string>
     <string name="error_google_sign_in_failed_unknown">Đăng nhập Google không thành công</string>
@@ -314,7 +293,6 @@
     <string name="settings_support_desc">Bạn có thích ứng dụng này không? Chúng tôi rất trân trọng sự hỗ trợ của bạn!</string>
     <string name="settings_support_donate">Quyên góp</string>
     <string name="settings_donate_success">Cảm ơn bạn rất nhiều vì đã ủng hộ! ❤️</string>
-    <string name="settings_donate_error">Rất tiếc, đã xảy ra lỗi.</string>
     <string name="settings_donate_loading">Đang tải tùy chọn…</string>
     <string name="settings_donate_no_offers">Hiện tại không có tùy chọn nào.</string>
     <string name="settings_donate_purchase_loading">Đang xử lý…</string>
@@ -346,19 +324,6 @@
     <string name="error_feedback_rate_limit_server">Đã gửi quá nhiều tin nhắn. Vui lòng thử lại sau.</string>
     <string name="error_feedback_empty_message">Tin nhắn của bạn đang trống.</string>
     <string name="error_network">Lỗi mạng. Vui lòng kiểm tra kết nối internet của bạn.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Nhấn vào đây để chọn âm thanh đánh thức của riêng bạn – chọn bản nhạc yêu thích thay vì tiếng bíp thông thường.</string>
     <string name="settings_language_dialects">Phương ngữ</string>
 
@@ -380,8 +345,6 @@
     <string name="notif_permission_title">Cần có thông báo</string>
     <string name="notif_permission_desc">Nếu bạn tắt thông báo, báo thức có thể không hoạt động đúng. Vui lòng bật chúng.</string>
     <string name="notif_permission_button">Bật thông báo</string>
-    <string name="notif_manage_title">Cài đặt thông báo</string>
-    <string name="notif_manage_desc">Thay đổi âm thanh và độ rung trong cài đặt điện thoại của bạn.</string>
     <string name="settings_steal_title">Sử dụng hồ sơ này?</string>
     <string name="settings_steal_text">Hồ sơ %1$s đã được chọn. Bạn có muốn sử dụng hồ sơ này không?</string>
     <string name="settings_steal_confirm">Có, sử dụng</string>
