@@ -24,6 +24,16 @@ Thumbs.db
 
 # Google Services
 google-services.json
+GoogleService-Info.plist
+
+# iOS / Xcode
+ios/FamWake.xcodeproj/xcuserdata/
+ios/FamWake.xcodeproj/project.xcworkspace/xcuserdata/
+ios/FamWake.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+ios/DerivedData/
+ios/Pods/
+*.xcuserstate
+ios/FamWake/Config/Secrets.xcconfig
 
 # Keystore files
 *.jks

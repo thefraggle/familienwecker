@@ -7,8 +7,7 @@ import platform.Foundation.NSHomeDirectory
 fun getDatabaseBuilder(): RoomDatabase.Builder<FamWakeDatabase> {
     val dbFile = NSHomeDirectory() + "/famwake.db"
     return Room.databaseBuilder<FamWakeDatabase>(
-        name = dbFile,
-        factory = { FamWakeDatabase::class.instantiateImpl() }
+        name = dbFile
     ).setDriver(BundledSQLiteDriver())
      .fallbackToDestructiveMigration(dropAllTables = true)
 }
