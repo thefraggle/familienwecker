@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.2 – 2026-05-13
+### Improved
+- **Better translations** – FamWake now speaks all supported languages even more fluently so every family member can easily join in.
+- **Spring cleaning** – We cleaned up behind the scenes. The app is now leaner and runs smoother than ever.
+
+---
+
 ## 1.9.1 – 2026-05-10
 ### Improved
 - **Faster onboarding** – The introduction has been shortened and focused so you can get started quicker.
