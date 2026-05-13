@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Suara: %1$s</string>
     <string name="settings_alarm_picker_title">Pilih suara alarm Anda</string>
     <string name="settings_account_title">Keluarga &amp; Akun</string>
-    <string name="settings_join_family_locked">Silakan masuk untuk bergabung dengan keluarga.</string>
     <string name="settings_share_code_locked">Silakan masuk untuk membagikan kode undangan.</string>
     <string name="settings_anonymous_login_button">Masuk / Daftar</string>
     <string name="settings_join_code">Kode undangan untuk %1$s:</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">Ya, hapus untuk semua orang</string>
     <string name="settings_logout">Keluar</string>
     <string name="settings_delete_account">Hapus akun</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Semua hak dilindungi undang-undang.</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">Bahasa</string>
     <string name="settings_language_system">Bawaan sistem</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Tampilan</string>
     <string name="settings_display_title">Pengaturan aplikasi</string>
     <string name="settings_help_feedback_title">Bantuan &amp; Masukan</string>
@@ -156,12 +142,8 @@
     <string name="onboarding_slide0_body">Tanpa perdebatan, tanpa kekacauan. FamWake memastikan semua orang memulai hari dengan santai – dengan sendirinya.</string>
     <string name="onboarding_slide1_title">Tidak perlu antre lagi.</string>
     <string name="onboarding_slide1_body">FamWake menemukan waktu bangun yang tepat untuk semua orang di keluarga – berdasarkan waktu mandi, sarapan, dan jam berangkat.</string>
-    <string name="onboarding_slide2_title">Setiap hari itu berbeda.</string>
-    <string name="onboarding_slide2_body">Hari Senin ke kantor, hari Rabu kerja dari rumah? Cukup atur waktu Anda untuk setiap hari, dan aplikasi yang akan mengurus sisanya.</string>
     <string name="onboarding_slide3_title">Terhubung dalam hitungan detik.</string>
     <string name="onboarding_slide3_body">Bagikan kode undangan Anda dan keluarga langsung bergabung. Jika ada yang mengubah waktunya, jadwal semua orang otomatis diperbarui.</string>
-    <string name="onboarding_slide4_title">Selalu bisa diandalkan.</string>
-    <string name="onboarding_slide4_body">Nikmati pagi yang santai setiap hari. Meskipun internet Anda mati di malam hari, alarm akan tetap berbunyi tepat waktu.</string>
     
     <string name="onboarding_mock_name1">Ayah</string>
     <string name="onboarding_mock_name2">Ibu</string>
@@ -183,7 +165,6 @@
     <string name="feedback_auto_device">Ponsel: %1$s</string>
     <string name="feedback_cancel">Batal</string>
     <string name="feedback_send">Kirim pesan</string>
-    <string name="feedback_success">Terima kasih! Kami telah menerima pesan Anda.</string>
     <string name="feedback_success_title">Pesan Terkirim</string>
     <string name="feedback_success_message">Terima kasih atas bantuan Anda! Masukan Anda membantu kami membuat FamWake lebih baik untuk semua orang.</string>
     <string name="settings_terms_of_use">Syarat Penggunaan</string>
@@ -247,9 +228,7 @@
     <string name="error_not_logged_in">Anda belum masuk.</string>
     <string name="error_system">Ada yang salah.</string>
     <string name="error_invalid_credentials">Email atau kata sandi salah. Silakan periksa kembali.</string>
-    <string name="error_login_failed">Gagal masuk</string>
     <string name="error_login_failed_unknown">Kesalahan masuk yang tidak diketahui</string>
-    <string name="error_registration_failed">Pendaftaran gagal</string>
     <string name="error_registration_failed_unknown">Tidak dapat membuat akun Anda</string>
     <string name="error_unknown">Ada yang salah. Silakan coba lagi.</string>
     <string name="error_google_sign_in_failed_unknown">Gagal masuk dengan Google</string>
@@ -311,7 +290,6 @@
     <string name="settings_support_desc">Apakah Anda menyukai aplikasi ini? Kami sangat menghargai dukungan Anda!</string>
     <string name="settings_support_donate">Donasi</string>
     <string name="settings_donate_success">Terima kasih banyak atas dukungan Anda! ❤️</string>
-    <string name="settings_donate_error">Ups, ada yang tidak beres.</string>
     <string name="settings_donate_loading">Memuat pilihan…</string>
     <string name="settings_donate_no_offers">Tidak ada pilihan yang tersedia saat ini.</string>
     <string name="settings_donate_purchase_loading">Memproses…</string>
@@ -343,19 +321,6 @@
     <string name="error_feedback_rate_limit_server">Terlalu banyak pesan yang dikirim. Silakan coba lagi nanti.</string>
     <string name="error_feedback_empty_message">Pesan Anda kosong.</string>
     <string name="error_network">Masalah jaringan. Silakan periksa koneksi internet Anda.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Ketuk di sini untuk memilih suara bangun pribadi Anda – gunakan musik favorit Anda daripada bunyi bip biasa.</string>
     <string name="settings_language_dialects">Dialek</string>
 
@@ -372,8 +337,6 @@
     <string name="notif_permission_title">Notifikasi diperlukan</string>
     <string name="notif_permission_desc">Jika Anda mematikan notifikasi, alarm Anda mungkin tidak berfungsi dengan baik. Tolong biarkan tetap menyala.</string>
     <string name="notif_permission_button">Nyalakan notifikasi</string>
-    <string name="notif_manage_title">Pengaturan notifikasi</string>
-    <string name="notif_manage_desc">Ubah suara dan getaran di pengaturan ponsel Anda.</string>
     <string name="onboarding_login_create">Masuk / Daftar</string>
     <string name="onboarding_slide5_title">Mari kita mulai!</string>
     <string name="onboarding_slide5_body">Anda dapat langsung mencoba aplikasinya tanpa akun. Anda hanya memerlukan akun saat ingin mengundang keluarga Anda.</string>

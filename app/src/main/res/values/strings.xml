@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Sound: %1$s</string>
     <string name="settings_alarm_picker_title">Choose your alarm sound</string>
     <string name="settings_account_title">Family &amp; Account</string>
-    <string name="settings_join_family_locked">Please log in to join a family.</string>
     <string name="settings_share_code_locked">Please log in to share your invite code.</string>
     <string name="settings_anonymous_login_button">Log in / Sign up</string>
     <string name="settings_join_code">Invite code for %1$s:</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">Yes, delete for everyone</string>
     <string name="settings_logout">Log out</string>
     <string name="settings_delete_account">Delete account</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">All rights reserved.</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">Language</string>
     <string name="settings_language_system">System default</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Look</string>
     <string name="settings_display_title">App settings</string>
     <string name="settings_help_feedback_title">Help &amp; Feedback</string>
@@ -159,12 +145,8 @@
     <string name="onboarding_slide0_body">No arguments, no chaos. FamWake makes sure everyone starts the day relaxed – all by itself.</string>
     <string name="onboarding_slide1_title">Smart plans for every day</string>
     <string name="onboarding_slide1_body">Whether office, school, or home office – FamWake calculates the perfect wake-up and bathroom time for the whole family. Without the morning traffic jam.</string>
-    <string name="onboarding_slide2_title">Every day is different.</string>
-    <string name="onboarding_slide2_body">Office on Monday, working from home on Wednesday? Just set your times for each day, and the app handles the rest.</string>
     <string name="onboarding_slide3_title">Connected in seconds.</string>
     <string name="onboarding_slide3_body">Share your invite code and your family is in. If someone changes their times, everyone\'s schedule updates instantly.</string>
-    <string name="onboarding_slide4_title">Always works.</string>
-    <string name="onboarding_slide4_body">Enjoy a relaxed morning every day. Even if your internet goes down overnight, the alarm will still ring on time.</string>
     
     <string name="onboarding_mock_name1">Dad</string>
     <string name="onboarding_mock_name2">Mom</string>
@@ -186,7 +168,6 @@
     <string name="feedback_auto_device">Phone: %1$s</string>
     <string name="feedback_cancel">Cancel</string>
     <string name="feedback_send">Send message</string>
-    <string name="feedback_success">Thank you! We received your message.</string>
     <string name="feedback_success_title">Message Sent</string>
     <string name="feedback_success_message">Thank you for your help! Your feedback helps us improve FamWake for everyone.</string>
     <string name="settings_terms_of_use">Terms of Use</string>
@@ -250,9 +231,7 @@
     <string name="error_not_logged_in">You are not logged in.</string>
     <string name="error_system">Something went wrong.</string>
     <string name="error_invalid_credentials">Wrong email or password. Please check.</string>
-    <string name="error_login_failed">Login didn\'t work</string>
     <string name="error_login_failed_unknown">Unknown login error</string>
-    <string name="error_registration_failed">Sign up didn\'t work</string>
     <string name="error_registration_failed_unknown">Could not create your account</string>
     <string name="error_unknown">Something went wrong. Please try again.</string>
     <string name="error_google_sign_in_failed_unknown">Google sign-in didn\'t work</string>
@@ -314,7 +293,6 @@
     <string name="settings_support_desc">Do you like the app? We would love your support!</string>
     <string name="settings_support_donate">Donate</string>
     <string name="settings_donate_success">Thank you so much for your support! ❤️</string>
-    <string name="settings_donate_error">Oops, something didn\'t work.</string>
     <string name="settings_donate_loading">Loading options…</string>
     <string name="settings_donate_no_offers">No options available right now.</string>
     <string name="settings_donate_purchase_loading">Processing…</string>
@@ -346,19 +324,6 @@
     <string name="error_feedback_rate_limit_server">Too many messages sent. Please try again later.</string>
     <string name="error_feedback_empty_message">Your message is empty.</string>
     <string name="error_network">Network problem. Please check your internet connection.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Tap here to choose your personal wake-up sound – pick your favorite music instead of the normal beeping.</string>
     <string name="settings_language_dialects">Dialects</string>
 
@@ -380,8 +345,6 @@
     <string name="notif_permission_title">Notifications needed</string>
     <string name="notif_permission_desc">If you turn off notifications, your alarm might not work properly. Please leave them on.</string>
     <string name="notif_permission_button">Turn on notifications</string>
-    <string name="notif_manage_title">Notification settings</string>
-    <string name="notif_manage_desc">Change sounds and vibrations in your phone settings.</string>
     <string name="settings_steal_title">Use this profile?</string>
     <string name="settings_steal_text">%1$s is already taken. Do you want to take it over?</string>
     <string name="settings_steal_confirm">Yes, use it</string>

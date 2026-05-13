@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">आवाज़: %1$s</string>
     <string name="settings_alarm_picker_title">अपने अलार्म की आवाज़ चुनें</string>
     <string name="settings_account_title">परिवार और अकाउंट</string>
-    <string name="settings_join_family_locked">परिवार से जुड़ने के लिए कृपया लॉग इन करें।</string>
     <string name="settings_share_code_locked">इनवाइट कोड शेयर करने के लिए कृपया लॉग इन करें।</string>
     <string name="settings_anonymous_login_button">लॉग इन / साइन अप करें</string>
     <string name="settings_join_code">%1$s के लिए इनवाइट कोड:</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">हाँ, सभी के लिए हटा दें</string>
     <string name="settings_logout">लॉग आउट करें</string>
     <string name="settings_delete_account">अकाउंट हटाएँ</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 डैनियल नॉथऑफ़</string>
     <string name="settings_footer_rights">सर्वाधिकार सुरक्षित।</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">भाषा</string>
     <string name="settings_language_system">सिस्टम डिफ़ॉल्ट</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">लुक</string>
     <string name="settings_display_title">ऐप की सेटिंग्स</string>
     <string name="settings_help_feedback_title">मदद और सुझाव</string>
@@ -159,12 +145,8 @@
     <string name="onboarding_slide0_body">कोई बहस नहीं, कोई अफ़रातफ़री नहीं। FamWake यह सुनिश्चित करता है कि सबकी सुबह आराम से शुरू हो – वह भी अपने आप।</string>
     <string name="onboarding_slide1_title">हर दिन के लिए स्मार्ट प्लान</string>
     <string name="onboarding_slide1_body">ऑफिस, स्कूल या वर्क फ्रॉम होम – FamWake पूरे परिवार के लिए उठने और बाथरूम के इस्तेमाल का सही समय कैलकुलेट करता है। सुबह की भीड़-भाड़ के बिना।</string>
-    <string name="onboarding_slide2_title">हर दिन एक जैसा नहीं होता।</string>
-    <string name="onboarding_slide2_body">सोमवार को ऑफ़िस, बुधवार को घर से काम? बस हर दिन के हिसाब से अपना समय सेट करें, और बाकी काम ऐप संभाल लेगा।</string>
     <string name="onboarding_slide3_title">कुछ ही सेकंड में जुड़ें।</string>
     <string name="onboarding_slide3_body">अपना इनवाइट कोड शेयर करें और आपका परिवार जुड़ जाएगा। अगर कोई अपना समय बदलता है, तो सभी का रूटीन अपने आप अपडेट हो जाएगा।</string>
-    <string name="onboarding_slide4_title">हमेशा काम करता है।</string>
-    <string name="onboarding_slide4_body">हर दिन एक शांत और आरामदायक सुबह का मज़ा लें। अगर रात में आपका इंटरनेट बंद भी हो जाए, तो भी अलार्म सही समय पर बजेगा।</string>
     
     <string name="onboarding_mock_name1">पापा</string>
     <string name="onboarding_mock_name2">मम्मी</string>
@@ -186,7 +168,6 @@
     <string name="feedback_auto_device">फ़ोन: %1$s</string>
     <string name="feedback_cancel">रद्द करें</string>
     <string name="feedback_send">संदेश भेजें</string>
-    <string name="feedback_success">धन्यवाद! हमें आपका संदेश मिल गया है।</string>
     <string name="feedback_success_title">संदेश भेज दिया गया</string>
     <string name="feedback_success_message">आपकी मदद के लिए धन्यवाद! आपके सुझावों से हमें FamWake को सभी के लिए बेहतर बनाने में मदद मिलती है।</string>
     <string name="settings_terms_of_use">इस्तेमाल की शर्तें</string>
@@ -250,9 +231,7 @@
     <string name="error_not_logged_in">आप लॉग इन नहीं हैं。</string>
     <string name="error_system">कुछ गड़बड़ हो गई।</string>
     <string name="error_invalid_credentials">गलत ईमेल या पासवर्ड। कृपया चेक करें।</string>
-    <string name="error_login_failed">लॉग इन नहीं हो पाया</string>
     <string name="error_login_failed_unknown">लॉग इन में कोई अनजान गड़बड़ी हुई</string>
-    <string name="error_registration_failed">साइन अप नहीं हो पाया</string>
     <string name="error_registration_failed_unknown">आपका अकाउंट नहीं बन सका</string>
     <string name="error_unknown">कुछ गड़बड़ हो गई। कृपया फिर से कोशिश करें।</string>
     <string name="error_google_sign_in_failed_unknown">Google साइन-इन काम नहीं कर रहा</string>
@@ -314,7 +293,6 @@
     <string name="settings_support_desc">क्या आपको ऐप पसंद आया? हमें आपके सपोर्ट से बहुत ख़ुशी होगी!</string>
     <string name="settings_support_donate">डोनेट करें</string>
     <string name="settings_donate_success">आपके सपोर्ट के लिए बहुत-बहुत धन्यवाद! ❤️</string>
-    <string name="settings_donate_error">उफ़, कुछ गड़बड़ हो गई।</string>
     <string name="settings_donate_loading">ऑप्शन लोड हो रहे हैं…</string>
     <string name="settings_donate_no_offers">अभी कोई ऑप्शन उपलब्ध नहीं है।</string>
     <string name="settings_donate_purchase_loading">प्रोसेस हो रहा है…</string>
@@ -346,19 +324,6 @@
     <string name="error_feedback_rate_limit_server">बहुत सारे संदेश भेज दिए गए हैं। कृपया थोड़ी देर बाद कोशिश करें।</string>
     <string name="error_feedback_empty_message">आपका संदेश खाली है।</string>
     <string name="error_network">नेटवर्क की समस्या। कृपया अपना इंटरनेट कनेक्शन चेक करें।</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">अपने उठने की आवाज़ चुनने के लिए यहाँ टैप करें – साधारण बीप की जगह अपना पसंदीदा म्यूज़िक लगाएँ。</string>
     <string name="settings_language_dialects">बोलियाँ</string>
 
@@ -377,8 +342,6 @@
     <string name="notif_permission_title">नोटिफ़िकेशन ज़रूरी हैं</string>
     <string name="notif_permission_desc">अगर आप नोटिफ़िकेशन बंद कर देते हैं, तो हो सकता है आपका अलार्म सही से काम न करे। कृपया इन्हें चालू रहने दें।</string>
     <string name="notif_permission_button">नोटिफ़िकेशन चालू करें</string>
-    <string name="notif_manage_title">नोटिफ़िकेशन की सेटिंग्स</string>
-    <string name="notif_manage_desc">अपने फ़ोन की सेटिंग्स में आवाज़ और वाइब्रेशन बदलें।</string>
     <string name="settings_steal_title">यह प्रोफ़ाइल इस्तेमाल करें?</string>
     <string name="settings_steal_text">%1$s पहले ही किसी ने चुन लिया है। क्या आप इसे अपने लिए इस्तेमाल करना चाहते हैं?</string>
     <string name="settings_steal_confirm">हाँ, इस्तेमाल करें</string>

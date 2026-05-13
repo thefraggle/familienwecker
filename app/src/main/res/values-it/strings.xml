@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Suono: %1$s</string>
     <string name="settings_alarm_picker_title">Scegli la tua suoneria</string>
     <string name="settings_account_title">Famiglia &amp; Account</string>
-    <string name="settings_join_family_locked">Accedi per unirti a una famiglia.</string>
     <string name="settings_share_code_locked">Accedi per condividere il tuo codice di invito.</string>
     <string name="settings_join_code">Codice di invito per %1$s:</string>
     <string name="settings_share_code">Condividi link di invito</string>
@@ -119,7 +118,6 @@
     <string name="settings_delete_family_warning_confirm">Sì, elimina per tutti</string>
     <string name="settings_logout">Esci</string>
     <string name="settings_delete_account">Elimina account</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Tutti i diritti riservati.</string>
 
@@ -130,18 +128,6 @@
 
     <string name="settings_language_title">Lingua</string>
     <string name="settings_language_system">Sistema predefinito</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Aspetto</string>
     <string name="settings_display_title">Impostazioni app</string>
     <string name="settings_help_feedback_title">Aiuto &amp; Feedback</string>
@@ -155,12 +141,8 @@
     <string name="onboarding_slide0_body">Niente discussioni, niente caos. FamWake fa in modo che tutti inizino la giornata rilassati – in modo del tutto automatico.</string>
     <string name="onboarding_slide1_title">Piani intelligenti per ogni giorno</string>
     <string name="onboarding_slide1_body">Ufficio, scuola o smart working non importa: FamWake calcola l\'orario perfetto per la sveglia e il bagno per tutta la famiglia. Senza code al mattino.</string>
-    <string name="onboarding_slide2_title">Ogni giorno è diverso.</string>
-    <string name="onboarding_slide2_body">Lunedì in ufficio, mercoledì smart working? Imposta semplicemente i tuoi orari per ogni giorno e l\'app farà il resto.</string>
     <string name="onboarding_slide3_title">Connessi in pochi secondi.</string>
     <string name="onboarding_slide3_body">Condividi il tuo codice di invito e la tua famiglia è dentro. Se qualcuno cambia i suoi orari, il programma di tutti si aggiorna all\'istante.</string>
-    <string name="onboarding_slide4_title">Funziona sempre.</string>
-    <string name="onboarding_slide4_body">Goditi una mattinata rilassata tutti i giorni. Anche se la connessione internet salta durante la notte, la sveglia suonerà comunque in orario.</string>
     <string name="settings_feedback_button">Lascia un feedback / Segnala un problema</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Aiutaci a migliorare l\'app! A cosa stai pensando?</string>
@@ -178,7 +160,6 @@
     <string name="feedback_auto_device">Telefono: %1$s</string>
     <string name="feedback_cancel">Annulla</string>
     <string name="feedback_send">Invia messaggio</string>
-    <string name="feedback_success">Grazie! Abbiamo ricevuto il tuo messaggio.</string>
     <string name="feedback_success_title">Messaggio Inviato</string>
     <string name="feedback_success_message">Grazie per il tuo aiuto! Il tuo feedback ci aiuta a migliorare FamWake per tutti.</string>
     <string name="settings_terms_of_use">Termini di utilizzo</string>
@@ -242,9 +223,7 @@
     <string name="error_not_logged_in">Non hai effettuato l\'accesso.</string>
     <string name="error_system">Qualcosa è andato storto.</string>
     <string name="error_invalid_credentials">Email o password errate. Controlla ciò che hai digitato.</string>
-    <string name="error_login_failed">Accesso non riuscito</string>
     <string name="error_login_failed_unknown">Errore di accesso sconosciuto</string>
-    <string name="error_registration_failed">Registrazione non riuscita</string>
     <string name="error_registration_failed_unknown">Impossibile creare il tuo account</string>
     <string name="error_unknown">Qualcosa è andato storto. Riprova.</string>
     <string name="error_google_sign_in_failed_unknown">L\'accesso con Google non ha funzionato</string>
@@ -306,7 +285,6 @@
     <string name="settings_support_desc">Ti piace l\'app? Apprezzeremmo molto il tuo supporto!</string>
     <string name="settings_support_donate">Dona</string>
     <string name="settings_donate_success">Grazie mille per il tuo supporto! ❤️</string>
-    <string name="settings_donate_error">Ops, qualcosa è andato storto.</string>
     <string name="settings_donate_loading">Caricamento opzioni…</string>
     <string name="settings_donate_no_offers">Nessuna opzione disponibile al momento.</string>
     <string name="settings_donate_purchase_loading">Elaborazione in corso…</string>
@@ -338,14 +316,6 @@
     <string name="error_feedback_rate_limit_server">Troppi messaggi inviati. Riprova più tardi.</string>
     <string name="error_feedback_empty_message">Il tuo messaggio è vuoto.</string>
     <string name="error_network">Problema di rete. Controlla la tua connessione internet.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Tocca qui per scegliere la tua suoneria personale – scegli la tua musica preferita invece del classico bip.</string>
     <string name="settings_language_dialects">Dialetti</string>
     <string name="onboarding_mock_name1">Papà</string>
@@ -365,8 +335,6 @@
     <string name="notif_permission_title">Notifiche necessarie</string>
     <string name="notif_permission_desc">Se disattivi le notifiche, la sveglia potrebbe non funzionare correttamente. Per favore, lasciale attive.</string>
     <string name="notif_permission_button">Attiva le notifiche</string>
-    <string name="notif_manage_title">Impostazioni notifiche</string>
-    <string name="notif_manage_desc">Cambia suoni e vibrazioni nelle impostazioni del tuo telefono.</string>
     <string name="onboarding_login_create">Accedi / Registrati</string>
     <string name="onboarding_slide5_title">Cominciamo!</string>
     <string name="onboarding_slide5_body">Puoi provare l\'app fin da subito senza un account. Ne avrai bisogno solo quando vorrai invitare la tua famiglia.</string>

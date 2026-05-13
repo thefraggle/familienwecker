@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Lyd: %1$s</string>
     <string name="settings_alarm_picker_title">Vælg din alarmlyd</string>
     <string name="settings_account_title">Familie &amp; Konto</string>
-    <string name="settings_join_family_locked">Log ind for at deltage i en familie.</string>
     <string name="settings_share_code_locked">Log ind for at dele din invitationskode.</string>
     <string name="settings_anonymous_login_button">Log ind / Tilmeld dig</string>
     <string name="settings_join_code">Invitationskode for %1$s:</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">Ja, slet for alle</string>
     <string name="settings_logout">Log ud</string>
     <string name="settings_delete_account">Slet konto</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rettigheder forbeholdes.</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">Sprog</string>
     <string name="settings_language_system">Systemstandard</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Udseende</string>
     <string name="settings_display_title">App-indstillinger</string>
     <string name="settings_help_feedback_title">Hjælp &amp; Feedback</string>
@@ -159,12 +145,8 @@
     <string name="onboarding_slide0_body">Ingen diskussioner, intet kaos. FamWake sørger for, at alle starter dagen afslappet – helt af sig selv.</string>
     <string name="onboarding_slide1_title">Smarte planer til hver dag</string>
     <string name="onboarding_slide1_body">Uanset om det er kontor, skole eller hjemmearbejdsplads – FamWake beregner den perfekte vække- og badetid for hele familien. Uden kø om morgenen.</string>
-    <string name="onboarding_slide2_title">Hver dag er anderledes.</string>
-    <string name="onboarding_slide2_body">Kontor om mandagen, hjemmearbejde om onsdagen? Indstil bare jeres tider for hver dag, og appen klarer resten.</string>
     <string name="onboarding_slide3_title">Forbundet på sekunder.</string>
     <string name="onboarding_slide3_body">Del din invitationskode, og din familie er med. Hvis nogen ændrer deres tider, opdateres alles tidsplan med det samme.</string>
-    <string name="onboarding_slide4_title">Virker altid.</string>
-    <string name="onboarding_slide4_body">Nyd en afslappet morgen hver dag. Selv hvis internettet ryger i løbet af natten, ringer alarmen stadig til tiden.</string>
     
     <string name="onboarding_mock_name1">Far</string>
     <string name="onboarding_mock_name2">Mor</string>
@@ -186,7 +168,6 @@
     <string name="feedback_auto_device">Telefon: %1$s</string>
     <string name="feedback_cancel">Annuller</string>
     <string name="feedback_send">Send besked</string>
-    <string name="feedback_success">Tak! Vi har modtaget din besked.</string>
     <string name="feedback_success_title">Besked sendt</string>
     <string name="feedback_success_message">Tak for din hjælp! Din feedback hjælper os med at forbedre FamWake for alle.</string>
     <string name="settings_terms_of_use">Brugsbetingelser</string>
@@ -250,9 +231,7 @@
     <string name="error_not_logged_in">Du er ikke logget ind.</string>
     <string name="error_system">Noget gik galt.</string>
     <string name="error_invalid_credentials">Forkert e-mail eller adgangskode. Tjek venligst dine indtastninger.</string>
-    <string name="error_login_failed">Login virkede ikke</string>
     <string name="error_login_failed_unknown">Ukendt loginfejl</string>
-    <string name="error_registration_failed">Tilmelding virkede ikke</string>
     <string name="error_registration_failed_unknown">Kunne ikke oprette din konto</string>
     <string name="error_unknown">Noget gik galt. Prøv venligst igen.</string>
     <string name="error_google_sign_in_failed_unknown">Google-login virkede ikke</string>
@@ -314,7 +293,6 @@
     <string name="settings_support_desc">Kan du lide appen? Vi vil elske din støtte!</string>
     <string name="settings_support_donate">Donér</string>
     <string name="settings_donate_success">Tusind tak for din støtte! ❤️</string>
-    <string name="settings_donate_error">Ups, noget gik galt.</string>
     <string name="settings_donate_loading">Indlæser muligheder…</string>
     <string name="settings_donate_no_offers">Ingen muligheder tilgængelige lige nu.</string>
     <string name="settings_donate_purchase_loading">Behandler…</string>
@@ -346,19 +324,6 @@
     <string name="error_feedback_rate_limit_server">For mange sendte beskeder. Prøv igen senere.</string>
     <string name="error_feedback_empty_message">Din besked er tom.</string>
     <string name="error_network">Netværksproblem. Tjek venligst din internetforbindelse.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">Tryk her for at vælge din personlige opvågningslyd – vælg din yndlingsmusik i stedet for standard bippet.</string>
     <string name="settings_language_dialects">Dialekter</string>
 
@@ -375,8 +340,6 @@
     <string name="notif_permission_title">Notifikationer påkrævet</string>
     <string name="notif_permission_desc">Hvis du slår notifikationer fra, virker din alarm muligvis ikke ordentligt. Lad dem venligst være slået til.</string>
     <string name="notif_permission_button">Slå notifikationer til</string>
-    <string name="notif_manage_title">Notifikationsindstillinger</string>
-    <string name="notif_manage_desc">Ændr lyde og vibrationer i din telefons indstillinger.</string>
     <string name="settings_steal_title">Brug denne profil?</string>
     <string name="settings_steal_text">%1$s er allerede valgt. Vil du bruge denne profil?</string>
     <string name="settings_steal_confirm">Ja, brug den</string>
