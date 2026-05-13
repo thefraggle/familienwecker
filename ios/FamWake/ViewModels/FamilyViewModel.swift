@@ -170,7 +170,7 @@ class FamilyViewModel: ObservableObject {
         }
         Task {
             do {
-                let data = try memberToFirestore(updatedMember)
+        let data = updatedMember.toFirestoreMap()
                 try await functions.httpsCallable("saveMember")
                     .call(["familyId": fid, "memberId": updatedMember.id, "data": data])
                 if shouldClaim {
@@ -260,7 +260,7 @@ class FamilyViewModel: ObservableObject {
         Task {
             for (idx, member) in members.enumerated() {
                 try? await functions.httpsCallable("saveMember")
-                    .call(["familyId": fid, "memberId": member.id, "data": ["order": idx]])
+                    .call(["familyId": fid, "memberId": member.id, "data": ["sequenceOrder": idx]])
             }
         }
     }
@@ -382,8 +382,8 @@ class FamilyViewModel: ObservableObject {
                     return
                 }
                 guard let docs = snap?.documents else { return }
-                let parsed = docs.compactMap { try? self.firestoreToMember($0.data(), id: $0.documentID) }
-                self.members = parsed.sorted { $0.order < $1.order }
+                let parsed = docs.compactMap { FamilyMember.fromFirestore($0.data(), id: $0.documentID) }
+                self.members = parsed.sorted { $0.sequenceOrder < $1.sequenceOrder }
                 self.updateAwakeState()
                 self.recalculateSchedule()
             }
@@ -479,107 +479,7 @@ class FamilyViewModel: ObservableObject {
     }
 
     // MARK: - Firestore Mapping
-    private func memberToFirestore(_ member: FamilyMember) throws -> [String: Any] {
-        var data: [String: Any] = [
-            "id": member.id,
-            "name": member.name,
-            "earliestWakeUpHour": member.earliestWakeUp.hour ?? 6,
-            "earliestWakeUpMinute": member.earliestWakeUp.minute ?? 0,
-            "latestWakeUpHour": member.latestWakeUp.hour ?? 7,
-            "latestWakeUpMinute": member.latestWakeUp.minute ?? 30,
-            "bathroomDurationMinutes": member.bathroomDurationMinutes,
-            "wantsBreakfast": member.wantsBreakfast,
-            "isPaused": member.isPaused,
-            "order": member.order
-        ]
-        if let leave = member.leaveHomeTime {
-            data["leaveHomeHour"] = leave.hour ?? 8
-            data["leaveHomeMinute"] = leave.minute ?? 0
-        }
-        if let claimed = member.claimedByUserId { data["claimedByUserId"] = claimed }
-        if let name = member.claimedByUserName { data["claimedByUserName"] = name }
-        // DayProfiles
-        var dayProfilesData: [String: Any] = [:]
-        for (day, profile) in member.dayProfiles {
-            dayProfilesData["\(day)"] = [
-                "isActive": profile.isActive,
-                "earliestWakeUpHour": profile.earliestWakeUp.hour ?? 6,
-                "earliestWakeUpMinute": profile.earliestWakeUp.minute ?? 0,
-                "latestWakeUpHour": profile.latestWakeUp.hour ?? 7,
-                "latestWakeUpMinute": profile.latestWakeUp.minute ?? 30,
-                "bathroomDurationMinutes": profile.bathroomDurationMinutes,
-                "wantsBreakfast": profile.wantsBreakfast,
-                "leaveHomeHour": profile.leaveHomeTime?.hour ?? 8,
-                "leaveHomeMinute": profile.leaveHomeTime?.minute ?? 0
-            ]
-        }
-        data["dayProfiles"] = dayProfilesData
-        return data
-    }
-
-    private func firestoreToMember(_ data: [String: Any], id: String) throws -> FamilyMember {
-        let name = data["name"] as? String ?? ""
-        let earliestH = data["earliestWakeUpHour"] as? Int ?? 6
-        let earliestM = data["earliestWakeUpMinute"] as? Int ?? 0
-        let latestH = data["latestWakeUpHour"] as? Int ?? 7
-        let latestM = data["latestWakeUpMinute"] as? Int ?? 30
-        let bathroom = data["bathroomDurationMinutes"] as? Int ?? 20
-        let breakfast = data["wantsBreakfast"] as? Bool ?? true
-        let paused = data["isPaused"] as? Bool ?? false
-        let order = data["order"] as? Int ?? 0
-        let claimedUid = data["claimedByUserId"] as? String
-        let claimedName = data["claimedByUserName"] as? String
-        let isAwake = data["isAwakeToday"] as? Bool ?? false
-
-        var leaveHome: DateComponents? = nil
-        if let lh = data["leaveHomeHour"] as? Int, let lm = data["leaveHomeMinute"] as? Int {
-            leaveHome = DateComponents(hour: lh, minute: lm)
-        }
-
-        var dayProfiles: [Int: DayProfile] = DayProfile.defaults()
-        if let dpData = data["dayProfiles"] as? [String: [String: Any]] {
-            for (key, dp) in dpData {
-                if let day = Int(key) {
-                    let active = dp["isActive"] as? Bool ?? (day <= 5)
-                    let eh = dp["earliestWakeUpHour"] as? Int ?? 6
-                    let em = dp["earliestWakeUpMinute"] as? Int ?? 0
-                    let lh2 = dp["latestWakeUpHour"] as? Int ?? 7
-                    let lm2 = dp["latestWakeUpMinute"] as? Int ?? 30
-                    let bat = dp["bathroomDurationMinutes"] as? Int ?? 20
-                    let bfst = dp["wantsBreakfast"] as? Bool ?? true
-                    var dpLeave: DateComponents? = nil
-                    if let dlh = dp["leaveHomeHour"] as? Int, let dlm = dp["leaveHomeMinute"] as? Int {
-                        dpLeave = DateComponents(hour: dlh, minute: dlm)
-                    }
-                    dayProfiles[day] = DayProfile(
-                        isActive: active,
-                        earliestWakeUp: .from(hour: eh, minute: em),
-                        latestWakeUp: .from(hour: lh2, minute: lm2),
-                        bathroomDurationMinutes: bat,
-                        wantsBreakfast: bfst,
-                        leaveHomeTime: dpLeave
-                    )
-                }
-            }
-        }
-
-        var member = FamilyMember(
-            id: id,
-            name: name,
-            earliestWakeUp: .from(hour: earliestH, minute: earliestM),
-            latestWakeUp: .from(hour: latestH, minute: latestM),
-            bathroomDurationMinutes: bathroom,
-            wantsBreakfast: breakfast,
-            leaveHomeTime: leaveHome,
-            isPaused: paused,
-            claimedByUserId: claimedUid,
-            claimedByUserName: claimedName,
-            dayProfiles: dayProfiles,
-            order: order
-        )
-        member.isAwakeToday = isAwake
-        return member
-    }
+    // Moved to Data/FirestoreMapper.swift (FamilyMember.fromFirestore / .toFirestoreMap)
 
     // MARK: - Schedule Calculation
     func recalculateSchedule() {
@@ -604,7 +504,7 @@ class FamilyViewModel: ObservableObject {
         let weekdayRaw = cal.component(.weekday, from: now) // 1=So, 2=Mo...7=Sa
         let todayDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
 
-        let todayProfile = member.dayProfiles[todayDow]
+        let todayProfile = member.dayProfiles?[todayDow]
         let latestMinutesToday = (todayProfile?.latestWakeUp.hour ?? 0) * 60 + (todayProfile?.latestWakeUp.minute ?? 0)
 
         // Heute noch relevant, wenn aktives Profil und latest noch nicht vorbei
@@ -617,7 +517,7 @@ class FamilyViewModel: ObservableObject {
             targetDow = todayDow == 7 ? 1 : todayDow + 1
         }
 
-        guard let profile = member.dayProfiles[targetDow] else {
+        guard let profile = member.dayProfiles?[targetDow] else {
             var paused = member; paused.isPaused = true; return paused
         }
         guard profile.isActive else {
@@ -633,13 +533,3 @@ class FamilyViewModel: ObservableObject {
         return resolved
     }
 }
-
-// Extend FamilyMember for runtime isAwakeToday
-extension FamilyMember {
-    var isAwakeToday: Bool {
-        get { _awakeStorage[id] ?? false }
-        set { _awakeStorage[id] = newValue }
-    }
-}
-
-private var _awakeStorage: [String: Bool] = [:]
