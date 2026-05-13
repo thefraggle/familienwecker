@@ -42,7 +42,7 @@ struct SettingsView: View {
                                 Spacer()
                                 Text(code)
                                     .font(.title3).fontWeight(.black)
-                                    .foregroundStyle(Color.accentColor)
+                                    .foregroundStyle(Color.sunriseOrange500)
                             }
                             if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipInviteSeen {
                                 TooltipBubble(text: L.tooltipInviteCode) {
@@ -69,8 +69,8 @@ struct SettingsView: View {
                     }
 
                     if authViewModel.isAnonymous {
-                        Button("Konto verknüpfen (Apple SignIn)") {
-                            // TODO: Apple Sign-In Linking aufrufen
+                        Button(L.loginWithGoogle) {
+                            authViewModel.signInWithGoogle()
                         }
                     } else {
                         Button(L.settingsLogout, role: .destructive) {

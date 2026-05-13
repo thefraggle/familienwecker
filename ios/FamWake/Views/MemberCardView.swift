@@ -7,17 +7,20 @@ struct MemberCardView: View {
     var onDelete: () -> Void
     var onTogglePause: () -> Void
 
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
+
     var body: some View {
         HStack(spacing: 12) {
-            // Avatar Circle
+            // Avatar Circle – matches Android MemberCard colors
             ZStack {
                 Circle()
-                    .fill(isMyProfile ? Color.accentColor : Color(.systemGray5))
+                    .fill(isMyProfile ? theme.tertiary : theme.surfaceVariant)
                     .frame(width: 44, height: 44)
                 Text(member.name.prefix(1).uppercased())
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundStyle(isMyProfile ? .white : Color(.label))
+                    .foregroundStyle(isMyProfile ? theme.onTertiary : theme.onSurfaceVariant)
             }
 
             // Info
@@ -25,21 +28,22 @@ struct MemberCardView: View {
                 HStack(spacing: 6) {
                     Text(member.name)
                         .font(.subheadline).fontWeight(.semibold)
+                        .foregroundStyle(theme.onPrimaryContainer)
                     if isMyProfile {
                         Text("• Du")
                             .font(.caption)
-                            .foregroundStyle(Color.accentColor)
+                            .foregroundStyle(theme.tertiary)
                     }
                     if member.isPaused {
                         Image(systemName: "pause.circle.fill")
-                            .foregroundStyle(.orange)
+                            .foregroundStyle(theme.tertiary)
                             .font(.caption)
                     }
                 }
                 if let next = nextActiveDay() {
                     Text(next)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                 }
             }
 
@@ -48,31 +52,32 @@ struct MemberCardView: View {
             // Actions
             Menu {
                 Button(action: onEdit) {
-                    Label("Bearbeiten", systemImage: "pencil")
+                    Label(L.addMemberTitleEdit, systemImage: "pencil")
                 }
                 Button(action: onTogglePause) {
-                    Label(member.isPaused ? "Fortsetzen" : "Pausieren",
+                    Label(member.isPaused ? L.s("member_resume") : L.s("member_pause"),
                           systemImage: member.isPaused ? "play.circle" : "pause.circle")
                 }
                 Divider()
                 Button(role: .destructive, action: onDelete) {
-                    Label("Löschen", systemImage: "trash")
+                    Label(L.settingsDeleteMemberConfirm, systemImage: "trash")
                 }
             } label: {
                 Image(systemName: "ellipsis.circle.fill")
                     .font(.title3)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(theme.outline)
             }
         }
         .padding()
-        .famWakeCard(cornerRadius: 20)
+        .famWakeCard(cornerRadius: 20, isDark: colorScheme == .dark)
     }
 
     private func nextActiveDay() -> String? {
         let today = Calendar.current.component(.weekday, from: Date())
         let dow = today == 1 ? 7 : today - 1
-        guard let profile = member.dayProfiles[dow], profile.isActive else {
-            return "Heute nicht aktiv"
+        guard let profiles = member.dayProfiles,
+              let profile = profiles[dow], profile.isActive else {
+            return L.s("member_not_active_today")
         }
         return "\(profile.earliestWakeUp.formatted()) – \(profile.latestWakeUp.formatted())"
     }
