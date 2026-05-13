@@ -21,8 +21,11 @@ func validateDayProfile(_ profile: DayProfile) -> [String] {
 // MARK: - AddEditMemberView
 struct AddEditMemberView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
+    @Environment(\.colorScheme) private var colorScheme
     var memberId: String?
     var onDone: () -> Void
+
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     @State private var name: String = ""
     @State private var dayProfiles: [Int: DayProfile] = DayProfile.defaults()
@@ -43,18 +46,23 @@ struct AddEditMemberView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.systemGroupedBackground).ignoresSafeArea()
+                LinearGradient(
+                    colors: colorScheme == .dark
+                        ? [theme.surface, theme.background]
+                        : [theme.primaryContainer.opacity(0.5), theme.background],
+                    startPoint: .top, endPoint: .bottom
+                ).ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 16) {
                         // Fehlerkarte
                         if let err = familyViewModel.errorMessage {
                             Text("⚠️ \(err)")
-                                .foregroundStyle(.red)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color(.systemRed).opacity(0.1))
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                                .foregroundStyle(theme.error)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(theme.errorContainer.opacity(0.3))
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
                                 .onTapGesture { familyViewModel.clearError() }
                         }
 
@@ -65,6 +73,7 @@ struct AddEditMemberView: View {
                         // Wochentags-Chips
                         Text(L.addMemberDayProfilesTitle)
                             .font(.headline).fontWeight(.bold)
+                            .foregroundStyle(theme.onSurface)
                             .frame(maxWidth: .infinity, alignment: .leading)
 
                         HStack(spacing: 4) {
@@ -111,13 +120,20 @@ struct AddEditMemberView: View {
                         saveMember()
                     }
                     .buttonStyle(.borderedProminent)
+                    .tint(theme.tertiary)
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .clipShape(Capsule())
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || hasAnyError)
-                    .buttonStyle(BounceButtonStyle())
                     .padding(16)
-                    .background(Color(.systemGroupedBackground))
+                    .background(
+                        LinearGradient(
+                            colors: colorScheme == .dark
+                                ? [theme.surface, theme.background]
+                                : [theme.primaryContainer.opacity(0.5), theme.background],
+                            startPoint: .top, endPoint: .bottom
+                        )
+                    )
                 }
             }
             .navigationTitle(memberId == nil ? L.addMemberTitleAdd : L.addMemberTitleEdit)
@@ -172,24 +188,24 @@ struct AddEditMemberView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(hasError ? Color.red : Color.clear, lineWidth: 1)
+                        .stroke(hasError ? theme.error : Color.clear, lineWidth: 1)
                 )
         }
     }
 
     private func chipBgColor(isSelected: Bool, isActive: Bool, hasError: Bool) -> Color {
-        if hasError { return isSelected ? Color.red.opacity(0.2) : Color.red.opacity(0.1) }
-        if isSelected && isActive { return Color.accentColor }
-        if isSelected { return Color(.systemGray4) }
-        if isActive { return Color(.systemGray5) }
-        return Color(.systemGray6)
+        if hasError { return isSelected ? theme.error.opacity(0.2) : theme.error.opacity(0.1) }
+        if isSelected && isActive { return theme.tertiary }
+        if isSelected { return theme.surfaceVariant }
+        if isActive { return theme.surfaceVariant.opacity(0.6) }
+        return theme.surfaceVariant.opacity(0.3)
     }
 
     private func chipTextColor(isSelected: Bool, isActive: Bool, hasError: Bool) -> Color {
-        if hasError { return .red }
-        if isSelected && isActive { return .white }
-        if isActive { return Color(.label) }
-        return Color(.secondaryLabel)
+        if hasError { return theme.error }
+        if isSelected && isActive { return theme.onTertiary }
+        if isActive { return theme.onSurface }
+        return theme.onSurfaceVariant.opacity(0.5)
     }
 
     private func initializeData() {
