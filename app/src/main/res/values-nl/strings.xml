@@ -340,4 +340,8 @@
     <string name="settings_steal_confirm">Ja, gebruiken</string>
     <string name="schedule_auto_fix">✨ Tijden automatisch aanpassen</string>
     <string name="onboarding_enable_tooltips">Toon handige tips bij het eerste gebruik</string>
+    <string name="onboarding_mock_family_name">De Jong</string>
+    <string name="onboarding_mock_name1">Papa</string>
+    <string name="onboarding_mock_name2">Mama</string>
+    <string name="settings_share_code_locked">Log in om je uitnodigingscode te delen.</string>
 </resources>

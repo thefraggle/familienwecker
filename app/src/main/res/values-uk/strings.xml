@@ -347,4 +347,7 @@
     <string name="settings_steal_confirm">Так, використовувати</string>
     <string name="schedule_auto_fix">✨ Автоматично налаштувати час</string>
     <string name="onboarding_enable_tooltips">Показувати корисні поради при першому використанні</string>
+    <string name="onboarding_login_create">Увійти / Зареєструватися</string>
+    <string name="onboarding_slide5_body">Ви можете спробувати додаток відразу без облікового запису. Він знадобиться лише тоді, коли ви захочете запросити свою сім\'ю.</string>
+    <string name="onboarding_slide5_title">Почнімо!</string>
 </resources>

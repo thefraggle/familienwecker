@@ -341,4 +341,7 @@
     <string name="settings_steal_confirm">Jå, nemma</string>
     <string name="schedule_auto_fix">✨ Zeita automatisch aabassa</string>
     <string name="onboarding_enable_tooltips">Zeig hilfreiche Tipps bei dr erschda Nutzung</string>
+    <string name="onboarding_mock_family_name">Häberle</string>
+    <string name="onboarding_mock_name1">Babba</string>
+    <string name="onboarding_mock_name2">Mama</string>
 </resources>

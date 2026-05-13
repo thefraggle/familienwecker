@@ -340,4 +340,8 @@
     <string name="settings_steal_confirm">Tak, użyj</string>
     <string name="schedule_auto_fix">✨ Automatycznie dostosuj czasy</string>
     <string name="onboarding_enable_tooltips">Pokaż przydatne wskazówki przy pierwszym użyciu</string>
+    <string name="onboarding_mock_family_name">Kowalski</string>
+    <string name="onboarding_mock_name1">Tata</string>
+    <string name="onboarding_mock_name2">Mama</string>
+    <string name="settings_share_code_locked">Zaloguj się, aby udostępnić swój kod zaproszenia.</string>
 </resources>
