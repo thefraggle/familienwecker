@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Ton wähla: %1$s</string>
     <string name="settings_alarm_picker_title">Wähl oin Weggton aus</string>
     <string name="settings_account_title">Familie &amp; Konto</string>
-    <string name="settings_join_family_locked">Bitte logg di ei, om ra Familie beizutreta.</string>
     <string name="settings_share_code_locked">Bitte logg di ei, om dein Code zom doila.</string>
     <string name="settings_join_code">Eiladongscode für %1$s:</string>
     <string name="settings_share_code">Code doila</string>
@@ -119,7 +118,6 @@
     <string name="settings_delete_family_warning_confirm">Jå, für älle wegmacha</string>
     <string name="settings_logout">Abmelda</string>
     <string name="settings_delete_account">Konto lescha</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Älle Rechte gschützt.</string>
 
@@ -130,18 +128,6 @@
 
     <string name="settings_language_title">Sproch</string>
     <string name="settings_language_system">System-Standard</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Ausseha</string>
     <string name="settings_display_title">App-Eistellonga</string>
     <string name="settings_help_feedback_title">Hilf &amp; Gschwätz</string>
@@ -155,12 +141,8 @@
     <string name="onboarding_slide0_body">Koi Diskussiona, koi Chaos. FamWake sorgt drfür, dass älle entspannt in Tag starta – ganz vo alloi.</string>
     <string name="onboarding_slide1_title">Nie meh warta.</string>
     <string name="onboarding_slide1_body">FamWake findt für jedes Familiamitglied d\'perfekte Weggzeit – abgstimmt uffs Bad, Frühstück ond d\'Abfahrt. Koi Gedrängel meh am Waschbegga.</string>
-    <string name="onboarding_slide2_title">Jede Dag isch anders.</string>
-    <string name="onboarding_slide2_body">Montag Büro, Mittwoch Dahoim? Stell für jede Dag dei eigne Zeita ei – d\'App macht de Rest.</string>
     <string name="onboarding_slide3_title">In Sekunda verbonda.</string>
     <string name="onboarding_slide3_body">Teil dein Code ond dei Familie isch sofort debei. Wenn ebber was ändert, isch dr Plan für älle sofort nei berechnet.</string>
-    <string name="onboarding_slide4_title">Immer zuaverlässig.</string>
-    <string name="onboarding_slide4_body">Gnieß jede Morga in Ruha. Selbst wenn z\'Nachts s\'Internet abkackt, bimmelt dr Wegger pünktlich.</string>
     <string name="settings_feedback_button">Gschwätz hinterlassa / Fähler melda</string>
     <string name="feedback_title">Feedback</string>
     <string name="feedback_intro">Hilf ons, die App no besser zom macha! Was druckt di?</string>
@@ -178,7 +160,6 @@
     <string name="feedback_auto_device">Grät: %1$s</string>
     <string name="feedback_cancel">Abbrecha</string>
     <string name="feedback_send">Zeug rausschicken</string>
-    <string name="feedback_success">Dangge! Dei Gschwätz is aakomma.</string>
     <string name="feedback_success_title">Nachricht furt</string>
     <string name="feedback_success_message">Dangge für d\'Hilf! Dei Feedback hilft ons, FamWake für älle besser zom macha.</string>
     <string name="settings_terms_of_use">Nutzongsbedingonga</string>
@@ -242,9 +223,7 @@
     <string name="error_not_logged_in">Du bisch net aagmeldet.</string>
     <string name="error_system">Ebbes isch schiefganga.</string>
     <string name="error_invalid_credentials">E-Mail oder Passwort basst net. Guck nomal.</string>
-    <string name="error_login_failed">Hot net basst beim Nei-logga</string>
     <string name="error_login_failed_unknown">Oibekannter Fähler beim Nei-logga</string>
-    <string name="error_registration_failed">Registriera hot net klappt</string>
     <string name="error_registration_failed_unknown">Dei Konto hot net gmacht werda kenna</string>
     <string name="error_unknown">Ebbes isch schiefganga. Probier\'s nomal, gell.</string>
     <string name="error_google_sign_in_failed_unknown">Google hot net gwellt</string>
@@ -306,7 +285,6 @@
     <string name="settings_support_desc">Gfallt dr d\'App? Mir freuet ons sackrisch iber a bissle Onterstützong!</string>
     <string name="settings_support_donate">Ebbes gäba</string>
     <string name="settings_donate_success">Viela Dank drfür! ❤️</string>
-    <string name="settings_donate_error">Hoppsala, do isch was schiefganga.</string>
     <string name="settings_donate_loading">Läd d\'Optione…</string>
     <string name="settings_donate_no_offers">S\'gibt grad koine Optione.</string>
     <string name="settings_donate_purchase_loading">S\'wird grichtet…</string>
@@ -338,14 +316,6 @@
     <string name="error_feedback_rate_limit_server">Z\'viel Nachrichte gschickt. Probiers schpäder nomal.</string>
     <string name="error_feedback_empty_message">Do muass scho was drin schdanda.</string>
     <string name="error_network">Netzwerkfähler. Guck mol ob dei Internet no goht.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Druck do, om dein persönliche Weggton auszusuacha – nemm dei Lieblingsmusik statt am normale Gepiepse.</string>
     <string name="settings_language_dialects">Dialegde</string>
 
@@ -362,8 +332,6 @@
     <string name="notif_permission_title">Meldonga braucha mr</string>
     <string name="notif_permission_desc">Wenn d\'Meldonga ausmachsch, funktioniert dei Wegger vielleicht net richtig. Bitte lass se aa.</string>
     <string name="notif_permission_button">Meldonga aamacha</string>
-    <string name="notif_manage_title">Meldongs-Eistellonga</string>
-    <string name="notif_manage_desc">Änder Ton ond Gschepper in de Eistellonga von deim Händy.</string>
     <string name="onboarding_login_create">Aamelda / Regischtriera</string>
     <string name="onboarding_slide5_title">Auf goht\'s!</string>
     <string name="onboarding_slide5_body">Du kannsch d\'App direkt ohne Aameldung ausprobiera. A Konto brauchsch erscht, wenn de dei Familie eiladsch.</string>

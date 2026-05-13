@@ -117,7 +117,6 @@
     <string name="settings_delete_family_warning_confirm">Sí, eliminar para todos</string>
     <string name="settings_logout">Cerrar sesión</string>
     <string name="settings_delete_account">Eliminar cuenta</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Todos los derechos reservados.</string>
 
@@ -128,18 +127,6 @@
 
     <string name="settings_language_title">Idioma</string>
     <string name="settings_language_system">Predeterminado del sistema</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Apariencia</string>
     <string name="settings_display_title">Ajustes de la app</string>
     <string name="settings_help_feedback_title">Ayuda y Sugerencias</string>
@@ -153,12 +140,8 @@
     <string name="onboarding_slide0_body">Sin discusiones, sin caos. FamWake se asegura de que todos empiecen el día relajados, por sí sola.</string>
     <string name="onboarding_slide1_title">Planes inteligentes para cada día</string>
     <string name="onboarding_slide1_body">Ya sea oficina, escuela o teletrabajo: FamWake calcula la hora perfecta de despertarse y de baño para toda la familia. Sin atascos por la mañana.</string>
-    <string name="onboarding_slide2_title">Cada día es diferente.</string>
-    <string name="onboarding_slide2_body">¿Oficina el lunes, trabajar desde casa el miércoles? Simplemente ajusta tus horas para cada día y la app hace el resto.</string>
     <string name="onboarding_slide3_title">Conectados en segundos.</string>
     <string name="onboarding_slide3_body">Comparte tu código de invitación y tu familia estará dentro. Si alguien cambia sus horas, el horario de todos se actualiza al instante.</string>
-    <string name="onboarding_slide4_title">Siempre funciona.</string>
-    <string name="onboarding_slide4_body">Disfruta de una mañana relajada todos los días. Incluso si te quedas sin internet por la noche, tu alarma sonará a su hora.</string>
     <string name="settings_feedback_button">Danos tu opinión / Informar de un problema</string>
     <string name="feedback_title">Sugerencias</string>
     <string name="feedback_intro">¡Ayúdanos a mejorar la app! ¿Qué nos quieres contar?</string>
@@ -176,7 +159,6 @@
     <string name="feedback_auto_device">Teléfono: %1$s</string>
     <string name="feedback_cancel">Cancelar</string>
     <string name="feedback_send">Enviar mensaje</string>
-    <string name="feedback_success">¡Gracias! Hemos recibido tu mensaje.</string>
     <string name="feedback_success_title">Mensaje Enviado</string>
     <string name="feedback_success_message">¡Gracias por tu ayuda! Tus comentarios nos ayudan a mejorar FamWake para todo el mundo.</string>
     <string name="settings_terms_of_use">Condiciones de Uso</string>
@@ -240,9 +222,7 @@
     <string name="error_not_logged_in">No has iniciado sesión.</string>
     <string name="error_system">Algo ha salido mal.</string>
     <string name="error_invalid_credentials">Correo o contraseña incorrectos. Por favor, revisa lo que has escrito.</string>
-    <string name="error_login_failed">No se pudo iniciar sesión</string>
     <string name="error_login_failed_unknown">Error desconocido al iniciar sesión</string>
-    <string name="error_registration_failed">No se pudo registrar la cuenta</string>
     <string name="error_registration_failed_unknown">No se pudo crear tu cuenta</string>
     <string name="error_unknown">Algo salió mal. Por favor, inténtalo de nuevo.</string>
     <string name="error_google_sign_in_failed_unknown">El inicio de sesión con Google no funcionó</string>
@@ -304,7 +284,6 @@
     <string name="settings_support_desc">¿Te gusta la app? ¡Agradeceríamos mucho tu apoyo!</string>
     <string name="settings_support_donate">Donar</string>
     <string name="settings_donate_success">¡Muchísimas gracias por tu apoyo! ❤️</string>
-    <string name="settings_donate_error">Vaya, algo salió mal.</string>
     <string name="settings_donate_loading">Cargando opciones…</string>
     <string name="settings_donate_no_offers">No hay opciones disponibles ahora mismo.</string>
     <string name="settings_donate_purchase_loading">Procesando…</string>
@@ -335,14 +314,6 @@
     <string name="error_feedback_rate_limit_server">Has enviado demasiados mensajes. Inténtalo de nuevo más tarde.</string>
     <string name="error_feedback_empty_message">Tu mensaje está vacío.</string>
     <string name="error_network">Problema de red. Por favor, comprueba tu conexión a internet.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Toca aquí para elegir tu propio sonido de despertar; pon tu música favorita en lugar del pitido normal.</string>
     <string name="settings_language_dialects">Dialectos</string>
     <string name="error_sync_blocked_device">Las actualizaciones no son posibles en este dispositivo ahora mismo.</string>
@@ -363,8 +334,6 @@
     <string name="notif_permission_title">Notificaciones necesarias</string>
     <string name="notif_permission_desc">Si apagas las notificaciones, puede que la alarma no funcione bien. Por favor, déjalas encendidas.</string>
     <string name="notif_permission_button">Activar notificaciones</string>
-    <string name="notif_manage_title">Ajustes de notificaciones</string>
-    <string name="notif_manage_desc">Cambia los sonidos y vibraciones en los ajustes de tu teléfono.</string>
     <string name="onboarding_login_create">Iniciar sesión / Registrarse</string>
     <string name="onboarding_slide5_title">¡Vamos a empezar!</string>
     <string name="onboarding_slide5_body">Puedes probar la app ahora mismo sin tener cuenta. Solo necesitarás una cuando quieras invitar a tu familia.</string>

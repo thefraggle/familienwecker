@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">Звук: %1$s</string>
     <string name="settings_alarm_picker_title">Выберите мелодию будильника</string>
     <string name="settings_account_title">Семья и Аккаунт</string>
-    <string name="settings_join_family_locked">Пожалуйста, войдите, чтобы присоединиться к семье.</string>
     <string name="settings_share_code_locked">Пожалуйста, войдите, чтобы поделиться кодом.</string>
     <string name="settings_join_code">Код приглашения для %1$s:</string>
     <string name="settings_share_code">Поделиться кодом</string>
@@ -119,7 +118,6 @@
     <string name="settings_delete_family_warning_confirm">Да, удалить для всех</string>
     <string name="settings_logout">Выйти</string>
     <string name="settings_delete_account">Удалить аккаунт</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Все права защищены.</string>
 
@@ -130,18 +128,6 @@
 
     <string name="settings_language_title">Язык</string>
     <string name="settings_language_system">Системный по умолчанию</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">Внешний вид</string>
     <string name="settings_display_title">Настройки приложения</string>
     <string name="settings_help_feedback_title">Помощь и Отзывы</string>
@@ -155,12 +141,8 @@
     <string name="onboarding_slide0_body">Никаких споров, никакого хаоса. FamWake обеспечивает спокойное начало дня для всей семьи – полностью автоматически.</string>
     <string name="onboarding_slide1_title">Умные планы на каждый день</string>
     <string name="onboarding_slide1_body">Офис, школа или удаленка — FamWake рассчитает идеальное время пробуждения и ванной для всей семьи. Без утренних пробок.</string>
-    <string name="onboarding_slide2_title">Каждый день другой.</string>
-    <string name="onboarding_slide2_body">Понедельник в офисе, среда дома? Установите свое время для каждого дня, а приложение сделает остальное.</string>
     <string name="onboarding_slide3_title">На связи за секунды.</string>
     <string name="onboarding_slide3_body">Поделитесь кодом приглашения, и ваша семья сразу присоединится. Если кто-то изменит свое время, расписание обновится у всех моментально.</string>
-    <string name="onboarding_slide4_title">Всегда надежный.</string>
-    <string name="onboarding_slide4_body">Наслаждайтесь расслабленным утром каждый день. Даже если интернет отключится ночью, будильник все равно прозвенит вовремя.</string>
     <string name="settings_feedback_button">Оставить отзыв / Сообщить об ошибке</string>
     <string name="feedback_title">Отзыв</string>
     <string name="feedback_intro">Помогите нам сделать приложение еще лучше! Что у вас на уме?</string>
@@ -178,7 +160,6 @@
     <string name="feedback_auto_device">Телефон: %1$s</string>
     <string name="feedback_cancel">Отмена</string>
     <string name="feedback_send">Отправить сообщение</string>
-    <string name="feedback_success">Спасибо! Мы получили ваше сообщение.</string>
     <string name="feedback_success_title">Сообщение отправлено</string>
     <string name="feedback_success_message">Спасибо за вашу помощь! Ваш отзыв помогает нам улучшать FamWake для всех.</string>
     <string name="settings_terms_of_use">Условия использования</string>
@@ -242,9 +223,7 @@
     <string name="error_not_logged_in">Вы не вошли в систему.</string>
     <string name="error_system">Что-то пошло не так.</string>
     <string name="error_invalid_credentials">Неверный email или пароль. Пожалуйста, проверьте введенные данные.</string>
-    <string name="error_login_failed">Ошибка входа</string>
     <string name="error_login_failed_unknown">Неизвестная ошибка входа</string>
-    <string name="error_registration_failed">Не удалось зарегистрироваться</string>
     <string name="error_registration_failed_unknown">Не удалось создать ваш аккаунт</string>
     <string name="error_unknown">Что-то пошло не так. Пожалуйста, попробуйте снова.</string>
     <string name="error_google_sign_in_failed_unknown">Вход через Google не сработал</string>
@@ -306,7 +285,6 @@
     <string name="settings_support_desc">Вам нравится приложение? Мы будем очень рады вашей поддержке!</string>
     <string name="settings_support_donate">Сделать пожертвование</string>
     <string name="settings_donate_success">Большое спасибо за вашу поддержку! ❤️</string>
-    <string name="settings_donate_error">Ой, что-то пошло не так.</string>
     <string name="settings_donate_loading">Загрузка вариантов…</string>
     <string name="settings_donate_no_offers">В данный момент нет доступных вариантов.</string>
     <string name="settings_donate_purchase_loading">Обработка…</string>
@@ -338,14 +316,6 @@
     <string name="error_feedback_rate_limit_server">Отправлено слишком много сообщений. Пожалуйста, попробуйте позже.</string>
     <string name="error_feedback_empty_message">Ваше сообщение пустое.</string>
     <string name="error_network">Проблема с сетью. Пожалуйста, проверьте интернет-соединение.</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
     <string name="tooltip_alarm_sound">Нажмите здесь, чтобы выбрать ваш личный звук будильника – выберите любимую музыку вместо обычного писка.</string>
     <string name="settings_language_dialects">Диалекты</string>
 
@@ -363,8 +333,6 @@
     <string name="notif_permission_title">Требуются уведомления</string>
     <string name="notif_permission_desc">Если вы выключите уведомления, ваш будильник может работать неправильно. Пожалуйста, оставьте их включенными.</string>
     <string name="notif_permission_button">Включить уведомления</string>
-    <string name="notif_manage_title">Настройки уведомлений</string>
-    <string name="notif_manage_desc">Изменяйте звуки и вибрации в настройках вашего телефона.</string>
 <string name="onboarding_login_create">Войти / Зарегистрироваться</string>
     <string name="onboarding_slide5_title">Давайте начнем!</string>
     <string name="onboarding_slide5_body">Вы можете попробовать приложение прямо сейчас без аккаунта. Он понадобится вам только тогда, когда вы захотите пригласить свою семью.</string>

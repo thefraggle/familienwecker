@@ -103,7 +103,6 @@
     <string name="settings_alarm_select">声音：%1$s</string>
     <string name="settings_alarm_picker_title">选择您的闹钟铃声</string>
     <string name="settings_account_title">家庭与帐号</string>
-    <string name="settings_join_family_locked">请先登录以加入家庭。</string>
     <string name="settings_share_code_locked">请先登录以分享您的邀请码。</string>
     <string name="settings_anonymous_login_button">登录 / 注册</string>
     <string name="settings_join_code">%1$s 的邀请码：</string>
@@ -120,7 +119,6 @@
     <string name="settings_delete_family_warning_confirm">是的，全部删除</string>
     <string name="settings_logout">退出登录</string>
     <string name="settings_delete_account">注销帐号</string>
-    <string name="settings_footer_version">FamWake v%1$s</string>
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">保留所有权利。</string>
 
@@ -131,18 +129,6 @@
 
     <string name="settings_language_title">语言</string>
     <string name="settings_language_system">系统默认</string>
-    <string name="settings_language_english">English</string>
-    <string name="settings_language_german">Deutsch</string>
-    <string name="settings_language_french">Français</string>
-    <string name="settings_language_spanish">Español</string>
-    <string name="settings_language_italian">Italiano</string>
-    <string name="settings_language_polish">Polski</string>
-    <string name="settings_language_dutch">Nederlands</string>
-    <string name="settings_language_portuguese">Português</string>
-    <string name="settings_language_swedish">Svenska</string>
-    <string name="settings_language_schweizerdeutsch">Schwiizerdütsch</string>
-    <string name="settings_language_schwaebisch">Schwäbisch</string>
-    <string name="settings_language_ruhrpott">Ruhrpott</string>
     <string name="settings_appearance_title">外观</string>
     <string name="settings_display_title">应用设置</string>
     <string name="settings_help_feedback_title">帮助与反馈</string>
@@ -156,12 +142,8 @@
     <string name="onboarding_slide0_body">告别争吵与混乱。FamWake 让全家人都能轻松开始新的一天——一切全自动。</string>
     <string name="onboarding_slide1_title">无需再等待。</string>
     <string name="onboarding_slide1_body">FamWake 会根据洗漱、早餐和出门时间，为每个人找到最完美的起床时间。洗手间再也不用排长队了。</string>
-    <string name="onboarding_slide2_title">每一天都不同。</string>
-    <string name="onboarding_slide2_body">周一去公司，周三在家办公？只需为每天设置您的时间，剩下的就交给应用吧。</string>
     <string name="onboarding_slide3_title">几秒钟内即可连接。</string>
     <string name="onboarding_slide3_body">分享邀请码，您的家人即可立即加入。如果有人更改了时间，所有人的日程表都会立即更新。</string>
-    <string name="onboarding_slide4_title">始终可靠。</string>
-    <string name="onboarding_slide4_body">每天享受轻松的早晨。即使晚上断网，闹钟依然会准时响起。</string>
     
     <string name="onboarding_mock_name1">爸爸</string>
     <string name="onboarding_mock_name2">妈妈</string>
@@ -183,7 +165,6 @@
     <string name="feedback_auto_device">手机：%1$s</string>
     <string name="feedback_cancel">取消</string>
     <string name="feedback_send">发送消息</string>
-    <string name="feedback_success">谢谢！我们已收到您的消息。</string>
     <string name="feedback_success_title">消息已发送</string>
     <string name="feedback_success_message">感谢您的帮助！您的反馈能帮助我们为所有人改进 FamWake。</string>
     <string name="settings_terms_of_use">使用条款</string>
@@ -247,9 +228,7 @@
     <string name="error_not_logged_in">您尚未登录。</string>
     <string name="error_system">出了点问题。</string>
     <string name="error_invalid_credentials">电子邮件或密码错误。请检查您的输入。</string>
-    <string name="error_login_failed">登录失败</string>
     <string name="error_login_failed_unknown">未知的登录错误</string>
-    <string name="error_registration_failed">注册失败</string>
     <string name="error_registration_failed_unknown">无法创建您的帐号</string>
     <string name="error_unknown">出了点问题。请重试。</string>
     <string name="error_google_sign_in_failed_unknown">Google 登录失败</string>
@@ -311,7 +290,6 @@
     <string name="settings_support_desc">您喜欢这个应用吗？非常感谢您的支持！</string>
     <string name="settings_support_donate">捐助</string>
     <string name="settings_donate_success">非常感谢您的支持！ ❤️</string>
-    <string name="settings_donate_error">糟糕，出了点问题。</string>
     <string name="settings_donate_loading">正在加载选项...</string>
     <string name="settings_donate_no_offers">目前没有可用的选项。</string>
     <string name="settings_donate_purchase_loading">正在处理...</string>
@@ -343,19 +321,6 @@
     <string name="error_feedback_rate_limit_server">发送的消息太多。请稍后再试。</string>
     <string name="error_feedback_empty_message">您的消息为空。</string>
     <string name="error_network">网络问题。请检查您的互联网连接。</string>
-    <string name="settings_language_turkish">Türkçe</string>
-    <string name="settings_language_ukrainian">Українська</string>
-    <string name="settings_language_russian">Русский</string>
-    <string name="settings_language_norwegian">Norsk</string>
-    <string name="settings_language_japanese">日本語</string>
-    <string name="settings_language_danish">Dansk</string>
-    <string name="settings_language_korean">한국어</string>
-    <string name="settings_language_chinese">中文</string>
-    <string name="settings_language_indonesian">Bahasa Indonesia</string>
-    <string name="settings_language_vietnamese">Tiếng Việt</string>
-    <string name="settings_language_bengali">বাংলা</string>
-    <string name="settings_language_marathi">मराठी</string>
-    <string name="settings_language_hindi">हिन्दी</string>
     <string name="tooltip_alarm_sound">点击此处选择您的专属起床铃声——用您最喜欢的音乐代替默认的哔哔声。</string>
     <string name="settings_language_dialects">方言</string>
 
@@ -372,8 +337,6 @@
     <string name="notif_permission_title">需要通知权限</string>
     <string name="notif_permission_desc">如果您关闭通知，闹钟可能无法正常工作。请保持开启状态。</string>
     <string name="notif_permission_button">开启通知</string>
-    <string name="notif_manage_title">通知设置</string>
-    <string name="notif_manage_desc">在手机设置中更改声音和振动。</string>
     <string name="onboarding_login_create">登录 / 注册</string>
     <string name="settings_steal_title">使用此个人资料？</string>
     <string name="settings_steal_text">%1$s 已被选择。您想使用这个个人资料吗？</string>
