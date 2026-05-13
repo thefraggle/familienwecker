@@ -1,8 +1,8 @@
 import Foundation
 import Combine
 import FirebaseAuth
-import AuthenticationServices
-import CryptoKit
+import GoogleSignIn
+import GoogleSignInSwift
 
 // MARK: - Auth State
 enum AuthState: Equatable {
@@ -35,7 +35,6 @@ class AuthViewModel: ObservableObject {
     @Published var currentUserEmail: String? = nil
 
     private var authStateListener: AuthStateDidChangeListenerHandle?
-    private var currentNonce: String?
 
     var isLoggedIn: Bool {
         if case .authenticated = authState { return true }
@@ -66,7 +65,8 @@ class AuthViewModel: ObservableObject {
             Task { @MainActor in
                 if let user {
                     self.currentUserEmail = user.email
-                    if user.isEmailVerified || user.providerData.contains(where: { $0.providerID != "password" }) {
+                    // Anonymous users and OAuth users (Google) are always "verified"
+                    if user.isAnonymous || user.isEmailVerified || user.providerData.contains(where: { $0.providerID != "password" }) {
                         self.authState = .authenticated
                     } else {
                         self.authState = .awaitingEmailVerification(email: user.email ?? "")
@@ -79,19 +79,19 @@ class AuthViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Email/Password & Anonymous Login
+    // MARK: - Anonymous Login (Lazy Registration)
     func signInAnonymously() {
         authState = .loading
         Task {
             do {
                 try await Auth.auth().signInAnonymously()
-                // authState wird via Listener gesetzt
             } catch {
                 authState = .error(mapFirebaseError(error))
             }
         }
     }
 
+    // MARK: - Email/Password
     func login(email: String, password: String) {
         authState = .loading
         Task {
@@ -107,8 +107,15 @@ class AuthViewModel: ObservableObject {
         authState = .loading
         Task {
             do {
-                let result = try await Auth.auth().createUser(withEmail: email, password: password)
-                try await result.user.sendEmailVerification()
+                // If currently anonymous, link instead of creating new user (Lazy Registration)
+                if let currentUser = Auth.auth().currentUser, currentUser.isAnonymous {
+                    let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+                    try await currentUser.link(with: credential)
+                    try await currentUser.sendEmailVerification()
+                } else {
+                    let result = try await Auth.auth().createUser(withEmail: email, password: password)
+                    try await result.user.sendEmailVerification()
+                }
                 authState = .awaitingEmailVerification(email: email)
             } catch {
                 authState = .error(mapFirebaseError(error))
@@ -158,37 +165,47 @@ class AuthViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Apple Sign-In
-    func signInWithApple(credential: ASAuthorizationAppleIDCredential) {
+    // MARK: - Google Sign-In
+    func signInWithGoogle() {
         authState = .loading
-        guard let nonce = currentNonce,
-              let tokenData = credential.identityToken,
-              let tokenString = String(data: tokenData, encoding: .utf8) else {
-            authState = .error(L.errorGeneric)
-            return
-        }
-        let firebaseCredential = OAuthProvider.credential(
-            providerID: AuthProviderID.apple,
-            idToken: tokenString,
-            rawNonce: nonce
-        )
         Task {
             do {
-                try await Auth.auth().signIn(with: firebaseCredential)
-                // authState via Listener
+                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                      let rootViewController = windowScene.windows.first?.rootViewController else {
+                    authState = .error(L.errorGeneric)
+                    return
+                }
+
+                let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+                guard let idToken = result.user.idToken?.tokenString else {
+                    authState = .error(L.errorGeneric)
+                    return
+                }
+
+                let credential = GoogleAuthProvider.credential(
+                    withIDToken: idToken,
+                    accessToken: result.user.accessToken.tokenString
+                )
+
+                // If currently anonymous, link Google credential (Lazy Registration)
+                if let currentUser = Auth.auth().currentUser, currentUser.isAnonymous {
+                    try await currentUser.link(with: credential)
+                } else {
+                    try await Auth.auth().signIn(with: credential)
+                }
+                // authState set via listener
             } catch {
+                // User cancelled is not an error
+                if (error as NSError).code == GIDSignInError.canceled.rawValue {
+                    authState = .unauthenticated
+                    return
+                }
                 authState = .error(mapFirebaseError(error))
             }
         }
     }
 
-    func prepareAppleSignIn() -> String {
-        let nonce = randomNonceString()
-        currentNonce = nonce
-        return sha256(nonce)
-    }
-
-    // MARK: - Helpers
+    // MARK: - Error Mapping (mirrors Android AuthViewModel)
     private func mapFirebaseError(_ error: Error) -> String {
         let code = AuthErrorCode(rawValue: (error as NSError).code)
         switch code {
@@ -200,17 +217,5 @@ class AuthViewModel: ObservableObject {
         case .networkError: return L.errorNetwork
         default: return error.localizedDescription
         }
-    }
-
-    private func randomNonceString(length: Int = 32) -> String {
-        var randomBytes = [UInt8](repeating: 0, count: length)
-        _ = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
-        return randomBytes.map { String(format: "%02x", $0) }.joined()
-    }
-
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashed = SHA256.hash(data: inputData)
-        return hashed.compactMap { String(format: "%02x", $0) }.joined()
     }
 }

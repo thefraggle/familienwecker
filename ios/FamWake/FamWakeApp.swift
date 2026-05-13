@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseCore
+import GoogleSignIn
 
 @main
 struct FamWakeApp: App {
@@ -21,6 +22,10 @@ struct FamWakeApp: App {
                 .environmentObject(familyViewModel)
                 .environmentObject(donationViewModel)
                 .preferredColorScheme(appState.colorScheme)
+                // Google Sign-In URL handler for OAuth callback
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url)
+                }
         }
     }
 }

@@ -9,13 +9,16 @@ struct MainView: View {
     @State private var memberToDelete: FamilyMember? = nil
     @State private var showDeleteMemberAlert = false
 
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: appState.colorScheme) }
+
     var body: some View {
         NavigationStack {
             ZStack {
+                // Background gradient matching Android MainScreen
                 LinearGradient(
                     colors: appState.colorScheme == .dark
-                        ? [Color(.systemBackground), Color(.secondarySystemBackground)]
-                        : [Color.accentColor.opacity(0.08), Color(.systemBackground)],
+                        ? [theme.surface, theme.background]
+                        : [theme.primaryContainer.opacity(0.5), theme.background],
                     startPoint: .top, endPoint: .bottom
                 ).ignoresSafeArea()
 
@@ -33,7 +36,7 @@ struct MainView: View {
                         snoozeBanner(until: snooze)
                     }
 
-                    // Kein Profil gewählt
+                    // No profile selected warning
                     if familyViewModel.myMemberId == nil && !familyViewModel.members.isEmpty {
                         noProfileWarning
                     }
@@ -41,7 +44,7 @@ struct MainView: View {
                     // Schedule
                     scheduleSection
 
-                    // Mitgliederliste
+                    // Member list
                     memberSection
                 }
                 .listStyle(.plain)
@@ -51,23 +54,26 @@ struct MainView: View {
             .navigationTitle("")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Text("FamWake ").font(.headline).bold() +
-                    Text(L.appNameShort).font(.headline).fontWeight(.regular)
+                    // "FamWake Familienwecker" Header – matching Android TopAppBar
+                    (Text("FamWake ").font(.headline).bold() +
+                     Text(L.appNameShort).font(.headline).fontWeight(.regular))
+                        .foregroundStyle(theme.onSurface)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack(spacing: 8) {
                         // Offline / Sync Icon
                         if familyViewModel.isOffline {
                             Image(systemName: "icloud.slash")
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(theme.outline)
                                 .font(.caption)
                         } else if familyViewModel.isSyncing {
-                            RotatingIcon(systemName: "arrow.triangle.2.circlepath")
+                            RotatingIcon(systemName: "arrow.triangle.2.circlepath", color: theme.tertiary)
                                 .font(.caption)
                         }
 
                         Button(action: { showSettings = true }) {
                             Image(systemName: "gearshape.fill")
+                                .foregroundStyle(theme.onSurface)
                         }
                     }
                 }
@@ -97,7 +103,7 @@ struct MainView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            // FAB – Mitglied hinzufügen
+            // FAB – Add Member (matching Android FAB)
             HStack {
                 Spacer()
                 Button(action: { showAddMember = true }) {
@@ -105,10 +111,10 @@ struct MainView: View {
                         .font(.headline)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 12)
-                        .background(Color.accentColor)
-                        .foregroundStyle(.white)
+                        .background(theme.tertiary)
+                        .foregroundStyle(theme.onTertiary)
                         .clipShape(Capsule())
-                        .shadow(color: .accentColor.opacity(0.4), radius: 8, x: 0, y: 4)
+                        .shadow(color: theme.tertiary.opacity(0.4), radius: 8, x: 0, y: 4)
                 }
                 .buttonStyle(BounceButtonStyle())
                 .padding(.trailing, 20)
@@ -127,8 +133,9 @@ struct MainView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
                             .font(.headline).fontWeight(.black)
+                            .foregroundStyle(theme.onPrimaryContainer)
                         Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabledDesc : L.mainAlarmDisabledDesc)
-                            .font(.subheadline).foregroundStyle(.secondary)
+                            .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                     }
                     Spacer()
                     Toggle("", isOn: Binding(
@@ -136,6 +143,7 @@ struct MainView: View {
                         set: { familyViewModel.setAlarmEnabled($0) }
                     ))
                     .disabled(familyViewModel.myMemberId == nil)
+                    .tint(theme.secondary)
                 }
 
                 // Tooltip F
@@ -145,7 +153,7 @@ struct MainView: View {
                     }
                 }
 
-                // „Bin wach" Button
+                // "I'm awake" Button
                 if familyViewModel.myMemberId != nil && familyViewModel.isAlarmEnabled {
                     let isAwake = familyViewModel.isAwakeTodayLocal
                     Button(action: {
@@ -166,9 +174,8 @@ struct MainView: View {
                         .padding(.horizontal, 16)
                     }
                     .buttonStyle(.borderedProminent)
-                    .tint(isAwake ? Color.green : Color.accentColor)
+                    .tint(isAwake ? theme.secondary : theme.tertiary)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .buttonStyle(BounceButtonStyle())
                     .animation(.easeInOut(duration: 0.2), value: isAwake)
 
                     // Tooltip A
@@ -192,20 +199,20 @@ struct MainView: View {
         Section {
             HStack {
                 Image(systemName: "zzz")
-                    .foregroundStyle(Color.onlineIconLight)
+                    .foregroundStyle(appState.colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
                 Text(L.mainSnoozeActive(timeString(until)))
                     .font(.subheadline)
-                    .foregroundStyle(Color(hex: "#1B5E20"))
+                    .foregroundStyle(appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
                 Spacer()
                 Button(L.cancelButton) {
                     familyViewModel.myMemberId.map { familyViewModel.cancelSnooze($0) }
                 }
                 .font(.caption)
-                .foregroundStyle(Color.onlineIconLight)
+                .foregroundStyle(appState.colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
-            .background(Color.onlineGreenLight)
+            .background(appState.colorScheme == .dark ? Color.onlineGreenDark : Color.onlineGreenLight)
             .clipShape(RoundedRectangle(cornerRadius: 32))
         }
         .listRowBackground(Color.clear)
@@ -219,10 +226,10 @@ struct MainView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("⚠️ \(L.mainNoProfileWarning)")
                     .font(.subheadline).fontWeight(.bold)
-                    .foregroundStyle(Color(.systemRed))
+                    .foregroundStyle(theme.error)
                 Text(L.mainNoProfileWarningDesc)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
             }
             .padding()
             .famWakeCard(cornerRadius: 24, isDark: appState.colorScheme == .dark)
@@ -237,6 +244,7 @@ struct MainView: View {
         Section {
             Text(L.mainCurrentSchedule)
                 .font(.title3).fontWeight(.black)
+                .foregroundStyle(theme.onBackground)
                 .padding(.top, 8)
 
             if let sched = familyViewModel.schedule {
@@ -251,9 +259,10 @@ struct MainView: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(familyViewModel.isAlarmEnabled ? "✅ \(L.mainOptimalPlan)" : "⏸️ \(L.mainPlanPaused)")
                             .fontWeight(.bold)
+                            .foregroundStyle(theme.onPrimaryContainer)
                         if let breakfast = sched.breakfastTime {
                             Text("☕ \(L.mainScheduleBathroom(breakfast.formatted(), breakfast.formatted()))")
-                                .font(.subheadline).foregroundStyle(.secondary)
+                                .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                         }
                     }
                     .padding()
@@ -266,7 +275,7 @@ struct MainView: View {
                         }
                     }
 
-                    // Drag & Drop Weckzeiten-Kacheln
+                    // Drag & Drop schedule tiles
                     ForEach(sched.memberSchedules) { memberSched in
                         scheduleCard(memberSched)
                     }
@@ -307,16 +316,17 @@ struct MainView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("⏰ \(sched.wakeUpTime.formatted()) – \(sched.member.name)")
                     .font(.headline).fontWeight(.bold)
+                    .foregroundStyle(theme.onPrimaryContainer)
                 Text(L.mainScheduleBathroom(sched.bathroomStart.formatted(), sched.bathroomEnd.formatted()))
-                    .font(.subheadline).foregroundStyle(.secondary)
+                    .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                 if let leave = sched.member.leaveHomeTime {
                     Text(L.mainScheduleLeave(leave.formatted()))
-                        .font(.subheadline).foregroundStyle(.secondary)
+                        .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                 }
             }
             Spacer()
             Image(systemName: "line.3.horizontal")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(theme.outline)
         }
         .padding()
         .famWakeCard(cornerRadius: 16, isDark: appState.colorScheme == .dark)
@@ -354,12 +364,13 @@ struct MainView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("⚠️ \(error)")
                     .font(.subheadline)
-                    .foregroundStyle(Color(.systemRed))
+                    .foregroundStyle(theme.error)
                 Button(L.cancelButton) { familyViewModel.clearErrorMessage() }
                     .font(.caption)
+                    .foregroundStyle(theme.error)
             }
             .padding()
-            .background(Color(.systemRed).opacity(0.1))
+            .background(theme.errorContainer.opacity(0.3))
             .clipShape(RoundedRectangle(cornerRadius: 24))
         }
         .listRowBackground(Color.clear)
@@ -374,7 +385,7 @@ struct MainView: View {
     }
 }
 
-// Helper für identifiable String in Sheet
+// Helper for identifiable String in Sheet
 struct IdentifiableString: Identifiable {
     var id: String { value }
     let value: String
