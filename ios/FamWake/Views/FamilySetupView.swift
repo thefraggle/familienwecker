@@ -10,20 +10,23 @@ struct FamilySetupView: View {
     @State private var joinCode = ""
     @State private var isLoading = false
 
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: appState.colorScheme) }
+
     var body: some View {
         ZStack {
             LinearGradient(
                 colors: appState.colorScheme == .dark
-                    ? [Color(.systemBackground), Color(.secondarySystemBackground)]
-                    : [Color.accentColor.opacity(0.12), Color(.systemBackground)],
+                    ? [theme.surface, theme.background]
+                    : [theme.primaryContainer.opacity(0.5), theme.background],
                 startPoint: .top, endPoint: .bottom
             ).ignoresSafeArea()
 
             VStack(spacing: 0) {
                 // TopBar
                 HStack {
-                    Text("FamWake ").font(.headline).bold() +
-                    Text(L.appNameShort).font(.headline).fontWeight(.regular)
+                    (Text("FamWake ").font(.headline).bold() +
+                     Text(L.appNameShort).font(.headline).fontWeight(.regular))
+                        .foregroundStyle(theme.onSurface)
                     Spacer()
                 }
                 .padding(.horizontal, 20)
@@ -66,10 +69,10 @@ struct FamilySetupView: View {
                                 }
                             }
                             .buttonStyle(.borderedProminent)
+                            .tint(theme.primary)
                             .frame(maxWidth: .infinity)
                             .frame(height: 56)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .disabled(familyName.trimmingCharacters(in: .whitespaces).isEmpty || isLoading)
+                            .clipShape(Capsule())
                             .buttonStyle(BounceButtonStyle())
                         }
                     } else {
@@ -93,11 +96,10 @@ struct FamilySetupView: View {
                                 }
                             }
                             .buttonStyle(.borderedProminent)
+                            .tint(theme.primary)
                             .frame(maxWidth: .infinity)
                             .frame(height: 56)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .disabled(joinCode.count != 6 || isLoading)
-                            .buttonStyle(BounceButtonStyle())
+                            .clipShape(Capsule())
                         }
                     }
 
@@ -108,7 +110,7 @@ struct FamilySetupView: View {
 
                     if let error = familyViewModel.errorMessage {
                         Text(error)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(theme.error)
                             .font(.footnote)
                             .multilineTextAlignment(.center)
                             .padding(.top, 8)
@@ -124,7 +126,7 @@ struct FamilySetupView: View {
                 Button(L.settingsLogout) {
                     authViewModel.logout()
                 }
-                .foregroundStyle(.red)
+                .foregroundStyle(theme.error)
                 .padding(.bottom, 32)
             }
         }
