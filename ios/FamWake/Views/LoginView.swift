@@ -1,6 +1,6 @@
 import SwiftUI
-import AuthenticationServices
-import CryptoKit
+import GoogleSignIn
+import GoogleSignInSwift
 
 struct LoginView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -15,16 +15,26 @@ struct LoginView: View {
 
     enum Field { case email, password }
 
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: appState.colorScheme) }
+
     var body: some View {
         ZStack {
-            famWakeLinearGradient
-                .ignoresSafeArea()
+            // Background gradient matching Android LoginScreen
+            LinearGradient(
+                colors: appState.colorScheme == .dark
+                    ? [theme.surface, theme.background]
+                    : [theme.primaryContainer.opacity(0.5), theme.background],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // TopBar analog
+                // TopBar – "FamWake Familienwecker" Header
                 HStack {
-                    Text("FamWake ").font(.headline).bold() +
-                    Text(L.appNameShort).font(.headline).fontWeight(.regular)
+                    (Text("FamWake ").font(.headline).bold() +
+                     Text(L.appNameShort).font(.headline).fontWeight(.regular))
+                        .foregroundStyle(theme.onSurface)
                     Spacer()
                 }
                 .padding(.horizontal, 20)
@@ -34,7 +44,7 @@ struct LoginView: View {
 
                 // Login Card
                 VStack(spacing: 16) {
-                    // E-Mail Feld
+                    // E-Mail Field
                     TextField(L.emailLabel, text: $email)
                         .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
@@ -45,9 +55,12 @@ struct LoginView: View {
                         .padding(14)
                         .background(Color(.secondarySystemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor.opacity(0.3), lineWidth: 1))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(theme.outline.opacity(0.2), lineWidth: 1)
+                        )
 
-                    // Passwort Feld
+                    // Password Field
                     HStack {
                         Group {
                             if passwordVisible {
@@ -69,19 +82,32 @@ struct LoginView: View {
                     .padding(14)
                     .background(Color(.secondarySystemBackground))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor.opacity(0.3), lineWidth: 1))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(theme.outline.opacity(0.2), lineWidth: 1)
+                    )
 
-                    // Auth State abhängige Inhalte
+                    // Auth State Content
                     authStateContent
-
                 }
                 .padding(20)
-                .famWakeCard(cornerRadius: 32, isDark: appState.colorScheme == .dark)
+                .background(
+                    RoundedRectangle(cornerRadius: 32)
+                        .fill(appState.colorScheme == .dark
+                            ? theme.primaryContainer
+                            : theme.surface)
+                        .shadow(color: .black.opacity(appState.colorScheme == .dark ? 0 : 0.08), radius: 12, x: 0, y: 4)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 32)
+                        .stroke(theme.outline.opacity(0.15), lineWidth: 1)
+                )
                 .padding(.horizontal, 24)
 
                 Spacer()
             }
         }
+        .onTapGesture { focusedField = nil }
     }
 
     // MARK: - Auth State Content
@@ -102,7 +128,7 @@ struct LoginView: View {
 
     @ViewBuilder
     private var mainAuthButtons: some View {
-        // Login / Register Button
+        // Login / Register Button (matches Android M3 Button)
         Button(action: handleMainAction) {
             Text(isRegistering ? L.registerButton : L.loginButton)
                 .font(.headline)
@@ -110,50 +136,70 @@ struct LoginView: View {
                 .frame(height: 56)
         }
         .buttonStyle(.borderedProminent)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .tint(theme.primary)
+        .clipShape(Capsule())
         .disabled(email.isEmpty || password.isEmpty)
-        .buttonStyle(BounceButtonStyle())
 
-        // AGB bei Registrierung
+        // Registration disclaimer with legal links
         if isRegistering {
             registrationDisclaimer
         }
 
-        // Passwort vergessen
+        // Forgot password (only when logging in)
         if !isRegistering {
             Button(L.loginForgotPassword) {
                 authViewModel.resetPassword(email: email)
             }
             .font(.footnote)
+            .foregroundStyle(theme.primary)
         }
 
-        Button(isRegistering ? L.alreadyHaveAccount : L.noAccount) {
-            withAnimation { isRegistering.toggle() }
+        // Toggle Login / Register
+        Button(action: { withAnimation { isRegistering.toggle() } }) {
+            Text(isRegistering ? L.alreadyHaveAccount : L.noAccount)
+                .font(.subheadline)
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
         }
-        .font(.footnote)
+        .buttonStyle(.bordered)
+        .tint(theme.primary)
+        .clipShape(Capsule())
 
-        Divider()
+        Spacer().frame(height: 8)
 
-        // Apple Sign-In
-        AppleSignInButton()
-            .environmentObject(authViewModel)
+        // Google Sign-In (matches Android LoginScreen Google button)
+        Button(action: { authViewModel.signInWithGoogle() }) {
+            HStack(spacing: 8) {
+                Image("ic_google")
+                    .resizable()
+                    .frame(width: 18, height: 18)
+                Text(L.loginWithGoogle)
+                    .font(.subheadline)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 48)
+        }
+        .buttonStyle(.bordered)
+        .tint(theme.onSurface)
+        .clipShape(Capsule())
 
-        // Fehleranzeige
+        // Error display
         if case .error(let msg) = authViewModel.authState {
             Text(msg)
-                .foregroundStyle(.red)
+                .foregroundStyle(theme.error)
                 .font(.footnote)
                 .multilineTextAlignment(.center)
+                .padding(.top, 8)
         }
 
-        // Passwort Reset Erfolg
+        // Password Reset Success
         if case .passwordResetSuccess = authViewModel.authState {
             HStack(spacing: 8) {
-                Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                Image(systemName: "checkmark.circle.fill").foregroundStyle(theme.secondary)
                 Text(L.loginPasswordResetSent).font(.footnote)
             }
             .padding(10)
-            .background(Color.green.opacity(0.1))
+            .background(theme.secondaryContainer.opacity(0.3))
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
@@ -163,9 +209,9 @@ struct LoginView: View {
         VStack(spacing: 12) {
             Text(L.loginVerifyEmailTitle)
                 .font(.headline)
-                .foregroundStyle(Color.accentColor)
+                .foregroundStyle(theme.primary)
 
-            Text(NSLocalizedString("login_verify_email_text", comment: "").replacingOccurrences(of: "%s", with: email))
+            Text(L.loginVerifyEmailText.replacingOccurrences(of: "%s", with: email))
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
 
@@ -173,20 +219,22 @@ struct LoginView: View {
                 authViewModel.checkEmailVerified()
             }
             .buttonStyle(.borderedProminent)
+            .tint(theme.primary)
             .frame(maxWidth: .infinity)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .clipShape(Capsule())
 
             Button(L.loginVerifyEmailResend) {
                 authViewModel.resendVerificationEmail()
             }
             .font(.footnote)
+            .foregroundStyle(theme.primary)
 
             Button(L.cancelButton) {
                 authViewModel.logout()
                 isRegistering = true
             }
             .font(.footnote)
-            .foregroundStyle(.red)
+            .foregroundStyle(theme.error)
         }
     }
 
@@ -197,29 +245,20 @@ struct LoginView: View {
         let termsUrl = L.settingsTermsOfUseUrl
         let privacyUrl = L.settingsPrivacyPolicyUrl
 
-        HStack(spacing: 0) {
-            Text(NSLocalizedString("registration_disclaimer_prefix", comment: ""))
+        VStack(spacing: 2) {
+            Text(L.registrationDisclaimerPrefix)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            Link(terms, destination: URL(string: termsUrl) ?? URL(string: "https://")!)
-                .font(.caption).fontWeight(.bold)
-            Text(" & ")
-                .font(.caption).foregroundStyle(.secondary)
-            Link(privacy, destination: URL(string: privacyUrl) ?? URL(string: "https://")!)
-                .font(.caption).fontWeight(.bold)
+            HStack(spacing: 4) {
+                Link(terms, destination: URL(string: termsUrl) ?? URL(string: "https://")!)
+                    .font(.caption).fontWeight(.bold).foregroundStyle(theme.primary)
+                Text("&")
+                    .font(.caption).foregroundStyle(.secondary)
+                Link(privacy, destination: URL(string: privacyUrl) ?? URL(string: "https://")!)
+                    .font(.caption).fontWeight(.bold).foregroundStyle(theme.primary)
+            }
         }
         .multilineTextAlignment(.center)
-    }
-
-    // MARK: - Gradient
-    private var famWakeLinearGradient: some View {
-        LinearGradient(
-            colors: appState.colorScheme == .dark
-                ? [Color(.systemBackground), Color(.secondarySystemBackground)]
-                : [Color.accentColor.opacity(0.12), Color(.systemBackground)],
-            startPoint: .top,
-            endPoint: .bottom
-        )
     }
 
     private func handleMainAction() {
@@ -228,30 +267,5 @@ struct LoginView: View {
         } else {
             authViewModel.login(email: email, password: password)
         }
-    }
-}
-
-// MARK: - Apple Sign-In Button
-struct AppleSignInButton: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-
-    var body: some View {
-        SignInWithAppleButton(.signIn) { request in
-            let nonce = authViewModel.prepareAppleSignIn()
-            request.requestedScopes = [.fullName, .email]
-            request.nonce = nonce
-        } onCompletion: { result in
-            switch result {
-            case .success(let auth):
-                if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
-                    authViewModel.signInWithApple(credential: credential)
-                }
-            case .failure(let error):
-                print("[Apple Sign-In] Fehler: \(error.localizedDescription)")
-            }
-        }
-        .signInWithAppleButtonStyle(.black)
-        .frame(height: 50)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
