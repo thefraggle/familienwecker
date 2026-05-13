@@ -221,7 +221,7 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
-    func setMyMemberId(_ memberId: String, completion: @escaping (Bool) -> Void) {
+    func setMyMemberId(_ memberId: String, force: Bool = false, completion: @escaping (Bool) -> Void) {
         guard let fid = familyId, let uid = Auth.auth().currentUser?.uid else {
             completion(false); return
         }
@@ -229,7 +229,7 @@ class FamilyViewModel: ObservableObject {
         Task {
             do {
                 try await functions.httpsCallable("claimMember")
-                    .call(["familyId": fid, "memberId": memberId])
+                    .call(["familyId": fid, "memberId": memberId, "force": force])
                 myMemberId = memberId
                 UserDefaults.standard.set(memberId, forKey: "my_member_id")
                 completion(true)

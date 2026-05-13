@@ -6,172 +6,55 @@ struct SettingsView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var donationViewModel: DonationViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
 
     @State private var showFeedback = false
+    @State private var showProfilePicker = false
     @State private var showLeaveFamilyAlert = false
     @State private var showDeleteFamilyAlert = false
     @State private var showDeleteFamilyFinalAlert = false
-    @State private var showDeleteAccountAlert = false
     @State private var showShareSheet = false
     @State private var shareContent = ""
+    @State private var showDonationSheet = false
+    @State private var memberToSteal: FamilyMember? = nil
+    @State private var showStealAlert = false
+
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
+    private var isDark: Bool { colorScheme == .dark }
 
     var body: some View {
         NavigationStack {
-            List {
+            ScrollView {
+                VStack(spacing: 20) {
 
-                // MARK: 1. Profil
-                Section(L.settingsProfileTitle) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(L.settingsProfileDesc).font(.caption).foregroundStyle(.secondary)
-                        profilePicker
-                    }
+                    // MARK: 1. Profil & Weckton (Combined Card)
+                    profileAndAlarmCard
+
+                    // MARK: 2. Familie & Konto
+                    familyAndAccountCard
+
+                    // MARK: 3. Darstellung (Sprache, Theme, Tooltips, Push)
+                    displayCard
+
+                    // MARK: 4. Unterstützen (Donations)
+                    donationCard
+
+                    // MARK: 5. Hilfe & Feedback
+                    helpCard
+
+                    // MARK: 6. Footer
+                    footerSection
                 }
-
-                // MARK: 2. Weckton
-                Section(L.settingsAlarmTitle) {
-                    alarmSoundPicker
-                }
-
-                // MARK: 3. Familie & Konto
-                Section(L.settingsAccountTitle) {
-                    if let code = familyViewModel.joinCode {
-                        VStack(alignment: .leading, spacing: 4) {
-                            let fName = familyViewModel.familyName ?? L.s("settings_fallback_username")
-                            HStack {
-                                Text(L.settingsJoinCodeName(fName)).font(.subheadline)
-                                Spacer()
-                                Text(code)
-                                    .font(.title3).fontWeight(.black)
-                                    .foregroundStyle(Color.sunriseOrange500)
-                            }
-                            if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipInviteSeen {
-                                TooltipBubble(text: L.tooltipInviteCode) {
-                                    familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyInvite)
-                                }
-                            }
-                        }
-
-                        Button(action: {
-                            let familyName = familyViewModel.familyName ?? ""
-                            shareContent = L.settingsShareMessage(familyName, code)
-                            showShareSheet = true
-                        }) {
-                            Label(L.settingsShareCode, systemImage: "square.and.arrow.up")
-                        }
-                    }
-
-                    Button(L.settingsLeaveFamily, role: .destructive) {
-                        showLeaveFamilyAlert = true
-                    }
-
-                    Button(L.settingsDeleteFamily, role: .destructive) {
-                        showDeleteFamilyAlert = true
-                    }
-
-                    if authViewModel.isAnonymous {
-                        Button(L.loginWithGoogle) {
-                            authViewModel.signInWithGoogle()
-                        }
-                    } else {
-                        Button(L.settingsLogout, role: .destructive) {
-                            authViewModel.logout()
-                            dismiss()
-                        }
-                    }
-
-                    // Konto löschen (Info) – Textlink, normal (kein Rot)
-                    if let deleteUrl = URL(string: L.settingsDeleteAccountUrl) {
-                        Link(destination: deleteUrl) {
-                            HStack {
-                                Text(L.settingsDeleteAccount)
-                                Spacer()
-                                Image(systemName: "info.circle").foregroundStyle(.secondary)
-                            }
-                        }
-                        .foregroundStyle(.primary)
-                    }
-                }
-
-                // MARK: 4. Einstellungen (Sprache, Theme, Tipps)
-                Section(L.settingsDisplayTitle) {
-                    languagePicker
-                    themePicker
-
-                    Toggle(L.settingsTooltipsLabel, isOn: Binding(
-                        get: { familyViewModel.tooltipsEnabled },
-                        set: { familyViewModel.setTooltipsEnabled($0) }
-                    ))
-
-                    if familyViewModel.tooltipsEnabled {
-                        Button(L.settingsTooltipsReset) {
-                            familyViewModel.resetAllTooltips()
-                        }
-                        .font(.subheadline)
-                    }
-                }
-
-                // MARK: 5. Hilfe & Feedback
-                Section(L.s("settings_help_feedback_title")) {
-                    Button(action: {
-                        appState.onboardingCompleted = false
-                        UserDefaults.standard.set(false, forKey: "onboarding_completed")
-                        appState.route = .onboarding
-                        dismiss()
-                    }) {
-                        Label(L.s("settings_start_onboarding"), systemImage: "map")
-                    }
-
-                    Button(action: { showFeedback = true }) {
-                        Label(L.s("settings_feedback_button"), systemImage: "text.bubble")
-                    }
-
-                    Button(action: {
-                        if let url = URL(string: "mailto:hello@familienwecker.de?subject=FamWake%20Feedback") {
-                            UIApplication.shared.open(url)
-                        }
-                    }) {
-                        Label(L.s("settings_support_button"), systemImage: "envelope")
-                    }
-                }
-
-                // MARK: 6. Footer – Version + Copyright + Rechtliches als Textlinks
-                Section {
-                    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-                    let termsUrl  = URL(string: L.settingsTermsOfUseUrl)
-                    let privacyUrl = URL(string: L.settingsPrivacyPolicyUrl)
-                    let imprintUrl = URL(string: L.s("settings_imprint_url"))
-                    VStack(spacing: 6) {
-                        Text(String(format: L.s("settings_footer_version"), version))
-                        Text(L.s("settings_footer_copyright"))
-                        Text(L.s("settings_footer_rights"))
-
-                        Spacer().frame(height: 4)
-
-                        Button(L.s("settings_terms_of_use")) {
-                            if let url = URL(string: L.settingsTermsOfUseUrl) {
-                                UIApplication.shared.open(url)
-                            }
-                        }.buttonStyle(.borderless)
-                        Button(L.s("settings_privacy_policy")) {
-                            if let url = URL(string: L.settingsPrivacyPolicyUrl) {
-                                UIApplication.shared.open(url)
-                            }
-                        }.buttonStyle(.borderless)
-                        Button(L.s("settings_imprint")) {
-                            if let url = URL(string: L.s("settings_imprint_url")) {
-                                UIApplication.shared.open(url)
-                            }
-                        }.buttonStyle(.borderless)
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity)
-                    .multilineTextAlignment(.center)
-                    .padding(.vertical, 4)
-                    .listRowBackground(Color.clear)
-                }
-
+                .padding(16)
             }
+            .background(
+                LinearGradient(
+                    colors: isDark
+                        ? [theme.surface, theme.background]
+                        : [theme.primaryContainer.opacity(0.5), theme.background],
+                    startPoint: .top, endPoint: .bottom
+                ).ignoresSafeArea()
+            )
             .navigationTitle(L.settingsTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -179,12 +62,10 @@ struct SettingsView: View {
                     Button(L.backDesc) { dismiss() }
                 }
             }
-            .sheet(isPresented: $showFeedback) {
-                FeedbackView()
-            }
-            .sheet(isPresented: $showShareSheet) {
-                ActivityViewController(activityItems: [shareContent])
-            }
+            .sheet(isPresented: $showFeedback) { FeedbackView() }
+            .sheet(isPresented: $showShareSheet) { ActivityViewController(activityItems: [shareContent]) }
+            .sheet(isPresented: $showProfilePicker) { profilePickerSheet }
+            .sheet(isPresented: $showDonationSheet) { donationSheet }
             .alert(L.settingsLeaveFamily, isPresented: $showLeaveFamilyAlert) {
                 Button(L.settingsLeaveFamily, role: .destructive) {
                     familyViewModel.leaveFamily()
@@ -195,76 +76,543 @@ struct SettingsView: View {
             }
             .alert(L.settingsDeleteFamilyDialogTitle, isPresented: $showDeleteFamilyAlert) {
                 Button(L.settingsDeleteFamilyDialogConfirm, role: .destructive) {
-                    showDeleteFamilyFinalAlert = true
+                    let hasOthers = familyViewModel.members.contains { $0.id != familyViewModel.myMemberId }
+                    if hasOthers {
+                        showDeleteFamilyFinalAlert = true
+                    } else {
+                        familyViewModel.deleteFamily { success in
+                            if success { appState.route = .familySetup; dismiss() }
+                        }
+                    }
                 }
                 Button(L.settingsDeleteFamilyDialogCancel, role: .cancel) {}
-            } message: {
-                Text(L.settingsDeleteFamilyDialogText)
-            }
+            } message: { Text(L.settingsDeleteFamilyDialogText) }
             .alert(L.settingsDeleteFamilyWarningTitle, isPresented: $showDeleteFamilyFinalAlert) {
                 Button(L.settingsDeleteFamilyWarningConfirm, role: .destructive) {
                     familyViewModel.deleteFamily { success in
-                        if success {
-                            appState.route = .familySetup
-                            dismiss()
-                        }
+                        if success { appState.route = .familySetup; dismiss() }
                     }
                 }
                 Button(L.cancelButton, role: .cancel) {}
-            } message: {
-                Text(L.settingsDeleteFamilyWarningText)
+            } message: { Text(L.settingsDeleteFamilyWarningText) }
+            .alert(L.s("settings_steal_title"), isPresented: $showStealAlert, presenting: memberToSteal) { member in
+                Button(L.s("settings_steal_confirm"), role: .destructive) {
+                    familyViewModel.setMyMemberId(member.id, force: true) { _ in }
+                    showProfilePicker = false
+                }
+                Button(L.cancelButton, role: .cancel) {}
+            } message: { member in
+                Text(L.s("settings_steal_text").replacingOccurrences(of: "%s", with: member.name))
             }
         }
     }
 
-    // MARK: - Profile Picker
+    // MARK: - 1. Profil & Weckton
     @ViewBuilder
-    private var profilePicker: some View {
-        if familyViewModel.members.isEmpty {
-            Text(L.settingsNoMembers).font(.subheadline).foregroundStyle(.secondary)
-        } else {
-            Menu {
-                Button(action: {}) {
-                    Label(L.settingsPleaseSelect, systemImage: "questionmark.circle")
+    private var profileAndAlarmCard: some View {
+        settingsCard {
+            // Header
+            settingsSectionHeader(icon: "person.fill", title: L.settingsProfileTitle)
+
+            Text(L.settingsProfileDesc)
+                .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                .padding(.bottom, 8)
+
+            // Profile picker button
+            let selectedMember = familyViewModel.members.first { $0.id == familyViewModel.myMemberId }
+            let label = familyViewModel.members.isEmpty
+                ? L.settingsNoMembers
+                : (selectedMember?.name ?? L.settingsPleaseSelect)
+
+            Button(action: {
+                if familyViewModel.isOffline {
+                    familyViewModel.errorMessage = L.errorProfileClaimOffline
+                } else if !familyViewModel.members.isEmpty {
+                    showProfilePicker = true
                 }
-                Divider()
+            }) {
+                HStack {
+                    Text(label).font(.body)
+                    Spacer()
+                    Image(systemName: "person.fill").font(.caption)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16).padding(.vertical, 12)
+            }
+            .buttonStyle(.bordered)
+            .tint(theme.primary)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .disabled(familyViewModel.members.isEmpty)
+
+            Divider().padding(.vertical, 12)
+
+            // Alarm sound
+            settingsSectionLabel(icon: "bell.fill", text: L.settingsAlarmTitle)
+
+            let sounds: [(String?, String)] = [
+                (nil, L.settingsAlarmDefault),
+                ("alarm_classic.caf", "Classic Alarm"),
+                ("alarm_gentle.caf", "Gentle Rise"),
+                ("alarm_digital.caf", "Digital Beep")
+            ]
+            Picker(L.settingsAlarmTitle, selection: Binding(
+                get: { familyViewModel.alarmSoundUri },
+                set: { familyViewModel.setAlarmSoundUri($0) }
+            )) {
+                ForEach(sounds, id: \.0) { sound in
+                    Text(sound.1).tag(sound.0)
+                }
+            }
+            .pickerStyle(.menu)
+        }
+    }
+
+    // MARK: - 2. Familie & Konto
+    @ViewBuilder
+    private var familyAndAccountCard: some View {
+        settingsCard {
+            settingsSectionHeader(icon: "person.3.fill", title: L.settingsAccountTitle)
+
+            // Anonymous → Link Account
+            if authViewModel.isAnonymous {
+                Button(action: { authViewModel.signInWithGoogle() }) {
+                    HStack {
+                        Image(systemName: "person.badge.plus")
+                        Text(L.s("settings_anonymous_login_button"))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(theme.primary)
+                .clipShape(Capsule())
+                .padding(.bottom, 12)
+            }
+
+            // Join Code
+            if let code = familyViewModel.joinCode {
+                let fName = familyViewModel.familyName ?? ""
+                Text(L.settingsJoinCodeName(fName))
+                    .font(.subheadline)
+
+                Text(authViewModel.isAnonymous ? "******" : code)
+                    .font(.title2).fontWeight(.black)
+                    .foregroundStyle(Color.sunriseOrange500)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+
+                // Tooltip E
+                if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipInviteSeen {
+                    TooltipBubble(text: L.tooltipInviteCode) {
+                        familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyInvite)
+                    }
+                }
+
+                // Share
+                Button(action: {
+                    if authViewModel.isAnonymous {
+                        familyViewModel.errorMessage = L.s("settings_share_code_locked")
+                    } else {
+                        shareContent = L.settingsShareMessage(fName, code)
+                        showShareSheet = true
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: "person.3.fill").font(.caption)
+                        Text(L.settingsShareCode)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(theme.primary)
+                .clipShape(Capsule())
+                .padding(.bottom, 8)
+            }
+
+            // Leave Family
+            Button(action: { showLeaveFamilyAlert = true }) {
+                Text(L.settingsLeaveFamily).frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(theme.onSurface)
+            .clipShape(Capsule())
+
+            Spacer().frame(height: 8)
+
+            // Delete Family
+            Button(action: {
+                if familyViewModel.isAdmin {
+                    showDeleteFamilyAlert = true
+                } else {
+                    familyViewModel.errorMessage = L.errorDeleteNotAdmin
+                }
+            }) {
+                Text(L.settingsDeleteFamily).frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(familyViewModel.isAdmin ? theme.error : theme.outline)
+            .clipShape(Capsule())
+
+            Spacer().frame(height: 8)
+
+            // Logout (non-anonymous only)
+            if !authViewModel.isAnonymous {
+                Button(action: { authViewModel.logout(); dismiss() }) {
+                    Text(L.settingsLogout).frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .tint(theme.error)
+                .clipShape(Capsule())
+            }
+
+            // Delete Account Info
+            if let deleteUrl = URL(string: L.settingsDeleteAccountUrl) {
+                Link(destination: deleteUrl) {
+                    HStack {
+                        Text(L.settingsDeleteAccount)
+                        Spacer()
+                        Image(systemName: "info.circle").foregroundStyle(theme.outline)
+                    }
+                }
+                .foregroundStyle(theme.onSurface)
+                .padding(.top, 8)
+            }
+        }
+    }
+
+    // MARK: - 3. Darstellung
+    @ViewBuilder
+    private var displayCard: some View {
+        settingsCard {
+            settingsSectionHeader(icon: "slider.horizontal.3", title: L.settingsDisplayTitle)
+
+            // Language
+            NavigationLink(destination: LanguagePickerView()) {
+                HStack {
+                    Text(L.settingsLanguageTitle)
+                    Spacer()
+                    Text(languageName(for: familyViewModel.language)).foregroundStyle(theme.outline)
+                }
+            }
+
+            Spacer().frame(height: 16)
+
+            // Theme – Segmented Control (matches Android SegmentedButtonRow)
+            settingsSectionLabel(icon: nil, text: L.settingsAppearanceTitle)
+            Picker("", selection: Binding(
+                get: { familyViewModel.themePreference },
+                set: { familyViewModel.setThemePreference($0); appState.setTheme($0) }
+            )) {
+                Image(systemName: "sun.max.fill").tag("light")
+                Image(systemName: "circle.lefthalf.filled").tag("system")
+                Image(systemName: "moon.fill").tag("dark")
+            }
+            .pickerStyle(.segmented)
+
+            Spacer().frame(height: 16)
+
+            // Tooltips
+            settingsSectionLabel(icon: nil, text: L.settingsTooltipsTitle)
+            Toggle(L.settingsTooltipsLabel, isOn: Binding(
+                get: { familyViewModel.tooltipsEnabled },
+                set: { familyViewModel.setTooltipsEnabled($0) }
+            ))
+            .tint(theme.secondary)
+
+            if familyViewModel.tooltipsEnabled {
+                Button(L.settingsTooltipsReset) {
+                    familyViewModel.resetAllTooltips()
+                }
+                .font(.subheadline)
+                .foregroundStyle(theme.primary)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+
+            Spacer().frame(height: 16)
+
+            // Push Notifications (placeholder)
+            settingsSectionLabel(icon: nil, text: L.s("settings_push_title"))
+            Toggle(L.s("settings_push_label"), isOn: .constant(true))
+                .tint(theme.secondary)
+                .disabled(true) // Requires Apple Dev Account
+        }
+    }
+
+    // MARK: - 4. Donations (non-functional placeholder)
+    @ViewBuilder
+    private var donationCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            settingsSectionHeader(icon: "heart.fill", title: L.settingsSupportTitle)
+
+            Text(L.s("settings_support_desc"))
+                .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+
+            Button(action: { showDonationSheet = true }) {
+                HStack {
+                    Image(systemName: "heart.fill").font(.caption)
+                    Text(L.s("settings_support_donate"))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(theme.primary)
+            .clipShape(Capsule())
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(isDark ? theme.surfaceVariant.opacity(0.4) : theme.surface)
+                .shadow(color: .black.opacity(isDark ? 0 : 0.06), radius: 8, x: 0, y: 4)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 24)
+                .stroke(theme.primary.opacity(0.3), lineWidth: 1)
+        )
+    }
+
+    // MARK: - 5. Hilfe & Feedback
+    @ViewBuilder
+    private var helpCard: some View {
+        settingsCard {
+            settingsSectionHeader(icon: "doc.text.fill", title: L.s("settings_help_feedback_title"))
+
+            // Restart Tour
+            Button(action: {
+                appState.onboardingCompleted = false
+                UserDefaults.standard.set(false, forKey: "onboarding_completed")
+                appState.route = .onboarding
+                dismiss()
+            }) {
+                Text(L.s("settings_start_onboarding")).frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(theme.onSurface)
+            .clipShape(Capsule())
+
+            Spacer().frame(height: 8)
+
+            // Feedback
+            Button(action: { showFeedback = true }) {
+                Text(L.settingsFeedbackButton).frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(theme.onSurface)
+            .clipShape(Capsule())
+
+            Spacer().frame(height: 8)
+
+            // E-Mail Support
+            Button(action: {
+                if let url = URL(string: "mailto:hello@familienwecker.de?subject=FamWake%20Feedback") {
+                    UIApplication.shared.open(url)
+                }
+            }) {
+                HStack {
+                    Image(systemName: "envelope").font(.caption)
+                    Text(L.s("settings_support_button"))
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(theme.onSurface)
+            .clipShape(Capsule())
+        }
+    }
+
+    // MARK: - 6. Footer
+    @ViewBuilder
+    private var footerSection: some View {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        VStack(spacing: 6) {
+            Text(String(format: L.s("settings_footer_version"), version))
+            Text(L.s("settings_footer_copyright"))
+            Text(L.s("settings_footer_rights"))
+
+            Spacer().frame(height: 4)
+
+            Button(L.s("settings_terms_of_use")) {
+                if let url = URL(string: L.settingsTermsOfUseUrl) { UIApplication.shared.open(url) }
+            }.buttonStyle(.borderless)
+            Button(L.s("settings_privacy_policy")) {
+                if let url = URL(string: L.settingsPrivacyPolicyUrl) { UIApplication.shared.open(url) }
+            }.buttonStyle(.borderless)
+            Button(L.s("settings_imprint")) {
+                if let url = URL(string: L.s("settings_imprint_url")) { UIApplication.shared.open(url) }
+            }.buttonStyle(.borderless)
+        }
+        .font(.caption)
+        .foregroundStyle(theme.outline)
+        .frame(maxWidth: .infinity)
+        .multilineTextAlignment(.center)
+        .padding(.vertical, 4)
+    }
+
+    // MARK: - Profile Picker Sheet (iOS-native BottomSheet)
+    @ViewBuilder
+    private var profilePickerSheet: some View {
+        NavigationStack {
+            let currentUid = authViewModel.currentUserId
+            List {
                 ForEach(familyViewModel.members) { member in
-                    let isMine = member.id == familyViewModel.myMemberId
-                    let isClaimed = !isMine && member.claimedByUserId != nil
+                    let isClaimedByOther = member.claimedByUserId != nil && member.claimedByUserId != currentUid
+                    let isSelected = member.id == familyViewModel.myMemberId
+
                     Button(action: {
-                        if !isClaimed {
+                        if isClaimedByOther {
+                            memberToSteal = member
+                            showStealAlert = true
+                        } else {
                             familyViewModel.setMyMemberId(member.id) { _ in }
+                            showProfilePicker = false
                         }
                     }) {
                         HStack {
-                            Text(member.name)
-                            if isMine { Text("✓") }
-                            if isClaimed { Text(" (\(L.settingsAlreadyClaimed))") }
+                            // Avatar
+                            ZStack {
+                                Circle()
+                                    .fill(isSelected ? theme.tertiary : theme.surfaceVariant)
+                                    .frame(width: 36, height: 36)
+                                Text(member.name.prefix(1).uppercased())
+                                    .font(.subheadline).fontWeight(.bold)
+                                    .foregroundStyle(isSelected ? theme.onTertiary : theme.onSurfaceVariant)
+                            }
+
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(member.name).font(.body).fontWeight(.medium)
+                                if isClaimedByOther {
+                                    Text(L.settingsAlreadyClaimed)
+                                        .font(.caption).foregroundStyle(theme.error)
+                                }
+                            }
+
+                            Spacer()
+
+                            if isSelected {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundStyle(theme.secondary)
+                            }
                         }
                     }
-                    .disabled(isClaimed)
+                    .foregroundStyle(theme.onSurface)
                 }
-            } label: {
-                HStack {
-                    let myName = familyViewModel.members.first(where: { $0.id == familyViewModel.myMemberId })?.name
-                    Text(myName ?? L.settingsPleaseSelect)
-                    Spacer()
-                    Image(systemName: "chevron.up.chevron.down").foregroundStyle(.secondary)
+            }
+            .navigationTitle(L.settingsProfileTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(L.cancelButton) { showProfilePicker = false }
+                }
+            }
+        }
+        .presentationDetents([.medium])
+    }
+
+    // MARK: - Donation Sheet (Placeholder)
+    @ViewBuilder
+    private var donationSheet: some View {
+        NavigationStack {
+            VStack(spacing: 24) {
+                Spacer()
+
+                Image(systemName: "heart.fill")
+                    .font(.system(size: 60))
+                    .foregroundStyle(theme.tertiary)
+
+                Text(L.settingsSupportTitle)
+                    .font(.title2).fontWeight(.bold)
+                    .foregroundStyle(theme.onSurface)
+
+                Text(L.s("settings_support_desc"))
+                    .font(.body)
+                    .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+
+                // Placeholder packages
+                VStack(spacing: 12) {
+                    donationOption(emoji: "☕", title: L.s("settings_donate_coffee"), price: "1,99 €")
+                    donationOption(emoji: "🍕", title: L.s("settings_donate_pizza"), price: "4,99 €")
+                    donationOption(emoji: "🎉", title: L.s("settings_donate_party"), price: "9,99 €")
+                }
+                .padding(.horizontal)
+
+                Text(L.s("settings_donate_coming_soon"))
+                    .font(.caption).foregroundStyle(theme.outline)
+
+                Spacer()
+            }
+            .navigationTitle(L.settingsSupportTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(L.cancelButton) { showDonationSheet = false }
                 }
             }
         }
     }
 
-    // MARK: - Language Picker → NavigationLink
+    // MARK: - Helpers
+
     @ViewBuilder
-    private var languagePicker: some View {
-        NavigationLink(destination: LanguagePickerView()) {
-            HStack {
-                Text(L.settingsLanguageTitle)
-                Spacer()
-                Text(languageName(for: familyViewModel.language)).foregroundStyle(.secondary)
-            }
+    private func settingsCard(@ViewBuilder content: () -> some View) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            content()
         }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(isDark ? theme.surfaceVariant.opacity(0.4) : theme.surface)
+                .shadow(color: .black.opacity(isDark ? 0 : 0.06), radius: 8, x: 0, y: 4)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 24)
+                .stroke(theme.outline.opacity(0.15), lineWidth: 1)
+        )
+    }
+
+    @ViewBuilder
+    private func settingsSectionHeader(icon: String, title: String) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: icon)
+                .foregroundStyle(theme.primary)
+            Text(title)
+                .font(.headline).fontWeight(.bold)
+                .foregroundStyle(theme.onSurface)
+        }
+        .padding(.bottom, 4)
+    }
+
+    @ViewBuilder
+    private func settingsSectionLabel(icon: String?, text: String) -> some View {
+        HStack(spacing: 6) {
+            if let icon {
+                Image(systemName: icon)
+                    .font(.caption2).foregroundStyle(theme.primary)
+            }
+            Text(text)
+                .font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+        }
+    }
+
+    @ViewBuilder
+    private func donationOption(emoji: String, title: String, price: String) -> some View {
+        HStack {
+            Text(emoji).font(.title2)
+            Text(title).font(.body).fontWeight(.medium)
+            Spacer()
+            Text(price).font(.subheadline).foregroundStyle(theme.outline)
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(isDark ? theme.primaryContainer : theme.surfaceVariant.opacity(0.3))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(theme.outline.opacity(0.15), lineWidth: 1)
+        )
     }
 
     private func languageName(for code: String) -> String {
@@ -297,43 +645,6 @@ struct SettingsView: View {
         default:    return L.settingsLanguageSystem
         }
     }
-
-    // MARK: - Theme Picker
-    @ViewBuilder
-    private var themePicker: some View {
-        let themes: [(String, String)] = [
-            ("system", L.s("settings_theme_system")),
-            ("dark",   L.settingsThemeDark),
-            ("light",  L.settingsThemeLight)
-        ]
-        Picker(L.settingsAppearanceTitle, selection: Binding(
-            get: { familyViewModel.themePreference },
-            set: { familyViewModel.setThemePreference($0); appState.setTheme($0) }
-        )) {
-            ForEach(themes, id: \.0) { theme in
-                Text(theme.1).tag(theme.0)
-            }
-        }
-    }
-
-    // MARK: - Alarm Sound Picker
-    @ViewBuilder
-    private var alarmSoundPicker: some View {
-        let sounds: [(String?, String)] = [
-            (nil,                  L.settingsAlarmDefault),
-            ("alarm_classic.caf", "Classic Alarm"),
-            ("alarm_gentle.caf",  "Gentle Rise"),
-            ("alarm_digital.caf", "Digital Beep")
-        ]
-        Picker(L.settingsAlarmTitle, selection: Binding(
-            get: { familyViewModel.alarmSoundUri },
-            set: { familyViewModel.setAlarmSoundUri($0) }
-        )) {
-            ForEach(sounds, id: \.0) { sound in
-                Text(sound.1).tag(sound.0)
-            }
-        }
-    }
 }
 
 // MARK: - Language Picker View (NavigationLink-Destination)
@@ -341,6 +652,9 @@ private struct LanguagePickerView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @EnvironmentObject var appState: AppState
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
+
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     private let dialectLanguages: [(String, String)] = [
         ("ksh", "Ruhrpott"), ("swg", "Schwäbsch"), ("gsw", "Schwiizerdütsch")
@@ -397,12 +711,12 @@ private struct LanguagePickerView: View {
                 Spacer()
                 if familyViewModel.language == code {
                     Image(systemName: "checkmark")
-                        .foregroundStyle(Color.accentColor)
+                        .foregroundStyle(theme.tertiary)
                         .fontWeight(.semibold)
                 }
             }
         }
-        .foregroundStyle(.primary)
+        .foregroundStyle(theme.onSurface)
     }
 }
 
