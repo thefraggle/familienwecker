@@ -343,4 +343,6 @@
     <string name="settings_steal_confirm">是的，我要使用</string>
     <string name="schedule_auto_fix">✨ 自动调整时间</string>
     <string name="onboarding_enable_tooltips">首次使用时显示实用提示</string>
+    <string name="onboarding_slide5_body">你可以不用注册账户直接试用这款应用。只有在你想要邀请家人时才需要账户。</string>
+    <string name="onboarding_slide5_title">我们开始吧！</string>
 </resources>

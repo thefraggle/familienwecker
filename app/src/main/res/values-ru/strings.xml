@@ -342,4 +342,7 @@
     <string name="settings_steal_confirm">Да, использовать</string>
     <string name="schedule_auto_fix">✨ Автоматически настроить время</string>
     <string name="onboarding_enable_tooltips">Показывать полезные советы при первом использовании</string>
+    <string name="onboarding_mock_family_name">Иванов</string>
+    <string name="onboarding_mock_name1">Папа</string>
+    <string name="onboarding_mock_name2">Мама</string>
 </resources>

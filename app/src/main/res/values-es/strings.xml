@@ -343,4 +343,5 @@
     <string name="settings_steal_confirm">Sí, usarlo</string>
     <string name="schedule_auto_fix">✨ Ajustar horas automáticamente</string>
     <string name="onboarding_enable_tooltips">Mostrar consejos útiles en el primer uso</string>
+    <string name="settings_share_code_locked">Inicia sesión para compartir tu código de invitación.</string>
 </resources>
