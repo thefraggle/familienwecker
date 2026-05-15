@@ -1129,8 +1129,6 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().bounceClick(onboardingInteractionSource),
                         interactionSource = onboardingInteractionSource
                     ) {
-                        Icon(Icons.Default.Explore, contentDescription = null, modifier = Modifier.size(18.dp))
-                        Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_start_onboarding))
                     }
 

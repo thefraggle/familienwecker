@@ -97,6 +97,10 @@ class FamilyViewModel(
     val isAwakeTodayLocal: StateFlow<Boolean> = appSettings.isAwakeToday
     val onboardingCompleted: StateFlow<Boolean> = appSettings.onboardingCompleted
 
+    // Globaler Puffer zwischen Bad-Slots (aus Firestore Family-Doc)
+    internal val _globalBufferMinutes = MutableStateFlow(0L)
+    val globalBufferMinutes: StateFlow<Long> = _globalBufferMinutes.asStateFlow()
+
     // ── Tooltip-Flows ────────────────────────────────────────────────────────
 
     val tooltipsEnabled: StateFlow<Boolean> = appSettings.tooltipsEnabled
@@ -302,6 +306,7 @@ class FamilyViewModel(
                             try {
                                 val data = repository.getFamilyData(currentFamilyId)
                                 _familyCreatorId.value = data?.createdByUserId
+                                _globalBufferMinutes.value = data?.globalBufferMinutes ?: 0L
                             } catch (e: Exception) {
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                                     android.util.Log.e("FamilyViewModel", "Error loading family creator: ${e.message}")
@@ -482,7 +487,22 @@ class FamilyViewModel(
         }
     }
 
-    // ── Sync Job Management ───────────────────────────────────────────────────
+    fun setGlobalBufferMinutes(minutes: Long) {
+        val familyIdValue = familyId.value ?: return
+        _globalBufferMinutes.value = minutes
+        recalculateSchedule()
+        scope.launch {
+            try {
+                repository.updateGlobalBufferMinutes(familyIdValue, minutes)
+            } catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FamilyViewModel", "setGlobalBufferMinutes failed: ${e.message}")
+                }
+            }
+        }
+    }
+
+    // ── Sync Job Management ───────────────────────────────────────────────────────────
 
     /** Stoppt die aktiven Firestore-Listener (members + syncStatus).
      *  Muss VOR destruktiven Cloud-Functions (deleteFamily) aufgerufen werden,

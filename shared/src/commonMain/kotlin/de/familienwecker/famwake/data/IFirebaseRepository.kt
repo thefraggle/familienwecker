@@ -69,6 +69,9 @@ interface IFirebaseRepository {
     /** Schreibt nur isPaused + lastUpdatedAt – umgeht das Security-Rule-Problem mit vollem .set(). */
     suspend fun updateMemberPauseState(familyId: String, memberId: String, isPaused: Boolean)
 
+    /** Aktualisiert den globalen Puffer zwischen Bad-Slots im Family-Dokument. */
+    suspend fun updateGlobalBufferMinutes(familyId: String, minutes: Long)
+
     // ── Admin / Status ────────────────────────────────────────────────────────
 
     fun checkIsGlobalAdminFlow(uid: String): Flow<Boolean>

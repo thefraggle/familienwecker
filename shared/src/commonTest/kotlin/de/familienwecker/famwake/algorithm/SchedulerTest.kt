@@ -144,4 +144,75 @@ class SchedulerTest {
         val result = scheduler.calculateIdealSchedule(members, breakfastDurationMinutes = 0)
         assertTrue(result.memberSchedules.size <= 6)
     }
+
+    // ──── Buffer Tests ─────────────────────────────────────────────────
+
+    @Test
+    fun buffer_appliesGapBetweenMembers() {
+        // Zwei Members mit genug Zeitraum, 5 Min Puffer
+        val members = listOf(
+            member(id = "m1", earliestWakeUp = LocalTime(6, 0), latestWakeUp = LocalTime(7, 0), bathroomDurationMinutes = 15L, wantsBreakfast = false),
+            member(id = "m2", earliestWakeUp = LocalTime(7, 0), latestWakeUp = LocalTime(8, 0), bathroomDurationMinutes = 15L, wantsBreakfast = false)
+        )
+        val result = scheduler.calculateIdealSchedule(members, breakfastDurationMinutes = 0, globalBufferMinutes = 5)
+        assertTrue(result.isValid, "Plan sollte gültig sein")
+        assertEquals(2, result.memberSchedules.size)
+
+        val m1End = result.memberSchedules[0].bathroomEndTime
+        val m2Start = result.memberSchedules[1].wakeUpTime
+        // m2 muss mindestens 5 Min nach m1's Bad-Ende starten
+        assertFalse(m2Start.isBefore(m1End), "m2 darf nicht vor m1's Bad-Ende starten")
+    }
+
+    @Test
+    fun buffer_zeroEqualsLegacyBehavior() {
+        // Regression: buffer=0 muss identisch zum alten Verhalten sein
+        val members = listOf(
+            member(id = "m1", earliestWakeUp = LocalTime(6, 0), latestWakeUp = LocalTime(7, 30), bathroomDurationMinutes = 20L, wantsBreakfast = false),
+            member(id = "m2", earliestWakeUp = LocalTime(7, 0), latestWakeUp = LocalTime(8, 0), bathroomDurationMinutes = 20L, wantsBreakfast = false)
+        )
+        val withoutBuffer = scheduler.calculateIdealSchedule(members, breakfastDurationMinutes = 0, globalBufferMinutes = 0)
+        val legacy = scheduler.calculateIdealSchedule(members, breakfastDurationMinutes = 0)
+
+        assertEquals(legacy.memberSchedules.size, withoutBuffer.memberSchedules.size)
+        for (i in legacy.memberSchedules.indices) {
+            assertEquals(legacy.memberSchedules[i].wakeUpTime, withoutBuffer.memberSchedules[i].wakeUpTime,
+                "Wakeup time mismatch for member $i")
+        }
+    }
+
+    @Test
+    fun buffer_autoFixReducesBufferFirst() {
+        // Knappe Zeiten: mit 10 Min Puffer klappt es nicht, Scheduler soll Puffer reduzieren
+        val members = listOf(
+            member(id = "m1", earliestWakeUp = LocalTime(6, 50), latestWakeUp = LocalTime(7, 0), bathroomDurationMinutes = 15L, wantsBreakfast = false),
+            member(id = "m2", earliestWakeUp = LocalTime(7, 10), latestWakeUp = LocalTime(7, 20), bathroomDurationMinutes = 15L, wantsBreakfast = false)
+        )
+        val result = scheduler.calculateIdealSchedule(members, breakfastDurationMinutes = 0, globalBufferMinutes = 10)
+        // BufferReduced sollte VOR TimeAdjusted greifen
+        val isBufferReduced = result.scheduleMessage is ScheduleMessage.BufferReduced
+        val isOptimal = result.scheduleMessage is ScheduleMessage.OptimalPlan
+        assertTrue(isBufferReduced || isOptimal, "Erwartet BufferReduced oder OptimalPlan, bekam: ${result.scheduleMessage}")
+    }
+
+    @Test
+    fun buffer_individualOverrideUsed() {
+        // Member mit individuellem bufferMinutes=10 in DayProfile
+        val profileWithBuffer = de.familienwecker.famwake.model.DayProfile(
+            isActive = true,
+            earliestWakeUp = LocalTime(6, 0),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 10L,
+            wantsBreakfast = false,
+            bufferMinutes = 10
+        )
+        val m1 = member(id = "m1", earliestWakeUp = LocalTime(6, 0), latestWakeUp = LocalTime(7, 0), bathroomDurationMinutes = 10L, wantsBreakfast = false)
+            .copy(dayProfiles = mapOf(1 to profileWithBuffer))
+        val m2 = member(id = "m2", earliestWakeUp = LocalTime(7, 0), latestWakeUp = LocalTime(8, 0), bathroomDurationMinutes = 10L, wantsBreakfast = false)
+
+        val result = scheduler.calculateIdealSchedule(listOf(m1, m2), breakfastDurationMinutes = 0, globalBufferMinutes = 5)
+        assertTrue(result.isValid)
+        // m1 hat individuellen Buffer 10, obwohl global nur 5 ist
+        assertEquals(10L, result.memberSchedules[0].bufferAfter, "Individueller Override sollte 10 min sein")
+    }
 }

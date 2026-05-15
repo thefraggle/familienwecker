@@ -37,6 +37,10 @@ sealed class ScheduleMessage {
     @Serializable
     data class MemberConflict(val memberName: String) : ScheduleMessage()
 
+    /** Puffer wurde reduziert, um die Reihenfolge zu ermöglichen. */
+    @Serializable
+    data class BufferReduced(val originalMinutes: Long, val reducedMinutes: Long) : ScheduleMessage()
+
     /**
      * Kein aktiver Weckplan (Wecker ausgeschaltet oder alle Mitglieder herausgefiltert).
      * Ersetzt den ehemaligen Magic-String "no_active_schedule".
