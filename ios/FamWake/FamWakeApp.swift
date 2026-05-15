@@ -11,6 +11,9 @@ struct FamWakeApp: App {
 
     init() {
         FirebaseApp.configure()
+        if let clientID = FirebaseApp.app()?.options.clientID {
+            GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
+        }
         RevenueCatService.configure()
     }
 

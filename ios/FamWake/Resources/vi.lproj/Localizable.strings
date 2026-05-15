@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Báo thức Gia đình";
+
+"app_name_short" = "Báo thức Gia đình";
 "email_label" = "Email";
 "password_label" = "Mật khẩu";
 "register_button" = "Đăng ký";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Âm thanh: %@";
 "settings_alarm_picker_title" = "Chọn âm thanh báo thức";
 "settings_account_title" = "Gia đình & Tài khoản";
-"settings_join_family_locked" = "Vui lòng đăng nhập để tham gia một gia đình.";
 "settings_share_code_locked" = "Vui lòng đăng nhập để chia sẻ mã mời.";
 "settings_anonymous_login_button" = "Đăng nhập / Đăng ký";
 "settings_join_code" = "Mã mời cho %@:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "Có, xóa cho tất cả mọi người";
 "settings_logout" = "Đăng xuất";
 "settings_delete_account" = "Xóa tài khoản";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Mọi quyền được bảo lưu.";
 "empty_members_title" = "Chưa có thành viên nào";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "Hiện tại không có báo thức nào được bật. Đã đến lúc ngủ nướng rồi!";
 "settings_language_title" = "Ngôn ngữ";
 "settings_language_system" = "Mặc định hệ thống";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Giao diện";
 "settings_display_title" = "Cài đặt ứng dụng";
 "settings_help_feedback_title" = "Trợ giúp & Phản hồi";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "Đăng nhập / Đăng ký";
 "onboarding_slide5_title" = "Hãy bắt đầu nào!";
 "onboarding_slide5_body" = "Bạn có thể dùng thử ứng dụng ngay mà không cần tài khoản. Bạn chỉ cần tài khoản khi muốn mời gia đình của mình tham gia.";
-"onboarding_slide0_title" = "Buổi sáng của gia đình như một đội.";
+"onboarding_slide0_title" = "Cùng nhau thong thả bước vào ngày mới.";
 "onboarding_slide0_body" = "Không tranh cãi, không hỗn loạn. FamWake đảm bảo mọi người bắt đầu ngày mới một cách thư giãn – hoàn toàn tự động.";
-"onboarding_slide1_title" = "Không còn chờ đợi nữa.";
-"onboarding_slide1_body" = "FamWake tính toán thời gian thức dậy hoàn hảo cho mọi thành viên trong gia đình – dựa trên thời gian dùng phòng tắm, ăn sáng và giờ rời khỏi nhà. Không còn cảnh chen lấn ở bồn rửa mặt.";
-"onboarding_slide2_title" = "Mỗi ngày đều khác nhau.";
-"onboarding_slide2_body" = "Thứ Hai làm ở văn phòng, Thứ Tư làm tại nhà? Chỉ cần đặt thời gian của bạn cho từng ngày, ứng dụng sẽ xử lý phần còn lại.";
+"onboarding_slide1_title" = "Kế hoạch thông minh cho mỗi ngày";
+"onboarding_slide1_body" = "Dù là văn phòng, trường học hay làm việc tại nhà – FamWake tính toán thời gian thức dậy và dùng phòng tắm hoàn hảo cho cả gia đình. Không còn tắc nghẽn buổi sáng.";
 "onboarding_slide3_title" = "Kết nối trong vài giây.";
 "onboarding_slide3_body" = "Chia sẻ mã mời và gia đình bạn sẽ tham gia ngay. Nếu ai đó thay đổi thời gian, lịch trình của mọi người sẽ cập nhật tức thì.";
-"onboarding_slide4_title" = "Luôn luôn hoạt động.";
-"onboarding_slide4_body" = "Tận hưởng buổi sáng thư thái mỗi ngày. Ngay cả khi rớt mạng vào ban đêm, báo thức vẫn sẽ reo đúng giờ.";
 "onboarding_mock_name1" = "Bố";
 "onboarding_mock_name2" = "Mẹ";
 "onboarding_mock_family_name" = "Hùng";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "Điện thoại: %@";
 "feedback_cancel" = "Hủy";
 "feedback_send" = "Gửi tin nhắn";
-"feedback_success" = "Cảm ơn bạn! Chúng tôi đã nhận được tin nhắn.";
 "feedback_success_title" = "Đã gửi tin nhắn";
 "feedback_success_message" = "Cảm ơn bạn đã giúp đỡ! Phản hồi của bạn giúp chúng tôi cải thiện FamWake cho tất cả mọi người.";
 "settings_terms_of_use" = "Điều khoản sử dụng";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "Bạn chưa đăng nhập.";
 "error_system" = "Đã có lỗi xảy ra.";
 "error_invalid_credentials" = "Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại.";
-"error_login_failed" = "Đăng nhập thất bại";
 "error_login_failed_unknown" = "Lỗi đăng nhập không xác định";
-"error_registration_failed" = "Đăng ký không thành công";
 "error_registration_failed_unknown" = "Không thể tạo tài khoản của bạn";
 "error_unknown" = "Đã có lỗi xảy ra. Vui lòng thử lại.";
 "error_google_sign_in_failed_unknown" = "Đăng nhập Google không thành công";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "Không có ai đang hoạt động. Tất cả báo thức đã tạm dừng.";
 "schedule_message_no_valid" = "Thời gian trùng lặp quá nhiều để tạo ra một lịch trình tốt.";
 "schedule_message_no_valid_desc" = "Mẹo: Thử mở rộng khoảng thời gian thức dậy, rút ngắn thời gian dùng phòng tắm hoặc tạm dừng báo thức của ai đó.";
-"schedule_message_time_adjusted" = "Thời gian được dịch chuyển %1$d phút để mọi thứ khớp với nhau.";
-"schedule_message_breakfast_reduced" = "Thời gian ăn sáng đã được rút ngắn %1$d phút để mọi người đều kịp giờ.";
-"schedule_message_breakfast_and_time_adjusted" = "Bữa sáng giảm %1$d phút & thời gian dịch chuyển %2$d phút.";
+"schedule_message_time_adjusted" = "Thời gian được dịch chuyển %d phút để mọi thứ khớp với nhau.";
+"schedule_message_breakfast_reduced" = "Thời gian ăn sáng đã được rút ngắn %d phút để mọi người đều kịp giờ.";
+"schedule_message_breakfast_and_time_adjusted" = "Bữa sáng giảm %d phút & thời gian dịch chuyển %d phút.";
 "schedule_message_member_conflict" = "Xung đột cho %@: Thời gian trùng lặp quá nhiều.";
 "schedule_message_member_conflict_desc" = "Hãy thử thay đổi thứ tự hoặc điều chỉnh thời gian.";
 "main_fallback_alarm_active" = "⚠️ Cảnh báo: Lịch trình hiện tại không khớp (%@). Vui lòng điều chỉnh thời gian của bạn!";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "Bạn có thích ứng dụng này không? Chúng tôi rất trân trọng sự hỗ trợ của bạn!";
 "settings_support_donate" = "Quyên góp";
 "settings_donate_success" = "Cảm ơn bạn rất nhiều vì đã ủng hộ! ❤️";
-"settings_donate_error" = "Rất tiếc, đã xảy ra lỗi.";
 "settings_donate_loading" = "Đang tải tùy chọn…";
 "settings_donate_no_offers" = "Hiện tại không có tùy chọn nào.";
 "settings_donate_purchase_loading" = "Đang xử lý…";
@@ -303,19 +282,6 @@
 "error_feedback_rate_limit_server" = "Đã gửi quá nhiều tin nhắn. Vui lòng thử lại sau.";
 "error_feedback_empty_message" = "Tin nhắn của bạn đang trống.";
 "error_network" = "Lỗi mạng. Vui lòng kiểm tra kết nối internet của bạn.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Nhấn vào đây để chọn âm thanh đánh thức của riêng bạn – chọn bản nhạc yêu thích thay vì tiếng bíp thông thường.";
 "settings_language_dialects" = "Phương ngữ";
 "notif_channel_schedule_change_name" = "Cập nhật lịch trình";
@@ -331,8 +297,15 @@
 "notif_permission_title" = "Cần có thông báo";
 "notif_permission_desc" = "Nếu bạn tắt thông báo, báo thức có thể không hoạt động đúng. Vui lòng bật chúng.";
 "notif_permission_button" = "Bật thông báo";
-"notif_manage_title" = "Cài đặt thông báo";
-"notif_manage_desc" = "Thay đổi âm thanh và độ rung trong cài đặt điện thoại của bạn.";
 "settings_steal_title" = "Sử dụng hồ sơ này?";
 "settings_steal_text" = "Hồ sơ %@ đã được chọn. Bạn có muốn sử dụng hồ sơ này không?";
 "settings_steal_confirm" = "Có, sử dụng";
+"schedule_auto_fix" = "✨ Tự động điều chỉnh thời gian";
+"onboarding_enable_tooltips" = "Hiển thị các mẹo hữu ích trong lần sử dụng đầu tiên";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Tài khoản";

@@ -24,7 +24,7 @@ struct Scheduler {
         for shift in stride(from: 5, through: 15, by: 5) {
             let flexible = evaluatePermutation(activeMembers, breakfastDurationMinutes: breakfastDurationMinutes, shiftMinutes: shift)
             if flexible.isValid {
-                return FamilySchedule(memberSchedules: flexible.memberSchedules, breakfastTime: flexible.breakfastTime, isValid: true, scheduleMessage: .timeAdjusted)
+                return FamilySchedule(memberSchedules: flexible.memberSchedules, breakfastTime: flexible.breakfastTime, isValid: true, scheduleMessage: .timeAdjusted(shift))
             }
         }
 
@@ -34,12 +34,12 @@ struct Scheduler {
                 let reduced = breakfastDurationMinutes - reduce
                 let r = evaluatePermutation(activeMembers, breakfastDurationMinutes: reduced, shiftMinutes: 0)
                 if r.isValid {
-                    return FamilySchedule(memberSchedules: r.memberSchedules, breakfastTime: r.breakfastTime, isValid: true, scheduleMessage: .breakfastReduced)
+                    return FamilySchedule(memberSchedules: r.memberSchedules, breakfastTime: r.breakfastTime, isValid: true, scheduleMessage: .breakfastReduced(reduce))
                 }
                 for shift in stride(from: 5, through: 15, by: 5) {
                     let fr = evaluatePermutation(activeMembers, breakfastDurationMinutes: reduced, shiftMinutes: shift)
                     if fr.isValid {
-                        return FamilySchedule(memberSchedules: fr.memberSchedules, breakfastTime: fr.breakfastTime, isValid: true, scheduleMessage: .breakfastAndTimeAdjusted)
+                        return FamilySchedule(memberSchedules: fr.memberSchedules, breakfastTime: fr.breakfastTime, isValid: true, scheduleMessage: .breakfastAndTimeAdjusted(reduce, shift))
                     }
                 }
             }

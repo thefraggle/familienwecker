@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Familiewekker";
+
+"app_name_short" = "Familiewekker";
 "email_label" = "E-mail";
 "password_label" = "Wachtwoord";
 "register_button" = "Registreren";
@@ -112,7 +113,6 @@
 "settings_delete_family_warning_confirm" = "Ja, voor iedereen verwijderen";
 "settings_logout" = "Uitloggen";
 "settings_delete_account" = "Account verwijderen";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alle rechten voorbehouden.";
 "empty_members_title" = "Nog geen leden";
@@ -121,18 +121,6 @@
 "empty_schedule_description" = "Op dit moment staan er geen wekkers aan. Tijd om uit te slapen!";
 "settings_language_title" = "Taal";
 "settings_language_system" = "Systeemstandaard";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Uiterlijk";
 "settings_display_title" = "App-instellingen";
 "settings_help_feedback_title" = "Hulp & Feedback";
@@ -141,16 +129,12 @@
 "onboarding_skip" = "Overslaan";
 "onboarding_next" = "Volgende";
 "onboarding_done" = "Begin zonder account";
-"onboarding_slide0_title" = "Jullie ochtend als team.";
+"onboarding_slide0_title" = "Samen ontspannen de dag in.";
 "onboarding_slide0_body" = "Geen geruzie, geen chaos. FamWake zorgt ervoor dat iedereen ontspannen aan de dag begint – helemaal vanzelf.";
-"onboarding_slide1_title" = "Nooit meer wachten.";
-"onboarding_slide1_body" = "FamWake vindt de perfecte wektijd voor elk gezinslid – afgestemd op badkamertijd, ontbijt en de tijd dat je de deur uit moet. Geen gedrang meer voor de spiegel.";
-"onboarding_slide2_title" = "Elke dag is anders.";
-"onboarding_slide2_body" = "Maandag naar kantoor, woensdag thuiswerken? Stel voor elke dag afzonderlijke tijden in – de app regelt de rest.";
+"onboarding_slide1_title" = "Slimme plannen voor elke dag";
+"onboarding_slide1_body" = "Of het nu kantoor, school of thuiswerken is – FamWake berekent de perfecte wek- en badkamertijd voor het hele gezin. Zonder file in de ochtend.";
 "onboarding_slide3_title" = "In seconden verbonden.";
 "onboarding_slide3_body" = "Deel je uitnodigingscode en je familie doet direct mee. Als iemand zijn tijden aanpast, wordt het schema van iedereen meteen bijgewerkt.";
-"onboarding_slide4_title" = "Werkt altijd.";
-"onboarding_slide4_body" = "Geniet elke dag van een ontspannen ochtend. Zelfs als het internet 's nachts uitvalt, gaat de wekker gewoon op tijd af.";
 "settings_feedback_button" = "Feedback geven / Probleem melden";
 "feedback_title" = "Feedback";
 "feedback_intro" = "Help ons de app nog beter te maken! Wat heb je op je hart?";
@@ -168,7 +152,6 @@
 "feedback_auto_device" = "Telefoon: %@";
 "feedback_cancel" = "Annuleren";
 "feedback_send" = "Bericht verzenden";
-"feedback_success" = "Bedankt! We hebben je bericht ontvangen.";
 "feedback_success_title" = "Bericht Verzonden";
 "feedback_success_message" = "Bedankt voor je hulp! Je feedback helpt ons om FamWake voor iedereen beter te maken.";
 "settings_terms_of_use" = "Gebruiksvoorwaarden";
@@ -207,9 +190,7 @@
 "error_not_logged_in" = "Je bent niet ingelogd.";
 "error_system" = "Er ging iets mis.";
 "error_invalid_credentials" = "Verkeerd e-mailadres of wachtwoord. Controleer a.u.b. wat je hebt getypt.";
-"error_login_failed" = "Inloggen is niet gelukt";
 "error_login_failed_unknown" = "Onbekende inlogfout";
-"error_registration_failed" = "Registreren is niet gelukt";
 "error_registration_failed_unknown" = "Kon je account niet aanmaken";
 "error_unknown" = "Er ging iets mis. Probeer het a.u.b. opnieuw.";
 "error_google_sign_in_failed_unknown" = "Inloggen met Google werkte niet";
@@ -234,9 +215,9 @@
 "schedule_message_no_members" = "Niemand is actief. Alle wekkers staan op pauze.";
 "schedule_message_no_valid" = "De tijden overlappen te veel om een goed schema te maken.";
 "schedule_message_no_valid_desc" = "Tip: Probeer de wektijd te verruimen, de badkamertijd in te korten of zet iemands wekker op pauze.";
-"schedule_message_time_adjusted" = "De tijden zijn %1$d minuten opgeschoven zodat alles in het schema past.";
-"schedule_message_breakfast_reduced" = "De ontbijttijd is met %1$d minuten ingekort zodat alles past.";
-"schedule_message_breakfast_and_time_adjusted" = "Ontbijt −%1$d min & tijden verschoven met %2$d min.";
+"schedule_message_time_adjusted" = "De tijden zijn %d minuten opgeschoven zodat alles in het schema past.";
+"schedule_message_breakfast_reduced" = "De ontbijttijd is met %d minuten ingekort zodat alles past.";
+"schedule_message_breakfast_and_time_adjusted" = "Ontbijt −%d min & tijden verschoven met %d min.";
 "schedule_message_member_conflict" = "Probleem voor %@: De tijden overlappen te veel.";
 "schedule_message_member_conflict_desc" = "Probeer de volgorde te wijzigen of pas je tijden aan.";
 "main_fallback_alarm_active" = "⚠️ Let op: Het schema past momenteel niet (%@). Pas a.u.b. je tijden aan!";
@@ -264,7 +245,6 @@
 "settings_support_desc" = "Vind je de app leuk? We zouden je steun erg waarderen!";
 "settings_support_donate" = "Doneren";
 "settings_donate_success" = "Heel erg bedankt voor je steun! ❤️";
-"settings_donate_error" = "Oeps, er ging iets mis.";
 "settings_donate_loading" = "Opties laden…";
 "settings_donate_no_offers" = "Op dit moment zijn er geen opties beschikbaar.";
 "settings_donate_purchase_loading" = "Verwerken…";
@@ -294,14 +274,6 @@
 "error_feedback_rate_limit_server" = "Te veel berichten verstuurd. Probeer het later nog eens.";
 "error_feedback_empty_message" = "Je bericht is leeg.";
 "error_network" = "Netwerkprobleem. Controleer je internetverbinding.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
 "tooltip_alarm_sound" = "Tik hier om je persoonlijke wekkergeluid te kiezen – neem je favoriete muziek in plaats van het standaard gepiep.";
 "settings_language_dialects" = "Dialecten";
 "notif_channel_schedule_change_name" = "Schema-updates";
@@ -317,8 +289,6 @@
 "notif_permission_title" = "Meldingen vereist";
 "notif_permission_desc" = "Als je meldingen uitschakelt, werkt je wekker mogelijk niet goed. Laat ze a.u.b. ingeschakeld.";
 "notif_permission_button" = "Meldingen aanzetten";
-"notif_manage_title" = "Meldingsinstellingen";
-"notif_manage_desc" = "Wijzig geluiden en trillen in de instellingen van je telefoon.";
 "onboarding_login_create" = "Inloggen / Registreren";
 "onboarding_slide5_title" = "Laten we beginnen!";
 "onboarding_slide5_body" = "Je kunt de app meteen uitproberen zonder account. Je hebt er pas een nodig als je je familie wilt uitnodigen.";
@@ -326,3 +296,16 @@
 "settings_steal_title" = "Dit profiel gebruiken?";
 "settings_steal_text" = "%@ is al in gebruik. Wil je dit profiel gebruiken?";
 "settings_steal_confirm" = "Ja, gebruiken";
+"schedule_auto_fix" = "✨ Tijden automatisch aanpassen";
+"onboarding_enable_tooltips" = "Toon handige tips bij het eerste gebruik";
+"onboarding_mock_family_name" = "De Jong";
+"onboarding_mock_name1" = "Papa";
+"onboarding_mock_name2" = "Mama";
+"settings_share_code_locked" = "Log in om je uitnodigingscode te delen.";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Account";

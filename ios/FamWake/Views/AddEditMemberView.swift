@@ -89,6 +89,17 @@ struct AddEditMemberView: View {
                             }
                         }
 
+                        // Copy Button
+                        Button(action: { showCopyDialog = true }) {
+                            HStack {
+                                Image(systemName: "doc.on.doc")
+                                Text(L.addMemberCopyToDays(L.weekday(selectedDay)))
+                            }
+                            .font(.subheadline).fontWeight(.semibold)
+                            .foregroundStyle(theme.primary)
+                            .padding(.vertical, 4)
+                        }
+                        
                         // DayProfile für selectedDay
                         let profile = dayProfiles[selectedDay] ?? DayProfile()
                         DayProfileCard(
@@ -101,12 +112,6 @@ struct AddEditMemberView: View {
                         ) { updated in
                             dayProfiles[selectedDay] = updated
                         }
-
-                        // Copy Button
-                        Button(L.addMemberCopyToDays(L.weekday(selectedDay))) {
-                            showCopyDialog = true
-                        }
-                        .font(.subheadline)
 
                         Spacer(minLength: 80) // Platz für Bottom-Button
                     }
@@ -212,7 +217,8 @@ struct AddEditMemberView: View {
         let allMembers = familyViewModel.members
         if let mid = memberId, let member = allMembers.first(where: { $0.id == mid }) {
             name = member.name
-            dayProfiles = member.dayProfiles.isEmpty ? DayProfile.defaults() : member.dayProfiles
+            let profiles = member.dayProfiles ?? [:]
+            dayProfiles = profiles.isEmpty ? DayProfile.defaults() : profiles
         } else {
             name = ""
             dayProfiles = DayProfile.defaults()

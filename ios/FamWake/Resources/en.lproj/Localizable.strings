@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Family Alarm Clock";
+
+"app_name_short" = "Family Alarm Clock";
 "email_label" = "Email";
 "password_label" = "Password";
 "register_button" = "Sign up";
@@ -41,6 +42,8 @@
 "main_no_profile_warning_desc" = "Please select who you are in the settings so your phone rings for you.";
 "main_unclaimed_first_title" = "No alarm will ring for %@!";
 "main_unclaimed_first_desc" = "%@ is first in line but hasn't selected their profile on a phone yet – they might oversleep!";
+"main_member_alarm_on" = "(Alarm active)";
+"main_member_alarm_off" = "(No alarm)";
 "yes" = "Yes";
 "no" = "No";
 "delete_desc" = "Delete";
@@ -90,6 +93,7 @@
 "settings_profile_desc" = "Your phone will only ring for the person selected here.";
 "settings_please_select" = "Please select";
 "settings_no_members" = "No family members found";
+"settings_no_profile" = "No profile";
 "settings_alarm_title" = "Alarm sound";
 "settings_battery_warning_title" = "Battery settings might block alarms";
 "settings_battery_warning_text" = "Your phone might delay or block the alarm to save battery. Please allow FamWake to run in the background.";
@@ -98,7 +102,6 @@
 "settings_alarm_select" = "Sound: %@";
 "settings_alarm_picker_title" = "Choose your alarm sound";
 "settings_account_title" = "Family & Account";
-"settings_join_family_locked" = "Please log in to join a family.";
 "settings_share_code_locked" = "Please log in to share your invite code.";
 "settings_anonymous_login_button" = "Log in / Sign up";
 "settings_join_code" = "Invite code for %@:";
@@ -115,7 +118,7 @@
 "settings_delete_family_warning_confirm" = "Yes, delete for everyone";
 "settings_logout" = "Log out";
 "settings_delete_account" = "Delete account";
-"settings_footer_version" = "FamWake v%@";
+"settings_account_section" = "Account";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "All rights reserved.";
 "empty_members_title" = "No members yet";
@@ -124,18 +127,6 @@
 "empty_schedule_description" = "No alarms are turned on right now. Time to sleep in!";
 "settings_language_title" = "Language";
 "settings_language_system" = "System default";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Look";
 "settings_display_title" = "App settings";
 "settings_help_feedback_title" = "Help & Feedback";
@@ -147,16 +138,12 @@
 "onboarding_login_create" = "Log in / Sign up";
 "onboarding_slide5_title" = "Let's get started!";
 "onboarding_slide5_body" = "You can try the app right away without an account. You only need one when you want to invite your family.";
-"onboarding_slide0_title" = "Your morning as a team.";
+"onboarding_slide0_title" = "A relaxed start to the day, together.";
 "onboarding_slide0_body" = "No arguments, no chaos. FamWake makes sure everyone starts the day relaxed – all by itself.";
-"onboarding_slide1_title" = "No more waiting.";
-"onboarding_slide1_body" = "FamWake finds the perfect wake-up time for everyone in the family – based on bathroom time, breakfast, and when you need to leave. No more crowding at the sink.";
-"onboarding_slide2_title" = "Every day is different.";
-"onboarding_slide2_body" = "Office on Monday, working from home on Wednesday? Just set your times for each day, and the app handles the rest.";
+"onboarding_slide1_title" = "Smart plans for every day";
+"onboarding_slide1_body" = "Whether office, school, or home office – FamWake calculates the perfect wake-up and bathroom time for the whole family. Without the morning traffic jam.";
 "onboarding_slide3_title" = "Connected in seconds.";
 "onboarding_slide3_body" = "Share your invite code and your family is in. If someone changes their times, everyone's schedule updates instantly.";
-"onboarding_slide4_title" = "Always works.";
-"onboarding_slide4_body" = "Enjoy a relaxed morning every day. Even if your internet goes down overnight, the alarm will still ring on time.";
 "onboarding_mock_name1" = "Dad";
 "onboarding_mock_name2" = "Mom";
 "onboarding_mock_family_name" = "Smith";
@@ -177,7 +164,6 @@
 "feedback_auto_device" = "Phone: %@";
 "feedback_cancel" = "Cancel";
 "feedback_send" = "Send message";
-"feedback_success" = "Thank you! We received your message.";
 "feedback_success_title" = "Message Sent";
 "feedback_success_message" = "Thank you for your help! Your feedback helps us improve FamWake for everyone.";
 "settings_terms_of_use" = "Terms of Use";
@@ -216,9 +202,7 @@
 "error_not_logged_in" = "You are not logged in.";
 "error_system" = "Something went wrong.";
 "error_invalid_credentials" = "Wrong email or password. Please check.";
-"error_login_failed" = "Login didn't work";
 "error_login_failed_unknown" = "Unknown login error";
-"error_registration_failed" = "Sign up didn't work";
 "error_registration_failed_unknown" = "Could not create your account";
 "error_unknown" = "Something went wrong. Please try again.";
 "error_google_sign_in_failed_unknown" = "Google sign-in didn't work";
@@ -243,9 +227,9 @@
 "schedule_message_no_members" = "No one is active. All alarms are paused.";
 "schedule_message_no_valid" = "The times overlap too much to create a good schedule.";
 "schedule_message_no_valid_desc" = "Tip: Try a wider wake-up window, shorter bathroom time, or pause someone's alarm.";
-"schedule_message_time_adjusted" = "Times were shifted by %1$d minutes to make everything fit.";
-"schedule_message_breakfast_reduced" = "Breakfast time was shortened by %1$d minutes to make everything fit.";
-"schedule_message_breakfast_and_time_adjusted" = "Breakfast −%1$d min & times shifted by %2$d min.";
+"schedule_message_time_adjusted" = "Times were shifted by %d minutes to make everything fit.";
+"schedule_message_breakfast_reduced" = "Breakfast time was shortened by %d minutes to make everything fit.";
+"schedule_message_breakfast_and_time_adjusted" = "Breakfast −%d min & times shifted by %d min.";
 "schedule_message_member_conflict" = "Conflict for %@: Times overlap too much.";
 "schedule_message_member_conflict_desc" = "Try changing the order or the times.";
 "main_fallback_alarm_active" = "⚠️ Warning: The schedule doesn't fit right now (%@). Please adjust your times!";
@@ -273,7 +257,6 @@
 "settings_support_desc" = "Do you like the app? We would love your support!";
 "settings_support_donate" = "Donate";
 "settings_donate_success" = "Thank you so much for your support! ❤️";
-"settings_donate_error" = "Oops, something didn't work.";
 "settings_donate_loading" = "Loading options…";
 "settings_donate_no_offers" = "No options available right now.";
 "settings_donate_purchase_loading" = "Processing…";
@@ -303,19 +286,6 @@
 "error_feedback_rate_limit_server" = "Too many messages sent. Please try again later.";
 "error_feedback_empty_message" = "Your message is empty.";
 "error_network" = "Network problem. Please check your internet connection.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Tap here to choose your personal wake-up sound – pick your favorite music instead of the normal beeping.";
 "settings_language_dialects" = "Dialects";
 "notif_channel_schedule_change_name" = "Schedule updates";
@@ -331,8 +301,13 @@
 "notif_permission_title" = "Notifications needed";
 "notif_permission_desc" = "If you turn off notifications, your alarm might not work properly. Please leave them on.";
 "notif_permission_button" = "Turn on notifications";
-"notif_manage_title" = "Notification settings";
-"notif_manage_desc" = "Change sounds and vibrations in your phone settings.";
 "settings_steal_title" = "Use this profile?";
 "settings_steal_text" = "%@ is already taken. Do you want to take it over?";
 "settings_steal_confirm" = "Yes, use it";
+"schedule_auto_fix" = "✨ Auto-adjust times";
+"onboarding_enable_tooltips" = "Show helpful tips on first use";
+
+/* iOS Specific */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";

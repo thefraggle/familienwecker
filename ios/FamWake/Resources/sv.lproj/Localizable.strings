@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Familjeväckarklocka";
+
+"app_name_short" = "Familjeväckarklocka";
 "email_label" = "E-post";
 "password_label" = "Lösenord";
 "register_button" = "Registrera";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Ljud: %@";
 "settings_alarm_picker_title" = "Välj larmsignal";
 "settings_account_title" = "Familj & Konto";
-"settings_join_family_locked" = "Logga in för att gå med i en familj.";
 "settings_share_code_locked" = "Logga in för att dela din inbjudningskod.";
 "settings_anonymous_login_button" = "Logga in / Registrera";
 "settings_join_code" = "Inbjudningskod för %@:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "Ja, ta bort för alla";
 "settings_logout" = "Logga ut";
 "settings_delete_account" = "Ta bort konto";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alla rättigheter förbehållna.";
 "empty_members_title" = "Inga medlemmar ännu";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "Just nu är inga larm påslagna. Dags att sova länge!";
 "settings_language_title" = "Språk";
 "settings_language_system" = "Systemstandard";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Utseende";
 "settings_display_title" = "Appinställningar";
 "settings_help_feedback_title" = "Hjälp & Feedback";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "Logga in / Registrera dig";
 "onboarding_slide5_title" = "Låt oss börja!";
 "onboarding_slide5_body" = "Du kan prova appen direkt utan ett konto. Du behöver bara ett när du vill bjuda in din familj.";
-"onboarding_slide0_title" = "Er morgon som ett team.";
+"onboarding_slide0_title" = "En lugn start på dagen tillsammans.";
 "onboarding_slide0_body" = "Inga diskussioner, inget kaos. FamWake ser till att alla börjar dagen avslappnat – helt av sig självt.";
-"onboarding_slide1_title" = "Aldrig mer väntan.";
-"onboarding_slide1_body" = "FamWake hittar den perfekta väckningstiden för alla i familjen – baserat på badrumstid, frukost och när ni måste gå hemifrån. Inget mer trängsel vid handfatet.";
-"onboarding_slide2_title" = "Varje dag är annorlunda.";
-"onboarding_slide2_body" = "Måndag på kontoret, onsdag hemmakontor? Ställ bara in dina tider för varje dag, så fixar appen resten.";
+"onboarding_slide1_title" = "Smarta planer för varje dag";
+"onboarding_slide1_body" = "Oavsett om det är kontor, skola eller hemmakontor – FamWake beräknar den perfekta väcknings- och badtiden för hela familjen. Utan kö på morgonen.";
 "onboarding_slide3_title" = "Uppkopplade på sekunder.";
 "onboarding_slide3_body" = "Dela din inbjudningskod så är din familj med. Om någon ändrar sina tider uppdateras allas schema direkt.";
-"onboarding_slide4_title" = "Fungerar alltid.";
-"onboarding_slide4_body" = "Njut av en avslappnad morgon varje dag. Även om internet går ner under natten kommer larmet fortfarande att ringa i tid.";
 "onboarding_mock_name1" = "Pappa";
 "onboarding_mock_name2" = "Mamma";
 "onboarding_mock_family_name" = "Svensson";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "Telefon: %@";
 "feedback_cancel" = "Avbryt";
 "feedback_send" = "Skicka meddelande";
-"feedback_success" = "Tack! Vi har tagit emot ditt meddelande.";
 "feedback_success_title" = "Meddelande skickat";
 "feedback_success_message" = "Tack för din hjälp! Din feedback hjälper oss att förbättra FamWake för alla.";
 "settings_terms_of_use" = "Användarvillkor";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "Du är inte inloggad.";
 "error_system" = "Något gick fel.";
 "error_invalid_credentials" = "Fel e-postadress eller lösenord. Kontrollera vad du skrivit.";
-"error_login_failed" = "Inloggningen misslyckades";
 "error_login_failed_unknown" = "Okänt inloggningsfel";
-"error_registration_failed" = "Registreringen misslyckades";
 "error_registration_failed_unknown" = "Kunde inte skapa ditt konto";
 "error_unknown" = "Något gick fel. Försök igen.";
 "error_google_sign_in_failed_unknown" = "Google-inloggningen fungerade inte";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "Ingen är aktiv. Alla larm är pausade.";
 "schedule_message_no_valid" = "Tiderna överlappar för mycket för att skapa ett bra schema.";
 "schedule_message_no_valid_desc" = "Tips: Prova ett bredare väckningsfönster, kortare tid i badrummet, eller pausa någons larm.";
-"schedule_message_time_adjusted" = "Tiderna försköts med %1$d minuter för att allt ska passa.";
-"schedule_message_breakfast_reduced" = "Frukosttiden kortades med %1$d minuter för att allt ska passa.";
-"schedule_message_breakfast_and_time_adjusted" = "Frukost −%1$d min & tider förskjutna med %2$d min.";
+"schedule_message_time_adjusted" = "Tiderna försköts med %d minuter för att allt ska passa.";
+"schedule_message_breakfast_reduced" = "Frukosttiden kortades med %d minuter för att allt ska passa.";
+"schedule_message_breakfast_and_time_adjusted" = "Frukost −%d min & tider förskjutna med %d min.";
 "schedule_message_member_conflict" = "Konflikt för %@: Tiderna överlappar för mycket.";
 "schedule_message_member_conflict_desc" = "Försök ändra ordningen eller justera tiderna.";
 "main_fallback_alarm_active" = "⚠️ Varning: Schemat passar inte just nu (%@). Justera dina tider!";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "Gillar du appen? Vi skulle uppskatta ditt stöd!";
 "settings_support_donate" = "Donera";
 "settings_donate_success" = "Tack så mycket för ditt stöd! ❤️";
-"settings_donate_error" = "Hoppsan, något gick fel.";
 "settings_donate_loading" = "Laddar alternativ…";
 "settings_donate_no_offers" = "Inga alternativ tillgängliga just nu.";
 "settings_donate_purchase_loading" = "Bearbetar…";
@@ -303,19 +282,6 @@
 "error_feedback_rate_limit_server" = "För många meddelanden skickade. Försök igen senare.";
 "error_feedback_empty_message" = "Ditt meddelande är tomt.";
 "error_network" = "Nätverksproblem. Kontrollera din internetanslutning.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Tryck här för att välja ditt personliga väckningsljud – välj din favoritmusik istället för det vanliga pipandet.";
 "settings_language_dialects" = "Dialekter";
 "notif_channel_schedule_change_name" = "Schemaändringar";
@@ -331,8 +297,15 @@
 "notif_permission_title" = "Aviseringar krävs";
 "notif_permission_desc" = "Om du stänger av aviseringar kanske ditt larm inte fungerar som det ska. Låt dem vara på.";
 "notif_permission_button" = "Slå på aviseringar";
-"notif_manage_title" = "Aviseringsinställningar";
-"notif_manage_desc" = "Ändra ljud och vibrationer i dina telefoninställningar.";
 "settings_steal_title" = "Använda den här profilen?";
 "settings_steal_text" = "%@ används redan. Vill du använda den här profilen?";
 "settings_steal_confirm" = "Ja, använd den";
+"schedule_auto_fix" = "✨ Anpassa tider automatiskt";
+"onboarding_enable_tooltips" = "Visa användbara tips vid första användningen";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Konto";

@@ -73,32 +73,33 @@ extension FamilyMember {
             "lastResetDate": lastResetDate,
             "sequenceOrder": sequenceOrder,
             "createdAt": createdAt ?? Date().timeIntervalSince1970 * 1000,
-            "lastUpdatedAt": FieldValue.serverTimestamp()
+            "lastUpdatedAt": Date().timeIntervalSince1970 * 1000
         ]
 
         if let leave = leaveHomeTime {
             data["leaveHomeTime"] = leave.toTimeString()
-        } else {
-            data["leaveHomeTime"] = NSNull()
         }
 
-        data["claimedByUserId"] = claimedByUserId as Any? ?? NSNull()
-        data["claimedByUserName"] = claimedByUserName as Any? ?? NSNull()
-        data["claimedByDeviceId"] = claimedByDeviceId as Any? ?? NSNull()
-        data["deviceAlarmEnabled"] = deviceAlarmEnabled as Any? ?? NSNull()
+        if let uid = claimedByUserId { data["claimedByUserId"] = uid }
+        if let uname = claimedByUserName { data["claimedByUserName"] = uname }
+        if let deviceId = claimedByDeviceId { data["claimedByDeviceId"] = deviceId }
+        if let alarmEnabled = deviceAlarmEnabled { data["deviceAlarmEnabled"] = alarmEnabled }
 
         // Day profiles
         if let profiles = dayProfiles {
             var dpData: [String: Any] = [:]
             for (day, profile) in profiles {
-                dpData["\(day)"] = [
+                var profileDict: [String: Any] = [
                     "isActive": profile.isActive,
                     "earliestWakeUp": profile.earliestWakeUp.toTimeString(),
                     "latestWakeUp": profile.latestWakeUp.toTimeString(),
                     "bathroomDurationMinutes": profile.bathroomDurationMinutes,
-                    "wantsBreakfast": profile.wantsBreakfast,
-                    "leaveHomeTime": profile.leaveHomeTime?.toTimeString() as Any? ?? NSNull()
+                    "wantsBreakfast": profile.wantsBreakfast
                 ]
+                if let leaveHome = profile.leaveHomeTime {
+                    profileDict["leaveHomeTime"] = leaveHome.toTimeString()
+                }
+                dpData["\(day)"] = profileDict
             }
             data["dayProfiles"] = dpData
         }
