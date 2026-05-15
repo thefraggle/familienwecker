@@ -60,7 +60,7 @@ internal fun FamilyViewModel.recalculateSchedule() {
 
                 val (calculationMembers, targetDate) = if (todayHasActive) {
                     val todaySchedule = withContext(Dispatchers.Default) {
-                        scheduler.calculateIdealSchedule(todayMembers)
+                        scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
                     }
                     val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
                     if (latestAlarm != null && now < latestAlarm) {
@@ -106,7 +106,7 @@ internal fun FamilyViewModel.recalculateSchedule() {
                 }
 
                 val result = withContext(Dispatchers.Default) {
-                    scheduler.calculateIdealSchedule(calculationMembers)
+                    scheduler.calculateIdealSchedule(calculationMembers, globalBufferMinutes = _globalBufferMinutes.value)
                 }.copy(targetDate = targetDate)
                 _schedule.value = result
 
@@ -407,5 +407,6 @@ fun FamilyViewModel.scheduleMessageToUiText(msg: ScheduleMessage): UiText = when
     is ScheduleMessage.BreakfastReduced         -> UiText.StringResource(R.string.schedule_message_breakfast_reduced, msg.minutes)
     is ScheduleMessage.BreakfastAndTimeAdjusted -> UiText.StringResource(R.string.schedule_message_breakfast_and_time_adjusted, msg.breakfast, msg.shift)
     is ScheduleMessage.MemberConflict           -> UiText.StringResource(R.string.schedule_message_member_conflict, msg.memberName)
+    is ScheduleMessage.BufferReduced            -> UiText.StringResource(R.string.schedule_message_buffer_reduced, msg.originalMinutes, msg.reducedMinutes)
     is ScheduleMessage.NoActiveSchedule         -> UiText.StringResource(R.string.main_no_active_schedule)
 }

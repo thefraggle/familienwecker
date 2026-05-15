@@ -96,6 +96,7 @@ fun MainScreen(
     val isJoiningFamily by viewModel.isJoiningFamily.collectAsStateWithLifecycle()
     val pendingPauseIds by viewModel.pendingPauseIds.collectAsStateWithLifecycle()
     val isAutoClaimInProgress by viewModel.isAutoClaimInProgress.collectAsStateWithLifecycle()
+    val globalBufferMinutes by viewModel.globalBufferMinutes.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
 
@@ -663,7 +664,8 @@ fun MainScreen(
                                 val msgText = viewModel.scheduleMessageToUiText(currentSchedule.scheduleMessage).asString()
                                 val isFlexibleAdjustment = currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.TimeAdjusted ||
                                     currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BreakfastReduced ||
-                                    currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BreakfastAndTimeAdjusted
+                                    currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BreakfastAndTimeAdjusted ||
+                                    currentSchedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BufferReduced
                                 if (isFlexibleAdjustment) {
                                     Text(
                                         text = "⚠️ $msgText",
@@ -685,6 +687,78 @@ fun MainScreen(
                                         )
                                         Spacer(modifier = Modifier.width(4.dp))
                                         Text(text = stringResource(R.string.main_shared_breakfast, it.toJavaLocalTime().format(timeFormatter)))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Puffer-Regler (nur bei 2+ aktiven Mitgliedern und eingeschaltetem Alarm)
+                val activeMembers = members.filter { !it.isPaused }
+                if (isAlarmEnabled && activeMembers.size > 1) {
+                    item(key = "buffer_stepper") {
+                        Card(
+                            shape = MaterialTheme.shapes.large,
+                            colors = CardDefaults.cardColors(
+                                containerColor = if (isDarkTheme)
+                                    MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                            ),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        imageVector = Icons.Default.Timer,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(18.dp),
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = stringResource(R.string.buffer_label),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    // Minus-Button
+                                    IconButton(
+                                        onClick = { viewModel.setGlobalBufferMinutes((globalBufferMinutes - 5).coerceAtLeast(0)) },
+                                        enabled = globalBufferMinutes > 0,
+                                        modifier = Modifier.size(32.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Remove,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(18.dp)
+                                        )
+                                    }
+                                    Text(
+                                        text = "$globalBufferMinutes min",
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(horizontal = 4.dp)
+                                    )
+                                    // Plus-Button
+                                    IconButton(
+                                        onClick = { viewModel.setGlobalBufferMinutes((globalBufferMinutes + 5).coerceAtMost(15)) },
+                                        enabled = globalBufferMinutes < 15,
+                                        modifier = Modifier.size(32.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Add,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(18.dp)
+                                        )
                                     }
                                 }
                             }
@@ -858,6 +932,39 @@ fun MainScreen(
                                         )
                                     }
                                 }
+                            }
+                        }
+
+                        // Puffer-Anzeige zwischen Slots (nicht nach dem letzten)
+                        if (index < totalItems - 1 && sched.bufferAfter > 0 && !isDragging) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 2.dp, horizontal = 8.dp),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                HorizontalDivider(
+                                    modifier = Modifier.weight(1f),
+                                    thickness = 1.dp,
+                                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+                                )
+                                Icon(
+                                    imageVector = Icons.Default.Timer,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(12.dp).padding(horizontal = 2.dp),
+                                    tint = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
+                                )
+                                Text(
+                                    text = stringResource(R.string.buffer_between_display, sched.bufferAfter),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
+                                )
+                                HorizontalDivider(
+                                    modifier = Modifier.weight(1f),
+                                    thickness = 1.dp,
+                                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+                                )
                             }
                         }
                     }

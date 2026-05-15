@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.AccessAlarm
 import androidx.compose.material.icons.filled.Bathtub
 import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FreeBreakfast
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -90,6 +91,7 @@ fun AddMemberScreen(
     // O2: Offline-Status für Hinweis-Banner
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val offlineWriteHint by viewModel.offlineWriteHint.collectAsStateWithLifecycle()
+    val globalBufferMinutes by viewModel.globalBufferMinutes.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
 
     // Wir nutzen memberId als stabilen Key, damit Background-Syncs von 'members'
@@ -492,6 +494,7 @@ fun AddMemberScreen(
                     onProfileChange = { updated ->
                         dayProfiles = dayProfiles.toMutableMap().apply { put(selectedDay, updated) }
                     },
+                    globalBufferMinutes = globalBufferMinutes,
                     showTooltipWakeWindow = tooltipsEnabled && !tooltipWakeWindowSeen,
                     onDismissTooltipWakeWindow = { viewModel.markTooltipSeen(viewModel.tooltipKeyWakeWindow) },
                     showTooltipBathroom = tooltipsEnabled && !tooltipBathroomSeen,
@@ -563,6 +566,7 @@ private fun DayProfileCard(
     dayLabel: String,
     profile: DayProfile,
     onProfileChange: (DayProfile) -> Unit,
+    globalBufferMinutes: Long = 0L,
     showTooltipWakeWindow: Boolean = false,
     onDismissTooltipWakeWindow: () -> Unit = {},
     showTooltipBathroom: Boolean = false,
@@ -697,6 +701,50 @@ private fun DayProfileCard(
                         text = stringResource(R.string.tooltip_bathroom),
                         onDismiss = onDismissTooltipBathroom
                     )
+
+                    // Puffer nach Bad (individueller Override)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Timer,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp),
+                                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(R.string.buffer_after_bath),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            IconButton(
+                                onClick = {
+                                    val current = profile.bufferMinutes ?: 0L
+                                    val newVal = if (current <= 0) null else current - 5
+                                    onProfileChange(profile.copy(bufferMinutes = newVal))
+                                }
+                            ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                            Text(
+                                if (profile.bufferMinutes == null) stringResource(R.string.buffer_global_default, globalBufferMinutes)
+                                else "${profile.bufferMinutes} min",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                modifier = Modifier.widthIn(min = 80.dp),
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                            IconButton(
+                                onClick = {
+                                    val current = profile.bufferMinutes ?: 0L
+                                    if (current < 15) onProfileChange(profile.copy(bufferMinutes = current + 5))
+                                }
+                            ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                        }
+                    }
 
                     // Abfahrtszeit
                     val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)

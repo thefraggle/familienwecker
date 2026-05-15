@@ -10,7 +10,9 @@ data class DayProfile(
     val latestWakeUp: LocalTime = LocalTime(7, 30),
     val bathroomDurationMinutes: Long = 20L,
     val wantsBreakfast: Boolean = true,
-    val leaveHomeTime: LocalTime? = null
+    val leaveHomeTime: LocalTime? = null,
+    // Individueller Puffer nach Bad-Slot (null = globalen Default nutzen, 0+ = Override)
+    val bufferMinutes: Long? = null
 )
 
 @Serializable
@@ -41,7 +43,9 @@ data class ScheduleResult(
     val member: FamilyMember,
     val wakeUpTime: LocalTime,
     val bathroomStartTime: LocalTime,
-    val bathroomEndTime: LocalTime
+    val bathroomEndTime: LocalTime,
+    // Effektiv angewandter Puffer nach diesem Slot (für UI-Darstellung)
+    val bufferAfter: Long = 0
 )
 
 @Serializable
@@ -58,7 +62,9 @@ data class FamilySchedule(
 data class FamilyData(
     val id: String,
     val name: String,
-    val createdByUserId: String?
+    val createdByUserId: String?,
+    // Globaler Puffer zwischen Bad-Slots (Default 0 = kein Puffer, Backward-Compat)
+    val globalBufferMinutes: Long = 0
 )
 
 @Serializable

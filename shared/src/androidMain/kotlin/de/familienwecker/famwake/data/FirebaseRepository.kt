@@ -131,7 +131,9 @@ class FirebaseRepository : IFirebaseRepository {
             val doc = db.collection(COLLECTION_FAMILIES).document(familyId).get()
             val name: String = doc.get<String?>("name") ?: return null
             val createdByUserId: String? = doc.get<String?>("createdByUserId")
-            FamilyData(id = familyId, name = name, createdByUserId = createdByUserId)
+            // Nullable Long: Alte Familien haben das Feld nicht → Default 0
+            val globalBufferMinutes: Long = doc.get<Long?>("globalBufferMinutes") ?: 0L
+            FamilyData(id = familyId, name = name, createdByUserId = createdByUserId, globalBufferMinutes = globalBufferMinutes)
         } catch (e: Exception) {
             null
         }
@@ -485,7 +487,17 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
-    // ── Admin / Status ────────────────────────────────────────────────────────
+    override suspend fun updateGlobalBufferMinutes(familyId: String, minutes: Long) {
+        try {
+            db.collection(COLLECTION_FAMILIES).document(familyId)
+                .update(mapOf("globalBufferMinutes" to minutes))
+        } catch (e: Exception) {
+            if (debugLogging) Log.e(TAG, "updateGlobalBufferMinutes failed for $familyId: ${e.message}")
+            throw e
+        }
+    }
+
+    // ── Admin / Status ────────────────────────────────────────────────────────────────
 
     override fun checkIsGlobalAdminFlow(uid: String): Flow<Boolean> = callbackFlow {
         db.collection(COLLECTION_ADMINS).document(uid).snapshots.collect { snapshot ->
