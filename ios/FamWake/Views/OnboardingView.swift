@@ -1,253 +1,351 @@
 import SwiftUI
+import Lottie
 
-// MARK: - Slide Model
-
-private struct OnboardingSlide {
-    let titleKey: String
-    let bodyKey: String
-    let gradient: [Color]
-    let icon: String     // SF Symbol für alle Slides
-    let isLottie: Bool
-}
-
-private let slides: [OnboardingSlide] = [
-    OnboardingSlide(
-        titleKey: "onboarding_slide0_title",
-        bodyKey:  "onboarding_slide0_body",
-        gradient: [Color(hex: "#FF6B6B"), Color(hex: "#FF8E53")],
-        icon: "alarm.fill",
-        isLottie: true
-    ),
-    OnboardingSlide(
-        titleKey: "onboarding_slide1_title",
-        bodyKey:  "onboarding_slide1_body",
-        gradient: [Color(hex: "#4776E6"), Color(hex: "#8E54E9")],
-        icon: "person.3.fill",
-        isLottie: false
-    ),
-    OnboardingSlide(
-        titleKey: "onboarding_slide2_title",
-        bodyKey:  "onboarding_slide2_body",
-        gradient: [Color(hex: "#11998e"), Color(hex: "#38ef7d")],
-        icon: "clock.fill",
-        isLottie: false
-    ),
-    OnboardingSlide(
-        titleKey: "onboarding_slide3_title",
-        bodyKey:  "onboarding_slide3_body",
-        gradient: [Color(hex: "#373B44"), Color(hex: "#4286f4")],
-        icon: "calendar.badge.clock",
-        isLottie: false
-    ),
-    OnboardingSlide(
-        titleKey: "onboarding_slide4_title",
-        bodyKey:  "onboarding_slide4_body",
-        gradient: [Color(hex: "#f953c6"), Color(hex: "#b91d73")],
-        icon: "sun.max.fill",
-        isLottie: false
-    )
-]
-
-// MARK: - OnboardingView
+// MARK: - Onboarding (1:1 Android OnboardingScreen.kt)
+// 4 Slides: Panda Lottie → Schedule Mockup → Invite Mockup → WakeUp Lottie
+// Background: onboarding_bg.jpg + dark scrim
+// Bottom: Page dots, tooltips checkbox, start/next button, skip/login links
 
 struct OnboardingView: View {
-    var onFinished: () -> Void
+    var onFinished: (_ tooltipsEnabled: Bool) -> Void
+    var onLoginRequested: (() -> Void)? = nil
+    var isLoggedIn: Bool = false
+
     @State private var currentPage = 0
-    @State private var dragOffset: CGFloat = 0
+    @State private var tooltipsEnabled = true
+    @State private var isStarting = false
+
+    private let slideCount = 4
+
+    private var isLastPage: Bool { currentPage == slideCount - 1 }
 
     var body: some View {
         ZStack {
-            // Farbiger Hintergrund aus aktuellem Slide
-            LinearGradient(
-                colors: slides[currentPage].gradient,
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
-            .animation(.easeInOut(duration: 0.5), value: currentPage)
+            // Background image from Android
+            if let bgImage = UIImage(named: "onboarding_bg") {
+                Image(uiImage: bgImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .ignoresSafeArea()
+            } else {
+                // Fallback gradient if image missing
+                LinearGradient(colors: [Color(hex: "#0D1B2A"), Color(hex: "#1B2838")],
+                              startPoint: .top, endPoint: .bottom)
+                    .ignoresSafeArea()
+            }
 
-            // Subtiles Muster
-            Circle()
-                .fill(Color.white.opacity(0.06))
-                .frame(width: 320, height: 320)
-                .offset(x: 120, y: -200)
-            Circle()
-                .fill(Color.white.opacity(0.04))
-                .frame(width: 240, height: 240)
-                .offset(x: -130, y: 180)
+            // Dark scrim for readability
+            Color.black.opacity(0.45)
+                .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // Slide-Pager (keine TabView um Scroll-Clipping zu vermeiden)
+                // Pager
                 TabView(selection: $currentPage) {
-                    ForEach(0..<slides.count, id: \.self) { index in
-                        OnboardingSlideView(slide: slides[index])
-                            .tag(index)
-                    }
+                    // Slide 0 – Panda Lottie
+                    slideView(
+                        titleKey: "onboarding_slide0_title",
+                        bodyKey: "onboarding_slide0_body",
+                        content: { lottieView("panda") }
+                    ).tag(0)
+
+                    // Slide 1 – Schedule Mockup (on-the-fly, localized)
+                    slideView(
+                        titleKey: "onboarding_slide1_title",
+                        bodyKey: "onboarding_slide1_body",
+                        content: { ScheduleMockup() }
+                    ).tag(1)
+
+                    // Slide 2 – Invite Mockup (on-the-fly, localized)
+                    slideView(
+                        titleKey: "onboarding_slide3_title",
+                        bodyKey: "onboarding_slide3_body",
+                        content: { InviteMockup() }
+                    ).tag(2)
+
+                    // Slide 3 – WakeUp Lottie
+                    slideView(
+                        titleKey: "onboarding_slide5_title",
+                        bodyKey: "onboarding_slide5_body",
+                        content: { lottieView("wakeup") }
+                    ).tag(3)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
-                .frame(maxHeight: .infinity)
+                .animation(.easeInOut(duration: 0.3), value: currentPage)
 
-                // Bottom Controls
-                VStack(spacing: 14) {
-                    // Dots
-                    HStack(spacing: 8) {
-                        ForEach(0..<slides.count, id: \.self) { i in
-                            Capsule()
-                                .fill(Color.white.opacity(i == currentPage ? 1.0 : 0.35))
-                                .frame(width: i == currentPage ? 24 : 8, height: 8)
-                                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: currentPage)
-                        }
-                    }
-                    .padding(.bottom, 4)
-
-                    // Weiter / Los
-                    Button(action: {
-                        withAnimation {
-                            if currentPage < slides.count - 1 {
-                                currentPage += 1
-                            } else {
-                                onFinished()
-                            }
-                        }
-                    }) {
-                        Text(currentPage == slides.count - 1 ? L.onboardingDone : L.onboardingNext)
-                            .font(.system(size: 17, weight: .bold))
-                            .foregroundStyle(slides[currentPage].gradient.first ?? .blue)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 18))
-                            .shadow(color: .black.opacity(0.15), radius: 12, x: 0, y: 6)
-                    }
-                    .buttonStyle(BounceButtonStyle())
-                    .padding(.horizontal, 24)
-                    .animation(.easeInOut(duration: 0.3), value: currentPage)
-
-                    // Überspringen
-                    if currentPage < slides.count - 1 {
-                        Button(L.onboardingSkip, action: onFinished)
-                            .font(.system(size: 15, weight: .medium))
-                            .foregroundStyle(Color.white.opacity(0.75))
-                            .padding(.vertical, 6)
-                    } else {
-                        Spacer().frame(height: 30)
-                    }
-                }
-                .padding(.bottom, 40)
+                // Bottom controls
+                bottomControls
+                    .padding(.bottom, 48)
             }
         }
     }
-}
 
-// MARK: - Single Slide
-
-private struct OnboardingSlideView: View {
-    let slide: OnboardingSlide
-
-    var body: some View {
+    // MARK: - Slide Template
+    @ViewBuilder
+    private func slideView(titleKey: String, bodyKey: String, @ViewBuilder content: () -> some View) -> some View {
         VStack(spacing: 0) {
             Spacer()
 
-            // Icon-Illustration
-            if slide.isLottie {
-                AnimatedAlarmView()
-                    .frame(width: 200, height: 200)
-            } else {
-                ZStack {
-                    Circle()
-                        .fill(Color.white.opacity(0.15))
-                        .frame(width: 180, height: 180)
-                    Circle()
-                        .fill(Color.white.opacity(0.1))
-                        .frame(width: 140, height: 140)
-                    Image(systemName: slide.icon)
-                        .font(.system(size: 72, weight: .medium))
-                        .foregroundStyle(Color.white.opacity(0.95))
-                        .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
-                }
-                .frame(width: 200, height: 200)
-            }
+            content()
+                .frame(maxWidth: 280, maxHeight: 280)
 
-            Spacer().frame(height: 48)
+            Spacer().frame(height: 28)
 
-            // Text
-            VStack(spacing: 14) {
-                Text(L.s(slide.titleKey))
-                    .font(.system(size: 26, weight: .bold, design: .rounded))
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(.horizontal, 28)
+            Text(L.s(titleKey))
+                .font(.title2).fontWeight(.bold)
+                .foregroundStyle(.white)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 28)
 
-                Text(L.s(slide.bodyKey))
-                    .font(.system(size: 16))
-                    .foregroundStyle(Color.white.opacity(0.85))
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .lineSpacing(5)
-                    .padding(.horizontal, 32)
-            }
+            Spacer().frame(height: 10)
+
+            Text(L.s(bodyKey))
+                .font(.body)
+                .foregroundStyle(.white.opacity(0.85))
+                .multilineTextAlignment(.center)
+                .lineSpacing(4)
+                .padding(.horizontal, 32)
 
             Spacer()
         }
-        .padding(.bottom, 80) // Platz für Bottom-Controls
+        .padding(.bottom, 160) // Space for bottom controls
+    }
+
+    // MARK: - Lottie View
+    @ViewBuilder
+    private func lottieView(_ name: String) -> some View {
+        LottieView(animation: .named(name))
+            .playing(loopMode: .loop)
+            .animationSpeed(0.7)
+            .frame(width: 260, height: 260)
+    }
+
+    // MARK: - Bottom Controls
+    @ViewBuilder
+    private var bottomControls: some View {
+        VStack(spacing: 16) {
+            // Page dots
+            HStack(spacing: 8) {
+                ForEach(0..<slideCount, id: \.self) { i in
+                    Circle()
+                        .fill(i == currentPage ? Color.white : Color.white.opacity(0.4))
+                        .frame(width: i == currentPage ? 10 : 7, height: i == currentPage ? 10 : 7)
+                        .animation(.spring(response: 0.3), value: currentPage)
+                }
+            }
+
+            // Tooltips checkbox (last page only)
+            if isLastPage {
+                Button(action: { tooltipsEnabled.toggle() }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: tooltipsEnabled ? "checkmark.square.fill" : "square")
+                            .foregroundStyle(.white)
+                            .font(.title3)
+                        Text(L.s("onboarding_enable_tooltips"))
+                            .foregroundStyle(.white)
+                            .font(.subheadline)
+                    }
+                }
+                .transition(.opacity)
+            }
+
+            // Main button (Next / Start)
+            Button(action: {
+                if isLastPage {
+                    guard !isStarting else { return }
+                    isStarting = true
+                    onFinished(tooltipsEnabled)
+                } else {
+                    withAnimation { currentPage += 1 }
+                }
+            }) {
+                Group {
+                    if isStarting {
+                        ProgressView()
+                            .tint(Color(hex: "#1A237E"))
+                    } else {
+                        Text(isLastPage
+                             ? (isLoggedIn ? L.s("close_desc") : L.onboardingDone)
+                             : L.onboardingNext)
+                            .fontWeight(.bold)
+                    }
+                }
+                .foregroundStyle(Color(hex: "#1A237E"))
+                .frame(maxWidth: .infinity)
+                .frame(height: 52)
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+            }
+            .disabled(isStarting)
+            .opacity(isStarting ? 0.6 : 1.0)
+            .padding(.horizontal, 24)
+
+            // Login / Registrieren Link (last page, not logged in)
+            if isLastPage && !isLoggedIn {
+                Button(L.s("onboarding_login_create")) {
+                    onLoginRequested?()
+                }
+                .foregroundStyle(.white.opacity(0.9))
+                .font(.subheadline).fontWeight(.bold)
+                .transition(.opacity)
+            }
+
+            // Skip (not last page)
+            if !isLastPage {
+                Button(L.onboardingSkip) {
+                    withAnimation { currentPage = slideCount - 1 }
+                }
+                .foregroundStyle(.white.opacity(0.7))
+                .font(.subheadline)
+                .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: isLastPage)
     }
 }
 
-// MARK: - Animated Alarm (Lottie-Ersatz)
+// MARK: - Schedule Mockup (Slide 1 – on-the-fly, fully localized)
 
-private struct AnimatedAlarmView: View {
-    @State private var swing: Double = 0
-    @State private var glow: Bool = false
-    @State private var sparkle: Bool = false
-
+private struct ScheduleMockup: View {
     var body: some View {
-        ZStack {
-            // Äußerer Glow-Ring
-            Circle()
-                .stroke(Color.white.opacity(glow ? 0.3 : 0.05), lineWidth: 2)
-                .frame(width: 170, height: 170)
-                .scaleEffect(glow ? 1.1 : 1.0)
-                .animation(.easeInOut(duration: 1.8).repeatForever(autoreverses: true), value: glow)
+        MockupCard {
+            // Header
+            Text(L.s("main_current_schedule"))
+                .font(.subheadline).fontWeight(.bold)
+                .foregroundStyle(MockColors.text)
 
-            // Innerer Kreis
-            Circle()
-                .fill(Color.white.opacity(glow ? 0.15 : 0.05))
-                .frame(width: 140, height: 140)
-                .animation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true), value: glow)
+            // Optimal plan banner
+            HStack(spacing: 6) {
+                Text("✅")
+                Text(L.s("main_optimal_plan"))
+                    .font(.caption).fontWeight(.semibold)
+                    .foregroundStyle(MockColors.primary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 12).fill(MockColors.cardAlt))
 
-            // Funken
-            ForEach(0..<6) { i in
-                let angle = Double(i) * 60.0
-                Image(systemName: "sparkle")
-                    .font(.system(size: 9))
-                    .foregroundStyle(Color.white.opacity(sparkle ? 0.85 : 0.1))
-                    .offset(
-                        x: sparkle ? cos(angle * .pi / 180) * 72 : cos(angle * .pi / 180) * 50,
-                        y: sparkle ? sin(angle * .pi / 180) * 72 : sin(angle * .pi / 180) * 50
-                    )
-                    .scaleEffect(sparkle ? 1.1 : 0.4)
-                    .animation(.easeOut(duration: 1.3).repeatForever(autoreverses: true).delay(Double(i) * 0.2), value: sparkle)
+            // Member cards
+            MockMemberCard(emoji: "🔔", time: "06:20", name: L.s("onboarding_mock_name1"),
+                          bathroom: String(format: L.s("main_schedule_bathroom"), "06:20", "06:40"))
+
+            MockMemberCard(emoji: "🔔", time: "06:40", name: L.s("onboarding_mock_name2"),
+                          bathroom: String(format: L.s("main_schedule_bathroom"), "06:40", "07:00"))
+        }
+    }
+}
+
+// MARK: - Invite Mockup (Slide 2 – on-the-fly, fully localized)
+
+private struct InviteMockup: View {
+    var body: some View {
+        MockupCard(height: 190) {
+            // Header
+            HStack(spacing: 8) {
+                Image(systemName: "person.3.fill")
+                    .font(.caption).foregroundStyle(MockColors.primary)
+                Text(L.settingsAccountTitle)
+                    .font(.caption).fontWeight(.bold)
+                    .foregroundStyle(MockColors.text)
             }
 
-            // Glocke
-            Image(systemName: "alarm.fill")
-                .font(.system(size: 86, weight: .medium))
-                .foregroundStyle(Color.white.opacity(0.95))
-                .rotationEffect(.degrees(swing))
-                .shadow(color: .black.opacity(0.25), radius: 12, x: 0, y: 4)
-                .animation(
-                    .easeInOut(duration: 0.1)
-                    .repeatCount(8, autoreverses: true)
-                    .delay(1.2)
-                    .repeatForever(autoreverses: false),
-                    value: swing
-                )
+            // Join code label
+            Text(L.settingsJoinCodeName(L.s("onboarding_mock_family_name")))
+                .font(.caption2).foregroundStyle(MockColors.subText)
+
+            // Code
+            Text("3KY342")
+                .font(.title2).fontWeight(.black)
+                .foregroundStyle(MockColors.primary)
+                .frame(maxWidth: .infinity)
+
+            // Share button
+            HStack(spacing: 6) {
+                Image(systemName: "square.and.arrow.up").font(.caption2)
+                Text(L.settingsShareCode).font(.caption).fontWeight(.semibold)
+            }
+            .foregroundStyle(MockColors.primary)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(RoundedRectangle(cornerRadius: 12).fill(MockColors.selected.opacity(0.18)))
         }
-        .onAppear {
-            glow = true
-            sparkle = true
-            swing = 7
+    }
+}
+
+// MARK: - Mockup Shared Components
+
+private enum MockColors {
+    static let bg       = Color(hex: "#000000")
+    static let card     = Color(hex: "#161F2A")
+    static let cardAlt  = Color(hex: "#1D2938")
+    static let text     = Color(hex: "#E8EDF2")
+    static let subText  = Color(hex: "#8DAFC8")
+    static let outline  = Color(hex: "#4E657C")
+    static let primary  = Color(hex: "#E3EDF7")
+    static let selected = Color(hex: "#8DAFC8")
+}
+
+private struct MockupCard<Content: View>: View {
+    var height: CGFloat = 275
+    @ViewBuilder var content: () -> Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            content()
         }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(height: height)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(MockColors.bg)
+                .shadow(color: .black.opacity(0.6), radius: 24, x: 0, y: 12)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .overlay(alignment: .bottom) {
+            // Bottom fade
+            LinearGradient(colors: [.clear, MockColors.bg.opacity(0.85)],
+                          startPoint: .top, endPoint: .bottom)
+                .frame(height: 48)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+        }
+    }
+}
+
+private struct MockMemberCard: View {
+    let emoji: String
+    let time: String
+    let name: String
+    let bathroom: String
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("\(emoji)  \(time) – \(name)")
+                    .font(.caption).fontWeight(.bold)
+                    .foregroundStyle(MockColors.text)
+                Text(bathroom)
+                    .font(.caption2)
+                    .foregroundStyle(MockColors.subText)
+            }
+            Spacer()
+            // Drag handle dots
+            VStack(spacing: 3) {
+                ForEach(0..<3, id: \.self) { _ in
+                    HStack(spacing: 3) {
+                        ForEach(0..<2, id: \.self) { _ in
+                            Circle().fill(MockColors.outline).frame(width: 3, height: 3)
+                        }
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(MockColors.card)
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(MockColors.outline.opacity(0.3), lineWidth: 1))
+        )
     }
 }

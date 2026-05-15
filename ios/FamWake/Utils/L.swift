@@ -102,12 +102,18 @@ enum L {
     static func mainScheduleBathroom(_ start: String, _ end: String) -> String { s("main_schedule_bathroom", start, end) }
     static func mainScheduleLeave(_ time: String) -> String { s("main_schedule_leave", time) }
     static func mainFallbackAlarmActive(_ time: String) -> String { s("main_fallback_alarm_active", time) }
+    static func scheduleMessageTimeAdjusted(_ min: Int) -> String { s("schedule_message_time_adjusted", min) }
+    static func scheduleMessageBreakfastReduced(_ min: Int) -> String { s("schedule_message_breakfast_reduced", min) }
+    static func scheduleMessageBreakfastAndTimeAdjusted(_ min1: Int, _ min2: Int) -> String { s("schedule_message_breakfast_and_time_adjusted", min1, min2) }
+    static var scheduleAutoFix: String { s("schedule_auto_fix") }
+    static var mainMemberLimitReached: String { s("main_member_limit_reached") }
 
     // MARK: - Awake
     static var awakeTodayDesc: String { s("awake_today_desc") }
     static var awakeActiveDesc: String { s("awake_active_desc") }
 
     // MARK: - Member
+    static var mainFamilyMembers: String { s("main_family_members") }
     static var addMemberTitleAdd: String { s("add_member_title_add") }
     static var addMemberTitleEdit: String { s("add_member_title_edit") }
     static var addMemberNameLabel: String { s("add_member_name_label") }
@@ -176,7 +182,7 @@ enum L {
     static var joinLoadingText: String { s("join_loading_text") }
 
     // MARK: - Errors
-    static var errorGeneric: String { s("error_generic") }
+    static var errorGeneric: String { s("add_member_unknown") }
     static var errorFamilyNotFound: String { s("error_family_not_found") }
     static var errorInvalidCode: String { s("error_invalid_code") }
     static var errorProfileTaken: String { s("error_profile_taken") }
@@ -196,6 +202,8 @@ enum L {
     // MARK: - Empty State
     static var emptyScheduleTitle: String { s("empty_schedule_title") }
     static var emptyScheduleDescription: String { s("empty_schedule_description") }
+    static var emptyMembersTitle: String { s("empty_members_title") }
+    static var emptyMembersDescription: String { s("empty_members_description") }
 
     // MARK: - Delete Family
     static var settingsDeleteFamilyDialogTitle: String { s("settings_delete_family_dialog_title") }
@@ -207,8 +215,8 @@ enum L {
     static var settingsDeleteFamilyWarningConfirm: String { s("settings_delete_family_warning_confirm") }
 
     // MARK: - Delete Member
-    static var settingsDeleteMemberTitle: String { s("settings_delete_member_title") }
-    static var settingsDeleteMemberConfirm: String { s("settings_delete_member_confirm") }
+    static var settingsDeleteMemberTitle: String { s("delete_member_title") }
+    static var settingsDeleteMemberConfirm: String { s("delete_confirm") }
 
     // MARK: - Help / Tour
     static var settingsHelpTitle: String { s("settings_help_title") }

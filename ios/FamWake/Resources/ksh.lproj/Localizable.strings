@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Familienwecker";
+
+"app_name_short" = "Familienwecker";
 "email_label" = "E-Mail";
 "password_label" = "Passwort";
 "register_button" = "Mitmachen";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Ton nehmen: %@";
 "settings_alarm_picker_title" = "Such dir n Ton aus";
 "settings_account_title" = "Familie & Konto";
-"settings_join_family_locked" = "Log dich ersma ein, bevor de inne Familie kannst.";
 "settings_share_code_locked" = "Log dich ersma ein, bevor de den Code teilen kannst.";
 "settings_join_code" = "Code für %@:";
 "settings_share_code" = "Link rüberschieben";
@@ -114,7 +114,6 @@
 "settings_delete_family_warning_confirm" = "Jau, alles platt";
 "settings_logout" = "Abmelden";
 "settings_delete_account" = "Konto plattmachen";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alle Rechte vorbehalten.";
 "empty_members_title" = "Noch keiner da";
@@ -123,18 +122,6 @@
 "empty_schedule_description" = "Hat keiner nen Wecker gestellt. Kannze weiterratzen!";
 "settings_language_title" = "Sprache";
 "settings_language_system" = "System-Standard";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Optik";
 "settings_display_title" = "App-Einstellungen";
 "settings_help_feedback_title" = "Hilfe & Meckern";
@@ -143,16 +130,12 @@
 "onboarding_skip" = "Überspringen";
 "onboarding_next" = "Weiter";
 "onboarding_done" = "Ohne Account loslegen";
-"onboarding_slide0_title" = "Morgens als Truppe.";
+"onboarding_slide0_title" = "Zusammen janz entspannt in den Tach.";
 "onboarding_slide0_body" = "Kein Gekeife, kein Chaos. FamWake sorgt dafür, dat alle entspannt inne Tag starten – vollautomatisch.";
-"onboarding_slide1_title" = "Nie wieder anstehen.";
-"onboarding_slide1_body" = "FamWake rechnet für jeden die perfekte Weckzeit aus – abgestimmt auf Bad, Mampfen und Abmarsch. Kein Gedrängel mehr am Waschbecken, wa.";
-"onboarding_slide2_title" = "Jeder Tach is anders.";
-"onboarding_slide2_body" = "Montag Maloche, Mittwoch Homeoffice? Stell für jeden Tach eigene Zeiten ein – die App regelt den Rest.";
+"onboarding_slide1_title" = "Patente Pläne für jeden Tach";
+"onboarding_slide1_body" = "Ejal ob Maloche, Schule oder Home-Office – FamWake rechnet dir die perfekte Weck- und Badzeit für die ganze Bagage aus. Ohne Stau am Morgen.";
 "onboarding_slide3_title" = "Zack, verbunden.";
 "onboarding_slide3_body" = "Teil nen Code und deine Truppe is dabei. Wenn einer wat ändert, is der Plan für alle direkt neu.";
-"onboarding_slide4_title" = "Immer verlass drauf";
-"onboarding_slide4_body" = "Entspannte Morgen, zuverlässig und offline. Wenn dat Internet mal wech is, klingelt der Wecker trotzdem pünktlich.";
 "settings_feedback_button" = "Meckern / Fehler rübergeben";
 "feedback_title" = "Feedback";
 "feedback_intro" = "Hilf uns, die Bude besser zu machen! Wat drückt?";
@@ -170,7 +153,6 @@
 "feedback_auto_device" = "Gerät: %@";
 "feedback_cancel" = "Abbrechen";
 "feedback_send" = "Rüberschicken";
-"feedback_success" = "Sauber! Is angekommen, dat hilft uns derbe.";
 "feedback_success_title" = "Is raus";
 "feedback_success_message" = "Danke dir! Hilft uns, die App für alle noch nen Ticken geiler zu machen.";
 "settings_terms_of_use" = "Nutzungsbedingungen";
@@ -209,9 +191,7 @@
 "error_not_logged_in" = "Bisse nich eingeloggt.";
 "error_system" = "System spinnt.";
 "error_invalid_credentials" = "E-Mail oder Passwort is fürn Eimer. Guck nochma.";
-"error_login_failed" = "Einloggen kaputt";
 "error_login_failed_unknown" = "Da ging wat beim Einloggen schief, kein Plan was.";
-"error_registration_failed" = "Registrieren is abgebrochen";
 "error_registration_failed_unknown" = "Konto konnte nich gemacht werden";
 "error_unknown" = "Kein Plan was das war. Probier nochmal.";
 "error_google_sign_in_failed_unknown" = "Google zickt rum";
@@ -236,9 +216,9 @@
 "schedule_message_no_members" = "Keiner da. Alle machen Pause.";
 "schedule_message_no_valid" = "Das passt vorne und hinten nicht. Zu viel überschnitten.";
 "schedule_message_no_valid_desc" = "Tipp: Mach ma Weckfenster größer, geh nich so lang ins Bad oder drück bei wem auf Pause.";
-"schedule_message_time_adjusted" = "Zeiten um %1$d Min angepasst, sonst knallts.";
-"schedule_message_breakfast_reduced" = "Mampfen %1$d Min gekürzt, dasses klappt.";
-"schedule_message_breakfast_and_time_adjusted" = "Mampfen −%1$d Min & Zeiten %2$d Min geschoben.";
+"schedule_message_time_adjusted" = "Zeiten um %d Min angepasst, sonst knallts.";
+"schedule_message_breakfast_reduced" = "Mampfen %d Min gekürzt, dasses klappt.";
+"schedule_message_breakfast_and_time_adjusted" = "Mampfen −%d Min & Zeiten %d Min geschoben.";
 "schedule_message_member_conflict" = "Verklemmt bei %@: Das überschneidet sich zu viel.";
 "schedule_message_member_conflict_desc" = "Zieh mal die Leute um oder schraub an de Zeiten rum.";
 "main_fallback_alarm_active" = "⚠️ Wat passt hier nich (%@). Kümmer dich ma um de Zeiten!";
@@ -266,7 +246,6 @@
 "settings_support_desc" = "Bock auf die App? Wir freuen uns über jeden Groschen!";
 "settings_support_donate" = "Wat dalassen";
 "settings_donate_success" = "Fetten Dank dir! ❤️";
-"settings_donate_error" = "Ups, da is wat schiefgelaufen.";
 "settings_donate_loading" = "Lade den Kram…";
 "settings_donate_no_offers" = "Nix zu kaufen da.";
 "settings_donate_purchase_loading" = "Knete wird verbucht…";
@@ -296,14 +275,6 @@
 "error_feedback_rate_limit_server" = "Zu viel aufm einmal. Probier dat nachher nochmal.";
 "error_feedback_empty_message" = "Da muss wat drin stehen, sonst bringt dat nix.";
 "error_network" = "Netz is wech. Guck ma ob de online bis.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
 "tooltip_alarm_sound" = "Druck hier, um deinen eigenen Weckton auszusuchen – nimm wat Geiles statt dem Standardgebimmel.";
 "settings_language_dialects" = "Dialekte";
 "onboarding_mock_name1" = "Vatta";
@@ -322,8 +293,6 @@
 "notif_permission_title" = "Brauch Rechte fürs Bimmeln";
 "notif_permission_desc" = "Ohne Rechte darf der Wecker nich rappeln. Mach an den Bums, sonst verpennste.";
 "notif_permission_button" = "Meldungen anmachen";
-"notif_manage_title" = "Meldungen einstellen";
-"notif_manage_desc" = "Ton, Gerappel und den restlichen Kram inne System-Einstellungen anpassen.";
 "onboarding_login_create" = "Anmelden / Registrieren";
 "onboarding_slide5_title" = "Auf geht's!";
 "onboarding_slide5_body" = "Hör ma, du kanns die App direkt ohne Anmeldung ausprobieren. Ein Konto brauchsse erst, wenn de deine Familie einläds.";
@@ -331,3 +300,12 @@
 "settings_steal_title" = "Profil schnappen?";
 "settings_steal_text" = "%@ hat sich schon einer gekrallt. Willze dat für dich haben?";
 "settings_steal_confirm" = "Jau, her damit";
+"schedule_auto_fix" = "✨ Zeiten von alleine anpassen";
+"onboarding_enable_tooltips" = "Zeig hilfreiche Tipps bei der ersten Nutzung an";
+
+
+/* iOS Specific (Fallback to German) */
+"member_pause" = "Pausieren";
+"member_resume" = "Aktivieren";
+"member_not_active_today" = "Heute nicht aktiv";
+"settings_account_section" = "Konto";

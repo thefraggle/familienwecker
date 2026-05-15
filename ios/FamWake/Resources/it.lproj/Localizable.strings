@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Sveglia familiare";
+
+"app_name_short" = "Sveglia familiare";
 "email_label" = "Email";
 "password_label" = "Password";
 "register_button" = "Registrati";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Suono: %@";
 "settings_alarm_picker_title" = "Scegli la tua suoneria";
 "settings_account_title" = "Famiglia & Account";
-"settings_join_family_locked" = "Accedi per unirti a una famiglia.";
 "settings_share_code_locked" = "Accedi per condividere il tuo codice di invito.";
 "settings_join_code" = "Codice di invito per %@:";
 "settings_share_code" = "Condividi link di invito";
@@ -114,7 +114,6 @@
 "settings_delete_family_warning_confirm" = "Sì, elimina per tutti";
 "settings_logout" = "Esci";
 "settings_delete_account" = "Elimina account";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Tutti i diritti riservati.";
 "empty_members_title" = "Ancora nessun membro";
@@ -123,18 +122,6 @@
 "empty_schedule_description" = "Al momento non ci sono sveglie accese. È ora di dormire!";
 "settings_language_title" = "Lingua";
 "settings_language_system" = "Sistema predefinito";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Aspetto";
 "settings_display_title" = "Impostazioni app";
 "settings_help_feedback_title" = "Aiuto & Feedback";
@@ -143,16 +130,12 @@
 "onboarding_skip" = "Salta";
 "onboarding_next" = "Avanti";
 "onboarding_done" = "Inizia senza account";
-"onboarding_slide0_title" = "La tua mattina in squadra.";
+"onboarding_slide0_title" = "Iniziare la giornata insieme e rilassati.";
 "onboarding_slide0_body" = "Niente discussioni, niente caos. FamWake fa in modo che tutti inizino la giornata rilassati – in modo del tutto automatico.";
-"onboarding_slide1_title" = "Mai più attese.";
-"onboarding_slide1_body" = "FamWake trova il momento perfetto per svegliare tutti in famiglia – in base al tempo in bagno, alla colazione e all'orario di uscita. Niente più ressa al lavandino.";
-"onboarding_slide2_title" = "Ogni giorno è diverso.";
-"onboarding_slide2_body" = "Lunedì in ufficio, mercoledì smart working? Imposta semplicemente i tuoi orari per ogni giorno e l'app farà il resto.";
+"onboarding_slide1_title" = "Piani intelligenti per ogni giorno";
+"onboarding_slide1_body" = "Ufficio, scuola o smart working non importa: FamWake calcola l'orario perfetto per la sveglia e il bagno per tutta la famiglia. Senza code al mattino.";
 "onboarding_slide3_title" = "Connessi in pochi secondi.";
 "onboarding_slide3_body" = "Condividi il tuo codice di invito e la tua famiglia è dentro. Se qualcuno cambia i suoi orari, il programma di tutti si aggiorna all'istante.";
-"onboarding_slide4_title" = "Funziona sempre.";
-"onboarding_slide4_body" = "Goditi una mattinata rilassata tutti i giorni. Anche se la connessione internet salta durante la notte, la sveglia suonerà comunque in orario.";
 "settings_feedback_button" = "Lascia un feedback / Segnala un problema";
 "feedback_title" = "Feedback";
 "feedback_intro" = "Aiutaci a migliorare l'app! A cosa stai pensando?";
@@ -170,7 +153,6 @@
 "feedback_auto_device" = "Telefono: %@";
 "feedback_cancel" = "Annulla";
 "feedback_send" = "Invia messaggio";
-"feedback_success" = "Grazie! Abbiamo ricevuto il tuo messaggio.";
 "feedback_success_title" = "Messaggio Inviato";
 "feedback_success_message" = "Grazie per il tuo aiuto! Il tuo feedback ci aiuta a migliorare FamWake per tutti.";
 "settings_terms_of_use" = "Termini di utilizzo";
@@ -209,9 +191,7 @@
 "error_not_logged_in" = "Non hai effettuato l'accesso.";
 "error_system" = "Qualcosa è andato storto.";
 "error_invalid_credentials" = "Email o password errate. Controlla ciò che hai digitato.";
-"error_login_failed" = "Accesso non riuscito";
 "error_login_failed_unknown" = "Errore di accesso sconosciuto";
-"error_registration_failed" = "Registrazione non riuscita";
 "error_registration_failed_unknown" = "Impossibile creare il tuo account";
 "error_unknown" = "Qualcosa è andato storto. Riprova.";
 "error_google_sign_in_failed_unknown" = "L'accesso con Google non ha funzionato";
@@ -236,9 +216,9 @@
 "schedule_message_no_members" = "Nessuno è attivo. Tutte le sveglie sono in pausa.";
 "schedule_message_no_valid" = "Gli orari si sovrappongono troppo per creare un buon programma.";
 "schedule_message_no_valid_desc" = "Suggerimento: prova una finestra di risveglio più ampia, un tempo in bagno più breve, o metti in pausa la sveglia di qualcuno.";
-"schedule_message_time_adjusted" = "Gli orari sono stati spostati di %1$d minuti per far quadrare tutto.";
-"schedule_message_breakfast_reduced" = "Il tempo per la colazione è stato ridotto di %1$d minuti per far quadrare tutto.";
-"schedule_message_breakfast_and_time_adjusted" = "Colazione −%1$d min e orari spostati di %2$d min.";
+"schedule_message_time_adjusted" = "Gli orari sono stati spostati di %d minuti per far quadrare tutto.";
+"schedule_message_breakfast_reduced" = "Il tempo per la colazione è stato ridotto di %d minuti per far quadrare tutto.";
+"schedule_message_breakfast_and_time_adjusted" = "Colazione −%d min e orari spostati di %d min.";
 "schedule_message_member_conflict" = "Problema per %@: Gli orari si sovrappongono troppo.";
 "schedule_message_member_conflict_desc" = "Prova a cambiare l'ordine o ad aggiustare gli orari.";
 "main_fallback_alarm_active" = "⚠️ Attenzione: Il programma non quadra in questo momento (%@). Per favore, aggiusta i tuoi orari!";
@@ -266,7 +246,6 @@
 "settings_support_desc" = "Ti piace l'app? Apprezzeremmo molto il tuo supporto!";
 "settings_support_donate" = "Dona";
 "settings_donate_success" = "Grazie mille per il tuo supporto! ❤️";
-"settings_donate_error" = "Ops, qualcosa è andato storto.";
 "settings_donate_loading" = "Caricamento opzioni…";
 "settings_donate_no_offers" = "Nessuna opzione disponibile al momento.";
 "settings_donate_purchase_loading" = "Elaborazione in corso…";
@@ -296,14 +275,6 @@
 "error_feedback_rate_limit_server" = "Troppi messaggi inviati. Riprova più tardi.";
 "error_feedback_empty_message" = "Il tuo messaggio è vuoto.";
 "error_network" = "Problema di rete. Controlla la tua connessione internet.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
 "tooltip_alarm_sound" = "Tocca qui per scegliere la tua suoneria personale – scegli la tua musica preferita invece del classico bip.";
 "settings_language_dialects" = "Dialetti";
 "onboarding_mock_name1" = "Papà";
@@ -322,8 +293,6 @@
 "notif_permission_title" = "Notifiche necessarie";
 "notif_permission_desc" = "Se disattivi le notifiche, la sveglia potrebbe non funzionare correttamente. Per favore, lasciale attive.";
 "notif_permission_button" = "Attiva le notifiche";
-"notif_manage_title" = "Impostazioni notifiche";
-"notif_manage_desc" = "Cambia suoni e vibrazioni nelle impostazioni del tuo telefono.";
 "onboarding_login_create" = "Accedi / Registrati";
 "onboarding_slide5_title" = "Cominciamo!";
 "onboarding_slide5_body" = "Puoi provare l'app fin da subito senza un account. Ne avrai bisogno solo quando vorrai invitare la tua famiglia.";
@@ -331,3 +300,12 @@
 "settings_steal_title" = "Usare questo profilo?";
 "settings_steal_text" = "%@ è già in uso. Vuoi usare questo profilo per te?";
 "settings_steal_confirm" = "Sì, usalo";
+"schedule_auto_fix" = "✨ Adatta gli orari automaticamente";
+"onboarding_enable_tooltips" = "Mostra consigli utili al primo utilizzo";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Account";

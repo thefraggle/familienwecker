@@ -1,5 +1,17 @@
 import SwiftUI
 
+// MARK: - FamWake Title Helper
+/// Renders "FamWake" bold + rest of the localized app name regular.
+/// Input: "FamWake Familienwecker" → **FamWake** Familienwecker
+func famWakeTitle(_ fullName: String) -> Text {
+    if fullName.hasPrefix("FamWake") {
+        let suffix = String(fullName.dropFirst("FamWake".count))
+        return Text("FamWake").font(.headline).bold() +
+               Text(suffix).font(.headline).fontWeight(.regular)
+    }
+    return Text(fullName).font(.headline)
+}
+
 // MARK: - BounceButton Modifier (analog bounceClick)
 struct BounceButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

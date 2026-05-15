@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Familievekkerklokke";
+
+"app_name_short" = "Familievekkerklokke";
 "email_label" = "E-post";
 "password_label" = "Passord";
 "register_button" = "Registrer deg";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Lyd: %@";
 "settings_alarm_picker_title" = "Velg alarmlyden din";
 "settings_account_title" = "Familie & Konto";
-"settings_join_family_locked" = "Logg inn for å bli med i en familie.";
 "settings_share_code_locked" = "Logg inn for å dele invitasjonskoden din.";
 "settings_anonymous_login_button" = "Logg inn / Registrer deg";
 "settings_join_code" = "Invitasjonskode for %@:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "Ja, slett for alle";
 "settings_logout" = "Logg ut";
 "settings_delete_account" = "Slett konto";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Med enerett.";
 "empty_members_title" = "Ingen medlemmer ennå";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "Ingen alarmer er slått på akkurat nå. Tid for å sove lenge!";
 "settings_language_title" = "Språk";
 "settings_language_system" = "Systemstandard";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Utseende";
 "settings_display_title" = "App-innstillinger";
 "settings_help_feedback_title" = "Hjelp og tilbakemelding";
@@ -144,16 +131,12 @@
 "onboarding_skip" = "Hopp over";
 "onboarding_next" = "Neste";
 "onboarding_done" = "Start uten konto";
-"onboarding_slide0_title" = "Din morgen som et team.";
+"onboarding_slide0_title" = "En rolig start på dagen sammen.";
 "onboarding_slide0_body" = "Ingen diskusjoner, ikke noe kaos. FamWake sørger for at alle starter dagen avslappet – helt av seg selv.";
-"onboarding_slide1_title" = "Slutt på ventingen.";
-"onboarding_slide1_body" = "FamWake finner det perfekte vekketidspunktet for alle i familien – basert på badetid, frokost og når dere må dra. Ikke mer trengsel på badet.";
-"onboarding_slide2_title" = "Hver dag er forskjellig.";
-"onboarding_slide2_body" = "På kontoret på mandag, hjemmekontor på onsdag? Bare still inn tidene for hver dag, så ordner appen resten.";
+"onboarding_slide1_title" = "Smarte planer for hver dag";
+"onboarding_slide1_body" = "Enten det er kontor, skole eller hjemmekontor – FamWake beregner den perfekte vekke- og badetiden for hele familien. Uten kø om morgenen.";
 "onboarding_slide3_title" = "Tilkoblet på sekunder.";
 "onboarding_slide3_body" = "Del invitasjonskoden din, så er familien med. Når noen endrer tidene sine, oppdateres alles tidsplan umiddelbart.";
-"onboarding_slide4_title" = "Fungerer alltid.";
-"onboarding_slide4_body" = "Nyt en avslappet morgen hver dag. Selv om internett går ned i løpet av natten, vil alarmen fortsatt ringe i tide.";
 "onboarding_mock_name1" = "Pappa";
 "onboarding_mock_name2" = "Mamma";
 "onboarding_mock_family_name" = "Hansen";
@@ -174,7 +157,6 @@
 "feedback_auto_device" = "Telefon: %@";
 "feedback_cancel" = "Avbryt";
 "feedback_send" = "Send melding";
-"feedback_success" = "Takk! Vi har mottatt meldingen din.";
 "feedback_success_title" = "Melding sendt";
 "feedback_success_message" = "Takk for hjelpen! Din tilbakemelding hjelper oss å forbedre FamWake for alle.";
 "settings_terms_of_use" = "Brukervilkår";
@@ -213,9 +195,7 @@
 "error_not_logged_in" = "Du er ikke logget inn.";
 "error_system" = "Noe gikk galt.";
 "error_invalid_credentials" = "Feil e-post eller passord. Vennligst sjekk hva du har skrevet.";
-"error_login_failed" = "Innlogging fungerte ikke";
 "error_login_failed_unknown" = "Ukjent innloggingsfeil";
-"error_registration_failed" = "Registrering fungerte ikke";
 "error_registration_failed_unknown" = "Kunne ikke opprette kontoen din";
 "error_unknown" = "Noe gikk galt. Vennligst prøv igjen.";
 "error_google_sign_in_failed_unknown" = "Google-pålogging fungerte ikke";
@@ -240,9 +220,9 @@
 "schedule_message_no_members" = "Ingen er aktive. Alle alarmer er satt på pause.";
 "schedule_message_no_valid" = "Tidene overlapper for mye til å lage en god tidsplan.";
 "schedule_message_no_valid_desc" = "Tips: Prøv et bredere oppvåkningsvindu, kortere tid på badet, eller sett noens alarm på pause.";
-"schedule_message_time_adjusted" = "Tidene ble forskjøvet med %1$d minutter for at alt skal passe.";
-"schedule_message_breakfast_reduced" = "Frokosttiden ble forkortet med %1$d minutter for at alt skal passe.";
-"schedule_message_breakfast_and_time_adjusted" = "Frokost −%1$d min og tider forskjøvet med %2$d min.";
+"schedule_message_time_adjusted" = "Tidene ble forskjøvet med %d minutter for at alt skal passe.";
+"schedule_message_breakfast_reduced" = "Frokosttiden ble forkortet med %d minutter for at alt skal passe.";
+"schedule_message_breakfast_and_time_adjusted" = "Frokost −%d min og tider forskjøvet med %d min.";
 "schedule_message_member_conflict" = "Konflikt for %@: Tidene overlapper for mye.";
 "schedule_message_member_conflict_desc" = "Prøv å endre rekkefølgen eller justere tidene.";
 "main_fallback_alarm_active" = "⚠️ Advarsel: Tidsplanen passer ikke akkurat nå (%@). Vennligst juster tidene dine!";
@@ -270,7 +250,6 @@
 "settings_support_desc" = "Liker du appen? Vi setter stor pris på din støtte!";
 "settings_support_donate" = "Doner";
 "settings_donate_success" = "Tusen takk for støtten din! ❤️";
-"settings_donate_error" = "Oops, noe gikk galt.";
 "settings_donate_loading" = "Laster alternativer…";
 "settings_donate_no_offers" = "Ingen alternativer tilgjengelig akkurat nå.";
 "settings_donate_purchase_loading" = "Behandler…";
@@ -300,19 +279,6 @@
 "error_feedback_rate_limit_server" = "For mange meldinger sendt. Vennligst prøv igjen senere.";
 "error_feedback_empty_message" = "Meldingen din er tom.";
 "error_network" = "Nettverksproblem. Vennligst sjekk internettforbindelsen din.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Trykk her for å velge din personlige oppvåkningslyd – velg favorittmusikken din i stedet for den vanlige pipelyden.";
 "settings_language_dialects" = "Dialekter";
 "notif_channel_schedule_change_name" = "Tidsplanendringer";
@@ -328,11 +294,18 @@
 "notif_permission_title" = "Varsler kreves";
 "notif_permission_desc" = "Hvis du slår av varsler, kan det hende at alarmen din ikke fungerer som den skal. Vennligst la dem være på.";
 "notif_permission_button" = "Slå på varsler";
-"notif_manage_title" = "Varslingsinnstillinger";
-"notif_manage_desc" = "Endre lyder og vibrasjoner i telefoninnstillingene dine.";
 "onboarding_login_create" = "Logg inn / Registrer deg";
 "onboarding_slide5_title" = "La oss komme i gang!";
 "onboarding_slide5_body" = "Du kan prøve appen med en gang uten konto. Du trenger bare en når du vil invitere familien din.";
 "settings_steal_title" = "Bruk denne profilen?";
 "settings_steal_text" = "%@ er allerede valgt. Vil du bruke denne profilen?";
 "settings_steal_confirm" = "Ja, bruk den";
+"schedule_auto_fix" = "✨ Tilpass tider automatisk";
+"onboarding_enable_tooltips" = "Vis nyttige tips ved første bruk";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Konto";

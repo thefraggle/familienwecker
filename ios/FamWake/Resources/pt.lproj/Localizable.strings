@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Despertador Familiar";
+
+"app_name_short" = "Despertador Familiar";
 "email_label" = "Email";
 "password_label" = "Senha";
 "register_button" = "Cadastrar";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Som: %@";
 "settings_alarm_picker_title" = "Escolha o som do seu alarme";
 "settings_account_title" = "Família e Conta";
-"settings_join_family_locked" = "Por favor, faça login para entrar em uma família.";
 "settings_share_code_locked" = "Por favor, faça login para compartilhar seu código.";
 "settings_anonymous_login_button" = "Entrar / Cadastrar";
 "settings_join_code" = "Código de convite para %@:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "Sim, excluir para todos";
 "settings_logout" = "Sair";
 "settings_delete_account" = "Excluir conta";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Todos os direitos reservados.";
 "empty_members_title" = "Ninguém por aqui ainda";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "Nenhum alarme está ligado no momento. Hora de dormir até mais tarde!";
 "settings_language_title" = "Idioma";
 "settings_language_system" = "Padrão do sistema";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Aparência";
 "settings_display_title" = "Configurações do app";
 "settings_help_feedback_title" = "Ajuda e Feedback";
@@ -144,16 +131,12 @@
 "onboarding_skip" = "Pular";
 "onboarding_next" = "Próximo";
 "onboarding_done" = "Começar sem conta";
-"onboarding_slide0_title" = "Sua manhã em equipe.";
+"onboarding_slide0_title" = "Começar o dia juntos e relaxados.";
 "onboarding_slide0_body" = "Sem brigas, sem caos. O FamWake garante que todo mundo comece o dia relaxado – de forma totalmente automática.";
-"onboarding_slide1_title" = "Nunca mais espere.";
-"onboarding_slide1_body" = "O FamWake encontra a hora perfeita para cada um acordar – com base no tempo de banheiro, café da manhã e hora de sair. Fim da fila na pia.";
-"onboarding_slide2_title" = "Todo dia é diferente.";
-"onboarding_slide2_body" = "Segunda no escritório, quarta em home office? Defina seus horários para cada dia, e o app cuida do resto.";
+"onboarding_slide1_title" = "Planos inteligentes para cada dia";
+"onboarding_slide1_body" = "Seja escritório, escola ou home office – o FamWake calcula o horário perfeito de acordar e do banho para toda a família. Sem congestionamentos de manhã.";
 "onboarding_slide3_title" = "Conectados em segundos.";
 "onboarding_slide3_body" = "Compartilhe seu código de convite e sua família entra na hora. Se alguém mudar de horário, o cronograma de todos é atualizado na hora.";
-"onboarding_slide4_title" = "Sempre funciona.";
-"onboarding_slide4_body" = "Aproveite manhãs tranquilas todos os dias. Mesmo se a internet cair à noite, o alarme ainda vai tocar na hora certa.";
 "settings_feedback_button" = "Dar feedback / Relatar um erro";
 "feedback_title" = "Feedback";
 "feedback_intro" = "Ajude a gente a melhorar o app! O que você tem em mente?";
@@ -171,7 +154,6 @@
 "feedback_auto_device" = "Celular: %@";
 "feedback_cancel" = "Cancelar";
 "feedback_send" = "Enviar mensagem";
-"feedback_success" = "Obrigado! Recebemos sua mensagem.";
 "feedback_success_title" = "Mensagem Enviada";
 "feedback_success_message" = "Obrigado pela sua ajuda! Seu feedback ajuda a melhorar o FamWake para todos.";
 "settings_terms_of_use" = "Termos de Uso";
@@ -210,9 +192,7 @@
 "error_not_logged_in" = "Você não está logado.";
 "error_system" = "Algo deu errado.";
 "error_invalid_credentials" = "Email ou senha incorretos. Por favor, verifique o que você digitou.";
-"error_login_failed" = "Não foi possível fazer login";
 "error_login_failed_unknown" = "Erro desconhecido ao entrar";
-"error_registration_failed" = "Não foi possível cadastrar";
 "error_registration_failed_unknown" = "Não foi possível criar sua conta";
 "error_unknown" = "Algo deu errado. Por favor, tente de novo.";
 "error_google_sign_in_failed_unknown" = "O login com o Google não funcionou";
@@ -237,9 +217,9 @@
 "schedule_message_no_members" = "Ninguém está ativo. Todos os alarmes estão pausados.";
 "schedule_message_no_valid" = "Os horários se sobrepõem demais para criar um bom cronograma.";
 "schedule_message_no_valid_desc" = "Dica: Tente aumentar a janela para acordar, reduzir o tempo no banheiro ou pausar o alarme de alguém.";
-"schedule_message_time_adjusted" = "Os horários foram ajustados em %1$d minutos para que tudo se encaixe.";
-"schedule_message_breakfast_reduced" = "O tempo de café da manhã foi reduzido em %1$d minutos para que tudo se encaixe.";
-"schedule_message_breakfast_and_time_adjusted" = "Café −%1$d min e horários deslocados em %2$d min.";
+"schedule_message_time_adjusted" = "Os horários foram ajustados em %d minutos para que tudo se encaixe.";
+"schedule_message_breakfast_reduced" = "O tempo de café da manhã foi reduzido em %d minutos para que tudo se encaixe.";
+"schedule_message_breakfast_and_time_adjusted" = "Café −%d min e horários deslocados em %d min.";
 "schedule_message_member_conflict" = "Problema para %@: Os horários se sobrepõem demais.";
 "schedule_message_member_conflict_desc" = "Tente mudar a ordem ou ajustar os horários.";
 "main_fallback_alarm_active" = "⚠️ Aviso: O cronograma não se encaixa agora (%@). Por favor, ajuste seus horários!";
@@ -267,7 +247,6 @@
 "settings_support_desc" = "Gosta do app? Ficaríamos felizes com o seu apoio!";
 "settings_support_donate" = "Doar";
 "settings_donate_success" = "Muito obrigado pelo seu apoio! ❤️";
-"settings_donate_error" = "Ops, algo deu errado.";
 "settings_donate_loading" = "Carregando opções…";
 "settings_donate_no_offers" = "Nenhuma opção de apoio disponível no momento.";
 "settings_donate_purchase_loading" = "Processando…";
@@ -297,19 +276,6 @@
 "error_feedback_rate_limit_server" = "Muitas mensagens enviadas. Tente novamente mais tarde.";
 "error_feedback_empty_message" = "Sua mensagem está vazia.";
 "error_network" = "Problema de rede. Verifique sua conexão com a internet.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Toque aqui para escolher seu som de alarme pessoal – escolha sua música favorita em vez do toque normal.";
 "settings_language_dialects" = "Dialetos";
 "onboarding_mock_name1" = "Pai";
@@ -328,11 +294,18 @@
 "notif_permission_title" = "Notificações necessárias";
 "notif_permission_desc" = "Se você desativar as notificações, seu alarme pode não funcionar direito. Por favor, deixe-as ativadas.";
 "notif_permission_button" = "Ativar notificações";
-"notif_manage_title" = "Configurações de notificação";
-"notif_manage_desc" = "Mude os sons e a vibração nas configurações do seu celular.";
 "onboarding_login_create" = "Entrar / Cadastrar";
 "onboarding_slide5_title" = "Vamos começar!";
 "onboarding_slide5_body" = "Você pode testar o app na hora sem uma conta. Você só vai precisar de uma quando quiser convidar sua família.";
 "settings_steal_title" = "Usar este perfil?";
 "settings_steal_text" = "O perfil %@ já está em uso. Quer usar este perfil para você?";
 "settings_steal_confirm" = "Sim, usar";
+"schedule_auto_fix" = "✨ Ajustar horários automaticamente";
+"onboarding_enable_tooltips" = "Mostrar dicas úteis no primeiro uso";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Conta";

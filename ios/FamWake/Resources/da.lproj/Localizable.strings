@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Familievækkeur";
+
+"app_name_short" = "Familievækkeur";
 "email_label" = "E-mail";
 "password_label" = "Adgangskode";
 "register_button" = "Opret konto";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Lyd: %@";
 "settings_alarm_picker_title" = "Vælg din alarmlyd";
 "settings_account_title" = "Familie & Konto";
-"settings_join_family_locked" = "Log ind for at deltage i en familie.";
 "settings_share_code_locked" = "Log ind for at dele din invitationskode.";
 "settings_anonymous_login_button" = "Log ind / Tilmeld dig";
 "settings_join_code" = "Invitationskode for %@:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "Ja, slet for alle";
 "settings_logout" = "Log ud";
 "settings_delete_account" = "Slet konto";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alle rettigheder forbeholdes.";
 "empty_members_title" = "Endnu ingen medlemmer";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "Ingen alarmer er slået til lige nu. Tid til at sove længe!";
 "settings_language_title" = "Sprog";
 "settings_language_system" = "Systemstandard";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Udseende";
 "settings_display_title" = "App-indstillinger";
 "settings_help_feedback_title" = "Hjælp & Feedback";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "Log ind / Tilmeld dig";
 "onboarding_slide5_title" = "Lad os komme i gang!";
 "onboarding_slide5_body" = "Du kan prøve appen med det samme uden en konto. Du behøver kun en, når du vil invitere din familie.";
-"onboarding_slide0_title" = "Din morgen som et team.";
+"onboarding_slide0_title" = "En rolig start på dagen sammen.";
 "onboarding_slide0_body" = "Ingen diskussioner, intet kaos. FamWake sørger for, at alle starter dagen afslappet – helt af sig selv.";
-"onboarding_slide1_title" = "Slut med at vente.";
-"onboarding_slide1_body" = "FamWake finder den perfekte opvågningstid for alle i familien – baseret på badeværelsestid, morgenmad og hvornår I skal ud ad døren. Slut med trængsel ved håndvasken.";
-"onboarding_slide2_title" = "Hver dag er anderledes.";
-"onboarding_slide2_body" = "Kontor om mandagen, hjemmearbejde om onsdagen? Indstil bare jeres tider for hver dag, og appen klarer resten.";
+"onboarding_slide1_title" = "Smarte planer til hver dag";
+"onboarding_slide1_body" = "Uanset om det er kontor, skole eller hjemmearbejdsplads – FamWake beregner den perfekte vække- og badetid for hele familien. Uden kø om morgenen.";
 "onboarding_slide3_title" = "Forbundet på sekunder.";
 "onboarding_slide3_body" = "Del din invitationskode, og din familie er med. Hvis nogen ændrer deres tider, opdateres alles tidsplan med det samme.";
-"onboarding_slide4_title" = "Virker altid.";
-"onboarding_slide4_body" = "Nyd en afslappet morgen hver dag. Selv hvis internettet ryger i løbet af natten, ringer alarmen stadig til tiden.";
 "onboarding_mock_name1" = "Far";
 "onboarding_mock_name2" = "Mor";
 "onboarding_mock_family_name" = "Nielsen";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "Telefon: %@";
 "feedback_cancel" = "Annuller";
 "feedback_send" = "Send besked";
-"feedback_success" = "Tak! Vi har modtaget din besked.";
 "feedback_success_title" = "Besked sendt";
 "feedback_success_message" = "Tak for din hjælp! Din feedback hjælper os med at forbedre FamWake for alle.";
 "settings_terms_of_use" = "Brugsbetingelser";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "Du er ikke logget ind.";
 "error_system" = "Noget gik galt.";
 "error_invalid_credentials" = "Forkert e-mail eller adgangskode. Tjek venligst dine indtastninger.";
-"error_login_failed" = "Login virkede ikke";
 "error_login_failed_unknown" = "Ukendt loginfejl";
-"error_registration_failed" = "Tilmelding virkede ikke";
 "error_registration_failed_unknown" = "Kunne ikke oprette din konto";
 "error_unknown" = "Noget gik galt. Prøv venligst igen.";
 "error_google_sign_in_failed_unknown" = "Google-login virkede ikke";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "Ingen er aktive. Alle alarmer er sat på pause.";
 "schedule_message_no_valid" = "Tiderne overlapper for meget til at lave en god tidsplan.";
 "schedule_message_no_valid_desc" = "Tip: Prøv et bredere opvågningsvindue, kortere badeværelsestid, eller sæt nogens alarm på pause.";
-"schedule_message_time_adjusted" = "Tiderne blev forskudt med %1$d minutter for at få det hele til at passe.";
-"schedule_message_breakfast_reduced" = "Morgenmadstiden blev forkortet med %1$d minutter for at få det hele til at passe.";
-"schedule_message_breakfast_and_time_adjusted" = "Morgenmad −%1$d min & tider forskudt med %2$d min.";
+"schedule_message_time_adjusted" = "Tiderne blev forskudt med %d minutter for at få det hele til at passe.";
+"schedule_message_breakfast_reduced" = "Morgenmadstiden blev forkortet med %d minutter for at få det hele til at passe.";
+"schedule_message_breakfast_and_time_adjusted" = "Morgenmad −%d min & tider forskudt med %d min.";
 "schedule_message_member_conflict" = "Konflikt for %@: Tiderne overlapper for meget.";
 "schedule_message_member_conflict_desc" = "Prøv at ændre rækkefølgen eller tiderne.";
 "main_fallback_alarm_active" = "⚠️ Advarsel: Tidsplanen passer ikke lige nu (%@). Juster venligst jeres tider!";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "Kan du lide appen? Vi vil elske din støtte!";
 "settings_support_donate" = "Donér";
 "settings_donate_success" = "Tusind tak for din støtte! ❤️";
-"settings_donate_error" = "Ups, noget gik galt.";
 "settings_donate_loading" = "Indlæser muligheder…";
 "settings_donate_no_offers" = "Ingen muligheder tilgængelige lige nu.";
 "settings_donate_purchase_loading" = "Behandler…";
@@ -303,19 +282,6 @@
 "error_feedback_rate_limit_server" = "For mange sendte beskeder. Prøv igen senere.";
 "error_feedback_empty_message" = "Din besked er tom.";
 "error_network" = "Netværksproblem. Tjek venligst din internetforbindelse.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Tryk her for at vælge din personlige opvågningslyd – vælg din yndlingsmusik i stedet for standard bippet.";
 "settings_language_dialects" = "Dialekter";
 "notif_channel_schedule_change_name" = "Opdateringer af tidsplan";
@@ -331,8 +297,15 @@
 "notif_permission_title" = "Notifikationer påkrævet";
 "notif_permission_desc" = "Hvis du slår notifikationer fra, virker din alarm muligvis ikke ordentligt. Lad dem venligst være slået til.";
 "notif_permission_button" = "Slå notifikationer til";
-"notif_manage_title" = "Notifikationsindstillinger";
-"notif_manage_desc" = "Ændr lyde og vibrationer i din telefons indstillinger.";
 "settings_steal_title" = "Brug denne profil?";
 "settings_steal_text" = "%@ er allerede valgt. Vil du bruge denne profil?";
 "settings_steal_confirm" = "Ja, brug den";
+"schedule_auto_fix" = "✨ Tilpas tider automatisk";
+"onboarding_enable_tooltips" = "Vis nyttige tips ved første brug";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Konto";

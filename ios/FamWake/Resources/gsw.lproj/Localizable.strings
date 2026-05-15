@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Familiewecker";
+
+"app_name_short" = "Familiewecker";
 "email_label" = "E-Mail";
 "password_label" = "Passwort";
 "register_button" = "Registriere";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Ton: %@";
 "settings_alarm_picker_title" = "Wähl diin Weckton";
 "settings_account_title" = "Familie & Konto";
-"settings_join_family_locked" = "Bitte logg dich ii, zum ere Familie biiträte.";
 "settings_share_code_locked" = "Bitte logg dich ii, zum diin Code teile.";
 "settings_anonymous_login_button" = "Aamelde / Registriere";
 "settings_join_code" = "Iiladigscode für %@:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "Ja, für alli lösche";
 "settings_logout" = "Abmälde";
 "settings_delete_account" = "Konto lösche";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alli Rächt vorbhalte.";
 "empty_members_title" = "Na kä Mitgliider";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "Aktuell sind kä Wecker iigschalte. Ziit zum Uusschlaafe!";
 "settings_language_title" = "Spraach";
 "settings_language_system" = "System-Standard";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Uusgseh";
 "settings_display_title" = "App-Iistellige";
 "settings_help_feedback_title" = "Hilf & Feedback";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "Aamelde / Registriere";
 "onboarding_slide5_title" = "Los gaht's!";
 "onboarding_slide5_body" = "Du chasch d'App diräkt ohni Konto uusprobiere. Eises bruuchsch erst, wänn du diini Familie iilade wottsch.";
-"onboarding_slide0_title" = "Euie Morge als Team.";
+"onboarding_slide0_title" = "Zäme entspannt in Tag.";
 "onboarding_slide0_body" = "Kä Diskussione, kän Stress. FamWake sorgt defür, dass alli entspannt in Tag starte – ganz vo elei.";
 "onboarding_slide1_title" = "Nie meh warte.";
 "onboarding_slide1_body" = "FamWake findt für jede i de Familie di perfäkti Weckziit – passend zu Badziit, Zmorge und Abfahrt. Käs Gedrängel meh am Lavabo.";
-"onboarding_slide2_title" = "Jede Tag isch anders.";
-"onboarding_slide2_body" = "Määntig im Büro, Mittwuch Home-Office? Stell eifach diini Ziite für di jewiilige Täg ii, d'App macht de Räscht.";
 "onboarding_slide3_title" = "In Sekunde verbunde.";
 "onboarding_slide3_body" = "Teil diin Code und diini Familie isch debii. Ändert öpper sini Ziite, passt sich de Plan für alli sofort aa.";
-"onboarding_slide4_title" = "Immer zueverlässig.";
-"onboarding_slide4_body" = "Gnüss jede Tag en entspannte Morge. Sälbscht wänn z'Nacht s'Internet uusfallt, lüütet de Wecker pünktlich.";
 "onboarding_mock_name1" = "Papi";
 "onboarding_mock_name2" = "Mami";
 "onboarding_mock_family_name" = "Meier";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "Grät: %@";
 "feedback_cancel" = "Abbräche";
 "feedback_send" = "Nachricht schicke";
-"feedback_success" = "Danke! Mir händ diini Nachricht übercho.";
 "feedback_success_title" = "Nachricht gschickt";
 "feedback_success_message" = "Danke für diini Hilf! Diis Feedback hilft ois, FamWake für alli z'verbessere.";
 "settings_terms_of_use" = "Nutzigsbedingige";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "Du bisch nöd iigloggt.";
 "error_system" = "Öppis isch schiefggange.";
 "error_invalid_credentials" = "Falschi E-Mail oder Passwort. Bitte prüef diini Iigabe.";
-"error_login_failed" = "Login hät nöd funktioniert";
 "error_login_failed_unknown" = "Umbekannte Login-Fehler";
-"error_registration_failed" = "Registrierig hät nöd funktioniert";
 "error_registration_failed_unknown" = "Diis Konto hät nöd chönne erstellt wärde";
 "error_unknown" = "Öppis isch schiefggange. Bitte probiers namal.";
 "error_google_sign_in_failed_unknown" = "Google-Login hät nöd funktioniert";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "Niemert isch aktiv. Alli Wecker sind pausiert.";
 "schedule_message_no_valid" = "D'Ziite überschniided sich z'starch für en guete Plan.";
 "schedule_message_no_valid_desc" = "Tipp: Vergrösser diis Weck-Fänster, verchürz d'Bad-Ziit oder pausier de Wecker vo öpperem.";
-"schedule_message_time_adjusted" = "Ziite sind um %1$d Minute verschobe worde, demit alles passt.";
-"schedule_message_breakfast_reduced" = "D'Zmorgeziit isch um %1$d Minute gchürzt worde, demit alles passt.";
-"schedule_message_breakfast_and_time_adjusted" = "Zmorge −%1$d Min & Ziite um %2$d Min verschobe.";
+"schedule_message_time_adjusted" = "Ziite sind um %d Minute verschobe worde, demit alles passt.";
+"schedule_message_breakfast_reduced" = "D'Zmorgeziit isch um %d Minute gchürzt worde, demit alles passt.";
+"schedule_message_breakfast_and_time_adjusted" = "Zmorge −%d Min & Ziite um %d Min verschobe.";
 "schedule_message_member_conflict" = "Konflikt für %@: Ziite überschniided sich z'starch.";
 "schedule_message_member_conflict_desc" = "Versuech, d'Reihefolg oder d'Ziite z'ändere.";
 "main_fallback_alarm_active" = "⚠️ Achtung: De Plan passt grad nöd (%@). Bitte pass diini Ziite aa!";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "Gfallt dir d'App? Mir freued ois riesig über diini Unterstützig!";
 "settings_support_donate" = "Spände";
 "settings_donate_success" = "Vile Dank für diini Unterstützig! ❤️";
-"settings_donate_error" = "Hoppla, da hät öppis nöd funktioniert.";
 "settings_donate_loading" = "Lade Optione…";
 "settings_donate_no_offers" = "Zurziit sind kä Optione verfüegbar.";
 "settings_donate_purchase_loading" = "Wird verarbeitet…";
@@ -303,14 +282,6 @@
 "error_feedback_rate_limit_server" = "Z'vill Nachrichte gschickt. Bitte probiers spöter namal.";
 "error_feedback_empty_message" = "Diini Nachricht isch leer.";
 "error_network" = "Netzwärkproblem. Bitte prüef diini Internetverbindig.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
 "tooltip_alarm_sound" = "Tipp da druff für diin persönliche Weckton – wähl diini Lieblingsmusig statt em normale Piepse.";
 "settings_language_dialects" = "Dialäkt";
 "notif_channel_schedule_change_name" = "Plan-Updates";
@@ -326,8 +297,15 @@
 "notif_permission_title" = "Benachrichtigunge nötig";
 "notif_permission_desc" = "Wänn du Benachrichtigunge uusschaltisch, funktioniert diin Wecker villicht nöd richtig. Bitte laa si aa.";
 "notif_permission_button" = "Benachrichtigunge aamache";
-"notif_manage_title" = "Benachrichtigungs-Iistellige";
-"notif_manage_desc" = "Änder Tön und Vibration i de Iistellige vo diim Handy.";
 "settings_steal_title" = "Profil nutze?";
 "settings_steal_text" = "%@ isch scho vergäh. Wottsch es für dich übernäh?";
 "settings_steal_confirm" = "Ja, übernäh";
+"schedule_auto_fix" = "✨ Ziite automatisch aapasse";
+"onboarding_enable_tooltips" = "Zeig hilfriichi Tipps bi de erschte Nutzig";
+
+
+/* iOS Specific (Fallback to German) */
+"member_pause" = "Pausieren";
+"member_resume" = "Aktivieren";
+"member_not_active_today" = "Heute nicht aktiv";
+"settings_account_section" = "Konto";

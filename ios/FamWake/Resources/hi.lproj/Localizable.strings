@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake फ़ैमिली अलार्म";
+
+"app_name_short" = "फ़ैमिली अलार्म";
 "email_label" = "ईमेल";
 "password_label" = "पासवर्ड";
 "register_button" = "साइन अप करें";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "आवाज़: %@";
 "settings_alarm_picker_title" = "अपने अलार्म की आवाज़ चुनें";
 "settings_account_title" = "परिवार और अकाउंट";
-"settings_join_family_locked" = "परिवार से जुड़ने के लिए कृपया लॉग इन करें।";
 "settings_share_code_locked" = "इनवाइट कोड शेयर करने के लिए कृपया लॉग इन करें।";
 "settings_anonymous_login_button" = "लॉग इन / साइन अप करें";
 "settings_join_code" = "%@ के लिए इनवाइट कोड:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "हाँ, सभी के लिए हटा दें";
 "settings_logout" = "लॉग आउट करें";
 "settings_delete_account" = "अकाउंट हटाएँ";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 डैनियल नॉथऑफ़";
 "settings_footer_rights" = "सर्वाधिकार सुरक्षित।";
 "empty_members_title" = "अभी तक कोई नहीं है";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "अभी कोई भी अलार्म चालू नहीं है। आराम से सोने का समय!";
 "settings_language_title" = "भाषा";
 "settings_language_system" = "सिस्टम डिफ़ॉल्ट";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "लुक";
 "settings_display_title" = "ऐप की सेटिंग्स";
 "settings_help_feedback_title" = "मदद और सुझाव";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "लॉग इन / साइन अप करें";
 "onboarding_slide5_title" = "चलिए शुरू करते हैं!";
 "onboarding_slide5_body" = "आप बिना अकाउंट बनाए भी तुरंत ऐप आज़मा सकते हैं। आपको अकाउंट की ज़रूरत सिर्फ़ तब पड़ेगी जब आप अपने परिवार को जोड़ना चाहेंगे।";
-"onboarding_slide0_title" = "आपकी सुबह, एक टीम की तरह।";
+"onboarding_slide0_title" = "एक साथ सुकून से दिन की शुरुआत।";
 "onboarding_slide0_body" = "कोई बहस नहीं, कोई अफ़रातफ़री नहीं। FamWake यह सुनिश्चित करता है कि सबकी सुबह आराम से शुरू हो – वह भी अपने आप।";
-"onboarding_slide1_title" = "अब इंतज़ार ख़त्म।";
-"onboarding_slide1_body" = "FamWake परिवार के हर सदस्य के लिए उठने का सही समय ढूँढता है – बाथरूम, नाश्ते और घर से निकलने के समय के आधार पर। अब सिंक पर कोई भीड़ नहीं।";
-"onboarding_slide2_title" = "हर दिन एक जैसा नहीं होता।";
-"onboarding_slide2_body" = "सोमवार को ऑफ़िस, बुधवार को घर से काम? बस हर दिन के हिसाब से अपना समय सेट करें, और बाकी काम ऐप संभाल लेगा।";
+"onboarding_slide1_title" = "हर दिन के लिए स्मार्ट प्लान";
+"onboarding_slide1_body" = "ऑफिस, स्कूल या वर्क फ्रॉम होम – FamWake पूरे परिवार के लिए उठने और बाथरूम के इस्तेमाल का सही समय कैलकुलेट करता है। सुबह की भीड़-भाड़ के बिना।";
 "onboarding_slide3_title" = "कुछ ही सेकंड में जुड़ें।";
 "onboarding_slide3_body" = "अपना इनवाइट कोड शेयर करें और आपका परिवार जुड़ जाएगा। अगर कोई अपना समय बदलता है, तो सभी का रूटीन अपने आप अपडेट हो जाएगा।";
-"onboarding_slide4_title" = "हमेशा काम करता है।";
-"onboarding_slide4_body" = "हर दिन एक शांत और आरामदायक सुबह का मज़ा लें। अगर रात में आपका इंटरनेट बंद भी हो जाए, तो भी अलार्म सही समय पर बजेगा।";
 "onboarding_mock_name1" = "पापा";
 "onboarding_mock_name2" = "मम्मी";
 "onboarding_mock_family_name" = "शर्मा";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "फ़ोन: %@";
 "feedback_cancel" = "रद्द करें";
 "feedback_send" = "संदेश भेजें";
-"feedback_success" = "धन्यवाद! हमें आपका संदेश मिल गया है।";
 "feedback_success_title" = "संदेश भेज दिया गया";
 "feedback_success_message" = "आपकी मदद के लिए धन्यवाद! आपके सुझावों से हमें FamWake को सभी के लिए बेहतर बनाने में मदद मिलती है।";
 "settings_terms_of_use" = "इस्तेमाल की शर्तें";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "आप लॉग इन नहीं हैं。";
 "error_system" = "कुछ गड़बड़ हो गई।";
 "error_invalid_credentials" = "गलत ईमेल या पासवर्ड। कृपया चेक करें।";
-"error_login_failed" = "लॉग इन नहीं हो पाया";
 "error_login_failed_unknown" = "लॉग इन में कोई अनजान गड़बड़ी हुई";
-"error_registration_failed" = "साइन अप नहीं हो पाया";
 "error_registration_failed_unknown" = "आपका अकाउंट नहीं बन सका";
 "error_unknown" = "कुछ गड़बड़ हो गई। कृपया फिर से कोशिश करें।";
 "error_google_sign_in_failed_unknown" = "Google साइन-इन काम नहीं कर रहा";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "कोई भी एक्टिव नहीं है। सभी अलार्म रोक दिए गए हैं।";
 "schedule_message_no_valid" = "एक अच्छा रूटीन बनाने के लिए समय बहुत ज़्यादा क्लैश (टकरा) रहे हैं।";
 "schedule_message_no_valid_desc" = "सुझाव: उठने का समय थोड़ा बढ़ाएँ, बाथरूम का समय कम करें, या किसी का अलार्म कुछ समय के लिए रोक दें।";
-"schedule_message_time_adjusted" = "सब कुछ सेट करने के लिए समय को %1$d मिनट आगे-पीछे किया गया है।";
-"schedule_message_breakfast_reduced" = "सब कुछ सेट करने के लिए नाश्ते का समय %1$d मिनट कम कर दिया गया है।";
-"schedule_message_breakfast_and_time_adjusted" = "नाश्ता −%1$d मिनट और समय में %2$d मिनट का बदलाव।";
+"schedule_message_time_adjusted" = "सब कुछ सेट करने के लिए समय को %d मिनट आगे-पीछे किया गया है।";
+"schedule_message_breakfast_reduced" = "सब कुछ सेट करने के लिए नाश्ते का समय %d मिनट कम कर दिया गया है।";
+"schedule_message_breakfast_and_time_adjusted" = "नाश्ता −%d मिनट और समय में %d मिनट का बदलाव।";
 "schedule_message_member_conflict" = "%@ के लिए मुश्किल: समय बहुत ज़्यादा क्लैश हो रहा है।";
 "schedule_message_member_conflict_desc" = "क्रम बदलने या समय को थोड़ा एडजस्ट करने की कोशिश करें।";
 "main_fallback_alarm_active" = "⚠️ चेतावनी: अभी के हिसाब से रूटीन फ़िट नहीं हो रहा है (%@)। कृपया अपना समय थोड़ा एडजस्ट करें!";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "क्या आपको ऐप पसंद आया? हमें आपके सपोर्ट से बहुत ख़ुशी होगी!";
 "settings_support_donate" = "डोनेट करें";
 "settings_donate_success" = "आपके सपोर्ट के लिए बहुत-बहुत धन्यवाद! ❤️";
-"settings_donate_error" = "उफ़, कुछ गड़बड़ हो गई।";
 "settings_donate_loading" = "ऑप्शन लोड हो रहे हैं…";
 "settings_donate_no_offers" = "अभी कोई ऑप्शन उपलब्ध नहीं है।";
 "settings_donate_purchase_loading" = "प्रोसेस हो रहा है…";
@@ -303,19 +282,6 @@
 "error_feedback_rate_limit_server" = "बहुत सारे संदेश भेज दिए गए हैं। कृपया थोड़ी देर बाद कोशिश करें।";
 "error_feedback_empty_message" = "आपका संदेश खाली है।";
 "error_network" = "नेटवर्क की समस्या। कृपया अपना इंटरनेट कनेक्शन चेक करें।";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "अपने उठने की आवाज़ चुनने के लिए यहाँ टैप करें – साधारण बीप की जगह अपना पसंदीदा म्यूज़िक लगाएँ。";
 "settings_language_dialects" = "बोलियाँ";
 "notif_channel_schedule_change_name" = "रूटीन के अपडेट";
@@ -331,8 +297,15 @@
 "notif_permission_title" = "नोटिफ़िकेशन ज़रूरी हैं";
 "notif_permission_desc" = "अगर आप नोटिफ़िकेशन बंद कर देते हैं, तो हो सकता है आपका अलार्म सही से काम न करे। कृपया इन्हें चालू रहने दें।";
 "notif_permission_button" = "नोटिफ़िकेशन चालू करें";
-"notif_manage_title" = "नोटिफ़िकेशन की सेटिंग्स";
-"notif_manage_desc" = "अपने फ़ोन की सेटिंग्स में आवाज़ और वाइब्रेशन बदलें।";
 "settings_steal_title" = "यह प्रोफ़ाइल इस्तेमाल करें?";
 "settings_steal_text" = "%@ पहले ही किसी ने चुन लिया है। क्या आप इसे अपने लिए इस्तेमाल करना चाहते हैं?";
 "settings_steal_confirm" = "हाँ, इस्तेमाल करें";
+"schedule_auto_fix" = "✨ समय अपने आप सेट करें";
+"onboarding_enable_tooltips" = "पहली बार उपयोग पर उपयोगी टिप्स दिखाएं";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "अकाउंट";

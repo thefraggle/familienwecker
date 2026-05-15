@@ -113,16 +113,17 @@ struct FamilySchedule {
     var breakfastTime: DateComponents?
     var isValid: Bool
     var scheduleMessage: ScheduleMessage
+    var targetDate: Date?  // Datum für das der Schedule berechnet wurde (nil = heute)
 }
 
 // MARK: - ScheduleMessage
-enum ScheduleMessage {
+enum ScheduleMessage: Equatable {
     case optimal
     case noActiveSchedule
     case memberConflict(String)
-    case timeAdjusted
-    case breakfastReduced
-    case breakfastAndTimeAdjusted
+    case timeAdjusted(Int)
+    case breakfastReduced(Int)
+    case breakfastAndTimeAdjusted(Int, Int)
 }
 
 // MARK: - DateComponents Helpers

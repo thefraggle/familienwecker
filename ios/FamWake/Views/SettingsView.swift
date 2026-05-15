@@ -18,6 +18,7 @@ struct SettingsView: View {
     @State private var showDonationSheet = false
     @State private var memberToSteal: FamilyMember? = nil
     @State private var showStealAlert = false
+    @State private var showLoginSheet = false
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
     private var isDark: Bool { colorScheme == .dark }
@@ -26,6 +27,25 @@ struct SettingsView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
+                    
+                    // Error Card
+                    if let error = familyViewModel.errorMessage {
+                        HStack(alignment: .top) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(theme.error)
+                            Text(error)
+                                .font(.subheadline)
+                                .foregroundStyle(theme.error)
+                            Spacer()
+                            Button(action: { familyViewModel.errorMessage = nil }) {
+                                Image(systemName: "xmark")
+                                    .foregroundStyle(theme.error)
+                            }
+                        }
+                        .padding()
+                        .background(theme.errorContainer)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                    }
 
                     // MARK: 1. Profil & Weckton (Combined Card)
                     profileAndAlarmCard
@@ -42,7 +62,15 @@ struct SettingsView: View {
                     // MARK: 5. Hilfe & Feedback
                     helpCard
 
-                    // MARK: 6. Footer
+                    // MARK: 6. Konto (Logout, Account löschen) – ganz unten wie Android
+                    accountCard
+
+                    // MARK: 7. Admin-Testmenü (nur für Admins)
+                    if familyViewModel.isAdmin {
+                        adminCard
+                    }
+
+                    // MARK: 8. Footer
                     footerSection
                 }
                 .padding(16)
@@ -102,7 +130,15 @@ struct SettingsView: View {
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: { member in
-                Text(L.s("settings_steal_text").replacingOccurrences(of: "%s", with: member.name))
+                Text(String(format: L.s("settings_steal_text"), member.name))
+            }
+            .onChange(of: authViewModel.isAnonymous) { _, isAnon in
+                // Nach erfolgreichem Account-Linking: Login-Sheet schließen, Daten neu laden
+                if !isAnon {
+                    showLoginSheet = false
+                    familyViewModel.reloadForNewUser()
+                    dismiss()
+                }
             }
         }
     }
@@ -173,9 +209,9 @@ struct SettingsView: View {
         settingsCard {
             settingsSectionHeader(icon: "person.3.fill", title: L.settingsAccountTitle)
 
-            // Anonymous → Link Account
+            // Anonymous → Link Account (zeigt Login-Sheet, kein direkter Google-Call wegen VC-Crash in Sheet)
             if authViewModel.isAnonymous {
-                Button(action: { authViewModel.signInWithGoogle() }) {
+                Button(action: { showLoginSheet = true }) {
                     HStack {
                         Image(systemName: "person.badge.plus")
                         Text(L.s("settings_anonymous_login_button"))
@@ -187,6 +223,9 @@ struct SettingsView: View {
                 .tint(theme.primary)
                 .clipShape(Capsule())
                 .padding(.bottom, 12)
+                .sheet(isPresented: $showLoginSheet) {
+                    LoginView()
+                }
             }
 
             // Join Code
@@ -253,31 +292,6 @@ struct SettingsView: View {
             .buttonStyle(.bordered)
             .tint(familyViewModel.isAdmin ? theme.error : theme.outline)
             .clipShape(Capsule())
-
-            Spacer().frame(height: 8)
-
-            // Logout (non-anonymous only)
-            if !authViewModel.isAnonymous {
-                Button(action: { authViewModel.logout(); dismiss() }) {
-                    Text(L.settingsLogout).frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
-                .tint(theme.error)
-                .clipShape(Capsule())
-            }
-
-            // Delete Account Info
-            if let deleteUrl = URL(string: L.settingsDeleteAccountUrl) {
-                Link(destination: deleteUrl) {
-                    HStack {
-                        Text(L.settingsDeleteAccount)
-                        Spacer()
-                        Image(systemName: "info.circle").foregroundStyle(theme.outline)
-                    }
-                }
-                .foregroundStyle(theme.onSurface)
-                .padding(.top, 8)
-            }
         }
     }
 
@@ -421,12 +435,95 @@ struct SettingsView: View {
         }
     }
 
-    // MARK: - 6. Footer
+    // MARK: - 6. Konto (ganz unten wie Android)
+    @ViewBuilder
+    private var accountCard: some View {
+        settingsCard {
+            settingsSectionHeader(icon: "person.circle", title: L.s("settings_account_section"))
+
+            // Logout (non-anonymous only)
+            if !authViewModel.isAnonymous {
+                Button(action: {
+                    familyViewModel.reloadForNewUser()
+                    authViewModel.logout()
+                    dismiss()
+                }) {
+                    Text(L.settingsLogout).frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .tint(theme.error)
+                .clipShape(Capsule())
+            }
+
+            // Delete Account Info
+            if let deleteUrl = URL(string: L.settingsDeleteAccountUrl) {
+                Link(destination: deleteUrl) {
+                    HStack {
+                        Text(L.settingsDeleteAccount)
+                        Spacer()
+                        Image(systemName: "info.circle").foregroundStyle(theme.outline)
+                    }
+                }
+                .foregroundStyle(theme.onSurface)
+                .padding(.top, 8)
+            }
+        }
+    }
+
+    // MARK: - 7. Admin-Testmenü
+    @ViewBuilder
+    private var adminCard: some View {
+        settingsCard {
+            settingsSectionHeader(icon: "wrench.and.screwdriver.fill", title: "Admin")
+
+            // Test-Alarm: alle Member löschen, neuen anlegen mit Weckzeit in 2 Min
+            Button(action: { setupTestAlarm() }) {
+                HStack {
+                    Image(systemName: "alarm.fill")
+                    Text("⏰ Test-Wecker (2 Min)")
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(theme.tertiary)
+            .clipShape(Capsule())
+        }
+    }
+
+    private func setupTestAlarm() {
+        // Alle vorhandenen Member löschen
+        for member in familyViewModel.members {
+            familyViewModel.deleteMember(member.id)
+        }
+
+        // Kurz warten bis Löschungen durch sind, dann neuen Member anlegen
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            let cal = Calendar.current
+            let inTwoMinutes = cal.date(byAdding: .minute, value: 2, to: Date()) ?? Date()
+            let comps = cal.dateComponents([.hour, .minute], from: inTwoMinutes)
+            let wakeTime = DateComponents.from(hour: comps.hour ?? 0, minute: comps.minute ?? 0)
+
+            let testMember = FamilyMember(
+                id: UUID().uuidString,
+                name: "Test",
+                earliestWakeUp: wakeTime,
+                latestWakeUp: wakeTime,
+                bathroomDurationMinutes: 5,
+                wantsBreakfast: false
+            )
+
+            familyViewModel.addOrUpdateMember(testMember)
+            familyViewModel.setAlarmEnabled(true)
+        }
+    }
+
+    // MARK: - 8. Footer
     @ViewBuilder
     private var footerSection: some View {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
         VStack(spacing: 6) {
-            Text(String(format: L.s("settings_footer_version"), version))
+            Text("\(L.appNameShort) v\(version)")
             Text(L.s("settings_footer_copyright"))
             Text(L.s("settings_footer_rights"))
 
@@ -455,6 +552,33 @@ struct SettingsView: View {
         NavigationStack {
             let currentUid = authViewModel.currentUserId
             List {
+                // Unclaim-Option: "Kein Profil" (Android bietet das ebenfalls an)
+                if familyViewModel.myMemberId != nil {
+                    Button(action: {
+                        familyViewModel.myMemberId = nil
+                        UserDefaults.standard.removeObject(forKey: "my_member_id")
+                        familyViewModel.isAlarmEnabled = false
+                        UserDefaults.standard.set(false, forKey: "alarm_enabled")
+                        familyViewModel.recalculateSchedule()
+                        showProfilePicker = false
+                    }) {
+                        HStack {
+                            ZStack {
+                                Circle()
+                                    .fill(theme.surfaceVariant)
+                                    .frame(width: 36, height: 36)
+                                Image(systemName: "person.slash")
+                                    .font(.caption)
+                                    .foregroundStyle(theme.onSurfaceVariant)
+                            }
+                            Text(L.s("settings_no_profile"))
+                                .font(.body).fontWeight(.medium)
+                            Spacer()
+                        }
+                    }
+                    .foregroundStyle(theme.onSurface)
+                }
+                
                 ForEach(familyViewModel.members) { member in
                     let isClaimedByOther = member.claimedByUserId != nil && member.claimedByUserId != currentUid
                     let isSelected = member.id == familyViewModel.myMemberId

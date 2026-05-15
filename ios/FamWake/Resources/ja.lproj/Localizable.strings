@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake 家族の目覚まし時計";
+
+"app_name_short" = "家族の目覚まし時計";
 "email_label" = "メールアドレス";
 "password_label" = "パスワード";
 "register_button" = "登録";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "音：%@";
 "settings_alarm_picker_title" = "アラーム音を選択してください";
 "settings_account_title" = "家族とアカウント";
-"settings_join_family_locked" = "家族に参加するにはログインしてください。";
 "settings_share_code_locked" = "招待コードを共有するにはログインしてください。";
 "settings_anonymous_login_button" = "ログイン / 登録";
 "settings_join_code" = "%@の招待コード：";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "はい、全員分を削除します";
 "settings_logout" = "ログアウト";
 "settings_delete_account" = "アカウントを削除";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "無断複写・転載を禁じます。";
 "empty_members_title" = "まだメンバーがいません";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "現在オンになっているアラームはありません。ゆっくり眠りましょう！";
 "settings_language_title" = "言語";
 "settings_language_system" = "システムのデフォルト";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "デザイン";
 "settings_display_title" = "アプリ設定";
 "settings_help_feedback_title" = "ヘルプとフィードバック";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "ログイン / 登録";
 "onboarding_slide5_title" = "さあ、始めましょう！";
 "onboarding_slide5_body" = "アカウントがなくてもすぐにアプリを試せます。アカウントが必要になるのは、家族を招待する時だけです。";
-"onboarding_slide0_title" = "チームとしての朝。";
+"onboarding_slide0_title" = "一緒にリラックスして一日を。";
 "onboarding_slide0_body" = "言い争いも、バタバタもなし。FamWakeがおまかせで、みんながリラックスして一日を始められるようサポートします。";
-"onboarding_slide1_title" = "もう待つ必要はありません。";
-"onboarding_slide1_body" = "バスルームの時間、朝食、家を出る時間に合わせて、FamWakeが全員の完璧な起床時間を見つけます。洗面所の順番待ちはもう終わりです。";
-"onboarding_slide2_title" = "毎日の予定に合わせて。";
-"onboarding_slide2_body" = "月曜は出社、水曜はリモートワーク？曜日ごとに時間を設定しておけば、あとはアプリにおまかせ。";
+"onboarding_slide1_title" = "毎日のためのスマートな計画";
+"onboarding_slide1_body" = "オフィス、学校、またはホームオフィスに関係なく、FamWakeは家族全員にとって最適な起床時間とバスタイムを計算します。朝の渋滞はもうありません。";
 "onboarding_slide3_title" = "数秒で繋がる。";
 "onboarding_slide3_body" = "招待コードを共有すれば、家族がすぐに参加できます。誰かが時間を変更しても、全員のスケジュールがすぐに更新されます。";
-"onboarding_slide4_title" = "いつでも確実。";
-"onboarding_slide4_body" = "毎日リラックスした朝を楽しんでください。夜中にインターネットが切れても、アラームは時間通りに鳴ります。";
 "onboarding_mock_name1" = "お父さん";
 "onboarding_mock_name2" = "お母さん";
 "onboarding_mock_family_name" = "山田";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "スマートフォン：%@";
 "feedback_cancel" = "キャンセル";
 "feedback_send" = "メッセージを送信";
-"feedback_success" = "ありがとうございます！メッセージを受け取りました。";
 "feedback_success_title" = "送信完了";
 "feedback_success_message" = "ご協力ありがとうございます！皆様のフィードバックがFamWakeをさらに良くします。";
 "settings_terms_of_use" = "利用規約";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "ログインしていません。";
 "error_system" = "問題が発生しました。";
 "error_invalid_credentials" = "メールアドレスまたはパスワードが間違っています。入力内容を確認してください。";
-"error_login_failed" = "ログインできませんでした";
 "error_login_failed_unknown" = "不明なログインエラー";
-"error_registration_failed" = "登録できませんでした";
 "error_registration_failed_unknown" = "アカウントを作成できませんでした";
 "error_unknown" = "問題が発生しました。もう一度お試しください。";
 "error_google_sign_in_failed_unknown" = "Googleでのログインができませんでした";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "誰もアクティブではありません。すべてのアラームが一時停止されています。";
 "schedule_message_no_valid" = "時間が重なりすぎていて、良いスケジュールが作れません。";
 "schedule_message_no_valid_desc" = "ヒント：起きる時間の枠を広げるか、バスルームの時間を短くするか、誰かのアラームを一時停止してみてください。";
-"schedule_message_time_adjusted" = "時間が合うように%1$d分調整されました。";
-"schedule_message_breakfast_reduced" = "時間が合うように朝食の時間を%1$d分短くしました。";
-"schedule_message_breakfast_and_time_adjusted" = "朝食を−%1$d分、時間を%2$d分ずらしました。";
+"schedule_message_time_adjusted" = "時間が合うように%d分調整されました。";
+"schedule_message_breakfast_reduced" = "時間が合うように朝食の時間を%d分短くしました。";
+"schedule_message_breakfast_and_time_adjusted" = "朝食を−%d分、時間を%d分ずらしました。";
 "schedule_message_member_conflict" = "%@の時間が重なりすぎています。";
 "schedule_message_member_conflict_desc" = "順番を変えるか、時間を調整してみてください。";
 "main_fallback_alarm_active" = "⚠️ 注意：現在スケジュールがうまく合っていません（%@）。時間を調整してください！";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "アプリを気に入っていただけましたか？ご支援いただけると大変嬉しいです！";
 "settings_support_donate" = "寄付する";
 "settings_donate_success" = "ご支援本当にありがとうございます！ ❤️";
-"settings_donate_error" = "おっと、問題が発生しました。";
 "settings_donate_loading" = "オプションを読み込んでいます…";
 "settings_donate_no_offers" = "現在利用できるプランはありません。";
 "settings_donate_purchase_loading" = "処理中…";
@@ -303,19 +282,6 @@
 "error_feedback_rate_limit_server" = "送信したメッセージが多すぎます。後でもう一度お試しください。";
 "error_feedback_empty_message" = "メッセージが空です。";
 "error_network" = "ネットワークの問題です。インターネット接続を確認してください。";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "ここをタップして自分用のアラーム音を選んでください。普通のピッという音の代わりに好きな音楽を設定できます。";
 "settings_language_dialects" = "方言";
 "notif_channel_schedule_change_name" = "スケジュールの更新";
@@ -331,8 +297,15 @@
 "notif_permission_title" = "通知が必要です";
 "notif_permission_desc" = "通知をオフにすると、アラームが正しく鳴らない場合があります。オンのままにしてください。";
 "notif_permission_button" = "通知をオンにする";
-"notif_manage_title" = "通知の設定";
-"notif_manage_desc" = "スマートフォンの設定で音やバイブレーションを変更できます。";
 "settings_steal_title" = "このプロフィールを使いますか？";
 "settings_steal_text" = "「%@」はすでに選ばれています。このプロフィールを自分のものとして使いますか？";
 "settings_steal_confirm" = "はい、使います";
+"schedule_auto_fix" = "✨ 時間を自動調整";
+"onboarding_enable_tooltips" = "初回使用時に役立つヒントを表示する";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "アカウント";

@@ -107,11 +107,21 @@ class AuthViewModel: ObservableObject {
         authState = .loading
         Task {
             do {
-                // If currently anonymous, link instead of creating new user (Lazy Registration)
+                // Lazy Registration: link falls anonym, signIn als Fallback
                 if let currentUser = Auth.auth().currentUser, currentUser.isAnonymous {
                     let credential = EmailAuthProvider.credential(withEmail: email, password: password)
-                    try await currentUser.link(with: credential)
-                    try await currentUser.sendEmailVerification()
+                    do {
+                        try await currentUser.link(with: credential)
+                        try await currentUser.sendEmailVerification()
+                    } catch {
+                        let code = AuthErrorCode(rawValue: (error as NSError).code)
+                        if code == .credentialAlreadyInUse || code == .emailAlreadyInUse {
+                            // Account existiert schon → normaler Login
+                            try await Auth.auth().signIn(withEmail: email, password: password)
+                        } else {
+                            throw error
+                        }
+                    }
                 } else {
                     let result = try await Auth.auth().createUser(withEmail: email, password: password)
                     try await result.user.sendEmailVerification()
@@ -187,9 +197,19 @@ class AuthViewModel: ObservableObject {
                     accessToken: result.user.accessToken.tokenString
                 )
 
-                // If currently anonymous, link Google credential (Lazy Registration)
+                // Lazy Registration: link falls anonym, signIn als Fallback
                 if let currentUser = Auth.auth().currentUser, currentUser.isAnonymous {
-                    try await currentUser.link(with: credential)
+                    do {
+                        try await currentUser.link(with: credential)
+                    } catch {
+                        // Credential bereits vergeben (z.B. auf Android registriert) → direkt anmelden
+                        let code = AuthErrorCode(rawValue: (error as NSError).code)
+                        if code == .credentialAlreadyInUse || code == .providerAlreadyLinked {
+                            try await Auth.auth().signIn(with: credential)
+                        } else {
+                            throw error
+                        }
+                    }
                 } else {
                     try await Auth.auth().signIn(with: credential)
                 }

@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Budzik Rodzinny";
+
+"app_name_short" = "Budzik Rodzinny";
 "email_label" = "Email";
 "password_label" = "Hasło";
 "register_button" = "Zarejestruj się";
@@ -112,7 +113,6 @@
 "settings_delete_family_warning_confirm" = "Tak, usuń dla wszystkich";
 "settings_logout" = "Wyloguj się";
 "settings_delete_account" = "Usuń konto";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Wszelkie prawa zastrzeżone.";
 "empty_members_title" = "Jeszcze nikogo tu nie ma";
@@ -121,18 +121,6 @@
 "empty_schedule_description" = "W tej chwili nie ma włączonych alarmów. Czas odpocząć!";
 "settings_language_title" = "Język";
 "settings_language_system" = "Domyślny systemowy";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Wygląd";
 "settings_display_title" = "Ustawienia aplikacji";
 "settings_help_feedback_title" = "Pomoc i Feedback";
@@ -141,16 +129,12 @@
 "onboarding_skip" = "Pomiń";
 "onboarding_next" = "Dalej";
 "onboarding_done" = "Zacznij bez konta";
-"onboarding_slide0_title" = "Wasz poranek jako zespół.";
+"onboarding_slide0_title" = "Wspólny, spokojny początek dnia.";
 "onboarding_slide0_body" = "Żadnych kłótni, żadnego chaosu. FamWake dba o to, by każdy zaczął dzień zrelaksowany – zupełnie automatycznie.";
-"onboarding_slide1_title" = "Koniec z czekaniem.";
-"onboarding_slide1_body" = "FamWake znajduje idealny czas pobudki dla każdego członka rodziny – biorąc pod uwagę czas w łazience, śniadanie i wyjście. Koniec ze ściskiem przy umywalce.";
-"onboarding_slide2_title" = "Każdy dzień jest inny.";
-"onboarding_slide2_body" = "Poniedziałek w biurze, środa praca zdalna? Po prostu ustaw swoje godziny na każdy dzień, a aplikacja zajmie się resztą.";
+"onboarding_slide1_title" = "Inteligentne plany na każdy dzień";
+"onboarding_slide1_body" = "Biuro, szkoła czy home office – FamWake oblicza idealny czas pobudki i łazienki dla całej rodziny. Bez porannych korków.";
 "onboarding_slide3_title" = "Połączeni w sekundy.";
 "onboarding_slide3_body" = "Udostępnij kod, a Twoja rodzina dołączy. Jeśli ktoś zmieni swój czas, plan zaktualizuje się automatycznie dla wszystkich.";
-"onboarding_slide4_title" = "Zawsze niezawodny.";
-"onboarding_slide4_body" = "Ciesz się spokojnym porankiem każdego dnia. Nawet jeśli internet przestanie działać w nocy, alarm i tak zadzwoni na czas.";
 "settings_feedback_button" = "Daj znać / Zgłoś błąd";
 "feedback_title" = "Feedback";
 "feedback_intro" = "Pomóż nam ulepszyć aplikację! Co masz na myśli?";
@@ -168,7 +152,6 @@
 "feedback_auto_device" = "Telefon: %@";
 "feedback_cancel" = "Anuluj";
 "feedback_send" = "Wyślij wiadomość";
-"feedback_success" = "Dziękujemy! Otrzymaliśmy Twoją wiadomość.";
 "feedback_success_title" = "Wiadomość wysłana";
 "feedback_success_message" = "Dziękujemy za pomoc! Twoja opinia pomaga nam ulepszać FamWake dla każdego.";
 "settings_terms_of_use" = "Warunki użytkowania";
@@ -207,9 +190,7 @@
 "error_not_logged_in" = "Nie jesteś zalogowany.";
 "error_system" = "Coś poszło nie tak.";
 "error_invalid_credentials" = "Zły email lub hasło. Sprawdź swoje dane.";
-"error_login_failed" = "Logowanie nie powiodło się";
 "error_login_failed_unknown" = "Nieznany błąd logowania";
-"error_registration_failed" = "Rejestracja nie powiodła się";
 "error_registration_failed_unknown" = "Nie udało się utworzyć Twojego konta";
 "error_unknown" = "Coś poszło nie tak. Spróbuj ponownie.";
 "error_google_sign_in_failed_unknown" = "Logowanie przez Google nie zadziałało";
@@ -234,9 +215,9 @@
 "schedule_message_no_members" = "Nikt nie jest aktywny. Wszystkie alarmy są wstrzymane.";
 "schedule_message_no_valid" = "Czasy nakładają się zbyt mocno, by stworzyć dobry plan.";
 "schedule_message_no_valid_desc" = "Wskazówka: Zwiększ przedział pobudki, skróć czas w łazience lub wstrzymaj czyjś alarm.";
-"schedule_message_time_adjusted" = "Czasy zostały przesunięte o %1$d minut, aby wszystko do siebie pasowało.";
-"schedule_message_breakfast_reduced" = "Czas śniadania został skrócony o %1$d minut, aby plan się zgadzał.";
-"schedule_message_breakfast_and_time_adjusted" = "Śniadanie −%1$d min i czasy przesunięte o %2$d min.";
+"schedule_message_time_adjusted" = "Czasy zostały przesunięte o %d minut, aby wszystko do siebie pasowało.";
+"schedule_message_breakfast_reduced" = "Czas śniadania został skrócony o %d minut, aby plan się zgadzał.";
+"schedule_message_breakfast_and_time_adjusted" = "Śniadanie −%d min i czasy przesunięte o %d min.";
 "schedule_message_member_conflict" = "Konflikt dla %@: Czasy nakładają się zbyt mocno.";
 "schedule_message_member_conflict_desc" = "Spróbuj zmienić kolejność lub dostosować czasy.";
 "main_fallback_alarm_active" = "⚠️ Uwaga: Obecny harmonogram nie pasuje (%@). Dostosuj swoje czasy!";
@@ -264,7 +245,6 @@
 "settings_support_desc" = "Podoba Ci się aplikacja? Będziemy wdzięczni za Twoje wsparcie!";
 "settings_support_donate" = "Przekaż darowiznę";
 "settings_donate_success" = "Dziękujemy bardzo za Twoje wsparcie! ❤️";
-"settings_donate_error" = "Ups, coś poszło nie tak.";
 "settings_donate_loading" = "Ładowanie opcji…";
 "settings_donate_no_offers" = "Obecnie nie ma dostępnych ofert.";
 "settings_donate_purchase_loading" = "Przetwarzanie…";
@@ -294,19 +274,6 @@
 "error_feedback_rate_limit_server" = "Wysłano zbyt wiele wiadomości. Spróbuj ponownie później.";
 "error_feedback_empty_message" = "Twoja wiadomość jest pusta.";
 "error_network" = "Problem z siecią. Sprawdź swoje połączenie z internetem.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Dotknij tutaj, aby wybrać swój osobisty dźwięk budzenia – wybierz swoją ulubioną muzykę zamiast zwykłego pikania.";
 "settings_language_dialects" = "Dialekty";
 "notif_channel_schedule_change_name" = "Aktualizacje harmonogramu";
@@ -322,8 +289,6 @@
 "notif_permission_title" = "Wymagane powiadomienia";
 "notif_permission_desc" = "Jeśli wyłączysz powiadomienia, Twój alarm może nie działać prawidłowo. Zostaw je włączone.";
 "notif_permission_button" = "Włącz powiadomienia";
-"notif_manage_title" = "Ustawienia powiadomień";
-"notif_manage_desc" = "Zmień dźwięki i wibracje w ustawieniach swojego telefonu.";
 "onboarding_login_create" = "Zaloguj się / Zarejestruj się";
 "onboarding_slide5_title" = "Zaczynamy!";
 "onboarding_slide5_body" = "Możesz wypróbować aplikację od razu, bez posiadania konta. Będziesz go potrzebować dopiero wtedy, gdy będziesz chciał zaprosić swoją rodzinę.";
@@ -331,3 +296,16 @@
 "settings_steal_title" = "Użyć tego profilu?";
 "settings_steal_text" = "Profil %@ jest już zajęty. Czy chcesz go używać dla siebie?";
 "settings_steal_confirm" = "Tak, użyj";
+"schedule_auto_fix" = "✨ Automatycznie dostosuj czasy";
+"onboarding_enable_tooltips" = "Pokaż przydatne wskazówki przy pierwszym użyciu";
+"onboarding_mock_family_name" = "Kowalski";
+"onboarding_mock_name1" = "Tata";
+"onboarding_mock_name2" = "Mama";
+"settings_share_code_locked" = "Zaloguj się, aby udostępnić swój kod zaproszenia.";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Konto";

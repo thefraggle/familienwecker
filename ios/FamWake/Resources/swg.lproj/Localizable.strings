@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Familienwegger";
+
+"app_name_short" = "Familienwegger";
 "email_label" = "E-Mail";
 "password_label" = "Passwort";
 "register_button" = "Registriera";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Ton wähla: %@";
 "settings_alarm_picker_title" = "Wähl oin Weggton aus";
 "settings_account_title" = "Familie & Konto";
-"settings_join_family_locked" = "Bitte logg di ei, om ra Familie beizutreta.";
 "settings_share_code_locked" = "Bitte logg di ei, om dein Code zom doila.";
 "settings_join_code" = "Eiladongscode für %@:";
 "settings_share_code" = "Code doila";
@@ -114,7 +114,6 @@
 "settings_delete_family_warning_confirm" = "Jå, für älle wegmacha";
 "settings_logout" = "Abmelda";
 "settings_delete_account" = "Konto lescha";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Älle Rechte gschützt.";
 "empty_members_title" = "No koe Mitglieder do";
@@ -123,18 +122,6 @@
 "empty_schedule_description" = "Zom Glick isch koin Wegger gstellt. Zeit zom Ausschlafa!";
 "settings_language_title" = "Sproch";
 "settings_language_system" = "System-Standard";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Ausseha";
 "settings_display_title" = "App-Eistellonga";
 "settings_help_feedback_title" = "Hilf & Gschwätz";
@@ -143,16 +130,12 @@
 "onboarding_skip" = "Sausen lassa";
 "onboarding_next" = "Weida";
 "onboarding_done" = "Ohne Account schtarta";
-"onboarding_slide0_title" = "Dei Morga als Team.";
+"onboarding_slide0_title" = "Gmiatlich zamma in da Dag.";
 "onboarding_slide0_body" = "Koi Diskussiona, koi Chaos. FamWake sorgt drfür, dass älle entspannt in Tag starta – ganz vo alloi.";
 "onboarding_slide1_title" = "Nie meh warta.";
 "onboarding_slide1_body" = "FamWake findt für jedes Familiamitglied d'perfekte Weggzeit – abgstimmt uffs Bad, Frühstück ond d'Abfahrt. Koi Gedrängel meh am Waschbegga.";
-"onboarding_slide2_title" = "Jede Dag isch anders.";
-"onboarding_slide2_body" = "Montag Büro, Mittwoch Dahoim? Stell für jede Dag dei eigne Zeita ei – d'App macht de Rest.";
 "onboarding_slide3_title" = "In Sekunda verbonda.";
 "onboarding_slide3_body" = "Teil dein Code ond dei Familie isch sofort debei. Wenn ebber was ändert, isch dr Plan für älle sofort nei berechnet.";
-"onboarding_slide4_title" = "Immer zuaverlässig.";
-"onboarding_slide4_body" = "Gnieß jede Morga in Ruha. Selbst wenn z'Nachts s'Internet abkackt, bimmelt dr Wegger pünktlich.";
 "settings_feedback_button" = "Gschwätz hinterlassa / Fähler melda";
 "feedback_title" = "Feedback";
 "feedback_intro" = "Hilf ons, die App no besser zom macha! Was druckt di?";
@@ -170,7 +153,6 @@
 "feedback_auto_device" = "Grät: %@";
 "feedback_cancel" = "Abbrecha";
 "feedback_send" = "Zeug rausschicken";
-"feedback_success" = "Dangge! Dei Gschwätz is aakomma.";
 "feedback_success_title" = "Nachricht furt";
 "feedback_success_message" = "Dangge für d'Hilf! Dei Feedback hilft ons, FamWake für älle besser zom macha.";
 "settings_terms_of_use" = "Nutzongsbedingonga";
@@ -209,9 +191,7 @@
 "error_not_logged_in" = "Du bisch net aagmeldet.";
 "error_system" = "Ebbes isch schiefganga.";
 "error_invalid_credentials" = "E-Mail oder Passwort basst net. Guck nomal.";
-"error_login_failed" = "Hot net basst beim Nei-logga";
 "error_login_failed_unknown" = "Oibekannter Fähler beim Nei-logga";
-"error_registration_failed" = "Registriera hot net klappt";
 "error_registration_failed_unknown" = "Dei Konto hot net gmacht werda kenna";
 "error_unknown" = "Ebbes isch schiefganga. Probier's nomal, gell.";
 "error_google_sign_in_failed_unknown" = "Google hot net gwellt";
@@ -236,9 +216,9 @@
 "schedule_message_no_members" = "Koe Leut aktiv. Älle Wegger send aus.";
 "schedule_message_no_valid" = "So wird des nix, d'Zeita überschneidet sich z'arg.";
 "schedule_message_no_valid_desc" = "Tipp: Mach dei Wegg-Fenschderle greßer, d'Bad-Zeit kürzer oder pausier amol oin Wegger.";
-"schedule_message_time_adjusted" = "Zeita wurdat om %1$d Min verschoba, damit's basst.";
-"schedule_message_breakfast_reduced" = "Frühstück wurd om %1$d Min kürzer g'macht, no basst's.";
-"schedule_message_breakfast_and_time_adjusted" = "Frühstück −%1$d Min & Zeita om %2$d Min gricht.";
+"schedule_message_time_adjusted" = "Zeita wurdat om %d Min verschoba, damit's basst.";
+"schedule_message_breakfast_reduced" = "Frühstück wurd om %d Min kürzer g'macht, no basst's.";
+"schedule_message_breakfast_and_time_adjusted" = "Frühstück −%d Min & Zeita om %d Min gricht.";
 "schedule_message_member_conflict" = "S'klemmt für %@: Zeita ganged zu arg iber'nand.";
 "schedule_message_member_conflict_desc" = "Probiers mol mit na andere Reihafolg oder mach d'Zeita andersch.";
 "main_fallback_alarm_active" = "⚠️ Achtong: Dr Plan basst grad net (%@). Bitte richte dei Zeita!";
@@ -266,7 +246,6 @@
 "settings_support_desc" = "Gfallt dr d'App? Mir freuet ons sackrisch iber a bissle Onterstützong!";
 "settings_support_donate" = "Ebbes gäba";
 "settings_donate_success" = "Viela Dank drfür! ❤️";
-"settings_donate_error" = "Hoppsala, do isch was schiefganga.";
 "settings_donate_loading" = "Läd d'Optione…";
 "settings_donate_no_offers" = "S'gibt grad koine Optione.";
 "settings_donate_purchase_loading" = "S'wird grichtet…";
@@ -296,14 +275,6 @@
 "error_feedback_rate_limit_server" = "Z'viel Nachrichte gschickt. Probiers schpäder nomal.";
 "error_feedback_empty_message" = "Do muass scho was drin schdanda.";
 "error_network" = "Netzwerkfähler. Guck mol ob dei Internet no goht.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
 "tooltip_alarm_sound" = "Druck do, om dein persönliche Weggton auszusuacha – nemm dei Lieblingsmusik statt am normale Gepiepse.";
 "settings_language_dialects" = "Dialegde";
 "notif_channel_schedule_change_name" = "Plan-Updates";
@@ -319,8 +290,6 @@
 "notif_permission_title" = "Meldonga braucha mr";
 "notif_permission_desc" = "Wenn d'Meldonga ausmachsch, funktioniert dei Wegger vielleicht net richtig. Bitte lass se aa.";
 "notif_permission_button" = "Meldonga aamacha";
-"notif_manage_title" = "Meldongs-Eistellonga";
-"notif_manage_desc" = "Änder Ton ond Gschepper in de Eistellonga von deim Händy.";
 "onboarding_login_create" = "Aamelda / Regischtriera";
 "onboarding_slide5_title" = "Auf goht's!";
 "onboarding_slide5_body" = "Du kannsch d'App direkt ohne Aameldung ausprobiera. A Konto brauchsch erscht, wenn de dei Familie eiladsch.";
@@ -328,3 +297,15 @@
 "settings_steal_title" = "Profil nemma?";
 "settings_steal_text" = "%@ isch scho vergäba. Woisch es für di nemma?";
 "settings_steal_confirm" = "Jå, nemma";
+"schedule_auto_fix" = "✨ Zeita automatisch aabassa";
+"onboarding_enable_tooltips" = "Zeig hilfreiche Tipps bei dr erschda Nutzung";
+"onboarding_mock_family_name" = "Häberle";
+"onboarding_mock_name1" = "Babba";
+"onboarding_mock_name2" = "Mama";
+
+
+/* iOS Specific (Fallback to German) */
+"member_pause" = "Pausieren";
+"member_resume" = "Aktivieren";
+"member_not_active_today" = "Heute nicht aktiv";
+"settings_account_section" = "Konto";

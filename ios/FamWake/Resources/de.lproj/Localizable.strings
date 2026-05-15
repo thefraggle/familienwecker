@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Familienwecker";
+
+"app_name_short" = "Familienwecker";
 "email_label" = "E-Mail";
 "password_label" = "Passwort";
 "register_button" = "Registrieren";
@@ -41,6 +42,8 @@
 "main_no_profile_warning_desc" = "Bitte wähle in den Einstellungen, wer du bist, damit der Wecker für dich klingeln kann.";
 "main_unclaimed_first_title" = "Für %@ klingelt kein Wecker!";
 "main_unclaimed_first_desc" = "%@ ist als Erstes dran, hat aber noch kein Profil auf dem Handy ausgewählt – und verschläft vielleicht!";
+"main_member_alarm_on" = "(Wecker aktiv)";
+"main_member_alarm_off" = "(kein Wecker)";
 "yes" = "Ja";
 "no" = "Nein";
 "delete_desc" = "Löschen";
@@ -90,6 +93,7 @@
 "settings_profile_desc" = "Dein Handy klingelt nur für die Person, die hier ausgewählt ist.";
 "settings_please_select" = "Bitte wählen";
 "settings_no_members" = "Keine Mitglieder gefunden";
+"settings_no_profile" = "Kein Profil";
 "settings_alarm_title" = "Weckton";
 "settings_battery_warning_title" = "Akku-Einstellungen können den Wecker blockieren";
 "settings_battery_warning_text" = "Dein Handy könnte den Wecker verzögern oder blockieren, um Strom zu sparen. Bitte erlaube FamWake, im Hintergrund zu laufen.";
@@ -98,7 +102,6 @@
 "settings_alarm_select" = "Ton: %@";
 "settings_alarm_picker_title" = "Wähle deinen Weckton";
 "settings_account_title" = "Familie & Konto";
-"settings_join_family_locked" = "Bitte logge dich ein, um einer Familie beizutreten.";
 "settings_share_code_locked" = "Bitte logge dich ein, um deinen Code zu teilen.";
 "settings_anonymous_login_button" = "Anmelden / Registrieren";
 "settings_join_code" = "Einladungscode für %@:";
@@ -115,7 +118,7 @@
 "settings_delete_family_warning_confirm" = "Ja, für alle löschen";
 "settings_logout" = "Abmelden";
 "settings_delete_account" = "Konto löschen";
-"settings_footer_version" = "FamWake v%@";
+"settings_account_section" = "Konto";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alle Rechte vorbehalten.";
 "empty_members_title" = "Noch keine Mitglieder";
@@ -124,18 +127,6 @@
 "empty_schedule_description" = "Aktuell sind keine Wecker eingeschaltet. Zeit zum Ausschlafen!";
 "settings_language_title" = "Sprache";
 "settings_language_system" = "System-Standard";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Erscheinungsbild";
 "settings_display_title" = "App-Einstellungen";
 "settings_help_feedback_title" = "Hilfe & Feedback";
@@ -147,16 +138,12 @@
 "onboarding_login_create" = "Anmelden / Registrieren";
 "onboarding_slide5_title" = "Los geht's!";
 "onboarding_slide5_body" = "Du kannst die App direkt ohne Konto ausprobieren. Du brauchst erst eins, wenn du deine Familie einladen möchtest.";
-"onboarding_slide0_title" = "Euer Morgen als Team.";
+"onboarding_slide0_title" = "Gemeinsam entspannt in den Tag.";
 "onboarding_slide0_body" = "Kein Stress, kein Chaos. FamWake sorgt dafür, dass alle entspannt in den Tag starten – ganz von allein.";
-"onboarding_slide1_title" = "Nie wieder warten.";
-"onboarding_slide1_body" = "FamWake findet für jeden in der Familie die perfekte Weckzeit – passend zu Badzeit, Frühstück und Abfahrt. Kein Gedrängel mehr am Waschbecken.";
-"onboarding_slide2_title" = "Jeder Tag ist anders.";
-"onboarding_slide2_body" = "Montag im Büro, Mittwoch Home-Office? Stell einfach deine Zeiten für die jeweiligen Tage ein, die App erledigt den Rest.";
+"onboarding_slide1_title" = "Smarte Pläne für jeden Tag";
+"onboarding_slide1_body" = "Egal ob Büro, Schule oder Home-Office – FamWake berechnet die perfekte Weck- und Badzeit für die ganze Familie. Ohne Stau am Morgen.";
 "onboarding_slide3_title" = "In Sekunden verbunden.";
 "onboarding_slide3_body" = "Teile deinen Code und deine Familie ist dabei. Ändert jemand seine Zeiten, passt sich der Plan für alle sofort an.";
-"onboarding_slide4_title" = "Immer zuverlässig.";
-"onboarding_slide4_body" = "Genieße jeden Tag einen entspannten Morgen. Selbst wenn nachts das Internet ausfällt, klingelt der Wecker pünktlich.";
 "onboarding_mock_name1" = "Papa";
 "onboarding_mock_name2" = "Mama";
 "onboarding_mock_family_name" = "Müller";
@@ -177,7 +164,6 @@
 "feedback_auto_device" = "Gerät: %@";
 "feedback_cancel" = "Abbrechen";
 "feedback_send" = "Nachricht senden";
-"feedback_success" = "Danke! Wir haben deine Nachricht erhalten.";
 "feedback_success_title" = "Nachricht gesendet";
 "feedback_success_message" = "Danke für deine Hilfe! Dein Feedback hilft uns, FamWake für alle zu verbessern.";
 "settings_terms_of_use" = "Nutzungsbedingungen";
@@ -216,9 +202,7 @@
 "error_not_logged_in" = "Du bist nicht eingeloggt.";
 "error_system" = "Etwas ist schiefgelaufen.";
 "error_invalid_credentials" = "Falsche E-Mail oder Passwort. Bitte prüfe deine Eingabe.";
-"error_login_failed" = "Login hat nicht funktioniert";
 "error_login_failed_unknown" = "Unbekannter Login-Fehler";
-"error_registration_failed" = "Registrierung hat nicht funktioniert";
 "error_registration_failed_unknown" = "Dein Konto konnte nicht erstellt werden";
 "error_unknown" = "Etwas ist schiefgelaufen. Bitte versuche es erneut.";
 "error_google_sign_in_failed_unknown" = "Google-Login hat nicht funktioniert";
@@ -243,9 +227,9 @@
 "schedule_message_no_members" = "Niemand ist aktiv. Alle Wecker sind pausiert.";
 "schedule_message_no_valid" = "Die Zeiten überschneiden sich zu stark für einen guten Plan.";
 "schedule_message_no_valid_desc" = "Tipp: Vergrößere dein Weck-Fenster, verkürze die Bad-Zeit oder pausiere den Wecker von jemandem.";
-"schedule_message_time_adjusted" = "Zeiten wurden um %1$d Minuten verschoben, damit alles passt.";
-"schedule_message_breakfast_reduced" = "Die Frühstückszeit wurde um %1$d Minuten gekürzt, damit alles passt.";
-"schedule_message_breakfast_and_time_adjusted" = "Frühstück −%1$d Min & Zeiten um %2$d Min verschoben.";
+"schedule_message_time_adjusted" = "Zeiten wurden um %d Minuten verschoben, damit alles passt.";
+"schedule_message_breakfast_reduced" = "Die Frühstückszeit wurde um %d Minuten gekürzt, damit alles passt.";
+"schedule_message_breakfast_and_time_adjusted" = "Frühstück −%d Min & Zeiten um %d Min verschoben.";
 "schedule_message_member_conflict" = "Konflikt für %@: Zeiten überschneiden sich zu stark.";
 "schedule_message_member_conflict_desc" = "Versuche, die Reihenfolge oder die Zeiten zu ändern.";
 "main_fallback_alarm_active" = "⚠️ Achtung: Der Plan passt gerade nicht (%@). Bitte passe deine Zeiten an!";
@@ -273,7 +257,6 @@
 "settings_support_desc" = "Gefällt dir die App? Wir freuen uns riesig über deine Unterstützung!";
 "settings_support_donate" = "Spenden";
 "settings_donate_success" = "Vielen Dank für deine Unterstützung! ❤️";
-"settings_donate_error" = "Hoppla, da hat etwas nicht funktioniert.";
 "settings_donate_loading" = "Lade Optionen…";
 "settings_donate_no_offers" = "Aktuell sind keine Optionen verfügbar.";
 "settings_donate_purchase_loading" = "Wird verarbeitet…";
@@ -303,14 +286,6 @@
 "error_feedback_rate_limit_server" = "Zu viele Nachrichten gesendet. Bitte versuche es später nochmal.";
 "error_feedback_empty_message" = "Deine Nachricht ist leer.";
 "error_network" = "Netzwerkproblem. Bitte prüfe deine Internetverbindung.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
 "tooltip_alarm_sound" = "Tippe hier für deinen persönlichen Weckton – wähle deine Lieblingsmusik statt dem normalen Piepen.";
 "settings_language_dialects" = "Dialekte";
 "notif_channel_schedule_change_name" = "Plan-Updates";
@@ -326,8 +301,13 @@
 "notif_permission_title" = "Benachrichtigungen nötig";
 "notif_permission_desc" = "Wenn du Benachrichtigungen ausschaltest, funktioniert dein Wecker vielleicht nicht richtig. Bitte lass sie an.";
 "notif_permission_button" = "Benachrichtigungen anmachen";
-"notif_manage_title" = "Benachrichtigungs-Einstellungen";
-"notif_manage_desc" = "Ändere Töne und Vibration in den Einstellungen deines Handys.";
 "settings_steal_title" = "Profil nutzen?";
 "settings_steal_text" = "%@ ist bereits vergeben. Möchtest du es für dich übernehmen?";
 "settings_steal_confirm" = "Ja, übernehmen";
+"schedule_auto_fix" = "✨ Zeiten automatisch anpassen";
+"onboarding_enable_tooltips" = "Zeige hilfreiche Tipps bei der ersten Nutzung";
+
+/* iOS Specific */
+"member_pause" = "Pausieren";
+"member_resume" = "Aktivieren";
+"member_not_active_today" = "Heute nicht aktiv";

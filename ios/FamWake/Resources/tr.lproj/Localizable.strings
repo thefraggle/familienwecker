@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Aile Çalar Saati";
+
+"app_name_short" = "Aile Çalar Saati";
 "email_label" = "E-posta";
 "password_label" = "Şifre";
 "register_button" = "Kayıt ol";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Ses: %@";
 "settings_alarm_picker_title" = "Alarm sesinizi seçin";
 "settings_account_title" = "Aile ve Hesap";
-"settings_join_family_locked" = "Bir aileye katılmak için lütfen giriş yapın.";
 "settings_share_code_locked" = "Davet kodunuzu paylaşmak için lütfen giriş yapın.";
 "settings_anonymous_login_button" = "Giriş yap / Kayıt ol";
 "settings_join_code" = "%@ için davet kodu:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "Evet, herkes için sil";
 "settings_logout" = "Çıkış yap";
 "settings_delete_account" = "Hesabı sil";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Tüm hakları saklıdır.";
 "empty_members_title" = "Henüz üye yok";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "Şu anda açık olan hiçbir alarm yok. Uykuya devam!";
 "settings_language_title" = "Dil";
 "settings_language_system" = "Sistem varsayılanı";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Görünüm";
 "settings_display_title" = "Uygulama ayarları";
 "settings_help_feedback_title" = "Yardım ve Geri Bildirim";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "Giriş yap / Kayıt ol";
 "onboarding_slide5_title" = "Hadi başlayalım!";
 "onboarding_slide5_body" = "Hesap oluşturmadan uygulamayı hemen deneyebilirsin. Sadece ailenizi davet etmek istediğinizde bir hesaba ihtiyacınız olacak.";
-"onboarding_slide0_title" = "Takım halinde sabahınız.";
+"onboarding_slide0_title" = "Güne birlikte huzurla başlamak.";
 "onboarding_slide0_body" = "Tartışma yok, kaos yok. FamWake herkesin güne rahat başlamasını sağlar – tamamen kendi kendine.";
-"onboarding_slide1_title" = "Artık bekleme yok.";
-"onboarding_slide1_body" = "FamWake, ailedeki herkes için en iyi uyanma saatini bulur – banyo, kahvaltı ve evden çıkış saatlerine göre ayarlar. Artık lavabo önünde sıra beklemek yok.";
-"onboarding_slide2_title" = "Her gün farklı.";
-"onboarding_slide2_body" = "Pazartesi ofis, çarşamba evden çalışma? Her gün için saatlerinizi ayarlayın, uygulama gerisini halleder.";
+"onboarding_slide1_title" = "Her gün için akıllı planlar";
+"onboarding_slide1_body" = "İster ofis, ister okul veya evden çalışma olsun - FamWake tüm aile için mükemmel uyanma ve banyo saatini hesaplar. Sabahları sıra beklemeden.";
 "onboarding_slide3_title" = "Saniyeler içinde bağlanın.";
 "onboarding_slide3_body" = "Davet kodunuzu paylaşın ve aileniz hemen katılsın. Biri saatlerini değiştirirse, herkesin planı anında güncellenir.";
-"onboarding_slide4_title" = "Her zaman güvenilir.";
-"onboarding_slide4_body" = "Her gün rahat bir sabahın tadını çıkarın. Gece internet kesilse bile alarmınız tam zamanında çalar.";
 "onboarding_mock_name1" = "Baba";
 "onboarding_mock_name2" = "Anne";
 "onboarding_mock_family_name" = "Yılmaz";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "Telefon: %@";
 "feedback_cancel" = "İptal";
 "feedback_send" = "Mesajı gönder";
-"feedback_success" = "Teşekkürler! Mesajınızı aldık.";
 "feedback_success_title" = "Mesaj Gönderildi";
 "feedback_success_message" = "Yardımınız için teşekkürler! Geri bildiriminiz FamWake'i herkes için geliştirmemize yardımcı oluyor.";
 "settings_terms_of_use" = "Kullanım Koşulları";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "Giriş yapmadınız.";
 "error_system" = "Bir şeyler ters gitti.";
 "error_invalid_credentials" = "Yanlış e-posta veya şifre. Lütfen yazdıklarınızı kontrol edin.";
-"error_login_failed" = "Giriş yapılamadı";
 "error_login_failed_unknown" = "Bilinmeyen giriş hatası";
-"error_registration_failed" = "Kayıt olunamadı";
 "error_registration_failed_unknown" = "Hesabınız oluşturulamadı";
 "error_unknown" = "Bir şeyler ters gitti. Lütfen tekrar deneyin.";
 "error_google_sign_in_failed_unknown" = "Google ile giriş yapılamadı";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "Kimse aktif değil. Tüm alarmlar duraklatıldı.";
 "schedule_message_no_valid" = "Saatler, iyi bir plan oluşturmak için çok fazla çakışıyor.";
 "schedule_message_no_valid_desc" = "İpucu: Uyanma aralığınızı genişletmeyi, banyo sürenizi kısaltmayı veya birinin alarmını duraklatmayı deneyin.";
-"schedule_message_time_adjusted" = "Her şeyin uyumlu olması için saatler %1$d dakika kaydırıldı.";
-"schedule_message_breakfast_reduced" = "Her şeyin plana uyması için kahvaltı süresi %1$d dakika kısaltıldı.";
-"schedule_message_breakfast_and_time_adjusted" = "Kahvaltı −%1$d dk. & saatler %2$d dk. kaydırıldı.";
+"schedule_message_time_adjusted" = "Her şeyin uyumlu olması için saatler %d dakika kaydırıldı.";
+"schedule_message_breakfast_reduced" = "Her şeyin plana uyması için kahvaltı süresi %d dakika kısaltıldı.";
+"schedule_message_breakfast_and_time_adjusted" = "Kahvaltı −%d dk. & saatler %d dk. kaydırıldı.";
 "schedule_message_member_conflict" = "%@ için çakışma: Saatler çok fazla çakışıyor.";
 "schedule_message_member_conflict_desc" = "Sıralamayı değiştirmeyi veya saatleri ayarlamayı deneyin.";
 "main_fallback_alarm_active" = "⚠️ Uyarı: Plan şu anda uyuşmuyor (%@). Lütfen saatlerinizi ayarlayın!";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "Uygulamayı beğendiniz mi? Desteğiniz bizi çok mutlu eder!";
 "settings_support_donate" = "Bağış yap";
 "settings_donate_success" = "Desteğiniz için çok teşekkür ederiz! ❤️";
-"settings_donate_error" = "Ups, bir şeyler ters gitti.";
 "settings_donate_loading" = "Seçenekler yükleniyor…";
 "settings_donate_no_offers" = "Şu anda herhangi bir seçenek bulunmuyor.";
 "settings_donate_purchase_loading" = "İşleniyor…";
@@ -303,19 +282,6 @@
 "error_feedback_rate_limit_server" = "Çok fazla mesaj gönderildi. Lütfen daha sonra tekrar deneyin.";
 "error_feedback_empty_message" = "Mesajınız boş.";
 "error_network" = "Ağ problemi. Lütfen internet bağlantınızı kontrol edin.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Kişisel uyanma sesini seçmek için buraya dokun – normal bip sesi yerine en sevdiğin müziği seç.";
 "settings_language_dialects" = "Lehçeler";
 "notif_channel_schedule_change_name" = "Plan güncellemeleri";
@@ -331,8 +297,15 @@
 "notif_permission_title" = "Bildirimler gerekli";
 "notif_permission_desc" = "Bildirimleri kapatırsan alarmın düzgün çalışmayabilir. Lütfen açık bırak.";
 "notif_permission_button" = "Bildirimleri aç";
-"notif_manage_title" = "Bildirim ayarları";
-"notif_manage_desc" = "Telefonunun ayarlarından sesleri ve titreşimi değiştir.";
 "settings_steal_title" = "Bu profili kullan?";
 "settings_steal_text" = "%@ zaten kullanımda. Bu profili kendiniz için kullanmak ister misiniz?";
 "settings_steal_confirm" = "Evet, kullan";
+"schedule_auto_fix" = "✨ Saatleri otomatik ayarla";
+"onboarding_enable_tooltips" = "İlk kullanımda faydalı ipuçları göster";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Hesap";

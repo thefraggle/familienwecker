@@ -24,8 +24,7 @@ struct FamilySetupView: View {
             VStack(spacing: 0) {
                 // TopBar
                 HStack {
-                    (Text("FamWake ").font(.headline).bold() +
-                     Text(L.appNameShort).font(.headline).fontWeight(.regular))
+                    famWakeTitle(L.appNameShort)
                         .foregroundStyle(theme.onSurface)
                     Spacer()
                 }

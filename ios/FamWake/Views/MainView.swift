@@ -8,6 +8,7 @@ struct MainView: View {
     @State private var editMemberId: String? = nil
     @State private var memberToDelete: FamilyMember? = nil
     @State private var showDeleteMemberAlert = false
+    @State private var showLoginSheet = false
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: appState.colorScheme) }
 
@@ -41,6 +42,9 @@ struct MainView: View {
                         noProfileWarning
                     }
 
+                    // Unclaimed first member warning (Android MainScreen.kt:517-528)
+                    unclaimedFirstWarning
+
                     // Schedule
                     scheduleSection
 
@@ -51,32 +55,35 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
-            .navigationTitle("")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    // "FamWake Familienwecker" Header – matching Android TopAppBar
-                    (Text("FamWake ").font(.headline).bold() +
-                     Text(L.appNameShort).font(.headline).fontWeight(.regular))
+            .navigationBarHidden(true)
+            .safeAreaInset(edge: .top) {
+                // Custom header – "FamWake Familienwecker" + icons
+                HStack {
+                    famWakeTitle(L.appNameShort)
                         .foregroundStyle(theme.onSurface)
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: 8) {
-                        // Offline / Sync Icon
-                        if familyViewModel.isOffline {
-                            Image(systemName: "icloud.slash")
-                                .foregroundStyle(theme.outline)
-                                .font(.caption)
-                        } else if familyViewModel.isSyncing {
-                            RotatingIcon(systemName: "arrow.triangle.2.circlepath", color: theme.tertiary)
-                                .font(.caption)
-                        }
 
-                        Button(action: { showSettings = true }) {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundStyle(theme.onSurface)
-                        }
+                    Spacer()
+
+                    // Offline / Sync Icon
+                    if familyViewModel.isOffline {
+                        Image(systemName: "icloud.slash")
+                            .foregroundStyle(theme.outline)
+                            .font(.caption)
+                    } else if familyViewModel.isSyncing {
+                        RotatingIcon(systemName: "arrow.triangle.2.circlepath", color: theme.tertiary)
+                            .font(.caption)
+                    }
+
+                    Button(action: { showSettings = true }) {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundStyle(theme.onSurface)
                     }
                 }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
+                .background(
+                    (appState.colorScheme == .dark) ? theme.surface.opacity(0.95) : theme.background.opacity(0.95)
+                )
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()
@@ -96,29 +103,36 @@ struct MainView: View {
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: { member in
-                Text("\(member.name)?")
+                Text(String(format: L.s("delete_member_text"), member.name))
             }
             .onChange(of: familyViewModel.familyId) { _, newId in
                 if newId == nil { appState.route = .familySetup }
             }
+            .onAppear {
+                if familyViewModel.familyId == nil {
+                    appState.route = .familySetup
+                }
+            }
         }
         .safeAreaInset(edge: .bottom) {
             // FAB – Add Member (matching Android FAB)
-            HStack {
-                Spacer()
-                Button(action: { showAddMember = true }) {
-                    Label(L.addMemberTitleAdd, systemImage: "plus")
-                        .font(.headline)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
-                        .background(theme.tertiary)
-                        .foregroundStyle(theme.onTertiary)
-                        .clipShape(Capsule())
-                        .shadow(color: theme.tertiary.opacity(0.4), radius: 8, x: 0, y: 4)
+            if familyViewModel.members.count < 6 {
+                HStack {
+                    Spacer()
+                    Button(action: { showAddMember = true }) {
+                        Label(L.addMemberTitleAdd, systemImage: "plus")
+                            .font(.headline)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(theme.tertiary)
+                            .foregroundStyle(theme.onTertiary)
+                            .clipShape(Capsule())
+                            .shadow(color: theme.tertiary.opacity(0.4), radius: 8, x: 0, y: 4)
+                    }
+                    .buttonStyle(BounceButtonStyle())
+                    .padding(.trailing, 20)
+                    .padding(.bottom, 8)
                 }
-                .buttonStyle(BounceButtonStyle())
-                .padding(.trailing, 20)
-                .padding(.bottom, 8)
             }
         }
     }
@@ -154,28 +168,30 @@ struct MainView: View {
                 }
 
                 // "I'm awake" Button
-                if familyViewModel.myMemberId != nil && familyViewModel.isAlarmEnabled {
+                if familyViewModel.isAwakeButtonVisible {
                     let isAwake = familyViewModel.isAwakeTodayLocal
                     Button(action: {
                         familyViewModel.myMemberId.map { familyViewModel.toggleAwakeMember($0) }
                     }) {
                         HStack {
-                            Image(systemName: "sun.max.fill")
-                                .font(.title3)
+                            Image(systemName: isAwake ? "sun.max.fill" : "sun.max")
+                                .font(.body)
                             Text(isAwake ? L.awakeActiveDesc : L.awakeTodayDesc)
-                                .font(.headline)
+                                .font(.subheadline).fontWeight(.semibold)
                             if isAwake {
                                 Spacer()
                                 Image(systemName: "checkmark")
+                                    .font(.body).fontWeight(.bold)
                             }
                         }
                         .frame(maxWidth: .infinity)
-                        .frame(height: 56)
+                        .frame(height: 48)
                         .padding(.horizontal, 16)
+                        .background(isAwake ? theme.secondary : theme.tertiary)
+                        .foregroundStyle(isAwake ? theme.onSecondary : theme.onTertiary)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(isAwake ? theme.secondary : theme.tertiary)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .buttonStyle(.plain)
                     .animation(.easeInOut(duration: 0.2), value: isAwake)
 
                     // Tooltip A
@@ -223,20 +239,65 @@ struct MainView: View {
     @ViewBuilder
     private var noProfileWarning: some View {
         Section {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("⚠️ \(L.mainNoProfileWarning)")
-                    .font(.subheadline).fontWeight(.bold)
-                    .foregroundStyle(theme.error)
-                Text(L.mainNoProfileWarningDesc)
-                    .font(.caption)
-                    .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+            Button(action: { showSettings = true }) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("⚠️ \(L.mainNoProfileWarning)")
+                        .font(.subheadline).fontWeight(.bold)
+                        .foregroundStyle(theme.onErrorContainer)
+                    Text(L.mainNoProfileWarningDesc)
+                        .font(.caption)
+                        .foregroundStyle(theme.onErrorContainer.opacity(0.8))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 24)
+                        .fill(appState.colorScheme == .dark ? theme.errorContainer.opacity(0.7) : theme.errorContainer)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(theme.outline.opacity(0.2), lineWidth: 1)
+                        )
+                )
             }
-            .padding()
-            .famWakeCard(cornerRadius: 24, isDark: appState.colorScheme == .dark)
+            .buttonStyle(.plain)
         }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+    }
+
+    // Warnung: Ungeclaimter Member an erster Stelle im Schedule (Android MainScreen.kt:517-528)
+    @ViewBuilder
+    private var unclaimedFirstWarning: some View {
+        let firstScheduledMember = familyViewModel.schedule?.memberSchedules.first?.member
+        let showWarning = familyViewModel.myMemberId != nil
+            && firstScheduledMember != nil
+            && firstScheduledMember?.claimedByUserId == nil
+            && firstScheduledMember?.id != familyViewModel.myMemberId
+
+        if showWarning, let member = firstScheduledMember {
+            Section {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("⚠️ \(String(format: L.s("main_unclaimed_first_title"), member.name))")
+                        .font(.subheadline).fontWeight(.bold)
+                        .foregroundStyle(appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
+                    Text(String(format: L.s("main_unclaimed_first_desc"), member.name))
+                        .font(.caption)
+                        .foregroundStyle((appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight).opacity(0.85))
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(appState.colorScheme == .dark ? Color.snoozeAmberDark : Color.snoozeAmberLight)
+                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24)
+                        .stroke((appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight).opacity(0.4), lineWidth: 1)
+                )
+            }
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+        }
     }
 
     @ViewBuilder
@@ -248,25 +309,98 @@ struct MainView: View {
                 .padding(.top, 8)
 
             if let sched = familyViewModel.schedule {
-                if !sched.isValid || sched.memberSchedules.isEmpty {
+                if sched.memberSchedules.isEmpty {
                     EmptyStateView(
                         title: L.emptyScheduleTitle,
                         description: L.emptyScheduleDescription,
                         systemImage: "moon.stars.fill"
                     )
                 } else {
-                    // Schedule Card
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(familyViewModel.isAlarmEnabled ? "✅ \(L.mainOptimalPlan)" : "⏸️ \(L.mainPlanPaused)")
-                            .fontWeight(.bold)
-                            .foregroundStyle(theme.onPrimaryContainer)
-                        if let breakfast = sched.breakfastTime {
-                            Text("☕ \(L.mainScheduleBathroom(breakfast.formatted(), breakfast.formatted()))")
-                                .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                    if !sched.isValid {
+                        // Error Card with AutoFix
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundStyle(Color.orange)
+                                Text("Konflikt im Zeitplan")
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color.orange)
+                            }
+                            
+                            let msgText: String = {
+                                switch sched.scheduleMessage {
+                                case .memberConflict(let name):
+                                    return String(format: L.s("schedule_message_member_conflict"), name)
+                                default:
+                                    return "Zeiten überschneiden sich."
+                                }
+                            }()
+                            
+                            Text(msgText)
+                                .font(.subheadline)
+                                .foregroundStyle(theme.onSurfaceVariant)
+                            
+                            Button(action: {
+                                familyViewModel.applyAutoFix()
+                            }) {
+                                Text(L.scheduleAutoFix)
+                                    .font(.subheadline).fontWeight(.bold)
+                                    .foregroundStyle(theme.onPrimary)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(theme.primary)
+                                    .cornerRadius(8)
+                            }
+                            .padding(.top, 4)
                         }
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.orange.opacity(0.15))
+                        .cornerRadius(24)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color.orange.opacity(0.5), lineWidth: 1)
+                        )
+                    } else {
+                        // Schedule Card
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(familyViewModel.isAlarmEnabled ? "✅ \(L.mainOptimalPlan)" : "⏸️ \(L.mainPlanPaused)")
+                                .fontWeight(.bold)
+                                .foregroundStyle(theme.onPrimaryContainer)
+                            
+                            let msgText: String? = {
+                                switch sched.scheduleMessage {
+                                case .timeAdjusted(let min):
+                                    return L.scheduleMessageTimeAdjusted(min)
+                                case .breakfastReduced(let min):
+                                    return L.scheduleMessageBreakfastReduced(min)
+                                case .breakfastAndTimeAdjusted(let r, let s):
+                                    return L.scheduleMessageBreakfastAndTimeAdjusted(r, s)
+                                default:
+                                    return nil
+                                }
+                            }()
+                            
+                            if let warn = msgText {
+                                Text("⚠️ \(warn)")
+                                    .font(.subheadline)
+                                    .foregroundStyle(Color.red)
+                                    .padding(.top, 4)
+                            }
+                            
+                            if let breakfast = sched.breakfastTime {
+                                // Berechne das Enddatum des Frühstücks basierend auf der Dauer des ersten Members (vereinfacht)
+                                let breakfastDate = breakfast.asDate ?? Date()
+                                let endBreakfastDate = Calendar.current.date(byAdding: .minute, value: 30, to: breakfastDate) ?? breakfastDate
+                                let endBreakfastComps = Calendar.current.dateComponents([.hour, .minute], from: endBreakfastDate)
+                                Text("☕ \(L.mainScheduleBathroom(breakfast.formatted(), endBreakfastComps.formatted()))")
+                                    .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                            }
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .famWakeCard(cornerRadius: 24, isDark: appState.colorScheme == .dark)
                     }
-                    .padding()
-                    .famWakeCard(cornerRadius: 24, isDark: appState.colorScheme == .dark)
 
                     // Tooltip B (Drag)
                     if sched.memberSchedules.count > 1 && familyViewModel.tooltipsEnabled && !familyViewModel.tooltipDragSeen {
@@ -335,22 +469,42 @@ struct MainView: View {
     @ViewBuilder
     private var memberSection: some View {
         Section {
-            Divider()
-            ForEach(familyViewModel.members) { member in
-                MemberCardView(
-                    member: member,
-                    isMyProfile: member.id == familyViewModel.myMemberId,
-                    onEdit: { editMemberId = member.id },
-                    onDelete: {
-                        memberToDelete = member
-                        showDeleteMemberAlert = true
-                    },
-                    onTogglePause: {
-                        var updated = member
-                        updated.isPaused.toggle()
-                        familyViewModel.addOrUpdateMember(updated)
-                    }
+            Text(L.mainFamilyMembers)
+                .font(.title3).fontWeight(.black)
+                .foregroundStyle(theme.onBackground)
+                .padding(.top, 16)
+                .padding(.bottom, 4)
+
+            if familyViewModel.members.count >= 6 {
+                Text(L.mainMemberLimitReached)
+                    .font(.footnote)
+                    .foregroundStyle(theme.error)
+                    .padding(.bottom, 8)
+            }
+
+            if familyViewModel.members.isEmpty {
+                EmptyStateView(
+                    title: L.emptyMembersTitle,
+                    description: L.emptyMembersDescription,
+                    systemImage: "person.3.fill"
                 )
+                .padding(.vertical, 20)
+            } else {
+                ForEach(familyViewModel.members) { member in
+                    MemberCardView(
+                        member: member,
+                        isMyProfile: member.id == familyViewModel.myMemberId,
+                        isAlarmEnabled: familyViewModel.isAlarmEnabled,
+                        onEdit: { editMemberId = member.id },
+                        onDelete: {
+                            memberToDelete = member
+                            showDeleteMemberAlert = true
+                        },
+                        onTogglePause: {
+                            familyViewModel.togglePauseMember(member.id)
+                        }
+                    )
+                }
             }
         }
         .listRowBackground(Color.clear)
@@ -361,13 +515,24 @@ struct MainView: View {
     @ViewBuilder
     private func errorCard(_ error: String) -> some View {
         Section {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text("⚠️ \(error)")
                     .font(.subheadline)
                     .foregroundStyle(theme.error)
-                Button(L.cancelButton) { familyViewModel.clearErrorMessage() }
-                    .font(.caption)
-                    .foregroundStyle(theme.error)
+                HStack(spacing: 16) {
+                    Button(L.cancelButton) { familyViewModel.clearErrorMessage() }
+                        .font(.caption).fontWeight(.bold)
+                        .foregroundStyle(theme.error)
+                    
+                    if error == L.errorFamilyNotFound {
+                        Button(L.settingsLeaveFamily) {
+                            familyViewModel.leaveFamily()
+                            appState.route = .familySetup
+                        }
+                        .font(.caption).fontWeight(.bold)
+                        .foregroundStyle(theme.error)
+                    }
+                }
             }
             .padding()
             .background(theme.errorContainer.opacity(0.3))
