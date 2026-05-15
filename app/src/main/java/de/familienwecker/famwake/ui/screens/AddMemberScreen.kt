@@ -22,6 +22,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.AccessAlarm
+import androidx.compose.material.icons.filled.Bathtub
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
+import androidx.compose.material.icons.filled.FreeBreakfast
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -612,7 +616,8 @@ private fun DayProfileCard(
                     val latestBeforeEarliestError = profile.latestWakeUp <= profile.earliestWakeUp
 
                     // Früheste Weckzeit
-                    TimePickerRow(
+                    TimePickerRowWithIcon(
+                        icon = Icons.Default.AccessAlarm,
                         label = stringResource(R.string.add_member_earliest_wake),
                         time = profile.earliestWakeUp.toJavaLocalTime(),
                         context = context,
@@ -621,7 +626,8 @@ private fun DayProfileCard(
                     )
 
                     // Späteste Weckzeit
-                    TimePickerRow(
+                    TimePickerRowWithIcon(
+                        icon = Icons.Default.AccessAlarm,
                         label = stringResource(R.string.add_member_latest_wake),
                         time = profile.latestWakeUp.toJavaLocalTime(),
                         context = context,
@@ -652,11 +658,22 @@ private fun DayProfileCard(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         // weight(1f): Label bekommt verbleibenden Platz, Buttons-Row verdrängt nie den +‑Button
-                        Text(
-                            stringResource(R.string.add_member_bathroom_duration),
-                            style = MaterialTheme.typography.bodyLarge,
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.weight(1f).padding(end = 8.dp)
-                        )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Bathtub,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(R.string.add_member_bathroom_duration),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             IconButton(
                                 onClick = { if (profile.bathroomDurationMinutes > 5) onProfileChange(profile.copy(bathroomDurationMinutes = profile.bathroomDurationMinutes - 5)) }
@@ -686,7 +703,8 @@ private fun DayProfileCard(
                     val leaveTooEarlyError =
                         !effectiveLeaveTime.isAfter(profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes))
 
-                    TimePickerRow(
+                    TimePickerRowWithIcon(
+                        icon = Icons.AutoMirrored.Filled.DirectionsRun,
                         label = stringResource(R.string.add_member_leave_home),
                         time = effectiveLeaveTime,
                         context = context,
@@ -709,7 +727,16 @@ private fun DayProfileCard(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(stringResource(R.string.add_member_wants_breakfast), style = MaterialTheme.typography.bodyLarge)
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.FreeBreakfast,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(R.string.add_member_wants_breakfast), style = MaterialTheme.typography.bodyLarge)
+                        }
                         Switch(
                             checked = profile.wantsBreakfast,
                             onCheckedChange = { onProfileChange(profile.copy(wantsBreakfast = it)) }
@@ -776,6 +803,76 @@ private fun TimePickerRow(
             modifier = Modifier.weight(1f).padding(end = 8.dp)
         )
         // wrapContentWidth: Uhrzeit behält ihre natürliche Breite und bricht nie um
+        TextButton(
+            onClick = { showPicker = true },
+            modifier = Modifier.wrapContentWidth()
+        ) {
+            Text(
+                time.format(formatter),
+                style = MaterialTheme.typography.titleMedium,
+                color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
+                softWrap = false
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TimePickerRowWithIcon(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String,
+    time: LocalTime,
+    context: android.content.Context,
+    formatter: DateTimeFormatter,
+    onTimeSelected: (LocalTime) -> Unit,
+    isError: Boolean = false
+) {
+    var showPicker by remember { mutableStateOf(false) }
+
+    if (showPicker) {
+        val pickerState = rememberTimePickerState(
+            initialHour = time.hour,
+            initialMinute = time.minute,
+            is24Hour = true
+        )
+        AlertDialog(
+            onDismissRequest = { showPicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    onTimeSelected(LocalTime.of(pickerState.hour, pickerState.minute))
+                    showPicker = false
+                }) { Text("OK") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showPicker = false }) {
+                    Text(stringResource(R.string.cancel_button))
+                }
+            },
+            text = { TimeInput(state = pickerState) }
+        )
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.size(18.dp),
+            tint = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            label,
+            style = MaterialTheme.typography.bodyLarge,
+            color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.weight(1f).padding(end = 8.dp)
+        )
         TextButton(
             onClick = { showPicker = true },
             modifier = Modifier.wrapContentWidth()
