@@ -5,6 +5,9 @@ import com.russhwolf.settings.set
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 interface AppSettings {
     val deviceId: String
@@ -188,8 +191,9 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     private fun computeAwakeTodayEffective(): Boolean {
         if (!settings.getBoolean("AWAKE_TODAY", false)) return false
         val storedDate = settings.getStringOrNull("AWAKE_TODAY_DATE") ?: return false
-        // java.time ist in AppSettingsImpl (Android-only) verfügbar
-        val today = java.time.LocalDate.now().toString()
+        val today = Clock.System.now()
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+            .date.toString()
         return storedDate == today
     }
 
@@ -203,7 +207,9 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         _isAwakeToday.value = awake
         settings["AWAKE_TODAY"] = awake
         if (awake) {
-            settings["AWAKE_TODAY_DATE"] = java.time.LocalDate.now().toString()
+            settings["AWAKE_TODAY_DATE"] = Clock.System.now()
+                .toLocalDateTime(TimeZone.currentSystemDefault())
+                .date.toString()
         } else {
             settings.remove("AWAKE_TODAY_DATE")
         }

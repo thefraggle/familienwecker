@@ -87,13 +87,13 @@ service cloud.firestore {
             // Claimen: Jedes Familienmitglied darf ein Profil auf sich selbst setzen.
             // Stehlen / Umclaimen (Claim von A auf B) ist erlaubt.
             (
-              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'lastUpdatedAt']) &&
+              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
               request.resource.data.claimedByUserId == request.auth.uid
             )
             ||
             // Unclaimen: Eigenes Profil darf jeder Nutzer freigeben.
             (
-              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'isAwakeToday', 'lastUpdatedAt']) &&
+              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'isAwakeToday', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
               resource.data.claimedByUserId == request.auth.uid &&
               request.resource.data.claimedByUserId == null
             )
