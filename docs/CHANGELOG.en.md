@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.3 – 2026-05-15
+### Improved
+- **Modern icons** – Emojis in the alarm schedule and on member cards have been replaced with crisp Material Icons for a consistent look across all devices.
+- **Clearer settings** – Every menu item in the settings now has a matching icon for faster navigation.
+- **Better readable form** – Wake times, bathroom duration, departure time, and breakfast in the member editor are now marked with icons.
+
+---
+
 ## 1.9.2 – 2026-05-13
 ### Improved
 - **Better translations** – FamWake now speaks all supported languages even more fluently so every family member can easily join in.
