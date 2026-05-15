@@ -145,16 +145,35 @@ fun MemberCard(
                             )
                         }
                     }
-                    Text(
-                        stringResource(R.string.main_wake_time, displayEarliest.format(timeFormatter), displayLatest.format(timeFormatter)), 
-                        color = textColor,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if (member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)), 
-                        color = textColor.copy(alpha = 0.9f)
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.AccessAlarm,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = textColor.copy(alpha = 0.6f)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            stringResource(R.string.main_wake_time, displayEarliest.format(timeFormatter), displayLatest.format(timeFormatter)),
+                            color = textColor,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Bathtub,
+                            contentDescription = null,
+                            modifier = Modifier.size(14.dp),
+                            tint = textColor.copy(alpha = 0.5f)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if (member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)),
+                            color = textColor.copy(alpha = 0.9f),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
                 }
             }
 
