@@ -263,6 +263,11 @@
     <string name="schedule_message_breakfast_and_time_adjusted">早餐缩短 %1$d 分钟，整体时间平移 %2$d 分钟。</string>
     <string name="schedule_message_member_conflict">%1$s 出现冲突：时间重叠太多。</string>
     <string name="schedule_message_member_conflict_desc">请尝试更改顺序或调整时间。</string>
+    <string name="schedule_message_buffer_reduced">缓冲时间从 %1$d 分钟减少至 %2$d 分钟。</string>
+    <string name="buffer_label">缓冲</string>
+    <string name="buffer_after_bath">沐浴后缓冲</string>
+    <string name="buffer_global_default">全局 (%1$d 分钟)</string>
+    <string name="buffer_between_display">%1$d 分钟缓冲</string>
     <string name="main_fallback_alarm_active">⚠️ 警告：当前日程存在冲突 (%1$s)。请调整您的时间！</string>
 
     <string name="error_password_too_short">密码长度必须至少为 8 个字符。</string>

@@ -258,6 +258,11 @@
     <string name="schedule_message_breakfast_and_time_adjusted">Frühstück −%1$d Min &amp; Zeita om %2$d Min gricht.</string>
     <string name="schedule_message_member_conflict">S\'klemmt für %1$s: Zeita ganged zu arg iber\'nand.</string>
     <string name="schedule_message_member_conflict_desc">Probiers mol mit na andere Reihafolg oder mach d\'Zeita andersch.</string>
+    <string name="schedule_message_buffer_reduced">Puffer vo %1$d uff %2$d Min. rondergsedzd.</string>
+    <string name="buffer_label">Puffer</string>
+    <string name="buffer_after_bath">Puffer nachm Bad</string>
+    <string name="buffer_global_default">Global (%1$d Min.)</string>
+    <string name="buffer_between_display">%1$d Min. Puffer</string>
     <string name="main_fallback_alarm_active">⚠️ Achtong: Dr Plan basst grad net (%1$s). Bitte richte dei Zeita!</string>
 
     <string name="error_password_too_short">S\'Passwort muass midischtens 8 Zeiche lang sei.</string>

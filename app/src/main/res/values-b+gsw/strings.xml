@@ -266,6 +266,11 @@
     <string name="schedule_message_breakfast_and_time_adjusted">Zmorge −%1$d Min &amp; Ziite um %2$d Min verschobe.</string>
     <string name="schedule_message_member_conflict">Konflikt für %1$s: Ziite überschniided sich z\'starch.</string>
     <string name="schedule_message_member_conflict_desc">Versuech, d\'Reihefolg oder d\'Ziite z\'ändere.</string>
+    <string name="schedule_message_buffer_reduced">Puffer vo %1$d uf %2$d Min. abegsetzt.</string>
+    <string name="buffer_label">Puffer</string>
+    <string name="buffer_after_bath">Puffer nachem Bad</string>
+    <string name="buffer_global_default">Global (%1$d Min.)</string>
+    <string name="buffer_between_display">%1$d Min. Puffer</string>
     <string name="main_fallback_alarm_active">⚠️ Achtung: De Plan passt grad nöd (%1$s). Bitte pass diini Ziite aa!</string>
 
     <string name="error_password_too_short">Diis Passwort mues mindistens 8 Zeiche lang sii.</string>

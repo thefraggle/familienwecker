@@ -257,6 +257,11 @@
     <string name="schedule_message_breakfast_and_time_adjusted">Ontbijt −%1$d min &amp; tijden verschoven met %2$d min.</string>
     <string name="schedule_message_member_conflict">Probleem voor %1$s: De tijden overlappen te veel.</string>
     <string name="schedule_message_member_conflict_desc">Probeer de volgorde te wijzigen of pas je tijden aan.</string>
+    <string name="schedule_message_buffer_reduced">Buffer verkort van %1$d naar %2$d min.</string>
+    <string name="buffer_label">Buffer</string>
+    <string name="buffer_after_bath">Buffer na badkamer</string>
+    <string name="buffer_global_default">Globaal (%1$d min)</string>
+    <string name="buffer_between_display">%1$d min buffer</string>
     <string name="main_fallback_alarm_active">⚠️ Let op: Het schema past momenteel niet (%1$s). Pas a.u.b. je tijden aan!</string>
 
     <string name="error_password_too_short">Je wachtwoord moet uit minstens 8 tekens bestaan.</string>

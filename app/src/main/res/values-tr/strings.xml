@@ -266,6 +266,11 @@
     <string name="schedule_message_breakfast_and_time_adjusted">Kahvaltı −%1$d dk. &amp; saatler %2$d dk. kaydırıldı.</string>
     <string name="schedule_message_member_conflict">%1$s için çakışma: Saatler çok fazla çakışıyor.</string>
     <string name="schedule_message_member_conflict_desc">Sıralamayı değiştirmeyi veya saatleri ayarlamayı deneyin.</string>
+    <string name="schedule_message_buffer_reduced">Tampon %1$d ile %2$d dk arasına düşürüldü.</string>
+    <string name="buffer_label">Tampon</string>
+    <string name="buffer_after_bath">Banyo sonrası tampon</string>
+    <string name="buffer_global_default">Global (%1$d dk)</string>
+    <string name="buffer_between_display">%1$d dk tampon</string>
     <string name="main_fallback_alarm_active">⚠️ Uyarı: Plan şu anda uyuşmuyor (%1$s). Lütfen saatlerinizi ayarlayın!</string>
 
     <string name="error_password_too_short">Şifreniz en az 8 karakter uzunluğunda olmalıdır.</string>
