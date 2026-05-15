@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Jam Alarm Keluarga";
+
+"app_name_short" = "Jam Alarm Keluarga";
 "email_label" = "Email";
 "password_label" = "Kata sandi";
 "register_button" = "Daftar";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Suara: %@";
 "settings_alarm_picker_title" = "Pilih suara alarm Anda";
 "settings_account_title" = "Keluarga & Akun";
-"settings_join_family_locked" = "Silakan masuk untuk bergabung dengan keluarga.";
 "settings_share_code_locked" = "Silakan masuk untuk membagikan kode undangan.";
 "settings_anonymous_login_button" = "Masuk / Daftar";
 "settings_join_code" = "Kode undangan untuk %@:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "Ya, hapus untuk semua orang";
 "settings_logout" = "Keluar";
 "settings_delete_account" = "Hapus akun";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Semua hak dilindungi undang-undang.";
 "empty_members_title" = "Belum ada anggota";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "Tidak ada alarm yang menyala saat ini. Saatnya tidur dengan nyenyak!";
 "settings_language_title" = "Bahasa";
 "settings_language_system" = "Bawaan sistem";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Tampilan";
 "settings_display_title" = "Pengaturan aplikasi";
 "settings_help_feedback_title" = "Bantuan & Masukan";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "Masuk / Daftar";
 "onboarding_slide5_title" = "Mari kita mulai!";
 "onboarding_slide5_body" = "Anda dapat langsung mencoba aplikasinya tanpa akun. Anda hanya memerlukan akun saat ingin mengundang keluarga Anda.";
-"onboarding_slide0_title" = "Pagi Anda sebagai sebuah tim.";
+"onboarding_slide0_title" = "Memulai hari dengan santai bersama.";
 "onboarding_slide0_body" = "Tanpa perdebatan, tanpa kekacauan. FamWake memastikan semua orang memulai hari dengan santai – dengan sendirinya.";
-"onboarding_slide1_title" = "Tidak perlu menunggu lagi.";
-"onboarding_slide1_body" = "FamWake menemukan waktu bangun yang tepat untuk semua orang di keluarga – berdasarkan waktu mandi, sarapan, dan jam berangkat. Tidak ada lagi antrean di kamar mandi.";
-"onboarding_slide2_title" = "Setiap hari itu berbeda.";
-"onboarding_slide2_body" = "Hari Senin ke kantor, hari Rabu kerja dari rumah? Cukup atur waktu Anda untuk setiap hari, dan aplikasi yang akan mengurus sisanya.";
+"onboarding_slide1_title" = "Rencana cerdas untuk setiap hari";
+"onboarding_slide1_body" = "Baik itu kantor, sekolah, atau bekerja dari rumah – FamWake menghitung waktu bangun dan mandi yang sempurna untuk seluruh keluarga. Tanpa antrean di pagi hari.";
 "onboarding_slide3_title" = "Terhubung dalam hitungan detik.";
 "onboarding_slide3_body" = "Bagikan kode undangan Anda dan keluarga langsung bergabung. Jika ada yang mengubah waktunya, jadwal semua orang otomatis diperbarui.";
-"onboarding_slide4_title" = "Selalu bisa diandalkan.";
-"onboarding_slide4_body" = "Nikmati pagi yang santai setiap hari. Meskipun internet Anda mati di malam hari, alarm akan tetap berbunyi tepat waktu.";
 "onboarding_mock_name1" = "Ayah";
 "onboarding_mock_name2" = "Ibu";
 "onboarding_mock_family_name" = "Budi";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "Ponsel: %@";
 "feedback_cancel" = "Batal";
 "feedback_send" = "Kirim pesan";
-"feedback_success" = "Terima kasih! Kami telah menerima pesan Anda.";
 "feedback_success_title" = "Pesan Terkirim";
 "feedback_success_message" = "Terima kasih atas bantuan Anda! Masukan Anda membantu kami membuat FamWake lebih baik untuk semua orang.";
 "settings_terms_of_use" = "Syarat Penggunaan";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "Anda belum masuk.";
 "error_system" = "Ada yang salah.";
 "error_invalid_credentials" = "Email atau kata sandi salah. Silakan periksa kembali.";
-"error_login_failed" = "Gagal masuk";
 "error_login_failed_unknown" = "Kesalahan masuk yang tidak diketahui";
-"error_registration_failed" = "Pendaftaran gagal";
 "error_registration_failed_unknown" = "Tidak dapat membuat akun Anda";
 "error_unknown" = "Ada yang salah. Silakan coba lagi.";
 "error_google_sign_in_failed_unknown" = "Gagal masuk dengan Google";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "Tidak ada yang aktif. Semua alarm dijeda.";
 "schedule_message_no_valid" = "Waktunya terlalu tumpang tindih untuk membuat jadwal yang pas.";
 "schedule_message_no_valid_desc" = "Tips: Coba perpanjang waktu bangun, perpendek waktu mandi, atau jeda alarm seseorang.";
-"schedule_message_time_adjusted" = "Waktu digeser %1$d menit agar semuanya pas.";
-"schedule_message_breakfast_reduced" = "Waktu sarapan dipersingkat %1$d menit agar semuanya pas.";
-"schedule_message_breakfast_and_time_adjusted" = "Sarapan −%1$d menit & waktu digeser sebanyak %2$d menit.";
+"schedule_message_time_adjusted" = "Waktu digeser %d menit agar semuanya pas.";
+"schedule_message_breakfast_reduced" = "Waktu sarapan dipersingkat %d menit agar semuanya pas.";
+"schedule_message_breakfast_and_time_adjusted" = "Sarapan −%d menit & waktu digeser sebanyak %d menit.";
 "schedule_message_member_conflict" = "Masalah untuk %@: Waktunya terlalu tumpang tindih.";
 "schedule_message_member_conflict_desc" = "Coba ubah urutan atau sesuaikan waktunya.";
 "main_fallback_alarm_active" = "⚠️ Peringatan: Jadwal tidak pas saat ini (%@). Tolong sesuaikan waktu Anda!";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "Apakah Anda menyukai aplikasi ini? Kami sangat menghargai dukungan Anda!";
 "settings_support_donate" = "Donasi";
 "settings_donate_success" = "Terima kasih banyak atas dukungan Anda! ❤️";
-"settings_donate_error" = "Ups, ada yang tidak beres.";
 "settings_donate_loading" = "Memuat pilihan…";
 "settings_donate_no_offers" = "Tidak ada pilihan yang tersedia saat ini.";
 "settings_donate_purchase_loading" = "Memproses…";
@@ -303,19 +282,6 @@
 "error_feedback_rate_limit_server" = "Terlalu banyak pesan yang dikirim. Silakan coba lagi nanti.";
 "error_feedback_empty_message" = "Pesan Anda kosong.";
 "error_network" = "Masalah jaringan. Silakan periksa koneksi internet Anda.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "Ketuk di sini untuk memilih suara bangun pribadi Anda – gunakan musik favorit Anda daripada bunyi bip biasa.";
 "settings_language_dialects" = "Dialek";
 "notif_channel_schedule_change_name" = "Pembaruan jadwal";
@@ -331,8 +297,15 @@
 "notif_permission_title" = "Notifikasi diperlukan";
 "notif_permission_desc" = "Jika Anda mematikan notifikasi, alarm Anda mungkin tidak berfungsi dengan baik. Tolong biarkan tetap menyala.";
 "notif_permission_button" = "Nyalakan notifikasi";
-"notif_manage_title" = "Pengaturan notifikasi";
-"notif_manage_desc" = "Ubah suara dan getaran di pengaturan ponsel Anda.";
 "settings_steal_title" = "Gunakan profil ini?";
 "settings_steal_text" = "Profil %@ sudah dipakai orang lain. Apakah Anda ingin menggunakannya?";
 "settings_steal_confirm" = "Ya, gunakan";
+"schedule_auto_fix" = "✨ Sesuaikan waktu secara otomatis";
+"onboarding_enable_tooltips" = "Tampilkan tips bermanfaat pada penggunaan pertama";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Akun";

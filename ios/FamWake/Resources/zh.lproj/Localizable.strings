@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake 家庭闹钟";
+
+"app_name_short" = "家庭闹钟";
 "email_label" = "电子邮件";
 "password_label" = "密码";
 "register_button" = "注册";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "声音：%@";
 "settings_alarm_picker_title" = "选择您的闹钟铃声";
 "settings_account_title" = "家庭与帐号";
-"settings_join_family_locked" = "请先登录以加入家庭。";
 "settings_share_code_locked" = "请先登录以分享您的邀请码。";
 "settings_anonymous_login_button" = "登录 / 注册";
 "settings_join_code" = "%@ 的邀请码：";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "是的，全部删除";
 "settings_logout" = "退出登录";
 "settings_delete_account" = "注销帐号";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "保留所有权利。";
 "empty_members_title" = "还没有成员";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "目前没有开启的闹钟。是时候好好睡一觉了！";
 "settings_language_title" = "语言";
 "settings_language_system" = "系统默认";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "外观";
 "settings_display_title" = "应用设置";
 "settings_help_feedback_title" = "帮助与反馈";
@@ -144,16 +131,12 @@
 "onboarding_skip" = "跳过";
 "onboarding_next" = "下一步";
 "onboarding_done" = "无需帐号即可开始";
-"onboarding_slide0_title" = "像团队一样的早晨。";
+"onboarding_slide0_title" = "一起轻松开启新的一天。";
 "onboarding_slide0_body" = "告别争吵与混乱。FamWake 让全家人都能轻松开始新的一天——一切全自动。";
 "onboarding_slide1_title" = "无需再等待。";
 "onboarding_slide1_body" = "FamWake 会根据洗漱、早餐和出门时间，为每个人找到最完美的起床时间。洗手间再也不用排长队了。";
-"onboarding_slide2_title" = "每一天都不同。";
-"onboarding_slide2_body" = "周一去公司，周三在家办公？只需为每天设置您的时间，剩下的就交给应用吧。";
 "onboarding_slide3_title" = "几秒钟内即可连接。";
 "onboarding_slide3_body" = "分享邀请码，您的家人即可立即加入。如果有人更改了时间，所有人的日程表都会立即更新。";
-"onboarding_slide4_title" = "始终可靠。";
-"onboarding_slide4_body" = "每天享受轻松的早晨。即使晚上断网，闹钟依然会准时响起。";
 "onboarding_mock_name1" = "爸爸";
 "onboarding_mock_name2" = "妈妈";
 "onboarding_mock_family_name" = "王";
@@ -174,7 +157,6 @@
 "feedback_auto_device" = "手机：%@";
 "feedback_cancel" = "取消";
 "feedback_send" = "发送消息";
-"feedback_success" = "谢谢！我们已收到您的消息。";
 "feedback_success_title" = "消息已发送";
 "feedback_success_message" = "感谢您的帮助！您的反馈能帮助我们为所有人改进 FamWake。";
 "settings_terms_of_use" = "使用条款";
@@ -213,9 +195,7 @@
 "error_not_logged_in" = "您尚未登录。";
 "error_system" = "出了点问题。";
 "error_invalid_credentials" = "电子邮件或密码错误。请检查您的输入。";
-"error_login_failed" = "登录失败";
 "error_login_failed_unknown" = "未知的登录错误";
-"error_registration_failed" = "注册失败";
 "error_registration_failed_unknown" = "无法创建您的帐号";
 "error_unknown" = "出了点问题。请重试。";
 "error_google_sign_in_failed_unknown" = "Google 登录失败";
@@ -240,9 +220,9 @@
 "schedule_message_no_members" = "没有人活跃。所有闹钟均已暂停。";
 "schedule_message_no_valid" = "时间重叠太多，无法生成合适的日程。";
 "schedule_message_no_valid_desc" = "提示：尝试扩大起床时间范围、缩短洗漱时间或暂停某人的闹钟。";
-"schedule_message_time_adjusted" = "为了合理安排，时间调整了 %1$d 分钟。";
-"schedule_message_breakfast_reduced" = "为了适应日程安排，早餐时间缩短了 %1$d 分钟。";
-"schedule_message_breakfast_and_time_adjusted" = "早餐缩短 %1$d 分钟，整体时间平移 %2$d 分钟。";
+"schedule_message_time_adjusted" = "为了合理安排，时间调整了 %d 分钟。";
+"schedule_message_breakfast_reduced" = "为了适应日程安排，早餐时间缩短了 %d 分钟。";
+"schedule_message_breakfast_and_time_adjusted" = "早餐缩短 %d 分钟，整体时间平移 %d 分钟。";
 "schedule_message_member_conflict" = "%@ 出现冲突：时间重叠太多。";
 "schedule_message_member_conflict_desc" = "请尝试更改顺序或调整时间。";
 "main_fallback_alarm_active" = "⚠️ 警告：当前日程存在冲突 (%@)。请调整您的时间！";
@@ -270,7 +250,6 @@
 "settings_support_desc" = "您喜欢这个应用吗？非常感谢您的支持！";
 "settings_support_donate" = "捐助";
 "settings_donate_success" = "非常感谢您的支持！ ❤️";
-"settings_donate_error" = "糟糕，出了点问题。";
 "settings_donate_loading" = "正在加载选项...";
 "settings_donate_no_offers" = "目前没有可用的选项。";
 "settings_donate_purchase_loading" = "正在处理...";
@@ -300,19 +279,6 @@
 "error_feedback_rate_limit_server" = "发送的消息太多。请稍后再试。";
 "error_feedback_empty_message" = "您的消息为空。";
 "error_network" = "网络问题。请检查您的互联网连接。";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "点击此处选择您的专属起床铃声——用您最喜欢的音乐代替默认的哔哔声。";
 "settings_language_dialects" = "方言";
 "notif_channel_schedule_change_name" = "日程更新";
@@ -328,9 +294,18 @@
 "notif_permission_title" = "需要通知权限";
 "notif_permission_desc" = "如果您关闭通知，闹钟可能无法正常工作。请保持开启状态。";
 "notif_permission_button" = "开启通知";
-"notif_manage_title" = "通知设置";
-"notif_manage_desc" = "在手机设置中更改声音和振动。";
 "onboarding_login_create" = "登录 / 注册";
 "settings_steal_title" = "使用此个人资料？";
 "settings_steal_text" = "%@ 已被选择。您想使用这个个人资料吗？";
 "settings_steal_confirm" = "是的，我要使用";
+"schedule_auto_fix" = "✨ 自动调整时间";
+"onboarding_enable_tooltips" = "首次使用时显示实用提示";
+"onboarding_slide5_body" = "你可以不用注册账户直接试用这款应用。只有在你想要邀请家人时才需要账户。";
+"onboarding_slide5_title" = "我们开始吧！";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "帐号";

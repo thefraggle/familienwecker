@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake ফ্যামিলি অ্যালার্ম ঘড়ি";
+
+"app_name_short" = "ফ্যামিলি অ্যালার্ম ঘড়ি";
 "email_label" = "ইমেইল";
 "password_label" = "পাসওয়ার্ড";
 "register_button" = "সাইন আপ করুন";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "শব্দ: %@";
 "settings_alarm_picker_title" = "অ্যালার্মের শব্দ বেছে নিন";
 "settings_account_title" = "পরিবার এবং অ্যাকাউন্ট";
-"settings_join_family_locked" = "পরিবারে যুক্ত হতে লগ ইন করুন।";
 "settings_share_code_locked" = "আমন্ত্রণ কোড শেয়ার করতে লগ ইন করুন।";
 "settings_anonymous_login_button" = "লগ ইন / সাইন আপ করুন";
 "settings_join_code" = "%@ এর জন্য আমন্ত্রণ কোড:";
@@ -115,7 +115,6 @@
 "settings_delete_family_warning_confirm" = "হ্যাঁ, সবার জন্য মুছুন";
 "settings_logout" = "লগ আউট করুন";
 "settings_delete_account" = "অ্যাকাউন্ট মুছুন";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© ২০২৬ ড্যানিয়েল নথফ";
 "settings_footer_rights" = "সর্বস্বত্ব সংরক্ষিত।";
 "empty_members_title" = "এখনো কোনো সদস্য নেই";
@@ -124,18 +123,6 @@
 "empty_schedule_description" = "এখন কোনো অ্যালার্ম চালু নেই। আরামে ঘুমানোর সময়!";
 "settings_language_title" = "ভাষা";
 "settings_language_system" = "সিস্টেম ডিফল্ট";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "লুক";
 "settings_display_title" = "অ্যাপ সেটিংস";
 "settings_help_feedback_title" = "সাহায্য এবং মতামত";
@@ -147,16 +134,12 @@
 "onboarding_login_create" = "লগ ইন / সাইন আপ করুন";
 "onboarding_slide5_title" = "চলুন শুরু করি!";
 "onboarding_slide5_body" = "আপনি অ্যাকাউন্ট ছাড়াই অ্যাপটি ব্যবহার করে দেখতে পারেন। আপনি যখন পরিবারকে আমন্ত্রণ জানাতে চাইবেন, তখনই অ্যাকাউন্টের প্রয়োজন হবে।";
-"onboarding_slide0_title" = "সকাল হোক টিমের মতো।";
+"onboarding_slide0_title" = "একসাথে শান্তিতে দিন শুরু করা।";
 "onboarding_slide0_body" = "কোনো ঝামেলা বা বিশৃঙ্খলা নেই। FamWake নিশ্চিত করে যে সবার দিনটা খুব শান্তিতে শুরু হয় – একদম নিজে থেকেই।";
-"onboarding_slide1_title" = "আর অপেক্ষা করতে হবে না।";
-"onboarding_slide1_body" = "FamWake সবার জন্য ঘুম থেকে ওঠার সঠিক সময় খুঁজে বের করে – বাথরুম, নাস্তা এবং বের হওয়ার সময়ের ওপর ভিত্তি করে। বাথরুমের সামনে আর ভিড় হবে না।";
-"onboarding_slide2_title" = "প্রতিটি দিনই আলাদা।";
-"onboarding_slide2_body" = "সোমবারে অফিস, বুধবারে ঘরে বসে কাজ? শুধু প্রতিদিনের জন্য আপনার সময় ঠিক করে দিন, বাকিটা অ্যাপ সামলে নেবে।";
+"onboarding_slide1_title" = "প্রতিদিনের জন্য স্মার্ট প্ল্যান";
+"onboarding_slide1_body" = "অফিস, স্কুল বা বাড়ি থেকে কাজ – FamWake পুরো পরিবারের জন্য ঘুম থেকে ওঠা এবং বাথরুম ব্যবহারের নিখুঁত সময় হিসাব করে দেয়। সকালের ভিড় ছাড়াই।";
 "onboarding_slide3_title" = "কয়েক সেকেন্ডেই যুক্ত।";
 "onboarding_slide3_body" = "আমন্ত্রণ কোড শেয়ার করুন আর আপনার পরিবার যুক্ত হয়ে যাবে। কেউ সময় বদলালে সবার রুটিন নিজে থেকেই আপডেট হয়ে যাবে।";
-"onboarding_slide4_title" = "সবসময় কাজ করে।";
-"onboarding_slide4_body" = "প্রতিদিন আরামদায়ক সকাল উপভোগ করুন। রাতে ইন্টারনেট না থাকলেও অ্যালার্ম ঠিক সময়েই বাজবে।";
 "onboarding_mock_name1" = "বাবা";
 "onboarding_mock_name2" = "মা";
 "onboarding_mock_family_name" = "রহমান";
@@ -177,7 +160,6 @@
 "feedback_auto_device" = "ফোন: %@";
 "feedback_cancel" = "বাতিল করুন";
 "feedback_send" = "বার্তা পাঠান";
-"feedback_success" = "ধন্যবাদ! আমরা আপনার বার্তা পেয়েছি।";
 "feedback_success_title" = "বার্তা পাঠানো হয়েছে";
 "feedback_success_message" = "সাহায্য করার জন্য ধন্যবাদ! আপনার মতামত আমাদের অ্যাপটিকে সবার জন্য উন্নত করতে সাহায্য করে।";
 "settings_terms_of_use" = "ব্যবহারের শর্তাবলী";
@@ -216,9 +198,7 @@
 "error_not_logged_in" = "আপনি লগ ইন করা নেই।";
 "error_system" = "কিছু একটা ভুল হয়েছে।";
 "error_invalid_credentials" = "ইমেইল বা পাসওয়ার্ড ভুল। আবার চেক করুন।";
-"error_login_failed" = "লগ ইন করা যায়নি";
 "error_login_failed_unknown" = "লগ ইনে অজানা সমস্যা";
-"error_registration_failed" = "সাইন আপ করা যায়নি";
 "error_registration_failed_unknown" = "আপনার অ্যাকাউন্ট তৈরি করা যায়নি";
 "error_unknown" = "কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।";
 "error_google_sign_in_failed_unknown" = "Google দিয়ে সাইন ইন করা যায়নি";
@@ -243,9 +223,9 @@
 "schedule_message_no_members" = "কেউ সক্রিয় নেই। সবার অ্যালার্ম পজ করা আছে।";
 "schedule_message_no_valid" = "সবাইকে ঠিকমতো জাগানোর জন্য সময়গুলো খুব বেশি মিলে যাচ্ছে।";
 "schedule_message_no_valid_desc" = "পরামর্শ: ওঠার সময়টা একটু বাড়িয়ে দিন, বাথরুমের সময় কমান, অথবা কারো অ্যালার্ম পজ করুন।";
-"schedule_message_time_adjusted" = "সবকিছু ঠিক করতে সময়গুলো %1$d মিনিট এগিয়ে বা পিছিয়ে দেওয়া হয়েছে।";
-"schedule_message_breakfast_reduced" = "সবকিছু ঠিক করতে নাস্তার সময় %1$d মিনিট কমানো হয়েছে।";
-"schedule_message_breakfast_and_time_adjusted" = "নাস্তা −%1$d মিনিট এবং সময় বদলানো হয়েছে %2$d মিনিট।";
+"schedule_message_time_adjusted" = "সবকিছু ঠিক করতে সময়গুলো %d মিনিট এগিয়ে বা পিছিয়ে দেওয়া হয়েছে।";
+"schedule_message_breakfast_reduced" = "সবকিছু ঠিক করতে নাস্তার সময় %d মিনিট কমানো হয়েছে।";
+"schedule_message_breakfast_and_time_adjusted" = "নাস্তা −%d মিনিট এবং সময় বদলানো হয়েছে %d মিনিট।";
 "schedule_message_member_conflict" = "%@ এর জন্য সমস্যা: সময়গুলো খুব বেশি মিলে যাচ্ছে।";
 "schedule_message_member_conflict_desc" = "ক্রম বদলানোর বা সময় ঠিক করার চেষ্টা করুন।";
 "main_fallback_alarm_active" = "⚠️ সতর্কবার্তা: এখনকার রুটিনটি ঠিক মিলছে না (%@)। সময়গুলো একটু ঠিক করুন!";
@@ -273,7 +253,6 @@
 "settings_support_desc" = "অ্যাপটি ভালো লেগেছে? আমরা আপনার সাপোর্ট খুব পছন্দ করব!";
 "settings_support_donate" = "দান করুন";
 "settings_donate_success" = "সাপোর্ট করার জন্য অনেক ধন্যবাদ! ❤️";
-"settings_donate_error" = "ওহো, কিছু একটা সমস্যা হয়েছে।";
 "settings_donate_loading" = "অপশন লোড হচ্ছে…";
 "settings_donate_no_offers" = "এখন কোনো অপশন নেই।";
 "settings_donate_purchase_loading" = "প্রক্রিয়া চলছে…";
@@ -303,19 +282,6 @@
 "error_feedback_rate_limit_server" = "অনেকগুলো মেসেজ পাঠানো হয়েছে। পরে আবার চেষ্টা করুন।";
 "error_feedback_empty_message" = "আপনার মেসেজটি ফাঁকা।";
 "error_network" = "নেটওয়ার্ক সমস্যা। আপনার ইন্টারনেট সংযোগ চেক করুন।";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
-"settings_language_indonesian" = "Bahasa Indonesia";
-"settings_language_vietnamese" = "Tiếng Việt";
-"settings_language_bengali" = "বাংলা";
-"settings_language_marathi" = "मराठी";
-"settings_language_hindi" = "हिन्दी";
 "tooltip_alarm_sound" = "আপনার নিজের ওঠার শব্দ বেছে নিতে এখানে ট্যাপ করুন – সাধারণ শব্দের বদলে আপনার পছন্দের মিউজিক দিন।";
 "settings_language_dialects" = "উপভাষা";
 "notif_channel_schedule_change_name" = "রুটিন আপডেট";
@@ -331,8 +297,15 @@
 "notif_permission_title" = "নোটিফিকেশনের অনুমতি দিন";
 "notif_permission_desc" = "নোটিফিকেশন বন্ধ করলে অ্যালার্ম ঠিকমতো কাজ নাও করতে পারে। এগুলো চালু রাখুন।";
 "notif_permission_button" = "নোটিফিকেশন চালু করুন";
-"notif_manage_title" = "নোটিফিকেশন সেটিংস";
-"notif_manage_desc" = "ফোনের সেটিংসে শব্দ ও ভাইব্রেশন বদলান।";
 "settings_steal_title" = "এই প্রোফাইলটি ব্যবহার করবেন?";
 "settings_steal_text" = "%@ ইতিমধ্যেই নেওয়া হয়েছে। আপনি কি এটি আপনার জন্য ব্যবহার করতে চান?";
 "settings_steal_confirm" = "হ্যাঁ, ব্যবহার করুন";
+"schedule_auto_fix" = "✨ স্বয়ংক্রিয়ভাবে সময় সামঞ্জস্য করুন";
+"onboarding_enable_tooltips" = "প্রথম ব্যবহারের সময় সহায়ক টিপস দেখান";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "অ্যাকাউন্ট";

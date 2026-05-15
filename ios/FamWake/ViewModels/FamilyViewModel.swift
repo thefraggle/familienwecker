@@ -71,6 +71,16 @@ class FamilyViewModel: ObservableObject {
         membersListener?.remove()
     }
 
+    /// Nach Account-Wechsel (anon → Google/Email): alte Daten löschen, neue laden
+    func reloadForNewUser() {
+        stopSyncJobs()
+        clearFamilyLocally()
+        members = []
+        schedule = nil
+        errorMessage = nil
+        Task { await restoreUserContextIfNeeded() }
+    }
+
     // MARK: - Family Operations
     func createFamily(_ name: String, completion: @escaping (Bool) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { completion(false); return }
@@ -145,16 +155,65 @@ class FamilyViewModel: ObservableObject {
         schedule = nil
     }
 
+    var isAwakeButtonVisible: Bool {
+        guard isAlarmEnabled, let myId = myMemberId, let myMember = members.first(where: { $0.id == myId }) else { return false }
+        if isAwakeTodayLocal { return true }
+        
+        let cal = Calendar.current
+        let now = Date()
+        let nowMinutes = cal.component(.hour, from: now) * 60 + cal.component(.minute, from: now)
+        let weekdayRaw = cal.component(.weekday, from: now)
+        let todayDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
+        
+        var offsetDays: Int? = nil
+        var targetProfile: DayProfile? = nil
+        
+        for offset in 0..<7 {
+            let checkDow = ((todayDow - 1 + offset) % 7) + 1
+            if let p = myMember.dayProfiles?[checkDow], p.isActive {
+                if offset == 0 {
+                    if nowMinutes < p.latestWakeUp.totalMinutes {
+                        offsetDays = offset
+                        targetProfile = p
+                        break
+                    }
+                } else {
+                    offsetDays = offset
+                    targetProfile = p
+                    break
+                }
+            }
+        }
+        
+        guard let offset = offsetDays, let profile = targetProfile else { return false }
+        
+        let myScheduledTime = schedule?.memberSchedules.first(where: { $0.id == myId })?.wakeUpTime
+        let alarmTime = myScheduledTime ?? profile.earliestWakeUp
+        
+        let startOfToday = cal.startOfDay(for: now)
+        guard let targetDayDate = cal.date(byAdding: .day, value: offset, to: startOfToday) else { return false }
+        guard let targetDate = cal.date(bySettingHour: alarmTime.hour ?? 0, minute: alarmTime.minute ?? 0, second: 0, of: targetDayDate) else { return false }
+        
+        guard let windowStart = cal.date(byAdding: .hour, value: -2, to: targetDate) else { return false }
+        return now >= windowStart && now < targetDate
+    }
+
     func deleteFamily(completion: @escaping (Bool) -> Void) {
         guard let fid = familyId, isAdmin else { completion(false); return }
         stopSyncJobs()
         Task {
             do {
                 try await functions.httpsCallable("deleteFamily").call(["familyId": fid])
-                leaveFamily()
+                clearFamilyLocally()
+                familyListener?.remove()
+                membersListener?.remove()
+                members = []
+                schedule = nil
                 completion(true)
             } catch {
-                errorMessage = error.localizedDescription
+                await MainActor.run {
+                    errorMessage = mapFirebaseError(error)
+                }
                 completion(false)
             }
         }
@@ -170,28 +229,81 @@ class FamilyViewModel: ObservableObject {
         }
         Task {
             do {
-        let data = updatedMember.toFirestoreMap()
-                try await functions.httpsCallable("saveMember")
-                    .call(["familyId": fid, "memberId": updatedMember.id, "data": data])
-                if shouldClaim {
-                    myMemberId = updatedMember.id
-                    UserDefaults.standard.set(updatedMember.id, forKey: "my_member_id")
+                let data = updatedMember.toFirestoreMap()
+                try await db.collection("families").document(fid)
+                    .collection("members").document(updatedMember.id)
+                    .setData(data)
+                
+                await MainActor.run {
+                    if shouldClaim {
+                        myMemberId = updatedMember.id
+                        UserDefaults.standard.set(updatedMember.id, forKey: "my_member_id")
+                    }
+                    isSyncing = false
                 }
             } catch {
-                errorMessage = mapFirebaseError(error)
+                await MainActor.run {
+                    errorMessage = mapFirebaseError(error)
+                    isSyncing = false
+                }
             }
-            isSyncing = false
         }
     }
 
     func deleteMember(_ memberId: String) {
         guard let fid = familyId else { return }
+        // Prüfe ob das gelöschte Profil das eigene war
+        let wasMyMember = (memberId == myMemberId)
         Task {
             do {
-                try await functions.httpsCallable("deleteFamilyMember")
-                    .call(["familyId": fid, "memberId": memberId])
+                try await db.collection("families").document(fid).collection("members").document(memberId).delete()
+                await MainActor.run {
+                    members.removeAll { $0.id == memberId }
+                    if wasMyMember {
+                        myMemberId = nil
+                        UserDefaults.standard.removeObject(forKey: "my_member_id")
+                        isAlarmEnabled = false
+                        UserDefaults.standard.set(false, forKey: "alarm_enabled")
+                    }
+                    recalculateSchedule()
+                }
             } catch {
-                errorMessage = mapFirebaseError(error)
+                await MainActor.run {
+                    errorMessage = mapFirebaseError(error)
+                }
+            }
+        }
+    }
+
+    func togglePauseMember(_ memberId: String) {
+        guard let fid = familyId else { return }
+        guard let member = members.first(where: { $0.id == memberId }) else { return }
+        
+        // Nur unclaimed Member dürfen pausiert werden.
+        // Geclaimte Member (auch das eigene Profil) sind nicht pausierbar.
+        if member.claimedByUserId != nil { return }
+        
+        let newPausedState = !member.isPaused
+        
+        // Lokales Update für sofortiges Feedback
+        if let idx = members.firstIndex(where: { $0.id == memberId }) {
+            members[idx].isPaused = newPausedState
+            recalculateSchedule()
+        }
+        
+        Task {
+            do {
+                try await db.collection("families").document(fid).collection("members").document(memberId)
+                    .updateData(["isPaused": newPausedState])
+            } catch {
+                await MainActor.run {
+                    errorMessage = mapFirebaseError(error)
+                    // Rollback
+                    if let idx = members.firstIndex(where: { $0.id == memberId }) {
+                        members[idx].isPaused = !newPausedState
+                        recalculateSchedule()
+                    }
+                }
             }
         }
     }
@@ -202,11 +314,13 @@ class FamilyViewModel: ObservableObject {
         isAwakeTodayLocal = newValue
         Task {
             do {
-                try await functions.httpsCallable("saveMember")
-                    .call(["familyId": fid, "memberId": memberId, "data": ["isAwakeToday": newValue]])
+                try await db.collection("families").document(fid).collection("members").document(memberId)
+                    .updateData(["isAwakeToday": newValue])
             } catch {
-                isAwakeTodayLocal = !newValue
-                errorMessage = mapFirebaseError(error)
+                await MainActor.run {
+                    isAwakeTodayLocal = !newValue
+                    errorMessage = mapFirebaseError(error)
+                }
             }
         }
     }
@@ -225,20 +339,60 @@ class FamilyViewModel: ObservableObject {
         guard let fid = familyId, let uid = Auth.auth().currentUser?.uid else {
             completion(false); return
         }
+        let userName = Auth.auth().currentUser?.displayName ?? L.s("settings_fallback_username")
+        let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         errorMessage = nil
+        
         Task {
             do {
-                try await functions.httpsCallable("claimMember")
-                    .call(["familyId": fid, "memberId": memberId, "force": force])
-                myMemberId = memberId
-                UserDefaults.standard.set(memberId, forKey: "my_member_id")
-                completion(true)
-            } catch {
-                let msg = error.localizedDescription.lowercased()
-                if msg.contains("profile_taken") || msg.contains("already-exists") {
-                    errorMessage = L.errorProfileTaken
+                let docRef = db.collection("families").document(fid).collection("members").document(memberId)
+                let success = try await db.runTransaction({ (transaction, errorPointer) -> Any? in
+                    let snapshot: DocumentSnapshot
+                    do {
+                        try snapshot = transaction.getDocument(docRef)
+                    } catch let error as NSError {
+                        errorPointer?.pointee = error
+                        return false
+                    }
+                    
+                    let existingClaim = snapshot.data()?["claimedByUserId"] as? String
+                    if force || existingClaim == nil || existingClaim == uid {
+                        transaction.updateData([
+                            "claimedByUserId": uid,
+                            "claimedByUserName": userName,
+                            "claimedByDeviceId": deviceId,
+                            "deviceAlarmEnabled": true,
+                            "lastUpdatedAt": FieldValue.serverTimestamp()
+                        ], forDocument: docRef)
+                        return true
+                    } else {
+                        let err = NSError(domain: "FamWake", code: 409, userInfo: [NSLocalizedDescriptionKey: "profile_taken"])
+                        errorPointer?.pointee = err
+                        return false
+                    }
+                }) as? Bool ?? false
+                
+                if success {
+                    await MainActor.run {
+                        self.myMemberId = memberId
+                        UserDefaults.standard.set(memberId, forKey: "my_member_id")
+                        self.recalculateSchedule()
+                    }
+                    completion(true)
                 } else {
-                    errorMessage = mapFirebaseError(error)
+                    await MainActor.run {
+                        self.errorMessage = L.errorProfileTaken
+                    }
+                    completion(false)
+                }
+            } catch {
+                await MainActor.run {
+                    let msg = error.localizedDescription.lowercased()
+                    if msg.contains("profile_taken") || msg.contains("already-exists") {
+                        self.errorMessage = L.errorProfileTaken
+                    } else {
+                        self.errorMessage = self.mapFirebaseError(error)
+                    }
                 }
                 completion(false)
             }
@@ -259,8 +413,9 @@ class FamilyViewModel: ObservableObject {
         guard let fid = familyId else { return }
         Task {
             for (idx, member) in members.enumerated() {
-                try? await functions.httpsCallable("saveMember")
-                    .call(["familyId": fid, "memberId": member.id, "data": ["sequenceOrder": idx]])
+                try? await db.collection("families").document(fid)
+                    .collection("members").document(member.id)
+                    .updateData(["sequenceOrder": idx])
             }
         }
     }
@@ -321,7 +476,7 @@ class FamilyViewModel: ObservableObject {
         if msg.contains("network") || msg.contains("offline") || msg.contains("internet") {
             return L.errorNetwork
         }
-        return L.errorGeneric
+        return "\(L.errorGeneric) (\(error.localizedDescription))"
     }
 
     // MARK: - Feedback
@@ -330,19 +485,17 @@ class FamilyViewModel: ObservableObject {
         feedbackError = nil
         let data: [String: Any] = [
             "category": category,
-            "message": message,
-            "email": email,
+            "message": message.trimmingCharacters(in: .whitespacesAndNewlines),
+            "email": email.trimmingCharacters(in: .whitespacesAndNewlines),
             "appVersion": appVersion,
-            "device": device,
-            "platform": "iOS",
-            "timestamp": FieldValue.serverTimestamp()
+            "device": device
         ]
         Task {
             do {
-                try await db.collection("feedback").addDocument(data: data)
+                try await functions.httpsCallable("sendFeedbackEmail").call(data)
                 feedbackSubmitted = true
             } catch {
-                feedbackError = error.localizedDescription
+                feedbackError = mapFirebaseError(error)
             }
             isSendingFeedback = false
         }
@@ -363,11 +516,16 @@ class FamilyViewModel: ObservableObject {
         self.familyId = id
         familyListener?.remove()
         familyListener = db.collection("families").document(id).addSnapshotListener { [weak self] snap, _ in
-            guard let self, let data = snap?.data() else { return }
+            guard let self else { return }
+            guard let data = snap?.data() else {
+                // Family does not exist or was deleted -> kick user out
+                self.leaveFamily()
+                return
+            }
             self.familyName = data["name"] as? String
             self.joinCode = data["joinCode"] as? String
             let uid = Auth.auth().currentUser?.uid
-            self.isAdmin = (data["adminId"] as? String) == uid
+            self.isAdmin = (data["createdByUserId"] as? String) == uid
         }
         listenToMembers(familyId: id)
     }
@@ -385,6 +543,26 @@ class FamilyViewModel: ObservableObject {
                 let parsed = docs.compactMap { FamilyMember.fromFirestore($0.data(), id: $0.documentID) }
                 self.members = parsed.sorted { $0.sequenceOrder < $1.sequenceOrder }
                 self.updateAwakeState()
+                
+                // Claim-Sync: Prüfe ob eigenes Profil noch gültig ist (Android FamilyViewModel.kt:251-283)
+                if let uid = Auth.auth().currentUser?.uid {
+                    let deviceId = UIDevice.current.identifierForVendor?.uuidString
+                    let claimedByMe = self.members.first { m in
+                        m.claimedByUserId == uid && (m.claimedByDeviceId == deviceId || m.claimedByDeviceId == nil)
+                    }
+                    if let claimed = claimedByMe, claimed.id != self.myMemberId {
+                        // Anderes Gerät hat unser Profil auf ein anderes Member umgeclaimt
+                        self.myMemberId = claimed.id
+                        UserDefaults.standard.set(claimed.id, forKey: "my_member_id")
+                    } else if claimedByMe == nil && self.myMemberId != nil && !self.members.isEmpty {
+                        // Profil wurde von einem anderen Gerät "gestohlen"
+                        self.myMemberId = nil
+                        UserDefaults.standard.removeObject(forKey: "my_member_id")
+                        self.isAlarmEnabled = false
+                        UserDefaults.standard.set(false, forKey: "alarm_enabled")
+                    }
+                }
+                
                 self.recalculateSchedule()
             }
     }
@@ -460,17 +638,21 @@ class FamilyViewModel: ObservableObject {
     }
 
     private func checkReachability() async -> Bool {
-        // Nutze Firebase-Domain statt google.com (vermeidet Corporate-Proxy-Probleme)
-        guard let url = URL(string: "https://firebaseio.com") else { return true }
+        #if targetEnvironment(simulator)
+        return true // Simulator-Fix: Bypasses network weirdness
+        #else
+        guard let url = URL(string: "https://captive.apple.com") else { return true }
         var request = URLRequest(url: url)
         request.timeoutInterval = 3
-        request.httpMethod = "HEAD"
+        request.httpMethod = "GET"
+        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         do {
             let (_, response) = try await URLSession.shared.data(for: request)
-            return (response as? HTTPURLResponse)?.statusCode != nil
+            return (response as? HTTPURLResponse)?.statusCode == 200
         } catch {
             return false
         }
+        #endif
     }
 
     private func generateJoinCode() -> String {
@@ -489,6 +671,85 @@ class FamilyViewModel: ObservableObject {
 
         if isAlarmEnabled {
             AlarmService.shared.scheduleAlarms(for: members, myMemberId: myMemberId, schedule: schedule)
+        }
+    }
+
+    func applyAutoFix() {
+        guard let currentSchedule = schedule, !currentSchedule.isValid else { return }
+
+        Task {
+            var updatedMembersMap = [String: FamilyMember]()
+
+            let cal = Calendar.current
+            let now = Date()
+            let nowComps = cal.dateComponents([.hour, .minute], from: now)
+            let nowMinutes = (nowComps.hour ?? 0) * 60 + (nowComps.minute ?? 0)
+            let weekdayRaw = cal.component(.weekday, from: now)
+            let todayDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
+
+            for s in currentSchedule.memberSchedules {
+                guard let originalMember = self.members.first(where: { $0.id == s.member.id }) else { continue }
+                var member = originalMember
+
+                let todayProfile = member.dayProfiles?[todayDow]
+                let latestMinutesToday = (todayProfile?.latestWakeUp.hour ?? 0) * 60 + (todayProfile?.latestWakeUp.minute ?? 0)
+                let useToday = todayProfile?.isActive == true && nowMinutes < latestMinutesToday
+                let targetDow = useToday ? todayDow : (todayDow == 7 ? 1 : todayDow + 1)
+
+                // Update DayProfile if it exists
+                var updatedProfiles = member.dayProfiles ?? [:]
+                if let currentProfile = updatedProfiles[targetDow] {
+                    var newEarliest = currentProfile.earliestWakeUp
+                    var newLatest = currentProfile.latestWakeUp
+
+                    if s.wakeUpTime < newEarliest {
+                        newEarliest = s.wakeUpTime
+                    }
+                    if newLatest < s.wakeUpTime {
+                        newLatest = s.wakeUpTime
+                    }
+
+                    var newProfile = currentProfile
+                    newProfile.earliestWakeUp = newEarliest
+                    newProfile.latestWakeUp = newLatest
+                    updatedProfiles[targetDow] = newProfile
+                }
+
+                // Update Top-level times
+                var newTopEarliest = member.earliestWakeUp
+                var newTopLatest = member.latestWakeUp
+
+                if s.wakeUpTime < newTopEarliest {
+                    newTopEarliest = s.wakeUpTime
+                }
+                if newTopLatest < s.wakeUpTime {
+                    newTopLatest = s.wakeUpTime
+                }
+
+                member.earliestWakeUp = newTopEarliest
+                member.latestWakeUp = newTopLatest
+                member.dayProfiles = updatedProfiles
+
+                updatedMembersMap[member.id] = member
+            }
+
+            // Local update for immediate feedback
+            var newMembers = self.members
+            for i in 0..<newMembers.count {
+                if let updated = updatedMembersMap[newMembers[i].id] {
+                    newMembers[i] = updated
+                }
+            }
+            
+            await MainActor.run {
+                self.members = newMembers
+                self.recalculateSchedule()
+            }
+
+            // Save to Firestore directly
+            for (_, updatedMember) in updatedMembersMap {
+                self.addOrUpdateMember(updatedMember)
+            }
         }
     }
 

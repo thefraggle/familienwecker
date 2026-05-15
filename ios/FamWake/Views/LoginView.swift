@@ -6,6 +6,7 @@ struct LoginView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @EnvironmentObject var appState: AppState
+    @Environment(\.dismiss) private var dismiss
 
     @State private var email = ""
     @State private var password = ""
@@ -30,12 +31,16 @@ struct LoginView: View {
             .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // TopBar – "FamWake Familienwecker" Header
+                // TopBar – „FamWake Familienwecker" Header + Close Button
                 HStack {
-                    (Text("FamWake ").font(.headline).bold() +
-                     Text(L.appNameShort).font(.headline).fontWeight(.regular))
+                    famWakeTitle(L.appNameShort)
                         .foregroundStyle(theme.onSurface)
                     Spacer()
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title3)
+                            .foregroundStyle(theme.outline)
+                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)

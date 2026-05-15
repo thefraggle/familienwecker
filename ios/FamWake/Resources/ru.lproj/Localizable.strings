@@ -1,5 +1,6 @@
 /* Auto-generated from Android strings.xml */
-"app_name_short" = "FamWake Семейный будильник";
+
+"app_name_short" = "Семейный будильник";
 "email_label" = "Электронная почта";
 "password_label" = "Пароль";
 "register_button" = "Зарегистрироваться";
@@ -98,7 +99,6 @@
 "settings_alarm_select" = "Звук: %@";
 "settings_alarm_picker_title" = "Выберите мелодию будильника";
 "settings_account_title" = "Семья и Аккаунт";
-"settings_join_family_locked" = "Пожалуйста, войдите, чтобы присоединиться к семье.";
 "settings_share_code_locked" = "Пожалуйста, войдите, чтобы поделиться кодом.";
 "settings_join_code" = "Код приглашения для %@:";
 "settings_share_code" = "Поделиться кодом";
@@ -114,7 +114,6 @@
 "settings_delete_family_warning_confirm" = "Да, удалить для всех";
 "settings_logout" = "Выйти";
 "settings_delete_account" = "Удалить аккаунт";
-"settings_footer_version" = "FamWake v%@";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Все права защищены.";
 "empty_members_title" = "Пока нет участников";
@@ -123,18 +122,6 @@
 "empty_schedule_description" = "Сейчас все будильники выключены. Время выспаться!";
 "settings_language_title" = "Язык";
 "settings_language_system" = "Системный по умолчанию";
-"settings_language_english" = "English";
-"settings_language_german" = "Deutsch";
-"settings_language_french" = "Français";
-"settings_language_spanish" = "Español";
-"settings_language_italian" = "Italiano";
-"settings_language_polish" = "Polski";
-"settings_language_dutch" = "Nederlands";
-"settings_language_portuguese" = "Português";
-"settings_language_swedish" = "Svenska";
-"settings_language_schweizerdeutsch" = "Schwiizerdütsch";
-"settings_language_schwaebisch" = "Schwäbisch";
-"settings_language_ruhrpott" = "Ruhrpott";
 "settings_appearance_title" = "Внешний вид";
 "settings_display_title" = "Настройки приложения";
 "settings_help_feedback_title" = "Помощь и Отзывы";
@@ -143,16 +130,12 @@
 "onboarding_skip" = "Пропустить";
 "onboarding_next" = "Далее";
 "onboarding_done" = "Начать без аккаунта";
-"onboarding_slide0_title" = "Ваше утро как команда.";
+"onboarding_slide0_title" = "Спокойное начало дня вместе.";
 "onboarding_slide0_body" = "Никаких споров, никакого хаоса. FamWake обеспечивает спокойное начало дня для всей семьи – полностью автоматически.";
-"onboarding_slide1_title" = "Больше никакого ожидания.";
-"onboarding_slide1_body" = "FamWake рассчитывает идеальное время пробуждения для каждого члена семьи – учитывая время в ванной, завтрак и время выхода из дома. Никакой больше толкучки у раковины.";
-"onboarding_slide2_title" = "Каждый день другой.";
-"onboarding_slide2_body" = "Понедельник в офисе, среда дома? Установите свое время для каждого дня, а приложение сделает остальное.";
+"onboarding_slide1_title" = "Умные планы на каждый день";
+"onboarding_slide1_body" = "Офис, школа или удаленка — FamWake рассчитает идеальное время пробуждения и ванной для всей семьи. Без утренних пробок.";
 "onboarding_slide3_title" = "На связи за секунды.";
 "onboarding_slide3_body" = "Поделитесь кодом приглашения, и ваша семья сразу присоединится. Если кто-то изменит свое время, расписание обновится у всех моментально.";
-"onboarding_slide4_title" = "Всегда надежный.";
-"onboarding_slide4_body" = "Наслаждайтесь расслабленным утром каждый день. Даже если интернет отключится ночью, будильник все равно прозвенит вовремя.";
 "settings_feedback_button" = "Оставить отзыв / Сообщить об ошибке";
 "feedback_title" = "Отзыв";
 "feedback_intro" = "Помогите нам сделать приложение еще лучше! Что у вас на уме?";
@@ -170,7 +153,6 @@
 "feedback_auto_device" = "Телефон: %@";
 "feedback_cancel" = "Отмена";
 "feedback_send" = "Отправить сообщение";
-"feedback_success" = "Спасибо! Мы получили ваше сообщение.";
 "feedback_success_title" = "Сообщение отправлено";
 "feedback_success_message" = "Спасибо за вашу помощь! Ваш отзыв помогает нам улучшать FamWake для всех.";
 "settings_terms_of_use" = "Условия использования";
@@ -209,9 +191,7 @@
 "error_not_logged_in" = "Вы не вошли в систему.";
 "error_system" = "Что-то пошло не так.";
 "error_invalid_credentials" = "Неверный email или пароль. Пожалуйста, проверьте введенные данные.";
-"error_login_failed" = "Ошибка входа";
 "error_login_failed_unknown" = "Неизвестная ошибка входа";
-"error_registration_failed" = "Не удалось зарегистрироваться";
 "error_registration_failed_unknown" = "Не удалось создать ваш аккаунт";
 "error_unknown" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
 "error_google_sign_in_failed_unknown" = "Вход через Google не сработал";
@@ -236,9 +216,9 @@
 "schedule_message_no_members" = "Никто не активен. Все будильники приостановлены.";
 "schedule_message_no_valid" = "Время слишком сильно пересекается, чтобы составить хорошее расписание.";
 "schedule_message_no_valid_desc" = "Совет: Попробуйте расширить окно пробуждения, сократить время в ванной или поставить чей-то будильник на паузу.";
-"schedule_message_time_adjusted" = "Время сдвинуто на %1$d минут, чтобы все поместилось.";
-"schedule_message_breakfast_reduced" = "Время завтрака сокращено на %1$d минут, чтобы все успели.";
-"schedule_message_breakfast_and_time_adjusted" = "Завтрак −%1$d мин. и время сдвинуто на %2$d мин.";
+"schedule_message_time_adjusted" = "Время сдвинуто на %d минут, чтобы все поместилось.";
+"schedule_message_breakfast_reduced" = "Время завтрака сокращено на %d минут, чтобы все успели.";
+"schedule_message_breakfast_and_time_adjusted" = "Завтрак −%d мин. и время сдвинуто на %d мин.";
 "schedule_message_member_conflict" = "Конфликт для %@: Время слишком сильно пересекается.";
 "schedule_message_member_conflict_desc" = "Попробуйте изменить порядок или скорректировать время.";
 "main_fallback_alarm_active" = "⚠️ Внимание: Расписание сейчас не сходится (%@). Пожалуйста, скорректируйте время!";
@@ -266,7 +246,6 @@
 "settings_support_desc" = "Вам нравится приложение? Мы будем очень рады вашей поддержке!";
 "settings_support_donate" = "Сделать пожертвование";
 "settings_donate_success" = "Большое спасибо за вашу поддержку! ❤️";
-"settings_donate_error" = "Ой, что-то пошло не так.";
 "settings_donate_loading" = "Загрузка вариантов…";
 "settings_donate_no_offers" = "В данный момент нет доступных вариантов.";
 "settings_donate_purchase_loading" = "Обработка…";
@@ -296,14 +275,6 @@
 "error_feedback_rate_limit_server" = "Отправлено слишком много сообщений. Пожалуйста, попробуйте позже.";
 "error_feedback_empty_message" = "Ваше сообщение пустое.";
 "error_network" = "Проблема с сетью. Пожалуйста, проверьте интернет-соединение.";
-"settings_language_turkish" = "Türkçe";
-"settings_language_ukrainian" = "Українська";
-"settings_language_russian" = "Русский";
-"settings_language_norwegian" = "Norsk";
-"settings_language_japanese" = "日本語";
-"settings_language_danish" = "Dansk";
-"settings_language_korean" = "한국어";
-"settings_language_chinese" = "中文";
 "tooltip_alarm_sound" = "Нажмите здесь, чтобы выбрать ваш личный звук будильника – выберите любимую музыку вместо обычного писка.";
 "settings_language_dialects" = "Диалекты";
 "notif_channel_schedule_change_name" = "Обновления расписания";
@@ -319,8 +290,6 @@
 "notif_permission_title" = "Требуются уведомления";
 "notif_permission_desc" = "Если вы выключите уведомления, ваш будильник может работать неправильно. Пожалуйста, оставьте их включенными.";
 "notif_permission_button" = "Включить уведомления";
-"notif_manage_title" = "Настройки уведомлений";
-"notif_manage_desc" = "Изменяйте звуки и вибрации в настройках вашего телефона.";
 "onboarding_login_create" = "Войти / Зарегистрироваться";
 "onboarding_slide5_title" = "Давайте начнем!";
 "onboarding_slide5_body" = "Вы можете попробовать приложение прямо сейчас без аккаунта. Он понадобится вам только тогда, когда вы захотите пригласить свою семью.";
@@ -328,3 +297,15 @@
 "settings_steal_title" = "Использовать этот профиль?";
 "settings_steal_text" = "Профиль %@ уже занят. Хотите использовать его для себя?";
 "settings_steal_confirm" = "Да, использовать";
+"schedule_auto_fix" = "✨ Автоматически настроить время";
+"onboarding_enable_tooltips" = "Показывать полезные советы при первом использовании";
+"onboarding_mock_family_name" = "Иванов";
+"onboarding_mock_name1" = "Папа";
+"onboarding_mock_name2" = "Мама";
+
+
+/* iOS Specific (Fallback to English) */
+"member_pause" = "Pause";
+"member_resume" = "Resume";
+"member_not_active_today" = "Not active today";
+"settings_account_section" = "Аккаунт";
