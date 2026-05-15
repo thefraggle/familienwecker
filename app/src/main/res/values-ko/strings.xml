@@ -262,6 +262,11 @@
     <string name="schedule_message_breakfast_and_time_adjusted">아침 식사 −%1$d분, 시간 %2$d분 조정됨.</string>
     <string name="schedule_message_member_conflict">%1$s님의 일정 문제: 시간이 너무 많이 겹칩니다.</string>
     <string name="schedule_message_member_conflict_desc">순서를 바꾸거나 시간을 조금씩 조절해 보세요.</string>
+    <string name="schedule_message_buffer_reduced">여유 시간이 %1$d분에서 %2$d분으로 단축되었습니다.</string>
+    <string name="buffer_label">여유 시간</string>
+    <string name="buffer_after_bath">욕실 사용 후 여유 시간</string>
+    <string name="buffer_global_default">글로벌 (%1$d분)</string>
+    <string name="buffer_between_display">%1$d분 여유 시간</string>
     <string name="main_fallback_alarm_active">⚠️ 주의: 현재 일정이 맞지 않습니다(%1$s). 시간을 조정해 주세요!</string>
 
     <string name="error_password_too_short">비밀번호는 8자 이상이어야 합니다.</string>
