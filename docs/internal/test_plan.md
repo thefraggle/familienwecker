@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.2
-**Datum:** 2026-05-13
+**Version:** 1.9.3
+**Datum:** 2026-05-15
 
 ---
 
@@ -56,6 +56,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 |:---|:---|:---|
 | UI-01 | Layout-Responsivität | Tastatur verdeckt keine Buttons. App ist auf Tablets strikt im Hochformat, Animationen verdecken keinen Text. |
 | UI-02 | Sprachen & Themes | 25 Sprachen funktionieren absturzfrei. Dark/Light-Mode wechselt sofort, AMOLED Black greift. |
+| UI-03 | Icon-Konsistenz | Material Icons (Wecker, Badewanne, Frühstück, Laufen) erscheinen korrekt auf MemberCard, MainScreen-Zeitplan, AddMember-Formular und Settings-Buttons. Keine Emoji-Reste. Dark/Light einheitlich. |
 
 ---
 

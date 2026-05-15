@@ -2,6 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.3 – 2026-05-15
+### Verbessert
+- **Modernere Icons** – Emojis im Weckplan und auf den Mitglieder-Karten wurden durch echte Material Icons ersetzt. Das sorgt für ein einheitliches, scharfes Erscheinungsbild auf allen Geräten.
+- **Klarere Einstellungen** – Alle Menüpunkte in den Einstellungen haben jetzt ein passendes Icon für schnellere Orientierung.
+- **Besser lesbares Formular** – Weckzeiten, Baddauer, Abfahrtszeit und Frühstück im Mitglieder-Editor sind jetzt mit Icons gekennzeichnet.
+
+---
+
 ## 1.9.2 – 2026-05-13
 ### Verbessert
 - **Bessere Übersetzungen** – FamWake spricht jetzt alle unterstützten Sprachen noch lückenloser, damit jedes Familienmitglied problemlos mitmachen kann.
