@@ -23,6 +23,7 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -627,10 +628,19 @@ fun MainScreen(
                             colors = CardDefaults.cardColors(containerColor = planCardColor)
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = if (isAlarmEnabled) "✅ " + stringResource(R.string.main_optimal_plan) else "⏸️ " + stringResource(R.string.main_plan_paused), 
-                                    fontWeight = FontWeight.Bold
-                                )
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        imageVector = if (isAlarmEnabled) Icons.Default.CheckCircle else Icons.Default.PauseCircle,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(18.dp),
+                                        tint = if (isAlarmEnabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = if (isAlarmEnabled) stringResource(R.string.main_optimal_plan) else stringResource(R.string.main_plan_paused),
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
                                 // Datum anzeigen wenn Schedule für einen zukünftigen Tag berechnet wurde
                                 val scheduleTargetDate = currentSchedule.targetDate
                                 val todayJava = java.time.LocalDate.now()
@@ -663,7 +673,19 @@ fun MainScreen(
                                     )
                                 }
                                 currentSchedule.breakfastTime?.let {
-                                    Text(text = "☕ " + stringResource(R.string.main_shared_breakfast, it.toJavaLocalTime().format(timeFormatter)), modifier = Modifier.padding(top = 8.dp))
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier.padding(top = 8.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.FreeBreakfast,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(16.dp),
+                                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                                        )
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Text(text = stringResource(R.string.main_shared_breakfast, it.toJavaLocalTime().format(timeFormatter)))
+                                    }
                                 }
                             }
                         }
@@ -786,28 +808,55 @@ fun MainScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text(
-                                        text = "⏰ ${sched.wakeUpTime.toJavaLocalTime().format(timeFormatter)} - ${sched.member.name}", 
-                                        style = MaterialTheme.typography.titleMedium, 
-                                        fontWeight = FontWeight.Bold
-                                    )
+                                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
+                                        Icon(
+                                            imageVector = Icons.Default.AccessAlarm,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(18.dp),
+                                            tint = contentColor.copy(alpha = 0.7f)
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            text = "${sched.wakeUpTime.toJavaLocalTime().format(timeFormatter)} - ${sched.member.name}",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
                                     Icon(
                                         imageVector = Icons.Default.DragIndicator, // Modernes Grip-Icon
                                         contentDescription = null,
                                         modifier = Modifier.size(28.dp).alpha(if (isDragging) 1.0f else 0.6f)
                                     )
                                 }
-                                Text(
-                                    text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toJavaLocalTime().format(timeFormatter), sched.bathroomEndTime.toJavaLocalTime().format(timeFormatter)),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
-                                )
-                                if (sched.member.leaveHomeTime != null) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        imageVector = Icons.Default.Bathtub,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(14.dp),
+                                        tint = contentColor.copy(alpha = if (isDragging) 0.8f else 0.5f)
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
                                     Text(
-                                        text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime?.toJavaLocalTime()?.format(timeFormatter) ?: ""),
+                                        text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toJavaLocalTime().format(timeFormatter), sched.bathroomEndTime.toJavaLocalTime().format(timeFormatter)),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
                                     )
+                                }
+                                if (sched.member.leaveHomeTime != null) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Icon(
+                                            imageVector = Icons.AutoMirrored.Filled.DirectionsRun,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(14.dp),
+                                            tint = contentColor.copy(alpha = if (isDragging) 0.8f else 0.5f)
+                                        )
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Text(
+                                            text = stringResource(R.string.main_schedule_leave, sched.member.leaveHomeTime?.toJavaLocalTime()?.format(timeFormatter) ?: ""),
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
+                                        )
+                                    }
                                 }
                             }
                         }

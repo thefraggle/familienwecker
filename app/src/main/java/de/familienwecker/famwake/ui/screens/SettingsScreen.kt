@@ -67,6 +67,14 @@ import de.familienwecker.famwake.ui.viewmodel.PurchaseState
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.NotificationsActive
+import androidx.compose.material.icons.filled.DeleteForever
+import androidx.compose.material.icons.filled.Explore
+import androidx.compose.material.icons.filled.RateReview
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.automirrored.filled.Logout
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.Offerings
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -628,6 +636,8 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().bounceClick(leaveInteractionSource),
                         interactionSource = leaveInteractionSource
                     ) {
+                        Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_leave_family))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -639,6 +649,8 @@ fun SettingsScreen(
                             colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
                             interactionSource = deleteFamilyInteractionSource
                         ) {
+                            Icon(Icons.Default.DeleteForever, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
                             Text(stringResource(R.string.settings_delete_family))
                         }
                     } else {
@@ -653,6 +665,8 @@ fun SettingsScreen(
                             colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.outline),
                             interactionSource = deleteFamilyInteractionSource
                         ) {
+                            Icon(Icons.Default.DeleteForever, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
                             Text(stringResource(R.string.settings_delete_family))
                         }
                     }
@@ -748,11 +762,20 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     // Sprache – Button öffnet BottomSheet
-                    Text(
-                        stringResource(R.string.settings_language_title),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Language,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            stringResource(R.string.settings_language_title),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     Spacer(modifier = Modifier.height(6.dp))
 
                     val languageLabel = when (currentLanguage) {
@@ -944,11 +967,20 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     // Tipps & Hinweise
-                    Text(
-                        stringResource(R.string.settings_tooltips_title),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Lightbulb,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            stringResource(R.string.settings_tooltips_title),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     Spacer(modifier = Modifier.height(6.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -980,11 +1012,20 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     // Push-Benachrichtigungen
-                    Text(
-                        stringResource(R.string.settings_push_title),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.NotificationsActive,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            stringResource(R.string.settings_push_title),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     Spacer(modifier = Modifier.height(6.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -1088,6 +1129,8 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().bounceClick(onboardingInteractionSource),
                         interactionSource = onboardingInteractionSource
                     ) {
+                        Icon(Icons.Default.Explore, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_start_onboarding))
                     }
 
@@ -1100,6 +1143,8 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().bounceClick(feedbackInteractionSource),
                         interactionSource = feedbackInteractionSource
                     ) {
+                        Icon(Icons.Default.RateReview, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_feedback_button))
                     }
 
@@ -1241,6 +1286,8 @@ fun SettingsScreen(
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
                         interactionSource = logoutInteractionSource
                     ) {
+                        Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_logout))
                     }
 
