@@ -14,7 +14,8 @@ class Scheduler {
 
     fun calculateIdealSchedule(
         members: List<FamilyMember>,
-        breakfastDurationMinutes: Long = 30
+        breakfastDurationMinutes: Long = 30,
+        globalBufferMinutes: Long = 0
     ): FamilySchedule {
         // Limit active members (max 6 per UI constraint)
         val activeMembers = members.filter { !it.isPaused }.take(6)
@@ -23,26 +24,35 @@ class Scheduler {
             return FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveMembers)
         }
 
-        // Nutze exakt die übergebene Reihung (Manuelle Sortierung)
-        val fixedPermutations = listOf(activeMembers)
-
-        // 1. Versuche die exakte Reihung ohne Zeit-Verschiebung
-        val initialResult = evaluatePermutation(activeMembers, breakfastDurationMinutes, 0, includeInvalid = true)
+        // 1. Versuche die exakte Reihung ohne Zeit-Verschiebung, mit vollem Puffer
+        val initialResult = evaluatePermutation(activeMembers, breakfastDurationMinutes, 0, globalBufferMinutes, includeInvalid = true)
         if (initialResult.isValid) return initialResult
 
-        // 2. Fallback: Erlaube moderate Zeit-Verschiebungen (5-15 Min) bei festgehaltener Reihung
+        // 2. Puffer schrittweise reduzieren (5er-Schritte)
+        if (globalBufferMinutes > 0) {
+            var reducedBuffer = globalBufferMinutes - 5
+            while (reducedBuffer >= 0) {
+                val bufferResult = evaluatePermutation(activeMembers, breakfastDurationMinutes, 0, reducedBuffer)
+                if (bufferResult.isValid) {
+                    return bufferResult.copy(scheduleMessage = ScheduleMessage.BufferReduced(globalBufferMinutes, reducedBuffer))
+                }
+                reducedBuffer -= 5
+            }
+        }
+
+        // 3. Fallback: Erlaube moderate Zeit-Verschiebungen (5-15 Min) bei festgehaltener Reihung, ohne Puffer
         for (shiftMinutes in 5..15 step 5) {
-            val flexibleSchedule = evaluatePermutation(activeMembers, breakfastDurationMinutes, shiftMinutes)
+            val flexibleSchedule = evaluatePermutation(activeMembers, breakfastDurationMinutes, shiftMinutes, 0)
             if (flexibleSchedule.isValid) {
                 return flexibleSchedule.copy(scheduleMessage = ScheduleMessage.TimeAdjusted(shiftMinutes))
             }
         }
 
-        // 3. Fallback: Frühstück leicht verkürzen und mit Verschiebungen erneut probieren
+        // 4. Fallback: Frühstück leicht verkürzen und mit Verschiebungen erneut probieren
         if (breakfastDurationMinutes >= 15) {
             for (reduceBreakfast in 5..10 step 5) {
                 val reducedDuration = breakfastDurationMinutes - reduceBreakfast
-                val reductionSchedule = evaluatePermutation(activeMembers, reducedDuration, 0)
+                val reductionSchedule = evaluatePermutation(activeMembers, reducedDuration, 0, 0)
 
                 if (reductionSchedule.isValid) {
                     return reductionSchedule.copy(scheduleMessage = ScheduleMessage.BreakfastReduced(reduceBreakfast))
@@ -50,7 +60,7 @@ class Scheduler {
 
                 // Kombiniere Frühstücksverkürzung mit Zeit-Verschiebung
                 for (shiftMinutes in 5..15 step 5) {
-                    val flexibleReductionSchedule = evaluatePermutation(activeMembers, reducedDuration, shiftMinutes)
+                    val flexibleReductionSchedule = evaluatePermutation(activeMembers, reducedDuration, shiftMinutes, 0)
                     if (flexibleReductionSchedule.isValid) {
                         return flexibleReductionSchedule.copy(scheduleMessage = ScheduleMessage.BreakfastAndTimeAdjusted(reduceBreakfast, shiftMinutes))
                     }
@@ -58,7 +68,7 @@ class Scheduler {
             }
         }
 
-        // 4. Endgültiger Fehlschlag: Best-Effort Plan zurückgeben (vom ersten Versuch)
+        // 5. Endgültiger Fehlschlag: Best-Effort Plan zurückgeben (vom ersten Versuch)
         return initialResult.copy(
             isValid = false,
             scheduleMessage = extractConflictMessage(initialResult)
@@ -79,6 +89,7 @@ class Scheduler {
         orderedMembers: List<FamilyMember>,
         breakfastDurationMinutes: Long,
         shiftToleranceMinutes: Int = 0,
+        globalBufferMinutes: Long = 0,
         includeInvalid: Boolean = false
     ): FamilySchedule {
         val breakfastEaters = orderedMembers.filter { it.wantsBreakfast }
@@ -140,15 +151,22 @@ class Scheduler {
                 isValid = false
             }
 
+            // Effektiven Puffer für dieses Mitglied ermitteln:
+            // DayProfile-Override (wenn > 0) hat Vorrang vor globalem Default
+            val effectiveBuffer = member.dayProfiles?.values?.firstOrNull()?.bufferMinutes
+                ?.takeIf { it > 0 } ?: globalBufferMinutes
+
             schedules.add(
                 ScheduleResult(
                     member = member,
                     wakeUpTime = wakeUpTime,
                     bathroomStartTime = wakeUpTime,
-                    bathroomEndTime = maxAllowedBathroomEnd
+                    bathroomEndTime = maxAllowedBathroomEnd,
+                    bufferAfter = effectiveBuffer
                 )
             )
-            currentLatestBathroomEndTime = wakeUpTime
+            // Puffer abziehen: Das nächste Mitglied muss VOR dem Puffer fertig sein
+            currentLatestBathroomEndTime = wakeUpTime.minusMinutes(effectiveBuffer)
         }
 
         // Post-Validation
