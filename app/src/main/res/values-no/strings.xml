@@ -263,6 +263,11 @@
     <string name="schedule_message_breakfast_and_time_adjusted">Frokost −%1$d min og tider forskjøvet med %2$d min.</string>
     <string name="schedule_message_member_conflict">Konflikt for %1$s: Tidene overlapper for mye.</string>
     <string name="schedule_message_member_conflict_desc">Prøv å endre rekkefølgen eller justere tidene.</string>
+    <string name="schedule_message_buffer_reduced">Buffer redusert fra %1$d til %2$d min.</string>
+    <string name="buffer_label">Buffer</string>
+    <string name="buffer_after_bath">Buffer etter bad</string>
+    <string name="buffer_global_default">Global (%1$d min)</string>
+    <string name="buffer_between_display">%1$d min buffer</string>
     <string name="main_fallback_alarm_active">⚠️ Advarsel: Tidsplanen passer ikke akkurat nå (%1$s). Vennligst juster tidene dine!</string>
 
     <string name="error_password_too_short">Passordet ditt må være minst 8 tegn langt.</string>
