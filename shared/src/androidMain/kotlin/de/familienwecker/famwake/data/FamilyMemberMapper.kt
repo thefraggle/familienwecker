@@ -97,15 +97,15 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
 fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
     val dayProfilesData = dayProfiles?.mapKeys { it.key.toString() }
         ?.mapValues { (_, profile) ->
-            mapOf(
-                "isActive" to profile.isActive,
-                "earliestWakeUp" to profile.earliestWakeUp.toString(),
-                "latestWakeUp" to profile.latestWakeUp.toString(),
-                "bathroomDurationMinutes" to profile.bathroomDurationMinutes,
-                "wantsBreakfast" to profile.wantsBreakfast,
-                "leaveHomeTime" to profile.leaveHomeTime?.toString(),
-                "bufferMinutes" to profile.bufferMinutes
-            )
+            buildMap<String, Any?> {
+                put("isActive", profile.isActive)
+                put("earliestWakeUp", profile.earliestWakeUp.toString())
+                put("latestWakeUp", profile.latestWakeUp.toString())
+                put("bathroomDurationMinutes", profile.bathroomDurationMinutes)
+                put("wantsBreakfast", profile.wantsBreakfast)
+                profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
+                profile.bufferMinutes?.let { put("bufferMinutes", it) }
+            }
         }
 
     return hashMapOf(

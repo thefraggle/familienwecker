@@ -258,7 +258,6 @@
     <string name="schedule_message_member_conflict">Konflikt dla %1$s: Czasy nakładają się zbyt mocno.</string>
     <string name="schedule_message_member_conflict_desc">Spróbuj zmienić kolejność lub dostosować czasy.</string>
     <string name="schedule_message_buffer_reduced">Bufor zmniejszony z %1$d do %2$d min.</string>
-    <string name="buffer_label">Bufor po łazience</string>
     <string name="buffer_after_bath">Bufor po łazience</string>
     <string name="buffer_global_default">Globalny (%1$d min)</string>
     <string name="buffer_between_display">%1$d min bufora</string>

@@ -259,7 +259,6 @@
     <string name="schedule_message_member_conflict">Verklemmt bei %1$s: Das überschneidet sich zu viel.</string>
     <string name="schedule_message_member_conflict_desc">Zieh mal die Leute um oder schraub an de Zeiten rum.</string>
     <string name="schedule_message_buffer_reduced">Puffer is von %1$d auf %2$d Min. runtergesetzt.</string>
-    <string name="buffer_label">Puffer nachm Bad</string>
     <string name="buffer_after_bath">Puffer nachm Bad</string>
     <string name="buffer_global_default">Überall (%1$d Min.)</string>
     <string name="buffer_between_display">%1$d Min. Puffer</string>

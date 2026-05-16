@@ -152,7 +152,9 @@ class Scheduler {
             }
 
             // Effektiven Puffer für dieses Mitglied ermitteln:
-            // DayProfile-Override (wenn > 0) hat Vorrang vor globalem Default
+            // firstOrNull() ist intentional: Der Scheduler erhält voraufgelöste Members
+            // mit nur dem aktiven DayProfile des heutigen Wochentags.
+            // DayProfile-Override (wenn > 0) hat Vorrang vor globalem Default.
             val effectiveBuffer = member.dayProfiles?.values?.firstOrNull()?.bufferMinutes
                 ?.takeIf { it > 0 } ?: globalBufferMinutes
 

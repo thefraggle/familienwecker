@@ -259,7 +259,6 @@
     <string name="schedule_message_member_conflict">Problema per %1$s: Gli orari si sovrappongono troppo.</string>
     <string name="schedule_message_member_conflict_desc">Prova a cambiare l\'ordine o ad aggiustare gli orari.</string>
     <string name="schedule_message_buffer_reduced">Margine ridotto da %1$d a %2$d min.</string>
-    <string name="buffer_label">Margine dopo il bagno</string>
     <string name="buffer_after_bath">Margine dopo il bagno</string>
     <string name="buffer_global_default">Globale (%1$d min)</string>
     <string name="buffer_between_display">%1$d min di margine</string>
