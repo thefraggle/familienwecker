@@ -258,7 +258,6 @@
     <string name="schedule_message_member_conflict">Problema para %1$s: Las horas se cruzan demasiado.</string>
     <string name="schedule_message_member_conflict_desc">Prueba a cambiar el orden o ajustar las horas.</string>
     <string name="schedule_message_buffer_reduced">Margen reducido de %1$d a %2$d min.</string>
-    <string name="buffer_label">Margen después del baño</string>
     <string name="buffer_after_bath">Margen después del baño</string>
     <string name="buffer_global_default">Global (%1$d min)</string>
     <string name="buffer_between_display">%1$d min de margen</string>

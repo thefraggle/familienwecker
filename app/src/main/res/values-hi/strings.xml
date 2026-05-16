@@ -267,7 +267,6 @@
     <string name="schedule_message_member_conflict">%1$s के लिए मुश्किल: समय बहुत ज़्यादा क्लैश हो रहा है।</string>
     <string name="schedule_message_member_conflict_desc">क्रम बदलने या समय को थोड़ा एडजस्ट करने की कोशिश करें।</string>
     <string name="schedule_message_buffer_reduced">बफर को %1$d से %2$d मिनट तक कम किया गया।</string>
-    <string name="buffer_label">बाथरूम के बाद बफर</string>
     <string name="buffer_after_bath">बाथरूम के बाद बफर</string>
     <string name="buffer_global_default">ग्लोबल (%1$d मिनट)</string>
     <string name="buffer_between_display">%1$d मिनट बफर</string>

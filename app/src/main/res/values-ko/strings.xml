@@ -263,7 +263,6 @@
     <string name="schedule_message_member_conflict">%1$s님의 일정 문제: 시간이 너무 많이 겹칩니다.</string>
     <string name="schedule_message_member_conflict_desc">순서를 바꾸거나 시간을 조금씩 조절해 보세요.</string>
     <string name="schedule_message_buffer_reduced">여유 시간이 %1$d분에서 %2$d분으로 단축되었습니다.</string>
-    <string name="buffer_label">욕실 사용 후 여유 시간</string>
     <string name="buffer_after_bath">욕실 사용 후 여유 시간</string>
     <string name="buffer_global_default">글로벌 (%1$d분)</string>
     <string name="buffer_between_display">%1$d분 여유 시간</string>

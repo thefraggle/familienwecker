@@ -267,7 +267,6 @@
     <string name="schedule_message_member_conflict">Konflikt für %1$s: Ziite überschniided sich z\'starch.</string>
     <string name="schedule_message_member_conflict_desc">Versuech, d\'Reihefolg oder d\'Ziite z\'ändere.</string>
     <string name="schedule_message_buffer_reduced">Puffer vo %1$d uf %2$d Min. abegsetzt.</string>
-    <string name="buffer_label">Puffer nachem Bad</string>
     <string name="buffer_after_bath">Puffer nachem Bad</string>
     <string name="buffer_global_default">Global (%1$d Min.)</string>
     <string name="buffer_between_display">%1$d Min. Puffer</string>
