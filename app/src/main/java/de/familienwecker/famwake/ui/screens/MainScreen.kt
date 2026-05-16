@@ -694,78 +694,6 @@ fun MainScreen(
                     }
                 }
 
-                // Puffer-Regler (nur bei 2+ aktiven Mitgliedern und eingeschaltetem Alarm)
-                val activeMembers = members.filter { !it.isPaused }
-                if (isAlarmEnabled && activeMembers.size > 1) {
-                    item(key = "buffer_stepper") {
-                        Card(
-                            shape = MaterialTheme.shapes.large,
-                            colors = CardDefaults.cardColors(
-                                containerColor = if (isDarkTheme)
-                                    MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-                            ),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Icon(
-                                        imageVector = Icons.Default.Timer,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(18.dp),
-                                        tint = MaterialTheme.colorScheme.primary
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = stringResource(R.string.buffer_label),
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    // Minus-Button
-                                    IconButton(
-                                        onClick = { viewModel.setGlobalBufferMinutes((globalBufferMinutes - 5).coerceAtLeast(0)) },
-                                        enabled = globalBufferMinutes > 0,
-                                        modifier = Modifier.size(32.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Remove,
-                                            contentDescription = null,
-                                            modifier = Modifier.size(18.dp)
-                                        )
-                                    }
-                                    Text(
-                                        text = "$globalBufferMinutes min",
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(horizontal = 4.dp)
-                                    )
-                                    // Plus-Button
-                                    IconButton(
-                                        onClick = { viewModel.setGlobalBufferMinutes((globalBufferMinutes + 5).coerceAtMost(15)) },
-                                        enabled = globalBufferMinutes < 15,
-                                        modifier = Modifier.size(32.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Add,
-                                            contentDescription = null,
-                                            modifier = Modifier.size(18.dp)
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
                 // 1b. Die verschiebbaren Weckzeiten-Kacheln (Drag & Drop)
                 val currentSched = schedule
                 if (currentSched != null && currentSched.isValid && currentSched.memberSchedules.isNotEmpty()) {
@@ -982,6 +910,75 @@ fun MainScreen(
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Black
                     )
+                }
+
+                // Puffer-Regler (nur bei 2+ Mitgliedern sichtbar)
+                if (members.size > 1) {
+                    item(key = "buffer_stepper") {
+                        Card(
+                            shape = MaterialTheme.shapes.large,
+                            colors = CardDefaults.cardColors(
+                                containerColor = if (isDarkTheme)
+                                    MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                            ),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        imageVector = Icons.Default.Timer,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(18.dp),
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = stringResource(R.string.buffer_label),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    IconButton(
+                                        onClick = { viewModel.setGlobalBufferMinutes((globalBufferMinutes - 5).coerceAtLeast(0)) },
+                                        enabled = globalBufferMinutes > 0,
+                                        modifier = Modifier.size(32.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Remove,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(18.dp)
+                                        )
+                                    }
+                                    Text(
+                                        text = "$globalBufferMinutes min",
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(horizontal = 4.dp)
+                                    )
+                                    IconButton(
+                                        onClick = { viewModel.setGlobalBufferMinutes((globalBufferMinutes + 5).coerceAtMost(15)) },
+                                        enabled = globalBufferMinutes < 15,
+                                        modifier = Modifier.size(32.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Add,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(18.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if (members.size >= 6) {

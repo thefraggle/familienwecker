@@ -21,6 +21,7 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         val earliestRaw = map["earliestWakeUp"] as? String
         val latestRaw = map["latestWakeUp"] as? String
         val bathroomRaw = map["bathroomDurationMinutes"]
+        val bufferRaw = map["bufferMinutes"]
         dayNum to DayProfile(
             isActive = map["isActive"] as? Boolean ?: true,
             earliestWakeUp = earliestRaw?.let {
@@ -37,6 +38,12 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
             wantsBreakfast = map["wantsBreakfast"] as? Boolean ?: true,
             leaveHomeTime = leaveStr2?.let {
                 try { LocalTime.parse(it) } catch (e: Exception) { null }
+            },
+            // Nullable: null = globaler Puffer, sonst individueller Override
+            bufferMinutes = when (bufferRaw) {
+                is Long -> bufferRaw
+                is Number -> bufferRaw.toLong()
+                else -> null
             }
         )
     }?.toMap()?.takeIf { it.isNotEmpty() }
@@ -96,7 +103,8 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
                 "latestWakeUp" to profile.latestWakeUp.toString(),
                 "bathroomDurationMinutes" to profile.bathroomDurationMinutes,
                 "wantsBreakfast" to profile.wantsBreakfast,
-                "leaveHomeTime" to profile.leaveHomeTime?.toString()
+                "leaveHomeTime" to profile.leaveHomeTime?.toString(),
+                "bufferMinutes" to profile.bufferMinutes
             )
         }
 
