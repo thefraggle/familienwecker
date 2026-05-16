@@ -723,16 +723,20 @@ private fun DayProfileCard(
                             )
                         }
                         Row(verticalAlignment = Alignment.CenterVertically) {
+                            val effectiveValue = profile.bufferMinutes ?: globalBufferMinutes
                             IconButton(
                                 onClick = {
-                                    val current = profile.bufferMinutes ?: 0L
-                                    val newVal = if (current <= 0) null else current - 5
-                                    onProfileChange(profile.copy(bufferMinutes = newVal))
-                                }
+                                    val newVal = effectiveValue - 5
+                                    when {
+                                        newVal < 0 -> {} // Minimum erreicht
+                                        newVal == globalBufferMinutes -> onProfileChange(profile.copy(bufferMinutes = null))
+                                        else -> onProfileChange(profile.copy(bufferMinutes = newVal))
+                                    }
+                                },
+                                enabled = effectiveValue > 0
                             ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
                             Text(
-                                if (profile.bufferMinutes == null) "${globalBufferMinutes} min"
-                                else "${profile.bufferMinutes} min",
+                                "$effectiveValue min",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = if (profile.bufferMinutes != null) FontWeight.SemiBold else FontWeight.Normal,
                                 color = if (profile.bufferMinutes != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
@@ -741,9 +745,14 @@ private fun DayProfileCard(
                             )
                             IconButton(
                                 onClick = {
-                                    val current = profile.bufferMinutes ?: 0L
-                                    if (current < 15) onProfileChange(profile.copy(bufferMinutes = current + 5))
-                                }
+                                    val newVal = effectiveValue + 5
+                                    when {
+                                        newVal > 15 -> {} // Maximum erreicht
+                                        newVal == globalBufferMinutes -> onProfileChange(profile.copy(bufferMinutes = null))
+                                        else -> onProfileChange(profile.copy(bufferMinutes = newVal))
+                                    }
+                                },
+                                enabled = effectiveValue < 15
                             ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
                         }
                     }
