@@ -267,7 +267,7 @@
     <string name="schedule_message_member_conflict">%1$s এর জন্য সমস্যা: সময়গুলো খুব বেশি মিলে যাচ্ছে।</string>
     <string name="schedule_message_member_conflict_desc">ক্রম বদলানোর বা সময় ঠিক করার চেষ্টা করুন।</string>
     <string name="schedule_message_buffer_reduced">বাফার %1$d থেকে %2$d মিনিটে কমানো হয়েছে।</string>
-    <string name="buffer_label">বাফার</string>
+    <string name="buffer_label">বাথরুমের পরে বাফার</string>
     <string name="buffer_after_bath">বাথরুমের পরে বাফার</string>
     <string name="buffer_global_default">গ্লোবাল (%1$d মিনিট)</string>
     <string name="buffer_between_display">%1$d মিনিট বাফার</string>

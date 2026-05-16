@@ -267,7 +267,7 @@
     <string name="schedule_message_member_conflict">Masalah untuk %1$s: Waktunya terlalu tumpang tindih.</string>
     <string name="schedule_message_member_conflict_desc">Coba ubah urutan atau sesuaikan waktunya.</string>
     <string name="schedule_message_buffer_reduced">Jeda dikurangi dari %1$d menjadi %2$d mnt.</string>
-    <string name="buffer_label">Jeda</string>
+    <string name="buffer_label">Jeda setelah mandi</string>
     <string name="buffer_after_bath">Jeda setelah mandi</string>
     <string name="buffer_global_default">Global (%1$d mnt)</string>
     <string name="buffer_between_display">Jeda %1$d mnt</string>
