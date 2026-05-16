@@ -260,7 +260,7 @@
     <string name="schedule_message_member_conflict">Problema para %1$s: Os horários se sobrepõem demais.</string>
     <string name="schedule_message_member_conflict_desc">Tente mudar a ordem ou ajustar os horários.</string>
     <string name="schedule_message_buffer_reduced">Margem reduzida de %1$d para %2$d min.</string>
-    <string name="buffer_label">Margem</string>
+    <string name="buffer_label">Margem após o banho</string>
     <string name="buffer_after_bath">Margem após o banho</string>
     <string name="buffer_global_default">Global (%1$d min)</string>
     <string name="buffer_between_display">Margem de %1$d min</string>
