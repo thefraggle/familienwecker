@@ -731,11 +731,12 @@ private fun DayProfileCard(
                                 }
                             ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
                             Text(
-                                if (profile.bufferMinutes == null) stringResource(R.string.buffer_global_default, globalBufferMinutes)
+                                if (profile.bufferMinutes == null) "${globalBufferMinutes} min"
                                 else "${profile.bufferMinutes} min",
                                 style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.SemiBold,
-                                modifier = Modifier.widthIn(min = 80.dp),
+                                fontWeight = if (profile.bufferMinutes != null) FontWeight.SemiBold else FontWeight.Normal,
+                                color = if (profile.bufferMinutes != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                                maxLines = 1,
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
                             IconButton(

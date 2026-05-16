@@ -268,7 +268,6 @@
     <string name="schedule_message_member_conflict_desc">Sıralamayı değiştirmeyi veya saatleri ayarlamayı deneyin.</string>
     <string name="schedule_message_buffer_reduced">Tampon %1$d ile %2$d dk arasına düşürüldü.</string>
     <string name="buffer_after_bath">Banyo sonrası tampon</string>
-    <string name="buffer_global_default">Global (%1$d dk)</string>
     <string name="buffer_between_display">%1$d dk tampon</string>
     <string name="main_fallback_alarm_active">⚠️ Uyarı: Plan şu anda uyuşmuyor (%1$s). Lütfen saatlerinizi ayarlayın!</string>
 

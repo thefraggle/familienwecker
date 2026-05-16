@@ -260,7 +260,6 @@
     <string name="schedule_message_member_conflict_desc">Probiers mol mit na andere Reihafolg oder mach d\'Zeita andersch.</string>
     <string name="schedule_message_buffer_reduced">Puffer vo %1$d uff %2$d Min. rondergsedzd.</string>
     <string name="buffer_after_bath">Puffer nachm Bad</string>
-    <string name="buffer_global_default">Global (%1$d Min.)</string>
     <string name="buffer_between_display">%1$d Min. Puffer</string>
     <string name="main_fallback_alarm_active">⚠️ Achtong: Dr Plan basst grad net (%1$s). Bitte richte dei Zeita!</string>
 

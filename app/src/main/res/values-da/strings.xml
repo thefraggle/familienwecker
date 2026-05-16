@@ -268,7 +268,6 @@
     <string name="schedule_message_member_conflict_desc">Prøv at ændre rækkefølgen eller tiderne.</string>
     <string name="schedule_message_buffer_reduced">Buffer reduceret fra %1$d til %2$d min.</string>
     <string name="buffer_after_bath">Buffer efter bad</string>
-    <string name="buffer_global_default">Global (%1$d min)</string>
     <string name="buffer_between_display">%1$d min buffer</string>
     <string name="main_fallback_alarm_active">⚠️ Advarsel: Tidsplanen passer ikke lige nu (%1$s). Juster venligst jeres tider!</string>
 

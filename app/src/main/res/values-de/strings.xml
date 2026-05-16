@@ -268,7 +268,6 @@
     <string name="schedule_message_member_conflict_desc">Versuche, die Reihenfolge oder die Zeiten zu ändern.</string>
     <string name="schedule_message_buffer_reduced">Puffer von %1$d auf %2$d Min reduziert.</string>
     <string name="buffer_after_bath">Puffer nach Bad</string>
-    <string name="buffer_global_default">Global (%1$d Min)</string>
     <string name="buffer_between_display">%1$d Min Puffer</string>
     <string name="main_fallback_alarm_active">⚠️ Achtung: Der Plan passt gerade nicht (%1$s). Bitte passe deine Zeiten an!</string>
 
