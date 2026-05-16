@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.foundation.background
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -163,14 +164,40 @@ fun MainScreen(
             snackbarHost = { SnackbarHost(snackbarHostState) },
             floatingActionButton = {
                 val memberLimitReached = members.size >= 6
-                if (!memberLimitReached) {
-                    ExtendedFloatingActionButton(
-                        onClick = onNavigateToAddMember,
-                        icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                        text = { Text(stringResource(R.string.main_add_member_desc)) },
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    )
+                val currentJoinCode by viewModel.joinCode.collectAsStateWithLifecycle()
+                val isAnonymous = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.isAnonymous == true
+
+                Column(horizontalAlignment = Alignment.End) {
+                    // Share-FAB: Familie teilen (nur für eingeloggte User)
+                    if (currentJoinCode != null && !isAnonymous) {
+                        SmallFloatingActionButton(
+                            onClick = {
+                                val shareText = context.getString(R.string.settings_share_message, currentFamilyName ?: "", currentJoinCode ?: "")
+                                val sendIntent = Intent().apply {
+                                    action = Intent.ACTION_SEND
+                                    putExtra(Intent.EXTRA_TEXT, shareText)
+                                    type = "text/plain"
+                                }
+                                context.startActivity(Intent.createChooser(sendIntent, null))
+                            },
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        ) {
+                            Icon(Icons.Default.Share, contentDescription = stringResource(R.string.settings_share_code))
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+
+                    // Haupt-FAB: Mitglied hinzufügen
+                    if (!memberLimitReached) {
+                        ExtendedFloatingActionButton(
+                            onClick = onNavigateToAddMember,
+                            icon = { Icon(Icons.Default.Add, contentDescription = null) },
+                            text = { Text(stringResource(R.string.main_add_member_desc)) },
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
                 }
             },
             topBar = {
