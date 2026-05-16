@@ -2,6 +2,18 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.4 – 2026-05-16
+### Neu
+- **Puffer nach dem Bad** – Zwischen den Bad-Zeiten der Familienmitglieder kann jetzt ein Zeitpuffer eingestellt werden. Global für alle oder individuell pro Person.
+- **Familie einladen** – Neuer Teilen-Button auf dem Startbildschirm, um Familienmitglieder direkt per WhatsApp, SMS oder andere Apps einzuladen.
+
+### Verbessert
+- **Zeitformat passt sich an** – Die App zeigt Uhrzeiten jetzt automatisch im 12h- oder 24h-Format an, je nach Geräteeinstellung.
+- **Kompaktere Karten** – Mitglieder-Karten zeigen Infos jetzt platzsparender mit Icons. Kein Textumbruch mehr, auch in langen Sprachen.
+- **Weniger Textballast** – Überflüssige Beschriftungen entfernt. Icons sprechen für sich.
+
+---
+
 ## 1.9.3 – 2026-05-15
 ### Verbessert
 - **Modernere Icons** – Emojis im Weckplan und auf den Mitglieder-Karten wurden durch echte Material Icons ersetzt. Das sorgt für ein einheitliches, scharfes Erscheinungsbild auf allen Geräten.

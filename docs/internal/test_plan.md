@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.3
-**Datum:** 2026-05-15
+**Version:** 1.9.4
+**Datum:** 2026-05-16
 
 ---
 
@@ -26,6 +26,10 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-20b | Profil nach Neuinstallation | App deinstallieren → neu installieren → einloggen. Profil wird NICHT automatisch übernommen (neue Device-ID). Nach manuellem Claim: Weckplan erscheint sofort, kein manuelles Toggle nötig. |
 | TC-21 | Wochentag-Validierung | latestWakeUp ≤ earliestWakeUp blockiert Speichern. Zügiges Sliden erzeugt keine Sync-Fehler. |
 | TC-22 | Listen-Organisation | Drag & Drop speichert Reihenfolge. Warnbanner erscheint, wenn Position 1 ungeclaimt ist. |
+| TC-23 | Puffer nach Bad (global) | Stepper unter "Familienmitglieder" ändert Puffer in 5er-Schritten (0–15 min). Wert wird in Firestore gespeichert und auf anderen Geräten synchronisiert. |
+| TC-24 | Puffer nach Bad (individuell) | Im Mitglieder-Editor: Stepper zeigt globalen Wert kursiv. Override setzt eigenen Wert (bold). Zurückstufen auf globalen Wert zeigt wieder kursiv. Persist nach App-Neustart. |
+| TC-25 | Familie einladen | Share-Button über dem Hinzufügen-Button öffnet System-Share-Dialog mit Familien-Link. Nur für eingeloggte Nutzer sichtbar. |
+| TC-26 | Zeitformat 12h/24h | Uhrzeiten folgen der Geräteeinstellung. Wechsel in den Systemeinstellungen wirkt sofort nach Rückkehr zur App. |
 
 ### 3. Wecker, Alarm & Berechtigungen
 | ID | Testfall | Erwartetes Ergebnis |
@@ -48,6 +52,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | EC-01 | Zeit-Konflikte | Unmögliche Pläne oder zu knappe Fenster zeigen Kompromissvorschläge. Zeitumstellung und Mitternachts-Alarme korrekt berechnet. AutoFix dehnt die Zeiten intelligent aus und berechnet sofort neu (Optimistic UI). |
+| EC-04 | Puffer-Konflikte | Bei zu knappen Zeitfenstern reduziert der Scheduler den Puffer automatisch (BufferReduced-Meldung). Erst danach greift Zeitverschiebung / Frühstücksreduktion. |
 | EC-02 | Offline-Betrieb | CloudOff-Icon bei Disconnect. Kein Absturz bei SSL/Netzwerk-Fehlern (korrekte Fehlermeldung). Re-Sync nach Reconnect. |
 | EC-03 | Backend-Schutz | Zugriff auf fremde Profile oder Feedback ohne Auth liefert `PERMISSION_DENIED`. |
 
@@ -61,5 +66,5 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 ---
 
 ## 📈 Validierung
-- **Automatisiert:** 9 Unit-Tests für `Scheduler` laufen in GitHub Actions.
+- **Automatisiert:** 12 Unit-Tests für `Scheduler` (inkl. 4 Buffer-Tests) laufen in GitHub Actions.
 - **Manuell:** Vor jedem Release ein Live-Test über eine Nacht.
