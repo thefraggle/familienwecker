@@ -264,7 +264,7 @@
     <string name="schedule_message_member_conflict">Конфлікт для %1$s: Час занадто сильно перетинається.</string>
     <string name="schedule_message_member_conflict_desc">Спробуйте змінити порядок або скоригувати час.</string>
     <string name="schedule_message_buffer_reduced">Буфер зменшено з %1$d до %2$d хв.</string>
-    <string name="buffer_label">Буфер</string>
+    <string name="buffer_label">Буфер після ванної</string>
     <string name="buffer_after_bath">Буфер після ванної</string>
     <string name="buffer_global_default">Глобальний (%1$d хв)</string>
     <string name="buffer_between_display">Буфер %1$d хв</string>
