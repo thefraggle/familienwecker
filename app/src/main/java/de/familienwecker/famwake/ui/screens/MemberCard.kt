@@ -36,7 +36,7 @@ fun MemberCard(
     val isDarkTheme = LocalDarkTheme.current
     val context = LocalContext.current
     val is24h = android.text.format.DateFormat.is24HourFormat(context)
-    val timeFormatter = remember(is24h) { DateTimeFormatter.ofPattern(if (is24h) "HH:mm" else "hh:mm a") }
+    val timeFormatter = remember(is24h) { DateTimeFormatter.ofPattern(if (is24h) "HH:mm" else "h:mm a") }
     val backgroundColor = if (member.isPaused) {
         if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
         else MaterialTheme.colorScheme.surfaceVariant
@@ -155,7 +155,7 @@ fun MemberCard(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            stringResource(R.string.main_wake_time, displayEarliest.format(timeFormatter), displayLatest.format(timeFormatter)),
+                            "${displayEarliest.format(timeFormatter)} – ${displayLatest.format(timeFormatter)}",
                             color = textColor,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
