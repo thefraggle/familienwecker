@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Bilinmiyor</string>
     <string name="add_member_earliest_wake">En erken uyanma saati</string>
     <string name="add_member_latest_wake">En geç uyanma saati</string>
-    <string name="add_member_bathroom_duration">Banyoda gereken süre (dakika)</string>
+    <string name="add_member_bathroom_duration">Banyoda gereken süre</string>
     <string name="add_member_wants_breakfast">Kahvaltı yapacak</string>
     <string name="add_member_leave_home">Evden çıkması gereken saat</string>
     <string name="add_member_day_profiles_title">Haftalık plan</string>

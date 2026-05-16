@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Umbekannt</string>
     <string name="add_member_earliest_wake">Früehsti Weckziit</string>
     <string name="add_member_latest_wake">Spötesti Weckziit</string>
-    <string name="add_member_bathroom_duration">Bad-Duur (Minute)</string>
+    <string name="add_member_bathroom_duration">Bad-Duur</string>
     <string name="add_member_wants_breakfast">Mit Zmorge</string>
     <string name="add_member_leave_home">Huus verlaa am</string>
     <string name="add_member_day_profiles_title">Wucheplan</string>

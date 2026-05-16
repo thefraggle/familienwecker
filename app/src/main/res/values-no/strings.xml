@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Ukjent</string>
     <string name="add_member_earliest_wake">Tidligste oppvåkningstid</string>
     <string name="add_member_latest_wake">Seneste oppvåkningstid</string>
-    <string name="add_member_bathroom_duration">Tid på badet (minutter)</string>
+    <string name="add_member_bathroom_duration">Tid på badet</string>
     <string name="add_member_wants_breakfast">Vil ha frokost</string>
     <string name="add_member_leave_home">Må dra hjemmefra kl.</string>
     <string name="add_member_day_profiles_title">Ukentlig tidsplan</string>

@@ -65,7 +65,7 @@
     <string name="add_member_unknown">अज्ञात</string>
     <string name="add_member_earliest_wake">सर्वांत लवकर उठण्याची वेळ</string>
     <string name="add_member_latest_wake">सर्वांत उशिरा उठण्याची वेळ</string>
-    <string name="add_member_bathroom_duration">बाथरूमचा वेळ (मिनिटे)</string>
+    <string name="add_member_bathroom_duration">बाथरूमचा वेळ</string>
     <string name="add_member_wants_breakfast">नाश्ता हवा आहे</string>
     <string name="add_member_leave_home">घर सोडण्याची वेळ</string>
     <string name="add_member_day_profiles_title">साप्ताहिक वेळापत्रक</string>

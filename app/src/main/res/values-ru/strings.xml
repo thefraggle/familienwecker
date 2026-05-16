@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Неизвестно</string>
     <string name="add_member_earliest_wake">Самое раннее время подъема</string>
     <string name="add_member_latest_wake">Самое позднее время подъема</string>
-    <string name="add_member_bathroom_duration">Время в ванной (минут)</string>
+    <string name="add_member_bathroom_duration">Время в ванной</string>
     <string name="add_member_wants_breakfast">Завтракает с нами</string>
     <string name="add_member_leave_home">Время выхода из дома</string>
     <string name="add_member_day_profiles_title">Расписание на неделю</string>

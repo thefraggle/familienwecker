@@ -65,7 +65,7 @@
     <string name="add_member_unknown">未知</string>
     <string name="add_member_earliest_wake">最早起床时间</string>
     <string name="add_member_latest_wake">最晚起床时间</string>
-    <string name="add_member_bathroom_duration">洗漱时间（分钟）</string>
+    <string name="add_member_bathroom_duration">洗漱时间</string>
     <string name="add_member_wants_breakfast">含早餐</string>
     <string name="add_member_leave_home">必须出门的时间</string>
     <string name="add_member_day_profiles_title">每周日程</string>
