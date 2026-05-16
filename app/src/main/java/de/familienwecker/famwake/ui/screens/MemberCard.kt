@@ -183,7 +183,7 @@ fun MemberCard(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            if (member.wantsBreakfast) "✓" else "✗",
+                            if (member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no),
                             color = textColor.copy(alpha = 0.9f),
                             style = MaterialTheme.typography.bodyMedium
                         )
