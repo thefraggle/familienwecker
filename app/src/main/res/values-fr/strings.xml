@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Inconnu</string>
     <string name="add_member_earliest_wake">Heure de réveil la plus tôt</string>
     <string name="add_member_latest_wake">Heure de réveil la plus tardive</string>
-    <string name="add_member_bathroom_duration">Temps passé dans la salle de bain (minutes)</string>
+    <string name="add_member_bathroom_duration">Temps passé dans la salle de bain</string>
     <string name="add_member_wants_breakfast">Prend un petit-déjeuner</string>
     <string name="add_member_leave_home">Doit quitter la maison à</string>
     <string name="add_member_day_profiles_title">Planning de la semaine</string>

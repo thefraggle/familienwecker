@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Oibekannt</string>
     <string name="add_member_earliest_wake">Früheschte Weggzeit</string>
     <string name="add_member_latest_wake">Späteschte Weggzeit</string>
-    <string name="add_member_bathroom_duration">Zeit im Bad (Minuta)</string>
+    <string name="add_member_bathroom_duration">Zeit im Bad</string>
     <string name="add_member_wants_breakfast">Mit Frühstück</string>
     <string name="add_member_leave_home">Haus verlassa om</string>
     <string name="add_member_day_profiles_title">Wochaplan</string>

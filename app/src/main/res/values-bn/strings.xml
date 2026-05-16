@@ -65,7 +65,7 @@
     <string name="add_member_unknown">অজানা</string>
     <string name="add_member_earliest_wake">সবচেয়ে আগে ওঠার সময়</string>
     <string name="add_member_latest_wake">সবচেয়ে দেরিতে ওঠার সময়</string>
-    <string name="add_member_bathroom_duration">বাথরুমে কত সময় লাগবে (মিনিট)</string>
+    <string name="add_member_bathroom_duration">বাথরুমে কত সময় লাগবে</string>
     <string name="add_member_wants_breakfast">সকালের নাস্তা করবেন</string>
     <string name="add_member_leave_home">এ সময় বাড়ি থেকে বের হবেন</string>
     <string name="add_member_day_profiles_title">সাপ্তাহিক রুটিন</string>

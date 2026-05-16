@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Невідомо</string>
     <string name="add_member_earliest_wake">Найраніший час підйому</string>
     <string name="add_member_latest_wake">Найпізніший час підйому</string>
-    <string name="add_member_bathroom_duration">Час у ванній (хвилин)</string>
+    <string name="add_member_bathroom_duration">Час у ванній</string>
     <string name="add_member_wants_breakfast">Зі сніданком</string>
     <string name="add_member_leave_home">Час виходу з дому</string>
     <string name="add_member_day_profiles_title">Розклад на тиждень</string>

@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Onbekend</string>
     <string name="add_member_earliest_wake">Vroegste wektijd</string>
     <string name="add_member_latest_wake">Uiterste wektijd</string>
-    <string name="add_member_bathroom_duration">Tijd in de badkamer (minuten)</string>
+    <string name="add_member_bathroom_duration">Tijd in de badkamer</string>
     <string name="add_member_wants_breakfast">Wil ontbijten</string>
     <string name="add_member_leave_home">Moet het huis uit om</string>
     <string name="add_member_day_profiles_title">Wekelijks schema</string>

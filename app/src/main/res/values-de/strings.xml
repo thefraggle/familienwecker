@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Unbekannt</string>
     <string name="add_member_earliest_wake">Früheste Weckzeit</string>
     <string name="add_member_latest_wake">Späteste Weckzeit</string>
-    <string name="add_member_bathroom_duration">Bad-Dauer (Minuten)</string>
+    <string name="add_member_bathroom_duration">Bad-Dauer</string>
     <string name="add_member_wants_breakfast">Mit Frühstück</string>
     <string name="add_member_leave_home">Haus verlassen um</string>
     <string name="add_member_day_profiles_title">Wochenplan</string>

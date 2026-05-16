@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Tidak diketahui</string>
     <string name="add_member_earliest_wake">Waktu bangun paling awal</string>
     <string name="add_member_latest_wake">Waktu bangun paling lambat</string>
-    <string name="add_member_bathroom_duration">Waktu di kamar mandi (menit)</string>
+    <string name="add_member_bathroom_duration">Waktu di kamar mandi</string>
     <string name="add_member_wants_breakfast">Ingin sarapan</string>
     <string name="add_member_leave_home">Harus berangkat dari rumah pukul</string>
     <string name="add_member_day_profiles_title">Jadwal mingguan</string>

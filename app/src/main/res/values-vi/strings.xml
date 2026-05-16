@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Không rõ</string>
     <string name="add_member_earliest_wake">Giờ thức dậy sớm nhất</string>
     <string name="add_member_latest_wake">Giờ thức dậy muộn nhất</string>
-    <string name="add_member_bathroom_duration">Thời gian dùng phòng tắm (phút)</string>
+    <string name="add_member_bathroom_duration">Thời gian dùng phòng tắm</string>
     <string name="add_member_wants_breakfast">Muốn ăn sáng</string>
     <string name="add_member_leave_home">Giờ rời khỏi nhà</string>
     <string name="add_member_day_profiles_title">Lịch trình hàng tuần</string>

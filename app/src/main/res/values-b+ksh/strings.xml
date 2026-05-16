@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Kein Plan</string>
     <string name="add_member_earliest_wake">Frühestes Wecken</string>
     <string name="add_member_latest_wake">Spätestes Wecken</string>
-    <string name="add_member_bathroom_duration">Zeit im Bad (Minuten)</string>
+    <string name="add_member_bathroom_duration">Zeit im Bad</string>
     <string name="add_member_wants_breakfast">Mampfen mitnehm</string>
     <string name="add_member_leave_home">Abmarsch um</string>
     <string name="add_member_day_profiles_title">Wochenplan</string>
