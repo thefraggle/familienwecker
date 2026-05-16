@@ -268,7 +268,6 @@
     <string name="schedule_message_member_conflict_desc">ক্রম বদলানোর বা সময় ঠিক করার চেষ্টা করুন।</string>
     <string name="schedule_message_buffer_reduced">বাফার %1$d থেকে %2$d মিনিটে কমানো হয়েছে।</string>
     <string name="buffer_after_bath">বাথরুমের পরে বাফার</string>
-    <string name="buffer_global_default">গ্লোবাল (%1$d মিনিট)</string>
     <string name="buffer_between_display">%1$d মিনিট বাফার</string>
     <string name="main_fallback_alarm_active">⚠️ সতর্কবার্তা: এখনকার রুটিনটি ঠিক মিলছে না (%1$s)। সময়গুলো একটু ঠিক করুন!</string>
 

@@ -268,7 +268,6 @@
     <string name="schedule_message_member_conflict_desc">Hãy thử thay đổi thứ tự hoặc điều chỉnh thời gian.</string>
     <string name="schedule_message_buffer_reduced">Thời gian đệm giảm từ %1$d xuống %2$d phút.</string>
     <string name="buffer_after_bath">Thời gian đệm sau khi tắm</string>
-    <string name="buffer_global_default">Chung (%1$d phút)</string>
     <string name="buffer_between_display">%1$d phút đệm</string>
     <string name="main_fallback_alarm_active">⚠️ Cảnh báo: Lịch trình hiện tại không khớp (%1$s). Vui lòng điều chỉnh thời gian của bạn!</string>
 
