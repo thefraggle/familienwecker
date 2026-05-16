@@ -261,7 +261,6 @@
     <string name="schedule_message_member_conflict_desc">Essaie de changer l\'ordre ou de modifier les horaires.</string>
     <string name="schedule_message_buffer_reduced">Marge réduite de %1$d à %2$d min.</string>
     <string name="buffer_after_bath">Marge après la salle de bain</string>
-    <string name="buffer_global_default">Global (%1$d min)</string>
     <string name="buffer_between_display">%1$d min de marge</string>
     <string name="main_fallback_alarm_active">⚠️ Attention : Le planning ne correspond pas pour l\'instant (%1$s). Merci d\'ajuster vos horaires !</string>
 

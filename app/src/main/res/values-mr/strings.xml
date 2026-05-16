@@ -264,7 +264,6 @@
     <string name="schedule_message_member_conflict_desc">क्रम बदलण्याचा किंवा वेळा जुळवण्याचा प्रयत्न करा.</string>
     <string name="schedule_message_buffer_reduced">बफर %1$d वरून %2$d मिनिटांपर्यंत कमी केला.</string>
     <string name="buffer_after_bath">बाथरूम नंतर बफर</string>
-    <string name="buffer_global_default">ग्लोबल (%1$d मिनिटे)</string>
     <string name="buffer_between_display">%1$d मिनिटे बफर</string>
     <string name="main_fallback_alarm_active">⚠️ चेतावणी: वेळापत्रक सध्या जुळत नाही (%1$s). कृपया तुमच्या वेळा व्यवस्थित करा!</string>
 

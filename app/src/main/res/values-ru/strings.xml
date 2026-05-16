@@ -260,7 +260,6 @@
     <string name="schedule_message_member_conflict_desc">Попробуйте изменить порядок или скорректировать время.</string>
     <string name="schedule_message_buffer_reduced">Буфер уменьшен с %1$d до %2$d мин.</string>
     <string name="buffer_after_bath">Буфер после ванной</string>
-    <string name="buffer_global_default">Глобальный (%1$d мин)</string>
     <string name="buffer_between_display">Буфер %1$d мин</string>
     <string name="main_fallback_alarm_active">⚠️ Внимание: Расписание сейчас не сходится (%1$s). Пожалуйста, скорректируйте время!</string>
 

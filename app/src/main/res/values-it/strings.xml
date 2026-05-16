@@ -260,7 +260,6 @@
     <string name="schedule_message_member_conflict_desc">Prova a cambiare l\'ordine o ad aggiustare gli orari.</string>
     <string name="schedule_message_buffer_reduced">Margine ridotto da %1$d a %2$d min.</string>
     <string name="buffer_after_bath">Margine dopo il bagno</string>
-    <string name="buffer_global_default">Globale (%1$d min)</string>
     <string name="buffer_between_display">%1$d min di margine</string>
     <string name="main_fallback_alarm_active">⚠️ Attenzione: Il programma non quadra in questo momento (%1$s). Per favore, aggiusta i tuoi orari!</string>
 

@@ -268,7 +268,6 @@
     <string name="schedule_message_member_conflict_desc">順番を変えるか、時間を調整してみてください。</string>
     <string name="schedule_message_buffer_reduced">バッファを%1$d分から%2$d分に短縮しました。</string>
     <string name="buffer_after_bath">入浴後のバッファ</string>
-    <string name="buffer_global_default">グローバル（%1$d分）</string>
     <string name="buffer_between_display">%1$d分のバッファ</string>
     <string name="main_fallback_alarm_active">⚠️ 注意：現在スケジュールがうまく合っていません（%1$s）。時間を調整してください！</string>
 

@@ -259,7 +259,6 @@
     <string name="schedule_message_member_conflict_desc">Probeer de volgorde te wijzigen of pas je tijden aan.</string>
     <string name="schedule_message_buffer_reduced">Buffer verkort van %1$d naar %2$d min.</string>
     <string name="buffer_after_bath">Buffer na badkamer</string>
-    <string name="buffer_global_default">Globaal (%1$d min)</string>
     <string name="buffer_between_display">%1$d min buffer</string>
     <string name="main_fallback_alarm_active">⚠️ Let op: Het schema past momenteel niet (%1$s). Pas a.u.b. je tijden aan!</string>
 
