@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Alarmınız şu anda duraklatıldı.</string>
     <string name="main_shared_breakfast">☕ Ortak kahvaltı: %s</string>
     <string name="main_wake_time">Uyanma: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Banyo: %1$s dk | Kahvaltı: %2$s</string>
     <string name="main_schedule_bathroom">Banyo: %1$s - %2$s</string>
     <string name="main_schedule_leave">Evden çıkış: %1$s</string>
     <string name="main_member_alarm_on">(Alarm aktif)</string>

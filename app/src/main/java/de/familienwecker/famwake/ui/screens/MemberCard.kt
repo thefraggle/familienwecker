@@ -170,7 +170,20 @@ fun MemberCard(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            stringResource(R.string.main_bathroom_info, member.bathroomDurationMinutes.toString(), if (member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no)),
+                            "${member.bathroomDurationMinutes} min",
+                            color = textColor.copy(alpha = 0.9f),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Icon(
+                            imageVector = Icons.Default.FreeBreakfast,
+                            contentDescription = null,
+                            modifier = Modifier.size(14.dp),
+                            tint = textColor.copy(alpha = 0.5f)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            if (member.wantsBreakfast) "✓" else "✗",
                             color = textColor.copy(alpha = 0.9f),
                             style = MaterialTheme.typography.bodyMedium
                         )

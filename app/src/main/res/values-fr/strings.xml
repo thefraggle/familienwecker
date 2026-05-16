@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Ton réveil est en pause.</string>
     <string name="main_shared_breakfast">☕ Petit-déj commun : %s</string>
     <string name="main_wake_time">Réveil : %1$s - %2$s</string>
-    <string name="main_bathroom_info">Sdb : %1$s min | Petit-déj : %2$s</string>
     <string name="main_schedule_bathroom">Salle de bain : %1$s à %2$s</string>
     <string name="main_schedule_leave">Départ de la maison : %1$s</string>
     <string name="main_member_alarm_on">(Réveil actif)</string>
