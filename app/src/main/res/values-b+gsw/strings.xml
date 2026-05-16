@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Diin Wecker isch grad pausiert.</string>
     <string name="main_shared_breakfast">☕ Gmeinsams Zmorge: %s</string>
     <string name="main_wake_time">Wecke: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Bad: %1$s Min | Zmorge: %2$s</string>
     <string name="main_schedule_bathroom">Badzimmer: %1$s bis %2$s</string>
     <string name="main_schedule_leave">Huus verlaa: %1$s</string>
     <string name="main_member_alarm_on">(Wecker aktiv)</string>

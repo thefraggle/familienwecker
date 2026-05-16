@@ -29,7 +29,6 @@
     <string name="main_plan_paused">您的闹钟当前已暂停。</string>
     <string name="main_shared_breakfast">☕ 共享早餐：%s</string>
     <string name="main_wake_time">起床：%1$s - %2$s</string>
-    <string name="main_bathroom_info">洗漱：%1$s 分钟 | 早餐：%2$s</string>
     <string name="main_schedule_bathroom">洗漱：%1$s 至 %2$s</string>
     <string name="main_schedule_leave">出门：%1$s</string>
     <string name="main_member_alarm_on">（闹钟已开启）</string>

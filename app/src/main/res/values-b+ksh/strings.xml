@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Dein Wecker macht Pause.</string>
     <string name="main_shared_breakfast">☕ Zusammen mampfen: %s</string>
     <string name="main_wake_time">Wecken: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Bad: %1$s Min | Mampfen: %2$s</string>
     <string name="main_schedule_bathroom">Bad: %1$s bis %2$s</string>
     <string name="main_schedule_leave">Abmarsch: %1$s</string>
     <string name="main_member_alarm_on">(Wecker is an)</string>

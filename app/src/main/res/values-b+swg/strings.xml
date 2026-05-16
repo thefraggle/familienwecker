@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Dei Wegger hat grad Pause.</string>
     <string name="main_shared_breakfast">☕ Zämma Frühstücka: %s</string>
     <string name="main_wake_time">Uffwacha: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Bad: %1$s Min | Frühstück: %2$s</string>
     <string name="main_schedule_bathroom">Bad: %1$s bis %2$s</string>
     <string name="main_schedule_leave">Nausganga: %1$s</string>
     <string name="main_member_alarm_on">(Wegger aa)</string>

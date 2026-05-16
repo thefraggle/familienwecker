@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Din väckarklocka är pausad.</string>
     <string name="main_shared_breakfast">☕ Gemensam frukost: %s</string>
     <string name="main_wake_time">Väckning: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Badrum: %1$s min | Frukost: %2$s</string>
     <string name="main_schedule_bathroom">Badrum: %1$s till %2$s</string>
     <string name="main_schedule_leave">Lämna hemmet: %1$s</string>
     <string name="main_member_alarm_on">(Larm aktivt)</string>

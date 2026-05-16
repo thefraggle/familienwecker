@@ -29,7 +29,6 @@
     <string name="main_plan_paused">तुमचा अलार्म सध्या थांबला आहे.</string>
     <string name="main_shared_breakfast">☕ एकत्र नाश्ता: %s</string>
     <string name="main_wake_time">जागे व्हा: %1$s - %2$s</string>
-    <string name="main_bathroom_info">बाथरूम: %1$s मि | नाश्ता: %2$s</string>
     <string name="main_schedule_bathroom">बाथरूम: %1$s ते %2$s</string>
     <string name="main_schedule_leave">घर सोडण्याची वेळ: %1$s</string>
     <string name="main_member_alarm_on">(अलार्म चालू)</string>
