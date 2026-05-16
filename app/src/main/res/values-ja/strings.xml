@@ -65,7 +65,7 @@
     <string name="add_member_unknown">不明</string>
     <string name="add_member_earliest_wake">最も早く起きる時間</string>
     <string name="add_member_latest_wake">最も遅く起きる時間</string>
-    <string name="add_member_bathroom_duration">バスルームを使う時間（分）</string>
+    <string name="add_member_bathroom_duration">バスルームを使う時間</string>
     <string name="add_member_wants_breakfast">朝食を食べる</string>
     <string name="add_member_leave_home">家を出る時間</string>
     <string name="add_member_day_profiles_title">週間スケジュール</string>

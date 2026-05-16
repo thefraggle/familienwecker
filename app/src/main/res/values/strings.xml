@@ -65,7 +65,7 @@
     <string name="add_member_unknown">Unknown</string>
     <string name="add_member_earliest_wake">Earliest time to wake up</string>
     <string name="add_member_latest_wake">Latest time to wake up</string>
-    <string name="add_member_bathroom_duration">Bathroom time (minutes)</string>
+    <string name="add_member_bathroom_duration">Bathroom time</string>
     <string name="add_member_wants_breakfast">Wants breakfast</string>
     <string name="add_member_leave_home">Needs to leave home at</string>
     <string name="add_member_day_profiles_title">Weekly schedule</string>
