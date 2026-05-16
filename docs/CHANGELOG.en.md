@@ -2,6 +2,18 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.4 – 2026-05-16
+### New
+- **Buffer after bathroom** – Add a time buffer between family members’ bathroom slots. Set it globally for everyone or individually per person.
+- **Invite family** – New share button on the home screen to invite family members via WhatsApp, SMS, or any other app.
+
+### Improved
+- **Time format adapts** – The app now automatically shows times in 12h or 24h format based on your device setting.
+- **Compact cards** – Member cards display info more efficiently with icons. No more text wrapping, even in longer languages.
+- **Less clutter** – Removed redundant labels. Icons speak for themselves.
+
+---
+
 ## 1.9.3 – 2026-05-15
 ### Improved
 - **Modern icons** – Emojis in the alarm schedule and on member cards have been replaced with crisp Material Icons for a consistent look across all devices.
