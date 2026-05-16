@@ -739,7 +739,7 @@ private fun DayProfileCard(
                                 "$effectiveValue min",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = if (profile.bufferMinutes != null) FontWeight.SemiBold else FontWeight.Normal,
-                                color = if (profile.bufferMinutes != null) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                                fontStyle = if (profile.bufferMinutes == null) androidx.compose.ui.text.font.FontStyle.Italic else androidx.compose.ui.text.font.FontStyle.Normal,
                                 maxLines = 1,
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
