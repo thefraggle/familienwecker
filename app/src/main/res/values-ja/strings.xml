@@ -29,7 +29,6 @@
     <string name="main_plan_paused">あなたのアラームは一時停止中です。</string>
     <string name="main_shared_breakfast">☕ 一緒に朝食：%s</string>
     <string name="main_wake_time">起床：%1$s - %2$s</string>
-    <string name="main_bathroom_info">バスルーム：%1$s分 | 朝食：%2$s</string>
     <string name="main_schedule_bathroom">バスルーム：%1$s から %2$s</string>
     <string name="main_schedule_leave">家を出る時間：%1$s</string>
     <string name="main_member_alarm_on">(アラーム オン)</string>

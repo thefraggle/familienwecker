@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Alarmen din er satt på pause.</string>
     <string name="main_shared_breakfast">☕ Felles frokost: %s</string>
     <string name="main_wake_time">Våkn opp: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Bad: %1$s min | Frokost: %2$s</string>
     <string name="main_schedule_bathroom">Bad: %1$s til %2$s</string>
     <string name="main_schedule_leave">Dra hjemmefra: %1$s</string>
     <string name="main_member_alarm_on">(Alarm aktiv)</string>

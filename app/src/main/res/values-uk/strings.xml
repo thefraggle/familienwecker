@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Ваш будильник зараз на паузі.</string>
     <string name="main_shared_breakfast">☕ Спільний сніданок: %s</string>
     <string name="main_wake_time">Підйом: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Ванна: %1$s хв | Сніданок: %2$s</string>
     <string name="main_schedule_bathroom">Ванна: з %1$s до %2$s</string>
     <string name="main_schedule_leave">Вихід з дому: %1$s</string>
     <string name="main_member_alarm_on">(Будильник активний)</string>

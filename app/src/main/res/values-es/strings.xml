@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Tu alarma está pausada.</string>
     <string name="main_shared_breakfast">☕ Desayuno compartido: %s</string>
     <string name="main_wake_time">Despertar: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Baño: %1$s min | Desayuno: %2$s</string>
     <string name="main_schedule_bathroom">Baño: de %1$s a %2$s</string>
     <string name="main_schedule_leave">Salir de casa: %1$s</string>
     <string name="main_member_alarm_on">(Alarma activa)</string>

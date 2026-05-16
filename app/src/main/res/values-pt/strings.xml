@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Seu alarme está pausado no momento.</string>
     <string name="main_shared_breakfast">☕ Café da manhã juntos: %s</string>
     <string name="main_wake_time">Acordar: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Banheiro: %1$s min | Café: %2$s</string>
     <string name="main_schedule_bathroom">Banheiro: %1$s às %2$s</string>
     <string name="main_schedule_leave">Sair de casa: %1$s</string>
     <string name="main_member_alarm_on">(Alarme ativo)</string>

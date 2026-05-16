@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Alarm Anda sedang dijeda.</string>
     <string name="main_shared_breakfast">☕ Sarapan bersama: %s</string>
     <string name="main_wake_time">Bangun: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Kamar Mandi: %1$s mnt | Sarapan: %2$s</string>
     <string name="main_schedule_bathroom">Kamar Mandi: %1$s hingga %2$s</string>
     <string name="main_schedule_leave">Meninggalkan rumah: %1$s</string>
     <string name="main_member_alarm_on">(Alarm aktif)</string>

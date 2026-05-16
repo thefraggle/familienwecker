@@ -29,7 +29,6 @@
     <string name="main_plan_paused">Báo thức của bạn đang tạm dừng.</string>
     <string name="main_shared_breakfast">☕ Ăn sáng chung: %s</string>
     <string name="main_wake_time">Thức dậy: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Phòng tắm: %1$s phút | Ăn sáng: %2$s</string>
     <string name="main_schedule_bathroom">Phòng tắm: %1$s đến %2$s</string>
     <string name="main_schedule_leave">Rời khỏi nhà: %1$s</string>
     <string name="main_member_alarm_on">(Đã bật báo thức)</string>

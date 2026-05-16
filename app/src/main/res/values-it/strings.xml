@@ -29,7 +29,6 @@
     <string name="main_plan_paused">La tua sveglia è in pausa.</string>
     <string name="main_shared_breakfast">☕ Colazione insieme: %s</string>
     <string name="main_wake_time">Sveglia: %1$s - %2$s</string>
-    <string name="main_bathroom_info">Bagno: %1$s min | Colazione: %2$s</string>
     <string name="main_schedule_bathroom">Bagno: dalle %1$s alle %2$s</string>
     <string name="main_schedule_leave">Uscita: %1$s</string>
     <string name="main_member_alarm_on">(Sveglia attiva)</string>

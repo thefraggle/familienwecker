@@ -29,7 +29,6 @@
     <string name="main_plan_paused">আপনার অ্যালার্ম পজ করা আছে।</string>
     <string name="main_shared_breakfast">☕ একসাথে নাস্তা: %s</string>
     <string name="main_wake_time">জাগার সময়: %1$s - %2$s</string>
-    <string name="main_bathroom_info">বাথরুম: %1$s মিনিট | নাস্তা: %2$s</string>
     <string name="main_schedule_bathroom">বাথরুম: %1$s থেকে %2$s</string>
     <string name="main_schedule_leave">বাড়ি থেকে বের হওয়া: %1$s</string>
     <string name="main_member_alarm_on">(অ্যালার্ম চালু)</string>

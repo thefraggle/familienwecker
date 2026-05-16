@@ -29,7 +29,6 @@
     <string name="main_plan_paused">알람이 일시 정지되었습니다.</string>
     <string name="main_shared_breakfast">☕ 다 함께 아침 식사: %s</string>
     <string name="main_wake_time">기상 시간: %1$s - %2$s</string>
-    <string name="main_bathroom_info">화장실: %1$s분 | 아침 식사: %2$s</string>
     <string name="main_schedule_bathroom">화장실: %1$s ~ %2$s</string>
     <string name="main_schedule_leave">집에서 나가는 시간: %1$s</string>
     <string name="main_member_alarm_on">(알람 켜짐)</string>
