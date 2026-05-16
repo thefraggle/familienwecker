@@ -575,7 +575,7 @@ private fun DayProfileCard(
     val context = LocalContext.current
     val isDarkTheme = LocalDarkTheme.current
     val is24h = android.text.format.DateFormat.is24HourFormat(context)
-    val formatter = DateTimeFormatter.ofPattern(if (is24h) "HH:mm" else "hh:mm a")
+    val formatter = DateTimeFormatter.ofPattern(if (is24h) "HH:mm" else "h:mm a")
     val errors = if (profile.isActive) validateDayProfile(profile) else emptyList()
 
     Card(
@@ -940,7 +940,7 @@ private fun TimePickerRowWithIcon(
 @Composable
 fun TimePickerRow(label: String, time: LocalTime, onTimeSelected: (LocalTime) -> Unit) {
     val context = LocalContext.current
-    val formatter = DateTimeFormatter.ofPattern(if (android.text.format.DateFormat.is24HourFormat(context)) "HH:mm" else "hh:mm a")
+    val formatter = DateTimeFormatter.ofPattern(if (android.text.format.DateFormat.is24HourFormat(context)) "HH:mm" else "h:mm a")
     TimePickerRow(label = label, time = time, context = context, formatter = formatter, onTimeSelected = onTimeSelected)
 }
 

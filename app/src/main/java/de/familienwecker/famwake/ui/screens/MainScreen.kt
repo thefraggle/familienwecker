@@ -154,7 +154,7 @@ fun MainScreen(
     var draggedItemId by remember { mutableStateOf<String?>(null) }
     var draggingOffset by remember { mutableStateOf(0f) }
     val is24h = android.text.format.DateFormat.is24HourFormat(context)
-    val timeFormatter = remember(is24h) { DateTimeFormatter.ofPattern(if (is24h) "HH:mm" else "hh:mm a") }
+    val timeFormatter = remember(is24h) { DateTimeFormatter.ofPattern(if (is24h) "HH:mm" else "h:mm a") }
 
     // Scroll-Verhalten für LargeTopAppBar: Titel kollabiert beim Scrollen nach oben
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
