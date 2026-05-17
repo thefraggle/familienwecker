@@ -28,12 +28,6 @@ struct MainView: View {
                     if let err = familyViewModel.errorMessage {
                         errorCard(err)
                             .padding(.top, 16)
-                    } else {
-                        // Invisible spacer to add padding below the large title
-                        Color.clear.frame(height: 16)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .padding(.bottom, -24)
                     }
 
                     // Alarm Toggle Card
@@ -62,7 +56,7 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
-            .navigationTitle(Text("**FamWake** \(L.s("app_name_short"))"))
+            .navigationTitle(L.appNameShort)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if familyViewModel.isOffline {
@@ -321,7 +315,9 @@ struct MainView: View {
             Text(L.mainCurrentSchedule)
                 .font(.title3).fontWeight(.black)
                 .foregroundStyle(theme.onBackground)
-                .padding(.top, 8)
+                .listRowInsets(EdgeInsets(top: 8, leading: 24, bottom: 4, trailing: 24))
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
 
             if let sched = familyViewModel.schedule {
                 if sched.memberSchedules.isEmpty {
