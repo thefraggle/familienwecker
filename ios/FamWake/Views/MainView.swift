@@ -164,12 +164,15 @@ struct MainView: View {
                             .foregroundStyle(theme.onPrimaryContainer)
                         Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabledDesc : L.mainAlarmDisabledDesc)
                             .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
                     }
                     Spacer()
                     Toggle("", isOn: Binding(
                         get: { familyViewModel.isAlarmEnabled },
                         set: { familyViewModel.setAlarmEnabled($0) }
                     ))
+                    .labelsHidden()
                     .disabled(familyViewModel.myMemberId == nil)
                     .tint(theme.secondary)
                 }
@@ -392,6 +395,16 @@ struct MainView: View {
                                     .fontWeight(.bold)
                                     .foregroundStyle(theme.onPrimaryContainer)
                             }
+                            
+                            if familyViewModel.isAlarmEnabled, let targetDate = sched.targetDate {
+                                let df = DateFormatter()
+                                let _ = df.dateFormat = "EEEE, d. MMM"
+                                let _ = df.locale = Locale.current
+                                Text(df.string(from: targetDate))
+                                    .font(.subheadline).fontWeight(.bold)
+                                    .foregroundStyle(theme.primary)
+                            }
+                            
                             let msgText: String? = {
                                 switch sched.scheduleMessage {
                                 case .timeAdjusted(let min):

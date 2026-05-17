@@ -98,6 +98,16 @@ struct MemberCardView: View {
                         .buttonStyle(.plain)
                     }
 
+                    // Edit: nur unclaimed zur Visualisierung (ganze Kachel ist klickbar)
+                    if member.claimedByUserId == nil {
+                        Button(action: onEdit) {
+                            Image(systemName: "pencil.circle.fill")
+                                .font(.title3)
+                                .foregroundStyle(theme.outline)
+                        }
+                        .buttonStyle(.plain)
+                    }
+
                     // Delete: eigene oder unclaimed (Android MemberCard.kt:200)
                     if member.claimedByUserId == nil || isMyProfile {
                         Button(action: onDelete) {
