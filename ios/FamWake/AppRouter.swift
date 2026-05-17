@@ -35,7 +35,9 @@ struct AppRouter: View {
             }
         }
         .onReceive(authViewModel.$authState) { state in
-            handleAuthState(state)
+            Task { @MainActor in
+                await handleAuthState(state)
+            }
         }
         .task {
             await appState.load(authViewModel: authViewModel, familyViewModel: familyViewModel)
@@ -46,10 +48,14 @@ struct AppRouter: View {
         )
     }
 
-    private func handleAuthState(_ state: AuthState) {
+    private func handleAuthState(_ state: AuthState) async {
         switch state {
         case .authenticated:
             if appState.route == .login || appState.route == .loading || appState.route == .onboarding {
+                if !familyViewModel.hasFamilyId {
+                    appState.route = .loading
+                    await familyViewModel.restoreUserContextIfNeeded()
+                }
                 appState.route = familyViewModel.hasFamilyId ? .main : .familySetup
             }
         case .unauthenticated:
