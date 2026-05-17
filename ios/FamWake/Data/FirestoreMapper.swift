@@ -99,6 +99,9 @@ extension FamilyMember {
                 if let leaveHome = profile.leaveHomeTime {
                     profileDict["leaveHomeTime"] = leaveHome.toTimeString()
                 }
+                if let buffer = profile.bufferMinutes {
+                    profileDict["bufferMinutes"] = buffer
+                }
                 dpData["\(day)"] = profileDict
             }
             data["dayProfiles"] = dpData
@@ -134,6 +137,7 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
         let bathroom = (dp["bathroomDurationMinutes"] as? NSNumber)?.intValue ?? 20
         let breakfast = dp["wantsBreakfast"] as? Bool ?? true
         let leave = (dp["leaveHomeTime"] as? String).flatMap { DateComponents.fromTimeString($0) }
+        let buffer = (dp["bufferMinutes"] as? NSNumber)?.intValue
 
         result[day] = DayProfile(
             isActive: active,
@@ -141,7 +145,8 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
             latestWakeUp: latest,
             bathroomDurationMinutes: bathroom,
             wantsBreakfast: breakfast,
-            leaveHomeTime: leave
+            leaveHomeTime: leave,
+            bufferMinutes: buffer
         )
     }
     return result.isEmpty ? nil : result

@@ -77,8 +77,8 @@ struct MemberCardView: View {
                             .font(.subheadline).fontWeight(.bold)
                             .foregroundStyle(textColor)
 
-                        // Bathroom + Breakfast info (Android MemberCard.kt:154-157)
-                        Text(L.s("main_bathroom_info", "\(member.bathroomDurationMinutes)", member.wantsBreakfast ? L.s("yes") : L.s("no")))
+                        // Bathroom + Breakfast info
+                        Text("🛁 \(member.bathroomDurationMinutes) min   ☕ \(member.wantsBreakfast ? L.s("yes") : L.s("no"))")
                             .font(.caption)
                             .foregroundStyle(textColor.opacity(0.9))
                     }

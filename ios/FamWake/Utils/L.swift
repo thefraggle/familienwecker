@@ -108,6 +108,10 @@ enum L {
     static var scheduleAutoFix: String { s("schedule_auto_fix") }
     static var mainMemberLimitReached: String { s("main_member_limit_reached") }
 
+    // MARK: - Buffer
+    static var bufferAfterBath: String { s("buffer_after_bath") }
+    static func bufferBetweenDisplay(_ min: Int) -> String { s("buffer_between_display", min) }
+
     // MARK: - Awake
     static var awakeTodayDesc: String { s("awake_today_desc") }
     static var awakeActiveDesc: String { s("awake_active_desc") }

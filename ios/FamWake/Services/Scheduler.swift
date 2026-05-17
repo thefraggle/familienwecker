@@ -7,7 +7,8 @@ struct Scheduler {
 
     func calculateIdealSchedule(
         members: [FamilyMember],
-        breakfastDurationMinutes: Int = 30
+        breakfastDurationMinutes: Int = 30,
+        globalBufferMinutes: Int = 0
     ) -> FamilySchedule {
 
         let activeMembers = members.filter { !$0.isPaused }.prefix(6).map { $0 }
@@ -16,46 +17,81 @@ struct Scheduler {
             return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)
         }
 
-        // 1. Exakte Reihung ohne Verschiebung
-        let initial = evaluatePermutation(activeMembers, breakfastDurationMinutes: breakfastDurationMinutes, shiftMinutes: 0, includeInvalid: true)
-        if initial.isValid { return initial }
+        // 1. Versuche die exakte Reihung ohne Zeit-Verschiebung, mit vollem Puffer
+        let initialResult = evaluatePermutation(activeMembers, breakfastDurationMinutes: breakfastDurationMinutes, shiftMinutes: 0, globalBufferMinutes: globalBufferMinutes, includeInvalid: true)
+        if initialResult.isValid { return initialResult }
 
-        // 2. Fallback: moderate Zeitverschiebung (5–15 Min)
-        for shift in stride(from: 5, through: 15, by: 5) {
-            let flexible = evaluatePermutation(activeMembers, breakfastDurationMinutes: breakfastDurationMinutes, shiftMinutes: shift)
-            if flexible.isValid {
-                return FamilySchedule(memberSchedules: flexible.memberSchedules, breakfastTime: flexible.breakfastTime, isValid: true, scheduleMessage: .timeAdjusted(shift))
+        // 2. Puffer schrittweise reduzieren (5er-Schritte)
+        if globalBufferMinutes > 0 {
+            var reducedBuffer = globalBufferMinutes - 5
+            while reducedBuffer >= 0 {
+                let bufferResult = evaluatePermutation(activeMembers, breakfastDurationMinutes: breakfastDurationMinutes, shiftMinutes: 0, globalBufferMinutes: reducedBuffer)
+                if bufferResult.isValid {
+                    var finalRes = bufferResult
+                    finalRes.scheduleMessage = .bufferReduced(globalBufferMinutes, reducedBuffer)
+                    return finalRes
+                }
+                reducedBuffer -= 5
             }
         }
 
-        // 3. Fallback: Frühstück leicht verkürzen
+        // 3. Fallback: Erlaube moderate Zeit-Verschiebungen (5-15 Min) bei festgehaltener Reihung, ohne Puffer
+        for shift in stride(from: 5, through: 15, by: 5) {
+            let flexibleSchedule = evaluatePermutation(activeMembers, breakfastDurationMinutes: breakfastDurationMinutes, shiftMinutes: shift, globalBufferMinutes: 0)
+            if flexibleSchedule.isValid {
+                var finalRes = flexibleSchedule
+                finalRes.scheduleMessage = .timeAdjusted(shift)
+                return finalRes
+            }
+        }
+
+        // 4. Fallback: Frühstück leicht verkürzen und mit Verschiebungen erneut probieren
         if breakfastDurationMinutes >= 15 {
-            for reduce in stride(from: 5, through: 10, by: 5) {
-                let reduced = breakfastDurationMinutes - reduce
-                let r = evaluatePermutation(activeMembers, breakfastDurationMinutes: reduced, shiftMinutes: 0)
-                if r.isValid {
-                    return FamilySchedule(memberSchedules: r.memberSchedules, breakfastTime: r.breakfastTime, isValid: true, scheduleMessage: .breakfastReduced(reduce))
+            for reduceBreakfast in stride(from: 5, through: 10, by: 5) {
+                let reducedDuration = breakfastDurationMinutes - reduceBreakfast
+                let reductionSchedule = evaluatePermutation(activeMembers, breakfastDurationMinutes: reducedDuration, shiftMinutes: 0, globalBufferMinutes: 0)
+
+                if reductionSchedule.isValid {
+                    var finalRes = reductionSchedule
+                    finalRes.scheduleMessage = .breakfastReduced(reduceBreakfast)
+                    return finalRes
                 }
+
+                // Kombiniere Frühstücksverkürzung mit Zeit-Verschiebung
                 for shift in stride(from: 5, through: 15, by: 5) {
-                    let fr = evaluatePermutation(activeMembers, breakfastDurationMinutes: reduced, shiftMinutes: shift)
-                    if fr.isValid {
-                        return FamilySchedule(memberSchedules: fr.memberSchedules, breakfastTime: fr.breakfastTime, isValid: true, scheduleMessage: .breakfastAndTimeAdjusted(reduce, shift))
+                    let flexibleReductionSchedule = evaluatePermutation(activeMembers, breakfastDurationMinutes: reducedDuration, shiftMinutes: shift, globalBufferMinutes: 0)
+                    if flexibleReductionSchedule.isValid {
+                        var finalRes = flexibleReductionSchedule
+                        finalRes.scheduleMessage = .breakfastAndTimeAdjusted(reduceBreakfast, shift)
+                        return finalRes
                     }
                 }
             }
         }
 
-        // 4. Best-Effort (ungültig)
-        let conflict = extractConflictMessage(initial)
-        return FamilySchedule(memberSchedules: initial.memberSchedules, breakfastTime: initial.breakfastTime, isValid: false, scheduleMessage: conflict)
+        // 5. Endgültiger Fehlschlag: Best-Effort Plan zurückgeben (vom ersten Versuch)
+        var failedResult = initialResult
+        failedResult.isValid = false
+        failedResult.scheduleMessage = extractConflictMessage(initialResult)
+        return failedResult
     }
 
     // MARK: - Private
+
+    private func extractConflictMessage(_ schedule: FamilySchedule) -> ScheduleMessage {
+        for s in schedule.memberSchedules {
+            if s.wakeUpTime < s.member.earliestWakeUp {
+                return .memberConflict(s.member.name)
+            }
+        }
+        return .memberConflict("")
+    }
 
     private func evaluatePermutation(
         _ orderedMembers: [FamilyMember],
         breakfastDurationMinutes: Int,
         shiftMinutes: Int,
+        globalBufferMinutes: Int,
         includeInvalid: Bool = false
     ) -> FamilySchedule {
 
@@ -63,17 +99,23 @@ struct Scheduler {
         var breakfastTime: DateComponents? = nil
 
         if !breakfastEaters.isEmpty {
-            var minLeave = DateComponents(hour: 23, minute: 59) // spätester Grenzwert
+            var minLeaveForBreakfastEaters = DateComponents(hour: 23, minute: 59)
             for m in breakfastEaters {
                 let naturalBathEnd = m.latestWakeUp.adding(minutes: m.bathroomDurationMinutes)
                 let leave = m.leaveHomeTime ?? naturalBathEnd
-                if leave.totalMinutes < minLeave.totalMinutes {
-                    minLeave = leave
+                if leave < minLeaveForBreakfastEaters {
+                    minLeaveForBreakfastEaters = leave
                 }
             }
-            // Clamp: frühestens 04:00
-            let startTime = minLeave.totalMinutes < 4 * 60 ? DateComponents(hour: 4, minute: 0) : minLeave
+            
+            // Safety-Guard: Clamp auf 04:00
+            let startTime = minLeaveForBreakfastEaters.totalMinutes < 4 * 60 ? DateComponents(hour: 4, minute: 0) : minLeaveForBreakfastEaters
             breakfastTime = startTime.subtracting(minutes: breakfastDurationMinutes)
+            
+            // Wraparound Check (03:30)
+            if let bt = breakfastTime, startTime < bt {
+                breakfastTime = DateComponents(hour: 3, minute: 30)
+            }
         }
 
         var schedules: [MemberSchedule] = []
@@ -86,40 +128,48 @@ struct Scheduler {
 
             var maxBathroomEnd = allowedLatest.adding(minutes: member.bathroomDurationMinutes)
 
-            if currentLatestBathroomEnd.totalMinutes < maxBathroomEnd.totalMinutes {
+            if currentLatestBathroomEnd < maxBathroomEnd {
                 maxBathroomEnd = currentLatestBathroomEnd
             }
 
-            if member.wantsBreakfast, let bt = breakfastTime, bt.totalMinutes <= maxBathroomEnd.totalMinutes {
+            if member.wantsBreakfast, let bt = breakfastTime, maxBathroomEnd.totalMinutes >= bt.totalMinutes {
                 maxBathroomEnd = bt
             }
 
-            if let leave = member.leaveHomeTime, leave.totalMinutes < maxBathroomEnd.totalMinutes {
+            if let leave = member.leaveHomeTime, leave < maxBathroomEnd {
                 maxBathroomEnd = leave
             }
 
             let wakeUpTime = maxBathroomEnd.subtracting(minutes: member.bathroomDurationMinutes)
 
-            if wakeUpTime.totalMinutes < allowedEarliest.totalMinutes {
+            if wakeUpTime < allowedEarliest {
                 if !includeInvalid {
                     return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .memberConflict(""))
                 }
                 isValid = false
             }
 
+            let activeProfile = member.dayProfiles?.values.first
+            var effectiveBuffer = globalBufferMinutes
+            if let pBuffer = activeProfile?.bufferMinutes, pBuffer > 0 {
+                effectiveBuffer = pBuffer
+            }
+
             schedules.append(MemberSchedule(
                 member: member,
                 wakeUpTime: wakeUpTime,
                 bathroomStart: wakeUpTime,
-                bathroomEnd: maxBathroomEnd
+                bathroomEnd: maxBathroomEnd,
+                bufferAfter: effectiveBuffer
             ))
-            currentLatestBathroomEnd = wakeUpTime
+            
+            currentLatestBathroomEnd = wakeUpTime.subtracting(minutes: effectiveBuffer)
         }
 
         // Post-Validation Frühstück
         if let bt = breakfastTime, isValid {
             for s in schedules {
-                if s.member.wantsBreakfast && s.bathroomEnd.totalMinutes > bt.totalMinutes {
+                if s.member.wantsBreakfast && bt < s.bathroomEnd {
                     isValid = false
                     if !includeInvalid {
                         return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .memberConflict(""))
@@ -134,15 +184,6 @@ struct Scheduler {
             isValid: isValid,
             scheduleMessage: isValid ? .optimal : .memberConflict("")
         )
-    }
-
-    private func extractConflictMessage(_ schedule: FamilySchedule) -> ScheduleMessage {
-        for s in schedule.memberSchedules {
-            if s.wakeUpTime.totalMinutes < s.member.earliestWakeUp.totalMinutes {
-                return .memberConflict(s.member.name)
-            }
-        }
-        return .memberConflict("")
     }
 }
 

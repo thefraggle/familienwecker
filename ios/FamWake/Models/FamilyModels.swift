@@ -73,6 +73,7 @@ struct DayProfile: Codable, Equatable {
     var bathroomDurationMinutes: Int
     var wantsBreakfast: Bool
     var leaveHomeTime: DateComponents?
+    var bufferMinutes: Int?
 
     init(
         isActive: Bool = true,
@@ -80,7 +81,8 @@ struct DayProfile: Codable, Equatable {
         latestWakeUp: DateComponents = DateComponents(hour: 7, minute: 30),
         bathroomDurationMinutes: Int = 20,
         wantsBreakfast: Bool = true,
-        leaveHomeTime: DateComponents? = nil
+        leaveHomeTime: DateComponents? = nil,
+        bufferMinutes: Int? = nil
     ) {
         self.isActive = isActive
         self.earliestWakeUp = earliestWakeUp
@@ -88,6 +90,7 @@ struct DayProfile: Codable, Equatable {
         self.bathroomDurationMinutes = bathroomDurationMinutes
         self.wantsBreakfast = wantsBreakfast
         self.leaveHomeTime = leaveHomeTime
+        self.bufferMinutes = bufferMinutes
     }
 
     /// Mo–Fr active, Sa–So inactive (default for new members)
@@ -105,6 +108,7 @@ struct MemberSchedule: Identifiable {
     var wakeUpTime: DateComponents
     var bathroomStart: DateComponents
     var bathroomEnd: DateComponents
+    var bufferAfter: Int = 0
 }
 
 // MARK: - FamilySchedule
@@ -124,6 +128,7 @@ enum ScheduleMessage: Equatable {
     case timeAdjusted(Int)
     case breakfastReduced(Int)
     case breakfastAndTimeAdjusted(Int, Int)
+    case bufferReduced(Int, Int)
 }
 
 // MARK: - DateComponents Helpers
@@ -132,12 +137,16 @@ extension DateComponents {
         Calendar.current.date(from: self)
     }
 
-    func formatted(_ format: String = "HH:mm") -> String {
+    func formatted(_ format: String? = nil) -> String {
         var cal = Calendar.current
         cal.timeZone = TimeZone.current
         guard let date = cal.date(from: self) else { return "--:--" }
         let f = DateFormatter()
-        f.dateFormat = format
+        if let format = format {
+            f.dateFormat = format
+        } else {
+            f.timeStyle = .short
+        }
         return f.string(from: date)
     }
 
