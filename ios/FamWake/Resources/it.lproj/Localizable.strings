@@ -310,3 +310,11 @@
 "settings_account_section" = "Account";
 
 "registration_disclaimer" = "Registrandoti, accetti i %1$@ e l'%2$@.";
+
+"registration_disclaimer" = "Registrandoti, accetti i %1$@ e l'%2$@.";
+
+"buffer_after_bath" = "Margine dopo il bagno";
+
+"buffer_between_display" = "%d min di margine";
+
+"schedule_message_buffer_reduced" = "Margine ridotto da %d a %d min.";

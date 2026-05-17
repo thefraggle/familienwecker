@@ -310,3 +310,11 @@
 "settings_account_section" = "অ্যাকাউন্ট";
 
 "registration_disclaimer" = "সাইন আপ করার মাধ্যমে, আপনি %1$@ এবং %2$@ স্বীকার করছেন।";
+
+"registration_disclaimer" = "সাইন আপ করার মাধ্যমে, আপনি %1$@ এবং %2$@ স্বীকার করছেন।";
+
+"buffer_after_bath" = "বাথরুমের পরে বাফার";
+
+"buffer_between_display" = "%d মিনিট বাফার";
+
+"schedule_message_buffer_reduced" = "বাফার %d থেকে %d মিনিটে কমানো হয়েছে।";

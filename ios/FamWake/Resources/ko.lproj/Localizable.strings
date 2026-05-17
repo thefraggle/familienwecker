@@ -310,3 +310,11 @@
 "settings_account_section" = "계정";
 
 "registration_disclaimer" = "가입 시 %1$@ 및 %2$@에 동의하는 것으로 간주됩니다.";
+
+"registration_disclaimer" = "가입 시 %1$@ 및 %2$@에 동의하는 것으로 간주됩니다.";
+
+"buffer_after_bath" = "욕실 사용 후 여유 시간";
+
+"buffer_between_display" = "%d분 여유 시간";
+
+"schedule_message_buffer_reduced" = "여유 시간이 %d분에서 %d분으로 단축되었습니다.";

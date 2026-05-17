@@ -310,3 +310,11 @@
 "settings_account_section" = "Konto";
 
 "registration_disclaimer" = "Rejestrując się, akceptujesz %1$@ oraz %2$@.";
+
+"registration_disclaimer" = "Rejestrując się, akceptujesz %1$@ oraz %2$@.";
+
+"buffer_after_bath" = "Bufor po łazience";
+
+"buffer_between_display" = "%d min bufora";
+
+"schedule_message_buffer_reduced" = "Bufor zmniejszony z %d do %d min.";

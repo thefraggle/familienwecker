@@ -57,9 +57,12 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
-            .navigationTitle(L.appNameShort)
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text(L.appNameShort)
+                        .font(.title2).fontWeight(.bold)
+                }
+                ToolbarItemGroup(placement: .topBarTrailing) {
                     if familyViewModel.isOffline {
                         Image(systemName: "icloud.slash")
                             .foregroundStyle(theme.outline)
@@ -160,7 +163,7 @@ struct MainView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
-                            .font(.headline).fontWeight(.black)
+                            .font(.title3).fontWeight(.bold)
                             .foregroundStyle(theme.onPrimaryContainer)
                         Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabledDesc : L.mainAlarmDisabledDesc)
                             .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
@@ -318,9 +321,9 @@ struct MainView: View {
     private var scheduleSection: some View {
         Section {
             Text(L.mainCurrentSchedule)
-                .font(.title3).fontWeight(.black)
+                .font(.title2).fontWeight(.black)
                 .foregroundStyle(theme.onBackground)
-                .listRowInsets(EdgeInsets(top: 8, leading: 24, bottom: 4, trailing: 24))
+                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 4, trailing: 16))
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
 
@@ -380,10 +383,13 @@ struct MainView: View {
                     } else {
                         // Schedule Card
                         VStack(alignment: .leading, spacing: 6) {
-                            Text(familyViewModel.isAlarmEnabled ? "✅ \(L.mainOptimalPlan)" : "⏸️ \(L.mainPlanPaused)")
-                                .fontWeight(.bold)
-                                .foregroundStyle(theme.onPrimaryContainer)
-                            
+                            HStack(spacing: 6) {
+                                Image(systemName: familyViewModel.isAlarmEnabled ? "checkmark.circle.fill" : "pause.circle.fill")
+                                    .foregroundStyle(familyViewModel.isAlarmEnabled ? theme.primary : theme.onSurfaceVariant)
+                                Text(familyViewModel.isAlarmEnabled ? L.mainOptimalPlan : L.mainPlanPaused)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(theme.onPrimaryContainer)
+                            }
                             let msgText: String? = {
                                 switch sched.scheduleMessage {
                                 case .timeAdjusted(let min):
@@ -410,7 +416,7 @@ struct MainView: View {
                                 let endBreakfastDate = Calendar.current.date(byAdding: .minute, value: 30, to: breakfastDate) ?? breakfastDate
                                 let endBreakfastComps = Calendar.current.dateComponents([.hour, .minute], from: endBreakfastDate)
                                 Text("☕ \(L.mainScheduleBathroom(breakfast.formatted(), endBreakfastComps.formatted()))")
-                                    .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                                    .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.8))
                             }
                         }
                         .padding()
@@ -464,19 +470,31 @@ struct MainView: View {
     private func scheduleCard(_ sched: MemberSchedule) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text("⏰ \(sched.wakeUpTime.formatted()) – \(sched.member.name)")
-                    .font(.headline).fontWeight(.bold)
-                    .foregroundStyle(theme.onPrimaryContainer)
-                Text(L.mainScheduleBathroom(sched.bathroomStart.formatted(), sched.bathroomEnd.formatted()))
-                    .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                HStack(spacing: 6) {
+                    Image(systemName: "alarm")
+                        .foregroundStyle(theme.error)
+                    Text("\(sched.wakeUpTime.formatted()) – \(sched.member.name)")
+                        .font(.headline).fontWeight(.bold)
+                        .foregroundStyle(theme.onPrimaryContainer)
+                }
+                
+                HStack(spacing: 6) {
+                    Image(systemName: "bathtub.fill")
+                        .font(.caption)
+                        .foregroundStyle(theme.onSurfaceVariant.opacity(0.6))
+                    Text(L.mainScheduleBathroom(sched.bathroomStart.formatted(), sched.bathroomEnd.formatted()))
+                        .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.8))
+                }
+                
                 if let leave = sched.member.leaveHomeTime {
                     Text(L.mainScheduleLeave(leave.formatted()))
-                        .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                        .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.8))
                 }
             }
             Spacer()
-            Image(systemName: "line.3.horizontal")
-                .foregroundStyle(theme.outline)
+            Image(systemName: "circle.grid.2x3.fill")
+                .foregroundStyle(theme.outline.opacity(0.6))
+                .font(.title3)
         }
         .padding()
         .famWakeCard(cornerRadius: 16, isDark: appState.colorScheme == .dark)
@@ -486,10 +504,11 @@ struct MainView: View {
     private var memberSection: some View {
         Section {
             Text(L.mainFamilyMembers)
-                .font(.title3).fontWeight(.black)
+                .font(.title2).fontWeight(.black)
                 .foregroundStyle(theme.onBackground)
                 .padding(.top, 16)
                 .padding(.bottom, 4)
+                .padding(.horizontal, 16)
 
             // Global Buffer Stepper (Android style)
             if familyViewModel.members.count > 1 {

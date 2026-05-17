@@ -310,3 +310,11 @@
 "settings_account_section" = "Akun";
 
 "registration_disclaimer" = "Dengan mendaftar, Anda menyetujui %1$@ dan %2$@ kami.";
+
+"registration_disclaimer" = "Dengan mendaftar, Anda menyetujui %1$@ dan %2$@ kami.";
+
+"buffer_after_bath" = "Jeda setelah mandi";
+
+"buffer_between_display" = "Jeda %d mnt";
+
+"schedule_message_buffer_reduced" = "Jeda dikurangi dari %d menjadi %d mnt.";

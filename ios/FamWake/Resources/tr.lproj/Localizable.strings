@@ -310,3 +310,11 @@
 "settings_account_section" = "Hesap";
 
 "registration_disclaimer" = "Kayıt olarak %1$@ ve %2$@'nı kabul etmiş olursunuz.";
+
+"registration_disclaimer" = "Kayıt olarak %1$@ ve %2$@'nı kabul etmiş olursunuz.";
+
+"buffer_after_bath" = "Banyo sonrası tampon";
+
+"buffer_between_display" = "%d dk tampon";
+
+"schedule_message_buffer_reduced" = "Tampon %d ile %d dk arasına düşürüldü.";

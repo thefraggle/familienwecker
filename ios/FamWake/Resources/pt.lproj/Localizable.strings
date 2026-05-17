@@ -310,3 +310,11 @@
 "settings_account_section" = "Conta";
 
 "registration_disclaimer" = "Ao se cadastrar, você aceita os %1$@ e a %2$@.";
+
+"registration_disclaimer" = "Ao se cadastrar, você aceita os %1$@ e a %2$@.";
+
+"buffer_after_bath" = "Margem após o banho";
+
+"buffer_between_display" = "Margem de %d min";
+
+"schedule_message_buffer_reduced" = "Margem reduzida de %d para %d min.";
