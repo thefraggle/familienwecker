@@ -311,3 +311,5 @@
 "member_pause" = "Pause";
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
+
+"registration_disclaimer" = "By signing up, you accept the %1$@ and the %2$@.";

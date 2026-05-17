@@ -309,3 +309,5 @@
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
 "settings_account_section" = "帐号";
+
+"registration_disclaimer" = "注册即表示您同意 %1$@ 和 %2$@。";

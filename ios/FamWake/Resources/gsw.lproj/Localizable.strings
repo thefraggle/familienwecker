@@ -309,3 +309,5 @@
 "member_resume" = "Aktivieren";
 "member_not_active_today" = "Heute nicht aktiv";
 "settings_account_section" = "Konto";
+
+"registration_disclaimer" = "Mit de Registrierig akzeptiersch d'%1$@ und d'%2$@.";

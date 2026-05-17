@@ -309,3 +309,5 @@
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
 "settings_account_section" = "অ্যাকাউন্ট";
+
+"registration_disclaimer" = "সাইন আপ করার মাধ্যমে, আপনি %1$@ এবং %2$@ স্বীকার করছেন।";

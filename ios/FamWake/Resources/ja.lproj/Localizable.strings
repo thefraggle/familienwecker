@@ -309,3 +309,5 @@
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
 "settings_account_section" = "アカウント";
+
+"registration_disclaimer" = "登録することで、%1$@および%2$@に同意したものとみなされます。";

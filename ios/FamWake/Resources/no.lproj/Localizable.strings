@@ -309,3 +309,5 @@
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
 "settings_account_section" = "Konto";
+
+"registration_disclaimer" = "Ved å registrere deg godtar du %1$@ og %2$@.";

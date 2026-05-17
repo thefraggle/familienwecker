@@ -309,3 +309,5 @@
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
 "settings_account_section" = "Аккаунт";
+
+"registration_disclaimer" = "Регистрируясь, вы принимаете %1$@ и %2$@.";

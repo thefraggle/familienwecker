@@ -311,3 +311,5 @@
 "member_pause" = "Pausieren";
 "member_resume" = "Aktivieren";
 "member_not_active_today" = "Heute nicht aktiv";
+
+"registration_disclaimer" = "Mit der Registrierung akzeptierst du die %1$@ und die %2$@.";

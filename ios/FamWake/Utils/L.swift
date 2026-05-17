@@ -26,7 +26,7 @@ enum L {
     static var alreadyHaveAccount: String { s("already_have_account") }
     static var registrationTermsOfUse: String { s("registration_terms_of_use") }
     static var registrationPrivacyPolicy: String { s("registration_privacy_policy") }
-    static var registrationDisclaimerPrefix: String { s("registration_disclaimer_prefix") }
+    static func registrationDisclaimer(_ terms: String, _ privacy: String) -> String { String(format: s("registration_disclaimer"), terms, privacy) }
     static var loginVerifyEmailText: String { s("login_verify_email_text") }
 
     // MARK: - App Name
