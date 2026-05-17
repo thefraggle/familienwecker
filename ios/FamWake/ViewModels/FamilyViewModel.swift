@@ -52,6 +52,10 @@ class FamilyViewModel: ObservableObject {
     let tooltipKeyWeekdays = "tooltip_weekdays_seen"
 
     var hasFamilyId: Bool { familyId != nil }
+    var isLoggedIn: Bool {
+        guard let user = Auth.auth().currentUser else { return false }
+        return !user.isAnonymous
+    }
 
     private var db = Firestore.firestore()
     private var functions = Functions.functions(region: "europe-west3")
@@ -462,6 +466,24 @@ class FamilyViewModel: ObservableObject {
 
     func clearErrorMessage() { errorMessage = nil }
     func clearError() { errorMessage = nil }
+
+    func setGlobalBufferMinutes(_ minutes: Int) {
+        guard let fid = familyId, isAdmin else { return }
+        // Local update for immediate feedback
+        globalBufferMinutes = minutes
+        recalculateSchedule()
+        
+        Task {
+            do {
+                try await db.collection("families").document(fid)
+                    .updateData(["globalBufferMinutes": minutes])
+            } catch {
+                await MainActor.run {
+                    errorMessage = mapFirebaseError(error)
+                }
+            }
+        }
+    }
 
     func clearPendingJoinCode() { pendingJoinCode = nil }
 
