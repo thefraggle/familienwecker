@@ -309,3 +309,5 @@
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
 "settings_account_section" = "계정";
+
+"registration_disclaimer" = "가입 시 %1$@ 및 %2$@에 동의하는 것으로 간주됩니다.";

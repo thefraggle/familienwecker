@@ -309,3 +309,5 @@
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
 "settings_account_section" = "Hesap";
+
+"registration_disclaimer" = "Kayıt olarak %1$@ ve %2$@'nı kabul etmiş olursunuz.";

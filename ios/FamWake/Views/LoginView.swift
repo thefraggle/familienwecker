@@ -245,25 +245,24 @@ struct LoginView: View {
 
     @ViewBuilder
     private var registrationDisclaimer: some View {
-        let terms = L.registrationTermsOfUse
-        let privacy = L.registrationPrivacyPolicy
-        let termsUrl = L.settingsTermsOfUseUrl
-        let privacyUrl = L.settingsPrivacyPolicyUrl
-
-        VStack(spacing: 2) {
-            Text(L.registrationDisclaimerPrefix)
+        let terms = "[\(L.registrationTermsOfUse)](\(L.settingsTermsOfUseUrl))"
+        let privacy = "[\(L.registrationPrivacyPolicy)](\(L.settingsPrivacyPolicyUrl))"
+        let markdownText = L.registrationDisclaimer(terms, privacy)
+        
+        if let attributed = try? AttributedString(markdown: markdownText) {
+            Text(attributed)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            HStack(spacing: 4) {
-                Link(terms, destination: URL(string: termsUrl) ?? URL(string: "https://")!)
-                    .font(.caption).fontWeight(.bold).foregroundStyle(theme.primary)
-                Text("&")
-                    .font(.caption).foregroundStyle(.secondary)
-                Link(privacy, destination: URL(string: privacyUrl) ?? URL(string: "https://")!)
-                    .font(.caption).fontWeight(.bold).foregroundStyle(theme.primary)
-            }
+                .tint(theme.primary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+        } else {
+            Text(markdownText)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
         }
-        .multilineTextAlignment(.center)
     }
 
     private func handleMainAction() {
