@@ -309,3 +309,5 @@
 "member_resume" = "Aktivieren";
 "member_not_active_today" = "Heute nicht aktiv";
 "settings_account_section" = "Konto";
+
+"registration_disclaimer" = "Mit em Registriera bisch mit de %1$@ ond de %2$@ ei'verstanda.";

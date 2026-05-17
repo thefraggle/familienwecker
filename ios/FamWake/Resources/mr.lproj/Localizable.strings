@@ -309,3 +309,5 @@
 "member_resume" = "Resume";
 "member_not_active_today" = "Not active today";
 "settings_account_section" = "खाते";
+
+"registration_disclaimer" = "साइन अप करून, तुम्ही %1$@ आणि %2$@ स्वीकारता.";
