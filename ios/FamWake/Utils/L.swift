@@ -30,7 +30,7 @@ enum L {
     static var loginVerifyEmailText: String { s("login_verify_email_text") }
 
     // MARK: - App Name
-    static var appNameShort: String { s("app_name_short") }
+    static var appNameShort: String { "FamWake \(s("app_name_short"))" }
 
     // MARK: - Settings
     static var settingsTitle: String { s("settings_title") }
