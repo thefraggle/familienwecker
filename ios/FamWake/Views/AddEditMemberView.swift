@@ -105,6 +105,7 @@ struct AddEditMemberView: View {
                         DayProfileCard(
                             dayLabel: L.weekday(selectedDay),
                             profile: profile,
+                            globalBufferMinutes: familyViewModel.globalBufferMinutes,
                             showTooltipWakeWindow: familyViewModel.tooltipsEnabled && !familyViewModel.tooltipWakeWindowSeen,
                             onDismissWakeWindow: { familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyWakeWindow) },
                             showTooltipBathroom: familyViewModel.tooltipsEnabled && !familyViewModel.tooltipBathroomSeen,
@@ -248,6 +249,7 @@ struct AddEditMemberView: View {
 private struct DayProfileCard: View {
     let dayLabel: String
     var profile: DayProfile
+    var globalBufferMinutes: Int
     var showTooltipWakeWindow: Bool = false
     var onDismissWakeWindow: () -> Void = {}
     var showTooltipBathroom: Bool = false
@@ -336,6 +338,50 @@ private struct DayProfileCard: View {
                 // Tooltip D
                 if showTooltipBathroom {
                     TooltipBubble(text: L.tooltipBathroom, onDismiss: onDismissBathroom)
+                }
+
+                // Puffer nach Bad (Individueller Override)
+                HStack {
+                    Text(L.bufferAfterBath)
+                        .font(.body)
+                    Spacer()
+                    HStack(spacing: 12) {
+                        let effectiveValue = profile.bufferMinutes ?? globalBufferMinutes
+                        Button {
+                            let newVal = max(0, effectiveValue - 5)
+                            if newVal == globalBufferMinutes {
+                                onChange(profile.withBuffer(nil))
+                            } else {
+                                onChange(profile.withBuffer(newVal))
+                            }
+                        } label: {
+                            Image(systemName: "minus.circle.fill")
+                                .font(.title2)
+                                .foregroundStyle(effectiveValue > 0 ? Color.accentColor : Color.gray.opacity(0.5))
+                        }
+                        .disabled(effectiveValue <= 0)
+                        
+                        Text("\(effectiveValue) min")
+                            .font(.headline)
+                            .fontWeight(profile.bufferMinutes != nil ? .bold : .regular)
+                            .italic(profile.bufferMinutes == nil)
+                            .frame(minWidth: 64)
+                            .multilineTextAlignment(.center)
+                            
+                        Button {
+                            let newVal = min(15, effectiveValue + 5)
+                            if newVal == globalBufferMinutes {
+                                onChange(profile.withBuffer(nil))
+                            } else {
+                                onChange(profile.withBuffer(newVal))
+                            }
+                        } label: {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.title2)
+                                .foregroundStyle(effectiveValue < 15 ? Color.accentColor : Color.gray.opacity(0.5))
+                        }
+                        .disabled(effectiveValue >= 15)
+                    }
                 }
 
                 // Frühstück
@@ -444,6 +490,7 @@ extension DayProfile {
     func withBathroom(_ v: Int) -> DayProfile { var c = self; c.bathroomDurationMinutes = v; return c }
     func withBreakfast(_ v: Bool) -> DayProfile { var c = self; c.wantsBreakfast = v; return c }
     func withLeave(_ v: DateComponents?) -> DayProfile { var c = self; c.leaveHomeTime = v; return c }
+    func withBuffer(_ v: Int?) -> DayProfile { var c = self; c.bufferMinutes = v; return c }
 }
 
 extension DateComponents {
