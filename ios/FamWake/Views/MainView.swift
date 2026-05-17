@@ -218,6 +218,7 @@ struct MainView: View {
             }
             .padding()
             .famWakeCard(cornerRadius: 32, isDark: appState.colorScheme == .dark)
+            .padding(.bottom, 12)
         }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
@@ -244,6 +245,7 @@ struct MainView: View {
             .padding(.vertical, 10)
             .background(appState.colorScheme == .dark ? Color.onlineGreenDark : Color.onlineGreenLight)
             .clipShape(RoundedRectangle(cornerRadius: 32))
+            .padding(.bottom, 12)
         }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
@@ -272,6 +274,7 @@ struct MainView: View {
                                 .stroke(theme.outline.opacity(0.2), lineWidth: 1)
                         )
                 )
+                .padding(.bottom, 12)
             }
             .buttonStyle(.plain)
         }
@@ -307,6 +310,7 @@ struct MainView: View {
                     RoundedRectangle(cornerRadius: 24)
                         .stroke((appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight).opacity(0.4), lineWidth: 1)
                 )
+                .padding(.bottom, 12)
             }
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
@@ -377,6 +381,7 @@ struct MainView: View {
                             RoundedRectangle(cornerRadius: 24)
                                 .stroke(Color.orange.opacity(0.5), lineWidth: 1)
                         )
+                        .padding(.bottom, 12)
                     } else {
                         // Schedule Card
                         VStack(alignment: .leading, spacing: 6) {
@@ -419,6 +424,7 @@ struct MainView: View {
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .famWakeCard(cornerRadius: 24, isDark: appState.colorScheme == .dark)
+                        .padding(.bottom, 12)
                     }
 
                     // Tooltip B (Drag)
@@ -495,6 +501,7 @@ struct MainView: View {
         }
         .padding()
         .famWakeCard(cornerRadius: 16, isDark: appState.colorScheme == .dark)
+        .padding(.bottom, 12)
     }
 
     @ViewBuilder
@@ -544,7 +551,7 @@ struct MainView: View {
                 .padding()
                 .background(theme.surfaceVariant.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 16))
-                .padding(.bottom, 8)
+                .padding(.bottom, 12)
             }
 
             if familyViewModel.members.count >= 6 {
@@ -576,6 +583,7 @@ struct MainView: View {
                             familyViewModel.togglePauseMember(member.id)
                         }
                     )
+                    .padding(.bottom, 12)
                 }
             }
         }
@@ -609,6 +617,7 @@ struct MainView: View {
             .padding()
             .background(theme.errorContainer.opacity(0.3))
             .clipShape(RoundedRectangle(cornerRadius: 24))
+            .padding(.bottom, 12)
         }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
