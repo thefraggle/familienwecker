@@ -57,11 +57,8 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
+            .navigationTitle(L.appNameShort)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text(L.appNameShort)
-                        .font(.title2).fontWeight(.bold)
-                }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     if familyViewModel.isOffline {
                         Image(systemName: "icloud.slash")
@@ -158,7 +155,7 @@ struct MainView: View {
 
     @ViewBuilder
     private var alarmToggleSection: some View {
-        Section {
+        Group {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
@@ -229,7 +226,7 @@ struct MainView: View {
 
     @ViewBuilder
     private func snoozeBanner(until: Date) -> some View {
-        Section {
+        Group {
             HStack {
                 Image(systemName: "zzz")
                     .foregroundStyle(appState.colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
@@ -255,7 +252,7 @@ struct MainView: View {
 
     @ViewBuilder
     private var noProfileWarning: some View {
-        Section {
+        Group {
             Button(action: { showSettings = true }) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("⚠️ \(L.mainNoProfileWarning)")
@@ -293,7 +290,7 @@ struct MainView: View {
             && firstScheduledMember?.id != familyViewModel.myMemberId
 
         if showWarning, let member = firstScheduledMember {
-            Section {
+            Group {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("⚠️ \(String(format: L.s("main_unclaimed_first_title"), member.name))")
                         .font(.subheadline).fontWeight(.bold)
@@ -319,11 +316,11 @@ struct MainView: View {
 
     @ViewBuilder
     private var scheduleSection: some View {
-        Section {
+        Group {
             Text(L.mainCurrentSchedule)
                 .font(.title2).fontWeight(.black)
                 .foregroundStyle(theme.onBackground)
-                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 4, trailing: 16))
+                .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 4, trailing: 16))
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
 
@@ -502,13 +499,13 @@ struct MainView: View {
 
     @ViewBuilder
     private var memberSection: some View {
-        Section {
+        Group {
             Text(L.mainFamilyMembers)
                 .font(.title2).fontWeight(.black)
                 .foregroundStyle(theme.onBackground)
-                .padding(.top, 16)
-                .padding(.bottom, 4)
-                .padding(.horizontal, 16)
+                .listRowInsets(EdgeInsets(top: 24, leading: 16, bottom: 4, trailing: 16))
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
 
             // Global Buffer Stepper (Android style)
             if familyViewModel.members.count > 1 {
@@ -589,7 +586,7 @@ struct MainView: View {
 
     @ViewBuilder
     private func errorCard(_ error: String) -> some View {
-        Section {
+        Group {
             VStack(alignment: .leading, spacing: 12) {
                 Text("⚠️ \(error)")
                     .font(.subheadline)
