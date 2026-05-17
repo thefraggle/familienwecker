@@ -9,15 +9,16 @@ struct MainView: View {
     @State private var memberToDelete: FamilyMember? = nil
     @State private var showDeleteMemberAlert = false
     @State private var showLoginSheet = false
+    @Environment(\.colorScheme) private var colorScheme
 
-    private var theme: FamWakeTheme { FamWakeTheme.current(for: appState.colorScheme) }
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     var body: some View {
         NavigationStack {
             ZStack {
                 // Background gradient matching Android MainScreen
                 LinearGradient(
-                    colors: appState.colorScheme == .dark
+                    colors: colorScheme == .dark
                         ? [theme.surface, theme.background]
                         : [theme.primaryContainer.opacity(0.5), theme.background],
                     startPoint: .top, endPoint: .bottom
@@ -76,6 +77,8 @@ struct MainView: View {
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()
+                    .environment(\.colorScheme, colorScheme)
+                    .preferredColorScheme(colorScheme)
             }
             .sheet(isPresented: $showAddMember) {
                 AddEditMemberView(memberId: nil) { showAddMember = false }
