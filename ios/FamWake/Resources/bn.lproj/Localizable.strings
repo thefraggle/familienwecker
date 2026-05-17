@@ -169,7 +169,6 @@
 "settings_imprint" = "ইমপ্রিন্ট";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
-"registration_disclaimer" = "সাইন আপ করার মাধ্যমে, আপনি %@ এবং %@ স্বীকার করছেন।";
 "registration_terms_of_use" = "ব্যবহারের শর্তাবলী";
 "registration_privacy_policy" = "গোপনীয়তা নীতি";
 "settings_already_claimed" = "ইতিমধ্যেই নেওয়া হয়েছে";

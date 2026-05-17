@@ -161,7 +161,6 @@
 "settings_imprint" = "Aviso legal";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-es.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-es.html";
-"registration_disclaimer" = "Al registrarte, aceptas las %@ y la %@.";
 "registration_terms_of_use" = "Condiciones de Uso";
 "registration_privacy_policy" = "Política de Privacidad";
 "settings_already_claimed" = "Ya ocupado";

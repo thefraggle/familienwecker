@@ -166,7 +166,6 @@
 "settings_imprint" = "Impressum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-no.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-no.html";
-"registration_disclaimer" = "Ved å registrere deg godtar du %@ og %@.";
 "registration_terms_of_use" = "Brukervilkår";
 "registration_privacy_policy" = "Personvernerklæring";
 "settings_already_claimed" = "Allerede i bruk";
