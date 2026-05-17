@@ -695,7 +695,32 @@ class FamilyViewModel: ObservableObject {
     // MARK: - Schedule Calculation
     func recalculateSchedule() {
         let resolved = members.map { resolveEffectiveMember($0) }
-        let result = Scheduler().calculateIdealSchedule(members: resolved, globalBufferMinutes: globalBufferMinutes)
+        var result = Scheduler().calculateIdealSchedule(members: resolved, globalBufferMinutes: globalBufferMinutes)
+        
+        // Calculate targetDate for UI
+        if let firstSched = result.memberSchedules.first {
+            let cal = Calendar.current
+            let now = Date()
+            let todayDow = cal.component(.weekday, from: now)
+            let todayIso = todayDow == 1 ? 7 : todayDow - 1
+            
+            var foundDate = now
+            for offset in 0..<7 {
+                let checkIso = ((todayIso - 1 + offset) % 7) + 1
+                let profile = firstSched.member.dayProfiles?[checkIso]
+                if profile?.isActive == true {
+                    let checkDate = cal.date(byAdding: .day, value: offset, to: now) ?? now
+                    if offset == 0 {
+                        let todayAlarm = cal.date(bySettingHour: firstSched.wakeUpTime.hour ?? 0, minute: firstSched.wakeUpTime.minute ?? 0, second: 0, of: now) ?? now
+                        if now > todayAlarm { continue }
+                    }
+                    foundDate = checkDate
+                    break
+                }
+            }
+            result.targetDate = foundDate
+        }
+        
         schedule = result
 
         if isAlarmEnabled {

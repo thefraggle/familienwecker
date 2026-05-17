@@ -98,8 +98,8 @@ struct MemberCardView: View {
                         .buttonStyle(.plain)
                     }
 
-                    // Edit: nur unclaimed zur Visualisierung (ganze Kachel ist klickbar)
-                    if member.claimedByUserId == nil {
+                    // Edit: eigene oder unclaimed zur Visualisierung (ganze Kachel ist klickbar)
+                    if member.claimedByUserId == nil || isMyProfile {
                         Button(action: onEdit) {
                             Image(systemName: "pencil.circle.fill")
                                 .font(.title3)

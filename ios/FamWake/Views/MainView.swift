@@ -397,10 +397,7 @@ struct MainView: View {
                             }
                             
                             if familyViewModel.isAlarmEnabled, let targetDate = sched.targetDate {
-                                let df = DateFormatter()
-                                let _ = df.dateFormat = "EEEE, d. MMM"
-                                let _ = df.locale = Locale.current
-                                Text(df.string(from: targetDate))
+                                Text(targetDate.formatted(.dateTime.weekday(.wide).day().month(.wide)))
                                     .font(.subheadline).fontWeight(.bold)
                                     .foregroundStyle(theme.primary)
                             }
