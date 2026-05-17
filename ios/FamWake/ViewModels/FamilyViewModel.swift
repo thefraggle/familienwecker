@@ -604,7 +604,7 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
-    private func restoreUserContextIfNeeded() async {
+    func restoreUserContextIfNeeded() async {
         guard familyId == nil else { return }
         guard Auth.auth().currentUser != nil else { return }
         do {
