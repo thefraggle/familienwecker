@@ -115,23 +115,43 @@ struct MainView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            // FAB – Add Member (matching Android FAB)
-            if familyViewModel.members.count < 6 {
-                HStack {
-                    Spacer()
-                    Button(action: { showAddMember = true }) {
-                        Label(L.addMemberTitleAdd, systemImage: "plus")
-                            .font(.headline)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 12)
-                            .background(theme.tertiary)
-                            .foregroundStyle(theme.onTertiary)
-                            .clipShape(Capsule())
-                            .shadow(color: theme.tertiary.opacity(0.4), radius: 8, x: 0, y: 4)
+            VStack(alignment: .trailing, spacing: 16) {
+                // Share FAB
+                if familyViewModel.isLoggedIn && familyViewModel.familyId != nil {
+                    HStack {
+                        Spacer()
+                        Button(action: shareInviteLink) {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.title3)
+                                .padding(14)
+                                .background(theme.secondaryContainer)
+                                .foregroundStyle(theme.onSecondaryContainer)
+                                .clipShape(Circle())
+                                .shadow(color: theme.secondaryContainer.opacity(0.4), radius: 8, x: 0, y: 4)
+                        }
+                        .buttonStyle(BounceButtonStyle())
+                        .padding(.trailing, 20)
                     }
-                    .buttonStyle(BounceButtonStyle())
-                    .padding(.trailing, 20)
-                    .padding(.bottom, 8)
+                }
+                
+                // FAB – Add Member (matching Android FAB)
+                if familyViewModel.members.count < 6 {
+                    HStack {
+                        Spacer()
+                        Button(action: { showAddMember = true }) {
+                            Label(L.addMemberTitleAdd, systemImage: "plus")
+                                .font(.headline)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 12)
+                                .background(theme.tertiary)
+                                .foregroundStyle(theme.onTertiary)
+                                .clipShape(Capsule())
+                                .shadow(color: theme.tertiary.opacity(0.4), radius: 8, x: 0, y: 4)
+                        }
+                        .buttonStyle(BounceButtonStyle())
+                        .padding(.trailing, 20)
+                        .padding(.bottom, 8)
+                    }
                 }
             }
         }
@@ -475,6 +495,46 @@ struct MainView: View {
                 .padding(.top, 16)
                 .padding(.bottom, 4)
 
+            // Global Buffer Stepper (Android style)
+            if familyViewModel.members.count > 1 {
+                HStack {
+                    Image(systemName: "timer")
+                        .foregroundStyle(theme.primary)
+                    Text(L.bufferAfterBath)
+                        .font(.subheadline)
+                        .foregroundStyle(theme.onBackground)
+                    Spacer()
+                    
+                    Button(action: {
+                        familyViewModel.setGlobalBufferMinutes(max(0, familyViewModel.globalBufferMinutes - 5))
+                    }) {
+                        Image(systemName: "minus.circle.fill")
+                            .foregroundStyle(familyViewModel.globalBufferMinutes > 0 ? theme.primary : theme.outline.opacity(0.3))
+                            .font(.title2)
+                    }
+                    .disabled(familyViewModel.globalBufferMinutes <= 0)
+                    .buttonStyle(.plain)
+                    
+                    Text("\(familyViewModel.globalBufferMinutes) min")
+                        .font(.subheadline).fontWeight(.bold)
+                        .frame(minWidth: 50, alignment: .center)
+                    
+                    Button(action: {
+                        familyViewModel.setGlobalBufferMinutes(min(15, familyViewModel.globalBufferMinutes + 5))
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundStyle(familyViewModel.globalBufferMinutes < 15 ? theme.primary : theme.outline.opacity(0.3))
+                            .font(.title2)
+                    }
+                    .disabled(familyViewModel.globalBufferMinutes >= 15)
+                    .buttonStyle(.plain)
+                }
+                .padding()
+                .background(theme.surfaceVariant.opacity(0.4))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .padding(.bottom, 8)
+            }
+
             if familyViewModel.members.count >= 6 {
                 Text(L.mainMemberLimitReached)
                     .font(.footnote)
@@ -545,8 +605,28 @@ struct MainView: View {
 
     private func timeString(_ date: Date) -> String {
         let f = DateFormatter()
-        f.dateFormat = "HH:mm"
+        f.timeStyle = .short // Uses system 12h/24h format
         return f.string(from: date)
+    }
+
+    private func shareInviteLink() {
+        let inviteCode = familyViewModel.joinCode ?? ""
+        let familyName = familyViewModel.familyName ?? "Family"
+        let urlString = "https://familienwecker.de/join/\(inviteCode)"
+        
+        let shareText = L.settingsShareMessage(familyName, inviteCode)
+        let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootVC = windowScene.windows.first?.rootViewController {
+            // Needed for iPad
+            if let popover = activityVC.popoverPresentationController {
+                popover.sourceView = rootVC.view
+                popover.sourceRect = CGRect(x: rootVC.view.bounds.midX, y: rootVC.view.bounds.midY, width: 0, height: 0)
+                popover.permittedArrowDirections = []
+            }
+            rootVC.present(activityVC, animated: true)
+        }
     }
 }
 

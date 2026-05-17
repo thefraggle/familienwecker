@@ -12,6 +12,7 @@ class FamilyViewModel: ObservableObject {
     @Published var schedule: FamilySchedule? = nil
     @Published var familyId: String? = nil
     @Published var familyName: String? = nil
+    @Published var globalBufferMinutes: Int = 0
     @Published var joinCode: String? = nil
     @Published var myMemberId: String? = UserDefaults.standard.string(forKey: "my_member_id")
     @Published var isAlarmEnabled: Bool = UserDefaults.standard.bool(forKey: "alarm_enabled")
@@ -524,6 +525,7 @@ class FamilyViewModel: ObservableObject {
             }
             self.familyName = data["name"] as? String
             self.joinCode = data["joinCode"] as? String
+            self.globalBufferMinutes = (data["globalBufferMinutes"] as? NSNumber)?.intValue ?? 0
             let uid = Auth.auth().currentUser?.uid
             self.isAdmin = (data["createdByUserId"] as? String) == uid
         }
@@ -666,7 +668,7 @@ class FamilyViewModel: ObservableObject {
     // MARK: - Schedule Calculation
     func recalculateSchedule() {
         let resolved = members.map { resolveEffectiveMember($0) }
-        let result = Scheduler().calculateIdealSchedule(members: resolved)
+        let result = Scheduler().calculateIdealSchedule(members: resolved, globalBufferMinutes: globalBufferMinutes)
         schedule = result
 
         if isAlarmEnabled {
