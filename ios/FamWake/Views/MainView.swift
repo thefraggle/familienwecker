@@ -216,7 +216,7 @@ struct MainView: View {
         }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 0, trailing: 16))
+        .listRowInsets(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
     }
 
     @ViewBuilder
