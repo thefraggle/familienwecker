@@ -55,16 +55,9 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
-            .navigationBarHidden(true)
-            .safeAreaInset(edge: .top) {
-                // Custom header – "FamWake Familienwecker" + icons
-                HStack {
-                    famWakeTitle(L.appNameShort)
-                        .foregroundStyle(theme.onSurface)
-
-                    Spacer()
-
-                    // Offline / Sync Icon
+            .navigationTitle(L.appNameShort)
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if familyViewModel.isOffline {
                         Image(systemName: "icloud.slash")
                             .foregroundStyle(theme.outline)
@@ -79,11 +72,6 @@ struct MainView: View {
                             .foregroundStyle(theme.onSurface)
                     }
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
-                .background(
-                    (appState.colorScheme == .dark) ? theme.surface.opacity(0.95) : theme.background.opacity(0.95)
-                )
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()
