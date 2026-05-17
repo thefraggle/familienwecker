@@ -27,6 +27,13 @@ struct MainView: View {
                     // Error Message
                     if let err = familyViewModel.errorMessage {
                         errorCard(err)
+                            .padding(.top, 16)
+                    } else {
+                        // Invisible spacer to add padding below the large title
+                        Color.clear.frame(height: 16)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .padding(.bottom, -24)
                     }
 
                     // Alarm Toggle Card
@@ -55,7 +62,7 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
-            .navigationTitle(L.appNameShort)
+            .navigationTitle(Text("**FamWake**\n\(L.s("app_name_short"))"))
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if familyViewModel.isOffline {
