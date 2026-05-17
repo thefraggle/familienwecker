@@ -166,7 +166,6 @@
 "settings_imprint" = "Вихідні дані";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-uk.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-uk.html";
-"registration_disclaimer" = "Реєструючись, ви приймаєте %@ та %@.";
 "registration_terms_of_use" = "Умови використання";
 "registration_privacy_policy" = "Політику конфіденційності";
 "settings_already_claimed" = "Вже зайнято";

@@ -165,7 +165,6 @@
 "settings_imprint" = "इंप्रिंट";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
-"registration_disclaimer" = "साइन अप करून, तुम्ही %@ आणि %@ स्वीकारता.";
 "registration_terms_of_use" = "वापराच्या अटी";
 "registration_privacy_policy" = "गोपनीयता धोरण";
 "settings_already_claimed" = "आधीच घेतलेले आहे";

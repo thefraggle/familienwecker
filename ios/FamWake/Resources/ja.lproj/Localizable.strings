@@ -169,7 +169,6 @@
 "settings_imprint" = "運営者情報";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-ja.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-ja.html";
-"registration_disclaimer" = "登録することで、%@および%@に同意したものとみなされます。";
 "registration_terms_of_use" = "利用規約";
 "registration_privacy_policy" = "プライバシーポリシー";
 "settings_already_claimed" = "すでに使用されています";
