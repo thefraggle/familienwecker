@@ -538,13 +538,18 @@ class FamilyViewModel: ObservableObject {
     private func listenToFamily(id: String) {
         self.familyId = id
         familyListener?.remove()
-        familyListener = db.collection("families").document(id).addSnapshotListener { [weak self] snap, _ in
+        familyListener = db.collection("families").document(id).addSnapshotListener { [weak self] snap, error in
             guard let self else { return }
-            guard let data = snap?.data() else {
+            if let err = error as NSError?, err.domain == FirestoreErrorDomain, err.code == FirestoreErrorCode.permissionDenied.rawValue {
+                return
+            }
+            guard let snapshot = snap, snapshot.exists else {
+                if snap?.metadata.isFromCache == true { return }
                 // Family does not exist or was deleted -> kick user out
                 self.leaveFamily()
                 return
             }
+            guard let data = snapshot.data() else { return }
             self.familyName = data["name"] as? String
             self.joinCode = data["joinCode"] as? String
             self.globalBufferMinutes = (data["globalBufferMinutes"] as? NSNumber)?.intValue ?? 0
