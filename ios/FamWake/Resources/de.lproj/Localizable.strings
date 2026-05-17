@@ -312,3 +312,11 @@
 "member_not_active_today" = "Heute nicht aktiv";
 
 "registration_disclaimer" = "Mit der Registrierung akzeptierst du die %1$@ und die %2$@.";
+
+"registration_disclaimer" = "Mit der Registrierung akzeptierst du die %1$@ und die %2$@.";
+
+"buffer_after_bath" = "Puffer nach Bad";
+
+"buffer_between_display" = "%d Min Puffer";
+
+"schedule_message_buffer_reduced" = "Puffer von %d auf %d Min reduziert.";

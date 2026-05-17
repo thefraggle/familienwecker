@@ -111,6 +111,7 @@ enum L {
     // MARK: - Buffer
     static var bufferAfterBath: String { s("buffer_after_bath") }
     static func bufferBetweenDisplay(_ min: Int) -> String { s("buffer_between_display", min) }
+    static func scheduleMessageBufferReduced(_ min1: Int, _ min2: Int) -> String { s("schedule_message_buffer_reduced", min1, min2) }
 
     // MARK: - Awake
     static var awakeTodayDesc: String { s("awake_today_desc") }

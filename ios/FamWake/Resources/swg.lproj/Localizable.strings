@@ -310,3 +310,11 @@
 "settings_account_section" = "Konto";
 
 "registration_disclaimer" = "Mit em Registriera bisch mit de %1$@ ond de %2$@ ei'verstanda.";
+
+"registration_disclaimer" = "Mit em Registriera bisch mit de %1$@ ond de %2$@ ei'verstanda.";
+
+"buffer_after_bath" = "Puffer nachm Bad";
+
+"buffer_between_display" = "%d Min. Puffer";
+
+"schedule_message_buffer_reduced" = "Puffer vo %d uff %d Min. rondergsedzd.";

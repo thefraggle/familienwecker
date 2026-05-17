@@ -310,3 +310,11 @@
 "settings_account_section" = "Konto";
 
 "registration_disclaimer" = "Genom att registrera dig godkänner du %1$@ och %2$@.";
+
+"registration_disclaimer" = "Genom att registrera dig godkänner du %1$@ och %2$@.";
+
+"buffer_after_bath" = "Buffert efter badrum";
+
+"buffer_between_display" = "%d min buffert";
+
+"schedule_message_buffer_reduced" = "Buffert minskad från %d till %d min.";

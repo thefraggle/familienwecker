@@ -312,3 +312,11 @@
 "member_not_active_today" = "Not active today";
 
 "registration_disclaimer" = "By signing up, you accept the %1$@ and the %2$@.";
+
+"registration_disclaimer" = "By signing up, you accept the %1$@ and the %2$@.";
+
+"buffer_after_bath" = "Buffer after bathroom";
+
+"buffer_between_display" = "%d min buffer";
+
+"schedule_message_buffer_reduced" = "Buffer reduced from %d to %d min.";

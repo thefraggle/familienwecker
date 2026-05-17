@@ -310,3 +310,11 @@
 "settings_account_section" = "Konto";
 
 "registration_disclaimer" = "Mit dem Registrieren nimmste die %1$@ und %2$@ an.";
+
+"registration_disclaimer" = "Mit dem Registrieren nimmste die %1$@ und %2$@ an.";
+
+"buffer_after_bath" = "Puffer nachm Bad";
+
+"buffer_between_display" = "%d Min. Puffer";
+
+"schedule_message_buffer_reduced" = "Puffer is von %d auf %d Min. runtergesetzt.";

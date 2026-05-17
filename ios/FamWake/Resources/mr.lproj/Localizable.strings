@@ -310,3 +310,11 @@
 "settings_account_section" = "खाते";
 
 "registration_disclaimer" = "साइन अप करून, तुम्ही %1$@ आणि %2$@ स्वीकारता.";
+
+"registration_disclaimer" = "साइन अप करून, तुम्ही %1$@ आणि %2$@ स्वीकारता.";
+
+"buffer_after_bath" = "बाथरूम नंतर बफर";
+
+"buffer_between_display" = "%d मिनिटे बफर";
+
+"schedule_message_buffer_reduced" = "बफर %d वरून %d मिनिटांपर्यंत कमी केला.";
