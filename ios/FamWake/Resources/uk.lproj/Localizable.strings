@@ -310,3 +310,11 @@
 "settings_account_section" = "Акаунт";
 
 "registration_disclaimer" = "Реєструючись, ви приймаєте %1$@ та %2$@.";
+
+"registration_disclaimer" = "Реєструючись, ви приймаєте %1$@ та %2$@.";
+
+"buffer_after_bath" = "Буфер після ванної";
+
+"buffer_between_display" = "Буфер %d хв";
+
+"schedule_message_buffer_reduced" = "Буфер зменшено з %d до %d хв.";

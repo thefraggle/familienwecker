@@ -310,3 +310,11 @@
 "settings_account_section" = "帐号";
 
 "registration_disclaimer" = "注册即表示您同意 %1$@ 和 %2$@。";
+
+"registration_disclaimer" = "注册即表示您同意 %1$@ 和 %2$@。";
+
+"buffer_after_bath" = "沐浴后缓冲";
+
+"buffer_between_display" = "%d 分钟缓冲";
+
+"schedule_message_buffer_reduced" = "缓冲时间从 %d 分钟减少至 %d 分钟。";

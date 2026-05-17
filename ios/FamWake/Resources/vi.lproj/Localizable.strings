@@ -310,3 +310,11 @@
 "settings_account_section" = "Tài khoản";
 
 "registration_disclaimer" = "Bằng cách đăng ký, bạn chấp nhận %1$@ và %2$@.";
+
+"registration_disclaimer" = "Bằng cách đăng ký, bạn chấp nhận %1$@ và %2$@.";
+
+"buffer_after_bath" = "Thời gian đệm sau khi tắm";
+
+"buffer_between_display" = "%d phút đệm";
+
+"schedule_message_buffer_reduced" = "Thời gian đệm giảm từ %d xuống %d phút.";

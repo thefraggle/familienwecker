@@ -310,3 +310,11 @@
 "settings_account_section" = "Account";
 
 "registration_disclaimer" = "Door je aan te melden, accepteer je de %1$@ en het %2$@.";
+
+"registration_disclaimer" = "Door je aan te melden, accepteer je de %1$@ en het %2$@.";
+
+"buffer_after_bath" = "Buffer na badkamer";
+
+"buffer_between_display" = "%d min buffer";
+
+"schedule_message_buffer_reduced" = "Buffer verkort van %d naar %d min.";

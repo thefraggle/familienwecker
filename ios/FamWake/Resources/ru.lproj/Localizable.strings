@@ -310,3 +310,11 @@
 "settings_account_section" = "Аккаунт";
 
 "registration_disclaimer" = "Регистрируясь, вы принимаете %1$@ и %2$@.";
+
+"registration_disclaimer" = "Регистрируясь, вы принимаете %1$@ и %2$@.";
+
+"buffer_after_bath" = "Буфер после ванной";
+
+"buffer_between_display" = "Буфер %d мин";
+
+"schedule_message_buffer_reduced" = "Буфер уменьшен с %d до %d мин.";

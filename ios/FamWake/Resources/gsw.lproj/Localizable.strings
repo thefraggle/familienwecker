@@ -310,3 +310,11 @@
 "settings_account_section" = "Konto";
 
 "registration_disclaimer" = "Mit de Registrierig akzeptiersch d'%1$@ und d'%2$@.";
+
+"registration_disclaimer" = "Mit de Registrierig akzeptiersch d'%1$@ und d'%2$@.";
+
+"buffer_after_bath" = "Puffer nachem Bad";
+
+"buffer_between_display" = "%d Min. Puffer";
+
+"schedule_message_buffer_reduced" = "Puffer vo %d uf %d Min. abegsetzt.";
