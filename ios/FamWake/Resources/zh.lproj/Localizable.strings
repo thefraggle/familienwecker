@@ -166,7 +166,6 @@
 "settings_imprint" = "版本说明";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-zh-CN.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-zh-CN.html";
-"registration_disclaimer" = "注册即表示您同意 %@ 和 %@。";
 "registration_terms_of_use" = "使用条款";
 "registration_privacy_policy" = "隐私政策";
 "settings_already_claimed" = "已被使用";

@@ -169,7 +169,6 @@
 "settings_imprint" = "Informasi Hukum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
-"registration_disclaimer" = "Dengan mendaftar, Anda menyetujui %@ dan %@ kami.";
 "registration_terms_of_use" = "Syarat Penggunaan";
 "registration_privacy_policy" = "Kebijakan Privasi";
 "settings_already_claimed" = "Sudah dipakai";

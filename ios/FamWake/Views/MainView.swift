@@ -56,6 +56,29 @@ struct MainView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
+
+                // Share FAB
+                if !familyViewModel.members.isEmpty,
+                   let fName = familyViewModel.familyName,
+                   let code = familyViewModel.joinCode {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            ShareLink(item: L.settingsShareMessage(fName, code)) {
+                                Image(systemName: "square.and.arrow.up")
+                                    .font(.title2)
+                                    .foregroundStyle(theme.onPrimaryContainer)
+                                    .frame(width: 56, height: 56)
+                                    .background(theme.primaryContainer)
+                                    .clipShape(Circle())
+                                    .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 4)
+                            }
+                            .padding(.trailing, 20)
+                            .padding(.bottom, 20)
+                        }
+                    }
+                }
             }
             .navigationTitle(L.appNameShort)
             .toolbar {

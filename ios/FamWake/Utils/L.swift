@@ -43,7 +43,7 @@ enum L {
     static var settingsJoinCode: String { s("settings_join_code") }
     static func settingsJoinCodeName(_ name: String) -> String { s("settings_join_code", name) }
     static var settingsShareCode: String { s("settings_share_code") }
-    static func settingsShareMessage(_ familyName: String, _ code: String) -> String { s("settings_share_message", familyName, code) }
+    static func settingsShareMessage(_ familyName: String, _ code: String) -> String { s("settings_share_message", code, code, familyName) }
     static var settingsLeaveFamily: String { s("settings_leave_family") }
     static var settingsDeleteFamily: String { s("settings_delete_family") }
     static var settingsLogout: String { s("settings_logout") }
