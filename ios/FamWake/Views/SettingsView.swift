@@ -218,10 +218,11 @@ struct SettingsView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
+                    .background(theme.primary)
+                    .foregroundStyle(theme.onPrimary)
+                    .clipShape(Capsule())
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(theme.primary)
-                .clipShape(Capsule())
+                .buttonStyle(.plain)
                 .padding(.bottom, 12)
                 .sheet(isPresented: $showLoginSheet) {
                     LoginView()
@@ -262,10 +263,11 @@ struct SettingsView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
+                    .background(theme.primary)
+                    .foregroundStyle(theme.onPrimary)
+                    .clipShape(Capsule())
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(theme.primary)
-                .clipShape(Capsule())
+                .buttonStyle(.plain)
                 .padding(.bottom, 8)
             }
 
@@ -314,15 +316,15 @@ struct SettingsView: View {
 
             // Theme – Segmented Control (matches Android SegmentedButtonRow)
             settingsSectionLabel(icon: nil, text: L.settingsAppearanceTitle)
-            Picker("", selection: Binding(
-                get: { familyViewModel.themePreference },
-                set: { familyViewModel.setThemePreference($0); appState.setTheme($0) }
-            )) {
+            Picker("", selection: $appState.themePreference) {
                 Image(systemName: "sun.max.fill").tag("light")
                 Image(systemName: "circle.lefthalf.filled").tag("system")
                 Image(systemName: "moon.fill").tag("dark")
             }
             .pickerStyle(.segmented)
+            .onChange(of: appState.themePreference) { _, newValue in
+                familyViewModel.setThemePreference(newValue)
+            }
 
             Spacer().frame(height: 16)
 
@@ -369,10 +371,11 @@ struct SettingsView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
+                .background(theme.primary)
+                .foregroundStyle(theme.onPrimary)
+                .clipShape(Capsule())
             }
-            .buttonStyle(.borderedProminent)
-            .tint(theme.primary)
-            .clipShape(Capsule())
+            .buttonStyle(.plain)
         }
         .padding(16)
         .background(
