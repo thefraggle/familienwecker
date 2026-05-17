@@ -141,7 +141,6 @@ struct SettingsView: View {
                 }
             }
         }
-        .preferredColorScheme(appState.colorScheme)
     }
 
     // MARK: - 1. Profil & Weckton
