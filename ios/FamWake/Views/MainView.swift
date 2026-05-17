@@ -62,7 +62,7 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
-            .navigationTitle(Text("**FamWake**\n\(L.s("app_name_short"))"))
+            .navigationTitle(Text("**FamWake** \(L.s("app_name_short"))"))
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if familyViewModel.isOffline {
