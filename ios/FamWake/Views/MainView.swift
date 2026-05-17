@@ -56,29 +56,6 @@ struct MainView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
-
-                // Share FAB
-                if !familyViewModel.members.isEmpty,
-                   let fName = familyViewModel.familyName,
-                   let code = familyViewModel.joinCode {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            ShareLink(item: L.settingsShareMessage(fName, code)) {
-                                Image(systemName: "square.and.arrow.up")
-                                    .font(.title2)
-                                    .foregroundStyle(theme.onPrimaryContainer)
-                                    .frame(width: 56, height: 56)
-                                    .background(theme.primaryContainer)
-                                    .clipShape(Circle())
-                                    .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 4)
-                            }
-                            .padding(.trailing, 20)
-                            .padding(.bottom, 20)
-                        }
-                    }
-                }
             }
             .navigationTitle(L.appNameShort)
             .toolbar {
@@ -132,10 +109,12 @@ struct MainView: View {
         .safeAreaInset(edge: .bottom) {
             VStack(alignment: .trailing, spacing: 16) {
                 // Share FAB
-                if familyViewModel.isLoggedIn && familyViewModel.familyId != nil {
+                if familyViewModel.isLoggedIn && familyViewModel.familyId != nil,
+                   let fName = familyViewModel.familyName,
+                   let code = familyViewModel.joinCode {
                     HStack {
                         Spacer()
-                        Button(action: shareInviteLink) {
+                        ShareLink(item: L.settingsShareMessage(fName, code)) {
                             Image(systemName: "square.and.arrow.up")
                                 .font(.title3)
                                 .padding(14)
@@ -626,25 +605,6 @@ struct MainView: View {
         return f.string(from: date)
     }
 
-    private func shareInviteLink() {
-        let inviteCode = familyViewModel.joinCode ?? ""
-        let familyName = familyViewModel.familyName ?? "Family"
-        let urlString = "https://familienwecker.de/join/\(inviteCode)"
-        
-        let shareText = L.settingsShareMessage(familyName, inviteCode)
-        let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let rootVC = windowScene.windows.first?.rootViewController {
-            // Needed for iPad
-            if let popover = activityVC.popoverPresentationController {
-                popover.sourceView = rootVC.view
-                popover.sourceRect = CGRect(x: rootVC.view.bounds.midX, y: rootVC.view.bounds.midY, width: 0, height: 0)
-                popover.permittedArrowDirections = []
-            }
-            rootVC.present(activityVC, animated: true)
-        }
-    }
 }
 
 // Helper for identifiable String in Sheet
