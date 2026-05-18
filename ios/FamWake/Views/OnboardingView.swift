@@ -15,9 +15,8 @@ struct OnboardingView: View {
     @State private var tooltipsEnabled = true
     @State private var isStarting = false
 
-    private let slideCount = 4
-
-    private var isLastPage: Bool { currentPage == slideCount - 1 }
+    private var actualSlideCount: Int { isLoggedIn ? 3 : 4 }
+    private var isLastPage: Bool { currentPage == actualSlideCount - 1 }
 
     var body: some View {
         ZStack {
@@ -62,12 +61,14 @@ struct OnboardingView: View {
                         content: { InviteMockup() }
                     ).tag(2)
 
-                    // Slide 3 – WakeUp Lottie
-                    slideView(
-                        titleKey: "onboarding_slide5_title",
-                        bodyKey: "onboarding_slide5_body",
-                        content: { lottieView("wakeup") }
-                    ).tag(3)
+                    // Slide 3 – WakeUp Lottie (Only if not logged in)
+                    if !isLoggedIn {
+                        slideView(
+                            titleKey: "onboarding_slide5_title",
+                            bodyKey: "onboarding_slide5_body",
+                            content: { lottieView("wakeup") }
+                        ).tag(3)
+                    }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .animation(.easeInOut(duration: 0.3), value: currentPage)
@@ -94,6 +95,7 @@ struct OnboardingView: View {
                 .font(.title2).fontWeight(.bold)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
 
             Spacer().frame(height: 10)
 
@@ -102,6 +104,7 @@ struct OnboardingView: View {
                 .foregroundStyle(.white.opacity(0.85))
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
+                .padding(.horizontal, 24)
 
             Spacer()
         }
@@ -124,7 +127,7 @@ struct OnboardingView: View {
         VStack(spacing: 16) {
             // Page dots
             HStack(spacing: 8) {
-                ForEach(0..<slideCount, id: \.self) { i in
+                ForEach(0..<actualSlideCount, id: \.self) { i in
                     Circle()
                         .fill(i == currentPage ? Color.white : Color.white.opacity(0.4))
                         .frame(width: i == currentPage ? 10 : 7, height: i == currentPage ? 10 : 7)
@@ -191,7 +194,7 @@ struct OnboardingView: View {
             // Skip (not last page)
             if !isLastPage {
                 Button(L.onboardingSkip) {
-                    withAnimation { currentPage = slideCount - 1 }
+                    withAnimation { currentPage = actualSlideCount - 1 }
                 }
                 .foregroundStyle(.white.opacity(0.7))
                 .font(.subheadline)
