@@ -38,14 +38,7 @@ struct MemberCardView: View {
         }) {
             HStack(spacing: 16) {
                 // Avatar (Android MemberCard.kt:73-82)
-                ZStack {
-                    Circle()
-                        .fill(isMyProfile ? theme.tertiary : theme.surfaceVariant)
-                        .frame(width: 44, height: 44)
-                    Text(member.name.prefix(1).uppercased())
-                        .font(.headline).fontWeight(.bold)
-                        .foregroundStyle(isMyProfile ? theme.onTertiary : theme.onSurfaceVariant)
-                }
+
 
                 // Content Column (Android MemberCard.kt:70-158)
                 VStack(alignment: .leading, spacing: 3) {
@@ -73,9 +66,14 @@ struct MemberCardView: View {
                                 .foregroundStyle(textColor.opacity(0.7))
                         }
                         // Wake time range (Android MemberCard.kt:148-153)
-                        Text("\(dayInfo.earliest) – \(dayInfo.latest)")
-                            .font(.subheadline).fontWeight(.bold)
-                            .foregroundStyle(textColor)
+                        HStack(spacing: 4) {
+                            Image(systemName: "alarm.fill")
+                                .font(.caption)
+                                .foregroundStyle(textColor.opacity(0.6))
+                            Text("\(dayInfo.earliest) – \(dayInfo.latest)")
+                                .font(.subheadline).fontWeight(.bold)
+                                .foregroundStyle(textColor)
+                        }
 
                         // Bathroom + Breakfast info
                         Text("🛁 \(member.bathroomDurationMinutes) min   ☕ \(member.wantsBreakfast ? L.s("yes") : L.s("no"))")
