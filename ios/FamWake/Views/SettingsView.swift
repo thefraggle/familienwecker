@@ -280,37 +280,38 @@ struct SettingsView: View {
                 .padding(.bottom, 8)
             }
 
-            // Leave Family
-            Button(action: { showLeaveFamilyAlert = true }) {
-                HStack(spacing: 8) {
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                    Text(L.settingsLeaveFamily)
+            // Leave and Delete Family Buttons
+            VStack(spacing: 8) {
+                // Leave Family
+                Button(action: { showLeaveFamilyAlert = true }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                        Text(L.settingsLeaveFamily)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-            }
-            .foregroundStyle(theme.onSurface)
-            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .foregroundStyle(theme.onSurface)
+                .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
-            Spacer().frame(height: 8)
-
-            // Delete Family
-            Button(action: {
-                if familyViewModel.isAdmin {
-                    showDeleteFamilyAlert = true
-                } else {
-                    familyViewModel.errorMessage = L.errorDeleteNotAdmin
+                // Delete Family
+                Button(action: {
+                    if familyViewModel.isAdmin {
+                        showDeleteFamilyAlert = true
+                    } else {
+                        familyViewModel.errorMessage = L.errorDeleteNotAdmin
+                    }
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "trash.fill")
+                        Text(L.settingsDeleteFamily)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
                 }
-            }) {
-                HStack(spacing: 8) {
-                    Image(systemName: "trash.fill")
-                    Text(L.settingsDeleteFamily)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
+                .foregroundStyle(familyViewModel.isAdmin ? theme.error : theme.outline)
+                .overlay(Capsule().stroke((familyViewModel.isAdmin ? theme.error : theme.outline).opacity(0.6), lineWidth: 1))
             }
-            .foregroundStyle(familyViewModel.isAdmin ? theme.error : theme.outline)
-            .overlay(Capsule().stroke((familyViewModel.isAdmin ? theme.error : theme.outline).opacity(0.6), lineWidth: 1))
         }
     }
 
@@ -412,51 +413,50 @@ struct SettingsView: View {
         settingsCard {
             settingsSectionHeader(icon: "doc.text.fill", title: L.s("settings_help_feedback_title"))
 
-            // Restart Tour
-            Button(action: {
-                appState.onboardingCompleted = false
-                UserDefaults.standard.set(false, forKey: "onboarding_completed")
-                appState.route = .onboarding
-                dismiss()
-            }) {
-                Text(L.s("settings_start_onboarding"))
+            // Hilfe & Feedback Buttons
+            VStack(spacing: 8) {
+                // Restart Tour
+                Button(action: {
+                    appState.onboardingCompleted = false
+                    UserDefaults.standard.set(false, forKey: "onboarding_completed")
+                    appState.route = .onboarding
+                    dismiss()
+                }) {
+                    Text(L.s("settings_start_onboarding"))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                }
+                .foregroundStyle(theme.onSurface)
+                .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
+
+                // Feedback
+                Button(action: { showFeedback = true }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "text.bubble")
+                        Text(L.settingsFeedbackButton)
+                    }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
-            }
-            .foregroundStyle(theme.onSurface)
-            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
-
-            Spacer().frame(height: 8)
-
-            // Feedback
-            Button(action: { showFeedback = true }) {
-                HStack(spacing: 8) {
-                    Image(systemName: "text.bubble")
-                    Text(L.settingsFeedbackButton)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-            }
-            .foregroundStyle(theme.onSurface)
-            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .foregroundStyle(theme.onSurface)
+                .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
-            Spacer().frame(height: 8)
-
-            // E-Mail Support
-            Button(action: {
-                if let url = URL(string: "mailto:hello@familienwecker.de?subject=FamWake%20Feedback") {
-                    UIApplication.shared.open(url)
+                // E-Mail Support
+                Button(action: {
+                    if let url = URL(string: "mailto:hello@familienwecker.de?subject=FamWake%20Feedback") {
+                        UIApplication.shared.open(url)
+                    }
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "envelope")
+                        Text(L.s("settings_support_button"))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
                 }
-            }) {
-                HStack(spacing: 8) {
-                    Image(systemName: "envelope")
-                    Text(L.s("settings_support_button"))
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
+                .foregroundStyle(theme.onSurface)
+                .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
             }
-            .foregroundStyle(theme.onSurface)
-            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
         }
     }
 
