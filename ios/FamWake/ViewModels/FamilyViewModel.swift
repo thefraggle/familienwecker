@@ -61,19 +61,39 @@ class FamilyViewModel: ObservableObject {
     private var functions = Functions.functions(region: "europe-west3")
     private var familyListener: ListenerRegistration?
     private var membersListener: ListenerRegistration?
+    private var recalcTimer: AnyCancellable?
 
     init() {
         tooltipsEnabled = UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true
+        
+        if let snoozeTime = UserDefaults.standard.value(forKey: "snooze_until") as? Double {
+            let date = Date(timeIntervalSince1970: snoozeTime)
+            if date > Date() {
+                self.snoozeUntil = date
+            } else {
+                UserDefaults.standard.removeObject(forKey: "snooze_until")
+            }
+        }
+        
         loadTooltipStates()
         loadFamilyFromLocal()
         startNetworkMonitor()
         // Auto-Restore: Wenn familyId lokal nicht bekannt, via Cloud Function laden
         Task { await restoreUserContextIfNeeded() }
+        
+        // Regelmäßiges Recalculate (wie Android scheduleJob), um alte Wecker von der UI zu entfernen
+        recalcTimer = Timer.publish(every: 60, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.recalculateSchedule()
+                self?.checkAndResetMembers()
+            }
     }
 
     deinit {
         familyListener?.remove()
         membersListener?.remove()
+        recalcTimer?.cancel()
     }
 
     /// Nach Account-Wechsel (anon → Google/Email): alte Daten löschen, neue laden
@@ -128,19 +148,78 @@ class FamilyViewModel: ObservableObject {
                       let joinCode = data["joinCode"] as? String else {
                     errorMessage = L.errorFamilyNotFound
                     isJoiningFamily = false
-                    completion(false)
                     return
                 }
-                let familyName = data["familyName"] as? String ?? ""
+                let familyName = data["familyName"] as? String ?? "FamWake"
                 saveFamilyLocally(id: familyId, name: familyName, code: joinCode)
                 listenToFamily(id: familyId)
-                isJoiningFamily = false
                 completion(true)
             } catch {
                 errorMessage = mapFirebaseError(error)
-                isJoiningFamily = false
                 completion(false)
             }
+            isJoiningFamily = false
+        }
+    }
+    
+    func checkAndResetMembers() {
+        guard !members.isEmpty, let familyId = familyId else { return }
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let todayStr = formatter.string(from: now)
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        
+        var toUpdate = [FamilyMember]()
+        var localMembersChanged = false
+        
+        for i in 0..<members.count {
+            var member = members[i]
+            let latestWakeUp = member.latestWakeUp
+            
+            // Berechne Schwellenwert (latestWakeUp + 2 Stunden)
+            let h = (latestWakeUp.hour ?? 0) + 2
+            let m = latestWakeUp.minute ?? 0
+            guard let resetThreshold = Calendar.current.date(bySettingHour: h, minute: m, second: 0, of: now) else { continue }
+            
+            if now > resetThreshold && member.lastResetDate != todayStr {
+                let isUnclaimed = member.claimedByUserId == nil
+                let newIsPaused = isUnclaimed ? false : member.isPaused
+                
+                member.isPaused = newIsPaused
+                member.isAwakeToday = false
+                member.lastResetDate = todayStr
+                
+                members[i] = member
+                toUpdate.append(member)
+                localMembersChanged = true
+                
+                if member.id == myMemberId {
+                    UserDefaults.standard.set(false, forKey: "is_awake_today_\(member.id)")
+                }
+            }
+        }
+        
+        if localMembersChanged {
+            recalculateSchedule()
+            
+            // Auf Firestore synchronisieren
+            let batch = db.batch()
+            for member in toUpdate {
+                let ref = db.collection("families").document(familyId).collection("members").document(member.id)
+                var updates: [String: Any] = [
+                    "isAwakeToday": false,
+                    "lastResetDate": todayStr,
+                    "lastUpdatedAt": FieldValue.serverTimestamp()
+                ]
+                if member.claimedByUserId == nil {
+                    updates["isPaused"] = false
+                }
+                batch.updateData(updates, forDocument: ref)
+            }
+            batch.commit()
         }
     }
 
@@ -162,7 +241,6 @@ class FamilyViewModel: ObservableObject {
 
     var isAwakeButtonVisible: Bool {
         guard isAlarmEnabled, let myId = myMemberId, let myMember = members.first(where: { $0.id == myId }) else { return false }
-        if isAwakeTodayLocal { return true }
         
         let cal = Calendar.current
         let now = Date()
@@ -189,7 +267,6 @@ class FamilyViewModel: ObservableObject {
                 }
             }
         }
-        
         guard let offset = offsetDays, let profile = targetProfile else { return false }
         
         let myScheduledTime = schedule?.memberSchedules.first(where: { $0.id == myId })?.wakeUpTime
@@ -198,6 +275,12 @@ class FamilyViewModel: ObservableObject {
         let startOfToday = cal.startOfDay(for: now)
         guard let targetDayDate = cal.date(byAdding: .day, value: offset, to: startOfToday) else { return false }
         guard let targetDate = cal.date(bySettingHour: alarmTime.hour ?? 0, minute: alarmTime.minute ?? 0, second: 0, of: targetDayDate) else { return false }
+        
+        if isAwakeTodayLocal {
+            // Nur anzeigen, wenn der Alarm für HEUTE ist und noch in der Zukunft liegt.
+            // Sobald offset > 0 (nächster Alarm ist morgen), verschwindet der Button für heute.
+            return offset == 0 && now < targetDate
+        }
         
         guard let windowStart = cal.date(byAdding: .hour, value: -2, to: targetDate) else { return false }
         return now >= windowStart && now < targetDate
@@ -319,16 +402,19 @@ class FamilyViewModel: ObservableObject {
     }
 
     func toggleAwakeMember(_ memberId: String) {
+        setAwake(memberId: memberId, awake: !isAwakeTodayLocal)
+    }
+
+    func setAwake(memberId: String, awake: Bool) {
         guard let fid = familyId else { return }
-        let newValue = !isAwakeTodayLocal
-        isAwakeTodayLocal = newValue
+        isAwakeTodayLocal = awake
         Task {
             do {
                 try await db.collection("families").document(fid).collection("members").document(memberId)
-                    .updateData(["isAwakeToday": newValue])
+                    .updateData(["isAwakeToday": awake])
             } catch {
                 await MainActor.run {
-                    isAwakeTodayLocal = !newValue
+                    isAwakeTodayLocal = !awake
                     errorMessage = mapFirebaseError(error)
                 }
             }
@@ -357,9 +443,11 @@ class FamilyViewModel: ObservableObject {
         }
         
         if enabled {
-            AlarmService.shared.scheduleAlarms(for: members, myMemberId: myMemberId, schedule: schedule)
+            // applied in recalculateSchedule()
         } else {
-            AlarmService.shared.cancelAll()
+            if let myId = myMemberId {
+                AlarmService.shared.cancelWakeUp(memberId: myId)
+            }
         }
     }
 
@@ -448,10 +536,84 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
+    func snooze(memberId: String, memberName: String) {
+        let snoozeTime = Date().addingTimeInterval(5 * 60)
+        snoozeUntil = snoozeTime
+        UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+        AlarmService.shared.scheduleWakeUp(
+            wakeUpTime: snoozeTime,
+            memberId: memberId,
+            memberName: memberName,
+            soundUri: nil,
+            isSnooze: true
+        )
+    }
+
     func cancelSnooze(_ memberId: String) {
         snoozeUntil = nil
         UserDefaults.standard.removeObject(forKey: "snooze_until")
-        AlarmService.shared.cancelSnooze(memberId: memberId)
+        AlarmService.shared.cancelWakeUp(memberId: memberId, isSnooze: true)
+    }
+
+    func setupTestAlarmAndMembers(completion: @escaping (String) -> Void) {
+        guard let fid = familyId else { completion("Fehler: keine FamilyId"); return }
+        guard let userId = Auth.auth().currentUser?.uid else { completion("Fehler: nicht eingeloggt"); return }
+        let userName = Auth.auth().currentUser?.displayName ?? "Test User"
+        let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
+        
+        Task {
+            // Delete existing members
+            for m in members {
+                AlarmService.shared.cancelWakeUp(memberId: m.id)
+                self.deleteMember(m.id)
+            }
+            
+            try? await Task.sleep(nanoseconds: 1_000_000_000) // Wait 1 second
+            
+            let newId = UUID().uuidString
+            let cal = Calendar.current
+            let inTwoMinutes = cal.date(byAdding: .minute, value: 2, to: Date()) ?? Date()
+            let comps = cal.dateComponents([.hour, .minute], from: inTwoMinutes)
+            let wakeTime = DateComponents.from(hour: comps.hour ?? 0, minute: comps.minute ?? 0)
+            
+            let todayDow = cal.component(.weekday, from: Date())
+            let todayIso = todayDow == 1 ? 7 : todayDow - 1
+            
+            let testProfile = DayProfile(
+                isActive: true,
+                earliestWakeUp: wakeTime,
+                latestWakeUp: wakeTime,
+                bathroomDurationMinutes: 10,
+                wantsBreakfast: false,
+                leaveHomeTime: nil,
+                bufferMinutes: nil
+            )
+            
+            let newMember = FamilyMember(
+                id: newId,
+                name: userName,
+                earliestWakeUp: DateComponents.from(hour: 6, minute: 0),
+                latestWakeUp: DateComponents.from(hour: 7, minute: 0),
+                bathroomDurationMinutes: 10,
+                wantsBreakfast: false,
+                isPaused: false,
+                claimedByUserId: userId,
+                claimedByUserName: userName,
+                claimedByDeviceId: deviceId,
+                sequenceOrder: 0,
+                createdAt: Date().timeIntervalSince1970 * 1000,
+                dayProfiles: [todayIso: testProfile]
+            )
+            
+            self.addOrUpdateMember(newMember)
+            
+            DispatchQueue.main.async {
+                self.myMemberId = newId
+                UserDefaults.standard.set(newId, forKey: "my_member_id")
+                self.setAlarmEnabled(true)
+                completion("Reset & Test User angelegt")
+            }
+        }
     }
 
     func setTooltipsEnabled(_ enabled: Bool) {
@@ -599,9 +761,7 @@ class FamilyViewModel: ObservableObject {
                 // Claim-Sync: Prüfe ob eigenes Profil noch gültig ist (Android FamilyViewModel.kt:251-283)
                 if let uid = Auth.auth().currentUser?.uid {
                     let deviceId = UIDevice.current.identifierForVendor?.uuidString
-                    let claimedByMe = self.members.first { m in
-                        m.claimedByUserId == uid && (m.claimedByDeviceId == deviceId || m.claimedByDeviceId == nil)
-                    }
+                    let claimedByMe = self.members.first { $0.claimedByUserId == uid }
                     if let claimed = claimedByMe, claimed.id != self.myMemberId {
                         // Anderes Gerät hat unser Profil auf ein anderes Member umgeclaimt
                         self.myMemberId = claimed.id
@@ -742,38 +902,118 @@ class FamilyViewModel: ObservableObject {
         } else {
             rawMembers = members.filter { $0.id != currentMyMemberId && $0.deviceAlarmEnabled != false && !$0.isPaused }
         }
-        let resolved = rawMembers.map { resolveEffectiveMember($0) }
-        var result = Scheduler().calculateIdealSchedule(members: resolved, globalBufferMinutes: globalBufferMinutes)
-        
-        // Calculate targetDate for UI
-        if let firstSched = result.memberSchedules.first {
-            let cal = Calendar.current
-            let now = Date()
-            let todayDow = cal.component(.weekday, from: now)
-            let todayIso = todayDow == 1 ? 7 : todayDow - 1
-            
-            var foundDate = now
-            for offset in 0..<7 {
-                let checkIso = ((todayIso - 1 + offset) % 7) + 1
-                let profile = firstSched.member.dayProfiles?[checkIso]
-                if profile?.isActive == true {
-                    let checkDate = cal.date(byAdding: .day, value: offset, to: now) ?? now
-                    if offset == 0 {
-                        let todayAlarm = cal.date(bySettingHour: firstSched.wakeUpTime.hour ?? 0, minute: firstSched.wakeUpTime.minute ?? 0, second: 0, of: now) ?? now
-                        if now > todayAlarm { continue }
-                    }
-                    foundDate = checkDate
-                    break
-                }
+
+        if rawMembers.isEmpty {
+            schedule = nil
+            if let myId = currentMyMemberId {
+                AlarmService.shared.cancelWakeUp(memberId: myId)
             }
-            result.targetDate = foundDate
+            return
         }
-        
+
+        let cal = Calendar.current
+        let now = Date()
+        let today = cal.startOfDay(for: now)
+        guard let tomorrow = cal.date(byAdding: .day, value: 1, to: today) else { return }
+
+        // Two-Pass: Erst heute berechnen, nur auf morgen wechseln wenn ALLE
+        // geplanten Weckzeiten von heute bereits verstrichen sind.
+        let todayMembers = rawMembers.map { resolveEffectiveMember($0, forDate: today) }
+        let todayHasActive = todayMembers.contains { !$0.isPaused }
+
+        let calculationMembers: [FamilyMember]
+        let targetDate: Date
+
+        if todayHasActive {
+            let todaySchedule = Scheduler().calculateIdealSchedule(members: todayMembers, globalBufferMinutes: globalBufferMinutes)
+            let latestAlarm = todaySchedule.memberSchedules.compactMap { date(from: $0.wakeUpTime, on: today) }.max()
+            
+            if let latest = latestAlarm, now < latest {
+                calculationMembers = todayMembers
+                targetDate = today
+            } else {
+                calculationMembers = rawMembers.map { resolveEffectiveMember($0, forDate: tomorrow) }
+                targetDate = tomorrow
+            }
+        } else {
+            calculationMembers = rawMembers.map { resolveEffectiveMember($0, forDate: tomorrow) }
+            targetDate = tomorrow
+        }
+
+        if !calculationMembers.contains(where: { !$0.isPaused }) {
+            schedule = FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)
+            if let myId = currentMyMemberId {
+                AlarmService.shared.cancelWakeUp(memberId: myId)
+            }
+            return
+        }
+
+        var result = Scheduler().calculateIdealSchedule(members: calculationMembers, globalBufferMinutes: globalBufferMinutes)
+        result.targetDate = targetDate
         schedule = result
 
-        if isAlarmEnabled {
-            AlarmService.shared.scheduleAlarms(for: members, myMemberId: myMemberId, schedule: schedule)
+        if isAlarmEnabled && !result.memberSchedules.isEmpty {
+            applyAlarms(result)
+        } else {
+            if let myId = currentMyMemberId {
+                AlarmService.shared.cancelWakeUp(memberId: myId)
+            }
         }
+    }
+
+    private func applyAlarms(_ schedule: FamilySchedule) {
+        let cal = Calendar.current
+        let now = Date()
+        let today = cal.startOfDay(for: now)
+        guard let tomorrow = cal.date(byAdding: .day, value: 1, to: today) else { return }
+
+        guard let currentMyMemberId = myMemberId else { return }
+        guard let memberSchedule = schedule.memberSchedules.first(where: { $0.member.id == currentMyMemberId }) else { return }
+
+        let wakeUpTime = memberSchedule.wakeUpTime
+        let targetDate = schedule.targetDate ?? (now > (date(from: wakeUpTime, on: today) ?? now) ? tomorrow : today)
+
+        // Grace-Period: verhindert, dass ein soeben gefeuerter Alarm den nächsten
+        // Tag überspringt, weil targetDate nun bereits auf morgen zeigt.
+        if targetDate != today {
+            if let todayAlarmDate = date(from: wakeUpTime, on: today) {
+                let millisSince = now.timeIntervalSince(todayAlarmDate) * 1000
+                if millisSince >= 0 && millisSince <= 300_000 { return }
+            }
+        }
+
+        let dayOfWeek = cal.component(.weekday, from: targetDate)
+        let isoDow = dayOfWeek == 1 ? 7 : dayOfWeek - 1
+        let dayProfile = memberSchedule.member.dayProfiles?[isoDow]
+
+        if dayProfile?.isActive == false {
+            AlarmService.shared.cancelWakeUp(memberId: currentMyMemberId)
+            self.schedule = FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)
+            return
+        }
+
+        guard let targetDateTime = date(from: wakeUpTime, on: targetDate) else { return }
+
+        if isAwakeTodayLocal && targetDate == today {
+            AlarmService.shared.cancelWakeUp(memberId: currentMyMemberId)
+            return
+        }
+
+        AlarmService.shared.scheduleWakeUp(
+            wakeUpTime: targetDateTime,
+            memberId: memberSchedule.member.id,
+            memberName: memberSchedule.member.name,
+            soundUri: alarmSoundUri,
+            isSnooze: false,
+            onPermissionDenied: { [weak self] in
+                self?.errorMessage = L.errorAlarmPermission
+            }
+        )
+    }
+
+    private func date(from comps: DateComponents, on date: Date) -> Date? {
+        let cal = Calendar.current
+        return cal.date(bySettingHour: comps.hour ?? 0, minute: comps.minute ?? 0, second: 0, of: date)
     }
 
     func applyAutoFix() {
@@ -784,19 +1024,20 @@ class FamilyViewModel: ObservableObject {
 
             let cal = Calendar.current
             let now = Date()
-            let nowComps = cal.dateComponents([.hour, .minute], from: now)
-            let nowMinutes = (nowComps.hour ?? 0) * 60 + (nowComps.minute ?? 0)
-            let weekdayRaw = cal.component(.weekday, from: now)
-            let todayDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
+            let todayDow = cal.component(.weekday, from: now)
+            let todayIso = todayDow == 1 ? 7 : todayDow - 1
+            
+            let targetDow: Int
+            if let targetDate = currentSchedule.targetDate {
+                let tDow = cal.component(.weekday, from: targetDate)
+                targetDow = tDow == 1 ? 7 : tDow - 1
+            } else {
+                targetDow = todayIso
+            }
 
             for s in currentSchedule.memberSchedules {
                 guard let originalMember = self.members.first(where: { $0.id == s.member.id }) else { continue }
                 var member = originalMember
-
-                let todayProfile = member.dayProfiles?[todayDow]
-                let latestMinutesToday = (todayProfile?.latestWakeUp.hour ?? 0) * 60 + (todayProfile?.latestWakeUp.minute ?? 0)
-                let useToday = todayProfile?.isActive == true && nowMinutes < latestMinutesToday
-                let targetDow = useToday ? todayDow : (todayDow == 7 ? 1 : todayDow + 1)
 
                 // Update DayProfile if it exists
                 var updatedProfiles = member.dayProfiles ?? [:]
@@ -857,34 +1098,35 @@ class FamilyViewModel: ObservableObject {
 
     /// Ermittelt den aktuell relevanten DayProfile-Slot für einen Member.
     /// Entspricht resolveEffectiveMember() in FamilyViewModel+Alarm.kt
-    private func resolveEffectiveMember(_ member: FamilyMember) -> FamilyMember {
+    private func resolveEffectiveMember(_ member: FamilyMember, forDate: Date? = nil) -> FamilyMember {
         let cal = Calendar.current
         let now = Date()
-        let nowComps = cal.dateComponents([.hour, .minute], from: now)
-        let nowMinutes = (nowComps.hour ?? 0) * 60 + (nowComps.minute ?? 0)
+        let today = cal.startOfDay(for: now)
+        let nowMinutes = cal.component(.hour, from: now) * 60 + cal.component(.minute, from: now)
 
-        // Wochentag: 1=Mo...7=So (wie Android)
-        let weekdayRaw = cal.component(.weekday, from: now) // 1=So, 2=Mo...7=Sa
-        let todayDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
-
-        let todayProfile = member.dayProfiles?[todayDow]
-        let latestMinutesToday = (todayProfile?.latestWakeUp.hour ?? 0) * 60 + (todayProfile?.latestWakeUp.minute ?? 0)
-
-        // Heute noch relevant, wenn aktives Profil und latest noch nicht vorbei
-        let useToday = todayProfile?.isActive == true && nowMinutes < latestMinutesToday
-
-        let targetDow: Int
-        if useToday {
-            targetDow = todayDow
+        let targetDate: Date
+        if let fd = forDate {
+            targetDate = fd
         } else {
-            targetDow = todayDow == 7 ? 1 : todayDow + 1
+            let todayDow = cal.component(.weekday, from: today)
+            let todayIso = todayDow == 1 ? 7 : todayDow - 1
+            let todayProfile = member.dayProfiles?[todayIso]
+            let latestMinutes = (todayProfile?.latestWakeUp.hour ?? 0) * 60 + (todayProfile?.latestWakeUp.minute ?? 0)
+            
+            if todayProfile?.isActive == true && nowMinutes < latestMinutes {
+                targetDate = today
+            } else {
+                targetDate = cal.date(byAdding: .day, value: 1, to: today) ?? today
+            }
         }
 
-        guard let profile = member.dayProfiles?[targetDow] else {
-            var paused = member; paused.isPaused = true; return paused
-        }
-        guard profile.isActive else {
-            var paused = member; paused.isPaused = true; return paused
+        let targetDowRaw = cal.component(.weekday, from: targetDate)
+        let targetDow = targetDowRaw == 1 ? 7 : targetDowRaw - 1
+
+        guard let profile = member.dayProfiles?[targetDow], profile.isActive else {
+            var paused = member
+            paused.isPaused = true
+            return paused
         }
 
         var resolved = member

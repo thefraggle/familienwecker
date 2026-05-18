@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 import UserNotifications
+import Lottie
 
 /// RingingView – iOS-Äquivalent zur Android RingingActivity
 /// Wird angezeigt wenn die Notification geöffnet wird oder per App-Link
@@ -28,24 +29,10 @@ struct RingingView: View {
             VStack(spacing: 0) {
                 Spacer().frame(height: 56)
 
-                // Panda / Lottie Animation Platzhalter
-                ZStack {
-                    Circle()
-                        .fill(Color.white.opacity(0.1))
-                        .frame(width: 250, height: 250)
-                        .scaleEffect(isAnimating ? 1.08 : 0.95)
-
-                    Image(systemName: "alarm.fill")
-                        .font(.system(size: 120, weight: .ultraLight))
-                        .foregroundStyle(Color.white.opacity(0.9))
-                        .scaleEffect(iconScale)
-                }
-                .onAppear {
-                    withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
-                        isAnimating = true
-                        iconScale = 1.12
-                    }
-                }
+                // Panda / Lottie Animation
+                LottieView(animation: .named("wakeup"))
+                    .playing(loopMode: .loop)
+                    .frame(width: 250, height: 250)
 
                 Spacer().frame(height: 40)
 

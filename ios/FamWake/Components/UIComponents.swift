@@ -37,13 +37,13 @@ struct FamWakeCard: ViewModifier {
         let theme = isDark ? FamWakeTheme.dark : FamWakeTheme.light
         content
             .background(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(isDark ? theme.primaryContainer : theme.surface)
-                    .shadow(color: .black.opacity(isDark ? 0 : 0.08), radius: 8, x: 0, y: 4)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(theme.outline.opacity(0.15), lineWidth: 1)
-                    )
+                .regularMaterial,
+                in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+            )
+            .shadow(color: .black.opacity(isDark ? 0.2 : 0.06), radius: 12, x: 0, y: 4)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(theme.outline.opacity(0.15), lineWidth: 0.5)
             )
     }
 }
@@ -103,7 +103,7 @@ struct TooltipBubble: View {
         }
         .padding(12)
         .background(
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(colorScheme == .dark ? Color(hex: "#6A1FB0") : Color(hex: "#4A148C"))
                 .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
         )

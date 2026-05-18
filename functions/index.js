@@ -2057,6 +2057,13 @@ async function sendPushToUser(uid, payload) {
     },
     // Stille Datennachricht: App zeigt Notification selbst an (voller Channel-Kontrolle)
     android: { priority: "high" },
+    apns: {
+      payload: {
+        aps: {
+          "content-available": 1
+        }
+      }
+    }
   };
 
   const response = await admin.messaging().sendEachForMulticast(message);

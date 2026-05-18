@@ -107,6 +107,7 @@ enum L {
     static func scheduleMessageBreakfastAndTimeAdjusted(_ min1: Int, _ min2: Int) -> String { s("schedule_message_breakfast_and_time_adjusted", min1, min2) }
     static var scheduleAutoFix: String { s("schedule_auto_fix") }
     static var mainMemberLimitReached: String { s("main_member_limit_reached") }
+    static func mainSharedBreakfast(_ time: String) -> String { s("main_shared_breakfast", time) }
 
     // MARK: - Buffer
     static var bufferAfterBath: String { s("buffer_after_bath") }
@@ -159,6 +160,14 @@ enum L {
     static var onboardingDone: String { s("onboarding_done") }
     static var onboardingSkip: String { s("onboarding_skip") }
 
+    // MARK: - Push Notifications
+    static var notifScheduleChangedTitle: String { s("notif_schedule_changed_title") }
+    static var notifScheduleChangedBody: String { s("notif_schedule_changed_body") }
+    static var notifMemberJoinedTitle: String { s("notif_member_joined_title") }
+    static var notifMemberJoinedBody: String { s("notif_member_joined_body") }
+    static var notifMemberLeftTitle: String { s("notif_member_left_title") }
+    static var notifMemberLeftBody: String { s("notif_member_left_body") }
+
     // MARK: - Ringing
     static func ringingWakeUp(_ name: String) -> String { s("ringing_wake_up", name) }
     static var ringingSnooze: String { s("ringing_snooze") }
@@ -199,6 +208,7 @@ enum L {
     static var errorWeakPassword: String { s("error_weak_password") }
     static var errorInvalidEmail: String { s("error_invalid_email") }
     static var errorNetwork: String { s("error_network") }
+    static var errorAlarmPermission: String { s("error_alarm_permission") }
 
     // MARK: - Weekdays
     static func weekday(_ day: Int) -> String { s("weekday_\(day)") }

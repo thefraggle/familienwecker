@@ -59,6 +59,28 @@ struct AppRouter: View {
                 MainView()
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .showRingingView)) { notif in
+            if let info = notif.userInfo,
+               let memberId = info["memberId"] as? String,
+               let memberName = info["memberName"] as? String {
+                appState.startRinging(memberId: memberId, memberName: memberName)
+            }
+        }
+        .fullScreenCover(isPresented: $appState.isRinging) {
+            RingingView(
+                memberId: appState.ringingMemberId,
+                memberName: appState.ringingMemberName,
+                onStop: {
+                    appState.stopRinging()
+                    familyViewModel.cancelSnooze(appState.ringingMemberId)
+                    familyViewModel.recalculateSchedule()
+                },
+                onSnooze: {
+                    appState.stopRinging()
+                    familyViewModel.snooze(memberId: appState.ringingMemberId, memberName: appState.ringingMemberName)
+                }
+            )
+        }
         .onReceive(authViewModel.$authState) { state in
             Task { @MainActor in
                 await handleAuthState(state)
@@ -76,6 +98,17 @@ struct AppRouter: View {
     private func handleAuthState(_ state: AuthState) async {
         switch state {
         case .authenticated:
+            let currentUid = authViewModel.currentUserId
+            let lastUid = UserDefaults.standard.string(forKey: "last_logged_in_uid")
+            
+            // Wenn sich der Benutzer geändert hat (z.B. nach Logout/Login oder Fallback-Login bei Google-Auth)
+            if let last = lastUid, let curr = currentUid, last != curr {
+                familyViewModel.reloadForNewUser()
+            }
+            if let curr = currentUid {
+                UserDefaults.standard.set(curr, forKey: "last_logged_in_uid")
+            }
+            
             if appState.route == .login || appState.route == .loading || appState.route == .onboarding || appState.route == .onboardingWelcome {
                 if !familyViewModel.hasFamilyId {
                     appState.route = .loading
