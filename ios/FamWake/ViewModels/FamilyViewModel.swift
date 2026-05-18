@@ -697,9 +697,9 @@ class FamilyViewModel: ObservableObject {
         let currentMyMemberId = self.myMemberId
         let rawMembers: [FamilyMember]
         if isAlarmEnabled {
-            rawMembers = members.filter { $0.deviceAlarmEnabled != false }
+            rawMembers = members.filter { $0.deviceAlarmEnabled != false && !$0.isPaused }
         } else {
-            rawMembers = members.filter { $0.id != currentMyMemberId && $0.deviceAlarmEnabled != false }
+            rawMembers = members.filter { $0.id != currentMyMemberId && $0.deviceAlarmEnabled != false && !$0.isPaused }
         }
         let resolved = rawMembers.map { resolveEffectiveMember($0) }
         var result = Scheduler().calculateIdealSchedule(members: resolved, globalBufferMinutes: globalBufferMinutes)
