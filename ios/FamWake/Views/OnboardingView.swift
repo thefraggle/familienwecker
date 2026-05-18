@@ -95,7 +95,7 @@ struct OnboardingView: View {
                 .font(.title2).fontWeight(.bold)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 24)
+                .padding(.horizontal, 40)
 
             Spacer().frame(height: 10)
 
@@ -104,11 +104,11 @@ struct OnboardingView: View {
                 .foregroundStyle(.white.opacity(0.85))
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-                .padding(.horizontal, 24)
+                .padding(.horizontal, 40)
 
             Spacer()
         }
-        .padding(.horizontal, 32)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.bottom, 160) // Space for bottom controls
     }
 

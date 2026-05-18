@@ -12,20 +12,24 @@ struct AppRouter: View {
             case .loading:
                 LoadingView()
             case .onboarding:
-                OnboardingView(onFinished: { tooltipsEnabled in
-                    familyViewModel.setTooltipsEnabled(tooltipsEnabled)
-                    appState.markOnboardingDone()
-                    if !authViewModel.isLoggedIn {
-                        authViewModel.signInAnonymously()
-                    } else if familyViewModel.hasFamilyId {
-                        appState.route = .main
-                    } else {
-                        appState.route = .familySetup
-                    }
-                }, onLoginRequested: {
-                    appState.markOnboardingDone()
-                    appState.route = .login
-                })
+                OnboardingView(
+                    onFinished: { tooltipsEnabled in
+                        familyViewModel.setTooltipsEnabled(tooltipsEnabled)
+                        appState.markOnboardingDone()
+                        if !authViewModel.isLoggedIn {
+                            authViewModel.signInAnonymously()
+                        } else if familyViewModel.hasFamilyId {
+                            appState.route = .main
+                        } else {
+                            appState.route = .familySetup
+                        }
+                    },
+                    onLoginRequested: {
+                        appState.markOnboardingDone()
+                        appState.route = .login
+                    },
+                    isLoggedIn: !authViewModel.isAnonymous
+                )
             case .login:
                 LoginView()
             case .familySetup:
