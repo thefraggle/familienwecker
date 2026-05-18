@@ -12,7 +12,7 @@ struct OnboardingView: View {
     var isLoggedIn: Bool = false
 
     @State private var currentPage = 0
-    @State private var tooltipsEnabled = true
+    @State private var tooltipsEnabled: Bool = UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true
     @State private var isStarting = false
 
     private var actualSlideCount: Int { isLoggedIn ? 3 : 4 }
@@ -82,34 +82,36 @@ struct OnboardingView: View {
 
     // MARK: - Slide Template
     @ViewBuilder
-    private func slideView(titleKey: String, bodyKey: String, @ViewBuilder content: () -> some View) -> some View {
-        VStack(spacing: 0) {
-            Spacer()
+    private func slideView(titleKey: String, bodyKey: String, @ViewBuilder content: @escaping () -> some View) -> some View {
+        GeometryReader { geo in
+            VStack(spacing: 0) {
+                Spacer()
 
-            content()
-                .frame(maxWidth: 280, maxHeight: 280)
+                content()
+                    .frame(maxWidth: 280, maxHeight: 280)
 
-            Spacer().frame(height: 28)
+                Spacer().frame(height: 28)
 
-            Text(L.s(titleKey))
-                .font(.title2).fontWeight(.bold)
-                .foregroundStyle(.white)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
+                Text(L.s(titleKey))
+                    .font(.title2).fontWeight(.bold)
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
 
-            Spacer().frame(height: 10)
+                Spacer().frame(height: 10)
 
-            Text(L.s(bodyKey))
-                .font(.body)
-                .foregroundStyle(.white.opacity(0.85))
-                .multilineTextAlignment(.center)
-                .lineSpacing(4)
-                .padding(.horizontal, 40)
+                Text(L.s(bodyKey))
+                    .font(.body)
+                    .foregroundStyle(.white.opacity(0.85))
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(4)
+                    .padding(.horizontal, 32)
 
-            Spacer()
+                Spacer()
+            }
+            .frame(width: geo.size.width, height: geo.size.height)
+            .padding(.bottom, 160) // Space for bottom controls
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.bottom, 160) // Space for bottom controls
     }
 
     // MARK: - Lottie View
@@ -137,7 +139,10 @@ struct OnboardingView: View {
 
             // Tooltips checkbox (last page only)
             if isLastPage {
-                Button(action: { tooltipsEnabled.toggle() }) {
+                Button(action: {
+                    tooltipsEnabled.toggle()
+                    UserDefaults.standard.set(tooltipsEnabled, forKey: "tooltips_enabled")
+                }) {
                     HStack(spacing: 8) {
                         Image(systemName: tooltipsEnabled ? "checkmark.square.fill" : "square")
                             .foregroundStyle(.white)
