@@ -111,7 +111,6 @@ struct OnboardingView: View {
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
-                .fixedSize(horizontal: false, vertical: true)
 
             Spacer().frame(height: 16)
 
@@ -121,7 +120,6 @@ struct OnboardingView: View {
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
                 .padding(.horizontal, 32)
-                .fixedSize(horizontal: false, vertical: true)
 
             Spacer()
         }
