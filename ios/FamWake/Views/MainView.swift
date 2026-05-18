@@ -505,7 +505,7 @@ struct MainView: View {
                 }
             }
             Spacer()
-            Image(systemName: "circle.grid.2x3.fill")
+            Image(systemName: "line.3.horizontal")
                 .foregroundStyle(theme.outline.opacity(0.6))
                 .font(.title3)
         }
