@@ -83,30 +83,28 @@ extension View {
 struct TooltipBubble: View {
     var text: String
     var onDismiss: () -> Void
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "lightbulb.fill")
-                .foregroundColor(.sunriseOrange500)
+                .foregroundColor(Color(hex: "#F3E5F5"))
                 .font(.caption)
             Text(text)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .font(.caption).italic()
+                .foregroundStyle(Color(hex: "#F3E5F5"))
             Spacer()
             Button(action: onDismiss) {
-                Image(systemName: "xmark.circle.fill")
-                    .foregroundStyle(.secondary)
+                Image(systemName: "xmark")
+                    .foregroundStyle(Color(hex: "#F3E5F5").opacity(0.8))
                     .font(.caption)
             }
         }
-        .padding(10)
+        .padding(12)
         .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.sunriseOrange100.opacity(0.5))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.sunriseOrange500.opacity(0.2), lineWidth: 1)
-                )
+            RoundedRectangle(cornerRadius: 16)
+                .fill(colorScheme == .dark ? Color(hex: "#6A1FB0") : Color(hex: "#4A148C"))
+                .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
         )
     }
 }
