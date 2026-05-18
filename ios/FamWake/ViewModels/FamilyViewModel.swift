@@ -333,6 +333,24 @@ class FamilyViewModel: ObservableObject {
     func setAlarmEnabled(_ enabled: Bool) {
         isAlarmEnabled = enabled
         UserDefaults.standard.set(enabled, forKey: "alarm_enabled")
+        
+        if let mid = myMemberId, let idx = members.firstIndex(where: { $0.id == mid }) {
+            members[idx].deviceAlarmEnabled = enabled
+        }
+        
+        recalculateSchedule()
+        
+        if let fid = familyId, let mid = myMemberId {
+            Task {
+                do {
+                    try await db.collection("families").document(fid).collection("members").document(mid)
+                        .updateData(["deviceAlarmEnabled": enabled])
+                } catch {
+                    print("Error updating deviceAlarmEnabled: \(error)")
+                }
+            }
+        }
+        
         if enabled {
             AlarmService.shared.scheduleAlarms(for: members, myMemberId: myMemberId, schedule: schedule)
         } else {
