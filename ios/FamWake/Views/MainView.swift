@@ -118,10 +118,10 @@ struct MainView: View {
                             Image(systemName: "square.and.arrow.up")
                                 .font(.title3)
                                 .padding(14)
-                                .background(theme.secondaryContainer)
-                                .foregroundStyle(theme.onSecondaryContainer)
+                                .background(theme.primaryContainer)
+                                .foregroundStyle(theme.onPrimaryContainer)
                                 .clipShape(Circle())
-                                .shadow(color: theme.secondaryContainer.opacity(0.4), radius: 8, x: 0, y: 4)
+                                .shadow(color: theme.primaryContainer.opacity(0.4), radius: 8, x: 0, y: 4)
                         }
                         .buttonStyle(BounceButtonStyle())
                         .padding(.trailing, 20)
