@@ -70,7 +70,7 @@ struct FamilySetupView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(theme.primary)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 56)
+                            .frame(minHeight: 56)
                             .clipShape(Capsule())
                             .buttonStyle(BounceButtonStyle())
                         }
@@ -97,7 +97,7 @@ struct FamilySetupView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(theme.primary)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 56)
+                            .frame(minHeight: 56)
                             .clipShape(Capsule())
                         }
                     }

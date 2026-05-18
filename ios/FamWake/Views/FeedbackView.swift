@@ -142,7 +142,7 @@ struct FeedbackView: View {
                             .frame(maxWidth: .infinity)
                             .disabled(!canSend)
                         }
-                        .frame(height: 52)
+                        .frame(minHeight: 52)
                     }
                 }
                 .padding(20)

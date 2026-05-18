@@ -149,7 +149,7 @@ struct Scheduler {
                 isValid = false
             }
 
-            let activeProfile = member.dayProfiles?.values.first
+            let activeProfile = member.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
             var effectiveBuffer = globalBufferMinutes
             if let pBuffer = activeProfile?.bufferMinutes, pBuffer > 0 {
                 effectiveBuffer = pBuffer

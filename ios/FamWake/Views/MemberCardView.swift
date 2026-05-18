@@ -118,15 +118,14 @@ struct MemberCardView: View {
                 }
             }
             .padding(16)
-            .background(
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(backgroundColor)
-                    .shadow(color: .black.opacity(isDark ? 0 : 0.08), radius: 8, x: 0, y: 4)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 24)
-                            .stroke(theme.outline.opacity(0.15), lineWidth: 1)
-                    )
+            .background(isDark ? backgroundColor : backgroundColor.opacity(0.8))
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .stroke(theme.outline.opacity(0.15), lineWidth: 0.5)
             )
+            .shadow(color: .black.opacity(isDark ? 0.2 : 0.06), radius: 12, x: 0, y: 4)
         }
         .buttonStyle(.plain)
     }

@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 struct SettingsView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
@@ -7,6 +8,7 @@ struct SettingsView: View {
     @EnvironmentObject var donationViewModel: DonationViewModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.scenePhase) var scenePhase
 
     @State private var showFeedback = false
     @State private var showProfilePicker = false
@@ -33,9 +35,30 @@ struct SettingsView: View {
                         HStack(alignment: .top) {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .foregroundStyle(theme.error)
-                            Text(error)
-                                .font(.subheadline)
-                                .foregroundStyle(theme.error)
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(error)
+                                    .font(.subheadline)
+                                    .foregroundStyle(theme.error)
+                                
+                                if error == L.errorAlarmPermission {
+                                    Button(action: {
+                                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                                            UIApplication.shared.open(url)
+                                        }
+                                    }) {
+                                        HStack(spacing: 4) {
+                                            Text(L.settingsTitle)
+                                                .font(.caption).fontWeight(.bold)
+                                            Image(systemName: "chevron.right")
+                                                .font(.caption2).fontWeight(.bold)
+                                        }
+                                        .foregroundStyle(theme.error)
+                                    }
+                                    .padding(.top, 4)
+                                }
+                            }
+                            
                             Spacer()
                             Button(action: { familyViewModel.errorMessage = nil }) {
                                 Image(systemName: "xmark")
@@ -43,8 +66,9 @@ struct SettingsView: View {
                             }
                         }
                         .padding()
-                        .background(theme.errorContainer)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .background(theme.errorContainer.opacity(0.85))
+                        .background(.regularMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     }
 
                     // MARK: 1. Profil & Weckton (Combined Card)
@@ -142,6 +166,20 @@ struct SettingsView: View {
                     dismiss()
                 }
             }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    if familyViewModel.errorMessage == L.errorAlarmPermission {
+                        UNUserNotificationCenter.current().getNotificationSettings { settings in
+                            if settings.authorizationStatus == .authorized {
+                                DispatchQueue.main.async {
+                                    familyViewModel.clearErrorMessage()
+                                    familyViewModel.recalculateSchedule()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -178,37 +216,11 @@ struct SettingsView: View {
                 .padding(.horizontal, 16).padding(.vertical, 12)
             }
             .foregroundStyle(theme.onSurface)
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
             .disabled(familyViewModel.members.isEmpty)
 
-            Divider().padding(.vertical, 12)
-
-            // Alarm sound
-            settingsSectionLabel(icon: "bell.fill", text: L.settingsAlarmTitle)
-
-            let sounds: [(String?, String)] = [
-                (nil, L.settingsAlarmDefault),
-                ("alarm_classic.caf", "Classic Alarm"),
-                ("alarm_gentle.caf", "Gentle Rise"),
-                ("alarm_digital.caf", "Digital Beep")
-            ]
-            Menu {
-                Picker("", selection: Binding(
-                    get: { familyViewModel.alarmSoundUri },
-                    set: { familyViewModel.setAlarmSoundUri($0) }
-                )) {
-                    ForEach(sounds, id: \.0) { sound in
-                        Text(sound.1).tag(sound.0)
-                    }
-                }
-            } label: {
-                let currentSound = sounds.first { $0.0 == familyViewModel.alarmSoundUri }?.1 ?? L.settingsAlarmDefault
-                Text("Ton: \(currentSound)")
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-            }
-            .foregroundStyle(theme.onSurface)
-            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
+            // Alarm sound picker is removed for iOS due to system limitations.
+            // iOS users will use the default system notification sound or bundled default sound.
         }
     }
 
@@ -333,7 +345,7 @@ struct SettingsView: View {
                 .padding(.horizontal, 16).padding(.vertical, 12)
             }
             .foregroundStyle(theme.onSurface)
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
             Spacer().frame(height: 16)
 
@@ -402,13 +414,13 @@ struct SettingsView: View {
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 24)
-                .fill(isDark ? theme.surfaceVariant.opacity(0.4) : theme.surface)
-                .shadow(color: .black.opacity(isDark ? 0 : 0.06), radius: 8, x: 0, y: 4)
+            .regularMaterial,
+            in: RoundedRectangle(cornerRadius: 24, style: .continuous)
         )
+        .shadow(color: .black.opacity(isDark ? 0.2 : 0.06), radius: 12, x: 0, y: 4)
         .overlay(
-            RoundedRectangle(cornerRadius: 24)
-                .stroke(theme.primary.opacity(0.3), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .stroke(theme.outline.opacity(0.15), lineWidth: 0.5)
         )
     }
 
@@ -525,29 +537,8 @@ struct SettingsView: View {
     }
 
     private func setupTestAlarm() {
-        // Alle vorhandenen Member löschen
-        for member in familyViewModel.members {
-            familyViewModel.deleteMember(member.id)
-        }
-
-        // Kurz warten bis Löschungen durch sind, dann neuen Member anlegen
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            let cal = Calendar.current
-            let inTwoMinutes = cal.date(byAdding: .minute, value: 2, to: Date()) ?? Date()
-            let comps = cal.dateComponents([.hour, .minute], from: inTwoMinutes)
-            let wakeTime = DateComponents.from(hour: comps.hour ?? 0, minute: comps.minute ?? 0)
-
-            let testMember = FamilyMember(
-                id: UUID().uuidString,
-                name: "Test",
-                earliestWakeUp: wakeTime,
-                latestWakeUp: wakeTime,
-                bathroomDurationMinutes: 5,
-                wantsBreakfast: false
-            )
-
-            familyViewModel.addOrUpdateMember(testMember)
-            familyViewModel.setAlarmEnabled(true)
+        familyViewModel.setupTestAlarmAndMembers { status in
+            print("Admin Test Wecker: \(status)")
         }
     }
 
@@ -731,13 +722,13 @@ struct SettingsView: View {
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 24)
-                .fill(isDark ? theme.surfaceVariant.opacity(0.4) : theme.surface)
-                .shadow(color: .black.opacity(isDark ? 0 : 0.06), radius: 8, x: 0, y: 4)
+            .regularMaterial,
+            in: RoundedRectangle(cornerRadius: 24, style: .continuous)
         )
+        .shadow(color: .black.opacity(isDark ? 0.2 : 0.06), radius: 12, x: 0, y: 4)
         .overlay(
-            RoundedRectangle(cornerRadius: 24)
-                .stroke(theme.outline.opacity(0.15), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .stroke(theme.outline.opacity(0.15), lineWidth: 0.5)
         )
     }
 
@@ -775,12 +766,13 @@ struct SettingsView: View {
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(isDark ? theme.primaryContainer : theme.surfaceVariant.opacity(0.3))
+            isDark ? theme.primaryContainer : theme.surfaceVariant.opacity(0.3)
         )
+        .background(.regularMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(theme.outline.opacity(0.15), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(theme.outline.opacity(0.15), lineWidth: 0.5)
         )
     }
 

@@ -128,7 +128,7 @@ struct AddEditMemberView: View {
                     .buttonStyle(.borderedProminent)
                     .tint(theme.tertiary)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 56)
+                    .frame(minHeight: 56)
                     .clipShape(Capsule())
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || hasAnyError)
                     .padding(16)
@@ -189,7 +189,7 @@ struct AddEditMemberView: View {
                 .font(.caption).fontWeight(.semibold)
                 .foregroundStyle(chipTextColor(isSelected: isSelected, isActive: isActive, hasError: hasError))
                 .frame(maxWidth: .infinity)
-                .frame(height: 36)
+                .frame(minHeight: 36)
                 .background(chipBgColor(isSelected: isSelected, isActive: isActive, hasError: hasError))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(

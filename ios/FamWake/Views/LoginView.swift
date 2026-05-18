@@ -144,7 +144,7 @@ struct LoginView: View {
             Text(isRegistering ? L.registerButton : L.loginButton)
                 .font(.headline)
                 .frame(maxWidth: .infinity)
-                .frame(height: 56)
+            .frame(minHeight: 56)
         }
         .buttonStyle(.borderedProminent)
         .tint(theme.primary)
@@ -170,7 +170,7 @@ struct LoginView: View {
             Text(isRegistering ? L.alreadyHaveAccount : L.noAccount)
                 .font(.subheadline)
                 .frame(maxWidth: .infinity)
-                .frame(height: 56)
+            .frame(minHeight: 56)
         }
         .buttonStyle(.bordered)
         .tint(theme.primary)
@@ -188,7 +188,7 @@ struct LoginView: View {
                     .font(.subheadline)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 48)
+            .frame(minHeight: 48)
         }
         .buttonStyle(.bordered)
         .tint(theme.onSurface)

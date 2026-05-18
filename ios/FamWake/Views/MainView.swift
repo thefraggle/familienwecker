@@ -1,8 +1,10 @@
 import SwiftUI
+import UserNotifications
 
 struct MainView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @EnvironmentObject var appState: AppState
+    @Environment(\.scenePhase) var scenePhase
     @State private var showSettings = false
     @State private var showAddMember = false
     @State private var editMemberId: String? = nil
@@ -58,6 +60,12 @@ struct MainView: View {
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
             .navigationTitle(L.appNameShort)
+            .onAppear {
+                UIApplication.shared.isIdleTimerDisabled = true
+            }
+            .onDisappear {
+                UIApplication.shared.isIdleTimerDisabled = false
+            }
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     if familyViewModel.isOffline {
@@ -103,6 +111,20 @@ struct MainView: View {
             .onAppear {
                 if familyViewModel.familyId == nil {
                     appState.route = .familySetup
+                }
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    if familyViewModel.errorMessage == L.errorAlarmPermission {
+                        UNUserNotificationCenter.current().getNotificationSettings { settings in
+                            if settings.authorizationStatus == .authorized {
+                                DispatchQueue.main.async {
+                                    familyViewModel.clearErrorMessage()
+                                    familyViewModel.recalculateSchedule()
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -202,11 +224,11 @@ struct MainView: View {
                             }
                         }
                         .frame(maxWidth: .infinity)
-                        .frame(height: 48)
+                        .frame(minHeight: 48)
                         .padding(.horizontal, 16)
                         .background(isAwake ? theme.secondary : theme.primary)
                         .foregroundStyle(isAwake ? theme.onSecondary : theme.onPrimary)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     }
                     .buttonStyle(.plain)
                     .animation(.easeInOut(duration: 0.2), value: isAwake)
@@ -220,15 +242,7 @@ struct MainView: View {
                 }
             }
             .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 32)
-                    .fill(familyViewModel.isAlarmEnabled ? (appState.colorScheme == .dark ? theme.primaryContainer.opacity(0.4) : theme.surface) : (appState.colorScheme == .dark ? theme.surfaceVariant.opacity(0.4) : theme.surfaceVariant))
-                    .shadow(color: .black.opacity(appState.colorScheme == .dark ? 0 : 0.08), radius: 8, x: 0, y: 4)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 32)
-                            .stroke(theme.outline.opacity(0.15), lineWidth: 1)
-                    )
-            )
+            .famWakeCard(cornerRadius: 32, isDark: appState.colorScheme == .dark)
             .padding(.bottom, 12)
         }
         .listRowBackground(Color.clear)
@@ -254,8 +268,9 @@ struct MainView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
-            .background(appState.colorScheme == .dark ? Color.onlineGreenDark : Color.onlineGreenLight)
-            .clipShape(RoundedRectangle(cornerRadius: 32))
+            .background(appState.colorScheme == .dark ? Color.onlineGreenDark.opacity(0.8) : Color.onlineGreenLight)
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
             .padding(.bottom, 12)
         }
         .listRowBackground(Color.clear)
@@ -278,12 +293,16 @@ struct MainView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .background(
-                    RoundedRectangle(cornerRadius: 24)
-                        .fill(appState.colorScheme == .dark ? theme.errorContainer.opacity(0.7) : theme.errorContainer)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 24)
-                                .stroke(theme.outline.opacity(0.2), lineWidth: 1)
-                        )
+                    .regularMaterial,
+                    in: RoundedRectangle(cornerRadius: 24, style: .continuous)
+                )
+                .background(
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        .fill(appState.colorScheme == .dark ? theme.errorContainer.opacity(0.4) : theme.errorContainer.opacity(0.8))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        .stroke(theme.outline.opacity(0.2), lineWidth: 1)
                 )
                 .padding(.bottom, 12)
             }
@@ -315,10 +334,11 @@ struct MainView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(appState.colorScheme == .dark ? Color.snoozeAmberDark : Color.snoozeAmberLight)
-                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .background(appState.colorScheme == .dark ? Color.snoozeAmberDark.opacity(0.8) : Color.snoozeAmberLight.opacity(0.9))
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 24)
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
                         .stroke((appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight).opacity(0.4), lineWidth: 1)
                 )
                 .padding(.bottom, 12)
@@ -387,9 +407,10 @@ struct MainView: View {
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Color.orange.opacity(0.15))
-                        .cornerRadius(24)
+                        .background(.regularMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 24)
+                            RoundedRectangle(cornerRadius: 24, style: .continuous)
                                 .stroke(Color.orange.opacity(0.5), lineWidth: 1)
                         )
                         .padding(.bottom, 12)
@@ -435,24 +456,13 @@ struct MainView: View {
                             }
                             
                             if let breakfast = sched.breakfastTime {
-                                let breakfastDate = breakfast.asDate ?? Date()
-                                let endBreakfastDate = Calendar.current.date(byAdding: .minute, value: 30, to: breakfastDate) ?? breakfastDate
-                                let endBreakfastComps = Calendar.current.dateComponents([.hour, .minute], from: endBreakfastDate)
-                                Text("☕ \(L.mainScheduleBathroom(breakfast.formatted(), endBreakfastComps.formatted()))")
+                                Text(L.mainSharedBreakfast(breakfast.formatted()))
                                     .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.8))
                             }
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(familyViewModel.isAlarmEnabled ? (appState.colorScheme == .dark ? theme.primaryContainer.opacity(0.4) : theme.surface) : (appState.colorScheme == .dark ? theme.surfaceVariant.opacity(0.4) : theme.surfaceVariant))
-                                .shadow(color: .black.opacity(appState.colorScheme == .dark ? 0 : 0.08), radius: 8, x: 0, y: 4)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 24)
-                                        .stroke(theme.outline.opacity(0.15), lineWidth: 1)
-                                )
-                        )
+                        .famWakeCard(cornerRadius: 24, isDark: appState.colorScheme == .dark)
                         .padding(.bottom, 12)
                     }
 
@@ -578,8 +588,8 @@ struct MainView: View {
                     .buttonStyle(.plain)
                 }
                 .padding()
-                .background(theme.surfaceVariant.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .padding(.bottom, 12)
             }
 
@@ -625,27 +635,53 @@ struct MainView: View {
     private func errorCard(_ error: String) -> some View {
         Group {
             VStack(alignment: .leading, spacing: 12) {
-                Text("⚠️ \(error)")
-                    .font(.subheadline)
-                    .foregroundStyle(theme.error)
-                HStack(spacing: 16) {
-                    Button(L.cancelButton) { familyViewModel.clearErrorMessage() }
-                        .font(.caption).fontWeight(.bold)
+                HStack(alignment: .top) {
+                    Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(theme.error)
                     
-                    if error == L.errorFamilyNotFound {
-                        Button(L.settingsLeaveFamily) {
-                            familyViewModel.leaveFamily()
-                            appState.route = .familySetup
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(error)
+                            .font(.subheadline)
+                            .foregroundStyle(theme.error)
+                        
+                        if error == L.errorAlarmPermission {
+                            Button(action: {
+                                if let url = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(url)
+                                }
+                            }) {
+                                HStack(spacing: 4) {
+                                    Text(L.settingsTitle)
+                                        .font(.caption).fontWeight(.bold)
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption2).fontWeight(.bold)
+                                }
+                                .foregroundStyle(theme.error)
+                            }
+                            .padding(.top, 4)
                         }
-                        .font(.caption).fontWeight(.bold)
-                        .foregroundStyle(theme.error)
                     }
+                    
+                    Spacer()
+                    Button(action: { familyViewModel.clearErrorMessage() }) {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(theme.error)
+                    }
+                }
+                
+                if error == L.errorFamilyNotFound {
+                    Button(L.settingsLeaveFamily) {
+                        familyViewModel.leaveFamily()
+                        appState.route = .familySetup
+                    }
+                    .font(.caption).fontWeight(.bold)
+                    .foregroundStyle(theme.error)
                 }
             }
             .padding()
-            .background(theme.errorContainer.opacity(0.3))
-            .clipShape(RoundedRectangle(cornerRadius: 24))
+            .background(theme.errorContainer.opacity(0.85))
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .padding(.bottom, 12)
         }
         .listRowBackground(Color.clear)
