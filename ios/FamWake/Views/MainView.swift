@@ -344,7 +344,7 @@ struct MainView: View {
                     EmptyStateView(
                         title: L.emptyScheduleTitle,
                         description: L.emptyScheduleDescription,
-                        systemImage: "moon.stars.fill"
+                        lottieName: "sleep"
                     )
                 } else {
                     if !sched.isValid {
@@ -489,7 +489,7 @@ struct MainView: View {
                 EmptyStateView(
                     title: L.emptyScheduleTitle,
                     description: L.emptyScheduleDescription,
-                    systemImage: "moon.stars.fill"
+                    lottieName: "sleep"
                 )
             }
         }
@@ -594,7 +594,7 @@ struct MainView: View {
                 EmptyStateView(
                     title: L.emptyMembersTitle,
                     description: L.emptyMembersDescription,
-                    systemImage: "person.3.fill"
+                    lottieName: "owl_sleep"
                 )
                 .padding(.vertical, 20)
             } else {
