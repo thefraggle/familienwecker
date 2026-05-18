@@ -322,13 +322,18 @@ struct SettingsView: View {
             settingsSectionHeader(icon: "slider.horizontal.3", title: L.settingsDisplayTitle)
 
             // Language
+            settingsSectionLabel(icon: "globe", text: L.settingsLanguageTitle)
             NavigationLink(destination: LanguagePickerView()) {
                 HStack {
-                    Text(L.settingsLanguageTitle)
+                    Text(languageName(for: familyViewModel.language)).font(.body)
                     Spacer()
-                    Text(languageName(for: familyViewModel.language)).foregroundStyle(theme.outline)
+                    Image(systemName: "slider.horizontal.3").font(.caption)
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16).padding(.vertical, 12)
             }
+            .foregroundStyle(theme.onSurface)
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
             Spacer().frame(height: 16)
 
@@ -347,7 +352,7 @@ struct SettingsView: View {
             Spacer().frame(height: 16)
 
             // Tooltips
-            settingsSectionLabel(icon: nil, text: L.settingsTooltipsTitle)
+            settingsSectionLabel(icon: "lightbulb.fill", text: L.settingsTooltipsTitle)
             Toggle(L.settingsTooltipsLabel, isOn: Binding(
                 get: { familyViewModel.tooltipsEnabled },
                 set: { familyViewModel.setTooltipsEnabled($0) }
@@ -366,7 +371,7 @@ struct SettingsView: View {
             Spacer().frame(height: 16)
 
             // Push Notifications (placeholder)
-            settingsSectionLabel(icon: nil, text: L.s("settings_push_title"))
+            settingsSectionLabel(icon: "bell.fill", text: L.s("settings_push_title"))
             Toggle(L.s("settings_push_label"), isOn: .constant(true))
                 .tint(theme.secondary)
                 .disabled(true) // Requires Apple Dev Account
