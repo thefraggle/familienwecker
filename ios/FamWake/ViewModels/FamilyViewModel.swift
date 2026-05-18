@@ -629,7 +629,7 @@ class FamilyViewModel: ObservableObject {
 
     func restoreUserContextIfNeeded() async {
         guard familyId == nil else { return }
-        guard Auth.auth().currentUser != nil else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         do {
             let result = try await functions.httpsCallable("getUserContext").call([:] as [String: Any])
             guard let data = result.data as? [String: Any],
@@ -638,8 +638,26 @@ class FamilyViewModel: ObservableObject {
             let name = data["familyName"] as? String ?? ""
             saveFamilyLocally(id: fid, name: name, code: code)
             listenToFamily(id: fid)
+            return
         } catch {
-            // Kein Kontext gefunden – User muss Familie erstellen/joinen
+            print("getUserContext failed, falling back to Firestore: \(error.localizedDescription)")
+        }
+        
+        // Fallback: Direkter Lesezugriff wie in Android
+        do {
+            let userDoc = try await db.collection("users").document(uid).getDocument()
+            guard let data = userDoc.data(),
+                  let fid = data["familyId"] as? String else { return }
+            
+            let familyDoc = try await db.collection("families").document(fid).getDocument()
+            guard let familyData = familyDoc.data(),
+                  let code = familyData["joinCode"] as? String else { return }
+            
+            let name = familyData["name"] as? String ?? ""
+            saveFamilyLocally(id: fid, name: name, code: code)
+            listenToFamily(id: fid)
+        } catch {
+            print("Fallback also failed: \(error.localizedDescription)")
         }
     }
 
