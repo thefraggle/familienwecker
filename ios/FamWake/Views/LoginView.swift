@@ -37,7 +37,11 @@ struct LoginView: View {
                         .foregroundStyle(theme.onSurface)
                     Spacer()
                     Button(action: {
-                        appState.route = .onboardingWelcome
+                        if appState.route == .login {
+                            appState.route = .onboardingWelcome
+                        } else {
+                            dismiss()
+                        }
                     }) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.title3)
