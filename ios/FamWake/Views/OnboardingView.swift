@@ -25,7 +25,7 @@ struct OnboardingView: View {
         self.onLoginRequested = onLoginRequested
         self.isLoggedIn = isLoggedIn
         let count = isLoggedIn ? 3 : 4
-        self._currentPage = State(initialValue: startAtWelcome ? count - 1 : 0)
+        self._currentPage = State(initialValue: startAtWelcome ? 0 : count - 1)
         self._tooltipsEnabled = State(initialValue: UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true)
     }
 
@@ -191,7 +191,7 @@ struct OnboardingView: View {
                 }
                 .foregroundStyle(Color(hex: "#1A237E"))
                 .frame(maxWidth: .infinity)
-                .frame(height: 52)
+                .frame(minHeight: 52)
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
             }
@@ -326,7 +326,7 @@ private struct MockupCard<Content: View>: View {
             // Bottom fade
             LinearGradient(colors: [.clear, MockColors.bg.opacity(0.85)],
                           startPoint: .top, endPoint: .bottom)
-                .frame(height: 48)
+                .frame(minHeight: 48)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
         }
     }

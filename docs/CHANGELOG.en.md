@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.5 – 2026-05-18
+### New
+- **iOS Feature Parity** – The iOS version of FamWake now has feature parity with Android, including full push notifications, deep links for sharing the family, and synchronous UI scaling for accessibility.
+- **Auto-Recover** – On iOS, the family status is now automatically restored via the Keychain after a reinstall, so you no longer have to join manually.
+
+---
+
 ## 1.9.4 – 2026-05-16
 ### New
 - **Buffer after bathroom** – Add a time buffer between family members’ bathroom slots. Set it globally for everyone or individually per person.

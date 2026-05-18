@@ -11,12 +11,28 @@ class AppState: ObservableObject {
     /// Wird bei Sprachwechsel inkrementiert → zwingt alle L.xxx-abhängigen Views zum Re-Render
     @Published var languageId: Int = 0
 
+    @Published var isRinging: Bool = false
+    @Published var ringingMemberId: String = ""
+    @Published var ringingMemberName: String = ""
+
     var colorScheme: ColorScheme? {
         switch themePreference {
         case "dark": return .dark
         case "light": return .light
         default: return nil
         }
+    }
+
+    func startRinging(memberId: String, memberName: String) {
+        self.ringingMemberId = memberId
+        self.ringingMemberName = memberName
+        self.isRinging = true
+        AlarmService.shared.playAlarm(soundUri: nil)
+    }
+    
+    func stopRinging() {
+        self.isRinging = false
+        AlarmService.shared.stopAlarm()
     }
 
     func markOnboardingDone() {
@@ -37,9 +53,24 @@ class AppState: ObservableObject {
     }
 
     func load(authViewModel: AuthViewModel, familyViewModel: FamilyViewModel) async {
-        // Kurze Pause damit Firebase Auth den Zustand laden kann
-        try? await Task.sleep(nanoseconds: 800_000_000) // 0.8s
         if case .loading = route {
+            // Warten bis Firebase Auth initialisiert ist (maximal 5 Sekunden)
+            var attempts = 0
+            while authViewModel.authState == .loading && attempts < 50 {
+                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1s
+                attempts += 1
+            }
+            
+            // Auto-recover onboarding state if user is already logged in (e.g. after reinstall)
+            if authViewModel.isLoggedIn && !onboardingCompleted {
+                markOnboardingDone()
+            }
+            
+            // Wait for familyId restore from Firestore before routing, if we are logged in but missing local familyId
+            if authViewModel.isLoggedIn && !familyViewModel.hasFamilyId {
+                await familyViewModel.restoreUserContextIfNeeded()
+            }
+
             if !onboardingCompleted {
                 route = .onboarding
             } else if !authViewModel.isLoggedIn {
@@ -51,4 +82,8 @@ class AppState: ObservableObject {
             }
         }
     }
+}
+
+extension Notification.Name {
+    static let showRingingView = Notification.Name("showRingingView")
 }

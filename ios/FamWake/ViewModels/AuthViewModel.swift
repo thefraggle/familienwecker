@@ -68,6 +68,7 @@ class AuthViewModel: ObservableObject {
                     // Anonymous users and OAuth users (Google) are always "verified"
                     if user.isAnonymous || user.isEmailVerified || user.providerData.contains(where: { $0.providerID != "password" }) {
                         self.authState = .authenticated
+                        MessagingService.shared.refreshAndSaveToken()
                     } else {
                         self.authState = .awaitingEmailVerification(email: user.email ?? "")
                     }
@@ -85,6 +86,7 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try await Auth.auth().signInAnonymously()
+                MessagingService.shared.refreshAndSaveToken()
             } catch {
                 authState = .error(mapFirebaseError(error))
             }
@@ -97,6 +99,7 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try await Auth.auth().signIn(withEmail: email, password: password)
+                MessagingService.shared.refreshAndSaveToken()
             } catch {
                 authState = .error(mapFirebaseError(error))
             }
@@ -118,6 +121,7 @@ class AuthViewModel: ObservableObject {
                         if code == .credentialAlreadyInUse || code == .emailAlreadyInUse {
                             // Account existiert schon → normaler Login
                             try await Auth.auth().signIn(withEmail: email, password: password)
+                            MessagingService.shared.refreshAndSaveToken()
                         } else {
                             throw error
                         }
@@ -134,6 +138,7 @@ class AuthViewModel: ObservableObject {
     }
 
     func logout() {
+        MessagingService.shared.deleteTokenOnLogout()
         try? Auth.auth().signOut()
         authState = .unauthenticated
     }
@@ -169,6 +174,18 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try await Auth.auth().currentUser?.sendEmailVerification()
+            } catch {
+                authState = .error(mapFirebaseError(error))
+            }
+        }
+    }
+
+    func applyActionCode(_ oobCode: String) {
+        authState = .loading
+        Task {
+            do {
+                try await Auth.auth().applyActionCode(oobCode)
+                checkEmailVerified()
             } catch {
                 authState = .error(mapFirebaseError(error))
             }
@@ -213,6 +230,7 @@ class AuthViewModel: ObservableObject {
                 } else {
                     try await Auth.auth().signIn(with: credential)
                 }
+                MessagingService.shared.refreshAndSaveToken()
                 // authState set via listener
             } catch {
                 // User cancelled is not an error
