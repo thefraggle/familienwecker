@@ -13,6 +13,27 @@ struct AppRouter: View {
                 LoadingView()
             case .onboarding:
                 OnboardingView(
+                    startAtWelcome: false,
+                    onFinished: { tooltipsEnabled in
+                        familyViewModel.setTooltipsEnabled(tooltipsEnabled)
+                        appState.markOnboardingDone()
+                        if !authViewModel.isLoggedIn {
+                            authViewModel.signInAnonymously()
+                        } else if familyViewModel.hasFamilyId {
+                            appState.route = .main
+                        } else {
+                            appState.route = .familySetup
+                        }
+                    },
+                    onLoginRequested: {
+                        appState.markOnboardingDone()
+                        appState.route = .login
+                    },
+                    isLoggedIn: !authViewModel.isAnonymous
+                )
+            case .onboardingWelcome:
+                OnboardingView(
+                    startAtWelcome: true,
                     onFinished: { tooltipsEnabled in
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         appState.markOnboardingDone()
@@ -64,7 +85,7 @@ struct AppRouter: View {
             }
         case .unauthenticated:
             // Nach Logout → zurück zum Onboarding-Welcome (wie Android)
-            appState.route = .onboarding
+            appState.route = .onboardingWelcome
         case .loading, .awaitingEmailVerification, .error, .passwordResetSuccess:
             break
         }
@@ -75,6 +96,7 @@ struct AppRouter: View {
 enum AppRoute {
     case loading
     case onboarding
+    case onboardingWelcome
     case login
     case familySetup
     case main
