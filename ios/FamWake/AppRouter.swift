@@ -76,7 +76,7 @@ struct AppRouter: View {
     private func handleAuthState(_ state: AuthState) async {
         switch state {
         case .authenticated:
-            if appState.route == .login || appState.route == .loading || appState.route == .onboarding {
+            if appState.route == .login || appState.route == .loading || appState.route == .onboarding || appState.route == .onboardingWelcome {
                 if !familyViewModel.hasFamilyId {
                     appState.route = .loading
                     await familyViewModel.restoreUserContextIfNeeded()
