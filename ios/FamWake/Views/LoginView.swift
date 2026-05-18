@@ -36,7 +36,9 @@ struct LoginView: View {
                     famWakeTitle(L.appNameShort)
                         .foregroundStyle(theme.onSurface)
                     Spacer()
-                    Button(action: { dismiss() }) {
+                    Button(action: {
+                        appState.route = .onboardingWelcome
+                    }) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.title3)
                             .foregroundStyle(theme.outline)
