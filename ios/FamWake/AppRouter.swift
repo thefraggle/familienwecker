@@ -29,7 +29,7 @@ struct AppRouter: View {
                         appState.markOnboardingDone()
                         appState.route = .login
                     },
-                    isLoggedIn: !authViewModel.isAnonymous
+                    isLoggedIn: authViewModel.isLoggedIn
                 )
             case .onboardingWelcome:
                 OnboardingView(
@@ -49,7 +49,7 @@ struct AppRouter: View {
                         appState.markOnboardingDone()
                         appState.route = .login
                     },
-                    isLoggedIn: !authViewModel.isAnonymous
+                    isLoggedIn: authViewModel.isLoggedIn
                 )
             case .login:
                 LoginView()
