@@ -404,21 +404,26 @@ struct SettingsView: View {
                 appState.route = .onboarding
                 dismiss()
             }) {
-                Text(L.s("settings_start_onboarding")).frame(maxWidth: .infinity)
+                Text(L.s("settings_start_onboarding"))
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
             }
-            .buttonStyle(.bordered)
-            .tint(theme.onSurface)
-            .clipShape(Capsule())
+            .foregroundStyle(theme.onSurface)
+            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
             Spacer().frame(height: 8)
 
             // Feedback
             Button(action: { showFeedback = true }) {
-                Text(L.settingsFeedbackButton).frame(maxWidth: .infinity)
+                HStack(spacing: 8) {
+                    Image(systemName: "text.bubble")
+                    Text(L.settingsFeedbackButton)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
             }
-            .buttonStyle(.bordered)
-            .tint(theme.onSurface)
-            .clipShape(Capsule())
+            .foregroundStyle(theme.onSurface)
+            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
             Spacer().frame(height: 8)
 
@@ -428,15 +433,15 @@ struct SettingsView: View {
                     UIApplication.shared.open(url)
                 }
             }) {
-                HStack {
-                    Image(systemName: "envelope").font(.caption)
+                HStack(spacing: 8) {
+                    Image(systemName: "envelope")
                     Text(L.s("settings_support_button"))
                 }
                 .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
             }
-            .buttonStyle(.bordered)
-            .tint(theme.onSurface)
-            .clipShape(Capsule())
+            .foregroundStyle(theme.onSurface)
+            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
         }
     }
 
@@ -452,23 +457,28 @@ struct SettingsView: View {
                 authViewModel.logout()
                 dismiss()
             }) {
-                Text(L.settingsLogout).frame(maxWidth: .infinity)
+                HStack(spacing: 8) {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                    Text(L.settingsLogout)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
             }
-            .buttonStyle(.bordered)
-            .tint(theme.error)
-            .clipShape(Capsule())
+            .foregroundStyle(theme.error)
+            .overlay(Capsule().stroke(theme.error.opacity(0.6), lineWidth: 1))
 
             // Delete Account Info
             if let deleteUrl = URL(string: L.settingsDeleteAccountUrl) {
                 Link(destination: deleteUrl) {
-                    HStack {
+                    HStack(spacing: 8) {
+                        Image(systemName: "arrow.up.forward.square")
                         Text(L.settingsDeleteAccount)
-                        Spacer()
-                        Image(systemName: "info.circle").foregroundStyle(theme.outline)
                     }
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .foregroundStyle(theme.onSurface)
-                .padding(.top, 8)
+                .foregroundStyle(theme.onSurface.opacity(0.8))
+                .padding(.top, 12)
             }
         }
     }
