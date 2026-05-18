@@ -89,43 +89,43 @@ struct OnboardingView: View {
 
                 // Bottom controls
                 bottomControls
-                    .padding(.bottom, 48)
+                    .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0 == 0 ? 32 : 16)
             }
+            .padding(.bottom, 24)
         }
     }
 
     // MARK: - Slide Template
     @ViewBuilder
     private func slideView(titleKey: String, bodyKey: String, @ViewBuilder content: @escaping () -> some View) -> some View {
-        GeometryReader { geo in
-            VStack(spacing: 0) {
-                Spacer()
+        VStack(spacing: 0) {
+            Spacer()
 
-                content()
-                    .frame(maxWidth: 280, maxHeight: 280)
+            content()
+                .frame(maxWidth: 280, maxHeight: 280)
 
-                Spacer().frame(height: 28)
+            Spacer().frame(height: 32)
 
-                Text(L.s(titleKey))
-                    .font(.title2).fontWeight(.bold)
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 32)
+            Text(L.s(titleKey))
+                .font(.title2).fontWeight(.bold)
+                .foregroundStyle(.white)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
+                .fixedSize(horizontal: false, vertical: true)
 
-                Spacer().frame(height: 10)
+            Spacer().frame(height: 16)
 
-                Text(L.s(bodyKey))
-                    .font(.body)
-                    .foregroundStyle(.white.opacity(0.85))
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(4)
-                    .padding(.horizontal, 32)
+            Text(L.s(bodyKey))
+                .font(.body)
+                .foregroundStyle(.white.opacity(0.85))
+                .multilineTextAlignment(.center)
+                .lineSpacing(4)
+                .padding(.horizontal, 24)
+                .fixedSize(horizontal: false, vertical: true)
 
-                Spacer()
-            }
-            .frame(width: geo.size.width, height: geo.size.height)
-            .padding(.bottom, 160) // Space for bottom controls
+            Spacer()
         }
+        .padding(.bottom, 120) // Space for bottom controls
     }
 
     // MARK: - Lottie View
@@ -140,7 +140,7 @@ struct OnboardingView: View {
     // MARK: - Bottom Controls
     @ViewBuilder
     private var bottomControls: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 20) {
             // Page dots
             HStack(spacing: 8) {
                 ForEach(0..<actualSlideCount, id: \.self) { i in
@@ -150,6 +150,7 @@ struct OnboardingView: View {
                         .animation(.spring(response: 0.3), value: currentPage)
                 }
             }
+            .padding(.bottom, 8)
 
             // Tooltips checkbox (last page only)
             if isLastPage {
