@@ -231,6 +231,9 @@ class FamilyViewModel: ObservableObject {
         let shouldClaim = myMemberId == nil
         if shouldClaim {
             updatedMember.claimedByUserId = Auth.auth().currentUser?.uid
+            updatedMember.claimedByUserName = Auth.auth().currentUser?.displayName ?? L.s("settings_fallback_username")
+            updatedMember.claimedByDeviceId = UIDevice.current.identifierForVendor?.uuidString
+            updatedMember.deviceAlarmEnabled = true
         }
         Task {
             do {
