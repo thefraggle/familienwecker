@@ -7,13 +7,27 @@ import Lottie
 // Bottom: Page dots, tooltips checkbox, start/next button, skip/login links
 
 struct OnboardingView: View {
+    var startAtWelcome: Bool
     var onFinished: (_ tooltipsEnabled: Bool) -> Void
-    var onLoginRequested: (() -> Void)? = nil
-    var isLoggedIn: Bool = false
+    var onLoginRequested: (() -> Void)?
+    var isLoggedIn: Bool
 
-    @State private var currentPage = 0
-    @State private var tooltipsEnabled: Bool = UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true
+    @State private var currentPage: Int
+    @State private var tooltipsEnabled: Bool
     @State private var isStarting = false
+
+    init(startAtWelcome: Bool = false,
+         onFinished: @escaping (_ tooltipsEnabled: Bool) -> Void,
+         onLoginRequested: (() -> Void)? = nil,
+         isLoggedIn: Bool = false) {
+        self.startAtWelcome = startAtWelcome
+        self.onFinished = onFinished
+        self.onLoginRequested = onLoginRequested
+        self.isLoggedIn = isLoggedIn
+        let count = isLoggedIn ? 3 : 4
+        self._currentPage = State(initialValue: startAtWelcome ? count - 1 : 0)
+        self._tooltipsEnabled = State(initialValue: UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true)
+    }
 
     private var actualSlideCount: Int { isLoggedIn ? 3 : 4 }
     private var isLastPage: Bool { currentPage == actualSlideCount - 1 }
