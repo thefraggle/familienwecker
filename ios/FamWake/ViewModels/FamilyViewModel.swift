@@ -246,6 +246,8 @@ class FamilyViewModel: ObservableObject {
                     if shouldClaim {
                         myMemberId = updatedMember.id
                         UserDefaults.standard.set(updatedMember.id, forKey: "my_member_id")
+                        isAlarmEnabled = true
+                        UserDefaults.standard.set(true, forKey: "alarm_enabled")
                     }
                     isSyncing = false
                 }
