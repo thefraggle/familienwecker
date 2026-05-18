@@ -694,7 +694,14 @@ class FamilyViewModel: ObservableObject {
 
     // MARK: - Schedule Calculation
     func recalculateSchedule() {
-        let resolved = members.map { resolveEffectiveMember($0) }
+        let currentMyMemberId = self.myMemberId
+        let rawMembers: [FamilyMember]
+        if isAlarmEnabled {
+            rawMembers = members.filter { $0.deviceAlarmEnabled != false }
+        } else {
+            rawMembers = members.filter { $0.id != currentMyMemberId && $0.deviceAlarmEnabled != false }
+        }
+        let resolved = rawMembers.map { resolveEffectiveMember($0) }
         var result = Scheduler().calculateIdealSchedule(members: resolved, globalBufferMinutes: globalBufferMinutes)
         
         // Calculate targetDate for UI

@@ -220,7 +220,15 @@ struct MainView: View {
                 }
             }
             .padding()
-            .famWakeCard(cornerRadius: 32, isDark: appState.colorScheme == .dark)
+            .background(
+                RoundedRectangle(cornerRadius: 32)
+                    .fill(familyViewModel.isAlarmEnabled ? (appState.colorScheme == .dark ? theme.primaryContainer.opacity(0.4) : theme.surface) : (appState.colorScheme == .dark ? theme.surfaceVariant.opacity(0.4) : theme.surfaceVariant))
+                    .shadow(color: .black.opacity(appState.colorScheme == .dark ? 0 : 0.08), radius: 8, x: 0, y: 4)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 32)
+                            .stroke(theme.outline.opacity(0.15), lineWidth: 1)
+                    )
+            )
             .padding(.bottom, 12)
         }
         .listRowBackground(Color.clear)
@@ -390,16 +398,20 @@ struct MainView: View {
                         VStack(alignment: .leading, spacing: 6) {
                             HStack(spacing: 6) {
                                 Image(systemName: familyViewModel.isAlarmEnabled ? "checkmark.circle.fill" : "pause.circle.fill")
-                                    .foregroundStyle(familyViewModel.isAlarmEnabled ? theme.primary : theme.onSurfaceVariant)
+                                    .foregroundStyle(familyViewModel.isAlarmEnabled ? theme.primary : theme.outline)
                                 Text(familyViewModel.isAlarmEnabled ? L.mainOptimalPlan : L.mainPlanPaused)
                                     .fontWeight(.bold)
-                                    .foregroundStyle(theme.onPrimaryContainer)
+                                    .foregroundStyle(familyViewModel.isAlarmEnabled ? theme.onPrimaryContainer : theme.onSurfaceVariant)
                             }
                             
                             if familyViewModel.isAlarmEnabled, let targetDate = sched.targetDate {
                                 Text(targetDate.formatted(.dateTime.weekday(.wide).day().month(.wide)))
                                     .font(.subheadline).fontWeight(.bold)
                                     .foregroundStyle(theme.primary)
+                            } else if !familyViewModel.isAlarmEnabled, let targetDate = sched.targetDate {
+                                Text(targetDate.formatted(.dateTime.weekday(.wide).day().month(.wide)))
+                                    .font(.subheadline)
+                                    .foregroundStyle(theme.primary.opacity(0.8))
                             }
                             
                             let msgText: String? = {
@@ -423,7 +435,6 @@ struct MainView: View {
                             }
                             
                             if let breakfast = sched.breakfastTime {
-                                // Berechne das Enddatum des Frühstücks basierend auf der Dauer des ersten Members (vereinfacht)
                                 let breakfastDate = breakfast.asDate ?? Date()
                                 let endBreakfastDate = Calendar.current.date(byAdding: .minute, value: 30, to: breakfastDate) ?? breakfastDate
                                 let endBreakfastComps = Calendar.current.dateComponents([.hour, .minute], from: endBreakfastDate)
@@ -433,7 +444,15 @@ struct MainView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .famWakeCard(cornerRadius: 24, isDark: appState.colorScheme == .dark)
+                        .background(
+                            RoundedRectangle(cornerRadius: 24)
+                                .fill(familyViewModel.isAlarmEnabled ? (appState.colorScheme == .dark ? theme.primaryContainer.opacity(0.4) : theme.surface) : (appState.colorScheme == .dark ? theme.surfaceVariant.opacity(0.4) : theme.surfaceVariant))
+                                .shadow(color: .black.opacity(appState.colorScheme == .dark ? 0 : 0.08), radius: 8, x: 0, y: 4)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .stroke(theme.outline.opacity(0.15), lineWidth: 1)
+                                )
+                        )
                         .padding(.bottom, 12)
                     }
 
