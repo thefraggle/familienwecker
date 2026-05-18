@@ -562,21 +562,33 @@ struct SettingsView: View {
 
             Spacer().frame(height: 4)
 
-            Button(L.s("settings_terms_of_use")) {
-                if let url = URL(string: L.settingsTermsOfUseUrl) { UIApplication.shared.open(url) }
-            }.buttonStyle(.borderless)
-            Button(L.s("settings_privacy_policy")) {
-                if let url = URL(string: L.settingsPrivacyPolicyUrl) { UIApplication.shared.open(url) }
-            }.buttonStyle(.borderless)
-            Button(L.s("settings_imprint")) {
-                if let url = URL(string: L.s("settings_imprint_url")) { UIApplication.shared.open(url) }
-            }.buttonStyle(.borderless)
+            ViewThatFits {
+                HStack(spacing: 16) {
+                    footerLinks
+                }
+                VStack(spacing: 6) {
+                    footerLinks
+                }
+            }
         }
         .font(.caption)
         .foregroundStyle(theme.outline)
         .frame(maxWidth: .infinity)
         .multilineTextAlignment(.center)
         .padding(.vertical, 4)
+    }
+
+    @ViewBuilder
+    private var footerLinks: some View {
+        Button(L.s("settings_terms_of_use")) {
+            if let url = URL(string: L.settingsTermsOfUseUrl) { UIApplication.shared.open(url) }
+        }.buttonStyle(.borderless)
+        Button(L.s("settings_privacy_policy")) {
+            if let url = URL(string: L.settingsPrivacyPolicyUrl) { UIApplication.shared.open(url) }
+        }.buttonStyle(.borderless)
+        Button(L.s("settings_imprint")) {
+            if let url = URL(string: L.s("settings_imprint_url")) { UIApplication.shared.open(url) }
+        }.buttonStyle(.borderless)
     }
 
     // MARK: - Profile Picker Sheet (iOS-native BottomSheet)
