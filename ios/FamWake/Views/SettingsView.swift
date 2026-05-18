@@ -63,10 +63,12 @@ struct SettingsView: View {
                     helpCard
 
                     // MARK: 6. Konto (Logout, Account löschen) – ganz unten wie Android
-                    accountCard
+                    if !authViewModel.isAnonymous {
+                        accountCard
+                    }
 
                     // MARK: 7. Admin-Testmenü (nur für Admins)
-                    if familyViewModel.isAdmin {
+                    if authViewModel.currentUserEmail == "daniel.notthoff@gmail.com" {
                         adminCard
                     }
 
@@ -444,19 +446,17 @@ struct SettingsView: View {
         settingsCard {
             settingsSectionHeader(icon: "person.circle", title: L.s("settings_account_section"))
 
-            // Logout (non-anonymous only)
-            if !authViewModel.isAnonymous {
-                Button(action: {
-                    familyViewModel.reloadForNewUser()
-                    authViewModel.logout()
-                    dismiss()
-                }) {
-                    Text(L.settingsLogout).frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
-                .tint(theme.error)
-                .clipShape(Capsule())
+            // Logout
+            Button(action: {
+                familyViewModel.reloadForNewUser()
+                authViewModel.logout()
+                dismiss()
+            }) {
+                Text(L.settingsLogout).frame(maxWidth: .infinity)
             }
+            .buttonStyle(.bordered)
+            .tint(theme.error)
+            .clipShape(Capsule())
 
             // Delete Account Info
             if let deleteUrl = URL(string: L.settingsDeleteAccountUrl) {
