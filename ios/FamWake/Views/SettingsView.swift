@@ -177,9 +177,8 @@ struct SettingsView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 16).padding(.vertical, 12)
             }
-            .buttonStyle(.bordered)
-            .tint(theme.primary)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .foregroundStyle(theme.onSurface)
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(theme.outline.opacity(0.4), lineWidth: 1))
             .disabled(familyViewModel.members.isEmpty)
 
             Divider().padding(.vertical, 12)
@@ -193,15 +192,23 @@ struct SettingsView: View {
                 ("alarm_gentle.caf", "Gentle Rise"),
                 ("alarm_digital.caf", "Digital Beep")
             ]
-            Picker(L.settingsAlarmTitle, selection: Binding(
-                get: { familyViewModel.alarmSoundUri },
-                set: { familyViewModel.setAlarmSoundUri($0) }
-            )) {
-                ForEach(sounds, id: \.0) { sound in
-                    Text(sound.1).tag(sound.0)
+            Menu {
+                Picker("", selection: Binding(
+                    get: { familyViewModel.alarmSoundUri },
+                    set: { familyViewModel.setAlarmSoundUri($0) }
+                )) {
+                    ForEach(sounds, id: \.0) { sound in
+                        Text(sound.1).tag(sound.0)
+                    }
                 }
+            } label: {
+                let currentSound = sounds.first { $0.0 == familyViewModel.alarmSoundUri }?.1 ?? L.settingsAlarmDefault
+                Text("Ton: \(currentSound)")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
             }
-            .pickerStyle(.menu)
+            .foregroundStyle(theme.onSurface)
+            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
         }
     }
 
@@ -239,7 +246,7 @@ struct SettingsView: View {
 
                 Text(authViewModel.isAnonymous ? "******" : code)
                     .font(.title2).fontWeight(.black)
-                    .foregroundStyle(Color.sunriseOrange500)
+                    .foregroundStyle(theme.primary)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
 
@@ -275,11 +282,15 @@ struct SettingsView: View {
 
             // Leave Family
             Button(action: { showLeaveFamilyAlert = true }) {
-                Text(L.settingsLeaveFamily).frame(maxWidth: .infinity)
+                HStack(spacing: 8) {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                    Text(L.settingsLeaveFamily)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
             }
-            .buttonStyle(.bordered)
-            .tint(theme.onSurface)
-            .clipShape(Capsule())
+            .foregroundStyle(theme.onSurface)
+            .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
             Spacer().frame(height: 8)
 
@@ -291,11 +302,15 @@ struct SettingsView: View {
                     familyViewModel.errorMessage = L.errorDeleteNotAdmin
                 }
             }) {
-                Text(L.settingsDeleteFamily).frame(maxWidth: .infinity)
+                HStack(spacing: 8) {
+                    Image(systemName: "trash.fill")
+                    Text(L.settingsDeleteFamily)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
             }
-            .buttonStyle(.bordered)
-            .tint(familyViewModel.isAdmin ? theme.error : theme.outline)
-            .clipShape(Capsule())
+            .foregroundStyle(familyViewModel.isAdmin ? theme.error : theme.outline)
+            .overlay(Capsule().stroke((familyViewModel.isAdmin ? theme.error : theme.outline).opacity(0.6), lineWidth: 1))
         }
     }
 
