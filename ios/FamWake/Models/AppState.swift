@@ -10,6 +10,7 @@ class AppState: ObservableObject {
     @Published var onboardingCompleted: Bool = UserDefaults.standard.bool(forKey: "onboarding_completed")
     /// Wird bei Sprachwechsel inkrementiert → zwingt alle L.xxx-abhängigen Views zum Re-Render
     @Published var languageId: Int = 0
+    @Published var pushNotificationsEnabled: Bool = UserDefaults.standard.object(forKey: "push_notifications_enabled") as? Bool ?? true
 
     @Published var isRinging: Bool = false
     @Published var ringingMemberId: String = ""
@@ -50,6 +51,17 @@ class AppState: ObservableObject {
         UserDefaults.standard.set(lang, forKey: "language")
         LanguageManager.shared.apply(lang)
         languageId &+= 1   // Overflow-sicherer Increment → triggert View-Rebuild
+    }
+
+    func setPushNotificationsEnabled(_ enabled: Bool) {
+        pushNotificationsEnabled = enabled
+        UserDefaults.standard.set(enabled, forKey: "push_notifications_enabled")
+        if enabled {
+            MessagingService.shared.refreshAndSaveToken()
+        } else {
+            // Wenn Push deaktiviert wird, löschen wir das Token aus Firestore
+            MessagingService.shared.deleteTokenOnLogout()
+        }
     }
 
     func load(authViewModel: AuthViewModel, familyViewModel: FamilyViewModel) async {
