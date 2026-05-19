@@ -12,7 +12,7 @@ func validateDayProfile(_ profile: DayProfile) -> [String] {
     let latestM = profile.latestWakeUp.minute ?? 30
     let leaveTotal = leaveH * 60 + leaveM
     let bathroomEndTotal = latestH * 60 + latestM + profile.bathroomDurationMinutes
-    if leaveTotal <= bathroomEndTotal {
+    if leaveTotal < bathroomEndTotal {
         errors.append(L.validationLeaveTooEarly)
     }
     return errors
@@ -407,7 +407,7 @@ private struct DayProfileCard: View {
                 // Abfahrtszeit
                 let leaveTotal = (profile.leaveHomeTime?.hour ?? 8) * 60 + (profile.leaveHomeTime?.minute ?? 0)
                 let bathroomEndTotal = (profile.latestWakeUp.hour ?? 7) * 60 + (profile.latestWakeUp.minute ?? 30) + profile.bathroomDurationMinutes
-                let leaveError = leaveTotal <= bathroomEndTotal
+                let leaveError = leaveTotal < bathroomEndTotal
                 VStack(alignment: .leading, spacing: 4) {
                     DatePickerRow(
                         label: L.addMemberLeaveHome,
