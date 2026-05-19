@@ -143,13 +143,14 @@ struct LoginView: View {
         Button(action: handleMainAction) {
             Text(isRegistering ? L.registerButton : L.loginButton)
                 .font(.headline)
+                .foregroundStyle(theme.onPrimary)
                 .frame(maxWidth: .infinity)
-            .frame(minHeight: 56)
+                .frame(minHeight: 56)
+                .background(theme.primary)
+                .clipShape(Capsule())
         }
-        .buttonStyle(.borderedProminent)
-        .tint(theme.primary)
-        .clipShape(Capsule())
-        .disabled(email.isEmpty || password.isEmpty)
+        .allowsHitTesting(!(email.isEmpty || password.isEmpty))
+        .opacity((email.isEmpty || password.isEmpty) ? 0.5 : 1.0)
 
         // Registration disclaimer with legal links
         if isRegistering {
@@ -169,12 +170,12 @@ struct LoginView: View {
         Button(action: { withAnimation { isRegistering.toggle() } }) {
             Text(isRegistering ? L.alreadyHaveAccount : L.noAccount)
                 .font(.subheadline)
+                .foregroundStyle(theme.primary)
                 .frame(maxWidth: .infinity)
-            .frame(minHeight: 56)
+                .frame(minHeight: 56)
+                .background(theme.primary.opacity(0.1))
+                .clipShape(Capsule())
         }
-        .buttonStyle(.bordered)
-        .tint(theme.primary)
-        .clipShape(Capsule())
 
         Spacer().frame(height: 8)
 
@@ -206,11 +207,14 @@ struct LoginView: View {
         // Password Reset Success
         if case .passwordResetSuccess = authViewModel.authState {
             HStack(spacing: 8) {
-                Image(systemName: "checkmark.circle.fill").foregroundStyle(theme.secondary)
-                Text(L.loginPasswordResetSent).font(.footnote)
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundStyle(theme.secondary)
+                Text(L.loginPasswordResetSent)
+                    .font(.footnote)
+                    .foregroundStyle(theme.onSecondaryContainer)
             }
             .padding(10)
-            .background(theme.secondaryContainer.opacity(0.3))
+            .background(theme.secondaryContainer)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
