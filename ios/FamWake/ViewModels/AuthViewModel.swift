@@ -4,6 +4,7 @@ import FirebaseAuth
 import GoogleSignIn
 import GoogleSignInSwift
 import TelemetryClient
+import FirebaseFunctions
 
 // MARK: - Auth State
 enum AuthState: Equatable {
@@ -118,7 +119,7 @@ class AuthViewModel: ObservableObject {
                     let credential = EmailAuthProvider.credential(withEmail: email, password: password)
                     do {
                         try await currentUser.link(with: credential)
-                        try await currentUser.sendEmailVerification()
+                        try await sendVerificationEmailViaFunction(email: email)
                     } catch {
                         let code = AuthErrorCode(rawValue: (error as NSError).code)
                         if code == .credentialAlreadyInUse || code == .emailAlreadyInUse {
@@ -133,7 +134,7 @@ class AuthViewModel: ObservableObject {
                 } else {
                     let result = try await Auth.auth().createUser(withEmail: email, password: password)
                     TelemetryManager.send("auth.registerSuccess")
-                    try await result.user.sendEmailVerification()
+                    try await sendVerificationEmailViaFunction(email: email)
                 }
                 authState = .awaitingEmailVerification(email: email)
             } catch {
@@ -153,7 +154,9 @@ class AuthViewModel: ObservableObject {
         guard !email.isEmpty else { return }
         Task {
             do {
-                try await Auth.auth().sendPasswordReset(withEmail: email)
+                let language = UserDefaults.standard.string(forKey: "language") ?? "de"
+                let data: [String: Any] = ["email": email.trimmingCharacters(in: .whitespacesAndNewlines), "language": language]
+                _ = try await Functions.functions(region: "europe-west3").httpsCallable("sendBrandedResetEmail").call(data)
                 authState = .passwordResetSuccess
             } catch {
                 authState = .error(mapFirebaseError(error))
@@ -177,12 +180,24 @@ class AuthViewModel: ObservableObject {
     }
 
     func resendVerificationEmail() {
+        guard let email = Auth.auth().currentUser?.email else { return }
         Task {
             do {
-                try await Auth.auth().currentUser?.sendEmailVerification()
+                try await sendVerificationEmailViaFunction(email: email)
             } catch {
                 authState = .error(mapFirebaseError(error))
             }
+        }
+    }
+
+    private func sendVerificationEmailViaFunction(email: String) async throws {
+        let language = UserDefaults.standard.string(forKey: "language") ?? "de"
+        let data: [String: Any] = ["email": email.trimmingCharacters(in: .whitespacesAndNewlines), "language": language]
+        do {
+            _ = try await Functions.functions(region: "europe-west3").httpsCallable("sendVerificationEmail").call(data)
+        } catch {
+            // Fallback
+            try await Auth.auth().currentUser?.sendEmailVerification()
         }
     }
 
