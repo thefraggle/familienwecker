@@ -274,7 +274,6 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     // Cache zurücksetzen damit applyAlarms() beim erneuten Einschalten nicht
     // durch den Duplikat-Guard (newAlarmMillis == lastScheduledAlarmMillis) überspringt.
     if (!enabled) lastScheduledAlarmMillis = null
-    TelemetryDeck.signal(if (enabled) "alarm.globalEnabled" else "alarm.globalDisabled")
     // Auch member.isAwakeToday in Room + Firestore zurücksetzen, damit das
     // ☀️-Icon in der MemberCard sofort verschwindet (liest Firestore, nicht AppSettings).
     val memberId = myMemberId.value
@@ -321,7 +320,6 @@ fun FamilyViewModel.setAlarmSoundUri(uri: String) {
     val parsedUri = android.net.Uri.parse(uri)
     val soundName = parsedUri.getQueryParameter("title")
         ?: uri.substringAfterLast("/").substringBeforeLast(".")
-    TelemetryDeck.signal("alarm.soundChanged", mapOf("soundName" to soundName))
 }
 
 /**
@@ -393,8 +391,6 @@ fun FamilyViewModel.cancelSnooze(memberId: String) {
     appSettings.setSnoozeUntil(null)
     alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
     lastScheduledAlarmMillis = null
-    // Tracking: Nutzer hat Snooze manuell abgebrochen (Gegenstück zu alarm.snoozed)
-    TelemetryDeck.signal("alarm.snoozeCancelled")
     recalculateSchedule()
 }
 

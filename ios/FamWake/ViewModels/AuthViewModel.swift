@@ -3,6 +3,7 @@ import Combine
 import FirebaseAuth
 import GoogleSignIn
 import GoogleSignInSwift
+import TelemetryClient
 
 // MARK: - Auth State
 enum AuthState: Equatable {
@@ -86,6 +87,7 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try await Auth.auth().signInAnonymously()
+                TelemetryManager.send("auth.loginSuccess", with: ["method": "anonymous"])
                 MessagingService.shared.refreshAndSaveToken()
             } catch {
                 authState = .error(mapFirebaseError(error))
@@ -99,6 +101,7 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try await Auth.auth().signIn(withEmail: email, password: password)
+                TelemetryManager.send("auth.loginSuccess", with: ["method": "email"])
                 MessagingService.shared.refreshAndSaveToken()
             } catch {
                 authState = .error(mapFirebaseError(error))
@@ -121,6 +124,7 @@ class AuthViewModel: ObservableObject {
                         if code == .credentialAlreadyInUse || code == .emailAlreadyInUse {
                             // Account existiert schon → normaler Login
                             try await Auth.auth().signIn(withEmail: email, password: password)
+                            TelemetryManager.send("auth.loginSuccess", with: ["method": "email"])
                             MessagingService.shared.refreshAndSaveToken()
                         } else {
                             throw error
@@ -128,6 +132,7 @@ class AuthViewModel: ObservableObject {
                     }
                 } else {
                     let result = try await Auth.auth().createUser(withEmail: email, password: password)
+                    TelemetryManager.send("auth.registerSuccess")
                     try await result.user.sendEmailVerification()
                 }
                 authState = .awaitingEmailVerification(email: email)
@@ -138,6 +143,7 @@ class AuthViewModel: ObservableObject {
     }
 
     func logout() {
+        TelemetryManager.send("auth.logout")
         MessagingService.shared.deleteTokenOnLogout()
         try? Auth.auth().signOut()
         authState = .unauthenticated
@@ -230,6 +236,7 @@ class AuthViewModel: ObservableObject {
                 } else {
                     try await Auth.auth().signIn(with: credential)
                 }
+                TelemetryManager.send("auth.loginSuccess", with: ["method": "google"])
                 MessagingService.shared.refreshAndSaveToken()
                 // authState set via listener
             } catch {
