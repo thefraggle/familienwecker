@@ -2,6 +2,7 @@ import SwiftUI
 import AVFoundation
 import UserNotifications
 import Lottie
+import TelemetryClient
 
 /// RingingView – iOS-Äquivalent zur Android RingingActivity
 /// Wird angezeigt wenn die Notification geöffnet wird oder per App-Link
@@ -57,6 +58,7 @@ struct RingingView: View {
                 VStack(spacing: 16) {
                     // Snooze – Glasmorphism
                     Button(action: {
+                        TelemetryManager.send("alarm.snoozed")
                         AlarmService.shared.stopAlarm()
                         onSnooze()
                     }) {
@@ -80,6 +82,7 @@ struct RingingView: View {
 
                     // Stop – Solid
                     Button(action: {
+                        TelemetryManager.send("alarm.dismissed")
                         AlarmService.shared.stopAlarm()
                         onStop()
                     }) {
@@ -103,6 +106,7 @@ struct RingingView: View {
             }
         }
         .onAppear {
+            TelemetryManager.send("alarm.triggered")
             let messages = NSLocalizedString("ringing_messages_array", comment: "").components(separatedBy: "||")
             randomMessage = messages.randomElement() ?? "☀️"
         }

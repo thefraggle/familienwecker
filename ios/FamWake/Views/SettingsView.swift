@@ -384,9 +384,11 @@ struct SettingsView: View {
 
             // Push Notifications (placeholder)
             settingsSectionLabel(icon: "bell.fill", text: L.s("settings_push_title"))
-            Toggle(L.s("settings_push_label"), isOn: .constant(true))
-                .tint(theme.secondary)
-                .disabled(true) // Requires Apple Dev Account
+            Toggle(L.s("settings_push_label"), isOn: Binding(
+                get: { appState.pushNotificationsEnabled },
+                set: { appState.setPushNotificationsEnabled($0) }
+            ))
+            .tint(theme.secondary)
         }
     }
 

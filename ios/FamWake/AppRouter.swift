@@ -1,4 +1,5 @@
 import SwiftUI
+import TelemetryClient
 
 /// Zentrales Navigation-Management – analog zu MainActivity/Routes.kt
 struct AppRouter: View {
@@ -18,6 +19,7 @@ struct AppRouter: View {
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         appState.markOnboardingDone()
                         if !authViewModel.isLoggedIn {
+                            TelemetryManager.send("onboarding.completed_anonymously")
                             authViewModel.signInAnonymously()
                         } else if familyViewModel.hasFamilyId {
                             appState.route = .main
@@ -38,6 +40,7 @@ struct AppRouter: View {
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         appState.markOnboardingDone()
                         if !authViewModel.isLoggedIn {
+                            TelemetryManager.send("onboarding.completed_anonymously")
                             authViewModel.signInAnonymously()
                         } else if familyViewModel.hasFamilyId {
                             appState.route = .main

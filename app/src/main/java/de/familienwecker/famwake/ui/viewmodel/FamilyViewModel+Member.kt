@@ -50,7 +50,6 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                 appSettings.setMyMemberId(finalMember.id)
                 appSettings.setMyMemberName(finalMember.name)
                 appSettings.setAlarmEnabled(true)
-                TelemetryDeck.signal("member.autoClaimed")
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.i("FamilyViewModel", "Auto-Claim: ${finalMember.name} (${finalMember.id}) automatisch geclaimt")
                 }
@@ -58,7 +57,7 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
             } else if (isNewMember) {
                 TelemetryDeck.signal("member.created")
             } else {
-                TelemetryDeck.signal("member.updated")
+                // Removed member.updated noise
             }
         } catch (e: Exception) {
             _isAutoClaimInProgress.value = false
@@ -183,8 +182,7 @@ fun FamilyViewModel.togglePauseMember(memberId: String) {
     val newPausedState = !member.isPaused
     val updatedMember = member.copy(isPaused = newPausedState)
     _pendingPauseIds.value = _pendingPauseIds.value + memberId
-    // Tracking: wird Pause-Feature überhaupt genutzt und in welche Richtung?
-    TelemetryDeck.signal(if (newPausedState) "member.paused" else "member.unpaused")
+    // Tracking removed für Paused/Unpaused
     scope.launch {
         try {
             // Gezieltes Update nur für isPaused – kein volles .set() das name enthält
@@ -245,8 +243,6 @@ fun FamilyViewModel.saveMemberOrder() {
     checkOfflineAndHint()
     val currentFamilyId = familyId.value ?: return
     val orderMap = _members.value.associate { it.id to it.sequenceOrder }
-    // Tracking: Nutzer hat die Reihenfolge via Drag & Drop geändert und gespeichert
-    TelemetryDeck.signal("member.reordered")
     scope.launch {
         try {
             val currentUid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid

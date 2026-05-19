@@ -1,7 +1,7 @@
 package de.familienwecker.famwake.ui.viewmodel
 
 import android.app.Activity
-import com.telemetrydeck.sdk.TelemetryDeck
+
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.util.UiText
 import de.familienwecker.famwake.util.ReviewHelper
@@ -11,18 +11,17 @@ import kotlinx.coroutines.launch
 
 fun FamilyViewModel.setLanguage(lang: String) {
     appSettings.setLanguage(lang)
-    TelemetryDeck.signal("settings.languageChanged", mapOf("language" to lang))
+
 }
 
 fun FamilyViewModel.setThemePreference(theme: String) {
     appSettings.setTheme(theme)
-    TelemetryDeck.signal("settings.themeChanged", mapOf("theme" to theme))
+
 }
 
 fun FamilyViewModel.setTooltipsEnabled(enabled: Boolean) {
     appSettings.setTooltipsEnabled(enabled)
-    // Konsolidiert: ein Event mit Payload statt zwei separater Events
-    TelemetryDeck.signal("settings.tipsChanged", mapOf("enabled" to enabled.toString()))
+
 }
 
 fun FamilyViewModel.checkAndShowReview(activity: Activity) {
@@ -74,7 +73,7 @@ fun FamilyViewModel.sendFeedback(
         if (result.isSuccess) {
             _feedbackSubmitted.value = true
             appSettings.setLastFeedbackSentAt(System.currentTimeMillis())
-            TelemetryDeck.signal("feedback.sent", mapOf("category" to category))
+
         } else {
             // F3: Fehlertyp differenzieren – Netzwerk vs. Rate-Limit vs. Server
             val ex = result.exceptionOrNull()

@@ -2,8 +2,8 @@ import SwiftUI
 import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
-
 import FirebaseMessaging
+import TelemetryClient
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -12,6 +12,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
         }
         RevenueCatService.configure()
+        
+        let configuration = TelemetryManagerConfiguration(appID: "REDACTED_TELEMETRYDECK_ID")
+        TelemetryManager.initialize(with: configuration)
+        TelemetryManager.send("app.launched")
         
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self

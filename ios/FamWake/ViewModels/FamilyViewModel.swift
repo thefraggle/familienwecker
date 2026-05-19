@@ -3,6 +3,7 @@ import Combine
 import FirebaseFirestore
 import FirebaseAuth
 import FirebaseFunctions
+import TelemetryClient
 
 /// Äquivalent zu FamilyViewModel.kt (aufgeteilt in Extensions)
 @MainActor
@@ -125,6 +126,7 @@ class FamilyViewModel: ObservableObject {
                 }
                 let familyName = data["familyName"] as? String ?? name
                 saveFamilyLocally(id: familyId, name: familyName, code: joinCode)
+                TelemetryManager.send("family.created")
                 listenToFamily(id: familyId)
                 completion(true)
             } catch {
@@ -152,6 +154,7 @@ class FamilyViewModel: ObservableObject {
                 }
                 let familyName = data["familyName"] as? String ?? "FamWake"
                 saveFamilyLocally(id: familyId, name: familyName, code: joinCode)
+                TelemetryManager.send("family.joined")
                 listenToFamily(id: familyId)
                 completion(true)
             } catch {
@@ -232,6 +235,7 @@ class FamilyViewModel: ObservableObject {
             if let mid = myId { params["memberId"] = mid }
             try? await functions.httpsCallable("leaveFamily").call(params)
         }
+        TelemetryManager.send("family.left")
         clearFamilyLocally()
         familyListener?.remove()
         membersListener?.remove()
@@ -292,6 +296,7 @@ class FamilyViewModel: ObservableObject {
         Task {
             do {
                 try await functions.httpsCallable("deleteFamily").call(["familyId": fid])
+                TelemetryManager.send("family.deleted")
                 clearFamilyLocally()
                 familyListener?.remove()
                 membersListener?.remove()
@@ -324,6 +329,7 @@ class FamilyViewModel: ObservableObject {
                 try await db.collection("families").document(fid)
                     .collection("members").document(updatedMember.id)
                     .setData(data)
+                TelemetryManager.send("member.created")
                 
                 await MainActor.run {
                     if shouldClaim {
@@ -350,6 +356,7 @@ class FamilyViewModel: ObservableObject {
         Task {
             do {
                 try await db.collection("families").document(fid).collection("members").document(memberId).delete()
+                TelemetryManager.send("member.deleted")
                 await MainActor.run {
                     members.removeAll { $0.id == memberId }
                     if wasMyMember {
@@ -412,6 +419,7 @@ class FamilyViewModel: ObservableObject {
             do {
                 try await db.collection("families").document(fid).collection("members").document(memberId)
                     .updateData(["isAwakeToday": awake])
+                TelemetryManager.send(awake ? "awake.markedAwake" : "awake.reset")
             } catch {
                 await MainActor.run {
                     isAwakeTodayLocal = !awake
@@ -492,6 +500,7 @@ class FamilyViewModel: ObservableObject {
                     await MainActor.run {
                         self.myMemberId = memberId
                         UserDefaults.standard.set(memberId, forKey: "my_member_id")
+                        TelemetryManager.send("member.claimed")
                         self.recalculateSchedule()
                     }
                     completion(true)

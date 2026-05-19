@@ -384,7 +384,6 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     },
                     onStartOnboarding = {
                         familyViewModel.setOnboardingCompleted(false)
-                        TelemetryDeck.signal("onboarding.tourRestarted")
                         navController.navigate(Routes.ONBOARDING) {
                             // Pop SETTINGS so that we don't have MAIN -> SETTINGS -> MAIN after finishing tour
                             popUpTo(Routes.SETTINGS) { inclusive = true }
