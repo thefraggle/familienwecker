@@ -555,7 +555,7 @@ private fun validateDayProfile(profile: DayProfile): List<Int> {
     //    muss NACH latestWakeUp + Baddauer liegen
     val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
     val latestBathroomEnd = profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes)
-    if (!effectiveLeaveTime.isAfter(latestBathroomEnd)) {
+    if (effectiveLeaveTime.isBefore(latestBathroomEnd)) {
         errors.add(R.string.validation_leave_too_early)
     }
     return errors
@@ -760,7 +760,7 @@ private fun DayProfileCard(
                     // Abfahrtszeit
                     val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
                     val leaveTooEarlyError =
-                        !effectiveLeaveTime.isAfter(profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes))
+                        effectiveLeaveTime.isBefore(profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes))
 
                     TimePickerRowWithIcon(
                         icon = Icons.AutoMirrored.Filled.DirectionsRun,
