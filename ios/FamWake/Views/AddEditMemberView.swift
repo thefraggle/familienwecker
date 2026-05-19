@@ -230,17 +230,31 @@ struct AddEditMemberView: View {
 
     private func saveMember() {
         let refProfile = dayProfiles[1] ?? dayProfiles.values.first ?? DayProfile()
-        let member = FamilyMember(
-            id: memberId ?? UUID().uuidString,
-            name: name.trimmingCharacters(in: .whitespaces),
-            earliestWakeUp: refProfile.earliestWakeUp,
-            latestWakeUp: refProfile.latestWakeUp,
-            bathroomDurationMinutes: refProfile.bathroomDurationMinutes,
-            wantsBreakfast: refProfile.wantsBreakfast,
-            leaveHomeTime: refProfile.leaveHomeTime,
-            dayProfiles: dayProfiles
-        )
-        familyViewModel.addOrUpdateMember(member)
+        
+        var memberToSave: FamilyMember
+        if let mid = memberId, let existing = familyViewModel.members.first(where: { $0.id == mid }) {
+            memberToSave = existing
+            memberToSave.name = name.trimmingCharacters(in: .whitespaces)
+            memberToSave.earliestWakeUp = refProfile.earliestWakeUp
+            memberToSave.latestWakeUp = refProfile.latestWakeUp
+            memberToSave.bathroomDurationMinutes = refProfile.bathroomDurationMinutes
+            memberToSave.wantsBreakfast = refProfile.wantsBreakfast
+            memberToSave.leaveHomeTime = refProfile.leaveHomeTime
+            memberToSave.dayProfiles = dayProfiles
+        } else {
+            memberToSave = FamilyMember(
+                id: UUID().uuidString,
+                name: name.trimmingCharacters(in: .whitespaces),
+                earliestWakeUp: refProfile.earliestWakeUp,
+                latestWakeUp: refProfile.latestWakeUp,
+                bathroomDurationMinutes: refProfile.bathroomDurationMinutes,
+                wantsBreakfast: refProfile.wantsBreakfast,
+                leaveHomeTime: refProfile.leaveHomeTime,
+                dayProfiles: dayProfiles
+            )
+        }
+        
+        familyViewModel.addOrUpdateMember(memberToSave)
         onDone()
     }
 }
