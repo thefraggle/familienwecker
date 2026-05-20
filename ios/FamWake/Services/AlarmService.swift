@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import AVFoundation
-import UserNotifications
+@preconcurrency import UserNotifications
 import AudioToolbox
 
 /// Alarm-Service – Wrapper um UNUserNotificationCenter (iOS-Äquivalent zu AlarmScheduler.kt)
@@ -19,9 +19,10 @@ final class AlarmService: ObservableObject {
         
         var soundName = "alarm_sound_v3.caf"
         if let soundUri = soundUri {
-            if soundUri == "default" || soundUri == "system" {
+            let lowerUri = soundUri.lowercased()
+            if soundUri == "default" || soundUri == "system" || soundUri.isEmpty {
                 soundName = ""
-            } else if soundUri.hasSuffix(".caf") || soundUri.hasSuffix(".mp3") {
+            } else if lowerUri.hasSuffix(".caf") || lowerUri.hasSuffix(".mp3") || lowerUri.hasSuffix(".wav") {
                 soundName = soundUri
             } else if let url = URL(string: soundUri) {
                 soundName = url.lastPathComponent
@@ -39,10 +40,15 @@ final class AlarmService: ObservableObject {
         content.interruptionLevel = .timeSensitive
 
         UNUserNotificationCenter.current().getNotificationSettings { settings in
-            if settings.authorizationStatus == .notDetermined {
+            let needsRequest = settings.authorizationStatus == .notDetermined ||
+                               (settings.authorizationStatus == .authorized && settings.criticalAlertSetting == .disabled)
+            
+            if needsRequest {
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert]) { granted, _ in
                     if granted {
-                        self.addNotificationChain(content: content, wakeUpTime: wakeUpTime, memberId: memberId, isSnooze: isSnooze)
+                        Task { @MainActor in
+                            self.addNotificationChain(content: content, wakeUpTime: wakeUpTime, memberId: memberId, isSnooze: isSnooze)
+                        }
                     } else {
                         DispatchQueue.main.async { onPermissionDenied?() }
                     }
@@ -50,7 +56,9 @@ final class AlarmService: ObservableObject {
             } else if settings.authorizationStatus == .denied {
                 DispatchQueue.main.async { onPermissionDenied?() }
             } else {
-                self.addNotificationChain(content: content, wakeUpTime: wakeUpTime, memberId: memberId, isSnooze: isSnooze)
+                Task { @MainActor in
+                    self.addNotificationChain(content: content, wakeUpTime: wakeUpTime, memberId: memberId, isSnooze: isSnooze)
+                }
             }
         }
     }
