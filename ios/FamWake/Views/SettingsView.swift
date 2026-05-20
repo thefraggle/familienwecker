@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import RevenueCat
 
 struct SettingsView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
@@ -766,37 +767,118 @@ struct SettingsView: View {
         .presentationDetents([.medium])
     }
 
-    // MARK: - Donation Sheet (Placeholder)
+    // MARK: - Donation Sheet (RevenueCat)
     @ViewBuilder
     private var donationSheet: some View {
         NavigationStack {
             VStack(spacing: 24) {
                 Spacer()
 
-                Image(systemName: "heart.fill")
-                    .font(.system(size: 60))
-                    .foregroundStyle(theme.tertiary)
+                switch donationViewModel.purchaseState {
+                case .loading:
+                    ProgressView()
+                        .scaleEffect(1.5)
+                        .padding()
+                    Text(L.s("settings_donate_purchase_loading"))
+                        .font(.headline)
+                        .foregroundStyle(theme.onSurface)
 
-                Text(L.settingsSupportTitle)
-                    .font(.title2).fontWeight(.bold)
-                    .foregroundStyle(theme.onSurface)
+                case .success:
+                    Image(systemName: "heart.fill")
+                        .font(.system(size: 60))
+                        .foregroundStyle(theme.tertiary)
+                    Text(L.s("settings_donate_success"))
+                        .font(.title3).fontWeight(.bold)
+                        .foregroundStyle(theme.onSurface)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                    
+                    Button(action: {
+                        donationViewModel.resetState()
+                        showDonationSheet = false
+                    }) {
+                        Text(L.okButton)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(theme.primary)
+                            .foregroundStyle(theme.onPrimary)
+                            .clipShape(Capsule())
+                    }
+                    .padding(.horizontal, 32)
+                    .padding(.top, 16)
 
-                Text(L.s("settings_support_desc"))
-                    .font(.body)
-                    .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+                case .error(let message):
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.system(size: 50))
+                        .foregroundStyle(theme.error)
+                    Text(L.s("settings_donate_error_generic"))
+                        .font(.headline)
+                        .foregroundStyle(theme.onSurface)
+                    Text(message)
+                        .font(.subheadline)
+                        .foregroundStyle(theme.onSurfaceVariant)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                    
+                    Button(action: {
+                        donationViewModel.resetState()
+                    }) {
+                        Text(L.s("error_profile_claim_retry") != "error_profile_claim_retry" ? L.s("error_profile_claim_retry") : "Zurück")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(theme.primary)
+                            .foregroundStyle(theme.onPrimary)
+                            .clipShape(Capsule())
+                    }
+                    .padding(.horizontal, 32)
+                    .padding(.top, 16)
 
-                // Placeholder packages
-                VStack(spacing: 12) {
-                    donationOption(emoji: "☕", title: L.s("settings_donate_coffee"), price: "1,99 €")
-                    donationOption(emoji: "🍕", title: L.s("settings_donate_pizza"), price: "4,99 €")
-                    donationOption(emoji: "🎉", title: L.s("settings_donate_party"), price: "9,99 €")
+                case .idle:
+                    Image(systemName: "heart.fill")
+                        .font(.system(size: 60))
+                        .foregroundStyle(theme.tertiary)
+
+                    Text(L.settingsSupportTitle)
+                        .font(.title2).fontWeight(.bold)
+                        .foregroundStyle(theme.onSurface)
+
+                    Text(L.s("settings_support_desc"))
+                        .font(.body)
+                        .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+
+                    if let offerings = donationViewModel.offerings {
+                        if let currentOffering = offerings.current, !currentOffering.availablePackages.isEmpty {
+                            VStack(spacing: 12) {
+                                ForEach(currentOffering.availablePackages, id: \.identifier) { pkg in
+                                    Button(action: {
+                                        donationViewModel.purchase(package: pkg)
+                                    }) {
+                                        donationOption(
+                                            emoji: getEmoji(for: pkg.identifier),
+                                            title: pkg.storeProduct.localizedTitle,
+                                            price: pkg.storeProduct.localizedPriceString
+                                        )
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                            .padding(.horizontal)
+                        } else {
+                            Text(L.s("settings_donate_no_offers"))
+                                .font(.body)
+                                .foregroundStyle(theme.error)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                        }
+                    } else {
+                        ProgressView()
+                        Text(L.s("settings_donate_loading"))
+                            .font(.caption)
+                            .foregroundStyle(theme.outline)
+                    }
                 }
-                .padding(.horizontal)
-
-                Text(L.s("settings_donate_coming_soon"))
-                    .font(.caption).foregroundStyle(theme.outline)
 
                 Spacer()
             }
@@ -804,9 +886,28 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(L.cancelButton) { showDonationSheet = false }
+                    Button(L.cancelButton) {
+                        donationViewModel.resetState()
+                        showDonationSheet = false
+                    }
                 }
             }
+            .onAppear {
+                donationViewModel.loadOfferings()
+            }
+        }
+    }
+
+    private func getEmoji(for packageIdentifier: String) -> String {
+        let id = packageIdentifier.lowercased()
+        if id.contains("small") || id.contains("coffee") {
+            return "☕"
+        } else if id.contains("medium") || id.contains("pizza") {
+            return "🍕"
+        } else if id.contains("big") || id.contains("party") || id.contains("mega") {
+            return "🎉"
+        } else {
+            return "❤️"
         }
     }
 

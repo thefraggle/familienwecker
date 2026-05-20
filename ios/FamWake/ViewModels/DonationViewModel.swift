@@ -1,20 +1,37 @@
 import Foundation
 import Combine
+import RevenueCat
 
-/// Platzhalter für DonationViewModel – RevenueCat noch nicht aktiv
+/// ViewModel für In-App-Spenden via RevenueCat
 @MainActor
 class DonationViewModel: ObservableObject {
-    @Published var offerings: [String: Any] = [:]  // Wird zu Purchases.Offerings wenn SDK aktiv
+    @Published var offerings: Offerings? = nil
     @Published var purchaseState: PurchaseState = .idle
 
     func loadOfferings() {
-        // TODO: Purchases.shared.getOfferings { ... }
-        print("[RevenueCat] Offerings laden – SDK noch nicht aktiv")
+        Purchases.shared.getOfferings { [weak self] offerings, error in
+            guard let self = self else { return }
+            if let error = error {
+                print("[RevenueCat] Fehler beim Laden der Offerings: \(error.localizedDescription)")
+            }
+            self.offerings = offerings
+        }
     }
 
-    func purchase(packageId _: String) {
-        // TODO: Purchases.shared.purchase(package:) { ... }
-        print("[RevenueCat] Purchase – SDK noch nicht aktiv")
+    func purchase(package: Package) {
+        purchaseState = .loading
+        Purchases.shared.purchase(package: package) { [weak self] transaction, customerInfo, error, userCancelled in
+            guard let self = self else { return }
+            if userCancelled {
+                self.purchaseState = .idle
+                return
+            }
+            if let error = error {
+                self.purchaseState = .error(error.localizedDescription)
+                return
+            }
+            self.purchaseState = .success
+        }
     }
 
     func resetState() {
