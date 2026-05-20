@@ -221,6 +221,9 @@ struct SettingsView: View {
             .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
             .disabled(familyViewModel.members.isEmpty)
 
+            Divider()
+                .background(theme.outline.opacity(0.15))
+                .padding(.vertical, 8)
             
             // Alarm Sound Picker
             Text(L.settingsAlarmTitle)
@@ -611,7 +614,15 @@ struct SettingsView: View {
         case "Alarm02.wav": return "Digital Retro"
         case "Alarm03.wav": return "Classic Bell"
         case "Alarm04.wav": return "Bright Alert"
-        case "default": return L.settingsAlarmDefault
+        case "default":
+            let standardName = L.settingsAlarmDefault
+            if standardName == "Standard" {
+                return "System-Standard"
+            } else if standardName == "Default" {
+                return "System Default"
+            } else {
+                return "System (\(standardName))"
+            }
         default: return uri
         }
     }
@@ -626,7 +637,7 @@ struct SettingsView: View {
                     (id: "Alarm02.wav", name: "Digital Retro"),
                     (id: "Alarm03.wav", name: "Classic Bell"),
                     (id: "Alarm04.wav", name: "Bright Alert"),
-                    (id: "default", name: L.settingsAlarmDefault)
+                    (id: "default", name: getSoundDisplayName("default"))
                 ]
                 
                 ForEach(sounds, id: \.id) { sound in
@@ -660,7 +671,7 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(L.cancelButton) {
+                    Button("OK") {
                         AlarmService.shared.stopAlarm()
                         showSoundPicker = false
                     }
@@ -747,8 +758,8 @@ struct SettingsView: View {
             .navigationTitle(L.settingsProfileTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(L.cancelButton) { showProfilePicker = false }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("OK") { showProfilePicker = false }
                 }
             }
         }
