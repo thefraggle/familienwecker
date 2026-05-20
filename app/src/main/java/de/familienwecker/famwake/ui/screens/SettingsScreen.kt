@@ -302,6 +302,29 @@ fun SettingsScreen(
                                 style = MaterialTheme.typography.titleMedium,
                                 modifier = Modifier.padding(horizontal = 20.dp).padding(bottom = 12.dp)
                             )
+                            if (myMemberId != null) {
+                                OutlinedButton(
+                                    onClick = {
+                                        viewModel.setMyMemberId(null) { }
+                                        showMemberPicker = false
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 20.dp)
+                                        .padding(bottom = 12.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Person,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.error
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = stringResource(R.string.settings_no_profile),
+                                        color = MaterialTheme.colorScheme.error
+                                    )
+                                }
+                            }
                             val currentUid = viewModel.currentUserId
                             androidx.compose.foundation.lazy.grid.LazyVerticalGrid(
                                 columns = androidx.compose.foundation.lazy.grid.GridCells.Fixed(2),
