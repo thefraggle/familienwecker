@@ -1,0 +1,90 @@
+name: iOS Release Build
+
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-release:
+    name: Build & Upload to TestFlight
+    runs-on: macos-14
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+          working-directory: ios
+
+      - name: Install Apple Certificate and Provisioning Profile
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_PASSWORD }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: 'temporary_keychain_password'
+        run: |
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # Decode secrets to files
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+
+          # Create keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security default-keychain -s $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+
+          # Import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # Avoid prompt for keychain access during build
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # Extract UUID from Provisioning Profile
+          UUID=$(security cms -D -i $PP_PATH | grep -A1 "UUID" | grep "<string>" | sed -E 's/.*<string>(.*)<\/string>.*/\1/')
+          echo "Found provisioning profile UUID: $UUID"
+
+          # Copy to Xcode provisioning profiles folder
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/$UUID.mobileprovision
+          echo "Installed provisioning profile successfully"
+
+      - name: Prepare Build Metadata
+        id: metadata
+        run: |
+          # Extract version from build.gradle.kts (Android) to keep versions aligned
+          GRADLE_VERSION=$(grep "val appVersion" app/build.gradle.kts | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/-DEV//')
+          
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            TAG_NAME="${{ github.ref_name }}"
+            APP_VERSION="${TAG_NAME#v}"
+          else
+            APP_VERSION="$GRADLE_VERSION"
+          fi
+          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build & Upload to TestFlight via Fastlane
+        env:
+          APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+          APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+        run: |
+          cd ios
+          bundle exec fastlane release version_name:${{ steps.metadata.outputs.app_version }}
