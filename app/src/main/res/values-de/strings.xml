@@ -347,4 +347,5 @@
     <string name="settings_steal_confirm">Ja, übernehmen</string>
     <string name="schedule_auto_fix">✨ Zeiten automatisch anpassen</string>
     <string name="onboarding_enable_tooltips">Zeige hilfreiche Tipps bei der ersten Nutzung</string>
+    <string name="settings_no_profile">Kein Profil</string>
 </resources>
