@@ -349,6 +349,7 @@ class FamilyViewModel: ObservableObject {
                         UserDefaults.standard.set(true, forKey: "alarm_enabled")
                     }
                     isSyncing = false
+                    self.recalculateSchedule()
                 }
             } catch {
                 await MainActor.run {
