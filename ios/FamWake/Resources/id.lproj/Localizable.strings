@@ -27,7 +27,6 @@
 "main_plan_paused" = "Alarm Anda sedang dijeda.";
 "main_shared_breakfast" = "☕ Sarapan bersama: %@";
 "main_wake_time" = "Bangun: %@ - %@";
-"main_bathroom_info" = "Kamar Mandi: %@ mnt | Sarapan: %@";
 "main_schedule_bathroom" = "Kamar Mandi: %@ hingga %@";
 "main_schedule_leave" = "Meninggalkan rumah: %@";
 "main_member_alarm_on" = "(Alarm aktif)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Tidak diketahui";
 "add_member_earliest_wake" = "Waktu bangun paling awal";
 "add_member_latest_wake" = "Waktu bangun paling lambat";
-"add_member_bathroom_duration" = "Waktu di kamar mandi (menit)";
+"add_member_bathroom_duration" = "Waktu di kamar mandi";
 "add_member_wants_breakfast" = "Ingin sarapan";
 "add_member_leave_home" = "Harus berangkat dari rumah pukul";
 "add_member_day_profiles_title" = "Jadwal mingguan";
@@ -169,6 +168,7 @@
 "settings_imprint" = "Informasi Hukum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
+"registration_disclaimer" = "Dengan mendaftar, Anda menyetujui %@ dan %@ kami.";
 "registration_terms_of_use" = "Syarat Penggunaan";
 "registration_privacy_policy" = "Kebijakan Privasi";
 "settings_already_claimed" = "Sudah dipakai";
@@ -227,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Sarapan −%d menit & waktu digeser sebanyak %d menit.";
 "schedule_message_member_conflict" = "Masalah untuk %@: Waktunya terlalu tumpang tindih.";
 "schedule_message_member_conflict_desc" = "Coba ubah urutan atau sesuaikan waktunya.";
+"schedule_message_buffer_reduced" = "Jeda dikurangi dari %d menjadi %d mnt.";
+"buffer_after_bath" = "Jeda setelah mandi";
+"buffer_between_display" = "Jeda %d mnt";
 "main_fallback_alarm_active" = "⚠️ Peringatan: Jadwal tidak pas saat ini (%@). Tolong sesuaikan waktu Anda!";
 "error_password_too_short" = "Kata sandi Anda harus terdiri dari minimal 8 karakter.";
 "error_email_already_in_use" = "Email ini sudah terdaftar.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Ya, gunakan";
 "schedule_auto_fix" = "✨ Sesuaikan waktu secara otomatis";
 "onboarding_enable_tooltips" = "Tampilkan tips bermanfaat pada penggunaan pertama";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Akun";
-
-"registration_disclaimer" = "Dengan mendaftar, Anda menyetujui %1$@ dan %2$@ kami.";
-
-"registration_disclaimer" = "Dengan mendaftar, Anda menyetujui %1$@ dan %2$@ kami.";
-
-"buffer_after_bath" = "Jeda setelah mandi";
-
-"buffer_between_display" = "Jeda %d mnt";
-
-"schedule_message_buffer_reduced" = "Jeda dikurangi dari %d menjadi %d mnt.";
-
-"ringing_messages_array" = "Kamar mandi adalah milikmu sekarang!||Tanpa antrean, tanpa stres – waktu mandi Anda dimulai sekarang.||Nikmati ketenangan di kamar mandi mumpung masih bisa!||Saatnya minum kopi pertama. Dunia sudah menunggu!||Tidur nyenyak? Jadwal Anda hari ini sudah siap.||Siap untuk hari ini? Semuanya sudah diatur dengan pas.||Saatnya memulai hari! Waktu kamar mandi Anda dimulai.||Bangun dan bersiaplah – panggung adalah milik Anda!||Musik yang bagus di pagi hari akan mengusir rasa khawatir!||Jadwal keluarga Anda sudah dimulai. Ayo jalan!||Siap untuk berangkat? Keluarga mengandalkan Anda.||Ayo bangun! Kamar mandi kosong untuk Anda.||Jatah waktu kamar mandi Anda dimulai sekarang – manfaatkan sebaik mungkin!||Jalan menuju kamar mandi sudah bersih – giliran Anda!||Siapa cepat, dia dapat air hangat!||Lima menit lagi? Jangan! Waktu Anda sudah menunggu.||Hari ini akan menjadi hari yang hebat. Dan itu dimulai sekarang!||Sikat gigi Anda sudah menunggu. Ayo ke kamar mandi!||Semua terkoordinasi, semua terencana – giliran Anda!||Yang bangun lebih awal bisa menikmati kamar mandi sendirian.";
+"simple_mode_title" = "Mode Sederhana";
+"simple_mode_desc" = "Waktu bangun tetap tanpa jeda atau perhitungan waktu kamar mandi.";

@@ -27,7 +27,6 @@
 "main_plan_paused" = "Alarmen din er satt på pause.";
 "main_shared_breakfast" = "☕ Felles frokost: %@";
 "main_wake_time" = "Våkn opp: %@ - %@";
-"main_bathroom_info" = "Bad: %@ min | Frokost: %@";
 "main_schedule_bathroom" = "Bad: %@ til %@";
 "main_schedule_leave" = "Dra hjemmefra: %@";
 "main_member_alarm_on" = "(Alarm aktiv)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Ukjent";
 "add_member_earliest_wake" = "Tidligste oppvåkningstid";
 "add_member_latest_wake" = "Seneste oppvåkningstid";
-"add_member_bathroom_duration" = "Tid på badet (minutter)";
+"add_member_bathroom_duration" = "Tid på badet";
 "add_member_wants_breakfast" = "Vil ha frokost";
 "add_member_leave_home" = "Må dra hjemmefra kl.";
 "add_member_day_profiles_title" = "Ukentlig tidsplan";
@@ -166,6 +165,7 @@
 "settings_imprint" = "Impressum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-no.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-no.html";
+"registration_disclaimer" = "Ved å registrere deg godtar du %@ og %@.";
 "registration_terms_of_use" = "Brukervilkår";
 "registration_privacy_policy" = "Personvernerklæring";
 "settings_already_claimed" = "Allerede i bruk";
@@ -224,6 +224,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Frokost −%d min og tider forskjøvet med %d min.";
 "schedule_message_member_conflict" = "Konflikt for %@: Tidene overlapper for mye.";
 "schedule_message_member_conflict_desc" = "Prøv å endre rekkefølgen eller justere tidene.";
+"schedule_message_buffer_reduced" = "Buffer redusert fra %d til %d min.";
+"buffer_after_bath" = "Buffer etter bad";
+"buffer_between_display" = "%d min buffer";
 "main_fallback_alarm_active" = "⚠️ Advarsel: Tidsplanen passer ikke akkurat nå (%@). Vennligst juster tidene dine!";
 "error_password_too_short" = "Passordet ditt må være minst 8 tegn langt.";
 "error_email_already_in_use" = "Denne e-posten er allerede registrert.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Ja, bruk den";
 "schedule_auto_fix" = "✨ Tilpass tider automatisk";
 "onboarding_enable_tooltips" = "Vis nyttige tips ved første bruk";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Konto";
-
-"registration_disclaimer" = "Ved å registrere deg godtar du %1$@ og %2$@.";
-
-"registration_disclaimer" = "Ved å registrere deg godtar du %1$@ og %2$@.";
-
-"buffer_after_bath" = "Buffer etter bad";
-
-"buffer_between_display" = "%d min buffer";
-
-"schedule_message_buffer_reduced" = "Buffer redusert fra %d til %d min.";
-
-"ringing_messages_array" = "Badet er helt ditt akkurat nå!||Ingen trafikk, ikke noe stress – badetiden din starter nå.||Nyt freden på badet mens den varer!||Tid for den første kaffen. Verden venter!||Sovet godt? Tidsplanen din for i dag er klar.||Klar for dagen? Alt er perfekt tilpasset.||Tid for å rocke dagen! Badetiden din begynner.||Våkn opp og skru opp lyden – scenen er din!||God musikk om morgenen holder bekymringene borte!||Familiens tidsplan er i gang. La oss gå!||Klar for start? Familien stoler på deg.||Stå opp, solstråle! Badet er ledig for deg.||Din personlige tid på badet starter nå – bruk den godt!||Fri bane til vasken – det er din tur!||Morgenfuglen får det varme vannet!||Fem minutter til? Nei! Tiden din venter.||I dag blir en fin dag. Den starter akkurat nå!||Tannbørsten din savner deg. Av gårde til badet!||Alt er koordinert, alt er planlagt – det er din tur!||Morgenfuglen har badet helt for seg selv.";
+"simple_mode_title" = "Enkel modus";
+"simple_mode_desc" = "Fast vekketid uten margin eller beregning av baderomstid.";

@@ -27,7 +27,6 @@
 "main_plan_paused" = "तुमचा अलार्म सध्या थांबला आहे.";
 "main_shared_breakfast" = "☕ एकत्र नाश्ता: %@";
 "main_wake_time" = "जागे व्हा: %@ - %@";
-"main_bathroom_info" = "बाथरूम: %@ मि | नाश्ता: %@";
 "main_schedule_bathroom" = "बाथरूम: %@ ते %@";
 "main_schedule_leave" = "घर सोडण्याची वेळ: %@";
 "main_member_alarm_on" = "(अलार्म चालू)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "अज्ञात";
 "add_member_earliest_wake" = "सर्वांत लवकर उठण्याची वेळ";
 "add_member_latest_wake" = "सर्वांत उशिरा उठण्याची वेळ";
-"add_member_bathroom_duration" = "बाथरूमचा वेळ (मिनिटे)";
+"add_member_bathroom_duration" = "बाथरूमचा वेळ";
 "add_member_wants_breakfast" = "नाश्ता हवा आहे";
 "add_member_leave_home" = "घर सोडण्याची वेळ";
 "add_member_day_profiles_title" = "साप्ताहिक वेळापत्रक";
@@ -165,6 +164,7 @@
 "settings_imprint" = "इंप्रिंट";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
+"registration_disclaimer" = "साइन अप करून, तुम्ही %@ आणि %@ स्वीकारता.";
 "registration_terms_of_use" = "वापराच्या अटी";
 "registration_privacy_policy" = "गोपनीयता धोरण";
 "settings_already_claimed" = "आधीच घेतलेले आहे";
@@ -223,6 +223,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "नाश्ता −%d मिनिट आणि वेळ %d मिनिटांनी बदलली.";
 "schedule_message_member_conflict" = "%@ साठी अडचण: वेळा खूप ओव्हरलॅप होत आहेत.";
 "schedule_message_member_conflict_desc" = "क्रम बदलण्याचा किंवा वेळा जुळवण्याचा प्रयत्न करा.";
+"schedule_message_buffer_reduced" = "बफर %d वरून %d मिनिटांपर्यंत कमी केला.";
+"buffer_after_bath" = "बाथरूम नंतर बफर";
+"buffer_between_display" = "%d मिनिटे बफर";
 "main_fallback_alarm_active" = "⚠️ चेतावणी: वेळापत्रक सध्या जुळत नाही (%@). कृपया तुमच्या वेळा व्यवस्थित करा!";
 "error_password_too_short" = "तुमचा पासवर्ड किमान 8 वर्णांचा असणे आवश्यक आहे.";
 "error_email_already_in_use" = "हा ईमेल आधीच नोंदणीकृत आहे.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "होय, वापरा";
 "schedule_auto_fix" = "✨ वेळा स्वयंचलितपणे समायोजित करा";
 "onboarding_enable_tooltips" = "पहिल्या वापरात उपयुक्त टिप्स दाखवा";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "खाते";
-
-"registration_disclaimer" = "साइन अप करून, तुम्ही %1$@ आणि %2$@ स्वीकारता.";
-
-"registration_disclaimer" = "साइन अप करून, तुम्ही %1$@ आणि %2$@ स्वीकारता.";
-
-"buffer_after_bath" = "बाथरूम नंतर बफर";
-
-"buffer_between_display" = "%d मिनिटे बफर";
-
-"schedule_message_buffer_reduced" = "बफर %d वरून %d मिनिटांपर्यंत कमी केला.";
-
-"ringing_messages_array" = "आता बाथरूम पूर्णपणे तुमचे आहे!||गर्दी नाही, ताण नाही - तुमची बाथरूमची वेळ आता सुरू होते.||जोपर्यंत शांतता आहे, तोपर्यंत बाथरूममध्ये तिचा आनंद घ्या!||पहिल्या कॉफीची वेळ. जग तुमची वाट पाहत आहे!||झोप चांगली झाली? तुमचे आजचे वेळापत्रक तयार आहे.||दिवसासाठी तयार आहात? सर्व काही उत्तम प्रकारे ठरलेले आहे.||आजचा दिवस गाजवण्याची वेळ! तुमची बाथरूमची वेळ सुरू झाली आहे.||जागे व्हा आणि आवाज वाढवा - हे स्टेज तुमचे आहे!||सकाळचे उत्तम संगीत चिंता दूर ठेवते!||तुमचे कौटुंबिक वेळापत्रक सुरू झाले आहे. चला!||सुरुवात करायला तयार आहात? कुटुंबाला तुमची गरज आहे.||उठा आणि कामाला लागा! बाथरूम तुमच्यासाठी रिकामे आहे.||तुमचा वैयक्तिक बाथरूमचा वेळ आता सुरू होत आहे - वेळेचा पुरेपूर वापर करा!||बाथरूमचा रस्ता मोकळा आहे - तुमची पाळी आहे!||लवकर उठणाऱ्याला गरम पाणी मिळते!||अजून पाच मिनिटे? नाही! तुमची वेळ वाट पाहत आहे.||आजचा दिवस खूप चांगला जाणार आहे. त्याची सुरुवात आता होते!||तुमचा टूथब्रश तुमची वाट पाहत आहे. बाथरूमकडे चला!||सर्व काही ठरलेले, सर्व काही नियोजित – आता तुमची पाळी!||लवकर उठणाऱ्याला संपूर्ण बाथरूम स्वतःसाठी मिळते.";
+"simple_mode_title" = "साधा मोड";
+"simple_mode_desc" = "अतिरिक्त वेळ किंवा बाथरूमच्या वेळेची गणना न करता उठण्याची निश्चित वेळ।";

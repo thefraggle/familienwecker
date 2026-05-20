@@ -27,7 +27,6 @@
 "main_plan_paused" = "আপনার অ্যালার্ম পজ করা আছে।";
 "main_shared_breakfast" = "☕ একসাথে নাস্তা: %@";
 "main_wake_time" = "জাগার সময়: %@ - %@";
-"main_bathroom_info" = "বাথরুম: %@ মিনিট | নাস্তা: %@";
 "main_schedule_bathroom" = "বাথরুম: %@ থেকে %@";
 "main_schedule_leave" = "বাড়ি থেকে বের হওয়া: %@";
 "main_member_alarm_on" = "(অ্যালার্ম চালু)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "অজানা";
 "add_member_earliest_wake" = "সবচেয়ে আগে ওঠার সময়";
 "add_member_latest_wake" = "সবচেয়ে দেরিতে ওঠার সময়";
-"add_member_bathroom_duration" = "বাথরুমে কত সময় লাগবে (মিনিট)";
+"add_member_bathroom_duration" = "বাথরুমে কত সময় লাগবে";
 "add_member_wants_breakfast" = "সকালের নাস্তা করবেন";
 "add_member_leave_home" = "এ সময় বাড়ি থেকে বের হবেন";
 "add_member_day_profiles_title" = "সাপ্তাহিক রুটিন";
@@ -169,6 +168,7 @@
 "settings_imprint" = "ইমপ্রিন্ট";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
+"registration_disclaimer" = "সাইন আপ করার মাধ্যমে, আপনি %@ এবং %@ স্বীকার করছেন।";
 "registration_terms_of_use" = "ব্যবহারের শর্তাবলী";
 "registration_privacy_policy" = "গোপনীয়তা নীতি";
 "settings_already_claimed" = "ইতিমধ্যেই নেওয়া হয়েছে";
@@ -227,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "নাস্তা −%d মিনিট এবং সময় বদলানো হয়েছে %d মিনিট।";
 "schedule_message_member_conflict" = "%@ এর জন্য সমস্যা: সময়গুলো খুব বেশি মিলে যাচ্ছে।";
 "schedule_message_member_conflict_desc" = "ক্রম বদলানোর বা সময় ঠিক করার চেষ্টা করুন।";
+"schedule_message_buffer_reduced" = "বাফার %d থেকে %d মিনিটে কমানো হয়েছে।";
+"buffer_after_bath" = "বাথরুমের পরে বাফার";
+"buffer_between_display" = "%d মিনিট বাফার";
 "main_fallback_alarm_active" = "⚠️ সতর্কবার্তা: এখনকার রুটিনটি ঠিক মিলছে না (%@)। সময়গুলো একটু ঠিক করুন!";
 "error_password_too_short" = "আপনার পাসওয়ার্ড অন্তত ৮ অক্ষরের হতে হবে।";
 "error_email_already_in_use" = "এই ইমেইলটি আগেই নিবন্ধিত হয়েছে।";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "হ্যাঁ, ব্যবহার করুন";
 "schedule_auto_fix" = "✨ স্বয়ংক্রিয়ভাবে সময় সামঞ্জস্য করুন";
 "onboarding_enable_tooltips" = "প্রথম ব্যবহারের সময় সহায়ক টিপস দেখান";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "অ্যাকাউন্ট";
-
-"registration_disclaimer" = "সাইন আপ করার মাধ্যমে, আপনি %1$@ এবং %2$@ স্বীকার করছেন।";
-
-"registration_disclaimer" = "সাইন আপ করার মাধ্যমে, আপনি %1$@ এবং %2$@ স্বীকার করছেন।";
-
-"buffer_after_bath" = "বাথরুমের পরে বাফার";
-
-"buffer_between_display" = "%d মিনিট বাফার";
-
-"schedule_message_buffer_reduced" = "বাফার %d থেকে %d মিনিটে কমানো হয়েছে।";
-
-"ringing_messages_array" = "বাথরুম এখন পুরোটা আপনার!||কোনো তাড়া নেই, কোনো চাপ নেই - আপনার বাথরুমের সময় শুরু।||বাথরুমের শান্তি উপভোগ করুন!||প্রথম কফির সময়। দিনটা আপনার জন্য অপেক্ষা করছে!||ভালো ঘুম হয়েছে? আজকের রুটিন প্রস্তুত।||দিনের জন্য তৈরি? সবকিছু একদম ঠিক করা আছে।||দিন শুরু করার সময়! আপনার বাথরুমের সময় শুরু।||উঠে পড়ুন আর শুরু করুন - মঞ্চ এখন আপনার!||সকালের ভালো মিউজিক সব চিন্তা দূর করে দেয়!||পরিবারের রুটিন শুরু হয়েছে। চলুন!||শুরু করতে প্রস্তুত? পরিবার আপনার ওপর ভরসা করছে।||উঠে পড়ুন! বাথরুম আপনার জন্য ফাঁকা।||আপনার নিজের বাথরুমের সময় শুরু - কাজে লাগান!||বাথরুমে যাওয়ার পথ পরিষ্কার - আপনার পালা!||যে আগে ওঠে, সে গরম পানি পায়!||আর পাঁচ মিনিট? একদম না! আপনার সময় শুরু হয়ে গেছে।||আজ খুব ভালো একটা দিন হবে। এখনই শুরু হোক!||আপনার টুথব্রাশ আপনাকে খুঁজছে। বাথরুমে যান!||সব ঠিকঠাক, সব প্ল্যান করা - এবার আপনার পালা!||যে আগে ওঠে, বাথরুম শুধু তার।";
+"simple_mode_title" = "সাধারণ মোড";
+"simple_mode_desc" = "অতিরিক্ত সময় বা বাথরুম ব্যবহারের সময় গণনা ছাড়াই নির্দিষ্ট ঘুম থেকে ওঠার সময়।";

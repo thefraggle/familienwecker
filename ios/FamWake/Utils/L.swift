@@ -29,8 +29,8 @@ enum L {
     static func registrationDisclaimer(_ terms: String, _ privacy: String) -> String { String(format: s("registration_disclaimer"), terms, privacy) }
     static var loginVerifyEmailText: String { s("login_verify_email_text") }
 
-    // MARK: - App Name
-    static var appNameShort: String { "FamWake \(s("app_name_short"))" }
+        // MARK: - App Name
+    static var appNameShort: String { s("app_name_short") }
 
     // MARK: - Settings
     static var settingsTitle: String { s("settings_title") }
@@ -119,6 +119,8 @@ enum L {
     static var awakeActiveDesc: String { s("awake_active_desc") }
 
     // MARK: - Member
+    static var simpleModeTitle: String { s("simple_mode_title") }
+    static var simpleModeDesc: String { s("simple_mode_desc") }
     static var mainFamilyMembers: String { s("main_family_members") }
     static var addMemberTitleAdd: String { s("add_member_title_add") }
     static var addMemberTitleEdit: String { s("add_member_title_edit") }

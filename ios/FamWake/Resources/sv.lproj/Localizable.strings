@@ -27,7 +27,6 @@
 "main_plan_paused" = "Din väckarklocka är pausad.";
 "main_shared_breakfast" = "☕ Gemensam frukost: %@";
 "main_wake_time" = "Väckning: %@ - %@";
-"main_bathroom_info" = "Badrum: %@ min | Frukost: %@";
 "main_schedule_bathroom" = "Badrum: %@ till %@";
 "main_schedule_leave" = "Lämna hemmet: %@";
 "main_member_alarm_on" = "(Larm aktivt)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Okänd";
 "add_member_earliest_wake" = "Tidigaste väckningstid";
 "add_member_latest_wake" = "Senaste väckningstid";
-"add_member_bathroom_duration" = "Tid i badrummet (minuter)";
+"add_member_bathroom_duration" = "Tid i badrummet";
 "add_member_wants_breakfast" = "Vill ha frukost";
 "add_member_leave_home" = "Måste gå hemifrån kl.";
 "add_member_day_profiles_title" = "Veckoschema";
@@ -169,6 +168,7 @@
 "settings_imprint" = "Impressum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-sv.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-sv.html";
+"registration_disclaimer" = "Genom att registrera dig godkänner du %@ och %@.";
 "registration_terms_of_use" = "Användarvillkor";
 "registration_privacy_policy" = "Integritetspolicy";
 "settings_already_claimed" = "Redan upptagen";
@@ -227,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Frukost −%d min & tider förskjutna med %d min.";
 "schedule_message_member_conflict" = "Konflikt för %@: Tiderna överlappar för mycket.";
 "schedule_message_member_conflict_desc" = "Försök ändra ordningen eller justera tiderna.";
+"schedule_message_buffer_reduced" = "Buffert minskad från %d till %d min.";
+"buffer_after_bath" = "Buffert efter badrum";
+"buffer_between_display" = "%d min buffert";
 "main_fallback_alarm_active" = "⚠️ Varning: Schemat passar inte just nu (%@). Justera dina tider!";
 "error_password_too_short" = "Ditt lösenord måste vara minst 8 tecken långt.";
 "error_email_already_in_use" = "Den här e-postadressen är redan registrerad.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Ja, använd den";
 "schedule_auto_fix" = "✨ Anpassa tider automatiskt";
 "onboarding_enable_tooltips" = "Visa användbara tips vid första användningen";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Konto";
-
-"registration_disclaimer" = "Genom att registrera dig godkänner du %1$@ och %2$@.";
-
-"registration_disclaimer" = "Genom att registrera dig godkänner du %1$@ och %2$@.";
-
-"buffer_after_bath" = "Buffert efter badrum";
-
-"buffer_between_display" = "%d min buffert";
-
-"schedule_message_buffer_reduced" = "Buffert minskad från %d till %d min.";
-
-"ringing_messages_array" = "Badrummet är helt ditt just nu!||Ingen stress – din badrumstid börjar nu.||Njut av lugnet i badrummet medan det varar!||Dags för det första kaffet. Världen väntar!||Sov gott? Ditt schema för idag är redo.||Redo för dagen? Allt är perfekt planerat.||Dags att rocka dagen! Din tid i badrummet börjar.||Vakna och skruva upp volymen – scenen är din!||Bra musik på morgonen håller bekymren borta!||Familjens schema är igång. Nu kör vi!||Redo för start? Familjen räknar med dig.||Dags att stiga upp! Badrummet är ledigt för dig.||Din personliga badrumstid börjar nu – använd den väl!||Fri väg till handfatet – det är din tur!||Morgonstund har guld i mund – och varmt vatten!||Fem minuter till? Nej! Din tid väntar.||Idag blir en bra dag. Den börjar nu!||Din tandborste saknar dig. Iväg till badrummet!||Allt koordinerat, allt planerat – det är din tur!||Morgonfågeln har badrummet helt för sig själv.";
+"simple_mode_title" = "Enkelt läge";
+"simple_mode_desc" = "Fast väckningstid utan marginal eller beräkning av badrumstid.";

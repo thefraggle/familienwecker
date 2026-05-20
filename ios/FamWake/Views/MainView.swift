@@ -3,6 +3,7 @@ import UserNotifications
 
 struct MainView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var appState: AppState
     @Environment(\.scenePhase) var scenePhase
     @State private var showSettings = false
@@ -131,7 +132,7 @@ struct MainView: View {
         .safeAreaInset(edge: .bottom) {
             VStack(alignment: .trailing, spacing: 16) {
                 // Share FAB
-                if familyViewModel.isLoggedIn && familyViewModel.familyId != nil,
+                if authViewModel.isLoggedIn && !authViewModel.isAnonymous && familyViewModel.familyId != nil,
                    let fName = familyViewModel.familyName,
                    let code = familyViewModel.joinCode {
                     HStack {

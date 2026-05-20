@@ -19,6 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
 
+import androidx.compose.material.icons.filled.Lightbulb
+
+import androidx.compose.ui.unit.sp
+
 // Indigo-Lila – passend zu den Onboarding-Farben
 private val TooltipBackground = Color(0xFF4A148C)
 private val TooltipBackgroundDark = Color(0xFF6A1FB0)
@@ -54,21 +58,28 @@ fun TooltipBubble(
         ) {
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 7.dp)
+                    .padding(horizontal = 16.dp, vertical = 14.dp)
                     .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top
             ) {
+                Icon(
+                    imageVector = Icons.Default.Lightbulb,
+                    contentDescription = null,
+                    tint = TooltipText,
+                    modifier = Modifier.size(18.dp).padding(top = 2.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "💡 $text",
+                    text = text,
                     color = TooltipText,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodySmall.copy(lineHeight = 16.sp),
                     fontStyle = FontStyle.Italic,
                     modifier = Modifier.weight(1f)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(
                     onClick = onDismiss,
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(24.dp).padding(top = 2.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,

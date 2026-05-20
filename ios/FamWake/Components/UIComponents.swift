@@ -91,17 +91,21 @@ struct TooltipBubble: View {
             Image(systemName: "lightbulb.fill")
                 .foregroundColor(Color(hex: "#F3E5F5"))
                 .font(.caption)
+                .padding(.top, 2)
             Text(text)
                 .font(.caption).italic()
                 .foregroundStyle(Color(hex: "#F3E5F5"))
+                .lineSpacing(3)
             Spacer()
             Button(action: onDismiss) {
                 Image(systemName: "xmark")
                     .foregroundStyle(Color(hex: "#F3E5F5").opacity(0.8))
                     .font(.caption)
+                    .padding(.top, 2)
             }
         }
-        .padding(12)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(colorScheme == .dark ? Color(hex: "#6A1FB0") : Color(hex: "#4A148C"))

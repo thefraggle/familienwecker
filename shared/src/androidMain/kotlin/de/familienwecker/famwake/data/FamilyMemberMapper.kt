@@ -44,7 +44,8 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
                 is Long -> bufferRaw
                 is Number -> bufferRaw.toLong()
                 else -> null
-            }
+            },
+            isSimpleMode = map["isSimpleMode"] as? Boolean ?: false
         )
     }?.toMap()?.takeIf { it.isNotEmpty() }
 
@@ -87,7 +88,8 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         createdAt = createdAt,
         lastUpdatedAt = lastUpdatedAt,
         deviceAlarmEnabled = get("deviceAlarmEnabled"),
-        dayProfiles = dayProfiles
+        dayProfiles = dayProfiles,
+        isSimpleMode = get<Boolean?>("isSimpleMode") ?: false
     )
 }
 
@@ -105,6 +107,7 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
                 put("wantsBreakfast", profile.wantsBreakfast)
                 profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
                 profile.bufferMinutes?.let { put("bufferMinutes", it) }
+                put("isSimpleMode", profile.isSimpleMode)
             }
         }
 
@@ -125,6 +128,7 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
         "createdAt" to (createdAt ?: System.currentTimeMillis()),
         "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp,
         "deviceAlarmEnabled" to deviceAlarmEnabled,
-        "dayProfiles" to dayProfilesData
+        "dayProfiles" to dayProfilesData,
+        "isSimpleMode" to isSimpleMode
     )
 }

@@ -12,7 +12,8 @@ data class DayProfile(
     val wantsBreakfast: Boolean = true,
     val leaveHomeTime: LocalTime? = null,
     // Individueller Puffer nach Bad-Slot (null = globalen Default nutzen, 0+ = Override)
-    val bufferMinutes: Long? = null
+    val bufferMinutes: Long? = null,
+    val isSimpleMode: Boolean = false
 )
 
 @Serializable
@@ -35,7 +36,8 @@ data class FamilyMember(
     val lastUpdatedAt: Long? = null, // Epoch-Millis für Konfliktlösung (Last Intent Wins)
     val deviceAlarmEnabled: Boolean? = null, // Vom Gerät des geclaimten Users gesetzter Alarm-Status (nur Anzeige)
     // Key = DayOfWeek value (1=Mo…7=So). null = Feature nicht konfiguriert (Fallback: bestehende Felder)
-    val dayProfiles: Map<Int, DayProfile>? = null
+    val dayProfiles: Map<Int, DayProfile>? = null,
+    val isSimpleMode: Boolean = false
 )
 
 @Serializable

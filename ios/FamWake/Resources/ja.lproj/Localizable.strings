@@ -27,7 +27,6 @@
 "main_plan_paused" = "あなたのアラームは一時停止中です。";
 "main_shared_breakfast" = "☕ 一緒に朝食：%@";
 "main_wake_time" = "起床：%@ - %@";
-"main_bathroom_info" = "バスルーム：%@分 | 朝食：%@";
 "main_schedule_bathroom" = "バスルーム：%@ から %@";
 "main_schedule_leave" = "家を出る時間：%@";
 "main_member_alarm_on" = "(アラーム オン)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "不明";
 "add_member_earliest_wake" = "最も早く起きる時間";
 "add_member_latest_wake" = "最も遅く起きる時間";
-"add_member_bathroom_duration" = "バスルームを使う時間（分）";
+"add_member_bathroom_duration" = "バスルームを使う時間";
 "add_member_wants_breakfast" = "朝食を食べる";
 "add_member_leave_home" = "家を出る時間";
 "add_member_day_profiles_title" = "週間スケジュール";
@@ -169,6 +168,7 @@
 "settings_imprint" = "運営者情報";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-ja.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-ja.html";
+"registration_disclaimer" = "登録することで、%@および%@に同意したものとみなされます。";
 "registration_terms_of_use" = "利用規約";
 "registration_privacy_policy" = "プライバシーポリシー";
 "settings_already_claimed" = "すでに使用されています";
@@ -227,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "朝食を−%d分、時間を%d分ずらしました。";
 "schedule_message_member_conflict" = "%@の時間が重なりすぎています。";
 "schedule_message_member_conflict_desc" = "順番を変えるか、時間を調整してみてください。";
+"schedule_message_buffer_reduced" = "バッファを%d分から%d分に短縮しました。";
+"buffer_after_bath" = "入浴後のバッファ";
+"buffer_between_display" = "%d分のバッファ";
 "main_fallback_alarm_active" = "⚠️ 注意：現在スケジュールがうまく合っていません（%@）。時間を調整してください！";
 "error_password_too_short" = "パスワードは8文字以上にする必要があります。";
 "error_email_already_in_use" = "このメールアドレスはすでに登録されています。";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "はい、使います";
 "schedule_auto_fix" = "✨ 時間を自動調整";
 "onboarding_enable_tooltips" = "初回使用時に役立つヒントを表示する";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "アカウント";
-
-"registration_disclaimer" = "登録することで、%1$@および%2$@に同意したものとみなされます。";
-
-"registration_disclaimer" = "登録することで、%1$@および%2$@に同意したものとみなされます。";
-
-"buffer_after_bath" = "入浴後のバッファ";
-
-"buffer_between_display" = "%d分のバッファ";
-
-"schedule_message_buffer_reduced" = "バッファを%d分から%d分に短縮しました。";
-
-"ringing_messages_array" = "今ならバスルームは貸し切りです！||渋滞もストレスもなし – あなたのバスルームタイムが始まります。||今のうちに静かなバスルームを満喫して！||朝のコーヒーの時間です。一日が始まります！||よく眠れましたか？今日のスケジュールは準備完了です。||今日の準備はいいですか？すべて完璧に調整されています。||最高の1日にしましょう！あなたのバスルームタイムです。||起きて音楽をかけよう – あなたのステージです！||朝のいい音楽で悩みを吹き飛ばしましょう！||家族のスケジュールがスタートしました。さあ、行こう！||準備はいいですか？家族があなたを待っています。||おはようございます！バスルームが空いていますよ。||あなた専用のバスルームタイムが始まります – 有効に使って！||洗面所への道はクリアです – あなたの番です！||早起きは三文の徳 – お湯もたっぷり！||あと5分？ダメ！あなたの時間が待っています。||今日はいい日になります。今から始めましょう！||歯ブラシがあなたを待っています。バスルームへGO！||準備万端、計画通り – あなたの番です！||早起きした人はバスルームを独り占めできます。";
+"simple_mode_title" = "シンプルモード";
+"simple_mode_desc" = "ゆとり時間やバスルームの順番計算を含まない、固定の起床時間です。";

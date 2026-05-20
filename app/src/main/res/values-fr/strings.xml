@@ -347,4 +347,6 @@
     <string name="settings_steal_confirm">Oui, l\'utiliser</string>
     <string name="schedule_auto_fix">✨ Ajuster les heures automatiquement</string>
     <string name="onboarding_enable_tooltips">Afficher des conseils utiles lors de la première utilisation</string>
+    <string name="simple_mode_title">Mode simple</string>
+    <string name="simple_mode_desc">Heure de réveil fixe sans marge ni calcul du temps de passage à la salle de bain.</string>
 </resources>

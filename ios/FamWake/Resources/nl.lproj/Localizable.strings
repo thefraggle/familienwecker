@@ -27,7 +27,6 @@
 "main_plan_paused" = "Je wekker staat op pauze.";
 "main_shared_breakfast" = "☕ Gezamenlijk ontbijt: %@";
 "main_wake_time" = "Wekker: %@ - %@";
-"main_bathroom_info" = "Badkamer: %@ min | Ontbijt: %@";
 "main_schedule_bathroom" = "Badkamer: %@ tot %@";
 "main_schedule_leave" = "Huis verlaten: %@";
 "main_member_alarm_on" = "(Wekker actief)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Onbekend";
 "add_member_earliest_wake" = "Vroegste wektijd";
 "add_member_latest_wake" = "Uiterste wektijd";
-"add_member_bathroom_duration" = "Tijd in de badkamer (minuten)";
+"add_member_bathroom_duration" = "Tijd in de badkamer";
 "add_member_wants_breakfast" = "Wil ontbijten";
 "add_member_leave_home" = "Moet het huis uit om";
 "add_member_day_profiles_title" = "Wekelijks schema";
@@ -161,6 +160,7 @@
 "settings_imprint" = "Colofon";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-nl.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-nl.html";
+"registration_disclaimer" = "Door je aan te melden, accepteer je de %@ en het %@.";
 "registration_terms_of_use" = "Gebruiksvoorwaarden";
 "registration_privacy_policy" = "Privacybeleid";
 "settings_already_claimed" = "Al in gebruik";
@@ -219,6 +219,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Ontbijt −%d min & tijden verschoven met %d min.";
 "schedule_message_member_conflict" = "Probleem voor %@: De tijden overlappen te veel.";
 "schedule_message_member_conflict_desc" = "Probeer de volgorde te wijzigen of pas je tijden aan.";
+"schedule_message_buffer_reduced" = "Buffer verkort van %d naar %d min.";
+"buffer_after_bath" = "Buffer na badkamer";
+"buffer_between_display" = "%d min buffer";
 "main_fallback_alarm_active" = "⚠️ Let op: Het schema past momenteel niet (%@). Pas a.u.b. je tijden aan!";
 "error_password_too_short" = "Je wachtwoord moet uit minstens 8 tekens bestaan.";
 "error_email_already_in_use" = "Dit e-mailadres is al geregistreerd.";
@@ -301,22 +304,5 @@
 "onboarding_mock_name1" = "Papa";
 "onboarding_mock_name2" = "Mama";
 "settings_share_code_locked" = "Log in om je uitnodigingscode te delen.";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Account";
-
-"registration_disclaimer" = "Door je aan te melden, accepteer je de %1$@ en het %2$@.";
-
-"registration_disclaimer" = "Door je aan te melden, accepteer je de %1$@ en het %2$@.";
-
-"buffer_after_bath" = "Buffer na badkamer";
-
-"buffer_between_display" = "%d min buffer";
-
-"schedule_message_buffer_reduced" = "Buffer verkort van %d naar %d min.";
-
-"ringing_messages_array" = "De badkamer is nu helemaal voor jou alleen!||Geen spitsuur, geen stress – jouw badkamertijd begint nu.||Geniet van de rust in de badkamer zolang het duurt!||Tijd voor de eerste koffie. De wereld wacht op je!||Lekker geslapen? Het schema voor vandaag staat klaar.||Klaar voor de dag? Alles is perfect op elkaar afgestemd.||Tijd om de dag te beginnen! Je badkamertijd begint nu.||Word wakker en zet de muziek aan – het podium is voor jou!||Lekkere muziek in de ochtend verdrijft alle zorgen!||Jullie familieschema loopt. Laten we gaan!||Klaar voor de start? De rest van de familie rekent op je.||Opstaan, zonnetje! De badkamer is vrij voor jou.||Jouw persoonlijke tijd in de badkamer begint nu – maak er gebruik van!||Vrije baan naar de wastafel – het is jouw beurt!||De vroege vogel krijgt het warme water!||Nog 5 minuutjes? Nee hoor! Je tijdslot wacht op je.||Vandaag wordt een geweldige dag. En het begint nu!||Je tandenborstel mist je. Hup, naar de badkamer!||Alles gecoördineerd, alles gepland – jij bent aan de beurt!||De vroege vogel heeft de badkamer helemaal voor zichzelf.";
+"simple_mode_title" = "Eenvoudige modus";
+"simple_mode_desc" = "Vaste wektijd zonder marge of berekening van badkamertijd.";

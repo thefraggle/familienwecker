@@ -27,7 +27,6 @@
 "main_plan_paused" = "Twój alarm jest wstrzymany.";
 "main_shared_breakfast" = "☕ Wspólne śniadanie: %@";
 "main_wake_time" = "Pobudka: %@ - %@";
-"main_bathroom_info" = "Łazienka: %@ min | Śniadanie: %@";
 "main_schedule_bathroom" = "Łazienka: %@ do %@";
 "main_schedule_leave" = "Wyjście z domu: %@";
 "main_member_alarm_on" = "(Alarm aktywny)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Nieznany";
 "add_member_earliest_wake" = "Najwcześniejsza pora pobudki";
 "add_member_latest_wake" = "Najpóźniejsza pora pobudki";
-"add_member_bathroom_duration" = "Czas potrzebny w łazience (w minutach)";
+"add_member_bathroom_duration" = "Czas potrzebny w łazience";
 "add_member_wants_breakfast" = "Zje śniadanie";
 "add_member_leave_home" = "Musi wyjść z domu o";
 "add_member_day_profiles_title" = "Plan tygodniowy";
@@ -161,6 +160,7 @@
 "settings_imprint" = "Informacje prawne";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-pl.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-pl.html";
+"registration_disclaimer" = "Rejestrując się, akceptujesz %@ oraz %@.";
 "registration_terms_of_use" = "Warunki użytkowania";
 "registration_privacy_policy" = "Politykę prywatności";
 "settings_already_claimed" = "Już zajęte";
@@ -219,6 +219,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Śniadanie −%d min i czasy przesunięte o %d min.";
 "schedule_message_member_conflict" = "Konflikt dla %@: Czasy nakładają się zbyt mocno.";
 "schedule_message_member_conflict_desc" = "Spróbuj zmienić kolejność lub dostosować czasy.";
+"schedule_message_buffer_reduced" = "Bufor zmniejszony z %d do %d min.";
+"buffer_after_bath" = "Bufor po łazience";
+"buffer_between_display" = "%d min bufora";
 "main_fallback_alarm_active" = "⚠️ Uwaga: Obecny harmonogram nie pasuje (%@). Dostosuj swoje czasy!";
 "error_password_too_short" = "Twoje hasło musi mieć co najmniej 8 znaków.";
 "error_email_already_in_use" = "Ten e-mail jest już zarejestrowany.";
@@ -301,22 +304,5 @@
 "onboarding_mock_name1" = "Tata";
 "onboarding_mock_name2" = "Mama";
 "settings_share_code_locked" = "Zaloguj się, aby udostępnić swój kod zaproszenia.";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Konto";
-
-"registration_disclaimer" = "Rejestrując się, akceptujesz %1$@ oraz %2$@.";
-
-"registration_disclaimer" = "Rejestrując się, akceptujesz %1$@ oraz %2$@.";
-
-"buffer_after_bath" = "Bufor po łazience";
-
-"buffer_between_display" = "%d min bufora";
-
-"schedule_message_buffer_reduced" = "Bufor zmniejszony z %d do %d min.";
-
-"ringing_messages_array" = "Łazienka jest teraz cała Twoja!||Brak pośpiechu, brak stresu – Twój czas w łazience zaczyna się teraz.||Ciesz się spokojem w łazience, póki możesz!||Czas na pierwszą kawę. Świat czeka!||Dobrze spałeś? Twój plan na dziś jest gotowy.||Gotowy na nowy dzień? Wszystko jest świetnie zaplanowane.||Czas ruszać do boju! Twój czas w łazience się zaczyna.||Obudź się i daj czadu – scena należy do Ciebie!||Dobra muzyka z rana odstrasza zmartwienia!||Rodzinny plan ruszył. Do dzieła!||Gotowy do startu? Rodzina na Ciebie liczy.||Wstawaj, śpiochu! Łazienka jest dla Ciebie wolna.||Twój osobisty czas w łazience zaczyna się teraz – wykorzystaj go!||Droga do umywalki wolna – teraz Twoja kolej!||Kto rano wstaje, temu ciepła woda sprzyja!||Jeszcze 5 minut? Nie ma mowy! Twoja kolej czeka.||Dziś będzie świetny dzień. I zaczyna się właśnie teraz!||Twoja szczoteczka do zębów za Tobą tęskni. Czas do łazienki!||Wszystko skoordynowane, wszystko zaplanowane – Twoja kolej!||Ranny ptaszek ma łazienkę tylko dla siebie.";
+"simple_mode_title" = "Tryb prosty";
+"simple_mode_desc" = "Stała godzina pobudki bez marginesu czasowego i obliczania czasu w łazience.";

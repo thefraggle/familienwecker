@@ -1181,6 +1181,7 @@ class FamilyViewModel: ObservableObject {
         resolved.wantsBreakfast = profile.wantsBreakfast
         resolved.leaveHomeTime = profile.leaveHomeTime
         resolved.dayProfiles = [targetDow: profile]
+        resolved.isSimpleMode = profile.isSimpleMode
         return resolved
     }
 }

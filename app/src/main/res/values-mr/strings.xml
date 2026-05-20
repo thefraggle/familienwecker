@@ -347,4 +347,6 @@
     <string name="settings_steal_confirm">होय, वापरा</string>
     <string name="schedule_auto_fix">✨ वेळा स्वयंचलितपणे समायोजित करा</string>
     <string name="onboarding_enable_tooltips">पहिल्या वापरात उपयुक्त टिप्स दाखवा</string>
+    <string name="simple_mode_title">साधा मोड</string>
+    <string name="simple_mode_desc">अतिरिक्त वेळ किंवा बाथरूमच्या वेळेची गणना न करता उठण्याची निश्चित वेळ।</string>
 </resources>

@@ -349,4 +349,6 @@
     <string name="settings_steal_confirm">हाँ, इस्तेमाल करें</string>
     <string name="schedule_auto_fix">✨ समय अपने आप सेट करें</string>
     <string name="onboarding_enable_tooltips">पहली बार उपयोग पर उपयोगी टिप्स दिखाएं</string>
+    <string name="simple_mode_title">साधारण मोड</string>
+    <string name="simple_mode_desc">अतिरिक्त समय या बाथरूम के समय की गणना के बिना उठने का निश्चित समय।</string>
 </resources>

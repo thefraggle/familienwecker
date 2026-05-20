@@ -27,7 +27,6 @@
 "main_plan_paused" = "Alarmınız şu anda duraklatıldı.";
 "main_shared_breakfast" = "☕ Ortak kahvaltı: %@";
 "main_wake_time" = "Uyanma: %@ - %@";
-"main_bathroom_info" = "Banyo: %@ dk | Kahvaltı: %@";
 "main_schedule_bathroom" = "Banyo: %@ - %@";
 "main_schedule_leave" = "Evden çıkış: %@";
 "main_member_alarm_on" = "(Alarm aktif)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Bilinmiyor";
 "add_member_earliest_wake" = "En erken uyanma saati";
 "add_member_latest_wake" = "En geç uyanma saati";
-"add_member_bathroom_duration" = "Banyoda gereken süre (dakika)";
+"add_member_bathroom_duration" = "Banyoda gereken süre";
 "add_member_wants_breakfast" = "Kahvaltı yapacak";
 "add_member_leave_home" = "Evden çıkması gereken saat";
 "add_member_day_profiles_title" = "Haftalık plan";
@@ -169,6 +168,7 @@
 "settings_imprint" = "Künye";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
+"registration_disclaimer" = "Kayıt olarak %@ ve %@'nı kabul etmiş olursunuz.";
 "registration_terms_of_use" = "Kullanım Koşulları";
 "registration_privacy_policy" = "Gizlilik Politikası";
 "settings_already_claimed" = "Zaten alındı";
@@ -227,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Kahvaltı −%d dk. & saatler %d dk. kaydırıldı.";
 "schedule_message_member_conflict" = "%@ için çakışma: Saatler çok fazla çakışıyor.";
 "schedule_message_member_conflict_desc" = "Sıralamayı değiştirmeyi veya saatleri ayarlamayı deneyin.";
+"schedule_message_buffer_reduced" = "Tampon %d ile %d dk arasına düşürüldü.";
+"buffer_after_bath" = "Banyo sonrası tampon";
+"buffer_between_display" = "%d dk tampon";
 "main_fallback_alarm_active" = "⚠️ Uyarı: Plan şu anda uyuşmuyor (%@). Lütfen saatlerinizi ayarlayın!";
 "error_password_too_short" = "Şifreniz en az 8 karakter uzunluğunda olmalıdır.";
 "error_email_already_in_use" = "Bu e-posta adresi zaten kayıtlı.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Evet, kullan";
 "schedule_auto_fix" = "✨ Saatleri otomatik ayarla";
 "onboarding_enable_tooltips" = "İlk kullanımda faydalı ipuçları göster";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Hesap";
-
-"registration_disclaimer" = "Kayıt olarak %1$@ ve %2$@'nı kabul etmiş olursunuz.";
-
-"registration_disclaimer" = "Kayıt olarak %1$@ ve %2$@'nı kabul etmiş olursunuz.";
-
-"buffer_after_bath" = "Banyo sonrası tampon";
-
-"buffer_between_display" = "%d dk tampon";
-
-"schedule_message_buffer_reduced" = "Tampon %d ile %d dk arasına düşürüldü.";
-
-"ringing_messages_array" = "Banyo şu an tamamen senin!||Koşturmaca yok, stres yok – banyo zamanın şimdi başlıyor.||Hazır boşken banyodaki huzurun tadını çıkar!||İlk kahve zamanı. Dünya seni bekliyor!||İyi uyudun mu? Bugünkü planın hazır.||Güne hazır mısın? Her şey mükemmel şekilde ayarlandı.||Günü yakalama zamanı! Banyo sıran başlıyor.||Uyan ve sesi aç – sahne senin!||Sabahları güzel bir müzik dertleri uzak tutar!||Ailenin planı devrede. Hadi başlayalım!||Güne başlamaya hazır mısın? Ailen sana güveniyor.||Kalkma vakti! Banyo senin için boş.||Kişisel banyo süren şimdi başlıyor – tadını çıkar!||Lavaboya giden yol açık – sıra sende!||Erken kalkan sıcak suyu kapar!||5 dakika daha mı? Hayır! Sıran seni bekliyor.||Bugün harika bir gün olacak. Ve tam şu an başlıyor!||Diş fırçan seni özledi. Doğru banyoya!||Her şey ayarlandı, her şey planlandı – sıra sende!||Erken kalkan banyoyu kendine saklar.";
+"simple_mode_title" = "Basit Mod";
+"simple_mode_desc" = "Tampon süre veya banyo sırası hesaplaması olmadan sabit uyanma saati.";

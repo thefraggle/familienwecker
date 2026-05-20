@@ -347,4 +347,6 @@
     <string name="settings_steal_confirm">Ja, använd den</string>
     <string name="schedule_auto_fix">✨ Anpassa tider automatiskt</string>
     <string name="onboarding_enable_tooltips">Visa användbara tips vid första användningen</string>
+    <string name="simple_mode_title">Enkelt läge</string>
+    <string name="simple_mode_desc">Fast väckningstid utan marginal eller beräkning av badrumstid.</string>
 </resources>

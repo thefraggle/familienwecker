@@ -347,4 +347,6 @@
     <string name="onboarding_mock_family_name">Иванов</string>
     <string name="onboarding_mock_name1">Папа</string>
     <string name="onboarding_mock_name2">Мама</string>
+    <string name="simple_mode_title">Простой режим</string>
+    <string name="simple_mode_desc">Фиксированное время пробуждения без запаса времени или расчета времени на ванную.</string>
 </resources>

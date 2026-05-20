@@ -95,7 +95,7 @@ struct Scheduler {
         includeInvalid: Bool = false
     ) -> FamilySchedule {
 
-        let breakfastEaters = orderedMembers.filter { $0.wantsBreakfast }
+        let breakfastEaters = orderedMembers.filter { $0.wantsBreakfast && !$0.isSimpleMode }
         var breakfastTime: DateComponents? = nil
 
         if !breakfastEaters.isEmpty {
@@ -123,6 +123,18 @@ struct Scheduler {
         var isValid = true
 
         for member in orderedMembers.reversed() {
+            if member.isSimpleMode {
+                let wakeUpTime = member.latestWakeUp
+                schedules.append(MemberSchedule(
+                    member: member,
+                    wakeUpTime: wakeUpTime,
+                    bathroomStart: wakeUpTime,
+                    bathroomEnd: wakeUpTime,
+                    bufferAfter: 0
+                ))
+                continue
+            }
+
             let allowedLatest = member.latestWakeUp.adding(minutes: shiftMinutes)
             let allowedEarliest = member.earliestWakeUp.subtracting(minutes: shiftMinutes)
 

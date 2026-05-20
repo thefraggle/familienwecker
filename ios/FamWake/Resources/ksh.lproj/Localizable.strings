@@ -27,7 +27,6 @@
 "main_plan_paused" = "Dein Wecker macht Pause.";
 "main_shared_breakfast" = "☕ Zusammen mampfen: %@";
 "main_wake_time" = "Wecken: %@ - %@";
-"main_bathroom_info" = "Bad: %@ Min | Mampfen: %@";
 "main_schedule_bathroom" = "Bad: %@ bis %@";
 "main_schedule_leave" = "Abmarsch: %@";
 "main_member_alarm_on" = "(Wecker is an)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Kein Plan";
 "add_member_earliest_wake" = "Frühestes Wecken";
 "add_member_latest_wake" = "Spätestes Wecken";
-"add_member_bathroom_duration" = "Zeit im Bad (Minuten)";
+"add_member_bathroom_duration" = "Zeit im Bad";
 "add_member_wants_breakfast" = "Mampfen mitnehm";
 "add_member_leave_home" = "Abmarsch um";
 "add_member_day_profiles_title" = "Wochenplan";
@@ -162,6 +161,7 @@
 "settings_imprint" = "Impressum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion.html";
+"registration_disclaimer" = "Mit dem Registrieren nimmste die %@ und %@ an.";
 "registration_terms_of_use" = "Nutzungsbedingungen";
 "registration_privacy_policy" = "Datenschutzerklärung";
 "settings_already_claimed" = "Is schon vergeben";
@@ -220,6 +220,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Mampfen −%d Min & Zeiten %d Min geschoben.";
 "schedule_message_member_conflict" = "Verklemmt bei %@: Das überschneidet sich zu viel.";
 "schedule_message_member_conflict_desc" = "Zieh mal die Leute um oder schraub an de Zeiten rum.";
+"schedule_message_buffer_reduced" = "Puffer is von %d auf %d Min. runtergesetzt.";
+"buffer_after_bath" = "Puffer nachm Bad";
+"buffer_between_display" = "%d Min. Puffer";
 "main_fallback_alarm_active" = "⚠️ Wat passt hier nich (%@). Kümmer dich ma um de Zeiten!";
 "error_password_too_short" = "Passwort muss mindestens 8 Dinger lang sein.";
 "error_email_already_in_use" = "E-Mail hat schon n anderer genommen.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Jau, her damit";
 "schedule_auto_fix" = "✨ Zeiten von alleine anpassen";
 "onboarding_enable_tooltips" = "Zeig hilfreiche Tipps bei der ersten Nutzung an";
-
-
-/* iOS Specific (Fallback to German) */
-"member_pause" = "Pausieren";
-"member_resume" = "Aktivieren";
-"member_not_active_today" = "Heute nicht aktiv";
-"settings_account_section" = "Konto";
-
-"registration_disclaimer" = "Mit dem Registrieren nimmste die %1$@ und %2$@ an.";
-
-"registration_disclaimer" = "Mit dem Registrieren nimmste die %1$@ und %2$@ an.";
-
-"buffer_after_bath" = "Puffer nachm Bad";
-
-"buffer_between_display" = "%d Min. Puffer";
-
-"schedule_message_buffer_reduced" = "Puffer is von %d auf %d Min. runtergesetzt.";
-
-"ringing_messages_array" = "Der Waschsalon gehört dir!||Kein Stau, kein Stress – ab ins Bad mit dir.||Genieß die Ruhe, gleich rappelts im Karton!||Zeit für Kaffee. Schwing die Hufe!||Gut gepennt? Der Plan steht für heute.||Bereit für die Maloche? Alles is getaktet.||Zeit den Tach zu rocken! Ab ins Bad.||Wach auf und gib Gas – Bühne frei!||Heavy Metal am Morgen vertreibt Kummer und Sorgen!||Plan läuft. Mach hinne!||Zeit fürn Abflug. Das Team wartet auffe Piste.||Aufsteen, Sonnenschein! Dat Bad is frei für dich.||Dein Bad-Slot fängt jetz an – nutz dat ma!||Freie Bahn ins Bad – is alles reserviert für dich!||Wer morgens aufsteen tut, der kriecht dat warme Wasser!||Noch 5 Minuten? Nee, Alter! Dein Zeitfenster wartet.||Heute wird nen geiler Tach. Der fängt jetz an!||Die Zahnbürste langweilt sich. Mach hinne, ab ins Bad!||Alles getaktet, alles paletti – du bist dran!||Der frühe Vogel hat dat Bad für sich allein, wa.";
+"simple_mode_title" = "Einfacher Modus";
+"simple_mode_desc" = "Feste Weckzeit ohne Puffer oder Rechnerei fürs Bad.";

@@ -347,4 +347,6 @@
     <string name="settings_steal_confirm">Ja, übernäh</string>
     <string name="schedule_auto_fix">✨ Ziite automatisch aapasse</string>
     <string name="onboarding_enable_tooltips">Zeig hilfriichi Tipps bi de erschte Nutzig</string>
+    <string name="simple_mode_title">Eifache Modus</string>
+    <string name="simple_mode_desc">Feschti Weckziit ohni Puffer oder d\'Berächnig vo de Badzimmerziite.</string>
 </resources>

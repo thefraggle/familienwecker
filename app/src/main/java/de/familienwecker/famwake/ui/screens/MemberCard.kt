@@ -70,6 +70,25 @@ fun MemberCard(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 val allDaysInactive = member.dayProfiles?.values?.none { it.isActive } == true
+                val today = java.time.LocalDate.now()
+                val nextActiveDayResult = if (allDaysInactive) null else {
+                    (0..6).mapNotNull { offset ->
+                        val date = today.plusDays(offset.toLong())
+                        val dow = date.dayOfWeek.value
+                        val profile = member.dayProfiles?.get(dow)
+                        if (profile != null && profile.isActive) {
+                            if (offset == 0) {
+                                val nowTime = java.time.LocalTime.now()
+                                val latestTime = profile.latestWakeUp.toJavaLocalTime()
+                                if (nowTime.isAfter(latestTime)) {
+                                    return@mapNotNull null
+                                }
+                            }
+                            date to profile
+                        } else null
+                    }.firstOrNull()
+                }
+                val showDayLabel = nextActiveDayResult != null && nextActiveDayResult.first != today
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -113,38 +132,26 @@ fun MemberCard(
                             maxLines = 1
                         )
                     }
-                    if (member.isAwakeToday) {
+                    if (member.isAwakeToday && !showDayLabel) {
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(text = "☀️", style = MaterialTheme.typography.labelSmall)
                     }
                 }
 
-                if (!allDaysInactive) {
-                    val today = java.time.LocalDate.now()
-                    val nextActiveDayResult = (0..6).mapNotNull { offset ->
-                        val date = today.plusDays(offset.toLong())
-                        val dow = date.dayOfWeek.value
-                        val profile = member.dayProfiles?.get(dow)
-                        if (profile != null && profile.isActive) date to profile else null
-                    }.firstOrNull()
-
-                    val showDayLabel = nextActiveDayResult != null && nextActiveDayResult.first != today
-
-                    val displayEarliest = nextActiveDayResult?.second?.earliestWakeUp?.toJavaLocalTime() ?: member.earliestWakeUp.toJavaLocalTime()
-                    val displayLatest   = nextActiveDayResult?.second?.latestWakeUp?.toJavaLocalTime()   ?: member.latestWakeUp.toJavaLocalTime()
+                if (nextActiveDayResult != null) {
+                    val displayEarliest = nextActiveDayResult.second.earliestWakeUp.toJavaLocalTime()
+                    val displayLatest   = nextActiveDayResult.second.latestWakeUp.toJavaLocalTime()
 
                     if (showDayLabel) {
-                        nextActiveDayResult?.let { (date, _) ->
-                            val dayName = date.dayOfWeek
-                                .getDisplayName(java.time.format.TextStyle.FULL, context.resources.configuration.locales[0])
-                                .replaceFirstChar { it.uppercase() }
-                            Text(
-                                text = dayName,
-                                color = textColor.copy(alpha = 0.7f),
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
+                        val dayName = nextActiveDayResult.first.dayOfWeek
+                            .getDisplayName(java.time.format.TextStyle.FULL, context.resources.configuration.locales[0])
+                            .replaceFirstChar { it.uppercase() }
+                        Text(
+                            text = dayName,
+                            color = textColor.copy(alpha = 0.7f),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(

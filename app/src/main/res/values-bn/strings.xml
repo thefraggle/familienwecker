@@ -349,4 +349,6 @@
     <string name="settings_steal_confirm">হ্যাঁ, ব্যবহার করুন</string>
     <string name="schedule_auto_fix">✨ স্বয়ংক্রিয়ভাবে সময় সামঞ্জস্য করুন</string>
     <string name="onboarding_enable_tooltips">প্রথম ব্যবহারের সময় সহায়ক টিপস দেখান</string>
+    <string name="simple_mode_title">সাধারণ মোড</string>
+    <string name="simple_mode_desc">অতিরিক্ত সময় বা বাথরুম ব্যবহারের সময় গণনা ছাড়াই নির্দিষ্ট ঘুম থেকে ওঠার সময়।</string>
 </resources>

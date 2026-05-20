@@ -346,4 +346,6 @@
     <string name="settings_steal_confirm">Sim, usar</string>
     <string name="schedule_auto_fix">✨ Ajustar horários automaticamente</string>
     <string name="onboarding_enable_tooltips">Mostrar dicas úteis no primeiro uso</string>
+    <string name="simple_mode_title">Modo simples</string>
+    <string name="simple_mode_desc">Hora de acordar fixa sem margem ou cálculo de turnos no banheiro.</string>
 </resources>

@@ -35,8 +35,8 @@ extension FamilyMember {
         let createdAt: Double? = parseTimestamp(data["createdAt"])
         let lastUpdated: Double? = parseTimestamp(data["lastUpdatedAt"])
 
-        // Day profiles
         let dayProfiles = parseDayProfiles(data["dayProfiles"])
+        let isSimple = data["isSimpleMode"] as? Bool ?? false
 
         return FamilyMember(
             id: id,
@@ -56,7 +56,8 @@ extension FamilyMember {
             createdAt: createdAt,
             lastUpdatedAt: lastUpdated,
             deviceAlarmEnabled: alarmEnabled,
-            dayProfiles: dayProfiles
+            dayProfiles: dayProfiles,
+            isSimpleMode: isSimple
         )
     }
 
@@ -73,7 +74,8 @@ extension FamilyMember {
             "lastResetDate": lastResetDate,
             "sequenceOrder": sequenceOrder,
             "createdAt": createdAt ?? Date().timeIntervalSince1970 * 1000,
-            "lastUpdatedAt": Date().timeIntervalSince1970 * 1000
+            "lastUpdatedAt": Date().timeIntervalSince1970 * 1000,
+            "isSimpleMode": isSimpleMode
         ]
 
         if let leave = leaveHomeTime {
@@ -94,7 +96,8 @@ extension FamilyMember {
                     "earliestWakeUp": profile.earliestWakeUp.toTimeString(),
                     "latestWakeUp": profile.latestWakeUp.toTimeString(),
                     "bathroomDurationMinutes": profile.bathroomDurationMinutes,
-                    "wantsBreakfast": profile.wantsBreakfast
+                    "wantsBreakfast": profile.wantsBreakfast,
+                    "isSimpleMode": profile.isSimpleMode
                 ]
                 if let leaveHome = profile.leaveHomeTime {
                     profileDict["leaveHomeTime"] = leaveHome.toTimeString()
@@ -138,6 +141,7 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
         let breakfast = dp["wantsBreakfast"] as? Bool ?? true
         let leave = (dp["leaveHomeTime"] as? String).flatMap { DateComponents.fromTimeString($0) }
         let buffer = (dp["bufferMinutes"] as? NSNumber)?.intValue
+        let simpleMode = dp["isSimpleMode"] as? Bool ?? false
 
         result[day] = DayProfile(
             isActive: active,
@@ -146,7 +150,8 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
             bathroomDurationMinutes: bathroom,
             wantsBreakfast: breakfast,
             leaveHomeTime: leave,
-            bufferMinutes: buffer
+            bufferMinutes: buffer,
+            isSimpleMode: simpleMode
         )
     }
     return result.isEmpty ? nil : result

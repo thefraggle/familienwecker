@@ -92,7 +92,7 @@ class Scheduler {
         globalBufferMinutes: Long = 0,
         includeInvalid: Boolean = false
     ): FamilySchedule {
-        val breakfastEaters = orderedMembers.filter { it.wantsBreakfast }
+        val breakfastEaters = orderedMembers.filter { it.wantsBreakfast && !it.isSimpleMode }
         var breakfastTime: LocalTime? = null
 
         if (breakfastEaters.isNotEmpty()) {
@@ -124,6 +124,20 @@ class Scheduler {
         var isValid = true
 
         for (member in orderedMembers.reversed()) {
+            if (member.isSimpleMode) {
+                val wakeUpTime = member.latestWakeUp
+                schedules.add(
+                    ScheduleResult(
+                        member = member,
+                        wakeUpTime = wakeUpTime,
+                        bathroomStartTime = wakeUpTime,
+                        bathroomEndTime = wakeUpTime,
+                        bufferAfter = 0L
+                    )
+                )
+                continue
+            }
+
             val allowedLatestWakeUp = member.latestWakeUp.plusMinutes(shiftToleranceMinutes.toLong())
             val allowedEarliestWakeUp = member.earliestWakeUp.minusMinutes(shiftToleranceMinutes.toLong())
 
@@ -154,7 +168,7 @@ class Scheduler {
             // Effektiven Puffer für dieses Mitglied ermitteln:
             // firstOrNull() ist intentional: Der Scheduler erhält voraufgelöste Members
             // mit nur dem aktiven DayProfile des heutigen Wochentags.
-            // DayProfile-Override (wenn > 0) hat Vorrang vor globalem Default.
+            // DayProfile-Override (wenn > 0) has Vorrang vor globalem Default.
             val effectiveBuffer = member.dayProfiles?.values?.firstOrNull()?.bufferMinutes
                 ?.takeIf { it > 0 } ?: globalBufferMinutes
 

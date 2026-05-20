@@ -348,4 +348,6 @@
     <string name="schedule_auto_fix">✨ Zeiten automatisch anpassen</string>
     <string name="onboarding_enable_tooltips">Zeige hilfreiche Tipps bei der ersten Nutzung</string>
     <string name="settings_no_profile">Kein Profil</string>
+    <string name="simple_mode_title">Einfacher Modus</string>
+    <string name="simple_mode_desc">Feste Weckzeit ohne Puffer oder Berechnung der Badezimmerzeiten.</string>
 </resources>

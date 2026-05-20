@@ -22,6 +22,7 @@ struct FamilyMember: Identifiable, Codable, Equatable {
     var lastUpdatedAt: Double?
     var deviceAlarmEnabled: Bool?
     var dayProfiles: [Int: DayProfile]?  // 1=Mo...7=So, nil = not configured
+    var isSimpleMode: Bool
 
     init(
         id: String = UUID().uuidString,
@@ -41,7 +42,8 @@ struct FamilyMember: Identifiable, Codable, Equatable {
         createdAt: Double? = nil,
         lastUpdatedAt: Double? = nil,
         deviceAlarmEnabled: Bool? = nil,
-        dayProfiles: [Int: DayProfile]? = nil
+        dayProfiles: [Int: DayProfile]? = nil,
+        isSimpleMode: Bool = false
     ) {
         self.id = id
         self.name = name
@@ -61,6 +63,7 @@ struct FamilyMember: Identifiable, Codable, Equatable {
         self.lastUpdatedAt = lastUpdatedAt
         self.deviceAlarmEnabled = deviceAlarmEnabled
         self.dayProfiles = dayProfiles
+        self.isSimpleMode = isSimpleMode
     }
 }
 
@@ -74,6 +77,7 @@ struct DayProfile: Codable, Equatable {
     var wantsBreakfast: Bool
     var leaveHomeTime: DateComponents?
     var bufferMinutes: Int?
+    var isSimpleMode: Bool
 
     init(
         isActive: Bool = true,
@@ -82,7 +86,8 @@ struct DayProfile: Codable, Equatable {
         bathroomDurationMinutes: Int = 20,
         wantsBreakfast: Bool = true,
         leaveHomeTime: DateComponents? = nil,
-        bufferMinutes: Int? = nil
+        bufferMinutes: Int? = nil,
+        isSimpleMode: Bool = false
     ) {
         self.isActive = isActive
         self.earliestWakeUp = earliestWakeUp
@@ -91,6 +96,7 @@ struct DayProfile: Codable, Equatable {
         self.wantsBreakfast = wantsBreakfast
         self.leaveHomeTime = leaveHomeTime
         self.bufferMinutes = bufferMinutes
+        self.isSimpleMode = isSimpleMode
     }
 
     /// Mo–Fr active, Sa–So inactive (default for new members)

@@ -27,7 +27,6 @@
 "main_plan_paused" = "Dein Wecker ist aktuell pausiert.";
 "main_shared_breakfast" = "☕ Gemeinsames Frühstück: %@";
 "main_wake_time" = "Wecken: %@ - %@";
-"main_bathroom_info" = "Bad: %@ Min | Frühstück: %@";
 "main_schedule_bathroom" = "Badezimmer: %@ bis %@";
 "main_schedule_leave" = "Haus verlassen: %@";
 "main_member_alarm_on" = "(Wecker aktiv)";
@@ -42,8 +41,6 @@
 "main_no_profile_warning_desc" = "Bitte wähle in den Einstellungen, wer du bist, damit der Wecker für dich klingeln kann.";
 "main_unclaimed_first_title" = "Für %@ klingelt kein Wecker!";
 "main_unclaimed_first_desc" = "%@ ist als Erstes dran, hat aber noch kein Profil auf dem Handy ausgewählt – und verschläft vielleicht!";
-"main_member_alarm_on" = "(Wecker aktiv)";
-"main_member_alarm_off" = "(kein Wecker)";
 "yes" = "Ja";
 "no" = "Nein";
 "delete_desc" = "Löschen";
@@ -64,7 +61,7 @@
 "add_member_unknown" = "Unbekannt";
 "add_member_earliest_wake" = "Früheste Weckzeit";
 "add_member_latest_wake" = "Späteste Weckzeit";
-"add_member_bathroom_duration" = "Bad-Dauer (Minuten)";
+"add_member_bathroom_duration" = "Bad-Dauer";
 "add_member_wants_breakfast" = "Mit Frühstück";
 "add_member_leave_home" = "Haus verlassen um";
 "add_member_day_profiles_title" = "Wochenplan";
@@ -93,7 +90,6 @@
 "settings_profile_desc" = "Dein Handy klingelt nur für die Person, die hier ausgewählt ist.";
 "settings_please_select" = "Bitte wählen";
 "settings_no_members" = "Keine Mitglieder gefunden";
-"settings_no_profile" = "Kein Profil";
 "settings_alarm_title" = "Weckton";
 "settings_battery_warning_title" = "Akku-Einstellungen können den Wecker blockieren";
 "settings_battery_warning_text" = "Dein Handy könnte den Wecker verzögern oder blockieren, um Strom zu sparen. Bitte erlaube FamWake, im Hintergrund zu laufen.";
@@ -118,7 +114,6 @@
 "settings_delete_family_warning_confirm" = "Ja, für alle löschen";
 "settings_logout" = "Abmelden";
 "settings_delete_account" = "Konto löschen";
-"settings_account_section" = "Konto";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alle Rechte vorbehalten.";
 "empty_members_title" = "Noch keine Mitglieder";
@@ -173,6 +168,7 @@
 "settings_imprint" = "Impressum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion.html";
+"registration_disclaimer" = "Mit der Registrierung akzeptierst du die %@ und die %@.";
 "registration_terms_of_use" = "Nutzungsbedingungen";
 "registration_privacy_policy" = "Datenschutzerklärung";
 "settings_already_claimed" = "Bereits belegt";
@@ -231,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Frühstück −%d Min & Zeiten um %d Min verschoben.";
 "schedule_message_member_conflict" = "Konflikt für %@: Zeiten überschneiden sich zu stark.";
 "schedule_message_member_conflict_desc" = "Versuche, die Reihenfolge oder die Zeiten zu ändern.";
+"schedule_message_buffer_reduced" = "Puffer von %d auf %d Min reduziert.";
+"buffer_after_bath" = "Puffer nach Bad";
+"buffer_between_display" = "%d Min Puffer";
 "main_fallback_alarm_active" = "⚠️ Achtung: Der Plan passt gerade nicht (%@). Bitte passe deine Zeiten an!";
 "error_password_too_short" = "Dein Passwort muss mindestens 8 Zeichen lang sein.";
 "error_email_already_in_use" = "Diese E-Mail ist bereits registriert.";
@@ -305,27 +304,6 @@
 "settings_steal_confirm" = "Ja, übernehmen";
 "schedule_auto_fix" = "✨ Zeiten automatisch anpassen";
 "onboarding_enable_tooltips" = "Zeige hilfreiche Tipps bei der ersten Nutzung";
-
-/* iOS Specific */
-"member_pause" = "Pausieren";
-"member_resume" = "Aktivieren";
-"member_not_active_today" = "Heute nicht aktiv";
-
-"registration_disclaimer" = "Mit der Registrierung akzeptierst du die %1$@ und die %2$@.";
-
-"registration_disclaimer" = "Mit der Registrierung akzeptierst du die %1$@ und die %2$@.";
-
-"buffer_after_bath" = "Puffer nach Bad";
-
-"buffer_between_display" = "%d Min Puffer";
-
-"schedule_message_buffer_reduced" = "Puffer von %d auf %d Min reduziert.";
-"ringing_messages_array" = "Das Bad gehört jetzt ganz allein dir!||Kein Stau, kein Stress – deine Bad-Zeit beginnt jetzt.||Genieße die Ruhe im Bad, solange sie anhält!||Zeit für den ersten Kaffee. Die Welt wartet!||Gut geschlafen? Dein Zeitplan für heute ist fertig.||Bereit für den Tag? Alles ist perfekt abgestimmt.||Zeit, den Tag zu rocken! Deine Bad-Zeit beginnt.||Wach auf und dreh auf – die Bühne gehört dir!||Gute Musik am Morgen vertreibt Kummer und Sorgen!||Euer Familienplan läuft. Los geht's!||Bereit zum Start? Die Familie zählt auf dich.||Aufstehen, Sonnenschein! Das Bad ist frei für dich.||Deine persönliche Bad-Zeit startet jetzt – nutze sie!||Freie Bahn zum Waschbecken – du bist dran!||Der frühe Vogel bekommt das warme Wasser!||Noch fünf Minuten? Nein! Deine Zeit läuft.||Heute wird ein großartiger Tag. Er fängt genau jetzt an!||Deine Zahnbürste vermisst dich. Ab ins Bad!||Alles koordiniert, alles geplant – du bist dran!||Der frühe Vogel hat das Bad für sich allein.";
-
-// Push Notifications
-"notif_schedule_changed_title" = "FamWake: Weck-Plan geändert";
-"notif_schedule_changed_body" = "Die Weckzeiten haben sich geändert. Öffne die App, um deine neue Zeit zu prüfen.";
-"notif_member_joined_title" = "FamWake: Neues Familienmitglied!";
-"notif_member_joined_body" = "Jemand ist eurer Familie beigetreten.";
-"notif_member_left_title" = "FamWake: Jemand hat die Familie verlassen";
-"notif_member_left_body" = "Ein Mitglied hat eure Familie verlassen.";
+"settings_no_profile" = "Kein Profil";
+"simple_mode_title" = "Einfacher Modus";
+"simple_mode_desc" = "Feste Weckzeit ohne Puffer oder Berechnung der Badezimmerzeiten.";

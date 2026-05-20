@@ -346,4 +346,6 @@
     <string name="onboarding_mock_name1">Tata</string>
     <string name="onboarding_mock_name2">Mama</string>
     <string name="settings_share_code_locked">Zaloguj się, aby udostępnić swój kod zaproszenia.</string>
+    <string name="simple_mode_title">Tryb prosty</string>
+    <string name="simple_mode_desc">Stała godzina pobudki bez marginesu czasowego i obliczania czasu w łazience.</string>
 </resources>
