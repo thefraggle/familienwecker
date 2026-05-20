@@ -31,7 +31,6 @@ final class AlarmService: ObservableObject {
         
         content.categoryIdentifier = "ALARM"
         content.userInfo = ["memberId": memberId, "memberName": memberName]
-        content.interruptionLevel = .timeSensitive
 
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             let isCriticalEnabled = settings.criticalAlertSetting == .enabled
@@ -44,6 +43,7 @@ final class AlarmService: ObservableObject {
                     .init(named: UNNotificationSoundName(soundName))
             }
             content.sound = sound
+            content.interruptionLevel = isCriticalEnabled ? .critical : .timeSensitive
 
             let needsRequest = settings.authorizationStatus == .notDetermined ||
                                (settings.authorizationStatus == .authorized && settings.criticalAlertSetting == .disabled)
