@@ -72,11 +72,15 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
           # Extract UUID, Name, and Team ID from Provisioning Profile for debugging and setup
-          UUID=$(security cms -D -i $PP_PATH | grep -A1 "UUID" | grep "<string>" | sed -E 's/.*<string>(.*)<\/string>.*/\1/')
+          security cms -D -i $PP_PATH > $RUNNER_TEMP/profile.plist
+          UUID=$(plutil -extract UUID raw $RUNNER_TEMP/profile.plist)
           echo "Found provisioning profile UUID: $UUID"
           
-          PROFILE_NAME=$(security cms -D -i $PP_PATH | grep -A1 "Name" | grep "<string>" | sed -E 's/.*<string>(.*)<\/string>.*/\1/')
+          PROFILE_NAME=$(plutil -extract Name raw $RUNNER_TEMP/profile.plist)
           echo "Found provisioning profile name: $PROFILE_NAME"
+
+          TEAM_NAME=$(plutil -extract TeamName raw $RUNNER_TEMP/profile.plist)
+          echo "Found provisioning profile TeamName: $TEAM_NAME"
 
           # Copy to Xcode provisioning profiles folder
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
