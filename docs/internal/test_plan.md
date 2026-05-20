@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
 **Version:** 1.9.5
-**Datum:** 2026-05-18
+**Datum:** 2026-05-20
 
 ---
 
@@ -30,6 +30,8 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-24 | Puffer nach Bad (individuell) | Im Mitglieder-Editor: Stepper zeigt globalen Wert kursiv. Override setzt eigenen Wert (bold). Zurückstufen auf globalen Wert zeigt wieder kursiv. Persist nach App-Neustart. |
 | TC-25 | Familie einladen | Share-Button über dem Hinzufügen-Button öffnet System-Share-Dialog mit Familien-Link. Nur für eingeloggte Nutzer sichtbar. |
 | TC-26 | Zeitformat 12h/24h | Uhrzeiten folgen der Geräteeinstellung. Wechsel in den Systemeinstellungen wirkt sofort nach Rückkehr zur App. |
+| TC-27 | Einfacher Modus | Im Mitglieder-Editor: Aktivieren blendet alle erweiterten Optionen (Baddauer, Puffer, Frühstück etc.) aus und zeigt nur noch die Aufstehzeit. Scheduler weist feste Weckzeit zu, ohne das Zeitfenster zu verschieben oder zu jonglieren. Speichern funktioniert und Zeitplan aktualisiert sich. |
+| TC-28 | Profil-Löschung auf Fremdgerät | Ein geclaimtes Profil wird von einem anderen Gerät aus gelöscht. Das betroffene Gerät entkoppelt sich sofort (Wecker aus, myMemberId = nil) und kehrt in den ungeclaimten Zustand zurück. |
 
 ### 3. Wecker, Alarm & Berechtigungen
 | ID | Testfall | Erwartetes Ergebnis |

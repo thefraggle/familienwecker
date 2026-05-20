@@ -2,10 +2,15 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.9.5 – 2026-05-18
+## 1.9.5 – 2026-05-20
 ### Neu
+- **Einfacher Modus** – Für Familienmitglieder, die keine feste Badezimmer-Reihenfolge benötigen oder außerhalb des üblichen Ablaufes aufstehen. Der einfache Modus blendet alle erweiterten Einstellungen aus und weckt starr zur Wunschzeit.
 - **iOS Feature Parity** – Die iOS-Version von FamWake hat nun Feature-Parität mit Android, inklusive vollständiger Push-Benachrichtigungen, Deep-Links zum Teilen der Familie und synchroner UI-Skalierung für Barrierefreiheit.
 - **Auto-Recover** – Unter iOS wird der Familienstatus nach einer Neuinstallation automatisch über den Keychain wiederhergestellt, sodass man nicht mehr manuell beitreten muss.
+
+### Verbessert
+- **Schnelleres Teilen (iOS)** – Der Teilen-Button für den Familiencode reagiert nun sofort und ohne Verzögerung auf den Login-Status.
+- **Zuverlässiges Löschen** – Wenn dein Profil von einem anderen Gerät aus gelöscht wird, deaktiviert die App die Wecker auf deinem Gerät nun sofort und zuverlässig.
 
 ---
 
