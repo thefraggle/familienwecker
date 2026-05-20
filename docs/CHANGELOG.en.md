@@ -2,10 +2,15 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.9.5 – 2026-05-18
+## 1.9.5 – 2026-05-20
 ### New
+- **Simple Mode** – For family members who do not need a coordinated bathroom slot or wake up outside the usual routine. Simple mode hides all advanced options and triggers the alarm exactly at the chosen wake-up time.
 - **iOS Feature Parity** – The iOS version of FamWake now has feature parity with Android, including full push notifications, deep links for sharing the family, and synchronous UI scaling for accessibility.
 - **Auto-Recover** – On iOS, the family status is now automatically restored via the Keychain after a reinstall, so you no longer have to join manually.
+
+### Improved
+- **Faster Sharing (iOS)** – The family code share button now reacts instantly and without delay to login status updates.
+- **Reliable Profile Deletion** – If your member profile is deleted from another device, the app now instantly and reliably disables alarms on your device.
 
 ---
 
