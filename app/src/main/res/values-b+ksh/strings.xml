@@ -346,4 +346,6 @@
     <string name="settings_steal_confirm">Jau, her damit</string>
     <string name="schedule_auto_fix">✨ Zeiten von alleine anpassen</string>
     <string name="onboarding_enable_tooltips">Zeig hilfreiche Tipps bei der ersten Nutzung an</string>
+    <string name="simple_mode_title">Einfacher Modus</string>
+    <string name="simple_mode_desc">Feste Weckzeit ohne Puffer oder Rechnerei fürs Bad.</string>
 </resources>

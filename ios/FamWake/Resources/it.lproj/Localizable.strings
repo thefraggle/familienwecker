@@ -27,7 +27,6 @@
 "main_plan_paused" = "La tua sveglia è in pausa.";
 "main_shared_breakfast" = "☕ Colazione insieme: %@";
 "main_wake_time" = "Sveglia: %@ - %@";
-"main_bathroom_info" = "Bagno: %@ min | Colazione: %@";
 "main_schedule_bathroom" = "Bagno: dalle %@ alle %@";
 "main_schedule_leave" = "Uscita: %@";
 "main_member_alarm_on" = "(Sveglia attiva)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Sconosciuto";
 "add_member_earliest_wake" = "Sveglia prima possibile";
 "add_member_latest_wake" = "Sveglia più tardi possibile";
-"add_member_bathroom_duration" = "Tempo necessario in bagno (minuti)";
+"add_member_bathroom_duration" = "Tempo necessario in bagno";
 "add_member_wants_breakfast" = "Vuole fare colazione";
 "add_member_leave_home" = "Deve uscire di casa alle";
 "add_member_day_profiles_title" = "Programma settimanale";
@@ -162,6 +161,7 @@
 "settings_imprint" = "Note legali";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-it.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-it.html";
+"registration_disclaimer" = "Registrandoti, accetti i %@ e l'%@.";
 "registration_terms_of_use" = "Termini di utilizzo";
 "registration_privacy_policy" = "Informativa sulla privacy";
 "settings_already_claimed" = "Già in uso";
@@ -220,6 +220,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Colazione −%d min e orari spostati di %d min.";
 "schedule_message_member_conflict" = "Problema per %@: Gli orari si sovrappongono troppo.";
 "schedule_message_member_conflict_desc" = "Prova a cambiare l'ordine o ad aggiustare gli orari.";
+"schedule_message_buffer_reduced" = "Margine ridotto da %d a %d min.";
+"buffer_after_bath" = "Margine dopo il bagno";
+"buffer_between_display" = "%d min di margine";
 "main_fallback_alarm_active" = "⚠️ Attenzione: Il programma non quadra in questo momento (%@). Per favore, aggiusta i tuoi orari!";
 "error_password_too_short" = "La tua password deve essere lunga almeno 8 caratteri.";
 "error_email_already_in_use" = "Questa email è già registrata.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Sì, usalo";
 "schedule_auto_fix" = "✨ Adatta gli orari automaticamente";
 "onboarding_enable_tooltips" = "Mostra consigli utili al primo utilizzo";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Account";
-
-"registration_disclaimer" = "Registrandoti, accetti i %1$@ e l'%2$@.";
-
-"registration_disclaimer" = "Registrandoti, accetti i %1$@ e l'%2$@.";
-
-"buffer_after_bath" = "Margine dopo il bagno";
-
-"buffer_between_display" = "%d min di margine";
-
-"schedule_message_buffer_reduced" = "Margine ridotto da %d a %d min.";
-
-"ringing_messages_array" = "Il bagno è tutto tuo in questo momento!||Niente code, niente stress: il tuo tempo in bagno inizia ora.||Goditi la pace in bagno finché dura!||Tempo per il primo caffè. Il mondo ti aspetta!||Dormito bene? Il tuo programma per oggi è pronto.||Pronto/a per la giornata? Tutto è organizzato alla perfezione.||È ora di spaccare la giornata! Il tuo turno in bagno inizia.||Svegliati e alza il volume: il palco è tuo!||La buona musica al mattino toglie i pensieri di torno!||Il tuo programma di famiglia è in corso. Andiamo!||Pronto/a al decollo? La famiglia conta su di te.||Sveglia, raggio di sole! Il bagno è libero per te.||Il tuo tempo personale in bagno inizia ora – approfittane!||Via libera al lavandino – è il tuo turno!||Chi prima si alza ha l'acqua calda!||Altri 5 minuti? No! La tua finestra di tempo ti aspetta.||Oggi sarà una bellissima giornata. E inizia adesso!||Il tuo spazzolino ti aspetta. Vai in bagno!||Tutto coordinato, tutto pianificato – tocca a te!||Chi si alza presto ha il bagno tutto per sé.";
+"simple_mode_title" = "Modalità semplice";
+"simple_mode_desc" = "Orario di sveglia fisso senza margine o calcolo dei turni in bagno.";

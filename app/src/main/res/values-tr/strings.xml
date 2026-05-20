@@ -352,4 +352,6 @@
     <string name="settings_steal_confirm">Evet, kullan</string>
     <string name="schedule_auto_fix">✨ Saatleri otomatik ayarla</string>
     <string name="onboarding_enable_tooltips">İlk kullanımda faydalı ipuçları göster</string>
+    <string name="simple_mode_title">Basit Mod</string>
+    <string name="simple_mode_desc">Tampon süre veya banyo sırası hesaplaması olmadan sabit uyanma saati.</string>
 </resources>

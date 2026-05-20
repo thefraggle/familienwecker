@@ -27,7 +27,6 @@
 "main_plan_paused" = "Dei Wegger hat grad Pause.";
 "main_shared_breakfast" = "☕ Zämma Frühstücka: %@";
 "main_wake_time" = "Uffwacha: %@ - %@";
-"main_bathroom_info" = "Bad: %@ Min | Frühstück: %@";
 "main_schedule_bathroom" = "Bad: %@ bis %@";
 "main_schedule_leave" = "Nausganga: %@";
 "main_member_alarm_on" = "(Wegger aa)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Oibekannt";
 "add_member_earliest_wake" = "Früheschte Weggzeit";
 "add_member_latest_wake" = "Späteschte Weggzeit";
-"add_member_bathroom_duration" = "Zeit im Bad (Minuta)";
+"add_member_bathroom_duration" = "Zeit im Bad";
 "add_member_wants_breakfast" = "Mit Frühstück";
 "add_member_leave_home" = "Haus verlassa om";
 "add_member_day_profiles_title" = "Wochaplan";
@@ -162,6 +161,7 @@
 "settings_imprint" = "Impressum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion.html";
+"registration_disclaimer" = "Mit em Registriera bisch mit de %@ ond de %@ ei'verstanda.";
 "registration_terms_of_use" = "Nutzongsbedingonga";
 "registration_privacy_policy" = "Dateschutzerklärung";
 "settings_already_claimed" = "Isch scho bsetzt";
@@ -220,6 +220,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Frühstück −%d Min & Zeita om %d Min gricht.";
 "schedule_message_member_conflict" = "S'klemmt für %@: Zeita ganged zu arg iber'nand.";
 "schedule_message_member_conflict_desc" = "Probiers mol mit na andere Reihafolg oder mach d'Zeita andersch.";
+"schedule_message_buffer_reduced" = "Puffer vo %d uff %d Min. rondergsedzd.";
+"buffer_after_bath" = "Puffer nachm Bad";
+"buffer_between_display" = "%d Min. Puffer";
 "main_fallback_alarm_active" = "⚠️ Achtong: Dr Plan basst grad net (%@). Bitte richte dei Zeita!";
 "error_password_too_short" = "S'Passwort muass midischtens 8 Zeiche lang sei.";
 "error_email_already_in_use" = "Die E-Mail isch scho aagmeldet.";
@@ -301,23 +304,5 @@
 "onboarding_mock_family_name" = "Häberle";
 "onboarding_mock_name1" = "Babba";
 "onboarding_mock_name2" = "Mama";
-
-
-/* iOS Specific (Fallback to German) */
-"member_pause" = "Pausieren";
-"member_resume" = "Aktivieren";
-"member_not_active_today" = "Heute nicht aktiv";
-"settings_account_section" = "Konto";
-
-"registration_disclaimer" = "Mit em Registriera bisch mit de %1$@ ond de %2$@ ei'verstanda.";
-
-"registration_disclaimer" = "Mit em Registriera bisch mit de %1$@ ond de %2$@ ei'verstanda.";
-
-"buffer_after_bath" = "Puffer nachm Bad";
-
-"buffer_between_display" = "%d Min. Puffer";
-
-"schedule_message_buffer_reduced" = "Puffer vo %d uff %d Min. rondergsedzd.";
-
-"ringing_messages_array" = "S'Bädle ghert jetzt ganz alloim dir!||Koi Gschrei, koin Stress – dei Badzeit fängt aa.||Gnieß d'Ruha em Bad, solang s'goht!||Zeit für a Käffle. D'Welt wartet uff di!||Gud gschlafa? Dei Plan für heit basst.||Grichtet für da Dåg? Älles isch subber abgstimmt.||Uff gehts, dr Dåg ghört dir! Badzeit fängt aa.||Wach uff ond dräh uff – d'Bühne isch dei!||A guats Musikle am Morga verdreibt Kummer ond Sorga!||Dr Familieplan lauft. S'goht los!||Bisch grichtet? S'Team zählet uff di.||Ufschdanda, Sonnaschai! Des Bad isch frei für di.||Dei persönlicher Bad-Slot fangt jetzt aa – nutz en!||Freie Bahn zom Waschbegga – du bisch dra!||Dr frühe Vogl griagt s'warme Wasser!||No 5 Minudda? Noi! Dei Zeitfenschder wartet.||Heid wird a guader Tag. Der fangt genau jetzt aa!||D'Zahnbürschde vermisst di. Ab ins Bad!||Älles koordiniert, älles gplant – du bisch dra!||Der frühe Vogel hot des Bad für sich alloi.";
-
+"simple_mode_title" = "Oifacher Modus";
+"simple_mode_desc" = "Feschde Weckzeit ohne Puffer oder s'Ausrechna vo de Badzeita.";

@@ -27,7 +27,6 @@
 "main_plan_paused" = "Ваш будильник сейчас на паузе.";
 "main_shared_breakfast" = "☕ Совместный завтрак: %@";
 "main_wake_time" = "Подъем: %@ - %@";
-"main_bathroom_info" = "Ванная: %@ мин | Завтрак: %@";
 "main_schedule_bathroom" = "Ванная: с %@ до %@";
 "main_schedule_leave" = "Выход из дома: %@";
 "main_member_alarm_on" = "(Будильник активен)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Неизвестно";
 "add_member_earliest_wake" = "Самое раннее время подъема";
 "add_member_latest_wake" = "Самое позднее время подъема";
-"add_member_bathroom_duration" = "Время в ванной (минут)";
+"add_member_bathroom_duration" = "Время в ванной";
 "add_member_wants_breakfast" = "Завтракает с нами";
 "add_member_leave_home" = "Время выхода из дома";
 "add_member_day_profiles_title" = "Расписание на неделю";
@@ -162,6 +161,7 @@
 "settings_imprint" = "Выходные данные";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-ru.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-ru.html";
+"registration_disclaimer" = "Регистрируясь, вы принимаете %@ и %@.";
 "registration_terms_of_use" = "Условия использования";
 "registration_privacy_policy" = "Политику конфиденциальности";
 "settings_already_claimed" = "Уже занято";
@@ -220,6 +220,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Завтрак −%d мин. и время сдвинуто на %d мин.";
 "schedule_message_member_conflict" = "Конфликт для %@: Время слишком сильно пересекается.";
 "schedule_message_member_conflict_desc" = "Попробуйте изменить порядок или скорректировать время.";
+"schedule_message_buffer_reduced" = "Буфер уменьшен с %d до %d мин.";
+"buffer_after_bath" = "Буфер после ванной";
+"buffer_between_display" = "Буфер %d мин";
 "main_fallback_alarm_active" = "⚠️ Внимание: Расписание сейчас не сходится (%@). Пожалуйста, скорректируйте время!";
 "error_password_too_short" = "Ваш пароль должен состоять минимум из 8 символов.";
 "error_email_already_in_use" = "Этот email уже зарегистрирован.";
@@ -301,22 +304,5 @@
 "onboarding_mock_family_name" = "Иванов";
 "onboarding_mock_name1" = "Папа";
 "onboarding_mock_name2" = "Мама";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Аккаунт";
-
-"registration_disclaimer" = "Регистрируясь, вы принимаете %1$@ и %2$@.";
-
-"registration_disclaimer" = "Регистрируясь, вы принимаете %1$@ и %2$@.";
-
-"buffer_after_bath" = "Буфер после ванной";
-
-"buffer_between_display" = "Буфер %d мин";
-
-"schedule_message_buffer_reduced" = "Буфер уменьшен с %d до %d мин.";
-
-"ringing_messages_array" = "Ванная комната сейчас полностью в твоем распоряжении!||Без пробок и стресса – твое время в ванной начинается сейчас.||Наслаждайся тишиной в ванной, пока она свободна!||Время для первого кофе. Мир ждет!||Хорошо спалось? Твое расписание на сегодня готово.||Готов к новому дню? Всё отлично спланировано.||Пора начинать этот день! Твое время в ванной началось.||Просыпайся и включай звук – сцена твоя!||Хорошая музыка с утра прогоняет заботы!||Семейное расписание запущено. Вперед!||Готов к старту? Семья рассчитывает на тебя.||Вставай, солнышко! Ванная свободна для тебя.||Твое личное время в ванной начинается – используй его!||Путь к раковине свободен – твоя очередь!||Кто рано встаёт, тому достается горячая вода!||Ещё 5 минут? Нет! Твое время пришло.||Сегодня будет отличный день. И он начинается прямо сейчас!||Твоя зубная щётка скучает. Бегом в ванную!||Всё скоординировано и спланировано – теперь твоя очередь!||Ранняя пташка занимает ванную первой.";
+"simple_mode_title" = "Простой режим";
+"simple_mode_desc" = "Фиксированное время пробуждения без запаса времени или расчета времени на ванную.";

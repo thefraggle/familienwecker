@@ -352,4 +352,6 @@
     <string name="onboarding_login_create">Увійти / Зареєструватися</string>
     <string name="onboarding_slide5_body">Ви можете спробувати додаток відразу без облікового запису. Він знадобиться лише тоді, коли ви захочете запросити свою сім\'ю.</string>
     <string name="onboarding_slide5_title">Почнімо!</string>
+    <string name="simple_mode_title">Простий режим</string>
+    <string name="simple_mode_desc">Фіксований час пробудження без запасу часу або розрахунку часу на ванну.</string>
 </resources>

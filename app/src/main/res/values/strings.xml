@@ -353,4 +353,6 @@
     <string name="schedule_auto_fix">✨ Auto-adjust times</string>
     <string name="onboarding_enable_tooltips">Show helpful tips on first use</string>
     <string name="settings_no_profile">No profile</string>
+    <string name="simple_mode_title">Simple Mode</string>
+    <string name="simple_mode_desc">Fixed wake-up time without buffer or bathroom slot calculation.</string>
 </resources>
