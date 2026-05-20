@@ -66,14 +66,17 @@ jobs:
 
           # Import certificate to keychain
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychains -d user -s $KEYCHAIN_PATH /Library/Keychains/System.keychain
+          security list-keychains -d user -s $KEYCHAIN_PATH $(security list-keychains -d user | tr -d '"')
 
           # Avoid prompt for keychain access during build
-          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
-          # Extract UUID from Provisioning Profile
+          # Extract UUID, Name, and Team ID from Provisioning Profile for debugging and setup
           UUID=$(security cms -D -i $PP_PATH | grep -A1 "UUID" | grep "<string>" | sed -E 's/.*<string>(.*)<\/string>.*/\1/')
           echo "Found provisioning profile UUID: $UUID"
+          
+          PROFILE_NAME=$(security cms -D -i $PP_PATH | grep -A1 "Name" | grep "<string>" | sed -E 's/.*<string>(.*)<\/string>.*/\1/')
+          echo "Found provisioning profile name: $PROFILE_NAME"
 
           # Copy to Xcode provisioning profiles folder
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
