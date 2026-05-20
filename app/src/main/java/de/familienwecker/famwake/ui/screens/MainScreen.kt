@@ -204,7 +204,21 @@ fun MainScreen(
             topBar = {
                 LargeTopAppBar(
                     title = {
-                        Text(stringResource(R.string.app_name_short))
+                        val appShortName = stringResource(R.string.app_name_short)
+                        Text(
+                            buildAnnotatedString {
+                                val prefix = "FamWake"
+                                val suffix = appShortName.removePrefix(prefix).trim()
+                                withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.ExtraBold)) {
+                                    append(prefix)
+                                }
+                                if (suffix.isNotEmpty()) {
+                                    withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Normal)) {
+                                        append(" $suffix")
+                                    }
+                                }
+                            }
+                        )
                     },
                     actions = {
                         val syncRotationTransition = rememberInfiniteTransition(label = "syncRotation")
