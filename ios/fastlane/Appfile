@@ -1,0 +1,3 @@
+app_identifier("de.familienwecker.FamWake")
+team_id("296C735W8C")
+itc_team_id("120970348") # iTunes Connect Team ID (optional, Fastlane can infer it or we can omit it)
