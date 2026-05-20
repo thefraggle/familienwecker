@@ -25,7 +25,7 @@ struct OnboardingView: View {
         self.onLoginRequested = onLoginRequested
         self.isLoggedIn = isLoggedIn
         let count = isLoggedIn ? 3 : 4
-        self._currentPage = State(initialValue: startAtWelcome ? 0 : count - 1)
+        self._currentPage = State(initialValue: startAtWelcome ? count - 1 : 0)
         self._tooltipsEnabled = State(initialValue: UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true)
     }
 
