@@ -16,7 +16,13 @@ class FamilyViewModel: ObservableObject {
     @Published var familyName: String? = nil
     @Published var globalBufferMinutes: Int = 0
     @Published var joinCode: String? = nil
-    @Published var myMemberId: String? = UserDefaults.standard.string(forKey: "my_member_id")
+    @Published var myMemberId: String? = UserDefaults.standard.string(forKey: "my_member_id") {
+        didSet {
+            if let oldValue = oldValue, oldValue != myMemberId {
+                AlarmService.shared.cancelWakeUp(memberId: oldValue)
+            }
+        }
+    }
     @Published var isAlarmEnabled: Bool = UserDefaults.standard.bool(forKey: "alarm_enabled")
     @Published var isAwakeTodayLocal: Bool = false
     @Published var isSyncing: Bool = false
@@ -463,7 +469,7 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
-    func setMyMemberId(_ memberId: String, force: Bool = false, completion: @escaping (Bool) -> Void) {
+    func setMyMemberId(_ memberId: String?, force: Bool = false, completion: @escaping (Bool) -> Void) {
         guard let fid = familyId, let uid = Auth.auth().currentUser?.uid else {
             completion(false); return
         }
@@ -471,48 +477,89 @@ class FamilyViewModel: ObservableObject {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         errorMessage = nil
         
+        let currentMyMemberId = self.myMemberId
+        
         Task {
             do {
-                let docRef = db.collection("families").document(fid).collection("members").document(memberId)
-                let success = try await db.runTransaction({ (transaction, errorPointer) -> Any? in
-                    let snapshot: DocumentSnapshot
-                    do {
-                        try snapshot = transaction.getDocument(docRef)
-                    } catch let error as NSError {
-                        errorPointer?.pointee = error
+                if let oldId = currentMyMemberId, oldId != memberId {
+                    // Unclaim old member in Firestore
+                    let oldDocRef = db.collection("families").document(fid).collection("members").document(oldId)
+                    _ = try? await db.runTransaction({ (transaction, errorPointer) -> Any? in
+                        let snapshot: DocumentSnapshot
+                        do {
+                            try snapshot = transaction.getDocument(oldDocRef)
+                        } catch let error as NSError {
+                            errorPointer?.pointee = error
+                            return false
+                        }
+                        let existingClaim = snapshot.data()?["claimedByUserId"] as? String
+                        if existingClaim == uid {
+                            transaction.updateData([
+                                "claimedByUserId": FieldValue.delete(),
+                                "claimedByUserName": FieldValue.delete(),
+                                "claimedByDeviceId": FieldValue.delete(),
+                                "isAwakeToday": false,
+                                "lastUpdatedAt": FieldValue.serverTimestamp()
+                            ], forDocument: oldDocRef)
+                            return true
+                        }
                         return false
-                    }
-                    
-                    let existingClaim = snapshot.data()?["claimedByUserId"] as? String
-                    if force || existingClaim == nil || existingClaim == uid {
-                        transaction.updateData([
-                            "claimedByUserId": uid,
-                            "claimedByUserName": userName,
-                            "claimedByDeviceId": deviceId,
-                            "deviceAlarmEnabled": true,
-                            "lastUpdatedAt": FieldValue.serverTimestamp()
-                        ], forDocument: docRef)
-                        return true
-                    } else {
-                        let err = NSError(domain: "FamWake", code: 409, userInfo: [NSLocalizedDescriptionKey: "profile_taken"])
-                        errorPointer?.pointee = err
-                        return false
-                    }
-                }) as? Bool ?? false
+                    })
+                }
                 
-                if success {
+                if let memberId = memberId {
+                    // Claim new member in Firestore
+                    let docRef = db.collection("families").document(fid).collection("members").document(memberId)
+                    let success = try await db.runTransaction({ (transaction, errorPointer) -> Any? in
+                        let snapshot: DocumentSnapshot
+                        do {
+                            try snapshot = transaction.getDocument(docRef)
+                        } catch let error as NSError {
+                            errorPointer?.pointee = error
+                            return false
+                        }
+                        
+                        let existingClaim = snapshot.data()?["claimedByUserId"] as? String
+                        if force || existingClaim == nil || existingClaim == uid {
+                            transaction.updateData([
+                                "claimedByUserId": uid,
+                                "claimedByUserName": userName,
+                                "claimedByDeviceId": deviceId,
+                                "deviceAlarmEnabled": true,
+                                "lastUpdatedAt": FieldValue.serverTimestamp()
+                            ], forDocument: docRef)
+                            return true
+                        } else {
+                            let err = NSError(domain: "FamWake", code: 409, userInfo: [NSLocalizedDescriptionKey: "profile_taken"])
+                            errorPointer?.pointee = err
+                            return false
+                        }
+                    }) as? Bool ?? false
+                    
+                    if success {
+                        await MainActor.run {
+                            self.myMemberId = memberId
+                            UserDefaults.standard.set(memberId, forKey: "my_member_id")
+                            TelemetryManager.send("member.claimed")
+                            self.recalculateSchedule()
+                        }
+                        completion(true)
+                    } else {
+                        await MainActor.run {
+                            self.errorMessage = L.errorProfileTaken
+                        }
+                        completion(false)
+                    }
+                } else {
+                    // Just unclaiming
                     await MainActor.run {
-                        self.myMemberId = memberId
-                        UserDefaults.standard.set(memberId, forKey: "my_member_id")
-                        TelemetryManager.send("member.claimed")
+                        self.myMemberId = nil
+                        UserDefaults.standard.removeObject(forKey: "my_member_id")
+                        self.isAlarmEnabled = false
+                        UserDefaults.standard.set(false, forKey: "alarm_enabled")
                         self.recalculateSchedule()
                     }
                     completion(true)
-                } else {
-                    await MainActor.run {
-                        self.errorMessage = L.errorProfileTaken
-                    }
-                    completion(false)
                 }
             } catch {
                 await MainActor.run {
@@ -773,18 +820,20 @@ class FamilyViewModel: ObservableObject {
                 
                 // Claim-Sync: Prüfe ob eigenes Profil noch gültig ist (Android FamilyViewModel.kt:251-283)
                 if let uid = Auth.auth().currentUser?.uid {
-                    let deviceId = UIDevice.current.identifierForVendor?.uuidString
                     let claimedByMe = self.members.first { $0.claimedByUserId == uid }
                     if let claimed = claimedByMe, claimed.id != self.myMemberId {
                         // Anderes Gerät hat unser Profil auf ein anderes Member umgeclaimt
                         self.myMemberId = claimed.id
                         UserDefaults.standard.set(claimed.id, forKey: "my_member_id")
-                    } else if claimedByMe == nil && self.myMemberId != nil && !self.members.isEmpty {
-                        // Profil wurde von einem anderen Gerät "gestohlen"
-                        self.myMemberId = nil
-                        UserDefaults.standard.removeObject(forKey: "my_member_id")
-                        self.isAlarmEnabled = false
-                        UserDefaults.standard.set(false, forKey: "alarm_enabled")
+                    } else if claimedByMe == nil && self.myMemberId != nil {
+                        let myIdExistsInList = self.members.contains { $0.id == self.myMemberId }
+                        let shouldClear = self.members.isEmpty ? !self.isSyncing : !myIdExistsInList
+                        if shouldClear {
+                            self.myMemberId = nil
+                            UserDefaults.standard.removeObject(forKey: "my_member_id")
+                            self.isAlarmEnabled = false
+                            UserDefaults.standard.set(false, forKey: "alarm_enabled")
+                        }
                     }
                 }
                 

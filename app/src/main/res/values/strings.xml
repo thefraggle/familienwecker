@@ -352,4 +352,5 @@
     <string name="settings_steal_confirm">Yes, use it</string>
     <string name="schedule_auto_fix">✨ Auto-adjust times</string>
     <string name="onboarding_enable_tooltips">Show helpful tips on first use</string>
+    <string name="settings_no_profile">No profile</string>
 </resources>

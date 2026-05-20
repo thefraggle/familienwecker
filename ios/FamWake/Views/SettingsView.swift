@@ -593,11 +593,7 @@ struct SettingsView: View {
                 // Unclaim-Option: "Kein Profil" (Android bietet das ebenfalls an)
                 if familyViewModel.myMemberId != nil {
                     Button(action: {
-                        familyViewModel.myMemberId = nil
-                        UserDefaults.standard.removeObject(forKey: "my_member_id")
-                        familyViewModel.isAlarmEnabled = false
-                        UserDefaults.standard.set(false, forKey: "alarm_enabled")
-                        familyViewModel.recalculateSchedule()
+                        familyViewModel.setMyMemberId(nil) { _ in }
                         showProfilePicker = false
                     }) {
                         HStack {

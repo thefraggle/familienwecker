@@ -244,6 +244,17 @@ class FamilyViewModel(
             }
         }
 
+        // Cancel alarm for old member ID when myMemberId changes
+        viewModelScope.launch(Dispatchers.IO) {
+            var lastMemberId: String? = appSettings.myMemberId.value
+            appSettings.myMemberId.collect { newId ->
+                if (lastMemberId != null && lastMemberId != newId) {
+                    alarmScheduler.cancelWakeUp(lastMemberId!!)
+                }
+                lastMemberId = newId
+            }
+        }
+
         // Integritätscheck beim Start – asynchron, blockiert den Init nicht.
         // Ergebnis wird in TelemetryDeck geloggt ("integrity.check").
         // Im Monitoring-Modus (v1.7.7) ist isSyncBlocked immer false.
@@ -272,15 +283,15 @@ class FamilyViewModel(
                     if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
                         appSettings.setMyMemberId(claimedByMe.id)
                         appSettings.setMyMemberName(claimedByMe.name)
-                    } else if (claimedByMe == null && myMemberId.value != null && checkedMembers.isNotEmpty() && !_isAutoClaimInProgress.value) {
-                        // Profil wurde von einem anderen Gerät "gestohlen"
-                        val oldMemberId = myMemberId.value
-                        if (oldMemberId != null) {
-                            alarmScheduler.cancelWakeUp(oldMemberId)
+                    } else if (claimedByMe == null && myMemberId.value != null && !_isAutoClaimInProgress.value) {
+                        // Profil wurde von einem anderen Gerät "gestohlen" oder gelöscht!
+                        val myIdExistsInList = checkedMembers.any { it.id == myMemberId.value }
+                        val shouldClear = if (checkedMembers.isEmpty()) !_isSyncing.value else !myIdExistsInList
+                        if (shouldClear) {
+                            appSettings.setMyMemberId(null)
+                            appSettings.setMyMemberName(null)
+                            appSettings.setAlarmEnabled(false)
                         }
-                        appSettings.setMyMemberId(null)
-                        appSettings.setMyMemberName(null)
-                        appSettings.setAlarmEnabled(false)
                     }
                 }
                 recalculateSchedule()
