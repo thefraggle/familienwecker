@@ -256,7 +256,8 @@ internal fun FamilyViewModel.resolveEffectiveMember(
         latestWakeUp            = profile.latestWakeUp,
         bathroomDurationMinutes = profile.bathroomDurationMinutes,
         wantsBreakfast          = profile.wantsBreakfast,
-        leaveHomeTime           = profile.leaveHomeTime
+        leaveHomeTime           = profile.leaveHomeTime,
+        dayProfiles             = mapOf(targetDow to profile)
     )
 }
 
