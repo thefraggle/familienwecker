@@ -27,7 +27,6 @@
 "main_plan_paused" = "Diin Wecker isch grad pausiert.";
 "main_shared_breakfast" = "☕ Gmeinsams Zmorge: %@";
 "main_wake_time" = "Wecke: %@ - %@";
-"main_bathroom_info" = "Bad: %@ Min | Zmorge: %@";
 "main_schedule_bathroom" = "Badzimmer: %@ bis %@";
 "main_schedule_leave" = "Huus verlaa: %@";
 "main_member_alarm_on" = "(Wecker aktiv)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Umbekannt";
 "add_member_earliest_wake" = "Früehsti Weckziit";
 "add_member_latest_wake" = "Spötesti Weckziit";
-"add_member_bathroom_duration" = "Bad-Duur (Minute)";
+"add_member_bathroom_duration" = "Bad-Duur";
 "add_member_wants_breakfast" = "Mit Zmorge";
 "add_member_leave_home" = "Huus verlaa am";
 "add_member_day_profiles_title" = "Wucheplan";
@@ -169,6 +168,7 @@
 "settings_imprint" = "Impressum";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
+"registration_disclaimer" = "Mit de Registrierig akzeptiersch d'%@ und d'%@.";
 "registration_terms_of_use" = "Nutzigsbedingige";
 "registration_privacy_policy" = "Dateschutzerchlärig";
 "settings_already_claimed" = "Scho bsetzt";
@@ -227,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Zmorge −%d Min & Ziite um %d Min verschobe.";
 "schedule_message_member_conflict" = "Konflikt für %@: Ziite überschniided sich z'starch.";
 "schedule_message_member_conflict_desc" = "Versuech, d'Reihefolg oder d'Ziite z'ändere.";
+"schedule_message_buffer_reduced" = "Puffer vo %d uf %d Min. abegsetzt.";
+"buffer_after_bath" = "Puffer nachem Bad";
+"buffer_between_display" = "%d Min. Puffer";
 "main_fallback_alarm_active" = "⚠️ Achtung: De Plan passt grad nöd (%@). Bitte pass diini Ziite aa!";
 "error_password_too_short" = "Diis Passwort mues mindistens 8 Zeiche lang sii.";
 "error_email_already_in_use" = "Die E-Mail isch scho registriert.";
@@ -301,23 +304,5 @@
 "settings_steal_confirm" = "Ja, übernäh";
 "schedule_auto_fix" = "✨ Ziite automatisch aapasse";
 "onboarding_enable_tooltips" = "Zeig hilfriichi Tipps bi de erschte Nutzig";
-
-
-/* iOS Specific (Fallback to German) */
-"member_pause" = "Pausieren";
-"member_resume" = "Aktivieren";
-"member_not_active_today" = "Heute nicht aktiv";
-"settings_account_section" = "Konto";
-
-"registration_disclaimer" = "Mit de Registrierig akzeptiersch d'%1$@ und d'%2$@.";
-
-"registration_disclaimer" = "Mit de Registrierig akzeptiersch d'%1$@ und d'%2$@.";
-
-"buffer_after_bath" = "Puffer nachem Bad";
-
-"buffer_between_display" = "%d Min. Puffer";
-
-"schedule_message_buffer_reduced" = "Puffer vo %d uf %d Min. abegsetzt.";
-
-"ringing_messages_array" = "S'Bad ghört jetzt ganz dir allei!||Kän Stau, kän Stress – diini Bad-Ziit faht jetzt aa.||Gnüss d'Rueh im Bad, solang si aahaltet!||Ziit für de ersti Kafi. D'Wält wartet!||Guet gschlafe? Diin Ziitplan für hüt staht.||Parat für de Tag? Alles isch perfäkt abgstimmt.||Ziit, de Tag z'rocke! Diini Bad-Ziit faht aa.||Wach uuf und dräh uuf – d'Bühni ghört dir!||Gueti Musig am Morge vertriibt Chummer und Sorge!||Euie Familieplan lauft. Los gaht's!||Parat zum Start? D'Familie zellt uf dich.||Uufstah, Sünneschiin! S'Bad isch frei für dich.||Diini persönlichi Bad-Ziit startet jetzt – nutz si!||Freii Bahn zum Lavabo – du bisch dra!||De früehi Vogel bechunnt s'warmi Wasser!||Na füüf Minute? Nei! Diini Ziit lauft.||Hüt wird en grossartige Tag. Er fangt gnau jetzt aa!||Diini Zahnbürste vermisst dich. Ab is Bad!||Alles koordiniert, alles planet – du bisch dra!||De früehi Vogel hät s'Bad für sich elei.";
-
+"simple_mode_title" = "Eifache Modus";
+"simple_mode_desc" = "Feschti Weckziit ohni Puffer oder d'Berächnig vo de Badzimmerziite.";

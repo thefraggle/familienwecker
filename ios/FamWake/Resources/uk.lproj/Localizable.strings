@@ -27,7 +27,6 @@
 "main_plan_paused" = "Ваш будильник зараз на паузі.";
 "main_shared_breakfast" = "☕ Спільний сніданок: %@";
 "main_wake_time" = "Підйом: %@ - %@";
-"main_bathroom_info" = "Ванна: %@ хв | Сніданок: %@";
 "main_schedule_bathroom" = "Ванна: з %@ до %@";
 "main_schedule_leave" = "Вихід з дому: %@";
 "main_member_alarm_on" = "(Будильник активний)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Невідомо";
 "add_member_earliest_wake" = "Найраніший час підйому";
 "add_member_latest_wake" = "Найпізніший час підйому";
-"add_member_bathroom_duration" = "Час у ванній (хвилин)";
+"add_member_bathroom_duration" = "Час у ванній";
 "add_member_wants_breakfast" = "Зі сніданком";
 "add_member_leave_home" = "Час виходу з дому";
 "add_member_day_profiles_title" = "Розклад на тиждень";
@@ -166,6 +165,7 @@
 "settings_imprint" = "Вихідні дані";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-uk.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-uk.html";
+"registration_disclaimer" = "Реєструючись, ви приймаєте %@ та %@.";
 "registration_terms_of_use" = "Умови використання";
 "registration_privacy_policy" = "Політику конфіденційності";
 "settings_already_claimed" = "Вже зайнято";
@@ -224,6 +224,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Сніданок −%d хв. та час зсунуто на %d хв.";
 "schedule_message_member_conflict" = "Конфлікт для %@: Час занадто сильно перетинається.";
 "schedule_message_member_conflict_desc" = "Спробуйте змінити порядок або скоригувати час.";
+"schedule_message_buffer_reduced" = "Буфер зменшено з %d до %d хв.";
+"buffer_after_bath" = "Буфер після ванної";
+"buffer_between_display" = "Буфер %d хв";
 "main_fallback_alarm_active" = "⚠️ Увага: Розклад зараз не збігається (%@). Будь ласка, скоригуйте час!";
 "error_password_too_short" = "Ваш пароль має складатися мінімум з 8 символів.";
 "error_email_already_in_use" = "Цей email вже зареєстрований.";
@@ -301,22 +304,5 @@
 "onboarding_login_create" = "Увійти / Зареєструватися";
 "onboarding_slide5_body" = "Ви можете спробувати додаток відразу без облікового запису. Він знадобиться лише тоді, коли ви захочете запросити свою сім'ю.";
 "onboarding_slide5_title" = "Почнімо!";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Акаунт";
-
-"registration_disclaimer" = "Реєструючись, ви приймаєте %1$@ та %2$@.";
-
-"registration_disclaimer" = "Реєструючись, ви приймаєте %1$@ та %2$@.";
-
-"buffer_after_bath" = "Буфер після ванної";
-
-"buffer_between_display" = "Буфер %d хв";
-
-"schedule_message_buffer_reduced" = "Буфер зменшено з %d до %d хв.";
-
-"ringing_messages_array" = "Ванна кімната зараз повністю твоя!||Без поспіху та стресу – твій час у ванній починається зараз.||Насолоджуйся тишею у ванній, поки є можливість!||Час для першої кави. Світ чекає!||Добре спалося? Твій розклад на сьогодні готовий.||Готовий до нового дня? Усе ідеально сплановано.||Час запалювати цей день! Твій час у ванній починається.||Прокидайся та роби гучніше – сцена твоя!||Хороша музика зранку відганяє турботи!||Сімейний розклад запущено. Вперед!||Готовий до старту? Сім'я розраховує на тебе.||Вставай, сонечко! Ванна вільна для тебе.||Твій особистий час у ванній починається – використовуй його з користю!||Шлях до раковини вільний – твоя черга!||Хто рано встає, тому дістається гаряча вода!||Ще п'ять хвилин? Ні! Твій час настав.||Сьогодні буде чудовий день. І він починається прямо зараз!||Твоя зубна щітка сумує. Бігом у ванну!||Усе скоординовано та сплановано – тепер твоя черга!||Рання пташка займає ванну першою.";
+"simple_mode_title" = "Простий режим";
+"simple_mode_desc" = "Фіксований час пробудження без запасу часу або розрахунку часу на ванну.";

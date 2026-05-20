@@ -348,4 +348,6 @@
     <string name="settings_steal_confirm">Ja, bruk den</string>
     <string name="schedule_auto_fix">✨ Tilpass tider automatisk</string>
     <string name="onboarding_enable_tooltips">Vis nyttige tips ved første bruk</string>
+    <string name="simple_mode_title">Enkel modus</string>
+    <string name="simple_mode_desc">Fast vekketid uten margin eller beregning av baderomstid.</string>
 </resources>

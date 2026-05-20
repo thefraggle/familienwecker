@@ -346,4 +346,6 @@
     <string name="settings_steal_confirm">Sì, usalo</string>
     <string name="schedule_auto_fix">✨ Adatta gli orari automaticamente</string>
     <string name="onboarding_enable_tooltips">Mostra consigli utili al primo utilizzo</string>
+    <string name="simple_mode_title">Modalità semplice</string>
+    <string name="simple_mode_desc">Orario di sveglia fisso senza margine o calcolo dei turni in bagno.</string>
 </resources>

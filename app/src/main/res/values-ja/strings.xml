@@ -349,4 +349,6 @@
     <string name="settings_steal_confirm">はい、使います</string>
     <string name="schedule_auto_fix">✨ 時間を自動調整</string>
     <string name="onboarding_enable_tooltips">初回使用時に役立つヒントを表示する</string>
+    <string name="simple_mode_title">シンプルモード</string>
+    <string name="simple_mode_desc">ゆとり時間やバスルームの順番計算を含まない、固定の起床時間です。</string>
 </resources>

@@ -27,7 +27,6 @@
 "main_plan_paused" = "您的闹钟当前已暂停。";
 "main_shared_breakfast" = "☕ 共享早餐：%@";
 "main_wake_time" = "起床：%@ - %@";
-"main_bathroom_info" = "洗漱：%@ 分钟 | 早餐：%@";
 "main_schedule_bathroom" = "洗漱：%@ 至 %@";
 "main_schedule_leave" = "出门：%@";
 "main_member_alarm_on" = "（闹钟已开启）";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "未知";
 "add_member_earliest_wake" = "最早起床时间";
 "add_member_latest_wake" = "最晚起床时间";
-"add_member_bathroom_duration" = "洗漱时间（分钟）";
+"add_member_bathroom_duration" = "洗漱时间";
 "add_member_wants_breakfast" = "含早餐";
 "add_member_leave_home" = "必须出门的时间";
 "add_member_day_profiles_title" = "每周日程";
@@ -166,6 +165,7 @@
 "settings_imprint" = "版本说明";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-zh-CN.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-zh-CN.html";
+"registration_disclaimer" = "注册即表示您同意 %@ 和 %@。";
 "registration_terms_of_use" = "使用条款";
 "registration_privacy_policy" = "隐私政策";
 "settings_already_claimed" = "已被使用";
@@ -224,6 +224,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "早餐缩短 %d 分钟，整体时间平移 %d 分钟。";
 "schedule_message_member_conflict" = "%@ 出现冲突：时间重叠太多。";
 "schedule_message_member_conflict_desc" = "请尝试更改顺序或调整时间。";
+"schedule_message_buffer_reduced" = "缓冲时间从 %d 分钟减少至 %d 分钟。";
+"buffer_after_bath" = "沐浴后缓冲";
+"buffer_between_display" = "%d 分钟缓冲";
 "main_fallback_alarm_active" = "⚠️ 警告：当前日程存在冲突 (%@)。请调整您的时间！";
 "error_password_too_short" = "密码长度必须至少为 8 个字符。";
 "error_email_already_in_use" = "该电子邮件已被注册。";
@@ -301,22 +304,5 @@
 "onboarding_enable_tooltips" = "首次使用时显示实用提示";
 "onboarding_slide5_body" = "你可以不用注册账户直接试用这款应用。只有在你想要邀请家人时才需要账户。";
 "onboarding_slide5_title" = "我们开始吧！";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "帐号";
-
-"registration_disclaimer" = "注册即表示您同意 %1$@ 和 %2$@。";
-
-"registration_disclaimer" = "注册即表示您同意 %1$@ 和 %2$@。";
-
-"buffer_after_bath" = "沐浴后缓冲";
-
-"buffer_between_display" = "%d 分钟缓冲";
-
-"schedule_message_buffer_reduced" = "缓冲时间从 %d 分钟减少至 %d 分钟。";
-
-"ringing_messages_array" = "现在洗手间全是你的啦！||不用赶时间，不用有压力——你的洗漱时间现在开始。||趁现在好好享受洗手间的宁静吧！||该喝第一杯咖啡了。世界在等着你！||睡得好吗？你今天的日程已经准备就绪。||准备好迎接新的一天了吗？一切都安排得很完美。||新的一天开始啦！轮到你洗漱了。||醒醒并调大音量——现在是你的主场！||清晨来点好音乐，烦恼全都不见！||家庭日程已启动。我们走吧！||准备好了吗？全家人都在指望你呢。||起床啦！洗手间正为你空着。||你的专属洗漱时间开始了——好好把握！||通往洗手间的路畅通无阻——轮到你啦！||早起的人有热水用！||再睡五分钟？不行！大家都在按计划进行。||今天将会是美好的一天。现在就开始吧！||你的牙刷在想你。快去洗手间吧！||一切协调就绪，计划完美——到你了！||早起的人可以独享洗手间。";
+"simple_mode_title" = "简单模式";
+"simple_mode_desc" = "固定叫醒时间，不计算缓冲时间或洗手间时间。";

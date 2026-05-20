@@ -178,6 +178,13 @@ struct FamWakeApp: App {
     @StateObject private var familyViewModel = FamilyViewModel()
     @StateObject private var donationViewModel = DonationViewModel()
 
+    init() {
+        // Adjust large title font size to prevent truncation of long translated app names
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .font: UIFont.systemFont(ofSize: 28, weight: .bold)
+        ]
+    }
+
     var body: some Scene {
         WindowGroup {
             AppRouter()

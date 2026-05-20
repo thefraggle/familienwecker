@@ -346,4 +346,6 @@
     <string name="schedule_auto_fix">✨ Ajustar horas automáticamente</string>
     <string name="onboarding_enable_tooltips">Mostrar consejos útiles en el primer uso</string>
     <string name="settings_share_code_locked">Inicia sesión para compartir tu código de invitación.</string>
+    <string name="simple_mode_title">Modo simple</string>
+    <string name="simple_mode_desc">Hora de despertar fija sin margen ni cálculo de turnos para el baño.</string>
 </resources>

@@ -347,4 +347,6 @@
     <string name="onboarding_enable_tooltips">首次使用时显示实用提示</string>
     <string name="onboarding_slide5_body">你可以不用注册账户直接试用这款应用。只有在你想要邀请家人时才需要账户。</string>
     <string name="onboarding_slide5_title">我们开始吧！</string>
+    <string name="simple_mode_title">简单模式</string>
+    <string name="simple_mode_desc">固定叫醒时间，不计算缓冲时间或洗手间时间。</string>
 </resources>

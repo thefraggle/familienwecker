@@ -299,7 +299,8 @@ fun AddMemberScreen(
                             // Neuer Member → ans Ende stellen (members.size = nächster freier Index).
                             // Bestehender Member → sequenceOrder beibehalten, kein Reset durch Update.
                             sequenceOrder = memberToEdit?.sequenceOrder ?: members.size,
-                            dayProfiles = dayProfiles
+                            dayProfiles = dayProfiles,
+                            isSimpleMode = refProfile?.isSimpleMode ?: false
                         )
                         viewModel.addOrUpdateMember(memberToSave)
                         
@@ -560,6 +561,7 @@ fun AddMemberScreen(
  * Gibt eine Liste von Fehlermeldungs-Ressourcen-IDs zurück (leer = gültig).
  */
 private fun validateDayProfile(profile: DayProfile): List<Int> {
+    if (profile.isSimpleMode) return emptyList()
     val errors = mutableListOf<Int>()
     // 1. latestWakeUp muss NACH earliestWakeUp liegen
     if (profile.latestWakeUp <= profile.earliestWakeUp) {
@@ -632,188 +634,242 @@ private fun DayProfileCard(
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     HorizontalDivider()
 
-                    val latestBeforeEarliestError = profile.latestWakeUp <= profile.earliestWakeUp
-
-                    // Früheste Weckzeit
-                    TimePickerRowWithIcon(
-                        icon = Icons.Default.AccessAlarm,
-                        label = stringResource(R.string.add_member_earliest_wake),
-                        time = profile.earliestWakeUp.toJavaLocalTime(),
-                        context = context,
-                        formatter = formatter,
-                        onTimeSelected = { onProfileChange(profile.copy(earliestWakeUp = it.toKmpLocalTime())) }
-                    )
-
-                    // Späteste Weckzeit
-                    TimePickerRowWithIcon(
-                        icon = Icons.Default.AccessAlarm,
-                        label = stringResource(R.string.add_member_latest_wake),
-                        time = profile.latestWakeUp.toJavaLocalTime(),
-                        context = context,
-                        formatter = formatter,
-                        onTimeSelected = { onProfileChange(profile.copy(latestWakeUp = it.toKmpLocalTime())) },
-                        isError = latestBeforeEarliestError
-                    )
-                    if (latestBeforeEarliestError) {
-                        Text(
-                            text = stringResource(R.string.validation_latest_before_earliest),
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(start = 4.dp)
-                        )
-                    }
-
-                                    // Tooltip C – Weckzeitfenster
-                                    TooltipBubble(
-                                        visible = showTooltipWakeWindow,
-                                        text = stringResource(R.string.tooltip_wake_window),
-                                        onDismiss = onDismissTooltipWakeWindow
-                                    )
-
-                    // Baddauer (+/-)
+                    // Einfacher Modus Toggle
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        // weight(1f): Label bekommt verbleibenden Platz, Buttons-Row verdrängt nie den +‑Button
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.weight(1f).padding(end = 8.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Bathtub,
-                                contentDescription = null,
-                                modifier = Modifier.size(18.dp),
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
+                        Column(modifier = Modifier.weight(1f).padding(end = 8.dp)) {
                             Text(
-                                stringResource(R.string.add_member_bathroom_duration),
+                                text = stringResource(R.string.simple_mode_title),
                                 style = MaterialTheme.typography.bodyLarge
                             )
-                        }
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            IconButton(
-                                onClick = { if (profile.bathroomDurationMinutes > 5) onProfileChange(profile.copy(bathroomDurationMinutes = profile.bathroomDurationMinutes - 5)) }
-                            ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
                             Text(
-                                "${profile.bathroomDurationMinutes} min",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.SemiBold,
-                                modifier = Modifier.widthIn(min = 64.dp),
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                text = stringResource(R.string.simple_mode_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
-                            IconButton(
-                                onClick = { if (profile.bathroomDurationMinutes < 120) onProfileChange(profile.copy(bathroomDurationMinutes = profile.bathroomDurationMinutes + 5)) }
-                            ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
-                        }
-                    }
-
-                    // Tooltip D – Baddauer
-                    TooltipBubble(
-                        visible = showTooltipBathroom,
-                        text = stringResource(R.string.tooltip_bathroom),
-                        onDismiss = onDismissTooltipBathroom
-                    )
-
-                    // Puffer nach Bad (individueller Override)
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(
-                                imageVector = Icons.Default.Timer,
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp),
-                                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                stringResource(R.string.buffer_after_bath),
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            val effectiveValue = profile.bufferMinutes ?: globalBufferMinutes
-                            IconButton(
-                                onClick = {
-                                    val newVal = effectiveValue - 5
-                                    when {
-                                        newVal < 0 -> {} // Minimum erreicht
-                                        newVal == globalBufferMinutes -> onProfileChange(profile.copy(bufferMinutes = null))
-                                        else -> onProfileChange(profile.copy(bufferMinutes = newVal))
-                                    }
-                                },
-                                enabled = effectiveValue > 0
-                            ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
-                            Text(
-                                "$effectiveValue min",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = if (profile.bufferMinutes != null) FontWeight.SemiBold else FontWeight.Normal,
-                                fontStyle = if (profile.bufferMinutes == null) androidx.compose.ui.text.font.FontStyle.Italic else androidx.compose.ui.text.font.FontStyle.Normal,
-                                maxLines = 1,
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                            )
-                            IconButton(
-                                onClick = {
-                                    val newVal = effectiveValue + 5
-                                    when {
-                                        newVal > 15 -> {} // Maximum erreicht
-                                        newVal == globalBufferMinutes -> onProfileChange(profile.copy(bufferMinutes = null))
-                                        else -> onProfileChange(profile.copy(bufferMinutes = newVal))
-                                    }
-                                },
-                                enabled = effectiveValue < 15
-                            ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
-                        }
-                    }
-
-                    // Abfahrtszeit
-                    val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
-                    val leaveTooEarlyError =
-                        effectiveLeaveTime.isBefore(profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes))
-
-                    TimePickerRowWithIcon(
-                        icon = Icons.AutoMirrored.Filled.DirectionsRun,
-                        label = stringResource(R.string.add_member_leave_home),
-                        time = effectiveLeaveTime,
-                        context = context,
-                        formatter = formatter,
-                        onTimeSelected = { onProfileChange(profile.copy(leaveHomeTime = it.toKmpLocalTime())) },
-                        isError = leaveTooEarlyError
-                    )
-                    if (leaveTooEarlyError) {
-                        Text(
-                            text = stringResource(R.string.validation_leave_too_early),
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(start = 4.dp)
-                        )
-                    }
-
-                    // Frühstück (zuletzt – optional, weniger kritisch)
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(
-                                imageVector = Icons.Default.FreeBreakfast,
-                                contentDescription = null,
-                                modifier = Modifier.size(18.dp),
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(stringResource(R.string.add_member_wants_breakfast), style = MaterialTheme.typography.bodyLarge)
                         }
                         Switch(
-                            checked = profile.wantsBreakfast,
-                            onCheckedChange = { onProfileChange(profile.copy(wantsBreakfast = it)) }
+                            checked = profile.isSimpleMode,
+                            onCheckedChange = { isSimple ->
+                                onProfileChange(
+                                    profile.copy(
+                                        isSimpleMode = isSimple,
+                                        bathroomDurationMinutes = if (isSimple) 0L else 20L,
+                                        wantsBreakfast = if (isSimple) false else profile.wantsBreakfast,
+                                        earliestWakeUp = if (isSimple) profile.latestWakeUp else profile.earliestWakeUp,
+                                        bufferMinutes = if (isSimple) null else profile.bufferMinutes,
+                                        leaveHomeTime = if (isSimple) null else profile.leaveHomeTime
+                                    )
+                                )
+                            }
                         )
+                    }
+
+                    HorizontalDivider()
+
+                    if (profile.isSimpleMode) {
+                        // Nur die Weckzeit (latestWakeUp) anzeigen
+                        TimePickerRowWithIcon(
+                            icon = Icons.Default.AccessAlarm,
+                            label = stringResource(R.string.add_member_latest_wake),
+                            time = profile.latestWakeUp.toJavaLocalTime(),
+                            context = context,
+                            formatter = formatter,
+                            onTimeSelected = {
+                                onProfileChange(
+                                    profile.copy(
+                                        latestWakeUp = it.toKmpLocalTime(),
+                                        earliestWakeUp = it.toKmpLocalTime()
+                                    )
+                                )
+                            }
+                        )
+                    } else {
+                        val latestBeforeEarliestError = profile.latestWakeUp <= profile.earliestWakeUp
+
+                        // Früheste Weckzeit
+                        TimePickerRowWithIcon(
+                            icon = Icons.Default.AccessAlarm,
+                            label = stringResource(R.string.add_member_earliest_wake),
+                            time = profile.earliestWakeUp.toJavaLocalTime(),
+                            context = context,
+                            formatter = formatter,
+                            onTimeSelected = { onProfileChange(profile.copy(earliestWakeUp = it.toKmpLocalTime())) }
+                        )
+
+                        // Späteste Weckzeit
+                        TimePickerRowWithIcon(
+                            icon = Icons.Default.AccessAlarm,
+                            label = stringResource(R.string.add_member_latest_wake),
+                            time = profile.latestWakeUp.toJavaLocalTime(),
+                            context = context,
+                            formatter = formatter,
+                            onTimeSelected = { onProfileChange(profile.copy(latestWakeUp = it.toKmpLocalTime())) },
+                            isError = latestBeforeEarliestError
+                        )
+                        if (latestBeforeEarliestError) {
+                            Text(
+                                text = stringResource(R.string.validation_latest_before_earliest),
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.padding(start = 4.dp)
+                            )
+                        }
+
+                        // Tooltip C – Weckzeitfenster
+                        TooltipBubble(
+                            visible = showTooltipWakeWindow,
+                            text = stringResource(R.string.tooltip_wake_window),
+                            onDismiss = onDismissTooltipWakeWindow
+                        )
+
+                        // Baddauer (+/-)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.weight(1f).padding(end = 8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Bathtub,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp),
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    stringResource(R.string.add_member_bathroom_duration),
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                IconButton(
+                                    onClick = { if (profile.bathroomDurationMinutes > 5) onProfileChange(profile.copy(bathroomDurationMinutes = profile.bathroomDurationMinutes - 5)) }
+                                ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                                Text(
+                                    "${profile.bathroomDurationMinutes} min",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.SemiBold,
+                                    modifier = Modifier.widthIn(min = 64.dp),
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                )
+                                IconButton(
+                                    onClick = { if (profile.bathroomDurationMinutes < 120) onProfileChange(profile.copy(bathroomDurationMinutes = profile.bathroomDurationMinutes + 5)) }
+                                ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                            }
+                        }
+
+                        // Tooltip D – Baddauer
+                        TooltipBubble(
+                            visible = showTooltipBathroom,
+                            text = stringResource(R.string.tooltip_bathroom),
+                            onDismiss = onDismissTooltipBathroom
+                        )
+
+                        // Puffer nach Bad (individueller Override)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Default.Timer,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp),
+                                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    stringResource(R.string.buffer_after_bath),
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                val effectiveValue = profile.bufferMinutes ?: globalBufferMinutes
+                                IconButton(
+                                    onClick = {
+                                        val newVal = effectiveValue - 5
+                                        when {
+                                            newVal < 0 -> {} // Minimum erreicht
+                                            newVal == globalBufferMinutes -> onProfileChange(profile.copy(bufferMinutes = null))
+                                            else -> onProfileChange(profile.copy(bufferMinutes = newVal))
+                                        }
+                                    },
+                                    enabled = effectiveValue > 0
+                                ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                                Text(
+                                    "$effectiveValue min",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = if (profile.bufferMinutes != null) FontWeight.SemiBold else FontWeight.Normal,
+                                    fontStyle = if (profile.bufferMinutes == null) androidx.compose.ui.text.font.FontStyle.Italic else androidx.compose.ui.text.font.FontStyle.Normal,
+                                    maxLines = 1,
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                )
+                                IconButton(
+                                    onClick = {
+                                        val newVal = effectiveValue + 5
+                                        when {
+                                            newVal > 15 -> {} // Maximum erreicht
+                                            newVal == globalBufferMinutes -> onProfileChange(profile.copy(bufferMinutes = null))
+                                            else -> onProfileChange(profile.copy(bufferMinutes = newVal))
+                                        }
+                                    },
+                                    enabled = effectiveValue < 15
+                                ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                            }
+                        }
+
+                        // Abfahrtszeit
+                        val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
+                        val leaveTooEarlyError =
+                            effectiveLeaveTime.isBefore(profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes))
+
+                        TimePickerRowWithIcon(
+                            icon = Icons.AutoMirrored.Filled.DirectionsRun,
+                            label = stringResource(R.string.add_member_leave_home),
+                            time = effectiveLeaveTime,
+                            context = context,
+                            formatter = formatter,
+                            onTimeSelected = { onProfileChange(profile.copy(leaveHomeTime = it.toKmpLocalTime())) },
+                            isError = leaveTooEarlyError
+                        )
+                        if (leaveTooEarlyError) {
+                            Text(
+                                text = stringResource(R.string.validation_leave_too_early),
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.padding(start = 4.dp)
+                            )
+                        }
+
+                        // Frühstück (zuletzt – optional, weniger kritisch)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Default.FreeBreakfast,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp),
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(stringResource(R.string.add_member_wants_breakfast), style = MaterialTheme.typography.bodyLarge)
+                            }
+                            Switch(
+                                checked = profile.wantsBreakfast,
+                                onCheckedChange = { onProfileChange(profile.copy(wantsBreakfast = it)) }
+                            )
+                        }
                     }
                 }
             }

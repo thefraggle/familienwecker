@@ -27,7 +27,6 @@
 "main_plan_paused" = "Your alarm is paused.";
 "main_shared_breakfast" = "☕ Shared breakfast: %@";
 "main_wake_time" = "Wake up: %@ - %@";
-"main_bathroom_info" = "Bathroom: %@ min | Breakfast: %@";
 "main_schedule_bathroom" = "Bathroom: %@ to %@";
 "main_schedule_leave" = "Leave home: %@";
 "main_member_alarm_on" = "(Alarm active)";
@@ -42,8 +41,6 @@
 "main_no_profile_warning_desc" = "Please select who you are in the settings so your phone rings for you.";
 "main_unclaimed_first_title" = "No alarm will ring for %@!";
 "main_unclaimed_first_desc" = "%@ is first in line but hasn't selected their profile on a phone yet – they might oversleep!";
-"main_member_alarm_on" = "(Alarm active)";
-"main_member_alarm_off" = "(No alarm)";
 "yes" = "Yes";
 "no" = "No";
 "delete_desc" = "Delete";
@@ -64,7 +61,7 @@
 "add_member_unknown" = "Unknown";
 "add_member_earliest_wake" = "Earliest time to wake up";
 "add_member_latest_wake" = "Latest time to wake up";
-"add_member_bathroom_duration" = "Bathroom time (minutes)";
+"add_member_bathroom_duration" = "Bathroom time";
 "add_member_wants_breakfast" = "Wants breakfast";
 "add_member_leave_home" = "Needs to leave home at";
 "add_member_day_profiles_title" = "Weekly schedule";
@@ -93,7 +90,6 @@
 "settings_profile_desc" = "Your phone will only ring for the person selected here.";
 "settings_please_select" = "Please select";
 "settings_no_members" = "No family members found";
-"settings_no_profile" = "No profile";
 "settings_alarm_title" = "Alarm sound";
 "settings_battery_warning_title" = "Battery settings might block alarms";
 "settings_battery_warning_text" = "Your phone might delay or block the alarm to save battery. Please allow FamWake to run in the background.";
@@ -118,7 +114,6 @@
 "settings_delete_family_warning_confirm" = "Yes, delete for everyone";
 "settings_logout" = "Log out";
 "settings_delete_account" = "Delete account";
-"settings_account_section" = "Account";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "All rights reserved.";
 "empty_members_title" = "No members yet";
@@ -173,6 +168,7 @@
 "settings_imprint" = "Imprint";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
+"registration_disclaimer" = "By signing up, you accept the %@ and the %@.";
 "registration_terms_of_use" = "Terms of Use";
 "registration_privacy_policy" = "Privacy Policy";
 "settings_already_claimed" = "Already taken";
@@ -231,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Breakfast −%d min & times shifted by %d min.";
 "schedule_message_member_conflict" = "Conflict for %@: Times overlap too much.";
 "schedule_message_member_conflict_desc" = "Try changing the order or the times.";
+"schedule_message_buffer_reduced" = "Buffer reduced from %d to %d min.";
+"buffer_after_bath" = "Buffer after bathroom";
+"buffer_between_display" = "%d min buffer";
 "main_fallback_alarm_active" = "⚠️ Warning: The schedule doesn't fit right now (%@). Please adjust your times!";
 "error_password_too_short" = "Your password needs to be at least 8 characters long.";
 "error_email_already_in_use" = "This email is already registered.";
@@ -305,28 +304,6 @@
 "settings_steal_confirm" = "Yes, use it";
 "schedule_auto_fix" = "✨ Auto-adjust times";
 "onboarding_enable_tooltips" = "Show helpful tips on first use";
-
-/* iOS Specific */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-
-"registration_disclaimer" = "By signing up, you accept the %1$@ and the %2$@.";
-
-"registration_disclaimer" = "By signing up, you accept the %1$@ and the %2$@.";
-
-"buffer_after_bath" = "Buffer after bathroom";
-
-"buffer_between_display" = "%d min buffer";
-
-"schedule_message_buffer_reduced" = "Buffer reduced from %d to %d min.";
-
-"ringing_messages_array" = "The bathroom is all yours right now!||No traffic, no stress – your bathroom time starts now.||Enjoy the peace in the bathroom while it lasts!||Time for the first coffee. The world is waiting!||Sleep well? Your schedule for today is ready.||Ready for the day? Everything is perfectly timed.||Time to rock the day! Your bathroom time begins.||Wake up and turn it up – the stage is yours!||Heavy metal in the morning keeps the worries away!||Your family schedule is live. Let's go!||Ready to start? The family is counting on you.||Rise and shine! The bathroom is free for you.||Your personal bathroom time starts now – make the most of it!||Clear path to the sink – it's your turn!||The early bird gets the warm water!||Five more minutes? Nope! Your time slot is waiting.||Today is going to be a great day. It starts right now!||Your toothbrush misses you. Off to the bathroom!||All coordinated, all planned – you're up!||The early bird has the bathroom all to themselves.";
-
-// Push Notifications
-"notif_schedule_changed_title" = "FamWake: Morning plan updated";
-"notif_schedule_changed_body" = "The wake-up times have changed. Open the app to check your new time.";
-"notif_member_joined_title" = "FamWake: New family member!";
-"notif_member_joined_body" = "Someone has joined your family.";
-"notif_member_left_title" = "FamWake: Someone left the family";
-"notif_member_left_body" = "A member has left your family.";
+"settings_no_profile" = "No profile";
+"simple_mode_title" = "Simple Mode";
+"simple_mode_desc" = "Fixed wake-up time without buffer or bathroom slot calculation.";

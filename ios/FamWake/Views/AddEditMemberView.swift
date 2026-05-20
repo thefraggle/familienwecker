@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: - DayProfile Validation
 func validateDayProfile(_ profile: DayProfile) -> [String] {
     var errors: [String] = []
+    if profile.isSimpleMode { return errors }
     if profile.latestWakeUp < profile.earliestWakeUp {
         errors.append(L.validationLatestBeforeEarliest)
     }
@@ -260,6 +261,7 @@ struct AddEditMemberView: View {
             memberToSave.bathroomDurationMinutes = refProfile.bathroomDurationMinutes
             memberToSave.wantsBreakfast = refProfile.wantsBreakfast
             memberToSave.leaveHomeTime = refProfile.leaveHomeTime
+            memberToSave.isSimpleMode = refProfile.isSimpleMode
             memberToSave.dayProfiles = dayProfiles
         } else {
             memberToSave = FamilyMember(
@@ -270,7 +272,8 @@ struct AddEditMemberView: View {
                 bathroomDurationMinutes: refProfile.bathroomDurationMinutes,
                 wantsBreakfast: refProfile.wantsBreakfast,
                 leaveHomeTime: refProfile.leaveHomeTime,
-                dayProfiles: dayProfiles
+                dayProfiles: dayProfiles,
+                isSimpleMode: refProfile.isSimpleMode
             )
         }
         
@@ -281,6 +284,9 @@ struct AddEditMemberView: View {
 
 // MARK: - DayProfileCard
 private struct DayProfileCard: View {
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
+
     let dayLabel: String
     var profile: DayProfile
     var globalBufferMinutes: Int
@@ -311,134 +317,162 @@ private struct DayProfileCard: View {
             if profile.isActive {
                 Divider()
 
-                // Früheste Weckzeit
-                DatePickerRow(
-                    label: L.addMemberEarliestWake,
-                    time: Binding(
-                        get: { profile.earliestWakeUp.asTime ?? Date() },
-                        set: { onChange(profile.withEarliest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
-                    )
-                )
+                // Einfacher Modus Toggle
+                Toggle(isOn: Binding(
+                    get: { profile.isSimpleMode },
+                    set: { onChange(profile.withSimpleMode($0)) }
+                )) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(L.simpleModeTitle)
+                            .font(.body)
+                        Text(L.simpleModeDesc)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .tint(theme.tertiary)
 
-                // Späteste Weckzeit
-                let latestError = profile.latestWakeUp < profile.earliestWakeUp
-                VStack(alignment: .leading, spacing: 4) {
+                Divider()
+
+                if profile.isSimpleMode {
+                    // Nur die Weckzeit (latestWakeUp) anzeigen
                     DatePickerRow(
                         label: L.addMemberLatestWake,
                         time: Binding(
                             get: { profile.latestWakeUp.asTime ?? Date() },
                             set: { onChange(profile.withLatest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
-                        ),
-                        isError: latestError
+                        )
                     )
-                    if latestError {
-                        Text(L.validationLatestBeforeEarliest)
-                            .font(.caption).foregroundStyle(.red)
-                    }
-                }
-
-                // Tooltip C
-                if showTooltipWakeWindow {
-                    TooltipBubble(text: L.tooltipWakeWindow, onDismiss: onDismissWakeWindow)
-                }
-
-                // Baddauer Stepper
-                HStack {
-                    Text(L.addMemberBathroomDuration)
-                        .font(.body)
-                    Spacer()
-                    HStack(spacing: 12) {
-                        Button {
-                            if profile.bathroomDurationMinutes > 5 {
-                                onChange(profile.withBathroom(profile.bathroomDurationMinutes - 5))
-                            }
-                        } label: {
-                            Image(systemName: "minus.circle.fill").font(.title2).foregroundStyle(Color.accentColor)
-                        }
-                        Text("\(profile.bathroomDurationMinutes) min")
-                            .font(.headline).fontWeight(.semibold)
-                            .frame(minWidth: 64)
-                            .multilineTextAlignment(.center)
-                        Button {
-                            if profile.bathroomDurationMinutes < 120 {
-                                onChange(profile.withBathroom(profile.bathroomDurationMinutes + 5))
-                            }
-                        } label: {
-                            Image(systemName: "plus.circle.fill").font(.title2).foregroundStyle(Color.accentColor)
-                        }
-                    }
-                }
-
-                // Tooltip D
-                if showTooltipBathroom {
-                    TooltipBubble(text: L.tooltipBathroom, onDismiss: onDismissBathroom)
-                }
-
-                // Puffer nach Bad (Individueller Override)
-                HStack {
-                    Text(L.bufferAfterBath)
-                        .font(.body)
-                    Spacer()
-                    HStack(spacing: 12) {
-                        let effectiveValue = profile.bufferMinutes ?? globalBufferMinutes
-                        Button {
-                            let newVal = max(0, effectiveValue - 5)
-                            if newVal == globalBufferMinutes {
-                                onChange(profile.withBuffer(nil))
-                            } else {
-                                onChange(profile.withBuffer(newVal))
-                            }
-                        } label: {
-                            Image(systemName: "minus.circle.fill")
-                                .font(.title2)
-                                .foregroundStyle(effectiveValue > 0 ? Color.accentColor : Color.gray.opacity(0.5))
-                        }
-                        .disabled(effectiveValue <= 0)
-                        
-                        Text("\(effectiveValue) min")
-                            .font(.headline)
-                            .fontWeight(profile.bufferMinutes != nil ? .bold : .regular)
-                            .italic(profile.bufferMinutes == nil)
-                            .frame(minWidth: 64)
-                            .multilineTextAlignment(.center)
-                            
-                        Button {
-                            let newVal = min(15, effectiveValue + 5)
-                            if newVal == globalBufferMinutes {
-                                onChange(profile.withBuffer(nil))
-                            } else {
-                                onChange(profile.withBuffer(newVal))
-                            }
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.title2)
-                                .foregroundStyle(effectiveValue < 15 ? Color.accentColor : Color.gray.opacity(0.5))
-                        }
-                        .disabled(effectiveValue >= 15)
-                    }
-                }
-
-                // Frühstück
-                Toggle(L.addMemberWantsBreakfast, isOn: Binding(
-                    get: { profile.wantsBreakfast },
-                    set: { onChange(profile.withBreakfast($0)) }
-                ))
-
-                // Abfahrtszeit
-                let leaveTotal = (profile.leaveHomeTime?.hour ?? 8) * 60 + (profile.leaveHomeTime?.minute ?? 0)
-                let bathroomEndTotal = (profile.latestWakeUp.hour ?? 7) * 60 + (profile.latestWakeUp.minute ?? 30) + profile.bathroomDurationMinutes
-                let leaveError = leaveTotal < bathroomEndTotal
-                VStack(alignment: .leading, spacing: 4) {
+                } else {
+                    // Früheste Weckzeit
                     DatePickerRow(
-                        label: L.addMemberLeaveHome,
+                        label: L.addMemberEarliestWake,
                         time: Binding(
-                            get: { profile.leaveHomeTime?.asTime ?? Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())! },
-                            set: { onChange(profile.withLeave(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
-                        ),
-                        isError: leaveError
+                            get: { profile.earliestWakeUp.asTime ?? Date() },
+                            set: { onChange(profile.withEarliest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
+                        )
                     )
-                    if leaveError {
-                        Text(L.validationLeaveTooEarly).font(.caption).foregroundStyle(.red)
+
+                    // Späteste Weckzeit
+                    let latestError = profile.latestWakeUp < profile.earliestWakeUp
+                    VStack(alignment: .leading, spacing: 4) {
+                        DatePickerRow(
+                            label: L.addMemberLatestWake,
+                            time: Binding(
+                                get: { profile.latestWakeUp.asTime ?? Date() },
+                                set: { onChange(profile.withLatest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
+                            ),
+                            isError: latestError
+                        )
+                        if latestError {
+                            Text(L.validationLatestBeforeEarliest)
+                                .font(.caption).foregroundStyle(.red)
+                        }
+                    }
+
+                    // Tooltip C
+                    if showTooltipWakeWindow {
+                        TooltipBubble(text: L.tooltipWakeWindow, onDismiss: onDismissWakeWindow)
+                    }
+
+                    // Baddauer Stepper
+                    HStack {
+                        Text(L.addMemberBathroomDuration)
+                            .font(.body)
+                        Spacer()
+                        HStack(spacing: 12) {
+                            Button {
+                                if profile.bathroomDurationMinutes > 5 {
+                                    onChange(profile.withBathroom(profile.bathroomDurationMinutes - 5))
+                                }
+                            } label: {
+                                Image(systemName: "minus.circle.fill").font(.title2).foregroundStyle(Color.accentColor)
+                            }
+                            Text("\(profile.bathroomDurationMinutes) min")
+                                .font(.headline).fontWeight(.semibold)
+                                .frame(minWidth: 64)
+                                .multilineTextAlignment(.center)
+                            Button {
+                                if profile.bathroomDurationMinutes < 120 {
+                                    onChange(profile.withBathroom(profile.bathroomDurationMinutes + 5))
+                                }
+                            } label: {
+                                Image(systemName: "plus.circle.fill").font(.title2).foregroundStyle(Color.accentColor)
+                            }
+                        }
+                    }
+
+                    // Tooltip D
+                    if showTooltipBathroom {
+                        TooltipBubble(text: L.tooltipBathroom, onDismiss: onDismissBathroom)
+                    }
+
+                    // Puffer nach Bad (Individueller Override)
+                    HStack {
+                        Text(L.bufferAfterBath)
+                            .font(.body)
+                        Spacer()
+                        HStack(spacing: 12) {
+                            let effectiveValue = profile.bufferMinutes ?? globalBufferMinutes
+                            Button {
+                                let newVal = max(0, effectiveValue - 5)
+                                if newVal == globalBufferMinutes {
+                                    onChange(profile.withBuffer(nil))
+                                } else {
+                                    onChange(profile.withBuffer(newVal))
+                                }
+                            } label: {
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.title2)
+                                    .foregroundStyle(effectiveValue > 0 ? Color.accentColor : Color.gray.opacity(0.5))
+                            }
+                            .disabled(effectiveValue <= 0)
+                            
+                            Text("\(effectiveValue) min")
+                                .font(.headline)
+                                .fontWeight(profile.bufferMinutes != nil ? .bold : .regular)
+                                .italic(profile.bufferMinutes == nil)
+                                .frame(minWidth: 64)
+                                .multilineTextAlignment(.center)
+                                
+                            Button {
+                                let newVal = min(15, effectiveValue + 5)
+                                if newVal == globalBufferMinutes {
+                                    onChange(profile.withBuffer(nil))
+                                } else {
+                                    onChange(profile.withBuffer(newVal))
+                                }
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.title2)
+                                    .foregroundStyle(effectiveValue < 15 ? Color.accentColor : Color.gray.opacity(0.5))
+                            }
+                            .disabled(effectiveValue >= 15)
+                        }
+                    }
+
+                    // Frühstück
+                    Toggle(L.addMemberWantsBreakfast, isOn: Binding(
+                        get: { profile.wantsBreakfast },
+                        set: { onChange(profile.withBreakfast($0)) }
+                    ))
+
+                    // Abfahrtszeit
+                    let leaveTotal = (profile.leaveHomeTime?.hour ?? 8) * 60 + (profile.leaveHomeTime?.minute ?? 0)
+                    let bathroomEndTotal = (profile.latestWakeUp.hour ?? 7) * 60 + (profile.latestWakeUp.minute ?? 30) + profile.bathroomDurationMinutes
+                    let leaveError = leaveTotal < bathroomEndTotal
+                    VStack(alignment: .leading, spacing: 4) {
+                        DatePickerRow(
+                            label: L.addMemberLeaveHome,
+                            time: Binding(
+                                get: { profile.leaveHomeTime?.asTime ?? Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())! },
+                                set: { onChange(profile.withLeave(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
+                            ),
+                            isError: leaveError
+                        )
+                        if leaveError {
+                            Text(L.validationLeaveTooEarly).font(.caption).foregroundStyle(.red)
+                        }
                     }
                 }
             }
@@ -520,11 +554,30 @@ struct CopyToOtherDaysSheet: View {
 extension DayProfile {
     func withActive(_ v: Bool) -> DayProfile { var c = self; c.isActive = v; return c }
     func withEarliest(_ v: DateComponents) -> DayProfile { var c = self; c.earliestWakeUp = v; return c }
-    func withLatest(_ v: DateComponents) -> DayProfile { var c = self; c.latestWakeUp = v; return c }
+    func withLatest(_ v: DateComponents) -> DayProfile {
+        var c = self
+        c.latestWakeUp = v
+        if c.isSimpleMode {
+            c.earliestWakeUp = v
+        }
+        return c
+    }
     func withBathroom(_ v: Int) -> DayProfile { var c = self; c.bathroomDurationMinutes = v; return c }
     func withBreakfast(_ v: Bool) -> DayProfile { var c = self; c.wantsBreakfast = v; return c }
     func withLeave(_ v: DateComponents?) -> DayProfile { var c = self; c.leaveHomeTime = v; return c }
     func withBuffer(_ v: Int?) -> DayProfile { var c = self; c.bufferMinutes = v; return c }
+    func withSimpleMode(_ v: Bool) -> DayProfile {
+        var c = self
+        c.isSimpleMode = v
+        if v {
+            c.bathroomDurationMinutes = 0
+            c.wantsBreakfast = false
+            c.earliestWakeUp = c.latestWakeUp
+            c.bufferMinutes = nil
+            c.leaveHomeTime = nil
+        }
+        return c
+    }
 }
 
 extension DateComponents {

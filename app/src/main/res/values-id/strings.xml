@@ -347,4 +347,6 @@
     <string name="settings_steal_confirm">Ya, gunakan</string>
     <string name="schedule_auto_fix">✨ Sesuaikan waktu secara otomatis</string>
     <string name="onboarding_enable_tooltips">Tampilkan tips bermanfaat pada penggunaan pertama</string>
+    <string name="simple_mode_title">Mode Sederhana</string>
+    <string name="simple_mode_desc">Waktu bangun tetap tanpa jeda atau perhitungan waktu kamar mandi.</string>
 </resources>

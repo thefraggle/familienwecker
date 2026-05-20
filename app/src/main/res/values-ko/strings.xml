@@ -347,4 +347,6 @@
     <string name="settings_steal_confirm">네, 사용할게요</string>
     <string name="schedule_auto_fix">✨ 시간 자동 조정</string>
     <string name="onboarding_enable_tooltips">처음 사용할 때 유용한 팁 표시</string>
+    <string name="simple_mode_title">심플 모드</string>
+    <string name="simple_mode_desc">여유 시간이나 욕실 사용 시간 계산 없는 고정된 기상 시간입니다.</string>
 </resources>

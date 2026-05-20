@@ -42,6 +42,8 @@ struct MemberCardView: View {
 
                 // Content Column (Android MemberCard.kt:70-158)
                 VStack(alignment: .leading, spacing: 3) {
+                    let dayInfo = nextActiveDayInfo()
+
                     // Row 1: Name + Alarm Badge + Awake Emoji (Android MemberCard.kt:73-118)
                     HStack(spacing: 6) {
                         Text(member.name)
@@ -53,14 +55,14 @@ struct MemberCardView: View {
                             alarmStatusBadge
                         }
 
-                        if member.isAwakeToday {
+                        if member.isAwakeToday && dayInfo?.dayLabel == nil {
                             Text("☀️").font(.caption2)
                         }
                     }
 
                     // Row 2: Next active day label (Android MemberCard.kt:121-147)
-                    if let dayInfo = nextActiveDayInfo() {
-                        if let dayLabel = dayInfo.dayLabel {
+                    if let info = dayInfo {
+                        if let dayLabel = info.dayLabel {
                             Text(dayLabel)
                                 .font(.caption2).fontWeight(.bold)
                                 .foregroundStyle(textColor.opacity(0.7))
@@ -70,7 +72,7 @@ struct MemberCardView: View {
                             Image(systemName: "alarm.fill")
                                 .font(.caption)
                                 .foregroundStyle(textColor.opacity(0.6))
-                            Text("\(dayInfo.earliest) – \(dayInfo.latest)")
+                            Text("\(info.earliest) – \(info.latest)")
                                 .font(.subheadline).fontWeight(.bold)
                                 .foregroundStyle(textColor)
                         }
@@ -165,6 +167,15 @@ struct MemberCardView: View {
         for offset in 0..<7 {
             let checkDow = ((todayDow - 1 + offset) % 7) + 1
             if let profiles = member.dayProfiles, let profile = profiles[checkDow], profile.isActive {
+                if offset == 0 {
+                    let cal = Calendar.current
+                    let now = Date()
+                    let nowMinutes = cal.component(.hour, from: now) * 60 + cal.component(.minute, from: now)
+                    if nowMinutes >= profile.latestWakeUp.totalMinutes {
+                        continue
+                    }
+                }
+
                 let dayLabel: String? = offset == 0 ? nil : {
                     let cal = Calendar.current
                     if let futureDate = cal.date(byAdding: .day, value: offset, to: Date()) {

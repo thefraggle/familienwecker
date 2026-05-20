@@ -346,4 +346,6 @@
     <string name="onboarding_mock_family_name">Häberle</string>
     <string name="onboarding_mock_name1">Babba</string>
     <string name="onboarding_mock_name2">Mama</string>
+    <string name="simple_mode_title">Oifacher Modus</string>
+    <string name="simple_mode_desc">Feschde Weckzeit ohne Puffer oder s\'Ausrechna vo de Badzeita.</string>
 </resources>

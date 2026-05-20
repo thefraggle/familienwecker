@@ -27,7 +27,6 @@
 "main_plan_paused" = "Ton réveil est en pause.";
 "main_shared_breakfast" = "☕ Petit-déj commun : %@";
 "main_wake_time" = "Réveil : %@ - %@";
-"main_bathroom_info" = "Sdb : %@ min | Petit-déj : %@";
 "main_schedule_bathroom" = "Salle de bain : %@ à %@";
 "main_schedule_leave" = "Départ de la maison : %@";
 "main_member_alarm_on" = "(Réveil actif)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Inconnu";
 "add_member_earliest_wake" = "Heure de réveil la plus tôt";
 "add_member_latest_wake" = "Heure de réveil la plus tardive";
-"add_member_bathroom_duration" = "Temps passé dans la salle de bain (minutes)";
+"add_member_bathroom_duration" = "Temps passé dans la salle de bain";
 "add_member_wants_breakfast" = "Prend un petit-déjeuner";
 "add_member_leave_home" = "Doit quitter la maison à";
 "add_member_day_profiles_title" = "Planning de la semaine";
@@ -163,6 +162,7 @@
 "settings_imprint" = "Mentions légales";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-fr.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-fr.html";
+"registration_disclaimer" = "En t'inscrivant, tu acceptes les %@ et la %@.";
 "registration_terms_of_use" = "Conditions d'utilisation";
 "registration_privacy_policy" = "Politique de confidentialité";
 "settings_already_claimed" = "Déjà utilisé";
@@ -221,6 +221,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Petit-déjeuner −%d min et horaires décalés de %d min.";
 "schedule_message_member_conflict" = "Problème pour %@ : les horaires se chevauchent trop.";
 "schedule_message_member_conflict_desc" = "Essaie de changer l'ordre ou de modifier les horaires.";
+"schedule_message_buffer_reduced" = "Marge réduite de %d à %d min.";
+"buffer_after_bath" = "Marge après la salle de bain";
+"buffer_between_display" = "%d min de marge";
 "main_fallback_alarm_active" = "⚠️ Attention : Le planning ne correspond pas pour l'instant (%@). Merci d'ajuster vos horaires !";
 "error_password_too_short" = "Ton mot de passe doit comporter au moins 8 caractères.";
 "error_email_already_in_use" = "Cette adresse e-mail est déjà enregistrée.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Oui, l'utiliser";
 "schedule_auto_fix" = "✨ Ajuster les heures automatiquement";
 "onboarding_enable_tooltips" = "Afficher des conseils utiles lors de la première utilisation";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Compte";
-
-"registration_disclaimer" = "En t'inscrivant, tu acceptes les %1$@ et la %2$@.";
-
-"registration_disclaimer" = "En t'inscrivant, tu acceptes les %1$@ et la %2$@.";
-
-"buffer_after_bath" = "Marge après la salle de bain";
-
-"buffer_between_display" = "%d min de marge";
-
-"schedule_message_buffer_reduced" = "Marge réduite de %d à %d min.";
-
-"ringing_messages_array" = "La salle de bain est toute à toi !||Zéro stress : ton tour dans la salle de bain commence.||Profite du calme dans la salle de bain tant que ça dure !||C'est l'heure du premier café. Le monde t'attend !||Tu as bien dormi ? Ton planning du jour est prêt.||Prêt(e) pour la journée ? Tout est parfaitement organisé.||C'est parti pour une super journée ! File à la douche.||Réveille-toi et mets le volume : la scène est à toi !||De la bonne musique au réveil, c'est l'idéal !||Le planning familial est lancé. C'est parti !||Prêt(e) pour le décollage ? La famille compte sur toi.||Debout ! La salle de bain est libre pour toi.||Ton moment perso dans la salle de bain commence – profites-en !||Voie libre vers le lavabo – c'est ton tour !||L'avenir appartient à ceux qui ont l'eau chaude !||Encore cinq minutes ? Non ! Ton tour t'attend.||Aujourd'hui va être une belle journée. Et ça commence maintenant !||Ta brosse à dents s'ennuie. Direction la salle de bain !||Tout est coordonné, tout est planifié – c'est à toi !||La personne matinale a la salle de bain pour elle toute seule.";
+"simple_mode_title" = "Mode simple";
+"simple_mode_desc" = "Heure de réveil fixe sans marge ni calcul du temps de passage à la salle de bain.";

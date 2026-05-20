@@ -27,7 +27,6 @@
 "main_plan_paused" = "Báo thức của bạn đang tạm dừng.";
 "main_shared_breakfast" = "☕ Ăn sáng chung: %@";
 "main_wake_time" = "Thức dậy: %@ - %@";
-"main_bathroom_info" = "Phòng tắm: %@ phút | Ăn sáng: %@";
 "main_schedule_bathroom" = "Phòng tắm: %@ đến %@";
 "main_schedule_leave" = "Rời khỏi nhà: %@";
 "main_member_alarm_on" = "(Đã bật báo thức)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Không rõ";
 "add_member_earliest_wake" = "Giờ thức dậy sớm nhất";
 "add_member_latest_wake" = "Giờ thức dậy muộn nhất";
-"add_member_bathroom_duration" = "Thời gian dùng phòng tắm (phút)";
+"add_member_bathroom_duration" = "Thời gian dùng phòng tắm";
 "add_member_wants_breakfast" = "Muốn ăn sáng";
 "add_member_leave_home" = "Giờ rời khỏi nhà";
 "add_member_day_profiles_title" = "Lịch trình hàng tuần";
@@ -169,6 +168,7 @@
 "settings_imprint" = "Dấu ấn";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-en.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-en.html";
+"registration_disclaimer" = "Bằng cách đăng ký, bạn chấp nhận %@ và %@.";
 "registration_terms_of_use" = "Điều khoản sử dụng";
 "registration_privacy_policy" = "Chính sách bảo mật";
 "settings_already_claimed" = "Đã được chọn";
@@ -227,6 +227,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Bữa sáng giảm %d phút & thời gian dịch chuyển %d phút.";
 "schedule_message_member_conflict" = "Xung đột cho %@: Thời gian trùng lặp quá nhiều.";
 "schedule_message_member_conflict_desc" = "Hãy thử thay đổi thứ tự hoặc điều chỉnh thời gian.";
+"schedule_message_buffer_reduced" = "Thời gian đệm giảm từ %d xuống %d phút.";
+"buffer_after_bath" = "Thời gian đệm sau khi tắm";
+"buffer_between_display" = "%d phút đệm";
 "main_fallback_alarm_active" = "⚠️ Cảnh báo: Lịch trình hiện tại không khớp (%@). Vui lòng điều chỉnh thời gian của bạn!";
 "error_password_too_short" = "Mật khẩu phải dài ít nhất 8 ký tự.";
 "error_email_already_in_use" = "Địa chỉ email này đã được đăng ký.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Có, sử dụng";
 "schedule_auto_fix" = "✨ Tự động điều chỉnh thời gian";
 "onboarding_enable_tooltips" = "Hiển thị các mẹo hữu ích trong lần sử dụng đầu tiên";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Tài khoản";
-
-"registration_disclaimer" = "Bằng cách đăng ký, bạn chấp nhận %1$@ và %2$@.";
-
-"registration_disclaimer" = "Bằng cách đăng ký, bạn chấp nhận %1$@ và %2$@.";
-
-"buffer_after_bath" = "Thời gian đệm sau khi tắm";
-
-"buffer_between_display" = "%d phút đệm";
-
-"schedule_message_buffer_reduced" = "Thời gian đệm giảm từ %d xuống %d phút.";
-
-"ringing_messages_array" = "Phòng tắm bây giờ hoàn toàn là của bạn!||Không kẹt xe, không căng thẳng - giờ đi vệ sinh của bạn bắt đầu ngay bây giờ.||Hãy tận hưởng sự bình yên trong phòng tắm khi nó còn trống!||Đến giờ cho ly cà phê đầu tiên. Thế giới đang chờ bạn!||Ngủ ngon chứ? Lịch trình hôm nay của bạn đã sẵn sàng.||Sẵn sàng cho ngày mới chưa? Mọi thứ đã được sắp xếp hoàn hảo.||Đến lúc khuấy động ngày mới rồi! Giờ vào phòng tắm của bạn bắt đầu.||Hãy thức dậy và bật nhạc lên – sân khấu là của bạn!||Âm nhạc sôi động vào buổi sáng giúp xua tan âu lo!||Lịch trình gia đình đã bắt đầu. Đi thôi!||Sẵn sàng xuất phát chưa? Gia đình đang trông cậy vào bạn.||Dậy thôi nào! Phòng tắm đang trống chờ bạn đấy.||Thời gian phòng tắm cá nhân của bạn bắt đầu ngay bây giờ - hãy tận dụng nhé!||Đường vào phòng tắm đã thông thoáng – đến lượt bạn rồi!||Ai dậy sớm thì có nước nóng!||Năm phút nữa ư? Không! Khung giờ của bạn đang chờ.||Hôm nay sẽ là một ngày tuyệt vời. Nó bắt đầu ngay bây giờ!||Bàn chải đánh răng đang nhớ bạn. Vào phòng tắm thôi!||Tất cả đã được lên kế hoạch và điều phối – đến lượt bạn!||Ai dậy sớm sẽ được dùng phòng tắm một mình.";
+"simple_mode_title" = "Chế độ đơn giản";
+"simple_mode_desc" = "Giờ thức dậy cố định, không tính thời gian đệm hoặc thời gian dùng phòng tắm.";

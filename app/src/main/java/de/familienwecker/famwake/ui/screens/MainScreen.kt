@@ -204,21 +204,7 @@ fun MainScreen(
             topBar = {
                 LargeTopAppBar(
                     title = {
-                        val appShortName = stringResource(R.string.app_name_short)
-                        Text(
-                            buildAnnotatedString {
-                                val prefix = "FamWake"
-                                val suffix = appShortName.removePrefix(prefix).trim()
-                                withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.ExtraBold)) {
-                                    append(prefix)
-                                }
-                                if (suffix.isNotEmpty()) {
-                                    withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Normal)) {
-                                        append(" $suffix")
-                                    }
-                                }
-                            }
-                        )
+                        Text(stringResource(R.string.app_name_short))
                     },
                     actions = {
                         val syncRotationTransition = rememberInfiniteTransition(label = "syncRotation")
@@ -397,7 +383,6 @@ fun MainScreen(
                             val myMember = members.find { it.id == myMemberId }
                             val isAwakeButtonVisible = remember(myMember, isAlarmEnabled, schedule, isAwakeTodayLocal) {
                                 if (myMember == null || !isAlarmEnabled) return@remember false
-                                if (isAwakeTodayLocal) return@remember true
 
                                 val nowDt = java.time.LocalDateTime.now()
                                 val todayDate = nowDt.toLocalDate()
@@ -419,8 +404,13 @@ fun MainScreen(
                                         ?.wakeUpTime?.toJavaLocalTime()
                                     val alarmTime = myScheduledTime ?: profile.earliestWakeUp.toJavaLocalTime()
                                     val targetDt = java.time.LocalDateTime.of(targetDate, alarmTime)
-                                    val windowStart = targetDt.minusHours(2)
-                                    nowDt >= windowStart && nowDt < targetDt
+                                    
+                                    if (isAwakeTodayLocal) {
+                                        targetDate == todayDate && nowDt < targetDt
+                                    } else {
+                                        val windowStart = targetDt.minusHours(2)
+                                        nowDt >= windowStart && nowDt < targetDt
+                                    }
                                 } else {
                                     false
                                 }

@@ -27,7 +27,6 @@
 "main_plan_paused" = "Seu alarme está pausado no momento.";
 "main_shared_breakfast" = "☕ Café da manhã juntos: %@";
 "main_wake_time" = "Acordar: %@ - %@";
-"main_bathroom_info" = "Banheiro: %@ min | Café: %@";
 "main_schedule_bathroom" = "Banheiro: %@ às %@";
 "main_schedule_leave" = "Sair de casa: %@";
 "main_member_alarm_on" = "(Alarme ativo)";
@@ -62,7 +61,7 @@
 "add_member_unknown" = "Desconhecido";
 "add_member_earliest_wake" = "Horário mais cedo para acordar";
 "add_member_latest_wake" = "Horário limite para acordar";
-"add_member_bathroom_duration" = "Tempo no banheiro (minutos)";
+"add_member_bathroom_duration" = "Tempo no banheiro";
 "add_member_wants_breakfast" = "Quer tomar café da manhã";
 "add_member_leave_home" = "Precisa sair de casa às";
 "add_member_day_profiles_title" = "Cronograma semanal";
@@ -163,6 +162,7 @@
 "settings_imprint" = "Avisos Legais";
 "settings_imprint_url" = "https://www.familienwecker.de/imprint-pt.html";
 "settings_delete_account_url" = "https://www.familienwecker.de/account-deletion-pt.html";
+"registration_disclaimer" = "Ao se cadastrar, você aceita os %@ e a %@.";
 "registration_terms_of_use" = "Termos de Uso";
 "registration_privacy_policy" = "Política de Privacidade";
 "settings_already_claimed" = "Já escolhido";
@@ -221,6 +221,9 @@
 "schedule_message_breakfast_and_time_adjusted" = "Café −%d min e horários deslocados em %d min.";
 "schedule_message_member_conflict" = "Problema para %@: Os horários se sobrepõem demais.";
 "schedule_message_member_conflict_desc" = "Tente mudar a ordem ou ajustar os horários.";
+"schedule_message_buffer_reduced" = "Margem reduzida de %d para %d min.";
+"buffer_after_bath" = "Margem após o banho";
+"buffer_between_display" = "Margem de %d min";
 "main_fallback_alarm_active" = "⚠️ Aviso: O cronograma não se encaixa agora (%@). Por favor, ajuste seus horários!";
 "error_password_too_short" = "Sua senha precisa ter pelo menos 8 caracteres.";
 "error_email_already_in_use" = "Este email já está cadastrado.";
@@ -301,22 +304,5 @@
 "settings_steal_confirm" = "Sim, usar";
 "schedule_auto_fix" = "✨ Ajustar horários automaticamente";
 "onboarding_enable_tooltips" = "Mostrar dicas úteis no primeiro uso";
-
-
-/* iOS Specific (Fallback to English) */
-"member_pause" = "Pause";
-"member_resume" = "Resume";
-"member_not_active_today" = "Not active today";
-"settings_account_section" = "Conta";
-
-"registration_disclaimer" = "Ao se cadastrar, você aceita os %1$@ e a %2$@.";
-
-"registration_disclaimer" = "Ao se cadastrar, você aceita os %1$@ e a %2$@.";
-
-"buffer_after_bath" = "Margem após o banho";
-
-"buffer_between_display" = "Margem de %d min";
-
-"schedule_message_buffer_reduced" = "Margem reduzida de %d para %d min.";
-
-"ringing_messages_array" = "O banheiro é todo seu agora!||Sem pressa, sem estresse – seu tempo no banheiro começa agora.||Aproveite a paz no banheiro enquanto pode!||Hora do primeiro café. O mundo te espera!||Dormiu bem? Seu horário de hoje está pronto.||Pronto para o dia? Tudo está perfeitamente combinado.||Hora de arrasar! Seu tempo no banheiro começou.||Acorde e aumente o som – o palco é seu!||Uma boa música de manhã afasta as preocupações!||O horário da família está valendo. Vamos lá!||Pronto para começar? A família conta com você.||Bom dia! O banheiro está livre para você.||Seu tempo no banheiro começa agora – aproveite!||Caminho livre para a pia – é a sua vez!||Deus ajuda quem cedo madruga – com água quente!||Mais 5 minutinhos? Não! Sua vez te espera.||Hoje vai ser um ótimo dia. E ele começa agora!||Sua escova de dentes sente sua falta. Pro banheiro!||Tudo coordenado, tudo planejado – é a sua vez!||Quem acorda cedo tem o banheiro só para si.";
+"simple_mode_title" = "Modo simples";
+"simple_mode_desc" = "Hora de acordar fixa sem margem ou cálculo de turnos no banheiro.";
