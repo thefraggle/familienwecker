@@ -50,7 +50,8 @@ class AuthRepository {
             } else {
                 auth.createUserWithEmailAndPassword(trimmedEmail, pass)
             }
-            if (result.user != null) Result.success(result.user!!) else Result.failure(Exception("REGISTRATION_FAILED"))
+            val u = result.user
+            if (u != null) Result.success(u) else Result.failure(Exception("REGISTRATION_FAILED"))
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -103,7 +104,8 @@ class AuthRepository {
             } else {
                 auth.signInWithCredential(credential)
             }
-            if (result.user != null) Result.success(result.user!!) else Result.failure(GoogleSignInFailedException())
+            val u = result.user
+            if (u != null) Result.success(u) else Result.failure(GoogleSignInFailedException())
         } catch (e: Exception) {
             Result.failure(e)
         }

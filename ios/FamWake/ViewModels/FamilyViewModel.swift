@@ -4,6 +4,7 @@ import FirebaseFirestore
 import FirebaseAuth
 import FirebaseFunctions
 import TelemetryClient
+import Network
 
 /// Äquivalent zu FamilyViewModel.kt (aufgeteilt in Extensions)
 @MainActor
@@ -63,6 +64,8 @@ class FamilyViewModel: ObservableObject {
     private var familyListener: ListenerRegistration?
     private var membersListener: ListenerRegistration?
     private var recalcTimer: AnyCancellable?
+    private var pathMonitor: NWPathMonitor?
+    private let monitorQueue = DispatchQueue(label: "de.familienwecker.famwake.NetworkMonitorQueue")
 
     init() {
         tooltipsEnabled = UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true
@@ -92,6 +95,7 @@ class FamilyViewModel: ObservableObject {
     }
 
     deinit {
+        pathMonitor?.cancel()
         familyListener?.remove()
         membersListener?.remove()
         recalcTimer?.cancel()
@@ -866,32 +870,14 @@ class FamilyViewModel: ObservableObject {
     }
 
     private func startNetworkMonitor() {
-        // Einfacher Reachability-Check via URLSession
-        Task {
-            while true {
-                try? await Task.sleep(nanoseconds: 10_000_000_000) // 10s
-                let reachable = await checkReachability()
-                isOffline = !reachable
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { [weak self] path in
+            Task { @MainActor in
+                self?.isOffline = (path.status != .satisfied)
             }
         }
-    }
-
-    private func checkReachability() async -> Bool {
-        #if targetEnvironment(simulator)
-        return true // Simulator-Fix: Bypasses network weirdness
-        #else
-        guard let url = URL(string: "https://captive.apple.com") else { return true }
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 3
-        request.httpMethod = "GET"
-        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            return (response as? HTTPURLResponse)?.statusCode == 200
-        } catch {
-            return false
-        }
-        #endif
+        monitor.start(queue: monitorQueue)
+        self.pathMonitor = monitor
     }
 
     private func generateJoinCode() -> String {
@@ -1144,6 +1130,7 @@ class FamilyViewModel: ObservableObject {
         resolved.bathroomDurationMinutes = profile.bathroomDurationMinutes
         resolved.wantsBreakfast = profile.wantsBreakfast
         resolved.leaveHomeTime = profile.leaveHomeTime
+        resolved.dayProfiles = [targetDow: profile]
         return resolved
     }
 }
