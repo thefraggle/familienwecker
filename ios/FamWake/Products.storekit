@@ -1,0 +1,112 @@
+{
+  "identifier" : "E2B7A8B7",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayVersion" : 1,
+      "familyShareable" : false,
+      "internalID" : "donation_small",
+      "localizations" : [
+        {
+          "description" : "Kleine Spende",
+          "displayName" : "Kleines Dankeschön",
+          "locale" : "de"
+        },
+        {
+          "description" : "Small donation",
+          "displayName" : "Small Thank You",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.familienwecker.famwake.donation_small",
+      "referenceName" : "Kleines Dankeschön",
+      "type" : "Consumable"
+    },
+    {
+      "displayVersion" : 1,
+      "familyShareable" : false,
+      "internalID" : "donation_medium",
+      "localizations" : [
+        {
+          "description" : "Mittlere Spende",
+          "displayName" : "Großes Dankeschön",
+          "locale" : "de"
+        },
+        {
+          "description" : "Medium donation",
+          "displayName" : "Great Thank You",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.familienwecker.famwake.donation_medium",
+      "referenceName" : "Großes Dankeschön",
+      "type" : "Consumable"
+    },
+    {
+      "displayVersion" : 1,
+      "familyShareable" : false,
+      "internalID" : "donation_big",
+      "localizations" : [
+        {
+          "description" : "Große Spende",
+          "displayName" : "Mega Dankeschön",
+          "locale" : "de"
+        },
+        {
+          "description" : "Large donation",
+          "displayName" : "Mega Thank You",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.familienwecker.famwake.donation_big",
+      "referenceName" : "Mega Dankeschön",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "de",
+    "_storefront" : "DEU",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Group Registration"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Billing Issue"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
