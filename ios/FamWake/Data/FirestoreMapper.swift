@@ -125,10 +125,10 @@ private func parseTimestamp(_ raw: Any?) -> Double? {
 }
 
 private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
-    guard let dpData = raw as? [String: [String: Any]] else { return nil }
+    guard let dpData = raw as? [String: Any] else { return nil }
     var result: [Int: DayProfile] = [:]
-    for (key, dp) in dpData {
-        guard let day = Int(key) else { continue }
+    for (key, val) in dpData {
+        guard let day = Int(key), let dp = val as? [String: Any] else { continue }
         let active = dp["isActive"] as? Bool ?? true
         let earliest = DateComponents.fromTimeString(dp["earliestWakeUp"] as? String ?? "06:00")
             ?? .from(hour: 6, minute: 0)
