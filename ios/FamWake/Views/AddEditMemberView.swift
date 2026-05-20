@@ -214,6 +214,13 @@ struct AddEditMemberView: View {
         return theme.onSurfaceVariant.opacity(0.5)
     }
 
+    private func currentDayOfWeek() -> Int {
+        let weekday = Calendar.current.component(.weekday, from: Date())
+        // Convert to: 1 = Monday, ..., 7 = Sunday
+        let mapped = (weekday + 5) % 7 + 1
+        return mapped
+    }
+
     private func initializeData() {
         let allMembers = familyViewModel.members
         if let mid = memberId, let member = allMembers.first(where: { $0.id == mid }) {
@@ -226,6 +233,19 @@ struct AddEditMemberView: View {
         }
         initialName = name
         initialProfiles = dayProfiles
+
+        let today = currentDayOfWeek()
+        var targetDay = today
+        if !(dayProfiles[today]?.isActive ?? false) {
+            for offset in 1..<7 {
+                let checkDay = (today - 1 + offset) % 7 + 1
+                if dayProfiles[checkDay]?.isActive ?? false {
+                    targetDay = checkDay
+                    break
+                }
+            }
+        }
+        selectedDay = targetDay
     }
 
     private func saveMember() {
