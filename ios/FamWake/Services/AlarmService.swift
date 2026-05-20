@@ -29,17 +29,22 @@ final class AlarmService: ObservableObject {
             }
         }
         
-        if soundName.isEmpty {
-            content.sound = .defaultCritical
-        } else {
-            content.sound = .criticalSoundNamed(UNNotificationSoundName(soundName), withAudioVolume: 1.0)
-        }
-        
         content.categoryIdentifier = "ALARM"
         content.userInfo = ["memberId": memberId, "memberName": memberName]
         content.interruptionLevel = .timeSensitive
 
         UNUserNotificationCenter.current().getNotificationSettings { settings in
+            let isCriticalEnabled = settings.criticalAlertSetting == .enabled
+            let sound: UNNotificationSound
+            if soundName.isEmpty {
+                sound = isCriticalEnabled ? .defaultCritical : .default
+            } else {
+                sound = isCriticalEnabled ?
+                    .criticalSoundNamed(UNNotificationSoundName(soundName), withAudioVolume: 1.0) :
+                    .init(named: UNNotificationSoundName(soundName))
+            }
+            content.sound = sound
+
             let needsRequest = settings.authorizationStatus == .notDetermined ||
                                (settings.authorizationStatus == .authorized && settings.criticalAlertSetting == .disabled)
             
