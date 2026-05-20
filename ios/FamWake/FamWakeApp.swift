@@ -4,6 +4,7 @@ import FirebaseAuth
 import GoogleSignIn
 import FirebaseMessaging
 import TelemetryClient
+import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -21,6 +22,25 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         Messaging.messaging().delegate = self
         
         application.registerForRemoteNotifications()
+        
+        // Registrierung der Wecker-Kategorie und Actions
+        let stopAction = UNNotificationAction(
+            identifier: "STOP_ACTION",
+            title: NSLocalizedString("ringing_stop", comment: ""),
+            options: []
+        )
+        let snoozeAction = UNNotificationAction(
+            identifier: "SNOOZE_ACTION",
+            title: NSLocalizedString("ringing_snooze", comment: ""),
+            options: []
+        )
+        let alarmCategory = UNNotificationCategory(
+            identifier: "ALARM",
+            actions: [stopAction, snoozeAction],
+            intentIdentifiers: [],
+            options: [.customDismissAction]
+        )
+        UNUserNotificationCenter.current().setNotificationCategories([alarmCategory])
         
         return true
     }
@@ -101,14 +121,50 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         completionHandler([])
     }
     
-    // Wird aufgerufen, wenn der Benutzer auf die Notification tippt
+    // Wird aufgerufen, wenn der Benutzer auf die Notification tippt oder eine Action ausführt
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if let memberId = response.notification.request.content.userInfo["memberId"] as? String,
-           let memberName = response.notification.request.content.userInfo["memberName"] as? String {
+        let userInfo = response.notification.request.content.userInfo
+        guard let memberId = userInfo["memberId"] as? String,
+              let memberName = userInfo["memberName"] as? String else {
+            completionHandler()
+            return
+        }
+        
+        if response.actionIdentifier == "STOP_ACTION" {
+            TelemetryManager.send("alarm.dismissed_background")
+            AlarmService.shared.cancelWakeUp(memberId: memberId)
+            AlarmService.shared.cancelWakeUp(memberId: memberId, isSnooze: true)
+            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: ["memberId": memberId])
+            }
+        } else if response.actionIdentifier == "SNOOZE_ACTION" {
+            TelemetryManager.send("alarm.snoozed_background")
+            AlarmService.shared.cancelWakeUp(memberId: memberId)
+            
+            let snoozeTime = Date().addingTimeInterval(5 * 60)
+            UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+            
+            let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
+            AlarmService.shared.scheduleWakeUp(
+                wakeUpTime: snoozeTime,
+                memberId: memberId,
+                memberName: memberName,
+                soundUri: alarmSoundUri,
+                isSnooze: true
+            )
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: ["memberId": memberId, "memberName": memberName, "snoozeTime": snoozeTime])
+            }
+        } else {
+            // Klick auf die Benachrichtigung selbst
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .showRingingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
             }
         }
+        
         completionHandler()
     }
 }

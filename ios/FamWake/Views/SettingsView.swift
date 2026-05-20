@@ -21,6 +21,7 @@ struct SettingsView: View {
     @State private var memberToSteal: FamilyMember? = nil
     @State private var showStealAlert = false
     @State private var showLoginSheet = false
+    @State private var showSoundPicker = false
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
     private var isDark: Bool { colorScheme == .dark }
@@ -120,6 +121,7 @@ struct SettingsView: View {
             .sheet(isPresented: $showShareSheet) { ActivityViewController(activityItems: [shareContent]) }
             .sheet(isPresented: $showProfilePicker) { profilePickerSheet }
             .sheet(isPresented: $showDonationSheet) { donationSheet }
+            .sheet(isPresented: $showSoundPicker) { soundPickerSheet }
             .alert(L.settingsLeaveFamily, isPresented: $showLeaveFamilyAlert) {
                 Button(L.settingsLeaveFamily, role: .destructive) {
                     familyViewModel.leaveFamily()
@@ -219,8 +221,25 @@ struct SettingsView: View {
             .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
             .disabled(familyViewModel.members.isEmpty)
 
-            // Alarm sound picker is removed for iOS due to system limitations.
-            // iOS users will use the default system notification sound or bundled default sound.
+            
+            // Alarm Sound Picker
+            Text(L.settingsAlarmTitle)
+                .font(.caption).bold().foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                .padding(.top, 12)
+            
+            Button(action: {
+                showSoundPicker = true
+            }) {
+                HStack {
+                    Text(getSoundDisplayName(familyViewModel.alarmSoundUri)).font(.body)
+                    Spacer()
+                    Image(systemName: "speaker.wave.2.fill").font(.caption)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16).padding(.vertical, 12)
+            }
+            .foregroundStyle(theme.onSurface)
+            .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
         }
     }
 
@@ -582,6 +601,75 @@ struct SettingsView: View {
         Button(L.s("settings_imprint")) {
             if let url = URL(string: L.s("settings_imprint_url")) { UIApplication.shared.open(url) }
         }.buttonStyle(.borderless)
+    }
+
+    private func getSoundDisplayName(_ uri: String?) -> String {
+        guard let uri = uri else { return "Standard (Panda)" }
+        switch uri {
+        case "alarm_sound_v3.caf": return "Standard (Panda)"
+        case "Alarm01.wav": return "Gentle Chime"
+        case "Alarm02.wav": return "Digital Retro"
+        case "Alarm03.wav": return "Classic Bell"
+        case "Alarm04.wav": return "Bright Alert"
+        case "default": return L.settingsAlarmDefault
+        default: return uri
+        }
+    }
+
+    @ViewBuilder
+    private var soundPickerSheet: some View {
+        NavigationStack {
+            List {
+                let sounds: [(id: String?, name: String)] = [
+                    (id: "alarm_sound_v3.caf", name: "Standard (Panda)"),
+                    (id: "Alarm01.wav", name: "Gentle Chime"),
+                    (id: "Alarm02.wav", name: "Digital Retro"),
+                    (id: "Alarm03.wav", name: "Classic Bell"),
+                    (id: "Alarm04.wav", name: "Bright Alert"),
+                    (id: "default", name: L.settingsAlarmDefault)
+                ]
+                
+                ForEach(sounds, id: \.id) { sound in
+                    Button(action: {
+                        familyViewModel.setAlarmSoundUri(sound.id)
+                        familyViewModel.recalculateSchedule()
+                        
+                        // Play preview
+                        if let id = sound.id {
+                            AlarmService.shared.playAlarm(soundUri: id)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                AlarmService.shared.stopAlarm()
+                            }
+                        }
+                    }) {
+                        HStack {
+                            Text(sound.name)
+                                .font(.body)
+                                .foregroundStyle(theme.onSurface)
+                            Spacer()
+                            if (familyViewModel.alarmSoundUri == sound.id) || (familyViewModel.alarmSoundUri == nil && sound.id == "alarm_sound_v3.caf") {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(theme.primary)
+                                    .fontWeight(.bold)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle(L.settingsAlarmPickerTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(L.cancelButton) {
+                        AlarmService.shared.stopAlarm()
+                        showSoundPicker = false
+                    }
+                }
+            }
+            .onDisappear {
+                AlarmService.shared.stopAlarm()
+            }
+        }
     }
 
     // MARK: - Profile Picker Sheet (iOS-native BottomSheet)
