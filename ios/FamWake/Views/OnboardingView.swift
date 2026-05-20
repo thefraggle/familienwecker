@@ -326,7 +326,7 @@ private struct MockupCard<Content: View>: View {
             // Bottom fade
             LinearGradient(colors: [.clear, MockColors.bg.opacity(0.85)],
                           startPoint: .top, endPoint: .bottom)
-                .frame(minHeight: 48)
+                .frame(height: 48)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
         }
     }
