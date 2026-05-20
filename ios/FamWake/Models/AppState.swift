@@ -98,4 +98,6 @@ class AppState: ObservableObject {
 
 extension Notification.Name {
     static let showRingingView = Notification.Name("showRingingView")
+    static let stopAlarmFromNotification = Notification.Name("stopAlarmFromNotification")
+    static let snoozeAlarmFromNotification = Notification.Name("snoozeAlarmFromNotification")
 }

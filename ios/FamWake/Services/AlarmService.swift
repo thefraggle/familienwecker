@@ -16,60 +16,82 @@ final class AlarmService: ObservableObject {
         let content = UNMutableNotificationContent()
         content.title = memberName
         content.body = L.ringingWakeUp(memberName)
-        // Einfache Zuordnung des Custom Sounds oder Fallback
-        if let soundUri = soundUri, let url = URL(string: soundUri), url.pathExtension == "caf" || url.pathExtension == "mp3" {
-            content.sound = UNNotificationSound(named: UNNotificationSoundName(url.lastPathComponent))
-        } else {
-            content.sound = UNNotificationSound(named: UNNotificationSoundName("alarm_sound_v3.caf"))
+        
+        var soundName = "alarm_sound_v3.caf"
+        if let soundUri = soundUri {
+            if soundUri == "default" || soundUri == "system" {
+                soundName = ""
+            } else if soundUri.hasSuffix(".caf") || soundUri.hasSuffix(".mp3") {
+                soundName = soundUri
+            } else if let url = URL(string: soundUri) {
+                soundName = url.lastPathComponent
+            }
         }
+        
+        if soundName.isEmpty {
+            content.sound = .defaultCritical
+        } else {
+            content.sound = .criticalSoundNamed(UNNotificationSoundName(soundName), withAudioVolume: 1.0)
+        }
+        
         content.categoryIdentifier = "ALARM"
         content.userInfo = ["memberId": memberId, "memberName": memberName]
         content.interruptionLevel = .timeSensitive
 
-        let cal = Calendar.current
-        var trigger: UNNotificationTrigger
-        if isSnooze {
-            trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5 * 60, repeats: false)
-        } else {
-            let comps = cal.dateComponents([.year, .month, .day, .hour, .minute], from: wakeUpTime)
-            trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
-        }
-
-        let request = UNNotificationRequest(
-            identifier: isSnooze ? "alarm_snooze_\(memberId)" : "alarm_\(memberId)",
-            content: content,
-            trigger: trigger
-        )
-
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             if settings.authorizationStatus == .notDetermined {
-                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert]) { granted, _ in
                     if granted {
-                        UNUserNotificationCenter.current().add(request)
-                        // Trigger recalculate again or just clear error if needed, but since it's granted, the alarm is set.
+                        self.addNotificationChain(content: content, wakeUpTime: wakeUpTime, memberId: memberId, isSnooze: isSnooze)
                     } else {
                         DispatchQueue.main.async { onPermissionDenied?() }
                     }
                 }
-            } else if settings.authorizationStatus != .authorized {
+            } else if settings.authorizationStatus == .denied {
                 DispatchQueue.main.async { onPermissionDenied?() }
             } else {
-                UNUserNotificationCenter.current().add(request)
+                self.addNotificationChain(content: content, wakeUpTime: wakeUpTime, memberId: memberId, isSnooze: isSnooze)
             }
+        }
+    }
+
+    private func addNotificationChain(content: UNMutableNotificationContent, wakeUpTime: Date, memberId: String, isSnooze: Bool) {
+        let cal = Calendar.current
+        let prefix = isSnooze ? "alarm_snooze_\(memberId)" : "alarm_\(memberId)"
+        let maxNotifications = isSnooze ? 3 : 5
+        let interval = 30.0
+        
+        for index in 0..<maxNotifications {
+            let targetTime = wakeUpTime.addingTimeInterval(Double(index) * interval)
+            let comps = cal.dateComponents([.year, .month, .day, .hour, .minute, .second], from: targetTime)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+            
+            let request = UNNotificationRequest(
+                identifier: "\(prefix)_\(index)",
+                content: content,
+                trigger: trigger
+            )
+            UNUserNotificationCenter.current().add(request)
         }
     }
 
     func cancelAll() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
 
     func cancelWakeUp(memberId: String, isSnooze: Bool = false) {
-        let id = isSnooze ? "alarm_snooze_\(memberId)" : "alarm_\(memberId)"
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+        let prefix = isSnooze ? "alarm_snooze_\(memberId)" : "alarm_\(memberId)"
+        var ids = [String]()
+        for index in 0..<5 {
+            ids.append("\(prefix)_\(index)")
+        }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ids)
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ids)
     }
 
     func requestPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert]) { _, _ in }
     }
 
     private var systemSoundTimer: Timer?
@@ -79,8 +101,25 @@ final class AlarmService: ObservableObject {
         stopAlarm() // Ensure any existing alarm is stopped
         
         var url: URL?
-        if let uri = soundUri { url = URL(string: uri) }
-        if url == nil { url = Bundle.main.url(forResource: "alarm_sound_v3", withExtension: "caf") }
+        if let uri = soundUri, !uri.isEmpty {
+            if uri == "default" || uri == "system" {
+                // Keep url nil to trigger system sound fallback below
+            } else if uri.hasSuffix(".caf") || uri.hasSuffix(".wav") || uri.hasSuffix(".mp3") {
+                let filename = (uri as NSString).deletingPathExtension
+                let ext = (uri as NSString).pathExtension
+                url = Bundle.main.url(forResource: filename, withExtension: ext)
+            } else if let localUrl = URL(string: uri), localUrl.scheme == "file" {
+                url = localUrl
+            } else {
+                let filename = (uri as NSString).deletingPathExtension
+                let ext = (uri as NSString).pathExtension
+                url = Bundle.main.url(forResource: filename, withExtension: ext)
+            }
+        }
+        
+        if url == nil && (soundUri == nil || soundUri == "alarm_sound_v3.caf" || soundUri == "") {
+            url = Bundle.main.url(forResource: "alarm_sound_v3", withExtension: "caf")
+        }
 
         if let soundUrl = url, let player = try? AVAudioPlayer(contentsOf: soundUrl) {
             try? AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
