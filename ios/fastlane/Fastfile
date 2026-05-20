@@ -51,7 +51,7 @@ platform :ios do
       export_options: {
         signingStyle: "manual",
         provisioningProfiles: {
-          "de.familienwecker.FamWake" => "FamWake TestFlight"
+          "de.familienwecker.FamWake" => "FamWake AppStore"
         }
       }
     )
