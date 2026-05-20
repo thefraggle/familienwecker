@@ -109,7 +109,21 @@ fun AddMemberScreen(
  
     var name by remember(memberId) { mutableStateOf(initialName) }
     var dayProfiles by remember(memberId) { mutableStateOf(initialDayProfiles) }
-    var selectedDay by remember { mutableStateOf(1) } // 1=Mo
+    val initialSelectedDay = remember(memberId, initialDayProfiles) {
+        val today = java.time.LocalDate.now().dayOfWeek.value
+        var targetDay = today
+        if (initialDayProfiles[today]?.isActive != true) {
+            for (offset in 1..6) {
+                val checkDay = (today - 1 + offset) % 7 + 1
+                if (initialDayProfiles[checkDay]?.isActive == true) {
+                    targetDay = checkDay
+                    break
+                }
+            }
+        }
+        targetDay
+    }
+    var selectedDay by remember(memberId) { mutableStateOf(initialSelectedDay) }
     var showCopyDialog by remember { mutableStateOf(false) }
     var showDiscardConfirmDialog by remember { mutableStateOf(false) }
  
