@@ -2,6 +2,17 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.6 – 2026-05-21
+### New
+- **Buffer explanation (Tooltip)** – A new help tooltip explains in a simple way how the family bathroom buffer works.
+
+### Improved
+- **Crash-free app startup (iOS)** – Fixed a cold startup crash when launching the app by tapping an alarm notification.
+- **Secured app settings (Android)** – Migrated to modern Jetpack DataStore Preferences for even more secure storage of local settings.
+- **Visual polish** – Harmonized tooltip colors to match the sleeping theme. Fixed truncated buttons on iOS sheets and improved general color contrast in light mode.
+
+---
+
 ## 1.9.5 – 2026-05-20
 ### New
 - **Simple Mode** – For family members who do not need a coordinated bathroom slot or wake up outside the usual routine. Simple mode hides all advanced options and triggers the alarm exactly at the chosen wake-up time.
