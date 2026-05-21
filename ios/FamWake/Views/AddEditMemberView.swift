@@ -129,7 +129,7 @@ struct AddEditMemberView: View {
                         saveMember()
                     }
                     .buttonStyle(.borderedProminent)
-                    .tint(theme.tertiary)
+                    .tint(theme.primary)
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 56)
                     .clipShape(Capsule())
@@ -153,7 +153,7 @@ struct AddEditMemberView: View {
                         if hasChanges { showDiscardAlert = true } else { onDone() }
                     }
                     .buttonStyle(.borderless)
-                    .foregroundStyle(theme.tertiary)
+                    .foregroundStyle(theme.primary)
                 }
             }
             .alert(L.unsavedChangesTitle, isPresented: $showDiscardAlert) {
@@ -206,7 +206,7 @@ struct AddEditMemberView: View {
 
     private func chipBgColor(isSelected: Bool, isActive: Bool, hasError: Bool) -> Color {
         if hasError { return isSelected ? theme.error.opacity(0.2) : theme.error.opacity(0.1) }
-        if isSelected && isActive { return theme.tertiary }
+        if isSelected && isActive { return theme.primary }
         if isSelected { return theme.surfaceVariant }
         if isActive { return theme.surfaceVariant.opacity(0.6) }
         return theme.surfaceVariant.opacity(0.3)
@@ -214,7 +214,7 @@ struct AddEditMemberView: View {
 
     private func chipTextColor(isSelected: Bool, isActive: Bool, hasError: Bool) -> Color {
         if hasError { return theme.error }
-        if isSelected && isActive { return theme.onTertiary }
+        if isSelected && isActive { return theme.onPrimary }
         if isActive { return theme.onSurface }
         return theme.onSurfaceVariant.opacity(0.5)
     }
@@ -395,7 +395,7 @@ private struct DayProfileCard: View {
                                     onChange(profile.withBathroom(profile.bathroomDurationMinutes - 5))
                                 }
                             } label: {
-                                Image(systemName: "minus.circle.fill").font(.title2).foregroundStyle(theme.tertiary)
+                                Image(systemName: "minus.circle.fill").font(.title2).foregroundStyle(theme.primary)
                             }
                             Text("\(profile.bathroomDurationMinutes) min")
                                 .font(.headline).fontWeight(.semibold)
@@ -406,7 +406,7 @@ private struct DayProfileCard: View {
                                     onChange(profile.withBathroom(profile.bathroomDurationMinutes + 5))
                                 }
                             } label: {
-                                Image(systemName: "plus.circle.fill").font(.title2).foregroundStyle(theme.tertiary)
+                                Image(systemName: "plus.circle.fill").font(.title2).foregroundStyle(theme.primary)
                             }
                         }
                     }
@@ -433,7 +433,7 @@ private struct DayProfileCard: View {
                             } label: {
                                 Image(systemName: "minus.circle.fill")
                                     .font(.title2)
-                                    .foregroundStyle(effectiveValue > 0 ? theme.tertiary : Color.gray.opacity(0.5))
+                                    .foregroundStyle(effectiveValue > 0 ? theme.primary : Color.gray.opacity(0.5))
                             }
                             .disabled(effectiveValue <= 0)
                             
@@ -454,7 +454,7 @@ private struct DayProfileCard: View {
                             } label: {
                                 Image(systemName: "plus.circle.fill")
                                     .font(.title2)
-                                    .foregroundStyle(effectiveValue < 15 ? theme.tertiary : Color.gray.opacity(0.5))
+                                    .foregroundStyle(effectiveValue < 15 ? theme.primary : Color.gray.opacity(0.5))
                             }
                             .disabled(effectiveValue >= 15)
                         }
@@ -516,7 +516,7 @@ private struct DatePickerRow: View {
             Spacer()
             DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
                 .labelsHidden()
-                .accentColor(isError ? .red : theme.tertiary)
+                .accentColor(isError ? .red : theme.primary)
         }
     }
 }
@@ -539,7 +539,7 @@ struct CopyToOtherDaysSheet: View {
                             Text(L.weekday(day))
                             Spacer()
                             if selected.contains(day) {
-                                Image(systemName: "checkmark").foregroundStyle(theme.tertiary)
+                                Image(systemName: "checkmark").foregroundStyle(theme.primary)
                             }
                         }
                         .contentShape(Rectangle())
@@ -560,12 +560,12 @@ struct CopyToOtherDaysSheet: View {
                     }
                     .disabled(selected.isEmpty)
                     .buttonStyle(.borderless)
-                    .foregroundStyle(selected.isEmpty ? Color.gray : theme.tertiary)
+                    .foregroundStyle(selected.isEmpty ? Color.gray : theme.primary)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button(L.cancelButton) { dismiss() }
                     .buttonStyle(.borderless)
-                    .foregroundStyle(theme.tertiary)
+                    .foregroundStyle(theme.primary)
                 }
             }
         }
