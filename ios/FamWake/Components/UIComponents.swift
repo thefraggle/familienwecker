@@ -89,17 +89,17 @@ struct TooltipBubble: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "lightbulb.fill")
-                .foregroundColor(Color(hex: "#F3E5F5"))
+                .foregroundColor(Color.nightBlue300)
                 .font(.caption)
                 .padding(.top, 2)
             Text(text)
                 .font(.caption).italic()
-                .foregroundStyle(Color(hex: "#F3E5F5"))
+                .foregroundStyle(Color.nightBlue150)
                 .lineSpacing(3)
             Spacer()
             Button(action: onDismiss) {
                 Image(systemName: "xmark")
-                    .foregroundStyle(Color(hex: "#F3E5F5").opacity(0.8))
+                    .foregroundStyle(Color.nightBlue150.opacity(0.8))
                     .font(.caption)
                     .padding(.top, 2)
             }
@@ -108,8 +108,8 @@ struct TooltipBubble: View {
         .padding(.vertical, 14)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(colorScheme == .dark ? Color(hex: "#6A1FB0") : Color(hex: "#4A148C"))
-                .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
+                .fill(colorScheme == .dark ? Color.nightBlue800 : Color.nightBlue700)
+                .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
         )
     }
 }

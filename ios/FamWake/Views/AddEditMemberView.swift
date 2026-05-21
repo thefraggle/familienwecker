@@ -152,6 +152,8 @@ struct AddEditMemberView: View {
                     Button(L.cancelButton) {
                         if hasChanges { showDiscardAlert = true } else { onDone() }
                     }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(theme.tertiary)
                 }
             }
             .alert(L.unsavedChangesTitle, isPresented: $showDiscardAlert) {
@@ -345,7 +347,8 @@ private struct DayProfileCard: View {
                         time: Binding(
                             get: { profile.latestWakeUp.asTime ?? Date() },
                             set: { onChange(profile.withLatest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
-                        )
+                        ),
+                        theme: theme
                     )
                 } else {
                     // Früheste Weckzeit
@@ -354,7 +357,8 @@ private struct DayProfileCard: View {
                         time: Binding(
                             get: { profile.earliestWakeUp.asTime ?? Date() },
                             set: { onChange(profile.withEarliest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
-                        )
+                        ),
+                        theme: theme
                     )
 
                     // Späteste Weckzeit
@@ -366,7 +370,8 @@ private struct DayProfileCard: View {
                                 get: { profile.latestWakeUp.asTime ?? Date() },
                                 set: { onChange(profile.withLatest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
                             ),
-                            isError: latestError
+                            isError: latestError,
+                            theme: theme
                         )
                         if latestError {
                             Text(L.validationLatestBeforeEarliest)
@@ -390,7 +395,7 @@ private struct DayProfileCard: View {
                                     onChange(profile.withBathroom(profile.bathroomDurationMinutes - 5))
                                 }
                             } label: {
-                                Image(systemName: "minus.circle.fill").font(.title2).foregroundStyle(Color.accentColor)
+                                Image(systemName: "minus.circle.fill").font(.title2).foregroundStyle(theme.tertiary)
                             }
                             Text("\(profile.bathroomDurationMinutes) min")
                                 .font(.headline).fontWeight(.semibold)
@@ -401,7 +406,7 @@ private struct DayProfileCard: View {
                                     onChange(profile.withBathroom(profile.bathroomDurationMinutes + 5))
                                 }
                             } label: {
-                                Image(systemName: "plus.circle.fill").font(.title2).foregroundStyle(Color.accentColor)
+                                Image(systemName: "plus.circle.fill").font(.title2).foregroundStyle(theme.tertiary)
                             }
                         }
                     }
@@ -428,7 +433,7 @@ private struct DayProfileCard: View {
                             } label: {
                                 Image(systemName: "minus.circle.fill")
                                     .font(.title2)
-                                    .foregroundStyle(effectiveValue > 0 ? Color.accentColor : Color.gray.opacity(0.5))
+                                    .foregroundStyle(effectiveValue > 0 ? theme.tertiary : Color.gray.opacity(0.5))
                             }
                             .disabled(effectiveValue <= 0)
                             
@@ -449,7 +454,7 @@ private struct DayProfileCard: View {
                             } label: {
                                 Image(systemName: "plus.circle.fill")
                                     .font(.title2)
-                                    .foregroundStyle(effectiveValue < 15 ? Color.accentColor : Color.gray.opacity(0.5))
+                                    .foregroundStyle(effectiveValue < 15 ? theme.tertiary : Color.gray.opacity(0.5))
                             }
                             .disabled(effectiveValue >= 15)
                         }
@@ -477,7 +482,8 @@ private struct DayProfileCard: View {
                                 get: { profile.leaveHomeTime?.asTime ?? Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())! },
                                 set: { onChange(profile.withLeave(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
                             ),
-                            isError: leaveError
+                            isError: leaveError,
+                            theme: theme
                         )
                         if leaveError {
                             Text(L.validationLeaveTooEarly).font(.caption).foregroundStyle(.red)
@@ -500,6 +506,7 @@ private struct DatePickerRow: View {
     let label: String
     @Binding var time: Date
     var isError: Bool = false
+    var theme: FamWakeTheme
 
     var body: some View {
         HStack {
@@ -509,7 +516,7 @@ private struct DatePickerRow: View {
             Spacer()
             DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
                 .labelsHidden()
-                .accentColor(isError ? .red : .accentColor)
+                .accentColor(isError ? .red : theme.tertiary)
         }
     }
 }
@@ -520,6 +527,8 @@ struct CopyToOtherDaysSheet: View {
     var onCopy: (Set<Int>) -> Void
     @State private var selected: Set<Int> = []
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     var body: some View {
         NavigationStack {
@@ -530,7 +539,7 @@ struct CopyToOtherDaysSheet: View {
                             Text(L.weekday(day))
                             Spacer()
                             if selected.contains(day) {
-                                Image(systemName: "checkmark").foregroundStyle(Color.accentColor)
+                                Image(systemName: "checkmark").foregroundStyle(theme.tertiary)
                             }
                         }
                         .contentShape(Rectangle())
@@ -550,9 +559,13 @@ struct CopyToOtherDaysSheet: View {
                         dismiss()
                     }
                     .disabled(selected.isEmpty)
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(selected.isEmpty ? Color.gray : theme.tertiary)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button(L.cancelButton) { dismiss() }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(theme.tertiary)
                 }
             }
         }
