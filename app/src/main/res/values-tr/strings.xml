@@ -354,4 +354,5 @@
     <string name="onboarding_enable_tooltips">İlk kullanımda faydalı ipuçları göster</string>
     <string name="simple_mode_title">Basit Mod</string>
     <string name="simple_mode_desc">Tampon süre veya banyo sırası hesaplaması olmadan sabit uyanma saati.</string>
+    <string name="tooltip_buffer">İtalik yazı, aile ek süresinin aktif olduğunu gösterir. Bugün için kişisel bir ek süre ayarlamak üzere bunu değiştirin.</string>
 </resources>
