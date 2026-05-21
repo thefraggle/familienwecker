@@ -110,7 +110,9 @@ struct AddEditMemberView: View {
                             showTooltipWakeWindow: familyViewModel.tooltipsEnabled && !familyViewModel.tooltipWakeWindowSeen,
                             onDismissWakeWindow: { familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyWakeWindow) },
                             showTooltipBathroom: familyViewModel.tooltipsEnabled && !familyViewModel.tooltipBathroomSeen,
-                            onDismissBathroom: { familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyBathroom) }
+                            onDismissBathroom: { familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyBathroom) },
+                            showTooltipBuffer: familyViewModel.tooltipsEnabled && !familyViewModel.tooltipBufferSeen,
+                            onDismissBuffer: { familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyBuffer) }
                         ) { updated in
                             dayProfiles[selectedDay] = updated
                         }
@@ -294,6 +296,8 @@ private struct DayProfileCard: View {
     var onDismissWakeWindow: () -> Void = {}
     var showTooltipBathroom: Bool = false
     var onDismissBathroom: () -> Void = {}
+    var showTooltipBuffer: Bool = false
+    var onDismissBuffer: () -> Void = {}
     var onChange: (DayProfile) -> Void
 
     var body: some View {
@@ -449,6 +453,11 @@ private struct DayProfileCard: View {
                             }
                             .disabled(effectiveValue >= 15)
                         }
+                    }
+                    
+                    // Tooltip E (Buffer)
+                    if showTooltipBuffer {
+                        TooltipBubble(text: L.tooltipBuffer, onDismiss: onDismissBuffer)
                     }
 
                     // Frühstück

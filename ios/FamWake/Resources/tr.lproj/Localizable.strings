@@ -306,3 +306,5 @@
 "onboarding_enable_tooltips" = "İlk kullanımda faydalı ipuçları göster";
 "simple_mode_title" = "Basit Mod";
 "simple_mode_desc" = "Tampon süre veya banyo sırası hesaplaması olmadan sabit uyanma saati.";
+
+"tooltip_buffer" = "İtalik yazı, aile ek süresinin aktif olduğunu gösterir. Bugün için kişisel bir ek süre ayarlamak üzere bunu değiştirin.";

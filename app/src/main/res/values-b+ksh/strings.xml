@@ -348,4 +348,5 @@
     <string name="onboarding_enable_tooltips">Zeig hilfreiche Tipps bei der ersten Nutzung an</string>
     <string name="simple_mode_title">Einfacher Modus</string>
     <string name="simple_mode_desc">Feste Weckzeit ohne Puffer oder Rechnerei fürs Bad.</string>
+    <string name="tooltip_buffer">Kursiv heißt: Der Familien-Puffer is an. Änder den einfach, um dir für heute nen eigenen Puffer zu setzen.</string>
 </resources>

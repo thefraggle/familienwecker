@@ -349,4 +349,5 @@
     <string name="onboarding_slide5_title">我们开始吧！</string>
     <string name="simple_mode_title">简单模式</string>
     <string name="simple_mode_desc">固定叫醒时间，不计算缓冲时间或洗手间时间。</string>
+    <string name="tooltip_buffer">斜体表示家庭缓冲时间处于开启状态。更改它即可为今天设置个人缓冲时间。</string>
 </resources>

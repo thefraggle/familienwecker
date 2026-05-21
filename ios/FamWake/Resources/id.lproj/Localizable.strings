@@ -306,3 +306,5 @@
 "onboarding_enable_tooltips" = "Tampilkan tips bermanfaat pada penggunaan pertama";
 "simple_mode_title" = "Mode Sederhana";
 "simple_mode_desc" = "Waktu bangun tetap tanpa jeda atau perhitungan waktu kamar mandi.";
+
+"tooltip_buffer" = "Huruf miring berarti buffer keluarga aktif. Ubah untuk mengatur buffer pribadi untuk hari ini.";

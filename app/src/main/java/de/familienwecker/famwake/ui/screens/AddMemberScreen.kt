@@ -86,6 +86,7 @@ fun AddMemberScreen(
     val tooltipWakeWindowSeen by viewModel.tooltipWakeWindowSeen.collectAsStateWithLifecycle()
     val tooltipBathroomSeen by viewModel.tooltipBathroomSeen.collectAsStateWithLifecycle()
     val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
+    val tooltipBufferSeen by viewModel.tooltipBufferSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     // O2: Offline-Status für Hinweis-Banner
@@ -513,7 +514,9 @@ fun AddMemberScreen(
                     showTooltipWakeWindow = tooltipsEnabled && !tooltipWakeWindowSeen,
                     onDismissTooltipWakeWindow = { viewModel.markTooltipSeen(viewModel.tooltipKeyWakeWindow) },
                     showTooltipBathroom = tooltipsEnabled && !tooltipBathroomSeen,
-                    onDismissTooltipBathroom = { viewModel.markTooltipSeen(viewModel.tooltipKeyBathroom) }
+                    onDismissTooltipBathroom = { viewModel.markTooltipSeen(viewModel.tooltipKeyBathroom) },
+                    showTooltipBuffer = tooltipsEnabled && !tooltipBufferSeen,
+                    onDismissTooltipBuffer = { viewModel.markTooltipSeen(viewModel.tooltipKeyBuffer) }
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -586,7 +589,9 @@ private fun DayProfileCard(
     showTooltipWakeWindow: Boolean = false,
     onDismissTooltipWakeWindow: () -> Unit = {},
     showTooltipBathroom: Boolean = false,
-    onDismissTooltipBathroom: () -> Unit = {}
+    onDismissTooltipBathroom: () -> Unit = {},
+    showTooltipBuffer: Boolean = false,
+    onDismissTooltipBuffer: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val isDarkTheme = LocalDarkTheme.current
@@ -825,6 +830,13 @@ private fun DayProfileCard(
                                 ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
                             }
                         }
+
+                        // Tooltip Puffer
+                        TooltipBubble(
+                            visible = showTooltipBuffer,
+                            text = stringResource(R.string.tooltip_buffer),
+                            onDismiss = onDismissTooltipBuffer
+                        )
 
                         // Abfahrtszeit
                         val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)

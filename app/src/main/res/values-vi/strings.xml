@@ -354,4 +354,5 @@
     <string name="onboarding_enable_tooltips">Hiển thị các mẹo hữu ích trong lần sử dụng đầu tiên</string>
     <string name="simple_mode_title">Chế độ đơn giản</string>
     <string name="simple_mode_desc">Giờ thức dậy cố định, không tính thời gian đệm hoặc thời gian dùng phòng tắm.</string>
+    <string name="tooltip_buffer">Chữ in nghiêng có nghĩa là thời gian dự phòng gia đình đang hoạt động. Hãy thay đổi nó để đặt thời gian dự phòng cá nhân cho hôm nay.</string>
 </resources>

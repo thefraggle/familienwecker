@@ -306,3 +306,5 @@
 "settings_share_code_locked" = "Inicia sesión para compartir tu código de invitación.";
 "simple_mode_title" = "Modo simple";
 "simple_mode_desc" = "Hora de despertar fija sin margen ni cálculo de turnos para el baño.";
+
+"tooltip_buffer" = "La cursiva significa que el margen familiar está activo. Cámbialo para establecer un margen personal para hoy.";
