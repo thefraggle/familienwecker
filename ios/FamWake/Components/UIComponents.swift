@@ -89,7 +89,7 @@ struct TooltipBubble: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "lightbulb.fill")
-                .foregroundColor(Color.nightBlue300)
+                .foregroundColor(Color.tooltipYellow)
                 .font(.caption)
                 .padding(.top, 2)
             Text(text)
