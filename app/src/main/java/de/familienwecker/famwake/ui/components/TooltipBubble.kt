@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 private val TooltipBackground = Color(0xFF1D2938)
 private val TooltipBackgroundDark = Color(0xFF161F2A)
 private val TooltipText = Color(0xFFE3EDF7)
-private val TooltipIconTint = Color(0xFF8DAFC8) // nightBlue300
+private val TooltipIconTint = Color(0xFFFFE082) // Weiches Pastellgelb für die Glühbirne
 
 /**
  * Dezente Sprechblase für Erstnutzer-Hinweise.

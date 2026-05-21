@@ -66,6 +66,11 @@ extension Color {
     static let onlineIconLight   = Color(hex: "#2E7D32")
 }
 
+// MARK: - Tooltip
+extension Color {
+    static let tooltipYellow     = Color(hex: "#FFE082") // Weiches Pastellgelb
+}
+
 // MARK: - Theme Colors (Light / Dark)
 struct FamWakeTheme {
     let primary: Color
