@@ -23,10 +23,11 @@ import androidx.compose.material.icons.filled.Lightbulb
 
 import androidx.compose.ui.unit.sp
 
-// Indigo-Lila – passend zu den Onboarding-Farben
-private val TooltipBackground = Color(0xFF4A148C)
-private val TooltipBackgroundDark = Color(0xFF6A1FB0)
-private val TooltipText = Color(0xFFF3E5F5)
+// Brand-Farben (nightBlue700, nightBlue800, nightBlue150)
+private val TooltipBackground = Color(0xFF1D2938)
+private val TooltipBackgroundDark = Color(0xFF161F2A)
+private val TooltipText = Color(0xFFE3EDF7)
+private val TooltipIconTint = Color(0xFF8DAFC8) // nightBlue300
 
 /**
  * Dezente Sprechblase für Erstnutzer-Hinweise.
@@ -65,7 +66,7 @@ fun TooltipBubble(
                 Icon(
                     imageVector = Icons.Default.Lightbulb,
                     contentDescription = null,
-                    tint = TooltipText,
+                    tint = TooltipIconTint,
                     modifier = Modifier.size(18.dp).padding(top = 2.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
