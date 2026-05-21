@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.5
-**Datum:** 2026-05-20
+**Version:** 1.9.6
+**Datum:** 2026-05-21
 
 ---
 
@@ -39,6 +39,8 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-30 | Alarm-Zyklus | Wecker klingelt zuverlässig (auch Background/Lockscreen). Snooze (5 Min) plant neuen Alarm korrekt. |
 | TC-31 | Statuswechsel ("Ich bin wach") | Stoppt System-Wecker, aktualisiert UI (Two-Pass-Logik für "Heute/Morgen"). Setzt sich am nächsten Tag automatisch zurück. |
 | TC-32 | Android 14+ Warnungen | Fehlen `SCHEDULE_EXACT_ALARM` oder `USE_FULL_SCREEN_INTENT`, erscheinen entsprechende Banner/Warnungen. |
+| TC-33 | Kaltstart iOS | App-Start per Alarm-Klick (Kaltstart) löst keinen Boot-Loop/Absturz aus. |
+| TC-34 | DataStore Migration Android | Update von v1.9.5: Alte EncryptedSharedPreferences-Werte werden atomar in Jetpack DataStore migriert, Altdatei wird gelöscht, Einstellungen bleiben erhalten. |
 
 ### 4. Benachrichtigungen & Sync (Multi-Device)
 | ID | Testfall | Erwartetes Ergebnis |

@@ -2,6 +2,17 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.6 – 2026-05-21
+### Neu
+- **Puffer-Erklärung (Tooltip)** – Ein neuer Infotext erklärt leicht verständlich die Funktionsweise des Familien-Puffers im Badezimmer.
+
+### Verbessert
+- **Fehlerfreier App-Start (iOS)** – Ein Absturz beim Kaltstart der App über das Klicken einer Wecker-Mitteilung wurde behoben.
+- **Einstellungen sicherer speichern (Android)** – Migration auf die modernere Datenspeicher-Technologie (DataStore) zur noch sichereren Verwahrung von App-Einstellungen.
+- **Optischer Feinschliff** – Farben der Tooltips wurden an das Schlaf-Theme angepasst. Buttons, die unter iOS abgeschnitten waren, wurden korrigiert und der Kontrast im hellen Design verbessert.
+
+---
+
 ## 1.9.5 – 2026-05-20
 ### Neu
 - **Einfacher Modus** – Für Familienmitglieder, die keine feste Badezimmer-Reihenfolge benötigen oder außerhalb des üblichen Ablaufes aufstehen. Der einfache Modus blendet alle erweiterten Einstellungen aus und weckt starr zur Wunschzeit.
