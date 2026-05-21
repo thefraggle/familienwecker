@@ -355,4 +355,5 @@
     <string name="settings_no_profile">No profile</string>
     <string name="simple_mode_title">Simple Mode</string>
     <string name="simple_mode_desc">Fixed wake-up time without buffer or bathroom slot calculation.</string>
+    <string name="tooltip_buffer">Italics mean the family buffer is active. Change it to set a personal buffer for today.</string>
 </resources>

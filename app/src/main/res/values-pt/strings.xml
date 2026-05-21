@@ -348,4 +348,5 @@
     <string name="onboarding_enable_tooltips">Mostrar dicas úteis no primeiro uso</string>
     <string name="simple_mode_title">Modo simples</string>
     <string name="simple_mode_desc">Hora de acordar fixa sem margem ou cálculo de turnos no banheiro.</string>
+    <string name="tooltip_buffer">O itálico significa que o buffer familiar está ativo. Altere-o para definir um buffer pessoal para hoje.</string>
 </resources>

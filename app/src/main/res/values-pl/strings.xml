@@ -348,4 +348,5 @@
     <string name="settings_share_code_locked">Zaloguj się, aby udostępnić swój kod zaproszenia.</string>
     <string name="simple_mode_title">Tryb prosty</string>
     <string name="simple_mode_desc">Stała godzina pobudki bez marginesu czasowego i obliczania czasu w łazience.</string>
+    <string name="tooltip_buffer">Kursywa oznacza, że bufor rodzinny jest aktywny. Zmień go, aby ustawić osobisty bufor na dzisiaj.</string>
 </resources>

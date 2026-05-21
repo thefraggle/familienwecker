@@ -348,4 +348,5 @@
     <string name="settings_share_code_locked">Log in om je uitnodigingscode te delen.</string>
     <string name="simple_mode_title">Eenvoudige modus</string>
     <string name="simple_mode_desc">Vaste wektijd zonder marge of berekening van badkamertijd.</string>
+    <string name="tooltip_buffer">Cursief betekent dat de familie-buffer actief is. Pas dit aan om een persoonlijke buffer voor vandaag in te stellen.</string>
 </resources>

@@ -183,6 +183,7 @@ enum L {
     static var tooltipWakeWindow: String { s("tooltip_wake_window") }
     static var tooltipBathroom: String { s("tooltip_bathroom") }
     static var tooltipWeekdays: String { s("tooltip_weekdays") }
+    static var tooltipBuffer: String { s("tooltip_buffer") }
 
     // MARK: - Validation
     static var validationLatestBeforeEarliest: String { s("validation_latest_before_earliest") }

@@ -351,4 +351,5 @@
     <string name="onboarding_enable_tooltips">初回使用時に役立つヒントを表示する</string>
     <string name="simple_mode_title">シンプルモード</string>
     <string name="simple_mode_desc">ゆとり時間やバスルームの順番計算を含まない、固定の起床時間です。</string>
+    <string name="tooltip_buffer">斜体は家族のバッファが有効であることを意味します。変更して、今日の個人的なバッファを設定してください。</string>
 </resources>

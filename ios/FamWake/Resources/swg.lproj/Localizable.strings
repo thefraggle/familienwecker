@@ -306,3 +306,5 @@
 "onboarding_mock_name2" = "Mama";
 "simple_mode_title" = "Oifacher Modus";
 "simple_mode_desc" = "Feschde Weckzeit ohne Puffer oder s'Ausrechna vo de Badzeita.";
+
+"tooltip_buffer" = "Kursiv hoißt: Dr Familien-Puffer isch aktiv. Ändr des, um an oigenen Puffer fir heit zom setza.";

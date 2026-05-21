@@ -349,4 +349,5 @@
     <string name="onboarding_mock_name2">Мама</string>
     <string name="simple_mode_title">Простой режим</string>
     <string name="simple_mode_desc">Фиксированное время пробуждения без запаса времени или расчета времени на ванную.</string>
+    <string name="tooltip_buffer">Курсив означает, что включен семейный буфер. Измените его, чтобы установить личный буфер на сегодня.</string>
 </resources>

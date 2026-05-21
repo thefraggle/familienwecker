@@ -349,4 +349,5 @@
     <string name="onboarding_enable_tooltips">Tampilkan tips bermanfaat pada penggunaan pertama</string>
     <string name="simple_mode_title">Mode Sederhana</string>
     <string name="simple_mode_desc">Waktu bangun tetap tanpa jeda atau perhitungan waktu kamar mandi.</string>
+    <string name="tooltip_buffer">Huruf miring berarti buffer keluarga aktif. Ubah untuk mengatur buffer pribadi untuk hari ini.</string>
 </resources>

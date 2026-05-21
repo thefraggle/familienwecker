@@ -307,3 +307,5 @@
 "settings_no_profile" = "No profile";
 "simple_mode_title" = "Simple Mode";
 "simple_mode_desc" = "Fixed wake-up time without buffer or bathroom slot calculation.";
+
+"tooltip_buffer" = "Italics mean the family buffer is active. Change it to set a personal buffer for today.";

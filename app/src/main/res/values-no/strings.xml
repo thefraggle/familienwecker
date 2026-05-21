@@ -350,4 +350,5 @@
     <string name="onboarding_enable_tooltips">Vis nyttige tips ved første bruk</string>
     <string name="simple_mode_title">Enkel modus</string>
     <string name="simple_mode_desc">Fast vekketid uten margin eller beregning av baderomstid.</string>
+    <string name="tooltip_buffer">Kursiv betyr at familie-bufferen er aktiv. Endre den for å angi en personlig buffer for i dag.</string>
 </resources>

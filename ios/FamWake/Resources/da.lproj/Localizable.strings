@@ -306,3 +306,5 @@
 "onboarding_enable_tooltips" = "Vis nyttige tips ved første brug";
 "simple_mode_title" = "Simpel tilstand";
 "simple_mode_desc" = "Fast vækketid uden margin eller beregning af badeværelsestid.";
+
+"tooltip_buffer" = "Kursiv betyder, at familie-bufferen er aktiv. Ændr den for at indstille en personlig buffer for i dag.";

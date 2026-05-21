@@ -306,3 +306,5 @@
 "onboarding_enable_tooltips" = "Mostra consigli utili al primo utilizzo";
 "simple_mode_title" = "Modalità semplice";
 "simple_mode_desc" = "Orario di sveglia fisso senza margine o calcolo dei turni in bagno.";
+
+"tooltip_buffer" = "Il corsivo indica che il buffer familiare è attivo. Modificalo per impostare un buffer personale per oggi.";
