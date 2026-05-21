@@ -149,8 +149,11 @@ struct AddEditMemberView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(L.cancelButton) {
+                    Button(action: {
                         if hasChanges { showDiscardAlert = true } else { onDone() }
+                    }) {
+                        Image(systemName: "xmark")
+                            .fontWeight(.semibold)
                     }
                     .buttonStyle(.borderless)
                     .foregroundStyle(theme.primary)
@@ -563,7 +566,10 @@ struct CopyToOtherDaysSheet: View {
                     .foregroundStyle(selected.isEmpty ? Color.gray : theme.primary)
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(L.cancelButton) { dismiss() }
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "xmark")
+                            .fontWeight(.semibold)
+                    }
                     .buttonStyle(.borderless)
                     .foregroundStyle(theme.primary)
                 }
