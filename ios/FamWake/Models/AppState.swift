@@ -16,6 +16,8 @@ class AppState: ObservableObject {
     @Published var ringingMemberId: String = ""
     @Published var ringingMemberName: String = ""
 
+    private var pendingRinging: (memberId: String, memberName: String)? = nil
+
     var colorScheme: ColorScheme? {
         switch themePreference {
         case "dark": return .dark
@@ -25,6 +27,10 @@ class AppState: ObservableObject {
     }
 
     func startRinging(memberId: String, memberName: String) {
+        if route == .loading {
+            self.pendingRinging = (memberId, memberName)
+            return
+        }
         self.ringingMemberId = memberId
         self.ringingMemberName = memberName
         self.isRinging = true
@@ -83,14 +89,24 @@ class AppState: ObservableObject {
                 await familyViewModel.restoreUserContextIfNeeded()
             }
 
+            let targetRoute: AppRoute
             if !onboardingCompleted {
-                route = .onboarding
+                targetRoute = .onboarding
             } else if !authViewModel.isLoggedIn {
-                route = .login
+                targetRoute = .login
             } else if familyViewModel.hasFamilyId {
-                route = .main
+                targetRoute = .main
             } else {
-                route = .familySetup
+                targetRoute = .familySetup
+            }
+            
+            route = targetRoute
+            
+            if let pending = pendingRinging {
+                self.pendingRinging = nil
+                // Kurze Verzögerung, damit SwiftUI das Layout-Update vollziehen kann
+                try? await Task.sleep(nanoseconds: 300_000_000)
+                startRinging(memberId: pending.memberId, memberName: pending.memberName)
             }
         }
     }
