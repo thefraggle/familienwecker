@@ -3,6 +3,9 @@ import SwiftUI
 struct FeedbackView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
+
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     @State private var selectedCategory = 0
     @State private var message = ""
@@ -149,6 +152,16 @@ struct FeedbackView: View {
             }
             .navigationTitle(L.feedbackTitle)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "xmark")
+                            .fontWeight(.semibold)
+                    }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(theme.primary)
+                }
+            }
         }
     }
 

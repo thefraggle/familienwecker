@@ -114,8 +114,13 @@ struct SettingsView: View {
             .navigationTitle(L.settingsTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(L.backDesc) { dismiss() }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "xmark")
+                            .fontWeight(.semibold)
+                    }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(theme.primary)
                 }
             }
             .sheet(isPresented: $showFeedback) { FeedbackView() }
