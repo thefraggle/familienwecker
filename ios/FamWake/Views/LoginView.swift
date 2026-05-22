@@ -31,11 +31,8 @@ struct LoginView: View {
             .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // TopBar – „FamWake Familienwecker" Header + Close Button
+                // TopBar – Close Button + Title
                 HStack {
-                    famWakeTitle(L.appNameShort)
-                        .foregroundStyle(theme.onSurface)
-                    Spacer()
                     Button(action: {
                         if appState.route == .login {
                             appState.route = .onboardingWelcome
@@ -43,10 +40,17 @@ struct LoginView: View {
                             dismiss()
                         }
                     }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title3)
-                            .foregroundStyle(theme.outline)
+                        Image(systemName: "xmark")
+                            .font(.body)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(theme.primary)
                     }
+                    .buttonStyle(.borderless)
+                    
+                    Spacer()
+                    
+                    famWakeTitle(L.appNameShort)
+                        .foregroundStyle(theme.onSurface)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
