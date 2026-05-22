@@ -36,12 +36,12 @@ struct SettingsView: View {
                     if let error = familyViewModel.errorMessage {
                         HStack(alignment: .top) {
                             Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundStyle(theme.error)
+                                .foregroundStyle(theme.onErrorContainer)
                             
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(error)
                                     .font(.subheadline)
-                                    .foregroundStyle(theme.error)
+                                    .foregroundStyle(theme.onErrorContainer)
                                 
                                 if error == L.errorAlarmPermission {
                                     Button(action: {
@@ -55,7 +55,7 @@ struct SettingsView: View {
                                             Image(systemName: "chevron.right")
                                                 .font(.caption2).fontWeight(.bold)
                                         }
-                                        .foregroundStyle(theme.error)
+                                        .foregroundStyle(theme.onErrorContainer)
                                     }
                                     .padding(.top, 4)
                                 }
@@ -64,7 +64,7 @@ struct SettingsView: View {
                             Spacer()
                             Button(action: { familyViewModel.errorMessage = nil }) {
                                 Image(systemName: "xmark")
-                                    .foregroundStyle(theme.error)
+                                    .foregroundStyle(theme.onErrorContainer)
                             }
                         }
                         .padding()

@@ -243,7 +243,7 @@ struct MainView: View {
                 }
             }
             .padding()
-            .famWakeCard(cornerRadius: 32, isDark: appState.colorScheme == .dark)
+            .famWakeCard(cornerRadius: 32, isDark: colorScheme == .dark)
             .padding(.bottom, 12)
         }
         .listRowBackground(Color.clear)
@@ -256,20 +256,20 @@ struct MainView: View {
         Group {
             HStack {
                 Image(systemName: "zzz")
-                    .foregroundStyle(appState.colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
+                    .foregroundStyle(colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
                 Text(L.mainSnoozeActive(timeString(until)))
                     .font(.subheadline)
-                    .foregroundStyle(appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
+                    .foregroundStyle(colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
                 Spacer()
                 Button(L.cancelButton) {
                     familyViewModel.myMemberId.map { familyViewModel.cancelSnooze($0) }
                 }
                 .font(.caption)
-                .foregroundStyle(appState.colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
+                .foregroundStyle(colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
-            .background(appState.colorScheme == .dark ? Color.onlineGreenDark.opacity(0.8) : Color.onlineGreenLight)
+            .background(colorScheme == .dark ? Color.onlineGreenDark.opacity(0.8) : Color.onlineGreenLight)
             .background(.regularMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
             .padding(.bottom, 12)
@@ -299,7 +299,7 @@ struct MainView: View {
                 )
                 .background(
                     RoundedRectangle(cornerRadius: 24, style: .continuous)
-                        .fill(appState.colorScheme == .dark ? theme.errorContainer.opacity(0.4) : theme.errorContainer.opacity(0.8))
+                        .fill(colorScheme == .dark ? theme.errorContainer.opacity(0.4) : theme.errorContainer.opacity(0.8))
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 24, style: .continuous)
@@ -328,19 +328,19 @@ struct MainView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("⚠️ \(String(format: L.s("main_unclaimed_first_title"), member.name))")
                         .font(.subheadline).fontWeight(.bold)
-                        .foregroundStyle(appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
+                        .foregroundStyle(colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
                     Text(String(format: L.s("main_unclaimed_first_desc"), member.name))
                         .font(.caption)
-                        .foregroundStyle((appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight).opacity(0.85))
+                        .foregroundStyle((colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight).opacity(0.85))
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(appState.colorScheme == .dark ? Color.snoozeAmberDark.opacity(0.8) : Color.snoozeAmberLight.opacity(0.9))
+                .background(colorScheme == .dark ? Color.snoozeAmberDark.opacity(0.8) : Color.snoozeAmberLight.opacity(0.9))
                 .background(.regularMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: 24, style: .continuous)
-                        .stroke((appState.colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight).opacity(0.4), lineWidth: 1)
+                        .stroke((colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight).opacity(0.4), lineWidth: 1)
                 )
                 .padding(.bottom, 12)
             }
@@ -463,7 +463,7 @@ struct MainView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .famWakeCard(cornerRadius: 24, isDark: appState.colorScheme == .dark)
+                        .famWakeCard(cornerRadius: 24, isDark: colorScheme == .dark)
                         .padding(.bottom, 12)
                     }
 
@@ -540,7 +540,7 @@ struct MainView: View {
                 .font(.title3)
         }
         .padding()
-        .famWakeCard(cornerRadius: 16, isDark: appState.colorScheme == .dark)
+        .famWakeCard(cornerRadius: 16, isDark: colorScheme == .dark)
         .padding(.bottom, 12)
     }
 
@@ -638,12 +638,12 @@ struct MainView: View {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(alignment: .top) {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(theme.error)
+                        .foregroundStyle(theme.onErrorContainer)
                     
                     VStack(alignment: .leading, spacing: 4) {
                         Text(error)
                             .font(.subheadline)
-                            .foregroundStyle(theme.error)
+                            .foregroundStyle(theme.onErrorContainer)
                         
                         if error == L.errorAlarmPermission {
                             Button(action: {
@@ -657,7 +657,7 @@ struct MainView: View {
                                     Image(systemName: "chevron.right")
                                         .font(.caption2).fontWeight(.bold)
                                 }
-                                .foregroundStyle(theme.error)
+                                .foregroundStyle(theme.onErrorContainer)
                             }
                             .padding(.top, 4)
                         }
@@ -666,7 +666,7 @@ struct MainView: View {
                     Spacer()
                     Button(action: { familyViewModel.clearErrorMessage() }) {
                         Image(systemName: "xmark")
-                            .foregroundStyle(theme.error)
+                            .foregroundStyle(theme.onErrorContainer)
                     }
                 }
                 
@@ -676,7 +676,7 @@ struct MainView: View {
                         appState.route = .familySetup
                     }
                     .font(.caption).fontWeight(.bold)
-                    .foregroundStyle(theme.error)
+                    .foregroundStyle(theme.onErrorContainer)
                 }
             }
             .padding()

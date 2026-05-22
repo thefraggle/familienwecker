@@ -6,6 +6,8 @@
 ### Improved
 - **App startup stability** – Fixed a rare crash that could occur under certain conditions when opening the app.
 - **Optimized review requests** – Requests for app feedback are now scheduled at more appropriate times without disrupting the morning routine.
+- **Better theme scaling** – The app design now syncs even more reliably with your system-wide light/dark preferences.
+- **Clearer error alerts** – Improved readability and contrast of error cards in settings and on the home screen.
 
 ---
 

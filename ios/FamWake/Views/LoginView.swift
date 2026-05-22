@@ -7,6 +7,7 @@ struct LoginView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @EnvironmentObject var appState: AppState
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) private var colorScheme
 
     @State private var email = ""
     @State private var password = ""
@@ -16,13 +17,13 @@ struct LoginView: View {
 
     enum Field { case email, password }
 
-    private var theme: FamWakeTheme { FamWakeTheme.current(for: appState.colorScheme) }
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     var body: some View {
         ZStack {
             // Background gradient matching Android LoginScreen
             LinearGradient(
-                colors: appState.colorScheme == .dark
+                colors: colorScheme == .dark
                     ? [theme.surface, theme.background]
                     : [theme.primaryContainer.opacity(0.5), theme.background],
                 startPoint: .top,
@@ -108,10 +109,10 @@ struct LoginView: View {
                 .padding(20)
                 .background(
                     RoundedRectangle(cornerRadius: 32)
-                        .fill(appState.colorScheme == .dark
+                        .fill(colorScheme == .dark
                             ? theme.primaryContainer
                             : theme.surface)
-                        .shadow(color: .black.opacity(appState.colorScheme == .dark ? 0 : 0.08), radius: 12, x: 0, y: 4)
+                        .shadow(color: .black.opacity(colorScheme == .dark ? 0 : 0.08), radius: 12, x: 0, y: 4)
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 32)
