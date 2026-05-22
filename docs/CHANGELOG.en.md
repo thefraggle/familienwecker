@@ -2,25 +2,32 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.7 – 2026-05-22
+### Improved
+- **App startup stability** – Fixed a rare crash that could occur under certain conditions when opening the app.
+- **Optimized review requests** – Requests for app feedback are now scheduled at more appropriate times without disrupting the morning routine.
+
+---
+
 ## 1.9.6 – 2026-05-21
 ### New
 - **Buffer explanation (Tooltip)** – A new help tooltip explains in a simple way how the family bathroom buffer works.
 
 ### Improved
-- **Crash-free app startup (iOS)** – Fixed a cold startup crash when launching the app by tapping an alarm notification.
-- **Secured app settings (Android)** – Migrated to modern Jetpack DataStore Preferences for even more secure storage of local settings.
-- **Visual polish** – Harmonized tooltip colors to match the sleeping theme. Fixed truncated buttons on iOS sheets and improved general color contrast in light mode.
+- **Crash-free app startup** – Fixed a cold startup crash when launching the app by tapping an alarm notification.
+- **Secured app settings** – Migrated local settings storage to a modern system to ensure your preferences are saved even more reliably.
+- **Visual polish** – Harmonized tooltip colors to match the sleeping theme. Fixed potential button truncations on some screens and improved general color contrast in light mode.
 
 ---
 
 ## 1.9.5 – 2026-05-20
 ### New
 - **Simple Mode** – For family members who do not need a coordinated bathroom slot or wake up outside the usual routine. Simple mode hides all advanced options and triggers the alarm exactly at the chosen wake-up time.
-- **iOS Feature Parity** – The iOS version of FamWake now has feature parity with Android, including full push notifications, deep links for sharing the family, and synchronous UI scaling for accessibility.
-- **Auto-Recover** – On iOS, the family status is now automatically restored via the Keychain after a reinstall, so you no longer have to join manually.
+- **Full Feature Set** – FamWake now offers the same feature set on all supported platforms, including full push notifications, deep links for sharing the family, and synchronous UI scaling for accessibility.
+- **Automatic Restore** – The family status is now automatically restored in the background after a reinstall, so you no longer have to join manually.
 
 ### Improved
-- **Faster Sharing (iOS)** – The family code share button now reacts instantly and without delay to login status updates.
+- **Faster Sharing** – The family code share button now reacts instantly and without delay to login status updates.
 - **Reliable Profile Deletion** – If your member profile is deleted from another device, the app now instantly and reliably disables alarms on your device.
 
 ---
@@ -165,7 +172,7 @@
 ## 1.3.0 – 2026-03-17
 
 ### New
-- **⭐ Rate the app** – Rate directly in the Play Store from within the app.
+- **⭐ Rate the app** – Rate directly from within the app.
 
 ### Improved
 - Disabled days are now more clearly highlighted.
