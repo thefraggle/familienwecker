@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Tüm hakları saklıdır.</string>
 
-    <string name="empty_members_title">Henüz üye yok</string>
-    <string name="empty_members_description">Sabah planınızı oluşturmak için aile üyelerini ekleyin.</string>
+    <string name="empty_members_title">Aile Uyanma Planlayıcınız</string>
+    <string name="empty_members_description">Kim ne zaman banyoya gidiyor? FamWake\'in uyanma saatlerinizi banyo sıranızı otomatik olarak hesaplayabilmesi için ilk aile üyesini ekleyin.</string>
     <string name="empty_schedule_title">Aktif alarm yok</string>
     <string name="empty_schedule_description">Şu anda açık olan hiçbir alarm yok. Uykuya devam!</string>
 

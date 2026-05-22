@@ -120,8 +120,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Все права защищены.</string>
 
-    <string name="empty_members_title">Пока нет участников</string>
-    <string name="empty_members_description">Добавьте членов семьи, чтобы настроить ваше утреннее расписание.</string>
+    <string name="empty_members_title">Ваш семейный планировщик пробуждения</string>
+    <string name="empty_members_description">Кто и когда идет в ванную? Добавьте первого члена семьи, чтобы FamWake мог автоматически рассчитать время пробуждения и очередь в ванную.</string>
     <string name="empty_schedule_title">Нет активных будильников</string>
     <string name="empty_schedule_description">Сейчас все будильники выключены. Время выспаться!</string>
 

@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 डैनियल नॉथऑफ़</string>
     <string name="settings_footer_rights">सर्वाधिकार सुरक्षित।</string>
 
-    <string name="empty_members_title">अभी तक कोई नहीं है</string>
-    <string name="empty_members_description">सुबह का रूटीन बनाने के लिए परिवार के सदस्यों को जोड़ें।</string>
+    <string name="empty_members_title">आपका पारिवारिक वेक-अप प्लानर</string>
+    <string name="empty_members_description">कौन कब बाथरूम जाएगा? परिवार के पहले सदस्य को जोड़ें ताकि FamWake आपके जागने का समय और बाथरूम का क्रम स्वचालित रूप से गणना कर सके।</string>
     <string name="empty_schedule_title">कोई अलार्म चालू नहीं है</string>
     <string name="empty_schedule_description">अभी कोई भी अलार्म चालू नहीं है। आराम से सोने का समय!</string>
 

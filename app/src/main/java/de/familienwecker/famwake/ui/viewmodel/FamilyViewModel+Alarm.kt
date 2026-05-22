@@ -52,34 +52,99 @@ internal fun FamilyViewModel.recalculateSchedule() {
                 val tomorrow = today.plus(1, DateTimeUnit.DAY)
                 val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
 
-                // Two-Pass: Erst heute berechnen, nur auf morgen wechseln wenn ALLE
-                // geplanten Weckzeiten von heute bereits verstrichen sind.
-                // Verhindert den Sprung auf "Sonntag" wenn Kind/Papa noch geweckt werden müssen.
-                val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
-                val todayHasActive = todayMembers.any { !it.isPaused }
-
-                val (calculationMembers, targetDate) = if (todayHasActive) {
-                    val todaySchedule = withContext(Dispatchers.Default) {
-                        scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
+                // 1. Berechne UI Schedule (basierend auf selectedDayOfWeek)
+                val selectedDay = selectedDayOfWeek.value
+                val uiTargetDate = if (selectedDay != null) {
+                    var checkDate = today
+                    while (checkDate.dayOfWeek.value != selectedDay) {
+                        checkDate = checkDate.plus(1, DateTimeUnit.DAY)
                     }
-                    val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
-                    if (latestAlarm != null && now < latestAlarm) {
-                        // Heute hat noch anstehende Alarme – heute verwenden
-                        todayMembers to today
+                    if (checkDate == today) {
+                        val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
+                        val todayHasActive = todayMembers.any { !it.isPaused }
+                        if (todayHasActive) {
+                            val todaySchedule = withContext(Dispatchers.Default) {
+                                scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
+                            }
+                            val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
+                            if (latestAlarm != null && now < latestAlarm) {
+                                today
+                            } else {
+                                today.plus(7, DateTimeUnit.DAY)
+                            }
+                        } else {
+                            today.plus(7, DateTimeUnit.DAY)
+                        }
                     } else {
-                        // Alle Alarme von heute sind vorbei – morgen berechnen
-                        rawMembers.map { resolveEffectiveMember(it, forDate = tomorrow) } to tomorrow
+                        checkDate
                     }
                 } else {
-                    // Heute kein aktives Profil – morgen berechnen
-                    rawMembers.map { resolveEffectiveMember(it, forDate = tomorrow) } to tomorrow
+                    // Auto-Modus
+                    val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
+                    val todayHasActive = todayMembers.any { !it.isPaused }
+                    if (todayHasActive) {
+                        val todaySchedule = withContext(Dispatchers.Default) {
+                            scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
+                        }
+                        val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
+                        if (latestAlarm != null && now < latestAlarm) {
+                            today
+                        } else {
+                            tomorrow
+                        }
+                    } else {
+                        tomorrow
+                    }
                 }
 
-                if (calculationMembers.none { !it.isPaused }) {
+                val uiCalculationMembers = rawMembers.map { resolveEffectiveMember(it, forDate = uiTargetDate) }
+                
+                val uiResult = if (uiCalculationMembers.none { !it.isPaused }) {
+                    FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule).copy(targetDate = uiTargetDate)
+                } else {
+                    val res = withContext(Dispatchers.Default) {
+                        scheduler.calculateIdealSchedule(uiCalculationMembers, globalBufferMinutes = _globalBufferMinutes.value)
+                    }
+                    res.copy(targetDate = uiTargetDate)
+                }
+                
+                _schedule.value = uiResult
+
+                // 2. Berechne Device Alarm Schedule (IMMER Auto-Modus)
+                val deviceTargetDate = run {
+                    val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
+                    val todayHasActive = todayMembers.any { !it.isPaused }
+                    if (todayHasActive) {
+                        val todaySchedule = withContext(Dispatchers.Default) {
+                            scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
+                        }
+                        val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
+                        if (latestAlarm != null && now < latestAlarm) {
+                            today
+                        } else {
+                            tomorrow
+                        }
+                    } else {
+                        tomorrow
+                    }
+                }
+
+                val deviceCalculationMembers = rawMembers.map { resolveEffectiveMember(it, forDate = deviceTargetDate) }
+                
+                val deviceResult = if (deviceCalculationMembers.none { !it.isPaused }) {
+                    FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule).copy(targetDate = deviceTargetDate)
+                } else {
+                    val res = withContext(Dispatchers.Default) {
+                        scheduler.calculateIdealSchedule(deviceCalculationMembers, globalBufferMinutes = _globalBufferMinutes.value)
+                    }
+                    res.copy(targetDate = deviceTargetDate)
+                }
+
+                // 3. Alarme anwenden basierend auf deviceResult (inkl. Grace-Period Check)
+                if (deviceResult.memberSchedules.isEmpty()) {
                     if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                         android.util.Log.w("FamWake_Alarm", "recalculate: all members paused – checking grace period before cancel")
                     }
-                    _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)
 
                     val myMember = currentMembers.find { it.id == currentMyMemberId }
                     val currentDao = Clock.System.todayIn(TimeZone.currentSystemDefault())
@@ -102,26 +167,20 @@ internal fun FamilyViewModel.recalculateSchedule() {
                         }
                         currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                     }
-                    return@launch
-                }
-
-                val result = withContext(Dispatchers.Default) {
-                    scheduler.calculateIdealSchedule(calculationMembers, globalBufferMinutes = _globalBufferMinutes.value)
-                }.copy(targetDate = targetDate)
-                _schedule.value = result
-
-                if (alarmsOn && result.memberSchedules.isNotEmpty()) {
-                    if (!result.isValid) {
-                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                            android.util.Log.w("FamWake_Alarm", "recalculate: Applying FALLBACK alarms for invalid schedule")
-                        }
-                    }
-                    applyAlarms(result)
                 } else {
-                    if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                        android.util.Log.w("FamWake_Alarm", "recalculate: cancelling alarms – alarmsOn=$alarmsOn, hasSchedules=${result.memberSchedules.isNotEmpty()}")
+                    if (alarmsOn) {
+                        if (!deviceResult.isValid) {
+                            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                android.util.Log.w("FamWake_Alarm", "recalculate: Applying FALLBACK alarms for invalid schedule")
+                            }
+                        }
+                        applyAlarms(deviceResult)
+                    } else {
+                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                            android.util.Log.w("FamWake_Alarm", "recalculate: cancelling alarms – alarmsOn=$alarmsOn, hasSchedules=true")
+                        }
+                        currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                     }
-                    currentMembers.forEach { alarmScheduler.cancelWakeUp(it.id) }
                 }
             } catch (e: CancellationException) {
                 // Cancel-and-replace: alter Job wurde durch neuen recalculateSchedule() abgelöst – kein Fehler

@@ -116,8 +116,8 @@
 "settings_delete_account" = "アカウントを削除";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "無断複写・転載を禁じます。";
-"empty_members_title" = "まだメンバーがいません";
-"empty_members_description" = "家族のメンバーを追加して、朝のスケジュールを作りましょう。";
+"empty_members_title" = "家族のアラームプランナー";
+"empty_members_description" = "誰がいつお風呂（洗面所）に行きますか？最初の家族を追加すると、FamWakeが起床時間と浴室の順番を自動的に計算します。";
 "empty_schedule_title" = "アクティブなアラームはありません";
 "empty_schedule_description" = "現在オンになっているアラームはありません。ゆっくり眠りましょう！";
 "settings_language_title" = "言語";

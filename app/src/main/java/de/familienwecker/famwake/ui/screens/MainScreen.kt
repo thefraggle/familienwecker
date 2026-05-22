@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -63,6 +64,12 @@ import de.familienwecker.famwake.ui.components.TooltipBubble
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import de.familienwecker.famwake.ui.theme.*
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.style.TextAlign
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,6 +105,7 @@ fun MainScreen(
     val pendingPauseIds by viewModel.pendingPauseIds.collectAsStateWithLifecycle()
     val isAutoClaimInProgress by viewModel.isAutoClaimInProgress.collectAsStateWithLifecycle()
     val globalBufferMinutes by viewModel.globalBufferMinutes.collectAsStateWithLifecycle()
+    val selectedDayOfWeek by viewModel.selectedDayOfWeek.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
 
@@ -565,6 +573,82 @@ fun MainScreen(
                 item {
                     Text(stringResource(R.string.main_current_schedule), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
                 }
+
+                item {
+                    val appLocale = context.resources.configuration.locales[0]
+                    val daysOfWeek = remember(appLocale) {
+                        (1..7).map { dow ->
+                            java.time.DayOfWeek.of(dow)
+                                .getDisplayName(java.time.format.TextStyle.SHORT, appLocale)
+                                .replaceFirstChar { it.uppercase() }
+                        }
+                    }
+                    
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        daysOfWeek.forEachIndexed { index, dayName ->
+                            val dayValue = index + 1
+                            val isSelected = selectedDayOfWeek == dayValue
+                            
+                            val chipBg by animateColorAsState(
+                                targetValue = if (isSelected) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                                    else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+                                },
+                                label = "chipBg_$dayValue"
+                            )
+                            
+                            val chipContentColor by animateColorAsState(
+                                targetValue = if (isSelected) {
+                                    MaterialTheme.colorScheme.onPrimary
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                },
+                                label = "chipContentColor_$dayValue"
+                            )
+                            
+                            val interactionSource = remember { MutableInteractionSource() }
+                            
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(horizontal = 2.dp)
+                                    .aspectRatio(1f)
+                                    .background(chipBg, shape = androidx.compose.foundation.shape.CircleShape)
+                                    .border(
+                                        width = 1.dp,
+                                        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline.copy(alpha = 0.1f),
+                                        shape = androidx.compose.foundation.shape.CircleShape
+                                    )
+                                    .bounceClick(interactionSource)
+                                    .clickable(
+                                        interactionSource = interactionSource,
+                                        indication = null
+                                    ) {
+                                        if (isSelected) {
+                                            viewModel.selectDayOfWeek(null)
+                                        } else {
+                                            viewModel.selectDayOfWeek(dayValue)
+                                        }
+                                    },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = dayName.take(2),
+                                    style = MaterialTheme.typography.labelLarge,
+                                    fontWeight = if (isSelected) FontWeight.ExtraBold else FontWeight.Bold,
+                                    color = chipContentColor
+                                )
+                            }
+                        }
+                    }
+                }
                 
                 item {
                     val currentSchedule = schedule
@@ -1026,11 +1110,59 @@ fun MainScreen(
 
                 if (members.isEmpty()) {
                     item {
-                        EmptyState(
-                            lottieRes = R.raw.family,
-                            title = stringResource(R.string.empty_members_title),
-                            description = stringResource(R.string.empty_members_description)
-                        )
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp, vertical = 16.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            val composition by rememberLottieComposition(
+                                spec = LottieCompositionSpec.RawRes(R.raw.family)
+                            )
+                            LottieAnimation(
+                                composition = composition,
+                                iterations = LottieConstants.IterateForever,
+                                modifier = Modifier.size(240.dp)
+                            )
+                            
+                            Spacer(modifier = Modifier.height(24.dp))
+                            
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .graphicsLayer(rotationZ = -1.5f)
+                                    .padding(horizontal = 4.dp),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(4.dp),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = Color(0xFFFFF9C4)
+                                ),
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                )
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(20.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.empty_members_title),
+                                        style = MaterialTheme.typography.titleLarge,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color(0xFF1C1B1F),
+                                        textAlign = TextAlign.Start
+                                    )
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Text(
+                                        text = stringResource(R.string.empty_members_description),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = Color(0xFF323133),
+                                        textAlign = TextAlign.Start,
+                                        lineHeight = androidx.compose.ui.unit.TextUnit.Unspecified
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
                 

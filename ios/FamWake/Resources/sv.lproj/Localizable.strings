@@ -116,8 +116,8 @@
 "settings_delete_account" = "Ta bort konto";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alla rättigheter förbehållna.";
-"empty_members_title" = "Inga medlemmar ännu";
-"empty_members_description" = "Lägg till familjemedlemmar för att sätta upp er morgonrutin.";
+"empty_members_title" = "Er familjeväckningsplanerare";
+"empty_members_description" = "Vem går till badrummet när? Lägg till den första familjemedlemmen så dass FamWake automatiskt kan beräkna era väckningstider och badrumsordning.";
 "empty_schedule_title" = "Inga aktiva larm";
 "empty_schedule_description" = "Just nu är inga larm påslagna. Dags att sova länge!";
 "settings_language_title" = "Språk";
