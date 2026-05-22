@@ -556,18 +556,6 @@ fun MainScreen(
                     }
                 }
 
-                // Warnung: ungeclaimter Member an erster Stelle – nur zeigen wenn kein "Kein Profil"-Banner aktiv ist
-                val firstScheduledMember = schedule?.memberSchedules?.firstOrNull()?.member
-                if (myMemberId != null && firstScheduledMember != null
-                    && firstScheduledMember.claimedByUserId == null
-                    && firstScheduledMember.id != myMemberId) {
-                    item(key = "unclaimed_first_warning") {
-                        UnclaimedWarningBanner(
-                            memberName = firstScheduledMember.name,
-                            isDarkTheme = isDarkTheme
-                        )
-                    }
-                }
 
                 // Errechneter Wecker-Plan
                 item {
@@ -649,6 +637,7 @@ fun MainScreen(
                         }
                     }
                 }
+
                 
                 item {
                     val currentSchedule = schedule
@@ -807,6 +796,19 @@ fun MainScreen(
                                 }
                             }
                         }
+                    }
+                }
+
+                // Warnung: ungeclaimter Member an erster Stelle – nur zeigen wenn kein "Kein Profil"-Banner aktiv ist
+                val firstScheduledMember = schedule?.memberSchedules?.firstOrNull()?.member
+                if (myMemberId != null && firstScheduledMember != null
+                    && firstScheduledMember.claimedByUserId == null
+                    && firstScheduledMember.id != myMemberId) {
+                    item(key = "unclaimed_first_warning") {
+                        UnclaimedWarningBanner(
+                            memberName = firstScheduledMember.name,
+                            isDarkTheme = isDarkTheme
+                        )
                     }
                 }
 
