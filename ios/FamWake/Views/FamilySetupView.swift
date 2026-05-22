@@ -60,18 +60,21 @@ struct FamilySetupView: View {
                             TextField(L.setupFamilyName, text: $familyName)
                                 .textFieldStyle(.roundedBorder)
 
-                            Button(L.setupCreateButton) {
+                            Button(action: {
                                 isLoading = true
                                 familyViewModel.createFamily(familyName) { success in
                                     isLoading = false
                                     if success { appState.route = .main }
                                 }
+                            }) {
+                                Text(L.setupCreateButton)
+                                    .font(.headline)
+                                    .foregroundStyle(theme.onPrimary)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(minHeight: 56)
+                                    .background(theme.primary)
+                                    .clipShape(Capsule())
                             }
-                            .buttonStyle(.borderedProminent)
-                            .tint(theme.primary)
-                            .frame(maxWidth: .infinity)
-                            .frame(minHeight: 56)
-                            .clipShape(Capsule())
                             .buttonStyle(BounceButtonStyle())
                         }
                     } else {
@@ -87,18 +90,22 @@ struct FamilySetupView: View {
                                     joinCode = String(filtered.prefix(6))
                                 }
 
-                            Button(L.setupJoinButton) {
+                            Button(action: {
                                 isLoading = true
                                 familyViewModel.joinFamily(joinCode) { success in
                                     isLoading = false
                                     if success { appState.route = .main }
                                 }
+                            }) {
+                                Text(L.setupJoinButton)
+                                    .font(.headline)
+                                    .foregroundStyle(theme.onPrimary)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(minHeight: 56)
+                                    .background(theme.primary)
+                                    .clipShape(Capsule())
                             }
-                            .buttonStyle(.borderedProminent)
-                            .tint(theme.primary)
-                            .frame(maxWidth: .infinity)
-                            .frame(minHeight: 56)
-                            .clipShape(Capsule())
+                            .buttonStyle(BounceButtonStyle())
                         }
                     }
 
