@@ -121,8 +121,8 @@
 
     <string name="empty_members_title">Jullie familie-wekplanner</string>
     <string name="empty_members_description">Wie gaat wanneer naar de badkamer? Voeg het eerste familielid toe, zodat FamWake automatisch jullie wektijden en badkamervolgorde kan berekenen.</string>
-    <string name="empty_schedule_title">Geen actieve wekkers</string>
-    <string name="empty_schedule_description">Op dit moment staan er geen wekkers aan. Tijd om uit te slapen!</string>
+    <string name="empty_schedule_title">Geen wekkers gepland</string>
+    <string name="empty_schedule_description">Op deze dag gaat er geen wekker af. Tijd om te ontspannen und uit te slapen!</string>
 
     <string name="settings_language_title">Taal</string>
     <string name="settings_language_system">Systeemstandaard</string>

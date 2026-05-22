@@ -118,8 +118,8 @@
 "settings_footer_rights" = "Alli Rächt vorbhalte.";
 "empty_members_title" = "Euere Familie-Weckplaner";
 "empty_members_description" = "Wär gaht wänn is Badzimmer? Füeg s erschte Familie-Mitgliid hinzue, demit FamWake eui Weckziite und d Badzimmer-Reihenfolg automatisch berächne cha.";
-"empty_schedule_title" = "Kä aktivi Wecker";
-"empty_schedule_description" = "Aktuell sind kä Wecker iigschalte. Ziit zum Uusschlaafe!";
+"empty_schedule_title" = "Kä Wecker plant";
+"empty_schedule_description" = "A däm Tag lüütet kein Wecker. Ziit zum Entspanne und Uusschlafe!";
 "settings_language_title" = "Spraach";
 "settings_language_system" = "System-Standard";
 "settings_appearance_title" = "Uusgseh";
@@ -306,5 +306,4 @@
 "onboarding_enable_tooltips" = "Zeig hilfriichi Tipps bi de erschte Nutzig";
 "simple_mode_title" = "Eifache Modus";
 "simple_mode_desc" = "Feschti Weckziit ohni Puffer oder d'Berächnig vo de Badzimmerziite.";
-
 "tooltip_buffer" = "Kursiv bedütet: De Familie-Puffer isch aktiv. Änder en, um en persönliche Puffer für hüt z setze.";

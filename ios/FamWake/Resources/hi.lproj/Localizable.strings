@@ -118,8 +118,8 @@
 "settings_footer_rights" = "सर्वाधिकार सुरक्षित।";
 "empty_members_title" = "आपका पारिवारिक वेक-अप प्लानर";
 "empty_members_description" = "कौन कब बाथरूम जाएगा? परिवार के पहले सदस्य को जोड़ें ताकि FamWake आपके जागने का समय और बाथरूम का क्रम स्वचालित रूप से गणना कर सके।";
-"empty_schedule_title" = "कोई अलार्म चालू नहीं है";
-"empty_schedule_description" = "अभी कोई भी अलार्म चालू नहीं है। आराम से सोने का समय!";
+"empty_schedule_title" = "कोई अलार्म निर्धारित नहीं";
+"empty_schedule_description" = "इस दिन कोई अलार्म नहीं बजेगा। आराम करने और देर तक सोने का समय!";
 "settings_language_title" = "भाषा";
 "settings_language_system" = "सिस्टम डिफ़ॉल्ट";
 "settings_appearance_title" = "लुक";
@@ -306,5 +306,4 @@
 "onboarding_enable_tooltips" = "पहली बार उपयोग पर उपयोगी टिप्स दिखाएं";
 "simple_mode_title" = "साधारण मोड";
 "simple_mode_desc" = "अतिरिक्त समय या बाथरूम के समय की गणना के बिना उठने का निश्चित समय।";
-
 "tooltip_buffer" = "इटैलिक का मतलब है कि फैमिली बफर एक्टिव है। आज के लिए अपना बफर सेट करने के लिए इसे बदलें।";

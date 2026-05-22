@@ -123,8 +123,8 @@
 
     <string name="empty_members_title">Votre planificateur de réveil familial</string>
     <string name="empty_members_description">Qui va à la salle de bain et quand ? Ajoutez le premier membre de la famille pour que FamWake puisse calculer automatiquement vos heures de réveil et l\'ordre de passage à la salle de bain.</string>
-    <string name="empty_schedule_title">Aucun réveil actif</string>
-    <string name="empty_schedule_description">Aucun réveil n\'est allumé en ce moment. C\'est l\'heure de faire la grasse matinée !</string>
+    <string name="empty_schedule_title">Aucun réveil prévu</string>
+    <string name="empty_schedule_description">Aucun réveil ne sonnera ce jour-là. C\'est le moment de se détendre et de faire la grasse matinée !</string>
 
     <string name="settings_language_title">Langue</string>
     <string name="settings_language_system">Langue du système</string>

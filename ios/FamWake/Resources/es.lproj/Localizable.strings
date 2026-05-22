@@ -116,8 +116,8 @@
 "settings_footer_rights" = "Todos los derechos reservados.";
 "empty_members_title" = "Vuestro planificador de despertar familiar";
 "empty_members_description" = "¿Quién va al baño y cuándo? Añade al primer miembro de la familia para que FamWake possa calcular automáticamente vuestros horarios de mañana y el orden del baño.";
-"empty_schedule_title" = "Sin alarmas activas";
-"empty_schedule_description" = "No hay ninguna alarma encendida en este momento. ¡Es hora de dormir a pierna suelta!";
+"empty_schedule_title" = "Sin alarmas programadas";
+"empty_schedule_description" = "Ninguna alarma sonará este día. ¡Es hora de relajarse y dormir!";
 "settings_language_title" = "Idioma";
 "settings_language_system" = "Predeterminado del sistema";
 "settings_appearance_title" = "Apariencia";
@@ -306,5 +306,4 @@
 "settings_share_code_locked" = "Inicia sesión para compartir tu código de invitación.";
 "simple_mode_title" = "Modo simple";
 "simple_mode_desc" = "Hora de despertar fija sin margen ni cálculo de turnos para el baño.";
-
 "tooltip_buffer" = "La cursiva significa que el margen familiar está activo. Cámbialo para establecer un margen personal para hoy.";
