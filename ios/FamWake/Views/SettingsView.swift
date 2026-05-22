@@ -557,12 +557,14 @@ struct SettingsView: View {
                     Image(systemName: "alarm.fill")
                     Text("⏰ Test-Wecker (2 Min)")
                 }
+                .font(.headline)
+                .foregroundStyle(theme.onTertiary)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
+                .frame(minHeight: 48)
+                .background(theme.tertiary)
+                .clipShape(Capsule())
             }
-            .buttonStyle(.borderedProminent)
-            .tint(theme.tertiary)
-            .clipShape(Capsule())
+            .buttonStyle(BounceButtonStyle())
         }
     }
 
