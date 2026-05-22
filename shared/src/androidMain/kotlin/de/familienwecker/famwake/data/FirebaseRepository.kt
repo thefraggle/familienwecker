@@ -420,6 +420,39 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
+    override suspend fun updateMemberDayProfiles(
+        familyId: String,
+        memberId: String,
+        dayProfiles: Map<Int, de.familienwecker.famwake.model.DayProfile>?
+    ) {
+        try {
+            val dayProfilesData = dayProfiles?.mapKeys { it.key.toString() }
+                ?.mapValues { (_, profile) ->
+                    buildMap<String, Any?> {
+                        put("isActive", profile.isActive)
+                        put("earliestWakeUp", profile.earliestWakeUp.toString())
+                        put("latestWakeUp", profile.latestWakeUp.toString())
+                        put("bathroomDurationMinutes", profile.bathroomDurationMinutes)
+                        put("wantsBreakfast", profile.wantsBreakfast)
+                        profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
+                        profile.bufferMinutes?.let { put("bufferMinutes", it) }
+                        put("isSimpleMode", profile.isSimpleMode)
+                        profile.sequenceOrder?.let { put("sequenceOrder", it) }
+                    }
+                }
+
+            db.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS).document(memberId)
+                .update(mapOf(
+                    "dayProfiles" to dayProfilesData,
+                    "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
+                ))
+        } catch (e: Exception) {
+            if (debugLogging) Log.e(TAG, "Fehler beim Updaten der dayProfiles für Member $memberId: ${e.message}")
+            throw e
+        }
+    }
+
     override suspend fun setReorderMeta(uid: String, familyId: String) {
         try {
             db.collection(COLLECTION_USERS).document(uid)

@@ -519,19 +519,7 @@ struct MainView: View {
                     }
                     .onMove { from, to in
                         if let fromIdx = from.first {
-                            let movedMemberId = sched.memberSchedules[fromIdx].member.id
-                            let targetMemberId = to < sched.memberSchedules.count
-                                ? sched.memberSchedules[to].member.id : nil
-                            if let fromInMembers = familyViewModel.members.firstIndex(where: { $0.id == movedMemberId }) {
-                                let toInMembers: Int
-                                if let targetId = targetMemberId,
-                                   let t = familyViewModel.members.firstIndex(where: { $0.id == targetId }) {
-                                    toInMembers = fromInMembers < t ? t - 1 : t
-                                } else {
-                                    toInMembers = familyViewModel.members.count - 1
-                                }
-                                familyViewModel.moveMemberOrder(fromInMembers, toInMembers)
-                            }
+                            familyViewModel.moveMemberOrder(fromIndex: fromIdx, toIndex: to)
                         }
                     }
                 }

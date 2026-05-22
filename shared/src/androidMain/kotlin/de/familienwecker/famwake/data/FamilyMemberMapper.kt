@@ -45,7 +45,12 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
                 is Number -> bufferRaw.toLong()
                 else -> null
             },
-            isSimpleMode = map["isSimpleMode"] as? Boolean ?: false
+            isSimpleMode = map["isSimpleMode"] as? Boolean ?: false,
+            sequenceOrder = when (val seqRaw = map["sequenceOrder"]) {
+                is Long -> seqRaw.toInt()
+                is Number -> seqRaw.toInt()
+                else -> null
+            }
         )
     }?.toMap()?.takeIf { it.isNotEmpty() }
 
@@ -108,6 +113,7 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
                 profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
                 profile.bufferMinutes?.let { put("bufferMinutes", it) }
                 put("isSimpleMode", profile.isSimpleMode)
+                profile.sequenceOrder?.let { put("sequenceOrder", it) }
             }
         }
 

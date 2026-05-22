@@ -579,23 +579,80 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
-    func moveMemberOrder(_ from: Int, _ to: Int) {
-        guard from != to, from >= 0, to < members.count else { return }
-        var updated = members
-        let item = updated.remove(at: from)
-        updated.insert(item, at: to)
-        members = updated
+    func moveMemberOrder(fromIndex: Int, toIndex: Int) {
+        guard let sched = schedule else { return }
+        let cal = Calendar.current
+        let now = Date()
+        let today = cal.startOfDay(for: now)
+        
+        let targetDate = sched.targetDate ?? today
+        let weekdayRaw = cal.component(.weekday, from: targetDate)
+        let dayOfWeek = selectedDayOfWeek ?? (weekdayRaw == 1 ? 7 : weekdayRaw - 1)
+        
+        let visibleIds = sched.memberSchedules.map { $0.member.id }
+        guard fromIndex >= 0, fromIndex < visibleIds.count, toIndex >= 0, toIndex <= visibleIds.count else { return }
+        
+        var targetIds = visibleIds
+        let movedId = targetIds.remove(at: fromIndex)
+        let insertionIndex = toIndex > fromIndex ? toIndex - 1 : toIndex
+        targetIds.insert(movedId, at: insertionIndex)
+        
+        let updatedMembers = members.map { m -> FamilyMember in
+            if let indexInTarget = targetIds.firstIndex(of: m.id) {
+                var currentProfiles = m.dayProfiles ?? [:]
+                let profile = currentProfiles[dayOfWeek] ?? DayProfile(
+                    isActive: !m.isPaused,
+                    earliestWakeUp: m.earliestWakeUp,
+                    latestWakeUp: m.latestWakeUp,
+                    bathroomDurationMinutes: m.bathroomDurationMinutes,
+                    wantsBreakfast: m.wantsBreakfast,
+                    leaveHomeTime: m.leaveHomeTime,
+                    isSimpleMode: m.isSimpleMode
+                )
+                var updatedProfile = profile
+                updatedProfile.sequenceOrder = indexInTarget
+                currentProfiles[dayOfWeek] = updatedProfile
+                var updatedMember = m
+                updatedMember.dayProfiles = currentProfiles
+                return updatedMember
+            } else {
+                return m
+            }
+        }
+        
+        self.members = updatedMembers
         recalculateSchedule()
         saveMemberOrder()
     }
 
     func saveMemberOrder() {
         guard let fid = familyId else { return }
+        let currentUid = Auth.auth().currentUser?.uid
+        
         Task {
-            for (idx, member) in members.enumerated() {
+            if let uid = currentUid {
+                try? await db.collection("users").document(uid)
+                    .setData([
+                        "pushMeta": [
+                            "reorder": [
+                                "familyId": fid,
+                                "timestamp": FieldValue.serverTimestamp()
+                            ]
+                        ]
+                    ], merge: true)
+            }
+            
+            for member in members {
+                let dpData = member.toFirestoreMap()["dayProfiles"]
+                var updatePayload: [String: Any] = [
+                    "lastUpdatedAt": FieldValue.serverTimestamp()
+                ]
+                if let dp = dpData {
+                    updatePayload["dayProfiles"] = dp
+                }
                 try? await db.collection("families").document(fid)
                     .collection("members").document(member.id)
-                    .updateData(["sequenceOrder": idx])
+                    .updateData(updatePayload)
             }
         }
     }
@@ -1012,7 +1069,17 @@ class FamilyViewModel: ObservableObject {
             }
         }
 
+        let uiDayOfWeekRaw = cal.component(.weekday, from: uiTargetDate)
+        let uiIsoDow = uiDayOfWeekRaw == 1 ? 7 : uiDayOfWeekRaw - 1
         let uiCalculationMembers = rawMembers.map { resolveEffectiveMember($0, forDate: uiTargetDate) }
+            .sorted { m1, m2 in
+                let s1 = m1.dayProfiles?[uiIsoDow]?.sequenceOrder ?? m1.sequenceOrder
+                let s2 = m2.dayProfiles?[uiIsoDow]?.sequenceOrder ?? m2.sequenceOrder
+                if s1 != s2 {
+                    return s1 < s2
+                }
+                return (m1.createdAt ?? 0) < (m2.createdAt ?? 0)
+            }
         
         var uiResult: FamilySchedule
         if !uiCalculationMembers.contains(where: { !$0.isPaused }) {
@@ -1039,7 +1106,17 @@ class FamilyViewModel: ObservableObject {
             deviceTargetDate = tomorrow
         }
 
+        let deviceDayOfWeekRaw = cal.component(.weekday, from: deviceTargetDate)
+        let deviceIsoDow = deviceDayOfWeekRaw == 1 ? 7 : deviceDayOfWeekRaw - 1
         let deviceCalculationMembers = rawMembers.map { resolveEffectiveMember($0, forDate: deviceTargetDate) }
+            .sorted { m1, m2 in
+                let s1 = m1.dayProfiles?[deviceIsoDow]?.sequenceOrder ?? m1.sequenceOrder
+                let s2 = m2.dayProfiles?[deviceIsoDow]?.sequenceOrder ?? m2.sequenceOrder
+                if s1 != s2 {
+                    return s1 < s2
+                }
+                return (m1.createdAt ?? 0) < (m2.createdAt ?? 0)
+            }
         var deviceResult: FamilySchedule
         if !deviceCalculationMembers.contains(where: { !$0.isPaused }) {
             deviceResult = FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)

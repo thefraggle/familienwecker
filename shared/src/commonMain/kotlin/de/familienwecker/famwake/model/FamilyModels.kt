@@ -13,7 +13,8 @@ data class DayProfile(
     val leaveHomeTime: LocalTime? = null,
     // Individueller Puffer nach Bad-Slot (null = globalen Default nutzen, 0+ = Override)
     val bufferMinutes: Long? = null,
-    val isSimpleMode: Boolean = false
+    val isSimpleMode: Boolean = false,
+    val sequenceOrder: Int? = null
 )
 
 @Serializable

@@ -98,6 +98,7 @@ internal fun FamilyViewModel.recalculateSchedule() {
                 }
 
                 val uiCalculationMembers = rawMembers.map { resolveEffectiveMember(it, forDate = uiTargetDate) }
+                    .sortedWith(compareBy({ it.dayProfiles?.get(uiTargetDate.dayOfWeek.value)?.sequenceOrder ?: it.sequenceOrder }, { it.createdAt ?: 0L }))
                 
                 val uiResult = if (uiCalculationMembers.none { !it.isPaused }) {
                     FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule).copy(targetDate = uiTargetDate)
@@ -130,6 +131,7 @@ internal fun FamilyViewModel.recalculateSchedule() {
                 }
 
                 val deviceCalculationMembers = rawMembers.map { resolveEffectiveMember(it, forDate = deviceTargetDate) }
+                    .sortedWith(compareBy({ it.dayProfiles?.get(deviceTargetDate.dayOfWeek.value)?.sequenceOrder ?: it.sequenceOrder }, { it.createdAt ?: 0L }))
                 
                 val deviceResult = if (deviceCalculationMembers.none { !it.isPaused }) {
                     FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule).copy(targetDate = deviceTargetDate)

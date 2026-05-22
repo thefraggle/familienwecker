@@ -10,6 +10,9 @@ import de.familienwecker.famwake.ui.util.UiText
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 // ─── Member-Logik ─────────────────────────────────────────────────────────────
 
@@ -230,11 +233,35 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
 }
 
 fun FamilyViewModel.moveMemberOrder(fromIndex: Int, toIndex: Int) {
-    val currentMembers = _members.value.toMutableList()
-    if (fromIndex !in currentMembers.indices || toIndex !in currentMembers.indices) return
-    val member = currentMembers.removeAt(fromIndex)
-    currentMembers.add(toIndex, member)
-    val updatedMembers = currentMembers.mapIndexed { index, m -> m.copy(sequenceOrder = index) }
+    val sched = _schedule.value ?: return
+    val targetDate = sched.targetDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val dayOfWeek = selectedDayOfWeek.value ?: targetDate.dayOfWeek.value
+    
+    val visibleIds = sched.memberSchedules.map { it.member.id }
+    if (fromIndex !in visibleIds.indices || toIndex !in visibleIds.indices) return
+    val targetIds = visibleIds.toMutableList()
+    val movedId = targetIds.removeAt(fromIndex)
+    targetIds.add(toIndex, movedId)
+    
+    val updatedMembers = _members.value.map { m ->
+        val indexInTarget = targetIds.indexOf(m.id)
+        if (indexInTarget != -1) {
+            val currentProfiles = m.dayProfiles ?: emptyMap()
+            val profile = currentProfiles[dayOfWeek] ?: de.familienwecker.famwake.model.DayProfile(
+                isActive = !m.isPaused,
+                earliestWakeUp = m.earliestWakeUp,
+                latestWakeUp = m.latestWakeUp,
+                bathroomDurationMinutes = m.bathroomDurationMinutes,
+                wantsBreakfast = m.wantsBreakfast,
+                leaveHomeTime = m.leaveHomeTime,
+                isSimpleMode = m.isSimpleMode
+            )
+            val updatedProfile = profile.copy(sequenceOrder = indexInTarget)
+            m.copy(dayProfiles = currentProfiles + (dayOfWeek to updatedProfile))
+        } else {
+            m
+        }
+    }
     _members.value = updatedMembers.toPersistentList()
     recalculateSchedule()
 }
@@ -242,15 +269,21 @@ fun FamilyViewModel.moveMemberOrder(fromIndex: Int, toIndex: Int) {
 fun FamilyViewModel.saveMemberOrder() {
     checkOfflineAndHint()
     val currentFamilyId = familyId.value ?: return
-    val orderMap = _members.value.associate { it.id to it.sequenceOrder }
+    val sched = _schedule.value ?: return
+    val targetDate = sched.targetDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val dayOfWeek = selectedDayOfWeek.value ?: targetDate.dayOfWeek.value
+    
+    val currentUid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+    
     scope.launch {
         try {
-            val currentUid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
-            // Meta zuerst schreiben, damit CF weiß wer den Reorder ausgelöst hat → kein Self-Push
             if (currentUid != null) {
                 repository.setReorderMeta(currentUid, currentFamilyId)
             }
-            repository.updateMemberOrders(currentFamilyId, orderMap)
+            _members.value.forEach { m ->
+                memberRepository.upsertMember(m)
+                repository.updateMemberDayProfiles(currentFamilyId, m.id, m.dayProfiles)
+            }
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
                 Log.e("FamilyViewModel", "saveMemberOrder failed: ${e.message}")
