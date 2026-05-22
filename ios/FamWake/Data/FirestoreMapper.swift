@@ -105,6 +105,9 @@ extension FamilyMember {
                 if let buffer = profile.bufferMinutes {
                     profileDict["bufferMinutes"] = buffer
                 }
+                if let seq = profile.sequenceOrder {
+                    profileDict["sequenceOrder"] = seq
+                }
                 dpData["\(day)"] = profileDict
             }
             data["dayProfiles"] = dpData
@@ -142,6 +145,7 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
         let leave = (dp["leaveHomeTime"] as? String).flatMap { DateComponents.fromTimeString($0) }
         let buffer = (dp["bufferMinutes"] as? NSNumber)?.intValue
         let simpleMode = dp["isSimpleMode"] as? Bool ?? false
+        let seq = (dp["sequenceOrder"] as? NSNumber)?.intValue
 
         result[day] = DayProfile(
             isActive: active,
@@ -151,7 +155,8 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
             wantsBreakfast: breakfast,
             leaveHomeTime: leave,
             bufferMinutes: buffer,
-            isSimpleMode: simpleMode
+            isSimpleMode: simpleMode,
+            sequenceOrder: seq
         )
     }
     return result.isEmpty ? nil : result

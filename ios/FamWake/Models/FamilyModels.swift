@@ -78,6 +78,7 @@ struct DayProfile: Codable, Equatable {
     var leaveHomeTime: DateComponents?
     var bufferMinutes: Int?
     var isSimpleMode: Bool
+    var sequenceOrder: Int?
 
     init(
         isActive: Bool = true,
@@ -87,7 +88,8 @@ struct DayProfile: Codable, Equatable {
         wantsBreakfast: Bool = true,
         leaveHomeTime: DateComponents? = nil,
         bufferMinutes: Int? = nil,
-        isSimpleMode: Bool = false
+        isSimpleMode: Bool = false,
+        sequenceOrder: Int? = nil
     ) {
         self.isActive = isActive
         self.earliestWakeUp = earliestWakeUp
@@ -97,6 +99,7 @@ struct DayProfile: Codable, Equatable {
         self.leaveHomeTime = leaveHomeTime
         self.bufferMinutes = bufferMinutes
         self.isSimpleMode = isSimpleMode
+        self.sequenceOrder = sequenceOrder
     }
 
     /// Mo–Fr active, Sa–So inactive (default for new members)
