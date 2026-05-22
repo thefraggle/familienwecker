@@ -116,8 +116,8 @@
 "settings_delete_account" = "注销帐号";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "保留所有权利。";
-"empty_members_title" = "还没有成员";
-"empty_members_description" = "添加家庭成员来规划你们的早晨日程。";
+"empty_members_title" = "您的家庭起床计划";
+"empty_members_description" = "谁什么时候进浴室？添加第一个家庭成员，让 FamWake 自动计算您的起床时间和浴室使用顺序。";
 "empty_schedule_title" = "没有活跃的闹钟";
 "empty_schedule_description" = "目前没有开启的闹钟。是时候好好睡一觉了！";
 "settings_language_title" = "语言";

@@ -115,8 +115,8 @@
 "settings_delete_account" = "Удалить аккаунт";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Все права защищены.";
-"empty_members_title" = "Пока нет участников";
-"empty_members_description" = "Добавьте членов семьи, чтобы настроить ваше утреннее расписание.";
+"empty_members_title" = "Ваш семейный планировщик пробуждения";
+"empty_members_description" = "Кто и когда идет в ванную? Добавьте первого члена семьи, чтобы FamWake мог автоматически рассчитать время пробуждения и очередь в ванную.";
 "empty_schedule_title" = "Нет активных будильников";
 "empty_schedule_description" = "Сейчас все будильники выключены. Время выспаться!";
 "settings_language_title" = "Язык";

@@ -12,6 +12,7 @@ class FamilyViewModel: ObservableObject {
     // MARK: - Published State
     @Published var members: [FamilyMember] = []
     @Published var schedule: FamilySchedule? = nil
+    @Published var selectedDayOfWeek: Int? = nil
     @Published var familyId: String? = nil
     @Published var familyName: String? = nil
     @Published var globalBufferMinutes: Int = 0
@@ -715,6 +716,11 @@ class FamilyViewModel: ObservableObject {
     func clearErrorMessage() { errorMessage = nil }
     func clearError() { errorMessage = nil }
 
+    func selectDayOfWeek(_ day: Int?) {
+        selectedDayOfWeek = day
+        recalculateSchedule()
+    }
+
     func setGlobalBufferMinutes(_ minutes: Int) {
         guard let fid = familyId, isAdmin else { return }
         // Local update for immediate feedback
@@ -946,9 +952,9 @@ class FamilyViewModel: ObservableObject {
         let currentMyMemberId = self.myMemberId
         let rawMembers: [FamilyMember]
         if isAlarmEnabled {
-            rawMembers = members.filter { $0.deviceAlarmEnabled != false && !$0.isPaused }
+            rawMembers = members.filter { $0.deviceAlarmEnabled != false }
         } else {
-            rawMembers = members.filter { $0.id != currentMyMemberId && $0.deviceAlarmEnabled != false && !$0.isPaused }
+            rawMembers = members.filter { $0.id != currentMyMemberId && $0.deviceAlarmEnabled != false }
         }
 
         if rawMembers.isEmpty {
@@ -964,47 +970,96 @@ class FamilyViewModel: ObservableObject {
         let today = cal.startOfDay(for: now)
         guard let tomorrow = cal.date(byAdding: .day, value: 1, to: today) else { return }
 
-        // Two-Pass: Erst heute berechnen, nur auf morgen wechseln wenn ALLE
-        // geplanten Weckzeiten von heute bereits verstrichen sind.
+        // 1. UI Target Date & Calculation
+        let uiTargetDate: Date
+        if let selectedDay = selectedDayOfWeek {
+            let targetWeekday = selectedDay == 7 ? 1 : selectedDay + 1
+            var checkDate = today
+            while cal.component(.weekday, from: checkDate) != targetWeekday {
+                guard let next = cal.date(byAdding: .day, value: 1, to: checkDate) else { break }
+                checkDate = next
+            }
+            if cal.isDate(checkDate, inSameDayAs: today) {
+                let todayMembers = rawMembers.map { resolveEffectiveMember($0, forDate: today) }
+                let todayHasActive = todayMembers.contains { !$0.isPaused }
+                if todayHasActive {
+                    let todaySchedule = Scheduler().calculateIdealSchedule(members: todayMembers, globalBufferMinutes: globalBufferMinutes)
+                    let latestAlarm = todaySchedule.memberSchedules.compactMap { date(from: $0.wakeUpTime, on: today) }.max()
+                    if let latest = latestAlarm, now < latest {
+                        uiTargetDate = today
+                    } else {
+                        uiTargetDate = cal.date(byAdding: .day, value: 7, to: today) ?? today
+                    }
+                } else {
+                    uiTargetDate = cal.date(byAdding: .day, value: 7, to: today) ?? today
+                }
+            } else {
+                uiTargetDate = checkDate
+            }
+        } else {
+            let todayMembers = rawMembers.map { resolveEffectiveMember($0, forDate: today) }
+            let todayHasActive = todayMembers.contains { !$0.isPaused }
+            if todayHasActive {
+                let todaySchedule = Scheduler().calculateIdealSchedule(members: todayMembers, globalBufferMinutes: globalBufferMinutes)
+                let latestAlarm = todaySchedule.memberSchedules.compactMap { date(from: $0.wakeUpTime, on: today) }.max()
+                if let latest = latestAlarm, now < latest {
+                    uiTargetDate = today
+                } else {
+                    uiTargetDate = tomorrow
+                }
+            } else {
+                uiTargetDate = tomorrow
+            }
+        }
+
+        let uiCalculationMembers = rawMembers.map { resolveEffectiveMember($0, forDate: uiTargetDate) }
+        
+        var uiResult: FamilySchedule
+        if !uiCalculationMembers.contains(where: { !$0.isPaused }) {
+            uiResult = FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)
+        } else {
+            uiResult = Scheduler().calculateIdealSchedule(members: uiCalculationMembers, globalBufferMinutes: globalBufferMinutes)
+        }
+        uiResult.targetDate = uiTargetDate
+        schedule = uiResult
+
+        // 2. Device Alarm Target Date & Calculation (ALWAYS Auto Mode)
+        let deviceTargetDate: Date
         let todayMembers = rawMembers.map { resolveEffectiveMember($0, forDate: today) }
         let todayHasActive = todayMembers.contains { !$0.isPaused }
-
-        let calculationMembers: [FamilyMember]
-        let targetDate: Date
-
         if todayHasActive {
             let todaySchedule = Scheduler().calculateIdealSchedule(members: todayMembers, globalBufferMinutes: globalBufferMinutes)
             let latestAlarm = todaySchedule.memberSchedules.compactMap { date(from: $0.wakeUpTime, on: today) }.max()
-            
             if let latest = latestAlarm, now < latest {
-                calculationMembers = todayMembers
-                targetDate = today
+                deviceTargetDate = today
             } else {
-                calculationMembers = rawMembers.map { resolveEffectiveMember($0, forDate: tomorrow) }
-                targetDate = tomorrow
+                deviceTargetDate = tomorrow
             }
         } else {
-            calculationMembers = rawMembers.map { resolveEffectiveMember($0, forDate: tomorrow) }
-            targetDate = tomorrow
+            deviceTargetDate = tomorrow
         }
 
-        if !calculationMembers.contains(where: { !$0.isPaused }) {
-            schedule = FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)
+        let deviceCalculationMembers = rawMembers.map { resolveEffectiveMember($0, forDate: deviceTargetDate) }
+        var deviceResult: FamilySchedule
+        if !deviceCalculationMembers.contains(where: { !$0.isPaused }) {
+            deviceResult = FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)
+        } else {
+            deviceResult = Scheduler().calculateIdealSchedule(members: deviceCalculationMembers, globalBufferMinutes: globalBufferMinutes)
+        }
+        deviceResult.targetDate = deviceTargetDate
+
+        // 3. Apply Alarms
+        if deviceResult.memberSchedules.isEmpty {
             if let myId = currentMyMemberId {
                 AlarmService.shared.cancelWakeUp(memberId: myId)
             }
-            return
-        }
-
-        var result = Scheduler().calculateIdealSchedule(members: calculationMembers, globalBufferMinutes: globalBufferMinutes)
-        result.targetDate = targetDate
-        schedule = result
-
-        if isAlarmEnabled && !result.memberSchedules.isEmpty {
-            applyAlarms(result)
         } else {
-            if let myId = currentMyMemberId {
-                AlarmService.shared.cancelWakeUp(memberId: myId)
+            if isAlarmEnabled {
+                applyAlarms(deviceResult)
+            } else {
+                if let myId = currentMyMemberId {
+                    AlarmService.shared.cancelWakeUp(memberId: myId)
+                }
             }
         }
     }

@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Semua hak dilindungi undang-undang.</string>
 
-    <string name="empty_members_title">Belum ada anggota</string>
-    <string name="empty_members_description">Tambahkan anggota keluarga untuk mengatur jadwal pagi Anda.</string>
+    <string name="empty_members_title">Perencana Bangun Keluarga Anda</string>
+    <string name="empty_members_description">Siapa yang ke kamar mandi kapan? Tambahkan anggota keluarga pertama agar FamWake dapat menghitung waktu bangun dan urutan kamar mandi Anda secara otomatis.</string>
     <string name="empty_schedule_title">Tidak ada alarm aktif</string>
     <string name="empty_schedule_description">Tidak ada alarm yang menyala saat ini. Saatnya tidur dengan nyenyak!</string>
 

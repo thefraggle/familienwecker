@@ -116,8 +116,8 @@
 "settings_delete_account" = "Delete account";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "All rights reserved.";
-"empty_members_title" = "No members yet";
-"empty_members_description" = "Add family members to set up your morning schedule.";
+"empty_members_title" = "Your Family Wake-up Planner";
+"empty_members_description" = "Who goes to the bathroom when? Add the first family member so FamWake can automatically calculate your wake-up times and bathroom schedule.";
 "empty_schedule_title" = "No active alarms";
 "empty_schedule_description" = "No alarms are turned on right now. Time to sleep in!";
 "settings_language_title" = "Language";

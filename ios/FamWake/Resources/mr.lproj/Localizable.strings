@@ -115,8 +115,8 @@
 "settings_delete_account" = "खाते हटवा";
 "settings_footer_copyright" = "© 2026 डॅनियल नॉटथॉफ";
 "settings_footer_rights" = "सर्व हक्क राखीव.";
-"empty_members_title" = "अद्याप सदस्य नाहीत";
-"empty_members_description" = "तुमचे सकाळचे वेळापत्रक बनवण्यासाठी कुटुंबातील सदस्य जोडा.";
+"empty_members_title" = "तुमचा कौटुंबिक वेक-अप प्लॅनर";
+"empty_members_description" = "कोण कधी बाथरूममध्ये जाणार? कुटुंबातील पहिल्या सदस्याला जोडा जेणेकरून FamWake तुमच्या उठण्याची वेळ आणि बाथरूमचा क्रम स्वयंचलितपणे मोजू शकेल pedig.";
 "empty_schedule_title" = "कोणतेही सक्रिय अलार्म नाहीत";
 "empty_schedule_description" = "सध्या कोणासाठीही अलार्म चालू नाहीत. आरामात झोपा!";
 "settings_language_title" = "भाषा";

@@ -120,8 +120,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Älle Rechte gschützt.</string>
 
-    <string name="empty_members_title">No koe Mitglieder do</string>
-    <string name="empty_members_description">Tu Familienmitglieder nei, om eure Morga zom plana.</string>
+    <string name="empty_members_title">Eier Familien-Weckplaner</string>
+    <string name="empty_members_description">Wer goht wann ens Bad? Do s erschte Familienmitglied drzua, damit FamWake eire Weckzeida ond d\'Bad-Reihefolg automatisch berechna koh.</string>
     <string name="empty_schedule_title">Koi aktiver Wegger</string>
     <string name="empty_schedule_description">Zom Glick isch koin Wegger gstellt. Zeit zom Ausschlafa!</string>
 

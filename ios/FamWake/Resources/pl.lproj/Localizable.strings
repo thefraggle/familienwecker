@@ -114,8 +114,8 @@
 "settings_delete_account" = "Usuń konto";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Wszelkie prawa zastrzeżone.";
-"empty_members_title" = "Jeszcze nikogo tu nie ma";
-"empty_members_description" = "Dodaj członków rodziny, aby zaplanować swój poranek.";
+"empty_members_title" = "Wasz rodzinny planista budzenia";
+"empty_members_description" = "Kto i kiedy idzie do łazienki? Dodaj pierwszego członka rodziny, aby FamWake mógł automatycznie obliczyć Wasze godziny budzenia i kolejność korzystania z łazienki.";
 "empty_schedule_title" = "Brak aktywnych alarmów";
 "empty_schedule_description" = "W tej chwili nie ma włączonych alarmów. Czas odpocząć!";
 "settings_language_title" = "Język";

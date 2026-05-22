@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alli Rächt vorbhalte.</string>
 
-    <string name="empty_members_title">Na kä Mitgliider</string>
-    <string name="empty_members_description">Füeg Familiemitgliider dezue, zum euie Morge z\'plane.</string>
+    <string name="empty_members_title">Euere Familie-Weckplaner</string>
+    <string name="empty_members_description">Wär gaht wänn is Badzimmer? Füeg s erschte Familie-Mitgliid hinzue, demit FamWake eui Weckziite und d Badzimmer-Reihenfolg automatisch berächne cha.</string>
     <string name="empty_schedule_title">Kä aktivi Wecker</string>
     <string name="empty_schedule_description">Aktuell sind kä Wecker iigschalte. Ziit zum Uusschlaafe!</string>
 

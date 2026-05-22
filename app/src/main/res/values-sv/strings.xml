@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alla rättigheter förbehållna.</string>
 
-    <string name="empty_members_title">Inga medlemmar ännu</string>
-    <string name="empty_members_description">Lägg till familjemedlemmar för att sätta upp er morgonrutin.</string>
+    <string name="empty_members_title">Er familjeväckningsplanerare</string>
+    <string name="empty_members_description">Vem går till badrummet när? Lägg till den första familjemedlemmen så dass FamWake automatiskt kan beräkna era väckningstider och badrumsordning.</string>
     <string name="empty_schedule_title">Inga aktiva larm</string>
     <string name="empty_schedule_description">Just nu är inga larm påslagna. Dags att sova länge!</string>
 

@@ -97,6 +97,13 @@ class FamilyViewModel(
     val isAwakeTodayLocal: StateFlow<Boolean> = appSettings.isAwakeToday
     val onboardingCompleted: StateFlow<Boolean> = appSettings.onboardingCompleted
 
+    private val _selectedDayOfWeek = MutableStateFlow<Int?>(null)
+    val selectedDayOfWeek: StateFlow<Int?> = _selectedDayOfWeek.asStateFlow()
+    fun selectDayOfWeek(day: Int?) {
+        _selectedDayOfWeek.value = day
+        recalculateSchedule()
+    }
+
     // Globaler Puffer zwischen Bad-Slots (aus Firestore Family-Doc)
     internal val _globalBufferMinutes = MutableStateFlow(0L)
     val globalBufferMinutes: StateFlow<Long> = _globalBufferMinutes.asStateFlow()

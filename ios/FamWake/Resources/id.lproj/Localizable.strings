@@ -116,8 +116,8 @@
 "settings_delete_account" = "Hapus akun";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Semua hak dilindungi undang-undang.";
-"empty_members_title" = "Belum ada anggota";
-"empty_members_description" = "Tambahkan anggota keluarga untuk mengatur jadwal pagi Anda.";
+"empty_members_title" = "Perencana Bangun Keluarga Anda";
+"empty_members_description" = "Siapa yang ke kamar mandi kapan? Tambahkan anggota keluarga pertama agar FamWake dapat menghitung waktu bangun dan urutan kamar mandi Anda secara otomatis.";
 "empty_schedule_title" = "Tidak ada alarm aktif";
 "empty_schedule_description" = "Tidak ada alarm yang menyala saat ini. Saatnya tidur dengan nyenyak!";
 "settings_language_title" = "Bahasa";

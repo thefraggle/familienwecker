@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Alle rettigheder forbeholdes.</string>
 
-    <string name="empty_members_title">Endnu ingen medlemmer</string>
-    <string name="empty_members_description">Tilføj familiemedlemmer for at opsætte jeres morgenrutine.</string>
+    <string name="empty_members_title">Jeres familie-vækkeplanlægger</string>
+    <string name="empty_members_description">Hvem går på badeværelset hvornår? Tilføj det eerste familiemedlem, så FamWake automatisk kan beregne jeres vækketider og rækkefølge til badeværelset.</string>
     <string name="empty_schedule_title">Ingen aktive alarmer</string>
     <string name="empty_schedule_description">Ingen alarmer er slået til lige nu. Tid til at sove længe!</string>
 
