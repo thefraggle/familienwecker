@@ -6,6 +6,8 @@
 ### Verbessert
 - **Stabilität beim App-Start** – Ein seltener Fehler, der unter bestimmten Bedingungen beim Öffnen der App zu einem Absturz führen konnte, wurde behoben.
 - **Optimierte Feedback-Fragen** – Die Bitte um eine App-Bewertung erfolgt nun zu passenderen Zeitpunkten, ohne den morgendlichen Ablauf zu stören.
+- **Besseres Theme-Verhalten** – Das Design passt sich jetzt noch zuverlässiger an das helle oder dunkle Erscheinungsbild deines Systems an.
+- **Fehlerkacheln lesbarer gestaltet** – Kontrast und Barrierefreiheit der Warnmeldungen in den Einstellungen und auf dem Startbildschirm wurden spürbar verbessert.
 
 ---
 
