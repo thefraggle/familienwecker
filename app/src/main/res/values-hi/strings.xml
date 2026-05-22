@@ -123,8 +123,8 @@
 
     <string name="empty_members_title">आपका पारिवारिक वेक-अप प्लानर</string>
     <string name="empty_members_description">कौन कब बाथरूम जाएगा? परिवार के पहले सदस्य को जोड़ें ताकि FamWake आपके जागने का समय और बाथरूम का क्रम स्वचालित रूप से गणना कर सके।</string>
-    <string name="empty_schedule_title">कोई अलार्म चालू नहीं है</string>
-    <string name="empty_schedule_description">अभी कोई भी अलार्म चालू नहीं है। आराम से सोने का समय!</string>
+    <string name="empty_schedule_title">कोई अलार्म निर्धारित नहीं</string>
+    <string name="empty_schedule_description">इस दिन कोई अलार्म नहीं बजेगा। आराम करने और देर तक सोने का समय!</string>
 
     <string name="settings_language_title">भाषा</string>
     <string name="settings_language_system">सिस्टम डिफ़ॉल्ट</string>

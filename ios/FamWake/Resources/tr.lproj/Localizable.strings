@@ -118,8 +118,8 @@
 "settings_footer_rights" = "Tüm hakları saklıdır.";
 "empty_members_title" = "Aile Uyanma Planlayıcınız";
 "empty_members_description" = "Kim ne zaman banyoya gidiyor? FamWake'in uyanma saatlerinizi banyo sıranızı otomatik olarak hesaplayabilmesi için ilk aile üyesini ekleyin.";
-"empty_schedule_title" = "Aktif alarm yok";
-"empty_schedule_description" = "Şu anda açık olan hiçbir alarm yok. Uykuya devam!";
+"empty_schedule_title" = "Planlanmış alarm yok";
+"empty_schedule_description" = "Bu tarihte hiçbir alarm çalmayacak. Dinlenme ve uyuma zamanı!";
 "settings_language_title" = "Dil";
 "settings_language_system" = "Sistem varsayılanı";
 "settings_appearance_title" = "Görünüm";
@@ -306,5 +306,4 @@
 "onboarding_enable_tooltips" = "İlk kullanımda faydalı ipuçları göster";
 "simple_mode_title" = "Basit Mod";
 "simple_mode_desc" = "Tampon süre veya banyo sırası hesaplaması olmadan sabit uyanma saati.";
-
 "tooltip_buffer" = "İtalik yazı, aile ek süresinin aktif olduğunu gösterir. Bugün için kişisel bir ek süre ayarlamak üzere bunu değiştirin.";

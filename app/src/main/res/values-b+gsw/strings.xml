@@ -123,8 +123,8 @@
 
     <string name="empty_members_title">Euere Familie-Weckplaner</string>
     <string name="empty_members_description">Wär gaht wänn is Badzimmer? Füeg s erschte Familie-Mitgliid hinzue, demit FamWake eui Weckziite und d Badzimmer-Reihenfolg automatisch berächne cha.</string>
-    <string name="empty_schedule_title">Kä aktivi Wecker</string>
-    <string name="empty_schedule_description">Aktuell sind kä Wecker iigschalte. Ziit zum Uusschlaafe!</string>
+    <string name="empty_schedule_title">Kä Wecker plant</string>
+    <string name="empty_schedule_description">A däm Tag lüütet kein Wecker. Ziit zum Entspanne und Uusschlafe!</string>
 
     <string name="settings_language_title">Spraach</string>
     <string name="settings_language_system">System-Standard</string>

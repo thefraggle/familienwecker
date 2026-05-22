@@ -123,8 +123,8 @@
 
     <string name="empty_members_title">Jeres familie-vækkeplanlægger</string>
     <string name="empty_members_description">Hvem går på badeværelset hvornår? Tilføj det eerste familiemedlem, så FamWake automatisk kan beregne jeres vækketider og rækkefølge til badeværelset.</string>
-    <string name="empty_schedule_title">Ingen aktive alarmer</string>
-    <string name="empty_schedule_description">Ingen alarmer er slået til lige nu. Tid til at sove længe!</string>
+    <string name="empty_schedule_title">Ingen alarmer planlagt</string>
+    <string name="empty_schedule_description">Der ringer ingen alarm på denne dag. Tid til at slappe af og sove længe!</string>
 
     <string name="settings_language_title">Sprog</string>
     <string name="settings_language_system">Systemstandard</string>

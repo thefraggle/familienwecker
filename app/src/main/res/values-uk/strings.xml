@@ -123,8 +123,8 @@
 
     <string name="empty_members_title">Ваш сімейний планувальник пробудження</string>
     <string name="empty_members_description">Хто і коли йде до ванної кімнати? Додайте першого члена сім\'ї, щоб FamWake міг автоматично розрахувати ваш час пробудження та чергу до ванної.</string>
-    <string name="empty_schedule_title">Немає активних будильників</string>
-    <string name="empty_schedule_description">Зараз усі будильники вимкнені. Час виспатися!</string>
+    <string name="empty_schedule_title">Будильники не заплановано</string>
+    <string name="empty_schedule_description">Цього дня будильник не дзвонитиме. Час розслабитися та виспатися!</string>
 
     <string name="settings_language_title">Мова</string>
     <string name="settings_language_system">Системна за замовчуванням</string>

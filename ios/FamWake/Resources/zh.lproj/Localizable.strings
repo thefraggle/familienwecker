@@ -118,8 +118,8 @@
 "settings_footer_rights" = "保留所有权利。";
 "empty_members_title" = "您的家庭起床计划";
 "empty_members_description" = "谁什么时候进浴室？添加第一个家庭成员，让 FamWake 自动计算您的起床时间和浴室使用顺序。";
-"empty_schedule_title" = "没有活跃的闹钟";
-"empty_schedule_description" = "目前没有开启的闹钟。是时候好好睡一觉了！";
+"empty_schedule_title" = "未计划闹钟";
+"empty_schedule_description" = "这一天没有闹钟响起。放松睡个懒觉吧！";
 "settings_language_title" = "语言";
 "settings_language_system" = "系统默认";
 "settings_appearance_title" = "外观";
@@ -306,5 +306,4 @@
 "onboarding_slide5_title" = "我们开始吧！";
 "simple_mode_title" = "简单模式";
 "simple_mode_desc" = "固定叫醒时间，不计算缓冲时间或洗手间时间。";
-
 "tooltip_buffer" = "斜体表示家庭缓冲时间处于开启状态。更改它即可为今天设置个人缓冲时间。";

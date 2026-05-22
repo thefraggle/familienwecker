@@ -121,8 +121,8 @@
 
     <string name="empty_members_title">Wasz rodzinny planista budzenia</string>
     <string name="empty_members_description">Kto i kiedy idzie do łazienki? Dodaj pierwszego członka rodziny, aby FamWake mógł automatycznie obliczyć Wasze godziny budzenia i kolejność korzystania z łazienki.</string>
-    <string name="empty_schedule_title">Brak aktywnych alarmów</string>
-    <string name="empty_schedule_description">W tej chwili nie ma włączonych alarmów. Czas odpocząć!</string>
+    <string name="empty_schedule_title">Brak zaplanowanych alarmów</string>
+    <string name="empty_schedule_description">Tego dnia nie zadzwoni żaden budzik. Czas na relaks i sen!</string>
 
     <string name="settings_language_title">Język</string>
     <string name="settings_language_system">Domyślny systemowy</string>

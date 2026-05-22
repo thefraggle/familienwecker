@@ -118,8 +118,8 @@
 "settings_footer_rights" = "Alle rettigheder forbeholdes.";
 "empty_members_title" = "Jeres familie-vækkeplanlægger";
 "empty_members_description" = "Hvem går på badeværelset hvornår? Tilføj det eerste familiemedlem, så FamWake automatisk kan beregne jeres vækketider og rækkefølge til badeværelset.";
-"empty_schedule_title" = "Ingen aktive alarmer";
-"empty_schedule_description" = "Ingen alarmer er slået til lige nu. Tid til at sove længe!";
+"empty_schedule_title" = "Ingen alarmer planlagt";
+"empty_schedule_description" = "Der ringer ingen alarm på denne dag. Tid til at slappe af og sove længe!";
 "settings_language_title" = "Sprog";
 "settings_language_system" = "Systemstandard";
 "settings_appearance_title" = "Udseende";
@@ -306,5 +306,4 @@
 "onboarding_enable_tooltips" = "Vis nyttige tips ved første brug";
 "simple_mode_title" = "Simpel tilstand";
 "simple_mode_desc" = "Fast vækketid uden margin eller beregning af badeværelsestid.";
-
 "tooltip_buffer" = "Kursiv betyder, at familie-bufferen er aktiv. Ændr den for at indstille en personlig buffer for i dag.";

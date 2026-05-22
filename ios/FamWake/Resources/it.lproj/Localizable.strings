@@ -117,8 +117,8 @@
 "settings_footer_rights" = "Tutti i diritti riservati.";
 "empty_members_title" = "Il vostro pianificatore di sveglia familiare";
 "empty_members_description" = "Chi va in bagno e quando? Aggiungi il primo membro della famiglia in modo che FamWake possa calcolare automaticamente i vostri orari di sveglia e l'ordine per il bagno.";
-"empty_schedule_title" = "Nessuna sveglia attiva";
-"empty_schedule_description" = "Al momento non ci sono sveglie accese. È ora di dormire!";
+"empty_schedule_title" = "Nessuna sveglia in programma";
+"empty_schedule_description" = "Nessuna sveglia suonerà in questo giorno. Tempo di rilassarsi e dormire di più!";
 "settings_language_title" = "Lingua";
 "settings_language_system" = "Sistema predefinito";
 "settings_appearance_title" = "Aspetto";
@@ -306,5 +306,4 @@
 "onboarding_enable_tooltips" = "Mostra consigli utili al primo utilizzo";
 "simple_mode_title" = "Modalità semplice";
 "simple_mode_desc" = "Orario di sveglia fisso senza margine o calcolo dei turni in bagno.";
-
 "tooltip_buffer" = "Il corsivo indica che il buffer familiare è attivo. Modificalo per impostare un buffer personale per oggi.";

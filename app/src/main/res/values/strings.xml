@@ -123,8 +123,8 @@
 
     <string name="empty_members_title">Your Family Wake-up Planner</string>
     <string name="empty_members_description">Who goes to the bathroom when? Add the first family member so FamWake can automatically calculate your wake-up times and bathroom schedule.</string>
-    <string name="empty_schedule_title">No active alarms</string>
-    <string name="empty_schedule_description">No alarms are turned on right now. Time to sleep in!</string>
+    <string name="empty_schedule_title">No alarms planned</string>
+    <string name="empty_schedule_description">No alarm will ring on this day. Time to relax and sleep in!</string>
 
     <string name="settings_language_title">Language</string>
     <string name="settings_language_system">System default</string>

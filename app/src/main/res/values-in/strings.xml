@@ -123,8 +123,8 @@
 
     <string name="empty_members_title">Perencana Bangun Keluarga Anda</string>
     <string name="empty_members_description">Siapa yang ke kamar mandi kapan? Tambahkan anggota keluarga pertama agar FamWake dapat menghitung waktu bangun dan urutan kamar mandi Anda secara otomatis.</string>
-    <string name="empty_schedule_title">Tidak ada alarm aktif</string>
-    <string name="empty_schedule_description">Tidak ada alarm yang menyala saat ini. Saatnya tidur dengan nyenyak!</string>
+    <string name="empty_schedule_title">Tidak ada alarm yang dijadwalkan</string>
+    <string name="empty_schedule_description">Tidak ada alarm yang berdering pada hari ini. Waktunya bersantai dan tidur nyenyak!</string>
 
     <string name="settings_language_title">Bahasa</string>
     <string name="settings_language_system">Bawaan sistem</string>
