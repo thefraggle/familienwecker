@@ -125,15 +125,21 @@ struct AddEditMemberView: View {
                 // Bottom Save Button
                 VStack {
                     Spacer()
-                    Button(L.addMemberSubmit) {
+                    let isSaveDisabled = name.trimmingCharacters(in: .whitespaces).isEmpty || hasAnyError
+                    Button(action: {
                         saveMember()
+                    }) {
+                        Text(L.addMemberSubmit)
+                            .font(.headline)
+                            .foregroundStyle(theme.onPrimary)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: 56)
+                            .background(theme.primary)
+                            .clipShape(Capsule())
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(theme.primary)
-                    .frame(maxWidth: .infinity)
-                    .frame(minHeight: 56)
-                    .clipShape(Capsule())
-                    .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || hasAnyError)
+                    .buttonStyle(BounceButtonStyle())
+                    .disabled(isSaveDisabled)
+                    .opacity(isSaveDisabled ? 0.5 : 1.0)
                     .padding(16)
                     .background(
                         LinearGradient(

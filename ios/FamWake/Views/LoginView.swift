@@ -153,6 +153,7 @@ struct LoginView: View {
                 .background(theme.primary)
                 .clipShape(Capsule())
         }
+        .buttonStyle(BounceButtonStyle())
         .allowsHitTesting(!(email.isEmpty || password.isEmpty))
         .opacity((email.isEmpty || password.isEmpty) ? 0.5 : 1.0)
 
@@ -180,6 +181,7 @@ struct LoginView: View {
                 .background(theme.primary.opacity(0.1))
                 .clipShape(Capsule())
         }
+        .buttonStyle(BounceButtonStyle())
 
         Spacer().frame(height: 8)
 
@@ -234,13 +236,16 @@ struct LoginView: View {
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
 
-            Button(L.loginVerifyEmailConfirm) {
-                authViewModel.checkEmailVerified()
+            Button(action: { authViewModel.checkEmailVerified() }) {
+                Text(L.loginVerifyEmailConfirm)
+                    .font(.headline)
+                    .foregroundStyle(theme.onPrimary)
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: 56)
+                    .background(theme.primary)
+                    .clipShape(Capsule())
             }
-            .buttonStyle(.borderedProminent)
-            .tint(theme.primary)
-            .frame(maxWidth: .infinity)
-            .clipShape(Capsule())
+            .buttonStyle(BounceButtonStyle())
 
             Button(L.loginVerifyEmailResend) {
                 authViewModel.resendVerificationEmail()

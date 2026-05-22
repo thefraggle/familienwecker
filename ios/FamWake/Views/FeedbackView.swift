@@ -130,20 +130,35 @@ struct FeedbackView: View {
 
                         // Buttons
                         HStack(spacing: 12) {
-                            Button(L.feedbackCancel) { dismiss() }
-                                .buttonStyle(.bordered)
-                                .frame(maxWidth: .infinity)
+                            Button(action: { dismiss() }) {
+                                Text(L.feedbackCancel)
+                                    .font(.headline)
+                                    .foregroundStyle(theme.primary)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(minHeight: 52)
+                                    .background(theme.primary.opacity(0.1))
+                                    .clipShape(Capsule())
+                            }
+                            .buttonStyle(BounceButtonStyle())
 
                             Button(action: sendFeedback) {
-                                if familyViewModel.isSendingFeedback {
-                                    ProgressView().tint(.white)
-                                } else {
-                                    Text(L.feedbackSend)
+                                Group {
+                                    if familyViewModel.isSendingFeedback {
+                                        ProgressView().tint(theme.onPrimary)
+                                    } else {
+                                        Text(L.feedbackSend)
+                                            .font(.headline)
+                                    }
                                 }
+                                .foregroundStyle(theme.onPrimary)
+                                .frame(maxWidth: .infinity)
+                                .frame(minHeight: 52)
+                                .background(theme.primary)
+                                .clipShape(Capsule())
                             }
-                            .buttonStyle(.borderedProminent)
-                            .frame(maxWidth: .infinity)
+                            .buttonStyle(BounceButtonStyle())
                             .disabled(!canSend)
+                            .opacity(canSend ? 1.0 : 0.5)
                         }
                         .frame(minHeight: 52)
                     }
