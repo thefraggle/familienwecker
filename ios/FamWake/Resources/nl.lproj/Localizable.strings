@@ -114,8 +114,8 @@
 "settings_delete_account" = "Account verwijderen";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alle rechten voorbehouden.";
-"empty_members_title" = "Nog geen leden";
-"empty_members_description" = "Voeg familieleden toe om jullie ochtend in te plannen.";
+"empty_members_title" = "Jullie familie-wekplanner";
+"empty_members_description" = "Wie gaat wanneer naar de badkamer? Voeg het eerste familielid toe, zodat FamWake automatisch jullie wektijden en badkamervolgorde kan berekenen.";
 "empty_schedule_title" = "Geen actieve wekkers";
 "empty_schedule_description" = "Op dit moment staan er geen wekkers aan. Tijd om uit te slapen!";
 "settings_language_title" = "Taal";

@@ -115,8 +115,8 @@
 "settings_delete_account" = "Elimina account";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Tutti i diritti riservati.";
-"empty_members_title" = "Ancora nessun membro";
-"empty_members_description" = "Aggiungi i membri della famiglia per organizzare la vostra routine mattutina.";
+"empty_members_title" = "Il vostro pianificatore di sveglia familiare";
+"empty_members_description" = "Chi va in bagno e quando? Aggiungi il primo membro della famiglia in modo che FamWake possa calcolare automaticamente i vostri orari di sveglia e l'ordine per il bagno.";
 "empty_schedule_title" = "Nessuna sveglia attiva";
 "empty_schedule_description" = "Al momento non ci sono sveglie accese. È ora di dormire!";
 "settings_language_title" = "Lingua";

@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">保留所有权利。</string>
 
-    <string name="empty_members_title">还没有成员</string>
-    <string name="empty_members_description">添加家庭成员来规划你们的早晨日程。</string>
+    <string name="empty_members_title">您的家庭起床计划</string>
+    <string name="empty_members_description">谁什么时候进浴室？添加第一个家庭成员，让 FamWake 自动计算您的起床时间和浴室使用顺序。</string>
     <string name="empty_schedule_title">没有活跃的闹钟</string>
     <string name="empty_schedule_description">目前没有开启的闹钟。是时候好好睡一觉了！</string>
 

@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Mọi quyền được bảo lưu.</string>
 
-    <string name="empty_members_title">Chưa có thành viên nào</string>
-    <string name="empty_members_description">Thêm các thành viên gia đình để tạo lịch trình buổi sáng của bạn.</string>
+    <string name="empty_members_title">Kế hoạch thức dậy của gia đình bạn</string>
+    <string name="empty_members_description">Ai vào phòng tắm khi nào? Hãy thêm thành viên đầu tiên trong gia đình để FamWake có thể tự động tính toán thời gian thức dậy và thứ tự sử dụng phòng tắm của bạn.</string>
     <string name="empty_schedule_title">Không có báo thức nào đang bật</string>
     <string name="empty_schedule_description">Hiện tại không có báo thức nào được bật. Đã đến lúc ngủ nướng rồi!</string>
 

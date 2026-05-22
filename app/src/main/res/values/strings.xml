@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">All rights reserved.</string>
 
-    <string name="empty_members_title">No members yet</string>
-    <string name="empty_members_description">Add family members to set up your morning schedule.</string>
+    <string name="empty_members_title">Your Family Wake-up Planner</string>
+    <string name="empty_members_description">Who goes to the bathroom when? Add the first family member so FamWake can automatically calculate your wake-up times and bathroom schedule.</string>
     <string name="empty_schedule_title">No active alarms</string>
     <string name="empty_schedule_description">No alarms are turned on right now. Time to sleep in!</string>
 

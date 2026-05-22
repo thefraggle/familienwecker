@@ -116,8 +116,8 @@
 "settings_delete_account" = "Konto löschen";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Alle Rechte vorbehalten.";
-"empty_members_title" = "Noch keine Mitglieder";
-"empty_members_description" = "Füge Familienmitglieder hinzu, um euren Morgen zu planen.";
+"empty_members_title" = "Euer Familien-Weckplaner";
+"empty_members_description" = "Wer geht wann ins Badezimmer? Füge das erste Familienmitglied hinzu, damit FamWake eure Weckzeiten und die Badezimmer-Reihenfolge automatisch berechnen kann.";
 "empty_schedule_title" = "Keine aktiven Wecker";
 "empty_schedule_description" = "Aktuell sind keine Wecker eingeschaltet. Zeit zum Ausschlafen!";
 "settings_language_title" = "Sprache";

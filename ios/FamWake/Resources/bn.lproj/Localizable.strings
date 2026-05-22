@@ -116,8 +116,8 @@
 "settings_delete_account" = "অ্যাকাউন্ট মুছুন";
 "settings_footer_copyright" = "© ২০২৬ ড্যানিয়েল নথফ";
 "settings_footer_rights" = "সর্বস্বত্ব সংরক্ষিত।";
-"empty_members_title" = "এখনো কোনো সদস্য নেই";
-"empty_members_description" = "সকালের রুটিন ঠিক করতে পরিবারের সদস্যদের যোগ করুন।";
+"empty_members_title" = "আপনার পারিবারিক ঘুম থেকে ওঠার পরিকল্পনাকারী";
+"empty_members_description" = "কে কখন বাথরুমে যাবে? প্রথম পরিবারের सदस्यকে যুক্ত করুন যাতে FamWake স্বয়ংক্রিয়ভাবে আপনার ঘুম से ওঠার সময় এবং বাথরুমের ক্রম গণনা করতে পারে।";
 "empty_schedule_title" = "কোনো সক্রিয় অ্যালার্ম নেই";
 "empty_schedule_description" = "এখন কোনো অ্যালার্ম চালু নেই। আরামে ঘুমানোর সময়!";
 "settings_language_title" = "ভাষা";

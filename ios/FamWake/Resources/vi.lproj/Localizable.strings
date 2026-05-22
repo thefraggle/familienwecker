@@ -116,8 +116,8 @@
 "settings_delete_account" = "Xóa tài khoản";
 "settings_footer_copyright" = "© 2026 Daniel Notthoff";
 "settings_footer_rights" = "Mọi quyền được bảo lưu.";
-"empty_members_title" = "Chưa có thành viên nào";
-"empty_members_description" = "Thêm các thành viên gia đình để tạo lịch trình buổi sáng của bạn.";
+"empty_members_title" = "Kế hoạch thức dậy của gia đình bạn";
+"empty_members_description" = "Ai vào phòng tắm khi nào? Hãy thêm thành viên đầu tiên trong gia đình để FamWake có thể tự động tính toán thời gian thức dậy và thứ tự sử dụng phòng tắm của bạn.";
 "empty_schedule_title" = "Không có báo thức nào đang bật";
 "empty_schedule_description" = "Hiện tại không có báo thức nào được bật. Đã đến lúc ngủ nướng rồi!";
 "settings_language_title" = "Ngôn ngữ";

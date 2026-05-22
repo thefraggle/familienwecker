@@ -121,8 +121,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">無断複写・転載を禁じます。</string>
 
-    <string name="empty_members_title">まだメンバーがいません</string>
-    <string name="empty_members_description">家族のメンバーを追加して、朝のスケジュールを作りましょう。</string>
+    <string name="empty_members_title">家族のアラームプランナー</string>
+    <string name="empty_members_description">誰がいつお風呂（洗面所）に行きますか？最初の家族を追加すると、FamWakeが起床時間と浴室の順番を自動的に計算します。</string>
     <string name="empty_schedule_title">アクティブなアラームはありません</string>
     <string name="empty_schedule_description">現在オンになっているアラームはありません。ゆっくり眠りましょう！</string>
 

@@ -116,8 +116,8 @@
 "settings_delete_account" = "अकाउंट हटाएँ";
 "settings_footer_copyright" = "© 2026 डैनियल नॉथऑफ़";
 "settings_footer_rights" = "सर्वाधिकार सुरक्षित।";
-"empty_members_title" = "अभी तक कोई नहीं है";
-"empty_members_description" = "सुबह का रूटीन बनाने के लिए परिवार के सदस्यों को जोड़ें।";
+"empty_members_title" = "आपका पारिवारिक वेक-अप प्लानर";
+"empty_members_description" = "कौन कब बाथरूम जाएगा? परिवार के पहले सदस्य को जोड़ें ताकि FamWake आपके जागने का समय और बाथरूम का क्रम स्वचालित रूप से गणना कर सके।";
 "empty_schedule_title" = "कोई अलार्म चालू नहीं है";
 "empty_schedule_description" = "अभी कोई भी अलार्म चालू नहीं है। आराम से सोने का समय!";
 "settings_language_title" = "भाषा";

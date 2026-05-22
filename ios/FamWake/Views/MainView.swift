@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import Lottie
 
 struct MainView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
@@ -360,6 +361,44 @@ struct MainView: View {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
 
+            // Weekday pills (Android style)
+            HStack(spacing: 4) {
+                let calendar = Calendar.current
+                let symbols = calendar.shortWeekdaySymbols
+                let daysOfWeek = [symbols[1], symbols[2], symbols[3], symbols[4], symbols[5], symbols[6], symbols[0]]
+                
+                ForEach(1...7, id: \.self) { dayValue in
+                    let dayName = daysOfWeek[dayValue - 1]
+                    let isSelected = familyViewModel.selectedDayOfWeek == dayValue
+                    
+                    Button(action: {
+                        if isSelected {
+                            familyViewModel.selectDayOfWeek(nil)
+                        } else {
+                            familyViewModel.selectDayOfWeek(dayValue)
+                        }
+                    }) {
+                        Text(dayName.prefix(2).uppercased())
+                            .font(.caption)
+                            .fontWeight(isSelected ? .bold : .semibold)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 38)
+                            .background(isSelected ? theme.primary : (colorScheme == .dark ? theme.surfaceVariant.opacity(0.3) : theme.surfaceVariant.opacity(0.6)))
+                            .foregroundStyle(isSelected ? theme.onPrimary : theme.onSurfaceVariant)
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle()
+                                    .stroke(isSelected ? theme.primary : theme.outline.opacity(0.1), lineWidth: 1)
+                            )
+                    }
+                    .buttonStyle(BounceButtonStyle())
+                }
+            }
+            .padding(.vertical, 8)
+            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 8, trailing: 16))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+
             if let sched = familyViewModel.schedule {
                 if sched.memberSchedules.isEmpty {
                     EmptyStateView(
@@ -602,11 +641,30 @@ struct MainView: View {
             }
 
             if familyViewModel.members.isEmpty {
-                EmptyStateView(
-                    title: L.emptyMembersTitle,
-                    description: L.emptyMembersDescription,
-                    lottieName: "family"
-                )
+                VStack(spacing: 24) {
+                    LottieView(animation: .named("family"))
+                        .playing(loopMode: .loop)
+                        .animationSpeed(0.7)
+                        .frame(width: 240, height: 240)
+                    
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(L.emptyMembersTitle)
+                            .font(.title3).fontWeight(.bold)
+                            .foregroundStyle(Color(red: 28/255, green: 27/255, blue: 31/255))
+                        
+                        Text(L.emptyMembersDescription)
+                            .font(.subheadline)
+                            .foregroundStyle(Color(red: 50/255, green: 49/255, blue: 51/255))
+                            .lineSpacing(4)
+                    }
+                    .padding(24)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(red: 255/255, green: 249/255, blue: 196/255))
+                    .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                    .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
+                    .rotationEffect(.degrees(-1.5))
+                    .padding(.horizontal, 4)
+                }
                 .padding(.vertical, 20)
             } else {
                 ForEach(familyViewModel.members) { member in

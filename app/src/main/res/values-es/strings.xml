@@ -119,8 +119,8 @@
     <string name="settings_footer_copyright">© 2026 Daniel Notthoff</string>
     <string name="settings_footer_rights">Todos los derechos reservados.</string>
 
-    <string name="empty_members_title">Aún no hay nadie</string>
-    <string name="empty_members_description">Añade a tu familia para organizar vuestras mañanas.</string>
+    <string name="empty_members_title">Vuestro planificador de despertar familiar</string>
+    <string name="empty_members_description">¿Quién va al baño y cuándo? Añade al primer miembro de la familia para que FamWake possa calcular automáticamente vuestros horarios de mañana y el orden del baño.</string>
     <string name="empty_schedule_title">Sin alarmas activas</string>
     <string name="empty_schedule_description">No hay ninguna alarma encendida en este momento. ¡Es hora de dormir a pierna suelta!</string>
 
