@@ -118,8 +118,8 @@
 "settings_footer_rights" = "Todos os direitos reservados.";
 "empty_members_title" = "O vosso planeador de despertar familiar";
 "empty_members_description" = "Quem vai à casa de banho e quando? Adicione o primeiro membro da família para que o FamWake possa calcular automaticamente as vossas horas de acordar e a ordem da casa de banho.";
-"empty_schedule_title" = "Sem alarmes ativos";
-"empty_schedule_description" = "Nenhum alarme está ligado no momento. Hora de dormir até mais tarde!";
+"empty_schedule_title" = "Nenhum alarme programado";
+"empty_schedule_description" = "Nenhum alarme tocará neste dia. Tempo para relaxar e dormir até mais tarde!";
 "settings_language_title" = "Idioma";
 "settings_language_system" = "Padrão do sistema";
 "settings_appearance_title" = "Aparência";
@@ -306,5 +306,4 @@
 "onboarding_enable_tooltips" = "Mostrar dicas úteis no primeiro uso";
 "simple_mode_title" = "Modo simples";
 "simple_mode_desc" = "Hora de acordar fixa sem margem ou cálculo de turnos no banheiro.";
-
 "tooltip_buffer" = "O itálico significa que o buffer familiar está ativo. Altere-o para definir um buffer pessoal para hoje.";

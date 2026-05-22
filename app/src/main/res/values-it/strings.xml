@@ -122,8 +122,8 @@
 
     <string name="empty_members_title">Il vostro pianificatore di sveglia familiare</string>
     <string name="empty_members_description">Chi va in bagno e quando? Aggiungi il primo membro della famiglia in modo che FamWake possa calcolare automaticamente i vostri orari di sveglia e l\'ordine per il bagno.</string>
-    <string name="empty_schedule_title">Nessuna sveglia attiva</string>
-    <string name="empty_schedule_description">Al momento non ci sono sveglie accese. È ora di dormire!</string>
+    <string name="empty_schedule_title">Nessuna sveglia in programma</string>
+    <string name="empty_schedule_description">Nessuna sveglia suonerà in questo giorno. Tempo di rilassarsi e dormire di più!</string>
 
     <string name="settings_language_title">Lingua</string>
     <string name="settings_language_system">Sistema predefinito</string>

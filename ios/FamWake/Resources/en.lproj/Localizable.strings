@@ -118,8 +118,8 @@
 "settings_footer_rights" = "All rights reserved.";
 "empty_members_title" = "Your Family Wake-up Planner";
 "empty_members_description" = "Who goes to the bathroom when? Add the first family member so FamWake can automatically calculate your wake-up times and bathroom schedule.";
-"empty_schedule_title" = "No active alarms";
-"empty_schedule_description" = "No alarms are turned on right now. Time to sleep in!";
+"empty_schedule_title" = "No alarms planned";
+"empty_schedule_description" = "No alarm will ring on this day. Time to relax and sleep in!";
 "settings_language_title" = "Language";
 "settings_language_system" = "System default";
 "settings_appearance_title" = "Look";
@@ -307,5 +307,4 @@
 "settings_no_profile" = "No profile";
 "simple_mode_title" = "Simple Mode";
 "simple_mode_desc" = "Fixed wake-up time without buffer or bathroom slot calculation.";
-
 "tooltip_buffer" = "Italics mean the family buffer is active. Change it to set a personal buffer for today.";

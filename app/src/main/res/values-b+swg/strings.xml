@@ -122,8 +122,8 @@
 
     <string name="empty_members_title">Eier Familien-Weckplaner</string>
     <string name="empty_members_description">Wer goht wann ens Bad? Do s erschte Familienmitglied drzua, damit FamWake eire Weckzeida ond d\'Bad-Reihefolg automatisch berechna koh.</string>
-    <string name="empty_schedule_title">Koi aktiver Wegger</string>
-    <string name="empty_schedule_description">Zom Glick isch koin Wegger gstellt. Zeit zom Ausschlafa!</string>
+    <string name="empty_schedule_title">Koine Wecker plant</string>
+    <string name="empty_schedule_description">An dem Dag schellt koin Wecker. Zeit zom Entspanna ond Ausschlofa!</string>
 
     <string name="settings_language_title">Sproch</string>
     <string name="settings_language_system">System-Standard</string>

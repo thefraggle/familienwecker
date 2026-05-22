@@ -118,8 +118,8 @@
 "settings_footer_rights" = "Mọi quyền được bảo lưu.";
 "empty_members_title" = "Kế hoạch thức dậy của gia đình bạn";
 "empty_members_description" = "Ai vào phòng tắm khi nào? Hãy thêm thành viên đầu tiên trong gia đình để FamWake có thể tự động tính toán thời gian thức dậy và thứ tự sử dụng phòng tắm của bạn.";
-"empty_schedule_title" = "Không có báo thức nào đang bật";
-"empty_schedule_description" = "Hiện tại không có báo thức nào được bật. Đã đến lúc ngủ nướng rồi!";
+"empty_schedule_title" = "Không có báo thức nào được lên lịch";
+"empty_schedule_description" = "Sẽ không có chuông báo thức nào reo vào ngày này. Đã đến lúc thư giãn và ngủ nướng!";
 "settings_language_title" = "Ngôn ngữ";
 "settings_language_system" = "Mặc định hệ thống";
 "settings_appearance_title" = "Giao diện";
@@ -306,5 +306,4 @@
 "onboarding_enable_tooltips" = "Hiển thị các mẹo hữu ích trong lần sử dụng đầu tiên";
 "simple_mode_title" = "Chế độ đơn giản";
 "simple_mode_desc" = "Giờ thức dậy cố định, không tính thời gian đệm hoặc thời gian dùng phòng tắm.";
-
 "tooltip_buffer" = "Chữ in nghiêng có nghĩa là thời gian dự phòng gia đình đang hoạt động. Hãy thay đổi nó để đặt thời gian dự phòng cá nhân cho hôm nay.";

@@ -118,8 +118,8 @@
 "settings_footer_rights" = "Tous droits réservés.";
 "empty_members_title" = "Votre planificateur de réveil familial";
 "empty_members_description" = "Qui va à la salle de bain et quand ? Ajoutez le premier membre de la famille pour que FamWake puisse calculer automatiquement vos heures de réveil et l'ordre de passage à la salle de bain.";
-"empty_schedule_title" = "Aucun réveil actif";
-"empty_schedule_description" = "Aucun réveil n'est allumé en ce moment. C'est l'heure de faire la grasse matinée !";
+"empty_schedule_title" = "Aucun réveil prévu";
+"empty_schedule_description" = "Aucun réveil ne sonnera ce jour-là. C'est le moment de se détendre et de faire la grasse matinée !";
 "settings_language_title" = "Langue";
 "settings_language_system" = "Langue du système";
 "settings_appearance_title" = "Apparence";
@@ -306,5 +306,4 @@
 "onboarding_enable_tooltips" = "Afficher des conseils utiles lors de la première utilisation";
 "simple_mode_title" = "Mode simple";
 "simple_mode_desc" = "Heure de réveil fixe sans marge ni calcul du temps de passage à la salle de bain.";
-
 "tooltip_buffer" = "L'italique signifie que la marge familiale est active. Modifiez-la pour définir une marge personnelle pour aujourd'hui.";

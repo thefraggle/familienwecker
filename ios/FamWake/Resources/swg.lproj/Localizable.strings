@@ -117,8 +117,8 @@
 "settings_footer_rights" = "Älle Rechte gschützt.";
 "empty_members_title" = "Eier Familien-Weckplaner";
 "empty_members_description" = "Wer goht wann ens Bad? Do s erschte Familienmitglied drzua, damit FamWake eire Weckzeida ond d'Bad-Reihefolg automatisch berechna koh.";
-"empty_schedule_title" = "Koi aktiver Wegger";
-"empty_schedule_description" = "Zom Glick isch koin Wegger gstellt. Zeit zom Ausschlafa!";
+"empty_schedule_title" = "Koine Wecker plant";
+"empty_schedule_description" = "An dem Dag schellt koin Wecker. Zeit zom Entspanna ond Ausschlofa!";
 "settings_language_title" = "Sproch";
 "settings_language_system" = "System-Standard";
 "settings_appearance_title" = "Ausseha";
@@ -306,5 +306,4 @@
 "onboarding_mock_name2" = "Mama";
 "simple_mode_title" = "Oifacher Modus";
 "simple_mode_desc" = "Feschde Weckzeit ohne Puffer oder s'Ausrechna vo de Badzeita.";
-
 "tooltip_buffer" = "Kursiv hoißt: Dr Familien-Puffer isch aktiv. Ändr des, um an oigenen Puffer fir heit zom setza.";

@@ -118,8 +118,8 @@
 "settings_footer_rights" = "Alle Rechte vorbehalten.";
 "empty_members_title" = "Euer Familien-Weckplaner";
 "empty_members_description" = "Wer geht wann ins Badezimmer? Füge das erste Familienmitglied hinzu, damit FamWake eure Weckzeiten und die Badezimmer-Reihenfolge automatisch berechnen kann.";
-"empty_schedule_title" = "Keine aktiven Wecker";
-"empty_schedule_description" = "Aktuell sind keine Wecker eingeschaltet. Zeit zum Ausschlafen!";
+"empty_schedule_title" = "Keine Wecker geplant";
+"empty_schedule_description" = "An diesem Tag klingelt kein Wecker. Zeit zum Entspannen und Ausschlafen!";
 "settings_language_title" = "Sprache";
 "settings_language_system" = "System-Standard";
 "settings_appearance_title" = "Erscheinungsbild";
@@ -307,5 +307,4 @@
 "settings_no_profile" = "Kein Profil";
 "simple_mode_title" = "Einfacher Modus";
 "simple_mode_desc" = "Feste Weckzeit ohne Puffer oder Berechnung der Badezimmerzeiten.";
-
 "tooltip_buffer" = "Kursiv bedeutet: Der Familien-Puffer ist aktiv. Ändere ihn, um einen persönlichen Puffer für heute zu setzen.";

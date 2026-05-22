@@ -123,8 +123,8 @@
 
     <string name="empty_members_title">Euer Familien-Weckplaner</string>
     <string name="empty_members_description">Wer geht wann ins Badezimmer? Füge das erste Familienmitglied hinzu, damit FamWake eure Weckzeiten und die Badezimmer-Reihenfolge automatisch berechnen kann.</string>
-    <string name="empty_schedule_title">Keine aktiven Wecker</string>
-    <string name="empty_schedule_description">Aktuell sind keine Wecker eingeschaltet. Zeit zum Ausschlafen!</string>
+    <string name="empty_schedule_title">Keine Wecker geplant</string>
+    <string name="empty_schedule_description">An diesem Tag klingelt kein Wecker. Zeit zum Entspannen und Ausschlafen!</string>
 
     <string name="settings_language_title">Sprache</string>
     <string name="settings_language_system">System-Standard</string>

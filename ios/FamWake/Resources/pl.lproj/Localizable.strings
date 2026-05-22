@@ -116,8 +116,8 @@
 "settings_footer_rights" = "Wszelkie prawa zastrzeżone.";
 "empty_members_title" = "Wasz rodzinny planista budzenia";
 "empty_members_description" = "Kto i kiedy idzie do łazienki? Dodaj pierwszego członka rodziny, aby FamWake mógł automatycznie obliczyć Wasze godziny budzenia i kolejność korzystania z łazienki.";
-"empty_schedule_title" = "Brak aktywnych alarmów";
-"empty_schedule_description" = "W tej chwili nie ma włączonych alarmów. Czas odpocząć!";
+"empty_schedule_title" = "Brak zaplanowanych alarmów";
+"empty_schedule_description" = "Tego dnia nie zadzwoni żaden budzik. Czas na relaks i sen!";
 "settings_language_title" = "Język";
 "settings_language_system" = "Domyślny systemowy";
 "settings_appearance_title" = "Wygląd";
@@ -306,5 +306,4 @@
 "settings_share_code_locked" = "Zaloguj się, aby udostępnić swój kod zaproszenia.";
 "simple_mode_title" = "Tryb prosty";
 "simple_mode_desc" = "Stała godzina pobudki bez marginesu czasowego i obliczania czasu w łazience.";
-
 "tooltip_buffer" = "Kursywa oznacza, że bufor rodzinny jest aktywny. Zmień go, aby ustawić osobisty bufor na dzisiaj.";

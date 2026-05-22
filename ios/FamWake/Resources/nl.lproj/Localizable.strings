@@ -116,8 +116,8 @@
 "settings_footer_rights" = "Alle rechten voorbehouden.";
 "empty_members_title" = "Jullie familie-wekplanner";
 "empty_members_description" = "Wie gaat wanneer naar de badkamer? Voeg het eerste familielid toe, zodat FamWake automatisch jullie wektijden en badkamervolgorde kan berekenen.";
-"empty_schedule_title" = "Geen actieve wekkers";
-"empty_schedule_description" = "Op dit moment staan er geen wekkers aan. Tijd om uit te slapen!";
+"empty_schedule_title" = "Geen wekkers gepland";
+"empty_schedule_description" = "Op deze dag gaat er geen wekker af. Tijd om te ontspannen und uit te slapen!";
 "settings_language_title" = "Taal";
 "settings_language_system" = "Systeemstandaard";
 "settings_appearance_title" = "Uiterlijk";
@@ -306,5 +306,4 @@
 "settings_share_code_locked" = "Log in om je uitnodigingscode te delen.";
 "simple_mode_title" = "Eenvoudige modus";
 "simple_mode_desc" = "Vaste wektijd zonder marge of berekening van badkamertijd.";
-
 "tooltip_buffer" = "Cursief betekent dat de familie-buffer actief is. Pas dit aan om een persoonlijke buffer voor vandaag in te stellen.";
