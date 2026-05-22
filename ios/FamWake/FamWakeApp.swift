@@ -8,11 +8,9 @@ import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        FirebaseApp.configure()
         if let clientID = FirebaseApp.app()?.options.clientID {
             GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
         }
-        RevenueCatService.configure()
         
         let configuration = TelemetryManagerConfiguration(appID: "REDACTED_TELEMETRYDECK_ID")
         TelemetryManager.initialize(with: configuration)
@@ -179,6 +177,8 @@ struct FamWakeApp: App {
     @StateObject private var donationViewModel = DonationViewModel()
 
     init() {
+        FirebaseApp.configure()
+        RevenueCatService.configure()
         // Adjust large title font size to prevent truncation of long translated app names
         UINavigationBar.appearance().largeTitleTextAttributes = [
             .font: UIFont.systemFont(ofSize: 28, weight: .bold)
