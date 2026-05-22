@@ -2,6 +2,16 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.8 – 2026-05-22
+### New
+- **Weekday schedules** – Customize bathroom order and wake-up times for each day of the week.
+- **New Empty State** – Refreshed design and clearer help texts for days without scheduled alarms.
+
+### Improved
+- **Warning banner relocated** – The notice for unregistered profiles/missing alarms has been moved directly below the optimal plan card.
+
+---
+
 ## 1.9.7 – 2026-05-22
 ### Improved
 - **App startup stability** – Fixed a rare crash that could occur under certain conditions when opening the app.
