@@ -2,6 +2,16 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.8 – 2026-05-22
+### Neu
+- **Wochentagspläne** – Drag-&-Drop-Reihenfolge und Weckzeiten können jetzt für jeden Wochentag individuell angepasst werden.
+- **Neuer Empty State** – Überarbeitetes Design und verständlichere Hinweistexte für Tage ohne geplante Wecker.
+
+### Verbessert
+- **Warnbanner verschoben** – Der Hinweis für unregistrierte Profile/fehlende Wecker wurde direkt unter die Plan-Kachel verschoben.
+
+---
+
 ## 1.9.7 – 2026-05-22
 ### Verbessert
 - **Stabilität beim App-Start** – Ein seltener Fehler, der unter bestimmten Bedingungen beim Öffnen der App zu einem Absturz führen konnte, wurde behoben.
