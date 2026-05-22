@@ -48,9 +48,6 @@ struct MainView: View {
                         noProfileWarning
                     }
 
-                    // Unclaimed first member warning (Android MainScreen.kt:517-528)
-                    unclaimedFirstWarning
-
                     // Schedule
                     scheduleSection
 
@@ -505,6 +502,8 @@ struct MainView: View {
                         .famWakeCard(cornerRadius: 24, isDark: colorScheme == .dark)
                         .padding(.bottom, 12)
                     }
+
+                    unclaimedFirstWarning
 
                     // Tooltip B (Drag)
                     if sched.memberSchedules.count > 1 && familyViewModel.tooltipsEnabled && !familyViewModel.tooltipDragSeen {
