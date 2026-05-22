@@ -8,14 +8,15 @@ import de.familienwecker.famwake.data.AppSettings
 
 object ReviewHelper {
     private const val TAG = "ReviewHelper"
-    private const val SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000L
-    private const val THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000L
+    private const val THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000L
+    private const val NINE_DAYS_MS = 9 * 24 * 60 * 60 * 1000L
+    private const val FIVE_DAYS_MS = 5 * 24 * 60 * 60 * 1000L
 
     /**
      * Prüft ob die Bedingungen für den automatischen Review-Prompt erfüllt sind:
-     * - Mindestens 7 Tage seit Erstinstallation (User hat die App genug kennengelernt)
-     * - Nicht zwischen 6–9 Uhr morgens (User will nicht gestört werden nach dem Aufstehen)
-     * - Nicht erneut innerhalb von 30 Tagen (Spam-Schutz; Play API limitiert zusätzlich)
+     * - Mindestens 3 Tage seit Erstinstallation für den ersten Prompt.
+     * - Mindestens 9 Tage seit Erstinstallation für den zweiten Prompt (falls der erste Prompt vor Tag 9 lag und mindestens 5 Tage vergangen sind).
+     * - Nicht zwischen 6–9 Uhr morgens (User will nach dem Aufstehen nicht gestört werden).
      */
     fun shouldShowReview(prefs: AppSettings): Boolean {
         val now = System.currentTimeMillis()
@@ -27,18 +28,34 @@ object ReviewHelper {
             return false
         }
 
-        val longEnoughInstalled = (now - installTime) >= SEVEN_DAYS_MS
-
         // Morgensperre: zwischen 6:00 und 9:00 Uhr kein Review-Prompt
         val currentHour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)
         val notMorning = currentHour < 6 || currentHour >= 9
+        if (!notMorning) {
+            if (BuildConfig.DEBUG) Log.d(TAG, "shouldShowReview: Blocked during morning hours (6-9)")
+            return false
+        }
 
         val lastPromptTime = prefs.lastReviewPromptTime.value
-        val notRecentlyPrompted = (now - lastPromptTime) >= THIRTY_DAYS_MS
+        val timeSinceInstall = now - installTime
 
-        val shouldShow = longEnoughInstalled && notMorning && notRecentlyPrompted
+        val shouldShow = if (lastPromptTime == 0L) {
+            timeSinceInstall >= THREE_DAYS_MS
+        } else {
+            val firstPromptTimeSinceInstall = lastPromptTime - installTime
+            val timeSinceLastPrompt = now - lastPromptTime
+            timeSinceInstall >= NINE_DAYS_MS && 
+                    firstPromptTimeSinceInstall < NINE_DAYS_MS && 
+                    timeSinceLastPrompt >= FIVE_DAYS_MS
+        }
         
-        if (BuildConfig.DEBUG) Log.d(TAG, "shouldShowReview: installed7d=$longEnoughInstalled, notMorning=$notMorning(h=$currentHour), cooldown30d=$notRecentlyPrompted -> $shouldShow")
+        if (BuildConfig.DEBUG) {
+            Log.d(
+                TAG,
+                "shouldShowReview: timeSinceInstall=${timeSinceInstall / 1000 / 60}m, " +
+                        "lastPromptTime=$lastPromptTime -> shouldShow=$shouldShow"
+            )
+        }
         return shouldShow
     }
 

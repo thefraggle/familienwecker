@@ -82,6 +82,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.core.content.ContextCompat
+import androidx.activity.compose.BackHandler
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -97,6 +98,19 @@ fun SettingsScreen(
     onNavigateToLogin: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val activity = remember(context) { context.findActivity() }
+    
+    val handleBack = {
+        activity?.let {
+            viewModel.checkAndShowReview(it)
+        }
+        onNavigateBack()
+    }
+
+    BackHandler(enabled = true) {
+        handleBack()
+    }
+
     val members by viewModel.members.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val alarmSoundUri by viewModel.alarmSoundUri.collectAsStateWithLifecycle()
@@ -193,7 +207,7 @@ fun SettingsScreen(
                 navigationIcon = {
                     val backInteractionSource = remember { MutableInteractionSource() }
                     IconButton(
-                        onClick = onNavigateBack,
+                        onClick = handleBack,
                         modifier = Modifier.bounceClick(backInteractionSource),
                         interactionSource = backInteractionSource
                     ) {

@@ -2,25 +2,32 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.7 – 2026-05-22
+### Verbessert
+- **Stabilität beim App-Start** – Ein seltener Fehler, der unter bestimmten Bedingungen beim Öffnen der App zu einem Absturz führen konnte, wurde behoben.
+- **Optimierte Feedback-Fragen** – Die Bitte um eine App-Bewertung erfolgt nun zu passenderen Zeitpunkten, ohne den morgendlichen Ablauf zu stören.
+
+---
+
 ## 1.9.6 – 2026-05-21
 ### Neu
 - **Puffer-Erklärung (Tooltip)** – Ein neuer Infotext erklärt leicht verständlich die Funktionsweise des Familien-Puffers im Badezimmer.
 
 ### Verbessert
-- **Fehlerfreier App-Start (iOS)** – Ein Absturz beim Kaltstart der App über das Klicken einer Wecker-Mitteilung wurde behoben.
-- **Einstellungen sicherer speichern (Android)** – Migration auf die modernere Datenspeicher-Technologie (DataStore) zur noch sichereren Verwahrung von App-Einstellungen.
-- **Optischer Feinschliff** – Farben der Tooltips wurden an das Schlaf-Theme angepasst. Buttons, die unter iOS abgeschnitten waren, wurden korrigiert und der Kontrast im hellen Design verbessert.
+- **Fehlerfreier App-Start** – Ein Absturz beim Kaltstart der App über das Klicken einer Wecker-Mitteilung wurde behoben.
+- **Einstellungen sicherer speichern** – Die Speicherung der App-Einstellungen wurde im Hintergrund modernisiert, um deine Daten noch zuverlässiger zu sichern.
+- **Optischer Feinschliff** – Farben der Tooltips wurden an das Schlaf-Theme angepasst. Mögliche Text-Abschneidungen bei Tasten wurden korrigiert und der Kontrast im hellen Design verbessert.
 
 ---
 
 ## 1.9.5 – 2026-05-20
 ### Neu
 - **Einfacher Modus** – Für Familienmitglieder, die keine feste Badezimmer-Reihenfolge benötigen oder außerhalb des üblichen Ablaufes aufstehen. Der einfache Modus blendet alle erweiterten Einstellungen aus und weckt starr zur Wunschzeit.
-- **iOS Feature Parity** – Die iOS-Version von FamWake hat nun Feature-Parität mit Android, inklusive vollständiger Push-Benachrichtigungen, Deep-Links zum Teilen der Familie und synchroner UI-Skalierung für Barrierefreiheit.
-- **Auto-Recover** – Unter iOS wird der Familienstatus nach einer Neuinstallation automatisch über den Keychain wiederhergestellt, sodass man nicht mehr manuell beitreten muss.
+- **Voller Funktionsumfang** – FamWake bietet nun auf allen unterstützten Plattformen den gleichen Funktionsumfang, inklusive vollständiger Push-Benachrichtigungen, Deep-Links zum Teilen der Familie und synchroner UI-Skalierung für Barrierefreiheit.
+- **Automatische Wiederherstellung** – Der Familienstatus wird nach einer Neuinstallation automatisch im Hintergrund wiederhergestellt, sodass man nicht mehr manuell beitreten muss.
 
 ### Verbessert
-- **Schnelleres Teilen (iOS)** – Der Teilen-Button für den Familiencode reagiert nun sofort und ohne Verzögerung auf den Login-Status.
+- **Schnelleres Teilen** – Der Teilen-Button für den Familiencode reagiert nun sofort und ohne Verzögerung auf den Login-Status.
 - **Zuverlässiges Löschen** – Wenn dein Profil von einem anderen Gerät aus gelöscht wird, deaktiviert die App die Wecker auf deinem Gerät nun sofort und zuverlässig.
 
 ---
@@ -166,7 +173,7 @@
 ## 1.3.0 – 2026-03-17
 
 ### Neu
-- **⭐ App bewerten** – Direktes Bewerten im Play Store aus der App heraus.
+- **⭐ App bewerten** – Direktes Bewerten direkt aus der App heraus.
 
 ### Verbessert
 - Deaktivierte Tage werden deutlicher optisch hervorgehoben.

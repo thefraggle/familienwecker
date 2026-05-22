@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.6
-**Datum:** 2026-05-21
+**Version:** 1.9.7
+**Datum:** 2026-05-22
 
 ---
 
@@ -22,16 +22,15 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-20 | Profil-Verwaltung | Erstes Mitglied auto-geclaimt (Wecker-Schalter sofort an). Ein fremdes Profil kann übernommen werden (Claim Stealing). Beim Claim wird `deviceAlarmEnabled` in Room + Firestore sofort auf `true` gesetzt, damit der Zeitplan direkt berechnet wird. Bearbeiten und Pausieren funktioniert fehlerfrei. |
-| TC-20b | Profil nach Neuinstallation | App deinstallieren → neu installieren → einloggen. Profil wird NICHT automatisch übernommen (neue Device-ID). Nach manuellem Claim: Weckplan erscheint sofort, kein manuelles Toggle nötig. |
+| TC-20 | Profil-Verwaltung & Neuinstallation | Erstes Mitglied auto-geclaimt (Wecker-Schalter sofort an). Ein fremdes Profil kann übernommen werden (Claim Stealing). Beim Claim wird `deviceAlarmEnabled` in Room + Firestore sofort auf `true` gesetzt. Bei Neuinstallation wird das Profil wegen neuer Device-ID nicht auto-geclaimt; nach manuellem Claim erscheint der Weckplan sofort ohne manuelles Wecker-Togglen. Bearbeiten und Pausieren funktioniert fehlerfrei. |
 | TC-21 | Wochentag-Validierung | latestWakeUp ≤ earliestWakeUp blockiert Speichern. Zügiges Sliden erzeugt keine Sync-Fehler. |
 | TC-22 | Listen-Organisation | Drag & Drop speichert Reihenfolge. Warnbanner erscheint, wenn Position 1 ungeclaimt ist. |
-| TC-23 | Puffer nach Bad (global) | Stepper unter "Familienmitglieder" ändert Puffer in 5er-Schritten (0–15 min). Wert wird in Firestore gespeichert und auf anderen Geräten synchronisiert. |
-| TC-24 | Puffer nach Bad (individuell) | Im Mitglieder-Editor: Stepper zeigt globalen Wert kursiv. Override setzt eigenen Wert (bold). Zurückstufen auf globalen Wert zeigt wieder kursiv. Persist nach App-Neustart. |
+| TC-23 | Puffer nach Bad (global & individuell) | Stepper unter "Familienmitglieder" ändert globalen Puffer (0–15 Min) in 5er-Schritten. Im Mitglieder-Editor wird der globale Wert kursiv angezeigt. Ein persönlicher Override setzt den eigenen Puffer (fett), das Zurücksetzen stellt die Vererbung wieder her (kursiv). Werte synchronisieren und persistieren nach App-Neustart. |
 | TC-25 | Familie einladen | Share-Button über dem Hinzufügen-Button öffnet System-Share-Dialog mit Familien-Link. Nur für eingeloggte Nutzer sichtbar. |
 | TC-26 | Zeitformat 12h/24h | Uhrzeiten folgen der Geräteeinstellung. Wechsel in den Systemeinstellungen wirkt sofort nach Rückkehr zur App. |
 | TC-27 | Einfacher Modus | Im Mitglieder-Editor: Aktivieren blendet alle erweiterten Optionen (Baddauer, Puffer, Frühstück etc.) aus und zeigt nur noch die Aufstehzeit. Scheduler weist feste Weckzeit zu, ohne das Zeitfenster zu verschieben oder zu jonglieren. Speichern funktioniert und Zeitplan aktualisiert sich. |
 | TC-28 | Profil-Löschung auf Fremdgerät | Ein geclaimtes Profil wird von einem anderen Gerät aus gelöscht. Das betroffene Gerät entkoppelt sich sofort (Wecker aus, myMemberId = nil) und kehrt in den ungeclaimten Zustand zurück. |
+| TC-29 | In-App Review Workflow | Erstmalige Aufforderung nach 3 Tagen und nur nach Verlassen der Einstellungen oder Speichern eines Mitglieds, nicht zur Weckzeit (6-9 Uhr). Zweite Aufforderung nach 9 Tagen (mit mind. 5 Tagen Abstand zur ersten), falls noch keine Bewertung abgegeben wurde. |
 
 ### 3. Wecker, Alarm & Berechtigungen
 | ID | Testfall | Erwartetes Ergebnis |
@@ -54,9 +53,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 
 ### Konflikte & Systemgrenzen
 | ID | Testfall | Erwartetes Ergebnis |
-|:---|:---|:---|
-| EC-01 | Zeit-Konflikte | Unmögliche Pläne oder zu knappe Fenster zeigen Kompromissvorschläge. Zeitumstellung und Mitternachts-Alarme korrekt berechnet. AutoFix dehnt die Zeiten intelligent aus und berechnet sofort neu (Optimistic UI). |
-| EC-04 | Puffer-Konflikte | Bei zu knappen Zeitfenstern reduziert der Scheduler den Puffer automatisch (BufferReduced-Meldung). Erst danach greift Zeitverschiebung / Frühstücksreduktion. |
+| EC-01 | Zeit- & Puffer-Konflikte | Unmögliche Pläne oder zu knappe Fenster zeigen Kompromissvorschläge. AutoFix dehnt die Zeiten intelligent aus und berechnet sofort neu (Optimistic UI). Bei knappen Zeitfenstern reduziert der Scheduler den Puffer automatisch (BufferReduced-Meldung), bevor Zeitverschiebung/Frühstücksreduktion greifen. Zeitumstellung und Mitternachts-Alarme korrekt berechnet. |
 | EC-02 | Offline-Betrieb | CloudOff-Icon bei Disconnect. Kein Absturz bei SSL/Netzwerk-Fehlern (korrekte Fehlermeldung). Re-Sync nach Reconnect. |
 | EC-03 | Backend-Schutz | Zugriff auf fremde Profile oder Feedback ohne Auth liefert `PERMISSION_DENIED`. |
 
