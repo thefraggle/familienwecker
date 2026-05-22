@@ -171,14 +171,21 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 struct FamWakeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @StateObject private var appState = AppState()
+    // Statische Initialisierung, die vor der Zuweisung aller Properties läuft
+    private static var sdkInit: Void = {
+        FirebaseApp.configure()
+        RevenueCatService.configure()
+    }()
+    
+    @StateObject private var appState: AppState = {
+        _ = FamWakeApp.sdkInit
+        return AppState()
+    }()
     @StateObject private var authViewModel = AuthViewModel()
     @StateObject private var familyViewModel = FamilyViewModel()
     @StateObject private var donationViewModel = DonationViewModel()
 
     init() {
-        FirebaseApp.configure()
-        RevenueCatService.configure()
         // Adjust large title font size to prevent truncation of long translated app names
         UINavigationBar.appearance().largeTitleTextAttributes = [
             .font: UIFont.systemFont(ofSize: 28, weight: .bold)
