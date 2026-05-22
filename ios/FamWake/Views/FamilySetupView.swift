@@ -4,18 +4,19 @@ struct FamilySetupView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @EnvironmentObject var appState: AppState
+    @Environment(\.colorScheme) private var colorScheme
 
     @State private var isCreateMode = true
     @State private var familyName = ""
     @State private var joinCode = ""
     @State private var isLoading = false
 
-    private var theme: FamWakeTheme { FamWakeTheme.current(for: appState.colorScheme) }
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     var body: some View {
         ZStack {
             LinearGradient(
-                colors: appState.colorScheme == .dark
+                colors: colorScheme == .dark
                     ? [theme.surface, theme.background]
                     : [theme.primaryContainer.opacity(0.5), theme.background],
                 startPoint: .top, endPoint: .bottom
@@ -123,7 +124,7 @@ struct FamilySetupView: View {
                     }
                 }
                 .padding(20)
-                .famWakeCard(cornerRadius: 32, isDark: appState.colorScheme == .dark)
+                .famWakeCard(cornerRadius: 32, isDark: colorScheme == .dark)
                 .padding(.horizontal, 24)
 
                 Spacer().frame(height: 32)
