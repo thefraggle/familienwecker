@@ -1231,6 +1231,9 @@ class FamilyViewModel: ObservableObject {
                     if newLatest < s.wakeUpTime {
                         newLatest = s.wakeUpTime
                     }
+                    if newLatest < newEarliest {
+                        newLatest = newEarliest
+                    }
 
                     var newProfile = currentProfile
                     newProfile.earliestWakeUp = newEarliest
@@ -1247,6 +1250,9 @@ class FamilyViewModel: ObservableObject {
                 }
                 if newTopLatest < s.wakeUpTime {
                     newTopLatest = s.wakeUpTime
+                }
+                if newTopLatest < newTopEarliest {
+                    newTopLatest = newTopEarliest
                 }
 
                 member.earliestWakeUp = newTopEarliest

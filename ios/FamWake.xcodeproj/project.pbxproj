@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12C43A1CE9835BFBF3EDA916 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */; };
+		22FA8F237A30F464EE608DC4 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F4EE56F9FF20E4C1CE93CC62 /* FirebaseCore */; };
 		A10000012F80000000000001 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = A10000002F80000000000001 /* FirebaseMessaging */; };
 		A10000032F80000000000002 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A10000022F80000000000002 /* GoogleSignIn */; };
 		A10000052F80000000000003 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A10000042F80000000000003 /* GoogleSignInSwift */; };
@@ -39,6 +41,7 @@
 /* Begin PBXFileReference section */
 		C28246152F75628D00F033BE /* FamWake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamWake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C28246242F7564CE00F033BE /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = shared.xcframework; path = ../shared/build/XCFrameworks/debug/shared.xcframework; sourceTree = "<group>"; };
+		EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "FamWake/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -66,6 +69,7 @@
 				A10000112F80000000000006 /* RevenueCat in Frameworks */,
 				A10000132F80000000000007 /* RevenueCatUI in Frameworks */,
 				D9E397B67FB6C87EB189A629 /* TelemetryClient in Frameworks */,
+				22FA8F237A30F464EE608DC4 /* FirebaseCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +82,7 @@
 				C28246172F75628D00F033BE /* FamWake */,
 				C28246232F7564CD00F033BE /* Frameworks */,
 				C28246162F75628D00F033BE /* Products */,
+				EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,6 +135,7 @@
 				A10000102F80000000000006 /* RevenueCat */,
 				A10000122F80000000000007 /* RevenueCatUI */,
 				3AD823F7111777B38960809E /* TelemetryClient */,
+				F4EE56F9FF20E4C1CE93CC62 /* FirebaseCore */,
 			);
 			productName = FamWake;
 			productReference = C28246152F75628D00F033BE /* FamWake.app */;
@@ -205,6 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12C43A1CE9835BFBF3EDA916 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +388,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.9.9;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.familienwecker.FamWake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -416,6 +426,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.9.9;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.familienwecker.FamWake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -551,6 +564,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C24673F02F7586810060DFFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
+		};
+		F4EE56F9FF20E4C1CE93CC62 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C24673F02F7586810060DFFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

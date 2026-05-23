@@ -405,28 +405,68 @@ struct MainView: View {
                     )
                 } else {
                     if !sched.isValid {
-                        // Error Card with AutoFix
+                        // Error Card with AutoFix (styled matching Android)
+                        let cardColor = colorScheme == .dark ? Color.snoozeAmberDark.opacity(0.8) : Color.snoozeAmberLight.opacity(0.9)
+                        let textColor = colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight
+                        
                         VStack(alignment: .leading, spacing: 8) {
-                            HStack {
+                            HStack(spacing: 8) {
                                 Image(systemName: "exclamationmark.triangle.fill")
-                                    .foregroundStyle(Color.orange)
-                                Text("Konflikt im Zeitplan")
+                                    .foregroundStyle(textColor)
+                                    .font(.title3)
+                                
+                                let msgText: String = {
+                                    switch sched.scheduleMessage {
+                                    case .memberConflict(let name):
+                                        if name.isEmpty {
+                                            return L.s("schedule_message_no_valid")
+                                        } else {
+                                            return String(format: L.s("schedule_message_member_conflict"), name)
+                                        }
+                                    default:
+                                        return L.s("schedule_message_no_valid")
+                                    }
+                                }()
+                                
+                                Text(msgText)
                                     .fontWeight(.bold)
-                                    .foregroundStyle(Color.orange)
+                                    .foregroundStyle(textColor)
                             }
                             
-                            let msgText: String = {
+                            let descText: String = {
                                 switch sched.scheduleMessage {
                                 case .memberConflict(let name):
-                                    return String(format: L.s("schedule_message_member_conflict"), name)
+                                    if name.isEmpty {
+                                        return L.s("schedule_message_no_valid_desc")
+                                    } else {
+                                        return L.s("schedule_message_member_conflict_desc")
+                                    }
                                 default:
-                                    return "Zeiten überschneiden sich."
+                                    return L.s("schedule_message_no_valid_desc")
                                 }
                             }()
                             
-                            Text(msgText)
-                                .font(.subheadline)
-                                .foregroundStyle(theme.onSurfaceVariant)
+                            Text(descText)
+                                .font(.caption)
+                                .foregroundStyle(textColor.opacity(0.85))
+                                .padding(.leading, 28)
+                            
+                            // Fallback info for claimed user
+                            if let myId = familyViewModel.myMemberId,
+                               let myMember = sched.memberSchedules.first(where: { $0.member.id == myId }),
+                               familyViewModel.isAlarmEnabled {
+                                Spacer(minLength: 4)
+                                Text(L.mainFallbackAlarmActive(myMember.wakeUpTime.formatted()))
+                                    .font(.caption).fontWeight(.bold)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 8)
+                                    .background(textColor.opacity(0.1))
+                                    .cornerRadius(8)
+                                    .padding(.leading, 28)
+                                    .foregroundStyle(textColor)
+                            }
+                            
+                            Spacer(minLength: 8)
                             
                             Button(action: {
                                 familyViewModel.applyAutoFix()
@@ -434,21 +474,22 @@ struct MainView: View {
                                 Text(L.scheduleAutoFix)
                                     .font(.subheadline).fontWeight(.bold)
                                     .foregroundStyle(theme.onPrimary)
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
                                     .background(theme.primary)
-                                    .cornerRadius(8)
+                                    .cornerRadius(12)
                             }
-                            .padding(.top, 4)
+                            .buttonStyle(BounceButtonStyle())
+                            .padding(.leading, 28)
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color.orange.opacity(0.15))
+                        .background(cardColor)
                         .background(.regularMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                         .overlay(
                             RoundedRectangle(cornerRadius: 24, style: .continuous)
-                                .stroke(Color.orange.opacity(0.5), lineWidth: 1)
+                                .stroke(textColor.opacity(0.4), lineWidth: 1)
                         )
                         .padding(.bottom, 12)
                     } else {
@@ -480,6 +521,8 @@ struct MainView: View {
                                     return L.scheduleMessageBreakfastReduced(min)
                                 case .breakfastAndTimeAdjusted(let r, let s):
                                     return L.scheduleMessageBreakfastAndTimeAdjusted(r, s)
+                                case .bufferReduced(let r, let s):
+                                    return L.scheduleMessageBufferReduced(r, s)
                                 default:
                                     return nil
                                 }
@@ -501,24 +544,24 @@ struct MainView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .famWakeCard(cornerRadius: 24, isDark: colorScheme == .dark)
                         .padding(.bottom, 12)
-                    }
+                        
+                        unclaimedFirstWarning
 
-                    unclaimedFirstWarning
-
-                    // Tooltip B (Drag)
-                    if sched.memberSchedules.count > 1 && familyViewModel.tooltipsEnabled && !familyViewModel.tooltipDragSeen {
-                        TooltipBubble(text: L.tooltipDragHandle) {
-                            familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyDrag)
+                        // Tooltip B (Drag)
+                        if sched.memberSchedules.count > 1 && familyViewModel.tooltipsEnabled && !familyViewModel.tooltipDragSeen {
+                            TooltipBubble(text: L.tooltipDragHandle) {
+                                familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyDrag)
+                            }
                         }
-                    }
 
-                    // Drag & Drop schedule tiles
-                    ForEach(sched.memberSchedules) { memberSched in
-                        scheduleCard(memberSched)
-                    }
-                    .onMove { from, to in
-                        if let fromIdx = from.first {
-                            familyViewModel.moveMemberOrder(fromIndex: fromIdx, toIndex: to)
+                        // Drag & Drop schedule tiles
+                        ForEach(sched.memberSchedules) { memberSched in
+                            scheduleCard(memberSched)
+                        }
+                        .onMove { from, to in
+                            if let fromIdx = from.first {
+                                familyViewModel.moveMemberOrder(fromIndex: fromIdx, toIndex: to)
+                            }
                         }
                     }
                 }

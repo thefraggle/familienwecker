@@ -445,11 +445,12 @@ class FamilyViewModel(
             val todayKey = kotlinx.datetime.Clock.System.todayIn(kotlinx.datetime.TimeZone.currentSystemDefault()).dayOfWeek.value
             val targetKey = currentSchedule.targetDate?.dayOfWeek?.value ?: todayKey
 
+            val currentMembers = _members.value
             currentSchedule.memberSchedules.forEach { s ->
-                val member = s.member
+                val originalMember = currentMembers.find { it.id == s.member.id } ?: return@forEach
                 
                 // Wir aktualisieren auch das DayProfile, da der Scheduler dieses bevorzugt
-                val updatedProfiles = (member.dayProfiles ?: mapOf()).toMutableMap()
+                val updatedProfiles = (originalMember.dayProfiles ?: mapOf()).toMutableMap()
                 val currentProfile = updatedProfiles[targetKey]
                 if (currentProfile != null) {
                     var newEarliest = currentProfile.earliestWakeUp
@@ -457,6 +458,9 @@ class FamilyViewModel(
                     
                     if (s.wakeUpTime.isBefore(newEarliest)) {
                         newEarliest = s.wakeUpTime
+                    }
+                    if (newLatest.isBefore(s.wakeUpTime)) {
+                        newLatest = s.wakeUpTime
                     }
                     if (newLatest.isBefore(newEarliest)) {
                         newLatest = newEarliest
@@ -468,21 +472,24 @@ class FamilyViewModel(
                     )
                 }
 
-                var newTopEarliest = member.earliestWakeUp
-                var newTopLatest = member.latestWakeUp
+                var newTopEarliest = originalMember.earliestWakeUp
+                var newTopLatest = originalMember.latestWakeUp
                 if (s.wakeUpTime.isBefore(newTopEarliest)) {
                     newTopEarliest = s.wakeUpTime
+                }
+                if (newTopLatest.isBefore(s.wakeUpTime)) {
+                    newTopLatest = s.wakeUpTime
                 }
                 if (newTopLatest.isBefore(newTopEarliest)) {
                     newTopLatest = newTopEarliest
                 }
 
-                val updatedMember = member.copy(
+                val updatedMember = originalMember.copy(
                     latestWakeUp = newTopLatest,
                     earliestWakeUp = newTopEarliest,
                     dayProfiles = updatedProfiles
                 )
-                updatedMembersMap[member.id] = updatedMember
+                updatedMembersMap[originalMember.id] = updatedMember
             }
 
             // Lokales Update für sofortiges Feedback
