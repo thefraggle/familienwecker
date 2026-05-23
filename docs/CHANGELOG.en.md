@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.9 – 2026-05-23
+### Fixed
+- **Automatic time adjustment corrected** – Resolving overlapping times now reliably updates the selected day without modifying settings for other weekdays.
+- **Startup crash resolved** – Fixed an issue that could prevent the app from opening under certain conditions.
+- **Overlap display improved** – Details of the wake schedule are hidden when time conflicts cannot be resolved, until they are corrected, to avoid confusion.
+
+---
+
 ## 1.9.8 – 2026-05-22
 ### New
 - **Weekday schedules** – Customize bathroom order and wake-up times for each day of the week.
