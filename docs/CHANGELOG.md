@@ -2,6 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.9 – 2026-05-23
+### Fehlerbehebungen
+- **Automatische Zeitanpassung korrigiert** – Die automatische Korrektur bei Überschneidungen passt nun zuverlässig die Weckzeiten des ausgewählten Tages an, ohne die Einstellungen für andere Wochentage zu verändern.
+- **Fehler beim App-Start behoben** – Ein seltener Fehler, der unter bestimmten Bedingungen das Öffnen der App verhindern konnte, wurde behoben.
+- **Anzeige bei Überschneidungen verbessert** – Die Weckplan-Details werden bei unlösbaren Zeitkonflikten ausgeblendet, bis diese korrigiert wurden, um Verwirrung zu vermeiden.
+
+---
+
 ## 1.9.8 – 2026-05-22
 ### Neu
 - **Wochentagspläne** – Drag-&-Drop-Reihenfolge und Weckzeiten können jetzt für jeden Wochentag individuell angepasst werden.

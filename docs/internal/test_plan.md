@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.8
-**Datum:** 2026-05-22
+**Version:** 1.9.9
+**Datum:** 2026-05-23
 
 ---
 
@@ -53,7 +53,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 
 ### Konflikte & Systemgrenzen
 | ID | Testfall | Erwartetes Ergebnis |
-| EC-01 | Zeit- & Puffer-Konflikte | Unmögliche Pläne oder zu knappe Fenster zeigen Kompromissvorschläge. AutoFix dehnt die Zeiten intelligent aus und berechnet sofort neu (Optimistic UI). Bei knappen Zeitfenstern reduziert der Scheduler den Puffer automatisch (BufferReduced-Meldung), bevor Zeitverschiebung/Frühstücksreduktion greifen. Zeitumstellung und Mitternachts-Alarme korrekt berechnet. |
+| EC-01 | Zeit- & Puffer-Konflikte | Unmögliche Pläne oder zu knappe Fenster zeigen Kompromissvorschläge. AutoFix dehnt die Zeiten intelligent aus und berechnet sofort neu (Optimistic UI). Der Auto-Fix passt nur den Ziel-Wochentag an und lässt andere Tage unberührt. Bei knappen Zeitfenstern reduziert der Scheduler den Puffer automatisch (BufferReduced-Meldung), bevor Zeitverschiebung/Frühstücksreduktion greifen. Zeitumstellung und Mitternachts-Alarme korrekt berechnet. |
 | EC-02 | Offline-Betrieb | CloudOff-Icon bei Disconnect. Kein Absturz bei SSL/Netzwerk-Fehlern (korrekte Fehlermeldung). Re-Sync nach Reconnect. |
 | EC-03 | Backend-Schutz | Zugriff auf fremde Profile oder Feedback ohne Auth liefert `PERMISSION_DENIED`. |
 
