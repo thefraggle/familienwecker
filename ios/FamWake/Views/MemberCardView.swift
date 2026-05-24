@@ -40,47 +40,27 @@ struct MemberCardView: View {
                 // Avatar (Android MemberCard.kt:73-82)
 
 
-                // Content Column (Android MemberCard.kt:70-158)
-                VStack(alignment: .leading, spacing: 3) {
-                    let dayInfo = nextActiveDayInfo()
+                // Content Column
+                VStack(alignment: .leading, spacing: 4) {
+                    // Row 1: Name
+                    Text(member.name)
+                        .font(.body).fontWeight(.bold)
+                        .foregroundStyle(textColor)
+                        .lineLimit(1)
 
-                    // Row 1: Name + Alarm Badge + Awake Emoji (Android MemberCard.kt:73-118)
+                    // Row 2: Status & Awake Emoji
                     HStack(spacing: 6) {
-                        Text(member.name)
-                            .font(.subheadline).fontWeight(.bold)
-                            .foregroundStyle(textColor)
-                            .lineLimit(1)
-
                         if member.claimedByUserId != nil {
                             alarmStatusBadge
+                        } else if member.isPaused {
+                            Text(L.memberStatusPaused)
+                                .font(.subheadline).fontWeight(.semibold)
+                                .foregroundStyle(textColor.opacity(0.8))
                         }
 
-                        if member.isAwakeToday && dayInfo?.dayLabel == nil {
-                            Text("☀️").font(.caption2)
+                        if member.isAwakeToday {
+                            Text("☀️").font(.subheadline)
                         }
-                    }
-
-                    // Row 2: Next active day label (Android MemberCard.kt:121-147)
-                    if let info = dayInfo {
-                        if let dayLabel = info.dayLabel {
-                            Text(dayLabel)
-                                .font(.caption2).fontWeight(.bold)
-                                .foregroundStyle(textColor.opacity(0.7))
-                        }
-                        // Wake time range (Android MemberCard.kt:148-153)
-                        HStack(spacing: 4) {
-                            Image(systemName: "alarm.fill")
-                                .font(.caption)
-                                .foregroundStyle(textColor.opacity(0.6))
-                            Text("\(info.earliest) – \(info.latest)")
-                                .font(.subheadline).fontWeight(.bold)
-                                .foregroundStyle(textColor)
-                        }
-
-                        // Bathroom + Breakfast info
-                        Text("🛁 \(member.bathroomDurationMinutes) min   ☕ \(member.wantsBreakfast ? L.s("yes") : L.s("no"))")
-                            .font(.caption)
-                            .foregroundStyle(textColor.opacity(0.9))
                     }
                 }
 
@@ -145,52 +125,15 @@ struct MemberCardView: View {
             }
         }()
 
-        Text(isOff ? L.s("main_member_alarm_off") : L.s("main_member_alarm_on"))
-            .font(.system(size: 10, weight: .bold))
-            .foregroundStyle(isOff ? theme.error : textColor.opacity(0.7))
-    }
+        let rawText = isOff ? L.s("main_member_alarm_off") : L.s("main_member_alarm_on")
+        let cleanText = rawText
+            .replacingOccurrences(of: "(", with: "")
+            .replacingOccurrences(of: ")", with: "")
+            .replacingOccurrences(of: "（", with: "")
+            .replacingOccurrences(of: "）", with: "")
 
-    // MARK: - Next Active Day (Android MemberCard.kt:121-147)
-    private struct DayInfo {
-        let dayLabel: String?
-        let earliest: String
-        let latest: String
-    }
-
-    private func nextActiveDayInfo() -> DayInfo? {
-        let allInactive = member.dayProfiles?.values.allSatisfy { !$0.isActive } ?? true
-        if allInactive { return nil }
-
-        let today = Calendar.current.component(.weekday, from: Date())
-        let todayDow = today == 1 ? 7 : today - 1 // 1=Mo .. 7=So
-
-        for offset in 0..<7 {
-            let checkDow = ((todayDow - 1 + offset) % 7) + 1
-            if let profiles = member.dayProfiles, let profile = profiles[checkDow], profile.isActive {
-                if offset == 0 {
-                    let cal = Calendar.current
-                    let now = Date()
-                    let nowMinutes = cal.component(.hour, from: now) * 60 + cal.component(.minute, from: now)
-                    if nowMinutes >= profile.latestWakeUp.totalMinutes {
-                        continue
-                    }
-                }
-
-                let dayLabel: String? = offset == 0 ? nil : {
-                    let cal = Calendar.current
-                    if let futureDate = cal.date(byAdding: .day, value: offset, to: Date()) {
-                        return futureDate.formatted(.dateTime.weekday(.wide)).localizedCapitalized
-                    }
-                    return nil
-                }()
-
-                return DayInfo(
-                    dayLabel: dayLabel,
-                    earliest: profile.earliestWakeUp.formatted(),
-                    latest: profile.latestWakeUp.formatted()
-                )
-            }
-        }
-        return nil
+        Text(cleanText)
+            .font(.subheadline).fontWeight(.semibold)
+            .foregroundStyle(isOff ? theme.error : textColor.opacity(0.8))
     }
 }

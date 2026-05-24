@@ -307,3 +307,4 @@
 "simple_mode_title" = "Tryb prosty";
 "simple_mode_desc" = "Stała godzina pobudki bez marginesu czasowego i obliczania czasu w łazience.";
 "tooltip_buffer" = "Kursywa oznacza, że bufor rodzinny jest aktywny. Zmień go, aby ustawić osobisty bufor na dzisiaj.";
+"member_status_paused" = "Wstrzymany";
