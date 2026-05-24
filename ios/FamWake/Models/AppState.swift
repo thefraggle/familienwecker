@@ -111,12 +111,18 @@ class AppState: ObservableObject {
             
             if pushNotificationsEnabled {
                 UNUserNotificationCenter.current().getNotificationSettings { settings in
-                    if settings.authorizationStatus == .notDetermined {
+                    if settings.authorizationStatus == .authorized {
+                        DispatchQueue.main.async {
+                            UIApplication.shared.registerForRemoteNotifications()
+                        }
+                        MessagingService.shared.refreshAndSaveToken()
+                    } else if settings.authorizationStatus == .notDetermined {
                         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
                             if granted {
                                 DispatchQueue.main.async {
                                     UIApplication.shared.registerForRemoteNotifications()
                                 }
+                                MessagingService.shared.refreshAndSaveToken()
                             }
                         }
                     }
