@@ -70,42 +70,25 @@ fun MemberCard(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 val allDaysInactive = member.dayProfiles?.values?.none { it.isActive } == true
-                val today = java.time.LocalDate.now()
-                val nextActiveDayResult = if (allDaysInactive) null else {
-                    (0..6).mapNotNull { offset ->
-                        val date = today.plusDays(offset.toLong())
-                        val dow = date.dayOfWeek.value
-                        val profile = member.dayProfiles?.get(dow)
-                        if (profile != null && profile.isActive) {
-                            if (offset == 0) {
-                                val nowTime = java.time.LocalTime.now()
-                                val latestTime = profile.latestWakeUp.toJavaLocalTime()
-                                if (nowTime.isAfter(latestTime)) {
-                                    return@mapNotNull null
-                                }
-                            }
-                            date to profile
-                        } else null
-                    }.firstOrNull()
-                }
-                val showDayLabel = nextActiveDayResult != null && nextActiveDayResult.first != today
 
+                // Row 1: Name
+                Text(
+                    text = member.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = textColor,
+                    modifier = Modifier.fillMaxWidth(),
+                    maxLines = 1
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // Row 2: Status & Awake Emoji
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(
-                        text = member.name,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = textColor,
-                        modifier = Modifier.weight(1f, fill = false),
-                        maxLines = 1
-                    )
-
                     if (member.claimedByUserId != null) {
-                        Spacer(modifier = Modifier.width(6.dp))
-
                         val statusText = when {
                             member.id == myMemberId -> when {
                                 !isAlarmEnabled -> stringResource(R.string.main_member_alarm_off)
@@ -120,80 +103,38 @@ fun MemberCard(
                         }
 
                         val statusColor = when {
-                            member.id == myMemberId -> if (!isAlarmEnabled || member.isPaused || allDaysInactive) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.7f)
-                            else -> if (member.deviceAlarmEnabled == false || member.isPaused || allDaysInactive) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.7f)
+                            member.id == myMemberId -> if (!isAlarmEnabled || member.isPaused || allDaysInactive) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.8f)
+                            else -> if (member.deviceAlarmEnabled == false || member.isPaused || allDaysInactive) MaterialTheme.colorScheme.error else textColor.copy(alpha = 0.8f)
                         }
 
+                        val cleanStatusText = statusText
+                            .replace("(", "")
+                            .replace(")", "")
+                            .replace("（", "")
+                            .replace("）", "")
+
                         Text(
-                            text = statusText,
-                            style = MaterialTheme.typography.labelSmall,
+                            text = cleanStatusText,
+                            style = MaterialTheme.typography.bodyMedium,
                             color = statusColor,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 1
+                        )
+                    } else if (member.isPaused) {
+                        Text(
+                            text = stringResource(R.string.member_status_paused),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = textColor.copy(alpha = 0.8f),
+                            fontWeight = FontWeight.SemiBold,
                             maxLines = 1
                         )
                     }
-                    if (member.isAwakeToday && !showDayLabel) {
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(text = "☀️", style = MaterialTheme.typography.labelSmall)
-                    }
-                }
 
-                if (nextActiveDayResult != null) {
-                    val displayEarliest = nextActiveDayResult.second.earliestWakeUp.toJavaLocalTime()
-                    val displayLatest   = nextActiveDayResult.second.latestWakeUp.toJavaLocalTime()
-
-                    if (showDayLabel) {
-                        val dayName = nextActiveDayResult.first.dayOfWeek
-                            .getDisplayName(java.time.format.TextStyle.FULL, context.resources.configuration.locales[0])
-                            .replaceFirstChar { it.uppercase() }
-                        Text(
-                            text = dayName,
-                            color = textColor.copy(alpha = 0.7f),
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.AccessAlarm,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp),
-                            tint = textColor.copy(alpha = 0.6f)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            "${displayEarliest.format(timeFormatter)} – ${displayLatest.format(timeFormatter)}",
-                            color = textColor,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Bathtub,
-                            contentDescription = null,
-                            modifier = Modifier.size(14.dp),
-                            tint = textColor.copy(alpha = 0.5f)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            "${member.bathroomDurationMinutes} min",
-                            color = textColor.copy(alpha = 0.9f),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Icon(
-                            imageVector = Icons.Default.FreeBreakfast,
-                            contentDescription = null,
-                            modifier = Modifier.size(14.dp),
-                            tint = textColor.copy(alpha = 0.5f)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            if (member.wantsBreakfast) stringResource(R.string.yes) else stringResource(R.string.no),
-                            color = textColor.copy(alpha = 0.9f),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                    if (member.isAwakeToday) {
+                        if (member.claimedByUserId != null || member.isPaused) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                        }
+                        Text(text = "☀️", style = MaterialTheme.typography.bodyMedium)
                     }
                 }
             }

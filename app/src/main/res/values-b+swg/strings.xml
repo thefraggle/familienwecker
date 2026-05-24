@@ -349,4 +349,5 @@
     <string name="simple_mode_title">Oifacher Modus</string>
     <string name="simple_mode_desc">Feschde Weckzeit ohne Puffer oder s\'Ausrechna vo de Badzeita.</string>
     <string name="tooltip_buffer">Kursiv hoißt: Dr Familien-Puffer isch aktiv. Ändr des, um an oigenen Puffer fir heit zom setza.</string>
+    <string name="member_status_paused">Pausiert</string>
 </resources>
