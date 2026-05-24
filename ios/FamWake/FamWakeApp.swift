@@ -48,6 +48,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         Messaging.messaging().apnsToken = deviceToken
     }
     
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("APNs Registrierung fehlgeschlagen: \(error.localizedDescription)")
+        TelemetryManager.send("auth.apnsRegistrationFailed", with: ["error": error.localizedDescription])
+    }
+    
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         guard let token = fcmToken else { return }
         if let uid = Auth.auth().currentUser?.uid {
