@@ -511,8 +511,6 @@ struct SettingsView: View {
     @ViewBuilder
     private var accountCard: some View {
         settingsCard {
-            settingsSectionHeader(icon: "person.circle", title: L.s("settings_account_section"))
-
             // Logout
             Button(action: {
                 familyViewModel.reloadForNewUser()
