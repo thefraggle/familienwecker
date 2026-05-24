@@ -8,6 +8,17 @@ final class LanguageManager {
 
     private(set) var bundle: Bundle = .main
 
+    var currentLocale: Locale {
+        let saved = UserDefaults.standard.string(forKey: "language") ?? "system"
+        let code = resolvedCode(saved)
+        if code == "gsw" {
+            return Locale(identifier: "gsw_CH")
+        } else if code == "swg" || code == "ksh" {
+            return Locale(identifier: "de_DE")
+        }
+        return Locale(identifier: code)
+    }
+
     private init() {
         let saved = UserDefaults.standard.string(forKey: "language") ?? "system"
         apply(saved)

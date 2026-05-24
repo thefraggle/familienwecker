@@ -151,6 +151,7 @@ extension DateComponents {
         cal.timeZone = TimeZone.current
         guard let date = cal.date(from: self) else { return "--:--" }
         let f = DateFormatter()
+        f.locale = LanguageManager.shared.currentLocale
         if let format = format {
             f.dateFormat = format
         } else {
