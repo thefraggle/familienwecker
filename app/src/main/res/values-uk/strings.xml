@@ -355,4 +355,5 @@
     <string name="simple_mode_title">Простий режим</string>
     <string name="simple_mode_desc">Фіксований час пробудження без запасу часу або розрахунку часу на ванну.</string>
     <string name="tooltip_buffer">Курсив означає, що сімейний буфер активний. Змініть його, щоб встановити особистий буфер на сьогодні.</string>
+    <string name="member_status_paused">На паузі</string>
 </resources>

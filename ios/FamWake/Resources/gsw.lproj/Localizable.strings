@@ -307,3 +307,4 @@
 "simple_mode_title" = "Eifache Modus";
 "simple_mode_desc" = "Feschti Weckziit ohni Puffer oder d'Berächnig vo de Badzimmerziite.";
 "tooltip_buffer" = "Kursiv bedütet: De Familie-Puffer isch aktiv. Änder en, um en persönliche Puffer für hüt z setze.";
+"member_status_paused" = "Pausiert";

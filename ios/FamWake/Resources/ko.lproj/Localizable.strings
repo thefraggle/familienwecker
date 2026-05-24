@@ -307,3 +307,4 @@
 "simple_mode_title" = "심플 모드";
 "simple_mode_desc" = "여유 시간이나 욕실 사용 시간 계산 없는 고정된 기상 시간입니다.";
 "tooltip_buffer" = "기울임꼴은 가족 여유 시간이 활성화되어 있음을 의미합니다. 오늘 나만의 여유 시간을 설정하려면 변경하세요.";
+"member_status_paused" = "일시 정지됨";

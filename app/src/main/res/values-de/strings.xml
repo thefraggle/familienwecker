@@ -351,4 +351,5 @@
     <string name="simple_mode_title">Einfacher Modus</string>
     <string name="simple_mode_desc">Feste Weckzeit ohne Puffer oder Berechnung der Badezimmerzeiten.</string>
     <string name="tooltip_buffer">Kursiv bedeutet: Der Familien-Puffer ist aktiv. Ändere ihn, um einen persönlichen Puffer für heute zu setzen.</string>
+    <string name="member_status_paused">Pausiert</string>
 </resources>

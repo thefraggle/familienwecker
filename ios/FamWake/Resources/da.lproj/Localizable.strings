@@ -307,3 +307,4 @@
 "simple_mode_title" = "Simpel tilstand";
 "simple_mode_desc" = "Fast vækketid uden margin eller beregning af badeværelsestid.";
 "tooltip_buffer" = "Kursiv betyder, at familie-bufferen er aktiv. Ændr den for at indstille en personlig buffer for i dag.";
+"member_status_paused" = "Pauset";

@@ -122,6 +122,7 @@ enum L {
     static var simpleModeTitle: String { s("simple_mode_title") }
     static var simpleModeDesc: String { s("simple_mode_desc") }
     static var mainFamilyMembers: String { s("main_family_members") }
+    static var memberStatusPaused: String { s("member_status_paused") }
     static var addMemberTitleAdd: String { s("add_member_title_add") }
     static var addMemberTitleEdit: String { s("add_member_title_edit") }
     static var addMemberNameLabel: String { s("add_member_name_label") }

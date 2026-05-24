@@ -307,3 +307,4 @@
 "simple_mode_title" = "Einfacher Modus";
 "simple_mode_desc" = "Feste Weckzeit ohne Puffer oder Rechnerei fürs Bad.";
 "tooltip_buffer" = "Kursiv heißt: Der Familien-Puffer is an. Änder den einfach, um dir für heute nen eigenen Puffer zu setzen.";
+"member_status_paused" = "Pausiert";

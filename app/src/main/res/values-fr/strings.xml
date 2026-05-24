@@ -350,4 +350,5 @@
     <string name="simple_mode_title">Mode simple</string>
     <string name="simple_mode_desc">Heure de réveil fixe sans marge ni calcul du temps de passage à la salle de bain.</string>
     <string name="tooltip_buffer">L\'italique signifie que la marge familiale est active. Modifiez-la pour définir une marge personnelle pour aujourd\'hui.</string>
+    <string name="member_status_paused">En pause</string>
 </resources>

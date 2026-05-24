@@ -352,4 +352,5 @@
     <string name="simple_mode_title">シンプルモード</string>
     <string name="simple_mode_desc">ゆとり時間やバスルームの順番計算を含まない、固定の起床時間です。</string>
     <string name="tooltip_buffer">斜体は家族のバッファが有効であることを意味します。変更して、今日の個人的なバッファを設定してください。</string>
+    <string name="member_status_paused">一時停止中</string>
 </resources>

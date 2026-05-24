@@ -350,4 +350,5 @@
     <string name="simple_mode_title">Eifache Modus</string>
     <string name="simple_mode_desc">Feschti Weckziit ohni Puffer oder d\'Berächnig vo de Badzimmerziite.</string>
     <string name="tooltip_buffer">Kursiv bedütet: De Familie-Puffer isch aktiv. Änder en, um en persönliche Puffer für hüt z setze.</string>
+    <string name="member_status_paused">Pausiert</string>
 </resources>

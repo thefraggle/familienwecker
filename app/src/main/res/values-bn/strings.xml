@@ -352,4 +352,5 @@
     <string name="simple_mode_title">সাধারণ মোড</string>
     <string name="simple_mode_desc">অতিরিক্ত সময় বা বাথরুম ব্যবহারের সময় গণনা ছাড়াই নির্দিষ্ট ঘুম থেকে ওঠার সময়।</string>
     <string name="tooltip_buffer">ইটালিক মানে ফ্যামিলি বাফার চালু আছে। আজকের জন্য নিজের বাফার সেট করতে এটি পরিবর্তন করুন।</string>
+    <string name="member_status_paused">স্থগিত</string>
 </resources>

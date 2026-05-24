@@ -308,3 +308,4 @@
 "simple_mode_title" = "Einfacher Modus";
 "simple_mode_desc" = "Feste Weckzeit ohne Puffer oder Berechnung der Badezimmerzeiten.";
 "tooltip_buffer" = "Kursiv bedeutet: Der Familien-Puffer ist aktiv. Ändere ihn, um einen persönlichen Puffer für heute zu setzen.";
+"member_status_paused" = "Pausiert";

@@ -349,4 +349,5 @@
     <string name="simple_mode_title">Modo simple</string>
     <string name="simple_mode_desc">Hora de despertar fija sin margen ni cálculo de turnos para el baño.</string>
     <string name="tooltip_buffer">La cursiva significa que el margen familiar está activo. Cámbialo para establecer un margen personal para hoy.</string>
+    <string name="member_status_paused">Pausado</string>
 </resources>
