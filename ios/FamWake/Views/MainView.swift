@@ -504,11 +504,11 @@ struct MainView: View {
                             }
                             
                             if familyViewModel.isAlarmEnabled, let targetDate = sched.targetDate {
-                                Text(targetDate.formatted(.dateTime.weekday(.wide).day().month(.wide)))
+                                Text(targetDate.formatted(.dateTime.weekday(.wide).day().month(.wide).locale(LanguageManager.shared.currentLocale)))
                                     .font(.subheadline).fontWeight(.bold)
                                     .foregroundStyle(theme.primary)
                             } else if !familyViewModel.isAlarmEnabled, let targetDate = sched.targetDate {
-                                Text(targetDate.formatted(.dateTime.weekday(.wide).day().month(.wide)))
+                                Text(targetDate.formatted(.dateTime.weekday(.wide).day().month(.wide).locale(LanguageManager.shared.currentLocale)))
                                     .font(.subheadline)
                                     .foregroundStyle(theme.primary.opacity(0.8))
                             }
@@ -780,6 +780,7 @@ struct MainView: View {
 
     private func timeString(_ date: Date) -> String {
         let f = DateFormatter()
+        f.locale = LanguageManager.shared.currentLocale
         f.timeStyle = .short // Uses system 12h/24h format
         return f.string(from: date)
     }
