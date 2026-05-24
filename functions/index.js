@@ -2058,6 +2058,10 @@ async function sendPushToUser(uid, payload) {
     // Stille Datennachricht: App zeigt Notification selbst an (voller Channel-Kontrolle)
     android: { priority: "high" },
     apns: {
+      headers: {
+        "apns-push-type": "background",
+        "apns-priority": "5"
+      },
       payload: {
         aps: {
           "content-available": 1

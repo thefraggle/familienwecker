@@ -63,6 +63,13 @@ class AppState: ObservableObject {
         pushNotificationsEnabled = enabled
         UserDefaults.standard.set(enabled, forKey: "push_notifications_enabled")
         if enabled {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                if granted {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                }
+            }
             MessagingService.shared.refreshAndSaveToken()
         } else {
             // Wenn Push deaktiviert wird, löschen wir das Token aus Firestore
@@ -101,6 +108,20 @@ class AppState: ObservableObject {
             }
             
             route = targetRoute
+            
+            if pushNotificationsEnabled {
+                UNUserNotificationCenter.current().getNotificationSettings { settings in
+                    if settings.authorizationStatus == .notDetermined {
+                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                            if granted {
+                                DispatchQueue.main.async {
+                                    UIApplication.shared.registerForRemoteNotifications()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             
             if let pending = pendingRinging {
                 self.pendingRinging = nil
