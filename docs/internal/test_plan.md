@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.9
-**Datum:** 2026-05-23
+**Version:** 1.9.10
+**Datum:** 2026-05-25
 
 ---
 
@@ -24,7 +24,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 |:---|:---|:---|
 | TC-20 | Profil-Verwaltung & Neuinstallation | Erstes Mitglied auto-geclaimt (Wecker-Schalter sofort an). Ein fremdes Profil kann übernommen werden (Claim Stealing). Beim Claim wird `deviceAlarmEnabled` in Room + Firestore sofort auf `true` gesetzt. Bei Neuinstallation wird das Profil wegen neuer Device-ID nicht auto-geclaimt; nach manuellem Claim erscheint der Weckplan sofort ohne manuelles Wecker-Togglen. Bearbeiten und Pausieren funktioniert fehlerfrei. |
 | TC-21 | Wochentag-Validierung | latestWakeUp ≤ earliestWakeUp blockiert Speichern. Zügiges Sliden erzeugt keine Sync-Fehler. |
-| TC-22 | Listen-Organisation | Drag & Drop speichert Reihenfolge. Warnbanner erscheint, wenn Position 1 ungeclaimt ist. |
+| TC-22 | Listen-Organisation & Reorder-Bestätigung | Drag & Drop öffnet Bestätigungsdialog. „Nur heute“ ändert die Reihenfolge nur für den ausgewählten Wochentag. „Ganze Woche“ setzt sie global und löscht tagesabhängige Overrides. Abbrechen (oder Tippen außerhalb) setzt die Liste visuell zurück. Warnbanner erscheint, wenn Position 1 ungeclaimt ist. |
 | TC-23 | Puffer nach Bad (global & individuell) | Stepper unter "Familienmitglieder" ändert globalen Puffer (0–15 Min) in 5er-Schritten. Im Mitglieder-Editor wird der globale Wert kursiv angezeigt. Ein persönlicher Override setzt den eigenen Puffer (fett), das Zurücksetzen stellt die Vererbung wieder her (kursiv). Werte synchronisieren und persistieren nach App-Neustart. |
 | TC-25 | Familie einladen | Share-Button über dem Hinzufügen-Button öffnet System-Share-Dialog mit Familien-Link. Nur für eingeloggte Nutzer sichtbar. |
 | TC-26 | Zeitformat 12h/24h | Uhrzeiten folgen der Geräteeinstellung. Wechsel in den Systemeinstellungen wirkt sofort nach Rückkehr zur App. |
@@ -36,7 +36,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | TC-30 | Alarm-Zyklus | Wecker klingelt zuverlässig (auch Background/Lockscreen). Snooze (5 Min) plant neuen Alarm korrekt. |
-| TC-31 | Statuswechsel ("Ich bin wach") | Stoppt System-Wecker, aktualisiert UI (Two-Pass-Logik für "Heute/Morgen"). Setzt sich am nächsten Tag automatisch zurück. |
+| TC-31 | Statuswechsel („Ich bin wach“) | Stoppt System-Wecker, aktualisiert UI (Two-Pass-Logik). Button bleibt unabhängig vom ausgewählten Vorschau-Wochentag auf dem Screen sichtbar (an Weckplan gekoppelt). Zeigt sich dauerhaft am Tag des Weckers oder ab 4h vorher. Reset erfolgt am Folgetag automatisch. |
 | TC-32 | Android 14+ Warnungen | Fehlen `SCHEDULE_EXACT_ALARM` oder `USE_FULL_SCREEN_INTENT`, erscheinen entsprechende Banner/Warnungen. |
 | TC-33 | Kaltstart iOS | App-Start per Alarm-Klick (Kaltstart) löst keinen Boot-Loop/Absturz aus. |
 | TC-34 | DataStore Migration Android | Update von v1.9.5: Alte EncryptedSharedPreferences-Werte werden atomar in Jetpack DataStore migriert, Altdatei wird gelöscht, Einstellungen bleiben erhalten. |
@@ -44,7 +44,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 ### 4. Benachrichtigungen & Sync (Multi-Device)
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-40 | Push-Events | Status-Änderungen (An/Aus, Reorder) senden Push an geclaimte Mitbewohner (kein Self-Push, kein Doppel-Piepsen). Toggle deaktiviert Push. |
+| TC-40 | Push-Events & Filterung | Manuelle Änderungen (Pause, Alarm-Schalter, Reihenfolge, Profile) senden stumme Push-Benachrichtigungen an geclaimte Mitbewohner (kein Self-Push). Automatische Status-Resets (Daily Reset) werden gefiltert und senden KEINEN Push. App-Toggle deaktiviert den Empfang. |
 | TC-41 | Multi-Device Sync | Claiming, Alarm-Status und Listen-Reihenfolge synchronisieren sich sofort auf Zweitgeräten. |
 
 ---

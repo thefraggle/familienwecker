@@ -2,6 +2,17 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.10 – 2026-05-25
+### Neu
+- **Bestätigung bei Reihenfolge-Änderungen** – Beim Verschieben von Personen im Weckplan wirst du jetzt gefragt, ob die neue Reihenfolge nur für heute oder für die ganze Woche gelten soll.
+
+### Verbessert
+- **Smarter „Schon wach“-Button** – Der „Ich bin schon wach“-Button ist jetzt dauerhaft am Tag deines Weckers sichtbar (oder ab 4 Stunden vorher) und verschwindet nicht mehr, wenn du dir die Pläne anderer Wochentage anschaust.
+- **Optimierte Push-Benachrichtigungen** – Du erhältst Updates zum Familienplan nur noch dann, wenn andere Mitglieder aktiv Änderungen vornehmen. Automatische Hintergrund-Resets lösen keine unnötigen Mitteilungen mehr aus.
+- **Fehlerbehebungen & Design-Polish** – Zuverlässigeres Schließen von Dialogen auf allen Geräten und optische Anpassung der Weckplan-Karten.
+
+---
+
 ## 1.9.9 – 2026-05-23
 ### Fehlerbehebungen
 - **Automatische Zeitanpassung korrigiert** – Die automatische Korrektur bei Überschneidungen passt nun zuverlässig die Weckzeiten des ausgewählten Tages an, ohne die Einstellungen für andere Wochentage zu verändern.
