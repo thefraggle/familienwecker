@@ -141,6 +141,7 @@ internal fun FamilyViewModel.recalculateSchedule() {
                     }
                     res.copy(targetDate = deviceTargetDate)
                 }
+                _deviceSchedule.value = deviceResult
 
                 // 3. Alarme anwenden basierend auf deviceResult (inkl. Grace-Period Check)
                 if (deviceResult.memberSchedules.isEmpty()) {
