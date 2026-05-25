@@ -109,6 +109,7 @@ fun MainScreen(
     val isAutoClaimInProgress by viewModel.isAutoClaimInProgress.collectAsStateWithLifecycle()
     val globalBufferMinutes by viewModel.globalBufferMinutes.collectAsStateWithLifecycle()
     val selectedDayOfWeek by viewModel.selectedDayOfWeek.collectAsStateWithLifecycle()
+    val deviceSchedule by viewModel.deviceSchedule.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
     var pendingReorder by remember { mutableStateOf<Pair<Int, Int>?>(null) }
@@ -406,7 +407,7 @@ fun MainScreen(
                                 )
                             }
                             val myMember = members.find { it.id == myMemberId }
-                            val isAwakeButtonVisible = remember(myMember, isAlarmEnabled, schedule, isAwakeTodayLocal) {
+                            val isAwakeButtonVisible = remember(myMember, isAlarmEnabled, deviceSchedule, isAwakeTodayLocal) {
                                 if (myMember == null || !isAlarmEnabled) return@remember false
 
                                 val nowDt = java.time.LocalDateTime.now()
@@ -424,7 +425,7 @@ fun MainScreen(
                                 
                                 if (nextActiveProfile != null) {
                                     val (targetDate, profile) = nextActiveProfile
-                                    val myScheduledTime = schedule?.memberSchedules
+                                    val myScheduledTime = deviceSchedule?.memberSchedules
                                         ?.find { it.member.id == myMemberId }
                                         ?.wakeUpTime?.toJavaLocalTime()
                                     val alarmTime = myScheduledTime ?: profile.earliestWakeUp.toJavaLocalTime()

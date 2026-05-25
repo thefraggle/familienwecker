@@ -12,6 +12,7 @@ class FamilyViewModel: ObservableObject {
     // MARK: - Published State
     @Published var members: [FamilyMember] = []
     @Published var schedule: FamilySchedule? = nil
+    @Published var deviceSchedule: FamilySchedule? = nil
     @Published var selectedDayOfWeek: Int? = nil
     @Published var familyId: String? = nil
     @Published var familyName: String? = nil
@@ -286,7 +287,7 @@ class FamilyViewModel: ObservableObject {
         }
         guard let offset = offsetDays, let profile = targetProfile else { return false }
         
-        let myScheduledTime = schedule?.memberSchedules.first(where: { $0.id == myId })?.wakeUpTime
+        let myScheduledTime = deviceSchedule?.memberSchedules.first(where: { $0.id == myId })?.wakeUpTime
         let alarmTime = myScheduledTime ?? profile.earliestWakeUp
         
         let startOfToday = cal.startOfDay(for: now)
@@ -1135,6 +1136,7 @@ class FamilyViewModel: ObservableObject {
             deviceResult = Scheduler().calculateIdealSchedule(members: deviceCalculationMembers, globalBufferMinutes: globalBufferMinutes)
         }
         deviceResult.targetDate = deviceTargetDate
+        deviceSchedule = deviceResult
 
         // 3. Apply Alarms
         if deviceResult.memberSchedules.isEmpty {
