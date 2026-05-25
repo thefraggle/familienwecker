@@ -47,6 +47,10 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                 } else member
             } else member
 
+            val currentUid = auth.currentUser?.uid
+            if (currentUid != null) {
+                repository.setUserActionMeta(currentUid, currentFamilyId)
+            }
             repository.addOrUpdateMember(currentFamilyId, finalMember)
             
             if (willAutoClaim && finalMember.claimedByUserId != null) {
@@ -82,6 +86,10 @@ internal fun FamilyViewModel.addOrUpdateMemberDebounced(member: FamilyMember, on
     memberDebounceJobs[member.id] = scope.launch {
         delay(2000)
         try {
+            val currentUid = auth.currentUser?.uid
+            if (currentUid != null) {
+                repository.setUserActionMeta(currentUid, currentFamilyId)
+            }
             repository.addOrUpdateMember(currentFamilyId, member)
             onComplete?.invoke()
         } catch (e: kotlinx.coroutines.CancellationException) {
@@ -191,6 +199,10 @@ fun FamilyViewModel.togglePauseMember(memberId: String) {
             // Gezieltes Update nur für isPaused – kein volles .set() das name enthält
             // und die Security Rule für nicht-Admin-Nutzer verletzt.
             memberRepository.upsertMember(updatedMember)
+            val currentUid = auth.currentUser?.uid
+            if (currentUid != null) {
+                repository.setUserActionMeta(currentUid, currentFamilyId)
+            }
             repository.updateMemberPauseState(currentFamilyId, memberId, newPausedState)
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
@@ -290,6 +302,7 @@ fun FamilyViewModel.saveMemberOrder() {
         try {
             if (currentUid != null) {
                 repository.setReorderMeta(currentUid, currentFamilyId)
+                repository.setUserActionMeta(currentUid, currentFamilyId)
             }
             _members.value.forEach { m ->
                 memberRepository.upsertMember(m)
