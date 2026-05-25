@@ -467,6 +467,19 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
+    override suspend fun setUserActionMeta(uid: String, familyId: String) {
+        try {
+            db.collection(COLLECTION_USERS).document(uid)
+                .collection("pushMeta").document("user_action")
+                .set(mapOf(
+                    "familyId"  to familyId,
+                    "timestamp" to FieldValue.serverTimestamp
+                ))
+        } catch (e: Exception) {
+            if (debugLogging) Log.w(TAG, "setUserActionMeta failed for $uid: ${e.message}")
+        }
+    }
+
     override suspend fun updateMembersBatch(familyId: String, members: List<FamilyMember>) {
         try {
             val membersColl = db.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS)

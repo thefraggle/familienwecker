@@ -2146,29 +2146,46 @@ exports.onMemberScheduleChanged = onDocumentWritten(
       .collection("members")
       .get();
 
-    // Sender-Erkennung: wer hat die Änderung ausgelöst? → kein Self-Push
+    // Sender-Erkennung: wer hat die Änderung manuell ausgelöst?
     let changedBy = null;
-    if (statusChanged && !scheduleChanged) {
-      // Bei reinen Status-Änderungen (Pause, Alarm-Toggle) ist der Auslöser der Member-Owner
-      changedBy = after.claimedByUserId || null;
-    } else {
-      // Bei Schedule-Änderungen (Reorder, Zeiten) wird der Auslöser über pushMeta erkannt
-      const REORDER_WINDOW_MS = 15000;
-      for (const doc of membersSnap.docs) {
-        const uid = doc.data().claimedByUserId;
-        if (!uid) continue;
-        const metaSnap = await admin.firestore()
+    const ACTION_WINDOW_MS = 15000;
+    
+    for (const doc of membersSnap.docs) {
+      const uid = doc.data().claimedByUserId;
+      if (!uid) continue;
+      
+      // 1. user_action Subcollection-Dokument prüfen
+      let metaSnap = await admin.firestore()
+        .collection("users").doc(uid)
+        .collection("pushMeta").doc("user_action")
+        .get();
+      let meta = metaSnap.data();
+      
+      // 2. reorder Subcollection-Dokument prüfen (Fallback)
+      if (!meta) {
+        metaSnap = await admin.firestore()
           .collection("users").doc(uid)
           .collection("pushMeta").doc("reorder")
           .get();
-        const meta = metaSnap.data();
-        if (meta?.familyId === familyId &&
-          now - (meta?.timestamp?.toMillis?.() || 0) < REORDER_WINDOW_MS) {
-          changedBy = uid;
-          break;
-        }
+        meta = metaSnap.data();
+      }
+      
+      // 3. Altes reorder-Map-Feld im User-Dokument prüfen (Fallback)
+      if (!meta) {
+        const userSnap = await admin.firestore().collection("users").doc(uid).get();
+        const userData = userSnap.data();
+        meta = userData?.pushMeta?.reorder;
+      }
+      
+      if (meta?.familyId === familyId &&
+        now - (meta?.timestamp?.toMillis?.() || 0) < ACTION_WINDOW_MS) {
+        changedBy = uid;
+        break;
       }
     }
+
+    // Wenn kein Auslöser gefunden wurde -> Automatische Systemänderung (z.B. Daily Reset) -> Stumm abbrechen
+    if (!changedBy) return;
 
     // Empfängerliste: ALLE geclaimten Members außer dem Auslöser.
     // Kein Positions-Filter: der Schedule wird rückwärts berechnet, daher

@@ -367,6 +367,10 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
                 kotlinx.coroutines.delay(2000)
                 // NonCancellable: delay ist unterbrechbar (Entprellung), Write nicht
                 kotlinx.coroutines.withContext(kotlinx.coroutines.NonCancellable) {
+                    val currentUid = auth.currentUser?.uid
+                    if (currentUid != null) {
+                        repository.setUserActionMeta(currentUid, currentFamilyId)
+                    }
                     repository.updateDeviceAlarmEnabled(currentFamilyId, currentMemberId, enabled)
                 }
             } catch (e: kotlinx.coroutines.CancellationException) {
