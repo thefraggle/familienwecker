@@ -61,6 +61,8 @@ interface IFirebaseRepository {
 
     suspend fun updateMemberDayProfiles(familyId: String, memberId: String, dayProfiles: Map<Int, de.familienwecker.famwake.model.DayProfile>?)
 
+    suspend fun updateMemberOrderAndProfiles(familyId: String, members: List<FamilyMember>)
+
     /** Speichert wer zuletzt einen Reorder für eine Familie ausgelöst hat (für Self-Push-Filter). */
     suspend fun setReorderMeta(uid: String, familyId: String)
 
