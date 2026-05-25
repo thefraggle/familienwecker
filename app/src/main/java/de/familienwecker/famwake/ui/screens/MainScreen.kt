@@ -991,7 +991,7 @@ fun MainScreen(
                                 verticalAlignment = Alignment.CenterVertically,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(vertical = 2.dp, horizontal = 8.dp),
+                                    .padding(top = 16.dp, bottom = 0.dp, start = 8.dp, end = 8.dp),
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Box(
