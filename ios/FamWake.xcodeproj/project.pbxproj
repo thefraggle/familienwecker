@@ -387,7 +387,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.10;
+				MARKETING_VERSION = 1.9.11;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = de.familienwecker.FamWake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -423,7 +423,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.10;
+				MARKETING_VERSION = 1.9.11;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = de.familienwecker.FamWake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
