@@ -232,7 +232,7 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
     }
 }
 
-fun FamilyViewModel.moveMemberOrder(fromIndex: Int, toIndex: Int) {
+fun FamilyViewModel.moveMemberOrder(fromIndex: Int, toIndex: Int, wholeWeek: Boolean = false) {
     val sched = _schedule.value ?: return
     val targetDate = sched.targetDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val dayOfWeek = selectedDayOfWeek.value ?: targetDate.dayOfWeek.value
@@ -246,18 +246,29 @@ fun FamilyViewModel.moveMemberOrder(fromIndex: Int, toIndex: Int) {
     val updatedMembers = _members.value.map { m ->
         val indexInTarget = targetIds.indexOf(m.id)
         if (indexInTarget != -1) {
-            val currentProfiles = m.dayProfiles ?: emptyMap()
-            val profile = currentProfiles[dayOfWeek] ?: de.familienwecker.famwake.model.DayProfile(
-                isActive = !m.isPaused,
-                earliestWakeUp = m.earliestWakeUp,
-                latestWakeUp = m.latestWakeUp,
-                bathroomDurationMinutes = m.bathroomDurationMinutes,
-                wantsBreakfast = m.wantsBreakfast,
-                leaveHomeTime = m.leaveHomeTime,
-                isSimpleMode = m.isSimpleMode
-            )
-            val updatedProfile = profile.copy(sequenceOrder = indexInTarget)
-            m.copy(dayProfiles = currentProfiles + (dayOfWeek to updatedProfile))
+            if (wholeWeek) {
+                val currentProfiles = m.dayProfiles ?: emptyMap()
+                val updatedProfiles = currentProfiles.mapValues { (_, profile) ->
+                    profile.copy(sequenceOrder = null)
+                }
+                m.copy(
+                    sequenceOrder = indexInTarget,
+                    dayProfiles = updatedProfiles
+                )
+            } else {
+                val currentProfiles = m.dayProfiles ?: emptyMap()
+                val profile = currentProfiles[dayOfWeek] ?: de.familienwecker.famwake.model.DayProfile(
+                    isActive = !m.isPaused,
+                    earliestWakeUp = m.earliestWakeUp,
+                    latestWakeUp = m.latestWakeUp,
+                    bathroomDurationMinutes = m.bathroomDurationMinutes,
+                    wantsBreakfast = m.wantsBreakfast,
+                    leaveHomeTime = m.leaveHomeTime,
+                    isSimpleMode = m.isSimpleMode
+                )
+                val updatedProfile = profile.copy(sequenceOrder = indexInTarget)
+                m.copy(dayProfiles = currentProfiles + (dayOfWeek to updatedProfile))
+            }
         } else {
             m
         }

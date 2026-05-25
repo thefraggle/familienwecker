@@ -356,4 +356,8 @@
     <string name="simple_mode_desc">Giờ thức dậy cố định, không tính thời gian đệm hoặc thời gian dùng phòng tắm.</string>
     <string name="tooltip_buffer">Chữ in nghiêng có nghĩa là thời gian dự phòng gia đình đang hoạt động. Hãy thay đổi nó để đặt thời gian dự phòng cá nhân cho hôm nay.</string>
     <string name="member_status_paused">Tạm dừng</string>
+    <string name="reorder_dialog_title">Thay đổi thứ tự</string>
+    <string name="reorder_dialog_message">Đơn hàng mới chỉ áp dụng cho hôm nay (%1$s) hay cho cả tuần?</string>
+    <string name="reorder_dialog_today">Chỉ hôm nay (%1$s)</string>
+    <string name="reorder_dialog_week">Cả tuần</string>
 </resources>

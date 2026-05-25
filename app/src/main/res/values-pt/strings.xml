@@ -350,4 +350,8 @@
     <string name="simple_mode_desc">Hora de acordar fixa sem margem ou cálculo de turnos no banheiro.</string>
     <string name="tooltip_buffer">O itálico significa que o buffer familiar está ativo. Altere-o para definir um buffer pessoal para hoje.</string>
     <string name="member_status_paused">Pausado</string>
+    <string name="reorder_dialog_title">Alterar pedido</string>
+    <string name="reorder_dialog_message">A nova ordem deve ser aplicada apenas a hoje (%1$s) ou à semana inteira?</string>
+    <string name="reorder_dialog_today">Somente hoje (%1$s)</string>
+    <string name="reorder_dialog_week">Semana inteira</string>
 </resources>

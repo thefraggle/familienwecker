@@ -353,4 +353,8 @@
     <string name="simple_mode_desc">अतिरिक्त समय या बाथरूम के समय की गणना के बिना उठने का निश्चित समय।</string>
     <string name="tooltip_buffer">इटैलिक का मतलब है कि फैमिली बफर एक्टिव है। आज के लिए अपना बफर सेट करने के लिए इसे बदलें।</string>
     <string name="member_status_paused">रोका गया</string>
+    <string name="reorder_dialog_title">आदेश बदलो</string>
+    <string name="reorder_dialog_message">क्या नया आदेश केवल आज (%1$s) पर लागू होना चाहिए या पूरे सप्ताह पर?</string>
+    <string name="reorder_dialog_today">केवल आज (%1$s)</string>
+    <string name="reorder_dialog_week">पूरे सप्ताह</string>
 </resources>

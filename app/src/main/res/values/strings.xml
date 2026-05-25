@@ -357,4 +357,8 @@
     <string name="simple_mode_desc">Fixed wake-up time without buffer or bathroom slot calculation.</string>
     <string name="tooltip_buffer">Italics mean the family buffer is active. Change it to set a personal buffer for today.</string>
     <string name="member_status_paused">Paused</string>
+    <string name="reorder_dialog_title">Change order</string>
+    <string name="reorder_dialog_message">Should the new order apply only to today (%1$s) or to the entire week?</string>
+    <string name="reorder_dialog_today">Only today (%1$s)</string>
+    <string name="reorder_dialog_week">Entire week</string>
 </resources>

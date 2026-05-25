@@ -356,4 +356,8 @@
     <string name="simple_mode_desc">Фіксований час пробудження без запасу часу або розрахунку часу на ванну.</string>
     <string name="tooltip_buffer">Курсив означає, що сімейний буфер активний. Змініть його, щоб встановити особистий буфер на сьогодні.</string>
     <string name="member_status_paused">На паузі</string>
+    <string name="reorder_dialog_title">Змінити порядок</string>
+    <string name="reorder_dialog_message">Новий порядок має застосовуватися лише до сьогодні (%1$s) чи до всього тижня?</string>
+    <string name="reorder_dialog_today">Тільки сьогодні (%1$s)</string>
+    <string name="reorder_dialog_week">Цілий тиждень</string>
 </resources>

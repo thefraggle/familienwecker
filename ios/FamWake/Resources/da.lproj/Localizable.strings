@@ -308,4 +308,8 @@
 "simple_mode_desc" = "Fast vækketid uden margin eller beregning af badeværelsestid.";
 "tooltip_buffer" = "Kursiv betyder, at familie-bufferen er aktiv. Ændr den for at indstille en personlig buffer for i dag.";
 "member_status_paused" = "Pauset";
+"reorder_dialog_title" = "Skift rækkefølge";
+"reorder_dialog_message" = "Skal den nye ordre kun gælde for i dag (%@) eller for hele ugen?";
+"reorder_dialog_today" = "Kun i dag (%@)";
+"reorder_dialog_week" = "Hele ugen";
 "ringing_messages_array" = "Badeværelset er helt dit lige nu!||Ingen trafik, intet stress – din tid på badeværelset starter nu.||Nyd freden på badeværelset, mens den varer!||Tid til den første kaffe. Verden venter!||Sovet godt? Din tidsplan for i dag er klar.||Klar til dagen? Alt er perfekt afstemt.||Tid til at rocke dagen! Din tid på badeværelset begynder.||Vågn op og skru op – scenen er din!||God musik om morgenen holder bekymringerne væk!||Din familietidsplan er live. Lad os komme afsted!||Klar til at starte? Familien regner med dig.||Stå op, solskin! Badeværelset er ledigt til dig.||Din personlige tid på badeværelset starter nu – udnyt den!||Fri bane til håndvasken – det er din tur!||Morgenfuglen får det varme vand!||Fem minutter mere? Nej! Din tid venter på dig.||I dag bliver en god dag. Den starter lige nu!||Din tandbørste savner dig. Af sted til badeværelset!||Alt er koordineret og planlagt – det er din tur!||Morgenfuglen har badeværelset helt for sig selv.";

@@ -13,6 +13,10 @@ struct MainView: View {
     @State private var memberToDelete: FamilyMember? = nil
     @State private var showDeleteMemberAlert = false
     @State private var showLoginSheet = false
+    @State private var pendingReorderFrom: Int? = nil
+    @State private var pendingReorderTo: Int? = nil
+    @State private var showReorderConfirmation = false
+
     @Environment(\.colorScheme) private var colorScheme
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
@@ -103,6 +107,51 @@ struct MainView: View {
                 Button(L.cancelButton, role: .cancel) {}
             } message: { member in
                 Text(String(format: L.s("delete_member_text"), member.name))
+            }
+            .confirmationDialog(
+                L.s("reorder_dialog_title"),
+                isPresented: $showReorderConfirmation,
+                titleVisibility: .visible
+            ) {
+                let cal = Calendar.current
+                let now = Date()
+                let today = cal.startOfDay(for: now)
+                let targetDate = familyViewModel.schedule?.targetDate ?? today
+                let weekdayRaw = cal.component(.weekday, from: targetDate)
+                let dayOfWeek = familyViewModel.selectedDayOfWeek ?? (weekdayRaw == 1 ? 7 : weekdayRaw - 1)
+                
+                let dayName = L.s("weekday_\(dayOfWeek)")
+                
+                Button(String(format: L.s("reorder_dialog_today"), dayName)) {
+                    if let fromIdx = pendingReorderFrom, let toIdx = pendingReorderTo {
+                        familyViewModel.moveMemberOrder(fromIndex: fromIdx, toIndex: toIdx, wholeWeek: false)
+                    }
+                    pendingReorderFrom = nil
+                    pendingReorderTo = nil
+                }
+                
+                Button(L.s("reorder_dialog_week")) {
+                    if let fromIdx = pendingReorderFrom, let toIdx = pendingReorderTo {
+                        familyViewModel.moveMemberOrder(fromIndex: fromIdx, toIndex: toIdx, wholeWeek: true)
+                    }
+                    pendingReorderFrom = nil
+                    pendingReorderTo = nil
+                }
+                
+                Button(L.cancelButton, role: .cancel) {
+                    pendingReorderFrom = nil
+                    pendingReorderTo = nil
+                }
+            } message: {
+                let cal = Calendar.current
+                let now = Date()
+                let today = cal.startOfDay(for: now)
+                let targetDate = familyViewModel.schedule?.targetDate ?? today
+                let weekdayRaw = cal.component(.weekday, from: targetDate)
+                let dayOfWeek = familyViewModel.selectedDayOfWeek ?? (weekdayRaw == 1 ? 7 : weekdayRaw - 1)
+                let dayName = L.s("weekday_\(dayOfWeek)")
+                
+                Text(String(format: L.s("reorder_dialog_message"), dayName))
             }
             .onChange(of: familyViewModel.familyId) { _, newId in
                 if newId == nil { appState.route = .familySetup }
@@ -560,7 +609,9 @@ struct MainView: View {
                         }
                         .onMove { from, to in
                             if let fromIdx = from.first {
-                                familyViewModel.moveMemberOrder(fromIndex: fromIdx, toIndex: to)
+                                pendingReorderFrom = fromIdx
+                                pendingReorderTo = to
+                                showReorderConfirmation = true
                             }
                         }
                     }

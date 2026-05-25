@@ -351,4 +351,8 @@
     <string name="simple_mode_desc">여유 시간이나 욕실 사용 시간 계산 없는 고정된 기상 시간입니다.</string>
     <string name="tooltip_buffer">기울임꼴은 가족 여유 시간이 활성화되어 있음을 의미합니다. 오늘 나만의 여유 시간을 설정하려면 변경하세요.</string>
     <string name="member_status_paused">일시 정지됨</string>
+    <string name="reorder_dialog_title">순서 변경</string>
+    <string name="reorder_dialog_message">새 주문은 오늘(%1$s)에만 적용해야 합니까, 아니면 일주일 전체에 적용해야 합니까?</string>
+    <string name="reorder_dialog_today">오늘만(%1$s)</string>
+    <string name="reorder_dialog_week">일주일 내내</string>
 </resources>

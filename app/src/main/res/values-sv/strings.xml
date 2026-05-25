@@ -351,4 +351,8 @@
     <string name="simple_mode_desc">Fast väckningstid utan marginal eller beräkning av badrumstid.</string>
     <string name="tooltip_buffer">Kursiv stil betyder att familjebufferten är aktiv. Ändra den för att ställa in en personlig buffert för idag.</string>
     <string name="member_status_paused">Pausad</string>
+    <string name="reorder_dialog_title">Ändra ordning</string>
+    <string name="reorder_dialog_message">Ska den nya beställningen endast gälla idag (%1$s) eller hela veckan?</string>
+    <string name="reorder_dialog_today">Endast idag (%1$s)</string>
+    <string name="reorder_dialog_week">Hela veckan</string>
 </resources>

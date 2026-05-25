@@ -308,4 +308,8 @@
 "simple_mode_desc" = "Vaste wektijd zonder marge of berekening van badkamertijd.";
 "tooltip_buffer" = "Cursief betekent dat de familie-buffer actief is. Pas dit aan om een persoonlijke buffer voor vandaag in te stellen.";
 "member_status_paused" = "Gepauzeerd";
+"reorder_dialog_title" = "Wijzig de volgorde";
+"reorder_dialog_message" = "Moet de nieuwe bestelling alleen voor vandaag (%@) of voor de hele week gelden?";
+"reorder_dialog_today" = "Alleen vandaag (%@)";
+"reorder_dialog_week" = "Hele week";
 "ringing_messages_array" = "De badkamer is nu helemaal voor jou alleen!||Geen spitsuur, geen stress – jouw badkamertijd begint nu.||Geniet van de rust in de badkamer zolang het duurt!||Tijd voor de eerste koffie. De wereld wacht op je!||Lekker geslapen? Het schema voor vandaag staat klaar.||Klaar voor de dag? Alles is perfect op elkaar afgestemd.||Tijd om de dag te beginnen! Je badkamertijd begint nu.||Word wakker en zet de muziek aan – het podium is voor jou!||Lekkere muziek in de ochtend verdrijft alle zorgen!||Jullie familieschema loopt. Laten we gaan!||Klaar voor de start? De rest van de familie rekent op je.||Opstaan, zonnetje! De badkamer is vrij voor jou.||Jouw persoonlijke tijd in de badkamer begint nu – maak er gebruik van!||Vrije baan naar de wastafel – het is jouw beurt!||De vroege vogel krijgt het warme water!||Nog 5 minuutjes? Nee hoor! Je tijdslot wacht op je.||Vandaag wordt een geweldige dag. En het begint nu!||Je tandenborstel mist je. Hup, naar de badkamer!||Alles gecoördineerd, alles gepland – jij bent aan de beurt!||De vroege vogel heeft de badkamer helemaal voor zichzelf.";

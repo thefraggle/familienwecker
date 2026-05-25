@@ -309,4 +309,8 @@
 "simple_mode_desc" = "Fixed wake-up time without buffer or bathroom slot calculation.";
 "tooltip_buffer" = "Italics mean the family buffer is active. Change it to set a personal buffer for today.";
 "member_status_paused" = "Paused";
+"reorder_dialog_title" = "Change order";
+"reorder_dialog_message" = "Should the new order apply only to today (%@) or to the entire week?";
+"reorder_dialog_today" = "Only today (%@)";
+"reorder_dialog_week" = "Entire week";
 "ringing_messages_array" = "The bathroom is all yours right now!||No traffic, no stress – your bathroom time starts now.||Enjoy the peace in the bathroom while it lasts!||Time for the first coffee. The world is waiting!||Sleep well? Your schedule for today is ready.||Ready for the day? Everything is perfectly timed.||Time to rock the day! Your bathroom time begins.||Wake up and turn it up – the stage is yours!||Heavy metal in the morning keeps the worries away!||Your family schedule is live. Let's go!||Ready to start? The family is counting on you.||Rise and shine! The bathroom is free for you.||Your personal bathroom time starts now – make the most of it!||Clear path to the sink – it's your turn!||The early bird gets the warm water!||Five more minutes? Nope! Your time slot is waiting.||Today is going to be a great day. It starts right now!||Your toothbrush misses you. Off to the bathroom!||All coordinated, all planned – you're up!||The early bird has the bathroom all to themselves.";

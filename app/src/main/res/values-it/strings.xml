@@ -350,4 +350,8 @@
     <string name="simple_mode_desc">Orario di sveglia fisso senza margine o calcolo dei turni in bagno.</string>
     <string name="tooltip_buffer">Il corsivo indica che il buffer familiare è attivo. Modificalo per impostare un buffer personale per oggi.</string>
     <string name="member_status_paused">In pausa</string>
+    <string name="reorder_dialog_title">Cambia ordine</string>
+    <string name="reorder_dialog_message">Il nuovo ordine dovrebbe applicarsi solo a oggi (%1$s) o all\'intera settimana?</string>
+    <string name="reorder_dialog_today">Solo oggi (%1$s)</string>
+    <string name="reorder_dialog_week">Tutta la settimana</string>
 </resources>

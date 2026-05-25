@@ -351,4 +351,8 @@
     <string name="simple_mode_desc">Fast vækketid uden margin eller beregning af badeværelsestid.</string>
     <string name="tooltip_buffer">Kursiv betyder, at familie-bufferen er aktiv. Ændr den for at indstille en personlig buffer for i dag.</string>
     <string name="member_status_paused">Pauset</string>
+    <string name="reorder_dialog_title">Skift rækkefølge</string>
+    <string name="reorder_dialog_message">Skal den nye ordre kun gælde for i dag (%1$s) eller for hele ugen?</string>
+    <string name="reorder_dialog_today">Kun i dag (%1$s)</string>
+    <string name="reorder_dialog_week">Hele ugen</string>
 </resources>
