@@ -147,10 +147,11 @@ class FamilyViewModel(
 
     internal val _members = MutableStateFlow<PersistentList<FamilyMember>>(persistentListOf())
     val members: StateFlow<PersistentList<FamilyMember>> = _members.asStateFlow()
-
     internal val _schedule = MutableStateFlow<FamilySchedule?>(null)
     val schedule: StateFlow<FamilySchedule?> = _schedule.asStateFlow()
 
+    internal val _deviceSchedule = MutableStateFlow<FamilySchedule?>(null)
+    val deviceSchedule: StateFlow<FamilySchedule?> = _deviceSchedule.asStateFlow()
     internal val _errorMessage = MutableStateFlow<UiText?>(null)
     val errorMessage: StateFlow<UiText?> = _errorMessage.asStateFlow()
 
