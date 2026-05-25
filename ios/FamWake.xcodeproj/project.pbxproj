@@ -375,7 +375,7 @@
 				CODE_SIGN_ENTITLEMENTS = FamWake/FamWake.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
@@ -411,7 +411,7 @@
 				CODE_SIGN_ENTITLEMENTS = FamWake/FamWake.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
