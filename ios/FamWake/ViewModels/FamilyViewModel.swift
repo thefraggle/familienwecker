@@ -339,6 +339,14 @@ class FamilyViewModel: ObservableObject {
             updatedMember.deviceAlarmEnabled = true
         }
         Task {
+            if let uid = Auth.auth().currentUser?.uid {
+                try? await db.collection("users").document(uid)
+                    .collection("pushMeta").document("user_action")
+                    .setData([
+                        "familyId": fid,
+                        "timestamp": FieldValue.serverTimestamp()
+                    ])
+            }
             do {
                 let data = updatedMember.toFirestoreMap()
                 try await db.collection("families").document(fid)
@@ -408,6 +416,14 @@ class FamilyViewModel: ObservableObject {
         }
         
         Task {
+            if let uid = Auth.auth().currentUser?.uid {
+                try? await db.collection("users").document(uid)
+                    .collection("pushMeta").document("user_action")
+                    .setData([
+                        "familyId": fid,
+                        "timestamp": FieldValue.serverTimestamp()
+                    ])
+            }
             do {
                 try await db.collection("families").document(fid).collection("members").document(memberId)
                     .updateData(["isPaused": newPausedState])
@@ -457,6 +473,14 @@ class FamilyViewModel: ObservableObject {
         
         if let fid = familyId, let mid = myMemberId {
             Task {
+                if let uid = Auth.auth().currentUser?.uid {
+                    try? await db.collection("users").document(uid)
+                        .collection("pushMeta").document("user_action")
+                        .setData([
+                            "familyId": fid,
+                            "timestamp": FieldValue.serverTimestamp()
+                        ])
+                }
                 do {
                     try await db.collection("families").document(fid).collection("members").document(mid)
                         .updateData(["deviceAlarmEnabled": enabled])
@@ -643,6 +667,20 @@ class FamilyViewModel: ObservableObject {
         
         Task {
             if let uid = currentUid {
+                try? await db.collection("users").document(uid)
+                    .collection("pushMeta").document("reorder")
+                    .setData([
+                        "familyId": fid,
+                        "timestamp": FieldValue.serverTimestamp()
+                    ])
+                try? await db.collection("users").document(uid)
+                    .collection("pushMeta").document("user_action")
+                    .setData([
+                        "familyId": fid,
+                        "timestamp": FieldValue.serverTimestamp()
+                    ])
+                
+                // Legacy Map Field support
                 try? await db.collection("users").document(uid)
                     .setData([
                         "pushMeta": [

@@ -64,6 +64,9 @@ interface IFirebaseRepository {
     /** Speichert wer zuletzt einen Reorder für eine Familie ausgelöst hat (für Self-Push-Filter). */
     suspend fun setReorderMeta(uid: String, familyId: String)
 
+    /** Speichert die letzte manuelle Benutzer-Aktivität (für Push-Filterung auf dem Server). */
+    suspend fun setUserActionMeta(uid: String, familyId: String)
+
     suspend fun updateMembersBatch(familyId: String, members: List<FamilyMember>)
 
     suspend fun updateDeviceAlarmEnabled(familyId: String, memberId: String, enabled: Boolean)
