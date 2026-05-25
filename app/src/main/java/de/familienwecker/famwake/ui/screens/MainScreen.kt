@@ -994,26 +994,31 @@ fun MainScreen(
                                     .padding(vertical = 2.dp, horizontal = 8.dp),
                                 horizontalArrangement = Arrangement.Center
                             ) {
-                                HorizontalDivider(
-                                    modifier = Modifier.weight(1f),
-                                    thickness = 1.dp,
-                                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(1.dp)
+                                        .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
                                 )
+                                Spacer(modifier = Modifier.width(6.dp))
                                 Icon(
                                     imageVector = Icons.Default.Timer,
                                     contentDescription = null,
-                                    modifier = Modifier.size(12.dp).padding(horizontal = 2.dp),
+                                    modifier = Modifier.size(12.dp),
                                     tint = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
                                 )
+                                Spacer(modifier = Modifier.width(4.dp))
                                 Text(
                                     text = stringResource(R.string.buffer_between_display, sched.bufferAfter),
                                     style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
                                 )
-                                HorizontalDivider(
-                                    modifier = Modifier.weight(1f),
-                                    thickness = 1.dp,
-                                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(1.dp)
+                                        .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
                                 )
                             }
                         }
