@@ -614,32 +614,41 @@ struct MainView: View {
 
                         // Drag & Drop schedule tiles
                         ForEach(Array(sched.memberSchedules.enumerated()), id: \.element.id) { index, memberSched in
-                            scheduleCard(memberSched)
-                            
-                            if index < sched.memberSchedules.count - 1 && memberSched.bufferAfter > 0 {
-                                HStack(alignment: .center) {
-                                    Rectangle()
-                                        .fill(theme.outline.opacity(0.2))
-                                        .frame(height: 1)
-                                    
-                                    HStack(spacing: 4) {
-                                        Image(systemName: "timer")
-                                            .font(.caption2)
-                                            .foregroundStyle(theme.outline.opacity(0.5))
-                                        Text(L.bufferBetweenDisplay(Int(memberSched.bufferAfter)))
-                                            .font(.caption2)
-                                            .fontWeight(.medium)
-                                            .foregroundStyle(theme.outline.opacity(0.6))
+                            VStack(spacing: 0) {
+                                scheduleCard(memberSched)
+                                
+                                if index < sched.memberSchedules.count - 1 && memberSched.bufferAfter > 0 {
+                                    HStack(alignment: .center) {
+                                        Rectangle()
+                                            .fill(theme.outline.opacity(0.2))
+                                            .frame(height: 1)
+                                        
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "timer")
+                                                .font(.caption2)
+                                                .foregroundStyle(theme.outline.opacity(0.5))
+                                            Text(L.bufferBetweenDisplay(Int(memberSched.bufferAfter)))
+                                                .font(.caption2)
+                                                .fontWeight(.medium)
+                                                .foregroundStyle(theme.outline.opacity(0.6))
+                                        }
+                                        .padding(.horizontal, 4)
+                                        
+                                        Rectangle()
+                                            .fill(theme.outline.opacity(0.2))
+                                            .frame(height: 1)
                                     }
-                                    .padding(.horizontal, 4)
-                                    
-                                    Rectangle()
-                                        .fill(theme.outline.opacity(0.2))
-                                        .frame(height: 1)
+                                    .padding(.top, 12)
+                                    .padding(.bottom, 12)
+                                    .padding(.horizontal, 8)
+                                } else {
+                                    Spacer(minLength: 12)
+                                        .frame(height: 12)
                                 }
-                                .padding(.vertical, 2)
-                                .padding(.horizontal, 8)
                             }
+                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
                         }
                         .onMove { from, to in
                             if let fromIdx = from.first {
@@ -695,7 +704,6 @@ struct MainView: View {
         }
         .padding()
         .famWakeCard(cornerRadius: 16, isDark: colorScheme == .dark)
-        .padding(.bottom, 12)
     }
 
     @ViewBuilder
