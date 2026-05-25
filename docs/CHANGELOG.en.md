@@ -2,6 +2,17 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.10 – 2026-05-25
+### New
+- **Reordering Confirmation Dialog** – When reordering members on the schedule, you will now be asked if the new order should apply only to today or to the entire week.
+
+### Improved
+- **Smarter "I'm Awake" Button** – The "I'm already awake" button is now permanently visible on the day of your alarm (or starting 4 hours before) and no longer disappears when previewing schedules for other weekdays.
+- **Optimized Push Notifications** – You will only receive family schedule updates when other members actively make changes. Automatic background resets will no longer trigger unnecessary notifications.
+- **Bugfixes & Design Polish** – More reliable dialog closing behavior on all devices and visual polishing of the schedule cards.
+
+---
+
 ## 1.9.9 – 2026-05-23
 ### Fixed
 - **Automatic time adjustment corrected** – Resolving overlapping times now reliably updates the selected day without modifying settings for other weekdays.
