@@ -350,4 +350,8 @@
     <string name="simple_mode_desc">Hora de despertar fija sin margen ni cálculo de turnos para el baño.</string>
     <string name="tooltip_buffer">La cursiva significa que el margen familiar está activo. Cámbialo para establecer un margen personal para hoy.</string>
     <string name="member_status_paused">Pausado</string>
+    <string name="reorder_dialog_title">Cambiar orden</string>
+    <string name="reorder_dialog_message">¿El nuevo orden debería aplicarse solo a hoy (%1$s) o a toda la semana?</string>
+    <string name="reorder_dialog_today">Sólo hoy (%1$s)</string>
+    <string name="reorder_dialog_week">Semana entera</string>
 </resources>

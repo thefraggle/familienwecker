@@ -351,4 +351,8 @@
     <string name="simple_mode_desc">अतिरिक्त वेळ किंवा बाथरूमच्या वेळेची गणना न करता उठण्याची निश्चित वेळ।</string>
     <string name="tooltip_buffer">इटॅलिक म्हणजे फॅमिली बफर सक्रिय आहे. आजसाठी तुमचा स्वतःचा बifer सेट करण्यासाठी ते बदला.</string>
     <string name="member_status_paused">थांबवले</string>
+    <string name="reorder_dialog_title">क्रम बदला</string>
+    <string name="reorder_dialog_message">नवीन ऑर्डर फक्त आज (%1$s) किंवा संपूर्ण आठवड्यासाठी लागू व्हायला हवी?</string>
+    <string name="reorder_dialog_today">फक्त आज (%1$s)</string>
+    <string name="reorder_dialog_week">संपूर्ण आठवडा</string>
 </resources>

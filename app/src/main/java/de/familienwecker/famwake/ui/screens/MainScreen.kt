@@ -62,6 +62,9 @@ import de.familienwecker.famwake.util.findActivity
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.ui.components.TooltipBubble
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 import de.familienwecker.famwake.ui.theme.*
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
@@ -108,6 +111,7 @@ fun MainScreen(
     val selectedDayOfWeek by viewModel.selectedDayOfWeek.collectAsStateWithLifecycle()
 
     var showDeleteMemberDialog by remember { mutableStateOf<FamilyMember?>(null) }
+    var pendingReorder by remember { mutableStateOf<Pair<Int, Int>?>(null) }
 
     val isExactAlarmPermitted = remember { mutableStateOf(de.familienwecker.famwake.util.AlarmPermissionUtils.hasExactAlarmPermission(context)) }
     val isFullScreenIntentPermitted = remember { mutableStateOf(de.familienwecker.famwake.util.AlarmPermissionUtils.hasFullScreenIntentPermission(context)) }
@@ -401,7 +405,6 @@ fun MainScreen(
                                     isDark = isDarkTheme
                                 )
                             }
-
                             val myMember = members.find { it.id == myMemberId }
                             val isAwakeButtonVisible = remember(myMember, isAlarmEnabled, schedule, isAwakeTodayLocal) {
                                 if (myMember == null || !isAlarmEnabled) return@remember false
@@ -430,8 +433,9 @@ fun MainScreen(
                                     if (isAwakeTodayLocal) {
                                         targetDate == todayDate && nowDt < targetDt
                                     } else {
-                                        val windowStart = targetDt.minusHours(2)
-                                        nowDt >= windowStart && nowDt < targetDt
+                                        val isToday = targetDate == todayDate
+                                        val windowStart = targetDt.minusHours(4)
+                                        (isToday || nowDt >= windowStart) && nowDt < targetDt
                                     }
                                 } else {
                                     false
@@ -895,8 +899,7 @@ fun MainScreen(
                                             val offsetItems = (draggingOffset / itemHeightPx).roundToInt()
                                             val targetIdx = (index + offsetItems).coerceIn(0, totalItems - 1)
                                             if (targetIdx != index) {
-                                                viewModel.moveMemberOrder(index, targetIdx)
-                                                viewModel.saveMemberOrder()
+                                                pendingReorder = Pair(index, targetIdx)
                                             }
                                             draggedItemId = null
                                             draggingOffset = 0f
@@ -1217,6 +1220,68 @@ fun MainScreen(
                 }
             }
         )
+        }
+    }
+
+    if (pendingReorder != null) {
+        pendingReorder?.let { (fromIdx, toIdx) ->
+            val targetDate = schedule?.targetDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
+            val dayOfWeekNum = selectedDayOfWeek ?: targetDate.dayOfWeek.value
+            val dayNameRes = when (dayOfWeekNum) {
+                1 -> R.string.weekday_1
+                2 -> R.string.weekday_2
+                3 -> R.string.weekday_3
+                4 -> R.string.weekday_4
+                5 -> R.string.weekday_5
+                6 -> R.string.weekday_6
+                7 -> R.string.weekday_7
+                else -> R.string.weekday_1
+            }
+            val dayName = stringResource(dayNameRes)
+
+            AlertDialog(
+                onDismissRequest = { pendingReorder = null },
+                title = { Text(text = stringResource(R.string.reorder_dialog_title)) },
+                text = {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = stringResource(R.string.reorder_dialog_message, dayName),
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
+                        Button(
+                            onClick = {
+                                viewModel.moveMemberOrder(fromIdx, toIdx, wholeWeek = false)
+                                viewModel.saveMemberOrder()
+                                pendingReorder = null
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(text = stringResource(R.string.reorder_dialog_today, dayName))
+                        }
+                        Button(
+                            onClick = {
+                                viewModel.moveMemberOrder(fromIdx, toIdx, wholeWeek = true)
+                                viewModel.saveMemberOrder()
+                                pendingReorder = null
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(text = stringResource(R.string.reorder_dialog_week))
+                        }
+                        OutlinedButton(
+                            onClick = { pendingReorder = null },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(text = stringResource(R.string.cancel_button))
+                        }
+                    }
+                },
+                confirmButton = {},
+                dismissButton = {}
+            )
         }
     }
 

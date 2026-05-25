@@ -309,4 +309,8 @@
 "simple_mode_desc" = "Feste Weckzeit ohne Puffer oder Berechnung der Badezimmerzeiten.";
 "tooltip_buffer" = "Kursiv bedeutet: Der Familien-Puffer ist aktiv. Ändere ihn, um einen persönlichen Puffer für heute zu setzen.";
 "member_status_paused" = "Pausiert";
+"reorder_dialog_title" = "Reihenfolge ändern";
+"reorder_dialog_message" = "Soll die neue Reihenfolge nur für heute (%@) oder für die ganze Woche gelten?";
+"reorder_dialog_today" = "Nur für heute (%@)";
+"reorder_dialog_week" = "Ganze Woche";
 "ringing_messages_array" = "Das Bad gehört jetzt ganz allein dir!||Kein Stau, kein Stress – deine Bad-Zeit beginnt jetzt.||Genieße die Ruhe im Bad, solange sie anhält!||Zeit für den ersten Kaffee. Die Welt wartet!||Gut geschlafen? Dein Zeitplan für heute ist fertig.||Bereit für den Tag? Alles ist perfekt abgestimmt.||Zeit, den Tag zu rocken! Deine Bad-Zeit beginnt.||Wach auf und dreh auf – die Bühne gehört dir!||Gute Musik am Morgen vertreibt Kummer und Sorgen!||Euer Familienplan läuft. Los geht's!||Bereit zum Start? Die Familie zählt auf dich.||Aufstehen, Sonnenschein! Das Bad ist frei für dich.||Deine persönliche Bad-Zeit startet jetzt – nutze sie!||Freie Bahn zum Waschbecken – du bist dran!||Der frühe Vogel bekommt das warme Wasser!||Noch fünf Minuten? Nein! Deine Zeit läuft.||Heute wird ein großartiger Tag. Er fängt genau jetzt an!||Deine Zahnbürste vermisst dich. Ab ins Bad!||Alles koordiniert, alles geplant – du bist dran!||Der frühe Vogel hat das Bad für sich allein.";
