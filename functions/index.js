@@ -2079,7 +2079,6 @@ async function sendPushToUser(uid, payload) {
             "title-loc-key": titleLocKey,
             "loc-key": bodyLocKey
           } : undefined,
-          sound: "default",
           "content-available": 1
         }
       }
