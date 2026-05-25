@@ -306,10 +306,8 @@ fun FamilyViewModel.saveMemberOrder() {
             }
             _members.value.forEach { m ->
                 memberRepository.upsertMember(m)
-                repository.updateMemberDayProfiles(currentFamilyId, m.id, m.dayProfiles)
             }
-            val orderMap = _members.value.associate { it.id to it.sequenceOrder }
-            repository.updateMemberOrders(currentFamilyId, orderMap)
+            repository.updateMemberOrderAndProfiles(currentFamilyId, _members.value)
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
                 Log.e("FamilyViewModel", "saveMemberOrder failed: ${e.message}")
