@@ -345,7 +345,6 @@ private struct DayProfileCard: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                .tint(theme.tertiary)
 
                 Divider()
 

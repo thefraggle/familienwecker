@@ -77,6 +77,23 @@ for folder in os.listdir(ANDROID_DIR):
         
         strings_out.append(f'"{key}" = "{cleaned_val}";')
         
+    for array_elem in root.findall('string-array'):
+        key = array_elem.get('name')
+        if not key:
+            continue
+        if array_elem.get('translatable') == 'false':
+            continue
+            
+        items = []
+        for item_elem in array_elem.findall('item'):
+            val = item_elem.text
+            if val is None:
+                val = "".join(item_elem.itertext())
+            items.append(clean_android_string(val))
+            
+        combined_val = "||".join(items)
+        strings_out.append(f'"{key}_array" = "{combined_val}";')
+        
     out_path = os.path.join(lproj_dir, "Localizable.strings")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(strings_out))
