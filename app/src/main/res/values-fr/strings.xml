@@ -351,4 +351,8 @@
     <string name="simple_mode_desc">Heure de réveil fixe sans marge ni calcul du temps de passage à la salle de bain.</string>
     <string name="tooltip_buffer">L\'italique signifie que la marge familiale est active. Modifiez-la pour définir une marge personnelle pour aujourd\'hui.</string>
     <string name="member_status_paused">En pause</string>
+    <string name="reorder_dialog_title">Changer la commande</string>
+    <string name="reorder_dialog_message">La nouvelle commande doit-elle s\'appliquer uniquement à aujourd\'hui (%1$s) ou à toute la semaine ?</string>
+    <string name="reorder_dialog_today">Seulement aujourd\'hui (%1$s)</string>
+    <string name="reorder_dialog_week">Semaine entière</string>
 </resources>

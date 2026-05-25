@@ -351,4 +351,8 @@
     <string name="simple_mode_desc">固定叫醒时间，不计算缓冲时间或洗手间时间。</string>
     <string name="tooltip_buffer">斜体表示家庭缓冲时间处于开启状态。更改它即可为今天设置个人缓冲时间。</string>
     <string name="member_status_paused">已暂停</string>
+    <string name="reorder_dialog_title">更改订单</string>
+    <string name="reorder_dialog_message">新订单应该仅适用于今天 (%1$s) 还是整周？</string>
+    <string name="reorder_dialog_today">仅限今天 (%1$s)</string>
+    <string name="reorder_dialog_week">整个星期</string>
 </resources>

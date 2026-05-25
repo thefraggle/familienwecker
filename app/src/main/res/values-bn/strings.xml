@@ -353,4 +353,8 @@
     <string name="simple_mode_desc">অতিরিক্ত সময় বা বাথরুম ব্যবহারের সময় গণনা ছাড়াই নির্দিষ্ট ঘুম থেকে ওঠার সময়।</string>
     <string name="tooltip_buffer">ইটালিক মানে ফ্যামিলি বাফার চালু আছে। আজকের জন্য নিজের বাফার সেট করতে এটি পরিবর্তন করুন।</string>
     <string name="member_status_paused">স্থগিত</string>
+    <string name="reorder_dialog_title">অর্ডার পরিবর্তন করুন</string>
+    <string name="reorder_dialog_message">নতুন অর্ডারটি কি শুধুমাত্র আজকের (%1$s) বা পুরো সপ্তাহে প্রযোজ্য হবে?</string>
+    <string name="reorder_dialog_today">শুধুমাত্র আজ (%1$s)</string>
+    <string name="reorder_dialog_week">পুরো সপ্তাহ</string>
 </resources>

@@ -352,4 +352,8 @@
     <string name="simple_mode_desc">Waktu bangun tetap tanpa jeda atau perhitungan waktu kamar mandi.</string>
     <string name="tooltip_buffer">Huruf miring berarti buffer keluarga aktif. Ubah untuk mengatur buffer pribadi untuk hari ini.</string>
     <string name="member_status_paused">Dijeda</string>
+    <string name="reorder_dialog_title">Ubah urutan</string>
+    <string name="reorder_dialog_message">Apakah pesanan baru hanya berlaku untuk hari ini (%1$s) atau untuk seluruh minggu?</string>
+    <string name="reorder_dialog_today">Hanya hari ini (%1$s)</string>
+    <string name="reorder_dialog_week">Sepanjang minggu</string>
 </resources>

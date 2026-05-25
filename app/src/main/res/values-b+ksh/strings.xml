@@ -350,4 +350,8 @@
     <string name="simple_mode_desc">Feste Weckzeit ohne Puffer oder Rechnerei fürs Bad.</string>
     <string name="tooltip_buffer">Kursiv heißt: Der Familien-Puffer is an. Änder den einfach, um dir für heute nen eigenen Puffer zu setzen.</string>
     <string name="member_status_paused">Pausiert</string>
+    <string name="reorder_dialog_title">Reihenfolge ändern</string>
+    <string name="reorder_dialog_message">Soll die neue Reihenfolge nur für heute (%1$s) oder für die ganze Woche gelten?</string>
+    <string name="reorder_dialog_today">Nur für heute (%1$s)</string>
+    <string name="reorder_dialog_week">Ganze Woche</string>
 </resources>

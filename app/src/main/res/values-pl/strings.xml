@@ -350,4 +350,8 @@
     <string name="simple_mode_desc">Stała godzina pobudki bez marginesu czasowego i obliczania czasu w łazience.</string>
     <string name="tooltip_buffer">Kursywa oznacza, że bufor rodzinny jest aktywny. Zmień go, aby ustawić osobisty bufor na dzisiaj.</string>
     <string name="member_status_paused">Wstrzymany</string>
+    <string name="reorder_dialog_title">Zmień kolejność</string>
+    <string name="reorder_dialog_message">Czy nowe zamówienie powinno dotyczyć tylko dnia dzisiejszego (%1$s), czy całego tygodnia?</string>
+    <string name="reorder_dialog_today">Tylko dzisiaj (%1$s)</string>
+    <string name="reorder_dialog_week">Cały tydzień</string>
 </resources>

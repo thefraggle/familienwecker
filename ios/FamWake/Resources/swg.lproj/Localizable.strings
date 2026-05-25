@@ -308,4 +308,8 @@
 "simple_mode_desc" = "Feschde Weckzeit ohne Puffer oder s'Ausrechna vo de Badzeita.";
 "tooltip_buffer" = "Kursiv hoißt: Dr Familien-Puffer isch aktiv. Ändr des, um an oigenen Puffer fir heit zom setza.";
 "member_status_paused" = "Pausiert";
+"reorder_dialog_title" = "Reihenfolge ändern";
+"reorder_dialog_message" = "Soll die neue Reihenfolge nur für heute (%@) oder für die ganze Woche gelten?";
+"reorder_dialog_today" = "Nur für heute (%@)";
+"reorder_dialog_week" = "Ganze Woche";
 "ringing_messages_array" = "S'Bädle ghert jetzt ganz alloim dir!||Koi Gschrei, koin Stress – dei Badzeit fängt aa.||Gnieß d'Ruha em Bad, solang s'goht!||Zeit für a Käffle. D'Welt wartet uff di!||Gud gschlafa? Dei Plan für heit basst.||Grichtet für da Dåg? Älles isch subber abgstimmt.||Uff gehts, dr Dåg ghört dir! Badzeit fängt aa.||Wach uff ond dräh uff – d'Bühne isch dei!||A guats Musikle am Morga verdreibt Kummer ond Sorga!||Dr Familieplan lauft. S'goht los!||Bisch grichtet? S'Team zählet uff di.||Ufschdanda, Sonnaschai! Des Bad isch frei für di.||Dei persönlicher Bad-Slot fangt jetzt aa – nutz en!||Freie Bahn zom Waschbegga – du bisch dra!||Dr frühe Vogl griagt s'warme Wasser!||No 5 Minudda? Noi! Dei Zeitfenschder wartet.||Heid wird a guader Tag. Der fangt genau jetzt aa!||D'Zahnbürschde vermisst di. Ab ins Bad!||Älles koordiniert, älles gplant – du bisch dra!||Der frühe Vogel hot des Bad für sich alloi.";

@@ -299,8 +299,9 @@ class FamilyViewModel: ObservableObject {
             return offset == 0 && now < targetDate
         }
         
-        guard let windowStart = cal.date(byAdding: .hour, value: -2, to: targetDate) else { return false }
-        return now >= windowStart && now < targetDate
+        let isToday = offset == 0
+        guard let windowStart = cal.date(byAdding: .hour, value: -4, to: targetDate) else { return false }
+        return (isToday || now >= windowStart) && now < targetDate
     }
 
     func deleteFamily(completion: @escaping (Bool) -> Void) {
@@ -578,8 +579,7 @@ class FamilyViewModel: ObservableObject {
             }
         }
     }
-
-    func moveMemberOrder(fromIndex: Int, toIndex: Int) {
+    func moveMemberOrder(fromIndex: Int, toIndex: Int, wholeWeek: Bool = false) {
         guard let sched = schedule else { return }
         let cal = Calendar.current
         let now = Date()
@@ -599,21 +599,32 @@ class FamilyViewModel: ObservableObject {
         
         let updatedMembers = members.map { m -> FamilyMember in
             if let indexInTarget = targetIds.firstIndex(of: m.id) {
-                var currentProfiles = m.dayProfiles ?? [:]
-                let profile = currentProfiles[dayOfWeek] ?? DayProfile(
-                    isActive: !m.isPaused,
-                    earliestWakeUp: m.earliestWakeUp,
-                    latestWakeUp: m.latestWakeUp,
-                    bathroomDurationMinutes: m.bathroomDurationMinutes,
-                    wantsBreakfast: m.wantsBreakfast,
-                    leaveHomeTime: m.leaveHomeTime,
-                    isSimpleMode: m.isSimpleMode
-                )
-                var updatedProfile = profile
-                updatedProfile.sequenceOrder = indexInTarget
-                currentProfiles[dayOfWeek] = updatedProfile
                 var updatedMember = m
-                updatedMember.dayProfiles = currentProfiles
+                if wholeWeek {
+                    updatedMember.sequenceOrder = indexInTarget
+                    var currentProfiles = m.dayProfiles ?? [:]
+                    for key in currentProfiles.keys {
+                        var p = currentProfiles[key]!
+                        p.sequenceOrder = nil
+                        currentProfiles[key] = p
+                    }
+                    updatedMember.dayProfiles = currentProfiles
+                } else {
+                    var currentProfiles = m.dayProfiles ?? [:]
+                    let profile = currentProfiles[dayOfWeek] ?? DayProfile(
+                        isActive: !m.isPaused,
+                        earliestWakeUp: m.earliestWakeUp,
+                        latestWakeUp: m.latestWakeUp,
+                        bathroomDurationMinutes: m.bathroomDurationMinutes,
+                        wantsBreakfast: m.wantsBreakfast,
+                        leaveHomeTime: m.leaveHomeTime,
+                        isSimpleMode: m.isSimpleMode
+                    )
+                    var updatedProfile = profile
+                    updatedProfile.sequenceOrder = indexInTarget
+                    currentProfiles[dayOfWeek] = updatedProfile
+                    updatedMember.dayProfiles = currentProfiles
+                }
                 return updatedMember
             } else {
                 return m
