@@ -59,6 +59,7 @@ struct MainView: View {
                     memberSection
                 }
                 .listStyle(.plain)
+                .listRowSpacing(0)
                 .scrollContentBackground(.hidden)
                 .contentMargins(.bottom, 88, for: .scrollContent)
             }
@@ -638,12 +639,12 @@ struct MainView: View {
                                             .fill(theme.outline.opacity(0.2))
                                             .frame(height: 1)
                                     }
-                                    .padding(.top, 12)
-                                    .padding(.bottom, 12)
+                                    .padding(.top, 16)
+                                    .padding(.bottom, 16)
                                     .padding(.horizontal, 8)
                                 } else {
-                                    Spacer(minLength: 12)
-                                        .frame(height: 12)
+                                    Spacer(minLength: 16)
+                                        .frame(height: 16)
                                 }
                             }
                             .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
