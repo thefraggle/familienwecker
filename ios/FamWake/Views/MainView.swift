@@ -138,9 +138,10 @@ struct MainView: View {
                     pendingReorderTo = nil
                 }
                 
-                Button(L.cancelButton, role: .cancel) {
+                Button(L.cancelButton) {
                     pendingReorderFrom = nil
                     pendingReorderTo = nil
+                    familyViewModel.recalculateSchedule()
                 }
             } message: {
                 let cal = Calendar.current
