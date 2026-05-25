@@ -108,10 +108,9 @@ struct MainView: View {
             } message: { member in
                 Text(String(format: L.s("delete_member_text"), member.name))
             }
-            .confirmationDialog(
+            .alert(
                 L.s("reorder_dialog_title"),
-                isPresented: $showReorderConfirmation,
-                titleVisibility: .visible
+                isPresented: $showReorderConfirmation
             ) {
                 let cal = Calendar.current
                 let now = Date()
@@ -138,7 +137,7 @@ struct MainView: View {
                     pendingReorderTo = nil
                 }
                 
-                Button(L.cancelButton) {
+                Button(L.cancelButton, role: .cancel) {
                     pendingReorderFrom = nil
                     pendingReorderTo = nil
                     familyViewModel.recalculateSchedule()
@@ -153,6 +152,15 @@ struct MainView: View {
                 let dayName = L.s("weekday_\(dayOfWeek)")
                 
                 Text(String(format: L.s("reorder_dialog_message"), dayName))
+            }
+            .onChange(of: showReorderConfirmation) { _, isPresented in
+                if !isPresented {
+                    if pendingReorderFrom != nil || pendingReorderTo != nil {
+                        pendingReorderFrom = nil
+                        pendingReorderTo = nil
+                        familyViewModel.recalculateSchedule()
+                    }
+                }
             }
             .onChange(of: familyViewModel.familyId) { _, newId in
                 if newId == nil { appState.route = .familySetup }
