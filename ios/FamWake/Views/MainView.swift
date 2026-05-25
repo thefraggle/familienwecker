@@ -613,8 +613,33 @@ struct MainView: View {
                         }
 
                         // Drag & Drop schedule tiles
-                        ForEach(sched.memberSchedules) { memberSched in
+                        ForEach(Array(sched.memberSchedules.enumerated()), id: \.element.id) { index, memberSched in
                             scheduleCard(memberSched)
+                            
+                            if index < sched.memberSchedules.count - 1 && memberSched.bufferAfter > 0 {
+                                HStack(alignment: .center) {
+                                    Rectangle()
+                                        .fill(theme.outline.opacity(0.2))
+                                        .frame(height: 1)
+                                    
+                                    HStack(spacing: 4) {
+                                        Image(systemName: "timer")
+                                            .font(.caption2)
+                                            .foregroundStyle(theme.outline.opacity(0.5))
+                                        Text(L.bufferBetweenDisplay(Int(memberSched.bufferAfter)))
+                                            .font(.caption2)
+                                            .fontWeight(.medium)
+                                            .foregroundStyle(theme.outline.opacity(0.6))
+                                    }
+                                    .padding(.horizontal, 4)
+                                    
+                                    Rectangle()
+                                        .fill(theme.outline.opacity(0.2))
+                                        .frame(height: 1)
+                                }
+                                .padding(.vertical, 2)
+                                .padding(.horizontal, 8)
+                            }
                         }
                         .onMove { from, to in
                             if let fromIdx = from.first {

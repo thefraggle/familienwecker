@@ -2048,6 +2048,19 @@ async function sendPushToUser(uid, payload) {
 
   if (tokens.length === 0) return;
 
+  let titleLocKey = "";
+  let bodyLocKey = "";
+  if (payload.type === "schedule_change") {
+    titleLocKey = "notif_schedule_changed_title";
+    bodyLocKey = "notif_schedule_changed_body";
+  } else if (payload.type === "family_joined") {
+    titleLocKey = "notif_member_joined_title";
+    bodyLocKey = "notif_member_joined_body";
+  } else if (payload.type === "family_left") {
+    titleLocKey = "notif_member_left_title";
+    bodyLocKey = "notif_member_left_body";
+  }
+
   const message = {
     tokens,
     data: {
@@ -2055,15 +2068,18 @@ async function sendPushToUser(uid, payload) {
       title: payload.title || "",
       body: payload.body || "",
     },
-    // Stille Datennachricht: App zeigt Notification selbst an (voller Channel-Kontrolle)
     android: { priority: "high" },
     apns: {
       headers: {
-        "apns-push-type": "background",
-        "apns-priority": "5"
+        "apns-priority": "10"
       },
       payload: {
         aps: {
+          alert: titleLocKey ? {
+            "title-loc-key": titleLocKey,
+            "loc-key": bodyLocKey
+          } : undefined,
+          sound: "default",
           "content-available": 1
         }
       }

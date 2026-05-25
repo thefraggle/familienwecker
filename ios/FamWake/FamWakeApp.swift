@@ -64,7 +64,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // FCM Data Message empfangen
         if let type = userInfo["type"] as? String {
-            handleIncomingDataMessage(type: type)
+            let hasAlert = (userInfo["aps"] as? [AnyHashable: Any])?["alert"] != nil
+            if !hasAlert {
+                handleIncomingDataMessage(type: type)
+            }
             completionHandler(.newData)
             return
         }

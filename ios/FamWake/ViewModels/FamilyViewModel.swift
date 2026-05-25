@@ -378,6 +378,14 @@ class FamilyViewModel: ObservableObject {
         // Prüfe ob das gelöschte Profil das eigene war
         let wasMyMember = (memberId == myMemberId)
         Task {
+            if let uid = Auth.auth().currentUser?.uid {
+                try? await db.collection("users").document(uid)
+                    .collection("pushMeta").document("user_action")
+                    .setData([
+                        "familyId": fid,
+                        "timestamp": FieldValue.serverTimestamp()
+                    ])
+            }
             do {
                 try await db.collection("families").document(fid).collection("members").document(memberId).delete()
                 TelemetryManager.send("member.deleted")
@@ -448,6 +456,14 @@ class FamilyViewModel: ObservableObject {
         guard let fid = familyId else { return }
         isAwakeTodayLocal = awake
         Task {
+            if let uid = Auth.auth().currentUser?.uid {
+                try? await db.collection("users").document(uid)
+                    .collection("pushMeta").document("user_action")
+                    .setData([
+                        "familyId": fid,
+                        "timestamp": FieldValue.serverTimestamp()
+                    ])
+            }
             do {
                 try await db.collection("families").document(fid).collection("members").document(memberId)
                     .updateData(["isAwakeToday": awake])
@@ -695,6 +711,7 @@ class FamilyViewModel: ObservableObject {
             for member in members {
                 let dpData = member.toFirestoreMap()["dayProfiles"]
                 var updatePayload: [String: Any] = [
+                    "sequenceOrder": member.sequenceOrder,
                     "lastUpdatedAt": FieldValue.serverTimestamp()
                 ]
                 if let dp = dpData {
