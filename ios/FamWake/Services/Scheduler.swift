@@ -167,10 +167,7 @@ struct Scheduler {
             var effectiveBuffer = 0
             if index < orderedMembers.count - 1 {
                 let activeProfile = member.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
-                effectiveBuffer = globalBufferMinutes
-                if let pBuffer = activeProfile?.bufferMinutes, pBuffer > 0 {
-                    effectiveBuffer = pBuffer
-                }
+                effectiveBuffer = activeProfile?.bufferMinutes ?? globalBufferMinutes
             }
 
             // Für den nächsten Schritt (das vorhergehende Mitglied) ziehen wir den Puffer
@@ -180,10 +177,7 @@ struct Scheduler {
                 let prevMember = orderedMembers[index - 1]
                 if !prevMember.isSimpleMode {
                     let activeProfile = prevMember.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
-                    prevBuffer = globalBufferMinutes
-                    if let pBuffer = activeProfile?.bufferMinutes, pBuffer > 0 {
-                        prevBuffer = pBuffer
-                    }
+                    prevBuffer = activeProfile?.bufferMinutes ?? globalBufferMinutes
                 }
             }
 
