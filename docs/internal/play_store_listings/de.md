@@ -4,10 +4,10 @@
 ---
 
 ## App-Name (30 Zeichen max)
-FamWake Familienwecker
+FamWake Wecker & Alltagsplaner
 
 ## Kurzbeschreibung (80 Zeichen max)
-Familienwecker & Kinder Wecker: Zeitmanagement für Familien. Mehrere Wecker.
+Morgenroutine & Alltagsplaner für Familien. Wecker & Badezimmer-Reihenfolge.
 
 ## Vollständige Beschreibung (4000 Zeichen max)
 
