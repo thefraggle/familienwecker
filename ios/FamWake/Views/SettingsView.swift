@@ -290,12 +290,7 @@ struct SettingsView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
 
-                // Tooltip E
-                if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipInviteSeen {
-                    TooltipBubble(text: L.tooltipInviteCode) {
-                        familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyInvite)
-                    }
-                }
+
 
                 // Share
                 Button(action: {

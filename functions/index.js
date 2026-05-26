@@ -1,6 +1,7 @@
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { onSchedule } = require("firebase-functions/v2/scheduler");
 const { onDocumentWritten } = require("firebase-functions/v2/firestore");
+const functions = require("firebase-functions");
 const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
 const { Resend } = require("resend");
@@ -2255,3 +2256,106 @@ async function notifyFamilyMemberLeft(recipientUids, leftUid) {
     // Android lokalisiert self via type
   });
 }
+
+exports.onUserDeleted = functions.region("europe-west3").auth.user().onDelete(
+  async (user) => {
+    const uid = user.uid;
+    console.log(`User ${uid} deleted. Starting DSGVO cleanup...`);
+    const db = admin.firestore();
+    const userRef = db.collection("users").doc(uid);
+
+    try {
+      // 1. Read user doc to find familyId
+      const userDoc = await userRef.get();
+      if (userDoc.exists) {
+        const familyId = userDoc.data().familyId;
+        if (familyId) {
+          // Find and unclaim any members in this family claimed by this user
+          const membersSnap = await db.collection("families").doc(familyId)
+            .collection("members")
+            .where("claimedByUserId", "==", uid)
+            .get();
+
+          if (!membersSnap.empty) {
+            const batch = db.batch();
+            membersSnap.docs.forEach((doc) => {
+              batch.update(doc.ref, {
+                claimedByUserId: null,
+                claimedByUserName: null,
+                claimedByDeviceId: null,
+                deviceAlarmEnabled: false,
+                lastUpdatedAt: admin.firestore.FieldValue.serverTimestamp()
+              });
+            });
+            await batch.commit();
+            console.log(`Unclaimed ${membersSnap.size} members in family ${familyId} for deleted user ${uid}`);
+          }
+        }
+      }
+
+      // 2. Recursively delete the user document and its subcollections (fcmTokens, pushMeta)
+      if (db.recursiveDelete) {
+        await db.recursiveDelete(userRef);
+        console.log(`Recursively deleted user doc users/${uid} (including subcollections)`);
+      } else {
+        // Fallback
+        const fcmTokens = await userRef.collection("fcmTokens").get();
+        const pushMeta = await userRef.collection("pushMeta").get();
+        const batch = db.batch();
+        fcmTokens.docs.forEach(doc => batch.delete(doc.ref));
+        pushMeta.docs.forEach(doc => batch.delete(doc.ref));
+        batch.delete(userRef);
+        await batch.commit();
+        console.log(`Fallback-deleted user doc users/${uid} and subcollections`);
+      }
+    } catch (err) {
+      console.error(`Error in onUserDeleted cleanup for ${uid}:`, err);
+    }
+  }
+);
+
+// ─── Scheduled Function: Bereinigung unlinked anonymer User (jeden Sonntag 03:00) ───
+exports.cleanupAnonymousUsers = onSchedule(
+  {
+    schedule: "0 3 * * 0",
+    region: "europe-west3",
+    timeZone: "Europe/Berlin",
+  },
+  async (event) => {
+    console.log("Running weekly anonymous users cleanup...");
+    const thirtyDaysAgoMs = Date.now() - 30 * 24 * 60 * 60 * 1000;
+    const staleAnonymousUsers = [];
+
+    async function listAnonymousUsers(nextPageToken) {
+      const result = await admin.auth().listUsers(1000, nextPageToken);
+      result.users.forEach((user) => {
+        // Anonyme User haben keine verknüpften Provider (providerData ist leer)
+        const isAnonymous = user.providerData.length === 0;
+        const createdAtMs = Date.parse(user.metadata.creationTime);
+        if (isAnonymous && createdAtMs < thirtyDaysAgoMs) {
+          staleAnonymousUsers.push(user.uid);
+        }
+      });
+      if (result.pageToken) {
+        await listAnonymousUsers(result.pageToken);
+      }
+    }
+
+    await listAnonymousUsers();
+
+    if (staleAnonymousUsers.length === 0) {
+      console.log("No expired anonymous users found.");
+      return;
+    }
+
+    console.log(`Found ${staleAnonymousUsers.length} expired anonymous users. Starting batch deletion...`);
+
+    // In Chunks von 1000 löschen (Limit von deleteUsers)
+    for (let i = 0; i < staleAnonymousUsers.length; i += 1000) {
+      const chunk = staleAnonymousUsers.slice(i, i + 1000);
+      await admin.auth().deleteUsers(chunk);
+    }
+
+    console.log(`Successfully deleted ${staleAnonymousUsers.length} anonymous users.`);
+  }
+);
