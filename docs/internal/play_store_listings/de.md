@@ -13,9 +13,9 @@ Morgenroutine & Alltagsplaner für Familien. Wecker & Badezimmer-Reihenfolge.
 
 <b>Schluss mit Morgen-Chaos! Dein Familienwecker & Kinder Wecker für eine entspannte Morgenroutine.</b> ⏰
 
-FamWake ist deine Routine App für entspannte Familienmorgen — Zeitplaner, Badezimmer Reihenfolge und mehrere Wecker in einer smarten Familien Wecker App.
+FamWake ist deine Routine App und Aufsteh-App für entspannte Familienmorgen — Zeitplaner, Badezimmer Reihenfolge und Zeitmanagement in einer smarten Familien Wecker App.
 
-Alle müssen gleichzeitig raus und am Ende kommt jeder zu spät. Deshalb habe ich als Vater <b>FamWake</b> entwickelt: den Familienwecker, den ich mir immer gewünscht hätte. Ob als cleverer Kinderwecker, Kinder Wecker für die gemeinsame Morgenroutine oder als Alltagsplaner — unser Wecker Familie und Alltag macht es einfach.
+Alle müssen gleichzeitig raus und am Ende kommt jeder zu spät. Deshalb habe ich als Vater <b>FamWake</b> entwickelt: den Familienwecker, den ich mir immer gewünscht hätte. Ob als cleverer Kinderwecker, als Hilfe für die Morgenroutine für Kinder oder als Alltagsplaner — unser Wecker Familie und Alltag macht es einfach.
 
 FamWake berechnet für jedes Familienmitglied den <b>perfekten Weckzeitpunkt</b> — abgestimmt auf Badezimmer, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und trotzdem sind alle pünktlich.
 
@@ -26,7 +26,7 @@ Wer wann ins Bad darf, plant FamWake automatisch — ohne Überschneidungen. Per
 Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam am Tisch sitzen können — bevor es losgeht.
 
 <b>👨‍👩‍👧‍👦 Die ganze Familie im Blick</b>
-Auf dem Dashboard siehst du in Echtzeit den Zeitplan der Familie: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein persönlicher Tagesroutineplaner und Alltagsplaner für Familien — Routinen erstellen war noch nie so einfach.
+Auf dem Dashboard siehst du in Echtzeit den Zeitplan der Familie: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein persönlicher Zeitplaner, Tagesroutineplaner und Alltagsplaner für Familien — Routinen erstellen war noch nie so einfach.
 
 <b>😴 Schon früher wach?</b>
 Ein Tipp auf „Schon wach“ und dein Wecker klingelt nicht — du bist ja schon auf. Brauchst du an einem Tag gar keinen Wecker? Pausiere dich einfach und FamWake berechnet den Zeitplan für alle anderen automatisch neu.
