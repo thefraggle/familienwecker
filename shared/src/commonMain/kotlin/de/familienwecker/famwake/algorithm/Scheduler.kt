@@ -169,8 +169,7 @@ class Scheduler {
             // Der Puffer nach diesem Mitglied bestimmt den Abstand zum Nachfolgenden.
             // Wenn es kein nachfolgendes Mitglied gibt (letztes Element), ist der Puffer 0.
             val effectiveBuffer = if (index < orderedMembers.lastIndex) {
-                member.dayProfiles?.values?.firstOrNull()?.bufferMinutes
-                    ?.takeIf { it > 0 } ?: globalBufferMinutes
+                member.dayProfiles?.values?.firstOrNull()?.bufferMinutes ?: globalBufferMinutes
             } else {
                 0L
             }
@@ -182,8 +181,7 @@ class Scheduler {
                 if (prevMember.isSimpleMode) {
                     0L
                 } else {
-                    prevMember.dayProfiles?.values?.firstOrNull()?.bufferMinutes
-                        ?.takeIf { it > 0 } ?: globalBufferMinutes
+                    prevMember.dayProfiles?.values?.firstOrNull()?.bufferMinutes ?: globalBufferMinutes
                 }
             } else {
                 0L

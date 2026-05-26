@@ -424,10 +424,11 @@ private struct DayProfileCard: View {
                             }
                             .disabled(effectiveValue <= 0)
                             
+                            let isOverride = profile.bufferMinutes != nil && profile.bufferMinutes != globalBufferMinutes
                             Text("\(effectiveValue) min")
                                 .font(.headline)
-                                .fontWeight(profile.bufferMinutes != nil ? .bold : .regular)
-                                .italic(profile.bufferMinutes == nil)
+                                .fontWeight(isOverride ? .bold : .regular)
+                                .italic(!isOverride)
                                 .frame(minWidth: 64)
                                 .multilineTextAlignment(.center)
                                 

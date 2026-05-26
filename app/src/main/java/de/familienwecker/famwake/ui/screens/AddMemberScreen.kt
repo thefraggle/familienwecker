@@ -782,11 +782,12 @@ private fun DayProfileCard(
                                     },
                                     enabled = effectiveValue > 0
                                 ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                                val isOverride = profile.bufferMinutes != null && profile.bufferMinutes != globalBufferMinutes
                                 Text(
                                     "$effectiveValue min",
                                     style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = if (profile.bufferMinutes != null) FontWeight.SemiBold else FontWeight.Normal,
-                                    fontStyle = if (profile.bufferMinutes == null) androidx.compose.ui.text.font.FontStyle.Italic else androidx.compose.ui.text.font.FontStyle.Normal,
+                                    fontWeight = if (isOverride) FontWeight.SemiBold else FontWeight.Normal,
+                                    fontStyle = if (isOverride) androidx.compose.ui.text.font.FontStyle.Normal else androidx.compose.ui.text.font.FontStyle.Italic,
                                     maxLines = 1,
                                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
                                 )

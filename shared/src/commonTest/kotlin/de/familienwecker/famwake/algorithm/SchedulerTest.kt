@@ -244,5 +244,36 @@ class SchedulerTest {
         val diff = (m2Start.hour * 60 + m2Start.minute) - (m1End.hour * 60 + m1End.minute)
         assertTrue(diff >= 5, "Erwarteter Abstand zwischen m1 und m2 von >= 5 Min wegen m1-Puffer, aber war $diff Min (m1End=$m1End, m2Start=$m2Start)")
     }
+
+    @Test
+    fun buffer_individualOverrideZero_appliesEvenIfGlobalPositive() {
+        // m1 hat Puffer 0 (in DayProfile), m2 hat Puffer 0.
+        // Globaler Puffer = 5.
+        // Da m1 Override 0 hat, muss der Abstand zwischen m1 und m2 = 0 sein!
+        val profileWithBufferZero = de.familienwecker.famwake.model.DayProfile(
+            isActive = true,
+            earliestWakeUp = LocalTime(6, 0),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 15L,
+            wantsBreakfast = false,
+            bufferMinutes = 0
+        )
+        val m1 = member(id = "m1", earliestWakeUp = LocalTime(6, 0), latestWakeUp = LocalTime(7, 0), bathroomDurationMinutes = 15L, wantsBreakfast = false)
+            .copy(dayProfiles = mapOf(1 to profileWithBufferZero))
+        val m2 = member(id = "m2", earliestWakeUp = LocalTime(7, 0), latestWakeUp = LocalTime(7, 15), bathroomDurationMinutes = 15L, wantsBreakfast = false)
+
+        val result = scheduler.calculateIdealSchedule(listOf(m1, m2), breakfastDurationMinutes = 0, globalBufferMinutes = 5)
+        assertTrue(result.isValid)
+        assertEquals(2, result.memberSchedules.size)
+
+        val m1End = result.memberSchedules[0].bathroomEndTime
+        val m2Start = result.memberSchedules[1].wakeUpTime
+        
+        // Da m1 Override 0 hat, darf der Abstand 0 min betragen, statt dem globalen Puffer von 5 Min!
+        val diff = (m2Start.hour * 60 + m2Start.minute) - (m1End.hour * 60 + m1End.minute)
+        assertEquals(0, diff, "Abstand sollte 0 Min sein wegen 0m Override von m1")
+        assertEquals(0L, result.memberSchedules[0].bufferAfter, "bufferAfter für m1 sollte 0L sein")
+    }
 }
+
 
