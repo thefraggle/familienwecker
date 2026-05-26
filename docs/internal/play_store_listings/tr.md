@@ -1,0 +1,63 @@
+# 📦 Play Store Listing – FamWake (Türkçe)
+*Son güncelleme: 2026-05-26 (ASO Optimizasyonu)*
+
+---
+
+## Uygulama adı (30 karakter max)
+FamWake Aile Alarm Saati
+
+## Kısa açıklama (80 karakter max)
+Aile sabah alarmı, banyo kuyruğu önleyen akıllı uyandırma sistemi.
+
+## Tam açıklama (4000 karakter max)
+
+<b>Stressiz bir sabah rutini için aile alarm saati ve akıllı uyandırma sistemi.</b> ⏰
+
+Herkes aynı anda evden çıkmak zorunda, banyo dolu ve birileri hep geç kalıyor. Tanıdık geldi mi? Benim için de öyleydi — her Allah'ın sabahı. Bu yüzden bir baba olarak her zaman hayalini kurduğum o aile alarm saati ve uyanma rutini olan <b>FamWake</b>'i geliştirdim. İster çocuk alarmı olarak ister tüm ailenin sabah rutini için kullanın, FamWake işinizi kolaylaştırır.
+
+FamWake, her aile üyesi için — banyo kullanımına, kahvaltıya ve evden çıkış saatine göre — en ideal <b>uyanma zamanı</b> hesaplamasını yapar. Herkes mümkün olduğunca uzun uyur ve kimse geç kalmaz.
+
+<b>🚿 Banyo kuyruğu ve kaosuna son</b>
+FamWake, kimin ne zaman banyoyu kullanacağını otomatik olarak planlar — çakışma olmadan. Sadece gerçekten sıran geldiğinde uyandırılırsın. "Her ihtimale karşı" erkenden kalkmana artık gerek yok.
+
+<b>☕ Birlikte kahvaltı</b>
+Kahvaltı seçeneğini aç ve FamWake, sabah telaşı başlamadan önce herkesin birlikte masaya oturabileceği ortak bir zaman dilimi planlasın.
+
+<b>👨‍👩‍👧‍👦 Tüm aile bir bakışta</b>
+Kontrol paneli sabah planını gerçek zamanlı olarak gösterir: kim ne zaman kalkıyor, kim banyoda ve herkes ne zaman evden çıkıyor. Sıralamayı basit bir sürükle-bırak (drag & drop) işlemiyle kolayca değiştir.
+
+<b>😴 Zaten uyandın mı?</b>
+"Zaten Uyandım" seçeneğine dokunman yeterli, alarmın çalmayacaktır — ne de olsa zaten ayaktasın. Bugün alarma ihtiyacın yok mu? Sadece kendi alarmını duraklat, FamWake diğer herkesin programını otomatik olarak yeniden hesaplasın.
+
+<b>📲 Anlık bildirimler (Push)</b>
+Birisi alarmını veya sırasını değiştirdiğinde anında bildirim alırsın — böylece tüm aile her zaman güncel kalır.
+
+<b>🔔 Güvenilir alarm</b>
+FamWake, uygulama kapalı olsa bile seni her zaman tam vaktinde uyandırır. Kendi alarm sesini seç ve gerektiğinde erteleme (snooze) özelliğini kullan.
+
+<b>⏱️ Zaman çakışması mı? Çözüldü!</b>
+Zaman daraldığında FamWake bunu otomatik olarak tespit eder ve sabahın sorunsuz geçmesi için tam olarak neyin ayarlanması gerektiğini sana gösterir.
+
+<b>🎨 Modern tasarım</b>
+Açık ve koyu mod arasında geçiş yap — ya da bırak telefonunun sistemine otomatik olarak uyum sağlasın. Şık ve göz yormayan bir tasarım.
+
+<b>🌍 25 dil</b>
+FamWake; English, Deutsch, Français, Español, Italiano, Nederlands, Polski, Português, Русский, Українська, Türkçe, Svenska, Norsk, Dansk, 日本語, 한국어, 中文, Bahasa Indonesia, Tiếng Việt, Bangla, Marathi, हिन्दी — ve hatta Schwäbisch, Schweizerdeutsch ile Ruhrpott-Deutsch dillerini konuşuyor!
+
+<b>🔒 Verilerin güvende</b>
+• Hesap gerekmez: Uygulamayı tamamen anonim olarak kullanın. Yalnızca aileyi oluşturan kişinin giriş yapması gerekir.
+• Reklam yok — asla.
+• Veri satışı yok — garanti ediyoruz.
+• Şifreli bağlantılar ve minimum veri depolama.
+• Google ile güvenli giriş.
+
+<b>Nasıl çalışır — 3 basit adımda:</b>
+1️⃣ Bir aile grubu oluştur ve sevdiklerini davet koduyla davet et.
+2️⃣ Herkes banyo süresini, kahvaltı tercihini ve evden çıkış saatini girer.
+3️⃣ FamWake mükemmel programı hesaplar — her sabah, otomatik olarak.
+
+<b>Ücretsiz başla — gizli maliyet yok.</b>
+FamWake'in tüm temel özellikleri <b>sonsuza kadar ücretsizdir</b> ve öyle kalacaktır — abonelik yok, hile yok. Gelecekte daha fazla rahatlık için isteğe bağlı premium özellikler sunulacaktır. Uygulamayı şimdiden beğendiysen, küçük bir gönüllü bağışla bizi destekleyebilirsin. ❤️
+
+<b>Bir baba tarafından, aileler için geliştirildi.</b>
+FamWake bir gönül projesidir — kendi kahvaltı masamızda doğdu ve sabah rutinlerini birlikte ustaca yönetmek isteyen aileler için yapıldı. FamWake Aile Alarm Saati'ni şimdi indir ve sabah alarmı çaldığında kaossuz bir uyanma zamanı yaşa! 🚀
