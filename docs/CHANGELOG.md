@@ -2,6 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.11 – 2026-05-26
+### Verbessert
+- **Mehr Privatsphäre & Datenschutz** – Benutzerdaten und Profile werden beim Löschen eines Kontos jetzt noch gründlicher und vollständig aus unserer Datenbank entfernt.
+- **Automatische Aufräumung** – Nicht genutzte Test-Zugänge ohne registriertes Konto werden nun nach 30 Tagen Inaktivität automatisch gelöscht, um das System sauber zu halten.
+- **Aufgeräumte Ansicht** – Wir haben Hilfetexte und Tooltips auf ein Minimum reduziert, damit die App übersichtlicher bleibt und die wichtigsten Infos sofort ins Auge springen.
+
+---
+
 ## 1.9.10 – 2026-05-25
 ### Neu
 - **Bestätigung bei Reihenfolge-Änderungen** – Beim Verschieben von Personen im Weckplan wirst du jetzt gefragt, ob die neue Reihenfolge nur für heute oder für die ganze Woche gelten soll.
