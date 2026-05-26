@@ -83,9 +83,6 @@ fun AddMemberScreen(
     val members by viewModel.members.collectAsStateWithLifecycle()
     val memberToEdit = remember(memberId, members) { members.find { it.id == memberId } }
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
-    val tooltipWakeWindowSeen by viewModel.tooltipWakeWindowSeen.collectAsStateWithLifecycle()
-    val tooltipBathroomSeen by viewModel.tooltipBathroomSeen.collectAsStateWithLifecycle()
-    val tooltipWeekdaysSeen by viewModel.tooltipWeekdaysSeen.collectAsStateWithLifecycle()
     val tooltipBufferSeen by viewModel.tooltipBufferSeen.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
@@ -484,14 +481,7 @@ fun AddMemberScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
-                    // Tooltip G – Wochentage
-                    if (tooltipsEnabled && !tooltipWeekdaysSeen) {
-                        TooltipBubble(
-                            visible = true,
-                            text = stringResource(R.string.tooltip_weekdays),
-                            onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyWeekdays) }
-                        )
-                    }
+
 
                     // Copy-Link
                     TextButton(
@@ -511,10 +501,6 @@ fun AddMemberScreen(
                         dayProfiles = dayProfiles.toMutableMap().apply { put(selectedDay, updated) }
                     },
                     globalBufferMinutes = globalBufferMinutes,
-                    showTooltipWakeWindow = tooltipsEnabled && !tooltipWakeWindowSeen,
-                    onDismissTooltipWakeWindow = { viewModel.markTooltipSeen(viewModel.tooltipKeyWakeWindow) },
-                    showTooltipBathroom = tooltipsEnabled && !tooltipBathroomSeen,
-                    onDismissTooltipBathroom = { viewModel.markTooltipSeen(viewModel.tooltipKeyBathroom) },
                     showTooltipBuffer = tooltipsEnabled && !tooltipBufferSeen,
                     onDismissTooltipBuffer = { viewModel.markTooltipSeen(viewModel.tooltipKeyBuffer) }
                 )
@@ -586,10 +572,6 @@ private fun DayProfileCard(
     profile: DayProfile,
     onProfileChange: (DayProfile) -> Unit,
     globalBufferMinutes: Long = 0L,
-    showTooltipWakeWindow: Boolean = false,
-    onDismissTooltipWakeWindow: () -> Unit = {},
-    showTooltipBathroom: Boolean = false,
-    onDismissTooltipBathroom: () -> Unit = {},
     showTooltipBuffer: Boolean = false,
     onDismissTooltipBuffer: () -> Unit = {}
 ) {
@@ -725,11 +707,7 @@ private fun DayProfileCard(
                         }
 
                         // Tooltip C – Weckzeitfenster
-                        TooltipBubble(
-                            visible = showTooltipWakeWindow,
-                            text = stringResource(R.string.tooltip_wake_window),
-                            onDismiss = onDismissTooltipWakeWindow
-                        )
+
 
                         // Baddauer (+/-)
                         Row(
@@ -770,12 +748,7 @@ private fun DayProfileCard(
                             }
                         }
 
-                        // Tooltip D – Baddauer
-                        TooltipBubble(
-                            visible = showTooltipBathroom,
-                            text = stringResource(R.string.tooltip_bathroom),
-                            onDismiss = onDismissTooltipBathroom
-                        )
+
 
                         // Puffer nach Bad (individueller Override)
                         Row(

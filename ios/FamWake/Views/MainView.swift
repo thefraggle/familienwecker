@@ -257,12 +257,7 @@ struct MainView: View {
                     .tint(theme.secondary)
                 }
 
-                // Tooltip F
-                if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipSwitchSeen && familyViewModel.myMemberId != nil {
-                    TooltipBubble(text: L.tooltipAlarmSwitch) {
-                        familyViewModel.markTooltipSeen(familyViewModel.tooltipKeySwitch)
-                    }
-                }
+
 
                 // "I'm awake" Button
                 if familyViewModel.isAwakeButtonVisible {

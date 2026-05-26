@@ -83,13 +83,6 @@ struct AddEditMemberView: View {
                             }
                         }
 
-                        // Tooltip G
-                        if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipWeekdaysSeen {
-                            TooltipBubble(text: L.tooltipWeekdays) {
-                                familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyWeekdays)
-                            }
-                        }
-
                         // Copy Button
                         Button(action: { showCopyDialog = true }) {
                             HStack {
@@ -100,17 +93,13 @@ struct AddEditMemberView: View {
                             .foregroundStyle(theme.primary)
                             .padding(.vertical, 4)
                         }
-                        
+
                         // DayProfile für selectedDay
                         let profile = dayProfiles[selectedDay] ?? DayProfile()
                         DayProfileCard(
                             dayLabel: L.weekday(selectedDay),
                             profile: profile,
                             globalBufferMinutes: familyViewModel.globalBufferMinutes,
-                            showTooltipWakeWindow: familyViewModel.tooltipsEnabled && !familyViewModel.tooltipWakeWindowSeen,
-                            onDismissWakeWindow: { familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyWakeWindow) },
-                            showTooltipBathroom: familyViewModel.tooltipsEnabled && !familyViewModel.tooltipBathroomSeen,
-                            onDismissBathroom: { familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyBathroom) },
                             showTooltipBuffer: familyViewModel.tooltipsEnabled && !familyViewModel.tooltipBufferSeen,
                             onDismissBuffer: { familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyBuffer) }
                         ) { updated in
@@ -303,10 +292,6 @@ private struct DayProfileCard: View {
     let dayLabel: String
     var profile: DayProfile
     var globalBufferMinutes: Int
-    var showTooltipWakeWindow: Bool = false
-    var onDismissWakeWindow: () -> Void = {}
-    var showTooltipBathroom: Bool = false
-    var onDismissBathroom: () -> Void = {}
     var showTooltipBuffer: Bool = false
     var onDismissBuffer: () -> Void = {}
     var onChange: (DayProfile) -> Void
@@ -387,10 +372,7 @@ private struct DayProfileCard: View {
                         }
                     }
 
-                    // Tooltip C
-                    if showTooltipWakeWindow {
-                        TooltipBubble(text: L.tooltipWakeWindow, onDismiss: onDismissWakeWindow)
-                    }
+
 
                     // Baddauer Stepper
                     HStack {
@@ -419,10 +401,7 @@ private struct DayProfileCard: View {
                         }
                     }
 
-                    // Tooltip D
-                    if showTooltipBathroom {
-                        TooltipBubble(text: L.tooltipBathroom, onDismiss: onDismissBathroom)
-                    }
+
 
                     // Puffer nach Bad (Individueller Override)
                     HStack {
