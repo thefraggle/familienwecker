@@ -1,5 +1,5 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.11
+**Version:** 1.9.12
 **Datum:** 2026-05-26
 
 ---
@@ -27,7 +27,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-20 | Profil-Verwaltung & Neuinstallation | Erstes Mitglied auto-geclaimt (Wecker-Schalter sofort an). Ein fremdes Profil kann übernommen werden (Claim Stealing). Beim Claim wird `deviceAlarmEnabled` in Room + Firestore sofort auf `true` gesetzt. Bei Neuinstallation wird das Profil wegen neuer Device-ID nicht auto-geclaimt; nach manuellem Claim erscheint der Weckplan sofort ohne manuelles Wecker-Togglen. Bearbeiten und Pausieren funktioniert fehlerfrei. |
 | TC-21 | Wochentag-Validierung | latestWakeUp ≤ earliestWakeUp blockiert Speichern. Zügiges Sliden erzeugt keine Sync-Fehler. |
 | TC-22 | Listen-Organisation & Reorder-Bestätigung | Drag & Drop öffnet Bestätigungsdialog. „Nur heute“ ändert die Reihenfolge nur für den ausgewählten Wochentag. „Ganze Woche“ setzt sie global und löscht tagesabhängige Overrides. Abbrechen (oder Tippen außerhalb) setzt die Liste visuell zurück. Warnbanner erscheint, wenn Position 1 ungeclaimt ist. |
-| TC-23 | Puffer nach Bad (global & individuell) | Stepper unter "Familienmitglieder" ändert globalen Puffer (0–15 Min) in 5er-Schritten. Im Mitglieder-Editor wird der globale Wert kursiv angezeigt. Ein persönlicher Override setzt den eigenen Puffer (fett), das Zurücksetzen stellt die Vererbung wieder her (kursiv). Werte synchronisieren und persistieren nach App-Neustart. |
+| TC-23 | Puffer nach Bad (global & individuell) | Stepper unter "Familienmitglieder" ändert globalen Puffer (0–15 Min) in 5er-Schritten. Im Mitglieder-Editor wird der globale Wert kursiv angezeigt. Ein persönlicher Override setzt den eigenen Puffer (fett), das Zurücksetzen stellt die Vererbung wieder her (kursiv). Werte synchronisieren und persistieren. Individueller Puffer an 1. Stelle wird auch bei globalem Puffer = 0m im Weckplan visualisiert und schränkt den Nachfolger ein. |
 | TC-25 | Familie einladen | Share-Button über dem Hinzufügen-Button öffnet System-Share-Dialog mit Familien-Link. Nur für eingeloggte Nutzer sichtbar. |
 | TC-26 | Zeitformat 12h/24h | Uhrzeiten folgen der Geräteeinstellung. Wechsel in den Systemeinstellungen wirkt sofort nach Rückkehr zur App. |
 | TC-27 | Einfacher Modus | Im Mitglieder-Editor: Aktivieren blendet alle erweiterten Optionen (Baddauer, Puffer, Frühstück etc.) aus und zeigt nur noch die Aufstehzeit. Scheduler weist feste Weckzeit zu, ohne das Zeitfenster zu verschieben oder zu jonglieren. Speichern funktioniert und Zeitplan aktualisiert sich. |
@@ -70,5 +70,5 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 ---
 
 ## 📈 Validierung
-- **Automatisiert:** 12 Unit-Tests für `Scheduler` (inkl. 4 Buffer-Tests) laufen in GitHub Actions.
+- **Automatisiert:** 13 Unit-Tests für `Scheduler` (inkl. 5 Buffer-Tests) laufen in GitHub Actions.
 - **Manuell:** Vor jedem Release ein Live-Test über eine Nacht.

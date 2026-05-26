@@ -122,7 +122,8 @@ struct Scheduler {
         var currentLatestBathroomEnd = DateComponents(hour: 23, minute: 59)
         var isValid = true
 
-        for member in orderedMembers.reversed() {
+        for index in stride(from: orderedMembers.count - 1, through: 0, by: -1) {
+            let member = orderedMembers[index]
             if member.isSimpleMode {
                 let wakeUpTime = member.latestWakeUp
                 schedules.append(MemberSchedule(
@@ -161,10 +162,29 @@ struct Scheduler {
                 isValid = false
             }
 
-            let activeProfile = member.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
-            var effectiveBuffer = globalBufferMinutes
-            if let pBuffer = activeProfile?.bufferMinutes, pBuffer > 0 {
-                effectiveBuffer = pBuffer
+            // Der Puffer nach diesem Mitglied bestimmt den Abstand zum Nachfolgenden.
+            // Wenn es kein nachfolgendes Mitglied gibt (letztes Element), ist der Puffer 0.
+            var effectiveBuffer = 0
+            if index < orderedMembers.count - 1 {
+                let activeProfile = member.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
+                effectiveBuffer = globalBufferMinutes
+                if let pBuffer = activeProfile?.bufferMinutes, pBuffer > 0 {
+                    effectiveBuffer = pBuffer
+                }
+            }
+
+            // Für den nächsten Schritt (das vorhergehende Mitglied) ziehen wir den Puffer
+            // des vorhergehenden Mitglieds von unserer Wakeup-Zeit ab.
+            var prevBuffer = 0
+            if index > 0 {
+                let prevMember = orderedMembers[index - 1]
+                if !prevMember.isSimpleMode {
+                    let activeProfile = prevMember.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
+                    prevBuffer = globalBufferMinutes
+                    if let pBuffer = activeProfile?.bufferMinutes, pBuffer > 0 {
+                        prevBuffer = pBuffer
+                    }
+                }
             }
 
             schedules.append(MemberSchedule(
@@ -175,7 +195,7 @@ struct Scheduler {
                 bufferAfter: effectiveBuffer
             ))
             
-            currentLatestBathroomEnd = wakeUpTime.subtracting(minutes: effectiveBuffer)
+            currentLatestBathroomEnd = wakeUpTime.subtracting(minutes: prevBuffer)
         }
 
         // Post-Validation Frühstück
