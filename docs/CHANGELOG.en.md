@@ -5,6 +5,7 @@
 ## 1.9.12 – 2026-05-26
 ### Fixed
 - **Bathroom Buffer Fix** – Individual bathroom buffers are now correctly applied to the subsequent family member even when the global buffer is set to 0 minutes. Additionally, individual buffers are reliably displayed when a member is positioned first in the bathroom order.
+- **Buffer Settings Polished** – Manual 0-minute buffer overrides now reliably override larger global buffers. In the member editor, the buffer value is displayed in italics whenever it matches the global value to clearly indicate inheritance.
 
 ## 1.9.11 – 2026-05-26
 ### Improved
