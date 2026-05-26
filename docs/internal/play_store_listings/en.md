@@ -7,18 +7,18 @@
 FamWake Family Alarm Clock
 
 ## Short Description (80 characters max)
-No more morning chaos! Smart alarm clock for families & bathroom schedule app.
+Smart alarm clock for families & shared bathroom schedule routine planner.
 
 ## Full Description (4000 characters max)
 
 <b>End the morning chaos! The smart alarm clock for families and stress-free mornings.</b> ⏰
 
-Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b> as a father: the best family wake up app I'd always wished we had. Whether you need a smart kids alarm clock or a daily routine planner for your family schedule, FamWake makes it easy with multiple alarms in one family app.
+Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b> as a father: the best family wake up app I'd always wished we had. Whether you need a smart kids alarm clock, family coordination, or a daily routine planner for your family schedule, FamWake makes it easy with multiple alarms in one family app.
 
 FamWake calculates the <b>perfect wake-up time</b> for each family member — based on bathroom needs, breakfast plans, and departure times. Everyone sleeps as long as possible, and nobody is late.
 
 <b>🚿 No More Bathroom Queues</b>
-FamWake manages your bathroom schedule automatically — with zero overlaps. You only get woken up when it's actually your turn. No more waking up early "just in case."
+FamWake is a shared alarm clock that manages your bathroom schedule automatically — with zero overlaps. You only get woken up when it's actually your turn. No more waking up early "just in case."
 
 <b>☕ Family Breakfast Together</b>
 Turn on the breakfast option and FamWake plans a shared window where everyone sits down together — before the rush begins.
@@ -60,4 +60,4 @@ FamWake is available worldwide in 25 languages — and even in Schwäbisch, Schw
 All core features of FamWake are and will remain <b>free forever</b> — no subscriptions, no tricks. In the future, optional premium features will be available for even more convenience. If you already love the app, you can support us with a small voluntary donation. ❤️
 
 <b>Built by a father, for families.</b>
-FamWake is a passion project — born at our own breakfast table and made for families who want to master their morning routine together. Download FamWake Family Alarm Clock now and discover how relaxed a morning without chaos can be! 🚀
+FamWake is a passion project — born at our own breakfast table and designed as a morning routine app and alarm clock for families who want to master their mornings together. Download FamWake Family Alarm Clock now and discover how relaxed a morning without chaos can be! 🚀
