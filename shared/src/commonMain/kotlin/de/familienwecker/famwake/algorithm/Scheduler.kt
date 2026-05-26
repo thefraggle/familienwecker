@@ -123,7 +123,8 @@ class Scheduler {
         var currentLatestBathroomEndTime = LocalTime(23, 59)
         var isValid = true
 
-        for (member in orderedMembers.reversed()) {
+        for (index in orderedMembers.indices.reversed()) {
+            val member = orderedMembers[index]
             if (member.isSimpleMode) {
                 val wakeUpTime = member.latestWakeUp
                 schedules.add(
@@ -165,12 +166,28 @@ class Scheduler {
                 isValid = false
             }
 
-            // Effektiven Puffer für dieses Mitglied ermitteln:
-            // firstOrNull() ist intentional: Der Scheduler erhält voraufgelöste Members
-            // mit nur dem aktiven DayProfile des heutigen Wochentags.
-            // DayProfile-Override (wenn > 0) has Vorrang vor globalem Default.
-            val effectiveBuffer = member.dayProfiles?.values?.firstOrNull()?.bufferMinutes
-                ?.takeIf { it > 0 } ?: globalBufferMinutes
+            // Der Puffer nach diesem Mitglied bestimmt den Abstand zum Nachfolgenden.
+            // Wenn es kein nachfolgendes Mitglied gibt (letztes Element), ist der Puffer 0.
+            val effectiveBuffer = if (index < orderedMembers.lastIndex) {
+                member.dayProfiles?.values?.firstOrNull()?.bufferMinutes
+                    ?.takeIf { it > 0 } ?: globalBufferMinutes
+            } else {
+                0L
+            }
+
+            // Für den nächsten Schritt (das vorhergehende Mitglied) ziehen wir den Puffer
+            // des vorhergehenden Mitglieds von unserer Wakeup-Zeit ab.
+            val prevBuffer = if (index > 0) {
+                val prevMember = orderedMembers[index - 1]
+                if (prevMember.isSimpleMode) {
+                    0L
+                } else {
+                    prevMember.dayProfiles?.values?.firstOrNull()?.bufferMinutes
+                        ?.takeIf { it > 0 } ?: globalBufferMinutes
+                }
+            } else {
+                0L
+            }
 
             schedules.add(
                 ScheduleResult(
@@ -181,8 +198,7 @@ class Scheduler {
                     bufferAfter = effectiveBuffer
                 )
             )
-            // Puffer abziehen: Das nächste Mitglied muss VOR dem Puffer fertig sein
-            currentLatestBathroomEndTime = wakeUpTime.minusMinutes(effectiveBuffer)
+            currentLatestBathroomEndTime = wakeUpTime.minusMinutes(prevBuffer)
         }
 
         // Post-Validation

@@ -2,6 +2,10 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.12 – 2026-05-26
+### Fixed
+- **Bathroom Buffer Fix** – Individual bathroom buffers are now correctly applied to the subsequent family member even when the global buffer is set to 0 minutes. Additionally, individual buffers are reliably displayed when a member is positioned first in the bathroom order.
+
 ## 1.9.11 – 2026-05-26
 ### Improved
 - **Better Privacy & Data Protection** – User data and profiles are now completely and thoroughly wiped from our database when an account is deleted.
