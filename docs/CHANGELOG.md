@@ -5,6 +5,7 @@
 ## 1.9.12 – 2026-05-26
 ### Fehlerbehebungen
 - **Bad-Puffer korrigiert** – Der persönliche Zeitpuffer nach dem Badezimmer wird nun korrekt für das nachfolgende Familienmitglied eingeplant, selbst wenn der globale Puffer auf 0 Minuten steht. Zudem wird der Puffer an 1. Stelle der Badezimmer-Reihenfolge zuverlässig angezeigt.
+- **Puffer-Einstellungen verfeinert** – Manuelle 0-Minuten-Overrides überschreiben nun zuverlässig größere globale Puffer. Im Mitglieder-Editor wird der Puffer-Wert zudem kursiv angezeigt, sobald er dem globalen Wert entspricht, um die Vererbung klarer zu signalisieren.
 
 ## 1.9.11 – 2026-05-26
 ### Verbessert
