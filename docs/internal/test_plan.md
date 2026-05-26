@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.10
-**Datum:** 2026-05-25
+**Version:** 1.9.11
+**Datum:** 2026-05-26
 
 ---
 
@@ -18,6 +18,8 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | TC-02 | Lazy Registration & Onboarding | Tour mit 4 Slides läuft fehlerfrei. "Los geht's" erstellt anonymen Nutzer (Double-Click geschützt). Tooltip-Toggle am Ende speichert Präferenz korrekt. |
 | TC-03 | Familien-Lifecycle | Gründen + Beitreten per Code/Link. Nur Creator darf löschen. Verlassen/Löschen der Familie wirft Mitglieder sofort auf den Startbildschirm zurück und deaktiviert lokale Wecker. Testdaten werden bei Registrierung übernommen. |
 | TC-04 | Tour-Replay (Settings) | Eingeloggt: Letzter Slide (Login/Anonym) wird übersprungen. Button zeigt "Schließen". Tooltip-Checkbox übernimmt gespeicherte Einstellung. Nicht eingeloggt: Alle 4 Slides, originale Buttons. |
+| TC-05 | DSGVO-Datenlöschung | Löschen eines Kontos löscht `users/{uid}` inkl. `fcmTokens`/`pushMeta` und entclaimt alle zugeordneten Profile in der Familie. |
+| TC-06 | Anonyme User-Bereinigung | Wöchentliche Löschung von unlinked anonymen Accounts (>30 Tage) über Cloud Functions. |
 
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |
@@ -63,6 +65,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | UI-01 | Layout-Responsivität | Tastatur verdeckt keine Buttons. App ist auf Tablets strikt im Hochformat, Animationen verdecken keinen Text. |
 | UI-02 | Sprachen & Themes | 25 Sprachen funktionieren absturzfrei. Dark/Light-Mode wechselt sofort, AMOLED Black greift. |
 | UI-03 | Icon-Konsistenz | Material Icons (Wecker, Badewanne, Frühstück, Laufen) erscheinen korrekt auf MemberCard, MainScreen-Zeitplan, AddMember-Formular und Settings-Buttons. Keine Emoji-Reste. Dark/Light einheitlich. |
+| UI-04 | Tooltip-Reduzierung | In der App werden nur noch 3 Tooltips (Drag-Handle, Wach-Button, Puffer) angezeigt. Die restlichen 6 wurden entfernt. |
 
 ---
 

@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.11 – 2026-05-26
+### Improved
+- **Better Privacy & Data Protection** – User data and profiles are now completely and thoroughly wiped from our database when an account is deleted.
+- **Automated Cleanup** – Unlinked temporary accounts with no registered login are now automatically cleaned up after 30 days of inactivity to keep the system clean.
+- **Cleaner View** – We reduced help tooltips to a minimum to keep screens simple and highlight only the most essential information.
+
+---
+
 ## 1.9.10 – 2026-05-25
 ### New
 - **Reordering Confirmation Dialog** – When reordering members on the schedule, you will now be asked if the new order should apply only to today or to the entire week.
