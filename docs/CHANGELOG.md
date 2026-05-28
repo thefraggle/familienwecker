@@ -11,6 +11,10 @@
 - **Markenkonformer Google-Login** – Der Google-Anmeldebutton wurde optisch aufgewertet und fügt sich nun in beiden Designs nahtlos und gut sichtbar in die App ein.
 - **Optimierter Weck-Bildschirm** – Das Layout bei ausgelöstem Wecker passt sich nun noch flexibler an moderne Bildschirme mit Kamera-Ausschnitten (Notch) an, sodass keine Bedienelemente verdeckt werden.
 
+### Fehlerbehebungen
+- **Fehler bei Registrierung behoben** – Ein Fehler wurde korrigiert, durch den man nach der Registrierung unter Umständen bereits vor der Bestätigung der E-Mail-Adresse angemeldet wurde.
+
+
 ## 1.9.12 – 2026-05-26
 ### Fehlerbehebungen
 - **Bad-Puffer korrigiert** – Der persönliche Zeitpuffer nach dem Badezimmer wird nun korrekt für das nachfolgende Familienmitglied eingeplant, selbst wenn der globale Puffer auf 0 Minuten steht. Zudem wird der Puffer an 1. Stelle der Badezimmer-Reihenfolge zuverlässig angezeigt.
