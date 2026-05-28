@@ -155,7 +155,7 @@ fun LoginScreen(
                     )
                 ) {
                     Column(
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
@@ -168,6 +168,7 @@ fun LoginScreen(
                                 keyboardType = KeyboardType.Email,
                                 imeAction = ImeAction.Next
                             ),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 // Semantics-basiertes Autofill (M3-Nachfolger von AutofillNode)
@@ -195,6 +196,7 @@ fun LoginScreen(
                                 keyboardType = KeyboardType.Password,
                                 imeAction = ImeAction.Done
                             ),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 // Semantics-basiertes Autofill (M3-Nachfolger von AutofillNode)
@@ -250,17 +252,23 @@ fun LoginScreen(
                                         authViewModel.login(email, password)
                                     }
                                 },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
+                                    disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.45f)
+                                ),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(56.dp)
                                     .bounceClick(loginInteractionSource),
-                                // Kein shape-Override → M3-Default = Pill-förmig
                                 interactionSource = loginInteractionSource,
                                 enabled = email.isNotBlank() && password.isNotBlank()
                             ) {
                                 Text(
                                     text = if (isRegistering) stringResource(R.string.register_button) else stringResource(R.string.login_button),
-                                    style = MaterialTheme.typography.titleMedium
+                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                                 )
                             }
 
@@ -329,21 +337,34 @@ fun LoginScreen(
                                 Spacer(modifier = Modifier.height(8.dp))
                             } else {
                                 Spacer(modifier = Modifier.height(8.dp))
-                                TextButton(onClick = { authViewModel.resetPassword(email) }) {
-                                    Text(stringResource(R.string.login_forgot_password))
+                                TextButton(
+                                    onClick = { authViewModel.resetPassword(email) },
+                                    colors = ButtonDefaults.textButtonColors(
+                                        contentColor = MaterialTheme.colorScheme.primary
+                                    )
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.login_forgot_password),
+                                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
+                                    )
                                 }
                             }
 
-                            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
 
                             OutlinedButton(
                                 onClick = { isRegistering = !isRegistering },
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)),
+                                colors = ButtonDefaults.outlinedButtonColors(
+                                    contentColor = MaterialTheme.colorScheme.primary
+                                ),
                                 modifier = Modifier.fillMaxWidth().height(56.dp)
                             ) {
                                 Text(
                                     if (isRegistering) stringResource(R.string.already_have_account)
                                     else stringResource(R.string.no_account),
-                                    style = MaterialTheme.typography.titleMedium
+                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
                                 )
                             }
 
@@ -351,19 +372,31 @@ fun LoginScreen(
 
                             // Google Sign-In – der Flow läuft vollständig im ViewModel
                             val googleInteractionSource = remember { MutableInteractionSource() }
-                            OutlinedButton(
+                            Button(
                                 onClick = { authViewModel.signInWithGoogle(context) },
-                                modifier = Modifier.fillMaxWidth().bounceClick(googleInteractionSource),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color.White,
+                                    contentColor = Color(0xFF1F1F1F)
+                                ),
+                                border = androidx.compose.foundation.BorderStroke(0.5.dp, Color(0xFF747775)),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(56.dp)
+                                    .bounceClick(googleInteractionSource),
                                 interactionSource = googleInteractionSource
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_google),
                                     contentDescription = null,
-                                    modifier = Modifier.size(18.dp),
+                                    modifier = Modifier.size(20.dp),
                                     tint = Color.Unspecified
                                 )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(stringResource(R.string.login_with_google))
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Text(
+                                    text = stringResource(R.string.login_with_google),
+                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium)
+                                )
                             }
                         }
 
