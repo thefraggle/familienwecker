@@ -129,10 +129,13 @@ fun LoadingScreen(
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = {
-                    familyViewModel.clearError()
-                    familyViewModel.triggerRefresh()
-                }) {
+                Button(
+                    onClick = {
+                        familyViewModel.clearError()
+                        familyViewModel.triggerRefresh()
+                    },
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                ) {
                     Text(stringResource(R.string.retry_button))
                 }
             }

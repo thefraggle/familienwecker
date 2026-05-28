@@ -142,12 +142,12 @@ fun FamilySetupScreen(
                     elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
                     colors = CardDefaults.cardColors(
-                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f) 
+                        containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceContainerHigh 
                                          else MaterialTheme.colorScheme.surface
                     )
                 ) {
                     Column(
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         PrimaryTabRow(
@@ -173,6 +173,7 @@ fun FamilySetupScreen(
                                         onValueChange = { familyName = it },
                                         label = { Text(stringResource(R.string.setup_family_name)) },
                                         singleLine = true,
+                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                         modifier = Modifier.fillMaxWidth(),
                                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                                         keyboardActions = KeyboardActions(
@@ -182,7 +183,7 @@ fun FamilySetupScreen(
                                     Spacer(modifier = Modifier.height(16.dp))
                                     
                                     val createInteractionSource = remember { MutableInteractionSource() }
-
+ 
                                     Button(
                                         onClick = {
                                             isLoading = true
@@ -191,11 +192,17 @@ fun FamilySetupScreen(
                                                 if (success) onSetupComplete()
                                             }
                                         },
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.primary,
+                                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                                            disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
+                                            disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.45f)
+                                        ),
+                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .height(56.dp)
                                             .bounceClick(createInteractionSource),
-                                        shape = MaterialTheme.shapes.medium,
                                         interactionSource = createInteractionSource,
                                         enabled = familyName.isNotBlank() && !isLoading
                                     ) {
@@ -214,6 +221,7 @@ fun FamilySetupScreen(
                                         },
                                         label = { Text(stringResource(R.string.setup_join_code_label)) },
                                         singleLine = true,
+                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                         modifier = Modifier.fillMaxWidth(),
                                         placeholder = { Text(stringResource(R.string.setup_join_code_placeholder)) },
                                         keyboardOptions = KeyboardOptions(
@@ -228,7 +236,7 @@ fun FamilySetupScreen(
                                     Spacer(modifier = Modifier.height(16.dp))
                                     
                                     val joinInteractionSource = remember { MutableInteractionSource() }
-
+ 
                                     Button(
                                         onClick = {
                                             isLoading = true
@@ -237,11 +245,17 @@ fun FamilySetupScreen(
                                                 if (success) onSetupComplete()
                                             }
                                         },
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.primary,
+                                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                                            disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
+                                            disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.45f)
+                                        ),
+                                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .height(56.dp)
                                             .bounceClick(joinInteractionSource),
-                                        shape = MaterialTheme.shapes.medium,
                                         interactionSource = joinInteractionSource,
                                         enabled = joinCode.length == 6 && !isLoading
                                     ) {

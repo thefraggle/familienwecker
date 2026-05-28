@@ -461,7 +461,7 @@ fun MainScreen(
                                                 .fillMaxWidth()
                                                 .height(56.dp)
                                                 .bounceClick(awakeInteractionSource),
-                                            shape = MaterialTheme.shapes.medium,
+                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                             interactionSource = awakeInteractionSource,
                                             enabled = true,
                                             colors = ButtonDefaults.buttonColors(
@@ -719,6 +719,7 @@ fun MainScreen(
                                 Button(
                                     onClick = { viewModel.applyAutoFix() },
                                     modifier = Modifier.padding(start = 28.dp),
+                                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = MaterialTheme.colorScheme.primary,
                                         contentColor = MaterialTheme.colorScheme.onPrimary
@@ -1264,7 +1265,8 @@ fun MainScreen(
                                 viewModel.saveMemberOrder()
                                 pendingReorder = null
                             },
-                            modifier = Modifier.fillMaxWidth()
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth().height(56.dp)
                         ) {
                             Text(text = stringResource(R.string.reorder_dialog_today, dayName))
                         }
@@ -1274,13 +1276,15 @@ fun MainScreen(
                                 viewModel.saveMemberOrder()
                                 pendingReorder = null
                             },
-                            modifier = Modifier.fillMaxWidth()
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth().height(56.dp)
                         ) {
                             Text(text = stringResource(R.string.reorder_dialog_week))
                         }
                         OutlinedButton(
                             onClick = { pendingReorder = null },
-                            modifier = Modifier.fillMaxWidth()
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth().height(56.dp)
                         ) {
                             Text(text = stringResource(R.string.cancel_button))
                         }
@@ -1309,6 +1313,7 @@ fun MainScreen(
                             }
                         }
                     },
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                     enabled = !isJoining,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
