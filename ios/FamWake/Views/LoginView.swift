@@ -197,7 +197,7 @@ struct LoginView: View {
                 authViewModel.handleAppleSignInCompletion(result)
             }
         )
-        .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
+        .signInWithAppleButtonStyle(.black)
         .frame(maxWidth: .infinity, idealHeight: 48)
         .frame(height: 48)
         .clipShape(Capsule())
