@@ -7,7 +7,7 @@
 - **Help tooltips restored** – We brought back all helpful explanations and tips (e.g., regarding weekdays, bathroom times, and wake windows) to make using the app even easier and more intuitive.
 
 ### Improved
-- **Refreshed login area** – The sign-in page has been visually redesigned. It now offers much better readability in both light and dark designs thanks to optimized contrast, balanced spacing, and softer corners.
+- **Unified app design** – We harmonized the design of all buttons and input fields across the entire app. With consistent rounded corners, optimized contrasts, and uniform heights, the app now looks even more polished and coherent.
 - **Polished Google Sign-In** – The Google login button has been visually enhanced to integrate seamlessly and remain highly visible in both light and dark modes.
 - **Optimized alarm screen** – The active alarm screen now adapts even more flexibly to modern displays with camera notches, ensuring no buttons are ever covered.
 
