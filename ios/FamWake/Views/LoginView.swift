@@ -198,7 +198,6 @@ struct LoginView: View {
         .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .whiteOutline)
         .frame(maxWidth: .infinity)
         .frame(height: 50)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
 
         // Google Sign-In (matches Android LoginScreen Google button)
         Button(action: { authViewModel.signInWithGoogle() }) {
