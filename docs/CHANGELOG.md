@@ -7,7 +7,7 @@
 - **Hilfetexte wieder da** – Wir haben alle erklärenden Hilfetexte und Tipps (z. B. zu Wochentagen, Bad-Zeiten und Weckfenstern) wiederhergestellt, um den Einstieg und die Bedienung noch einfacher zu machen.
 
 ### Verbessert
-- **Frischerer Login-Bereich** – Die Anmeldeseite wurde visuell überarbeitet. Sie bietet jetzt durch optimierte Kontraste, harmonische Abstände und weichere Ecken eine deutlich bessere Lesbarkeit im hellen wie im dunklen Design.
+- **Einheitlicheres App-Design** – Wir haben das Design aller Buttons und Eingabefelder in der gesamten App harmonisiert. Mit durchgängig abgerundeten Ecken, optimierten Kontrasten und einheitlichen Höhen wirkt die App nun noch edler und stimmiger.
 - **Markenkonformer Google-Login** – Der Google-Anmeldebutton wurde optisch aufgewertet und fügt sich nun in beiden Designs nahtlos und gut sichtbar in die App ein.
 - **Optimierter Weck-Bildschirm** – Das Layout bei ausgelöstem Wecker passt sich nun noch flexibler an moderne Bildschirme mit Kamera-Ausschnitten (Notch) an, sodass keine Bedienelemente verdeckt werden.
 
