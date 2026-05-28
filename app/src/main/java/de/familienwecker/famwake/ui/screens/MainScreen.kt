@@ -103,6 +103,7 @@ fun MainScreen(
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipAwakeSeen by viewModel.tooltipAwakeSeen.collectAsStateWithLifecycle()
     val tooltipDragSeen by viewModel.tooltipDragSeen.collectAsStateWithLifecycle()
+    val tooltipSwitchSeen by viewModel.tooltipSwitchSeen.collectAsStateWithLifecycle()
     val isJoiningFamily by viewModel.isJoiningFamily.collectAsStateWithLifecycle()
     val pendingPauseIds by viewModel.pendingPauseIds.collectAsStateWithLifecycle()
     val isAutoClaimInProgress by viewModel.isAutoClaimInProgress.collectAsStateWithLifecycle()
@@ -395,6 +396,16 @@ fun MainScreen(
                                 )
                             }
 
+                            // Tooltip F – Wecker-Switch
+                            if (tooltipsEnabled && !tooltipSwitchSeen && myMemberId != null) {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                TooltipBubble(
+                                    visible = true,
+                                    text = stringResource(R.string.tooltip_alarm_switch),
+                                    onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeySwitch) },
+                                    isDark = isDarkTheme
+                                )
+                            }
 
                             val myMember = members.find { it.id == myMemberId }
                             val isAwakeButtonVisible = remember(myMember, isAlarmEnabled, deviceSchedule, isAwakeTodayLocal) {

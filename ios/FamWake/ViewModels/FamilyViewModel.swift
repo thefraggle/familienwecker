@@ -44,6 +44,7 @@ class FamilyViewModel: ObservableObject {
     @Published var tooltipWakeWindowSeen: Bool = false
     @Published var tooltipBathroomSeen: Bool = false
     @Published var tooltipWeekdaysSeen: Bool = false
+    @Published var tooltipAlarmSoundSeen: Bool = false
     @Published var tooltipBufferSeen: Bool = false
     @Published var onboardingCompleted: Bool = UserDefaults.standard.bool(forKey: "onboarding_completed")
     @Published var isAdmin: Bool = false
@@ -61,6 +62,7 @@ class FamilyViewModel: ObservableObject {
     let tooltipKeyWakeWindow = "tooltip_wake_window_seen"
     let tooltipKeyBathroom = "tooltip_bathroom_seen"
     let tooltipKeyWeekdays = "tooltip_weekdays_seen"
+    let tooltipKeyAlarmSound = "tooltip_alarm_sound_seen"
     let tooltipKeyBuffer = "tooltip_buffer_seen"
 
     var hasFamilyId: Bool { familyId != nil }
@@ -816,7 +818,7 @@ class FamilyViewModel: ObservableObject {
 
     func resetAllTooltips() {
         [tooltipKeyAwake, tooltipKeyDrag, tooltipKeySwitch, tooltipKeyInvite,
-         tooltipKeyWakeWindow, tooltipKeyBathroom, tooltipKeyWeekdays, tooltipKeyBuffer].forEach {
+         tooltipKeyWakeWindow, tooltipKeyBathroom, tooltipKeyWeekdays, tooltipKeyAlarmSound, tooltipKeyBuffer].forEach {
             UserDefaults.standard.removeObject(forKey: $0)
         }
         loadTooltipStates()
@@ -1049,6 +1051,7 @@ class FamilyViewModel: ObservableObject {
         tooltipWakeWindowSeen = UserDefaults.standard.bool(forKey: tooltipKeyWakeWindow)
         tooltipBathroomSeen = UserDefaults.standard.bool(forKey: tooltipKeyBathroom)
         tooltipWeekdaysSeen = UserDefaults.standard.bool(forKey: tooltipKeyWeekdays)
+        tooltipAlarmSoundSeen = UserDefaults.standard.bool(forKey: tooltipKeyAlarmSound)
         tooltipBufferSeen = UserDefaults.standard.bool(forKey: tooltipKeyBuffer)
     }
 

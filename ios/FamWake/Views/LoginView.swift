@@ -1,6 +1,7 @@
 import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
+import AuthenticationServices
 
 struct LoginView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -200,6 +201,21 @@ struct LoginView: View {
         }
         .buttonStyle(.bordered)
         .tint(theme.onSurface)
+        .clipShape(Capsule())
+
+        // Apple Sign-In (using native button from AuthenticationServices)
+        SignInWithAppleButton(
+            .signIn,
+            onRequest: { request in
+                authViewModel.prepareAppleSignInRequest(request)
+            },
+            onCompletion: { result in
+                authViewModel.handleAppleSignInCompletion(result)
+            }
+        )
+        .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: 48)
         .clipShape(Capsule())
 
         // Error display

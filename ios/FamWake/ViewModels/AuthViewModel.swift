@@ -5,6 +5,9 @@ import GoogleSignIn
 import GoogleSignInSwift
 import TelemetryClient
 import FirebaseFunctions
+import AuthenticationServices
+import CryptoKit
+import Security
 
 // MARK: - Auth State
 enum AuthState: Equatable {
@@ -262,6 +265,103 @@ class AuthViewModel: ObservableObject {
                 }
                 authState = .error(mapFirebaseError(error))
             }
+        }
+    }
+
+    // MARK: - Apple Sign-In
+    private var currentNonce: String?
+
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        var randomBytes = [UInt8](repeating: 0, count: length)
+        let errorCode = SecRandomCopyBytes(nil, randomBytes.count, &randomBytes)
+        if errorCode != errSecSuccess {
+            fatalError("Unable to generate input bytes: \(errorCode)")
+        }
+
+        let charset: [Character] =
+            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+
+        let nonce = randomBytes.map { byte in
+            charset[Int(byte) % charset.count]
+        }
+
+        return String(nonce)
+    }
+
+    private func sha256(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        let hashedData = SHA256.hash(data: inputData)
+        let hashString = hashedData.compactMap {
+            String(format: "%02x", $0)
+        }.joined()
+        return hashString
+    }
+
+    func prepareAppleSignInRequest(_ request: ASAuthorizationAppleIDRequest) {
+        let nonce = randomNonceString()
+        currentNonce = nonce
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = sha256(nonce)
+    }
+
+    func handleAppleSignInCompletion(_ result: Result<ASAuthorization, Error>) {
+        switch result {
+        case .success(let authorization):
+            if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+                guard let nonce = currentNonce else {
+                    self.authState = .error(L.errorGeneric)
+                    return
+                }
+                guard let appleIDToken = appleIDCredential.identityToken else {
+                    self.authState = .error(L.errorGeneric)
+                    return
+                }
+                guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                    self.authState = .error(L.errorGeneric)
+                    return
+                }
+
+                let credential = OAuthProvider.credential(
+                    providerID: .apple,
+                    idToken: idTokenString,
+                    rawNonce: nonce
+                )
+
+                authState = .loading
+                Task {
+                    do {
+                        // Lazy Registration: link falls anonym, signIn als Fallback
+                        if let currentUser = Auth.auth().currentUser, currentUser.isAnonymous {
+                            do {
+                                try await currentUser.link(with: credential)
+                            } catch {
+                                let code = AuthErrorCode(rawValue: (error as NSError).code)
+                                if code == .credentialAlreadyInUse || code == .providerAlreadyLinked {
+                                    try await Auth.auth().signIn(with: credential)
+                                } else {
+                                    throw error
+                                }
+                            }
+                        } else {
+                            try await Auth.auth().signIn(with: credential)
+                        }
+                        TelemetryManager.send("auth.loginSuccess", with: ["method": "apple"])
+                        MessagingService.shared.refreshAndSaveToken()
+                    } catch {
+                        authState = .error(mapFirebaseError(error))
+                    }
+                }
+            } else {
+                authState = .error(L.errorGeneric)
+            }
+        case .failure(let error):
+            // User cancelled is not an error
+            if (error as NSError).code == ASAuthorizationError.canceled.rawValue {
+                authState = .unauthenticated
+                return
+            }
+            authState = .error(error.localizedDescription)
         }
     }
 

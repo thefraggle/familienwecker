@@ -249,6 +249,12 @@ struct SettingsView: View {
             }
             .foregroundStyle(theme.onSurface)
             .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+
+            if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipAlarmSoundSeen {
+                TooltipBubble(text: L.tooltipAlarmSound) {
+                    familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyAlarmSound)
+                }
+            }
         }
     }
 
@@ -293,6 +299,12 @@ struct SettingsView: View {
 
 
                 // Share
+                if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipInviteSeen {
+                    TooltipBubble(text: L.tooltipInviteCode) {
+                        familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyInvite)
+                    }
+                }
+
                 Button(action: {
                     if authViewModel.isAnonymous {
                         familyViewModel.errorMessage = L.s("settings_share_code_locked")
