@@ -181,6 +181,7 @@ enum L {
     static var tooltipDragHandle: String { s("tooltip_drag_handle") }
     static var tooltipAlarmSwitch: String { s("tooltip_alarm_switch") }
     static var tooltipInviteCode: String { s("tooltip_invite_code") }
+    static var tooltipAlarmSound: String { s("tooltip_alarm_sound") }
     static var tooltipWakeWindow: String { s("tooltip_wake_window") }
     static var tooltipBathroom: String { s("tooltip_bathroom") }
     static var tooltipWeekdays: String { s("tooltip_weekdays") }

@@ -120,6 +120,8 @@ fun SettingsScreen(
     val isGlobalAdmin by viewModel.isGlobalAdmin.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
+    val tooltipAlarmSoundSeen by viewModel.tooltipAlarmSoundSeen.collectAsStateWithLifecycle()
+    val tooltipInviteSeen by viewModel.tooltipInviteSeen.collectAsStateWithLifecycle()
     val pushNotificationsEnabled by viewModel.pushNotificationsEnabled.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
@@ -449,6 +451,14 @@ fun SettingsScreen(
                         Text(stringResource(R.string.settings_alarm_select, ringtoneName ?: ""))
                     }
 
+                    if (tooltipsEnabled && !tooltipAlarmSoundSeen) {
+                        TooltipBubble(
+                            visible = true,
+                            text = stringResource(R.string.tooltip_alarm_sound),
+                            onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyAlarmSound) }
+                        )
+                    }
+
 
                 }
             }
@@ -616,6 +626,17 @@ fun SettingsScreen(
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 16.dp)
                         )
+
+                        // Tooltip E – Einladungscode
+                        if (tooltipsEnabled && !tooltipInviteSeen) {
+                            TooltipBubble(
+                                visible = true,
+                                text = stringResource(R.string.tooltip_invite_code),
+                                onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyInvite) },
+                                isDark = isDarkTheme
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
 
                         val shareInteractionSource = remember { MutableInteractionSource() }
                         val shareMessage = stringResource(R.string.settings_share_message, familyName ?: "", code)
