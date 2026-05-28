@@ -70,8 +70,17 @@ class AuthViewModel: ObservableObject {
             Task { @MainActor in
                 if let user {
                     self.currentUserEmail = user.email
-                    // Anonymous users and OAuth users (Google) are always "verified"
-                    if user.isAnonymous || user.isEmailVerified || user.providerData.contains(where: { $0.providerID != "password" }) {
+                    
+                    let hasPasswordProvider = user.providerData.contains(where: { $0.providerID == "password" })
+                    
+                    if hasPasswordProvider {
+                        if user.isEmailVerified {
+                            self.authState = .authenticated
+                            MessagingService.shared.refreshAndSaveToken()
+                        } else {
+                            self.authState = .awaitingEmailVerification(email: user.email ?? "")
+                        }
+                    } else if user.isAnonymous || user.providerData.contains(where: { $0.providerID != "password" }) {
                         self.authState = .authenticated
                         MessagingService.shared.refreshAndSaveToken()
                     } else {
