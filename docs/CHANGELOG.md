@@ -2,6 +2,15 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.13 – 2026-05-28
+### Neu
+- **Hilfetexte wieder da** – Wir haben alle erklärenden Hilfetexte und Tipps (z. B. zu Wochentagen, Bad-Zeiten und Weckfenstern) wiederhergestellt, um den Einstieg und die Bedienung noch einfacher zu machen.
+
+### Verbessert
+- **Frischerer Login-Bereich** – Die Anmeldeseite wurde visuell überarbeitet. Sie bietet jetzt durch optimierte Kontraste, harmonische Abstände und weichere Ecken eine deutlich bessere Lesbarkeit im hellen wie im dunklen Design.
+- **Markenkonformer Google-Login** – Der Google-Anmeldebutton wurde optisch aufgewertet und fügt sich nun in beiden Designs nahtlos und gut sichtbar in die App ein.
+- **Optimierter Weck-Bildschirm** – Das Layout bei ausgelöstem Wecker passt sich nun noch flexibler an moderne Bildschirme mit Kamera-Ausschnitten (Notch) an, sodass keine Bedienelemente verdeckt werden.
+
 ## 1.9.12 – 2026-05-26
 ### Fehlerbehebungen
 - **Bad-Puffer korrigiert** – Der persönliche Zeitpuffer nach dem Badezimmer wird nun korrekt für das nachfolgende Familienmitglied eingeplant, selbst wenn der globale Puffer auf 0 Minuten steht. Zudem wird der Puffer an 1. Stelle der Badezimmer-Reihenfolge zuverlässig angezeigt.

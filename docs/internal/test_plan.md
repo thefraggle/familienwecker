@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.12
-**Datum:** 2026-05-26
+**Version:** 1.9.13
+**Datum:** 2026-05-28
 
 ---
 
@@ -14,7 +14,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 ### 1. Account, Onboarding & Familien
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-01 | Registrierung & Login | E-Mail & Google Login klappt. Passwort-Reset verschickt Mail (Enumeration-Schutz aktiv). |
+| TC-01 | Registrierung & Login | E-Mail & Google Login klappt. Passwort-Reset verschickt Mail. Premium-Layout für Buttons und Eingabefelder mit einheitlichen Eckradien (12.dp), optimalen Kontrasten (inaktiver Status verblasst) und markenkonformem Google-Button (solid weiß in allen Modi) verifiziert. |
 | TC-02 | Lazy Registration & Onboarding | Tour mit 4 Slides läuft fehlerfrei. "Los geht's" erstellt anonymen Nutzer (Double-Click geschützt). Tooltip-Toggle am Ende speichert Präferenz korrekt. |
 | TC-03 | Familien-Lifecycle | Gründen + Beitreten per Code/Link. Nur Creator darf löschen. Verlassen/Löschen der Familie wirft Mitglieder sofort auf den Startbildschirm zurück und deaktiviert lokale Wecker. Testdaten werden bei Registrierung übernommen. |
 | TC-04 | Tour-Replay (Settings) | Eingeloggt: Letzter Slide (Login/Anonym) wird übersprungen. Button zeigt "Schließen". Tooltip-Checkbox übernimmt gespeicherte Einstellung. Nicht eingeloggt: Alle 4 Slides, originale Buttons. |
@@ -65,7 +65,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 | UI-01 | Layout-Responsivität | Tastatur verdeckt keine Buttons. App ist auf Tablets strikt im Hochformat, Animationen verdecken keinen Text. |
 | UI-02 | Sprachen & Themes | 25 Sprachen funktionieren absturzfrei. Dark/Light-Mode wechselt sofort, AMOLED Black greift. |
 | UI-03 | Icon-Konsistenz | Material Icons (Wecker, Badewanne, Frühstück, Laufen) erscheinen korrekt auf MemberCard, MainScreen-Zeitplan, AddMember-Formular und Settings-Buttons. Keine Emoji-Reste. Dark/Light einheitlich. |
-| UI-04 | Tooltip-Reduzierung | In der App werden nur noch 3 Tooltips (Drag-Handle, Wach-Button, Puffer) angezeigt. Die restlichen 6 wurden entfernt. |
+| UI-04 | Hilfetexte & Tooltips | Alle 9 Tooltips (Wach-Button, Drag-Handle, Puffer, Wochentage, Weckzeitfenster, Baddauer, Wecker-Schalter, Einladungscode, Weckton) erscheinen korrekt an ihren Stellen und lassen sich dismissen. |
 
 ---
 
