@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package de.familienwecker.famwake.data
 
 import android.content.Context

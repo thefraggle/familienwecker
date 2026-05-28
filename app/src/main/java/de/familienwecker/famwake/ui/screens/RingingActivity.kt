@@ -218,12 +218,13 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .statusBarsPadding()
                 .navigationBarsPadding()
                 .padding(horizontal = 28.dp),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Panda Lottie-Animation
             LottieAnimation(
