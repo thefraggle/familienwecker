@@ -187,22 +187,6 @@ struct LoginView: View {
 
         Spacer().frame(height: 8)
 
-        // Google Sign-In (matches Android LoginScreen Google button)
-        Button(action: { authViewModel.signInWithGoogle() }) {
-            HStack(spacing: 8) {
-                Image("ic_google")
-                    .resizable()
-                    .frame(width: 18, height: 18)
-                Text(L.loginWithGoogle)
-                    .font(.subheadline)
-            }
-            .frame(maxWidth: .infinity)
-            .frame(minHeight: 48)
-        }
-        .buttonStyle(.bordered)
-        .tint(theme.onSurface)
-        .clipShape(Capsule())
-
         // Apple Sign-In (using native button from AuthenticationServices)
         SignInWithAppleButton(
             .signIn,
@@ -214,8 +198,26 @@ struct LoginView: View {
             }
         )
         .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
-        .frame(maxWidth: .infinity)
-        .frame(minHeight: 48)
+        .frame(maxWidth: .infinity, idealHeight: 48)
+        .frame(height: 48)
+        .clipShape(Capsule())
+
+        Spacer().frame(height: 8)
+
+        // Google Sign-In (matches Android LoginScreen Google button)
+        Button(action: { authViewModel.signInWithGoogle() }) {
+            HStack(spacing: 8) {
+                Image("ic_google")
+                    .resizable()
+                    .frame(width: 18, height: 18)
+                Text(L.loginWithGoogle)
+                    .font(.subheadline)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 48)
+        }
+        .buttonStyle(.bordered)
+        .tint(theme.onSurface)
         .clipShape(Capsule())
 
         // Error display
