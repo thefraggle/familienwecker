@@ -195,7 +195,7 @@ struct LoginView: View {
                 authViewModel.handleAppleSignInCompletion(result)
             }
         )
-        .signInWithAppleButtonStyle(.black)
+        .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .whiteOutline)
         .frame(maxWidth: .infinity)
         .frame(height: 50)
         .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -212,11 +212,11 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 50)
-            .background(theme.primary.opacity(0.05))
-            .foregroundStyle(theme.onSurface)
+            .background(Color.white)
+            .foregroundStyle(Color(hex: "#1f1f1f"))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(theme.outline.opacity(0.3), lineWidth: 1)
+                    .stroke(colorScheme == .dark ? Color.clear : theme.outline.opacity(0.4), lineWidth: 1)
             )
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
