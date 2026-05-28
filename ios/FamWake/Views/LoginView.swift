@@ -207,14 +207,20 @@ struct LoginView: View {
                     .resizable()
                     .frame(width: 18, height: 18)
                 Text(L.loginWithGoogle)
-                    .font(.subheadline)
+                    .font(.body)
+                    .fontWeight(.medium)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 50)
+            .background(theme.primary.opacity(0.05))
+            .foregroundStyle(theme.onSurface)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(theme.outline.opacity(0.3), lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
-        .buttonStyle(.bordered)
-        .tint(theme.onSurface)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .buttonStyle(.plain)
 
         // Error display
         if case .error(let msg) = authViewModel.authState {
