@@ -286,8 +286,8 @@ fun SettingsScreen(
                                 showMemberPicker = true
                             }
                         },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = MaterialTheme.shapes.small,
+                        modifier = Modifier.fillMaxWidth().height(56.dp),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                         enabled = members.isNotEmpty()
                     ) {
                         Row(
@@ -322,10 +322,12 @@ fun SettingsScreen(
                                         viewModel.setMyMemberId(null) { }
                                         showMemberPicker = false
                                     },
+                                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(horizontal = 20.dp)
                                         .padding(bottom = 12.dp)
+                                        .height(56.dp)
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Person,
@@ -445,7 +447,8 @@ fun SettingsScreen(
                             }
                             ringtonePickerLauncher.launch(intent)
                         },
-                        modifier = Modifier.fillMaxWidth().bounceClick(ringtoneInteractionSource),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(ringtoneInteractionSource),
                         interactionSource = ringtoneInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_alarm_select, ringtoneName ?: ""))
@@ -569,7 +572,8 @@ fun SettingsScreen(
                                     }
                                     context.startActivity(intent)
                                 },
-                                modifier = Modifier.fillMaxWidth().bounceClick(notifBtnInteractionSource),
+                                modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(notifBtnInteractionSource),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                 interactionSource = notifBtnInteractionSource,
                                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                             ) {
@@ -605,7 +609,8 @@ fun SettingsScreen(
                         val loginInteractionSource = remember { MutableInteractionSource() }
                         Button(
                             onClick = onNavigateToLogin,
-                            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp).bounceClick(loginInteractionSource),
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp).height(56.dp).bounceClick(loginInteractionSource),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                             interactionSource = loginInteractionSource,
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.primary,
@@ -660,9 +665,10 @@ fun SettingsScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(bottom = 16.dp)
+                                .height(56.dp)
                                 .bounceClick(shareInteractionSource),
                             interactionSource = shareInteractionSource,
-                            shape = MaterialTheme.shapes.medium
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
                         ) {
                             Icon(Icons.Default.Groups, contentDescription = null)
                             Spacer(Modifier.width(8.dp))
@@ -672,7 +678,8 @@ fun SettingsScreen(
                     val leaveInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = onLeaveFamily,
-                        modifier = Modifier.fillMaxWidth().bounceClick(leaveInteractionSource),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(leaveInteractionSource),
                         interactionSource = leaveInteractionSource
                     ) {
                         Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -684,7 +691,8 @@ fun SettingsScreen(
                     if (isAdmin) {
                         OutlinedButton(
                             onClick = { showDeleteDialog = true },
-                            modifier = Modifier.fillMaxWidth().bounceClick(deleteFamilyInteractionSource),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(deleteFamilyInteractionSource),
                             colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
                             interactionSource = deleteFamilyInteractionSource
                         ) {
@@ -700,7 +708,8 @@ fun SettingsScreen(
                                     snackbarHostState.showSnackbar(deleteNotAdminMsg)
                                 }
                             },
-                            modifier = Modifier.fillMaxWidth().bounceClick(deleteFamilyInteractionSource),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(deleteFamilyInteractionSource),
                             colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.outline),
                             interactionSource = deleteFamilyInteractionSource
                         ) {
@@ -848,8 +857,8 @@ fun SettingsScreen(
 
                     OutlinedButton(
                         onClick = { showLanguagePicker = true },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = MaterialTheme.shapes.small
+                        modifier = Modifier.fillMaxWidth().height(56.dp),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -1127,7 +1136,8 @@ fun SettingsScreen(
                     val donateInteractionSource = remember { MutableInteractionSource() }
                     Button(
                         onClick = { showDonationDialog = true },
-                        modifier = Modifier.fillMaxWidth().bounceClick(donateInteractionSource),
+                        modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(donateInteractionSource),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                         interactionSource = donateInteractionSource,
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                     ) {
@@ -1165,7 +1175,8 @@ fun SettingsScreen(
                     val onboardingInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = onStartOnboarding,
-                        modifier = Modifier.fillMaxWidth().bounceClick(onboardingInteractionSource),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(onboardingInteractionSource),
                         interactionSource = onboardingInteractionSource
                     ) {
                         Text(stringResource(R.string.settings_start_onboarding))
@@ -1177,7 +1188,8 @@ fun SettingsScreen(
                     val feedbackInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = onNavigateToFeedback,
-                        modifier = Modifier.fillMaxWidth().bounceClick(feedbackInteractionSource),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(feedbackInteractionSource),
                         interactionSource = feedbackInteractionSource
                     ) {
                         Icon(Icons.Default.RateReview, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -1197,7 +1209,8 @@ fun SettingsScreen(
                             }
                             context.startActivity(intent)
                         },
-                        modifier = Modifier.fillMaxWidth().bounceClick(supportInteractionSource),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(supportInteractionSource),
                         interactionSource = supportInteractionSource
                     ) {
                         Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -1212,7 +1225,8 @@ fun SettingsScreen(
                         val adminInteractionSource = remember { MutableInteractionSource() }
                         OutlinedButton(
                             onClick = { showAdminDialog = true },
-                            modifier = Modifier.fillMaxWidth().bounceClick(adminInteractionSource),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(adminInteractionSource),
                             interactionSource = adminInteractionSource,
                             colors = ButtonDefaults.outlinedButtonColors(
                                 contentColor = MaterialTheme.colorScheme.error
@@ -1319,7 +1333,8 @@ fun SettingsScreen(
                     val logoutInteractionSource = remember { MutableInteractionSource() }
                     OutlinedButton(
                         onClick = onLogout,
-                        modifier = Modifier.fillMaxWidth().bounceClick(logoutInteractionSource),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(logoutInteractionSource),
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
                         interactionSource = logoutInteractionSource
                     ) {
