@@ -151,9 +151,9 @@ struct LoginView: View {
                 .font(.headline)
                 .foregroundStyle(theme.onPrimary)
                 .frame(maxWidth: .infinity)
-                .frame(minHeight: 56)
+                .frame(height: 50)
                 .background(theme.primary)
-                .clipShape(Capsule())
+                .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(BounceButtonStyle())
         .allowsHitTesting(!(email.isEmpty || password.isEmpty))
@@ -179,13 +179,11 @@ struct LoginView: View {
                 .font(.subheadline)
                 .foregroundStyle(theme.primary)
                 .frame(maxWidth: .infinity)
-                .frame(minHeight: 56)
+                .frame(height: 50)
                 .background(theme.primary.opacity(0.1))
-                .clipShape(Capsule())
+                .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(BounceButtonStyle())
-
-        Spacer().frame(height: 8)
 
         // Apple Sign-In (using native button from AuthenticationServices)
         SignInWithAppleButton(
@@ -198,11 +196,9 @@ struct LoginView: View {
             }
         )
         .signInWithAppleButtonStyle(.black)
-        .frame(maxWidth: .infinity, idealHeight: 48)
-        .frame(height: 48)
-        .clipShape(Capsule())
-
-        Spacer().frame(height: 8)
+        .frame(maxWidth: .infinity)
+        .frame(height: 50)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
 
         // Google Sign-In (matches Android LoginScreen Google button)
         Button(action: { authViewModel.signInWithGoogle() }) {
@@ -214,11 +210,11 @@ struct LoginView: View {
                     .font(.subheadline)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 48)
+            .frame(height: 50)
         }
         .buttonStyle(.bordered)
         .tint(theme.onSurface)
-        .clipShape(Capsule())
+        .clipShape(RoundedRectangle(cornerRadius: 12))
 
         // Error display
         if case .error(let msg) = authViewModel.authState {
