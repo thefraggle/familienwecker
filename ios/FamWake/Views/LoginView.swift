@@ -214,10 +214,10 @@ struct LoginView: View {
             .background(Color.white)
             .foregroundStyle(Color(hex: "#1f1f1f"))
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(colorScheme == .dark ? Color.clear : theme.outline.opacity(0.4), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(colorScheme == .dark ? Color.clear : Color.black.opacity(0.6), lineWidth: 1)
             )
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .buttonStyle(.plain)
 
