@@ -232,8 +232,8 @@ fun OnboardingScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(52.dp),
-                shape  = RoundedCornerShape(16.dp),
+                    .height(56.dp),
+                shape  = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                 enabled = !isStarting,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,

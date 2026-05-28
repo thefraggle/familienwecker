@@ -272,7 +272,15 @@ fun AddMemberScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
+                        .height(56.dp)
                         .bounceClick(saveInteractionSource),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                        disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
+                        disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.45f)
+                    ),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                     interactionSource = saveInteractionSource,
                     onClick = {
                         // Legacyfelder aus dem Wochentag-Profil ableiten (Fallback: Mo-Profil oder Defaults)
@@ -403,6 +411,7 @@ fun AddMemberScreen(
                     label = { Text(stringResource(R.string.add_member_name_label)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(
                         onDone = { focusManager.clearFocus() }

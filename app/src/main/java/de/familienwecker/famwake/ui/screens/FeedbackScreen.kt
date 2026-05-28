@@ -184,6 +184,7 @@ fun FeedbackScreen(
                             onValueChange = {},
                             readOnly = true,
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = categoryExpanded) },
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                             modifier = Modifier
                                 .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                                 .fillMaxWidth()
@@ -211,6 +212,7 @@ fun FeedbackScreen(
                         value = message,
                         onValueChange = { message = it },
                         placeholder = { Text(stringResource(R.string.feedback_message_placeholder)) },
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 120.dp),
@@ -232,6 +234,7 @@ fun FeedbackScreen(
                         supportingText = if (!isEmailValid) {
                             { Text(stringResource(R.string.error_invalid_email)) }
                         } else null,
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(
@@ -279,7 +282,10 @@ fun FeedbackScreen(
                     ) {
                         OutlinedButton(
                             onClick = onNavigateBack,
-                            modifier = Modifier.weight(1f),
+                            modifier = Modifier.weight(1f).height(56.dp),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.primary),
                             enabled = !isLoading
                         ) {
                             Text(stringResource(R.string.feedback_cancel))
@@ -294,8 +300,15 @@ fun FeedbackScreen(
                                     device = deviceModel
                                 )
                             },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary,
+                                disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
+                                disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.45f)
+                            ),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                             enabled = canSend,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f).height(56.dp)
                         ) {
                             if (isLoading) {
                                 CircularProgressIndicator(

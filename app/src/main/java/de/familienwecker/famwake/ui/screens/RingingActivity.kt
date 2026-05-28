@@ -267,12 +267,12 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
-                        .clip(RoundedCornerShape(30.dp))
+                        .clip(RoundedCornerShape(12.dp))
                         .background(Color.White.copy(alpha = 0.18f))
                         .border(
                             width = 1.dp,
                             color = Color.White.copy(alpha = 0.30f),
-                            shape = RoundedCornerShape(30.dp)
+                            shape = RoundedCornerShape(12.dp)
                         )
                         .clickable(onClick = onSnoozeClicked),
                     contentAlignment = Alignment.Center
@@ -302,7 +302,7 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
-                        .clip(RoundedCornerShape(30.dp))
+                        .clip(RoundedCornerShape(12.dp))
                         .background(Color.White.copy(alpha = 0.92f))
                         .clickable(onClick = onStopClicked),
                     contentAlignment = Alignment.Center
