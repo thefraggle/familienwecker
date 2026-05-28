@@ -2,6 +2,15 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.13 – 2026-05-28
+### New
+- **Help tooltips restored** – We brought back all helpful explanations and tips (e.g., regarding weekdays, bathroom times, and wake windows) to make using the app even easier and more intuitive.
+
+### Improved
+- **Refreshed login area** – The sign-in page has been visually redesigned. It now offers much better readability in both light and dark designs thanks to optimized contrast, balanced spacing, and softer corners.
+- **Polished Google Sign-In** – The Google login button has been visually enhanced to integrate seamlessly and remain highly visible in both light and dark modes.
+- **Optimized alarm screen** – The active alarm screen now adapts even more flexibly to modern displays with camera notches, ensuring no buttons are ever covered.
+
 ## 1.9.12 – 2026-05-26
 ### Fixed
 - **Bathroom Buffer Fix** – Individual bathroom buffers are now correctly applied to the subsequent family member even when the global buffer is set to 0 minutes. Additionally, individual buffers are reliably displayed when a member is positioned first in the bathroom order.
