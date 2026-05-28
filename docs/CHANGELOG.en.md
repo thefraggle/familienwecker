@@ -11,6 +11,10 @@
 - **Polished Google Sign-In** – The Google login button has been visually enhanced to integrate seamlessly and remain highly visible in both light and dark modes.
 - **Optimized alarm screen** – The active alarm screen now adapts even more flexibly to modern displays with camera notches, ensuring no buttons are ever covered.
 
+### Fixed
+- **Registration issue resolved** – Fixed an issue during registration where users could occasionally access the app before verifying their email address.
+
+
 ## 1.9.12 – 2026-05-26
 ### Fixed
 - **Bathroom Buffer Fix** – Individual bathroom buffers are now correctly applied to the subsequent family member even when the global buffer is set to 0 minutes. Additionally, individual buffers are reliably displayed when a member is positioned first in the bathroom order.
