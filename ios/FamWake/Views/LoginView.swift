@@ -215,7 +215,7 @@ struct LoginView: View {
             .foregroundStyle(Color(hex: "#1f1f1f"))
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(colorScheme == .dark ? Color.clear : Color.black.opacity(0.6), lineWidth: 1)
+                    .stroke(colorScheme == .dark ? Color.clear : Color.black, lineWidth: 1)
             )
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
