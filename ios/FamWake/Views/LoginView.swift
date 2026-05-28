@@ -216,7 +216,7 @@ struct LoginView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(colorScheme == .dark ? Color.clear : Color.black.opacity(0.8), lineWidth: 0.5)
+                    .stroke(colorScheme == .dark ? Color.clear : Color.black, lineWidth: 0.5)
             )
         }
         .buttonStyle(.plain)
