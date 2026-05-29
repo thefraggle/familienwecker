@@ -194,9 +194,7 @@ fun FamilySetupScreen(
                                         },
                                         colors = ButtonDefaults.buttonColors(
                                             containerColor = MaterialTheme.colorScheme.primary,
-                                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                                            disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
-                                            disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.45f)
+                                            contentColor = MaterialTheme.colorScheme.onPrimary
                                         ),
                                         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                         modifier = Modifier
@@ -247,9 +245,7 @@ fun FamilySetupScreen(
                                         },
                                         colors = ButtonDefaults.buttonColors(
                                             containerColor = MaterialTheme.colorScheme.primary,
-                                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                                            disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
-                                            disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.45f)
+                                            contentColor = MaterialTheme.colorScheme.onPrimary
                                         ),
                                         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                         modifier = Modifier
