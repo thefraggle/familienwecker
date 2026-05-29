@@ -201,7 +201,7 @@ struct LoginView: View {
             .frame(height: 56)
             .background(colorScheme == .dark ? Color.white : Color.black)
             .foregroundStyle(colorScheme == .dark ? Color.black : Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
 
@@ -219,9 +219,9 @@ struct LoginView: View {
             .frame(height: 56)
             .background(Color.white)
             .foregroundStyle(Color(hex: "#1f1f1f"))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: 12)
                     .stroke(colorScheme == .dark ? Color.clear : Color.black, lineWidth: 0.5)
             )
         }
@@ -269,7 +269,7 @@ struct LoginView: View {
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 56)
                     .background(theme.primary)
-                    .clipShape(Capsule())
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(BounceButtonStyle())
 

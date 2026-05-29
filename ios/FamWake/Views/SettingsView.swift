@@ -221,10 +221,11 @@ struct SettingsView: View {
                     Image(systemName: "person.fill").font(.caption)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16).padding(.vertical, 12)
+                .frame(height: 56)
+                .padding(.horizontal, 16)
             }
             .foregroundStyle(theme.onSurface)
-            .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
             .disabled(familyViewModel.members.isEmpty)
 
             Divider()
@@ -245,10 +246,11 @@ struct SettingsView: View {
                     Image(systemName: "speaker.wave.2.fill").font(.caption)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16).padding(.vertical, 12)
+                .frame(height: 56)
+                .padding(.horizontal, 16)
             }
             .foregroundStyle(theme.onSurface)
-            .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
             if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipAlarmSoundSeen {
                 TooltipBubble(text: L.tooltipAlarmSound) {
@@ -318,10 +320,10 @@ struct SettingsView: View {
                         Text(L.settingsShareCode)
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
+                    .frame(height: 56)
                     .background(theme.primary)
                     .foregroundStyle(theme.onPrimary)
-                    .clipShape(Capsule())
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 .buttonStyle(.plain)
                 .padding(.bottom, 8)
@@ -377,10 +379,11 @@ struct SettingsView: View {
                     Image(systemName: "slider.horizontal.3").font(.caption)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16).padding(.vertical, 12)
+                .frame(height: 56)
+                .padding(.horizontal, 16)
             }
             .foregroundStyle(theme.onSurface)
-            .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
             Spacer().frame(height: 16)
 
@@ -811,10 +814,10 @@ struct SettingsView: View {
                     }) {
                         Text(L.okButton)
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
+                            .frame(height: 56)
                             .background(theme.primary)
                             .foregroundStyle(theme.onPrimary)
-                            .clipShape(Capsule())
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .padding(.horizontal, 32)
                     .padding(.top, 16)
@@ -837,10 +840,10 @@ struct SettingsView: View {
                     }) {
                         Text(L.s("error_profile_claim_retry") != "error_profile_claim_retry" ? L.s("error_profile_claim_retry") : "Zurück")
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
+                            .frame(height: 56)
                             .background(theme.primary)
                             .foregroundStyle(theme.onPrimary)
-                            .clipShape(Capsule())
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .padding(.horizontal, 32)
                     .padding(.top, 16)
@@ -974,14 +977,15 @@ struct SettingsView: View {
             Spacer()
             Text(price).font(.subheadline).foregroundStyle(theme.outline)
         }
-        .padding(16)
+        .frame(minHeight: 56)
+        .padding(.horizontal, 16)
         .background(
             isDark ? theme.primaryContainer : theme.surfaceVariant.opacity(0.3)
         )
         .background(.regularMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .stroke(theme.outline.opacity(0.15), lineWidth: 0.5)
         )
     }

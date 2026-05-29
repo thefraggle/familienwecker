@@ -135,9 +135,9 @@ struct FeedbackView: View {
                                     .font(.headline)
                                     .foregroundStyle(theme.primary)
                                     .frame(maxWidth: .infinity)
-                                    .frame(minHeight: 52)
+                                    .frame(minHeight: 56)
                                     .background(theme.primary.opacity(0.1))
-                                    .clipShape(Capsule())
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
 
@@ -152,15 +152,15 @@ struct FeedbackView: View {
                                 }
                                 .foregroundStyle(theme.onPrimary)
                                 .frame(maxWidth: .infinity)
-                                .frame(minHeight: 52)
+                                .frame(minHeight: 56)
                                 .background(theme.primary)
-                                .clipShape(Capsule())
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
                             .disabled(!canSend)
                             .opacity(canSend ? 1.0 : 0.5)
                         }
-                        .frame(minHeight: 52)
+                        .frame(minHeight: 56)
                     }
                 }
                 .padding(20)
