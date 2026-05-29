@@ -191,9 +191,9 @@ struct OnboardingView: View {
                 }
                 .foregroundStyle(Color(hex: "#1A237E"))
                 .frame(maxWidth: .infinity)
-                .frame(minHeight: 52)
+                .frame(height: 56)
                 .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .disabled(isStarting)
             .opacity(isStarting ? 0.6 : 1.0)

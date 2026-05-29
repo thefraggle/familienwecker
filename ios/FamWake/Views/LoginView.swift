@@ -151,7 +151,7 @@ struct LoginView: View {
                 .font(.headline)
                 .foregroundStyle(theme.onPrimary)
                 .frame(maxWidth: .infinity)
-                .frame(height: 50)
+                .frame(height: 56)
                 .background(theme.primary)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }
@@ -179,7 +179,7 @@ struct LoginView: View {
                 .font(.subheadline)
                 .foregroundStyle(theme.primary)
                 .frame(maxWidth: .infinity)
-                .frame(height: 50)
+                .frame(height: 56)
                 .background(theme.primary.opacity(0.1))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }
@@ -198,7 +198,7 @@ struct LoginView: View {
                     .fontWeight(.medium)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 50)
+            .frame(height: 56)
             .background(colorScheme == .dark ? Color.white : Color.black)
             .foregroundStyle(colorScheme == .dark ? Color.black : Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -216,7 +216,7 @@ struct LoginView: View {
                     .fontWeight(.medium)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 50)
+            .frame(height: 56)
             .background(Color.white)
             .foregroundStyle(Color(hex: "#1f1f1f"))
             .clipShape(RoundedRectangle(cornerRadius: 8))
