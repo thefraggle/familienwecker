@@ -131,15 +131,14 @@ struct AddEditMemberView: View {
                     }) {
                         Text(L.addMemberSubmit)
                             .font(.headline)
-                            .foregroundStyle(theme.onPrimary)
+                            .foregroundStyle(isSaveDisabled ? theme.onSurface.opacity(0.38) : theme.onPrimary)
                             .frame(maxWidth: .infinity)
                             .frame(minHeight: 56)
-                            .background(theme.primary)
-                            .clipShape(Capsule())
+                            .background(isSaveDisabled ? theme.onSurface.opacity(0.12) : theme.primary)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .buttonStyle(BounceButtonStyle())
                     .disabled(isSaveDisabled)
-                    .opacity(isSaveDisabled ? 0.5 : 1.0)
                     .padding(16)
                     .background(
                         LinearGradient(
