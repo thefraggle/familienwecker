@@ -195,7 +195,8 @@ fun MainScreen(
                                 context.startActivity(Intent.createChooser(sendIntent, null))
                             },
                             containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
                         ) {
                             Icon(Icons.Default.Share, contentDescription = stringResource(R.string.settings_share_code))
                         }
@@ -209,7 +210,8 @@ fun MainScreen(
                             icon = { Icon(Icons.Default.Add, contentDescription = null) },
                             text = { Text(stringResource(R.string.main_add_member_desc)) },
                             containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary
+                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
                         )
                     }
                 }
