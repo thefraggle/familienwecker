@@ -70,11 +70,11 @@ struct RingingView: View {
                         }
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 60)
+                        .frame(height: 56)
                         .background(Color.white.opacity(0.18))
-                        .clipShape(Capsule())
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                         .overlay(
-                            Capsule()
+                            RoundedRectangle(cornerRadius: 12)
                                 .stroke(Color.white.opacity(0.3), lineWidth: 1)
                         )
                     }
@@ -94,9 +94,9 @@ struct RingingView: View {
                         }
                         .foregroundStyle(Color.ringingPurpleDark)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 60)
+                        .frame(height: 56)
                         .background(Color.white.opacity(0.92))
-                        .clipShape(Capsule())
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .buttonStyle(BounceButtonStyle())
                 }

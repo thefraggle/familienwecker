@@ -72,9 +72,9 @@ struct FamilySetupView: View {
                                     .font(.headline)
                                     .foregroundStyle(theme.onPrimary)
                                     .frame(maxWidth: .infinity)
-                                    .frame(minHeight: 56)
+                                    .frame(height: 56)
                                     .background(theme.primary)
-                                    .clipShape(Capsule())
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
                         }
@@ -102,9 +102,9 @@ struct FamilySetupView: View {
                                     .font(.headline)
                                     .foregroundStyle(theme.onPrimary)
                                     .frame(maxWidth: .infinity)
-                                    .frame(minHeight: 56)
+                                    .frame(height: 56)
                                     .background(theme.primary)
-                                    .clipShape(Capsule())
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
                         }

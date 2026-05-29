@@ -272,10 +272,10 @@ struct SettingsView: View {
                         Text(L.s("settings_anonymous_login_button"))
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
+                    .frame(height: 56)
                     .background(theme.primary)
                     .foregroundStyle(theme.onPrimary)
-                    .clipShape(Capsule())
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 .buttonStyle(.plain)
                 .padding(.bottom, 12)
@@ -336,10 +336,10 @@ struct SettingsView: View {
                         Text(L.settingsLeaveFamily)
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
+                    .frame(height: 56)
                 }
                 .foregroundStyle(theme.onSurface)
-                .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
                 // Delete Family
                 Button(action: {
@@ -354,10 +354,10 @@ struct SettingsView: View {
                         Text(L.settingsDeleteFamily)
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
+                    .frame(height: 56)
                 }
                 .foregroundStyle(familyViewModel.isAdmin ? theme.error : theme.outline)
-                .overlay(Capsule().stroke((familyViewModel.isAdmin ? theme.error : theme.outline).opacity(0.6), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke((familyViewModel.isAdmin ? theme.error : theme.outline).opacity(0.6), lineWidth: 1))
             }
         }
     }
@@ -442,10 +442,10 @@ struct SettingsView: View {
                     Text(L.s("settings_support_donate"))
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
+                .frame(height: 56)
                 .background(theme.primary)
                 .foregroundStyle(theme.onPrimary)
-                .clipShape(Capsule())
+                .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(.plain)
         }
@@ -478,10 +478,10 @@ struct SettingsView: View {
                 }) {
                     Text(L.s("settings_start_onboarding"))
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
+                        .frame(height: 56)
                 }
                 .foregroundStyle(theme.onSurface)
-                .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
                 // Feedback
                 Button(action: { showFeedback = true }) {
@@ -490,10 +490,10 @@ struct SettingsView: View {
                         Text(L.settingsFeedbackButton)
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
+                    .frame(height: 56)
                 }
                 .foregroundStyle(theme.onSurface)
-                .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
 
                 // E-Mail Support
                 Button(action: {
@@ -506,10 +506,10 @@ struct SettingsView: View {
                         Text(L.s("settings_support_button"))
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
+                    .frame(height: 56)
                 }
                 .foregroundStyle(theme.onSurface)
-                .overlay(Capsule().stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
             }
         }
     }
@@ -529,10 +529,10 @@ struct SettingsView: View {
                     Text(L.settingsLogout)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
+                .frame(height: 56)
             }
             .foregroundStyle(theme.error)
-            .overlay(Capsule().stroke(theme.error.opacity(0.6), lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.error.opacity(0.6), lineWidth: 1))
 
             // Delete Account Info
             if let deleteUrl = URL(string: L.settingsDeleteAccountUrl) {
@@ -565,9 +565,9 @@ struct SettingsView: View {
                 .font(.headline)
                 .foregroundStyle(theme.onTertiary)
                 .frame(maxWidth: .infinity)
-                .frame(minHeight: 48)
+                .frame(height: 56)
                 .background(theme.tertiary)
-                .clipShape(Capsule())
+                .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(BounceButtonStyle())
         }
