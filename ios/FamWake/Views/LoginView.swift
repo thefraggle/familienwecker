@@ -149,14 +149,15 @@ struct LoginView: View {
         Button(action: handleMainAction) {
             Text(isRegistering ? L.registerButton : L.loginButton)
                 .font(.headline)
-                .foregroundStyle((email.isEmpty || password.isEmpty) ? theme.onSurface.opacity(0.38) : theme.onPrimary)
+                .foregroundStyle(theme.onPrimary)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
-                .background((email.isEmpty || password.isEmpty) ? theme.onSurface.opacity(0.12) : theme.primary)
+                .background(theme.primary)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(BounceButtonStyle())
-        .allowsHitTesting(!(email.isEmpty || password.isEmpty))
+        .disabled(email.isEmpty || password.isEmpty)
+        .opacity((email.isEmpty || password.isEmpty) ? 0.5 : 1.0)
 
         // Registration disclaimer with legal links
         if isRegistering {

@@ -77,6 +77,8 @@ struct FamilySetupView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
+                            .disabled(familyName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isLoading)
+                            .opacity((familyName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isLoading) ? 0.5 : 1.0)
                         }
                     } else {
                         // Familie beitreten
@@ -107,6 +109,8 @@ struct FamilySetupView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
+                            .disabled(joinCode.count != 6 || isLoading)
+                            .opacity((joinCode.count != 6 || isLoading) ? 0.5 : 1.0)
                         }
                     }
 
