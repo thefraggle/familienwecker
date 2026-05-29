@@ -278,47 +278,20 @@ class AuthViewModel: ObservableObject {
     }
 
     // MARK: - Apple Sign-In
-    private var currentNonce: String?
+    private var appleSignInHelper: AppleSignInHelper?
 
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        var randomBytes = [UInt8](repeating: 0, count: length)
-        let errorCode = SecRandomCopyBytes(nil, randomBytes.count, &randomBytes)
-        if errorCode != errSecSuccess {
-            fatalError("Unable to generate input bytes: \(errorCode)")
-        }
-
-        let charset: [Character] =
-            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-
-        let nonce = randomBytes.map { byte in
-            charset[Int(byte) % charset.count]
-        }
-
-        return String(nonce)
+    func startAppleSignIn() {
+        appleSignInHelper = AppleSignInHelper(completion: { [weak self] result in
+            self?.handleAppleSignInCompletion(result)
+        })
+        appleSignInHelper?.startSignInFlow()
     }
 
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashedData = SHA256.hash(data: inputData)
-        let hashString = hashedData.compactMap {
-            String(format: "%02x", $0)
-        }.joined()
-        return hashString
-    }
-
-    func prepareAppleSignInRequest(_ request: ASAuthorizationAppleIDRequest) {
-        let nonce = randomNonceString()
-        currentNonce = nonce
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(nonce)
-    }
-
-    func handleAppleSignInCompletion(_ result: Result<ASAuthorization, Error>) {
+    private func handleAppleSignInCompletion(_ result: Result<ASAuthorization, Error>) {
         switch result {
         case .success(let authorization):
             if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-                guard let nonce = currentNonce else {
+                guard let nonce = appleSignInHelper?.getCurrentNonce() else {
                     self.authState = .error(L.errorGeneric)
                     return
                 }
@@ -386,5 +359,68 @@ class AuthViewModel: ObservableObject {
         case .networkError: return L.errorNetwork
         default: return error.localizedDescription
         }
+    }
+}
+
+// MARK: - Apple SignIn Helper
+class AppleSignInHelper: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    private var currentNonce: String?
+    private let completionHandler: (Result<ASAuthorization, Error>) -> Void
+    
+    init(completion: @escaping (Result<ASAuthorization, Error>) -> Void) {
+        self.completionHandler = completion
+        super.init()
+    }
+    
+    func startSignInFlow() {
+        let nonce = randomNonceString()
+        currentNonce = nonce
+        
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = sha256(nonce)
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        controller.performRequests()
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow } ?? ASPresentationAnchor()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        completionHandler(.success(authorization))
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        completionHandler(.failure(error))
+    }
+    
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        var randomBytes = [UInt8](repeating: 0, count: length)
+        let errorCode = SecRandomCopyBytes(nil, randomBytes.count, &randomBytes)
+        if errorCode != errSecSuccess {
+            fatalError("Unable to generate input bytes: \(errorCode)")
+        }
+        let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        let nonce = randomBytes.map { charset[Int($0) % charset.count] }
+        return String(nonce)
+    }
+    
+    private func sha256(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        let hashedData = SHA256.hash(data: inputData)
+        return hashedData.compactMap { String(format: "%02x", $0) }.joined()
+    }
+    
+    func getCurrentNonce() -> String? {
+        return currentNonce
     }
 }
