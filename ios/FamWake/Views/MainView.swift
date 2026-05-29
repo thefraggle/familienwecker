@@ -219,7 +219,7 @@ struct MainView: View {
                                 .padding(.vertical, 12)
                                 .background(theme.primary)
                                 .foregroundStyle(theme.onPrimary)
-                                .clipShape(Capsule())
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .shadow(color: theme.primary.opacity(0.4), radius: 8, x: 0, y: 4)
                         }
                         .buttonStyle(BounceButtonStyle())
