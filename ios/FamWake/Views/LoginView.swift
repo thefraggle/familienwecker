@@ -185,19 +185,25 @@ struct LoginView: View {
         }
         .buttonStyle(BounceButtonStyle())
 
-        // Apple Sign-In (using native button from AuthenticationServices)
-        SignInWithAppleButton(
-            .signIn,
-            onRequest: { request in
-                authViewModel.prepareAppleSignInRequest(request)
-            },
-            onCompletion: { result in
-                authViewModel.handleAppleSignInCompletion(result)
+        // Apple Sign-In (Custom programmatic button)
+        Button(action: { authViewModel.startAppleSignIn() }) {
+            HStack(spacing: 8) {
+                Image(systemName: "applelogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 18, height: 18)
+                    .padding(.bottom, 2)
+                Text(UserDefaults.standard.string(forKey: "language") == "de" ? "Mit Apple anmelden" : "Sign in with Apple")
+                    .font(.body)
+                    .fontWeight(.medium)
             }
-        )
-        .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .whiteOutline)
-        .frame(maxWidth: .infinity)
-        .frame(height: 50)
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .background(colorScheme == .dark ? Color.white : Color.black)
+            .foregroundStyle(colorScheme == .dark ? Color.black : Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+        .buttonStyle(.plain)
 
         // Google Sign-In (matches Android LoginScreen Google button)
         Button(action: { authViewModel.signInWithGoogle() }) {
