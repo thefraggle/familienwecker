@@ -67,7 +67,7 @@ fun DonationDialog(
                             val interactionSource = remember { MutableInteractionSource() }
                             Button(
                                 onClick = { onDonate(pkg) },
-                                modifier = Modifier.fillMaxWidth().bounceClick(interactionSource),
+                                modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(interactionSource),
                                 interactionSource = interactionSource,
                                 shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
                             ) {
