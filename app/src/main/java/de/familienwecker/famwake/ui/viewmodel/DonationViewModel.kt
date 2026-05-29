@@ -57,8 +57,19 @@ class DonationViewModel : ViewModel() {
                     if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                         android.util.Log.e("FamWakeDonation", "Error fetching offerings: ${error.message} (Underlying: ${error.underlyingErrorMessage})")
                     }
-                    val errorMsg = "${error.message} ${error.underlyingErrorMessage ?: ""}"
-                    _purchaseState.value = PurchaseState.Error(UiText.DynamicString(errorMsg))
+                    val uiText = when (error.code) {
+                        PurchasesErrorCode.PurchaseNotAllowedError -> 
+                            UiText.StringResource(R.string.settings_donate_error_not_allowed)
+                        PurchasesErrorCode.StoreProblemError -> 
+                            UiText.StringResource(R.string.settings_donate_error_store_problem)
+                        PurchasesErrorCode.ProductAlreadyPurchasedError -> 
+                            UiText.StringResource(R.string.settings_donate_error_already_purchased)
+                        PurchasesErrorCode.PurchaseInvalidError -> 
+                            UiText.StringResource(R.string.settings_donate_error_invalid)
+                        else -> 
+                            UiText.StringResource(R.string.settings_donate_error_generic)
+                    }
+                    _purchaseState.value = PurchaseState.Error(uiText)
                 }
             })
         } catch (e: Exception) {
