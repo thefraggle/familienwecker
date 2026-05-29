@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.14 – 2026-05-29
+### Improved
+- **Better readability** – Inactive buttons (e.g., before entering a name) are now much easier to read in both light and dark modes, and will only react once all required information is entered.
+- **Clearer messages** – If in-app purchases or donations are ever unavailable on your device, you will now see a helpful message instead of a technical error.
+
 ## 1.9.13 – 2026-05-28
 ### New
 - **Help tooltips restored** – We brought back all helpful explanations and tips (e.g., regarding weekdays, bathroom times, and wake windows) to make using the app even easier and more intuitive.
