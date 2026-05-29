@@ -23,6 +23,7 @@ struct SettingsView: View {
     @State private var showStealAlert = false
     @State private var showLoginSheet = false
     @State private var showSoundPicker = false
+    @State private var showMailAlert = false
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
     private var isDark: Bool { colorScheme == .dark }
@@ -165,6 +166,11 @@ struct SettingsView: View {
                 Button(L.cancelButton, role: .cancel) {}
             } message: { member in
                 Text(String(format: L.s("settings_steal_text"), member.name))
+            }
+            .alert("Fehler", isPresented: $showMailAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Es konnte keine Mail-App gefunden werden.")
             }
             .onChange(of: authViewModel.isAnonymous) { _, isAnon in
                 // Nach erfolgreichem Account-Linking: Login-Sheet schließen, Daten neu laden
@@ -500,8 +506,12 @@ struct SettingsView: View {
 
                 // E-Mail Support
                 Button(action: {
-                    if let url = URL(string: "mailto:hello@familienwecker.de?subject=FamWake%20Feedback") {
-                        UIApplication.shared.open(url)
+                    if let url = URL(string: "mailto:daniel.notthoff@gmail.com?subject=FamWake%20Feedback") {
+                        if UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url)
+                        } else {
+                            showMailAlert = true
+                        }
                     }
                 }) {
                     HStack(spacing: 8) {
