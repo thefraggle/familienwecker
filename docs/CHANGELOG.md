@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.14 – 2026-05-29
+### Verbessert
+- **Bessere Lesbarkeit** – Inaktive Buttons (wie z. B. vor der Eingabe eines Namens) sind nun im hellen und dunklen Design deutlich besser lesbar und reagieren erst, wenn alle Eingaben vollständig sind.
+- **Verständlichere Hinweise** – Sollten Käufe oder Spenden auf dem Gerät einmal nicht möglich sein, wird nun eine verständliche Hilfestellung statt eines technischen Fehlers angezeigt.
+
 ## 1.9.13 – 2026-05-28
 ### Neu
 - **Hilfetexte wieder da** – Wir haben alle erklärenden Hilfetexte und Tipps (z. B. zu Wochentagen, Bad-Zeiten und Weckfenstern) wiederhergestellt, um den Einstieg und die Bedienung noch einfacher zu machen.
