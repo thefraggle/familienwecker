@@ -150,14 +150,15 @@ struct FeedbackView: View {
                                             .font(.headline)
                                     }
                                 }
-                                .foregroundStyle(canSend ? theme.onPrimary : theme.onSurface.opacity(0.38))
+                                .foregroundStyle(theme.onPrimary)
                                 .frame(maxWidth: .infinity)
                                 .frame(minHeight: 56)
-                                .background(canSend ? theme.primary : theme.onSurface.opacity(0.12))
+                                .background(theme.primary)
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
                             .disabled(!canSend)
+                            .opacity(canSend ? 1.0 : 0.5)
                         }
                         .frame(minHeight: 56)
                     }
