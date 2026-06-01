@@ -125,31 +125,24 @@ class FamilyViewModel: ObservableObject {
 
     // MARK: - Family Operations
     func createFamily(_ name: String, completion: @escaping (Bool) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { completion(false); return }
         errorMessage = nil
         isSyncing = true
         Task {
             do {
-                let result = try await functions.httpsCallable("createFamily")
-                    .call(["familyName": name, "userId": uid])
-                guard let data = result.data as? [String: Any],
-                      let familyId = data["familyId"] as? String,
-                      let joinCode = data["joinCode"] as? String else {
-                    errorMessage = L.errorGeneric
-                    completion(false)
-                    isSyncing = false
-                    return
+                let result = try await FamilyFirestoreService.shared.createFamily(name: name)
+                await MainActor.run {
+                    saveFamilyLocally(id: result.familyId, name: result.familyName, code: result.joinCode)
+                    TelemetryManager.send("family.created")
+                    listenToFamily(id: result.familyId)
+                    completion(true)
                 }
-                let familyName = data["familyName"] as? String ?? name
-                saveFamilyLocally(id: familyId, name: familyName, code: joinCode)
-                TelemetryManager.send("family.created")
-                listenToFamily(id: familyId)
-                completion(true)
             } catch {
-                errorMessage = mapFirebaseError(error)
-                completion(false)
+                await MainActor.run {
+                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
+                    completion(false)
+                }
             }
-            isSyncing = false
+            await MainActor.run { isSyncing = false }
         }
     }
 
@@ -159,25 +152,20 @@ class FamilyViewModel: ObservableObject {
         stopSyncJobs()
         Task {
             do {
-                let result = try await functions.httpsCallable("joinFamilyByCode")
-                    .call(["code": code.uppercased()])
-                guard let data = result.data as? [String: Any],
-                      let familyId = data["familyId"] as? String,
-                      let joinCode = data["joinCode"] as? String else {
-                    errorMessage = L.errorFamilyNotFound
-                    isJoiningFamily = false
-                    return
+                let result = try await FamilyFirestoreService.shared.joinFamily(code: code)
+                await MainActor.run {
+                    saveFamilyLocally(id: result.familyId, name: result.familyName, code: result.joinCode)
+                    TelemetryManager.send("family.joined")
+                    listenToFamily(id: result.familyId)
+                    completion(true)
                 }
-                let familyName = data["familyName"] as? String ?? "FamWake"
-                saveFamilyLocally(id: familyId, name: familyName, code: joinCode)
-                TelemetryManager.send("family.joined")
-                listenToFamily(id: familyId)
-                completion(true)
             } catch {
-                errorMessage = mapFirebaseError(error)
-                completion(false)
+                await MainActor.run {
+                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
+                    completion(false)
+                }
             }
-            isJoiningFamily = false
+            await MainActor.run { isJoiningFamily = false }
         }
     }
     
@@ -247,9 +235,7 @@ class FamilyViewModel: ObservableObject {
         let myId = myMemberId
         stopSyncJobs()
         Task {
-            var params: [String: Any] = ["familyId": fid]
-            if let mid = myId { params["memberId"] = mid }
-            try? await functions.httpsCallable("leaveFamily").call(params)
+            try? await FamilyFirestoreService.shared.leaveFamily(familyId: fid, memberId: myId)
         }
         TelemetryManager.send("family.left")
         clearFamilyLocally()
@@ -312,19 +298,21 @@ class FamilyViewModel: ObservableObject {
         stopSyncJobs()
         Task {
             do {
-                try await functions.httpsCallable("deleteFamily").call(["familyId": fid])
-                TelemetryManager.send("family.deleted")
-                clearFamilyLocally()
-                familyListener?.remove()
-                membersListener?.remove()
-                members = []
-                schedule = nil
-                completion(true)
+                try await FamilyFirestoreService.shared.deleteFamily(familyId: fid)
+                await MainActor.run {
+                    TelemetryManager.send("family.deleted")
+                    clearFamilyLocally()
+                    familyListener?.remove()
+                    membersListener?.remove()
+                    members = []
+                    schedule = nil
+                    completion(true)
+                }
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
+                    completion(false)
                 }
-                completion(false)
             }
         }
     }
@@ -341,22 +329,11 @@ class FamilyViewModel: ObservableObject {
             updatedMember.deviceAlarmEnabled = true
         }
         Task {
-            if let uid = Auth.auth().currentUser?.uid {
-                try? await db.collection("users").document(uid)
-                    .collection("pushMeta").document("user_action")
-                    .setData([
-                        "familyId": fid,
-                        "timestamp": FieldValue.serverTimestamp()
-                    ])
-            }
+            await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
-                let data = updatedMember.toFirestoreMap()
-                try await db.collection("families").document(fid)
-                    .collection("members").document(updatedMember.id)
-                    .setData(data)
-                TelemetryManager.send("member.created")
-                
+                try await FamilyFirestoreService.shared.addOrUpdateMember(familyId: fid, member: updatedMember)
                 await MainActor.run {
+                    TelemetryManager.send("member.created")
                     if shouldClaim {
                         myMemberId = updatedMember.id
                         UserDefaults.standard.set(updatedMember.id, forKey: "my_member_id")
@@ -368,7 +345,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
                     isSyncing = false
                 }
             }
@@ -377,21 +354,13 @@ class FamilyViewModel: ObservableObject {
 
     func deleteMember(_ memberId: String) {
         guard let fid = familyId else { return }
-        // Prüfe ob das gelöschte Profil das eigene war
         let wasMyMember = (memberId == myMemberId)
         Task {
-            if let uid = Auth.auth().currentUser?.uid {
-                try? await db.collection("users").document(uid)
-                    .collection("pushMeta").document("user_action")
-                    .setData([
-                        "familyId": fid,
-                        "timestamp": FieldValue.serverTimestamp()
-                    ])
-            }
+            await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
-                try await db.collection("families").document(fid).collection("members").document(memberId).delete()
-                TelemetryManager.send("member.deleted")
+                try await FamilyFirestoreService.shared.deleteMember(familyId: fid, memberId: memberId)
                 await MainActor.run {
+                    TelemetryManager.send("member.deleted")
                     members.removeAll { $0.id == memberId }
                     if wasMyMember {
                         myMemberId = nil
@@ -403,7 +372,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
                 }
             }
         }
@@ -412,40 +381,20 @@ class FamilyViewModel: ObservableObject {
     func togglePauseMember(_ memberId: String) {
         guard let fid = familyId else { return }
         guard let member = members.first(where: { $0.id == memberId }) else { return }
-        
-        // Nur unclaimed Member dürfen pausiert werden.
-        // Geclaimte Member (auch das eigene Profil) sind nicht pausierbar.
         if member.claimedByUserId != nil { return }
-        
         let newPausedState = !member.isPaused
         
-        // Lokales Update für sofortiges Feedback
         if let idx = members.firstIndex(where: { $0.id == memberId }) {
             members[idx].isPaused = newPausedState
             recalculateSchedule()
         }
         
         Task {
-            if let uid = Auth.auth().currentUser?.uid {
-                try? await db.collection("users").document(uid)
-                    .collection("pushMeta").document("user_action")
-                    .setData([
-                        "familyId": fid,
-                        "timestamp": FieldValue.serverTimestamp()
-                    ])
-            }
+            await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
-                try await db.collection("families").document(fid).collection("members").document(memberId)
-                    .updateData(["isPaused": newPausedState])
+                try await FamilyFirestoreService.shared.togglePauseMember(familyId: fid, memberId: memberId, newPausedState: newPausedState)
             } catch {
-                await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
-                    // Rollback
-                    if let idx = members.firstIndex(where: { $0.id == memberId }) {
-                        members[idx].isPaused = !newPausedState
-                        recalculateSchedule()
-                    }
-                }
+                // NO ROLLBACK: Vertraue auf Firestores Offline-Queue.
             }
         }
     }
@@ -458,23 +407,14 @@ class FamilyViewModel: ObservableObject {
         guard let fid = familyId else { return }
         isAwakeTodayLocal = awake
         Task {
-            if let uid = Auth.auth().currentUser?.uid {
-                try? await db.collection("users").document(uid)
-                    .collection("pushMeta").document("user_action")
-                    .setData([
-                        "familyId": fid,
-                        "timestamp": FieldValue.serverTimestamp()
-                    ])
-            }
+            await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
-                try await db.collection("families").document(fid).collection("members").document(memberId)
-                    .updateData(["isAwakeToday": awake])
-                TelemetryManager.send(awake ? "awake.markedAwake" : "awake.reset")
-            } catch {
+                try await FamilyFirestoreService.shared.setAwake(familyId: fid, memberId: memberId, awake: awake)
                 await MainActor.run {
-                    isAwakeTodayLocal = !awake
-                    errorMessage = mapFirebaseError(error)
+                    TelemetryManager.send(awake ? "awake.markedAwake" : "awake.reset")
                 }
+            } catch {
+                // NO ROLLBACK: Vertraue auf Firestores Offline-Queue.
             }
         }
     }
@@ -647,7 +587,7 @@ class FamilyViewModel: ObservableObject {
                     updatedMember.sequenceOrder = indexInTarget
                     var currentProfiles = m.dayProfiles ?? [:]
                     for key in currentProfiles.keys {
-                        var p = currentProfiles[key]!
+                        guard var p = currentProfiles[key] else { continue }
                         p.sequenceOrder = nil
                         currentProfiles[key] = p
                     }
@@ -1068,7 +1008,7 @@ class FamilyViewModel: ObservableObject {
 
     private func generateJoinCode() -> String {
         let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0..<6).map { _ in chars.randomElement()! })
+        return String((0..<6).compactMap { _ in chars.randomElement() })
     }
 
     // MARK: - Firestore Mapping
