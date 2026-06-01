@@ -2,6 +2,10 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.15 – 2026-06-01
+### Verbessert
+- **Wecker gezielter stellen** – Bei neu angelegten Familienmitgliedern sind Wecker nun standardmäßig für alle Wochentage ausgeschaltet (Opt-In). Du aktivierst nur die Tage, an denen der Wecker auch wirklich klingeln soll, und verhinderst so ungewolltes Wecken.
+
 ## 1.9.14 – 2026-05-29
 ### Verbessert
 - **Bessere Lesbarkeit** – Inaktive Buttons (wie z. B. vor der Eingabe eines Namens) sind nun im hellen und dunklen Design deutlich besser lesbar und reagieren erst, wenn alle Eingaben vollständig sind.

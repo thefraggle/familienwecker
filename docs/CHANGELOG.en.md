@@ -2,6 +2,10 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 1.9.15 – 2026-06-01
+### Improved
+- **More intentional alarms** – When adding new family members, alarms are now turned off by default for all weekdays (Opt-In). You simply activate the specific days you need, preventing any unwanted wake-ups.
+
 ## 1.9.14 – 2026-05-29
 ### Improved
 - **Better readability** – Inactive buttons (e.g., before entering a name) are now much easier to read in both light and dark modes, and will only react once all required information is entered.
