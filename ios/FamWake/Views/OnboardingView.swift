@@ -84,14 +84,14 @@ struct OnboardingView: View {
                         ).tag(3)
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .never))
+                .tabViewStyle(.page(indexDisplayMode: .always))
+                .indexViewStyle(.page(backgroundDisplayMode: .always))
                 .animation(.easeInOut(duration: 0.3), value: currentPage)
-
-                // Bottom controls
-                bottomControls
-                    .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0 == 0 ? 32 : 16)
             }
-            .padding(.bottom, 24)
+            .safeAreaInset(edge: .bottom) {
+                bottomControls
+                    .padding(.bottom, 24)
+            }
         }
     }
 
@@ -139,16 +139,6 @@ struct OnboardingView: View {
     @ViewBuilder
     private var bottomControls: some View {
         VStack(spacing: 20) {
-            // Page dots
-            HStack(spacing: 8) {
-                ForEach(0..<actualSlideCount, id: \.self) { i in
-                    Circle()
-                        .fill(i == currentPage ? Color.white : Color.white.opacity(0.4))
-                        .frame(width: i == currentPage ? 10 : 7, height: i == currentPage ? 10 : 7)
-                        .animation(.spring(response: 0.3), value: currentPage)
-                }
-            }
-            .padding(.bottom, 8)
 
             // Tooltips checkbox (last page only)
             if isLastPage {
