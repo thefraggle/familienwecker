@@ -102,10 +102,10 @@ struct DayProfile: Codable, Equatable {
         self.sequenceOrder = sequenceOrder
     }
 
-    /// Mo–Fr active, Sa–So inactive (default for new members)
+    /// Alle Tage standardmäßig inaktiv (Opt-In für neue Mitglieder)
     static func defaults() -> [Int: DayProfile] {
         Dictionary(uniqueKeysWithValues: (1...7).map { day in
-            (day, DayProfile(isActive: day <= 5))
+            (day, DayProfile(isActive: false))
         })
     }
 }

@@ -63,7 +63,7 @@ private fun defaultDayProfiles(
     leaveHomeTime: LocalTime? = null
 ): Map<Int, DayProfile> = WEEKDAY_KEYS.associateWith { day ->
     DayProfile(
-        isActive = day <= 5, // Mo–Fr aktiv, Sa–So aus
+        isActive = false, // Standardmäßig inaktiv (Opt-In)
         earliestWakeUp = earliestWakeUp.toKmpLocalTime(),
         latestWakeUp = latestWakeUp.toKmpLocalTime(),
         bathroomDurationMinutes = bathroomDurationMinutes,
