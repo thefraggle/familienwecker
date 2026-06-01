@@ -158,8 +158,12 @@ class AuthViewModel: ObservableObject {
     func logout() {
         TelemetryManager.send("auth.logout")
         MessagingService.shared.deleteTokenOnLogout()
-        try? Auth.auth().signOut()
-        authState = .unauthenticated
+        do {
+            try Auth.auth().signOut()
+            authState = .unauthenticated
+        } catch {
+            authState = .error(mapFirebaseError(error))
+        }
     }
 
     func resetPassword(email: String) {
@@ -320,7 +324,9 @@ class AuthViewModel: ObservableObject {
                             } catch {
                                 let code = AuthErrorCode(rawValue: (error as NSError).code)
                                 if code == .credentialAlreadyInUse || code == .providerAlreadyLinked {
-                                    try await Auth.auth().signIn(with: credential)
+                                    try? Auth.auth().signOut()
+                                    self.startAppleSignIn()
+                                    return
                                 } else {
                                     throw error
                                 }
