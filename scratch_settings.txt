@@ -1,0 +1,12 @@
+
+======================================
+TOOL CALL: multi_replace_file_content
+{
+  "ArtifactMetadata": "{\"ArtifactType\":\"task\",\"RequestFeedback\":false,\"Summary\":\"Fix sound preview duration\"}",
+  "Description": "\"Remove the 3-second cutoff for sound previews\"",
+  "Instruction": "\"Remove the `DispatchQueue.main.asyncAfter` block in `SettingsView.swift` that cuts off the sound preview after 3 seconds.\"",
+  "ReplacementChunks": "[{\"AllowMultiple\":false,\"EndLine\":680,\"ReplacementContent\":\"                        // Play preview\\n                        if let id = sound.id {\\n                            AlarmService.shared.playAlarm(soundUri: id)\\n                        }\",\"StartLine\":674,\"TargetContent\":\"                        // Play preview\\n                        if let id = sound.id {\\n                            AlarmService.shared.playAlarm(soundUri: id)\\n                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {\\n                                AlarmService.shared.stopAlarm()\\n                            }\\n                        }\"}]",
+  "TargetFile": "\"/Users/daniel.notthoff/GIT_Repos/_privat/familienwecker/ios/FamWake/Views/SettingsView.swift\"",
+  "toolAction": "\"Fixing sound preview duration\"",
+  "toolSummary": "\"Fix preview duration\""
+}
