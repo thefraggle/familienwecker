@@ -130,12 +130,10 @@ final class AlarmService: ObservableObject {
                     if !soundName.isEmpty {
                         if Bundle.main.path(forResource: (soundName as NSString).deletingPathExtension, ofType: (soundName as NSString).pathExtension) != nil {
                             #if targetEnvironment(simulator)
-                            // Im Simulator crasht SpringBoard bei Custom Sounds mit Dateiendung.
-                            // Ohne Endung bleibt es zwar stumm, aber das Alarm-UI (Stop/Snooze) erscheint!
-                            // nil (.default) verhindert das Vollbild-UI.
+                            // The simulator SpringBoard crashes if the extension is provided.
                             finalSoundNameToUse = (soundName as NSString).deletingPathExtension
                             #else
-                            // Auf dem echten Gerät brauchen wir die .caf Endung für den Sound!
+                            // The real device REQUIRES the extension, otherwise it falls back to default.
                             finalSoundNameToUse = soundName
                             #endif
                         }
