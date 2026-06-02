@@ -146,10 +146,21 @@ final class AlarmService: ObservableObject {
                 
                 let uuid = self.getUUID(for: memberId)
                 
-                let alert = AlarmPresentation.Alert(
-                    title: LocalizedStringResource(stringLiteral: memberName),
-                    stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle")
-                )
+                let alert: AlarmPresentation.Alert
+                if #available(iOS 26.1, *) {
+                    alert = AlarmPresentation.Alert(
+                        title: LocalizedStringResource(stringLiteral: memberName),
+                        secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
+                        secondaryButtonBehavior: .custom
+                    )
+                } else {
+                    alert = AlarmPresentation.Alert(
+                        title: LocalizedStringResource(stringLiteral: memberName),
+                        stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle"),
+                        secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
+                        secondaryButtonBehavior: .custom
+                    )
+                }
                 let presentation = AlarmPresentation(alert: alert)
                 
                 let attributes = AlarmAttributes<FamWakeAlarmMetadata>(
@@ -162,6 +173,7 @@ final class AlarmService: ObservableObject {
                     schedule: Alarm.Schedule.fixed(wakeUpTime),
                     attributes: attributes,
                     stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
+                    secondaryIntent: SnoozeFamWakeIntent(memberId: memberId, memberName: memberName),
                     sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
                 )
                 
