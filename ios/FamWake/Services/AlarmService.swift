@@ -25,8 +25,8 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     
     func perform() async throws -> some IntentResult {
         // Cancel fallback push notification and system sound if active
-        AlarmService.shared.stopAlarm()
-        AlarmService.shared.cancelWakeUp(memberId: memberId)
+        await AlarmService.shared.stopAlarm()
+        await AlarmService.shared.cancelWakeUp(memberId: memberId)
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
