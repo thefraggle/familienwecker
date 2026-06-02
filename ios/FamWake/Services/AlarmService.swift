@@ -58,7 +58,7 @@ struct SnoozeFamWakeIntent: LiveActivityIntent {
         let mId = memberId
         let mName = memberName
         
-        let snoozeTime = Date().addingTimeInterval(9 * 60)
+        let snoozeTime = Date().addingTimeInterval(5 * 60)
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         
