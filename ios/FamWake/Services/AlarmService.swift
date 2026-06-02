@@ -35,9 +35,9 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
 }
 
-struct SnoozeFamWakeIntent: LiveActivityIntent {
+struct FamWakeSnoozeIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
-    static var openAppWhenRun: Bool = true
+    static var openAppWhenRun: Bool = false
     
     @Parameter(title: "Member ID")
     var memberId: String
@@ -53,25 +53,15 @@ struct SnoozeFamWakeIntent: LiveActivityIntent {
     }
     
     func perform() async throws -> some IntentResult {
-        let mId = memberId
-        let mName = memberName
-        
-        let snoozeTime = Date().addingTimeInterval(5 * 60)
-        UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
-        let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
-        
+        await AlarmService.shared.stopAlarm()
         DispatchQueue.main.async {
-            AlarmService.shared.scheduleWakeUp(
-                wakeUpTime: snoozeTime,
-                memberId: mId,
-                memberName: mName,
-                soundUri: alarmSoundUri,
-                isSnooze: true
-            )
+            let snoozeTime = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
+            let actualSnooze = snoozeTime > 0 ? snoozeTime : 9
+            
             NotificationCenter.default.post(
                 name: .snoozeAlarmFromNotification,
                 object: nil,
-                userInfo: ["memberId": mId, "memberName": mName, "snoozeTime": snoozeTime]
+                userInfo: ["memberId": memberId, "memberName": memberName, "snoozeTime": actualSnooze]
             )
         }
         return .result()
@@ -147,14 +137,14 @@ final class AlarmService: ObservableObject {
                     alert = AlarmPresentation.Alert(
                         title: LocalizedStringResource(stringLiteral: memberName),
                         secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                        secondaryButtonBehavior: .countdown
+                        secondaryButtonBehavior: .custom
                     )
                 } else {
                     alert = AlarmPresentation.Alert(
                         title: LocalizedStringResource(stringLiteral: memberName),
                         stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle"),
                         secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                        secondaryButtonBehavior: .countdown
+                        secondaryButtonBehavior: .custom
                     )
                 }
                 let presentation = AlarmPresentation(alert: alert)
@@ -169,7 +159,7 @@ final class AlarmService: ObservableObject {
                     schedule: Alarm.Schedule.fixed(wakeUpTime),
                     attributes: attributes,
                     stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
-                    secondaryIntent: nil,
+                    secondaryIntent: FamWakeSnoozeIntent(memberId: memberId, memberName: memberName),
                     sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
                 )
                 
