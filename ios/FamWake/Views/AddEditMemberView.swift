@@ -34,6 +34,7 @@ struct AddEditMemberView: View {
     @State private var showCopyDialog = false
     @State private var copyTargets: Set<Int> = []
     @State private var showDiscardAlert = false
+    @State private var showNameError = false
 
     // Initiale Werte zum Vergleich
     @State private var initialName: String = ""
@@ -70,6 +71,15 @@ struct AddEditMemberView: View {
                         // Name
                         TextField(L.addMemberNameLabel, text: $name)
                             .textFieldStyle(.roundedBorder)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(showNameError ? theme.error : Color.clear, lineWidth: 2)
+                            )
+                            .shadow(color: showNameError ? theme.error.opacity(0.5) : Color.clear, radius: showNameError ? 6 : 0, x: 0, y: 0)
+                            .scaleEffect(showNameError ? 1.02 : 1.0)
+                            .onChange(of: name) { _, _ in 
+                                if showNameError { withAnimation { showNameError = false } } 
+                            }
 
                         // Wochentags-Chips
                         Text(L.addMemberDayProfilesTitle)
@@ -125,9 +135,19 @@ struct AddEditMemberView: View {
                 // Bottom Save Button
                 VStack {
                     Spacer()
-                    let isSaveDisabled = name.trimmingCharacters(in: .whitespaces).isEmpty || hasAnyError
+                    let isSaveDisabled = hasAnyError
                     Button(action: {
-                        saveMember()
+                        if name.trimmingCharacters(in: .whitespaces).isEmpty {
+                            withAnimation(.spring(response: 0.2, dampingFraction: 0.2, blendDuration: 0)) {
+                                showNameError = true
+                            }
+                            UINotificationFeedbackGenerator().notificationOccurred(.error)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                withAnimation { showNameError = false }
+                            }
+                        } else {
+                            saveMember()
+                        }
                     }) {
                         Text(L.addMemberSubmit)
                             .font(.headline)
