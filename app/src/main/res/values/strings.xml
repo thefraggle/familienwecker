@@ -184,7 +184,7 @@
     <string name="settings_theme_light">Light</string>
     <string name="settings_theme_dark">Dark</string>
 
-    <string name="ringing_wake_up">Time to wake up, %1$s!</string>
+    <string name="ringing_wake_up">Hello %1$s</string>
     <string-array name="ringing_messages">
         <item>The bathroom is all yours right now!</item>
         <item>No traffic, no stress – your bathroom time starts now.</item>

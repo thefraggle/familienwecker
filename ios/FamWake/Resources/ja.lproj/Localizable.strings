@@ -174,7 +174,7 @@
 "settings_already_claimed" = "すでに使用されています";
 "settings_theme_light" = "ライト";
 "settings_theme_dark" = "ダーク";
-"ringing_wake_up" = "起きる時間だよ、%@！";
+"ringing_wake_up" = "こんにちは %@";
 "ringing_stop" = "アラームを止める";
 "ringing_snooze" = "スヌーズ（5分）";
 "pause_today_desc" = "今日は一時停止";

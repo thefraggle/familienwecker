@@ -174,7 +174,7 @@
 "settings_already_claimed" = "Already taken";
 "settings_theme_light" = "Light";
 "settings_theme_dark" = "Dark";
-"ringing_wake_up" = "Time to wake up, %@!";
+"ringing_wake_up" = "Hello %@";
 "ringing_stop" = "Stop alarm";
 "ringing_snooze" = "Snooze (5 min)";
 "pause_today_desc" = "Pause for today";

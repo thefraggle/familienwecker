@@ -174,7 +174,7 @@
 "settings_already_claimed" = "Đã được chọn";
 "settings_theme_light" = "Sáng";
 "settings_theme_dark" = "Tối";
-"ringing_wake_up" = "Đến giờ dậy rồi, %@!";
+"ringing_wake_up" = "Xin chào %@";
 "ringing_stop" = "Tắt báo thức";
 "ringing_snooze" = "Báo lại (5 phút)";
 "pause_today_desc" = "Tạm dừng hôm nay";

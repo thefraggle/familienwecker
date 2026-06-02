@@ -176,7 +176,7 @@
     <string name="settings_theme_light">Hell</string>
     <string name="settings_theme_dark">Donkel</string>
 
-    <string name="ringing_wake_up">Uffwacha, %1$s!</string>
+    <string name="ringing_wake_up">Hallöle %1$s</string>
     <string-array name="ringing_messages">
         <item>S\'Bädle ghert jetzt ganz alloim dir!</item>
         <item>Koi Gschrei, koin Stress – dei Badzeit fängt aa.</item>

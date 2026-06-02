@@ -184,7 +184,7 @@
     <string name="settings_theme_light">লাইট</string>
     <string name="settings_theme_dark">ডার্ক</string>
 
-    <string name="ringing_wake_up">ওঠার সময় হয়েছে, %1$s!</string>
+    <string name="ringing_wake_up">হ্যালো %1$s</string>
     <string-array name="ringing_messages">
         <item>বাথরুম এখন পুরোটা আপনার!</item>
         <item>কোনো তাড়া নেই, কোনো চাপ নেই - আপনার বাথরুমের সময় শুরু।</item>

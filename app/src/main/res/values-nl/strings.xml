@@ -175,7 +175,7 @@
     <string name="settings_theme_light">Licht</string>
     <string name="settings_theme_dark">Donker</string>
 
-    <string name="ringing_wake_up">Wakker worden, %1$s!</string>
+    <string name="ringing_wake_up">Hallo %1$s</string>
     <string-array name="ringing_messages">
         <item>De badkamer is nu helemaal voor jou alleen!</item>
         <item>Geen spitsuur, geen stress – jouw badkamertijd begint nu.</item>

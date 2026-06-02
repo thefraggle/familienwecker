@@ -175,7 +175,7 @@
     <string name="settings_theme_light">Jasny</string>
     <string name="settings_theme_dark">Ciemny</string>
 
-    <string name="ringing_wake_up">Czas wstać, %1$s!</string>
+    <string name="ringing_wake_up">Cześć %1$s</string>
     <string-array name="ringing_messages">
         <item>Łazienka jest teraz cała Twoja!</item>
         <item>Brak pośpiechu, brak stresu – Twój czas w łazience zaczyna się teraz.</item>

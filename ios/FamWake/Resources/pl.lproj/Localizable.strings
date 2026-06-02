@@ -166,7 +166,7 @@
 "settings_already_claimed" = "Już zajęte";
 "settings_theme_light" = "Jasny";
 "settings_theme_dark" = "Ciemny";
-"ringing_wake_up" = "Czas wstać, %@!";
+"ringing_wake_up" = "Cześć %@";
 "ringing_stop" = "Wyłącz alarm";
 "ringing_snooze" = "Drzemka (5 min)";
 "pause_today_desc" = "Wstrzymaj na dziś";

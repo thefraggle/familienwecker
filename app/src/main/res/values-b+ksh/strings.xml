@@ -176,7 +176,7 @@
     <string name="settings_theme_light">Hell</string>
     <string name="settings_theme_dark">Dunkel</string>
 
-    <string name="ringing_wake_up">Wach werden, %1$s!</string>
+    <string name="ringing_wake_up">Hallo %1$s</string>
     <string-array name="ringing_messages">
         <item>Der Waschsalon gehört dir!</item>
         <item>Kein Stau, kein Stress – ab ins Bad mit dir.</item>

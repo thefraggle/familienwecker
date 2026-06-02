@@ -168,7 +168,7 @@
 "settings_already_claimed" = "Déjà utilisé";
 "settings_theme_light" = "Clair";
 "settings_theme_dark" = "Sombre";
-"ringing_wake_up" = "C'est l'heure de se lever, %@ !";
+"ringing_wake_up" = "Bonjour %@";
 "ringing_stop" = "Arrêter le réveil";
 "ringing_snooze" = "Répéter (5 min)";
 "pause_today_desc" = "Mettre en pause pour aujourd'hui";

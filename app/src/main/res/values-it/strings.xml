@@ -176,7 +176,7 @@
     <string name="settings_theme_light">Chiaro</string>
     <string name="settings_theme_dark">Scuro</string>
 
-    <string name="ringing_wake_up">Sveglia, %1$s!</string>
+    <string name="ringing_wake_up">Ciao %1$s</string>
     <string-array name="ringing_messages">
         <item>Il bagno è tutto tuo in questo momento!</item>
         <item>Niente code, niente stress: il tuo tempo in bagno inizia ora.</item>

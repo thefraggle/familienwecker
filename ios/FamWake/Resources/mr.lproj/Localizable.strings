@@ -170,7 +170,7 @@
 "settings_already_claimed" = "आधीच घेतलेले आहे";
 "settings_theme_light" = "लाइट";
 "settings_theme_dark" = "डार्क";
-"ringing_wake_up" = "उठण्याची वेळ झाली आहे, %@!";
+"ringing_wake_up" = "नमस्कार %@";
 "ringing_stop" = "अलार्म थांबवा";
 "ringing_snooze" = "स्नूझ (5 मि)";
 "pause_today_desc" = "आजसाठी थांबवा";

@@ -174,7 +174,7 @@
 "settings_already_claimed" = "ইতিমধ্যেই নেওয়া হয়েছে";
 "settings_theme_light" = "লাইট";
 "settings_theme_dark" = "ডার্ক";
-"ringing_wake_up" = "ওঠার সময় হয়েছে, %@!";
+"ringing_wake_up" = "হ্যালো %@";
 "ringing_stop" = "অ্যালার্ম বন্ধ করুন";
 "ringing_snooze" = "স্নুজ (৫ মিনিট)";
 "pause_today_desc" = "আজকের জন্য পজ করুন";

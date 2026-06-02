@@ -184,7 +184,7 @@
     <string name="settings_theme_light">Ljust</string>
     <string name="settings_theme_dark">Mörkt</string>
 
-    <string name="ringing_wake_up">Dags att vakna, %1$s!</string>
+    <string name="ringing_wake_up">Hej %1$s</string>
     <string-array name="ringing_messages">
         <item>Badrummet är helt ditt just nu!</item>
         <item>Ingen stress – din badrumstid börjar nu.</item>

@@ -180,7 +180,7 @@
     <string name="settings_theme_light">लाइट</string>
     <string name="settings_theme_dark">डार्क</string>
 
-    <string name="ringing_wake_up">उठण्याची वेळ झाली आहे, %1$s!</string>
+    <string name="ringing_wake_up">नमस्कार %1$s</string>
     <string-array name="ringing_messages">
         <item>आता बाथरूम पूर्णपणे तुमचे आहे!</item>
         <item>गर्दी नाही, ताण नाही - तुमची बाथरूमची वेळ आता सुरू होते.</item>

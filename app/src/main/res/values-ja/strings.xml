@@ -184,7 +184,7 @@
     <string name="settings_theme_light">ライト</string>
     <string name="settings_theme_dark">ダーク</string>
 
-    <string name="ringing_wake_up">起きる時間だよ、%1$s！</string>
+    <string name="ringing_wake_up">こんにちは %1$s</string>
     <string-array name="ringing_messages">
         <item>今ならバスルームは貸し切りです！</item>
         <item>渋滞もストレスもなし – あなたのバスルームタイムが始まります。</item>

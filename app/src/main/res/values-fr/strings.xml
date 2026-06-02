@@ -177,7 +177,7 @@
     <string name="settings_theme_light">Clair</string>
     <string name="settings_theme_dark">Sombre</string>
 
-    <string name="ringing_wake_up">C\'est l\'heure de se lever, %1$s !</string>
+    <string name="ringing_wake_up">Bonjour %1$s</string>
     <string-array name="ringing_messages">
         <item>La salle de bain est toute à toi !</item>
         <item>Zéro stress : ton tour dans la salle de bain commence.</item>

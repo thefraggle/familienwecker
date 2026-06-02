@@ -167,7 +167,7 @@
 "settings_already_claimed" = "Già in uso";
 "settings_theme_light" = "Chiaro";
 "settings_theme_dark" = "Scuro";
-"ringing_wake_up" = "Sveglia, %@!";
+"ringing_wake_up" = "Ciao %@";
 "ringing_stop" = "Ferma sveglia";
 "ringing_snooze" = "Rinvio (5 min)";
 "pause_today_desc" = "Pausa per oggi";
