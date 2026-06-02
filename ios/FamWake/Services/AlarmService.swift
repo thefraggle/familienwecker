@@ -56,9 +56,7 @@ final class AlarmService: ObservableObject {
                     }
                     if !soundName.isEmpty {
                         if Bundle.main.path(forResource: (soundName as NSString).deletingPathExtension, ofType: (soundName as NSString).pathExtension) != nil {
-                            // WICHTIG: Die Endung (.caf) MUSS weggelassen werden, sonst crasht SpringBoard / ToneLibrary
-                            // mit einem `unrecognized selector` auf dem Simulator / echten Gerät!
-                            finalSoundNameToUse = (soundName as NSString).deletingPathExtension
+                            finalSoundNameToUse = soundName
                         }
                     }
                 }
