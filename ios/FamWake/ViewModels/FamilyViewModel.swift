@@ -1198,6 +1198,11 @@ class FamilyViewModel: ObservableObject {
             isSnooze: false,
             onPermissionDenied: { [weak self] in
                 self?.errorMessage = L.errorAlarmPermission
+            },
+            onSuccess: { [weak self] in
+                if self?.errorMessage == L.errorAlarmPermission {
+                    self?.errorMessage = nil
+                }
             }
         )
     }

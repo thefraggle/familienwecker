@@ -29,7 +29,7 @@ final class AlarmService: ObservableObject {
         return newUUID
     }
 
-    func scheduleWakeUp(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool, onPermissionDenied: (() -> Void)? = nil) {
+    func scheduleWakeUp(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool, onPermissionDenied: (() -> Void)? = nil, onSuccess: (() -> Void)? = nil) {
         schedulingTasks[memberId]?.cancel()
         
         let task = Task {
@@ -84,6 +84,7 @@ final class AlarmService: ObservableObject {
                 try await AlarmManager.shared.cancel(id: uuid)
                 if Task.isCancelled { return }
                 try await AlarmManager.shared.schedule(id: uuid, configuration: config)
+                DispatchQueue.main.async { onSuccess?() }
             } catch {
                 print("AlarmKit Error: \(error)")
                 DispatchQueue.main.async { onPermissionDenied?() }
