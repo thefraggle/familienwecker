@@ -9,6 +9,7 @@ import TelemetryClient
 struct RingingView: View {
     let memberId: String
     let memberName: String
+    var isGreetingOnly: Bool = false
     var onStop: () -> Void
     var onSnooze: () -> Void
 
@@ -56,49 +57,69 @@ struct RingingView: View {
 
                 // Buttons
                 VStack(spacing: 16) {
-                    // Snooze – Glasmorphism
-                    Button(action: {
-                        TelemetryManager.send("alarm.snoozed")
-                        AlarmService.shared.stopAlarm()
-                        onSnooze()
-                    }) {
-                        HStack(spacing: 10) {
-                            Image(systemName: "zzz")
-                                .font(.title3)
-                            Text(L.ringingSnooze)
-                                .font(.headline).fontWeight(.semibold)
+                    if isGreetingOnly {
+                        // OK Button
+                        Button(action: {
+                            onStop()
+                        }) {
+                            HStack(spacing: 10) {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.title3)
+                                Text("OK")
+                                    .font(.headline).fontWeight(.bold)
+                            }
+                            .foregroundStyle(Color.ringingPurpleDark)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(Color.white.opacity(0.92))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(Color.white.opacity(0.18))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.white.opacity(0.3), lineWidth: 1)
-                        )
-                    }
-                    .buttonStyle(BounceButtonStyle())
-
-                    // Stop – Solid
-                    Button(action: {
-                        TelemetryManager.send("alarm.dismissed")
-                        AlarmService.shared.stopAlarm()
-                        onStop()
-                    }) {
-                        HStack(spacing: 10) {
-                            Image(systemName: "alarm")
-                                .font(.title3)
-                            Text(L.ringingStop)
-                                .font(.headline).fontWeight(.bold)
+                        .buttonStyle(BounceButtonStyle())
+                    } else {
+                        // Snooze – Glasmorphism
+                        Button(action: {
+                            TelemetryManager.send("alarm.snoozed")
+                            AlarmService.shared.stopAlarm()
+                            onSnooze()
+                        }) {
+                            HStack(spacing: 10) {
+                                Image(systemName: "zzz")
+                                    .font(.title3)
+                                Text(L.ringingSnooze)
+                                    .font(.headline).fontWeight(.semibold)
+                            }
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(Color.white.opacity(0.18))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                            )
                         }
-                        .foregroundStyle(Color.ringingPurpleDark)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(Color.white.opacity(0.92))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .buttonStyle(BounceButtonStyle())
+    
+                        // Stop – Solid
+                        Button(action: {
+                            TelemetryManager.send("alarm.dismissed")
+                            AlarmService.shared.stopAlarm()
+                            onStop()
+                        }) {
+                            HStack(spacing: 10) {
+                                Image(systemName: "alarm")
+                                    .font(.title3)
+                                Text(L.ringingStop)
+                                    .font(.headline).fontWeight(.bold)
+                            }
+                            .foregroundStyle(Color.ringingPurpleDark)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(Color.white.opacity(0.92))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        }
+                        .buttonStyle(BounceButtonStyle())
                     }
-                    .buttonStyle(BounceButtonStyle())
                 }
                 .padding(.horizontal, 28)
                 .padding(.bottom, 48)
