@@ -51,6 +51,14 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
             if (currentUid != null) {
                 repository.setUserActionMeta(currentUid, currentFamilyId)
             }
+            
+            // Optimistisches lokales Update für sofortiges Feedback (Offline-First)
+            val currentList = _members.value.toMutableList()
+            val idx = currentList.indexOfFirst { it.id == finalMember.id }
+            if (idx != -1) currentList[idx] = finalMember else currentList.add(finalMember)
+            _members.value = currentList.toPersistentList()
+            recalculateSchedule()
+
             repository.addOrUpdateMember(currentFamilyId, finalMember)
             
             if (willAutoClaim && finalMember.claimedByUserId != null) {
@@ -193,6 +201,14 @@ fun FamilyViewModel.togglePauseMember(memberId: String) {
     val newPausedState = !member.isPaused
     val updatedMember = member.copy(isPaused = newPausedState)
     _pendingPauseIds.value = _pendingPauseIds.value + memberId
+    
+    // Optimistisches lokales Update (Offline-First)
+    val currentList = _members.value.toMutableList()
+    val idx = currentList.indexOfFirst { it.id == memberId }
+    if (idx != -1) currentList[idx] = updatedMember
+    _members.value = currentList.toPersistentList()
+    recalculateSchedule()
+
     // Tracking removed für Paused/Unpaused
     scope.launch {
         try {

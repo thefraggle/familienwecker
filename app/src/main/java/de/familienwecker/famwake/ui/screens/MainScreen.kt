@@ -209,6 +209,7 @@ fun MainScreen(
                             onClick = onNavigateToAddMember,
                             icon = { Icon(Icons.Default.Add, contentDescription = null) },
                             text = { Text(stringResource(R.string.main_add_member_desc)) },
+                            expanded = members.isEmpty(),
                             containerColor = MaterialTheme.colorScheme.primary,
                             contentColor = MaterialTheme.colorScheme.onPrimary,
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
@@ -310,7 +311,7 @@ fun MainScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
-                contentPadding = PaddingValues(16.dp),
+                contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 100.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 
