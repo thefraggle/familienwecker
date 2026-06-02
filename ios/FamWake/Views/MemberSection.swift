@@ -83,20 +83,6 @@ struct MemberSection: View {
                             .font(.subheadline)
                             .foregroundStyle(Color(red: 50/255, green: 49/255, blue: 51/255))
                             .lineSpacing(4)
-                            
-                        Button(action: onAddMember) {
-                            HStack {
-                                Image(systemName: "person.badge.plus")
-                                Text(L.addMemberTitleAdd)
-                            }
-                            .font(.headline)
-                            .foregroundColor(theme.onPrimary)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                            .background(theme.primary)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                        }
-                        .padding(.top, 8)
                     }
                     .padding(24)
                     .frame(maxWidth: .infinity, alignment: .leading)
