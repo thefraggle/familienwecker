@@ -73,7 +73,8 @@ final class AlarmService: ObservableObject {
                 
                 let alert = AlarmPresentation.Alert(
                     title: LocalizedStringResource(stringLiteral: memberName),
-                    stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle")
+                    stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle"),
+                    secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz")
                 )
                 let presentation = AlarmPresentation(alert: alert)
                 
