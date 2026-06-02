@@ -181,7 +181,7 @@
     <string name="settings_theme_light">Lys</string>
     <string name="settings_theme_dark">Mørk</string>
 
-    <string name="ringing_wake_up">Tid for å våkne, %1$s!</string>
+    <string name="ringing_wake_up">Hei %1$s</string>
     <string-array name="ringing_messages">
         <item>Badet er helt ditt akkurat nå!</item>
         <item>Ingen trafikk, ikke noe stress – badetiden din starter nå.</item>

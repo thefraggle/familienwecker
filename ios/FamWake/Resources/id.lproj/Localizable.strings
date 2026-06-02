@@ -174,7 +174,7 @@
 "settings_already_claimed" = "Sudah dipakai";
 "settings_theme_light" = "Terang";
 "settings_theme_dark" = "Gelap";
-"ringing_wake_up" = "Waktunya bangun, %@!";
+"ringing_wake_up" = "Halo %@";
 "ringing_stop" = "Matikan alarm";
 "ringing_snooze" = "Tunda (5 menit)";
 "pause_today_desc" = "Jeda hari ini";

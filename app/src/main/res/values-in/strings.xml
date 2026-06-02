@@ -181,7 +181,7 @@
     <string name="settings_theme_light">Terang</string>
     <string name="settings_theme_dark">Gelap</string>
 
-    <string name="ringing_wake_up">Waktunya bangun, %1$s!</string>
+    <string name="ringing_wake_up">Halo %1$s</string>
     <string-array name="ringing_messages">
         <item>Kamar mandi adalah milikmu sekarang!</item>
         <item>Tanpa antrean, tanpa stres – waktu mandi Anda dimulai sekarang.</item>

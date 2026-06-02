@@ -174,7 +174,7 @@
 "settings_already_claimed" = "Bereits belegt";
 "settings_theme_light" = "Hell";
 "settings_theme_dark" = "Dunkel";
-"ringing_wake_up" = "Aufwachen, %@!";
+"ringing_wake_up" = "Hallo %@";
 "ringing_stop" = "Wecker aus";
 "ringing_snooze" = "Schlummern (5 Min)";
 "pause_today_desc" = "Für heute pausieren";

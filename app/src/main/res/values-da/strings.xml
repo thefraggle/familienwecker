@@ -184,7 +184,7 @@
     <string name="settings_theme_light">Lys</string>
     <string name="settings_theme_dark">Mørk</string>
 
-    <string name="ringing_wake_up">Tid til at vågne, %1$s!</string>
+    <string name="ringing_wake_up">Hej %1$s</string>
     <string-array name="ringing_messages">
         <item>Badeværelset er helt dit lige nu!</item>
         <item>Ingen trafik, intet stress – din tid på badeværelset starter nu.</item>

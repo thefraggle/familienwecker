@@ -184,7 +184,7 @@
     <string name="settings_theme_light">Häll</string>
     <string name="settings_theme_dark">Dunkel</string>
 
-    <string name="ringing_wake_up">Uufwache, %1$s!</string>
+    <string name="ringing_wake_up">Hoi %1$s</string>
     <string-array name="ringing_messages">
         <item>S\'Bad ghört jetzt ganz dir allei!</item>
         <item>Kän Stau, kän Stress – diini Bad-Ziit faht jetzt aa.</item>

@@ -167,7 +167,7 @@
 "settings_already_claimed" = "Is schon vergeben";
 "settings_theme_light" = "Hell";
 "settings_theme_dark" = "Dunkel";
-"ringing_wake_up" = "Wach werden, %@!";
+"ringing_wake_up" = "Hallo %@";
 "ringing_stop" = "Wecker stopp";
 "ringing_snooze" = "Noch wat pennen (5 Min)";
 "pause_today_desc" = "Heute is Schicht";

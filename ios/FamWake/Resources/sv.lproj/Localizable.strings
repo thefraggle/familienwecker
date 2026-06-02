@@ -174,7 +174,7 @@
 "settings_already_claimed" = "Redan upptagen";
 "settings_theme_light" = "Ljust";
 "settings_theme_dark" = "Mörkt";
-"ringing_wake_up" = "Dags att vakna, %@!";
+"ringing_wake_up" = "Hej %@";
 "ringing_stop" = "Stoppa larm";
 "ringing_snooze" = "Snooze (5 min)";
 "pause_today_desc" = "Pausa för idag";

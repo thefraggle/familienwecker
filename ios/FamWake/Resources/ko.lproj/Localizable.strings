@@ -170,7 +170,7 @@
 "settings_already_claimed" = "이미 사용 중";
 "settings_theme_light" = "라이트";
 "settings_theme_dark" = "다크";
-"ringing_wake_up" = "일어날 시간이에요, %@님!";
+"ringing_wake_up" = "안녕하세요 %@";
 "ringing_stop" = "알람 끄기";
 "ringing_snooze" = "스누즈 (5분)";
 "pause_today_desc" = "오늘 하루 쉬기";

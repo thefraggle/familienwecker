@@ -171,7 +171,7 @@
 "settings_already_claimed" = "Allerede i bruk";
 "settings_theme_light" = "Lys";
 "settings_theme_dark" = "Mørk";
-"ringing_wake_up" = "Tid for å våkne, %@!";
+"ringing_wake_up" = "Hei %@";
 "ringing_stop" = "Stopp alarm";
 "ringing_snooze" = "Slumre (5 min)";
 "pause_today_desc" = "Sett på pause i dag";

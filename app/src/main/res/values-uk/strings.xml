@@ -181,7 +181,7 @@
     <string name="settings_theme_light">Світла</string>
     <string name="settings_theme_dark">Темна</string>
 
-    <string name="ringing_wake_up">Час прокидатися, %1$s!</string>
+    <string name="ringing_wake_up">Привіт %1$s</string>
     <string-array name="ringing_messages">
         <item>Ванна кімната зараз повністю твоя!</item>
         <item>Без поспіху та стресу – твій час у ванній починається зараз.</item>

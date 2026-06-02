@@ -181,7 +181,7 @@
     <string name="settings_theme_light">浅色</string>
     <string name="settings_theme_dark">深色</string>
 
-    <string name="ringing_wake_up">该起床啦，%1$s！</string>
+    <string name="ringing_wake_up">你好 %1$s</string>
     <string-array name="ringing_messages">
         <item>现在洗手间全是你的啦！</item>
         <item>不用赶时间，不用有压力——你的洗漱时间现在开始。</item>
