@@ -176,7 +176,7 @@
     <string name="settings_theme_light">Светлая</string>
     <string name="settings_theme_dark">Темная</string>
 
-    <string name="ringing_wake_up">Пора вставать, %1$s!</string>
+    <string name="ringing_wake_up">Привет %1$s</string>
     <string-array name="ringing_messages">
         <item>Ванная комната сейчас полностью в твоем распоряжении!</item>
         <item>Без пробок и стресса – твое время в ванной начинается сейчас.</item>

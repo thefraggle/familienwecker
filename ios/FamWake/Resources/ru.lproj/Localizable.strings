@@ -167,7 +167,7 @@
 "settings_already_claimed" = "Уже занято";
 "settings_theme_light" = "Светлая";
 "settings_theme_dark" = "Темная";
-"ringing_wake_up" = "Пора вставать, %@!";
+"ringing_wake_up" = "Привет %@";
 "ringing_stop" = "Выключить будильник";
 "ringing_snooze" = "Повтор (5 мин)";
 "pause_today_desc" = "Пауза на сегодня";

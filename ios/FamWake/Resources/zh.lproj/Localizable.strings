@@ -171,7 +171,7 @@
 "settings_already_claimed" = "已被使用";
 "settings_theme_light" = "浅色";
 "settings_theme_dark" = "深色";
-"ringing_wake_up" = "该起床啦，%@！";
+"ringing_wake_up" = "你好 %@";
 "ringing_stop" = "关闭闹钟";
 "ringing_snooze" = "小睡（5 分钟）";
 "pause_today_desc" = "今天暂停";

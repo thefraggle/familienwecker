@@ -184,7 +184,7 @@
     <string name="settings_theme_light">Sáng</string>
     <string name="settings_theme_dark">Tối</string>
 
-    <string name="ringing_wake_up">Đến giờ dậy rồi, %1$s!</string>
+    <string name="ringing_wake_up">Xin chào %1$s</string>
     <string-array name="ringing_messages">
         <item>Phòng tắm bây giờ hoàn toàn là của bạn!</item>
         <item>Không kẹt xe, không căng thẳng - giờ đi vệ sinh của bạn bắt đầu ngay bây giờ.</item>

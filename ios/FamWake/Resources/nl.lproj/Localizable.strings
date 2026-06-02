@@ -166,7 +166,7 @@
 "settings_already_claimed" = "Al in gebruik";
 "settings_theme_light" = "Licht";
 "settings_theme_dark" = "Donker";
-"ringing_wake_up" = "Wakker worden, %@!";
+"ringing_wake_up" = "Hallo %@";
 "ringing_stop" = "Wekker uitzetten";
 "ringing_snooze" = "Sluimeren (5 min)";
 "pause_today_desc" = "Vandaag pauzeren";

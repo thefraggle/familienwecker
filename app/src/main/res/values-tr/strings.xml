@@ -184,7 +184,7 @@
     <string name="settings_theme_light">Açık</string>
     <string name="settings_theme_dark">Koyu</string>
 
-    <string name="ringing_wake_up">Uyanma vakti, %1$s!</string>
+    <string name="ringing_wake_up">Merhaba %1$s</string>
     <string-array name="ringing_messages">
         <item>Banyo şu an tamamen senin!</item>
         <item>Koşturmaca yok, stres yok – banyo zamanın şimdi başlıyor.</item>

@@ -174,7 +174,7 @@
 "settings_already_claimed" = "Zaten alındı";
 "settings_theme_light" = "Açık";
 "settings_theme_dark" = "Koyu";
-"ringing_wake_up" = "Uyanma vakti, %@!";
+"ringing_wake_up" = "Merhaba %@";
 "ringing_stop" = "Alarmı durdur";
 "ringing_snooze" = "Ertele (5 dk)";
 "pause_today_desc" = "Bugünlük duraklat";

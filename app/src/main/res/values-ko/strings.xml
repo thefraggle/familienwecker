@@ -180,7 +180,7 @@
     <string name="settings_theme_light">라이트</string>
     <string name="settings_theme_dark">다크</string>
 
-    <string name="ringing_wake_up">일어날 시간이에요, %1$s님!</string>
+    <string name="ringing_wake_up">안녕하세요 %1$s</string>
     <string-array name="ringing_messages">
         <item>지금은 화장실을 온전히 혼자 쓸 수 있어요!</item>
         <item>눈치 보지 말고 여유롭게 – 화장실 시간이 시작되었습니다.</item>

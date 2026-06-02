@@ -177,7 +177,7 @@
     <string name="settings_theme_light">Claro</string>
     <string name="settings_theme_dark">Escuro</string>
 
-    <string name="ringing_wake_up">Hora de acordar, %1$s!</string>
+    <string name="ringing_wake_up">Olá %1$s</string>
     <string-array name="ringing_messages">
         <item>O banheiro é todo seu agora!</item>
         <item>Sem pressa, sem estresse – seu tempo no banheiro começa agora.</item>
