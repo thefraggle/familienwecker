@@ -283,7 +283,7 @@ struct AddEditMemberView: View {
     }
 
     private func saveMember() {
-        let refProfile = dayProfiles[1] ?? dayProfiles.values.first ?? DayProfile()
+        let refProfile = dayProfiles.values.first(where: { $0.isActive }) ?? dayProfiles[1] ?? dayProfiles.values.first ?? DayProfile()
         
         var memberToSave: FamilyMember
         if let mid = memberId, let existing = familyViewModel.members.first(where: { $0.id == mid }) {
