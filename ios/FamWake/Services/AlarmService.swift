@@ -56,7 +56,7 @@ final class AlarmService: ObservableObject {
                     }
                     if !soundName.isEmpty {
                         if Bundle.main.path(forResource: (soundName as NSString).deletingPathExtension, ofType: (soundName as NSString).pathExtension) != nil {
-                            finalSoundNameToUse = soundName
+                            finalSoundNameToUse = (soundName as NSString).deletingPathExtension
                         }
                     }
                 }
