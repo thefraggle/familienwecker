@@ -1,10 +1,15 @@
 import Foundation
 import Combine
 import AVFoundation
-@preconcurrency import UserNotifications
-import AudioToolbox
+import AlarmKit
+import ActivityKit
+import SwiftUI
 
-/// Alarm-Service – Wrapper um UNUserNotificationCenter (iOS-Äquivalent zu AlarmScheduler.kt)
+struct FamWakeAlarmMetadata: AlarmMetadata {
+    var memberId: String
+}
+
+/// Alarm-Service – Wrapper um AlarmKit
 @MainActor
 final class AlarmService: ObservableObject {
     static let shared = AlarmService()
@@ -12,99 +17,96 @@ final class AlarmService: ObservableObject {
 
     private init() {}
 
-    func scheduleWakeUp(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool, onPermissionDenied: (() -> Void)? = nil) {
-        let content = UNMutableNotificationContent()
-        content.title = memberName
-        content.body = L.ringingWakeUp(memberName)
-        
-        var soundName = "alarm_sound_v3.caf"
-        if let soundUri = soundUri {
-            let lowerUri = soundUri.lowercased()
-            if soundUri == "default" || soundUri == "system" || soundUri.isEmpty {
-                soundName = ""
-            } else if lowerUri.hasSuffix(".caf") || lowerUri.hasSuffix(".mp3") || lowerUri.hasSuffix(".wav") {
-                soundName = soundUri
-            } else if let url = URL(string: soundUri) {
-                soundName = url.lastPathComponent
-            }
-        }
-        
-        content.categoryIdentifier = "ALARM"
-        content.userInfo = ["memberId": memberId, "memberName": memberName]
+    private var schedulingTasks: [String: Task<Void, Never>] = [:]
 
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            let isCriticalEnabled = settings.criticalAlertSetting == .enabled
-            let sound: UNNotificationSound
-            if soundName.isEmpty {
-                sound = isCriticalEnabled ? .defaultCritical : .default
-            } else {
-                sound = isCriticalEnabled ?
-                    .criticalSoundNamed(UNNotificationSoundName(soundName), withAudioVolume: 1.0) :
-                    .init(named: UNNotificationSoundName(soundName))
-            }
-            content.sound = sound
-            content.interruptionLevel = isCriticalEnabled ? .critical : .timeSensitive
-
-            let needsRequest = settings.authorizationStatus == .notDetermined ||
-                               (settings.authorizationStatus == .authorized && settings.criticalAlertSetting == .disabled)
-            
-            if needsRequest {
-                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert]) { granted, _ in
-                    if granted {
-                        Task { @MainActor in
-                            self.addNotificationChain(content: content, wakeUpTime: wakeUpTime, memberId: memberId, isSnooze: isSnooze)
-                        }
-                    } else {
-                        DispatchQueue.main.async { onPermissionDenied?() }
-                    }
-                }
-            } else if settings.authorizationStatus == .denied {
-                DispatchQueue.main.async { onPermissionDenied?() }
-            } else {
-                Task { @MainActor in
-                    self.addNotificationChain(content: content, wakeUpTime: wakeUpTime, memberId: memberId, isSnooze: isSnooze)
-                }
-            }
+    private func getUUID(for memberId: String) -> UUID {
+        let key = "alarm_uuid_\(memberId)"
+        if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
+            return uuid
         }
+        let newUUID = UUID()
+        UserDefaults.standard.set(newUUID.uuidString, forKey: key)
+        return newUUID
     }
 
-    private func addNotificationChain(content: UNMutableNotificationContent, wakeUpTime: Date, memberId: String, isSnooze: Bool) {
-        let cal = Calendar.current
-        let prefix = isSnooze ? "alarm_snooze_\(memberId)" : "alarm_\(memberId)"
-        let maxNotifications = isSnooze ? 3 : 5
-        let interval = 30.0
+    func scheduleWakeUp(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool, onPermissionDenied: (() -> Void)? = nil) {
+        schedulingTasks[memberId]?.cancel()
         
-        for index in 0..<maxNotifications {
-            let targetTime = wakeUpTime.addingTimeInterval(Double(index) * interval)
-            let comps = cal.dateComponents([.year, .month, .day, .hour, .minute, .second], from: targetTime)
-            let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
-            
-            let request = UNNotificationRequest(
-                identifier: "\(prefix)_\(index)",
-                content: content,
-                trigger: trigger
-            )
-            UNUserNotificationCenter.current().add(request)
+        let task = Task {
+            do {
+                if Task.isCancelled { return }
+                let status = try await AlarmManager.shared.requestAuthorization()
+                if Task.isCancelled { return }
+                
+                if status != .authorized {
+                    DispatchQueue.main.async { onPermissionDenied?() }
+                    return
+                }
+                
+                var finalSoundNameToUse: String? = nil
+                if let soundUri = soundUri {
+                    let lowerUri = soundUri.lowercased()
+                    var soundName = "alarm_sound_v3.caf"
+                    if soundUri == "default" || soundUri == "system" || soundUri.isEmpty {
+                        soundName = ""
+                    } else if lowerUri.hasSuffix(".caf") || lowerUri.hasSuffix(".mp3") || lowerUri.hasSuffix(".wav") {
+                        soundName = soundUri
+                    } else if let url = URL(string: soundUri) {
+                        soundName = url.lastPathComponent
+                    }
+                    if !soundName.isEmpty {
+                        if Bundle.main.path(forResource: (soundName as NSString).deletingPathExtension, ofType: (soundName as NSString).pathExtension) != nil {
+                            finalSoundNameToUse = (soundName as NSString).deletingPathExtension
+                        }
+                    }
+                }
+                
+                let uuid = self.getUUID(for: memberId)
+                
+                let alert = AlarmPresentation.Alert(
+                    title: LocalizedStringResource(stringLiteral: memberName),
+                    stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle")
+                )
+                let presentation = AlarmPresentation(alert: alert)
+                
+                let attributes = AlarmAttributes<FamWakeAlarmMetadata>(
+                    presentation: presentation,
+                    metadata: FamWakeAlarmMetadata(memberId: memberId),
+                    tintColor: .purple
+                )
+                
+                let config = AlarmManager.AlarmConfiguration.alarm(
+                    schedule: Alarm.Schedule.fixed(wakeUpTime),
+                    attributes: attributes,
+                    sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
+                )
+                
+                try await AlarmManager.shared.cancel(id: uuid)
+                if Task.isCancelled { return }
+                try await AlarmManager.shared.schedule(id: uuid, configuration: config)
+            } catch {
+                print("AlarmKit Error: \(error)")
+                DispatchQueue.main.async { onPermissionDenied?() }
+            }
         }
+        schedulingTasks[memberId] = task
     }
 
     func cancelAll() {
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        // Not easily supported with UUIDs unless we track all UUIDs
     }
 
     func cancelWakeUp(memberId: String, isSnooze: Bool = false) {
-        let prefix = isSnooze ? "alarm_snooze_\(memberId)" : "alarm_\(memberId)"
-        var ids = [String]()
-        for index in 0..<5 {
-            ids.append("\(prefix)_\(index)")
+        Task {
+            let uuid = self.getUUID(for: memberId)
+            try? await AlarmManager.shared.cancel(id: uuid)
         }
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ids)
-        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ids)
     }
 
     func requestPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert]) { _, _ in }
+        Task {
+            try? await AlarmManager.shared.requestAuthorization()
+        }
     }
 
     private var systemSoundTimer: Timer?
@@ -142,7 +144,6 @@ final class AlarmService: ObservableObject {
             audioPlayer?.play()
         } else {
             // Fallback auf System Sound Dauerschleife via AudioServices
-            // SystemSoundID 1005 (Alarm) oder 1033 (Ringer) oder kSystemSoundID_Vibrate (4095)
             AudioServicesPlaySystemSound(1005)
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             

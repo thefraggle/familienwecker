@@ -70,7 +70,51 @@ struct MainView: View {
                 .listStyle(.plain)
                 .listRowSpacing(0)
                 .scrollContentBackground(.hidden)
-                .contentMargins(.bottom, 88, for: .scrollContent)
+                .contentMargins(.bottom, 160, for: .scrollContent)
+
+                // FABs
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        VStack(alignment: .trailing, spacing: 16) {
+                            if authViewModel.isLoggedIn && !authViewModel.isAnonymous && familyViewModel.familyId != nil,
+                               let fName = familyViewModel.familyName,
+                               let code = familyViewModel.joinCode {
+                                ShareLink(item: L.settingsShareMessage(fName, code)) {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .font(.title3.weight(.semibold))
+                                        .foregroundColor(theme.onSecondaryContainer)
+                                        .frame(width: 48, height: 48)
+                                        .background(theme.secondaryContainer)
+                                        .clipShape(Circle())
+                                        .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                                }
+                            }
+                            
+                            if familyViewModel.members.count < 6 {
+                                Button(action: { showAddMember = true }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "plus")
+                                            .font(.title2.weight(.semibold))
+                                        if familyViewModel.members.isEmpty {
+                                            Text(L.addMemberTitleAdd)
+                                                .font(.headline.weight(.semibold))
+                                        }
+                                    }
+                                    .foregroundColor(theme.onPrimary)
+                                    .padding(.horizontal, familyViewModel.members.isEmpty ? 24 : 0)
+                                    .frame(minWidth: 56, minHeight: 56)
+                                    .background(theme.primary)
+                                    .clipShape(Capsule())
+                                    .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
+                                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: familyViewModel.members.isEmpty)
+                                }
+                            }
+                        }
+                    }
+                    .padding(16)
+                }
             }
             .navigationTitle(L.appNameShort)
             .onAppear {
@@ -89,22 +133,6 @@ struct MainView: View {
                         } else if familyViewModel.isSyncing {
                             RotatingIcon(systemName: "arrow.triangle.2.circlepath", color: theme.tertiary)
                                 .font(.caption)
-                        }
-                        
-                        if familyViewModel.members.count < 6 {
-                            Button(action: { showAddMember = true }) {
-                                Image(systemName: "person.badge.plus")
-                                    .foregroundStyle(theme.onSurface)
-                            }
-                        }
-
-                        if authViewModel.isLoggedIn && !authViewModel.isAnonymous && familyViewModel.familyId != nil,
-                           let fName = familyViewModel.familyName,
-                           let code = familyViewModel.joinCode {
-                            ShareLink(item: L.settingsShareMessage(fName, code)) {
-                                Image(systemName: "square.and.arrow.up")
-                                    .foregroundStyle(theme.onSurface)
-                            }
                         }
 
                         Button(action: { showSettings = true }) {

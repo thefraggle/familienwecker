@@ -66,5 +66,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSAlarmKitUsageDescription</key>
+	<string>Wir benötigen AlarmKit, um Familienwecker zuverlässig auf deinem Gerät zu planen.</string>
 </dict>
 </plist>
