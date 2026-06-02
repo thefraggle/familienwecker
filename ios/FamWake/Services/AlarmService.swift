@@ -147,14 +147,14 @@ final class AlarmService: ObservableObject {
                     alert = AlarmPresentation.Alert(
                         title: LocalizedStringResource(stringLiteral: memberName),
                         secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                        secondaryButtonBehavior: .custom
+                        secondaryButtonBehavior: .countdown
                     )
                 } else {
                     alert = AlarmPresentation.Alert(
                         title: LocalizedStringResource(stringLiteral: memberName),
                         stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle"),
                         secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                        secondaryButtonBehavior: .custom
+                        secondaryButtonBehavior: .countdown
                     )
                 }
                 let presentation = AlarmPresentation(alert: alert)
@@ -169,7 +169,7 @@ final class AlarmService: ObservableObject {
                     schedule: Alarm.Schedule.fixed(wakeUpTime),
                     attributes: attributes,
                     stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
-                    secondaryIntent: SnoozeFamWakeIntent(memberId: memberId, memberName: memberName),
+                    secondaryIntent: nil,
                     sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
                 )
                 
