@@ -69,6 +69,13 @@ struct AppRouter: View {
                 appState.startRinging(memberId: memberId, memberName: memberName)
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .showGreetingView)) { notif in
+            if let info = notif.userInfo,
+               let memberId = info["memberId"] as? String,
+               let memberName = info["memberName"] as? String {
+                appState.startGreeting(memberId: memberId, memberName: memberName)
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: .stopAlarmFromNotification)) { notif in
             appState.stopRinging()
             if let info = notif.userInfo, let memberId = info["memberId"] as? String {
@@ -88,6 +95,7 @@ struct AppRouter: View {
             RingingView(
                 memberId: appState.ringingMemberId,
                 memberName: appState.ringingMemberName,
+                isGreetingOnly: appState.isGreeting,
                 onStop: {
                     appState.stopRinging()
                     familyViewModel.cancelSnooze(appState.ringingMemberId)
