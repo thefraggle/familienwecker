@@ -81,7 +81,12 @@ final class AlarmService: ObservableObject {
                     sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
                 )
                 
-                try await AlarmManager.shared.cancel(id: uuid)
+                do {
+                    try await AlarmManager.shared.cancel(id: uuid)
+                } catch {
+                    print("Cancel skipped or failed: \(error)")
+                }
+                
                 if Task.isCancelled { return }
                 try await AlarmManager.shared.schedule(id: uuid, configuration: config)
                 DispatchQueue.main.async { onSuccess?() }
