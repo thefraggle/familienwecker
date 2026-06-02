@@ -1197,7 +1197,11 @@ class FamilyViewModel: ObservableObject {
             soundUri: alarmSoundUri,
             isSnooze: false,
             onPermissionDenied: { [weak self] in
-                self?.errorMessage = L.errorAlarmPermission
+                if let err = UserDefaults.standard.string(forKey: "last_alarm_error") {
+                    self?.errorMessage = L.errorAlarmPermission + "\nERROR: " + err
+                } else {
+                    self?.errorMessage = L.errorAlarmPermission
+                }
             },
             onSuccess: { [weak self] in
                 if self?.errorMessage == L.errorAlarmPermission {
