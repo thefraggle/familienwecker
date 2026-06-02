@@ -1197,7 +1197,7 @@ class FamilyViewModel: ObservableObject {
             soundUri: alarmSoundUri,
             isSnooze: false,
             onPermissionDenied: { [weak self] in
-                // self?.errorMessage = L.errorAlarmPermission // Temporarily removed to stop false positives
+                self?.errorMessage = L.errorAlarmPermission
             },
             onSuccess: { [weak self] in
                 if self?.errorMessage == L.errorAlarmPermission {
