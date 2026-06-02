@@ -667,7 +667,7 @@ class FamilyViewModel: ObservableObject {
     }
 
     func snooze(memberId: String, memberName: String) {
-        let snoozeTime = Date().addingTimeInterval(5 * 60)
+        let snoozeTime = Date().addingTimeInterval(9 * 60)
         snoozeUntil = snoozeTime
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         AlarmService.shared.scheduleWakeUp(
