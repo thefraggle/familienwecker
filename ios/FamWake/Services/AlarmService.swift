@@ -56,7 +56,7 @@ final class AlarmService: ObservableObject {
                     }
                     if !soundName.isEmpty {
                         if Bundle.main.path(forResource: (soundName as NSString).deletingPathExtension, ofType: (soundName as NSString).pathExtension) != nil {
-                            finalSoundNameToUse = soundName
+                            finalSoundNameToUse = (soundName as NSString).deletingPathExtension
                         }
                     }
                 }
@@ -81,12 +81,7 @@ final class AlarmService: ObservableObject {
                     sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
                 )
                 
-                do {
-                    try await AlarmManager.shared.cancel(id: uuid)
-                } catch {
-                    print("Cancel skipped or failed: \(error)")
-                }
-                
+                try await AlarmManager.shared.cancel(id: uuid)
                 if Task.isCancelled { return }
                 try await AlarmManager.shared.schedule(id: uuid, configuration: config)
                 DispatchQueue.main.async { onSuccess?() }
