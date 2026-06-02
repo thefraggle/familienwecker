@@ -37,7 +37,7 @@ struct OpenFamWakeIntent: LiveActivityIntent {
 
 struct SnoozeFamWakeIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
-    static var openAppWhenRun: Bool = false
+    static var openAppWhenRun: Bool = true
     
     @Parameter(title: "Member ID")
     var memberId: String
