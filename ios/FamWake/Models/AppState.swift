@@ -13,6 +13,7 @@ class AppState: ObservableObject {
     @Published var pushNotificationsEnabled: Bool = UserDefaults.standard.object(forKey: "push_notifications_enabled") as? Bool ?? true
 
     @Published var isRinging: Bool = false
+    @Published var isGreeting: Bool = false
     @Published var ringingMemberId: String = ""
     @Published var ringingMemberName: String = ""
 
@@ -34,11 +35,20 @@ class AppState: ObservableObject {
         self.ringingMemberId = memberId
         self.ringingMemberName = memberName
         self.isRinging = true
+        self.isGreeting = false
         AlarmService.shared.playAlarm(soundUri: nil)
+    }
+
+    func startGreeting(memberId: String, memberName: String) {
+        self.ringingMemberId = memberId
+        self.ringingMemberName = memberName
+        self.isRinging = true
+        self.isGreeting = true
     }
     
     func stopRinging() {
         self.isRinging = false
+        self.isGreeting = false
         AlarmService.shared.stopAlarm()
     }
 
@@ -141,6 +151,7 @@ class AppState: ObservableObject {
 
 extension Notification.Name {
     static let showRingingView = Notification.Name("showRingingView")
+    static let showGreetingView = Notification.Name("showGreetingView")
     static let stopAlarmFromNotification = Notification.Name("stopAlarmFromNotification")
     static let snoozeAlarmFromNotification = Notification.Name("snoozeAlarmFromNotification")
 }
