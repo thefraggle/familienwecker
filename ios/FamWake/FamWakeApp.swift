@@ -150,7 +150,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             TelemetryManager.send("alarm.snoozed_background")
             AlarmService.shared.cancelWakeUp(memberId: memberId)
             
-            let snoozeTime = Date().addingTimeInterval(5 * 60)
+            let snoozeTime = Date().addingTimeInterval(9 * 60)
             UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
             
             let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
