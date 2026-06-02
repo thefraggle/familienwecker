@@ -177,8 +177,12 @@ final class AlarmService: ObservableObject {
                 try await AlarmManager.shared.schedule(id: uuid, configuration: config)
                 DispatchQueue.main.async { onSuccess?() }
             } catch {
-                print("AlarmKit Error: \(error)")
-                DispatchQueue.main.async { onPermissionDenied?() }
+                let errStr = String(describing: error)
+                print("AlarmKit Error: \(errStr)")
+                DispatchQueue.main.async { 
+                    UserDefaults.standard.set(errStr, forKey: "last_alarm_error")
+                    onPermissionDenied?() 
+                }
             }
         }
         schedulingTasks[memberId] = task
