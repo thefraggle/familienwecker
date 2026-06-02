@@ -674,9 +674,6 @@ struct SettingsView: View {
                         // Play preview
                         if let id = sound.id {
                             AlarmService.shared.playAlarm(soundUri: id)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                                AlarmService.shared.stopAlarm()
-                            }
                         }
                     }) {
                         HStack {
