@@ -162,7 +162,7 @@ final class AlarmService: ObservableObject {
                 let attributes = AlarmAttributes<FamWakeAlarmMetadata>(
                     presentation: presentation,
                     metadata: FamWakeAlarmMetadata(memberId: memberId),
-                    tintColor: .purple
+                    tintColor: .sunriseOrange500
                 )
                 
                 let config = AlarmManager.AlarmConfiguration.alarm(
