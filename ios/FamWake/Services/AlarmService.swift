@@ -10,22 +10,70 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Wecker beenden"
     static var openAppWhenRun: Bool = true
     
+    @Parameter(title: "Member ID")
+    var memberId: String
+    
     @Parameter(title: "Member Name")
     var memberName: String
     
     init() {}
     
-    init(memberName: String) {
+    init(memberId: String, memberName: String) {
+        self.memberId = memberId
         self.memberName = memberName
     }
     
     func perform() async throws -> some IntentResult {
-        let name = memberName
+        let mId = memberId
+        let mName = memberName
         DispatchQueue.main.async {
             NotificationCenter.default.post(
                 name: .showRingingView,
                 object: nil,
-                userInfo: ["memberId": "unknown", "memberName": name]
+                userInfo: ["memberId": mId, "memberName": mName]
+            )
+        }
+        return .result()
+    }
+}
+
+struct SnoozeFamWakeIntent: LiveActivityIntent {
+    static var title: LocalizedStringResource = "Snooze"
+    static var openAppWhenRun: Bool = false
+    
+    @Parameter(title: "Member ID")
+    var memberId: String
+    
+    @Parameter(title: "Member Name")
+    var memberName: String
+    
+    init() {}
+    
+    init(memberId: String, memberName: String) {
+        self.memberId = memberId
+        self.memberName = memberName
+    }
+    
+    func perform() async throws -> some IntentResult {
+        let mId = memberId
+        let mName = memberName
+        
+        let snoozeTime = Date().addingTimeInterval(5 * 60)
+        UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+        let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
+        
+        DispatchQueue.main.async {
+            AlarmService.shared.scheduleWakeUp(
+                wakeUpTime: snoozeTime,
+                memberId: mId,
+                memberName: mName,
+                soundUri: alarmSoundUri,
+                isSnooze: true
+            )
+            NotificationCenter.default.post(
+                name: .snoozeAlarmFromNotification,
+                object: nil,
+                userInfo: ["memberId": mId, "memberName": mName, "snoozeTime": snoozeTime]
             )
         }
         return .result()
@@ -114,8 +162,8 @@ final class AlarmService: ObservableObject {
                 let config = AlarmManager.AlarmConfiguration.alarm(
                     schedule: Alarm.Schedule.fixed(wakeUpTime),
                     attributes: attributes,
-                    stopIntent: OpenFamWakeIntent(memberName: memberName),
-                    secondaryIntent: nil,
+                    stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
+                    secondaryIntent: SnoozeFamWakeIntent(memberId: memberId, memberName: memberName),
                     sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
                 )
                 
