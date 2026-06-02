@@ -127,6 +127,7 @@ fun AddMemberScreen(
     var selectedDay by remember(memberId) { mutableStateOf(initialSelectedDay) }
     var showCopyDialog by remember { mutableStateOf(false) }
     var showDiscardConfirmDialog by remember { mutableStateOf(false) }
+    var showNameError by remember { mutableStateOf(false) }
  
     val hasChanges = name != initialName || dayProfiles != initialDayProfiles
  
@@ -283,6 +284,11 @@ fun AddMemberScreen(
                     shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                     interactionSource = saveInteractionSource,
                     onClick = {
+                        if (name.isBlank()) {
+                            showNameError = true
+                            // Haptisches Feedback (Optional, falls LocalHapticFeedback eingebaut ist)
+                            return@Button
+                        }
                         // Legacyfelder aus dem Wochentag-Profil ableiten (Fallback: Mo-Profil oder Defaults)
                         val refProfile = dayProfiles[1] ?: dayProfiles.values.firstOrNull()
                         val memberToSave = FamilyMember(
@@ -320,7 +326,7 @@ fun AddMemberScreen(
                         
                         onNavigateBack()
                     },
-                    enabled = name.isNotBlank() && !hasAnyValidationError
+                    enabled = !hasAnyValidationError
                 ) {
                     Text(stringResource(R.string.add_member_submit))
                 }
@@ -407,8 +413,12 @@ fun AddMemberScreen(
                 // Name
                 OutlinedTextField(
                     value = name,
-                    onValueChange = { name = it },
+                    onValueChange = { 
+                        name = it
+                        if (it.isNotBlank()) showNameError = false 
+                    },
                     label = { Text(stringResource(R.string.add_member_name_label)) },
+                    isError = showNameError,
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
