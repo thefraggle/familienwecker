@@ -24,14 +24,20 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
     
     func perform() async throws -> some IntentResult {
-        // Cancel fallback push notification and system sound if active
         await AlarmService.shared.stopAlarm()
-        await AlarmService.shared.cancelWakeUp(memberId: memberId)
-        UserDefaults.standard.removeObject(forKey: "snooze_until")
         
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
+        let snoozeUntil = UserDefaults.standard.double(forKey: "snooze_until")
+        let hasActiveSnooze = snoozeUntil > Date().timeIntervalSince1970
+        
+        if !hasActiveSnooze {
+            await AlarmService.shared.cancelWakeUp(memberId: memberId)
+            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
+            }
         }
+        
         return .result()
     }
 }
@@ -60,26 +66,20 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
     func perform() async throws -> some IntentResult {
         await AlarmService.shared.stopAlarm()
 
+        // Setze snooze_until sofort, damit ein eventuell von iOS parallel aufgerufener
+        // OpenFamWakeIntent (stopIntent) weiß, dass ein Snooze aktiv ist und den
+        // Wecker nicht cancelt.
         let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
         let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
         let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
-
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
 
-        let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
-        try await AlarmService.shared.scheduleWakeUpAsync(
-            wakeUpTime: snoozeTime,
-            memberId: memberId,
-            memberName: memberName,
-            soundUri: savedSoundUri,
-            isSnooze: true
-        )
-
+        // Notification an AppRouter schicken. familyViewModel.snooze kümmert sich
+        // um das Planen des neuen Alarms, da dies aus dem Intent heraus oft fehlschlägt.
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [
                 "memberId": memberId,
-                "memberName": memberName,
-                "snoozeTime": snoozeTime
+                "memberName": memberName
             ])
         }
 
