@@ -677,6 +677,20 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
+    func checkSnoozeStatus() {
+        if let snoozeTime = UserDefaults.standard.value(forKey: "snooze_until") as? Double {
+            let date = Date(timeIntervalSince1970: snoozeTime)
+            if date > Date() {
+                self.snoozeUntil = date
+            } else {
+                self.snoozeUntil = nil
+                UserDefaults.standard.removeObject(forKey: "snooze_until")
+            }
+        } else {
+            self.snoozeUntil = nil
+        }
+    }
+
     func snooze(memberId: String, memberName: String) {
         let snoozeTime = Date().addingTimeInterval(5 * 60)
         snoozeUntil = snoozeTime
