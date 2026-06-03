@@ -5,6 +5,7 @@ import android.media.AudioAttributes
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.data.AppSettings
 import de.familienwecker.famwake.model.toKmpLocalDateTime
+import de.familienwecker.famwake.MainActivity
 import android.app.NotificationManager
 import android.content.Context
 import android.media.MediaPlayer
@@ -82,6 +83,12 @@ class RingingActivity : AppCompatActivity() {
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
                             // Tracking: Nutzer hat den Alarm aktiv abgebrochen (nicht durch Snooze)
                             TelemetryDeck.signal("alarm.dismissed")
+                            // Zur Haupt-App wechseln (ohne Begrüßung)
+                            val intent = android.content.Intent(this@RingingActivity, MainActivity::class.java).apply {
+                                flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            }
+                            startActivity(intent)
+                            
                             stopRingtoneAndFinish()
                         },
                         onSnoozeClicked = {

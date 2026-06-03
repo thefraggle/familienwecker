@@ -103,6 +103,11 @@ final class AlarmService: ObservableObject {
         if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
             return uuid
         }
+        return generateNewUUID(for: memberId)
+    }
+
+    private func generateNewUUID(for memberId: String) -> UUID {
+        let key = "alarm_uuid_\(memberId)"
         let newUUID = UUID()
         UserDefaults.standard.set(newUUID.uuidString, forKey: key)
         return newUUID
@@ -146,7 +151,7 @@ final class AlarmService: ObservableObject {
                     }
                 }
                 
-                let uuid = self.getUUID(for: memberId)
+                // We will determine the final UUID later
                 
                 let alert: AlarmPresentation.Alert
                 if #available(iOS 26.1, *) {
@@ -179,11 +184,14 @@ final class AlarmService: ObservableObject {
                     sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
                 )
                 
+                let oldUuid = self.getUUID(for: memberId)
                 do {
-                    try await AlarmManager.shared.cancel(id: uuid)
+                    try await AlarmManager.shared.cancel(id: oldUuid)
                 } catch {
                     print("Cancel skipped or failed: \(error)")
                 }
+                
+                let uuid = isSnooze ? self.generateNewUUID(for: memberId) : oldUuid
                 
                 if Task.isCancelled { return }
                 try await AlarmManager.shared.schedule(id: uuid, configuration: config)
