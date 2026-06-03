@@ -90,6 +90,7 @@ struct MainView: View {
                                         .clipShape(Circle())
                                         .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
                                 }
+                                .accessibilityLabel(L.settingsShareCode)
                             }
                             
                             if familyViewModel.members.count < 6 {
@@ -110,6 +111,8 @@ struct MainView: View {
                                     .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
                                     .animation(.spring(response: 0.3, dampingFraction: 0.7), value: familyViewModel.members.isEmpty)
                                 }
+                                .accessibilityLabel(L.addMemberTitleAdd)
+                                .accessibilityHint("Neues Familienmitglied hinzufügen")
                             }
                         }
                     }
