@@ -173,7 +173,20 @@ class RingingActivity : AppCompatActivity() {
         } catch (_: IllegalStateException) {}
         mediaPlayer?.release()
         mediaPlayer = null
-        finish()
+        
+        // Window-Flags zurücksetzen, damit Android den Sperrbildschirm nicht überspringt,
+        // falls das Gerät z.B. während des Klingelns durch Face Unlock entsperrt wurde.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(false)
+            setTurnScreenOn(false)
+        }
+        window.clearFlags(
+            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        )
+        
+        finishAndRemoveTask()
     }
 
     override fun onDestroy() {
