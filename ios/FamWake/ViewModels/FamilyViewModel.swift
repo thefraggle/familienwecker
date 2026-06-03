@@ -710,6 +710,15 @@ class FamilyViewModel: ObservableObject {
         )
     }
 
+    /// Nur UI-State setzen (Banner), NICHT erneut schedulen.
+    /// Wird vom SnoozeNotifyIntent aufgerufen – der Intent hat den Alarm
+    /// bereits via `scheduleWakeUpAsync` geplant. Ein erneutes `scheduleWakeUp`
+    /// hier würde den geplanten Alarm via Task-Cancel überschreiben.
+    func snoozeUIOnly(snoozeTime: Date) {
+        snoozeUntil = snoozeTime
+        UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+    }
+
     func cancelSnooze(_ memberId: String) {
         snoozeUntil = nil
         UserDefaults.standard.removeObject(forKey: "snooze_until")
