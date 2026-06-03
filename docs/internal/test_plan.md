@@ -38,7 +38,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 ### 3. Wecker, Alarm & Berechtigungen
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-30 | Alarm-Zyklus | Wecker klingelt zuverlässig (auch Background/Lockscreen). Snooze (5 Min) plant neuen Alarm korrekt, öffnet bei Sperrbildschirm die App und zeigt Snooze-Banner. Kein doppelter/überlappender Alarm-Ton. |
+| TC-30 | Alarm-Zyklus | Wecker klingelt zuverlässig (auch Background/Lockscreen). **Stop:** App öffnet sich direkt (Main Screen), kein Homescreen dazwischen. **Snooze:** Handy bleibt gesperrt (bzw. App öffnet sich kurz), neuer Alarm in 5 Min klingelt erneut. Banner in der App zeigt Snooze-Zeit mit Abbruch-Button. Kein doppelter/überlappender Alarm-Ton. |
 | TC-31 | Statuswechsel („Ich bin wach“) | Stoppt System-Wecker, aktualisiert UI (Two-Pass-Logik). Button bleibt unabhängig vom ausgewählten Vorschau-Wochentag auf dem Screen sichtbar (an Weckplan gekoppelt). Zeigt sich dauerhaft am Tag des Weckers oder ab 4h vorher. Reset erfolgt am Folgetag automatisch. |
 | TC-32 | Android 14+ Warnungen | Fehlen `SCHEDULE_EXACT_ALARM` oder `USE_FULL_SCREEN_INTENT`, erscheinen entsprechende Banner/Warnungen. |
 | TC-33 | Kaltstart iOS | App-Start per Alarm-Klick (Kaltstart) löst keinen Boot-Loop/Absturz aus. |
