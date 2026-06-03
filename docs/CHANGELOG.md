@@ -2,8 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 1.9.16 – 2026-06-03
+## 1.9.17 – 2026-06-03
 ### Verbessert
+- **Zuverlässiger Snooze-Wecker** – Die Snooze-Funktion wurde repariert und klingelt jetzt wieder absolut zuverlässig. Beim Snoozen bleibt dein Telefon gesperrt, damit du ungestört weiterschlafen kannst.
+- **Flüssigere Bedienung** – Wir haben im Hintergrund kräftig optimiert, sodass die App jetzt beim Scrollen durch den Weckplan noch schneller und flüssiger reagiert.
+- **Mehr Privatsphäre** – Nach dem Stoppen des Weckers oder beim Snoozen gibt es kein versehentliches Entsperren des Bildschirms mehr. Alles bleibt sicher.
+- **Bessere Barrierefreiheit** – Für Menschen, die Vorlesefunktionen (Screenreader) nutzen, haben wir Beschreibungen für Buttons verständlicher gemacht und kleine Übersetzungsfehler (z.B. bei Standard-Buttons) korrigiert.
+
+## 1.9.16 – 2026-06-03
 - **Zuverlässiger Snooze** – Die Schlummerfunktion wurde komplett überarbeitet und klingelt nun zuverlässig nach 5 Minuten erneut. In der App zeigt ein Banner die verbleibende Snooze-Zeit an und lässt sich jederzeit abbrechen.
 - **Nahtloser Wecker-Stopp** – Wenn du den Wecker stoppst, öffnet sich jetzt direkt die App, anstatt dich auf dem Startbildschirm des Handys zu lassen.
 - **Klarere Wecktöne** – Ein Fehler wurde behoben, durch den Wecktöne doppelt oder überlappend abgespielt wurden. Eigene Töne werden zudem zuverlässiger geladen.
