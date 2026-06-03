@@ -49,14 +49,12 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         val idForHash = if (isSnooze) memberId + "_snooze" else memberId
         val requestCode = idForHash.hashCode().and(0x7fffffff)
 
-        // FLAG_CANCEL_CURRENT: PendingIntent immer neu erstellen (clean slate).
-        // Kombinieren von FLAG_UPDATE_CURRENT + FLAG_IMMUTABLE kann auf manchen Geräten
-        // dazu führen, dass AlarmManager den Receiver nie aufruft.
+        // FLAG_UPDATE_CURRENT is used to prevent lost alarms.
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,
             intent,
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         // AlarmClockInfo benötigt als Show-Intent eine getActivity-Intent (nicht getBroadcast).
@@ -87,7 +85,7 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
             context,
             requestCode,
             intent,
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         alarmManager.cancel(pendingIntent)
 
