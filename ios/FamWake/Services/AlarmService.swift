@@ -26,13 +26,24 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     func perform() async throws -> some IntentResult {
         // Cancel fallback push notification and system sound if active
         await AlarmService.shared.stopAlarm()
-        await AlarmService.shared.cancelWakeUp(memberId: memberId)
-        // Snooze-Banner aufräumen, falls der User einen gesnoozten Wecker stoppt
-        UserDefaults.standard.removeObject(forKey: "snooze_until")
         
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
+        // Prüfen ob gerade ein Snooze aktiv ist (SnoozeNotifyIntent hat einen
+        // neuen Alarm geplant). In dem Fall darf cancelWakeUp NICHT aufgerufen
+        // werden, sonst wird der gerade geplante Snooze-Alarm gelöscht.
+        let snoozeUntil = UserDefaults.standard.double(forKey: "snooze_until")
+        let hasActiveSnooze = snoozeUntil > Date().timeIntervalSince1970
+        
+        if !hasActiveSnooze {
+            await AlarmService.shared.cancelWakeUp(memberId: memberId)
+            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
+            }
         }
+        // Bei aktivem Snooze: nichts tun – der Snooze-Alarm läuft weiter,
+        // die App zeigt bereits den Snooze-Banner.
+        
         return .result()
     }
 }
