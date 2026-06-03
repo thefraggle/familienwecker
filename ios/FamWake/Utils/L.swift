@@ -216,6 +216,8 @@ enum L {
     static var errorInvalidEmail: String { s("error_invalid_email") }
     static var errorNetwork: String { s("error_network") }
     static var errorAlarmPermission: String { s("error_alarm_permission") }
+    static var errorOffline: String { s("error_offline") }
+    static var offlineWriteHint: String { s("offline_write_hint") }
 
     // MARK: - Weekdays
     static func weekday(_ day: Int) -> String { s("weekday_\(day)") }
