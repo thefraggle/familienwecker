@@ -86,10 +86,9 @@ struct AppRouter: View {
         .onReceive(NotificationCenter.default.publisher(for: .snoozeAlarmFromNotification)) { notif in
             appState.stopRinging()
             if let info = notif.userInfo,
-               let snoozeTime = info["snoozeTime"] as? Date {
-                // Nur UI-State setzen – der SnoozeNotifyIntent hat den Alarm
-                // bereits via scheduleWakeUpAsync geplant.
-                familyViewModel.snoozeUIOnly(snoozeTime: snoozeTime)
+               let memberId = info["memberId"] as? String,
+               let memberName = info["memberName"] as? String {
+                familyViewModel.snooze(memberId: memberId, memberName: memberName)
             }
         }
         .fullScreenCover(isPresented: $appState.isRinging) {
