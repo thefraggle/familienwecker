@@ -938,7 +938,7 @@ private fun TimePickerRow(
                 TextButton(onClick = {
                     onTimeSelected(LocalTime.of(pickerState.hour, pickerState.minute))
                     showPicker = false
-                }) { Text("OK") }
+                }) { Text(stringResource(android.R.string.ok)) }
             },
             dismissButton = {
                 TextButton(onClick = { showPicker = false }) {
@@ -1006,7 +1006,7 @@ private fun TimePickerRowWithIcon(
                 TextButton(onClick = {
                     onTimeSelected(LocalTime.of(pickerState.hour, pickerState.minute))
                     showPicker = false
-                }) { Text("OK") }
+                }) { Text(stringResource(android.R.string.ok)) }
             },
             dismissButton = {
                 TextButton(onClick = { showPicker = false }) {
