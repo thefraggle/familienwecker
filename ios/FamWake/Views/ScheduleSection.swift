@@ -49,6 +49,7 @@ struct ScheduleSection: View {
                             )
                     }
                     .buttonStyle(BounceButtonStyle())
+                    .accessibilityLabel("\(dayName)\(isSelected ? ", ausgewählt" : "")")
                 }
             }
             .padding(.vertical, 8)

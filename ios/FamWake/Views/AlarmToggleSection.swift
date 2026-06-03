@@ -27,6 +27,7 @@ struct AlarmToggleSection: View {
                     .labelsHidden()
                     .disabled(familyViewModel.myMemberId == nil)
                     .tint(theme.secondary)
+                    .accessibilityLabel(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
                 }
 
                 if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipSwitchSeen {
@@ -61,6 +62,7 @@ struct AlarmToggleSection: View {
                     }
                     .buttonStyle(.plain)
                     .animation(.easeInOut(duration: 0.2), value: isAwake)
+                    .accessibilityLabel(isAwake ? L.awakeActiveDesc : L.awakeTodayDesc)
 
                     // Tooltip A
                     if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipAwakeSeen {

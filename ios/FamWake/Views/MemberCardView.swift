@@ -76,6 +76,7 @@ struct MemberCardView: View {
                                 .foregroundStyle(theme.outline)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel(member.isPaused ? L.memberStatusActive : L.memberStatusPaused)
                     }
 
                     // Edit: eigene oder unclaimed zur Visualisierung (ganze Kachel ist klickbar)
@@ -86,6 +87,7 @@ struct MemberCardView: View {
                                 .foregroundStyle(theme.outline)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel(L.addMemberTitleEdit)
                     }
 
                     // Delete: eigene oder unclaimed (Android MemberCard.kt:200)
@@ -96,6 +98,7 @@ struct MemberCardView: View {
                                 .foregroundStyle(theme.error)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel(L.s("delete_member_confirm_title"))
                     }
                 }
             }
@@ -110,6 +113,8 @@ struct MemberCardView: View {
             .shadow(color: .black.opacity(isDark ? 0.2 : 0.06), radius: 12, x: 0, y: 4)
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(member.name), \(member.isPaused ? L.memberStatusPaused : "")")
     }
 
     // MARK: - Alarm Status Badge (Android MemberCard.kt:86-114)
