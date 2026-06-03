@@ -62,22 +62,16 @@ struct SilentSnoozeFamWakeIntent: LiveActivityIntent {
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         
-        await withCheckedContinuation { continuation in
-            Task { @MainActor in
-                AlarmService.shared.scheduleWakeUp(
-                    wakeUpTime: snoozeTime,
-                    memberId: memberId,
-                    memberName: memberName,
-                    soundUri: savedSoundUri,
-                    isSnooze: true,
-                    onPermissionDenied: {
-                        continuation.resume()
-                    },
-                    onSuccess: {
-                        continuation.resume()
-                    }
-                )
-            }
+        do {
+            try await AlarmService.shared.scheduleWakeUpAsync(
+                wakeUpTime: snoozeTime,
+                memberId: memberId,
+                memberName: memberName,
+                soundUri: savedSoundUri,
+                isSnooze: true
+            )
+        } catch {
+            print("Background snooze scheduling failed: \(error)")
         }
         
         return .result()
@@ -113,89 +107,84 @@ final class AlarmService: ObservableObject {
         return newUUID
     }
 
+    func scheduleWakeUpAsync(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool) async throws {
+        let status = try await AlarmManager.shared.requestAuthorization()
+        if status != .authorized {
+            throw NSError(domain: "AlarmKit", code: 1, userInfo: [NSLocalizedDescriptionKey: "Not authorized"])
+        }
+        
+        var finalSoundNameToUse: String? = nil
+        if let soundUri = soundUri {
+            let lowerUri = soundUri.lowercased()
+            var soundName = "alarm_sound_v3.caf"
+            if soundUri == "default" || soundUri == "system" || soundUri.isEmpty {
+                soundName = ""
+            } else if lowerUri.hasSuffix(".caf") || lowerUri.hasSuffix(".mp3") || lowerUri.hasSuffix(".wav") {
+                soundName = soundUri
+            } else if let url = URL(string: soundUri) {
+                soundName = url.lastPathComponent
+            }
+            if !soundName.isEmpty {
+                if Bundle.main.path(forResource: (soundName as NSString).deletingPathExtension, ofType: (soundName as NSString).pathExtension) != nil {
+                    #if targetEnvironment(simulator)
+                    finalSoundNameToUse = (soundName as NSString).deletingPathExtension
+                    #else
+                    finalSoundNameToUse = soundName
+                    #endif
+                }
+            }
+        }
+        
+        let alert: AlarmPresentation.Alert
+        if #available(iOS 26.1, *) {
+            alert = AlarmPresentation.Alert(
+                title: LocalizedStringResource(stringLiteral: memberName),
+                secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
+                secondaryButtonBehavior: .custom
+            )
+        } else {
+            alert = AlarmPresentation.Alert(
+                title: LocalizedStringResource(stringLiteral: memberName),
+                stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle"),
+                secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
+                secondaryButtonBehavior: .custom
+            )
+        }
+        let presentation = AlarmPresentation(alert: alert)
+        
+        let attributes = AlarmAttributes<FamWakeAlarmMetadata>(
+            presentation: presentation,
+            metadata: FamWakeAlarmMetadata(memberId: memberId),
+            tintColor: .sunriseOrange500
+        )
+        
+        let config = AlarmManager.AlarmConfiguration.alarm(
+            schedule: Alarm.Schedule.fixed(wakeUpTime),
+            attributes: attributes,
+            stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
+            secondaryIntent: SilentSnoozeFamWakeIntent(memberId: memberId, memberName: memberName),
+            sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
+        )
+        
+        let oldUuid = self.getUUID(for: memberId)
+        do {
+            try await AlarmManager.shared.cancel(id: oldUuid)
+        } catch {
+            print("Cancel skipped or failed: \(error)")
+        }
+        
+        let uuid = self.generateNewUUID(for: memberId)
+        try await AlarmManager.shared.schedule(id: uuid, configuration: config)
+    }
+
     func scheduleWakeUp(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool, onPermissionDenied: (() -> Void)? = nil, onSuccess: (() -> Void)? = nil) {
         schedulingTasks[memberId]?.cancel()
         
         let task = Task {
             do {
                 if Task.isCancelled { return }
-                let status = try await AlarmManager.shared.requestAuthorization()
+                try await scheduleWakeUpAsync(wakeUpTime: wakeUpTime, memberId: memberId, memberName: memberName, soundUri: soundUri, isSnooze: isSnooze)
                 if Task.isCancelled { return }
-                
-                if status != .authorized {
-                    DispatchQueue.main.async { onPermissionDenied?() }
-                    return
-                }
-                
-                var finalSoundNameToUse: String? = nil
-                if let soundUri = soundUri {
-                    let lowerUri = soundUri.lowercased()
-                    var soundName = "alarm_sound_v3.caf"
-                    if soundUri == "default" || soundUri == "system" || soundUri.isEmpty {
-                        soundName = ""
-                    } else if lowerUri.hasSuffix(".caf") || lowerUri.hasSuffix(".mp3") || lowerUri.hasSuffix(".wav") {
-                        soundName = soundUri
-                    } else if let url = URL(string: soundUri) {
-                        soundName = url.lastPathComponent
-                    }
-                    if !soundName.isEmpty {
-                        if Bundle.main.path(forResource: (soundName as NSString).deletingPathExtension, ofType: (soundName as NSString).pathExtension) != nil {
-                            #if targetEnvironment(simulator)
-                            // The simulator SpringBoard crashes if the extension is provided.
-                            finalSoundNameToUse = (soundName as NSString).deletingPathExtension
-                            #else
-                            // The real device REQUIRES the extension, otherwise it falls back to default.
-                            finalSoundNameToUse = soundName
-                            #endif
-                        }
-                    }
-                }
-                
-                // We will determine the final UUID later
-                
-                let alert: AlarmPresentation.Alert
-                if #available(iOS 26.1, *) {
-                    alert = AlarmPresentation.Alert(
-                        title: LocalizedStringResource(stringLiteral: memberName),
-                        secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                        secondaryButtonBehavior: .custom
-                    )
-                } else {
-                    alert = AlarmPresentation.Alert(
-                        title: LocalizedStringResource(stringLiteral: memberName),
-                        stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle"),
-                        secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                        secondaryButtonBehavior: .custom
-                    )
-                }
-                let presentation = AlarmPresentation(alert: alert)
-                
-                let attributes = AlarmAttributes<FamWakeAlarmMetadata>(
-                    presentation: presentation,
-                    metadata: FamWakeAlarmMetadata(memberId: memberId),
-                    tintColor: .sunriseOrange500
-                )
-                
-                let config = AlarmManager.AlarmConfiguration.alarm(
-                    schedule: Alarm.Schedule.fixed(wakeUpTime),
-                    attributes: attributes,
-                    stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
-                    secondaryIntent: SilentSnoozeFamWakeIntent(memberId: memberId, memberName: memberName),
-                    sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
-                )
-                
-                let oldUuid = self.getUUID(for: memberId)
-                do {
-                    try await AlarmManager.shared.cancel(id: oldUuid)
-                } catch {
-                    print("Cancel skipped or failed: \(error)")
-                }
-                
-                // IMMER eine neue UUID generieren, um Zombie-States (Code=0) in AlarmKit zu umgehen
-                let uuid = self.generateNewUUID(for: memberId)
-                
-                if Task.isCancelled { return }
-                try await AlarmManager.shared.schedule(id: uuid, configuration: config)
                 DispatchQueue.main.async { onSuccess?() }
             } catch {
                 let errStr = String(describing: error)
