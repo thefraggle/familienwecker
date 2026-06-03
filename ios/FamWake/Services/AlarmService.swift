@@ -37,9 +37,8 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
 }
 
-// Leichtgewichtiger Intent: Schreibt NUR den Snooze-Zeitpunkt in UserDefaults,
-// damit der Banner in der App angezeigt wird. Die tatsächliche Snooze-Wiederholung
-// übernimmt AlarmKit nativ über .countdown + postAlert.
+// Snooze-Intent: Schreibt Snooze-Zeitpunkt in UserDefaults (für Banner)
+// UND plant den nächsten Wecker direkt über AlarmManager (ohne @MainActor-Umweg).
 struct SnoozeNotifyIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
     static var openAppWhenRun: Bool = false
@@ -58,11 +57,54 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
     }
     
     func perform() async throws -> some IntentResult {
-        // Kein AlarmKit-Aufruf! Nur UserDefaults für den App-Banner.
         let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
         let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
         let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
+        
+        // 1. Banner-State setzen
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+        
+        // 2. Sound ermitteln
+        let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
+        var snoozeSoundName: String? = nil
+        if let uri = savedSoundUri, !uri.isEmpty, uri != "default", uri != "system" {
+            let name = uri.hasSuffix(".caf") || uri.hasSuffix(".mp3") || uri.hasSuffix(".wav") ? uri : "alarm_sound_v3.caf"
+            if Bundle.main.path(forResource: (name as NSString).deletingPathExtension, ofType: (name as NSString).pathExtension) != nil {
+                snoozeSoundName = name
+            }
+        }
+        
+        // 3. AlarmKit-Konfiguration direkt aufbauen (kein @MainActor-Umweg)
+        let alert = AlarmPresentation.Alert(
+            title: LocalizedStringResource(stringLiteral: memberName),
+            secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
+            secondaryButtonBehavior: .custom
+        )
+        let presentation = AlarmPresentation(alert: alert)
+        let attributes = AlarmAttributes<FamWakeAlarmMetadata>(
+            presentation: presentation,
+            metadata: FamWakeAlarmMetadata(memberId: memberId),
+            tintColor: .sunriseOrange500
+        )
+        
+        let config = AlarmManager.AlarmConfiguration.alarm(
+            schedule: Alarm.Schedule.fixed(snoozeTime),
+            attributes: attributes,
+            stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
+            secondaryIntent: SnoozeNotifyIntent(memberId: memberId, memberName: memberName),
+            sound: snoozeSoundName == nil ? .default : .named(snoozeSoundName!)
+        )
+        
+        // 4. Alten Wecker canceln, neuen mit frischer UUID planen
+        let uuidKey = "alarm_uuid_\(memberId)"
+        if let oldStr = UserDefaults.standard.string(forKey: uuidKey), let oldUUID = UUID(uuidString: oldStr) {
+            try? await AlarmManager.shared.cancel(id: oldUUID)
+        }
+        let newUUID = UUID()
+        UserDefaults.standard.set(newUUID.uuidString, forKey: uuidKey)
+        
+        try await AlarmManager.shared.schedule(id: newUUID, configuration: config)
+        
         return .result()
     }
 }
@@ -130,14 +172,14 @@ final class AlarmService: ObservableObject {
             alert = AlarmPresentation.Alert(
                 title: LocalizedStringResource(stringLiteral: memberName),
                 secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                secondaryButtonBehavior: .countdown
+                secondaryButtonBehavior: .custom
             )
         } else {
             alert = AlarmPresentation.Alert(
                 title: LocalizedStringResource(stringLiteral: memberName),
                 stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle"),
                 secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                secondaryButtonBehavior: .countdown
+                secondaryButtonBehavior: .custom
             )
         }
         let presentation = AlarmPresentation(alert: alert)
