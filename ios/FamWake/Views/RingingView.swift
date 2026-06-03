@@ -41,7 +41,7 @@ struct RingingView: View {
                 // Texte
                 VStack(spacing: 12) {
                     Text(L.ringingWakeUp(memberName))
-                        .font(.system(size: 28, weight: .black))
+                        .font(.title.weight(.black))
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 28)
