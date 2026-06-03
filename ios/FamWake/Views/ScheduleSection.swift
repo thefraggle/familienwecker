@@ -122,7 +122,7 @@ struct ScheduleSection: View {
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 8)
                                     .background(textColor.opacity(0.1))
-                                    .cornerRadius(8)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
                                     .padding(.leading, 28)
                                     .foregroundStyle(textColor)
                             }
@@ -138,7 +138,7 @@ struct ScheduleSection: View {
                                     .padding(.horizontal, 20)
                                     .padding(.vertical, 10)
                                     .background(theme.primary)
-                                    .cornerRadius(12)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
                             .padding(.leading, 28)
