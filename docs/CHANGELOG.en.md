@@ -4,10 +4,11 @@
 
 ## 1.9.16 – 2026-06-03
 ### Improved
-- **Reliable Snooze Mode** – The snooze button on the lock screen now works even more reliably, bringing you right back into the app to safely activate the snooze function. The snooze duration has also been optimized back to 5 minutes by popular demand.
-- **Clearer Alarm Sounds** – We fixed an issue where alarm sounds could sometimes play twice or overlap. Now the alarm rings crystal clear and custom sounds load more reliably.
-- **Stable Offline Mode** – If you lose your internet connection, the app will now safely revert changes (e.g., when pausing an alarm) if they couldn't be saved, rather than displaying an incorrect status.
-- **Safer Wake-Ups** – A background system optimization ensures that scheduled alarms are never "swallowed" or missed under any circumstances.
+- **Reliable Snooze** – The snooze feature has been completely overhauled and now reliably rings again after 5 minutes. A banner in the app shows the remaining snooze time and can be cancelled at any time.
+- **Seamless Alarm Stop** – When you stop the alarm, the app now opens directly instead of leaving you on the phone's home screen.
+- **Clearer Alarm Sounds** – Fixed an issue where alarm sounds could play twice or overlap. Custom sounds also load more reliably now.
+- **Stable Offline Mode** – If you lose your internet connection, the app will now safely revert changes (e.g., when pausing an alarm) if they couldn't be saved.
+- **Safer Wake-Ups** – A background optimization ensures that scheduled alarms are never "swallowed" or missed under any circumstances.
 
 ## 1.9.15 – 2026-06-01
 ### Improved
