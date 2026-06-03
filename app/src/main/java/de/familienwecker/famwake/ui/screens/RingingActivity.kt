@@ -89,7 +89,7 @@ class RingingActivity : AppCompatActivity() {
                             }
                             startActivity(intent)
                             
-                            stopRingtoneAndFinish()
+                            stopRingtoneAndOpenApp()
                         },
                         onSnoozeClicked = {
                             val snoozeTime = java.time.LocalDateTime.now().plusMinutes(5)
@@ -104,7 +104,7 @@ class RingingActivity : AppCompatActivity() {
                             // Tracking: Nutzer hat Snooze gewählt (direkt in RingingActivity,
                             // da viewModel.snooze() hier nicht verfügbar ist)
                             TelemetryDeck.signal("alarm.snoozed")
-                            stopRingtoneAndFinish()
+                            stopRingtoneAndLock()
                         }
                     )
                 }
@@ -170,19 +170,30 @@ class RingingActivity : AppCompatActivity() {
         // Wenn alle Versuche scheitern, klingelt die App lautlos (besser als Crash)
     }
 
-    private fun stopRingtoneAndFinish() {
+    // Stop: Sound aus, Flags behalten damit MainActivity sichtbar wird
+    private fun stopRingtoneAndOpenApp() {
         try {
-            // Letzten Alarm-Zeitpunkt für Review-Logik speichern
             val appSettings = (application as FamWakeApplication).appSettings
             appSettings.setLastAlarmTime(System.currentTimeMillis())
-            
+            mediaPlayer?.stop()
+        } catch (_: IllegalStateException) {}
+        mediaPlayer?.release()
+        mediaPlayer = null
+        // KEINE Flags löschen – Keyguard bleibt dismissed, damit die App sichtbar ist
+        finish()
+    }
+
+    // Snooze: Sound aus, Flags löschen damit Handy gesperrt bleibt
+    private fun stopRingtoneAndLock() {
+        try {
+            val appSettings = (application as FamWakeApplication).appSettings
+            appSettings.setLastAlarmTime(System.currentTimeMillis())
             mediaPlayer?.stop()
         } catch (_: IllegalStateException) {}
         mediaPlayer?.release()
         mediaPlayer = null
         
-        // Window-Flags zurücksetzen, damit Android den Sperrbildschirm nicht überspringt,
-        // falls das Gerät z.B. während des Klingelns durch Face Unlock entsperrt wurde.
+        // Window-Flags zurücksetzen → Handy kehrt zum Sperrbildschirm zurück
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(false)
             setTurnScreenOn(false)
