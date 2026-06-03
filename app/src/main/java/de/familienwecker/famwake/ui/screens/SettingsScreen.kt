@@ -1207,7 +1207,11 @@ fun SettingsScreen(
                             val intent = Intent(Intent.ACTION_SENDTO).apply {
                                 data = "mailto:daniel.notthoff@gmail.com?subject=$subject".toUri()
                             }
-                            context.startActivity(intent)
+                            try {
+                                context.startActivity(intent)
+                            } catch (_: android.content.ActivityNotFoundException) {
+                                // Kein E-Mail-Client installiert – ignorieren
+                            }
                         },
                         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(supportInteractionSource),
@@ -1258,7 +1262,11 @@ fun SettingsScreen(
                     TextButton(
                         onClick = {
                             val intent = Intent(Intent.ACTION_VIEW, deleteAccountUrl.toUri())
-                            context.startActivity(intent)
+                            try {
+                                context.startActivity(intent)
+                            } catch (_: android.content.ActivityNotFoundException) {
+                                // Kein Browser installiert – ignorieren
+                            }
                         },
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     ) {
@@ -1323,7 +1331,11 @@ fun SettingsScreen(
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
                             val url = context.getString(R.string.settings_terms_of_use_url)
-                            context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                            try {
+                                context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                            } catch (_: android.content.ActivityNotFoundException) {
+                                // Kein Browser installiert – ignorieren
+                            }
                         }
                     )
                     Text(
@@ -1332,7 +1344,11 @@ fun SettingsScreen(
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
                             val url = context.getString(R.string.settings_privacy_policy_url)
-                            context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                            try {
+                                context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                            } catch (_: android.content.ActivityNotFoundException) {
+                                // Kein Browser installiert – ignorieren
+                            }
                         }
                     )
                     Text(
@@ -1341,7 +1357,11 @@ fun SettingsScreen(
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
                             val url = context.getString(R.string.settings_imprint_url)
-                            context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                            try {
+                                context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                            } catch (_: android.content.ActivityNotFoundException) {
+                                // Kein Browser installiert – ignorieren
+                            }
                         }
                     )
                 }

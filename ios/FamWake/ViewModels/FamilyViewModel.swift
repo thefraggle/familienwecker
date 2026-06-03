@@ -226,7 +226,13 @@ class FamilyViewModel: ObservableObject {
                 }
                 batch.updateData(updates, forDocument: ref)
             }
-            batch.commit()
+            Task {
+                do {
+                    try await batch.commit()
+                } catch {
+                    print("Batch commit failed during member reset: \(error.localizedDescription)")
+                }
+            }
         }
     }
 

@@ -259,7 +259,7 @@ class FamilyViewModel(
             var lastMemberId: String? = appSettings.myMemberId.value
             appSettings.myMemberId.collect { newId ->
                 if (lastMemberId != null && lastMemberId != newId) {
-                    alarmScheduler.cancelWakeUp(lastMemberId!!)
+                    lastMemberId?.let { alarmScheduler.cancelWakeUp(it) }
                 }
                 lastMemberId = newId
             }

@@ -60,6 +60,7 @@
             android:showOnLockScreen="true"
             android:turnScreenOn="true"
             android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:theme="@style/Theme.Familienwecker" />
 
         <receiver

@@ -43,17 +43,7 @@ struct FamilySetupView: View {
                     .pickerStyle(.segmented)
                     .padding(.bottom, 24)
 
-                    // Deep-Link Auto-Join
-                    let _ = familyViewModel.pendingJoinCode.map { code in
-                        if !isLoading {
-                            isLoading = true
-                            familyViewModel.joinFamily(code) { success in
-                                isLoading = false
-                                familyViewModel.clearPendingJoinCode()
-                                if success { appState.route = .main }
-                            }
-                        }
-                    }
+
 
                     if isCreateMode {
                         // Familie erstellen
@@ -142,6 +132,16 @@ struct FamilySetupView: View {
             }
         }
         .animation(.easeInOut(duration: 0.2), value: isCreateMode)
+        .onChange(of: familyViewModel.pendingJoinCode) { _, newCode in
+            // Deep-Link Auto-Join – nur ausführen wenn sich pendingJoinCode ändert
+            guard let code = newCode, !isLoading else { return }
+            isLoading = true
+            familyViewModel.joinFamily(code) { success in
+                isLoading = false
+                familyViewModel.clearPendingJoinCode()
+                if success { appState.route = .main }
+            }
+        }
         .onDisappear {
             familyViewModel.clearError()
         }
