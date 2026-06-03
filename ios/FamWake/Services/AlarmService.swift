@@ -65,13 +65,23 @@ struct FamWakeSnoozeIntent: LiveActivityIntent {
         
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         
-        await AlarmService.shared.scheduleWakeUp(
-            wakeUpTime: snoozeTime,
-            memberId: memberId,
-            memberName: memberName,
-            soundUri: soundUri,
-            isSnooze: true
-        )
+        await withCheckedContinuation { continuation in
+            Task { @MainActor in
+                AlarmService.shared.scheduleWakeUp(
+                    wakeUpTime: snoozeTime,
+                    memberId: memberId,
+                    memberName: memberName,
+                    soundUri: soundUri,
+                    isSnooze: true,
+                    onPermissionDenied: {
+                        continuation.resume()
+                    },
+                    onSuccess: {
+                        continuation.resume()
+                    }
+                )
+            }
+        }
         
         return .result()
     }
