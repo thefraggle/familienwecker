@@ -698,25 +698,21 @@ class FamilyViewModel: ObservableObject {
     }
 
     func snooze(memberId: String, memberName: String) {
-        let snoozeTime = Date().addingTimeInterval(5 * 60)
+        let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
+        let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
+        let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
+        
         snoozeUntil = snoozeTime
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+        
+        let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         AlarmService.shared.scheduleWakeUp(
             wakeUpTime: snoozeTime,
             memberId: memberId,
             memberName: memberName,
-            soundUri: nil,
+            soundUri: savedSoundUri,
             isSnooze: true
         )
-    }
-
-    /// Nur UI-State setzen (Banner), NICHT erneut schedulen.
-    /// Wird vom SnoozeNotifyIntent aufgerufen – der Intent hat den Alarm
-    /// bereits via `scheduleWakeUpAsync` geplant. Ein erneutes `scheduleWakeUp`
-    /// hier würde den geplanten Alarm via Task-Cancel überschreiben.
-    func snoozeUIOnly(snoozeTime: Date) {
-        snoozeUntil = snoozeTime
-        UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
     }
 
     func cancelSnooze(_ memberId: String) {
