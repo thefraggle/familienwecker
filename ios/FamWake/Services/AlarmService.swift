@@ -191,7 +191,8 @@ final class AlarmService: ObservableObject {
                     print("Cancel skipped or failed: \(error)")
                 }
                 
-                let uuid = isSnooze ? self.generateNewUUID(for: memberId) : oldUuid
+                // IMMER eine neue UUID generieren, um Zombie-States (Code=0) in AlarmKit zu umgehen
+                let uuid = self.generateNewUUID(for: memberId)
                 
                 if Task.isCancelled { return }
                 try await AlarmManager.shared.schedule(id: uuid, configuration: config)
