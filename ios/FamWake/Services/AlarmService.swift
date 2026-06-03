@@ -36,11 +36,56 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
 }
 
-// MARK: - Custom Snooze Intent (DEAKTIVIERT – iOS 26 Beta Bug)
-// AlarmKit .custom secondaryButtonBehavior killt den geplanten Snooze-Alarm
-// beim Dismiss des ersten Alarms. Nutzen stattdessen natives .countdown.
-// TODO: Reaktivieren sobald Apple das fixt.
-// Siehe: .antigravity/todo.md
+// Snooze-Intent: openAppWhenRun = true ist ZWINGEND, weil iOS das Planen
+// von AlarmKit-Weckern aus Hintergrund-Intents lautlos blockiert.
+// TODO: Snooze-Alarm klingelt nach iOS 26 Beta nicht zuverlässig erneut.
+// Siehe .antigravity/todo.md – Custom Snooze für späteres iOS-Release vorgesehen.
+struct SnoozeNotifyIntent: LiveActivityIntent {
+    static var title: LocalizedStringResource = "Snooze"
+    static var openAppWhenRun: Bool = true
+
+    @Parameter(title: "Member ID")
+    var memberId: String
+
+    @Parameter(title: "Member Name")
+    var memberName: String
+
+    init() {}
+
+    init(memberId: String, memberName: String) {
+        self.memberId = memberId
+        self.memberName = memberName
+    }
+
+    func perform() async throws -> some IntentResult {
+        await AlarmService.shared.stopAlarm()
+
+        let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
+        let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
+        let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
+
+        UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+
+        let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
+        try await AlarmService.shared.scheduleWakeUpAsync(
+            wakeUpTime: snoozeTime,
+            memberId: memberId,
+            memberName: memberName,
+            soundUri: savedSoundUri,
+            isSnooze: true
+        )
+
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [
+                "memberId": memberId,
+                "memberName": memberName,
+                "snoozeTime": snoozeTime
+            ])
+        }
+
+        return .result()
+    }
+}
 
 struct FamWakeAlarmMetadata: AlarmMetadata {
     var memberId: String
@@ -100,34 +145,34 @@ final class AlarmService: ObservableObject {
         }
         
         
-        // Natives iOS-Snooze via .countdown – iOS verwaltet den Snooze-Alarm intern.
         let alert: AlarmPresentation.Alert
         if #available(iOS 26.1, *) {
             alert = AlarmPresentation.Alert(
                 title: LocalizedStringResource(stringLiteral: memberName),
                 secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                secondaryButtonBehavior: .countdown
+                secondaryButtonBehavior: .custom
             )
         } else {
             alert = AlarmPresentation.Alert(
                 title: LocalizedStringResource(stringLiteral: memberName),
                 stopButton: AlarmButton(text: "Stop", textColor: .white, systemImageName: "stop.circle"),
                 secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                secondaryButtonBehavior: .countdown
+                secondaryButtonBehavior: .custom
             )
         }
         let presentation = AlarmPresentation(alert: alert)
-        
+
         let attributes = AlarmAttributes<FamWakeAlarmMetadata>(
             presentation: presentation,
             metadata: FamWakeAlarmMetadata(memberId: memberId),
             tintColor: .sunriseOrange500
         )
-        
+
         let config = AlarmManager.AlarmConfiguration.alarm(
             schedule: Alarm.Schedule.fixed(wakeUpTime),
             attributes: attributes,
             stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
+            secondaryIntent: SnoozeNotifyIntent(memberId: memberId, memberName: memberName),
             sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
         )
         
