@@ -707,6 +707,9 @@ class FamilyViewModel: ObservableObject {
     func cancelSnooze(_ memberId: String) {
         snoozeUntil = nil
         UserDefaults.standard.removeObject(forKey: "snooze_until")
+        // Bei nativem .countdown-Snooze läuft der Countdown unter der Haupt-UUID,
+        // daher beide canceln (Haupt + ggf. alte Snooze-UUID).
+        AlarmService.shared.cancelWakeUp(memberId: memberId)
         AlarmService.shared.cancelWakeUp(memberId: memberId, isSnooze: true)
     }
 
