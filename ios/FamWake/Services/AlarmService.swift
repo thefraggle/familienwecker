@@ -35,7 +35,7 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
 }
 
-struct FamWakeSnoozeIntent: LiveActivityIntent {
+struct SilentSnoozeFamWakeIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
     static var openAppWhenRun: Bool = false
     
@@ -45,15 +45,11 @@ struct FamWakeSnoozeIntent: LiveActivityIntent {
     @Parameter(title: "Member Name")
     var memberName: String
     
-    @Parameter(title: "Sound URI")
-    var soundUri: String?
-    
     init() {}
     
-    init(memberId: String, memberName: String, soundUri: String?) {
+    init(memberId: String, memberName: String) {
         self.memberId = memberId
         self.memberName = memberName
-        self.soundUri = soundUri
     }
     
     func perform() async throws -> some IntentResult {
@@ -64,6 +60,7 @@ struct FamWakeSnoozeIntent: LiveActivityIntent {
         let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
         
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+        let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         
         await withCheckedContinuation { continuation in
             Task { @MainActor in
@@ -71,7 +68,7 @@ struct FamWakeSnoozeIntent: LiveActivityIntent {
                     wakeUpTime: snoozeTime,
                     memberId: memberId,
                     memberName: memberName,
-                    soundUri: soundUri,
+                    soundUri: savedSoundUri,
                     isSnooze: true,
                     onPermissionDenied: {
                         continuation.resume()
@@ -178,7 +175,7 @@ final class AlarmService: ObservableObject {
                     schedule: Alarm.Schedule.fixed(wakeUpTime),
                     attributes: attributes,
                     stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
-                    secondaryIntent: FamWakeSnoozeIntent(memberId: memberId, memberName: memberName, soundUri: soundUri),
+                    secondaryIntent: SilentSnoozeFamWakeIntent(memberId: memberId, memberName: memberName),
                     sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
                 )
                 
