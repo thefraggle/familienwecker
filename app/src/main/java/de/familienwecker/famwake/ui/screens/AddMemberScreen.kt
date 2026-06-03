@@ -51,6 +51,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import de.familienwecker.famwake.model.toJavaLocalTime
 import de.familienwecker.famwake.model.toKmpLocalTime
 import de.familienwecker.famwake.ui.components.TooltipBubble
+import androidx.compose.runtime.derivedStateOf
 
 // Mo=1 … So=7 nach java.time.DayOfWeek
 private val WEEKDAY_KEYS = 1..7
@@ -129,7 +130,7 @@ fun AddMemberScreen(
     var showDiscardConfirmDialog by remember { mutableStateOf(false) }
     var showNameError by remember { mutableStateOf(false) }
  
-    val hasChanges = name != initialName || dayProfiles != initialDayProfiles
+    val hasChanges by remember { derivedStateOf { name != initialName || dayProfiles != initialDayProfiles } }
  
     val handleBack = {
         if (hasChanges) {
@@ -157,10 +158,12 @@ fun AddMemberScreen(
         }
     )
 
-    val hasAtLeastOneActiveDay = dayProfiles.values.any { it.isActive }
-    val hasAnyValidationError = dayProfiles.entries.any { (_, profile) ->
-        profile.isActive && validateDayProfile(profile).isNotEmpty()
-    }
+    val hasAtLeastOneActiveDay by remember { derivedStateOf { dayProfiles.values.any { it.isActive } } }
+    val hasAnyValidationError by remember { derivedStateOf {
+        dayProfiles.entries.any { (_, profile) ->
+            profile.isActive && validateDayProfile(profile).isNotEmpty()
+        }
+    } }
 
     // Copy-Dialog
     if (showCopyDialog) {

@@ -334,7 +334,8 @@ fun LazyListScope.scheduleSection(
 
         itemsIndexed(
             items = schedule.memberSchedules,
-            key = { _, s -> "sched_${s.member.id}" }
+            key = { _, s -> "sched_${s.member.id}" },
+            contentType = { _, _ -> "schedule_item" }
         ) { index, sched ->
             val isDragging = draggedItemId == sched.member.id
             

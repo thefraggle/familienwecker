@@ -887,7 +887,6 @@ fun SettingsScreen(
                                 modifier = Modifier.padding(horizontal = 20.dp).padding(bottom = 12.dp)
                             )
 
-                            data class LangEntry(val code: String, val label: String)
 
                             // Alphabetisch nach nativem Namen
                             val mainLanguages = listOf(
@@ -987,7 +986,6 @@ fun SettingsScreen(
                     )
                     Spacer(modifier = Modifier.height(6.dp))
 
-                    data class ThemeOption(val code: String, val icon: androidx.compose.ui.graphics.vector.ImageVector, val description: String)
                     val themeOptions = listOf(
                         ThemeOption("light",  Icons.Default.WbSunny,       stringResource(R.string.settings_theme_light)),
                         ThemeOption("system", Icons.Default.BrightnessAuto, stringResource(R.string.settings_language_system)),
@@ -1464,3 +1462,7 @@ private fun PermissionWarningCard(
         }
     }
 }
+
+private data class LangEntry(val code: String, val label: String)
+
+private data class ThemeOption(val code: String, val icon: androidx.compose.ui.graphics.vector.ImageVector, val description: String)
