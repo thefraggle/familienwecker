@@ -19,7 +19,12 @@ struct FeedbackView: View {
     ]
 
     var isEmailValid: Bool {
-        email.isEmpty || email.contains("@") && email.contains(".")
+        let trimmed = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty { return true } // E-Mail ist optional
+        guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else { return false }
+        let range = NSRange(trimmed.startIndex..., in: trimmed)
+        let matches = detector.matches(in: trimmed, options: [], range: range)
+        return matches.first?.url?.scheme == "mailto"
     }
 
     var canSend: Bool {
