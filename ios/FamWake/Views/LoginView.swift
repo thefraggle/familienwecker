@@ -65,7 +65,7 @@ struct LoginView: View {
                     TextField(L.emailLabel, text: $email)
                         .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
-                        .autocapitalization(.none)
+                        .textInputAutocapitalization(.never)
                         .focused($focusedField, equals: .email)
                         .submitLabel(.next)
                         .onSubmit { focusedField = .password }

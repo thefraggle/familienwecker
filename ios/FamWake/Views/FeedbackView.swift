@@ -111,7 +111,7 @@ struct FeedbackView: View {
                             Text(L.feedbackEmailLabel).font(.caption).foregroundStyle(.secondary)
                             TextField(L.feedbackEmailPlaceholder, text: $email)
                                 .keyboardType(.emailAddress)
-                                .autocapitalization(.none)
+                                .textInputAutocapitalization(.never)
                                 .textFieldStyle(.roundedBorder)
                             if !isEmailValid {
                                 Text(L.errorInvalidEmail).font(.caption).foregroundStyle(.red)

@@ -76,8 +76,8 @@ struct FamilySetupView: View {
                             TextField(L.setupJoinCodeLabel, text: $joinCode)
                                 .textFieldStyle(.roundedBorder)
                                 .textCase(.uppercase)
-                                .autocapitalization(.allCharacters)
-                                .disableAutocorrection(true)
+                                .textInputAutocapitalization(.characters)
+                                .autocorrectionDisabled()
                                 .onChange(of: joinCode) { _, new in
                                     let filtered = new.filter { $0.isLetter || $0.isNumber }.uppercased()
                                     joinCode = String(filtered.prefix(6))
