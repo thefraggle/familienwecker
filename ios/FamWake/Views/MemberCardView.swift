@@ -76,7 +76,7 @@ struct MemberCardView: View {
                                 .foregroundStyle(theme.outline)
                         }
                         .buttonStyle(.plain)
-                        .accessibilityLabel(member.isPaused ? L.memberStatusActive : L.memberStatusPaused)
+                        .accessibilityLabel(member.isPaused ? L.s("main_member_alarm_on") : L.memberStatusPaused)
                     }
 
                     // Edit: eigene oder unclaimed zur Visualisierung (ganze Kachel ist klickbar)
