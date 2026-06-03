@@ -27,6 +27,8 @@ struct OpenFamWakeIntent: LiveActivityIntent {
         // Cancel fallback push notification and system sound if active
         await AlarmService.shared.stopAlarm()
         await AlarmService.shared.cancelWakeUp(memberId: memberId)
+        // Snooze-Banner aufräumen, falls der User einen gesnoozten Wecker stoppt
+        UserDefaults.standard.removeObject(forKey: "snooze_until")
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
@@ -35,8 +37,35 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
 }
 
-// Kein eigener Snooze-Intent mehr nötig – AlarmKit übernimmt den Snooze
-// vollständig nativ über .countdown mit postAlert-Dauer.
+// Leichtgewichtiger Intent: Schreibt NUR den Snooze-Zeitpunkt in UserDefaults,
+// damit der Banner in der App angezeigt wird. Die tatsächliche Snooze-Wiederholung
+// übernimmt AlarmKit nativ über .countdown + postAlert.
+struct SnoozeNotifyIntent: LiveActivityIntent {
+    static var title: LocalizedStringResource = "Snooze"
+    static var openAppWhenRun: Bool = false
+    
+    @Parameter(title: "Member ID")
+    var memberId: String
+    
+    @Parameter(title: "Member Name")
+    var memberName: String
+    
+    init() {}
+    
+    init(memberId: String, memberName: String) {
+        self.memberId = memberId
+        self.memberName = memberName
+    }
+    
+    func perform() async throws -> some IntentResult {
+        // Kein AlarmKit-Aufruf! Nur UserDefaults für den App-Banner.
+        let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
+        let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
+        let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
+        UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+        return .result()
+    }
+}
 
 struct FamWakeAlarmMetadata: AlarmMetadata {
     var memberId: String
@@ -95,9 +124,6 @@ final class AlarmService: ObservableObject {
             }
         }
         
-        // Snooze-Dauer aus den Einstellungen lesen (default: 5 Minuten)
-        let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
-        let actualSnoozeMinutes = snoozeDuration > 0 ? snoozeDuration : 5
         
         let alert: AlarmPresentation.Alert
         if #available(iOS 26.1, *) {
@@ -122,18 +148,11 @@ final class AlarmService: ObservableObject {
             tintColor: .sunriseOrange500
         )
         
-        // postAlert = Snooze-Dauer: Nach Drücken von "Snooze" klingelt der Wecker
-        // nach dieser Zeit erneut – komplett systemverwaltet, kein eigener Intent nötig.
-        let countdown = Alarm.CountdownDuration(
-            preAlert: nil,
-            postAlert: TimeInterval(actualSnoozeMinutes * 60)
-        )
-        
         let config = AlarmManager.AlarmConfiguration.alarm(
-            countdownDuration: countdown,
             schedule: Alarm.Schedule.fixed(wakeUpTime),
             attributes: attributes,
             stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
+            secondaryIntent: SnoozeNotifyIntent(memberId: memberId, memberName: memberName),
             sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
         )
         
