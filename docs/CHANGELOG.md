@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 1.9.16 – 2026-06-03
+### Verbessert
+- **Zuverlässiger Snooze-Modus** – Der Snooze-Button auf dem Sperrbildschirm funktioniert nun noch verlässlicher und bringt dich direkt zurück in die App, um die Schlummerfunktion sicher zu aktivieren. Die Schlummerzeit wurde zudem auf vielfachen Wunsch wieder auf 5 Minuten optimiert.
+- **Klarere Wecktöne** – Wir haben einen Fehler behoben, durch den Wecktöne unter Umständen doppelt oder überlappend abgespielt wurden. Jetzt klingelt der Wecker wieder glasklar und eigene Töne werden zuverlässiger geladen.
+- **Stabiler Offline-Modus** – Solltest du mal kein Internet haben, nimmt die App Änderungen (z. B. beim Pausieren) nun sicher zurück, falls sie nicht gespeichert werden konnten, anstatt einen falschen Status anzuzeigen.
+- **Sichereres Wecken** – Eine System-Optimierung im Hintergrund stellt sicher, dass geplante Wecker unter keinen Umständen mehr "verschluckt" werden.
+
 ## 1.9.15 – 2026-06-01
 ### Verbessert
 - **Wecker gezielter stellen** – Bei neu angelegten Familienmitgliedern sind Wecker nun standardmäßig für alle Wochentage ausgeschaltet (Opt-In). Du aktivierst nur die Tage, an denen der Wecker auch wirklich klingeln soll, und verhinderst so ungewolltes Wecken.
