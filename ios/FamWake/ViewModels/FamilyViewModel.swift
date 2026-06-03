@@ -382,7 +382,8 @@ class FamilyViewModel: ObservableObject {
         guard let fid = familyId else { return }
         guard let member = members.first(where: { $0.id == memberId }) else { return }
         if member.claimedByUserId != nil { return }
-        let newPausedState = !member.isPaused
+        let oldPausedState = member.isPaused
+        let newPausedState = !oldPausedState
         
         if let idx = members.firstIndex(where: { $0.id == memberId }) {
             members[idx].isPaused = newPausedState
@@ -394,7 +395,13 @@ class FamilyViewModel: ObservableObject {
             do {
                 try await FamilyFirestoreService.shared.togglePauseMember(familyId: fid, memberId: memberId, newPausedState: newPausedState)
             } catch {
-                // NO ROLLBACK: Vertraue auf Firestores Offline-Queue.
+                await MainActor.run {
+                    if let idx = self.members.firstIndex(where: { $0.id == memberId }) {
+                        self.members[idx].isPaused = oldPausedState
+                        self.recalculateSchedule()
+                    }
+                    self.errorMessage = L.errorGeneric
+                }
             }
         }
     }
@@ -405,6 +412,7 @@ class FamilyViewModel: ObservableObject {
 
     func setAwake(memberId: String, awake: Bool) {
         guard let fid = familyId else { return }
+        let oldState = isAwakeTodayLocal
         isAwakeTodayLocal = awake
         Task {
             await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
@@ -414,7 +422,10 @@ class FamilyViewModel: ObservableObject {
                     TelemetryManager.send(awake ? "awake.markedAwake" : "awake.reset")
                 }
             } catch {
-                // NO ROLLBACK: Vertraue auf Firestores Offline-Queue.
+                await MainActor.run {
+                    self.isAwakeTodayLocal = oldState
+                    self.errorMessage = L.errorGeneric
+                }
             }
         }
     }
