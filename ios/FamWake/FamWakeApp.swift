@@ -25,12 +25,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Registrierung der Wecker-Kategorie und Actions
         let stopAction = UNNotificationAction(
             identifier: "STOP_ACTION",
-            title: NSLocalizedString("ringing_stop", comment: ""),
+            title: L.ringingStop,
             options: []
         )
         let snoozeAction = UNNotificationAction(
             identifier: "SNOOZE_ACTION",
-            title: NSLocalizedString("ringing_snooze", comment: ""),
+            title: L.ringingSnooze,
             options: []
         )
         let alarmCategory = UNNotificationCategory(

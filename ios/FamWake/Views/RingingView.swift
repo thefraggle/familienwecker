@@ -128,7 +128,7 @@ struct RingingView: View {
         }
         .onAppear {
             TelemetryManager.send("alarm.triggered")
-            let messages = NSLocalizedString("ringing_messages_array", comment: "").components(separatedBy: "||")
+            let messages = L.ringingMessagesArray.components(separatedBy: "||")
             randomMessage = messages.randomElement() ?? "☀️"
         }
         .statusBarHidden(true)

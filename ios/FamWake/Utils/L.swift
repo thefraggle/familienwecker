@@ -175,6 +175,7 @@ enum L {
     static func ringingWakeUp(_ name: String) -> String { s("ringing_wake_up", name) }
     static var ringingSnooze: String { s("ringing_snooze") }
     static var ringingStop: String { s("ringing_stop") }
+    static var ringingMessagesArray: String { s("ringing_messages_array") }
 
     // MARK: - Tooltips
     static var tooltipAwakeButton: String { s("tooltip_awake_button") }
