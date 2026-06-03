@@ -2,8 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 1.9.16 – 2026-06-03
+## 1.9.17 – 2026-06-03
 ### Improved
+- **Reliable Snooze Alarm** – The snooze function has been fixed and now rings completely reliably. Your phone remains locked while snoozing so you can continue sleeping peacefully.
+- **Smoother Scrolling** – We made major background optimizations, making the app react even faster and smoother when scrolling through the alarm schedule.
+- **More Privacy** – After stopping the alarm or hitting snooze, there is no more accidental unlocking of the screen. Everything remains secure.
+- **Better Accessibility** – For people using screen readers, we improved some button descriptions to be easier to understand and fixed minor translation errors.
+
+## 1.9.16 – 2026-06-03
 - **Reliable Snooze** – The snooze feature has been completely overhauled and now reliably rings again after 5 minutes. A banner in the app shows the remaining snooze time and can be cancelled at any time.
 - **Seamless Alarm Stop** – When you stop the alarm, the app now opens directly instead of leaving you on the phone's home screen.
 - **Clearer Alarm Sounds** – Fixed an issue where alarm sounds could play twice or overlap. Custom sounds also load more reliably now.
