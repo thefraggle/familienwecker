@@ -13,17 +13,7 @@ final class FamilyFirestoreService {
     
     // MARK: - Error Mapping
     private func mapFirebaseError(_ error: Error) -> String {
-        let msg = error.localizedDescription.lowercased()
-        if msg.contains("family_not_found") || msg.contains("not-found") || msg.contains("not found") {
-            return L.errorFamilyNotFound
-        }
-        if msg.contains("invalid-argument") || msg.contains("invalid_code") {
-            return L.errorInvalidCode
-        }
-        if msg.contains("network") || msg.contains("offline") || msg.contains("internet") {
-            return L.errorNetwork
-        }
-        return "\(L.errorGeneric) (\(error.localizedDescription))"
+        FirebaseErrorMapper.map(error)
     }
 
     func createFamily(name: String) async throws -> (familyId: String, familyName: String, joinCode: String) {
