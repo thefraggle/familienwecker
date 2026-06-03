@@ -33,6 +33,27 @@ struct MainView: View {
                 ).ignoresSafeArea()
 
                 List {
+                    // Offline Banner
+                    if familyViewModel.isOffline {
+                        HStack(spacing: 8) {
+                            Image(systemName: "wifi.slash")
+                                .font(.subheadline)
+                            Text(L.offlineWriteHint)
+                                .font(.subheadline)
+                                .lineLimit(2)
+                                .minimumScaleFactor(0.8)
+                        }
+                        .foregroundStyle(colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
+                        .padding(12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(colorScheme == .dark ? Color.snoozeAmberDark.opacity(0.8) : Color.snoozeAmberLight.opacity(0.9))
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 0, trailing: 16))
+                        .accessibilityLabel(L.errorOffline)
+                    }
+
                     // Error Message
                     if let err = familyViewModel.errorMessage {
                         errorCard(err)
