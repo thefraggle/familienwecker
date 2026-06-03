@@ -37,11 +37,12 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
 }
 
-// Snooze-Intent: Schreibt Snooze-Zeitpunkt in UserDefaults (für Banner)
-// UND plant den nächsten Wecker direkt über AlarmManager (ohne @MainActor-Umweg).
+// Snooze-Intent: openAppWhenRun = true ist ZWINGEND, weil iOS das Planen
+// von AlarmKit-Weckern aus Hintergrund-Intents lautlos blockiert.
+// Die App öffnet sich kurz und zeigt den Snooze-Banner.
 struct SnoozeNotifyIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
-    static var openAppWhenRun: Bool = false
+    static var openAppWhenRun: Bool = true
     
     @Parameter(title: "Member ID")
     var memberId: String
@@ -57,53 +58,34 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
     }
     
     func perform() async throws -> some IntentResult {
+        // Alarm-Sound stoppen (der aktuelle Wecker klingelt noch)
+        await AlarmService.shared.stopAlarm()
+        
         let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
         let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
         let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
         
-        // 1. Banner-State setzen
+        // Banner-State setzen
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         
-        // 2. Sound ermitteln
+        // Neuen Wecker über AlarmService planen (funktioniert, weil App im Vordergrund)
         let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
-        var snoozeSoundName: String? = nil
-        if let uri = savedSoundUri, !uri.isEmpty, uri != "default", uri != "system" {
-            let name = uri.hasSuffix(".caf") || uri.hasSuffix(".mp3") || uri.hasSuffix(".wav") ? uri : "alarm_sound_v3.caf"
-            if Bundle.main.path(forResource: (name as NSString).deletingPathExtension, ofType: (name as NSString).pathExtension) != nil {
-                snoozeSoundName = name
-            }
+        await AlarmService.shared.scheduleWakeUp(
+            wakeUpTime: snoozeTime,
+            memberId: memberId,
+            memberName: memberName,
+            soundUri: savedSoundUri,
+            isSnooze: true
+        )
+        
+        // UI aktualisieren: Snooze-Banner anzeigen (NICHT die Panda-Begrüßung)
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [
+                "memberId": memberId,
+                "memberName": memberName,
+                "snoozeTime": snoozeTime
+            ])
         }
-        
-        // 3. AlarmKit-Konfiguration direkt aufbauen (kein @MainActor-Umweg)
-        let alert = AlarmPresentation.Alert(
-            title: LocalizedStringResource(stringLiteral: memberName),
-            secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-            secondaryButtonBehavior: .custom
-        )
-        let presentation = AlarmPresentation(alert: alert)
-        let attributes = AlarmAttributes<FamWakeAlarmMetadata>(
-            presentation: presentation,
-            metadata: FamWakeAlarmMetadata(memberId: memberId),
-            tintColor: .sunriseOrange500
-        )
-        
-        let config = AlarmManager.AlarmConfiguration.alarm(
-            schedule: Alarm.Schedule.fixed(snoozeTime),
-            attributes: attributes,
-            stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
-            secondaryIntent: SnoozeNotifyIntent(memberId: memberId, memberName: memberName),
-            sound: snoozeSoundName == nil ? .default : .named(snoozeSoundName!)
-        )
-        
-        // 4. Alten Wecker canceln, neuen mit frischer UUID planen
-        let uuidKey = "alarm_uuid_\(memberId)"
-        if let oldStr = UserDefaults.standard.string(forKey: uuidKey), let oldUUID = UUID(uuidString: oldStr) {
-            try? await AlarmManager.shared.cancel(id: oldUUID)
-        }
-        let newUUID = UUID()
-        UserDefaults.standard.set(newUUID.uuidString, forKey: uuidKey)
-        
-        try await AlarmManager.shared.schedule(id: newUUID, configuration: config)
         
         return .result()
     }
