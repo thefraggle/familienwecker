@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 1.9.15
-**Datum:** 2026-06-01
+**Version:** 1.9.16
+**Datum:** 2026-06-03
 
 ---
 
@@ -38,7 +38,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 ### 3. Wecker, Alarm & Berechtigungen
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-30 | Alarm-Zyklus | Wecker klingelt zuverlässig (auch Background/Lockscreen). Snooze (5 Min) plant neuen Alarm korrekt. |
+| TC-30 | Alarm-Zyklus | Wecker klingelt zuverlässig (auch Background/Lockscreen). Snooze (5 Min) plant neuen Alarm korrekt, öffnet bei Sperrbildschirm die App und zeigt Snooze-Banner. Kein doppelter/überlappender Alarm-Ton. |
 | TC-31 | Statuswechsel („Ich bin wach“) | Stoppt System-Wecker, aktualisiert UI (Two-Pass-Logik). Button bleibt unabhängig vom ausgewählten Vorschau-Wochentag auf dem Screen sichtbar (an Weckplan gekoppelt). Zeigt sich dauerhaft am Tag des Weckers oder ab 4h vorher. Reset erfolgt am Folgetag automatisch. |
 | TC-32 | Android 14+ Warnungen | Fehlen `SCHEDULE_EXACT_ALARM` oder `USE_FULL_SCREEN_INTENT`, erscheinen entsprechende Banner/Warnungen. |
 | TC-33 | Kaltstart iOS | App-Start per Alarm-Klick (Kaltstart) löst keinen Boot-Loop/Absturz aus. |
@@ -57,7 +57,7 @@ Tests validieren die Korrektheit des Planungsalgorithmus, die Wecker-Zuverlässi
 ### Konflikte & Systemgrenzen
 | ID | Testfall | Erwartetes Ergebnis |
 | EC-01 | Zeit- & Puffer-Konflikte | Unmögliche Pläne oder zu knappe Fenster zeigen Kompromissvorschläge. AutoFix dehnt die Zeiten intelligent aus und berechnet sofort neu (Optimistic UI). Der Auto-Fix passt nur den Ziel-Wochentag an und lässt andere Tage unberührt. Bei knappen Zeitfenstern reduziert der Scheduler den Puffer automatisch (BufferReduced-Meldung), bevor Zeitverschiebung/Frühstücksreduktion greifen. Zeitumstellung und Mitternachts-Alarme korrekt berechnet. |
-| EC-02 | Offline-Betrieb | CloudOff-Icon bei Disconnect. Kein Absturz bei SSL/Netzwerk-Fehlern (korrekte Fehlermeldung). Re-Sync nach Reconnect. |
+| EC-02 | Offline-Betrieb | CloudOff-Icon bei Disconnect. Kein Absturz bei SSL/Netzwerk-Fehlern (korrekte Fehlermeldung). Re-Sync nach Reconnect. Optimistische UI-Updates (z. B. Pausieren/Wecken) werden bei Fehlschlag sauber per UI-Rollback zurückgesetzt. |
 | EC-03 | Backend-Schutz | Zugriff auf fremde Profile oder Feedback ohne Auth liefert `PERMISSION_DENIED`. |
 
 ### UI & Lokalisation
