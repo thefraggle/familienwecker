@@ -101,17 +101,18 @@ final class AlarmService: ObservableObject {
         
         
         // Natives iOS-Snooze via .countdown – iOS verwaltet den Snooze-Alarm intern.
-        // Custom Snooze (.custom + secondaryIntent) ist in iOS 26 Beta instabil.
         let alert: AlarmPresentation.Alert
         if #available(iOS 26.1, *) {
             alert = AlarmPresentation.Alert(
                 title: LocalizedStringResource(stringLiteral: memberName),
+                secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
                 secondaryButtonBehavior: .countdown
             )
         } else {
             alert = AlarmPresentation.Alert(
                 title: LocalizedStringResource(stringLiteral: memberName),
-                stopButton: AlarmButton(text: "Dismiss", textColor: .white, systemImageName: "stop.circle"),
+                stopButton: AlarmButton(text: "Stop", textColor: .white, systemImageName: "stop.circle"),
+                secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
                 secondaryButtonBehavior: .countdown
             )
         }
