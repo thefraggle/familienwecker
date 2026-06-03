@@ -215,6 +215,7 @@ struct MainView: View {
             }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
+                    familyViewModel.checkSnoozeStatus()
                     if familyViewModel.errorMessage == L.errorAlarmPermission {
                         UNUserNotificationCenter.current().getNotificationSettings { settings in
                             if settings.authorizationStatus == .authorized {
