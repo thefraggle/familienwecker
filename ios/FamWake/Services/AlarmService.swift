@@ -68,9 +68,12 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         // Banner-State setzen
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         
-        // Neuen Wecker über AlarmService planen (funktioniert, weil App im Vordergrund)
+        // Neuen Wecker planen – WICHTIG: scheduleWakeUpAsync direkt awaiten,
+        // nicht die fire-and-forget Wrapper-Methode scheduleWakeUp() verwenden!
+        // Sonst kehrt der Intent sofort zurück, iOS suspendiert die App,
+        // und der interne Task zum Alarm-Planen wird nie fertig.
         let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
-        await AlarmService.shared.scheduleWakeUp(
+        try await AlarmService.shared.scheduleWakeUpAsync(
             wakeUpTime: snoozeTime,
             memberId: memberId,
             memberName: memberName,
