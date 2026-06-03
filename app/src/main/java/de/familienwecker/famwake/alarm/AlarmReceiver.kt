@@ -67,7 +67,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 .setUsage(AudioAttributes.USAGE_ALARM)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                 .build()
-            setSound(soundUri, audioAttributes)
+            setSound(null, null)
         }
         notificationManager.createNotificationChannel(channel)
 
