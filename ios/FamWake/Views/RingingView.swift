@@ -11,7 +11,6 @@ struct RingingView: View {
     let memberName: String
     var isGreetingOnly: Bool = false
     var onStop: () -> Void
-    var onSnooze: () -> Void
 
     @State private var isAnimating = false
     @State private var randomMessage: String = ""
@@ -76,27 +75,23 @@ struct RingingView: View {
                         }
                         .buttonStyle(BounceButtonStyle())
                     } else {
-                        // Snooze – Glasmorphism
+                        // Stop – Solid
                         Button(action: {
-                            TelemetryManager.send("alarm.snoozed")
+                            TelemetryManager.send("alarm.dismissed")
                             AlarmService.shared.stopAlarm()
-                            onSnooze()
+                            onStop()
                         }) {
                             HStack(spacing: 10) {
-                                Image(systemName: "zzz")
+                                Image(systemName: "alarm")
                                     .font(.title3)
-                                Text(L.ringingSnooze)
-                                    .font(.headline).fontWeight(.semibold)
+                                Text(L.ringingStop)
+                                    .font(.headline).fontWeight(.bold)
                             }
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Color.ringingPurpleDark)
                             .frame(maxWidth: .infinity)
                             .frame(height: 56)
-                            .background(Color.white.opacity(0.18))
+                            .background(Color.white.opacity(0.92))
                             .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
-                            )
                         }
                         .buttonStyle(BounceButtonStyle())
     

@@ -28,14 +28,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             title: L.ringingStop,
             options: []
         )
-        let snoozeAction = UNNotificationAction(
-            identifier: "SNOOZE_ACTION",
-            title: L.ringingSnooze,
-            options: []
-        )
+        // Snooze-Action deaktiviert (AlarmKit Snooze in iOS 26 Beta unzuverlässig)
         let alarmCategory = UNNotificationCategory(
             identifier: "ALARM",
-            actions: [stopAction, snoozeAction],
+            actions: [stopAction],
             intentIdentifiers: [],
             options: [.customDismissAction]
         )
@@ -145,25 +141,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: ["memberId": memberId])
-            }
-        } else if response.actionIdentifier == "SNOOZE_ACTION" {
-            TelemetryManager.send("alarm.snoozed_background")
-            AlarmService.shared.cancelWakeUp(memberId: memberId)
-            
-            let snoozeTime = Date().addingTimeInterval(5 * 60)
-            UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
-            
-            let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
-            AlarmService.shared.scheduleWakeUp(
-                wakeUpTime: snoozeTime,
-                memberId: memberId,
-                memberName: memberName,
-                soundUri: alarmSoundUri,
-                isSnooze: true
-            )
-            
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: ["memberId": memberId, "memberName": memberName, "snoozeTime": snoozeTime])
             }
         } else {
             // Klick auf die Benachrichtigung selbst
