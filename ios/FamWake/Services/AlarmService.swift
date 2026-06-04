@@ -25,27 +25,23 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     
     func perform() async throws -> some IntentResult {
         await AlarmService.shared.stopAlarm()
+        await AlarmService.shared.cancelWakeUp(memberId: memberId)
+        UserDefaults.standard.removeObject(forKey: "snooze_until")
         
-        let snoozeUntil = UserDefaults.standard.double(forKey: "snooze_until")
-        let hasActiveSnooze = snoozeUntil > Date().timeIntervalSince1970
-        
-        if !hasActiveSnooze {
-            await AlarmService.shared.cancelWakeUp(memberId: memberId)
-            UserDefaults.standard.removeObject(forKey: "snooze_until")
-            
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
-            }
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
         }
         
         return .result()
     }
 }
 
-// Snooze-Intent: openAppWhenRun = true ist ZWINGEND, weil iOS das Planen
-// von AlarmKit-Weckern aus Hintergrund-Intents lautlos blockiert.
-// TODO: Snooze-Alarm klingelt nach iOS 26 Beta nicht zuverlässig erneut.
-// Siehe .antigravity/todo.md – Custom Snooze für späteres iOS-Release vorgesehen.
+// MARK: - Snooze Intent (DEAKTIVIERT)
+// iOS 26 Beta: openAppWhenRun=true bringt die App nicht zuverlässig in den Vordergrund.
+// Ohne Foreground kann kein neuer AlarmKit-Alarm geplant werden → Snooze klingelt nie.
+// TODO: Snooze wieder aktivieren sobald AlarmKit in iOS 26 GM / 26.1 stabil ist.
+// Siehe .antigravity/todo.md
+/*
 struct SnoozeNotifyIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
     static var openAppWhenRun: Bool = true
@@ -65,27 +61,20 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
 
     func perform() async throws -> some IntentResult {
         await AlarmService.shared.stopAlarm()
-
-        // Setze snooze_until sofort, damit ein eventuell von iOS parallel aufgerufener
-        // OpenFamWakeIntent (stopIntent) weiß, dass ein Snooze aktiv ist und den
-        // Wecker nicht cancelt.
         let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
         let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
         let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
-
-        // Notification an AppRouter schicken. familyViewModel.snooze kümmert sich
-        // um das Planen des neuen Alarms, da dies aus dem Intent heraus oft fehlschlägt.
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [
                 "memberId": memberId,
                 "memberName": memberName
             ])
         }
-
         return .result()
     }
 }
+*/
 
 struct FamWakeAlarmMetadata: AlarmMetadata {
     var memberId: String
@@ -145,19 +134,17 @@ final class AlarmService: ObservableObject {
         }
         
         
+        // Snooze-Button deaktiviert: iOS 26 Beta bringt App nicht zuverlässig
+        // in den Vordergrund → kein neuer Alarm planbar. Nur Stop-Button.
         let alert: AlarmPresentation.Alert
         if #available(iOS 26.1, *) {
             alert = AlarmPresentation.Alert(
-                title: LocalizedStringResource(stringLiteral: memberName),
-                secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                secondaryButtonBehavior: .custom
+                title: LocalizedStringResource(stringLiteral: memberName)
             )
         } else {
             alert = AlarmPresentation.Alert(
                 title: LocalizedStringResource(stringLiteral: memberName),
-                stopButton: AlarmButton(text: "Stop", textColor: .white, systemImageName: "stop.circle"),
-                secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
-                secondaryButtonBehavior: .custom
+                stopButton: AlarmButton(text: "Stop", textColor: .white, systemImageName: "stop.circle")
             )
         }
         let presentation = AlarmPresentation(alert: alert)
@@ -172,7 +159,6 @@ final class AlarmService: ObservableObject {
             schedule: Alarm.Schedule.fixed(wakeUpTime),
             attributes: attributes,
             stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
-            secondaryIntent: SnoozeNotifyIntent(memberId: memberId, memberName: memberName),
             sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
         )
         
