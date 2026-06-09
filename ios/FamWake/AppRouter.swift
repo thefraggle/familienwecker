@@ -100,6 +100,10 @@ struct AppRouter: View {
                     appState.stopRinging()
                     familyViewModel.cancelSnooze(appState.ringingMemberId)
                     familyViewModel.recalculateSchedule()
+                },
+                onSnooze: {
+                    appState.stopRinging()
+                    familyViewModel.snooze(memberId: appState.ringingMemberId, memberName: appState.ringingMemberName)
                 }
             )
         }
