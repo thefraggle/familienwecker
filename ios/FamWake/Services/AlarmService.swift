@@ -25,26 +25,28 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     
     func perform() async throws -> some IntentResult {
         await AlarmService.shared.stopAlarm()
-        await AlarmService.shared.cancelWakeUp(memberId: memberId)
-        UserDefaults.standard.removeObject(forKey: "snooze_until")
         
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
+        let snoozeUntil = UserDefaults.standard.double(forKey: "snooze_until")
+        let hasActiveSnooze = snoozeUntil > Date().timeIntervalSince1970
+        
+        if !hasActiveSnooze {
+            await AlarmService.shared.cancelWakeUp(memberId: memberId)
+            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
+            }
         }
         
         return .result()
     }
 }
 
-// MARK: - Snooze Intent (DEAKTIVIERT)
-// iOS 26 Beta: openAppWhenRun=true bringt die App nicht zuverlässig in den Vordergrund.
-// Ohne Foreground kann kein neuer AlarmKit-Alarm geplant werden → Snooze klingelt nie.
-// TODO: Snooze wieder aktivieren sobald AlarmKit in iOS 26 GM / 26.1 stabil ist.
-// Siehe .antigravity/todo.md
-/*
+// MARK: - Snooze Intent (REAKTIVIERT)
+// Führt Weckwiederholung im Hintergrund ohne Vordergrund-Erzwingung durch.
 struct SnoozeNotifyIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
-    static var openAppWhenRun: Bool = true
+    static var openAppWhenRun: Bool = false
 
     @Parameter(title: "Member ID")
     var memberId: String
@@ -60,21 +62,36 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
     }
 
     func perform() async throws -> some IntentResult {
-        await AlarmService.shared.stopAlarm()
+        await MainActor.run {
+            AlarmService.shared.stopAlarm()
+        }
+        
         let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
         let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
         let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+        
+        let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
+        try await AlarmService.scheduleWakeUpDirect(
+            wakeUpTime: snoozeTime,
+            memberId: memberId,
+            memberName: memberName,
+            soundUri: alarmSoundUri,
+            isSnooze: true
+        )
+        
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [
                 "memberId": memberId,
                 "memberName": memberName
             ])
         }
+        
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        
         return .result()
     }
 }
-*/
 
 struct FamWakeAlarmMetadata: AlarmMetadata {
     var memberId: String
@@ -90,7 +107,7 @@ final class AlarmService: ObservableObject {
 
     private var schedulingTasks: [String: Task<Void, Never>] = [:]
 
-    private func getUUID(for memberId: String) -> UUID {
+    private static func getUUID(for memberId: String) -> UUID {
         let key = "alarm_uuid_\(memberId)"
         if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
             return uuid
@@ -98,14 +115,28 @@ final class AlarmService: ObservableObject {
         return generateNewUUID(for: memberId)
     }
 
-    private func generateNewUUID(for memberId: String) -> UUID {
+    private static func generateNewUUID(for memberId: String) -> UUID {
         let key = "alarm_uuid_\(memberId)"
         let newUUID = UUID()
         UserDefaults.standard.set(newUUID.uuidString, forKey: key)
         return newUUID
     }
 
+    private func getUUID(for memberId: String) -> UUID {
+        return Self.getUUID(for: memberId)
+    }
+
     func scheduleWakeUpAsync(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool) async throws {
+        try await Self.scheduleWakeUpDirect(
+            wakeUpTime: wakeUpTime,
+            memberId: memberId,
+            memberName: memberName,
+            soundUri: soundUri,
+            isSnooze: isSnooze
+        )
+    }
+
+    static func scheduleWakeUpDirect(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool) async throws {
         let status = try await AlarmManager.shared.requestAuthorization()
         if status != .authorized {
             throw NSError(domain: "AlarmKit", code: 1, userInfo: [NSLocalizedDescriptionKey: "Not authorized"])
@@ -133,18 +164,19 @@ final class AlarmService: ObservableObject {
             }
         }
         
-        
-        // Snooze-Button deaktiviert: iOS 26 Beta bringt App nicht zuverlässig
-        // in den Vordergrund → kein neuer Alarm planbar. Nur Stop-Button.
         let alert: AlarmPresentation.Alert
         if #available(iOS 26.1, *) {
             alert = AlarmPresentation.Alert(
-                title: LocalizedStringResource(stringLiteral: memberName)
+                title: LocalizedStringResource(stringLiteral: memberName),
+                secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
+                secondaryButtonBehavior: .custom
             )
         } else {
             alert = AlarmPresentation.Alert(
                 title: LocalizedStringResource(stringLiteral: memberName),
-                stopButton: AlarmButton(text: "Stop", textColor: .white, systemImageName: "stop.circle")
+                stopButton: AlarmButton(text: "Stop", textColor: .white, systemImageName: "stop.circle"),
+                secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
+                secondaryButtonBehavior: .custom
             )
         }
         let presentation = AlarmPresentation(alert: alert)
@@ -159,15 +191,12 @@ final class AlarmService: ObservableObject {
             schedule: Alarm.Schedule.fixed(wakeUpTime),
             attributes: attributes,
             stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
+            secondaryIntent: SnoozeNotifyIntent(memberId: memberId, memberName: memberName),
             sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
         )
         
         let oldUuid = self.getUUID(for: memberId)
-        do {
-            try await AlarmManager.shared.cancel(id: oldUuid)
-        } catch {
-            print("Cancel skipped or failed: \(error)")
-        }
+        try? await AlarmManager.shared.cancel(id: oldUuid)
         
         let uuid = self.generateNewUUID(for: memberId)
         try await AlarmManager.shared.schedule(id: uuid, configuration: config)
