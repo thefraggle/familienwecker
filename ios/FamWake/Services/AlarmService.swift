@@ -82,8 +82,8 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [
-                "memberId": memberId,
-                "memberName": memberName
+                "memberId": self.memberId,
+                "memberName": self.memberName
             ])
         }
         
