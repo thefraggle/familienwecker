@@ -1180,6 +1180,13 @@ class FamilyViewModel: ObservableObject {
     }
 
     private func applyAlarms(_ schedule: FamilySchedule) {
+        // Aktiver Snooze darf nicht durch regulären Alarm überschrieben werden.
+        // Ohne diesen Guard killt recalculateSchedule() den Snooze-Task via
+        // schedulingTasks[memberId]?.cancel() bevor er registriert wurde.
+        if let snoozeUntil = snoozeUntil, snoozeUntil > Date() {
+            return
+        }
+
         let cal = Calendar.current
         let now = Date()
         let today = cal.startOfDay(for: now)

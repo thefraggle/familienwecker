@@ -84,12 +84,10 @@ struct AppRouter: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .snoozeAlarmFromNotification)) { notif in
+            // Nur UI-State updaten – der Alarm wurde bereits vom SnoozeNotifyIntent geplant.
+            // Doppeltes Scheduling würde den gerade geplanten Alarm canceln und ersetzen.
             appState.stopRinging()
-            if let info = notif.userInfo,
-               let memberId = info["memberId"] as? String,
-               let memberName = info["memberName"] as? String {
-                familyViewModel.snooze(memberId: memberId, memberName: memberName)
-            }
+            familyViewModel.checkSnoozeStatus()
         }
         .fullScreenCover(isPresented: $appState.isRinging) {
             RingingView(
