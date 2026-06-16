@@ -700,11 +700,15 @@ class FamilyViewModel: ObservableObject {
             if date > Date() {
                 self.snoozeUntil = date
             } else {
+                // Snooze abgelaufen → alles aufräumen
                 self.snoozeUntil = nil
                 UserDefaults.standard.removeObject(forKey: "snooze_until")
+                UserDefaults.standard.set(0, forKey: "snooze_count")
             }
         } else {
             self.snoozeUntil = nil
+            // Kein aktiver Snooze → Count auch zurücksetzen (Schutz gegen stale Werte)
+            UserDefaults.standard.set(0, forKey: "snooze_count")
         }
     }
 
