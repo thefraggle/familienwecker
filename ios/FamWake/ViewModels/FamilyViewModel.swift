@@ -198,6 +198,8 @@ class FamilyViewModel: ObservableObject {
                 member.isPaused = newIsPaused
                 member.isAwakeToday = false
                 member.lastResetDate = todayStr
+                member.snoozeUntil = nil
+                member.snoozeCount = 0
                 
                 members[i] = member
                 toUpdate.append(member)
@@ -205,6 +207,9 @@ class FamilyViewModel: ObservableObject {
                 
                 if member.id == myMemberId {
                     UserDefaults.standard.set(false, forKey: "is_awake_today_\(member.id)")
+                    UserDefaults.standard.set(0, forKey: "snooze_count")
+                    UserDefaults.standard.removeObject(forKey: "snooze_until")
+                    snoozeUntil = nil
                 }
             }
         }
@@ -219,7 +224,9 @@ class FamilyViewModel: ObservableObject {
                 var updates: [String: Any] = [
                     "isAwakeToday": false,
                     "lastResetDate": todayStr,
-                    "lastUpdatedAt": FieldValue.serverTimestamp()
+                    "lastUpdatedAt": FieldValue.serverTimestamp(),
+                    "snoozeCount": 0,
+                    "snoozeUntil": FieldValue.delete()
                 ]
                 if member.claimedByUserId == nil {
                     updates["isPaused"] = false
@@ -698,12 +705,19 @@ class FamilyViewModel: ObservableObject {
     }
 
     func snooze(memberId: String, memberName: String) {
-        let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
-        let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
-        let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
+        // Snooze-Count prüfen (Max aus SnoozeConfig)
+        let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
+        guard currentCount < SnoozeConfig.maxSnoozeCount else {
+            errorMessage = "Maximale Snooze-Anzahl erreicht. Aufstehen! 💪"
+            return
+        }
+        let newCount = currentCount + 1
+
+        let snoozeTime = Date().addingTimeInterval(TimeInterval(SnoozeConfig.snoozeDurationMinutes * 60))
         
         snoozeUntil = snoozeTime
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+        UserDefaults.standard.set(newCount, forKey: "snooze_count")
         
         let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         AlarmService.shared.scheduleWakeUp(
@@ -713,15 +727,40 @@ class FamilyViewModel: ObservableObject {
             soundUri: savedSoundUri,
             isSnooze: true
         )
+
+        // Snooze-State nach Firestore synchronisieren
+        if let familyId = familyId {
+            let memberRef = db.collection("families").document(familyId)
+                .collection("members").document(memberId)
+            Task {
+                try? await memberRef.updateData([
+                    "snoozeUntil": Timestamp(date: snoozeTime),
+                    "snoozeCount": newCount
+                ])
+            }
+        }
     }
 
     func cancelSnooze(_ memberId: String) {
         snoozeUntil = nil
         UserDefaults.standard.removeObject(forKey: "snooze_until")
+        UserDefaults.standard.set(0, forKey: "snooze_count")
         // Bei nativem .countdown-Snooze läuft der Countdown unter der Haupt-UUID,
         // daher beide canceln (Haupt + ggf. alte Snooze-UUID).
         AlarmService.shared.cancelWakeUp(memberId: memberId)
         AlarmService.shared.cancelWakeUp(memberId: memberId, isSnooze: true)
+
+        // Snooze-State in Firestore löschen
+        if let familyId = familyId {
+            let memberRef = db.collection("families").document(familyId)
+                .collection("members").document(memberId)
+            Task {
+                try? await memberRef.updateData([
+                    "snoozeUntil": FieldValue.delete(),
+                    "snoozeCount": 0
+                ])
+            }
+        }
     }
 
     func setupTestAlarmAndMembers(completion: @escaping (String) -> Void) {
@@ -1377,6 +1416,29 @@ class FamilyViewModel: ObservableObject {
         resolved.leaveHomeTime = profile.leaveHomeTime
         resolved.dayProfiles = [targetDow: profile]
         resolved.isSimpleMode = profile.isSimpleMode
+
+        // Snooze-Constraint: Aktiv gesnoozter Member verschiebt nachfolgende
+        if let snoozeEnd = member.snoozeUntil, snoozeEnd > now {
+            let snoozeComps = cal.dateComponents([.hour, .minute], from: snoozeEnd)
+            let snoozeMinutes = (snoozeComps.hour ?? 0) * 60 + (snoozeComps.minute ?? 0)
+            let originalWakeMinutes = resolved.earliestWakeUp.totalMinutes
+
+            // Wake-up-Zeit auf snoozeUntil fixieren
+            resolved.earliestWakeUp = DateComponents.from(
+                hour: snoozeComps.hour ?? 0,
+                minute: snoozeComps.minute ?? 0
+            )
+            resolved.latestWakeUp = resolved.earliestWakeUp
+
+            // Badzeit kürzen: verbrauchte Snooze-Minuten abziehen
+            let usedMinutes = max(0, snoozeMinutes - originalWakeMinutes)
+            let adjustedBathroom = max(
+                Int(SnoozeConfig.minBathroomMinutes),
+                resolved.bathroomDurationMinutes - usedMinutes
+            )
+            resolved.bathroomDurationMinutes = adjustedBathroom
+        }
+
         return resolved
     }
 }

@@ -52,6 +52,9 @@ interface AppSettings {
     val snoozeUntil: StateFlow<kotlinx.datetime.LocalDateTime?>
     fun setSnoozeUntil(time: kotlinx.datetime.LocalDateTime?)
 
+    val snoozeCount: StateFlow<Int>
+    fun setSnoozeCount(count: Int)
+
     val tooltipsEnabled: StateFlow<Boolean>
     fun setTooltipsEnabled(enabled: Boolean)
 
@@ -225,6 +228,14 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         if (time == null) settings.remove("SNOOZE_UNTIL") else settings["SNOOZE_UNTIL"] = time.toString()
     }
 
+    private val _snoozeCount = MutableStateFlow(settings.getInt("SNOOZE_COUNT", 0))
+    override val snoozeCount = _snoozeCount.asStateFlow()
+
+    override fun setSnoozeCount(count: Int) {
+        _snoozeCount.value = count
+        settings["SNOOZE_COUNT"] = count
+    }
+
     private val _tooltipsEnabled = MutableStateFlow(settings.getBoolean("TOOLTIPS_ENABLED", true))
     override val tooltipsEnabled = _tooltipsEnabled.asStateFlow()
 
@@ -306,6 +317,7 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         setAwakeToday(false)
         settings.remove("AWAKE_TODAY_DATE")
         setSnoozeUntil(null)
+        setSnoozeCount(0)
         // Note: language, theme und isAlarmEnabled persistieren – sind Gerätepräferenzen, kein Session-State.
         // Alarm-State-Transitions werden ausschließlich vom myMemberId-Observer in FamilyViewModel gesteuert.
     }

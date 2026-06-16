@@ -38,7 +38,11 @@ data class FamilyMember(
     val deviceAlarmEnabled: Boolean? = null, // Vom Gerät des geclaimten Users gesetzter Alarm-Status (nur Anzeige)
     // Key = DayOfWeek value (1=Mo…7=So). null = Feature nicht konfiguriert (Fallback: bestehende Felder)
     val dayProfiles: Map<Int, DayProfile>? = null,
-    val isSimpleMode: Boolean = false
+    val isSimpleMode: Boolean = false,
+    // Snooze-Sync: Wann endet der aktuelle Snooze (null = kein aktiver Snooze)
+    val snoozeUntil: kotlinx.datetime.LocalDateTime? = null,
+    // Anzahl Snoozes heute (0–2, Reset mit lastResetDate)
+    val snoozeCount: Int = 0
 )
 
 @Serializable
