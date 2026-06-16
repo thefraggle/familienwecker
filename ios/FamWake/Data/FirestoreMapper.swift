@@ -38,6 +38,10 @@ extension FamilyMember {
         let dayProfiles = parseDayProfiles(data["dayProfiles"])
         let isSimple = data["isSimpleMode"] as? Bool ?? false
 
+        // Snooze-State (Firestore Timestamp → Date)
+        let snoozeUntil: Date? = (data["snoozeUntil"] as? Timestamp)?.dateValue()
+        let snoozeCount = (data["snoozeCount"] as? NSNumber)?.intValue ?? 0
+
         return FamilyMember(
             id: id,
             name: name,
@@ -57,7 +61,9 @@ extension FamilyMember {
             lastUpdatedAt: lastUpdated,
             deviceAlarmEnabled: alarmEnabled,
             dayProfiles: dayProfiles,
-            isSimpleMode: isSimple
+            isSimpleMode: isSimple,
+            snoozeUntil: snoozeUntil,
+            snoozeCount: snoozeCount
         )
     }
 
@@ -75,7 +81,8 @@ extension FamilyMember {
             "sequenceOrder": sequenceOrder,
             "createdAt": createdAt ?? Date().timeIntervalSince1970 * 1000,
             "lastUpdatedAt": Date().timeIntervalSince1970 * 1000,
-            "isSimpleMode": isSimpleMode
+            "isSimpleMode": isSimpleMode,
+            "snoozeCount": snoozeCount
         ]
 
         if let leave = leaveHomeTime {
@@ -86,6 +93,10 @@ extension FamilyMember {
         if let uname = claimedByUserName { data["claimedByUserName"] = uname }
         if let deviceId = claimedByDeviceId { data["claimedByDeviceId"] = deviceId }
         if let alarmEnabled = deviceAlarmEnabled { data["deviceAlarmEnabled"] = alarmEnabled }
+
+        if let snooze = snoozeUntil {
+            data["snoozeUntil"] = Timestamp(date: snooze)
+        }
 
         // Day profiles
         if let profiles = dayProfiles {

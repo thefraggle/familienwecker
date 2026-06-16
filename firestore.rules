@@ -91,11 +91,13 @@ service cloud.firestore {
         // Erstellen erlaubt für alle Familienmitglieder (z.B. neues Profil anlegen)
         allow create: if isFamilyMember(familyId);
 
-        // Update: Familienmitglieder dürfen isAwakeToday und isPaused für ALLE setzen
+        // Update: Familienmitglieder dürfen isAwakeToday, isPaused, snoozeUntil, snoozeCount für ALLE setzen
         // (bewusste Design-Entscheidung: Familie koordiniert Wecker gemeinsam).
         allow update: if isFamilyMember(familyId) &&
           (
             // Alle dürfen koordinative Felder schreiben (Wecker-Koordination).
+            // Implizit erlaubt: isPaused, isAwakeToday, lastResetDate, sequenceOrder,
+            // dayProfiles, deviceAlarmEnabled, snoozeUntil, snoozeCount, lastUpdatedAt, etc.
             !request.resource.data.diff(resource.data).affectedKeys()
               .hasAny(['name', 'claimedByUserId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'])
             ||
