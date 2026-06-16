@@ -157,7 +157,7 @@ final class AlarmService: ObservableObject {
         return generateNewUUID(for: memberId)
     }
 
-    private static func generateNewUUID(for memberId: String) -> UUID {
+    nonisolated private static func generateNewUUID(for memberId: String) -> UUID {
         let key = "alarm_uuid_\(memberId)"
         let newUUID = UUID()
         UserDefaults.standard.set(newUUID.uuidString, forKey: key)
