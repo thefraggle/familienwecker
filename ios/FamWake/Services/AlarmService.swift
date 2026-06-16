@@ -145,7 +145,7 @@ final class AlarmService: ObservableObject {
 
     private var schedulingTasks: [String: Task<Void, Never>] = [:]
 
-    static func getUUID(for memberId: String) -> UUID {
+    nonisolated static func getUUID(for memberId: String) -> UUID {
         let key = "alarm_uuid_\(memberId)"
         if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
             return uuid
