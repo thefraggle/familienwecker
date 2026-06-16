@@ -5,6 +5,7 @@ import FirebaseAuth
 import FirebaseFunctions
 import TelemetryClient
 import Network
+import UserNotifications
 
 /// Äquivalent zu FamilyViewModel.kt (aufgeteilt in Extensions)
 @MainActor
@@ -53,6 +54,9 @@ class FamilyViewModel: ObservableObject {
     @Published var feedbackSubmitted: Bool = false
     @Published var feedbackError: String? = nil
     @Published var pendingPauseIds: Set<String> = []
+
+    /// Letzte bekannte Weckzeit – für Shift-Notification bei Snooze anderer Member
+    private var lastKnownWakeUpTime: Date?
 
     // MARK: - Tooltip Keys
     let tooltipKeyAwake = "tooltip_awake_seen"
@@ -708,7 +712,7 @@ class FamilyViewModel: ObservableObject {
         // Snooze-Count prüfen (Max aus SnoozeConfig)
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
         guard currentCount < SnoozeConfig.maxSnoozeCount else {
-            errorMessage = "Maximale Snooze-Anzahl erreicht. Aufstehen! 💪"
+            errorMessage = L.snoozeMaxReached
             return
         }
         let newCount = currentCount + 1
@@ -1166,6 +1170,28 @@ class FamilyViewModel: ObservableObject {
         uiResult.targetDate = uiTargetDate
         schedule = uiResult
 
+        // Shift-Notification: Wenn eigene Weckzeit sich verschoben hat UND ein anderer Member snoozed
+        if let myId = currentMyMemberId,
+           let mySchedule = uiResult.memberSchedules.first(where: { $0.member.id == myId }) {
+            let newWakeUpDate = date(from: mySchedule.wakeUpTime, on: uiTargetDate)
+            if let oldTime = lastKnownWakeUpTime, let newTime = newWakeUpDate, oldTime != newTime {
+                let someoneElseSnoozed = members.contains { member in
+                    member.id != myId
+                    && member.snoozeUntil != nil
+                    && member.snoozeUntil! > now
+                }
+                if someoneElseSnoozed {
+                    let snoozingMemberName = members.first { $0.id != myId && $0.snoozeUntil != nil && $0.snoozeUntil! > now }?.name ?? L.s("default_someone")
+                    let formatter = DateFormatter()
+                    formatter.locale = LanguageManager.shared.currentLocale
+                    formatter.timeStyle = .short
+                    let timeStr = formatter.string(from: newTime)
+                    sendSnoozeShiftNotification(name: snoozingMemberName, time: timeStr)
+                }
+            }
+            lastKnownWakeUpTime = newWakeUpDate
+        }
+
         // 2. Device Alarm Target Date & Calculation (ALWAYS Auto Mode)
         let deviceTargetDate: Date
         let todayMembers = rawMembers.map { resolveEffectiveMember($0, forDate: today) }
@@ -1440,5 +1466,24 @@ class FamilyViewModel: ObservableObject {
         }
 
         return resolved
+    }
+
+    /// Lokale Notification wenn eigene Weckzeit durch Snooze eines anderen Members verschoben wurde
+    private func sendSnoozeShiftNotification(name: String, time: String) {
+        let content = UNMutableNotificationContent()
+        content.title = L.notifSnoozeShiftTitle
+        content.body = L.notifSnoozeShiftBody(name, time)
+        content.sound = .default
+
+        let request = UNNotificationRequest(
+            identifier: "snooze_shift_\(UUID().uuidString)",
+            content: content,
+            trigger: nil // sofort senden
+        )
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error {
+                print("Snooze-Shift Notification Fehler: \(error.localizedDescription)")
+            }
+        }
     }
 }

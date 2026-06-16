@@ -4,6 +4,8 @@ import android.net.Uri
 import android.media.AudioAttributes
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.data.AppSettings
+import de.familienwecker.famwake.data.FirebaseRepository
+import de.familienwecker.famwake.model.SnoozeConfig
 import de.familienwecker.famwake.model.toKmpLocalDateTime
 import de.familienwecker.famwake.MainActivity
 import android.app.NotificationManager
@@ -13,6 +15,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -28,6 +31,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -42,6 +46,9 @@ import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
 import androidx.core.net.toUri
 import com.telemetrydeck.sdk.TelemetryDeck
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 class RingingActivity : AppCompatActivity() {
 
@@ -66,6 +73,7 @@ class RingingActivity : AppCompatActivity() {
 
         val appSettings = (application as FamWakeApplication).appSettings
         val alarmScheduler = de.familienwecker.famwake.alarm.AlarmScheduler(this)
+        val currentSnoozeCount = appSettings.snoozeCount.value
 
         setContent {
             FamilienweckerTheme {
@@ -76,11 +84,25 @@ class RingingActivity : AppCompatActivity() {
 
                     RingingScreen(
                         memberName = memberName,
+                        snoozeCount = currentSnoozeCount,
                         onStopClicked = {
                             // Snooze-Status löschen, damit der Banner auf MainScreen verschwindet
                             appSettings.setSnoozeUntil(null)
+                            appSettings.setSnoozeCount(0)
                             // Snooze-Alarm-Slot aus dem System entfernen
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
+
+                            // Firestore: Snooze-State zurücksetzen (best-effort)
+                            val familyId = appSettings.familyId.value
+                            if (familyId != null) {
+                                MainScope().launch {
+                                    try {
+                                        FirebaseRepository().updateMemberSnoozeState(familyId, memberId, null, 0)
+                                    } catch (_: CancellationException) { throw CancellationException() }
+                                    catch (_: Exception) { /* best-effort */ }
+                                }
+                            }
+
                             // Tracking: Nutzer hat den Alarm aktiv abgebrochen (nicht durch Snooze)
                             TelemetryDeck.signal("alarm.dismissed")
                             // Zur Haupt-App wechseln (ohne Begrüßung)
@@ -92,8 +114,23 @@ class RingingActivity : AppCompatActivity() {
                             stopRingtoneAndOpenApp()
                         },
                         onSnoozeClicked = {
-                            val snoozeTime = java.time.LocalDateTime.now().plusMinutes(5)
+                            val count = appSettings.snoozeCount.value
+                            if (count >= SnoozeConfig.MAX_SNOOZE_COUNT) {
+                                Toast.makeText(
+                                    this@RingingActivity,
+                                    getString(R.string.snooze_max_reached),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                return@RingingScreen
+                            }
+
+                            val newCount = count + 1
+                            val snoozeMinutes = SnoozeConfig.SNOOZE_DURATION_MINUTES
+                            val snoozeTime = java.time.LocalDateTime.now().plusMinutes(snoozeMinutes.toLong())
+
                             appSettings.setSnoozeUntil(snoozeTime.toKmpLocalDateTime())
+                            appSettings.setSnoozeCount(newCount)
+
                             alarmScheduler.scheduleWakeUp(
                                 wakeUpTime = snoozeTime.toKmpLocalDateTime(),
                                 memberId = memberId,
@@ -101,9 +138,22 @@ class RingingActivity : AppCompatActivity() {
                                 soundUri = appSettings.alarmSoundUri.value,
                                 isSnooze = true
                             )
-                            // Tracking: Nutzer hat Snooze gewählt (direkt in RingingActivity,
-                            // da viewModel.snooze() hier nicht verfügbar ist)
-                            TelemetryDeck.signal("alarm.snoozed")
+
+                            // Firestore-Sync (best-effort, non-blocking)
+                            val familyId = appSettings.familyId.value
+                            if (familyId != null) {
+                                MainScope().launch {
+                                    try {
+                                        FirebaseRepository().updateMemberSnoozeState(
+                                            familyId, memberId,
+                                            snoozeTime.toKmpLocalDateTime(), newCount
+                                        )
+                                    } catch (_: CancellationException) { throw CancellationException() }
+                                    catch (_: Exception) { /* best-effort */ }
+                                }
+                            }
+
+                            TelemetryDeck.signal("alarm.snoozed", mapOf("snoozeCount" to newCount.toString()))
                             stopRingtoneAndLock()
                         }
                     )
@@ -220,7 +270,14 @@ class RingingActivity : AppCompatActivity() {
 }
 
 @Composable
-fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked: () -> Unit) {
+fun RingingScreen(
+    memberName: String,
+    snoozeCount: Int,
+    onStopClicked: () -> Unit,
+    onSnoozeClicked: () -> Unit
+) {
+    val snoozeMaxReached = snoozeCount >= SnoozeConfig.MAX_SNOOZE_COUNT
+
     // Lottie-Animation
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.wakeup))
     val lottieProgress by animateLottieCompositionAsState(
@@ -293,19 +350,22 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
                     .padding(bottom = 40.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                // Snooze (transparent/gläsern)
+                // Snooze (transparent/gläsern) – disabled wenn Max erreicht
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color.White.copy(alpha = 0.18f))
+                        .background(Color.White.copy(alpha = if (snoozeMaxReached) 0.08f else 0.18f))
                         .border(
                             width = 1.dp,
-                            color = Color.White.copy(alpha = 0.30f),
+                            color = Color.White.copy(alpha = if (snoozeMaxReached) 0.15f else 0.30f),
                             shape = RoundedCornerShape(12.dp)
                         )
-                        .clickable(onClick = onSnoozeClicked),
+                        .then(
+                            if (snoozeMaxReached) Modifier.alpha(0.5f)
+                            else Modifier.clickable(onClick = onSnoozeClicked)
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
                     Row(
@@ -320,7 +380,11 @@ fun RingingScreen(memberName: String, onStopClicked: () -> Unit, onSnoozeClicked
                         )
                         Spacer(Modifier.width(8.dp))
                         Text(
-                            text = stringResource(R.string.ringing_snooze),
+                            text = stringResource(
+                                R.string.snooze_counter,
+                                snoozeCount + 1,
+                                SnoozeConfig.MAX_SNOOZE_COUNT
+                            ),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.White
