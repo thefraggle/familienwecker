@@ -695,19 +695,23 @@ class FamilyViewModel: ObservableObject {
     }
 
     func checkSnoozeStatus() {
+        let staleThreshold = Date().addingTimeInterval(-30 * 60)
         if let snoozeTime = UserDefaults.standard.value(forKey: "snooze_until") as? Double {
             let date = Date(timeIntervalSince1970: snoozeTime)
             if date > Date() {
                 self.snoozeUntil = date
-            } else {
-                // Snooze abgelaufen → alles aufräumen
+            } else if date < staleThreshold {
+                // Snooze deutlich abgelaufen (>30 Min) → alles aufräumen
                 self.snoozeUntil = nil
                 UserDefaults.standard.removeObject(forKey: "snooze_until")
                 UserDefaults.standard.set(0, forKey: "snooze_count")
+            } else {
+                // Snooze gerade erst abgelaufen – Count behalten (Max-Schutz)
+                self.snoozeUntil = nil
             }
         } else {
             self.snoozeUntil = nil
-            // Kein aktiver Snooze → Count auch zurücksetzen (Schutz gegen stale Werte)
+            // Kein snooze_until → Count zurücksetzen (Schutz gegen stale Werte)
             UserDefaults.standard.set(0, forKey: "snooze_count")
         }
     }
