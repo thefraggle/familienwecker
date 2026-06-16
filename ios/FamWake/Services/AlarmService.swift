@@ -68,6 +68,16 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             AlarmService.shared.stopAlarm()
         }
 
+        // Stale-Count-Schutz: Wenn kein aktiver Snooze läuft, Count zurücksetzen
+        // (verhindert dass ein alter Count von vorherigen Sessions den Snooze blockiert)
+        if let snoozeUntilRaw = UserDefaults.standard.value(forKey: "snooze_until") as? Double {
+            if Date(timeIntervalSince1970: snoozeUntilRaw) <= Date() {
+                UserDefaults.standard.set(0, forKey: "snooze_count")
+            }
+        } else {
+            UserDefaults.standard.set(0, forKey: "snooze_count")
+        }
+
         // Snooze-Count prüfen (Max aus SnoozeConfig)
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
         if currentCount >= SnoozeConfig.maxSnoozeCount {
