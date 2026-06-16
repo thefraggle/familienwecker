@@ -23,6 +23,7 @@ import kotlinx.datetime.LocalTime
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.plus
+import de.familienwecker.famwake.model.SnoozeConfig
 
 // ─── Alarm-Logik ──────────────────────────────────────────────────────────────
 
@@ -215,6 +216,19 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
     }
     if (schedule.memberSchedules.isEmpty()) return
 
+    // Snooze-Guard: Während eines aktiven Snooze keine regulären Alarme planen
+    // (der Snooze-Alarm läuft auf separatem PendingIntent-Slot)
+    val snoozeUntilLocal = appSettings.snoozeUntil.value
+    if (snoozeUntilLocal != null) {
+        val snoozeDateTime = snoozeUntilLocal.toJavaLocalDateTime()
+        if (snoozeDateTime.isAfter(java.time.LocalDateTime.now())) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.d("FamWake_Alarm", "applyAlarms: active snooze until $snoozeUntilLocal, skipping regular alarm")
+            }
+            return
+        }
+    }
+
     for (memberSchedule in schedule.memberSchedules) {
         if (memberSchedule.member.id == currentMyMemberId) {
             val wakeUpTime = memberSchedule.wakeUpTime
@@ -313,7 +327,7 @@ internal fun FamilyViewModel.resolveEffectiveMember(
     val profile = profiles[targetDow] ?: return member.copy(isPaused = true)
     if (!profile.isActive) return member.copy(isPaused = true)
 
-    return member.copy(
+    val resolved = member.copy(
         earliestWakeUp          = profile.earliestWakeUp,
         latestWakeUp            = profile.latestWakeUp,
         bathroomDurationMinutes = profile.bathroomDurationMinutes,
@@ -322,6 +336,26 @@ internal fun FamilyViewModel.resolveEffectiveMember(
         dayProfiles             = mapOf(targetDow to profile),
         isSimpleMode            = profile.isSimpleMode
     )
+
+    // Snooze-Constraint: Wenn dieser Member aktiv snoozed, fixiere seine Weckzeit
+    val snoozeUntil = member.snoozeUntil
+    if (snoozeUntil != null) {
+        val nowDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        if (snoozeUntil > nowDateTime) {
+            val snoozeTime = snoozeUntil.time
+            val originalWakeUp = resolved.latestWakeUp
+            // Verbrauchte Minuten = Differenz zwischen Snooze-Endzeit und Original-Weckzeit
+            val usedMinutes = ((snoozeTime.toSecondOfDay() - originalWakeUp.toSecondOfDay()) / 60).toLong()
+            val reducedBathroom = maxOf(SnoozeConfig.MIN_BATHROOM_MINUTES, resolved.bathroomDurationMinutes - usedMinutes)
+            return resolved.copy(
+                earliestWakeUp = snoozeTime,
+                latestWakeUp = snoozeTime,
+                bathroomDurationMinutes = reducedBathroom
+            )
+        }
+    }
+
+    return resolved
 }
 
 /** Cancelt den Alarm des aktuell eingeloggten Users. */
@@ -439,9 +473,24 @@ fun FamilyViewModel.setDebugAlarmIn5Minutes() {
 }
 
 fun FamilyViewModel.snooze(memberId: String, memberName: String) {
-    val snoozeInstant = Clock.System.now().plus(5, DateTimeUnit.MINUTE)
+    val currentCount = appSettings.snoozeCount.value
+    if (currentCount >= SnoozeConfig.MAX_SNOOZE_COUNT) {
+        // Max Snooze erreicht – nicht snoozen
+        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+            android.util.Log.w("FamWake_Alarm", "snooze: MAX_SNOOZE_COUNT reached ($currentCount), blocking")
+        }
+        return
+    }
+
+    val newCount = currentCount + 1
+    val snoozeInstant = Clock.System.now().plus(SnoozeConfig.SNOOZE_DURATION_MINUTES, DateTimeUnit.MINUTE)
     val snoozeTime = snoozeInstant.toLocalDateTime(TimeZone.currentSystemDefault())
+
+    // Lokal speichern
     appSettings.setSnoozeUntil(snoozeTime)
+    appSettings.setSnoozeCount(newCount)
+
+    // Alarm planen
     alarmScheduler.scheduleWakeUp(
         wakeUpTime = snoozeTime,
         memberId = memberId,
@@ -452,13 +501,47 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
             _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
         }
     )
-    TelemetryDeck.signal("alarm.snoozed")
+
+    // Firestore: Snooze-State synchronisieren
+    val currentFamilyId = familyId.value
+    if (currentFamilyId != null) {
+        scope.launch {
+            try {
+                repository.updateMemberSnoozeState(currentFamilyId, memberId, snoozeTime, newCount)
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamWake_Alarm", "snooze: Firestore write failed: ${e.message}")
+                }
+                // Nicht blockierend – lokaler Alarm funktioniert trotzdem
+            }
+        }
+    }
+
+    TelemetryDeck.signal("alarm.snoozed", mapOf("snoozeCount" to newCount.toString()))
 }
 
 fun FamilyViewModel.cancelSnooze(memberId: String) {
     appSettings.setSnoozeUntil(null)
+    appSettings.setSnoozeCount(0)
     alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
     lastScheduledAlarmMillis = null
+
+    // Firestore: Snooze-State löschen
+    val currentFamilyId = familyId.value
+    if (currentFamilyId != null) {
+        scope.launch {
+            try {
+                repository.updateMemberSnoozeState(currentFamilyId, memberId, null, 0)
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamWake_Alarm", "cancelSnooze: Firestore clear failed: ${e.message}")
+                }
+            }
+        }
+    }
+
     recalculateSchedule()
 }
 

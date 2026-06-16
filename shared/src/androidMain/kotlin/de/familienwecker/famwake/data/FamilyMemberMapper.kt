@@ -5,6 +5,8 @@ import dev.gitlive.firebase.firestore.android
 import de.familienwecker.famwake.model.DayProfile
 import de.familienwecker.famwake.model.FamilyMember
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.toInstant
 import com.google.firebase.Timestamp // Added import for native Firebase Timestamp
 
 /**
@@ -69,6 +71,22 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         else -> null
     }
 
+    // Snooze-State: als Firestore Timestamp gespeichert
+    val snoozeUntilRaw = android.get("snoozeUntil")
+    val snoozeUntil: kotlinx.datetime.LocalDateTime? = when (snoozeUntilRaw) {
+        is Timestamp -> {
+            val millis = snoozeUntilRaw.seconds * 1000L + snoozeUntilRaw.nanoseconds / 1_000_000L
+            kotlinx.datetime.Instant.fromEpochMilliseconds(millis)
+                .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+        }
+        else -> null
+    }
+    val snoozeCount: Int = when (val raw = android.get("snoozeCount")) {
+        is Long -> raw.toInt()
+        is Number -> raw.toInt()
+        else -> 0
+    }
+
     return FamilyMember(
         id = id,
         name = get("name") ?: "Unknown",
@@ -94,7 +112,9 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         lastUpdatedAt = lastUpdatedAt,
         deviceAlarmEnabled = get("deviceAlarmEnabled"),
         dayProfiles = dayProfiles,
-        isSimpleMode = get<Boolean?>("isSimpleMode") ?: false
+        isSimpleMode = get<Boolean?>("isSimpleMode") ?: false,
+        snoozeUntil = snoozeUntil,
+        snoozeCount = snoozeCount
     )
 }
 
@@ -135,6 +155,11 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
         "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp,
         "deviceAlarmEnabled" to deviceAlarmEnabled,
         "dayProfiles" to dayProfilesData,
-        "isSimpleMode" to isSimpleMode
+        "isSimpleMode" to isSimpleMode,
+        "snoozeUntil" to snoozeUntil?.let {
+            val instant = it.toInstant(kotlinx.datetime.TimeZone.currentSystemDefault())
+            Timestamp(instant.epochSeconds, instant.nanosecondsOfSecond)
+        },
+        "snoozeCount" to snoozeCount
     )
 }

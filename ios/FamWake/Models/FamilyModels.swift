@@ -23,6 +23,8 @@ struct FamilyMember: Identifiable, Codable, Equatable {
     var deviceAlarmEnabled: Bool?
     var dayProfiles: [Int: DayProfile]?  // 1=Mo...7=So, nil = not configured
     var isSimpleMode: Bool
+    var snoozeUntil: Date?
+    var snoozeCount: Int
 
     init(
         id: String = UUID().uuidString,
@@ -43,7 +45,9 @@ struct FamilyMember: Identifiable, Codable, Equatable {
         lastUpdatedAt: Double? = nil,
         deviceAlarmEnabled: Bool? = nil,
         dayProfiles: [Int: DayProfile]? = nil,
-        isSimpleMode: Bool = false
+        isSimpleMode: Bool = false,
+        snoozeUntil: Date? = nil,
+        snoozeCount: Int = 0
     ) {
         self.id = id
         self.name = name
@@ -64,6 +68,8 @@ struct FamilyMember: Identifiable, Codable, Equatable {
         self.deviceAlarmEnabled = deviceAlarmEnabled
         self.dayProfiles = dayProfiles
         self.isSimpleMode = isSimpleMode
+        self.snoozeUntil = snoozeUntil
+        self.snoozeCount = snoozeCount
     }
 }
 

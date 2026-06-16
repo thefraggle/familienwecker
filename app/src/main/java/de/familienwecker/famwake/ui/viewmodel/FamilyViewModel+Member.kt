@@ -350,9 +350,18 @@ internal fun FamilyViewModel.checkAndResetMembers(members: List<FamilyMember>): 
         if (isPastResetThreshold && member.lastResetDate != today) {
             val isUnclaimed = member.claimedByUserId == null
             val newIsPaused = if (isUnclaimed) false else member.isPaused
-            val updated = member.copy(isPaused = newIsPaused, isAwakeToday = false, lastResetDate = today)
+            // Snooze-State zurücksetzen: neuer Tag = neue Snooze-Kontingente
+            val updated = member.copy(
+                isPaused = newIsPaused,
+                isAwakeToday = false,
+                lastResetDate = today,
+                snoozeUntil = null,
+                snoozeCount = 0
+            )
             if (member.id == myMemberId.value) {
                 appSettings.setAwakeToday(false)
+                appSettings.setSnoozeUntil(null)
+                appSettings.setSnoozeCount(0)
             }
             toUpdate.add(updated)
             updated

@@ -5,6 +5,8 @@ import AlarmKit
 import ActivityKit
 import SwiftUI
 import AppIntents
+import FirebaseFirestore
+import UserNotifications
 
 struct OpenFamWakeIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Wecker beenden"
@@ -65,20 +67,45 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         await MainActor.run {
             AlarmService.shared.stopAlarm()
         }
-        
-        let snoozeDuration = UserDefaults.standard.integer(forKey: "snooze_duration_minutes")
-        let actualSnooze = snoozeDuration > 0 ? snoozeDuration : 5
-        let snoozeTime = Date().addingTimeInterval(TimeInterval(actualSnooze * 60))
-        UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+
+        // Snooze-Count prüfen (Max aus SnoozeConfig)
+        let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
+        if currentCount >= SnoozeConfig.maxSnoozeCount {
+            // Max erreicht – nicht snoozen, lokale Notification zeigen
+            let content = UNMutableNotificationContent()
+            content.title = "Snooze nicht möglich"
+            content.body = "Maximale Snooze-Anzahl erreicht. Aufstehen! 💪"
+            content.sound = .default
+            let request = UNNotificationRequest(identifier: "max_snooze", content: content, trigger: nil)
+            try? await UNUserNotificationCenter.current().add(request)
+            return .result()
+        }
+        let newCount = currentCount + 1
+
+        let snoozeDate = Date().addingTimeInterval(TimeInterval(SnoozeConfig.snoozeDurationMinutes * 60))
+        UserDefaults.standard.set(snoozeDate.timeIntervalSince1970, forKey: "snooze_until")
+        UserDefaults.standard.set(newCount, forKey: "snooze_count")
         
         let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         try await AlarmService.scheduleWakeUpDirect(
-            wakeUpTime: snoozeTime,
+            wakeUpTime: snoozeDate,
             memberId: memberId,
             memberName: memberName,
             soundUri: alarmSoundUri,
             isSnooze: true
         )
+
+        // Snooze-State nach Firestore synchronisieren
+        if let familyId = UserDefaults.standard.string(forKey: "family_id"),
+           let myMemberId = UserDefaults.standard.string(forKey: "my_member_id") {
+            let ref = Firestore.firestore()
+                .collection("families").document(familyId)
+                .collection("members").document(myMemberId)
+            try? await ref.updateData([
+                "snoozeUntil": Timestamp(date: snoozeDate),
+                "snoozeCount": newCount
+            ])
+        }
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [

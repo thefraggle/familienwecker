@@ -22,6 +22,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.datetime.toInstant
 
 class FirebaseRepository : IFirebaseRepository {
 
@@ -282,7 +284,9 @@ class FirebaseRepository : IFirebaseRepository {
             a.claimedByUserId == b.claimedByUserId &&
             a.isPaused == b.isPaused &&
             a.isAwakeToday == b.isAwakeToday &&
-            a.deviceAlarmEnabled == b.deviceAlarmEnabled
+            a.deviceAlarmEnabled == b.deviceAlarmEnabled &&
+            a.snoozeUntil == b.snoozeUntil &&
+            a.snoozeCount == b.snoozeCount
         }
     }
 
@@ -526,6 +530,11 @@ class FirebaseRepository : IFirebaseRepository {
                             "isPaused" to member.isPaused,
                             "isAwakeToday" to member.isAwakeToday,
                             "lastResetDate" to member.lastResetDate,
+                            "snoozeUntil" to member.snoozeUntil?.let {
+                                val instant = it.toInstant(kotlinx.datetime.TimeZone.currentSystemDefault())
+                                com.google.firebase.Timestamp(instant.epochSeconds, instant.nanosecondsOfSecond)
+                            },
+                            "snoozeCount" to member.snoozeCount,
                             "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
                         ))
                     }
@@ -563,6 +572,24 @@ class FirebaseRepository : IFirebaseRepository {
             if (debugLogging) Log.i(TAG, "Pause-Status für $memberId gesetzt: isPaused=$isPaused")
         } catch (e: Exception) {
             if (debugLogging) Log.e(TAG, "Fehler beim Setzen von isPaused für $memberId: ${e.message}")
+            throw e
+        }
+    }
+
+    override suspend fun updateMemberSnoozeState(familyId: String, memberId: String, snoozeUntil: kotlinx.datetime.LocalDateTime?, snoozeCount: Int) {
+        try {
+            db.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS).document(memberId)
+                .update(mapOf(
+                    "snoozeUntil" to snoozeUntil?.let {
+                        val instant = it.toInstant(kotlinx.datetime.TimeZone.currentSystemDefault())
+                        com.google.firebase.Timestamp(instant.epochSeconds, instant.nanosecondsOfSecond)
+                    },
+                    "snoozeCount" to snoozeCount,
+                    "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
+                ))
+        } catch (e: Exception) {
+            if (debugLogging) Log.e(TAG, "Fehler beim Schreiben von snoozeState für $memberId: ${e.message}")
             throw e
         }
     }

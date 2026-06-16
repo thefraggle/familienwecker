@@ -76,6 +76,9 @@ interface IFirebaseRepository {
     /** Schreibt nur isPaused + lastUpdatedAt – umgeht das Security-Rule-Problem mit vollem .set(). */
     suspend fun updateMemberPauseState(familyId: String, memberId: String, isPaused: Boolean)
 
+    /** Synchronisiert den Snooze-State eines Members (snoozeUntil + snoozeCount) nach Firestore. */
+    suspend fun updateMemberSnoozeState(familyId: String, memberId: String, snoozeUntil: kotlinx.datetime.LocalDateTime?, snoozeCount: Int)
+
     /** Aktualisiert den globalen Puffer zwischen Bad-Slots im Family-Dokument. */
     suspend fun updateGlobalBufferMinutes(familyId: String, minutes: Long)
 
