@@ -51,7 +51,6 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
-            implementation(libs.androidx.security.crypto)
             implementation(libs.kotlinx.coroutines.play.services)
             implementation(libs.androidx.datastore.preferences)
         }
