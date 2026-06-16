@@ -380,11 +380,15 @@ fun RingingScreen(
                         )
                         Spacer(Modifier.width(8.dp))
                         Text(
-                            text = stringResource(
-                                R.string.snooze_counter,
-                                snoozeCount + 1,
-                                SnoozeConfig.MAX_SNOOZE_COUNT
-                            ),
+                            text = if (snoozeMaxReached) {
+                                stringResource(R.string.snooze_max_reached)
+                            } else {
+                                stringResource(
+                                    R.string.snooze_counter,
+                                    snoozeCount + 1,
+                                    SnoozeConfig.MAX_SNOOZE_COUNT
+                                )
+                            },
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.White
