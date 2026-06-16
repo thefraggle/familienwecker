@@ -314,3 +314,8 @@
 "reorder_dialog_today" = "Only today (%@)";
 "reorder_dialog_week" = "Entire week";
 "ringing_messages_array" = "The bathroom is all yours right now!||No traffic, no stress – your bathroom time starts now.||Enjoy the peace in the bathroom while it lasts!||Time for the first coffee. The world is waiting!||Sleep well? Your schedule for today is ready.||Ready for the day? Everything is perfectly timed.||Time to rock the day! Your bathroom time begins.||Wake up and turn it up – the stage is yours!||Heavy metal in the morning keeps the worries away!||Your family schedule is live. Let's go!||Ready to start? The family is counting on you.||Rise and shine! The bathroom is free for you.||Your personal bathroom time starts now – make the most of it!||Clear path to the sink – it's your turn!||The early bird gets the warm water!||Five more minutes? Nope! Your time slot is waiting.||Today is going to be a great day. It starts right now!||Your toothbrush misses you. Off to the bathroom!||All coordinated, all planned – you're up!||The early bird has the bathroom all to themselves.";
+"snooze_max_reached" = "Maximum snooze count reached. Time to get up! 💪";
+"snooze_counter" = "Snooze (%d/%d)";
+"notif_snooze_shift_title" = "Wake-up time shifted";
+"notif_snooze_shift_body" = "%@ needs more time. Your alarm now rings at %@";
+"schedule_member_snoozed" = "(shifted)";

@@ -207,6 +207,8 @@ class FamilyViewModel(
     private var membersJob: Job? = null
     private var syncStatusJob: Job? = null
     internal var lastScheduledAlarmMillis: Long? = null
+    /** Letzte bekannte Weckzeit des eigenen Members – für Snooze-Shift-Notification. */
+    internal var lastKnownWakeUpTime: kotlinx.datetime.LocalTime? = null
     internal val memberDebounceJobs = mutableMapOf<String, Job>()
     internal var alarmToggleJob: Job? = null
     internal var scheduleJob: Job? = null

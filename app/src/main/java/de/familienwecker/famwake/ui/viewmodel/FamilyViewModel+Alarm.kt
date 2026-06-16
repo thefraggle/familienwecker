@@ -24,6 +24,8 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.plus
 import de.familienwecker.famwake.model.SnoozeConfig
+import de.familienwecker.famwake.model.toJavaLocalTime
+import de.familienwecker.famwake.NotificationChannels
 
 // ─── Alarm-Logik ──────────────────────────────────────────────────────────────
 
@@ -179,6 +181,30 @@ internal fun FamilyViewModel.recalculateSchedule() {
                             }
                         }
                         applyAlarms(deviceResult)
+
+                        // Shift-Notification: Informiere User wenn Weckzeit durch Snooze eines
+                        // anderen Members verschoben wurde
+                        val mySchedule = deviceResult.memberSchedules.find { it.member.id == currentMyMemberId }
+                        if (mySchedule != null) {
+                            val newWakeTime = mySchedule.wakeUpTime
+                            val oldWakeTime = lastKnownWakeUpTime
+                            if (oldWakeTime != null && newWakeTime != oldWakeTime) {
+                                // Prüfe ob ein anderer Member gerade snoozed
+                                val nowDt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                                val snoozingMember = currentMembers.firstOrNull { m ->
+                                    m.id != currentMyMemberId &&
+                                    m.snoozeUntil != null &&
+                                    m.snoozeUntil!! > nowDt
+                                }
+                                if (snoozingMember != null) {
+                                    val context = getApplication<android.app.Application>()
+                                    val formatter = java.time.format.DateTimeFormatter.ofPattern("HH:mm")
+                                    val timeStr = newWakeTime.toJavaLocalTime().format(formatter)
+                                    sendSnoozeShiftNotification(context, snoozingMember.name, timeStr)
+                                }
+                            }
+                            lastKnownWakeUpTime = newWakeTime
+                        }
                     } else {
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                             android.util.Log.w("FamWake_Alarm", "recalculate: cancelling alarms – alarmsOn=$alarmsOn, hasSchedules=true")
@@ -556,4 +582,22 @@ fun FamilyViewModel.scheduleMessageToUiText(msg: ScheduleMessage): UiText = when
     is ScheduleMessage.MemberConflict           -> UiText.StringResource(R.string.schedule_message_member_conflict, msg.memberName)
     is ScheduleMessage.BufferReduced            -> UiText.StringResource(R.string.schedule_message_buffer_reduced, msg.originalMinutes, msg.reducedMinutes)
     is ScheduleMessage.NoActiveSchedule         -> UiText.StringResource(R.string.main_no_active_schedule)
+}
+
+/** Sendet eine lokale Notification wenn die Weckzeit durch den Snooze eines anderen Members verschoben wurde. */
+private fun sendSnoozeShiftNotification(context: android.content.Context, memberName: String, newTimeStr: String) {
+    val notification = androidx.core.app.NotificationCompat.Builder(context, NotificationChannels.SCHEDULE_CHANGE)
+        .setSmallIcon(R.mipmap.ic_launcher)
+        .setContentTitle(context.getString(R.string.notif_snooze_shift_title))
+        .setContentText(context.getString(R.string.notif_snooze_shift_body, memberName, newTimeStr))
+        .setAutoCancel(true)
+        .build()
+
+    try {
+        val manager = androidx.core.app.NotificationManagerCompat.from(context)
+        // Feste ID: überschreibt vorherige Shift-Notifications (kein Stacking)
+        manager.notify(1002, notification)
+    } catch (_: SecurityException) {
+        // POST_NOTIFICATIONS nicht granted – stille Fehlschlag
+    }
 }

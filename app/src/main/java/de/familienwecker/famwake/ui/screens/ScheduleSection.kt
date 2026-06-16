@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DragIndicator
 import androidx.compose.material.icons.filled.FreeBreakfast
 import androidx.compose.material.icons.filled.PauseCircle
+import androidx.compose.material.icons.filled.Snooze
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
@@ -47,6 +48,9 @@ import de.familienwecker.famwake.ui.theme.SnoozeTextDark
 import de.familienwecker.famwake.ui.theme.SnoozeTextLight
 import de.familienwecker.famwake.ui.viewmodel.FamilyViewModel
 import de.familienwecker.famwake.ui.viewmodel.scheduleMessageToUiText
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
@@ -436,11 +440,27 @@ fun LazyListScope.scheduleSection(
                                 tint = contentColor.copy(alpha = 0.7f)
                             )
                             Spacer(modifier = Modifier.width(6.dp))
+
+                            // Snooze-Indikator: zeige 💤 wenn Member aktiv snoozed
+                            val isSnoozed = sched.member.snoozeUntil?.let { snoozeUntil ->
+                                val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                                snoozeUntil > now
+                            } ?: false
+
                             Text(
                                 text = "${sched.wakeUpTime.toJavaLocalTime().format(timeFormatter)} - ${sched.member.name}",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
+                            if (isSnoozed) {
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Icon(
+                                    imageVector = Icons.Default.Snooze,
+                                    contentDescription = "Snooze",
+                                    modifier = Modifier.size(16.dp),
+                                    tint = if (isDarkTheme) SnoozeAmberLight else SnoozeAmberDark
+                                )
+                            }
                         }
                         Icon(
                             imageVector = Icons.Default.DragIndicator,

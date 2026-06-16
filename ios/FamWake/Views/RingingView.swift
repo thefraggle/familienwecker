@@ -10,6 +10,7 @@ struct RingingView: View {
     let memberId: String
     let memberName: String
     var isGreetingOnly: Bool = false
+    var snoozeCount: Int = 0
     var onStop: () -> Void
     var onSnooze: () -> Void
 
@@ -105,7 +106,7 @@ struct RingingView: View {
                             HStack(spacing: 10) {
                                 Image(systemName: "zzz")
                                     .font(.title3)
-                                Text(L.ringingSnooze)
+                                Text(L.snoozeCounter(snoozeCount + 1, SnoozeConfig.maxSnoozeCount))
                                     .font(.headline).fontWeight(.semibold)
                             }
                             .foregroundStyle(.white)
@@ -119,6 +120,8 @@ struct RingingView: View {
                             )
                         }
                         .buttonStyle(BounceButtonStyle())
+                        .disabled(snoozeCount >= SnoozeConfig.maxSnoozeCount)
+                        .opacity(snoozeCount >= SnoozeConfig.maxSnoozeCount ? 0.5 : 1.0)
                     }
                 }
                 .padding(.horizontal, 28)

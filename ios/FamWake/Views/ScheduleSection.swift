@@ -313,6 +313,8 @@ struct ScheduleSection: View {
 
     @ViewBuilder
     private func scheduleCard(_ sched: MemberSchedule) -> some View {
+        let isSnoozed = sched.member.snoozeUntil != nil && sched.member.snoozeUntil! > Date()
+        let isOtherMember = sched.member.id != familyViewModel.myMemberId
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
@@ -321,6 +323,14 @@ struct ScheduleSection: View {
                     Text("\(sched.wakeUpTime.formatted()) – \(sched.member.name)")
                         .font(.headline).fontWeight(.bold)
                         .foregroundStyle(theme.onPrimaryContainer)
+                    if isSnoozed {
+                        Text("💤")
+                    }
+                    if isSnoozed && isOtherMember {
+                        Text(L.scheduleMemberSnoozed)
+                            .font(.caption)
+                            .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                    }
                 }
                 
                 HStack(spacing: 6) {
