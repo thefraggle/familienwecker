@@ -71,13 +71,24 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         // Snooze-Count prüfen (Max aus SnoozeConfig)
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
         if currentCount >= SnoozeConfig.maxSnoozeCount {
-            // Max erreicht – nicht snoozen, lokale Notification zeigen
+            // Max erreicht – AlarmKit-Alarm canceln damit Lock-Screen sich dismissed
+            let uuid = AlarmService.getUUID(for: memberId)
+            try? await AlarmManager.shared.cancel(id: uuid)
+            
+            // Lokale Notification als Hinweis
             let content = UNMutableNotificationContent()
             content.title = "Snooze nicht möglich"
             content.body = "Maximale Snooze-Anzahl erreicht. Aufstehen! 💪"
             content.sound = .default
             let request = UNNotificationRequest(identifier: "max_snooze", content: content, trigger: nil)
             try? await UNUserNotificationCenter.current().add(request)
+            
+            // Stop-Notification posten damit App-UI reagiert
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: [
+                    "memberId": self.memberId
+                ])
+            }
             return .result()
         }
         let newCount = currentCount + 1
@@ -134,7 +145,7 @@ final class AlarmService: ObservableObject {
 
     private var schedulingTasks: [String: Task<Void, Never>] = [:]
 
-    private static func getUUID(for memberId: String) -> UUID {
+    static func getUUID(for memberId: String) -> UUID {
         let key = "alarm_uuid_\(memberId)"
         if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
             return uuid
@@ -164,6 +175,12 @@ final class AlarmService: ObservableObject {
     }
 
     static func scheduleWakeUpDirect(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool) async throws {
+        // Bei regulärem Alarm (nicht Snooze): Counter zurücksetzen
+        // Verhindert stale snooze_count über Sessions hinweg
+        if !isSnooze {
+            UserDefaults.standard.set(0, forKey: "snooze_count")
+        }
+        
         let status = try await AlarmManager.shared.requestAuthorization()
         if status != .authorized {
             throw NSError(domain: "AlarmKit", code: 1, userInfo: [NSLocalizedDescriptionKey: "Not authorized"])
