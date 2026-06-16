@@ -394,10 +394,20 @@ class AppleSignInHelper: NSObject, ASAuthorizationControllerDelegate, ASAuthoriz
     }
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return UIApplication.shared.connectedScenes
+        // Robust für iPad (Stage Manager / Multi-Window):
+        // 1. keyWindow → 2. erstes Window der aktiven Scene → 3. irgendein Window
+        let scenes = UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow } ?? ASPresentationAnchor()
+        
+        if let keyWindow = scenes.flatMap(\.windows).first(where: { $0.isKeyWindow }) {
+            return keyWindow
+        }
+        if let activeWindow = scenes
+            .first(where: { $0.activationState == .foregroundActive })?
+            .windows.first {
+            return activeWindow
+        }
+        return scenes.flatMap(\.windows).first ?? ASPresentationAnchor()
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
