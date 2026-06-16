@@ -269,11 +269,12 @@ struct MainView: View {
 
     @ViewBuilder
     private func snoozeBanner(until: Date) -> some View {
+        let currentSnoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
         Group {
             HStack {
                 Image(systemName: "zzz")
                     .foregroundStyle(colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
-                Text(L.mainSnoozeActive(timeString(until)))
+                Text("\(L.mainSnoozeActive(timeString(until))) (\(currentSnoozeCount)/\(SnoozeConfig.maxSnoozeCount))")
                     .font(.subheadline)
                     .foregroundStyle(colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
                 Spacer()

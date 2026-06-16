@@ -176,6 +176,15 @@ enum L {
     static var ringingSnooze: String { s("ringing_snooze") }
     static var ringingStop: String { s("ringing_stop") }
     static var ringingMessagesArray: String { s("ringing_messages_array") }
+    static var snoozeMaxReached: String { s("snooze_max_reached") }
+    static func snoozeCounter(_ current: Int, _ max: Int) -> String {
+        String(format: s("snooze_counter"), current, max)
+    }
+    static var notifSnoozeShiftTitle: String { s("notif_snooze_shift_title") }
+    static func notifSnoozeShiftBody(_ name: String, _ time: String) -> String {
+        String(format: s("notif_snooze_shift_body"), name, time)
+    }
+    static var scheduleMemberSnoozed: String { s("schedule_member_snoozed") }
 
     // MARK: - Tooltips
     static var tooltipAwakeButton: String { s("tooltip_awake_button") }

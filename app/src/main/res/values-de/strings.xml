@@ -356,4 +356,9 @@
     <string name="reorder_dialog_message">Soll die neue Reihenfolge nur für heute (%1$s) oder für die ganze Woche gelten?</string>
     <string name="reorder_dialog_today">Nur für heute (%1$s)</string>
     <string name="reorder_dialog_week">Ganze Woche</string>
+
+    <string name="snooze_max_reached">Maximale Snooze-Anzahl erreicht. Aufstehen! 💪</string>
+    <string name="snooze_counter">Schlummern (%1$d/%2$d)</string>
+    <string name="notif_snooze_shift_title">Weckzeit verschoben</string>
+    <string name="notif_snooze_shift_body">%1$s braucht länger. Dein Wecker klingelt jetzt um %2$s</string>
 </resources>
