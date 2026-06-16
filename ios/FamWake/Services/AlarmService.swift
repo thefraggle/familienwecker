@@ -72,7 +72,11 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
         if currentCount >= SnoozeConfig.maxSnoozeCount {
             // Max erreicht – AlarmKit-Alarm canceln damit Lock-Screen sich dismissed
-            let uuid = AlarmService.getUUID(for: memberId)
+            let uuidKey = "alarm_uuid_\(memberId)"
+            let uuid: UUID = {
+                if let str = UserDefaults.standard.string(forKey: uuidKey), let id = UUID(uuidString: str) { return id }
+                return UUID()
+            }()
             try? await AlarmManager.shared.cancel(id: uuid)
             
             // Lokale Notification als Hinweis
