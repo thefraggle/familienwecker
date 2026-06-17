@@ -993,7 +993,14 @@ class FamilyViewModel: ObservableObject {
                 }
                 guard let docs = snap?.documents else { return }
                 let parsed = docs.compactMap { FamilyMember.fromFirestore($0.data(), id: $0.documentID) }
-                self.members = parsed.sorted { $0.sequenceOrder < $1.sequenceOrder }
+                var sorted = parsed.sorted { $0.sequenceOrder < $1.sequenceOrder }
+                // Lokalen deviceAlarmEnabled-State für eigenen Member beibehalten,
+                // um Flackern zwischen lokalem Toggle und Firestore-Roundtrip zu verhindern
+                if let myId = self.myMemberId,
+                   let localIdx = sorted.firstIndex(where: { $0.id == myId }) {
+                    sorted[localIdx].deviceAlarmEnabled = self.isAlarmEnabled
+                }
+                self.members = sorted
                 self.updateAwakeState()
                 
                 // Claim-Sync: Prüfe ob eigenes Profil noch gültig ist (Android FamilyViewModel.kt:251-283)
