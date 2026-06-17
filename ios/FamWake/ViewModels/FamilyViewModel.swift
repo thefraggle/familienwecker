@@ -766,9 +766,11 @@ class FamilyViewModel: ObservableObject {
 
         let snoozeTime = Date().addingTimeInterval(TimeInterval(SnoozeConfig.snoozeDurationMinutes * 60))
         
-        snoozeUntil = snoozeTime
+        // UserDefaults ZUERST setzen – snoozeUntil ist @Published und triggert
+        // sofort einen View-Rebuild; das Banner liest snooze_count aus UserDefaults.
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         UserDefaults.standard.set(newCount, forKey: "snooze_count")
+        snoozeUntil = snoozeTime
 
         // Lokalen members-State SOFORT aktualisieren, damit resolveEffectiveMember
         // die snooze-fixierte Weckzeit berechnet und der Scheduler nachfolgende
