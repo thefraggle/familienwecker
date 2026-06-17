@@ -238,14 +238,23 @@ class Scheduler {
 
 
 
-        // Post-Validation (auf korrigierte Schedules)
-        if (breakfastTime != null && isValid) {
+        // Prüfe ob ein Snooze (fixierter Member) aktiv ist – dann toleriere Verschiebungen
+        val hasSnoozeActive = orderedMembers.any { it.earliestWakeUp == it.latestWakeUp }
+
+        // Post-Validation (auf korrigierte Schedules) – bei Snooze tolerieren, da temporär
+        if (breakfastTime != null && isValid && !hasSnoozeActive) {
             for (s in forwardSchedules) {
                 if (s.member.wantsBreakfast && s.bathroomEndTime.isAfter(breakfastTime)) {
                     isValid = false
                     if (!includeInvalid) return FamilySchedule(emptyList(), null, false, ScheduleMessage.NoValidScheduleFound)
                 }
             }
+        }
+
+        // Bei Snooze-bedingter Verschiebung: Plan als gültig markieren, da die
+        // Verschiebung temporär ist und kein User-Eingriff erforderlich ist.
+        if (hasSnoozeActive && !isValid) {
+            isValid = true
         }
 
         return FamilySchedule(
