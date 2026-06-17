@@ -2072,8 +2072,7 @@ async function sendPushToUser(uid, payload) {
     android: { priority: "high" },
     apns: {
       headers: {
-        "apns-priority": "5",
-        "apns-push-type": "background"
+        "apns-priority": "10"
       },
       payload: {
         aps: {
