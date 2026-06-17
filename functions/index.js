@@ -2076,6 +2076,10 @@ async function sendPushToUser(uid, payload) {
       },
       payload: {
         aps: {
+          alert: titleLocKey ? {
+            "title-loc-key": titleLocKey,
+            "loc-key": bodyLocKey
+          } : undefined,
           "content-available": 1
         }
       }
