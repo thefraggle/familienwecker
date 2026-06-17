@@ -5,8 +5,7 @@ import de.familienwecker.famwake.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import androidx.room.RoomDatabase
+
 
 /**
  * Application-Klasse, die Singletons für Repositories bereitstellt.
@@ -23,7 +22,6 @@ class FamWakeApplication : Application() {
 
     val memberRepository: de.familienwecker.famwake.data.MemberRepository by lazy {
         val db = de.familienwecker.famwake.db.getDatabaseBuilder(this)
-            .setDriver(androidx.sqlite.driver.bundled.BundledSQLiteDriver())
             .build()
         de.familienwecker.famwake.data.MemberRepository(db.memberDao())
     }

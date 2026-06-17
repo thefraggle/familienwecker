@@ -181,7 +181,7 @@ fun MainScreen(
             floatingActionButton = {
                 val memberLimitReached = members.size >= 6
                 val currentJoinCode by viewModel.joinCode.collectAsStateWithLifecycle()
-                val isAnonymous = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.isAnonymous == true
+                val isAnonymous by viewModel.isAnonymous.collectAsStateWithLifecycle()
 
                 Column(horizontalAlignment = Alignment.End) {
                     // Share-FAB: Familie teilen (nur für eingeloggte User)

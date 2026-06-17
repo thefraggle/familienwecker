@@ -243,6 +243,13 @@ class FamilyViewModel(
         isGlobal || (auth.currentUser?.uid != null && auth.currentUser?.uid == creatorId)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
+    // ── Anonymous-Status (M12: aus Composable in ViewModel verschoben) ────────
+
+    /** true wenn der aktuelle Firebase-User anonym eingeloggt ist. */
+    val isAnonymous: StateFlow<Boolean> = repository.getAuthStateFlow()
+        .map { user -> user?.isAnonymous == true }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), auth.currentUser?.isAnonymous == true)
+
     // ── Snooze ────────────────────────────────────────────────────────────────
 
     val snoozeUntil: StateFlow<java.time.LocalDateTime?> = appSettings.snoozeUntil
@@ -357,6 +364,8 @@ class FamilyViewModel(
                                 val data = repository.getFamilyData(currentFamilyId)
                                 _familyCreatorId.value = data?.createdByUserId
                                 _globalBufferMinutes.value = data?.globalBufferMinutes ?: 0L
+                            } catch (e: CancellationException) {
+                                throw e
                             } catch (e: Exception) {
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                                     android.util.Log.e("FamilyViewModel", "Error loading family creator: ${e.message}")
@@ -420,6 +429,8 @@ class FamilyViewModel(
                         // Cache bereits oben geleert – kein weiterer Action nötig
                     }
                 }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("FamilyViewModel", "Outer Init Error: ${e.message}", e)
@@ -436,6 +447,8 @@ class FamilyViewModel(
                 myMemberId.collect { _ ->
                     recalculateSchedule()
                 }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.w("FamilyViewModel", "myMemberId observer error: ${e.message}")
@@ -447,6 +460,8 @@ class FamilyViewModel(
         viewModelScope.launch {
             try {
                 isAlarmEnabled.collect { recalculateSchedule() }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.w("FamilyViewModel", "isAlarmEnabled observer error: ${e.message}")
