@@ -455,6 +455,14 @@ class FamilyViewModel: ObservableObject {
             members[idx].deviceAlarmEnabled = enabled
         }
         
+        // KRITISCH: Bei OFF sofort ALLE Alarme canceln, bevor recalculateSchedule läuft.
+        // cancelAll() ist asynchron (Task{}), daher zusätzlich UNNotificationCenter nutzen.
+        if !enabled {
+            AlarmService.shared.cancelAll()
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        }
+        
         recalculateSchedule()
         
         if let fid = familyId, let mid = myMemberId {
