@@ -53,7 +53,7 @@ class FamilyViewModel: ObservableObject {
     @Published var isSendingFeedback: Bool = false
     @Published var feedbackSubmitted: Bool = false
     @Published var feedbackError: String? = nil
-    @Published var pendingPauseIds: Set<String> = []
+
 
     /// Letzte bekannte Weckzeit – für Shift-Notification bei Snooze anderer Member
     private var lastKnownWakeUpTime: Date?
@@ -242,6 +242,9 @@ class FamilyViewModel: ObservableObject {
                     try await batch.commit()
                 } catch {
                     print("Batch commit failed during member reset: \(error.localizedDescription)")
+                    await MainActor.run {
+                        self.errorMessage = "Mitglieder konnten nicht zurückgesetzt werden: \(error.localizedDescription)"
+                    }
                 }
             }
         }
@@ -468,12 +471,16 @@ class FamilyViewModel: ObservableObject {
         if let fid = familyId, let mid = myMemberId {
             Task {
                 if let uid = Auth.auth().currentUser?.uid {
-                    try? await db.collection("users").document(uid)
-                        .collection("pushMeta").document("user_action")
-                        .setData([
-                            "familyId": fid,
-                            "timestamp": FieldValue.serverTimestamp()
-                        ])
+                    do {
+                        try await db.collection("users").document(uid)
+                            .collection("pushMeta").document("user_action")
+                            .setData([
+                                "familyId": fid,
+                                "timestamp": FieldValue.serverTimestamp()
+                            ])
+                    } catch {
+                        print("Error writing pushMeta in setAlarmEnabled: \(error)")
+                    }
                 }
                 do {
                     try await db.collection("families").document(fid).collection("members").document(mid)
@@ -490,7 +497,6 @@ class FamilyViewModel: ObservableObject {
             // ALLE Alarme + Snooze-State komplett aufräumen
             if let myId = myMemberId {
                 AlarmService.shared.cancelWakeUp(memberId: myId)
-                AlarmService.shared.cancelWakeUp(memberId: myId, isSnooze: true)
             }
             // Snooze-State löschen
             snoozeUntil = nil
@@ -701,9 +707,15 @@ class FamilyViewModel: ObservableObject {
                 if let dp = dpData {
                     updatePayload["dayProfiles"] = dp
                 }
-                try? await db.collection("families").document(fid)
-                    .collection("members").document(member.id)
-                    .updateData(updatePayload)
+                do {
+                    try await db.collection("families").document(fid)
+                        .collection("members").document(member.id)
+                        .updateData(updatePayload)
+                } catch {
+                    await MainActor.run {
+                        self.errorMessage = "Reihenfolge konnte nicht gespeichert werden: \(error.localizedDescription)"
+                    }
+                }
             }
         }
     }
@@ -771,17 +783,25 @@ class FamilyViewModel: ObservableObject {
             Task {
                 // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
                 if let uid = Auth.auth().currentUser?.uid {
-                    try? await db.collection("users").document(uid)
-                        .collection("pushMeta").document("user_action")
-                        .setData([
-                            "familyId": familyId,
-                            "timestamp": FieldValue.serverTimestamp()
-                        ])
+                    do {
+                        try await db.collection("users").document(uid)
+                            .collection("pushMeta").document("user_action")
+                            .setData([
+                                "familyId": familyId,
+                                "timestamp": FieldValue.serverTimestamp()
+                            ])
+                    } catch {
+                        print("Error writing pushMeta in snooze: \(error)")
+                    }
                 }
-                try? await memberRef.updateData([
-                    "snoozeUntil": Timestamp(date: snoozeTime),
-                    "snoozeCount": newCount
-                ])
+                do {
+                    try await memberRef.updateData([
+                        "snoozeUntil": Timestamp(date: snoozeTime),
+                        "snoozeCount": newCount
+                    ])
+                } catch {
+                    print("Error syncing snooze to Firestore: \(error)")
+                }
             }
         }
     }
@@ -793,7 +813,6 @@ class FamilyViewModel: ObservableObject {
         // Bei nativem .countdown-Snooze läuft der Countdown unter der Haupt-UUID,
         // daher beide canceln (Haupt + ggf. alte Snooze-UUID).
         AlarmService.shared.cancelWakeUp(memberId: memberId)
-        AlarmService.shared.cancelWakeUp(memberId: memberId, isSnooze: true)
 
         // Snooze-State in Firestore löschen
         if let familyId = familyId {
@@ -802,17 +821,25 @@ class FamilyViewModel: ObservableObject {
             Task {
                 // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
                 if let uid = Auth.auth().currentUser?.uid {
-                    try? await db.collection("users").document(uid)
-                        .collection("pushMeta").document("user_action")
-                        .setData([
-                            "familyId": familyId,
-                            "timestamp": FieldValue.serverTimestamp()
-                        ])
+                    do {
+                        try await db.collection("users").document(uid)
+                            .collection("pushMeta").document("user_action")
+                            .setData([
+                                "familyId": familyId,
+                                "timestamp": FieldValue.serverTimestamp()
+                            ])
+                    } catch {
+                        print("Error writing pushMeta in cancelSnooze: \(error)")
+                    }
                 }
-                try? await memberRef.updateData([
-                    "snoozeUntil": FieldValue.delete(),
-                    "snoozeCount": 0
-                ])
+                do {
+                    try await memberRef.updateData([
+                        "snoozeUntil": FieldValue.delete(),
+                        "snoozeCount": 0
+                    ])
+                } catch {
+                    print("Error syncing cancelSnooze to Firestore: \(error)")
+                }
             }
         }
     }
