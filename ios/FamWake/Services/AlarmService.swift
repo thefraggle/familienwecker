@@ -273,9 +273,15 @@ final class AlarmService: ObservableObject {
             } catch {
                 let errStr = String(describing: error)
                 print("AlarmKit Error: \(errStr)")
+                let nsError = error as NSError
+                // Nur bei echtem Berechtigungsfehler den Banner zeigen,
+                // nicht bei jedem beliebigen AlarmKit-Fehler
+                let isPermissionError = nsError.domain == "AlarmKit" && nsError.code == 1
                 DispatchQueue.main.async { 
                     UserDefaults.standard.set(errStr, forKey: "last_alarm_error")
-                    onPermissionDenied?() 
+                    if isPermissionError {
+                        onPermissionDenied?()
+                    }
                 }
             }
         }
