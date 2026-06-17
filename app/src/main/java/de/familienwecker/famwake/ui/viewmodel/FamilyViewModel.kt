@@ -134,6 +134,10 @@ class FamilyViewModel(
     val pushNotificationsEnabled: StateFlow<Boolean> = appSettings.pushNotificationsEnabled
     fun setPushNotificationsEnabled(enabled: Boolean) {
         appSettings.setPushNotificationsEnabled(enabled)
+        // Dual-Write: synchrone SharedPreferences für den FCM-Service,
+        // weil DataStore bei Kaltstart noch nicht geladen sein kann.
+        getApplication<FamWakeApplication>().getSharedPreferences("famwake_push_prefs", android.content.Context.MODE_PRIVATE)
+            .edit().putBoolean("push_enabled", enabled).apply()
         if (enabled) {
             FamWakeMessagingService.refreshAndSaveToken()
         } else {
