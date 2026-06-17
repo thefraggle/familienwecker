@@ -25,6 +25,7 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CancellationException
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.todayIn
 import de.familienwecker.famwake.util.isBefore
 import kotlinx.coroutines.flow.flatMapLatest
@@ -283,15 +284,28 @@ class FamilyViewModel(
                     android.util.Log.d("FamilyViewModel", "UI Source: Received ${membersList.size} members from Room")
                 }
                 val checkedMembers = checkAndResetMembers(membersList).toMutableList()
-                // Lokalen deviceAlarmEnabled-State für eigenen Member beibehalten,
+                // Lokalen State für eigenen Member beibehalten,
                 // um Überschreibung durch Room/Firestore-Roundtrip zu verhindern.
-                // Der lokale Toggle-Wert ist autoritativ für den eigenen Member.
                 val myId = myMemberId.value
                 val alarmsOn = isAlarmEnabled.value
                 if (myId != null) {
                     val idx = checkedMembers.indexOfFirst { it.id == myId }
                     if (idx != -1) {
-                        checkedMembers[idx] = checkedMembers[idx].copy(deviceAlarmEnabled = alarmsOn)
+                        var overridden = checkedMembers[idx].copy(deviceAlarmEnabled = alarmsOn)
+                        // Snooze-State: Lokal gesetzten Snooze beibehalten, da der Firestore/Room-Write
+                        // noch unterwegs sein kann und der Observer sonst den Snooze überschreibt
+                        val localSnooze = appSettings.snoozeUntil.value
+                        if (localSnooze != null) {
+                            val nowDateTime = kotlinx.datetime.Clock.System.now()
+                                .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+                            if (localSnooze > nowDateTime) {
+                                overridden = overridden.copy(
+                                    snoozeUntil = localSnooze,
+                                    snoozeCount = appSettings.snoozeCount.value
+                                )
+                            }
+                        }
+                        checkedMembers[idx] = overridden
                     }
                 }
                 _members.value = checkedMembers.toPersistentList()
