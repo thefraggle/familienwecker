@@ -310,6 +310,7 @@ fun MainScreen(
             
             LazyColumn(
                 state = lazyListState,
+                userScrollEnabled = draggedItemId == null,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
