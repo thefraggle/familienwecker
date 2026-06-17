@@ -289,7 +289,16 @@ final class AlarmService: ObservableObject {
     }
 
     func cancelAll() {
-        // Not easily supported with UUIDs unless we track all UUIDs
+        Task {
+            // AlarmKit bietet cancel-by-ID. Ohne ID-Tracking canceln wir alle bekannten UUIDs.
+            // Für Geister-Alarme (nach Reinstall) müssen wir alle pending alarms entfernen.
+            for key in UserDefaults.standard.dictionaryRepresentation().keys where key.hasPrefix("alarm_uuid_") {
+                if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
+                    try? await AlarmManager.shared.cancel(id: uuid)
+                }
+                UserDefaults.standard.removeObject(forKey: key)
+            }
+        }
     }
 
     func cancelWakeUp(memberId: String, isSnooze: Bool = false) {
