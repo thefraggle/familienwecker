@@ -251,7 +251,7 @@ final class AlarmService: ObservableObject {
             attributes: attributes,
             stopIntent: OpenFamWakeIntent(memberId: memberId, memberName: memberName),
             secondaryIntent: SnoozeNotifyIntent(memberId: memberId, memberName: memberName),
-            sound: finalSoundNameToUse == nil ? .default : .named(finalSoundNameToUse!)
+            sound: finalSoundNameToUse.map { .named($0) } ?? .default
         )
         
         let oldUuid = self.getUUID(for: memberId)
