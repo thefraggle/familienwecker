@@ -101,6 +101,9 @@ struct AppRouter: View {
                     familyViewModel.recalculateSchedule()
                 },
                 onSnooze: {
+                    // Aktuellen AlarmKit-Alarm canceln, bevor neuer Snooze-Alarm geplant wird
+                    AlarmService.shared.cancelWakeUp(memberId: appState.ringingMemberId)
+                    AlarmService.shared.cancelWakeUp(memberId: appState.ringingMemberId, isSnooze: true)
                     appState.stopRinging()
                     familyViewModel.snooze(memberId: appState.ringingMemberId, memberName: appState.ringingMemberName)
                 }

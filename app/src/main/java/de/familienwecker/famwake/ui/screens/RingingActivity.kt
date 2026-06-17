@@ -89,8 +89,12 @@ class RingingActivity : AppCompatActivity() {
                             // Snooze-Status löschen, damit der Banner auf MainScreen verschwindet
                             appSettings.setSnoozeUntil(null)
                             appSettings.setSnoozeCount(0)
-                            // Snooze-Alarm-Slot aus dem System entfernen
+                            // isAwakeToday setzen – verhindert, dass applyAlarms() sofort
+                            // einen neuen regulären Alarm für heute plant (Loop-Prevention)
+                            appSettings.setAwakeToday(true)
+                            // BEIDE Alarm-Slots aus dem System entfernen
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
+                            alarmScheduler.cancelWakeUp(memberId, isSnooze = false)
 
                             // Firestore: Snooze-State zurücksetzen (best-effort)
                             val familyId = appSettings.familyId.value
