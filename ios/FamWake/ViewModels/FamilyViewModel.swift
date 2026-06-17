@@ -55,6 +55,10 @@ class FamilyViewModel: ObservableObject {
     @Published var feedbackError: String? = nil
 
 
+    /// IDs von Members deren Pause-Toggle noch auf Firestore-Bestätigung wartet.
+    /// Verhindert visuelles Flackern durch vorzeitige Snapshot-Überschreibung.
+    private var pendingPauseToggleIds: Set<String> = []
+
     /// Letzte bekannte Weckzeit – für Shift-Notification bei Snooze anderer Member
     private var lastKnownWakeUpTime: Date?
 
@@ -405,6 +409,7 @@ class FamilyViewModel: ObservableObject {
         let oldPausedState = member.isPaused
         let newPausedState = !oldPausedState
         
+        pendingPauseToggleIds.insert(memberId)
         if let idx = members.firstIndex(where: { $0.id == memberId }) {
             members[idx].isPaused = newPausedState
             recalculateSchedule()
@@ -414,8 +419,12 @@ class FamilyViewModel: ObservableObject {
             await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
                 try await FamilyFirestoreService.shared.togglePauseMember(familyId: fid, memberId: memberId, newPausedState: newPausedState)
+                await MainActor.run {
+                    self.pendingPauseToggleIds.remove(memberId)
+                }
             } catch {
                 await MainActor.run {
+                    self.pendingPauseToggleIds.remove(memberId)
                     if let idx = self.members.firstIndex(where: { $0.id == memberId }) {
                         self.members[idx].isPaused = oldPausedState
                         self.recalculateSchedule()
@@ -1048,6 +1057,14 @@ class FamilyViewModel: ObservableObject {
                     if let localSnooze = self.snoozeUntil, localSnooze > Date() {
                         sorted[localIdx].snoozeUntil = localSnooze
                         sorted[localIdx].snoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
+                    }
+                }
+                // Pause-Flicker-Guard: Lokalen isPaused-Wert beibehalten solange
+                // der Firestore-Write für dieses Member noch aussteht (H1)
+                for i in sorted.indices {
+                    if self.pendingPauseToggleIds.contains(sorted[i].id),
+                       let localMember = self.members.first(where: { $0.id == sorted[i].id }) {
+                        sorted[i].isPaused = localMember.isPaused
                     }
                 }
                 self.members = sorted
