@@ -512,7 +512,7 @@ private struct DayProfileCard: View {
                         DatePickerRow(
                             label: L.addMemberLeaveHome,
                             time: Binding(
-                                get: { profile.leaveHomeTime?.asTime ?? Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())! },
+                                get: { profile.leaveHomeTime?.asTime ?? Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date()) ?? Date() },
                                 set: { onChange(profile.withLeave(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
                             ),
                             isError: leaveError,
