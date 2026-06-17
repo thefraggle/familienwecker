@@ -17,7 +17,7 @@ class MemberRepository(private val memberDao: MemberDao) {
         entities.map { it.toDomain() }
     }.distinctUntilChanged { old, new ->
         old.size == new.size &&
-        old.zip(new).all { (a, b) -> a.id == b.id && a.lastUpdatedAt == b.lastUpdatedAt }
+        old.zip(new).all { (a, b) -> a.id == b.id && a.lastUpdatedAt == b.lastUpdatedAt && a.snoozeUntil == b.snoozeUntil }
     }
 
     suspend fun cacheMembers(members: List<FamilyMember>) {
@@ -59,7 +59,9 @@ private fun de.familienwecker.famwake.db.FamilyMemberEntity.toDomain(): FamilyMe
     createdAt = createdAt,
     lastUpdatedAt = lastUpdatedAt,
     deviceAlarmEnabled = deviceAlarmEnabled,
-    dayProfiles = dayProfilesJson?.let { json.decodeFromString(it) }
+    dayProfiles = dayProfilesJson?.let { json.decodeFromString(it) },
+    snoozeUntil = snoozeUntil?.let { kotlinx.datetime.LocalDateTime.parse(it) },
+    snoozeCount = snoozeCount
 )
 
 private fun FamilyMember.toEntity(): de.familienwecker.famwake.db.FamilyMemberEntity = de.familienwecker.famwake.db.FamilyMemberEntity(
@@ -80,5 +82,7 @@ private fun FamilyMember.toEntity(): de.familienwecker.famwake.db.FamilyMemberEn
     createdAt = createdAt,
     lastUpdatedAt = lastUpdatedAt,
     deviceAlarmEnabled = deviceAlarmEnabled,
-    dayProfilesJson = dayProfiles?.let { json.encodeToString(it) }
+    dayProfilesJson = dayProfiles?.let { json.encodeToString(it) },
+    snoozeUntil = snoozeUntil?.toString(),
+    snoozeCount = snoozeCount
 )
