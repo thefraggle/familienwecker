@@ -716,6 +716,7 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
+
     func snooze(memberId: String, memberName: String) {
         // Snooze-Count prüfen (Max aus SnoozeConfig)
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
@@ -745,6 +746,15 @@ class FamilyViewModel: ObservableObject {
             let memberRef = db.collection("families").document(familyId)
                 .collection("members").document(memberId)
             Task {
+                // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
+                if let uid = Auth.auth().currentUser?.uid {
+                    try? await db.collection("users").document(uid)
+                        .collection("pushMeta").document("user_action")
+                        .setData([
+                            "familyId": familyId,
+                            "timestamp": FieldValue.serverTimestamp()
+                        ])
+                }
                 try? await memberRef.updateData([
                     "snoozeUntil": Timestamp(date: snoozeTime),
                     "snoozeCount": newCount
@@ -767,6 +777,15 @@ class FamilyViewModel: ObservableObject {
             let memberRef = db.collection("families").document(familyId)
                 .collection("members").document(memberId)
             Task {
+                // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
+                if let uid = Auth.auth().currentUser?.uid {
+                    try? await db.collection("users").document(uid)
+                        .collection("pushMeta").document("user_action")
+                        .setData([
+                            "familyId": familyId,
+                            "timestamp": FieldValue.serverTimestamp()
+                        ])
+                }
                 try? await memberRef.updateData([
                     "snoozeUntil": FieldValue.delete(),
                     "snoozeCount": 0
