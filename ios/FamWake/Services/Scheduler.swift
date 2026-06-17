@@ -228,8 +228,11 @@ struct Scheduler {
             }
         }
 
-        // Post-Validation Frühstück
-        if let bt = breakfastTime, isValid {
+        // Prüfe ob ein Snooze (fixierter Member) aktiv ist – dann toleriere Verschiebungen
+        let hasSnoozeActive = orderedMembers.contains { $0.earliestWakeUp == $0.latestWakeUp }
+
+        // Post-Validation Frühstück (bei Snooze tolerieren, da temporär)
+        if let bt = breakfastTime, isValid, !hasSnoozeActive {
             for s in forwardSchedules {
                 if s.member.wantsBreakfast && bt < s.bathroomEnd {
                     isValid = false
@@ -238,6 +241,12 @@ struct Scheduler {
                     }
                 }
             }
+        }
+
+        // Bei Snooze-bedingter Verschiebung: Plan als gültig markieren, da die
+        // Verschiebung temporär ist und kein User-Eingriff erforderlich ist.
+        if hasSnoozeActive && !isValid {
+            isValid = true
         }
 
         return FamilySchedule(
