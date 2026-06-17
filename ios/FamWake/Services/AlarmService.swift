@@ -304,26 +304,39 @@ final class AlarmService: ObservableObject {
         schedulingTasks[memberId] = task
     }
 
-    func cancelAll() {
-        Task {
-            // 1. Aus Keychain lesen (überlebt Reinstall!)
-            for uuid in KeychainHelper.readAllAlarmUUIDs() {
+    func cancelAll() async {
+        // 1. Aus Keychain lesen (überlebt Reinstall!)
+        for uuid in KeychainHelper.readAllAlarmUUIDs() {
+            try? await AlarmManager.shared.cancel(id: uuid)
+        }
+        // 2. Legacy: Auch UserDefaults prüfen (Keys NICHT löschen – werden bei
+        //    generateNewUUID() überschrieben; Löschen verursacht Inkonsistenz mit Keychain)
+        for key in UserDefaults.standard.dictionaryRepresentation().keys where key.hasPrefix("alarm_uuid_") {
+            if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
                 try? await AlarmManager.shared.cancel(id: uuid)
-            }
-            // 2. Legacy: Auch UserDefaults prüfen
-            for key in UserDefaults.standard.dictionaryRepresentation().keys where key.hasPrefix("alarm_uuid_") {
-                if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
-                    try? await AlarmManager.shared.cancel(id: uuid)
-                }
-                UserDefaults.standard.removeObject(forKey: key)
             }
         }
     }
 
+    /// Liest die UUID ohne zu generieren – gibt nil zurück wenn nicht vorhanden.
+    /// Für Cancel-Pfade: verhindert, dass eine nie geplante UUID gecancelt wird.
+    nonisolated static func readUUID(for memberId: String) -> UUID? {
+        let key = "alarm_uuid_\(memberId)"
+        if let uuidStr = KeychainHelper.read(key: key), let uuid = UUID(uuidString: uuidStr) {
+            return uuid
+        }
+        if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
+            KeychainHelper.save(key: key, value: uuidStr)
+            return uuid
+        }
+        return nil
+    }
+
     func cancelWakeUp(memberId: String) {
         Task {
-            let uuid = self.getUUID(for: memberId)
-            try? await AlarmManager.shared.cancel(id: uuid)
+            if let uuid = Self.readUUID(for: memberId) {
+                try? await AlarmManager.shared.cancel(id: uuid)
+            }
         }
     }
 
