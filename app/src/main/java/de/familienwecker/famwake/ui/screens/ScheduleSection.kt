@@ -369,7 +369,7 @@ fun LazyListScope.scheduleSection(
                     if (isDarkTheme) {
                         MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
                     } else {
-                        MaterialTheme.colorScheme.surface
+                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
                     }
                 } else if (isDarkTheme) {
                     MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
