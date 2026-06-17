@@ -578,18 +578,30 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun updateMemberSnoozeState(familyId: String, memberId: String, snoozeUntil: kotlinx.datetime.LocalDateTime?, snoozeCount: Int) {
         try {
-            db.collection(COLLECTION_FAMILIES).document(familyId)
+            // WICHTIG: Direkt die native Firebase SDK nutzen, NICHT GitLive!
+            // GitLive's update() konvertiert com.google.firebase.Timestamp nicht korrekt,
+            // weshalb snoozeUntil nie auf anderen Geräten ankam.
+            val nativeDb = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+            val docRef = nativeDb.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(memberId)
-                .update(mapOf(
-                    "snoozeUntil" to snoozeUntil?.let {
-                        val instant = it.toInstant(kotlinx.datetime.TimeZone.currentSystemDefault())
-                        com.google.firebase.Timestamp(instant.epochSeconds, instant.nanosecondsOfSecond)
-                    },
-                    "snoozeCount" to snoozeCount,
-                    "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
-                ))
+            val data = hashMapOf<String, Any>(
+                "snoozeCount" to snoozeCount,
+                "lastUpdatedAt" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+            )
+            val snoozeTimestamp = snoozeUntil?.let {
+                val instant = it.toInstant(kotlinx.datetime.TimeZone.currentSystemDefault())
+                com.google.firebase.Timestamp(instant.epochSeconds, instant.nanosecondsOfSecond)
+            }
+            if (snoozeTimestamp != null) {
+                data["snoozeUntil"] = snoozeTimestamp
+            } else {
+                // Explizit null setzen mit FieldValue.delete() oder direkte Null-Setzung
+                data["snoozeUntil"] = com.google.firebase.firestore.FieldValue.delete()
+            }
+            docRef.update(data).await()
+            if (debugLogging) Log.d(TAG, "snoozeState erfolgreich geschrieben für $memberId: until=$snoozeUntil, count=$snoozeCount")
         } catch (e: Exception) {
-            if (debugLogging) Log.e(TAG, "Fehler beim Schreiben von snoozeState für $memberId: ${e.message}")
+            Log.e(TAG, "Fehler beim Schreiben von snoozeState für $memberId: ${e.message}")
             throw e
         }
     }
