@@ -1483,13 +1483,16 @@ class FamilyViewModel: ObservableObject {
             )
             resolved.latestWakeUp = resolved.earliestWakeUp
 
-            // Badzeit kürzen: verbrauchte Snooze-Minuten abziehen
+            // Nur den ERSTEN Snooze (5min) aus der Badzeit absorbieren.
+            // Beim 2. Snooze bleibt die Badzeit gleich → Scheduler verschiebt nachfolgende Members.
+            // Bei kurzer Badzeit (≤ MIN) verschiebt auch der 1. Snooze.
             let usedMinutes = max(0, snoozeMinutes - originalWakeMinutes)
-            let adjustedBathroom = max(
-                Int(SnoozeConfig.minBathroomMinutes),
-                resolved.bathroomDurationMinutes - usedMinutes
+            let absorbableMinutes = min(
+                usedMinutes,
+                SnoozeConfig.snoozeDurationMinutes,
+                max(0, resolved.bathroomDurationMinutes - Int(SnoozeConfig.minBathroomMinutes))
             )
-            resolved.bathroomDurationMinutes = adjustedBathroom
+            resolved.bathroomDurationMinutes = resolved.bathroomDurationMinutes - absorbableMinutes
         }
 
         return resolved
