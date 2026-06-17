@@ -355,4 +355,5 @@
     <string name="reorder_dialog_message">La nouvelle commande doit-elle s\'appliquer uniquement à aujourd\'hui (%1$s) ou à toute la semaine ?</string>
     <string name="reorder_dialog_today">Seulement aujourd\'hui (%1$s)</string>
     <string name="reorder_dialog_week">Semaine entière</string>
+    <string name="schedule_you_badge">Toi</string>
 </resources>

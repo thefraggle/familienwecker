@@ -342,6 +342,7 @@ fun LazyListScope.scheduleSection(
             contentType = { _, _ -> "schedule_item" }
         ) { index, sched ->
             val isDragging = draggedItemId == sched.member.id
+            val isMe = sched.member.id == myMemberId
             
             val otherItemTranslationY by animateFloatAsState(
                 targetValue = if (draggedItemId != null && !isDragging) {
@@ -364,6 +365,12 @@ fun LazyListScope.scheduleSection(
             val cardBgColor by animateColorAsState(
                 targetValue = if (isDragging) {
                     MaterialTheme.colorScheme.primary.copy(alpha = 0.9f)
+                } else if (isMe) {
+                    if (isDarkTheme) {
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                    } else {
+                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f)
+                    }
                 } else if (isDarkTheme) {
                     MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
                 } else {
@@ -425,8 +432,10 @@ fun LazyListScope.scheduleSection(
                 shape = MaterialTheme.shapes.medium,
                 elevation = CardDefaults.cardElevation(defaultElevation = if (isDragging) 8.dp else if (isDarkTheme) 0.dp else 2.dp),
                 border = androidx.compose.foundation.BorderStroke(
-                    width = 1.dp, 
-                    color = if (isDragging) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+                    width = if (isMe && !isDragging) 1.5.dp else 1.dp, 
+                    color = if (isDragging) MaterialTheme.colorScheme.primary
+                           else if (isMe) MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+                           else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
                 ),
                 colors = CardDefaults.cardColors(
                     containerColor = cardBgColor,
@@ -459,6 +468,21 @@ fun LazyListScope.scheduleSection(
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
+                            if (isMe) {
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = stringResource(R.string.schedule_you_badge),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier
+                                        .background(
+                                            MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
+                                            shape = MaterialTheme.shapes.small
+                                        )
+                                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                                )
+                            }
                             if (isSnoozed) {
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Icon(

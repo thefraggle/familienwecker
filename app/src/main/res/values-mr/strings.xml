@@ -355,4 +355,5 @@
     <string name="reorder_dialog_message">नवीन ऑर्डर फक्त आज (%1$s) किंवा संपूर्ण आठवड्यासाठी लागू व्हायला हवी?</string>
     <string name="reorder_dialog_today">फक्त आज (%1$s)</string>
     <string name="reorder_dialog_week">संपूर्ण आठवडा</string>
+    <string name="schedule_you_badge">तू</string>
 </resources>

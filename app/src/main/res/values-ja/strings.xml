@@ -357,4 +357,5 @@
     <string name="reorder_dialog_message">新しい注文は今日 (%1$s) のみに適用されるべきですか、それとも 1 週間全体に適用されるべきですか?</string>
     <string name="reorder_dialog_today">今日のみ (%1$s)</string>
     <string name="reorder_dialog_week">一週間中</string>
+    <string name="schedule_you_badge">あなた</string>
 </resources>

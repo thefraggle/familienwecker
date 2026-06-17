@@ -355,4 +355,5 @@
     <string name="reorder_dialog_message">새 주문은 오늘(%1$s)에만 적용해야 합니까, 아니면 일주일 전체에 적용해야 합니까?</string>
     <string name="reorder_dialog_today">오늘만(%1$s)</string>
     <string name="reorder_dialog_week">일주일 내내</string>
+    <string name="schedule_you_badge">나</string>
 </resources>

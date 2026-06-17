@@ -319,3 +319,5 @@
 "notif_snooze_shift_title" = "Wake-up time shifted";
 "notif_snooze_shift_body" = "%@ needs more time. Your alarm now rings at %@";
 "schedule_member_snoozed" = "(shifted)";
+
+"schedule_you_badge" = "You";
