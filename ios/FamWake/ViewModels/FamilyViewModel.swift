@@ -479,9 +479,15 @@ class FamilyViewModel: ObservableObject {
         if enabled {
             // applied in recalculateSchedule()
         } else {
+            // ALLE Alarme + Snooze-State komplett aufräumen
             if let myId = myMemberId {
                 AlarmService.shared.cancelWakeUp(memberId: myId)
+                AlarmService.shared.cancelWakeUp(memberId: myId, isSnooze: true)
             }
+            // Snooze-State löschen
+            snoozeUntil = nil
+            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            UserDefaults.standard.set(0, forKey: "snooze_count")
         }
     }
 
