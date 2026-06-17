@@ -94,10 +94,17 @@ internal fun FamilyViewModel.recalculateSchedule() {
                         if (latestAlarm != null && now < latestAlarm) {
                             today
                         } else {
-                            tomorrow
+                            // Morgen prüfen: Wenn morgen keine aktiven Profile hat,
+                            // auf heute zurückfallen statt leere Liste anzuzeigen
+                            val tomorrowMembers = rawMembers.map { resolveEffectiveMember(it, forDate = tomorrow) }
+                            val tomorrowHasActive = tomorrowMembers.any { !it.isPaused }
+                            if (tomorrowHasActive) tomorrow else today
                         }
                     } else {
-                        tomorrow
+                        // Heute keine aktiven Profile → morgen prüfen, sonst heute
+                        val tomorrowMembers = rawMembers.map { resolveEffectiveMember(it, forDate = tomorrow) }
+                        val tomorrowHasActive = tomorrowMembers.any { !it.isPaused }
+                        if (tomorrowHasActive) tomorrow else today
                     }
                 }
 
