@@ -117,7 +117,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
-        content.sound = .default
+        // Kein Sound – stille Notification im Tray (analog Android IMPORTANCE_LOW)
         
         // Feste IDs pro Typ wie in Android
         let reqId = "famwake_push_\(type)"
