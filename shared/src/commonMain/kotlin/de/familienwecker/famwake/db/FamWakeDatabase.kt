@@ -22,7 +22,9 @@ data class FamilyMemberEntity(
     val createdAt: Long?,
     val lastUpdatedAt: Long?,
     val deviceAlarmEnabled: Boolean?,
-    val dayProfilesJson: String? // JSON serialized Map<Int, DayProfile>
+    val dayProfilesJson: String?, // JSON serialized Map<Int, DayProfile>
+    val snoozeUntil: String? = null, // LocalDateTime as ISO String
+    val snoozeCount: Int = 0
 )
 
 @Dao
@@ -51,7 +53,7 @@ interface MemberDao {
 //   .fallbackToDestructiveMigration()
 // When bumping this version, do NOT add manual migrations – just increment and rely on
 // fallbackToDestructiveMigration.
-@Database(entities = [FamilyMemberEntity::class], version = 2, exportSchema = false)
+@Database(entities = [FamilyMemberEntity::class], version = 3, exportSchema = false)
 @ConstructedBy(FamWakeDatabaseConstructor::class)
 abstract class FamWakeDatabase : RoomDatabase() {
     abstract fun memberDao(): MemberDao
