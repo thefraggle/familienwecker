@@ -394,10 +394,16 @@ fun LazyListScope.scheduleSection(
                         scaleY = if (isDragging) 1.08f else 1f
                     }
                     .pointerInput(schedule.memberSchedules) {
+                        // Lokaler Akkumulator – vermeidet Stale-Closure-Bug,
+                        // da draggingOffset als Float-Parameter im pointerInput eingefroren wäre.
+                        var accumulatedOffset = 0f
                         detectDragGesturesAfterLongPress(
-                            onDragStart = { setDraggedItemId(sched.member.id) },
+                            onDragStart = {
+                                accumulatedOffset = 0f
+                                setDraggedItemId(sched.member.id)
+                            },
                             onDragEnd = {
-                                val offsetItems = (draggingOffset / itemHeightPx).roundToInt()
+                                val offsetItems = (accumulatedOffset / itemHeightPx).roundToInt()
                                 val targetIdx = (index + offsetItems).coerceIn(0, totalItems - 1)
                                 if (targetIdx != index) {
                                     setPendingReorder(Pair(index, targetIdx))
@@ -411,7 +417,8 @@ fun LazyListScope.scheduleSection(
                             },
                             onDrag = { change, dragAmount ->
                                 change.consume()
-                                setDraggingOffset(draggingOffset + dragAmount.y)
+                                accumulatedOffset += dragAmount.y
+                                setDraggingOffset(accumulatedOffset)
                             }
                         )
                     },
