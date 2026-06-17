@@ -254,4 +254,8 @@ enum L {
     // MARK: - Help / Tour
     static var settingsHelpTitle: String { s("settings_help_title") }
     static var settingsRestartTour: String { s("settings_restart_tour") }
+
+    // MARK: - Audit M15/M16
+    static var errorTitle: String { s("error_title") }
+    static var errorNoMailApp: String { s("error_no_mail_app") }
 }
