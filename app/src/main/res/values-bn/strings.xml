@@ -357,4 +357,5 @@
     <string name="reorder_dialog_message">নতুন অর্ডারটি কি শুধুমাত্র আজকের (%1$s) বা পুরো সপ্তাহে প্রযোজ্য হবে?</string>
     <string name="reorder_dialog_today">শুধুমাত্র আজ (%1$s)</string>
     <string name="reorder_dialog_week">পুরো সপ্তাহ</string>
+    <string name="schedule_you_badge">তুমি</string>
 </resources>

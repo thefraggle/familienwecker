@@ -313,3 +313,5 @@
 "reorder_dialog_today" = "Solo oggi (%@)";
 "reorder_dialog_week" = "Tutta la settimana";
 "ringing_messages_array" = "Il bagno è tutto tuo in questo momento!||Niente code, niente stress: il tuo tempo in bagno inizia ora.||Goditi la pace in bagno finché dura!||Tempo per il primo caffè. Il mondo ti aspetta!||Dormito bene? Il tuo programma per oggi è pronto.||Pronto/a per la giornata? Tutto è organizzato alla perfezione.||È ora di spaccare la giornata! Il tuo turno in bagno inizia.||Svegliati e alza il volume: il palco è tuo!||La buona musica al mattino toglie i pensieri di torno!||Il tuo programma di famiglia è in corso. Andiamo!||Pronto/a al decollo? La famiglia conta su di te.||Sveglia, raggio di sole! Il bagno è libero per te.||Il tuo tempo personale in bagno inizia ora – approfittane!||Via libera al lavandino – è il tuo turno!||Chi prima si alza ha l'acqua calda!||Altri 5 minuti? No! La tua finestra di tempo ti aspetta.||Oggi sarà una bellissima giornata. E inizia adesso!||Il tuo spazzolino ti aspetta. Vai in bagno!||Tutto coordinato, tutto pianificato – tocca a te!||Chi si alza presto ha il bagno tutto per sé.";
+
+"schedule_you_badge" = "Tu";

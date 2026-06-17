@@ -313,3 +313,5 @@
 "reorder_dialog_today" = "Sadece bugün (%@)";
 "reorder_dialog_week" = "Bütün hafta";
 "ringing_messages_array" = "Banyo şu an tamamen senin!||Koşturmaca yok, stres yok – banyo zamanın şimdi başlıyor.||Hazır boşken banyodaki huzurun tadını çıkar!||İlk kahve zamanı. Dünya seni bekliyor!||İyi uyudun mu? Bugünkü planın hazır.||Güne hazır mısın? Her şey mükemmel şekilde ayarlandı.||Günü yakalama zamanı! Banyo sıran başlıyor.||Uyan ve sesi aç – sahne senin!||Sabahları güzel bir müzik dertleri uzak tutar!||Ailenin planı devrede. Hadi başlayalım!||Güne başlamaya hazır mısın? Ailen sana güveniyor.||Kalkma vakti! Banyo senin için boş.||Kişisel banyo süren şimdi başlıyor – tadını çıkar!||Lavaboya giden yol açık – sıra sende!||Erken kalkan sıcak suyu kapar!||5 dakika daha mı? Hayır! Sıran seni bekliyor.||Bugün harika bir gün olacak. Ve tam şu an başlıyor!||Diş fırçan seni özledi. Doğru banyoya!||Her şey ayarlandı, her şey planlandı – sıra sende!||Erken kalkan banyoyu kendine saklar.";
+
+"schedule_you_badge" = "Sen";

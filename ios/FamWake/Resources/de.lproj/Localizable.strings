@@ -319,3 +319,5 @@
 "notif_snooze_shift_title" = "Weckzeit verschoben";
 "notif_snooze_shift_body" = "%@ braucht länger. Dein Wecker klingelt jetzt um %@";
 "schedule_member_snoozed" = "(verschoben)";
+
+"schedule_you_badge" = "Du";

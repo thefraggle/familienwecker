@@ -315,16 +315,26 @@ struct ScheduleSection: View {
     private func scheduleCard(_ sched: MemberSchedule) -> some View {
         let isSnoozed = sched.member.snoozeUntil != nil && sched.member.snoozeUntil! > Date()
         let isOtherMember = sched.member.id != familyViewModel.myMemberId
+        let isMe = !isOtherMember
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
                     Image(systemName: "alarm")
                         .foregroundStyle(theme.error)
-                    Text("\(sched.wakeUpTime.formatted()) – \(sched.member.name)")
+                    Text("\(sched.wakeUpTime.formatted()) \u{2013} \(sched.member.name)")
                         .font(.headline).fontWeight(.bold)
                         .foregroundStyle(theme.onPrimaryContainer)
+                    if isMe {
+                        Text(L.s("schedule_you_badge"))
+                            .font(.caption2).fontWeight(.bold)
+                            .foregroundStyle(theme.primary)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(theme.primary.opacity(0.12))
+                            .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                    }
                     if isSnoozed {
-                        Text("💤")
+                        Text("\u{1F4A4}")
                     }
                     if isSnoozed && isOtherMember {
                         Text(L.scheduleMemberSnoozed)
@@ -352,6 +362,15 @@ struct ScheduleSection: View {
                 .font(.title3)
         }
         .padding()
+        .background(
+            isMe
+            ? (colorScheme == .dark ? theme.primary.opacity(0.12) : theme.primaryContainer.opacity(0.3))
+            : Color.clear
+        )
         .famWakeCard(cornerRadius: 16, isDark: colorScheme == .dark)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(isMe ? theme.primary.opacity(0.5) : Color.clear, lineWidth: 1.5)
+        )
     }
 }

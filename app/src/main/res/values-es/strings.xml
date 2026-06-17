@@ -354,4 +354,5 @@
     <string name="reorder_dialog_message">¿El nuevo orden debería aplicarse solo a hoy (%1$s) o a toda la semana?</string>
     <string name="reorder_dialog_today">Sólo hoy (%1$s)</string>
     <string name="reorder_dialog_week">Semana entera</string>
+    <string name="schedule_you_badge">Tú</string>
 </resources>

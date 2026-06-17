@@ -355,4 +355,5 @@
     <string name="reorder_dialog_message">Ska den nya beställningen endast gälla idag (%1$s) eller hela veckan?</string>
     <string name="reorder_dialog_today">Endast idag (%1$s)</string>
     <string name="reorder_dialog_week">Hela veckan</string>
+    <string name="schedule_you_badge">Du</string>
 </resources>
