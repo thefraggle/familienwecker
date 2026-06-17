@@ -142,6 +142,10 @@ class Scheduler {
             val allowedLatestWakeUp = member.latestWakeUp.plusMinutes(shiftToleranceMinutes.toLong())
             val allowedEarliestWakeUp = member.earliestWakeUp.minusMinutes(shiftToleranceMinutes.toLong())
 
+            // Fixierte Weckzeit (z.B. durch Snooze): earliestWakeUp == latestWakeUp
+            // → Weckzeit direkt verwenden, Constraint an Vorgänger weitergeben
+            val isFixed = member.earliestWakeUp == member.latestWakeUp
+
             var maxAllowedBathroomEnd = allowedLatestWakeUp.plusMinutes(member.bathroomDurationMinutes)
 
             if (currentLatestBathroomEndTime.isBefore(maxAllowedBathroomEnd)) {
@@ -157,9 +161,18 @@ class Scheduler {
                 maxAllowedBathroomEnd = leaveTime
             }
 
-            val wakeUpTime = maxAllowedBathroomEnd.minusMinutes(member.bathroomDurationMinutes)
+            // Bei fixierter Weckzeit: exakt diese Zeit verwenden, Badende daraus berechnen
+            val wakeUpTime: LocalTime
+            val bathroomEnd: LocalTime
+            if (isFixed) {
+                wakeUpTime = member.latestWakeUp
+                bathroomEnd = wakeUpTime.plusMinutes(member.bathroomDurationMinutes)
+            } else {
+                wakeUpTime = maxAllowedBathroomEnd.minusMinutes(member.bathroomDurationMinutes)
+                bathroomEnd = maxAllowedBathroomEnd
+            }
 
-            if (wakeUpTime.isBefore(allowedEarliestWakeUp)) {
+            if (!isFixed && wakeUpTime.isBefore(allowedEarliestWakeUp)) {
                 if (!includeInvalid) {
                     return FamilySchedule(emptyList(), null, false, ScheduleMessage.NoValidScheduleFound)
                 }
@@ -192,16 +205,42 @@ class Scheduler {
                     member = member,
                     wakeUpTime = wakeUpTime,
                     bathroomStartTime = wakeUpTime,
-                    bathroomEndTime = maxAllowedBathroomEnd,
+                    bathroomEndTime = bathroomEnd,
                     bufferAfter = effectiveBuffer
                 )
             )
             currentLatestBathroomEndTime = wakeUpTime.minusMinutes(prevBuffer)
         }
 
-        // Post-Validation
+        // Vorwärts-Korrektur-Pass: Wenn ein fixierter Member (Snooze) seine Badzeit
+        // in den Slot des Nachfolgers schiebt, müssen nachfolgende Members nach hinten
+        // verschoben werden. schedules ist hier noch reversed (letzter Member zuerst).
+        val forwardSchedules = schedules.reversed().toMutableList()
+        for (i in 0 until forwardSchedules.size - 1) {
+            val current = forwardSchedules[i]
+            val next = forwardSchedules[i + 1]
+            if (next.member.isSimpleMode) continue
+
+            val buffer = current.bufferAfter
+            val requiredNextStart = current.bathroomEndTime.plusMinutes(buffer)
+
+            // Wenn der nachfolgende Member vor dem Ende des aktuellen (+ Puffer) startet → verschieben
+            if (next.wakeUpTime.isBefore(requiredNextStart)) {
+                val shiftedWakeUp = requiredNextStart
+                val shiftedBathroomEnd = shiftedWakeUp.plusMinutes(next.member.bathroomDurationMinutes)
+                forwardSchedules[i + 1] = next.copy(
+                    wakeUpTime = shiftedWakeUp,
+                    bathroomStartTime = shiftedWakeUp,
+                    bathroomEndTime = shiftedBathroomEnd
+                )
+            }
+        }
+
+
+
+        // Post-Validation (auf korrigierte Schedules)
         if (breakfastTime != null && isValid) {
-            for (s in schedules) {
+            for (s in forwardSchedules) {
                 if (s.member.wantsBreakfast && s.bathroomEndTime.isAfter(breakfastTime)) {
                     isValid = false
                     if (!includeInvalid) return FamilySchedule(emptyList(), null, false, ScheduleMessage.NoValidScheduleFound)
@@ -210,7 +249,7 @@ class Scheduler {
         }
 
         return FamilySchedule(
-            memberSchedules = schedules.reversed(),
+            memberSchedules = forwardSchedules,
             breakfastTime = breakfastTime,
             isValid = isValid,
             scheduleMessage = if (isValid) ScheduleMessage.OptimalPlan else ScheduleMessage.NoValidScheduleFound
