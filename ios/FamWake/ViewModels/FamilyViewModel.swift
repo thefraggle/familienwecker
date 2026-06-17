@@ -1540,6 +1540,9 @@ class FamilyViewModel: ObservableObject {
                 max(0, resolved.bathroomDurationMinutes - Int(SnoozeConfig.minBathroomMinutes))
             )
             resolved.bathroomDurationMinutes = resolved.bathroomDurationMinutes - absorbableMinutes
+            #if DEBUG
+            print("[Snooze] \(member.name): fixed earliest=\(resolved.earliestWakeUp), latest=\(resolved.latestWakeUp), bath=\(resolved.bathroomDurationMinutes)")
+            #endif
         }
 
         return resolved
