@@ -581,9 +581,12 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
         }
     )
 
-    // Firestore: Snooze-State synchronisieren
+    // Firestore: Snooze-State synchronisieren – nutze addOrUpdateMember
+    // (gleicher bewährt funktionierender Pfad wie Drag&Drop),
+    // da updateMemberSnoozeState über GitLive nicht korrekt synced
     val currentFamilyId = familyId.value
-    if (currentFamilyId != null) {
+    if (currentFamilyId != null && idx != -1) {
+        val updatedMember = currentList[idx]
         scope.launch {
             try {
                 // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
@@ -591,7 +594,7 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
                 if (currentUid != null) {
                     repository.setUserActionMeta(currentUid, currentFamilyId)
                 }
-                repository.updateMemberSnoozeState(currentFamilyId, memberId, snoozeTime, newCount)
+                addOrUpdateMemberDebounced(updatedMember)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -611,9 +614,21 @@ fun FamilyViewModel.cancelSnooze(memberId: String) {
     alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
     lastScheduledAlarmMillis = null
 
-    // Firestore: Snooze-State löschen
+    // Lokalen Member-State sofort aktualisieren
+    val currentList = _members.value.toMutableList()
+    val idx = currentList.indexOfFirst { it.id == memberId }
+    if (idx != -1) {
+        currentList[idx] = currentList[idx].copy(
+            snoozeUntil = null,
+            snoozeCount = 0
+        )
+        _members.value = currentList.toPersistentList()
+    }
+
+    // Firestore: Snooze-State löschen (über bewährt funktionierenden Pfad)
     val currentFamilyId = familyId.value
-    if (currentFamilyId != null) {
+    if (currentFamilyId != null && idx != -1) {
+        val updatedMember = currentList[idx]
         scope.launch {
             try {
                 // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
@@ -621,7 +636,7 @@ fun FamilyViewModel.cancelSnooze(memberId: String) {
                 if (currentUid != null) {
                     repository.setUserActionMeta(currentUid, currentFamilyId)
                 }
-                repository.updateMemberSnoozeState(currentFamilyId, memberId, null, 0)
+                addOrUpdateMemberDebounced(updatedMember)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
