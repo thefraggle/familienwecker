@@ -533,6 +533,11 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
     if (currentFamilyId != null) {
         scope.launch {
             try {
+                // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
+                val currentUid = auth.currentUser?.uid
+                if (currentUid != null) {
+                    repository.setUserActionMeta(currentUid, currentFamilyId)
+                }
                 repository.updateMemberSnoozeState(currentFamilyId, memberId, snoozeTime, newCount)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
@@ -558,6 +563,11 @@ fun FamilyViewModel.cancelSnooze(memberId: String) {
     if (currentFamilyId != null) {
         scope.launch {
             try {
+                // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
+                val currentUid = auth.currentUser?.uid
+                if (currentUid != null) {
+                    repository.setUserActionMeta(currentUid, currentFamilyId)
+                }
                 repository.updateMemberSnoozeState(currentFamilyId, memberId, null, 0)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
