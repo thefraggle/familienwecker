@@ -554,6 +554,20 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
     appSettings.setSnoozeUntil(snoozeTime)
     appSettings.setSnoozeCount(newCount)
 
+    // Lokalen _members-State SOFORT aktualisieren, damit resolveEffectiveMember
+    // die snooze-fixierte Weckzeit berechnet und der Scheduler nachfolgende
+    // Members korrekt verschiebt (ohne auf den Firestore-Roundtrip zu warten).
+    val currentList = _members.value.toMutableList()
+    val idx = currentList.indexOfFirst { it.id == memberId }
+    if (idx != -1) {
+        currentList[idx] = currentList[idx].copy(
+            snoozeUntil = snoozeTime,
+            snoozeCount = newCount
+        )
+        _members.value = currentList.toPersistentList()
+    }
+    recalculateSchedule()
+
     // Alarm planen
     alarmScheduler.scheduleWakeUp(
         wakeUpTime = snoozeTime,
