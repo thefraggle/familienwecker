@@ -2,6 +2,15 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.0.0 – 2026-06-17
+### Neu
+- **Familien-Snooze-Sync** – Wenn ein Familienmitglied snoozt, wird der Weckplan aller anderen automatisch live angepasst. So verschläft niemand, nur weil jemand anderes länger braucht.
+- **Snooze-Zähler im Weckplan** – Im Snooze-Banner auf dem Hauptbildschirm siehst du jetzt auf einen Blick, beim wievielten Snooze du bist (z. B. 1/2).
+- **Snooze-Indikator 💤** – Im Weckplan wird mit einem 💤-Symbol angezeigt, welches Familienmitglied gerade snoozt.
+
+### Verbessert
+- **Stabileres Wecken (iOS)** – Seltene Abstürze durch unsichere Wertezugriffe in der Mitglieder-Bearbeitung und beim Alarm-Scheduling wurden behoben.
+
 ## 1.9.17 – 2026-06-03
 ### Verbessert
 - **Zuverlässiger Snooze-Wecker** – Die Snooze-Funktion wurde repariert und klingelt jetzt wieder absolut zuverlässig. Beim Snoozen bleibt dein Telefon gesperrt, damit du ungestört weiterschlafen kannst.

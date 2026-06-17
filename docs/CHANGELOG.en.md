@@ -2,6 +2,15 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.0.0 – 2026-06-17
+### New
+- **Family Snooze Sync** – When a family member hits snooze, the alarm schedule for everyone else updates automatically in real time. No one oversleeps just because someone else needs a few more minutes.
+- **Snooze Counter in Schedule** – The snooze banner on the main screen now shows which snooze you're on (e.g., 1/2).
+- **Snooze Indicator 💤** – A 💤 symbol in the alarm schedule shows which family member is currently snoozing.
+
+### Improved
+- **More Stable Alarms (iOS)** – Fixed rare crashes caused by unsafe value access in member editing and alarm scheduling.
+
 ## 1.9.17 – 2026-06-03
 ### Improved
 - **Reliable Snooze Alarm** – The snooze function has been fixed and now rings completely reliably. Your phone remains locked while snoozing so you can continue sleeping peacefully.
