@@ -157,7 +157,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         if response.actionIdentifier == "STOP_ACTION" {
             TelemetryManager.send("alarm.dismissed_background")
             AlarmService.shared.cancelWakeUp(memberId: memberId)
-            AlarmService.shared.cancelWakeUp(memberId: memberId, isSnooze: true)
             UserDefaults.standard.removeObject(forKey: "snooze_until")
             
             DispatchQueue.main.async {

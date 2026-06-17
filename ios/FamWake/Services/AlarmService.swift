@@ -26,6 +26,7 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
     
     func perform() async throws -> some IntentResult {
+        // TODO: Audit M6 – App Group Suite verwenden wenn Entitlement konfiguriert
         await AlarmService.shared.stopAlarm()
         
         // Geister-Alarm-Schutz: Wenn globaler Switch OFF → Alarm sofort canceln
@@ -71,6 +72,7 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
     }
 
     func perform() async throws -> some IntentResult {
+        // TODO: Audit M6 – App Group Suite verwenden wenn Entitlement konfiguriert
         await MainActor.run {
             AlarmService.shared.stopAlarm()
         }
@@ -328,7 +330,7 @@ final class AlarmService: ObservableObject {
         }
     }
 
-    func cancelWakeUp(memberId: String, isSnooze: Bool = false) {
+    func cancelWakeUp(memberId: String) {
         Task {
             let uuid = self.getUUID(for: memberId)
             try? await AlarmManager.shared.cancel(id: uuid)
