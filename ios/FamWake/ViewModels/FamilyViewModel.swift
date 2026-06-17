@@ -1003,11 +1003,17 @@ class FamilyViewModel: ObservableObject {
                 guard let docs = snap?.documents else { return }
                 let parsed = docs.compactMap { FamilyMember.fromFirestore($0.data(), id: $0.documentID) }
                 var sorted = parsed.sorted { $0.sequenceOrder < $1.sequenceOrder }
-                // Lokalen deviceAlarmEnabled-State für eigenen Member beibehalten,
-                // um Flackern zwischen lokalem Toggle und Firestore-Roundtrip zu verhindern
+                // Lokalen State für eigenen Member beibehalten,
+                // um Flackern zwischen lokalem Toggle/Snooze und Firestore-Roundtrip zu verhindern
                 if let myId = self.myMemberId,
                    let localIdx = sorted.firstIndex(where: { $0.id == myId }) {
                     sorted[localIdx].deviceAlarmEnabled = self.isAlarmEnabled
+                    // Snooze-State: Lokal gesetzten Snooze beibehalten, da der Firestore-Write
+                    // noch unterwegs sein kann und der Snapshot sonst den Snooze "verschluckt"
+                    if let localSnooze = self.snoozeUntil, localSnooze > Date() {
+                        sorted[localIdx].snoozeUntil = localSnooze
+                        sorted[localIdx].snoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
+                    }
                 }
                 self.members = sorted
                 self.updateAwakeState()
@@ -1146,7 +1152,7 @@ class FamilyViewModel: ObservableObject {
         #if DEBUG
         print("[Schedule] isAlarmEnabled=\(isAlarmEnabled), myMemberId=\(currentMyMemberId ?? "nil"), members.count=\(members.count), rawMembers.count=\(rawMembers.count)")
         for m in members {
-            print("[Schedule]   id=\(m.id), name=\(m.name), deviceAlarmEnabled=\(String(describing: m.deviceAlarmEnabled)), isPaused=\(m.isPaused), profiles=\(m.dayProfiles?.keys.sorted().map(String.init).joined(separator: ",") ?? "nil")")
+            print("[Schedule]   id=\(m.id), name=\(m.name), deviceAlarmEnabled=\(String(describing: m.deviceAlarmEnabled)), snoozeUntil=\(String(describing: m.snoozeUntil)), snoozeCount=\(m.snoozeCount), profiles=\(m.dayProfiles?.keys.sorted().map(String.init).joined(separator: ",") ?? "nil")")
         }
         #endif
 
