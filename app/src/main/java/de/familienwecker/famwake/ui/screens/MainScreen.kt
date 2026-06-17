@@ -51,6 +51,7 @@ import kotlin.math.roundToInt
 import androidx.activity.compose.BackHandler
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilyMember
+import de.familienwecker.famwake.model.SnoozeConfig
 import de.familienwecker.famwake.model.toJavaLocalTime
 import de.familienwecker.famwake.ui.components.EmptyState
 import de.familienwecker.famwake.ui.components.bounceClick
@@ -100,6 +101,7 @@ fun MainScreen(
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
     val snoozeUntil by viewModel.snoozeUntil.collectAsStateWithLifecycle()
+    val snoozeCount by viewModel.snoozeCount.collectAsStateWithLifecycle()
     val tooltipsEnabled by viewModel.tooltipsEnabled.collectAsStateWithLifecycle()
     val tooltipAwakeSeen by viewModel.tooltipAwakeSeen.collectAsStateWithLifecycle()
     val tooltipDragSeen by viewModel.tooltipDragSeen.collectAsStateWithLifecycle()
@@ -367,6 +369,7 @@ fun MainScreen(
                 item {
                     SnoozeBanner(
                         snoozeUntil = snoozeUntil,
+                        snoozeCount = snoozeCount,
                         myMemberId = myMemberId,
                         isDarkTheme = isDarkTheme,
                         timeFormatter = timeFormatter,
@@ -698,6 +701,7 @@ private fun ErrorMessageBanner(
 @Composable
 private fun SnoozeBanner(
     snoozeUntil: java.time.LocalDateTime?,
+    snoozeCount: Int,
     myMemberId: String?,
     isDarkTheme: Boolean,
     timeFormatter: java.time.format.DateTimeFormatter,
@@ -733,7 +737,7 @@ private fun SnoozeBanner(
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = stringResource(R.string.main_snooze_active, snoozeTime.toLocalTime().format(timeFormatter)),
+                            text = "${stringResource(R.string.main_snooze_active, snoozeTime.toLocalTime().format(timeFormatter))} ($snoozeCount/${SnoozeConfig.MAX_SNOOZE_COUNT})",
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Medium,
                             color = if (isDarkTheme) de.familienwecker.famwake.ui.theme.OnlineGreenLight

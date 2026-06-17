@@ -248,6 +248,8 @@ class FamilyViewModel(
         .map { it?.toJavaLocalDateTime() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
+    val snoozeCount: StateFlow<Int> = appSettings.snoozeCount
+
     init {
         networkMonitor.startMonitoring()
         viewModelScope.launch(Dispatchers.IO) {
