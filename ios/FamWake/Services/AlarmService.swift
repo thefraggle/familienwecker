@@ -85,16 +85,6 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             return .result()
         }
 
-        // Stale-Count-Schutz: Nur zurücksetzen wenn snooze_until deutlich abgelaufen ist (>30 Min)
-        // Nicht bei exaktem Ablauf – sonst wird der Count beim 3. Klingeln fälschlich auf 0 gesetzt
-        let staleThreshold = Date().addingTimeInterval(-30 * 60)
-        if let snoozeUntilRaw = UserDefaults.standard.value(forKey: "snooze_until") as? Double {
-            if Date(timeIntervalSince1970: snoozeUntilRaw) < staleThreshold {
-                UserDefaults.standard.set(0, forKey: "snooze_count")
-            }
-        } else {
-            UserDefaults.standard.set(0, forKey: "snooze_count")
-        }
 
         // Snooze-Count prüfen (Max aus SnoozeConfig)
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")

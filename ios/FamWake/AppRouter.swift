@@ -94,7 +94,6 @@ struct AppRouter: View {
                 memberId: appState.ringingMemberId,
                 memberName: appState.ringingMemberName,
                 isGreetingOnly: appState.isGreeting,
-                snoozeCount: UserDefaults.standard.integer(forKey: "snooze_count"),
                 onStop: {
                     appState.stopRinging()
                     familyViewModel.cancelSnooze(appState.ringingMemberId)
