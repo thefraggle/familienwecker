@@ -30,6 +30,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
@@ -369,7 +370,9 @@ fun LazyListScope.scheduleSection(
                     if (isDarkTheme) {
                         MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
                     } else {
-                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
+                        // Hauchzarter Primary-Tint auf Surface-Basis
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.07f)
+                            .compositeOver(MaterialTheme.colorScheme.surface)
                     }
                 } else if (isDarkTheme) {
                     MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
