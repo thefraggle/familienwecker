@@ -76,9 +76,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
     
     private func handleIncomingDataMessage(type: String) {
-        // Debounce / Ignorieren, wenn Push in App deaktiviert ist
-        let isEnabled = UserDefaults.standard.bool(forKey: "push_notifications_enabled") // TODO: AppState check
-        // Da AppState hier schwer erreichbar ist, generieren wir die Notification. Der User kann sie in den iOS Settings deaktivieren.
+        // Push in App deaktiviert? → keine lokale Notification erzeugen
+        let isEnabled = UserDefaults.standard.bool(forKey: "push_notifications_enabled")
+        guard isEnabled else { return }
         
         let title: String
         let body: String
