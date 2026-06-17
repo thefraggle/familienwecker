@@ -282,7 +282,18 @@ class FamilyViewModel(
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.d("FamilyViewModel", "UI Source: Received ${membersList.size} members from Room")
                 }
-                val checkedMembers = checkAndResetMembers(membersList)
+                val checkedMembers = checkAndResetMembers(membersList).toMutableList()
+                // Lokalen deviceAlarmEnabled-State für eigenen Member beibehalten,
+                // um Überschreibung durch Room/Firestore-Roundtrip zu verhindern.
+                // Der lokale Toggle-Wert ist autoritativ für den eigenen Member.
+                val myId = myMemberId.value
+                val alarmsOn = isAlarmEnabled.value
+                if (myId != null) {
+                    val idx = checkedMembers.indexOfFirst { it.id == myId }
+                    if (idx != -1) {
+                        checkedMembers[idx] = checkedMembers[idx].copy(deviceAlarmEnabled = alarmsOn)
+                    }
+                }
                 _members.value = checkedMembers.toPersistentList()
 
                 val uid = auth.currentUser?.uid
