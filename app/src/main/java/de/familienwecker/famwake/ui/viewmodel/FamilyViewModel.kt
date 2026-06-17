@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.combine
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.FamWakeApplication
+import de.familienwecker.famwake.FamWakeMessagingService
 import de.familienwecker.famwake.ui.util.UiText
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
@@ -131,7 +132,14 @@ class FamilyViewModel(
     // ── Push-Notifications ────────────────────────────────────────────────────
 
     val pushNotificationsEnabled: StateFlow<Boolean> = appSettings.pushNotificationsEnabled
-    fun setPushNotificationsEnabled(enabled: Boolean) = appSettings.setPushNotificationsEnabled(enabled)
+    fun setPushNotificationsEnabled(enabled: Boolean) {
+        appSettings.setPushNotificationsEnabled(enabled)
+        if (enabled) {
+            FamWakeMessagingService.refreshAndSaveToken()
+        } else {
+            FamWakeMessagingService.deleteTokenOnLogout()
+        }
+    }
 
     val tooltipKeyAwake      get() = TooltipKeys.AWAKE
     val tooltipKeyDrag       get() = TooltipKeys.DRAG
