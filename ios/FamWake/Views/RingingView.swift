@@ -10,7 +10,7 @@ struct RingingView: View {
     let memberId: String
     let memberName: String
     var isGreetingOnly: Bool = false
-    var snoozeCount: Int = 0
+    var snoozeCount: Int { UserDefaults.standard.integer(forKey: "snooze_count") }
     var onStop: () -> Void
     var onSnooze: () -> Void
 
