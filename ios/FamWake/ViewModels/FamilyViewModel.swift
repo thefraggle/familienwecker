@@ -467,15 +467,18 @@ class FamilyViewModel: ObservableObject {
             members[idx].deviceAlarmEnabled = enabled
         }
         
-        // KRITISCH: Bei OFF sofort ALLE Alarme canceln, bevor recalculateSchedule läuft.
-        // cancelAll() ist asynchron (Task{}), daher zusätzlich UNNotificationCenter nutzen.
+        // KRITISCH: Bei OFF sofort ALLE Alarme canceln und WARTEN bis fertig,
+        // bevor recalculateSchedule läuft. Verhindert Race Condition mit neuen Alarm-UUIDs.
         if !enabled {
-            AlarmService.shared.cancelAll()
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+            Task {
+                await AlarmService.shared.cancelAll()
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                recalculateSchedule()
+            }
+        } else {
+            recalculateSchedule()
         }
-        
-        recalculateSchedule()
         
         if let fid = familyId, let mid = myMemberId {
             Task {
