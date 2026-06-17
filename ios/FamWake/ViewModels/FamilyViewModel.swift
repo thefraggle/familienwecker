@@ -1189,10 +1189,17 @@ class FamilyViewModel: ObservableObject {
                 if let latest = latestAlarm, now < latest {
                     uiTargetDate = today
                 } else {
-                    uiTargetDate = tomorrow
+                    // Morgen prüfen: Wenn morgen keine aktiven Profile hat,
+                    // auf heute zurückfallen statt leere Liste anzuzeigen
+                    let tomorrowMembers = rawMembers.map { resolveEffectiveMember($0, forDate: tomorrow) }
+                    let tomorrowHasActive = tomorrowMembers.contains { !$0.isPaused }
+                    uiTargetDate = tomorrowHasActive ? tomorrow : today
                 }
             } else {
-                uiTargetDate = tomorrow
+                // Heute keine aktiven Profile → morgen prüfen, sonst heute
+                let tomorrowMembers = rawMembers.map { resolveEffectiveMember($0, forDate: tomorrow) }
+                let tomorrowHasActive = tomorrowMembers.contains { !$0.isPaused }
+                uiTargetDate = tomorrowHasActive ? tomorrow : today
             }
         }
 
