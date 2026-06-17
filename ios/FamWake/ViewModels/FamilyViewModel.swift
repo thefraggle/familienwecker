@@ -1322,6 +1322,15 @@ class FamilyViewModel: ObservableObject {
     }
 
     private func applyAlarms(_ schedule: FamilySchedule) {
+        // KRITISCH: Wenn der globale Switch OFF ist, NIEMALS einen Alarm planen!
+        // Ohne diesen Guard plant der Snapshot-Listener nach dem Cancel erneut Alarme.
+        guard isAlarmEnabled else {
+            if let myId = myMemberId {
+                AlarmService.shared.cancelWakeUp(memberId: myId)
+            }
+            return
+        }
+
         // Aktiver Snooze darf nicht durch regulären Alarm überschrieben werden.
         // Ohne diesen Guard killt recalculateSchedule() den Snooze-Task via
         // schedulingTasks[memberId]?.cancel() bevor er registriert wurde.
