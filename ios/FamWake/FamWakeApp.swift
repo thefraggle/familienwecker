@@ -41,6 +41,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         )
         UNUserNotificationCenter.current().setNotificationCategories([alarmCategory])
         
+        // Geister-Alarm-Schutz: Wenn Switch OFF → alle AlarmKit-Alarme sofort canceln
+        // (z.B. nach Reinstall, wenn AlarmKit-Alarme noch im System stecken)
+        let isAlarmEnabled = UserDefaults.standard.bool(forKey: "alarm_enabled")
+        if !isAlarmEnabled {
+            AlarmService.shared.cancelAll()
+        }
+        
         return true
     }
     
