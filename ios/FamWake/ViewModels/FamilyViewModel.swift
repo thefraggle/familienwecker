@@ -737,6 +737,15 @@ class FamilyViewModel: ObservableObject {
         snoozeUntil = snoozeTime
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         UserDefaults.standard.set(newCount, forKey: "snooze_count")
+
+        // Lokalen members-State SOFORT aktualisieren, damit resolveEffectiveMember
+        // die snooze-fixierte Weckzeit berechnet und der Scheduler nachfolgende
+        // Members korrekt verschiebt (ohne auf den Firestore-Roundtrip zu warten).
+        if let idx = members.firstIndex(where: { $0.id == memberId }) {
+            members[idx].snoozeUntil = snoozeTime
+            members[idx].snoozeCount = newCount
+        }
+        recalculateSchedule()
         
         let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         AlarmService.shared.scheduleWakeUp(
