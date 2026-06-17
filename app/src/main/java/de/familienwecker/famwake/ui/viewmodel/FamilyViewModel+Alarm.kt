@@ -7,6 +7,7 @@ import de.familienwecker.famwake.model.ScheduleMessage
 import de.familienwecker.famwake.model.toJavaLocalDateTime
 import de.familienwecker.famwake.model.toKmpLocalDateTime
 import de.familienwecker.famwake.ui.util.UiText
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -435,6 +436,21 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     appSettings.setAlarmEnabled(enabled)
     val currentFamilyId = familyId.value
     val currentMemberId = myMemberId.value
+
+    // Lokalen _members-State SOFORT aktualisieren, damit nachfolgende
+    // addOrUpdateMember-Calls den korrekten deviceAlarmEnabled-Wert schreiben.
+    // Ohne dieses Update wird der stale Wert (null/true) nach Firestore geschrieben
+    // und überschreibt das Partial-Update von updateDeviceAlarmEnabled.
+    if (currentMemberId != null) {
+        val currentList = _members.value.toMutableList()
+        val idx = currentList.indexOfFirst { it.id == currentMemberId }
+        if (idx != -1) {
+            currentList[idx] = currentList[idx].copy(deviceAlarmEnabled = enabled)
+            _members.value = currentList.toPersistentList()
+        }
+    }
+    recalculateSchedule()
+
     if (currentFamilyId != null && currentMemberId != null) {
         alarmToggleJob?.cancel()
         alarmToggleJob = scope.launch {

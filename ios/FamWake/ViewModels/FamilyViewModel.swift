@@ -1134,6 +1134,13 @@ class FamilyViewModel: ObservableObject {
             rawMembers = members.filter { $0.id != currentMyMemberId && $0.deviceAlarmEnabled != false }
         }
 
+        #if DEBUG
+        print("[Schedule] isAlarmEnabled=\(isAlarmEnabled), myMemberId=\(currentMyMemberId ?? "nil"), members.count=\(members.count), rawMembers.count=\(rawMembers.count)")
+        for m in members {
+            print("[Schedule]   id=\(m.id), name=\(m.name), deviceAlarmEnabled=\(String(describing: m.deviceAlarmEnabled)), isPaused=\(m.isPaused), profiles=\(m.dayProfiles?.keys.sorted().map(String.init).joined(separator: ",") ?? "nil")")
+        }
+        #endif
+
         if rawMembers.isEmpty {
             schedule = nil
             if let myId = currentMyMemberId {
@@ -1202,6 +1209,14 @@ class FamilyViewModel: ObservableObject {
             }
         
         var uiResult: FamilySchedule
+
+        #if DEBUG
+        print("[Schedule] uiTargetDate=\(uiTargetDate), uiIsoDow=\(uiIsoDow), uiCalculationMembers.count=\(uiCalculationMembers.count)")
+        for m in uiCalculationMembers {
+            print("[Schedule]   resolved: id=\(m.id), name=\(m.name), isPaused=\(m.isPaused), earliest=\(m.earliestWakeUp), latest=\(m.latestWakeUp)")
+        }
+        #endif
+
         if !uiCalculationMembers.contains(where: { !$0.isPaused }) {
             uiResult = FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)
         } else {
