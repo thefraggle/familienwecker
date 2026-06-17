@@ -434,7 +434,7 @@ fun LazyListScope.scheduleSection(
                 border = androidx.compose.foundation.BorderStroke(
                     width = if (isMe && !isDragging) 1.5.dp else 1.dp, 
                     color = if (isDragging) MaterialTheme.colorScheme.primary
-                           else if (isMe) MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+                           else if (isMe) MaterialTheme.colorScheme.primary.copy(alpha = if (isDarkTheme) 0.5f else 0.25f)
                            else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
                 ),
                 colors = CardDefaults.cardColors(
