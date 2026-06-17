@@ -17,7 +17,12 @@ class MemberRepository(private val memberDao: MemberDao) {
         entities.map { it.toDomain() }
     }.distinctUntilChanged { old, new ->
         old.size == new.size &&
-        old.zip(new).all { (a, b) -> a.id == b.id && a.lastUpdatedAt == b.lastUpdatedAt && a.snoozeUntil == b.snoozeUntil }
+        old.zip(new).all { (a, b) ->
+            a.id == b.id &&
+            a.lastUpdatedAt == b.lastUpdatedAt &&
+            a.snoozeUntil == b.snoozeUntil &&
+            a.deviceAlarmEnabled == b.deviceAlarmEnabled
+        }
     }
 
     suspend fun cacheMembers(members: List<FamilyMember>) {
