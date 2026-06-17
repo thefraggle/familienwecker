@@ -2072,14 +2072,11 @@ async function sendPushToUser(uid, payload) {
     android: { priority: "high" },
     apns: {
       headers: {
-        "apns-priority": "10"
+        "apns-priority": "5",
+        "apns-push-type": "background"
       },
       payload: {
         aps: {
-          alert: titleLocKey ? {
-            "title-loc-key": titleLocKey,
-            "loc-key": bodyLocKey
-          } : undefined,
           "content-available": 1
         }
       }
