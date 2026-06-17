@@ -206,7 +206,7 @@ struct Scheduler {
 
         // Vorwärts-Korrektur-Pass: Wenn ein fixierter Member (Snooze) seine Badzeit
         // in den Slot des Nachfolgers schiebt, werden nachfolgende Members verschoben.
-        var forwardSchedules = schedules.reversed()
+        var forwardSchedules = Array(schedules.reversed())
         for i in 0..<(forwardSchedules.count - 1) {
             let current = forwardSchedules[i]
             let next = forwardSchedules[i + 1]
