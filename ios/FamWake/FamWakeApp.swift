@@ -45,7 +45,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // (z.B. nach Reinstall, wenn AlarmKit-Alarme noch im System stecken)
         let isAlarmEnabled = UserDefaults.standard.bool(forKey: "alarm_enabled")
         if !isAlarmEnabled {
-            AlarmService.shared.cancelAll()
+            Task { await AlarmService.shared.cancelAll() }
         }
         
         return true
