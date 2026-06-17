@@ -1016,6 +1016,13 @@ class FamilyViewModel: ObservableObject {
                     }
                 }
                 self.members = sorted
+                #if DEBUG
+                for m in sorted {
+                    if m.snoozeUntil != nil || m.snoozeCount > 0 {
+                        print("[Sync] \(m.name): snoozeUntil=\(String(describing: m.snoozeUntil)), snoozeCount=\(m.snoozeCount), deviceAlarm=\(String(describing: m.deviceAlarmEnabled))")
+                    }
+                }
+                #endif
                 self.updateAwakeState()
                 
                 // Claim-Sync: Prüfe ob eigenes Profil noch gültig ist (Android FamilyViewModel.kt:251-283)
@@ -1520,8 +1527,6 @@ class FamilyViewModel: ObservableObject {
         // Snooze-Constraint: Aktiv gesnoozter Member verschiebt nachfolgende
         if let snoozeEnd = member.snoozeUntil, snoozeEnd > now {
             let snoozeComps = cal.dateComponents([.hour, .minute], from: snoozeEnd)
-            let snoozeMinutes = (snoozeComps.hour ?? 0) * 60 + (snoozeComps.minute ?? 0)
-            let originalWakeMinutes = resolved.earliestWakeUp.totalMinutes
 
             // Wake-up-Zeit auf snoozeUntil fixieren
             resolved.earliestWakeUp = DateComponents.from(
@@ -1530,18 +1535,22 @@ class FamilyViewModel: ObservableObject {
             )
             resolved.latestWakeUp = resolved.earliestWakeUp
 
-            // Nur den ERSTEN Snooze (5min) aus der Badzeit absorbieren.
-            // Beim 2. Snooze bleibt die Badzeit gleich → Scheduler verschiebt nachfolgende Members.
-            // Bei kurzer Badzeit (≤ MIN) verschiebt auch der 1. Snooze.
-            let usedMinutes = max(0, snoozeMinutes - originalWakeMinutes)
-            let absorbableMinutes = min(
-                usedMinutes,
-                SnoozeConfig.snoozeDurationMinutes,
-                max(0, resolved.bathroomDurationMinutes - Int(SnoozeConfig.minBathroomMinutes))
-            )
+            // Beim 1. Snooze: Badzeit um snoozeDuration reduzieren → absorbiert die Verschiebung,
+            // sodass nachfolgende Members NICHT verschoben werden.
+            // Beim 2. Snooze: Badzeit bleibt gleich → Scheduler verschiebt nachfolgende Members.
+            // Bei kurzer Badzeit (≤ MIN_BATHROOM): auch der 1. Snooze verschiebt.
+            let absorbableMinutes: Int
+            if member.snoozeCount <= 1 {
+                absorbableMinutes = min(
+                    SnoozeConfig.snoozeDurationMinutes,
+                    max(0, resolved.bathroomDurationMinutes - Int(SnoozeConfig.minBathroomMinutes))
+                )
+            } else {
+                absorbableMinutes = 0 // 2. Snooze: keine Absorption → volle Verschiebung nachfolgender Members
+            }
             resolved.bathroomDurationMinutes = resolved.bathroomDurationMinutes - absorbableMinutes
             #if DEBUG
-            print("[Snooze] \(member.name): fixed earliest=\(resolved.earliestWakeUp), latest=\(resolved.latestWakeUp), bath=\(resolved.bathroomDurationMinutes)")
+            print("[Snooze] \(member.name): count=\(member.snoozeCount), absorbed=\(absorbableMinutes), bath=\(resolved.bathroomDurationMinutes)")
             #endif
         }
 

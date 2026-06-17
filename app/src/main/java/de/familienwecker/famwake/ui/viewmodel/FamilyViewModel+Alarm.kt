@@ -377,18 +377,18 @@ internal fun FamilyViewModel.resolveEffectiveMember(
         val nowDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         if (snoozeUntil > nowDateTime) {
             val snoozeTime = snoozeUntil.time
-            val originalWakeUp = resolved.latestWakeUp
-            // Verbrauchte Minuten = Differenz zwischen Snooze-Endzeit und Original-Weckzeit
-            // maxOf(0L, ...) verhindert, dass die Badzeit ERHÖHT wird wenn snoozeTime < originalWakeUp
-            val usedMinutes = maxOf(0L, ((snoozeTime.toSecondOfDay() - originalWakeUp.toSecondOfDay()) / 60).toLong())
-            // Nur den ERSTEN Snooze (5min) aus der Badzeit absorbieren.
-            // Beim 2. Snooze bleibt die Badzeit gleich → Scheduler verschiebt nachfolgende Members.
-            // Bei kurzer Badzeit (≤ MIN) verschiebt auch der 1. Snooze.
-            val absorbableMinutes = minOf(
-                usedMinutes,
-                SnoozeConfig.SNOOZE_DURATION_MINUTES.toLong(),
-                maxOf(0L, resolved.bathroomDurationMinutes - SnoozeConfig.MIN_BATHROOM_MINUTES)
-            )
+            // Beim 1. Snooze: Badzeit um SNOOZE_DURATION reduzieren → absorbiert die Verschiebung,
+            // sodass nachfolgende Members NICHT verschoben werden.
+            // Beim 2. Snooze: Badzeit bleibt gleich → Scheduler verschiebt nachfolgende Members.
+            // Bei kurzer Badzeit (≤ MIN_BATHROOM): auch der 1. Snooze verschiebt.
+            val absorbableMinutes = if (member.snoozeCount <= 1) {
+                minOf(
+                    SnoozeConfig.SNOOZE_DURATION_MINUTES.toLong(),
+                    maxOf(0L, resolved.bathroomDurationMinutes - SnoozeConfig.MIN_BATHROOM_MINUTES)
+                )
+            } else {
+                0L // 2. Snooze: keine Absorption → volle Verschiebung nachfolgender Members
+            }
             val reducedBathroom = resolved.bathroomDurationMinutes - absorbableMinutes
             return resolved.copy(
                 earliestWakeUp = snoozeTime,
