@@ -581,12 +581,9 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
         }
     )
 
-    // Firestore: Snooze-State synchronisieren – nutze addOrUpdateMember
-    // (gleicher bewährt funktionierender Pfad wie Drag&Drop),
-    // da updateMemberSnoozeState über GitLive nicht korrekt synced
+    // Firestore: Snooze-State synchronisieren (über native Firebase SDK, nicht GitLive)
     val currentFamilyId = familyId.value
-    if (currentFamilyId != null && idx != -1) {
-        val updatedMember = currentList[idx]
+    if (currentFamilyId != null) {
         scope.launch {
             try {
                 // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
@@ -594,7 +591,7 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
                 if (currentUid != null) {
                     repository.setUserActionMeta(currentUid, currentFamilyId)
                 }
-                addOrUpdateMemberDebounced(updatedMember)
+                repository.updateMemberSnoozeState(currentFamilyId, memberId, snoozeTime, newCount)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -625,10 +622,9 @@ fun FamilyViewModel.cancelSnooze(memberId: String) {
         _members.value = currentList.toPersistentList()
     }
 
-    // Firestore: Snooze-State löschen (über bewährt funktionierenden Pfad)
+    // Firestore: Snooze-State löschen (über native Firebase SDK)
     val currentFamilyId = familyId.value
-    if (currentFamilyId != null && idx != -1) {
-        val updatedMember = currentList[idx]
+    if (currentFamilyId != null) {
         scope.launch {
             try {
                 // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
@@ -636,7 +632,7 @@ fun FamilyViewModel.cancelSnooze(memberId: String) {
                 if (currentUid != null) {
                     repository.setUserActionMeta(currentUid, currentFamilyId)
                 }
-                addOrUpdateMemberDebounced(updatedMember)
+                repository.updateMemberSnoozeState(currentFamilyId, memberId, null, 0)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
