@@ -372,7 +372,15 @@ internal fun FamilyViewModel.resolveEffectiveMember(
             val originalWakeUp = resolved.latestWakeUp
             // Verbrauchte Minuten = Differenz zwischen Snooze-Endzeit und Original-Weckzeit
             val usedMinutes = ((snoozeTime.toSecondOfDay() - originalWakeUp.toSecondOfDay()) / 60).toLong()
-            val reducedBathroom = maxOf(SnoozeConfig.MIN_BATHROOM_MINUTES, resolved.bathroomDurationMinutes - usedMinutes)
+            // Nur den ERSTEN Snooze (5min) aus der Badzeit absorbieren.
+            // Beim 2. Snooze bleibt die Badzeit gleich → Scheduler verschiebt nachfolgende Members.
+            // Bei kurzer Badzeit (≤ MIN) verschiebt auch der 1. Snooze.
+            val absorbableMinutes = minOf(
+                usedMinutes,
+                SnoozeConfig.SNOOZE_DURATION_MINUTES.toLong(),
+                maxOf(0L, resolved.bathroomDurationMinutes - SnoozeConfig.MIN_BATHROOM_MINUTES)
+            )
+            val reducedBathroom = resolved.bathroomDurationMinutes - absorbableMinutes
             return resolved.copy(
                 earliestWakeUp = snoozeTime,
                 latestWakeUp = snoozeTime,
