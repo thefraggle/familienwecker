@@ -52,14 +52,20 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                 repository.setUserActionMeta(currentUid, currentFamilyId)
             }
             
+            // Eigenen Member's deviceAlarmEnabled immer mit lokalem Switch-State überschreiben,
+            // damit die Edit-UI keinen stale null-Wert nach Firestore schreibt.
+            val safeMember = if (finalMember.id == myMemberId.value) {
+                finalMember.copy(deviceAlarmEnabled = isAlarmEnabled.value)
+            } else finalMember
+
             // Optimistisches lokales Update für sofortiges Feedback (Offline-First)
             val currentList = _members.value.toMutableList()
-            val idx = currentList.indexOfFirst { it.id == finalMember.id }
-            if (idx != -1) currentList[idx] = finalMember else currentList.add(finalMember)
+            val idx = currentList.indexOfFirst { it.id == safeMember.id }
+            if (idx != -1) currentList[idx] = safeMember else currentList.add(safeMember)
             _members.value = currentList.toPersistentList()
             recalculateSchedule()
 
-            repository.addOrUpdateMember(currentFamilyId, finalMember)
+            repository.addOrUpdateMember(currentFamilyId, safeMember)
             
             if (willAutoClaim && finalMember.claimedByUserId != null) {
                 appSettings.setMyMemberId(finalMember.id)
@@ -98,7 +104,11 @@ internal fun FamilyViewModel.addOrUpdateMemberDebounced(member: FamilyMember, on
             if (currentUid != null) {
                 repository.setUserActionMeta(currentUid, currentFamilyId)
             }
-            repository.addOrUpdateMember(currentFamilyId, member)
+            // Eigenen Member's deviceAlarmEnabled mit lokalem Switch-State absichern
+            val safeMember = if (member.id == myMemberId.value) {
+                member.copy(deviceAlarmEnabled = isAlarmEnabled.value)
+            } else member
+            repository.addOrUpdateMember(currentFamilyId, safeMember)
             onComplete?.invoke()
         } catch (e: kotlinx.coroutines.CancellationException) {
             // Debounce-Cancel: neuer Aufruf hat diesen Job abgelöst – kein Fehler
