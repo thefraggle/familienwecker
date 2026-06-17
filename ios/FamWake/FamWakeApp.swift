@@ -75,10 +75,20 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         completionHandler(.noData)
     }
     
+    // Client-Debounce: doppelte Pushes desselben Typs innerhalb 10s ignorieren
+    private var lastNotifTimestamps: [String: Date] = [:]
+    
     private func handleIncomingDataMessage(type: String) {
         // Push in App deaktiviert? → keine lokale Notification erzeugen
         let isEnabled = UserDefaults.standard.bool(forKey: "push_notifications_enabled")
         guard isEnabled else { return }
+        
+        // Debounce: gleicher Typ innerhalb 10s → ignorieren
+        let now = Date()
+        if let lastTime = lastNotifTimestamps[type], now.timeIntervalSince(lastTime) < 10 {
+            return
+        }
+        lastNotifTimestamps[type] = now
         
         let title: String
         let body: String
