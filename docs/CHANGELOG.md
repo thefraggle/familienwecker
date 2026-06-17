@@ -9,7 +9,10 @@
 - **Snooze-Indikator 💤** – Im Weckplan wird mit einem 💤-Symbol angezeigt, welches Familienmitglied gerade snoozt.
 
 ### Verbessert
-- **Stabileres Wecken (iOS)** – Seltene Abstürze durch unsichere Wertezugriffe in der Mitglieder-Bearbeitung und beim Alarm-Scheduling wurden behoben.
+- **Zuverlässiger Snooze-Sync** – Beim Snoozen werden die neuen Zeiten jetzt sofort und zuverlässig auf allen Geräten angezeigt.
+- **Kein Geisterwecker mehr** – Der Wecker klingelt nicht mehr, wenn der Alarm-Schalter ausgeschaltet ist – auch nicht nach einem Neustart oder aus dem Hintergrund heraus.
+- **Stabileres Wecken** – Seltene Abstürze durch unsichere Wertezugriffe in der Mitglieder-Bearbeitung und beim Alarm-Scheduling wurden behoben.
+- **Bessere Fehlerhinweise** – Bei Problemen mit der Synchronisierung (z. B. Reihenfolge speichern, Pausieren) bekommst du jetzt eine verständliche Rückmeldung statt stiller Fehler.
 
 ## 1.9.17 – 2026-06-03
 ### Verbessert
