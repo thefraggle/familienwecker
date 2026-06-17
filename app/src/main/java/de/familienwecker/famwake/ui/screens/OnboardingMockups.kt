@@ -337,6 +337,7 @@ fun Slide3DaySettingsMockup() {
                     Row(verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text("−", color = MockPrimary, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        // Mockup-Wert, nicht lokalisiert da rein visuell
                         Text("20 min", color = MockAccent, fontWeight = FontWeight.Bold, fontSize = 13.sp)
                         Text("+", color = MockPrimary, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     }

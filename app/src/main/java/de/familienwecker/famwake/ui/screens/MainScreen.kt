@@ -302,10 +302,12 @@ fun MainScreen(
 
 
             Box(modifier = Modifier.fillMaxSize()) {
-            val itemHeightPx = remember(lazyListState.layoutInfo) {
-                lazyListState.layoutInfo.visibleItemsInfo
-                    .firstOrNull { it.key?.toString()?.startsWith("sched_") == true }
-                    ?.size?.toFloat() ?: with(android.util.DisplayMetrics()) { 110f * (context.resources.displayMetrics.density) }
+            val itemHeightPx by remember {
+                derivedStateOf {
+                    lazyListState.layoutInfo.visibleItemsInfo
+                        .firstOrNull { it.key?.toString()?.startsWith("sched_") == true }
+                        ?.size?.toFloat() ?: (110f * context.resources.displayMetrics.density)
+                }
             }
             
             LazyColumn(

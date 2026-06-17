@@ -181,6 +181,8 @@ class Scheduler {
 
             // Der Puffer nach diesem Mitglied bestimmt den Abstand zum Nachfolgenden.
             // Wenn es kein nachfolgendes Mitglied gibt (letztes Element), ist der Puffer 0.
+            // dayProfiles enthält nach resolveEffectiveMember() nur 1 Entry (den aktuellen Wochentag),
+            // daher ist firstOrNull() hier korrekt und liefert immer das richtige Tagesprofil.
             val effectiveBuffer = if (index < orderedMembers.lastIndex) {
                 member.dayProfiles?.values?.firstOrNull()?.bufferMinutes ?: globalBufferMinutes
             } else {
