@@ -178,6 +178,8 @@ struct Scheduler {
             // Wenn es kein nachfolgendes Mitglied gibt (letztes Element), ist der Puffer 0.
             var effectiveBuffer = 0
             if index < orderedMembers.count - 1 {
+                // dayProfiles enthält nach resolveEffectiveMember() nur 1 Entry (den aktuellen Wochentag),
+                // daher ist .first hier korrekt und liefert immer das richtige Tagesprofil.
                 let activeProfile = member.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
                 effectiveBuffer = activeProfile?.bufferMinutes ?? globalBufferMinutes
             }
@@ -188,6 +190,8 @@ struct Scheduler {
             if index > 0 {
                 let prevMember = orderedMembers[index - 1]
                 if !prevMember.isSimpleMode {
+                    // dayProfiles enthält nach resolveEffectiveMember() nur 1 Entry (den aktuellen Wochentag),
+                    // daher ist .first hier korrekt und liefert immer das richtige Tagesprofil.
                     let activeProfile = prevMember.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
                     prevBuffer = activeProfile?.bufferMinutes ?? globalBufferMinutes
                 }

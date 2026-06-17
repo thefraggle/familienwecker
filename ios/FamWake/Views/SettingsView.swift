@@ -167,10 +167,10 @@ struct SettingsView: View {
             } message: { member in
                 Text(String(format: L.s("settings_steal_text"), member.name))
             }
-            .alert("Fehler", isPresented: $showMailAlert) {
+            .alert(L.s("error_title"), isPresented: $showMailAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
-                Text("Es konnte keine Mail-App gefunden werden.")
+                Text(L.s("error_no_mail_app"))
             }
             .onChange(of: authViewModel.isAnonymous) { _, isAnon in
                 // Nach erfolgreichem Account-Linking: Login-Sheet schließen, Daten neu laden

@@ -9,7 +9,7 @@ import FirebaseFirestore
 import UserNotifications
 
 struct OpenFamWakeIntent: LiveActivityIntent {
-    static var title: LocalizedStringResource = "Wecker beenden"
+    static var title: LocalizedStringResource = "alarm_stop_button"
     static var openAppWhenRun: Bool = true
     
     @Parameter(title: "Member ID")
@@ -109,8 +109,8 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             
             // Lokale Notification als Hinweis
             let content = UNMutableNotificationContent()
-            content.title = "Snooze nicht möglich"
-            content.body = "Maximale Snooze-Anzahl erreicht. Aufstehen! 💪"
+            content.title = NSLocalizedString("snooze_not_possible_title", comment: "Notification title when max snooze reached")
+            content.body = NSLocalizedString("snooze_max_reached", comment: "Notification body when max snooze reached")
             content.sound = .default
             let request = UNNotificationRequest(identifier: "max_snooze", content: content, trigger: nil)
             try? await UNUserNotificationCenter.current().add(request)

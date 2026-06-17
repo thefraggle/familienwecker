@@ -321,3 +321,9 @@
 "schedule_member_snoozed" = "(shifted)";
 
 "schedule_you_badge" = "You";
+
+// MARK: - Audit M15/M16: Localized alert and alarm strings
+"error_title" = "Error";
+"error_no_mail_app" = "No mail app found.";
+"alarm_stop_button" = "Stop Alarm";
+"snooze_not_possible_title" = "Snooze not possible";
