@@ -28,6 +28,13 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     func perform() async throws -> some IntentResult {
         await AlarmService.shared.stopAlarm()
         
+        // Geister-Alarm-Schutz: Wenn globaler Switch OFF → Alarm sofort canceln
+        let isAlarmEnabled = UserDefaults.standard.bool(forKey: "alarm_enabled")
+        if !isAlarmEnabled {
+            await AlarmService.shared.cancelWakeUp(memberId: memberId)
+            return .result()
+        }
+        
         let snoozeUntil = UserDefaults.standard.double(forKey: "snooze_until")
         let hasActiveSnooze = snoozeUntil > Date().timeIntervalSince1970
         
@@ -66,6 +73,14 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
     func perform() async throws -> some IntentResult {
         await MainActor.run {
             AlarmService.shared.stopAlarm()
+        }
+        
+        // Geister-Alarm-Schutz: Wenn globaler Switch OFF → Alarm sofort canceln, kein Snooze
+        let isAlarmEnabled = UserDefaults.standard.bool(forKey: "alarm_enabled")
+        if !isAlarmEnabled {
+            let uuid = AlarmService.getUUID(for: memberId)
+            try? await AlarmManager.shared.cancel(id: uuid)
+            return .result()
         }
 
         // Stale-Count-Schutz: Nur zurücksetzen wenn snooze_until deutlich abgelaufen ist (>30 Min)
@@ -160,9 +175,17 @@ final class AlarmService: ObservableObject {
 
     private var schedulingTasks: [String: Task<Void, Never>] = [:]
 
+    // MARK: - UUID Management (Keychain-basiert, überlebt Reinstall)
+    
     nonisolated static func getUUID(for memberId: String) -> UUID {
         let key = "alarm_uuid_\(memberId)"
+        // 1. Keychain prüfen (überlebt Reinstall)
+        if let uuidStr = KeychainHelper.read(key: key), let uuid = UUID(uuidString: uuidStr) {
+            return uuid
+        }
+        // 2. Legacy: UserDefaults prüfen und in Keychain migrieren
         if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
+            KeychainHelper.save(key: key, value: uuidStr)
             return uuid
         }
         return generateNewUUID(for: memberId)
@@ -171,7 +194,8 @@ final class AlarmService: ObservableObject {
     nonisolated private static func generateNewUUID(for memberId: String) -> UUID {
         let key = "alarm_uuid_\(memberId)"
         let newUUID = UUID()
-        UserDefaults.standard.set(newUUID.uuidString, forKey: key)
+        KeychainHelper.save(key: key, value: newUUID.uuidString)
+        UserDefaults.standard.set(newUUID.uuidString, forKey: key) // Backward compat
         return newUUID
     }
 
@@ -290,8 +314,11 @@ final class AlarmService: ObservableObject {
 
     func cancelAll() {
         Task {
-            // AlarmKit bietet cancel-by-ID. Ohne ID-Tracking canceln wir alle bekannten UUIDs.
-            // Für Geister-Alarme (nach Reinstall) müssen wir alle pending alarms entfernen.
+            // 1. Aus Keychain lesen (überlebt Reinstall!)
+            for uuid in KeychainHelper.readAllAlarmUUIDs() {
+                try? await AlarmManager.shared.cancel(id: uuid)
+            }
+            // 2. Legacy: Auch UserDefaults prüfen
             for key in UserDefaults.standard.dictionaryRepresentation().keys where key.hasPrefix("alarm_uuid_") {
                 if let uuidStr = UserDefaults.standard.string(forKey: key), let uuid = UUID(uuidString: uuidStr) {
                     try? await AlarmManager.shared.cancel(id: uuid)
