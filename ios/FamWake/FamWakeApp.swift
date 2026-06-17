@@ -129,8 +129,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 NotificationCenter.default.post(name: .showRingingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])
             }
         } else {
-            // Normale Push-Nachrichten im Vordergrund als Banner zeigen
-            completionHandler([.banner, .sound])
+            // Normale Push-Nachrichten still im Notification Center anzeigen (kein Popup)
+            completionHandler([.list])
             return
         }
         
