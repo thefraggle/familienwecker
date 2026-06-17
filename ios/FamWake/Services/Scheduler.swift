@@ -139,6 +139,9 @@ struct Scheduler {
             let allowedLatest = member.latestWakeUp.adding(minutes: shiftMinutes)
             let allowedEarliest = member.earliestWakeUp.subtracting(minutes: shiftMinutes)
 
+            // Fixierte Weckzeit (z.B. durch Snooze): earliestWakeUp == latestWakeUp
+            let isFixed = member.earliestWakeUp == member.latestWakeUp
+
             var maxBathroomEnd = allowedLatest.adding(minutes: member.bathroomDurationMinutes)
 
             if currentLatestBathroomEnd < maxBathroomEnd {
@@ -153,9 +156,18 @@ struct Scheduler {
                 maxBathroomEnd = leave
             }
 
-            let wakeUpTime = maxBathroomEnd.subtracting(minutes: member.bathroomDurationMinutes)
+            // Bei fixierter Weckzeit: exakt diese Zeit verwenden
+            let wakeUpTime: DateComponents
+            let bathroomEnd: DateComponents
+            if isFixed {
+                wakeUpTime = member.latestWakeUp
+                bathroomEnd = wakeUpTime.adding(minutes: member.bathroomDurationMinutes)
+            } else {
+                wakeUpTime = maxBathroomEnd.subtracting(minutes: member.bathroomDurationMinutes)
+                bathroomEnd = maxBathroomEnd
+            }
 
-            if wakeUpTime < allowedEarliest {
+            if !isFixed && wakeUpTime < allowedEarliest {
                 if !includeInvalid {
                     return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .memberConflict(""))
                 }
@@ -185,16 +197,40 @@ struct Scheduler {
                 member: member,
                 wakeUpTime: wakeUpTime,
                 bathroomStart: wakeUpTime,
-                bathroomEnd: maxBathroomEnd,
+                bathroomEnd: bathroomEnd,
                 bufferAfter: effectiveBuffer
             ))
             
             currentLatestBathroomEnd = wakeUpTime.subtracting(minutes: prevBuffer)
         }
 
+        // Vorwärts-Korrektur-Pass: Wenn ein fixierter Member (Snooze) seine Badzeit
+        // in den Slot des Nachfolgers schiebt, werden nachfolgende Members verschoben.
+        var forwardSchedules = schedules.reversed()
+        for i in 0..<(forwardSchedules.count - 1) {
+            let current = forwardSchedules[i]
+            let next = forwardSchedules[i + 1]
+            if next.member.isSimpleMode { continue }
+
+            let buffer = current.bufferAfter
+            let requiredNextStart = current.bathroomEnd.adding(minutes: buffer)
+
+            if next.wakeUpTime < requiredNextStart {
+                let shiftedWakeUp = requiredNextStart
+                let shiftedBathroomEnd = shiftedWakeUp.adding(minutes: next.member.bathroomDurationMinutes)
+                forwardSchedules[i + 1] = MemberSchedule(
+                    member: next.member,
+                    wakeUpTime: shiftedWakeUp,
+                    bathroomStart: shiftedWakeUp,
+                    bathroomEnd: shiftedBathroomEnd,
+                    bufferAfter: next.bufferAfter
+                )
+            }
+        }
+
         // Post-Validation Frühstück
         if let bt = breakfastTime, isValid {
-            for s in schedules {
+            for s in forwardSchedules {
                 if s.member.wantsBreakfast && bt < s.bathroomEnd {
                     isValid = false
                     if !includeInvalid {
@@ -205,7 +241,7 @@ struct Scheduler {
         }
 
         return FamilySchedule(
-            memberSchedules: schedules.reversed(),
+            memberSchedules: forwardSchedules,
             breakfastTime: breakfastTime,
             isValid: isValid,
             scheduleMessage: isValid ? .optimal : .memberConflict("")
