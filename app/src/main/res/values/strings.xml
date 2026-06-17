@@ -366,4 +366,5 @@
     <string name="snooze_counter">Snooze (%1$d/%2$d)</string>
     <string name="notif_snooze_shift_title">Wake time shifted</string>
     <string name="notif_snooze_shift_body">%1$s needs more time. Your alarm is now at %2$s</string>
+    <string name="schedule_you_badge">You</string>
 </resources>

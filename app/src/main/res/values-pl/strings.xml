@@ -354,4 +354,5 @@
     <string name="reorder_dialog_message">Czy nowe zamówienie powinno dotyczyć tylko dnia dzisiejszego (%1$s), czy całego tygodnia?</string>
     <string name="reorder_dialog_today">Tylko dzisiaj (%1$s)</string>
     <string name="reorder_dialog_week">Cały tydzień</string>
+    <string name="schedule_you_badge">Ty</string>
 </resources>

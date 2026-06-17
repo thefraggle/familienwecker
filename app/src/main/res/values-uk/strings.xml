@@ -360,4 +360,5 @@
     <string name="reorder_dialog_message">Новий порядок має застосовуватися лише до сьогодні (%1$s) чи до всього тижня?</string>
     <string name="reorder_dialog_today">Тільки сьогодні (%1$s)</string>
     <string name="reorder_dialog_week">Цілий тиждень</string>
+    <string name="schedule_you_badge">Ти</string>
 </resources>

@@ -313,3 +313,5 @@
 "reorder_dialog_today" = "Endast idag (%@)";
 "reorder_dialog_week" = "Hela veckan";
 "ringing_messages_array" = "Badrummet är helt ditt just nu!||Ingen stress – din badrumstid börjar nu.||Njut av lugnet i badrummet medan det varar!||Dags för det första kaffet. Världen väntar!||Sov gott? Ditt schema för idag är redo.||Redo för dagen? Allt är perfekt planerat.||Dags att rocka dagen! Din tid i badrummet börjar.||Vakna och skruva upp volymen – scenen är din!||Bra musik på morgonen håller bekymren borta!||Familjens schema är igång. Nu kör vi!||Redo för start? Familjen räknar med dig.||Dags att stiga upp! Badrummet är ledigt för dig.||Din personliga badrumstid börjar nu – använd den väl!||Fri väg till handfatet – det är din tur!||Morgonstund har guld i mund – och varmt vatten!||Fem minuter till? Nej! Din tid väntar.||Idag blir en bra dag. Den börjar nu!||Din tandborste saknar dig. Iväg till badrummet!||Allt koordinerat, allt planerat – det är din tur!||Morgonfågeln har badrummet helt för sig själv.";
+
+"schedule_you_badge" = "Du";

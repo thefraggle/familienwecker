@@ -357,4 +357,5 @@
     <string name="reorder_dialog_message">क्या नया आदेश केवल आज (%1$s) पर लागू होना चाहिए या पूरे सप्ताह पर?</string>
     <string name="reorder_dialog_today">केवल आज (%1$s)</string>
     <string name="reorder_dialog_week">पूरे सप्ताह</string>
+    <string name="schedule_you_badge">आप</string>
 </resources>
