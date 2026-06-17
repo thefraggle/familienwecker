@@ -100,9 +100,11 @@ class FamWakeMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         val type = message.data["type"] ?: return
 
-        // Push-Benachrichtigungen in der App deaktiviert → lautlos ignorieren
-        val appSettings = (application as FamWakeApplication).appSettings
-        if (!appSettings.pushNotificationsEnabled.value) return
+        // Push-Benachrichtigungen in der App deaktiviert → lautlos ignorieren.
+        // SharedPreferences direkt lesen (synchron), weil DataStore bei Kaltstart
+        // durch den FCM-Service noch nicht geladen sein kann (gibt Default=true zurück).
+        val prefs = getSharedPreferences("famwake_push_prefs", MODE_PRIVATE)
+        if (!prefs.getBoolean("push_enabled", true)) return
 
         // Client-Debounce: doppelte Pushes desselben Typs innerhalb 10s ignorieren
         val now = System.currentTimeMillis()
