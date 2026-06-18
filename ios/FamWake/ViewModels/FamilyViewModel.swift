@@ -1433,9 +1433,19 @@ class FamilyViewModel: ObservableObject {
         }
 
         // Aktiver Snooze darf nicht durch regulären Alarm überschrieben werden.
-        // Ohne diesen Guard killt recalculateSchedule() den Snooze-Task via
-        // schedulingTasks[memberId]?.cancel() bevor er registriert wurde.
+        // WICHTIG: Den Snooze-Alarm IMMER neu planen – nach App-Kill oder Reinstall
+        // können AlarmKit-Requests verloren gehen. Re-Schedule ist idempotent.
         if let snoozeUntil = snoozeUntil, snoozeUntil > Date() {
+            if let myId = myMemberId,
+               let mySched = schedule.memberSchedules.first(where: { $0.member.id == myId }) {
+                AlarmService.shared.scheduleWakeUp(
+                    wakeUpTime: snoozeUntil,
+                    memberId: myId,
+                    memberName: mySched.member.name,
+                    soundUri: alarmSoundUri,
+                    isSnooze: true
+                )
+            }
             return
         }
 
