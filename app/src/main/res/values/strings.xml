@@ -367,4 +367,14 @@
     <string name="notif_snooze_shift_title">Wake time shifted</string>
     <string name="notif_snooze_shift_body">%1$s needs more time. Your alarm is now at %2$s</string>
     <string name="schedule_you_badge">You</string>
+
+    <!-- M11: Warnung bei Überschreitung des Member-Limits -->
+    <string name="schedule_message_member_limit">You have %1$d active members, but only %2$d are included in the schedule.</string>
+
+    <!-- M14: Brand-Prefix für Bold-Splitting im Titel -->
+    <string name="app_name_brand_prefix">FamWake</string>
+
+    <!-- M18: Hinweis für anonyme User auf FamilySetupScreen -->
+    <string name="anonymous_warning_title">⚠️ You are not logged in!</string>
+    <string name="anonymous_warning_desc">You are using a guest account. Your data could be lost if you reinstall the app. Please register to keep your family settings.</string>
 </resources>

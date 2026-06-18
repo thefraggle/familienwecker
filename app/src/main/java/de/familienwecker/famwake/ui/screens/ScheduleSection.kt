@@ -280,7 +280,9 @@ fun LazyListScope.scheduleSection(
                     val isFlexibleAdjustment = schedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.TimeAdjusted ||
                         schedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BreakfastReduced ||
                         schedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BreakfastAndTimeAdjusted ||
-                        schedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BufferReduced
+                        schedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.BufferReduced ||
+                        // M11: Warnung bei Überschreitung des Member-Limits
+                        schedule.scheduleMessage is de.familienwecker.famwake.model.ScheduleMessage.MemberLimitExceeded
                     if (isFlexibleAdjustment) {
                         Text(
                             text = "⚠️ $msgText",

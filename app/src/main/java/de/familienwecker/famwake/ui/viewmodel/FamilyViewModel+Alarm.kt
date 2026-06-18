@@ -659,6 +659,8 @@ fun FamilyViewModel.scheduleMessageToUiText(msg: ScheduleMessage): UiText = when
     is ScheduleMessage.BreakfastAndTimeAdjusted -> UiText.StringResource(R.string.schedule_message_breakfast_and_time_adjusted, msg.breakfast, msg.shift)
     is ScheduleMessage.MemberConflict           -> UiText.StringResource(R.string.schedule_message_member_conflict, msg.memberName)
     is ScheduleMessage.BufferReduced            -> UiText.StringResource(R.string.schedule_message_buffer_reduced, msg.originalMinutes, msg.reducedMinutes)
+    // M11: Warnung bei Überschreitung des Member-Limits
+    is ScheduleMessage.MemberLimitExceeded      -> UiText.StringResource(R.string.schedule_message_member_limit, msg.total, msg.limit)
     is ScheduleMessage.NoActiveSchedule         -> UiText.StringResource(R.string.main_no_active_schedule)
 }
 
