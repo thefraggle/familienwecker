@@ -36,8 +36,10 @@ class FamWakeMessagingService : FirebaseMessagingService() {
                 if (BuildConfig.DEBUG) Log.w(TAG, "refreshAndSaveToken: kein eingeloggter User – abgebrochen")
                 return
             }
-            // Push-Toggle aus SharedPreferences lesen (synchron, DataStore evtl. nicht geladen)
-            val pushEnabled = context?.getSharedPreferences("famwake_push_prefs", Context.MODE_PRIVATE)
+            // Push-Toggle aus SharedPreferences lesen (synchron, DataStore evtl. nicht geladen).
+            // Ohne expliziten Context den Application-Context verwenden.
+            val appContext = context ?: try { FamWakeApplication.instance } catch (_: Exception) { null }
+            val pushEnabled = appContext?.getSharedPreferences("famwake_push_prefs", Context.MODE_PRIVATE)
                 ?.getBoolean("push_enabled", true) ?: true
             
             if (BuildConfig.DEBUG) Log.d(TAG, "refreshAndSaveToken: push=$pushEnabled, fordere Token an")

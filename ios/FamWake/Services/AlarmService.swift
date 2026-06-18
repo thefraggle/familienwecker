@@ -98,7 +98,15 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             UserDefaults.standard.removeObject(forKey: "snooze_until")
             UserDefaults.standard.set(0, forKey: "snooze_count")
             
-            // Begrüßungsansicht öffnen (wie Stop-Button)
+            // Lokale Notification als Hinweis auf dem Lock-Screen
+            let content = UNMutableNotificationContent()
+            content.title = NSLocalizedString("snooze_not_possible_title", comment: "")
+            content.body = NSLocalizedString("snooze_max_reached", comment: "")
+            content.sound = .default
+            let request = UNNotificationRequest(identifier: "max_snooze", content: content, trigger: nil)
+            try? await UNUserNotificationCenter.current().add(request)
+            
+            // Begrüßungsansicht öffnen (wie Stop-Button) – greift wenn User entsperrt
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: [
                     "memberId": self.memberId,
