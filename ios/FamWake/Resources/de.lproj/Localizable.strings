@@ -339,3 +339,4 @@
 
 // MARK: - Accessibility
 "accessibility_selected" = ", ausgewählt";
+"accessibility_add_member_hint" = "Neues Familienmitglied hinzufügen";
