@@ -245,6 +245,9 @@ struct MainView: View {
                 if familyViewModel.familyId == nil {
                     appState.route = .familySetup
                 }
+                // Snooze-Banner beim ersten Start korrekt anzeigen
+                // (Lock-Screen-Snooze im Simple-Mode setzt nur UserDefaults)
+                familyViewModel.checkSnoozeStatus()
             }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
