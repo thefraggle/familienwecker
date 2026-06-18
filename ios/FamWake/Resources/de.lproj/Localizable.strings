@@ -348,3 +348,6 @@
 "sound_name_classic_bell" = "Klassische Glocke";
 "sound_name_bright_alert" = "Heller Alarm";
 "sound_name_system_default" = "System-Standard";
+
+// MARK: - Buttons
+"ok_button" = "OK";
