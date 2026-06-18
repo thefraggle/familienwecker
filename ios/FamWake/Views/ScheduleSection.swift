@@ -326,7 +326,10 @@ struct ScheduleSection: View {
         let isSnoozed = sched.member.snoozeUntil != nil && sched.member.snoozeUntil! > Date()
         let isOtherMember = sched.member.id != familyViewModel.myMemberId
         let isMe = !isOtherMember
-        HStack {
+        HStack(spacing: 12) {
+            // Avatar – Initialen-Kreis für visuelle Zuordnung
+            InitialsAvatar(name: sched.member.name, size: 36)
+
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
                     Image(systemName: "alarm")

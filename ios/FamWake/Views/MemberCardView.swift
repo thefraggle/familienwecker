@@ -37,8 +37,8 @@ struct MemberCardView: View {
             if !isOtherUserClaim { onEdit() }
         }) {
             HStack(spacing: 16) {
-                // Avatar (Android MemberCard.kt:73-82)
-
+                // Avatar – Initialen-Kreis (Android MemberCard.kt:73-82)
+                InitialsAvatar(name: member.name, size: 40)
 
                 // Content Column
                 VStack(alignment: .leading, spacing: 4) {
