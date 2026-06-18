@@ -38,6 +38,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 | TC-33 | Snooze-Maximum | 3. Snooze-Klick: Alarm endet, Begrüßung erscheint beim Entsperren, Lock-Screen-Hinweis „Snooze nicht möglich". |
 | TC-34 | Snooze abbrechen | „Abbrechen" im Banner → Snooze-State reset, Plan neu berechnet, Sync auf alle Geräte. |
 | TC-35 | Ghost-Alarm-Schutz | Kein Wecker wenn globaler Schalter OFF, wenn eigener Member pausiert wird (bei aktiven anderen), nach Neustart oder Mitglieder-Bearbeitung. |
+| TC-35b | Snooze-Reset Folgetag | Nach 2× Snooze gestern: Snooze-Button heute wieder aktiv (Count automatisch zurückgesetzt). |
 | TC-36 | „Ich bin wach" | Stoppt Wecker, Button bleibt am Weckertag sichtbar (oder 4h vorher). Reset am Folgetag. |
 
 ### 4. Sync & Benachrichtigungen
