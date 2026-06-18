@@ -208,6 +208,9 @@
 "error_password_reset_failed" = "Could not reset password. Please try again later.";
 "error_profile_taken" = "Someone else is already using this profile.";
 "error_profile_claim_offline" = "No internet. You need to be online to select who you are.";
+"error_profile_claim_retry" = "Try again";
+"error_wrong_password" = "Wrong email or password. Please check.";
+"error_email_in_use" = "This email is already registered.";
 "error_delete_not_admin" = "Only the person who created the family can delete it.";
 "alarm_default_member" = "Family member";
 "alarm_notification_title" = "The family alarm is ringing";

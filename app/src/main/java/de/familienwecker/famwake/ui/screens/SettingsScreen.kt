@@ -51,7 +51,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import de.familienwecker.famwake.util.BatteryUtils
 import androidx.compose.material.icons.filled.BatteryAlert
-import androidx.compose.material.icons.filled.Tune
+
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.BrightnessAuto
