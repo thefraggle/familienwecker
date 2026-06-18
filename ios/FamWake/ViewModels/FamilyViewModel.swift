@@ -782,10 +782,12 @@ class FamilyViewModel: ObservableObject {
     }
 
 
+
     func snooze(memberId: String, memberName: String) {
-        // Neuer Alarm-Zyklus: Wenn kein aktiver Snooze läuft, Count zurücksetzen
-        // (verhindert stuck disabled-Button vom Vortag).
-        if snoozeUntil == nil || (snoozeUntil ?? .distantPast) < Date() {
+        // Neuer Alarm-Zyklus: Nur resetten wenn snooze_until deutlich in der Vergangenheit liegt.
+        // Wenn der Alarm gerade klingelte, ist snooze_until ~0 Sek abgelaufen – Count behalten!
+        let staleThreshold = Date().addingTimeInterval(-120) // 2 Min Toleranz
+        if snoozeUntil == nil || (snoozeUntil ?? .distantPast) < staleThreshold {
             UserDefaults.standard.set(0, forKey: "snooze_count")
             snoozeCount = 0
         }
