@@ -72,17 +72,8 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
     }
 
     func perform() async throws -> some IntentResult {
-        // TODO: Audit M6 – App Group Suite verwenden wenn Entitlement konfiguriert
         await MainActor.run {
             AlarmService.shared.stopAlarm()
-        }
-        
-        // Geister-Alarm-Schutz: Wenn globaler Switch OFF → Alarm sofort canceln, kein Snooze
-        let isAlarmEnabled = UserDefaults.standard.bool(forKey: "alarm_enabled")
-        if !isAlarmEnabled {
-            let uuid = AlarmService.getUUID(for: memberId)
-            try? await AlarmManager.shared.cancel(id: uuid)
-            return .result()
         }
 
         // Neuer Alarm-Zyklus: Wenn kein aktiver Snooze läuft, ist dies der erste Snooze
@@ -128,13 +119,37 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         UserDefaults.standard.set(newCount, forKey: "snooze_count")
         
         let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
-        try await AlarmService.scheduleWakeUpDirect(
-            wakeUpTime: snoozeDate,
-            memberId: memberId,
-            memberName: memberName,
-            soundUri: alarmSoundUri,
-            isSnooze: true
-        )
+        do {
+            try await AlarmService.scheduleWakeUpDirect(
+                wakeUpTime: snoozeDate,
+                memberId: memberId,
+                memberName: memberName,
+                soundUri: alarmSoundUri,
+                isSnooze: true
+            )
+        } catch {
+            #if DEBUG
+            print("[SnoozeNotifyIntent] scheduleWakeUpDirect failed: \(error.localizedDescription)")
+            #endif
+            // Fallback: UNNotification als Ersatz planen
+            let content = UNMutableNotificationContent()
+            content.title = memberName
+            content.body = "Snooze \(newCount)/\(SnoozeConfig.maxSnoozeCount)"
+            content.sound = .default
+            content.userInfo = ["memberId": memberId, "memberName": memberName, "isSnooze": true]
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(SnoozeConfig.snoozeDurationMinutes * 60), repeats: false)
+            let request = UNNotificationRequest(identifier: "snooze_fallback_\(memberId)", content: content, trigger: trigger)
+            try? await UNUserNotificationCenter.current().add(request)
+        }
+
+        // UI-State aktualisieren wenn App im Vordergrund
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [
+                "memberId": self.memberId,
+                "memberName": self.memberName,
+                "snoozeTime": snoozeDate
+            ])
+        }
 
         // Snooze-State nach Firestore synchronisieren
         if let familyId = UserDefaults.standard.string(forKey: "family_id"),
@@ -148,12 +163,7 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             ])
         }
         
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: [
-                "memberId": self.memberId,
-                "memberName": self.memberName
-            ])
-        }
+        
         
         try? await Task.sleep(nanoseconds: 1_000_000_000)
         
