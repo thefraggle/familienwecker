@@ -10,7 +10,9 @@
 
 ### Improved
 - **Reliable Snooze Sync** – Snooze times now update immediately and reliably across all devices.
-- **No More Ghost Alarms** – The alarm no longer rings when the alarm switch is turned off – not even after a restart or from the background.
+- **No More Ghost Alarms** – The alarm no longer rings at the old time when you set a new time or briefly toggle the alarm off and on. Not even after a restart or from the background.
+- **Snooze Limit (max 2×)** – After two snoozes, that's it – keeping the family schedule on track. The banner counter now always shows the correct count.
+- **Push Notifications Respect the Toggle** – When you turn off push notifications in settings, no more notifications come through – not even for snooze or schedule changes.
 - **More Stable Alarms** – Fixed rare crashes caused by unsafe value access in member editing and alarm scheduling.
 - **Better Error Feedback** – When sync issues occur (e.g., saving order, pausing), you now get a clear message instead of silent failures.
 
