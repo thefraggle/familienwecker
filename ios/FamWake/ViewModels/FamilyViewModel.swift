@@ -1082,12 +1082,9 @@ class FamilyViewModel: ObservableObject {
                     // Suppress error during transition
                     return
                 }
-                // M7: Offline-Banner um Firestore Cache Status erweitern –
-                // isFromCache == true → Firestore nutzt nur lokale Daten (zusätzliches Offline-Signal).
-                // Nur auf true setzen, nie auf false – das NWPathMonitor ist die Quelle für "wieder online".
-                if let metadata = snap?.metadata, metadata.isFromCache {
-                    self.isOffline = true
-                }
+                // M7 revert: isFromCache ist nicht zuverlässig für Offline-Erkennung,
+                // da Firestore IMMER zuerst einen Cache-Snapshot liefert (Race mit NWPathMonitor).
+                // Der NWPathMonitor (startNetworkMonitor) ist die einzige Quelle für isOffline.
                 guard let docs = snap?.documents else { return }
                 let parsed = docs.compactMap { FamilyMember.fromFirestore($0.data(), id: $0.documentID) }
                 var sorted = parsed.sorted { $0.sequenceOrder < $1.sequenceOrder }
