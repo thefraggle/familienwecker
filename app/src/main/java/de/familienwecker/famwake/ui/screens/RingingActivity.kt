@@ -96,6 +96,7 @@ class RingingActivity : AppCompatActivity() {
                             // Snooze-Status löschen, damit der Banner auf MainScreen verschwindet
                             appSettings.setSnoozeUntil(null)
                             appSettings.setSnoozeCount(0)
+                            de.familienwecker.famwake.alarm.AlarmBackupPrefs.clearSnooze(this@RingingActivity)
                             // isAwakeToday setzen – verhindert, dass applyAlarms() sofort
                             // einen neuen regulären Alarm für heute plant (Loop-Prevention)
                             appSettings.setAwakeToday(true)
@@ -139,6 +140,10 @@ class RingingActivity : AppCompatActivity() {
 
                             appSettings.setSnoozeUntil(snoozeTime.toKmpLocalDateTime())
                             appSettings.setSnoozeCount(newCount)
+
+                            // Snooze-Backup für Reboot-Recovery (Device-Protected Storage)
+                            val snoozeMillis = snoozeTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
+                            de.familienwecker.famwake.alarm.AlarmBackupPrefs.saveSnooze(this@RingingActivity, snoozeMillis, newCount)
 
                             alarmScheduler.scheduleWakeUp(
                                 wakeUpTime = snoozeTime.toKmpLocalDateTime(),

@@ -21,6 +21,8 @@ object AlarmBackupPrefs {
     private const val KEY_SOUND_URI    = "alarm_sound_uri"
     private const val KEY_WAKE_MILLIS  = "alarm_wake_millis"
     private const val KEY_ENABLED      = "alarm_enabled"
+    private const val KEY_SNOOZE_UNTIL = "alarm_snooze_until"
+    private const val KEY_SNOOZE_COUNT = "alarm_snooze_count"
 
     private fun prefs(context: Context) =
         context.createDeviceProtectedStorageContext()
@@ -59,6 +61,8 @@ object AlarmBackupPrefs {
                 remove(KEY_MEMBER_NAME)
                 remove(KEY_SOUND_URI)
                 remove(KEY_WAKE_MILLIS)
+                remove(KEY_SNOOZE_UNTIL)
+                remove(KEY_SNOOZE_COUNT)
                 putBoolean(KEY_ENABLED, false)
                 apply()
             }
@@ -79,4 +83,34 @@ object AlarmBackupPrefs {
 
     fun getWakeUpMillis(context: Context): Long =
         prefs(context).getLong(KEY_WAKE_MILLIS, 0L)
+
+    /** Snooze-State im Device-Protected Storage sichern, damit er nach Reboot verfügbar ist. */
+    fun saveSnooze(context: Context, snoozeUntilMillis: Long, snoozeCount: Int) {
+        try {
+            prefs(context).edit().apply {
+                putLong(KEY_SNOOZE_UNTIL, snoozeUntilMillis)
+                putInt(KEY_SNOOZE_COUNT, snoozeCount)
+                apply()
+            }
+        } catch (e: Exception) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("AlarmBackupPrefs", "Fehler beim Speichern des Snooze-Backups: ${e.message}")
+            }
+        }
+    }
+
+    /** Snooze-State löschen (nach Alarm-Stop oder Ablauf). */
+    fun clearSnooze(context: Context) {
+        prefs(context).edit().apply {
+            remove(KEY_SNOOZE_UNTIL)
+            remove(KEY_SNOOZE_COUNT)
+            apply()
+        }
+    }
+
+    fun getSnoozeUntilMillis(context: Context): Long =
+        prefs(context).getLong(KEY_SNOOZE_UNTIL, 0L)
+
+    fun getSnoozeCount(context: Context): Int =
+        prefs(context).getInt(KEY_SNOOZE_COUNT, 0)
 }
