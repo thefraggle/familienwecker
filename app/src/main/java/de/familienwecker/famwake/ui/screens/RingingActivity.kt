@@ -109,12 +109,10 @@ class RingingActivity : AppCompatActivity() {
 
                             // Tracking: Nutzer hat den Alarm aktiv abgebrochen (nicht durch Snooze)
                             TelemetryDeck.signal("alarm.dismissed")
-                            // Zur Haupt-App wechseln (ohne Begrüßung)
-                            val intent = android.content.Intent(this@RingingActivity, MainActivity::class.java).apply {
-                                flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            }
-                            startActivity(intent)
-                            
+                            // M19: Nur Sound stoppen und RingingActivity beenden –
+                            // die MainActivity wird automatisch sichtbar, da sie im Back-Stack liegt.
+                            // Vorher wurde hier redundant ein Intent mit FLAG_ACTIVITY_CLEAR_TASK
+                            // gestartet, was die bestehende MainActivity-Instanz killen konnte.
                             stopRingtoneAndOpenApp()
                         },
                         onSnoozeClicked = {
