@@ -41,7 +41,7 @@ import androidx.activity.compose.BackHandler
 import android.app.Activity
 import de.familienwecker.famwake.util.findActivity
 import android.view.WindowManager
-import androidx.compose.ui.platform.LocalContext
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
