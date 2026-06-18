@@ -269,7 +269,7 @@ struct MainView: View {
 
     @ViewBuilder
     private func snoozeBanner(until: Date) -> some View {
-        let currentSnoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
+        let currentSnoozeCount = familyViewModel.snoozeCount
         Group {
             HStack {
                 Image(systemName: "zzz")
