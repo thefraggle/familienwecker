@@ -57,7 +57,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("APNs Registrierung fehlgeschlagen: \(error.localizedDescription)")
         TelemetryManager.send("auth.apnsRegistrationFailed", with: ["error": error.localizedDescription])
     }
     
