@@ -787,6 +787,8 @@ class FamilyViewModel: ObservableObject {
         }
         recalculateSchedule()
         
+        // AlarmKit: Alten Alarm canceln + neuen Snooze-Alarm planen.
+        // scheduleWakeUpDirect() (intern) cancelled die alte UUID und plant die neue.
         let savedSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         AlarmService.shared.scheduleWakeUp(
             wakeUpTime: snoozeTime,
