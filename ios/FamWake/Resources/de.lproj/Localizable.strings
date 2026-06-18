@@ -336,3 +336,6 @@
 "settings_admin_title" = "Admin";
 "settings_test_alarm" = "⏰ Test-Wecker (2 Min)";
 "minutes_suffix" = "%d min";
+
+// MARK: - Accessibility
+"accessibility_selected" = ", ausgewählt";
