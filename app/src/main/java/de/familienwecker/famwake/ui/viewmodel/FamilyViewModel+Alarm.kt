@@ -263,8 +263,10 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
         }
     }
 
+    var foundMySchedule = false
     for (memberSchedule in schedule.memberSchedules) {
         if (memberSchedule.member.id == currentMyMemberId) {
+            foundMySchedule = true
             val wakeUpTime = memberSchedule.wakeUpTime
 
             // Autoritatives Zieldatum aus dem Two-Pass in recalculateSchedule() übernehmen.
@@ -330,6 +332,12 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
                 android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm SET for $targetDateTime")
             }
         }
+    }
+    // Eigener Member nicht im Plan (pausiert, deaktiviert, etc.) → alten Alarm canceln,
+    // sonst bleibt der Geisterwecker stehen.
+    if (!foundMySchedule) {
+        alarmScheduler.cancelWakeUp(currentMyMemberId)
+        lastScheduledAlarmMillis = null
     }
 }
 
