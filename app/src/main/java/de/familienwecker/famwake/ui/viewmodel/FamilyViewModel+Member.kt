@@ -261,7 +261,11 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
     val currentUid = auth.currentUser?.uid
     if (currentUid != null && currentFamilyId != null) {
         scope.launch {
-            repository.setUserActionMeta(currentUid, currentFamilyId)
+            try {
+                repository.setUserActionMeta(currentUid, currentFamilyId)
+            } catch (_: Exception) {
+                // pushMeta ist optional – Fehler nicht an User propagieren
+            }
         }
     }
     scope.launch {
