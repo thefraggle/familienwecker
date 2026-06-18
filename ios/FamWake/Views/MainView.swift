@@ -150,6 +150,11 @@ struct MainView: View {
             // L13: IdleTimer nur im aktiven Vordergrund deaktivieren
             .onChange(of: scenePhase) { _, newPhase in
                 UIApplication.shared.isIdleTimerDisabled = (newPhase == .active)
+                // Snooze-Banner synchronisieren wenn App in den Vordergrund kommt
+                // (Lock-Screen-Snooze setzt nur UserDefaults, nicht den @Published State)
+                if newPhase == .active {
+                    familyViewModel.checkSnoozeStatus()
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
