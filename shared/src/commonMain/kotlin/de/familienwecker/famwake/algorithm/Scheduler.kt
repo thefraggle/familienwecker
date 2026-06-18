@@ -103,7 +103,7 @@ class Scheduler {
         if (breakfastEaters.isNotEmpty()) {
             var minLeaveForBreakfastEaters = LocalTime(23, 59)
             for (m in breakfastEaters) {
-                val naturalBathEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes)
+                val naturalBathEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes.coerceAtLeast(0))
                 val leave = m.leaveHomeTime ?: naturalBathEnd
                 if (leave.isBefore(minLeaveForBreakfastEaters)) {
                     minLeaveForBreakfastEaters = leave
@@ -151,7 +151,7 @@ class Scheduler {
             // → Weckzeit direkt verwenden, Constraint an Vorgänger weitergeben
             val isFixed = member.earliestWakeUp == member.latestWakeUp
 
-            var maxAllowedBathroomEnd = allowedLatestWakeUp.plusMinutes(member.bathroomDurationMinutes)
+            var maxAllowedBathroomEnd = allowedLatestWakeUp.plusMinutes(member.bathroomDurationMinutes.coerceAtLeast(0))
 
             if (currentLatestBathroomEndTime.isBefore(maxAllowedBathroomEnd)) {
                 maxAllowedBathroomEnd = currentLatestBathroomEndTime
@@ -171,9 +171,9 @@ class Scheduler {
             val bathroomEnd: LocalTime
             if (isFixed) {
                 wakeUpTime = member.latestWakeUp
-                bathroomEnd = wakeUpTime.plusMinutes(member.bathroomDurationMinutes)
+                bathroomEnd = wakeUpTime.plusMinutes(member.bathroomDurationMinutes.coerceAtLeast(0))
             } else {
-                wakeUpTime = maxAllowedBathroomEnd.minusMinutes(member.bathroomDurationMinutes)
+                wakeUpTime = maxAllowedBathroomEnd.minusMinutes(member.bathroomDurationMinutes.coerceAtLeast(0))
                 bathroomEnd = maxAllowedBathroomEnd
             }
 
@@ -234,7 +234,7 @@ class Scheduler {
             // Wenn der nachfolgende Member vor dem Ende des aktuellen (+ Puffer) startet → verschieben
             if (next.wakeUpTime.isBefore(requiredNextStart)) {
                 val shiftedWakeUp = requiredNextStart
-                val shiftedBathroomEnd = shiftedWakeUp.plusMinutes(next.member.bathroomDurationMinutes)
+                val shiftedBathroomEnd = shiftedWakeUp.plusMinutes(next.member.bathroomDurationMinutes.coerceAtLeast(0))
                 forwardSchedules[i + 1] = next.copy(
                     wakeUpTime = shiftedWakeUp,
                     bathroomStartTime = shiftedWakeUp,
