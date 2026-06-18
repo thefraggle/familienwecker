@@ -193,7 +193,7 @@ struct LoginView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 18, height: 18)
                     .padding(.bottom, 2)
-                Text(UserDefaults.standard.string(forKey: "language") == "de" ? "Mit Apple anmelden" : "Sign in with Apple")
+                Text(L.s("sign_in_with_apple"))
                     .font(.body)
                     .fontWeight(.medium)
             }
