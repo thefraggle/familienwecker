@@ -103,9 +103,19 @@ struct AddEditMemberView: View {
                             .foregroundStyle(theme.onSurface)
                             .frame(maxWidth: .infinity, alignment: .leading)
 
-                        HStack(spacing: 4) {
-                            ForEach(1...7, id: \.self) { day in
-                                weekdayChip(day)
+                        // ViewThatFits: Auf iPhone SE (320pt) horizontal scrollbar
+                        ViewThatFits(in: .horizontal) {
+                            HStack(spacing: 4) {
+                                ForEach(1...7, id: \.self) { day in
+                                    weekdayChip(day)
+                                }
+                            }
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 4) {
+                                    ForEach(1...7, id: \.self) { day in
+                                        weekdayChip(day)
+                                    }
+                                }
                             }
                         }
 

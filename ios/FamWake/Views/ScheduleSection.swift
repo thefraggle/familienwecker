@@ -18,38 +18,11 @@ struct ScheduleSection: View {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
 
-            // Weekday pills (Android style)
-            HStack(spacing: 4) {
-                let calendar = Calendar.current
-                let symbols = calendar.shortWeekdaySymbols
-                let daysOfWeek = [symbols[1], symbols[2], symbols[3], symbols[4], symbols[5], symbols[6], symbols[0]]
-                
-                ForEach(1...7, id: \.self) { dayValue in
-                    let dayName = daysOfWeek[dayValue - 1]
-                    let isSelected = familyViewModel.selectedDayOfWeek == dayValue
-                    
-                    Button(action: {
-                        if isSelected {
-                            familyViewModel.selectDayOfWeek(nil)
-                        } else {
-                            familyViewModel.selectDayOfWeek(dayValue)
-                        }
-                    }) {
-                        Text(dayName.prefix(2).uppercased())
-                            .font(.caption)
-                            .fontWeight(isSelected ? .bold : .semibold)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 38)
-                            .background(isSelected ? theme.primary : (colorScheme == .dark ? theme.surfaceVariant.opacity(0.3) : theme.surfaceVariant.opacity(0.6)))
-                            .foregroundStyle(isSelected ? theme.onPrimary : theme.onSurfaceVariant)
-                            .clipShape(Circle())
-                            .overlay(
-                                Circle()
-                                    .stroke(isSelected ? theme.primary : theme.outline.opacity(0.1), lineWidth: 1)
-                            )
-                    }
-                    .buttonStyle(BounceButtonStyle())
-                    .accessibilityLabel("\(dayName)\(isSelected ? ", ausgewählt" : "")")
+            // Weekday pills (Android style) – ViewThatFits für iPhone SE (320pt) Kompatibilität
+            ViewThatFits(in: .horizontal) {
+                weekdayPills
+                ScrollView(.horizontal, showsIndicators: false) {
+                    weekdayPills
                 }
             }
             .padding(.vertical, 8)
@@ -273,6 +246,43 @@ struct ScheduleSection: View {
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+    }
+    
+    // MARK: - Weekday-Chips (extrahiert für ViewThatFits)
+    private var weekdayPills: some View {
+        HStack(spacing: 4) {
+            let calendar = Calendar.current
+            let symbols = calendar.shortWeekdaySymbols
+            let daysOfWeek = [symbols[1], symbols[2], symbols[3], symbols[4], symbols[5], symbols[6], symbols[0]]
+            
+            ForEach(1...7, id: \.self) { dayValue in
+                let dayName = daysOfWeek[dayValue - 1]
+                let isSelected = familyViewModel.selectedDayOfWeek == dayValue
+                
+                Button(action: {
+                    if isSelected {
+                        familyViewModel.selectDayOfWeek(nil)
+                    } else {
+                        familyViewModel.selectDayOfWeek(dayValue)
+                    }
+                }) {
+                    Text(dayName.prefix(2).uppercased())
+                        .font(.caption)
+                        .fontWeight(isSelected ? .bold : .semibold)
+                        .frame(maxWidth: .infinity, minWidth: 38)
+                        .frame(height: 38)
+                        .background(isSelected ? theme.primary : (colorScheme == .dark ? theme.surfaceVariant.opacity(0.3) : theme.surfaceVariant.opacity(0.6)))
+                        .foregroundStyle(isSelected ? theme.onPrimary : theme.onSurfaceVariant)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle()
+                                .stroke(isSelected ? theme.primary : theme.outline.opacity(0.1), lineWidth: 1)
+                        )
+                }
+                .buttonStyle(BounceButtonStyle())
+                .accessibilityLabel("\(dayName)\(isSelected ? L.s("accessibility_selected") : "")")
+            }
+        }
     }
     
     // Warnung: Ungeclaimter Member an erster Stelle im Schedule (Android MainScreen.kt:517-528)
