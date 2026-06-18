@@ -6,13 +6,12 @@
 🆕 Family Snooze Sync – When someone snoozes, everyone's schedule adjusts automatically. Snooze counter and 💤 indicator show live status.
 
 ✨ Improved:
-• Gentle wake-up after last snooze instead of error message
-• Night shift times (e.g. 22:00–00:15) correctly recognized
+• Lock screen snooze works reliably again
+• Initials avatars in the member list
+• Accessibility: labels for all interactive elements
+• Night shift times correctly recognized
 • No more ghost alarms – even when pausing a member
-• Push toggle is reliably respected
-• Better error messages for sync issues
-• Offline protection for deletions
-• Guest account warning
+• Snooze state survives device reboot
 
 ## 1.9.17 – 2026-06-03
 • Snooze rings reliably again, phone stays locked

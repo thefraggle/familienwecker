@@ -6,13 +6,12 @@
 🆕 Familien-Snooze-Sync – Snoozt jemand, passt sich der Weckplan aller automatisch an. Snooze-Zähler und 💤-Symbol zeigen den Status live.
 
 ✨ Verbessert:
-• Sanftes Aufwachen nach letztem Snooze statt Fehlermeldung
-• Nachtschicht-Zeiten (z.B. 22:00–00:15) korrekt erkannt
+• Snooze auf dem Sperrbildschirm wieder zuverlässig
+• Initialen-Avatare in der Mitglieder-Liste
+• Barrierefreiheit: Labels für alle Bedienelemente
+• Nachtschicht-Zeiten korrekt erkannt
 • Kein Geisterwecker mehr – auch nicht beim Pausieren
-• Push-Schalter wird zuverlässig respektiert
-• Bessere Fehlerhinweise bei Sync-Problemen
-• Offline-Schutz beim Löschen
-• Gast-Account-Warnung
+• Snooze-Status überlebt Geräte-Neustart
 
 ## 1.9.17 – 2026-06-03
 • Snooze klingelt wieder zuverlässig, Telefon bleibt gesperrt
