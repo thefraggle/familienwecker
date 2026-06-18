@@ -2141,15 +2141,15 @@ exports.onMemberScheduleChanged = onDocumentWritten(
 
     const familyId = event.params.familyId;
 
-    // Rate-Limit: nur 1 Push pro Familie alle 5 Sekunden.
-    // Fängt Batch-Write-Duplikate ab (2 geclaimte Triggers kommen gleichzeitig).
-    // Ungeclaimte Member werden bereits vorher gefiltert.
+    // Rate-Limit: nur 1 Push pro Familie alle 15 Sekunden.
+    // Fängt Batch-Write-Duplikate ab – bei Drag & Drop werden N Members
+    // jeweils mit 2s Debounce geschrieben, was gestaffelte Triggers erzeugt.
     const lockRef = admin.firestore().collection("_pushLocks").doc(familyId);
     const now = Date.now();
     let shouldSend = false;
     await admin.firestore().runTransaction(async t => {
       const lockSnap = await t.get(lockRef);
-      if (!lockSnap.exists || (now - (lockSnap.data().lastPush || 0)) >= 5000) {
+      if (!lockSnap.exists || (now - (lockSnap.data().lastPush || 0)) >= 15000) {
         t.set(lockRef, { lastPush: now });
         shouldSend = true;
       }
