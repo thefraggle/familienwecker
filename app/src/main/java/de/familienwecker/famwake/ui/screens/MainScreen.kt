@@ -223,9 +223,10 @@ fun MainScreen(
                 LargeTopAppBar(
                     title = {
                         val appShortName = stringResource(R.string.app_name_short)
+                        // M14: Brand-Prefix aus String-Resource statt hardcoded
+                        val prefix = stringResource(R.string.app_name_brand_prefix)
                         Text(
                             buildAnnotatedString {
-                                val prefix = "FamWake"
                                 val suffix = appShortName.removePrefix(prefix).trim()
                                 withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.ExtraBold)) {
                                     append(prefix)
