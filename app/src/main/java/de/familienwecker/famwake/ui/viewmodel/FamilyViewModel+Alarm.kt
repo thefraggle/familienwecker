@@ -27,6 +27,7 @@ import kotlinx.datetime.plus
 import de.familienwecker.famwake.model.SnoozeConfig
 import de.familienwecker.famwake.model.toJavaLocalTime
 import de.familienwecker.famwake.NotificationChannels
+import de.familienwecker.famwake.alarm.AlarmBackupPrefs
 
 // ─── Alarm-Logik ──────────────────────────────────────────────────────────────
 
@@ -570,6 +571,10 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
     appSettings.setSnoozeUntil(snoozeTime)
     appSettings.setSnoozeCount(newCount)
 
+    // Snooze-Backup in Device-Protected Storage für Reboot-Recovery
+    val snoozeMillis = snoozeInstant.toEpochMilliseconds()
+    AlarmBackupPrefs.saveSnooze(app, snoozeMillis, newCount)
+
     // Lokalen _members-State SOFORT aktualisieren, damit resolveEffectiveMember
     // die snooze-fixierte Weckzeit berechnet und der Scheduler nachfolgende
     // Members korrekt verschiebt (ohne auf den Firestore-Roundtrip zu warten).
@@ -623,6 +628,7 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
 fun FamilyViewModel.cancelSnooze(memberId: String) {
     appSettings.setSnoozeUntil(null)
     appSettings.setSnoozeCount(0)
+    AlarmBackupPrefs.clearSnooze(app)
     alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
     lastScheduledAlarmMillis = null
 

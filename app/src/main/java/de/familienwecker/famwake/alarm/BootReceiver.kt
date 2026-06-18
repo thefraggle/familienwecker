@@ -84,5 +84,26 @@ class BootReceiver : BroadcastReceiver() {
             memberName = memberName,
             soundUri   = soundUri
         )
+
+        // Snooze-Alarm wiederherstellen, falls einer aktiv war
+        val snoozeMillis = AlarmBackupPrefs.getSnoozeUntilMillis(context)
+        if (snoozeMillis > 0L) {
+            val snoozeDateTime = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(snoozeMillis), zone
+            )
+            if (snoozeDateTime.isAfter(now)) {
+                // Snooze liegt noch in der Zukunft → als Snooze-Alarm planen
+                scheduler.scheduleWakeUp(
+                    wakeUpTime = snoozeDateTime.toKmpLocalDateTime(),
+                    memberId   = memberId,
+                    memberName = memberName,
+                    soundUri   = soundUri,
+                    isSnooze   = true
+                )
+            } else {
+                // Snooze abgelaufen → Backup aufräumen
+                AlarmBackupPrefs.clearSnooze(context)
+            }
+        }
     }
 }
