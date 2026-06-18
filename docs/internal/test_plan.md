@@ -33,8 +33,8 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | TC-30 | Alarm-Zyklus | Wecker klingelt zuverlässig (Hintergrund, Sperrbildschirm). Stop → App öffnet mit Begrüßung. Kein doppelter Ton. |
-| TC-31 | Snooze (1/2) | Eigene Weckzeit +5 Min, Badzeit absorbiert Verschiebung. Andere nicht verschoben. Banner: „Schlummern bis HH:MM (1/2)". |
-| TC-32 | Snooze (2/2) | Eigene Weckzeit +5 Min, volle Badzeit. Nachfolgende Mitglieder werden verschoben. |
+| TC-31 | Snooze (1/2) | Eigene Weckzeit +5 Min, Badzeit absorbiert Verschiebung. Andere nicht verschoben. Banner: „Schlummern bis HH:MM (1/2)". Zähler zeigt korrekt 1/2. |
+| TC-32 | Snooze (2/2) | Eigene Weckzeit +5 Min, volle Badzeit. Nachfolgende Mitglieder werden verschoben. Banner zeigt korrekt (2/2). |
 | TC-33 | Snooze-Maximum | 3. Snooze-Klick: Alarm endet, Begrüßung erscheint beim Entsperren, Lock-Screen-Hinweis „Snooze nicht möglich". |
 | TC-34 | Snooze abbrechen | „Abbrechen" im Banner → Snooze-State reset, Plan neu berechnet, Sync auf alle Geräte. |
 | TC-35 | Ghost-Alarm-Schutz | Kein Wecker wenn globaler Schalter OFF, wenn eigener Member pausiert wird (bei aktiven anderen), nach Neustart oder Mitglieder-Bearbeitung. |

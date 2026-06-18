@@ -7,6 +7,7 @@
 
 ✨ Improved:
 • Lock screen snooze works reliably again
+• Snooze counter correctly shows 1/2, 2/2 (instead of always 1/2)
 • Initials avatars in the member list
 • Accessibility: labels for all interactive elements
 • Night shift times correctly recognized

@@ -3,10 +3,11 @@
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 ## 2.0.0 – 2026-06-18
-🆕 Familien-Snooze-Sync – Snoozt jemand, passt sich der Weckplan aller automatisch an. Snooze-Zähler und 💤-Symbol zeigen den Status live.
+🆕 Familien-Snooze-Sync – Snoozt jemand, passt sich der Plan automatisch an. Snooze-Zähler und 💤-Symbol zeigen den Status live.
 
 ✨ Verbessert:
 • Snooze auf dem Sperrbildschirm wieder zuverlässig
+• Snooze-Zähler zeigt korrekt 1/2, 2/2 (statt immer 1/2)
 • Initialen-Avatare in der Mitglieder-Liste
 • Barrierefreiheit: Labels für alle Bedienelemente
 • Nachtschicht-Zeiten korrekt erkannt
