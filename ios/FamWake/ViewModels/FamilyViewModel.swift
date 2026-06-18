@@ -261,27 +261,31 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
-    func leaveFamily() {
-        guard let fid = familyId else { clearFamilyLocally(); return }
+    func leaveFamily(completion: @escaping (Bool) -> Void = { _ in }) {
+        guard let fid = familyId else { clearFamilyLocally(); completion(true); return }
         let myId = myMemberId
         stopSyncJobs()
         Task {
             // L17: Fehler-Feedback statt try? – Fehler nicht mehr verschlucken
             do {
                 try await FamilyFirestoreService.shared.leaveFamily(familyId: fid, memberId: myId)
+                await MainActor.run {
+                    TelemetryManager.send("family.left")
+                    self.clearFamilyLocally()
+                    self.familyListener?.remove()
+                    self.membersListener?.remove()
+                    self.members = []
+                    self.schedule = nil
+                    completion(true)
+                }
             } catch {
                 print("leaveFamily Cloud Function fehlgeschlagen: \(error.localizedDescription)")
                 await MainActor.run {
                     self.errorMessage = error.localizedDescription
+                    completion(false)
                 }
             }
         }
-        TelemetryManager.send("family.left")
-        clearFamilyLocally()
-        familyListener?.remove()
-        membersListener?.remove()
-        members = []
-        schedule = nil
     }
 
     var isAwakeButtonVisible: Bool {
