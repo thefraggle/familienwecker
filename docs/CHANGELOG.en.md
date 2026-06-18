@@ -2,19 +2,25 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 2.0.0 – 2026-06-17
+## 2.0.0 – 2026-06-18
 ### New
 - **Family Snooze Sync** – When a family member hits snooze, the alarm schedule for everyone else updates automatically in real time. No one oversleeps just because someone else needs a few more minutes.
-- **Snooze Counter in Schedule** – The snooze banner on the main screen now shows which snooze you’re on (e.g., 1/2).
+- **Snooze Counter in Schedule** – The snooze banner on the main screen now shows which snooze you're on (e.g., 1/2).
 - **Snooze Indicator 💤** – A 💤 symbol in the alarm schedule shows which family member is currently snoozing.
 
 ### Improved
+- **Snooze Limit: Gentle Wake-Up** – After the last allowed snooze, a good-morning greeting appears instead of an error message. A lock screen notification also explains why the alarm stopped ringing.
+- **Night Shift Compatibility** – Wake-up times past midnight (e.g., wake at 22:00, leave home at 00:15) are now correctly recognized instead of being falsely rejected as errors.
 - **Reliable Snooze Sync** – Snooze times now update immediately and reliably across all devices.
 - **No More Ghost Alarms** – The alarm no longer rings at the old time when you set a new time or briefly toggle the alarm off and on. Not even after a restart or from the background.
 - **Snooze Limit (max 2×)** – After two snoozes, that's it – keeping the family schedule on track. The banner counter now always shows the correct count.
 - **Push Notifications Respect the Toggle** – When you turn off push notifications in settings, no more notifications come through – not even for snooze or schedule changes.
 - **More Stable Alarms** – Fixed rare crashes caused by unsafe value access in member editing and alarm scheduling.
-- **Better Error Feedback** – When sync issues occur (e.g., saving order, pausing), you now get a clear message instead of silent failures.
+- **Better Error Feedback** – When sync issues occur (e.g., saving order, pausing, changing buffer), you now get a clear message instead of silent failures.
+- **Offline Protection** – Deleting members is no longer possible without an internet connection to prevent data loss.
+- **Reorder Warning** – When switching to "whole week" order and day-specific settings would be lost, you'll now be warned first.
+- **Guest Account Notice** – Users without a registered account now see a prominent reminder to sign up to avoid losing their data.
+- **Smart Screen Timeout** – The screen only stays awake while the app is actively in the foreground – no longer accidentally in the background.
 
 ## 1.9.17 – 2026-06-03
 ### Improved
