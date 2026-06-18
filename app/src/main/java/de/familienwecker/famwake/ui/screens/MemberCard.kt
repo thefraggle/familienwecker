@@ -68,6 +68,12 @@ fun MemberCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Avatar – Initialen-Kreis (wie iOS MemberCardView)
+            de.familienwecker.famwake.ui.components.InitialsAvatar(
+                name = member.name,
+                size = 40.dp
+            )
+            Spacer(modifier = Modifier.width(12.dp))
             Column(modifier = Modifier.weight(1f)) {
                 val allDaysInactive = member.dayProfiles?.values?.none { it.isActive } == true
 
