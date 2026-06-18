@@ -131,9 +131,12 @@ struct SettingsView: View {
             .sheet(isPresented: $showSoundPicker) { soundPickerSheet }
             .alert(L.settingsLeaveFamily, isPresented: $showLeaveFamilyAlert) {
                 Button(L.settingsLeaveFamily, role: .destructive) {
-                    familyViewModel.leaveFamily()
-                    appState.route = .familySetup
-                    dismiss()
+                    familyViewModel.leaveFamily { success in
+                        if success {
+                            appState.route = .familySetup
+                            dismiss()
+                        }
+                    }
                 }
                 Button(L.cancelButton, role: .cancel) {}
             }
