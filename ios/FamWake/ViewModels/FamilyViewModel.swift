@@ -216,9 +216,15 @@ class FamilyViewModel: ObservableObject {
                 
                 if member.id == myMemberId {
                     UserDefaults.standard.set(false, forKey: "is_awake_today_\(member.id)")
-                    UserDefaults.standard.set(0, forKey: "snooze_count")
-                    UserDefaults.standard.removeObject(forKey: "snooze_until")
-                    snoozeUntil = nil
+                    // Snooze-Count nur resetten wenn kein aktiver Snooze läuft –
+                    // sonst wird der Count zwischen zwei Snoozes gelöscht
+                    let activeSnooze = UserDefaults.standard.double(forKey: "snooze_until")
+                    if activeSnooze <= Date().timeIntervalSince1970 {
+                        UserDefaults.standard.set(0, forKey: "snooze_count")
+                        UserDefaults.standard.removeObject(forKey: "snooze_until")
+                        snoozeUntil = nil
+                        snoozeCount = 0
+                    }
                 }
             }
         }
@@ -758,9 +764,8 @@ class FamilyViewModel: ObservableObject {
             }
         } else {
             self.snoozeUntil = nil
-            // Kein snooze_until → Count zurücksetzen (Schutz gegen stale Werte)
-            self.snoozeCount = 0
-            UserDefaults.standard.set(0, forKey: "snooze_count")
+            // Kein snooze_until → Count nur zurücksetzen wenn nicht gerade
+            // ein Snooze-Alarm feuert (Count bleibt für den nächsten Snooze erhalten)
         }
     }
 
