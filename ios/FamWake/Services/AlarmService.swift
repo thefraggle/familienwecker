@@ -76,10 +76,13 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             AlarmService.shared.stopAlarm()
         }
 
-        // Neuer Alarm-Zyklus: Wenn kein aktiver Snooze läuft, ist dies der erste Snooze
-        // des Tages → Count zurücksetzen (verhindert stuck disabled-Button vom Vortag).
+        // Neuer Alarm-Zyklus: Nur resetten wenn snooze_until deutlich in der Vergangenheit liegt.
+        // Wenn der Snooze-Alarm klingelt, ist snooze_until gerade eben abgelaufen (~0-10 Sek) –
+        // das darf den Count NICHT zurücksetzen, sonst bleibt er immer bei 1/2.
+        // Toleranz: 2 Minuten (Snooze-Dauer ist 5 Min, also sicher genug).
         let snoozeUntilTs = UserDefaults.standard.double(forKey: "snooze_until")
-        if snoozeUntilTs == 0 || snoozeUntilTs < Date().timeIntervalSince1970 {
+        let staleThreshold = Date().timeIntervalSince1970 - 120 // 2 Min Toleranz
+        if snoozeUntilTs == 0 || snoozeUntilTs < staleThreshold {
             UserDefaults.standard.set(0, forKey: "snooze_count")
         }
 
