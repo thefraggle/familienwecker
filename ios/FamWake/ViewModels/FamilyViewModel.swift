@@ -1074,6 +1074,11 @@ class FamilyViewModel: ObservableObject {
                     // Suppress error during transition
                     return
                 }
+                // M7: Offline-Banner um Firestore Cache Status erweitern –
+                // isFromCache liefert true, wenn Firestore ausschließlich lokale Daten nutzt.
+                if let metadata = snap?.metadata {
+                    self.isOffline = metadata.isFromCache
+                }
                 guard let docs = snap?.documents else { return }
                 let parsed = docs.compactMap { FamilyMember.fromFirestore($0.data(), id: $0.documentID) }
                 var sorted = parsed.sorted { $0.sequenceOrder < $1.sequenceOrder }
