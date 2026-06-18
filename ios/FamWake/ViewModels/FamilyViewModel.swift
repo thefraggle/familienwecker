@@ -779,6 +779,13 @@ class FamilyViewModel: ObservableObject {
 
 
     func snooze(memberId: String, memberName: String) {
+        // Neuer Alarm-Zyklus: Wenn kein aktiver Snooze läuft, Count zurücksetzen
+        // (verhindert stuck disabled-Button vom Vortag).
+        if snoozeUntil == nil || (snoozeUntil ?? .distantPast) < Date() {
+            UserDefaults.standard.set(0, forKey: "snooze_count")
+            snoozeCount = 0
+        }
+
         // Snooze-Count prüfen (Max aus SnoozeConfig)
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
         guard currentCount < SnoozeConfig.maxSnoozeCount else {

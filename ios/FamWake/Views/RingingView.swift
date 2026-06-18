@@ -10,7 +10,7 @@ struct RingingView: View {
     let memberId: String
     let memberName: String
     var isGreetingOnly: Bool = false
-    var snoozeCount: Int { UserDefaults.standard.integer(forKey: "snooze_count") }
+    @State private var snoozeCount: Int = 0
     var onStop: () -> Void
     var onSnooze: () -> Void
 
@@ -133,6 +133,13 @@ struct RingingView: View {
             TelemetryManager.send("alarm.triggered")
             let messages = L.ringingMessagesArray.components(separatedBy: "||")
             randomMessage = messages.randomElement() ?? "☀️"
+            
+            // Neuer Alarm-Zyklus: Count zurücksetzen wenn kein aktiver Snooze
+            let snoozeUntilTs = UserDefaults.standard.double(forKey: "snooze_until")
+            if snoozeUntilTs == 0 || snoozeUntilTs < Date().timeIntervalSince1970 {
+                UserDefaults.standard.set(0, forKey: "snooze_count")
+            }
+            snoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
         }
         .statusBarHidden(true)
     }
