@@ -460,16 +460,20 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     recalculateSchedule()
 
     if (currentFamilyId != null && currentMemberId != null) {
+        // pushMeta SOFORT schreiben (vor dem 2s-Debounce), damit die CF
+        // den Sender beim ersten Member-Write bereits kennt.
+        val currentUid = auth.currentUser?.uid
+        if (currentUid != null) {
+            scope.launch {
+                repository.setUserActionMeta(currentUid, currentFamilyId)
+            }
+        }
         alarmToggleJob?.cancel()
         alarmToggleJob = scope.launch {
             try {
                 kotlinx.coroutines.delay(2000)
                 // NonCancellable: delay ist unterbrechbar (Entprellung), Write nicht
                 kotlinx.coroutines.withContext(kotlinx.coroutines.NonCancellable) {
-                    val currentUid = auth.currentUser?.uid
-                    if (currentUid != null) {
-                        repository.setUserActionMeta(currentUid, currentFamilyId)
-                    }
                     repository.updateDeviceAlarmEnabled(currentFamilyId, currentMemberId, enabled)
                 }
             } catch (e: kotlinx.coroutines.CancellationException) {
