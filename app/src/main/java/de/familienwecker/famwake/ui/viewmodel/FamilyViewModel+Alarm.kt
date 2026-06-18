@@ -251,15 +251,26 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
     }
     if (schedule.memberSchedules.isEmpty()) return
 
-    // Snooze-Guard: Während eines aktiven Snooze keine regulären Alarme planen
-    // (der Snooze-Alarm läuft auf separatem PendingIntent-Slot)
+    // Snooze-Guard: Während eines aktiven Snooze keine regulären Alarme planen.
+    // WICHTIG: Den Snooze-Alarm selbst IMMER neu planen – nach App-Kill oder
+    // Reinstall sind PendingIntents verloren. Nur bei echtem Reboot stellt der
+    // BootReceiver den Alarm wieder her.
     val snoozeUntilLocal = appSettings.snoozeUntil.value
     if (snoozeUntilLocal != null) {
         val snoozeDateTime = snoozeUntilLocal.toJavaLocalDateTime()
         if (snoozeDateTime.isAfter(java.time.LocalDateTime.now())) {
             if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.d("FamWake_Alarm", "applyAlarms: active snooze until $snoozeUntilLocal, skipping regular alarm")
+                android.util.Log.d("FamWake_Alarm", "applyAlarms: active snooze until $snoozeUntilLocal, re-scheduling snooze alarm")
             }
+            // Snooze-Alarm (re-)planen – idempotent, überschreibt identischen PendingIntent
+            alarmScheduler.scheduleWakeUp(
+                wakeUpTime = snoozeUntilLocal,
+                memberId = currentMyMemberId,
+                memberName = schedule.memberSchedules
+                    .find { it.member.id == currentMyMemberId }?.member?.name ?: "",
+                soundUri = alarmSoundUri.value,
+                isSnooze = true
+            )
             return
         }
     }
