@@ -571,6 +571,8 @@ class FamilyViewModel(
                     if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                         android.util.Log.e("FamilyViewModel", "Room AutoFix write failed: ${e.message}")
                     }
+                    // L1: User-Feedback bei Room-Schreibfehler
+                    _errorMessage.value = UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, e.localizedMessage ?: "")
                 }
                 addOrUpdateMemberDebounced(updatedMember)
             }
@@ -588,6 +590,8 @@ class FamilyViewModel(
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("FamilyViewModel", "setGlobalBufferMinutes failed: ${e.message}")
                 }
+                // L2: User-Feedback bei Firestore-Schreibfehler
+                _errorMessage.value = UiText.StringResource(de.familienwecker.famwake.R.string.error_sync_failed, e.localizedMessage ?: "")
             }
         }
     }
