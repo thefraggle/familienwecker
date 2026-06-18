@@ -14,6 +14,10 @@ import kotlinx.coroutines.launch
  */
 class FamWakeApplication : Application() {
 
+    companion object {
+        lateinit var instance: FamWakeApplication
+            private set
+    }
 
     val appSettings: de.familienwecker.famwake.data.AppSettings by lazy {
         val settings = de.familienwecker.famwake.data.SettingsFactory(this).createSettings()
@@ -29,6 +33,7 @@ class FamWakeApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         // O7: Persistente Firestore-Offline-Persistenz konfigurieren – muss VOR dem ersten Firestore-Zugriff sein
         de.familienwecker.famwake.data.FirebaseRepository.configurePersistentCache()
         // S2: Debug-Logging im shared-Modul an BuildConfig koppeln
