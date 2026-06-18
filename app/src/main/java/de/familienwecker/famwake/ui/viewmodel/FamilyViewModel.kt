@@ -557,6 +557,12 @@ class FamilyViewModel(
             _members.value = newList.toPersistentList()
             recalculateSchedule()
 
+            // pushMeta VOR den debounced Member-Writes, damit die CF den Sender erkennt
+            val currentUid = auth.currentUser?.uid
+            if (currentUid != null) {
+                repository.setUserActionMeta(currentUid, family)
+            }
+
             // Änderungen speichern
             updatedMembersMap.values.forEach { updatedMember ->
                 try {

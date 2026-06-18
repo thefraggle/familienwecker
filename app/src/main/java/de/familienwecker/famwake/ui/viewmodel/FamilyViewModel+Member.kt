@@ -100,10 +100,9 @@ internal fun FamilyViewModel.addOrUpdateMemberDebounced(member: FamilyMember, on
     memberDebounceJobs[member.id] = scope.launch {
         delay(2000)
         try {
-            val currentUid = auth.currentUser?.uid
-            if (currentUid != null) {
-                repository.setUserActionMeta(currentUid, currentFamilyId)
-            }
+            // pushMeta wird NICHT mehr hier geschrieben – Caller müssen es
+            // VORHER synchron setzen, damit die CF den Sender beim ersten
+            // Member-Write bereits kennt (kein Self-Push).
             // Eigenen Member's deviceAlarmEnabled mit lokalem Switch-State absichern
             val safeMember = if (member.id == myMemberId.value) {
                 member.copy(deviceAlarmEnabled = isAlarmEnabled.value)
@@ -222,13 +221,14 @@ fun FamilyViewModel.togglePauseMember(memberId: String) {
     // Tracking removed für Paused/Unpaused
     scope.launch {
         try {
-            // Gezieltes Update nur für isPaused – kein volles .set() das name enthält
-            // und die Security Rule für nicht-Admin-Nutzer verletzt.
-            memberRepository.upsertMember(updatedMember)
+            // pushMeta VOR dem Firestore-Write, damit die CF den Sender erkennt
             val currentUid = auth.currentUser?.uid
             if (currentUid != null) {
                 repository.setUserActionMeta(currentUid, currentFamilyId)
             }
+            // Gezieltes Update nur für isPaused – kein volles .set() das name enthält
+            // und die Security Rule für nicht-Admin-Nutzer verletzt.
+            memberRepository.upsertMember(updatedMember)
             repository.updateMemberPauseState(currentFamilyId, memberId, newPausedState)
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
@@ -251,6 +251,14 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
     appSettings.setAwakeToday(newAwakeState)
     TelemetryDeck.signal(if (newAwakeState) "awake.markedAwake" else "awake.reset")
     val updatedMember = member.copy(isAwakeToday = newAwakeState)
+    // pushMeta VOR dem debounced Member-Write, damit die CF den Sender erkennt
+    val currentFamilyId = familyId.value
+    val currentUid = auth.currentUser?.uid
+    if (currentUid != null && currentFamilyId != null) {
+        scope.launch {
+            repository.setUserActionMeta(currentUid, currentFamilyId)
+        }
+    }
     scope.launch {
         try {
             memberRepository.upsertMember(updatedMember)
