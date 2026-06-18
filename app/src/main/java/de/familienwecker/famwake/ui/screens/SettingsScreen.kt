@@ -617,7 +617,7 @@ fun SettingsScreen(
                                 contentColor = MaterialTheme.colorScheme.onPrimary
                             )
                         ) {
-                            Icon(Icons.Default.PersonAdd, contentDescription = null)
+                            Icon(Icons.Default.PersonAdd, contentDescription = stringResource(R.string.cd_login_button))
                             Spacer(Modifier.width(8.dp))
                             Text(stringResource(R.string.settings_anonymous_login_button))
                         }
@@ -670,7 +670,7 @@ fun SettingsScreen(
                             interactionSource = shareInteractionSource,
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
                         ) {
-                            Icon(Icons.Default.Groups, contentDescription = null)
+                            Icon(Icons.Default.Groups, contentDescription = stringResource(R.string.cd_share_invite))
                             Spacer(Modifier.width(8.dp))
                             Text(stringResource(R.string.settings_share_code))
                         }
@@ -682,7 +682,7 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(leaveInteractionSource),
                         interactionSource = leaveInteractionSource
                     ) {
-                        Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = stringResource(R.string.cd_leave_family), modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_leave_family))
                     }
@@ -696,7 +696,7 @@ fun SettingsScreen(
                             colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
                             interactionSource = deleteFamilyInteractionSource
                         ) {
-                            Icon(Icons.Default.DeleteForever, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Icon(Icons.Default.DeleteForever, contentDescription = stringResource(R.string.cd_delete_family), modifier = Modifier.size(18.dp))
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(stringResource(R.string.settings_delete_family))
                         }
@@ -713,7 +713,7 @@ fun SettingsScreen(
                             colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.outline),
                             interactionSource = deleteFamilyInteractionSource
                         ) {
-                            Icon(Icons.Default.DeleteForever, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Icon(Icons.Default.DeleteForever, contentDescription = stringResource(R.string.cd_delete_family), modifier = Modifier.size(18.dp))
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(stringResource(R.string.settings_delete_family))
                         }
@@ -1141,7 +1141,7 @@ fun SettingsScreen(
                     ) {
                         Icon(
                             Icons.Default.Favorite,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.cd_donate_button),
                             modifier = Modifier.size(18.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
@@ -1190,7 +1190,7 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(feedbackInteractionSource),
                         interactionSource = feedbackInteractionSource
                     ) {
-                        Icon(Icons.Default.RateReview, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Icon(Icons.Default.RateReview, contentDescription = stringResource(R.string.cd_feedback_button), modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_feedback_button))
                     }
@@ -1215,7 +1215,7 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(supportInteractionSource),
                         interactionSource = supportInteractionSource
                     ) {
-                        Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Icon(Icons.Default.Email, contentDescription = stringResource(R.string.cd_email_developer), modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_support_button))
                     }
@@ -1251,7 +1251,7 @@ fun SettingsScreen(
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
                         interactionSource = logoutInteractionSource
                     ) {
-                        Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = stringResource(R.string.cd_logout_button), modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.settings_logout))
                     }

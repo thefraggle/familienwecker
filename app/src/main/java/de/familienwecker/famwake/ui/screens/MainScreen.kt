@@ -255,7 +255,7 @@ fun MainScreen(
                             Box(modifier = Modifier.padding(end = 4.dp)) {
                                 Icon(
                                     imageVector = Icons.Default.CloudOff,
-                                    contentDescription = null,
+                                    contentDescription = stringResource(R.string.cd_offline_indicator),
                                     tint = MaterialTheme.colorScheme.outline,
                                     modifier = Modifier.size(20.dp)
                                 )
@@ -269,7 +269,7 @@ fun MainScreen(
                                 Box(modifier = Modifier.padding(end = 4.dp)) {
                                     Icon(
                                         imageVector = Icons.Default.Sync,
-                                        contentDescription = null,
+                                        contentDescription = stringResource(R.string.cd_sync_indicator),
                                         tint = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier
                                             .size(20.dp)
@@ -734,7 +734,7 @@ private fun SnoozeBanner(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
                         Icon(
-                            imageVector = Icons.Default.Snooze, contentDescription = null,
+                            imageVector = Icons.Default.Snooze, contentDescription = stringResource(R.string.cd_snooze_icon),
                             tint = if (isDarkTheme) de.familienwecker.famwake.ui.theme.OnlineIconDark
                                    else de.familienwecker.famwake.ui.theme.OnlineIconLight,
                             modifier = Modifier.size(20.dp)
@@ -756,7 +756,7 @@ private fun SnoozeBanner(
                                            else de.familienwecker.famwake.ui.theme.OnlineIconLight
                         )
                     ) {
-                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(14.dp))
+                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.cd_snooze_cancel), modifier = Modifier.size(14.dp))
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(stringResource(R.string.cancel_button), style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
                     }

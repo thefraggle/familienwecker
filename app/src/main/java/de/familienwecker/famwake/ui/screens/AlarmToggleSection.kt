@@ -175,7 +175,7 @@ fun AlarmToggleSection(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.WbSunny,
-                                contentDescription = null,
+                                contentDescription = stringResource(R.string.cd_awake_button),
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))

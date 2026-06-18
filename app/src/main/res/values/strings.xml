@@ -380,4 +380,50 @@
 
     <!-- L7: Warnung bei Verlust tagesspezifischer Reihenfolge -->
     <string name="warning_whole_week_reorder">Day-specific order settings have been overwritten by whole-week order.</string>
+
+    <!-- R6: Accessibility contentDescription -->
+    <string name="cd_alarm_toggle">Toggle alarm on or off</string>
+    <string name="cd_awake_button">Mark yourself as already awake</string>
+    <string name="cd_add_member_fab">Add new family member</string>
+    <string name="cd_share_family_fab">Share family invite code</string>
+    <string name="cd_offline_indicator">Offline – no internet connection</string>
+    <string name="cd_sync_indicator">Syncing data</string>
+    <string name="cd_snooze_cancel">Cancel snooze</string>
+    <string name="cd_snooze_icon">Snooze active</string>
+    <string name="cd_stop_alarm">Stop alarm</string>
+    <string name="cd_snooze_alarm">Snooze alarm</string>
+    <string name="cd_profile_select">Select your profile</string>
+    <string name="cd_alarm_sound_select">Select alarm sound</string>
+    <string name="cd_leave_family">Leave family</string>
+    <string name="cd_delete_family">Delete family</string>
+    <string name="cd_share_invite">Share invite link</string>
+    <string name="cd_login_button">Log in or sign up</string>
+    <string name="cd_donate_button">Donate to support the app</string>
+    <string name="cd_start_onboarding">Start quick tour</string>
+    <string name="cd_feedback_button">Send feedback</string>
+    <string name="cd_email_developer">Email the developer</string>
+    <string name="cd_logout_button">Log out</string>
+    <string name="cd_tooltips_toggle">Toggle helpful tips</string>
+    <string name="cd_push_toggle">Toggle push notifications</string>
+    <string name="cd_language_select">Select language</string>
+    <string name="cd_day_active_toggle">Toggle alarm for this day</string>
+    <string name="cd_simple_mode_toggle">Toggle simple mode</string>
+    <string name="cd_time_picker">Select time</string>
+    <string name="cd_bathroom_decrease">Decrease bathroom time</string>
+    <string name="cd_bathroom_increase">Increase bathroom time</string>
+    <string name="cd_buffer_decrease">Decrease buffer time</string>
+    <string name="cd_buffer_increase">Increase buffer time</string>
+    <string name="cd_breakfast_toggle">Toggle breakfast</string>
+    <string name="cd_save_member">Save member</string>
+    <string name="cd_create_family">Create family</string>
+    <string name="cd_join_family">Join family</string>
+    <string name="cd_join_code_field">6-digit invite code input</string>
+    <string name="cd_family_name_field">Family name input</string>
+    <string name="cd_delete_account">Delete account</string>
+    <string name="cd_terms_of_use">Terms of use</string>
+    <string name="cd_privacy_policy">Privacy policy</string>
+    <string name="cd_imprint">Imprint</string>
+    <string name="cd_notification_settings">Open notification settings</string>
+    <string name="cd_tooltips_reset">Show all tips again</string>
+    <string name="cd_copy_to_days">Copy schedule to other days</string>
 </resources>
