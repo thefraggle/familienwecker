@@ -528,6 +528,8 @@ class FamilyViewModel: ObservableObject {
         let currentMyMemberId = self.myMemberId
         
         Task {
+            // pushMeta VOR dem Write, damit CF den Sender erkennt (kein Self-Push)
+            await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
                 if let oldId = currentMyMemberId, oldId != memberId {
                     // Unclaim old member in Firestore
@@ -965,6 +967,8 @@ class FamilyViewModel: ObservableObject {
         recalculateSchedule()
         
         Task {
+            // pushMeta VOR dem Write, damit CF den Sender erkennt (kein Self-Push)
+            await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
                 try await db.collection("families").document(fid)
                     .updateData(["globalBufferMinutes": minutes])
