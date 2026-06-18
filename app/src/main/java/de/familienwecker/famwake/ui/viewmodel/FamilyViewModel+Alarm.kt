@@ -482,7 +482,9 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
                 kotlinx.coroutines.delay(2000)
                 // NonCancellable: delay ist unterbrechbar (Entprellung), Write nicht
                 kotlinx.coroutines.withContext(kotlinx.coroutines.NonCancellable) {
-                    repository.updateDeviceAlarmEnabled(currentFamilyId, currentMemberId, enabled)
+                    kotlinx.coroutines.withTimeout(10_000) {
+                        repository.updateDeviceAlarmEnabled(currentFamilyId, currentMemberId, enabled)
+                    }
                 }
             } catch (e: kotlinx.coroutines.CancellationException) {
                 // Job wurde durch neuen setAlarmEnabled-Aufruf abgebrochen → kein Error, korrekt
