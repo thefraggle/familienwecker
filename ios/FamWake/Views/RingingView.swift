@@ -79,6 +79,7 @@ struct RingingView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
                         .buttonStyle(BounceButtonStyle())
+                        .accessibilityLabel(L.s("accessibility_alarm_ok"))
                     } else {
                         // Stop – Solid
                         Button(action: {
@@ -99,6 +100,8 @@ struct RingingView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
                         .buttonStyle(BounceButtonStyle())
+                        .accessibilityLabel(L.s("accessibility_alarm_stop"))
+                        .accessibilityHint(L.s("accessibility_alarm_stop_hint"))
     
                         // Snooze – Glasmorphism
                         Button(action: {
@@ -129,6 +132,8 @@ struct RingingView: View {
                         .buttonStyle(.plain)
                         .disabled(snoozeCount >= SnoozeConfig.maxSnoozeCount)
                         .opacity(snoozeCount >= SnoozeConfig.maxSnoozeCount ? 0.5 : 1.0)
+                        .accessibilityLabel(L.s("accessibility_alarm_snooze"))
+                        .accessibilityHint(L.s("accessibility_alarm_snooze_hint"))
                     }
                 }
                 .padding(.horizontal, 28)
