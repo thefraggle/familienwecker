@@ -26,6 +26,7 @@ class FamWakeApplication : Application() {
 
     val memberRepository: de.familienwecker.famwake.data.MemberRepository by lazy {
         val db = de.familienwecker.famwake.db.getDatabaseBuilder(this)
+            .fallbackToDestructiveMigration()
             .build()
         de.familienwecker.famwake.data.MemberRepository(db.memberDao())
     }
