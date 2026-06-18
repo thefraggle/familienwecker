@@ -255,6 +255,13 @@ enum L {
     static var settingsHelpTitle: String { s("settings_help_title") }
     static var settingsRestartTour: String { s("settings_restart_tour") }
 
+    // MARK: - Admin (L14)
+    static var settingsAdminTitle: String { s("settings_admin_title") }
+    static var settingsTestAlarm: String { s("settings_test_alarm") }
+
+    // MARK: - Einheiten (L15)
+    static func minutesSuffix(_ min: Int) -> String { s("minutes_suffix", min) }
+
     // MARK: - Audit M15/M16
     static var errorTitle: String { s("error_title") }
     static var errorNoMailApp: String { s("error_no_mail_app") }

@@ -567,13 +567,13 @@ struct SettingsView: View {
     @ViewBuilder
     private var adminCard: some View {
         settingsCard {
-            settingsSectionHeader(icon: "wrench.and.screwdriver.fill", title: "Admin")
+            settingsSectionHeader(icon: "wrench.and.screwdriver.fill", title: L.settingsAdminTitle)
 
             // Test-Alarm: alle Member löschen, neuen anlegen mit Weckzeit in 2 Min
             Button(action: { setupTestAlarm() }) {
                 HStack {
                     Image(systemName: "alarm.fill")
-                    Text("⏰ Test-Wecker (2 Min)")
+                    Text(L.settingsTestAlarm)
                 }
                 .font(.headline)
                 .foregroundStyle(theme.onTertiary)

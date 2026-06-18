@@ -443,7 +443,7 @@ private struct DayProfileCard: View {
                             } label: {
                                 Image(systemName: "minus.circle.fill").font(.title2).foregroundStyle(theme.primary)
                             }
-                            Text("\(profile.bathroomDurationMinutes) min")
+                            Text(L.minutesSuffix(profile.bathroomDurationMinutes))
                                 .font(.headline).fontWeight(.semibold)
                                 .frame(minWidth: 64)
                                 .multilineTextAlignment(.center)
