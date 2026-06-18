@@ -110,7 +110,7 @@ struct OnboardingView: View {
                 .font(.title2).fontWeight(.bold)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
-                .frame(maxWidth: UIScreen.main.bounds.width - 64)
+                .frame(maxWidth: .infinity)
 
             Spacer().frame(height: 16)
 
@@ -119,10 +119,11 @@ struct OnboardingView: View {
                 .foregroundStyle(.white.opacity(0.85))
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-                .frame(maxWidth: UIScreen.main.bounds.width - 64)
+                .frame(maxWidth: .infinity)
 
             Spacer()
         }
+        .padding(.horizontal, 32)
         .padding(.bottom, 120) // Space for bottom controls
     }
 
