@@ -46,6 +46,7 @@ release-notes/
 
 # Internal documentation
 .antigravity/
+.agents/
 docs/internal/
 
 # Firebase Functions
