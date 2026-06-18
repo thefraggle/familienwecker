@@ -383,7 +383,7 @@ fun RingingScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Snooze,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.cd_snooze_alarm),
                             tint = Color.White,
                             modifier = Modifier.size(20.dp)
                         )
@@ -421,7 +421,7 @@ fun RingingScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.AlarmOff,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.cd_stop_alarm),
                             tint = RingingPurpleDark,
                             modifier = Modifier.size(20.dp)
                         )
