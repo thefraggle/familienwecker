@@ -636,22 +636,14 @@ struct SettingsView: View {
     }
 
     private func getSoundDisplayName(_ uri: String?) -> String {
-        guard let uri = uri else { return "Standard (Panda)" }
+        guard let uri = uri else { return L.s("sound_name_standard") }
         switch uri {
-        case "alarm_sound_v3.caf": return "Standard (Panda)"
-        case "Alarm01.wav": return "Gentle Chime"
-        case "Alarm02.wav": return "Digital Retro"
-        case "Alarm03.wav": return "Classic Bell"
-        case "Alarm04.wav": return "Bright Alert"
-        case "default":
-            let standardName = L.settingsAlarmDefault
-            if standardName == "Standard" {
-                return "System-Standard"
-            } else if standardName == "Default" {
-                return "System Default"
-            } else {
-                return "System (\(standardName))"
-            }
+        case "alarm_sound_v3.caf": return L.s("sound_name_standard")
+        case "Alarm01.wav": return L.s("sound_name_gentle_chime")
+        case "Alarm02.wav": return L.s("sound_name_digital_retro")
+        case "Alarm03.wav": return L.s("sound_name_classic_bell")
+        case "Alarm04.wav": return L.s("sound_name_bright_alert")
+        case "default": return L.s("sound_name_system_default")
         default: return uri
         }
     }
@@ -661,12 +653,12 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 let sounds: [(id: String?, name: String)] = [
-                    (id: "alarm_sound_v3.caf", name: "Standard (Panda)"),
-                    (id: "Alarm01.wav", name: "Gentle Chime"),
-                    (id: "Alarm02.wav", name: "Digital Retro"),
-                    (id: "Alarm03.wav", name: "Classic Bell"),
-                    (id: "Alarm04.wav", name: "Bright Alert"),
-                    (id: "default", name: getSoundDisplayName("default"))
+                    (id: "alarm_sound_v3.caf", name: L.s("sound_name_standard")),
+                    (id: "Alarm01.wav", name: L.s("sound_name_gentle_chime")),
+                    (id: "Alarm02.wav", name: L.s("sound_name_digital_retro")),
+                    (id: "Alarm03.wav", name: L.s("sound_name_classic_bell")),
+                    (id: "Alarm04.wav", name: L.s("sound_name_bright_alert")),
+                    (id: "default", name: L.s("sound_name_system_default"))
                 ]
                 
                 ForEach(sounds, id: \.id) { sound in
