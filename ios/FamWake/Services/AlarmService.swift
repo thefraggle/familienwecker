@@ -90,25 +90,19 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
         if currentCount >= SnoozeConfig.maxSnoozeCount {
             // Max erreicht – AlarmKit-Alarm canceln damit Lock-Screen sich dismissed
-            let uuidKey = "alarm_uuid_\(memberId)"
-            let uuid: UUID = {
-                if let str = UserDefaults.standard.string(forKey: uuidKey), let id = UUID(uuidString: str) { return id }
-                return UUID()
-            }()
-            try? await AlarmManager.shared.cancel(id: uuid)
+            if let uuid = AlarmService.readUUID(for: memberId) {
+                try? await AlarmManager.shared.cancel(id: uuid)
+            }
             
-            // Lokale Notification als Hinweis
-            let content = UNMutableNotificationContent()
-            content.title = NSLocalizedString("snooze_not_possible_title", comment: "Notification title when max snooze reached")
-            content.body = NSLocalizedString("snooze_max_reached", comment: "Notification body when max snooze reached")
-            content.sound = .default
-            let request = UNNotificationRequest(identifier: "max_snooze", content: content, trigger: nil)
-            try? await UNUserNotificationCenter.current().add(request)
+            // Snooze-State aufräumen
+            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            UserDefaults.standard.set(0, forKey: "snooze_count")
             
-            // Stop-Notification posten damit App-UI reagiert
+            // Begrüßungsansicht öffnen (wie Stop-Button)
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: [
-                    "memberId": self.memberId
+                NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: [
+                    "memberId": self.memberId,
+                    "memberName": self.memberName
                 ])
             }
             return .result()
