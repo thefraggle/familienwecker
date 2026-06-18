@@ -29,18 +29,27 @@ class FamWakeMessagingService : FirebaseMessagingService() {
 
         /**
          * Beim App-Start oder nach Login aufrufen: aktuellen Token holen und speichern.
-         * Stellt sicher, dass der Token auch nach App-Neuinstallationen aktuell ist.
+         * Prüft den Push-Toggle – bei deaktiviertem Push wird der Token aus Firestore gelöscht.
          */
-        fun refreshAndSaveToken() {
+        fun refreshAndSaveToken(context: Context? = null) {
             val uid = FirebaseAuth.getInstance().currentUser?.uid ?: run {
                 if (BuildConfig.DEBUG) Log.w(TAG, "refreshAndSaveToken: kein eingeloggter User – abgebrochen")
                 return
             }
-            if (BuildConfig.DEBUG) Log.d(TAG, "refreshAndSaveToken: Fordere FCM-Token an")
+            // Push-Toggle aus SharedPreferences lesen (synchron, DataStore evtl. nicht geladen)
+            val pushEnabled = context?.getSharedPreferences("famwake_push_prefs", Context.MODE_PRIVATE)
+                ?.getBoolean("push_enabled", true) ?: true
+            
+            if (BuildConfig.DEBUG) Log.d(TAG, "refreshAndSaveToken: push=$pushEnabled, fordere Token an")
             FirebaseMessaging.getInstance().token
                 .addOnSuccessListener { token ->
-                    if (BuildConfig.DEBUG) Log.d(TAG, "FCM-Token erhalten → speichere in Firestore")
-                    saveTokenToFirestore(uid, token)
+                    if (pushEnabled) {
+                        if (BuildConfig.DEBUG) Log.d(TAG, "FCM-Token erhalten → speichere in Firestore")
+                        saveTokenToFirestore(uid, token)
+                    } else {
+                        if (BuildConfig.DEBUG) Log.d(TAG, "FCM-Token erhalten, Push OFF → lösche aus Firestore")
+                        deleteTokenFromFirestore(uid, token)
+                    }
                 }
                 .addOnFailureListener { e ->
                     if (BuildConfig.DEBUG) Log.e(TAG, "FCM-Token anfordern fehlgeschlagen: ${e.message}")
@@ -48,23 +57,37 @@ class FamWakeMessagingService : FirebaseMessagingService() {
         }
 
         /**
-         * Beim Logout aufrufen: Token aus Firestore entfernen, damit keine
-         * Pushes mehr an dieses Gerät gesendet werden.
+         * Löscht den FCM Token aus Firestore (Push-Toggle OFF).
+         * Der lokale Token bleibt – bei Toggle-ON sofort wieder registrierbar.
+         */
+        fun deleteToken() {
+            val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+                deleteTokenFromFirestore(uid, token)
+            }
+        }
+
+        /**
+         * Beim Logout aufrufen: Token aus Firestore entfernen + lokalen Token löschen.
          */
         fun deleteTokenOnLogout() {
             val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
             FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
-                val docId = sha256(token)
-                FirebaseFirestore.getInstance()
-                    .collection("users").document(uid)
-                    .collection("fcmTokens").document(docId)
-                    .delete()
-                    .addOnFailureListener { if (BuildConfig.DEBUG) Log.w(TAG, "Token-Delete fehlgeschlagen: ${it.message}") }
+                deleteTokenFromFirestore(uid, token)
             }
-            // FCM-Token auf Gerät ungültig machen – nächster Server-Push gibt 404
-            // → sendPushToUser cleanup-Code löscht den Eintrag dann serverseitig.
+            // FCM-Token auf Gerät ungültig machen
             FirebaseMessaging.getInstance().deleteToken()
                 .addOnFailureListener { if (BuildConfig.DEBUG) Log.w(TAG, "FCM deleteToken fehlgeschlagen: ${it.message}") }
+        }
+
+        private fun deleteTokenFromFirestore(uid: String, token: String) {
+            val docId = sha256(token)
+            FirebaseFirestore.getInstance()
+                .collection("users").document(uid)
+                .collection("fcmTokens").document(docId)
+                .delete()
+                .addOnSuccessListener { if (BuildConfig.DEBUG) Log.d(TAG, "Token aus Firestore gelöscht") }
+                .addOnFailureListener { if (BuildConfig.DEBUG) Log.w(TAG, "Token-Delete fehlgeschlagen: ${it.message}") }
         }
 
         private fun saveTokenToFirestore(uid: String, token: String) {
@@ -93,7 +116,12 @@ class FamWakeMessagingService : FirebaseMessagingService() {
     /** Wird von Firebase aufgerufen wenn ein neuer Token generiert wird. */
     override fun onNewToken(token: String) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        saveTokenToFirestore(uid, token)
+        // Push-Toggle prüfen – bei OFF keinen neuen Token in Firestore speichern
+        val pushEnabled = getSharedPreferences("famwake_push_prefs", MODE_PRIVATE)
+            .getBoolean("push_enabled", true)
+        if (pushEnabled) {
+            saveTokenToFirestore(uid, token)
+        }
     }
 
     /** Verarbeitet eingehende FCM-Datennachrichten und zeigt Notifications an. */

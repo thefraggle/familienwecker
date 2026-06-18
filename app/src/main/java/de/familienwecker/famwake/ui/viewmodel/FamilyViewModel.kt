@@ -139,9 +139,9 @@ class FamilyViewModel(
         getApplication<FamWakeApplication>().getSharedPreferences("famwake_push_prefs", android.content.Context.MODE_PRIVATE)
             .edit().putBoolean("push_enabled", enabled).apply()
         if (enabled) {
-            FamWakeMessagingService.refreshAndSaveToken()
+            FamWakeMessagingService.refreshAndSaveToken(getApplication())
         } else {
-            FamWakeMessagingService.deleteTokenOnLogout()
+            FamWakeMessagingService.deleteToken()
         }
     }
 
