@@ -79,58 +79,59 @@ class FamWakeApplication : Application() {
             android.util.Log.d("FamWakeDonation", "Initializing RevenueCat...")
         }
         if (BuildConfig.REVENUECAT_PUBLIC_API_KEY.isEmpty()) {
-        if (BuildConfig.DEBUG) {
-            android.util.Log.e("FamWakeDonation", "RevenueCat API Key is empty! Please check local.properties or GitHub Secrets.")
-        }
-            return
-        }
-        kotlinx.coroutines.MainScope().launch {
-            try {
-                // N2: logLevel ersetzt das deprecated debugLogsEnabled
-                com.revenuecat.purchases.Purchases.logLevel =
-                    if (BuildConfig.DEBUG) com.revenuecat.purchases.LogLevel.DEBUG
-                    else com.revenuecat.purchases.LogLevel.WARN
-                val currentLang = appSettings.language.value
-                val fullLocale = when (currentLang) {
-                    "da" -> "da-DK"
-                    "de" -> "de-DE"
-                    "en" -> "en-US"
-                    "es" -> "es-ES"
-                    "fr" -> "fr-FR"
-                    "it" -> "it-IT"
-                    "ja" -> "ja-JP"
-                    "ko" -> "ko-KR"
-                    "nl" -> "nl-NL"
-                    "no" -> "nb-NO"
-                    "pl" -> "pl-PL"
-                    "pt" -> "pt-BR"
-                    "ru" -> "ru-RU"
-                    "sv" -> "sv-SE"
-                    "tr" -> "tr-TR"
-                    "uk" -> "uk-UA"
-                    "zh" -> "zh-CN"
-                    "id" -> "id-ID"
-                    "vi" -> "vi-VN"
-                    "bn" -> "bn-BD"
-                    "mr" -> "mr-IN"
-                    "hi" -> "hi-IN"
-                    "system", "" -> java.util.Locale.getDefault().let { "${it.language}-${it.country}" }
-                    else -> "en-US"
-                }
-                com.revenuecat.purchases.Purchases.configure(
-                    com.revenuecat.purchases.PurchasesConfiguration.Builder(
-                        this@FamWakeApplication,
-                        BuildConfig.REVENUECAT_PUBLIC_API_KEY
+            if (BuildConfig.DEBUG) {
+                android.util.Log.e("FamWakeDonation", "RevenueCat API Key is empty! Please check local.properties or GitHub Secrets.")
+            }
+            // Kein return – rest von onCreate() soll weiter laufen
+        } else {
+            kotlinx.coroutines.MainScope().launch {
+                try {
+                    // N2: logLevel ersetzt das deprecated debugLogsEnabled
+                    com.revenuecat.purchases.Purchases.logLevel =
+                        if (BuildConfig.DEBUG) com.revenuecat.purchases.LogLevel.DEBUG
+                        else com.revenuecat.purchases.LogLevel.WARN
+                    val currentLang = appSettings.language.value
+                    val fullLocale = when (currentLang) {
+                        "da" -> "da-DK"
+                        "de" -> "de-DE"
+                        "en" -> "en-US"
+                        "es" -> "es-ES"
+                        "fr" -> "fr-FR"
+                        "it" -> "it-IT"
+                        "ja" -> "ja-JP"
+                        "ko" -> "ko-KR"
+                        "nl" -> "nl-NL"
+                        "no" -> "nb-NO"
+                        "pl" -> "pl-PL"
+                        "pt" -> "pt-BR"
+                        "ru" -> "ru-RU"
+                        "sv" -> "sv-SE"
+                        "tr" -> "tr-TR"
+                        "uk" -> "uk-UA"
+                        "zh" -> "zh-CN"
+                        "id" -> "id-ID"
+                        "vi" -> "vi-VN"
+                        "bn" -> "bn-BD"
+                        "mr" -> "mr-IN"
+                        "hi" -> "hi-IN"
+                        "system", "" -> java.util.Locale.getDefault().let { "${it.language}-${it.country}" }
+                        else -> "en-US"
+                    }
+                    com.revenuecat.purchases.Purchases.configure(
+                        com.revenuecat.purchases.PurchasesConfiguration.Builder(
+                            this@FamWakeApplication,
+                            BuildConfig.REVENUECAT_PUBLIC_API_KEY
+                        )
+                        .preferredUILocaleOverride(fullLocale)
+                        .build()
                     )
-                    .preferredUILocaleOverride(fullLocale)
-                    .build()
-                )
-                if (BuildConfig.DEBUG) {
-                    android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
-                }
-            } catch (e: Exception) {
-                if (BuildConfig.DEBUG) {
-                    android.util.Log.e("FamWakeDonation", "RevenueCat initialization failed: ${e.message}")
+                    if (BuildConfig.DEBUG) {
+                        android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
+                    }
+                } catch (e: Exception) {
+                    if (BuildConfig.DEBUG) {
+                        android.util.Log.e("FamWakeDonation", "RevenueCat initialization failed: ${e.message}")
+                    }
                 }
             }
         }
