@@ -30,6 +30,10 @@ class FamWakeApplication : Application() {
         de.familienwecker.famwake.data.MemberRepository(db.memberDao())
     }
 
+    val firebaseRepository: de.familienwecker.famwake.data.FirebaseRepository by lazy {
+        de.familienwecker.famwake.data.FirebaseRepository()
+    }
+
 
     override fun onCreate() {
         super.onCreate()

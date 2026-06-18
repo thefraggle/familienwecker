@@ -4,7 +4,7 @@ import android.net.Uri
 import android.media.AudioAttributes
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.data.AppSettings
-import de.familienwecker.famwake.data.FirebaseRepository
+
 import de.familienwecker.famwake.model.SnoozeConfig
 import de.familienwecker.famwake.model.toKmpLocalDateTime
 import de.familienwecker.famwake.MainActivity
@@ -101,7 +101,7 @@ class RingingActivity : AppCompatActivity() {
                             if (familyId != null) {
                             lifecycleScope.launch {
                                     try {
-                                        FirebaseRepository().updateMemberSnoozeState(familyId, memberId, null, 0)
+                                        FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(familyId, memberId, null, 0)
                                     } catch (e: CancellationException) { throw e }
                                     catch (_: Exception) { /* best-effort */ }
                                 }
@@ -146,7 +146,7 @@ class RingingActivity : AppCompatActivity() {
                             if (familyId != null) {
                                 lifecycleScope.launch {
                                     try {
-                                        FirebaseRepository().updateMemberSnoozeState(
+                                        FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(
                                             familyId, memberId,
                                             snoozeTime.toKmpLocalDateTime(), newCount
                                         )
