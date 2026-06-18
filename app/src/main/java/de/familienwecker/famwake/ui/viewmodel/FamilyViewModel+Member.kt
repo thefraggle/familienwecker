@@ -344,7 +344,7 @@ fun FamilyViewModel.saveMemberOrder() {
     val targetDate = sched.targetDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val dayOfWeek = selectedDayOfWeek.value ?: targetDate.dayOfWeek.value
     
-    val currentUid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+    val currentUid = auth.currentUser?.uid
     
     scope.launch {
         try {
