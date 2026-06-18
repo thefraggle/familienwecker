@@ -340,3 +340,11 @@
 // MARK: - Accessibility
 "accessibility_selected" = ", selected";
 "accessibility_add_member_hint" = "Add new family member";
+
+// MARK: - Sound Names
+"sound_name_standard" = "Standard (Panda)";
+"sound_name_gentle_chime" = "Gentle Chime";
+"sound_name_digital_retro" = "Digital Retro";
+"sound_name_classic_bell" = "Classic Bell";
+"sound_name_bright_alert" = "Bright Alert";
+"sound_name_system_default" = "System Default";
