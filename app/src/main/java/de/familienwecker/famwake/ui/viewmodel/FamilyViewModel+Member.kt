@@ -298,7 +298,12 @@ fun FamilyViewModel.moveMemberOrder(fromIndex: Int, toIndex: Int, wholeWeek: Boo
         val indexInTarget = targetIds.indexOf(m.id)
         if (indexInTarget != -1) {
             if (wholeWeek) {
+                // L7: Warnung wenn tagesspezifische Reihenfolge-Unterschiede verloren gehen
                 val currentProfiles = m.dayProfiles ?: emptyMap()
+                val daySpecificOrders = currentProfiles.values.mapNotNull { it.sequenceOrder }.toSet()
+                if (daySpecificOrders.size > 1) {
+                    _errorMessage.value = UiText.StringResource(R.string.warning_whole_week_reorder)
+                }
                 val updatedProfiles = currentProfiles.mapValues { (_, profile) ->
                     profile.copy(sequenceOrder = null)
                 }
