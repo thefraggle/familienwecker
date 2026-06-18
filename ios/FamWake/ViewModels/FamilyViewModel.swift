@@ -266,7 +266,15 @@ class FamilyViewModel: ObservableObject {
         let myId = myMemberId
         stopSyncJobs()
         Task {
-            try? await FamilyFirestoreService.shared.leaveFamily(familyId: fid, memberId: myId)
+            // L17: Fehler-Feedback statt try? – Fehler nicht mehr verschlucken
+            do {
+                try await FamilyFirestoreService.shared.leaveFamily(familyId: fid, memberId: myId)
+            } catch {
+                print("leaveFamily Cloud Function fehlgeschlagen: \(error.localizedDescription)")
+                await MainActor.run {
+                    self.errorMessage = error.localizedDescription
+                }
+            }
         }
         TelemetryManager.send("family.left")
         clearFamilyLocally()
