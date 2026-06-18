@@ -269,7 +269,7 @@ struct ScheduleSection: View {
                     Text(dayName.prefix(2).uppercased())
                         .font(.caption)
                         .fontWeight(isSelected ? .bold : .semibold)
-                        .frame(maxWidth: .infinity, minWidth: 38)
+                        .frame(minWidth: 38, maxWidth: .infinity)
                         .frame(height: 38)
                         .background(isSelected ? theme.primary : (colorScheme == .dark ? theme.surfaceVariant.opacity(0.3) : theme.surfaceVariant.opacity(0.6)))
                         .foregroundStyle(isSelected ? theme.onPrimary : theme.onSurfaceVariant)
