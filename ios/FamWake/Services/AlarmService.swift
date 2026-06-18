@@ -208,9 +208,12 @@ final class AlarmService: ObservableObject {
     }
 
     static func scheduleWakeUpDirect(wakeUpTime: Date, memberId: String, memberName: String, soundUri: String?, isSnooze: Bool) async throws {
-        // snooze_count wird NICHT hier zurückgesetzt – das passiert in:
-        // - cancelSnooze() (User bricht Snooze ab)
-        // - checkSnoozeStatus() (Snooze abgelaufen, stale cleanup)
+        // Bei neuem regulärem Alarm (nicht Snooze): snooze_count zurücksetzen,
+        // damit der Snooze-Button am nächsten Tag nicht disabled bleibt.
+        if !isSnooze {
+            UserDefaults.standard.set(0, forKey: "snooze_count")
+            UserDefaults.standard.removeObject(forKey: "snooze_until")
+        }
         
         let status = try await AlarmManager.shared.requestAuthorization()
         if status != .authorized {
