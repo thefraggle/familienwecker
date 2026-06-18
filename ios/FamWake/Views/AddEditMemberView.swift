@@ -52,6 +52,10 @@ struct AddEditMemberView: View {
     @State private var showDiscardAlert = false
     @State private var showNameError = false
 
+    // Dynamic Type: Skalierbare Höhen für textbasierte Elemente
+    @ScaledMetric(relativeTo: .caption) private var chipHeight: CGFloat = 36
+    @ScaledMetric(relativeTo: .headline) private var saveButtonHeight: CGFloat = 56
+
     // Initiale Werte zum Vergleich
     @State private var initialName: String = ""
     @State private var initialProfiles: [Int: DayProfile] = [:]
@@ -179,7 +183,7 @@ struct AddEditMemberView: View {
                             .font(.headline)
                             .foregroundStyle(theme.onPrimary)
                             .frame(maxWidth: .infinity)
-                            .frame(minHeight: 56)
+                            .frame(minHeight: saveButtonHeight)
                             .background(theme.primary)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
@@ -249,7 +253,7 @@ struct AddEditMemberView: View {
                 .font(.caption).fontWeight(.semibold)
                 .foregroundStyle(chipTextColor(isSelected: isSelected, isActive: isActive, hasError: hasError))
                 .frame(maxWidth: .infinity)
-                .frame(minHeight: 36)
+                .frame(minHeight: chipHeight)
                 .background(chipBgColor(isSelected: isSelected, isActive: isActive, hasError: hasError))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
