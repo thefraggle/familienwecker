@@ -3,309 +3,143 @@
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
 ## 2.0.0 – 2026-06-18
-### Neu
-- **Familien-Snooze-Sync** – Wenn ein Familienmitglied snoozt, wird der Weckplan aller anderen automatisch live angepasst. So verschläft niemand, nur weil jemand anderes länger braucht.
-- **Snooze-Zähler im Weckplan** – Im Snooze-Banner auf dem Hauptbildschirm siehst du jetzt auf einen Blick, beim wievielten Snooze du bist (z. B. 1/2).
-- **Snooze-Indikator 💤** – Im Weckplan wird mit einem 💤-Symbol angezeigt, welches Familienmitglied gerade snoozt.
+🆕 Familien-Snooze-Sync – Snoozt jemand, passt sich der Weckplan aller automatisch an. Snooze-Zähler und 💤-Symbol zeigen den Status live.
 
-### Verbessert
-- **Snooze-Maximum: sanftes Aufwachen** – Nach dem letzten erlaubten Snooze erscheint eine Guten-Morgen-Begrüßung statt einer Fehlermeldung. Gleichzeitig informiert eine Benachrichtigung auf dem Sperrbildschirm, warum der Wecker aufgehört hat zu klingeln.
-- **Nachtschicht-Kompatibilität** – Weckzeiten nach Mitternacht (z. B. Aufstehen 22:00, Haus verlassen 00:15) werden jetzt korrekt erkannt, statt fälschlich als Fehler abgelehnt zu werden.
-- **Zuverlässiger Snooze-Sync** – Beim Snoozen werden die neuen Zeiten jetzt sofort und zuverlässig auf allen Geräten angezeigt.
-- **Kein Geisterwecker mehr** – Der Wecker klingelt nicht mehr zur alten Zeit, wenn du eine neue Zeit einstellst, den Alarm aus- und einschaltest oder ein Familienmitglied pausierst. Auch nicht nach einem Neustart oder aus dem Hintergrund heraus.
-- **Snooze-Limit (max. 2×)** – Nach zwei Mal Snoozen ist Schluss – damit der Familienplan nicht aus dem Ruder läuft. Der Zähler im Banner zeigt jetzt immer den korrekten Stand.
-- **Push-Benachrichtigungen respektieren den Schalter** – Wenn du Push-Benachrichtigungen in den Einstellungen ausschaltest, kommen jetzt wirklich keine Mitteilungen mehr an – auch nicht bei Snooze oder Planänderungen.
-- **Stabileres Wecken** – Seltene Abstürze durch unsichere Wertezugriffe in der Mitglieder-Bearbeitung und beim Alarm-Scheduling wurden behoben.
-- **Bessere Fehlerhinweise** – Bei Problemen mit der Synchronisierung (z. B. Reihenfolge speichern, Pausieren, Puffer ändern) bekommst du jetzt eine verständliche Rückmeldung statt stiller Fehler.
-- **Offline-Schutz** – Das Löschen von Mitgliedern ist ohne Internetverbindung nicht mehr möglich, um Datenverlust zu vermeiden.
-- **Warnung bei Reihenfolge-Reset** – Wenn du die Reihenfolge auf „ganze Woche" umstellst und dabei tagesspezifische Einstellungen verloren gehen würden, wirst du jetzt darauf hingewiesen.
-- **Hinweis für Gast-Accounts** – Nutzer ohne registriertes Konto sehen jetzt einen deutlichen Hinweis, sich zu registrieren, um ihre Daten nicht zu verlieren.
-- **Bildschirm-Timeout intelligent gesteuert** – Der Bildschirm bleibt nur noch wach, solange die App aktiv im Vordergrund ist – nicht mehr versehentlich im Hintergrund.
+✨ Verbessert:
+• Sanftes Aufwachen nach letztem Snooze statt Fehlermeldung
+• Nachtschicht-Zeiten (z.B. 22:00–00:15) korrekt erkannt
+• Kein Geisterwecker mehr – auch nicht beim Pausieren
+• Push-Schalter wird zuverlässig respektiert
+• Bessere Fehlerhinweise bei Sync-Problemen
+• Offline-Schutz beim Löschen
+• Gast-Account-Warnung
 
 ## 1.9.17 – 2026-06-03
-### Verbessert
-- **Zuverlässiger Snooze-Wecker** – Die Snooze-Funktion wurde repariert und klingelt jetzt wieder absolut zuverlässig. Beim Snoozen bleibt dein Telefon gesperrt, damit du ungestört weiterschlafen kannst.
-- **Flüssigere Bedienung** – Wir haben im Hintergrund kräftig optimiert, sodass die App jetzt beim Scrollen durch den Weckplan noch schneller und flüssiger reagiert.
-- **Mehr Privatsphäre** – Nach dem Stoppen des Weckers oder beim Snoozen gibt es kein versehentliches Entsperren des Bildschirms mehr. Alles bleibt sicher.
-- **Bessere Barrierefreiheit** – Für Menschen, die Vorlesefunktionen (Screenreader) nutzen, haben wir Beschreibungen für Buttons verständlicher gemacht und kleine Übersetzungsfehler (z.B. bei Standard-Buttons) korrigiert.
+• Snooze klingelt wieder zuverlässig, Telefon bleibt gesperrt
+• Flüssigeres Scrollen im Weckplan
+• Kein versehentliches Entsperren nach Stopp/Snooze
+• Verbesserte Barrierefreiheit für Screenreader
 
 ## 1.9.16 – 2026-06-03
-- **Zuverlässiger Snooze** – Die Schlummerfunktion wurde komplett überarbeitet und klingelt nun zuverlässig nach 5 Minuten erneut. In der App zeigt ein Banner die verbleibende Snooze-Zeit an und lässt sich jederzeit abbrechen.
-- **Nahtloser Wecker-Stopp** – Wenn du den Wecker stoppst, öffnet sich jetzt direkt die App, anstatt dich auf dem Startbildschirm des Handys zu lassen.
-- **Klarere Wecktöne** – Ein Fehler wurde behoben, durch den Wecktöne doppelt oder überlappend abgespielt wurden. Eigene Töne werden zudem zuverlässiger geladen.
-- **Stabiler Offline-Modus** – Solltest du mal kein Internet haben, nimmt die App Änderungen (z. B. beim Pausieren) sicher zurück, falls sie nicht gespeichert werden konnten.
-- **Sichereres Wecken** – Eine Optimierung im Hintergrund stellt sicher, dass geplante Wecker unter keinen Umständen mehr "verschluckt" werden.
+• Snooze komplett überarbeitet – klingelt zuverlässig nach 5 Min
+• Wecker-Stopp öffnet direkt die App
+• Keine doppelten/überlappenden Wecktöne mehr
+• Stabiler Offline-Modus mit sicherem Rollback
 
 ## 1.9.15 – 2026-06-01
-### Verbessert
-- **Wecker gezielter stellen** – Bei neu angelegten Familienmitgliedern sind Wecker nun standardmäßig für alle Wochentage ausgeschaltet (Opt-In). Du aktivierst nur die Tage, an denen der Wecker auch wirklich klingeln soll, und verhinderst so ungewolltes Wecken.
+• Neue Mitglieder haben Wecker standardmäßig aus (Opt-In pro Tag)
 
 ## 1.9.14 – 2026-05-29
-### Verbessert
-- **Bessere Lesbarkeit** – Inaktive Buttons (wie z. B. vor der Eingabe eines Namens) sind nun im hellen und dunklen Design deutlich besser lesbar und reagieren erst, wenn alle Eingaben vollständig sind.
-- **Verständlichere Hinweise** – Sollten Käufe oder Spenden auf dem Gerät einmal nicht möglich sein, wird nun eine verständliche Hilfestellung statt eines technischen Fehlers angezeigt.
+• Inaktive Buttons besser lesbar in Hell/Dunkel
+• Verständliche Hinweise wenn Käufe nicht möglich sind
 
 ## 1.9.13 – 2026-05-28
-### Neu
-- **Hilfetexte wieder da** – Wir haben alle erklärenden Hilfetexte und Tipps (z. B. zu Wochentagen, Bad-Zeiten und Weckfenstern) wiederhergestellt, um den Einstieg und die Bedienung noch einfacher zu machen.
-
-### Verbessert
-- **Einheitlicheres App-Design** – Wir haben das Design aller Buttons und Eingabefelder in der gesamten App harmonisiert. Mit durchgängig abgerundeten Ecken, optimierten Kontrasten und einheitlichen Höhen wirkt die App nun noch edler und stimmiger.
-- **Markenkonformer Google-Login** – Der Google-Anmeldebutton wurde optisch aufgewertet und fügt sich nun in beiden Designs nahtlos und gut sichtbar in die App ein.
-- **Optimierter Weck-Bildschirm** – Das Layout bei ausgelöstem Wecker passt sich nun noch flexibler an moderne Bildschirme mit Kamera-Ausschnitten (Notch) an, sodass keine Bedienelemente verdeckt werden.
-
-### Fehlerbehebungen
-- **Fehler bei Registrierung behoben** – Ein Fehler wurde korrigiert, durch den man nach der Registrierung unter Umständen bereits vor der Bestätigung der E-Mail-Adresse angemeldet wurde.
-
+• Hilfetexte und Tipps wiederhergestellt
+• Einheitlicheres Design (Buttons, Eingabefelder, Kontraste)
+• Markenkonformer Google-Login-Button
+• Weck-Screen passt sich an Notch an
+• Registrierungs-Fehler behoben
 
 ## 1.9.12 – 2026-05-26
-### Fehlerbehebungen
-- **Bad-Puffer korrigiert** – Der persönliche Zeitpuffer nach dem Badezimmer wird nun korrekt für das nachfolgende Familienmitglied eingeplant, selbst wenn der globale Puffer auf 0 Minuten steht. Zudem wird der Puffer an 1. Stelle der Badezimmer-Reihenfolge zuverlässig angezeigt.
-- **Puffer-Einstellungen verfeinert** – Manuelle 0-Minuten-Overrides überschreiben nun zuverlässig größere globale Puffer. Im Mitglieder-Editor wird der Puffer-Wert zudem kursiv angezeigt, sobald er dem globalen Wert entspricht, um die Vererbung klarer zu signalisieren.
+• Bad-Puffer korrekt für nachfolgende Mitglieder berechnet
+• Manuelle 0-Min-Overrides überschreiben globalen Puffer zuverlässig
+• Kursive Anzeige bei vererbtem Puffer-Wert
 
 ## 1.9.11 – 2026-05-26
-### Verbessert
-- **Mehr Privatsphäre & Datenschutz** – Benutzerdaten und Profile werden beim Löschen eines Kontos jetzt noch gründlicher und vollständig aus unserer Datenbank entfernt.
-- **Automatische Aufräumung** – Nicht genutzte Test-Zugänge ohne registriertes Konto werden nun nach 30 Tagen Inaktivität automatisch gelöscht, um das System sauber zu halten.
-- **Aufgeräumte Ansicht** – Wir haben Hilfetexte und Tooltips auf ein Minimum reduziert, damit die App übersichtlicher bleibt und die wichtigsten Infos sofort ins Auge springen.
-
----
+• Konto-Löschung entfernt alle Daten vollständig
+• Inaktive Test-Accounts werden nach 30 Tagen aufgeräumt
+• Übersichtlichere Ansicht mit weniger Tooltips
 
 ## 1.9.10 – 2026-05-25
-### Neu
-- **Bestätigung bei Reihenfolge-Änderungen** – Beim Verschieben von Personen im Weckplan wirst du jetzt gefragt, ob die neue Reihenfolge nur für heute oder für die ganze Woche gelten soll.
-
-### Verbessert
-- **Smarter „Schon wach“-Button** – Der „Ich bin schon wach“-Button ist jetzt dauerhaft am Tag deines Weckers sichtbar (oder ab 4 Stunden vorher) und verschwindet nicht mehr, wenn du dir die Pläne anderer Wochentage anschaust.
-- **Optimierte Push-Benachrichtigungen** – Du erhältst Updates zum Familienplan nur noch dann, wenn andere Mitglieder aktiv Änderungen vornehmen. Automatische Hintergrund-Resets lösen keine unnötigen Mitteilungen mehr aus.
-- **Fehlerbehebungen & Design-Polish** – Zuverlässigeres Schließen von Dialogen auf allen Geräten und optische Anpassung der Weckplan-Karten.
-
----
+• Bestätigung bei Reihenfolge-Änderungen (nur heute / ganze Woche)
+• „Schon wach"-Button bleibt am Weckertag dauerhaft sichtbar
+• Push nur bei manuellen Änderungen, keine Auto-Reset-Benachrichtigungen
 
 ## 1.9.9 – 2026-05-23
-### Fehlerbehebungen
-- **Automatische Zeitanpassung korrigiert** – Die automatische Korrektur bei Überschneidungen passt nun zuverlässig die Weckzeiten des ausgewählten Tages an, ohne die Einstellungen für andere Wochentage zu verändern.
-- **Fehler beim App-Start behoben** – Ein seltener Fehler, der unter bestimmten Bedingungen das Öffnen der App verhindern konnte, wurde behoben.
-- **Anzeige bei Überschneidungen verbessert** – Die Weckplan-Details werden bei unlösbaren Zeitkonflikten ausgeblendet, bis diese korrigiert wurden, um Verwirrung zu vermeiden.
-
----
+• AutoFix korrigiert nur den gewählten Wochentag
+• Seltener App-Start-Fehler behoben
+• Weckplan-Details bei unlösbaren Konflikten ausgeblendet
 
 ## 1.9.8 – 2026-05-22
-### Neu
-- **Wochentagspläne** – Drag-&-Drop-Reihenfolge und Weckzeiten können jetzt für jeden Wochentag individuell angepasst werden.
-- **Neuer Empty State** – Überarbeitetes Design und verständlichere Hinweistexte für Tage ohne geplante Wecker.
-
-### Verbessert
-- **Warnbanner verschoben** – Der Hinweis für unregistrierte Profile/fehlende Wecker wurde direkt unter die Plan-Kachel verschoben.
-
----
+• Wochentagspläne: Reihenfolge und Zeiten pro Tag individuell anpassbar
+• Neuer Empty State für Tage ohne Wecker
 
 ## 1.9.7 – 2026-05-22
-### Verbessert
-- **Stabilität beim App-Start** – Ein seltener Fehler, der unter bestimmten Bedingungen beim Öffnen der App zu einem Absturz führen konnte, wurde behoben.
-- **Optimierte Feedback-Fragen** – Die Bitte um eine App-Bewertung erfolgt nun zu passenderen Zeitpunkten, ohne den morgendlichen Ablauf zu stören.
-- **Besseres Theme-Verhalten** – Das Design passt sich jetzt noch zuverlässiger an das helle oder dunkle Erscheinungsbild deines Systems an.
-- **Fehlerkacheln lesbarer gestaltet** – Kontrast und Barrierefreiheit der Warnmeldungen in den Einstellungen und auf dem Startbildschirm wurden spürbar verbessert.
-
----
+• Stabilitätsverbesserungen beim App-Start
+• Review-Anfragen zu passenderen Zeitpunkten
+• Besseres Theme-Verhalten und lesbarere Fehlerkacheln
 
 ## 1.9.6 – 2026-05-21
-### Neu
-- **Puffer-Erklärung (Tooltip)** – Ein neuer Infotext erklärt leicht verständlich die Funktionsweise des Familien-Puffers im Badezimmer.
-
-### Verbessert
-- **Fehlerfreier App-Start** – Ein Absturz beim Kaltstart der App über das Klicken einer Wecker-Mitteilung wurde behoben.
-- **Einstellungen sicherer speichern** – Die Speicherung der App-Einstellungen wurde im Hintergrund modernisiert, um deine Daten noch zuverlässiger zu sichern.
-- **Optischer Feinschliff** – Farben der Tooltips wurden an das Schlaf-Theme angepasst. Mögliche Text-Abschneidungen bei Tasten wurden korrigiert und der Kontrast im hellen Design verbessert.
-
----
+• Puffer-Tooltip erklärt die Funktion
+• Kein Absturz mehr beim Start über Wecker-Mitteilung
+• Modernere Einstellungsspeicherung
+• Farbliche Anpassungen an das Schlaf-Theme
 
 ## 1.9.5 – 2026-05-20
-### Neu
-- **Einfacher Modus** – Für Familienmitglieder, die keine feste Badezimmer-Reihenfolge benötigen oder außerhalb des üblichen Ablaufes aufstehen. Der einfache Modus blendet alle erweiterten Einstellungen aus und weckt starr zur Wunschzeit.
-- **Voller Funktionsumfang** – FamWake bietet nun auf allen unterstützten Plattformen den gleichen Funktionsumfang, inklusive vollständiger Push-Benachrichtigungen, Deep-Links zum Teilen der Familie und synchroner UI-Skalierung für Barrierefreiheit.
-- **Automatische Wiederherstellung** – Der Familienstatus wird nach einer Neuinstallation automatisch im Hintergrund wiederhergestellt, sodass man nicht mehr manuell beitreten muss.
-
-### Verbessert
-- **Schnelleres Teilen** – Der Teilen-Button für den Familiencode reagiert nun sofort und ohne Verzögerung auf den Login-Status.
-- **Zuverlässiges Löschen** – Wenn dein Profil von einem anderen Gerät aus gelöscht wird, deaktiviert die App die Wecker auf deinem Gerät nun sofort und zuverlässig.
-
----
+• Einfacher Modus für Mitglieder ohne feste Badezimmer-Reihenfolge
+• Voller Funktionsumfang auf allen Plattformen
+• Automatische Profil-Wiederherstellung nach Neuinstallation
 
 ## 1.9.4 – 2026-05-16
-### Neu
-- **Puffer nach dem Bad** – Zwischen den Bad-Zeiten der Familienmitglieder kann jetzt ein Zeitpuffer eingestellt werden. Global für alle oder individuell pro Person.
-- **Familie einladen** – Neuer Teilen-Button auf dem Startbildschirm, um Familienmitglieder direkt per WhatsApp, SMS oder andere Apps einzuladen.
-
-### Verbessert
-- **Zeitformat passt sich an** – Die App zeigt Uhrzeiten jetzt automatisch im 12h- oder 24h-Format an, je nach Geräteeinstellung.
-- **Kompaktere Karten** – Mitglieder-Karten zeigen Infos jetzt platzsparender mit Icons. Kein Textumbruch mehr, auch in langen Sprachen.
-- **Weniger Textballast** – Überflüssige Beschriftungen entfernt. Icons sprechen für sich.
-
----
+• Puffer nach dem Bad (global oder individuell)
+• Familie per Share-Button einladen
+• Automatisches 12h/24h-Format
+• Kompaktere Mitglieder-Karten mit Icons
 
 ## 1.9.3 – 2026-05-15
-### Verbessert
-- **Modernere Icons** – Emojis im Weckplan und auf den Mitglieder-Karten wurden durch echte Material Icons ersetzt. Das sorgt für ein einheitliches, scharfes Erscheinungsbild auf allen Geräten.
-- **Klarere Einstellungen** – Alle Menüpunkte in den Einstellungen haben jetzt ein passendes Icon für schnellere Orientierung.
-- **Besser lesbares Formular** – Weckzeiten, Baddauer, Abfahrtszeit und Frühstück im Mitglieder-Editor sind jetzt mit Icons gekennzeichnet.
-
----
+• Material Icons statt Emojis im gesamten Weckplan
+• Icons in Einstellungen und Mitglieder-Editor
 
 ## 1.9.2 – 2026-05-13
-### Verbessert
-- **Bessere Übersetzungen** – FamWake spricht jetzt alle unterstützten Sprachen noch lückenloser, damit jedes Familienmitglied problemlos mitmachen kann.
-- **Frühjahrsputz** – Wir haben im Hintergrund kräftig aufgeräumt. Die App ist jetzt schlanker und läuft noch runder.
-
----
+• Vollständigere Übersetzungen in allen Sprachen
+• Performance-Optimierungen
 
 ## 1.9.1 – 2026-05-10
-### Verbessert
-- **Schneller startklar** – Das Onboarding wurde fokussiert und gekürzt.
-- **Mehr Übersicht** – Der neue „Mitglied hinzufügen“-Button ist nun immer griffbereit unten rechts.
-- **Bessere Lesbarkeit** – Weckzeiten und Status-Infos auf den Familien-Karten sind dank mehr Kontrast jetzt noch leichter ablesbar.
-- **Smarter „Wach“-Button** – Der „Ich bin schon wach“-Button erscheint ab sofort erst im 2-Stunden-Fenster vor deinem Wecker.
-
----
+• Kürzeres Onboarding
+• Neuer „Hinzufügen"-Button unten rechts
+• Besserer Kontrast auf Familien-Karten
+• „Wach"-Button erscheint erst 2h vor dem Wecker
 
 ## 1.9.0 – 2026-05-06
-### Neu
-- **Sofort loslegen – ohne Account** – FamWake kann jetzt komplett ohne Registrierung ausprobiert werden. Erstelle eine Familie oder tritt per Code/Link bei. Ein Konto brauchst du erst, wenn du selbst einladen möchtest.
-- **7 neue Sprachen** – Indonesisch, Vietnamesisch, Bengalisch, Marathi, Hindi, Chinesisch und Koreanisch. FamWake gibt es jetzt in 22 Sprachen.
+🆕 Ohne Account loslegen – Familie gründen oder beitreten ohne Registrierung.
+7 neue Sprachen (22 insgesamt).
 
-### Verbessert
-- **Zuverlässigeres Profil** – Nach Neuinstallation wird dein Profil sofort erkannt und der Weckplan berechnet. Kein manuelles Umschalten mehr nötig.
-- **Smarter Auto-Fix** – Bei Zeitkonflikten passt der Auto-Fix die Einstellungen jetzt zielgenau an und speichert sie direkt.
-- **Überarbeitetes Onboarding** – Klarere Einführung, neues Maskottchen, und du kannst Tipps jetzt ein- oder ausschalten.
-- **Besserer Login-Flow** – Verifizierungs-E-Mails öffnen die App direkt und loggen dich automatisch ein.
-
-### Fehlerbehebungen
-- Doppelte Wecker bei unterschiedlichen Wochentag-Zeiten behoben.
-- Sprachauswahl funktioniert jetzt auf allen Geräten zuverlässig.
-- Wecker-Schalter bleibt nach Login/Logout korrekt erhalten.
-- Profil-Übernahme auf neuen Geräten funktioniert wieder problemlos.
-- Familien-Löschung deaktiviert Alarme auf allen Geräten sofort.
-- Diverse Stabilitäts- und Sync-Verbesserungen.
-
----
+• Profil wird nach Neuinstallation sofort erkannt
+• Smarter AutoFix bei Zeitkonflikten
+• Überarbeitetes Onboarding mit Maskottchen
+• Verifizierungs-Mails öffnen die App direkt
+• Diverse Bugfixes (Doppel-Wecker, Sprachauswahl, Sync)
 
 ## 1.8.0 – 2026-04-21
+🆕 Push-Benachrichtigungen bei Planänderungen. Push-Toggle in Einstellungen. Familien-Events. Smartes Review-System. 20 Weck-Sprüche.
 
-### Neu
-- **Push-Benachrichtigungen 🔔** – Du wirst automatisch informiert, wenn sich der Familienplan ändert – z.B. bei Reihenfolge, Wecker ein/aus oder Pause. Alle Familienmitglieder werden benachrichtigt.
-- **Push-Toggle** – Push-Benachrichtigungen können in den App-Einstellungen ein- und ausgeschaltet werden.
-- **Familien-Events** – Du erfährst sofort, wenn jemand deiner Familie beitritt oder sie verlässt.
-- **Smartes Review-System** – Die App fragt nach positivem Erlebnis unaufdringlich nach einer Bewertung.
-- **20 Weck-Sprüche** – Abwechslung auf dem Weck-Screen.
-
-### Verbessert
-- **Live-Sync** – Wecker ein/aus aktualisiert den Weckplan sofort auf allen Geräten.
-- **Zuverlässigerer Wecker** – Verbessertes Verhalten auf dem Sperrbildschirm, deutlichere Warnung bei fehlenden Berechtigungen.
-- **Fresh Install** – Der Wecker ist nach Neuinstallation automatisch aktiv, wenn bereits ein Profil existiert.
-- **Stille Push-Nachrichten** – Info-Benachrichtigungen sind lautlos und stören nicht.
-- **Onboarding überarbeitet** – Klarere Einführung, landesspezifische Beispiele.
-- **Frischeres Design** – Weichere Ecken, Scroll-Hinweis, kollabierbarer Titel.
-- **Übersichtlichere Zeitauswahl** – Tastatur-Dialog statt Uhrzeiger.
-- **Reorder-Warnung** – Hinweis wenn ein Mitglied ohne eigenes Profil an erster Stelle im Plan steht.
-
-### Behoben
-- Wecker-Bildschirm erscheint ohne PIN-Abfrage über dem Sperrbildschirm.
-- Diverse Stabilitäts-, Sync- und Zuverlässigkeitsverbesserungen.
-
----
-
+• Live-Sync auf allen Geräten
+• Zuverlässigerer Wecker auf dem Sperrbildschirm
+• Tastatur-Dialog statt Uhrzeiger bei Zeitauswahl
+• Stabilitäts- und Design-Verbesserungen
 
 ## 1.7.0 – 2026-04-06
-
-### Neu
-- **Berechtigungs-Warnung** – Fehlt die Wecker-Berechtigung, erscheint eine rote Kachel auf dem Hauptscreen.
-- **Automatische Profilverknüpfung** – Beim Anlegen des ersten Profils wirst du automatisch damit verbunden.
-- **Wochentags-Planung** – Weckzeiten und Badezimmer-Dauer pro Wochentag individuell einstellbar.
-
-### Behoben
-- Wecker klingelt nach Aus/Ein wieder zuverlässig.
-- „Ich bin wach"-Button bleibt nach Profilneuanlage nicht mehr dauerhaft ausgegraut.
-- Zweites Familienmitglied kann Profil jetzt zuverlässig bearbeiten.
-- „Schon wach"-Status wird am nächsten Morgen korrekt zurückgesetzt.
-- Login-Screen bei großer Systemschrift (125 %+) nutzbar.
-- Diverse Sync- und Stabilitätsverbesserungen.
-
----
+🆕 Berechtigungs-Warnung. Auto-Profilverknüpfung. Wochentags-Planung.
+• Diverse Bugfixes (Wecker nach Aus/Ein, „Wach"-Button, Sync)
 
 ## 1.6.0 – 2026-03-23
-
-### Neu
-- **Einladungslinks** – Verbessertes Feedback beim Beitritt via Link.
-
-### Behoben
-- Einladungscodes bleiben gültig, auch wenn eine Familie vorübergehend leer ist.
-- Korrektur der Zeitberechnung für Mitternacht und sehr frühe Weckzeiten.
-
----
+• Verbessertes Einladungslink-Feedback
+• Korrekte Zeitberechnung um Mitternacht
 
 ## 1.5.0 – 2026-03-21
-
-### Neu
-- **Onboarding** – Neue Einführungstour mit Panda-Animationen.
-- **Neues App-Icon** – Modernes Design, Dark Mode als Standard.
-- **Feedback** – Direktes Senden von Feedback-Nachrichten aus der App heraus.
-
-### Behoben
-- Zuverlässigeres Beitreten und Verlassen von Familien.
-- Fehlerbehebung bei Mitglieder-Anzeige und doppelten Wecktönen.
-
----
+🆕 Onboarding-Tour mit Panda. Neues App-Icon. Feedback-Funktion.
 
 ## 1.4.0 – 2026-03-19
-
-### Neu
-- **Onboarding-Tour** – 5-Screen-Einführung mit Panda-Animationen und neuem Weck-Screen-Design.
-
-### Verbessert
-- **Autofill & Login** – Deutlich bessere Passwort-Manager-Kompatibilität.
-- **Sicherheit** – XSS-Schutz bei Feedback-E-Mails, Cloud-Reset für Status-Resets.
-
-### Behoben
-- Doppel-Alarme, Deep-Link-Flows und Mitglieder-Mapping korrigiert.
-
----
+🆕 Onboarding-Tour (5 Screens). Bessere Passwort-Manager-Kompatibilität.
 
 ## 1.3.0 – 2026-03-17
-
-### Neu
-- **⭐ App bewerten** – Direktes Bewerten direkt aus der App heraus.
-
-### Verbessert
-- Deaktivierte Tage werden deutlicher optisch hervorgehoben.
-- Schutz vor Spam bei E-Mails und Familienbeitritten.
-
----
+🆕 In-App-Bewertung. Bessere Darstellung inaktiver Tage.
 
 ## 1.2.0 – 2026-03-17
-
-### Neu
-- **Feedback-Screen** – Feedback direkt aus der App senden.
-- **Wochentag-Konfiguration** – Individuelle Zeiten pro Wochentag.
-
-### Behoben
-- Alarm-Status wird nach Neuinstallation wiederhergestellt.
-- Frühstückszeit-Berechnung und Familien-Erstellung stabilisiert.
-
----
+🆕 Feedback-Screen. Wochentag-Konfiguration. Bugfixes.
 
 ## 1.1.0 – 2026-03-15
-
-### Neu
-- **Snooze** – 5-Minuten-Snooze mit Banner und Abbruch-Button.
-
-### Behoben
-- Wecker klingelt nach Geräteneustart (auch vor PIN-Eingabe).
-- Wecker-Screen auf Sperrbildschirm (Samsung, Xiaomi u. a.).
-
----
+🆕 Snooze (5 Min) mit Banner und Abbruch. Wecker nach Neustart zuverlässig.
 
 ## 1.0.0 – 2026-03-12
-
-### Erster Release 🎉
-- Familien-Wecker mit koordinierter Badezimmer-Planung.
-- Einladungscodes zum Beitritt, Google Sign-In.
+🎉 Erster Release – Familien-Wecker mit Badezimmer-Planung und Einladungscodes.
