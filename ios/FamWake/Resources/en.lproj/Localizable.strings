@@ -348,3 +348,6 @@
 "sound_name_classic_bell" = "Classic Bell";
 "sound_name_bright_alert" = "Bright Alert";
 "sound_name_system_default" = "System Default";
+
+// MARK: - Buttons
+"ok_button" = "OK";
