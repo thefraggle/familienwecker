@@ -34,6 +34,7 @@ class FamilyViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var pendingJoinCode: String? = nil
     @Published var snoozeUntil: Date? = nil
+    @Published var snoozeCount: Int = UserDefaults.standard.integer(forKey: "snooze_count")
     @Published var alarmSoundUri: String? = UserDefaults.standard.string(forKey: "alarm_sound_uri")
     @Published var themePreference: String = UserDefaults.standard.string(forKey: "theme_preference") ?? "system"
     @Published var language: String = UserDefaults.standard.string(forKey: "language") ?? "system"
@@ -744,9 +745,11 @@ class FamilyViewModel: ObservableObject {
             let date = Date(timeIntervalSince1970: snoozeTime)
             if date > Date() {
                 self.snoozeUntil = date
+                self.snoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
             } else if date < staleThreshold {
                 // Snooze deutlich abgelaufen (>30 Min) → alles aufräumen
                 self.snoozeUntil = nil
+                self.snoozeCount = 0
                 UserDefaults.standard.removeObject(forKey: "snooze_until")
                 UserDefaults.standard.set(0, forKey: "snooze_count")
             } else {
@@ -756,6 +759,7 @@ class FamilyViewModel: ObservableObject {
         } else {
             self.snoozeUntil = nil
             // Kein snooze_until → Count zurücksetzen (Schutz gegen stale Werte)
+            self.snoozeCount = 0
             UserDefaults.standard.set(0, forKey: "snooze_count")
         }
     }
@@ -776,6 +780,7 @@ class FamilyViewModel: ObservableObject {
         // sofort einen View-Rebuild; das Banner liest snooze_count aus UserDefaults.
         UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
         UserDefaults.standard.set(newCount, forKey: "snooze_count")
+        snoozeCount = newCount
         snoozeUntil = snoozeTime
 
         // Lokalen members-State SOFORT aktualisieren, damit resolveEffectiveMember
@@ -830,6 +835,7 @@ class FamilyViewModel: ObservableObject {
 
     func cancelSnooze(_ memberId: String) {
         snoozeUntil = nil
+        snoozeCount = 0
         UserDefaults.standard.removeObject(forKey: "snooze_until")
         UserDefaults.standard.set(0, forKey: "snooze_count")
         // Bei nativem .countdown-Snooze läuft der Countdown unter der Haupt-UUID,
