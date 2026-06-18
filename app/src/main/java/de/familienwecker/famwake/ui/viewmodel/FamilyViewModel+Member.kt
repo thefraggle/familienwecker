@@ -407,6 +407,7 @@ internal fun FamilyViewModel.checkAndResetMembers(members: List<FamilyMember>): 
                 if (BuildConfig.DEBUG) {
                     Log.e("FamilyViewModel", "Failed to reset member status batch: ${e.message}")
                 }
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: app.getString(R.string.add_member_unknown))
             }
         }
     }
