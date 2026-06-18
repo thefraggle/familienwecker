@@ -147,6 +147,10 @@ struct MainView: View {
             .onDisappear {
                 UIApplication.shared.isIdleTimerDisabled = false
             }
+            // L13: IdleTimer nur im aktiven Vordergrund deaktivieren
+            .onChange(of: scenePhase) { _, newPhase in
+                UIApplication.shared.isIdleTimerDisabled = (newPhase == .active)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(alignment: .center, spacing: 16) {
