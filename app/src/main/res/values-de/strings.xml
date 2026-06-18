@@ -372,4 +372,7 @@
     <!-- M18: Hinweis für anonyme User auf FamilySetupScreen -->
     <string name="anonymous_warning_title">⚠️ Du bist nicht angemeldet!</string>
     <string name="anonymous_warning_desc">Du nutzt ein Gastkonto. Deine Daten könnten verloren gehen, wenn du die App neu installierst. Bitte registriere dich, um deine Familieneinstellungen zu behalten.</string>
+
+    <!-- L7: Warnung bei Verlust tagesspezifischer Reihenfolge -->
+    <string name="warning_whole_week_reorder">Tagesspezifische Reihenfolge-Einstellungen wurden durch die Wochenreihenfolge überschrieben.</string>
 </resources>
