@@ -7,12 +7,28 @@ func validateDayProfile(_ profile: DayProfile) -> [String] {
     if profile.latestWakeUp < profile.earliestWakeUp {
         errors.append(L.validationLatestBeforeEarliest)
     }
+    // Mitternachts-Wraparound: Wenn leaveTime numerisch VOR der Aufstehzeit liegt,
+    // wird sie als nächster Tag interpretiert (z.B. Wake 22:00, Leave 00:15 = nächster Tag).
     let leaveH = profile.leaveHomeTime?.hour ?? 8
     let leaveM = profile.leaveHomeTime?.minute ?? 0
     let latestH = profile.latestWakeUp.hour ?? 7
     let latestM = profile.latestWakeUp.minute ?? 30
-    let leaveTotal = leaveH * 60 + leaveM
-    let bathroomEndTotal = latestH * 60 + latestM + profile.bathroomDurationMinutes
+    let earliestH = profile.earliestWakeUp.hour ?? 6
+    let earliestM = profile.earliestWakeUp.minute ?? 0
+    
+    let earliestTotal = earliestH * 60 + earliestM
+    var leaveTotal = leaveH * 60 + leaveM
+    var bathroomEndTotal = latestH * 60 + latestM + profile.bathroomDurationMinutes
+    
+    // Wenn die Leave-Zeit vor der frühesten Weckzeit liegt → nächster Tag
+    if leaveTotal < earliestTotal {
+        leaveTotal += 24 * 60
+    }
+    // Auch bathroomEnd kann über Mitternacht gehen (z.B. 23:30 + 40min)
+    if bathroomEndTotal < earliestTotal {
+        bathroomEndTotal += 24 * 60
+    }
+    
     if leaveTotal < bathroomEndTotal {
         errors.append(L.validationLeaveTooEarly)
     }
