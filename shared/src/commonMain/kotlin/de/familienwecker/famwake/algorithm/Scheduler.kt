@@ -18,7 +18,10 @@ class Scheduler {
         globalBufferMinutes: Long = 0
     ): FamilySchedule {
         // Limit active members (max 6 per UI constraint)
-        val activeMembers = members.filter { !it.isPaused }.take(6)
+        val allActiveMembers = members.filter { !it.isPaused }
+        val activeMembers = allActiveMembers.take(6)
+        // M11: Warnung wenn aktive Mitglieder abgeschnitten werden
+        val memberLimitExceeded = allActiveMembers.size > 6
 
         if (activeMembers.isEmpty()) {
             return FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveMembers)
@@ -26,7 +29,9 @@ class Scheduler {
 
         // 1. Versuche die exakte Reihung ohne Zeit-Verschiebung, mit vollem Puffer
         val initialResult = evaluatePermutation(activeMembers, breakfastDurationMinutes, 0, globalBufferMinutes, includeInvalid = true)
-        if (initialResult.isValid) return initialResult
+        if (initialResult.isValid) {
+            return if (memberLimitExceeded) initialResult.copy(scheduleMessage = ScheduleMessage.MemberLimitExceeded(allActiveMembers.size, 6)) else initialResult
+        }
 
         // 2. Puffer schrittweise reduzieren (5er-Schritte)
         if (globalBufferMinutes > 0) {
