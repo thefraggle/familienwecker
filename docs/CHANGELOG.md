@@ -10,7 +10,9 @@
 
 ### Verbessert
 - **Zuverlässiger Snooze-Sync** – Beim Snoozen werden die neuen Zeiten jetzt sofort und zuverlässig auf allen Geräten angezeigt.
-- **Kein Geisterwecker mehr** – Der Wecker klingelt nicht mehr, wenn der Alarm-Schalter ausgeschaltet ist – auch nicht nach einem Neustart oder aus dem Hintergrund heraus.
+- **Kein Geisterwecker mehr** – Der Wecker klingelt nicht mehr zur alten Zeit, wenn du eine neue Zeit einstellst oder den Alarm kurz aus- und einschaltest. Auch nicht nach einem Neustart oder aus dem Hintergrund heraus.
+- **Snooze-Limit (max. 2×)** – Nach zwei Mal Snoozen ist Schluss – damit der Familienplan nicht aus dem Ruder läuft. Der Zähler im Banner zeigt jetzt immer den korrekten Stand.
+- **Push-Benachrichtigungen respektieren den Schalter** – Wenn du Push-Benachrichtigungen in den Einstellungen ausschaltest, kommen jetzt wirklich keine Mitteilungen mehr an – auch nicht bei Snooze oder Planänderungen.
 - **Stabileres Wecken** – Seltene Abstürze durch unsichere Wertezugriffe in der Mitglieder-Bearbeitung und beim Alarm-Scheduling wurden behoben.
 - **Bessere Fehlerhinweise** – Bei Problemen mit der Synchronisierung (z. B. Reihenfolge speichern, Pausieren) bekommst du jetzt eine verständliche Rückmeldung statt stiller Fehler.
 
