@@ -12,7 +12,7 @@
 - **Snooze-Maximum: sanftes Aufwachen** – Nach dem letzten erlaubten Snooze erscheint eine Guten-Morgen-Begrüßung statt einer Fehlermeldung. Gleichzeitig informiert eine Benachrichtigung auf dem Sperrbildschirm, warum der Wecker aufgehört hat zu klingeln.
 - **Nachtschicht-Kompatibilität** – Weckzeiten nach Mitternacht (z. B. Aufstehen 22:00, Haus verlassen 00:15) werden jetzt korrekt erkannt, statt fälschlich als Fehler abgelehnt zu werden.
 - **Zuverlässiger Snooze-Sync** – Beim Snoozen werden die neuen Zeiten jetzt sofort und zuverlässig auf allen Geräten angezeigt.
-- **Kein Geisterwecker mehr** – Der Wecker klingelt nicht mehr zur alten Zeit, wenn du eine neue Zeit einstellst oder den Alarm kurz aus- und einschaltest. Auch nicht nach einem Neustart oder aus dem Hintergrund heraus.
+- **Kein Geisterwecker mehr** – Der Wecker klingelt nicht mehr zur alten Zeit, wenn du eine neue Zeit einstellst, den Alarm aus- und einschaltest oder ein Familienmitglied pausierst. Auch nicht nach einem Neustart oder aus dem Hintergrund heraus.
 - **Snooze-Limit (max. 2×)** – Nach zwei Mal Snoozen ist Schluss – damit der Familienplan nicht aus dem Ruder läuft. Der Zähler im Banner zeigt jetzt immer den korrekten Stand.
 - **Push-Benachrichtigungen respektieren den Schalter** – Wenn du Push-Benachrichtigungen in den Einstellungen ausschaltest, kommen jetzt wirklich keine Mitteilungen mehr an – auch nicht bei Snooze oder Planänderungen.
 - **Stabileres Wecken** – Seltene Abstürze durch unsichere Wertezugriffe in der Mitglieder-Bearbeitung und beim Alarm-Scheduling wurden behoben.
