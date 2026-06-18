@@ -592,11 +592,28 @@ private fun validateDayProfile(profile: DayProfile): List<Int> {
     if (profile.latestWakeUp <= profile.earliestWakeUp) {
         errors.add(R.string.validation_latest_before_earliest)
     }
-    // 2. leaveHomeTime (effektiv: gesetzter Wert oder UI-Default 08:00)
-    //    muss NACH latestWakeUp + Baddauer liegen
+    // 2. leaveHomeTime muss NACH latestWakeUp + Baddauer liegen.
+    //    Mitternachts-Wraparound: Wenn leaveTime numerisch VOR der Aufstehzeit liegt,
+    //    wird sie als nächster Tag interpretiert (z.B. Wake 22:00, Leave 00:15 = nächster Tag).
     val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
     val latestBathroomEnd = profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes)
-    if (effectiveLeaveTime.isBefore(latestBathroomEnd)) {
+    val earliestWakeUpTime = profile.earliestWakeUp.toJavaLocalTime()
+    
+    var leaveMinutes = effectiveLeaveTime.hour * 60 + effectiveLeaveTime.minute
+    val earliestMinutes = earliestWakeUpTime.hour * 60 + earliestWakeUpTime.minute
+    val bathroomEndMinutes = latestBathroomEnd.hour * 60 + latestBathroomEnd.minute
+    
+    // Wenn die Leave-Zeit vor der frühesten Weckzeit liegt → nächster Tag
+    if (leaveMinutes < earliestMinutes) {
+        leaveMinutes += 24 * 60
+    }
+    // Auch bathroomEnd kann über Mitternacht gehen (z.B. 23:30 + 40min = 00:10)
+    var adjustedBathroomEnd = bathroomEndMinutes
+    if (adjustedBathroomEnd < earliestMinutes) {
+        adjustedBathroomEnd += 24 * 60
+    }
+    
+    if (leaveMinutes < adjustedBathroomEnd) {
         errors.add(R.string.validation_leave_too_early)
     }
     return errors
