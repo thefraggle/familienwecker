@@ -327,3 +327,8 @@
 "error_no_mail_app" = "No mail app found.";
 "alarm_stop_button" = "Stop Alarm";
 "snooze_not_possible_title" = "Snooze not possible";
+
+// MARK: - L14/L15: Admin strings and minutes suffix
+"settings_admin_title" = "Admin";
+"settings_test_alarm" = "⏰ Test Alarm (2 min)";
+"minutes_suffix" = "%d min";
