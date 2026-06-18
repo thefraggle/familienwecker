@@ -8,6 +8,7 @@
 "already_have_account" = "Already have an account? Log in here.";
 "no_account" = "No account yet? Sign up here.";
 "login_with_google" = "Sign in with Google";
+"sign_in_with_apple" = "Sign in with Apple";
 "login_forgot_password" = "Forgot password?";
 "login_password_reset_sent" = "Password reset email sent!";
 "login_google_error_no_account" = "No Google account found. Please sign in via phone settings or use email.";

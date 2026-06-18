@@ -508,6 +508,7 @@ fun FamilyViewModel.setAlarmSoundUri(uri: String) {
  * dass der Wecker in ~2 Minuten klingelt.
  */
 fun FamilyViewModel.setDebugAlarmIn5Minutes() {
+    if (!de.familienwecker.famwake.BuildConfig.DEBUG) return
     val memberId = myMemberId.value ?: return
     val member   = _members.value.find { it.id == memberId } ?: return
     

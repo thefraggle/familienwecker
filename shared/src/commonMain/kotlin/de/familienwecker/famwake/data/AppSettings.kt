@@ -159,7 +159,7 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         settings["APP_LANGUAGE"] = normalized
     }
 
-    private val _theme = MutableStateFlow(settings.getString("APP_THEME", "dark"))
+    private val _theme = MutableStateFlow(settings.getString("APP_THEME", "system"))
     override val theme = _theme.asStateFlow()
 
     override fun setTheme(theme: String) {

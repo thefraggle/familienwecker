@@ -8,6 +8,7 @@
 "already_have_account" = "Bereits ein Konto? Hier anmelden.";
 "no_account" = "Noch kein Konto? Hier registrieren.";
 "login_with_google" = "Mit Google anmelden";
+"sign_in_with_apple" = "Mit Apple anmelden";
 "login_forgot_password" = "Passwort vergessen?";
 "login_password_reset_sent" = "E-Mail zum Zurücksetzen gesendet!";
 "login_google_error_no_account" = "Kein Google-Konto gefunden. Bitte melde dich in den Einstellungen bei Google an oder nutze E-Mail und Passwort.";

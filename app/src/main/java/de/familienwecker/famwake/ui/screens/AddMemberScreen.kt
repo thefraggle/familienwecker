@@ -589,7 +589,7 @@ private fun validateDayProfile(profile: DayProfile): List<Int> {
     if (profile.isSimpleMode) return emptyList()
     val errors = mutableListOf<Int>()
     // 1. latestWakeUp muss NACH earliestWakeUp liegen
-    if (profile.latestWakeUp <= profile.earliestWakeUp) {
+    if (profile.latestWakeUp < profile.earliestWakeUp) {
         errors.add(R.string.validation_latest_before_earliest)
     }
     // 2. leaveHomeTime muss NACH latestWakeUp + Baddauer liegen.
@@ -732,7 +732,7 @@ private fun DayProfileCard(
                             }
                         )
                     } else {
-                        val latestBeforeEarliestError = profile.latestWakeUp <= profile.earliestWakeUp
+                        val latestBeforeEarliestError = profile.latestWakeUp < profile.earliestWakeUp
 
                         // Früheste Weckzeit
                         TimePickerRowWithIcon(

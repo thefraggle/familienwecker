@@ -422,6 +422,7 @@ internal fun FamilyViewModel.checkAndResetMembers(members: List<FamilyMember>): 
  * Admin-Hilfsfunktion: Löscht ALLE Member, legt "Daniel" an, claimt ihn und setzt 2-Min-Weckzeit.
  */
 fun FamilyViewModel.setupTestAlarmAndMembers(onStatus: (String) -> Unit) {
+    if (!de.familienwecker.famwake.BuildConfig.DEBUG) return
     val currentFamilyId = familyId.value ?: run { onStatus("Fehler: keine FamilyId"); return }
     val userId = auth.currentUser?.uid ?: run { onStatus("Fehler: nicht eingeloggt"); return }
     val userName = auth.currentUser?.displayName ?: "Test User"
