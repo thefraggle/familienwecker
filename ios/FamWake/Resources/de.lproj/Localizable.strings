@@ -208,6 +208,9 @@
 "error_password_reset_failed" = "Passwort konnte nicht zurückgesetzt werden. Bitte versuche es später nochmal.";
 "error_profile_taken" = "Dieses Profil wird bereits von jemand anderem genutzt.";
 "error_profile_claim_offline" = "Kein Internet. Du musst online sein, um dein Profil auszuwählen.";
+"error_profile_claim_retry" = "Erneut versuchen";
+"error_wrong_password" = "Falsche E-Mail oder Passwort. Bitte prüfe deine Eingabe.";
+"error_email_in_use" = "Diese E-Mail ist bereits registriert.";
 "error_delete_not_admin" = "Nur die Person, die die Familie erstellt hat, kann sie löschen.";
 "alarm_default_member" = "Familienmitglied";
 "alarm_notification_title" = "Der Familienwecker klingelt";
