@@ -327,3 +327,8 @@
 "error_no_mail_app" = "Es konnte keine Mail-App gefunden werden.";
 "alarm_stop_button" = "Wecker beenden";
 "snooze_not_possible_title" = "Snooze nicht möglich";
+
+// MARK: - L14/L15: Admin-Strings und Minuten-Suffix
+"settings_admin_title" = "Admin";
+"settings_test_alarm" = "⏰ Test-Wecker (2 Min)";
+"minutes_suffix" = "%d min";
