@@ -122,6 +122,7 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.borderless)
                     .foregroundStyle(theme.primary)
+                    .accessibilityLabel(L.s("accessibility_close_button"))
                 }
             }
             .sheet(isPresented: $showFeedback) { FeedbackView() }
@@ -236,6 +237,8 @@ struct SettingsView: View {
             .foregroundStyle(theme.onSurface)
             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
             .disabled(familyViewModel.members.isEmpty)
+            .accessibilityLabel(L.s("accessibility_profile_picker"))
+            .accessibilityHint(L.s("accessibility_profile_picker_hint"))
 
             Divider()
                 .background(theme.outline.opacity(0.15))
@@ -260,6 +263,8 @@ struct SettingsView: View {
             }
             .foregroundStyle(theme.onSurface)
             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+            .accessibilityLabel(L.s("accessibility_sound_picker"))
+            .accessibilityHint(L.s("accessibility_sound_picker_hint"))
 
             if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipAlarmSoundSeen {
                 TooltipBubble(text: L.tooltipAlarmSound) {
@@ -290,6 +295,8 @@ struct SettingsView: View {
                 }
                 .buttonStyle(.plain)
                 .padding(.bottom, 12)
+                .accessibilityLabel(L.s("accessibility_link_account"))
+                .accessibilityHint(L.s("accessibility_link_account_hint"))
                 .sheet(isPresented: $showLoginSheet) {
                     LoginView()
                 }
@@ -336,6 +343,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(.plain)
                 .padding(.bottom, 8)
+                .accessibilityLabel(L.s("accessibility_share_code"))
             }
 
             // Leave and Delete Family Buttons
@@ -351,6 +359,7 @@ struct SettingsView: View {
                 }
                 .foregroundStyle(theme.onSurface)
                 .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .accessibilityLabel(L.s("accessibility_leave_family"))
 
                 // Delete Family
                 Button(action: {
@@ -369,6 +378,7 @@ struct SettingsView: View {
                 }
                 .foregroundStyle(familyViewModel.isAdmin ? theme.error : theme.outline)
                 .overlay(RoundedRectangle(cornerRadius: 12).stroke((familyViewModel.isAdmin ? theme.error : theme.outline).opacity(0.6), lineWidth: 1))
+                .accessibilityLabel(L.s("accessibility_delete_family"))
             }
         }
     }
@@ -393,6 +403,7 @@ struct SettingsView: View {
             }
             .foregroundStyle(theme.onSurface)
             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+            .accessibilityLabel(L.s("accessibility_language_picker"))
 
             Spacer().frame(height: 16)
 
@@ -404,6 +415,7 @@ struct SettingsView: View {
                 Image(systemName: "moon.fill").tag("dark")
             }
             .pickerStyle(.segmented)
+            .accessibilityLabel(L.s("accessibility_theme_picker"))
             .onChange(of: appState.themePreference) { _, newValue in
                 familyViewModel.setThemePreference(newValue)
             }
@@ -417,6 +429,7 @@ struct SettingsView: View {
                 set: { familyViewModel.setTooltipsEnabled($0) }
             ))
             .tint(theme.secondary)
+            .accessibilityLabel(L.s("accessibility_tooltips_toggle"))
 
             if familyViewModel.tooltipsEnabled {
                 Button(L.settingsTooltipsReset) {
@@ -425,6 +438,7 @@ struct SettingsView: View {
                 .font(.subheadline)
                 .foregroundStyle(theme.primary)
                 .frame(maxWidth: .infinity, alignment: .trailing)
+                .accessibilityLabel(L.s("accessibility_tooltips_reset"))
             }
 
             Spacer().frame(height: 16)
@@ -436,6 +450,7 @@ struct SettingsView: View {
                 set: { appState.setPushNotificationsEnabled($0) }
             ))
             .tint(theme.secondary)
+            .accessibilityLabel(L.s("accessibility_push_toggle"))
         }
     }
 
@@ -460,6 +475,8 @@ struct SettingsView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(L.s("accessibility_donate_button"))
+            .accessibilityHint(L.s("accessibility_donate_hint"))
         }
         .padding(16)
         .background(
@@ -494,6 +511,7 @@ struct SettingsView: View {
                 }
                 .foregroundStyle(theme.onSurface)
                 .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .accessibilityLabel(L.s("accessibility_restart_tour"))
 
                 // Feedback
                 Button(action: { showFeedback = true }) {
@@ -506,6 +524,7 @@ struct SettingsView: View {
                 }
                 .foregroundStyle(theme.onSurface)
                 .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .accessibilityLabel(L.s("accessibility_feedback_button"))
 
                 // E-Mail Support
                 Button(action: {
@@ -526,6 +545,7 @@ struct SettingsView: View {
                 }
                 .foregroundStyle(theme.onSurface)
                 .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .accessibilityLabel(L.s("accessibility_email_support"))
             }
         }
     }
@@ -549,6 +569,7 @@ struct SettingsView: View {
             }
             .foregroundStyle(theme.error)
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.error.opacity(0.6), lineWidth: 1))
+            .accessibilityLabel(L.s("accessibility_logout"))
 
             // Delete Account Info
             if let deleteUrl = URL(string: L.settingsDeleteAccountUrl) {
@@ -562,6 +583,7 @@ struct SettingsView: View {
                 }
                 .foregroundStyle(theme.onSurface.opacity(0.8))
                 .padding(.top, 12)
+                .accessibilityLabel(L.s("accessibility_delete_account"))
             }
         }
     }
@@ -586,6 +608,7 @@ struct SettingsView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(BounceButtonStyle())
+            .accessibilityLabel(L.s("accessibility_test_alarm"))
         }
     }
 

@@ -341,6 +341,94 @@
 "accessibility_selected" = ", ausgewählt";
 "accessibility_add_member_hint" = "Neues Familienmitglied hinzufügen";
 
+// Accessibility – MainView
+"accessibility_settings_button" = "Einstellungen";
+"accessibility_share_family" = "Familie teilen";
+"accessibility_snooze_cancel" = "Snooze abbrechen";
+"accessibility_snooze_cancel_hint" = "Beendet den aktiven Snooze sofort";
+"accessibility_no_profile_warning" = "Kein Profil ausgewählt";
+"accessibility_no_profile_hint" = "Öffnet die Einstellungen zur Profilwahl";
+"accessibility_error_dismiss" = "Fehlermeldung schließen";
+"accessibility_error_open_settings" = "Systemeinstellungen öffnen";
+
+// Accessibility – SettingsView
+"accessibility_close_button" = "Schließen";
+"accessibility_profile_picker" = "Profil auswählen";
+"accessibility_profile_picker_hint" = "Öffnet die Profilauswahl";
+"accessibility_sound_picker" = "Weckton auswählen";
+"accessibility_sound_picker_hint" = "Öffnet die Wecktonauswahl";
+"accessibility_link_account" = "Konto verknüpfen";
+"accessibility_link_account_hint" = "Anonymes Konto mit E-Mail verbinden";
+"accessibility_share_code" = "Einladungscode teilen";
+"accessibility_leave_family" = "Familie verlassen";
+"accessibility_delete_family" = "Familie löschen";
+"accessibility_language_picker" = "Sprache auswählen";
+"accessibility_theme_picker" = "Erscheinungsbild wählen";
+"accessibility_tooltips_toggle" = "Tooltips ein-/ausschalten";
+"accessibility_tooltips_reset" = "Alle Tooltips zurücksetzen";
+"accessibility_push_toggle" = "Push-Benachrichtigungen ein-/ausschalten";
+"accessibility_donate_button" = "Spenden";
+"accessibility_donate_hint" = "Öffnet die Spendenoptionen";
+"accessibility_restart_tour" = "Tour neu starten";
+"accessibility_feedback_button" = "Feedback senden";
+"accessibility_email_support" = "E-Mail-Support";
+"accessibility_logout" = "Abmelden";
+"accessibility_delete_account" = "Konto löschen";
+"accessibility_test_alarm" = "Test-Alarm auslösen";
+
+// Accessibility – AddEditMemberView
+"accessibility_member_name" = "Name des Mitglieds";
+"accessibility_weekday_chip" = "%@, Tagesprofil";
+"accessibility_weekday_active" = "%@, aktiv";
+"accessibility_weekday_inactive" = "%@, inaktiv";
+"accessibility_copy_to_days" = "Profil auf andere Tage kopieren";
+"accessibility_day_active_toggle" = "Tag aktiv/inaktiv schalten";
+"accessibility_simple_mode_toggle" = "Einfacher Modus ein-/ausschalten";
+"accessibility_earliest_wake" = "Früheste Weckzeit";
+"accessibility_latest_wake" = "Späteste Weckzeit";
+"accessibility_bathroom_minus" = "Baddauer verringern";
+"accessibility_bathroom_plus" = "Baddauer erhöhen";
+"accessibility_buffer_minus" = "Puffer verringern";
+"accessibility_buffer_plus" = "Puffer erhöhen";
+"accessibility_breakfast_toggle" = "Frühstück ein-/ausschalten";
+"accessibility_leave_time" = "Abfahrtszeit";
+"accessibility_save_member" = "Mitglied speichern";
+"accessibility_discard_changes" = "Änderungen verwerfen";
+
+// Accessibility – FamilySetupView
+"accessibility_create_join_picker" = "Erstellen oder Beitreten wählen";
+"accessibility_family_name_field" = "Familienname eingeben";
+"accessibility_create_family" = "Familie erstellen";
+"accessibility_join_code_field" = "Beitrittscode eingeben";
+"accessibility_join_family" = "Familie beitreten";
+"accessibility_setup_logout" = "Abmelden";
+
+// Accessibility – LoginView
+"accessibility_login_close" = "Login schließen";
+"accessibility_email_field" = "E-Mail-Adresse";
+"accessibility_password_field" = "Passwort";
+"accessibility_toggle_password" = "Passwort anzeigen/verbergen";
+"accessibility_login_button" = "Anmelden";
+"accessibility_register_button" = "Registrieren";
+"accessibility_forgot_password" = "Passwort vergessen";
+"accessibility_toggle_mode" = "Zwischen Anmelden und Registrieren wechseln";
+"accessibility_apple_signin" = "Mit Apple anmelden";
+"accessibility_google_signin" = "Mit Google anmelden";
+"accessibility_verify_email" = "E-Mail bestätigen";
+"accessibility_resend_email" = "Bestätigungsmail erneut senden";
+
+// Accessibility – RingingView
+"accessibility_alarm_stop" = "Wecker stoppen";
+"accessibility_alarm_stop_hint" = "Stoppt den Alarm und schließt den Wecker";
+"accessibility_alarm_snooze" = "Snooze";
+"accessibility_alarm_snooze_hint" = "Pausiert den Alarm für einige Minuten";
+"accessibility_alarm_ok" = "Begrüßung bestätigen";
+
+// Accessibility – ScheduleSection
+"accessibility_schedule_card" = "%@ um %@, Bad %@ bis %@";
+"accessibility_drag_handle" = "Reihenfolge per Drag ändern";
+"accessibility_autofix" = "Zeitplan automatisch korrigieren";
+
 // MARK: - Sound-Namen
 "sound_name_standard" = "Standard (Panda)";
 "sound_name_gentle_chime" = "Sanftes Glockenspiel";

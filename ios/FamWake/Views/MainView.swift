@@ -172,6 +172,7 @@ struct MainView: View {
                             Image(systemName: "gearshape.fill")
                                 .foregroundStyle(theme.onSurface)
                         }
+                        .accessibilityLabel(L.s("accessibility_settings_button"))
                     }
                 }
             }
@@ -295,6 +296,8 @@ struct MainView: View {
                 }
                 .font(.caption)
                 .foregroundStyle(colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
+                .accessibilityLabel(L.s("accessibility_snooze_cancel"))
+                .accessibilityHint(L.s("accessibility_snooze_cancel_hint"))
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
@@ -337,6 +340,8 @@ struct MainView: View {
                 .padding(.bottom, 12)
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(L.s("accessibility_no_profile_warning"))
+            .accessibilityHint(L.s("accessibility_no_profile_hint"))
         }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
@@ -371,6 +376,7 @@ struct MainView: View {
                                 }
                                 .foregroundStyle(theme.onErrorContainer)
                             }
+                            .accessibilityLabel(L.s("accessibility_error_open_settings"))
                             .padding(.top, 4)
                         }
                     }
@@ -380,6 +386,7 @@ struct MainView: View {
                         Image(systemName: "xmark")
                             .foregroundStyle(theme.onErrorContainer)
                     }
+                    .accessibilityLabel(L.s("accessibility_error_dismiss"))
                 }
                 
                 if error == L.errorFamilyNotFound {

@@ -114,6 +114,7 @@ struct ScheduleSection: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                             .buttonStyle(BounceButtonStyle())
+                            .accessibilityLabel(L.s("accessibility_autofix"))
                             .padding(.leading, 28)
                         }
                         .padding()
@@ -373,6 +374,7 @@ struct ScheduleSection: View {
             Image(systemName: "line.3.horizontal")
                 .foregroundStyle(theme.outline.opacity(0.6))
                 .font(.title3)
+                .accessibilityLabel(L.s("accessibility_drag_handle"))
         }
         .padding()
         .background(
@@ -385,5 +387,7 @@ struct ScheduleSection: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .stroke(isMe ? theme.primary.opacity(0.5) : Color.clear, lineWidth: 1.5)
         )
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(L.s("accessibility_schedule_card", sched.member.name, sched.wakeUpTime.formatted(), sched.bathroomStart.formatted(), sched.bathroomEnd.formatted()))
     }
 }

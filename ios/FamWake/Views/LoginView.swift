@@ -48,6 +48,7 @@ struct LoginView: View {
                             .foregroundStyle(theme.primary)
                     }
                     .buttonStyle(.borderless)
+                    .accessibilityLabel(L.s("accessibility_login_close"))
                     
                     Spacer()
                     
@@ -76,6 +77,7 @@ struct LoginView: View {
                             RoundedRectangle(cornerRadius: 12)
                                 .stroke(theme.outline.opacity(0.2), lineWidth: 1)
                         )
+                        .accessibilityLabel(L.s("accessibility_email_field"))
 
                     // Password Field
                     HStack {
@@ -95,6 +97,7 @@ struct LoginView: View {
                             Image(systemName: passwordVisible ? "eye.slash.fill" : "eye.fill")
                                 .foregroundStyle(.secondary)
                         }
+                        .accessibilityLabel(L.s("accessibility_toggle_password"))
                     }
                     .padding(14)
                     .background(Color(.secondarySystemBackground))
@@ -158,6 +161,7 @@ struct LoginView: View {
         .buttonStyle(BounceButtonStyle())
         .disabled(email.isEmpty || password.isEmpty)
         .opacity((email.isEmpty || password.isEmpty) ? 0.5 : 1.0)
+        .accessibilityLabel(isRegistering ? L.s("accessibility_register_button") : L.s("accessibility_login_button"))
 
         // Registration disclaimer with legal links
         if isRegistering {
@@ -171,6 +175,7 @@ struct LoginView: View {
             }
             .font(.footnote)
             .foregroundStyle(theme.primary)
+            .accessibilityLabel(L.s("accessibility_forgot_password"))
         }
 
         // Toggle Login / Register
@@ -184,6 +189,7 @@ struct LoginView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(BounceButtonStyle())
+        .accessibilityLabel(L.s("accessibility_toggle_mode"))
 
         // Apple Sign-In (Custom programmatic button)
         Button(action: { authViewModel.startAppleSignIn() }) {
@@ -204,6 +210,7 @@ struct LoginView: View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(L.s("accessibility_apple_signin"))
 
         // Google Sign-In (matches Android LoginScreen Google button)
         Button(action: { authViewModel.signInWithGoogle() }) {
@@ -226,6 +233,7 @@ struct LoginView: View {
             )
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(L.s("accessibility_google_signin"))
 
         // Error display
         if case .error(let msg) = authViewModel.authState {
@@ -272,12 +280,14 @@ struct LoginView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(BounceButtonStyle())
+            .accessibilityLabel(L.s("accessibility_verify_email"))
 
             Button(L.loginVerifyEmailResend) {
                 authViewModel.resendVerificationEmail()
             }
             .font(.footnote)
             .foregroundStyle(theme.primary)
+            .accessibilityLabel(L.s("accessibility_resend_email"))
 
             Button(L.cancelButton) {
                 authViewModel.logout()

@@ -41,6 +41,7 @@ struct FamilySetupView: View {
                         Text(L.setupJoinTab).tag(false)
                     }
                     .pickerStyle(.segmented)
+                    .accessibilityLabel(L.s("accessibility_create_join_picker"))
                     .padding(.bottom, 24)
 
 
@@ -50,6 +51,7 @@ struct FamilySetupView: View {
                         VStack(spacing: 16) {
                             TextField(L.setupFamilyName, text: $familyName)
                                 .textFieldStyle(.roundedBorder)
+                                .accessibilityLabel(L.s("accessibility_family_name_field"))
 
                             Button(action: {
                                 isLoading = true
@@ -69,12 +71,14 @@ struct FamilySetupView: View {
                             .buttonStyle(BounceButtonStyle())
                             .disabled(familyName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isLoading)
                             .opacity((familyName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isLoading) ? 0.5 : 1.0)
+                            .accessibilityLabel(L.s("accessibility_create_family"))
                         }
                     } else {
                         // Familie beitreten
                         VStack(spacing: 16) {
                             TextField(L.setupJoinCodeLabel, text: $joinCode)
                                 .textFieldStyle(.roundedBorder)
+                                .accessibilityLabel(L.s("accessibility_join_code_field"))
                                 .textCase(.uppercase)
                                 .textInputAutocapitalization(.characters)
                                 .autocorrectionDisabled()
@@ -101,6 +105,7 @@ struct FamilySetupView: View {
                             .buttonStyle(BounceButtonStyle())
                             .disabled(joinCode.count != 6 || isLoading)
                             .opacity((joinCode.count != 6 || isLoading) ? 0.5 : 1.0)
+                            .accessibilityLabel(L.s("accessibility_join_family"))
                         }
                     }
 
@@ -128,6 +133,7 @@ struct FamilySetupView: View {
                     authViewModel.logout()
                 }
                 .foregroundStyle(theme.error)
+                .accessibilityLabel(L.s("accessibility_setup_logout"))
                 .padding(.bottom, 32)
             }
         }
