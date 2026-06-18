@@ -39,7 +39,9 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 | TC-34 | Snooze abbrechen | „Abbrechen" im Banner → Snooze-State reset, Plan neu berechnet, Sync auf alle Geräte. |
 | TC-35 | Ghost-Alarm-Schutz | Kein Wecker wenn globaler Schalter OFF, wenn eigener Member pausiert wird (bei aktiven anderen), nach Neustart oder Mitglieder-Bearbeitung. |
 | TC-35b | Snooze-Reset Folgetag | Nach 2× Snooze gestern: Snooze-Button heute wieder aktiv (Count automatisch zurückgesetzt). |
+| TC-35c | Lock-Screen Snooze | Snooze-Button auf AlarmKit-Sperrbildschirm: Alarm stoppt, neuer Alarm in 5 Min geplant, Banner erscheint. |
 | TC-36 | „Ich bin wach" | Stoppt Wecker, Button bleibt am Weckertag sichtbar (oder 4h vorher). Reset am Folgetag. |
+| TC-37 | Snooze nach Reboot | Gerät neustarten während Snooze aktiv → Snooze-Alarm wird aus AlarmBackupPrefs wiederhergestellt. |
 
 ### 4. Sync & Benachrichtigungen
 | ID | Testfall | Erwartetes Ergebnis |
@@ -58,6 +60,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 | EC-02 | Offline-Betrieb | CloudOff-Icon (inkl. Firestore Cache Status). Kein Absturz. Re-Sync nach Reconnect. Optimistic UI mit Rollback. |
 | EC-03 | Backend-Schutz | Zugriff auf fremde Profile → PERMISSION_DENIED. |
 | EC-04 | Bildschirm-Timeout | Bildschirm bleibt nur im aktiven Vordergrund wach, nicht in Sheets oder im Hintergrund. |
+| EC-05 | Dynamic Type | Große Systemschrift (Accessibility): Buttons und Chips skalieren mit, kein Clipping. |
 
 ---
 
@@ -65,9 +68,11 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| UI-01 | Layout | Tastatur verdeckt keine Buttons. Tablet-Hochformat. |
+| UI-01 | Layout | Tastatur verdeckt keine Buttons. Tablet-Hochformat. iPhone SE Weekday-Chips scrollbar. |
 | UI-02 | Sprachen & Themes | 25 Sprachen absturzfrei. Dark/Light sofort. |
 | UI-03 | Fehlerhinweise | Sync-Fehler (Reihenfolge, Pause, Snooze, Puffer) → verständliche Meldung. |
+| UI-04 | Barrierefreiheit | VoiceOver (iOS) / TalkBack (Android): alle Buttons, Toggles, Picker mit Label. Initialen-Avatare lesbar. |
+| UI-05 | Initialen-Avatare | Farbiger Kreis mit 2 Buchstaben pro Mitglied. Deterministische Farbe basierend auf Name. |
 
 ---
 
