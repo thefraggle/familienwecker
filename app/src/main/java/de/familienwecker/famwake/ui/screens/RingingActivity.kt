@@ -47,7 +47,7 @@ import de.familienwecker.famwake.R
 import androidx.core.net.toUri
 import com.telemetrydeck.sdk.TelemetryDeck
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.MainScope
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 class RingingActivity : AppCompatActivity() {
@@ -99,10 +99,10 @@ class RingingActivity : AppCompatActivity() {
                             // Firestore: Snooze-State zurücksetzen (best-effort)
                             val familyId = appSettings.familyId.value
                             if (familyId != null) {
-                                MainScope().launch {
+                            lifecycleScope.launch {
                                     try {
                                         FirebaseRepository().updateMemberSnoozeState(familyId, memberId, null, 0)
-                                    } catch (_: CancellationException) { throw CancellationException() }
+                                    } catch (e: CancellationException) { throw e }
                                     catch (_: Exception) { /* best-effort */ }
                                 }
                             }
@@ -144,13 +144,13 @@ class RingingActivity : AppCompatActivity() {
                             // Firestore-Sync (best-effort, non-blocking)
                             val familyId = appSettings.familyId.value
                             if (familyId != null) {
-                                MainScope().launch {
+                                lifecycleScope.launch {
                                     try {
                                         FirebaseRepository().updateMemberSnoozeState(
                                             familyId, memberId,
                                             snoozeTime.toKmpLocalDateTime(), newCount
                                         )
-                                    } catch (_: CancellationException) { throw CancellationException() }
+                                    } catch (e: CancellationException) { throw e }
                                     catch (_: Exception) { /* best-effort */ }
                                 }
                             }
