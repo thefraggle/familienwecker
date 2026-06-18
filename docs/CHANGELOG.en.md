@@ -12,7 +12,7 @@
 - **Snooze Limit: Gentle Wake-Up** – After the last allowed snooze, a good-morning greeting appears instead of an error message. A lock screen notification also explains why the alarm stopped ringing.
 - **Night Shift Compatibility** – Wake-up times past midnight (e.g., wake at 22:00, leave home at 00:15) are now correctly recognized instead of being falsely rejected as errors.
 - **Reliable Snooze Sync** – Snooze times now update immediately and reliably across all devices.
-- **No More Ghost Alarms** – The alarm no longer rings at the old time when you set a new time or briefly toggle the alarm off and on. Not even after a restart or from the background.
+- **No More Ghost Alarms** – The alarm no longer rings at the old time when you set a new time, toggle the alarm off and on, or pause a family member. Not even after a restart or from the background.
 - **Snooze Limit (max 2×)** – After two snoozes, that's it – keeping the family schedule on track. The banner counter now always shows the correct count.
 - **Push Notifications Respect the Toggle** – When you turn off push notifications in settings, no more notifications come through – not even for snooze or schedule changes.
 - **More Stable Alarms** – Fixed rare crashes caused by unsafe value access in member editing and alarm scheduling.
