@@ -99,6 +99,9 @@ struct RingingView: View {
     
                         // Snooze – Glasmorphism
                         Button(action: {
+                            #if DEBUG
+                            print("[RingingView] Snooze tapped! snoozeCount=\(snoozeCount), maxSnooze=\(SnoozeConfig.maxSnoozeCount)")
+                            #endif
                             TelemetryManager.send("alarm.snoozed")
                             AlarmService.shared.stopAlarm()
                             onSnooze()
@@ -118,8 +121,9 @@ struct RingingView: View {
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color.white.opacity(0.3), lineWidth: 1)
                             )
+                            .contentShape(Rectangle())
                         }
-                        .buttonStyle(BounceButtonStyle())
+                        .buttonStyle(.plain)
                         .disabled(snoozeCount >= SnoozeConfig.maxSnoozeCount)
                         .opacity(snoozeCount >= SnoozeConfig.maxSnoozeCount ? 0.5 : 1.0)
                     }
