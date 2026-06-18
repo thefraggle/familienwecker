@@ -341,6 +341,94 @@
 "accessibility_selected" = ", selected";
 "accessibility_add_member_hint" = "Add new family member";
 
+// Accessibility – MainView
+"accessibility_settings_button" = "Settings";
+"accessibility_share_family" = "Share family";
+"accessibility_snooze_cancel" = "Cancel snooze";
+"accessibility_snooze_cancel_hint" = "Cancels the active snooze immediately";
+"accessibility_no_profile_warning" = "No profile selected";
+"accessibility_no_profile_hint" = "Opens settings for profile selection";
+"accessibility_error_dismiss" = "Dismiss error";
+"accessibility_error_open_settings" = "Open system settings";
+
+// Accessibility – SettingsView
+"accessibility_close_button" = "Close";
+"accessibility_profile_picker" = "Select profile";
+"accessibility_profile_picker_hint" = "Opens profile selection";
+"accessibility_sound_picker" = "Select alarm sound";
+"accessibility_sound_picker_hint" = "Opens alarm sound picker";
+"accessibility_link_account" = "Link account";
+"accessibility_link_account_hint" = "Link anonymous account with email";
+"accessibility_share_code" = "Share invite code";
+"accessibility_leave_family" = "Leave family";
+"accessibility_delete_family" = "Delete family";
+"accessibility_language_picker" = "Select language";
+"accessibility_theme_picker" = "Choose appearance";
+"accessibility_tooltips_toggle" = "Toggle tooltips";
+"accessibility_tooltips_reset" = "Reset all tooltips";
+"accessibility_push_toggle" = "Toggle push notifications";
+"accessibility_donate_button" = "Donate";
+"accessibility_donate_hint" = "Opens donation options";
+"accessibility_restart_tour" = "Restart tour";
+"accessibility_feedback_button" = "Send feedback";
+"accessibility_email_support" = "Email support";
+"accessibility_logout" = "Sign out";
+"accessibility_delete_account" = "Delete account";
+"accessibility_test_alarm" = "Trigger test alarm";
+
+// Accessibility – AddEditMemberView
+"accessibility_member_name" = "Member name";
+"accessibility_weekday_chip" = "%@, day profile";
+"accessibility_weekday_active" = "%@, active";
+"accessibility_weekday_inactive" = "%@, inactive";
+"accessibility_copy_to_days" = "Copy profile to other days";
+"accessibility_day_active_toggle" = "Toggle day active/inactive";
+"accessibility_simple_mode_toggle" = "Toggle simple mode";
+"accessibility_earliest_wake" = "Earliest wake time";
+"accessibility_latest_wake" = "Latest wake time";
+"accessibility_bathroom_minus" = "Decrease bathroom duration";
+"accessibility_bathroom_plus" = "Increase bathroom duration";
+"accessibility_buffer_minus" = "Decrease buffer";
+"accessibility_buffer_plus" = "Increase buffer";
+"accessibility_breakfast_toggle" = "Toggle breakfast";
+"accessibility_leave_time" = "Leave home time";
+"accessibility_save_member" = "Save member";
+"accessibility_discard_changes" = "Discard changes";
+
+// Accessibility – FamilySetupView
+"accessibility_create_join_picker" = "Choose create or join";
+"accessibility_family_name_field" = "Enter family name";
+"accessibility_create_family" = "Create family";
+"accessibility_join_code_field" = "Enter join code";
+"accessibility_join_family" = "Join family";
+"accessibility_setup_logout" = "Sign out";
+
+// Accessibility – LoginView
+"accessibility_login_close" = "Close login";
+"accessibility_email_field" = "Email address";
+"accessibility_password_field" = "Password";
+"accessibility_toggle_password" = "Show/hide password";
+"accessibility_login_button" = "Sign in";
+"accessibility_register_button" = "Register";
+"accessibility_forgot_password" = "Forgot password";
+"accessibility_toggle_mode" = "Switch between sign in and register";
+"accessibility_apple_signin" = "Sign in with Apple";
+"accessibility_google_signin" = "Sign in with Google";
+"accessibility_verify_email" = "Verify email";
+"accessibility_resend_email" = "Resend verification email";
+
+// Accessibility – RingingView
+"accessibility_alarm_stop" = "Stop alarm";
+"accessibility_alarm_stop_hint" = "Stops the alarm and closes the ringing screen";
+"accessibility_alarm_snooze" = "Snooze";
+"accessibility_alarm_snooze_hint" = "Pauses the alarm for a few minutes";
+"accessibility_alarm_ok" = "Confirm greeting";
+
+// Accessibility – ScheduleSection
+"accessibility_schedule_card" = "%@ at %@, bathroom %@ to %@";
+"accessibility_drag_handle" = "Change order by dragging";
+"accessibility_autofix" = "Auto-fix schedule";
+
 // MARK: - Sound Names
 "sound_name_standard" = "Standard (Panda)";
 "sound_name_gentle_chime" = "Gentle Chime";

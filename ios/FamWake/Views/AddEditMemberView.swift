@@ -91,6 +91,7 @@ struct AddEditMemberView: View {
                         // Name
                         TextField(L.addMemberNameLabel, text: $name)
                             .textFieldStyle(.roundedBorder)
+                            .accessibilityLabel(L.s("accessibility_member_name"))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(showNameError ? theme.error : Color.clear, lineWidth: 2)
@@ -140,6 +141,7 @@ struct AddEditMemberView: View {
                             .foregroundStyle(theme.primary)
                             .padding(.vertical, 4)
                         }
+                        .accessibilityLabel(L.s("accessibility_copy_to_days"))
 
                         // DayProfile für selectedDay
                         let profile = dayProfiles[selectedDay] ?? DayProfile()
@@ -190,6 +192,7 @@ struct AddEditMemberView: View {
                     .buttonStyle(BounceButtonStyle())
                     .disabled(isSaveDisabled)
                     .opacity(isSaveDisabled ? 0.5 : 1.0)
+                    .accessibilityLabel(L.s("accessibility_save_member"))
                     .padding(16)
                     .background(
                         LinearGradient(
@@ -213,6 +216,7 @@ struct AddEditMemberView: View {
                     }
                     .buttonStyle(.borderless)
                     .foregroundStyle(theme.primary)
+                    .accessibilityLabel(L.s("accessibility_discard_changes"))
                 }
             }
             .alert(L.unsavedChangesTitle, isPresented: $showDiscardAlert) {
@@ -261,6 +265,7 @@ struct AddEditMemberView: View {
                         .stroke(hasError ? theme.error : Color.clear, lineWidth: 1)
                 )
         }
+        .accessibilityLabel(isActive ? L.s("accessibility_weekday_active", L.weekday(day)) : L.s("accessibility_weekday_inactive", L.weekday(day)))
     }
 
     private func chipBgColor(isSelected: Bool, isActive: Bool, hasError: Bool) -> Color {
@@ -376,6 +381,7 @@ private struct DayProfileCard: View {
                         set: { onChange(profile.withActive($0)) }
                     ))
                     .labelsHidden()
+                    .accessibilityLabel(L.s("accessibility_day_active_toggle"))
                 }
             }
 
@@ -395,6 +401,7 @@ private struct DayProfileCard: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+                .accessibilityLabel(L.s("accessibility_simple_mode_toggle"))
 
                 Divider()
 
@@ -457,6 +464,7 @@ private struct DayProfileCard: View {
                             } label: {
                                 Image(systemName: "minus.circle.fill").font(.title2).foregroundStyle(theme.primary)
                             }
+                            .accessibilityLabel(L.s("accessibility_bathroom_minus"))
                             Text(L.minutesSuffix(profile.bathroomDurationMinutes))
                                 .font(.headline).fontWeight(.semibold)
                                 .frame(minWidth: 64)
@@ -468,6 +476,7 @@ private struct DayProfileCard: View {
                             } label: {
                                 Image(systemName: "plus.circle.fill").font(.title2).foregroundStyle(theme.primary)
                             }
+                            .accessibilityLabel(L.s("accessibility_bathroom_plus"))
                         }
                     }
 
@@ -498,6 +507,7 @@ private struct DayProfileCard: View {
                                     .foregroundStyle(effectiveValue > 0 ? theme.primary : Color.gray.opacity(0.5))
                             }
                             .disabled(effectiveValue <= 0)
+                            .accessibilityLabel(L.s("accessibility_buffer_minus"))
                             
                             let isOverride = profile.bufferMinutes != nil && profile.bufferMinutes != globalBufferMinutes
                             Text("\(effectiveValue) min")
@@ -520,6 +530,7 @@ private struct DayProfileCard: View {
                                     .foregroundStyle(effectiveValue < 15 ? theme.primary : Color.gray.opacity(0.5))
                             }
                             .disabled(effectiveValue >= 15)
+                            .accessibilityLabel(L.s("accessibility_buffer_plus"))
                         }
                     }
                     
@@ -533,6 +544,7 @@ private struct DayProfileCard: View {
                         get: { profile.wantsBreakfast },
                         set: { onChange(profile.withBreakfast($0)) }
                     ))
+                    .accessibilityLabel(L.s("accessibility_breakfast_toggle"))
 
                     // Abfahrtszeit – Mitternachts-Wraparound analog zu validateDayProfile()
                     let inlineLeaveT = (profile.leaveHomeTime?.hour ?? 8) * 60 + (profile.leaveHomeTime?.minute ?? 0)
@@ -583,6 +595,7 @@ private struct DatePickerRow: View {
             DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
                 .labelsHidden()
                 .accentColor(isError ? .red : theme.primary)
+                .accessibilityLabel(label)
         }
     }
 }
