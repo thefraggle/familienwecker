@@ -125,7 +125,12 @@ internal fun FamilyViewModel.addOrUpdateMemberDebounced(member: FamilyMember, on
 }
 
 fun FamilyViewModel.removeMember(id: String) {
-    checkOfflineAndHint()
+    // M8: Offline-Guard – Löschen ist destruktiv und darf nicht offline gepuffert werden,
+    // da der lokale Zustand sonst inkonsistent mit Firestore wird.
+    if (_isOffline.value) {
+        _errorMessage.value = UiText.StringResource(R.string.error_offline)
+        return
+    }
     val currentFamilyId = familyId.value ?: return
     alarmScheduler.cancelWakeUp(id)
     TelemetryDeck.signal("member.deleted")
