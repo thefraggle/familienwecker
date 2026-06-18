@@ -881,10 +881,16 @@ private fun DayProfileCard(
                             onDismiss = onDismissTooltipBuffer
                         )
 
-                        // Abfahrtszeit
+                        // Abfahrtszeit – Mitternachts-Wraparound analog zu validateDayProfile()
                         val effectiveLeaveTime = profile.leaveHomeTime?.toJavaLocalTime() ?: java.time.LocalTime.of(8, 0)
-                        val leaveTooEarlyError =
-                            effectiveLeaveTime.isBefore(profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes))
+                        val inlineEarliest = profile.earliestWakeUp.toJavaLocalTime()
+                        val inlineEarliestMin = inlineEarliest.hour * 60 + inlineEarliest.minute
+                        val inlineBathEnd = profile.latestWakeUp.toJavaLocalTime().plusMinutes(profile.bathroomDurationMinutes)
+                        var inlineLeaveMin = effectiveLeaveTime.hour * 60 + effectiveLeaveTime.minute
+                        var inlineBathEndMin = inlineBathEnd.hour * 60 + inlineBathEnd.minute
+                        if (inlineLeaveMin < inlineEarliestMin) inlineLeaveMin += 24 * 60
+                        if (inlineBathEndMin < inlineEarliestMin) inlineBathEndMin += 24 * 60
+                        val leaveTooEarlyError = inlineLeaveMin < inlineBathEndMin
 
                         TimePickerRowWithIcon(
                             icon = Icons.AutoMirrored.Filled.DirectionsRun,
