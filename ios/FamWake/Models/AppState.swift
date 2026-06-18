@@ -82,8 +82,9 @@ class AppState: ObservableObject {
             }
             MessagingService.shared.refreshAndSaveToken()
         } else {
-            // Wenn Push deaktiviert wird, löschen wir das Token aus Firestore
-            MessagingService.shared.deleteTokenOnLogout()
+            // Wenn Push deaktiviert wird, Token aus Firestore löschen
+            // (lokaler Token bleibt – bei Toggle-ON sofort wieder registrierbar)
+            MessagingService.shared.deleteToken()
         }
     }
 
