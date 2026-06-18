@@ -2,19 +2,25 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 2.0.0 – 2026-06-17
+## 2.0.0 – 2026-06-18
 ### Neu
 - **Familien-Snooze-Sync** – Wenn ein Familienmitglied snoozt, wird der Weckplan aller anderen automatisch live angepasst. So verschläft niemand, nur weil jemand anderes länger braucht.
 - **Snooze-Zähler im Weckplan** – Im Snooze-Banner auf dem Hauptbildschirm siehst du jetzt auf einen Blick, beim wievielten Snooze du bist (z. B. 1/2).
 - **Snooze-Indikator 💤** – Im Weckplan wird mit einem 💤-Symbol angezeigt, welches Familienmitglied gerade snoozt.
 
 ### Verbessert
+- **Snooze-Maximum: sanftes Aufwachen** – Nach dem letzten erlaubten Snooze erscheint eine Guten-Morgen-Begrüßung statt einer Fehlermeldung. Gleichzeitig informiert eine Benachrichtigung auf dem Sperrbildschirm, warum der Wecker aufgehört hat zu klingeln.
+- **Nachtschicht-Kompatibilität** – Weckzeiten nach Mitternacht (z. B. Aufstehen 22:00, Haus verlassen 00:15) werden jetzt korrekt erkannt, statt fälschlich als Fehler abgelehnt zu werden.
 - **Zuverlässiger Snooze-Sync** – Beim Snoozen werden die neuen Zeiten jetzt sofort und zuverlässig auf allen Geräten angezeigt.
 - **Kein Geisterwecker mehr** – Der Wecker klingelt nicht mehr zur alten Zeit, wenn du eine neue Zeit einstellst oder den Alarm kurz aus- und einschaltest. Auch nicht nach einem Neustart oder aus dem Hintergrund heraus.
 - **Snooze-Limit (max. 2×)** – Nach zwei Mal Snoozen ist Schluss – damit der Familienplan nicht aus dem Ruder läuft. Der Zähler im Banner zeigt jetzt immer den korrekten Stand.
 - **Push-Benachrichtigungen respektieren den Schalter** – Wenn du Push-Benachrichtigungen in den Einstellungen ausschaltest, kommen jetzt wirklich keine Mitteilungen mehr an – auch nicht bei Snooze oder Planänderungen.
 - **Stabileres Wecken** – Seltene Abstürze durch unsichere Wertezugriffe in der Mitglieder-Bearbeitung und beim Alarm-Scheduling wurden behoben.
-- **Bessere Fehlerhinweise** – Bei Problemen mit der Synchronisierung (z. B. Reihenfolge speichern, Pausieren) bekommst du jetzt eine verständliche Rückmeldung statt stiller Fehler.
+- **Bessere Fehlerhinweise** – Bei Problemen mit der Synchronisierung (z. B. Reihenfolge speichern, Pausieren, Puffer ändern) bekommst du jetzt eine verständliche Rückmeldung statt stiller Fehler.
+- **Offline-Schutz** – Das Löschen von Mitgliedern ist ohne Internetverbindung nicht mehr möglich, um Datenverlust zu vermeiden.
+- **Warnung bei Reihenfolge-Reset** – Wenn du die Reihenfolge auf „ganze Woche" umstellst und dabei tagesspezifische Einstellungen verloren gehen würden, wirst du jetzt darauf hingewiesen.
+- **Hinweis für Gast-Accounts** – Nutzer ohne registriertes Konto sehen jetzt einen deutlichen Hinweis, sich zu registrieren, um ihre Daten nicht zu verlieren.
+- **Bildschirm-Timeout intelligent gesteuert** – Der Bildschirm bleibt nur noch wach, solange die App aktiv im Vordergrund ist – nicht mehr versehentlich im Hintergrund.
 
 ## 1.9.17 – 2026-06-03
 ### Verbessert
