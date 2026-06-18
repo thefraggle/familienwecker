@@ -133,7 +133,7 @@ struct MainView: View {
                                     .animation(.spring(response: 0.3, dampingFraction: 0.7), value: familyViewModel.members.isEmpty)
                                 }
                                 .accessibilityLabel(L.addMemberTitleAdd)
-                                .accessibilityHint("Neues Familienmitglied hinzufügen")
+                                .accessibilityHint(L.s("accessibility_add_member_hint"))
                             }
                         }
                     }
