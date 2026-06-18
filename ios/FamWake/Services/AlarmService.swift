@@ -85,6 +85,12 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             return .result()
         }
 
+        // Neuer Alarm-Zyklus: Wenn kein aktiver Snooze läuft, ist dies der erste Snooze
+        // des Tages → Count zurücksetzen (verhindert stuck disabled-Button vom Vortag).
+        let snoozeUntilTs = UserDefaults.standard.double(forKey: "snooze_until")
+        if snoozeUntilTs == 0 || snoozeUntilTs < Date().timeIntervalSince1970 {
+            UserDefaults.standard.set(0, forKey: "snooze_count")
+        }
 
         // Snooze-Count prüfen (Max aus SnoozeConfig)
         let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
