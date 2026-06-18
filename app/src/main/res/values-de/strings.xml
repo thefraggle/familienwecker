@@ -362,4 +362,14 @@
     <string name="notif_snooze_shift_title">Weckzeit verschoben</string>
     <string name="notif_snooze_shift_body">%1$s braucht länger. Dein Wecker klingelt jetzt um %2$s</string>
     <string name="schedule_you_badge">Du</string>
+
+    <!-- M11: Warnung bei Überschreitung des Member-Limits -->
+    <string name="schedule_message_member_limit">Du hast %1$d aktive Mitglieder, aber nur %2$d werden im Zeitplan berücksichtigt.</string>
+
+    <!-- M14: Brand-Prefix für Bold-Splitting im Titel -->
+    <string name="app_name_brand_prefix">FamWake</string>
+
+    <!-- M18: Hinweis für anonyme User auf FamilySetupScreen -->
+    <string name="anonymous_warning_title">⚠️ Du bist nicht angemeldet!</string>
+    <string name="anonymous_warning_desc">Du nutzt ein Gastkonto. Deine Daten könnten verloren gehen, wenn du die App neu installierst. Bitte registriere dich, um deine Familieneinstellungen zu behalten.</string>
 </resources>

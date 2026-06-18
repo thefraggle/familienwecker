@@ -41,6 +41,10 @@ sealed class ScheduleMessage {
     @Serializable
     data class BufferReduced(val originalMinutes: Long, val reducedMinutes: Long) : ScheduleMessage()
 
+    /** M11: Mehr als 6 aktive Mitglieder – überschüssige werden ignoriert. */
+    @Serializable
+    data class MemberLimitExceeded(val total: Int, val limit: Int) : ScheduleMessage()
+
     /**
      * Kein aktiver Weckplan (Wecker ausgeschaltet oder alle Mitglieder herausgefiltert).
      * Ersetzt den ehemaligen Magic-String "no_active_schedule".
