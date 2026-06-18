@@ -27,7 +27,13 @@ struct KeychainHelper {
             kSecValueData as String: data,
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
         ]
-        SecItemAdd(addQuery as CFDictionary, nil)
+        // L11: Status prüfen und bei Fehler im Debug-Modus loggen
+        let status = SecItemAdd(addQuery as CFDictionary, nil)
+        #if DEBUG
+        if status != errSecSuccess {
+            print("[KeychainHelper] SecItemAdd fehlgeschlagen für key '\(key)': OSStatus \(status)")
+        }
+        #endif
     }
     
     /// Liest einen Wert aus der Keychain.
