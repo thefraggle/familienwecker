@@ -10,7 +10,12 @@ struct KeychainHelper {
     
     /// Speichert einen Wert in der Keychain.
     static func save(key: String, value: String) {
-        let data = value.data(using: .utf8)!
+        guard let data = value.data(using: .utf8) else {
+            #if DEBUG
+            print("[KeychainHelper] Failed to encode value for key '\(key)' to UTF-8")
+            #endif
+            return
+        }
         
         // Erst löschen (falls vorhanden), dann neu anlegen
         let deleteQuery: [String: Any] = [
