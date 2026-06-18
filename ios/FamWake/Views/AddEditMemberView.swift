@@ -523,10 +523,9 @@ private struct DayProfileCard: View {
                     // Abfahrtszeit – Mitternachts-Wraparound analog zu validateDayProfile()
                     let inlineLeaveT = (profile.leaveHomeTime?.hour ?? 8) * 60 + (profile.leaveHomeTime?.minute ?? 0)
                     let inlineEarliestT = (profile.earliestWakeUp.hour ?? 6) * 60 + (profile.earliestWakeUp.minute ?? 0)
-                    var inlineBathEnd = (profile.latestWakeUp.hour ?? 7) * 60 + (profile.latestWakeUp.minute ?? 30) + profile.bathroomDurationMinutes
-                    var inlineLeave = inlineLeaveT
-                    if inlineLeave < inlineEarliestT { inlineLeave += 24 * 60 }
-                    if inlineBathEnd < inlineEarliestT { inlineBathEnd += 24 * 60 }
+                    let inlineBathEndRaw = (profile.latestWakeUp.hour ?? 7) * 60 + (profile.latestWakeUp.minute ?? 30) + profile.bathroomDurationMinutes
+                    let inlineLeave = inlineLeaveT < inlineEarliestT ? inlineLeaveT + 24 * 60 : inlineLeaveT
+                    let inlineBathEnd = inlineBathEndRaw < inlineEarliestT ? inlineBathEndRaw + 24 * 60 : inlineBathEndRaw
                     let leaveError = inlineLeave < inlineBathEnd
                     VStack(alignment: .leading, spacing: 4) {
                         DatePickerRow(
