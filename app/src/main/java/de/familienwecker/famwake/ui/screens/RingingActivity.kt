@@ -71,6 +71,13 @@ class RingingActivity : AppCompatActivity() {
         // Tracking: Wecker wurde tatsächlich ausgelöst (getrennt von Snooze tracken)
         TelemetryDeck.signal("alarm.triggered")
 
+        // Auto-Timeout: Nach 10 Minuten ohne Interaktion automatisch beenden
+        lifecycleScope.launch {
+            kotlinx.coroutines.delay(10 * 60 * 1000L)
+            stopRingtoneAndLock()
+            finish()
+        }
+
         val appSettings = (application as FamWakeApplication).appSettings
         val alarmScheduler = de.familienwecker.famwake.alarm.AlarmScheduler(this)
         val currentSnoozeCount = appSettings.snoozeCount.value

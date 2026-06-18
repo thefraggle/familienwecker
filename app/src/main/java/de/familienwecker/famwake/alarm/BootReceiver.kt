@@ -50,9 +50,31 @@ class BootReceiver : BroadcastReceiver() {
             // Noch in der Zukunft – exakt diesen Termin wiederherstellen
             savedDateTime
         } else {
-            // Bereits vergangen – selbe Uhrzeit, nächster Tag
-            val nextDay = now.toLocalDate().plusDays(1)
-            LocalDateTime.of(nextDay, alarmTime)
+            // Bereits vergangen – prüfe wie lange her
+            val minutesMissed = java.time.Duration.between(savedDateTime, now).toMinutes()
+            if (minutesMissed <= 30) {
+                // Kurz verpasst → sofort klingeln (in 10 Sekunden)
+                now.plusSeconds(10)
+            } else {
+                // Zu lange her → Notification + nächster Tag
+                try {
+                    val channel = android.app.NotificationChannel(
+                        "missed_alarm", "Verpasste Wecker",
+                        android.app.NotificationManager.IMPORTANCE_HIGH
+                    )
+                    val nm = context.getSystemService(android.app.NotificationManager::class.java)
+                    nm.createNotificationChannel(channel)
+                    val notification = android.app.Notification.Builder(context, "missed_alarm")
+                        .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
+                        .setContentTitle(memberName.ifEmpty { "FamWake" })
+                        .setContentText("Wecker verpasst (${alarmTime.hour}:${"%02d".format(alarmTime.minute)})")
+                        .setAutoCancel(true)
+                        .build()
+                    nm.notify(9999, notification)
+                } catch (_: Exception) { /* Best-effort */ }
+                val nextDay = now.toLocalDate().plusDays(1)
+                LocalDateTime.of(nextDay, alarmTime)
+            }
         }
 
         val scheduler = AlarmScheduler(context)
