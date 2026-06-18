@@ -17,6 +17,9 @@ struct RingingView: View {
     @State private var isAnimating = false
     @State private var randomMessage: String = ""
 
+    // Dynamic Type: Button-Höhe skaliert mit Systemschriftgröße
+    @ScaledMetric(relativeTo: .headline) private var buttonHeight: CGFloat = 56
+
     // Lottie Platzhalter (TODO: echte Lottie-Integration)
     @State private var iconScale: CGFloat = 1.0
 
@@ -71,7 +74,7 @@ struct RingingView: View {
                             }
                             .foregroundStyle(Color.ringingPurpleDark)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 56)
+                            .frame(minHeight: buttonHeight)
                             .background(Color.white.opacity(0.92))
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
@@ -91,7 +94,7 @@ struct RingingView: View {
                             }
                             .foregroundStyle(Color.ringingPurpleDark)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 56)
+                            .frame(minHeight: buttonHeight)
                             .background(Color.white.opacity(0.92))
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
@@ -114,7 +117,7 @@ struct RingingView: View {
                             }
                             .foregroundStyle(.white)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 56)
+                            .frame(minHeight: buttonHeight)
                             .background(Color.white.opacity(0.18))
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
