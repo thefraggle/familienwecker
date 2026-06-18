@@ -271,7 +271,9 @@ private extension DateComponents {
 
     func subtracting(minutes: Int) -> DateComponents {
         var total = self.totalMinutes - minutes
-        if total < 0 { total = 0 }
+        // M10: Mitternachts-Wraparound – bei negativer Differenz auf den Vortag wrappen
+        // statt auf 0 zu clampen, z.B. 01:00 - 90min = 23:30 statt 00:00
+        if total < 0 { total += 24 * 60 }
         return DateComponents(hour: total / 60, minute: total % 60)
     }
 }
