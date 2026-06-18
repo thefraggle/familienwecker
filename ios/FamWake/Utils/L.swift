@@ -203,7 +203,7 @@ enum L {
 
     // MARK: - Misc
     static var cancelButton: String { s("cancel_button") }
-    static var okButton: String { "OK" }
+    static var okButton: String { s("ok_button") }
     static var backDesc: String { s("back_desc") }
     static var unsavedChangesTitle: String { s("unsaved_changes_title") }
     static var unsavedChangesMessage: String { s("unsaved_changes_message") }
