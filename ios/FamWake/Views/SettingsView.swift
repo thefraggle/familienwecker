@@ -84,7 +84,7 @@ struct SettingsView: View {
                     displayCard
 
                     // MARK: 4. Unterstützen (Donations)
-                    // donationCard
+                    donationCard
 
                     // MARK: 5. Hilfe & Feedback
                     helpCard
