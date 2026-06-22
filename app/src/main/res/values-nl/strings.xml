@@ -286,7 +286,7 @@
     <string name="settings_support_desc">Vind je de app leuk? We zouden je steun erg waarderen!</string>
     <string name="settings_support_donate">Doneren</string>
     <string name="settings_donate_success">Heel erg bedankt voor je steun! ❤️</string>
-    <string name="settings_donate_loading">Opties laden…</string>
+    <string name="settings_donate_loading">Producten konden niet worden geladen. Probeer het later opnieuw.</string>
     <string name="settings_donate_no_offers">Op dit moment zijn er geen opties beschikbaar.</string>
     <string name="settings_donate_purchase_loading">Verwerken…</string>
     <string name="settings_donate_error_not_allowed">Aankopen zijn niet toegestaan op deze telefoon.</string>

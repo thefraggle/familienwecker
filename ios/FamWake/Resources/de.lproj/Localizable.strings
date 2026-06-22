@@ -259,7 +259,7 @@
 "settings_support_desc" = "Gefällt dir die App? Wir freuen uns riesig über deine Unterstützung!";
 "settings_support_donate" = "Spenden";
 "settings_donate_success" = "Vielen Dank für deine Unterstützung! ❤️";
-"settings_donate_loading" = "Lade Optionen…";
+"settings_donate_loading" = "Produkte konnten nicht geladen werden. Bitte versuche es später noch einmal.";
 "settings_donate_no_offers" = "Aktuell sind keine Optionen verfügbar.";
 "settings_donate_purchase_loading" = "Wird verarbeitet…";
 "settings_donate_error_not_allowed" = "Käufe sind auf diesem Handy nicht erlaubt.";

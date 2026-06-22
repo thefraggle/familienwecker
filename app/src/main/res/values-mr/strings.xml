@@ -291,7 +291,7 @@
     <string name="settings_support_desc">तुम्हाला ॲप आवडते का? तुमच्या सपोर्टची आम्हाला खूप मदत होईल!</string>
     <string name="settings_support_donate">दान करा</string>
     <string name="settings_donate_success">तुमच्या पाठिंब्याबद्दल खूप खूप धन्यवाद! ❤️</string>
-    <string name="settings_donate_loading">पर्याय लोड करत आहे...</string>
+    <string name="settings_donate_loading">उत्पादने लोड होऊ शकली नाहीत. कृपया नंतर पुन्हा प्रयत्न करा.</string>
     <string name="settings_donate_no_offers">सध्या कोणतेही पर्याय उपलब्ध नाहीत.</string>
     <string name="settings_donate_purchase_loading">प्रक्रिया करत आहे...</string>
     <string name="settings_donate_error_not_allowed">या फोनवर खरेदी करण्याची परवानगी नाही.</string>

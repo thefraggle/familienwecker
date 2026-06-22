@@ -286,7 +286,7 @@
     <string name="settings_support_desc">Podoba Ci się aplikacja? Będziemy wdzięczni za Twoje wsparcie!</string>
     <string name="settings_support_donate">Przekaż darowiznę</string>
     <string name="settings_donate_success">Dziękujemy bardzo za Twoje wsparcie! ❤️</string>
-    <string name="settings_donate_loading">Ładowanie opcji…</string>
+    <string name="settings_donate_loading">Nie udało się załadować produktów. Spróbuj ponownie później.</string>
     <string name="settings_donate_no_offers">Obecnie nie ma dostępnych ofert.</string>
     <string name="settings_donate_purchase_loading">Przetwarzanie…</string>
     <string name="settings_donate_error_not_allowed">Zakupy nie są dozwolone na tym telefonie.</string>
