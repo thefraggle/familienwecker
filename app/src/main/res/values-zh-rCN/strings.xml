@@ -292,7 +292,7 @@
     <string name="settings_support_desc">您喜欢这个应用吗？非常感谢您的支持！</string>
     <string name="settings_support_donate">捐助</string>
     <string name="settings_donate_success">非常感谢您的支持！ ❤️</string>
-    <string name="settings_donate_loading">无法加载产品。请稍后再试。</string>
+    <string name="settings_donate_loading">正在加载选项...</string>
     <string name="settings_donate_no_offers">目前没有可用的选项。</string>
     <string name="settings_donate_purchase_loading">正在处理...</string>
     <string name="settings_donate_error_not_allowed">此手机不允许进行购买。</string>

@@ -287,7 +287,7 @@
     <string name="settings_support_desc">Вам нравится приложение? Мы будем очень рады вашей поддержке!</string>
     <string name="settings_support_donate">Сделать пожертвование</string>
     <string name="settings_donate_success">Большое спасибо за вашу поддержку! ❤️</string>
-    <string name="settings_donate_loading">Не удалось загрузить продукты. Пожалуйста, повторите попытку позже.</string>
+    <string name="settings_donate_loading">Загрузка вариантов…</string>
     <string name="settings_donate_no_offers">В данный момент нет доступных вариантов.</string>
     <string name="settings_donate_purchase_loading">Обработка…</string>
     <string name="settings_donate_error_not_allowed">Покупки запрещены на этом телефоне.</string>

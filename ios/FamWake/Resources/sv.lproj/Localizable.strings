@@ -255,7 +255,7 @@
 "settings_support_desc" = "Gillar du appen? Vi skulle uppskatta ditt stöd!";
 "settings_support_donate" = "Donera";
 "settings_donate_success" = "Tack så mycket för ditt stöd! ❤️";
-"settings_donate_loading" = "Produkterna kunde inte laddas. Vänligen försök igen senare.";
+"settings_donate_loading" = "Laddar alternativ…";
 "settings_donate_no_offers" = "Inga alternativ tillgängliga just nu.";
 "settings_donate_purchase_loading" = "Bearbetar…";
 "settings_donate_error_not_allowed" = "Köp är inte tillåtna på den här telefonen.";

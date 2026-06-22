@@ -247,7 +247,7 @@
 "settings_support_desc" = "Vind je de app leuk? We zouden je steun erg waarderen!";
 "settings_support_donate" = "Doneren";
 "settings_donate_success" = "Heel erg bedankt voor je steun! ❤️";
-"settings_donate_loading" = "Producten konden niet worden geladen. Probeer het later opnieuw.";
+"settings_donate_loading" = "Opties laden…";
 "settings_donate_no_offers" = "Op dit moment zijn er geen opties beschikbaar.";
 "settings_donate_purchase_loading" = "Verwerken…";
 "settings_donate_error_not_allowed" = "Aankopen zijn niet toegestaan op deze telefoon.";

@@ -295,7 +295,7 @@
     <string name="settings_support_desc">Gillar du appen? Vi skulle uppskatta ditt stöd!</string>
     <string name="settings_support_donate">Donera</string>
     <string name="settings_donate_success">Tack så mycket för ditt stöd! ❤️</string>
-    <string name="settings_donate_loading">Produkterna kunde inte laddas. Vänligen försök igen senare.</string>
+    <string name="settings_donate_loading">Laddar alternativ…</string>
     <string name="settings_donate_no_offers">Inga alternativ tillgängliga just nu.</string>
     <string name="settings_donate_purchase_loading">Bearbetar…</string>
     <string name="settings_donate_error_not_allowed">Köp är inte tillåtna på den här telefonen.</string>
