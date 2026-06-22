@@ -295,7 +295,7 @@
     <string name="settings_support_desc">অ্যাপটি ভালো লেগেছে? আমরা আপনার সাপোর্ট খুব পছন্দ করব!</string>
     <string name="settings_support_donate">দান করুন</string>
     <string name="settings_donate_success">সাপোর্ট করার জন্য অনেক ধন্যবাদ! ❤️</string>
-    <string name="settings_donate_loading">অপশন লোড হচ্ছে…</string>
+    <string name="settings_donate_loading">পণ্য লোড করা যায়নি. পরে আবার চেষ্টা করুন.</string>
     <string name="settings_donate_no_offers">এখন কোনো অপশন নেই।</string>
     <string name="settings_donate_purchase_loading">প্রক্রিয়া চলছে…</string>
     <string name="settings_donate_error_not_allowed">এই ফোনে কেনাকাটার অনুমতি নেই।</string>

@@ -287,7 +287,7 @@
     <string name="settings_support_desc">Bock auf die App? Wir freuen uns über jeden Groschen!</string>
     <string name="settings_support_donate">Wat dalassen</string>
     <string name="settings_donate_success">Fetten Dank dir! ❤️</string>
-    <string name="settings_donate_loading">Lade den Kram…</string>
+    <string name="settings_donate_loading">Produkte kunnte nit gelade wääde. Versöök et spiider noch ens.</string>
     <string name="settings_donate_no_offers">Nix zu kaufen da.</string>
     <string name="settings_donate_purchase_loading">Knete wird verbucht…</string>
     <string name="settings_donate_error_not_allowed">Darfse hier nich kaufen.</string>

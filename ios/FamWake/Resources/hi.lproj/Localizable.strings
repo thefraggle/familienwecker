@@ -255,7 +255,7 @@
 "settings_support_desc" = "क्या आपको ऐप पसंद आया? हमें आपके सपोर्ट से बहुत ख़ुशी होगी!";
 "settings_support_donate" = "डोनेट करें";
 "settings_donate_success" = "आपके सपोर्ट के लिए बहुत-बहुत धन्यवाद! ❤️";
-"settings_donate_loading" = "ऑप्शन लोड हो रहे हैं…";
+"settings_donate_loading" = "उत्पाद लोड नहीं किए जा सके. कृपया बाद में पुनः प्रयास करें.";
 "settings_donate_no_offers" = "अभी कोई ऑप्शन उपलब्ध नहीं है।";
 "settings_donate_purchase_loading" = "प्रोसेस हो रहा है…";
 "settings_donate_error_not_allowed" = "इस फ़ोन पर कुछ भी ख़रीदने की अनुमति नहीं है।";

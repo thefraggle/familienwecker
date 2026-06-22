@@ -247,7 +247,7 @@
 "settings_support_desc" = "Podoba Ci się aplikacja? Będziemy wdzięczni za Twoje wsparcie!";
 "settings_support_donate" = "Przekaż darowiznę";
 "settings_donate_success" = "Dziękujemy bardzo za Twoje wsparcie! ❤️";
-"settings_donate_loading" = "Ładowanie opcji…";
+"settings_donate_loading" = "Nie udało się załadować produktów. Spróbuj ponownie później.";
 "settings_donate_no_offers" = "Obecnie nie ma dostępnych ofert.";
 "settings_donate_purchase_loading" = "Przetwarzanie…";
 "settings_donate_error_not_allowed" = "Zakupy nie są dozwolone na tym telefonie.";

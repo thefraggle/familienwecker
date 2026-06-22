@@ -255,7 +255,7 @@
 "settings_support_desc" = "Uygulamayı beğendiniz mi? Desteğiniz bizi çok mutlu eder!";
 "settings_support_donate" = "Bağış yap";
 "settings_donate_success" = "Desteğiniz için çok teşekkür ederiz! ❤️";
-"settings_donate_loading" = "Seçenekler yükleniyor…";
+"settings_donate_loading" = "Ürünler yüklenemedi. Lütfen daha sonra tekrar deneyiniz.";
 "settings_donate_no_offers" = "Şu anda herhangi bir seçenek bulunmuyor.";
 "settings_donate_purchase_loading" = "İşleniyor…";
 "settings_donate_error_not_allowed" = "Bu telefonda satın alma işlemlerine izin verilmiyor.";

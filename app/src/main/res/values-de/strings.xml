@@ -295,7 +295,7 @@
     <string name="settings_support_desc">Gefällt dir die App? Wir freuen uns riesig über deine Unterstützung!</string>
     <string name="settings_support_donate">Spenden</string>
     <string name="settings_donate_success">Vielen Dank für deine Unterstützung! ❤️</string>
-    <string name="settings_donate_loading">Lade Optionen…</string>
+    <string name="settings_donate_loading">Produkte konnten nicht geladen werden. Bitte versuche es später noch einmal.</string>
     <string name="settings_donate_no_offers">Aktuell sind keine Optionen verfügbar.</string>
     <string name="settings_donate_purchase_loading">Wird verarbeitet…</string>
     <string name="settings_donate_error_not_allowed">Käufe sind auf diesem Handy nicht erlaubt.</string>

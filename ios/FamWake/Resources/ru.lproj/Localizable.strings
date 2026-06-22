@@ -248,7 +248,7 @@
 "settings_support_desc" = "Вам нравится приложение? Мы будем очень рады вашей поддержке!";
 "settings_support_donate" = "Сделать пожертвование";
 "settings_donate_success" = "Большое спасибо за вашу поддержку! ❤️";
-"settings_donate_loading" = "Загрузка вариантов…";
+"settings_donate_loading" = "Не удалось загрузить продукты. Пожалуйста, повторите попытку позже.";
 "settings_donate_no_offers" = "В данный момент нет доступных вариантов.";
 "settings_donate_purchase_loading" = "Обработка…";
 "settings_donate_error_not_allowed" = "Покупки запрещены на этом телефоне.";

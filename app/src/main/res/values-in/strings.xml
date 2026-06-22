@@ -292,7 +292,7 @@
     <string name="settings_support_desc">Apakah Anda menyukai aplikasi ini? Kami sangat menghargai dukungan Anda!</string>
     <string name="settings_support_donate">Donasi</string>
     <string name="settings_donate_success">Terima kasih banyak atas dukungan Anda! ❤️</string>
-    <string name="settings_donate_loading">Memuat pilihan…</string>
+    <string name="settings_donate_loading">Produk tidak dapat dimuat. Silakan coba lagi nanti.</string>
     <string name="settings_donate_no_offers">Tidak ada pilihan yang tersedia saat ini.</string>
     <string name="settings_donate_purchase_loading">Memproses…</string>
     <string name="settings_donate_error_not_allowed">Pembelian tidak diizinkan di ponsel ini.</string>

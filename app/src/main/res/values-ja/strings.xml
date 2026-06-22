@@ -295,7 +295,7 @@
     <string name="settings_support_desc">アプリを気に入っていただけましたか？ご支援いただけると大変嬉しいです！</string>
     <string name="settings_support_donate">寄付する</string>
     <string name="settings_donate_success">ご支援本当にありがとうございます！ ❤️</string>
-    <string name="settings_donate_loading">オプションを読み込んでいます…</string>
+    <string name="settings_donate_loading">製品を読み込めませんでした。後でもう一度お試しください。</string>
     <string name="settings_donate_no_offers">現在利用できるプランはありません。</string>
     <string name="settings_donate_purchase_loading">処理中…</string>
     <string name="settings_donate_error_not_allowed">このスマートフォンでは購入が許可されていません。</string>

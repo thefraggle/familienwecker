@@ -259,7 +259,7 @@
 "settings_support_desc" = "Do you like the app? We would love your support!";
 "settings_support_donate" = "Donate";
 "settings_donate_success" = "Thank you so much for your support! ❤️";
-"settings_donate_loading" = "Loading options…";
+"settings_donate_loading" = "Products could not be loaded. Please try again later.";
 "settings_donate_no_offers" = "No options available right now.";
 "settings_donate_purchase_loading" = "Processing…";
 "settings_donate_error_not_allowed" = "Purchases are not allowed on this phone.";
