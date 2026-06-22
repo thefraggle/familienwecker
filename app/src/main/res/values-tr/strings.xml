@@ -295,7 +295,7 @@
     <string name="settings_support_desc">Uygulamayı beğendiniz mi? Desteğiniz bizi çok mutlu eder!</string>
     <string name="settings_support_donate">Bağış yap</string>
     <string name="settings_donate_success">Desteğiniz için çok teşekkür ederiz! ❤️</string>
-    <string name="settings_donate_loading">Ürünler yüklenemedi. Lütfen daha sonra tekrar deneyiniz.</string>
+    <string name="settings_donate_loading">Seçenekler yükleniyor…</string>
     <string name="settings_donate_no_offers">Şu anda herhangi bir seçenek bulunmuyor.</string>
     <string name="settings_donate_purchase_loading">İşleniyor…</string>
     <string name="settings_donate_error_not_allowed">Bu telefonda satın alma işlemlerine izin verilmiyor.</string>

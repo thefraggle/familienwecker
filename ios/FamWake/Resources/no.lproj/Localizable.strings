@@ -252,7 +252,7 @@
 "settings_support_desc" = "Liker du appen? Vi setter stor pris på din støtte!";
 "settings_support_donate" = "Doner";
 "settings_donate_success" = "Tusen takk for støtten din! ❤️";
-"settings_donate_loading" = "Produkter kunne ikke lastes inn. Vennligst prøv igjen senere.";
+"settings_donate_loading" = "Laster alternativer…";
 "settings_donate_no_offers" = "Ingen alternativer tilgjengelig akkurat nå.";
 "settings_donate_purchase_loading" = "Behandler…";
 "settings_donate_error_not_allowed" = "Kjøp er ikke tillatt på denne telefonen.";

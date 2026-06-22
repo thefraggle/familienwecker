@@ -292,7 +292,7 @@
     <string name="settings_support_desc">Liker du appen? Vi setter stor pris på din støtte!</string>
     <string name="settings_support_donate">Doner</string>
     <string name="settings_donate_success">Tusen takk for støtten din! ❤️</string>
-    <string name="settings_donate_loading">Produkter kunne ikke lastes inn. Vennligst prøv igjen senere.</string>
+    <string name="settings_donate_loading">Laster alternativer…</string>
     <string name="settings_donate_no_offers">Ingen alternativer tilgjengelig akkurat nå.</string>
     <string name="settings_donate_purchase_loading">Behandler…</string>
     <string name="settings_donate_error_not_allowed">Kjøp er ikke tillatt på denne telefonen.</string>

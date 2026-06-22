@@ -255,7 +255,7 @@
 "settings_support_desc" = "Apakah Anda menyukai aplikasi ini? Kami sangat menghargai dukungan Anda!";
 "settings_support_donate" = "Donasi";
 "settings_donate_success" = "Terima kasih banyak atas dukungan Anda! ❤️";
-"settings_donate_loading" = "Produk tidak dapat dimuat. Silakan coba lagi nanti.";
+"settings_donate_loading" = "Memuat pilihan…";
 "settings_donate_no_offers" = "Tidak ada pilihan yang tersedia saat ini.";
 "settings_donate_purchase_loading" = "Memproses…";
 "settings_donate_error_not_allowed" = "Pembelian tidak diizinkan di ponsel ini.";

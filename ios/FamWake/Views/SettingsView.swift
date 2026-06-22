@@ -913,11 +913,10 @@ struct SettingsView: View {
                                 .padding(.horizontal)
                         }
                     } else {
+                        ProgressView()
                         Text(L.s("settings_donate_loading"))
-                            .font(.body)
-                            .foregroundStyle(theme.error)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
+                            .font(.caption)
+                            .foregroundStyle(theme.outline)
                     }
                 }
 

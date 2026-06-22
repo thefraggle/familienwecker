@@ -255,7 +255,7 @@
 "settings_support_desc" = "Bạn có thích ứng dụng này không? Chúng tôi rất trân trọng sự hỗ trợ của bạn!";
 "settings_support_donate" = "Quyên góp";
 "settings_donate_success" = "Cảm ơn bạn rất nhiều vì đã ủng hộ! ❤️";
-"settings_donate_loading" = "Không thể tải sản phẩm. Vui lòng thử lại sau.";
+"settings_donate_loading" = "Đang tải tùy chọn…";
 "settings_donate_no_offers" = "Hiện tại không có tùy chọn nào.";
 "settings_donate_purchase_loading" = "Đang xử lý…";
 "settings_donate_error_not_allowed" = "Thiết bị này không được phép mua hàng.";
