@@ -288,7 +288,7 @@
     <string name="settings_support_desc">Gosta do app? Ficaríamos felizes com o seu apoio!</string>
     <string name="settings_support_donate">Doar</string>
     <string name="settings_donate_success">Muito obrigado pelo seu apoio! ❤️</string>
-    <string name="settings_donate_loading">Não foi possível carregar os produtos. Por favor, tente novamente mais tarde.</string>
+    <string name="settings_donate_loading">Carregando opções…</string>
     <string name="settings_donate_no_offers">Nenhuma opção de apoio disponível no momento.</string>
     <string name="settings_donate_purchase_loading">Processando…</string>
     <string name="settings_donate_error_not_allowed">Compras não são permitidas neste celular.</string>

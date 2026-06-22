@@ -255,7 +255,7 @@
 "settings_support_desc" = "Kan du lide appen? Vi vil elske din støtte!";
 "settings_support_donate" = "Donér";
 "settings_donate_success" = "Tusind tak for din støtte! ❤️";
-"settings_donate_loading" = "Produkter kunne ikke indlæses. Prøv venligst igen senere.";
+"settings_donate_loading" = "Indlæser muligheder…";
 "settings_donate_no_offers" = "Ingen muligheder tilgængelige lige nu.";
 "settings_donate_purchase_loading" = "Behandler…";
 "settings_donate_error_not_allowed" = "Køb er ikke tilladt på denne telefon.";

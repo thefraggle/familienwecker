@@ -252,7 +252,7 @@
 "settings_support_desc" = "Вам подобається додаток? Ми будемо дуже раді вашій підтримці!";
 "settings_support_donate" = "Зробити пожертву";
 "settings_donate_success" = "Велике дякую за вашу підтримку! ❤️";
-"settings_donate_loading" = "Не вдалося завантажити продукти. Будь ласка, спробуйте ще раз пізніше.";
+"settings_donate_loading" = "Завантаження варіантів…";
 "settings_donate_no_offers" = "Наразі немає доступних варіантів.";
 "settings_donate_purchase_loading" = "Обробка…";
 "settings_donate_error_not_allowed" = "Покупки заборонені на цьому телефоні.";

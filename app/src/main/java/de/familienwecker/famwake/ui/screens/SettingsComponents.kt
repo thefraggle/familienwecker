@@ -82,13 +82,8 @@ fun DonationDialog(
                             color = MaterialTheme.colorScheme.error
                         )
                     } else {
-                        Text(
-                            text = stringResource(R.string.settings_donate_loading),
-                            style = MaterialTheme.typography.bodyMedium,
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(16.dp)
-                        )
+                        CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+                        Text(stringResource(R.string.settings_donate_loading))
                     }
                 }
             }

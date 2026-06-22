@@ -251,7 +251,7 @@
 "settings_support_desc" = "तुम्हाला ॲप आवडते का? तुमच्या सपोर्टची आम्हाला खूप मदत होईल!";
 "settings_support_donate" = "दान करा";
 "settings_donate_success" = "तुमच्या पाठिंब्याबद्दल खूप खूप धन्यवाद! ❤️";
-"settings_donate_loading" = "उत्पादने लोड होऊ शकली नाहीत. कृपया नंतर पुन्हा प्रयत्न करा.";
+"settings_donate_loading" = "पर्याय लोड करत आहे...";
 "settings_donate_no_offers" = "सध्या कोणतेही पर्याय उपलब्ध नाहीत.";
 "settings_donate_purchase_loading" = "प्रक्रिया करत आहे...";
 "settings_donate_error_not_allowed" = "या फोनवर खरेदी करण्याची परवानगी नाही.";
