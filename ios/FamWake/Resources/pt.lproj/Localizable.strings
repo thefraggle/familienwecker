@@ -249,7 +249,7 @@
 "settings_support_desc" = "Gosta do app? Ficaríamos felizes com o seu apoio!";
 "settings_support_donate" = "Doar";
 "settings_donate_success" = "Muito obrigado pelo seu apoio! ❤️";
-"settings_donate_loading" = "Carregando opções…";
+"settings_donate_loading" = "Não foi possível carregar os produtos. Por favor, tente novamente mais tarde.";
 "settings_donate_no_offers" = "Nenhuma opção de apoio disponível no momento.";
 "settings_donate_purchase_loading" = "Processando…";
 "settings_donate_error_not_allowed" = "Compras não são permitidas neste celular.";

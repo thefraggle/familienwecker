@@ -295,7 +295,7 @@
     <string name="settings_support_desc">Bạn có thích ứng dụng này không? Chúng tôi rất trân trọng sự hỗ trợ của bạn!</string>
     <string name="settings_support_donate">Quyên góp</string>
     <string name="settings_donate_success">Cảm ơn bạn rất nhiều vì đã ủng hộ! ❤️</string>
-    <string name="settings_donate_loading">Đang tải tùy chọn…</string>
+    <string name="settings_donate_loading">Không thể tải sản phẩm. Vui lòng thử lại sau.</string>
     <string name="settings_donate_no_offers">Hiện tại không có tùy chọn nào.</string>
     <string name="settings_donate_purchase_loading">Đang xử lý…</string>
     <string name="settings_donate_error_not_allowed">Thiết bị này không được phép mua hàng.</string>

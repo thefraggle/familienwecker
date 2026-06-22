@@ -249,7 +249,7 @@
 "settings_support_desc" = "Tu aimes l'appli ? Ton soutien nous ferait très plaisir !";
 "settings_support_donate" = "Faire un don";
 "settings_donate_success" = "Merci beaucoup pour ton soutien ! ❤️";
-"settings_donate_loading" = "Chargement des options…";
+"settings_donate_loading" = "Impossible de charger les produits. Veuillez réessayer plus tard.";
 "settings_donate_no_offers" = "Aucune option disponible pour le moment.";
 "settings_donate_purchase_loading" = "Traitement en cours…";
 "settings_donate_error_not_allowed" = "Les achats ne sont pas autorisés sur ce téléphone.";

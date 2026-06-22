@@ -292,7 +292,7 @@
     <string name="settings_support_desc">Вам подобається додаток? Ми будемо дуже раді вашій підтримці!</string>
     <string name="settings_support_donate">Зробити пожертву</string>
     <string name="settings_donate_success">Велике дякую за вашу підтримку! ❤️</string>
-    <string name="settings_donate_loading">Завантаження варіантів…</string>
+    <string name="settings_donate_loading">Не вдалося завантажити продукти. Будь ласка, спробуйте ще раз пізніше.</string>
     <string name="settings_donate_no_offers">Наразі немає доступних варіантів.</string>
     <string name="settings_donate_purchase_loading">Обробка…</string>
     <string name="settings_donate_error_not_allowed">Покупки заборонені на цьому телефоні.</string>
