@@ -61,10 +61,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        guard let token = fcmToken else { return }
-        if let uid = Auth.auth().currentUser?.uid {
-            MessagingService.shared.saveTokenToFirestore(uid: uid, token: token)
-        }
+        // Token-Speicherung erfolgt bereits über AuthViewModel.listenToAuthState()
+        // und AppState.load() via refreshAndSaveToken() – inklusive Push-Toggle-Check.
+        // Kein separater Save hier nötig: vermeidet doppelte Firestore-Writes und
+        // verhindert, dass bei deaktiviertem Push der Token trotzdem gespeichert wird.
     }
     
     // MARK: - Silent Push / Data Messages
