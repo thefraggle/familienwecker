@@ -9,6 +9,11 @@ class MessagingService {
     
     private init() {}
     
+    // Debounce: verhindert doppelte Firestore-Writes wenn mehrere Aufrufer
+    // (AuthViewModel + AppState) kurz hintereinander refreshAndSaveToken() aufrufen.
+    private var lastSavedToken: String?
+    private var lastSaveTime: Date?
+    
     // MARK: - Token Management
     
     /// Holt den aktuellen FCM Token und speichert ihn in Firestore – NUR wenn Push aktiviert ist.
@@ -23,7 +28,16 @@ class MessagingService {
                 print("FCM Token anfordern fehlgeschlagen: \(error.localizedDescription)")
             } else if let token = token {
                 if pushEnabled {
+                    // Debounce: gleicher Token innerhalb 30s nicht erneut speichern
+                    if let lastToken = self.lastSavedToken,
+                       let lastTime = self.lastSaveTime,
+                       lastToken == token,
+                       Date().timeIntervalSince(lastTime) < 30 {
+                        return
+                    }
                     print("FCM Token erhalten: speichere in Firestore")
+                    self.lastSavedToken = token
+                    self.lastSaveTime = Date()
                     self.saveTokenToFirestore(uid: uid, token: token)
                 } else {
                     print("FCM Token erhalten, aber Push deaktiviert – lösche aus Firestore")
@@ -69,7 +83,7 @@ class MessagingService {
         }
     }
     
-    func saveTokenToFirestore(uid: String, token: String) {
+    private func saveTokenToFirestore(uid: String, token: String) {
         let docId = sha256(token)
         let tokenData: [String: Any] = [
             "token": token,
