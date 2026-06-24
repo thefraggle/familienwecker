@@ -72,6 +72,13 @@ struct FamilySetupView: View {
                             .disabled(familyName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isLoading)
                             .opacity((familyName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isLoading) ? 0.5 : 1.0)
                             .accessibilityLabel(L.s("accessibility_create_family"))
+
+                            if familyViewModel.isOffline {
+                                Text(L.s("offline_family_created_hint"))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                    .padding(.top, 4)
+                            }
                         }
                     } else {
                         // Familie beitreten

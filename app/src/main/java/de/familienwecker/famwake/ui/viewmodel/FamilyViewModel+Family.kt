@@ -26,14 +26,16 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
     }
     scope.launch {
         if (isOffline.value) {
-            // Netzwerk kann beim Cold Start kurz als offline erscheinen (~1-3s Delay bis
-            // NET_CAPABILITY_VALIDATED gesetzt ist). Einmalig warten, dann definitiv prüfen.
-            delay(2000)
-            if (isOffline.value) {
-                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, getApplication<android.app.Application>().getString(R.string.error_offline))
-                onComplete(false)
-                return@launch
-            }
+            // Offline-First: Familie lokal erstellen mit temporärer ID
+            val tempFamilyId = java.util.UUID.randomUUID().toString()
+            appSettings.setFamilyId(tempFamilyId)
+            appSettings.setFamilyName(familyName)
+            appSettings.setJoinCode(null) // Kein Join-Code ohne Cloud
+            appSettings.setLocalOnlyFamily(true)
+            _errorMessage.value = null
+            TelemetryDeck.signal("family.created.offline")
+            onComplete(true)
+            return@launch
         }
         if (isSyncBlocked.value) {
             _errorMessage.value = UiText.StringResource(R.string.error_sync_blocked_device)
@@ -237,9 +239,23 @@ fun FamilyViewModel.leaveFamily(onComplete: (Boolean) -> Unit = {}) {
                 TelemetryDeck.signal("family.left")
                 onComplete(true)
             } else {
-                val errorMsg = result.exceptionOrNull()?.message ?: getApplication<android.app.Application>().getString(R.string.error_leave_failed)
-                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
-                onComplete(false)
+                val errorMsg = result.exceptionOrNull()?.message ?: ""
+                // Server sagt: User gehört nicht (mehr) zur Familie → lokal aufräumen
+                val isGone = errorMsg.contains("NOT_A_MEMBER", ignoreCase = true)
+                        || errorMsg.contains("PERMISSION", ignoreCase = true)
+                        || errorMsg.contains("NOT_FOUND", ignoreCase = true)
+                if (isGone) {
+                    appSettings.setFamilyId(null)
+                    appSettings.setJoinCode(null)
+                    appSettings.setFamilyName(null)
+                    appSettings.setMyMemberId(null)
+                    appSettings.setMyMemberName(null)
+                    _errorMessage.value = null
+                    onComplete(true)
+                } else {
+                    _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, errorMsg)
+                    onComplete(false)
+                }
             }
         } catch (e: Exception) {
             _errorMessage.value = UiText.StringResource(R.string.error_system, e.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
@@ -349,4 +365,49 @@ fun FamilyViewModel.logout() {
     cancelAlarmForCurrentUser()
     appSettings.clearAll()
     scope.launch { auth.signOut() }
+}
+
+/**
+ * Synchronisiert eine lokal erstellte Familie zur Cloud.
+ * Wird automatisch getriggert wenn das Netzwerk zurückkehrt.
+ */
+fun FamilyViewModel.syncPendingFamily() {
+    if (!appSettings.isLocalOnlyFamily.value) return
+    val localFamilyId = familyId.value ?: return
+    val name = familyName.value ?: return
+    val uid = auth.currentUser?.uid ?: return
+    if (isOffline.value) return
+
+    scope.launch {
+        _isSyncing.value = true
+        try {
+            val currentMembers = _members.value.toList()
+            val result = repository.syncLocalFamilyToCloud(localFamilyId, name, currentMembers, uid)
+            result.onSuccess { (newFamilyId, joinCode) ->
+                // Lokale IDs auf echte Cloud-IDs migrieren
+                appSettings.setFamilyId(newFamilyId)
+                appSettings.setJoinCode(joinCode)
+                appSettings.setLocalOnlyFamily(false)
+
+                // Room-Cache aktualisieren: alte Temp-IDs entfernen, Firestore-Listener übernimmt
+                memberRepository.clearCache()
+
+                TelemetryDeck.signal("family.synced")
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.d("FamilyViewModel", "Local family synced to cloud: $newFamilyId")
+                }
+            }.onFailure { error ->
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FamilyViewModel", "syncPendingFamily failed: ${error.message}")
+                }
+                // Nicht kritisch – wird beim nächsten Online-Event erneut versucht
+            }
+        } catch (e: Exception) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("FamilyViewModel", "syncPendingFamily exception: ${e.message}")
+            }
+        } finally {
+            _isSyncing.value = false
+        }
+    }
 }

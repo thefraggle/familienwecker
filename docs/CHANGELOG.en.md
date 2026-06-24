@@ -2,6 +2,15 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.0.1 – 2026-06-24
+🆕 Offline Mode – Create families and manage members without internet. Auto-sync when you're back online.
+
+✨ Improved:
+• Full alarm setup works without network
+• Data survives app restart even offline (iOS + Android)
+• Faster app launch with local cache
+• Leaving a family now works even if the family no longer exists
+
 ## 2.0.0 – 2026-06-18
 🆕 Family Snooze Sync – When someone snoozes, everyone's schedule adjusts automatically. Snooze counter and 💤 indicator show live status.
 
