@@ -98,6 +98,7 @@ class FamilyViewModel(
     val isAlarmEnabled: StateFlow<Boolean> = appSettings.isAlarmEnabled
     val isAwakeTodayLocal: StateFlow<Boolean> = appSettings.isAwakeToday
     val onboardingCompleted: StateFlow<Boolean> = appSettings.onboardingCompleted
+    val isLocalOnlyFamily: StateFlow<Boolean> = appSettings.isLocalOnlyFamily
 
     private val _selectedDayOfWeek = MutableStateFlow<Int?>(null)
     val selectedDayOfWeek: StateFlow<Int?> = _selectedDayOfWeek.asStateFlow()
@@ -273,8 +274,15 @@ class FamilyViewModel(
     init {
         networkMonitor.startMonitoring()
         viewModelScope.launch(Dispatchers.IO) {
+            var wasOffline = false
             networkMonitor.isOnline.collect { online ->
-                _isOffline.value = !online
+                val isNowOffline = !online
+                _isOffline.value = isNowOffline
+                // Offline → Online Übergang: ausstehende lokale Familie synchronisieren
+                if (wasOffline && online && appSettings.isLocalOnlyFamily.value) {
+                    syncPendingFamily()
+                }
+                wasOffline = isNowOffline
             }
         }
 
@@ -366,7 +374,7 @@ class FamilyViewModel(
                     // kurz angezeigt werden, während der neue Firestore-Sync noch läuft.
                     memberRepository.clearCache()
                     _schedule.value = null
-                    if (!currentFamilyId.isNullOrBlank()) {
+                    if (!currentFamilyId.isNullOrBlank() && !appSettings.isLocalOnlyFamily.value) {
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                             android.util.Log.d("FamilyViewModel", "Start sync for family: $currentFamilyId")
                         }

@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 2.0.0
-**Datum:** 2026-06-18
+**Version:** 2.0.1
+**Datum:** 2026-06-24
 
 ---
 
@@ -27,7 +27,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 | TC-22 | Reorder & Wochentage | Drag & Drop → Bestätigungsdialog. „Ganze Woche" zeigt Warnung bei tagesspezifischen Unterschieden. Abbrechen setzt visuell zurück. |
 | TC-23 | Puffer (global & individuell) | Globaler Puffer (0–15 Min). Im Editor: kursiv = geerbt, fett = Override. Manuelle 0m überschreiben globalen Wert. |
 | TC-24 | Einfacher Modus | Blendet erweiterte Optionen aus. Scheduler weist feste Weckzeit zu. |
-| TC-25 | Offline-Schutz | Mitglieder löschen bei Offline → Fehlermeldung statt stille Pufferung. |
+| TC-25 | Offline-Erstellung | Flugmodus: Familie erstellen → Mitglieder anlegen → Claimen → Wecker stellt sich. App-Kill + Neustart: Daten vorhanden. |
 
 ### 3. Wecker, Alarm & Snooze
 | ID | Testfall | Erwartetes Ergebnis |
@@ -48,6 +48,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 |:---|:---|:---|
 | TC-40 | Push-Events | Manuelle Änderungen senden stumme Pushes an Mitbewohner (kein Self-Push). Auto-Resets werden gefiltert. Toggle OFF → keine Pushes. |
 | TC-41 | Multi-Device Sync | Claim, Alarm-Status, Reihenfolge und Snooze synchronisieren sofort. 💤-Symbol bei snoozendem Mitglied. |
+| TC-43 | Offline→Online Sync | Offline-Familie erstellt → Flugmodus aus → Familie bekommt echte ID + Join-Code. Members erhalten. Firestore-Listener aktiv. |
 | TC-42 | Pause-Toggle | Sofortiger lokaler State, kein Flackern durch eingehende Snapshots. |
 
 ---
@@ -57,7 +58,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | EC-01 | Zeitkonflikte | Kompromissvorschläge, AutoFix nur für Ziel-Wochentag. Puffer-Reduktion vor Zeitverschiebung. Warnung bei >6 aktiven Mitgliedern. |
-| EC-02 | Offline-Betrieb | CloudOff-Icon (inkl. Firestore Cache Status). Kein Absturz. Re-Sync nach Reconnect. Optimistic UI mit Rollback. |
+| EC-02 | Offline-Betrieb (4+ Tage) | Familie + Members offline voll nutzbar. Alarm funktioniert. Kein Absturz. Bei Reconnect: Auto-Sync zur Cloud. Family-Join einzige Ausnahme. |
 | EC-03 | Backend-Schutz | Zugriff auf fremde Profile → PERMISSION_DENIED. |
 | EC-04 | Bildschirm-Timeout | Bildschirm bleibt nur im aktiven Vordergrund wach, nicht in Sheets oder im Hintergrund. |
 | EC-05 | Dynamic Type | Große Systemschrift (Accessibility): Buttons und Chips skalieren mit, kein Clipping. |

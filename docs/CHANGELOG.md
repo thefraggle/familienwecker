@@ -2,6 +2,15 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.0.1 – 2026-06-24
+🆕 Offline-Modus – Familien erstellen und Mitglieder verwalten funktioniert jetzt auch ohne Internet. Automatische Synchronisierung sobald die Verbindung zurückkehrt.
+
+✨ Verbessert:
+• Wecker-Einrichtung komplett ohne Netzwerk möglich
+• Daten überleben App-Neustart auch offline (iOS + Android)
+• Schnellerer App-Start durch lokalen Cache
+• Familie verlassen funktioniert jetzt auch wenn die Familie nicht mehr existiert
+
 ## 2.0.0 – 2026-06-18
 🆕 Familien-Snooze-Sync – Snoozt jemand, passt sich der Plan automatisch an. Snooze-Zähler und 💤-Symbol zeigen den Status live.
 

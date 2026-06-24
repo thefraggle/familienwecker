@@ -242,6 +242,46 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
+    override suspend fun syncLocalFamilyToCloud(
+        localFamilyId: String,
+        familyName: String,
+        members: List<FamilyMember>,
+        userId: String
+    ): Result<Pair<String, String>> {
+        return try {
+            // 1. Echte Familie via Cloud Function anlegen (identisch zu createFamily)
+            val functions = Firebase.functions(FIREBASE_REGION)
+            val data = mapOf("familyName" to familyName, "userId" to userId)
+            @Suppress("UNCHECKED_CAST")
+            val result = functions.httpsCallable("createFamily").invoke(data).android.data as? Map<String, Any>
+                ?: return Result.failure(CodeGenerationFailedException())
+            val newFamilyId = result["familyId"] as? String
+                ?: return Result.failure(CodeGenerationFailedException())
+            val joinCode = result["joinCode"] as? String
+                ?: return Result.failure(CodeGenerationFailedException())
+
+            // 2. Lokal erstellte Members in die neue Familie hochladen (Batch-Write)
+            if (members.isNotEmpty()) {
+                val membersColl = db.collection(COLLECTION_FAMILIES).document(newFamilyId)
+                    .collection(COLLECTION_MEMBERS)
+                members.chunked(500).forEach { chunk ->
+                    db.batch().run {
+                        chunk.forEach { member ->
+                            set(membersColl.document(member.id), member.toFirestoreMap())
+                        }
+                        commit()
+                    }
+                }
+            }
+
+            if (debugLogging) Log.i(TAG, "syncLocalFamilyToCloud: $localFamilyId → $newFamilyId (${members.size} members)")
+            Result.success(Pair(newFamilyId, joinCode))
+        } catch (e: Exception) {
+            if (debugLogging) Log.e(TAG, "syncLocalFamilyToCloud failed: ${e.message}")
+            Result.failure(e)
+        }
+    }
+
     // ── Mitglieder ────────────────────────────────────────────────────────────
 
     override fun getFamilyMembersFlow(familyId: String): Flow<List<FamilyMember>> = callbackFlow {

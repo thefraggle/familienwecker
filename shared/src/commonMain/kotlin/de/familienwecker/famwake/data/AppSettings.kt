@@ -27,6 +27,9 @@ interface AppSettings {
     val familyName: StateFlow<String?>
     fun setFamilyName(name: String?)
 
+    val isLocalOnlyFamily: StateFlow<Boolean>
+    fun setLocalOnlyFamily(isLocal: Boolean)
+
     val language: StateFlow<String>
     fun setLanguage(lang: String)
 
@@ -142,6 +145,14 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     override fun setFamilyName(name: String?) {
         _familyName.value = name
         if (name == null) settings.remove("FAMILY_NAME") else settings["FAMILY_NAME"] = name
+    }
+
+    private val _isLocalOnlyFamily = MutableStateFlow(settings.getBoolean("IS_LOCAL_ONLY_FAMILY", false))
+    override val isLocalOnlyFamily = _isLocalOnlyFamily.asStateFlow()
+
+    override fun setLocalOnlyFamily(isLocal: Boolean) {
+        _isLocalOnlyFamily.value = isLocal
+        settings["IS_LOCAL_ONLY_FAMILY"] = isLocal
     }
 
     private val _language = MutableStateFlow(
@@ -318,6 +329,7 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         settings.remove("AWAKE_TODAY_DATE")
         setSnoozeUntil(null)
         setSnoozeCount(0)
+        setLocalOnlyFamily(false)
         // Note: language, theme und isAlarmEnabled persistieren – sind Gerätepräferenzen, kein Session-State.
         // Alarm-State-Transitions werden ausschließlich vom myMemberId-Observer in FamilyViewModel gesteuert.
     }
