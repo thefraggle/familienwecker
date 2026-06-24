@@ -426,4 +426,10 @@
     <string name="cd_notification_settings">Open notification settings</string>
     <string name="cd_tooltips_reset">Show all tips again</string>
     <string name="cd_copy_to_days">Copy schedule to other days</string>
+
+    <!-- Offline-First -->
+    <string name="offline_family_created">Family created locally. Sync will happen automatically.</string>
+    <string name="offline_no_join_code">Join code available once online</string>
+    <string name="offline_syncing_banner">Syncing…</string>
+    <string name="offline_sync_success">Sync completed ✓</string>
 </resources>

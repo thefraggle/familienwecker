@@ -30,6 +30,7 @@ class FamilyViewModel: ObservableObject {
     @Published var isAwakeTodayLocal: Bool = false
     @Published var isSyncing: Bool = false
     @Published var isOffline: Bool = false
+    @Published var isLocalOnlyFamily: Bool = PendingSyncManager.shared.isLocalOnlyFamily
     @Published var isJoiningFamily: Bool = false
     @Published var errorMessage: String? = nil
     @Published var pendingJoinCode: String? = nil
@@ -137,6 +138,19 @@ class FamilyViewModel: ObservableObject {
         errorMessage = nil
         isSyncing = true
         Task {
+            if isOffline {
+                // Offline-First: Familie lokal erstellen mit temporärer ID
+                let tempFamilyId = UUID().uuidString
+                await MainActor.run {
+                    saveFamilyLocally(id: tempFamilyId, name: name, code: "")
+                    PendingSyncManager.shared.isLocalOnlyFamily = true
+                    isLocalOnlyFamily = true
+                    TelemetryManager.send("family.created.offline")
+                    completion(true)
+                    isSyncing = false
+                }
+                return
+            }
             do {
                 let result = try await FamilyFirestoreService.shared.createFamily(name: name)
                 await MainActor.run {
@@ -281,8 +295,19 @@ class FamilyViewModel: ObservableObject {
             } catch {
                 print("leaveFamily Cloud Function fehlgeschlagen: \(error.localizedDescription)")
                 await MainActor.run {
-                    self.errorMessage = error.localizedDescription
-                    completion(false)
+                    // Server sagt: User gehört nicht (mehr) zur Familie → lokal aufräumen
+                    let msg = error.localizedDescription.uppercased()
+                    if msg.contains("NOT_A_MEMBER") || msg.contains("PERMISSION") || msg.contains("NOT_FOUND") {
+                        self.clearFamilyLocally()
+                        self.familyListener?.remove()
+                        self.membersListener?.remove()
+                        self.members = []
+                        self.schedule = nil
+                        completion(true)
+                    } else {
+                        self.errorMessage = error.localizedDescription
+                        completion(false)
+                    }
                 }
             }
         }
@@ -371,6 +396,24 @@ class FamilyViewModel: ObservableObject {
             updatedMember.claimedByDeviceId = UIDevice.current.identifierForVendor?.uuidString
             updatedMember.deviceAlarmEnabled = true
         }
+        if isLocalOnlyFamily {
+            // Offline-Only: Nur lokal speichern, kein Firestore
+            if let idx = members.firstIndex(where: { $0.id == updatedMember.id }) {
+                members[idx] = updatedMember
+            } else {
+                members.append(updatedMember)
+            }
+            if shouldClaim {
+                myMemberId = updatedMember.id
+                UserDefaults.standard.set(updatedMember.id, forKey: "my_member_id")
+                isAlarmEnabled = true
+                UserDefaults.standard.set(true, forKey: "alarm_enabled")
+            }
+            LocalMemberStore.shared.save(members: members, familyId: fid)
+            isSyncing = false
+            recalculateSchedule()
+            return
+        }
         Task {
             await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
@@ -385,6 +428,9 @@ class FamilyViewModel: ObservableObject {
                     }
                     isSyncing = false
                     self.recalculateSchedule()
+                    if let fid = self.familyId {
+                        LocalMemberStore.shared.save(members: self.members, familyId: fid)
+                    }
                 }
             } catch {
                 await MainActor.run {
@@ -398,6 +444,18 @@ class FamilyViewModel: ObservableObject {
     func deleteMember(_ memberId: String) {
         guard let fid = familyId else { return }
         let wasMyMember = (memberId == myMemberId)
+        if isLocalOnlyFamily {
+            members.removeAll { $0.id == memberId }
+            if wasMyMember {
+                myMemberId = nil
+                UserDefaults.standard.removeObject(forKey: "my_member_id")
+                isAlarmEnabled = false
+                UserDefaults.standard.set(false, forKey: "alarm_enabled")
+            }
+            LocalMemberStore.shared.save(members: members, familyId: fid)
+            recalculateSchedule()
+            return
+        }
         Task {
             await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
@@ -543,6 +601,39 @@ class FamilyViewModel: ObservableObject {
         let userName = Auth.auth().currentUser?.displayName ?? L.s("settings_fallback_username")
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         errorMessage = nil
+        
+        if isLocalOnlyFamily {
+            // Offline-Claiming: nur lokaler State, kein Firestore
+            if let oldId = self.myMemberId, oldId != memberId {
+                if let idx = members.firstIndex(where: { $0.id == oldId }) {
+                    members[idx].claimedByUserId = nil
+                    members[idx].claimedByUserName = nil
+                    members[idx].claimedByDeviceId = nil
+                }
+            }
+            if let memberId = memberId {
+                if let idx = members.firstIndex(where: { $0.id == memberId }) {
+                    members[idx].claimedByUserId = uid
+                    members[idx].claimedByUserName = userName
+                    members[idx].claimedByDeviceId = deviceId
+                    members[idx].deviceAlarmEnabled = true
+                }
+                self.myMemberId = memberId
+                UserDefaults.standard.set(memberId, forKey: "my_member_id")
+                TelemetryManager.send("member.claimed.offline")
+            } else {
+                self.myMemberId = nil
+                UserDefaults.standard.removeObject(forKey: "my_member_id")
+                isAlarmEnabled = false
+                UserDefaults.standard.set(false, forKey: "alarm_enabled")
+            }
+            if let fid = familyId {
+                LocalMemberStore.shared.save(members: members, familyId: fid)
+            }
+            recalculateSchedule()
+            completion(true)
+            return
+        }
         
         let currentMyMemberId = self.myMemberId
         
@@ -1122,6 +1213,8 @@ class FamilyViewModel: ObservableObject {
                     }
                 }
                 self.members = sorted
+                // Members lokal persistieren für App-Kill-Szenario
+                LocalMemberStore.shared.save(members: sorted, familyId: familyId)
                 #if DEBUG
                 for m in sorted {
                     if m.snoozeUntil != nil || m.snoozeCount > 0 {
@@ -1163,7 +1256,20 @@ class FamilyViewModel: ObservableObject {
 
     private func loadFamilyFromLocal() {
         if let fid = UserDefaults.standard.string(forKey: "family_id") {
-            listenToFamily(id: fid)
+            // Sofort: gecachte Members laden für Instant-Anzeige
+            let cachedMembers = LocalMemberStore.shared.load(familyId: fid)
+            if !cachedMembers.isEmpty {
+                self.members = cachedMembers
+                self.recalculateSchedule()
+            }
+            if isLocalOnlyFamily {
+                // Lokale Familie: kein Firestore-Listener nötig
+                self.familyId = fid
+                self.familyName = UserDefaults.standard.string(forKey: "family_name")
+                self.joinCode = UserDefaults.standard.string(forKey: "family_join_code")
+            } else {
+                listenToFamily(id: fid)
+            }
         }
     }
 
@@ -1211,6 +1317,11 @@ class FamilyViewModel: ObservableObject {
     }
 
     private func clearFamilyLocally() {
+        if let fid = familyId {
+            LocalMemberStore.shared.delete(familyId: fid)
+        }
+        PendingSyncManager.shared.clear()
+        isLocalOnlyFamily = false
         familyId = nil
         familyName = nil
         joinCode = nil
@@ -1238,10 +1349,51 @@ class FamilyViewModel: ObservableObject {
         monitor.pathUpdateHandler = { [weak self] path in
             Task { @MainActor in
                 self?.isOffline = (path.status != .satisfied)
+                // Offline → Online: ausstehende lokale Familie synchronisieren
+                if path.status == .satisfied, let self, self.isLocalOnlyFamily {
+                    self.syncPendingFamily()
+                }
             }
         }
         monitor.start(queue: monitorQueue)
         self.pathMonitor = monitor
+    }
+
+    /// Synchronisiert eine lokal erstellte Familie zur Cloud.
+    /// Wird automatisch getriggert wenn das Netzwerk zurückkehrt.
+    private func syncPendingFamily() {
+        guard isLocalOnlyFamily, let localFamilyId = familyId else { return }
+        guard let name = familyName, !name.isEmpty else { return }
+        guard !isOffline else { return }
+        
+        isSyncing = true
+        Task {
+            do {
+                // 1. Cloud Function aufrufen für echte familyId + joinCode
+                let result = try await FamilyFirestoreService.shared.createFamily(name: name)
+                let newFamilyId = result.familyId
+                let newJoinCode = result.joinCode
+                
+                // 2. Alle lokalen Members in Firestore hochladen
+                let currentMembers = self.members
+                for member in currentMembers {
+                    try await FamilyFirestoreService.shared.addOrUpdateMember(familyId: newFamilyId, member: member)
+                }
+                
+                // 3. Lokal migrieren
+                await MainActor.run {
+                    LocalMemberStore.shared.migrateFamilyId(from: localFamilyId, to: newFamilyId)
+                    saveFamilyLocally(id: newFamilyId, name: name, code: newJoinCode)
+                    PendingSyncManager.shared.isLocalOnlyFamily = false
+                    isLocalOnlyFamily = false
+                    TelemetryManager.send("family.synced")
+                    listenToFamily(id: newFamilyId)
+                }
+            } catch {
+                print("syncPendingFamily failed (will retry on next connect): \(error.localizedDescription)")
+            }
+            await MainActor.run { isSyncing = false }
+        }
     }
 
     private func generateJoinCode() -> String {

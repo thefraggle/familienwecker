@@ -38,6 +38,9 @@ interface IFirebaseRepository {
 
     suspend fun deleteFamily(familyId: String, userId: String): Result<Unit>
 
+    /** Synchronisiert eine lokal erstellte Familie zur Cloud: CF aufrufen + Members hochladen. */
+    suspend fun syncLocalFamilyToCloud(localFamilyId: String, familyName: String, members: List<FamilyMember>, userId: String): Result<Pair<String, String>>
+
     suspend fun leaveFamilyBatch(userId: String, familyId: String, memberId: String): Result<Unit>
 
     // ── Mitglieder ────────────────────────────────────────────────────────────

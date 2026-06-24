@@ -421,4 +421,10 @@
     <string name="cd_notification_settings">Benachrichtigungseinstellungen öffnen</string>
     <string name="cd_tooltips_reset">Alle Tipps wieder anzeigen</string>
     <string name="cd_copy_to_days">Zeitplan auf andere Tage kopieren</string>
+
+    <!-- Offline-First -->
+    <string name="offline_family_created">Familie lokal erstellt. Synchronisierung erfolgt automatisch.</string>
+    <string name="offline_no_join_code">Join-Code verfügbar sobald online</string>
+    <string name="offline_syncing_banner">Wird synchronisiert…</string>
+    <string name="offline_sync_success">Synchronisierung abgeschlossen ✓</string>
 </resources>
