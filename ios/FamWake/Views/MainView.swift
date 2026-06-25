@@ -85,7 +85,6 @@ enum NavigationRoute: Hashable {
 
                     // Member list
                     MemberSection(
-                        editMemberId: .constant(nil),
                         memberToDelete: $memberToDelete,
                         showDeleteMemberAlert: $showDeleteMemberAlert,
                         onAddMember: { navPath.append(NavigationRoute.addMember) },
