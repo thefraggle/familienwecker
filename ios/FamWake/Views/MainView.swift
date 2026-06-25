@@ -2,6 +2,12 @@ import SwiftUI
 import UserNotifications
 import Lottie
 
+enum NavigationRoute: Hashable {
+    case settings
+    case addMember
+    case editMember(String)
+}
+
 struct MainView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -18,12 +24,6 @@ struct MainView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
-
-enum NavigationRoute: Hashable {
-    case settings
-    case addMember
-    case editMember(String)
-}
 
     var body: some View {
         NavigationStack(path: $navPath) {
