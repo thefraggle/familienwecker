@@ -15,6 +15,9 @@ struct OnboardingView: View {
     @State private var currentPage: Int
     @State private var tooltipsEnabled: Bool
     @State private var isStarting = false
+    
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     init(startAtWelcome: Bool = false,
          onFinished: @escaping (_ tooltipsEnabled: Bool) -> Void,
@@ -42,7 +45,7 @@ struct OnboardingView: View {
                     .ignoresSafeArea()
             } else {
                 // Fallback gradient if image missing
-                LinearGradient(colors: [Color(hex: "#0D1B2A"), Color(hex: "#1B2838")],
+                LinearGradient(colors: [theme.surface, theme.background],
                               startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
             }
@@ -172,7 +175,7 @@ struct OnboardingView: View {
                 Group {
                     if isStarting {
                         ProgressView()
-                            .tint(Color(hex: "#1A237E"))
+                            .tint(theme.primary)
                     } else {
                         Text(isLastPage
                              ? (isLoggedIn ? L.s("close_desc") : L.onboardingDone)
@@ -180,10 +183,10 @@ struct OnboardingView: View {
                             .fontWeight(.bold)
                     }
                 }
-                .foregroundStyle(Color(hex: "#1A237E"))
+                .foregroundStyle(theme.onPrimary)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
-                .background(Color.white)
+                .background(theme.primary)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .disabled(isStarting)
@@ -217,23 +220,26 @@ struct OnboardingView: View {
 // MARK: - Schedule Mockup (Slide 1 – on-the-fly, fully localized)
 
 private struct ScheduleMockup: View {
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
+
     var body: some View {
         MockupCard {
             // Header
             Text(L.s("main_current_schedule"))
                 .font(.subheadline).fontWeight(.bold)
-                .foregroundStyle(MockColors.text)
+                .foregroundStyle(theme.onBackground)
 
             // Optimal plan banner
             HStack(spacing: 6) {
                 Text("✅")
                 Text(L.s("main_optimal_plan"))
                     .font(.caption).fontWeight(.semibold)
-                    .foregroundStyle(MockColors.primary)
+                    .foregroundStyle(theme.primary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(10)
-            .background(RoundedRectangle(cornerRadius: 12).fill(MockColors.cardAlt))
+            .background(RoundedRectangle(cornerRadius: 12).fill(theme.surfaceVariant))
 
             // Member cards
             MockMemberCard(emoji: "🔔", time: "06:20", name: L.s("onboarding_mock_name1"),
@@ -248,25 +254,28 @@ private struct ScheduleMockup: View {
 // MARK: - Invite Mockup (Slide 2 – on-the-fly, fully localized)
 
 private struct InviteMockup: View {
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
+
     var body: some View {
         MockupCard(height: 190) {
             // Header
             HStack(spacing: 8) {
                 Image(systemName: "person.3.fill")
-                    .font(.caption).foregroundStyle(MockColors.primary)
+                    .font(.caption).foregroundStyle(theme.primary)
                 Text(L.settingsAccountTitle)
                     .font(.caption).fontWeight(.bold)
-                    .foregroundStyle(MockColors.text)
+                    .foregroundStyle(theme.onBackground)
             }
 
             // Join code label
             Text(L.settingsJoinCodeName(L.s("onboarding_mock_family_name")))
-                .font(.caption2).foregroundStyle(MockColors.subText)
+                .font(.caption2).foregroundStyle(theme.onSurfaceVariant)
 
             // Code
             Text("3KY342")
                 .font(.title2).fontWeight(.black)
-                .foregroundStyle(MockColors.primary)
+                .foregroundStyle(theme.primary)
                 .frame(maxWidth: .infinity)
 
             // Share button
@@ -274,29 +283,22 @@ private struct InviteMockup: View {
                 Image(systemName: "square.and.arrow.up").font(.caption2)
                 Text(L.settingsShareCode).font(.caption).fontWeight(.semibold)
             }
-            .foregroundStyle(MockColors.primary)
+            .foregroundStyle(theme.primary)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 10)
-            .background(RoundedRectangle(cornerRadius: 12).fill(MockColors.selected.opacity(0.18)))
+            .background(RoundedRectangle(cornerRadius: 12).fill(theme.secondary.opacity(0.18)))
         }
     }
 }
 
 // MARK: - Mockup Shared Components
 
-private enum MockColors {
-    static let bg       = Color(hex: "#000000")
-    static let card     = Color(hex: "#161F2A")
-    static let cardAlt  = Color(hex: "#1D2938")
-    static let text     = Color(hex: "#E8EDF2")
-    static let subText  = Color(hex: "#8DAFC8")
-    static let outline  = Color(hex: "#4E657C")
-    static let primary  = Color(hex: "#E3EDF7")
-    static let selected = Color(hex: "#8DAFC8")
-}
+// MARK: - Mockup Shared Components
 
 private struct MockupCard<Content: View>: View {
     var height: CGFloat = 275
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
     @ViewBuilder var content: () -> Content
 
     var body: some View {
@@ -309,13 +311,13 @@ private struct MockupCard<Content: View>: View {
         .frame(height: height)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(MockColors.bg)
+                .fill(theme.background)
                 .shadow(color: .black.opacity(0.6), radius: 24, x: 0, y: 12)
         )
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .overlay(alignment: .bottom) {
             // Bottom fade
-            LinearGradient(colors: [.clear, MockColors.bg.opacity(0.85)],
+            LinearGradient(colors: [.clear, theme.background.opacity(0.85)],
                           startPoint: .top, endPoint: .bottom)
                 .frame(height: 48)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -328,16 +330,19 @@ private struct MockMemberCard: View {
     let time: String
     let name: String
     let bathroom: String
+    
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 Text("\(emoji)  \(time) – \(name)")
                     .font(.caption).fontWeight(.bold)
-                    .foregroundStyle(MockColors.text)
+                    .foregroundStyle(theme.onBackground)
                 Text(bathroom)
                     .font(.caption2)
-                    .foregroundStyle(MockColors.subText)
+                    .foregroundStyle(theme.onSurfaceVariant)
             }
             Spacer()
             // Drag handle dots
@@ -345,7 +350,7 @@ private struct MockMemberCard: View {
                 ForEach(0..<3, id: \.self) { _ in
                     HStack(spacing: 3) {
                         ForEach(0..<2, id: \.self) { _ in
-                            Circle().fill(MockColors.outline).frame(width: 3, height: 3)
+                            Circle().fill(theme.outline).frame(width: 3, height: 3)
                         }
                     }
                 }
@@ -355,8 +360,8 @@ private struct MockMemberCard: View {
         .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(MockColors.card)
-                .overlay(RoundedRectangle(cornerRadius: 12).stroke(MockColors.outline.opacity(0.3), lineWidth: 1))
+                .fill(theme.surface)
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.3), lineWidth: 1))
         )
     }
 }
