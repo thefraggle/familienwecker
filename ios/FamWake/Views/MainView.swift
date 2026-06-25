@@ -316,7 +316,7 @@ enum NavigationRoute: Hashable {
     @ViewBuilder
     private var noProfileWarning: some View {
         Group {
-            Button(action: { showSettings = true }) {
+            Button(action: { navPath.append(NavigationRoute.settings) }) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("⚠️ \(L.mainNoProfileWarning)")
                         .font(.subheadline).fontWeight(.bold)
