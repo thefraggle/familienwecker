@@ -7,9 +7,7 @@ struct MainView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var appState: AppState
     @Environment(\.scenePhase) var scenePhase
-    @State private var showSettings = false
-    @State private var showAddMember = false
-    @State private var editMemberId: String? = nil
+    @State private var navPath = NavigationPath()
     @State private var memberToDelete: FamilyMember? = nil
     @State private var showDeleteMemberAlert = false
     @State private var showLoginSheet = false
@@ -21,10 +19,15 @@ struct MainView: View {
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
+enum NavigationRoute: Hashable {
+    case settings
+    case addMember
+    case editMember(String)
+}
+
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navPath) {
             ZStack {
-                // Background gradient matching Android MainScreen
                 LinearGradient(
                     colors: colorScheme == .dark
                         ? [theme.surface, theme.background]
@@ -82,10 +85,11 @@ struct MainView: View {
 
                     // Member list
                     MemberSection(
-                        editMemberId: $editMemberId,
+                        editMemberId: .constant(nil),
                         memberToDelete: $memberToDelete,
                         showDeleteMemberAlert: $showDeleteMemberAlert,
-                        onAddMember: { showAddMember = true }
+                        onAddMember: { navPath.append(NavigationRoute.addMember) },
+                        onEditMember: { id in navPath.append(NavigationRoute.editMember(id)) }
                     )
                 }
                 .listStyle(.plain)
@@ -115,7 +119,7 @@ struct MainView: View {
                             }
                             
                             if familyViewModel.members.count < 6 {
-                                Button(action: { showAddMember = true }) {
+                                Button(action: { navPath.append(NavigationRoute.addMember) }) {
                                     HStack(spacing: 8) {
                                         Image(systemName: "plus")
                                             .font(.title2.weight(.semibold))
@@ -168,7 +172,7 @@ struct MainView: View {
                                 .font(.caption)
                         }
 
-                        Button(action: { showSettings = true }) {
+                        Button(action: { navPath.append(NavigationRoute.settings) }) {
                             Image(systemName: "gearshape.fill")
                                 .foregroundStyle(theme.onSurface)
                         }
@@ -176,19 +180,17 @@ struct MainView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showSettings) {
-                SettingsView()
-                    .environment(\.colorScheme, colorScheme)
-                    .preferredColorScheme(colorScheme)
-            }
-            .sheet(isPresented: $showAddMember) {
-                AddEditMemberView(memberId: nil) { showAddMember = false }
-            }
-            .sheet(item: Binding(
-                get: { editMemberId.map { IdentifiableString(value: $0) } },
-                set: { editMemberId = $0?.value }
-            )) { id in
-                AddEditMemberView(memberId: id.value) { editMemberId = nil }
+            .navigationDestination(for: NavigationRoute.self) { route in
+                switch route {
+                case .settings:
+                    SettingsView()
+                        .environment(\.colorScheme, colorScheme)
+                        .preferredColorScheme(colorScheme)
+                case .addMember:
+                    AddEditMemberView(memberId: nil) { navPath.removeLast() }
+                case .editMember(let id):
+                    AddEditMemberView(memberId: id) { navPath.removeLast() }
+                }
             }
             .alert(L.settingsDeleteMemberTitle, isPresented: $showDeleteMemberAlert, presenting: memberToDelete) { member in
                 Button(L.settingsDeleteMemberConfirm, role: .destructive) {
