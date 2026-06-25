@@ -13,7 +13,7 @@ struct MainView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var appState: AppState
     @Environment(\.scenePhase) var scenePhase
-    @State private var navPath = NavigationPath()
+    @State private var navPath: [NavigationRoute] = []
     @State private var memberToDelete: FamilyMember? = nil
     @State private var showDeleteMemberAlert = false
     @State private var showLoginSheet = false
