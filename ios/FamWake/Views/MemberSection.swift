@@ -4,10 +4,10 @@ import Lottie
 struct MemberSection: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @Environment(\.colorScheme) private var colorScheme
-    @Binding var editMemberId: String?
     @Binding var memberToDelete: FamilyMember?
     @Binding var showDeleteMemberAlert: Bool
     var onAddMember: () -> Void
+    var onEditMember: (String) -> Void
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
@@ -99,7 +99,7 @@ struct MemberSection: View {
                         member: member,
                         isMyProfile: member.id == familyViewModel.myMemberId,
                         isAlarmEnabled: familyViewModel.isAlarmEnabled,
-                        onEdit: { editMemberId = member.id },
+                        onEdit: { onEditMember(member.id) },
                         onDelete: {
                             memberToDelete = member
                             showDeleteMemberAlert = true
