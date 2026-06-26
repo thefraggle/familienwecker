@@ -241,6 +241,7 @@ struct AddEditMemberView: View {
                     initializeData()
                     initialized = true
                 }
+            }
         // NavigationStack removed
     }
 
