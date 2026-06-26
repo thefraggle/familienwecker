@@ -29,7 +29,7 @@ struct SettingsView: View {
     private var isDark: Bool { colorScheme == .dark }
 
     var body: some View {
-        NavigationStack {
+        // Removed NavigationStack because SettingsView is now pushed onto MainView's NavigationStack
             ScrollView {
                 VStack(spacing: 20) {
                     
@@ -198,7 +198,7 @@ struct SettingsView: View {
                     }
                 }
             }
-        }
+        // NavigationStack removed
     }
 
     // MARK: - 1. Profil & Weckton
