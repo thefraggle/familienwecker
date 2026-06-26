@@ -21,7 +21,8 @@ struct LoginView: View {
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     var body: some View {
-        ZStack {
+        NavigationStack {
+            ZStack {
             // Background gradient matching Android LoginScreen
             LinearGradient(
                 colors: colorScheme == .dark
@@ -33,31 +34,6 @@ struct LoginView: View {
             .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // TopBar – Close Button + Title
-                HStack {
-                    Button(action: {
-                        if appState.route == .login {
-                            appState.route = .onboardingWelcome
-                        } else {
-                            dismiss()
-                        }
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.body)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(theme.primary)
-                    }
-                    .buttonStyle(.borderless)
-                    .accessibilityLabel(L.s("accessibility_login_close"))
-                    
-                    Spacer()
-                    
-                    famWakeTitle(L.appNameShort)
-                        .foregroundStyle(theme.onSurface)
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 16)
-
                 Spacer()
 
                 // Login Card
@@ -125,6 +101,29 @@ struct LoginView: View {
                 .padding(.horizontal, 24)
 
                 Spacer()
+            }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    famWakeTitle(L.appNameShort)
+                        .foregroundStyle(theme.onSurface)
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: {
+                        if appState.route == .login {
+                            appState.route = .onboardingWelcome
+                        } else {
+                            dismiss()
+                        }
+                    }) {
+                        Image(systemName: "xmark")
+                            .fontWeight(.semibold)
+                    }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(theme.primary)
+                    .accessibilityLabel(L.s("accessibility_login_close"))
+                }
             }
         }
         .onTapGesture { focusedField = nil }

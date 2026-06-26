@@ -915,10 +915,15 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(L.cancelButton) {
+                    Button(action: {
                         donationViewModel.resetState()
                         showDonationSheet = false
+                    }) {
+                        Image(systemName: "xmark")
+                            .fontWeight(.semibold)
                     }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(theme.primary)
                 }
             }
             .onAppear {
