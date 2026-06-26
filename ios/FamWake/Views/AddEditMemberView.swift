@@ -212,11 +212,8 @@ struct AddEditMemberView: View {
                     Button(action: {
                         if hasChanges { showDiscardAlert = true } else { onDone() }
                     }) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "chevron.left")
-                                .fontWeight(.semibold)
-                            Text(L.cancelButton)
-                        }
+                        Image(systemName: "chevron.backward")
+                            .font(.body.weight(.semibold))
                     }
                     .buttonStyle(.borderless)
                     .foregroundStyle(theme.primary)
