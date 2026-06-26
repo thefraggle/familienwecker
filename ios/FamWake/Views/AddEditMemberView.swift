@@ -66,7 +66,7 @@ struct AddEditMemberView: View {
     var hasAnyError: Bool { dayProfiles.values.filter { $0.isActive }.contains { !validateDayProfile($0).isEmpty } }
 
     var body: some View {
-        NavigationStack {
+        // Removed NavigationStack because AddEditMemberView is pushed onto MainView's NavigationStack
             ZStack {
                 LinearGradient(
                     colors: colorScheme == .dark
@@ -241,8 +241,7 @@ struct AddEditMemberView: View {
                     initializeData()
                     initialized = true
                 }
-            }
-        }
+        // NavigationStack removed
     }
 
     @ViewBuilder
