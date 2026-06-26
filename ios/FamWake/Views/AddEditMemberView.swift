@@ -206,13 +206,17 @@ struct AddEditMemberView: View {
             }
             .navigationTitle(memberId == nil ? L.addMemberTitleAdd : L.addMemberTitleEdit)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         if hasChanges { showDiscardAlert = true } else { onDone() }
                     }) {
-                        Image(systemName: "xmark")
-                            .fontWeight(.semibold)
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                            Text(L.cancelButton)
+                        }
                     }
                     .buttonStyle(.borderless)
                     .foregroundStyle(theme.primary)

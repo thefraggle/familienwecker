@@ -114,17 +114,6 @@ struct SettingsView: View {
             )
             .navigationTitle(L.settingsTitle)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "xmark")
-                            .fontWeight(.semibold)
-                    }
-                    .buttonStyle(.borderless)
-                    .foregroundStyle(theme.primary)
-                    .accessibilityLabel(L.s("accessibility_close_button"))
-                }
-            }
             .sheet(isPresented: $showFeedback) { FeedbackView() }
             .sheet(isPresented: $showShareSheet) { ActivityViewController(activityItems: [shareContent]) }
             .sheet(isPresented: $showProfilePicker) { profilePickerSheet }
