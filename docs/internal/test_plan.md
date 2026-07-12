@@ -1,11 +1,11 @@
 # 🧪 Testplan: FamWake
-**Version:** 2.0.1
-**Datum:** 2026-06-24
+**Version:** 2.0.2
+**Datum:** 2026-07-12
 
 ---
 
 ## 📋 Strategie
-Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteübergreifender Sync.
+Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und geräteübergreifender Sync.
 
 ---
 
@@ -14,42 +14,44 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 ### 1. Account & Familien
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-01 | Registrierung & Login | E-Mail & Google Login. Passwort-Reset. Inaktive Buttons erst nach vollständiger Eingabe klickbar. |
-| TC-02 | Lazy Registration | Onboarding-Tour (4 Slides), anonymer Nutzer erstellt (Double-Click-Schutz). Prominente Warnung auf dem Setup-Screen für Gast-Accounts. |
-| TC-03 | Familien-Lifecycle | Gründen + Beitreten per Code/Link. Nur Creator darf löschen. Verlassen/Löschen deaktiviert lokale Wecker sofort. Fehlermeldung bei Netzwerkproblemen. |
-| TC-04 | DSGVO-Datenlöschung | Konto löschen entfernt alle Daten inkl. Push-Tokens und entclaimt Profile. |
+| TC-01 | Registrierung & Login | E-Mail, Google, Apple, Anonym. Passwort-Reset. Buttons erst nach Eingabe aktiv. |
+| TC-02 | Onboarding | 4 Slides, anonymer Nutzer erstellt (Double-Click-Schutz). Gast-Warnung auf Setup-Screen. |
+| TC-03 | Familien-Lifecycle | Gründen + Beitreten (Code/Link). Nur Creator löscht. Verlassen deaktiviert Wecker sofort. Fehlermeldung bei Netzproblemen. |
+| TC-04 | DSGVO-Löschung | Konto löschen entfernt alle Daten inkl. Push-Tokens und entclaimt Profile. |
 
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-20 | Profil-Verwaltung | Erstes Mitglied auto-geclaimt. Bei Neuinstallation: manueller Claim → Weckplan sofort da. |
-| TC-21 | Zeitvalidierung | latestWakeUp ≤ earliestWakeUp blockiert Speichern. Nachtschicht-Zeiten (z.B. Wake 22:00, Leave 00:15) werden korrekt akzeptiert. |
-| TC-22 | Reorder & Wochentage | Drag & Drop → Bestätigungsdialog. „Ganze Woche" zeigt Warnung bei tagesspezifischen Unterschieden. Abbrechen setzt visuell zurück. |
-| TC-23 | Puffer (global & individuell) | Globaler Puffer (0–15 Min). Im Editor: kursiv = geerbt, fett = Override. Manuelle 0m überschreiben globalen Wert. |
-| TC-24 | Einfacher Modus | Blendet erweiterte Optionen aus. Scheduler weist feste Weckzeit zu. |
-| TC-25 | Offline-Erstellung | Flugmodus: Familie erstellen → Mitglieder anlegen → Claimen → Wecker stellt sich. App-Kill + Neustart: Daten vorhanden. |
+| TC-20 | Profil-Verwaltung | Erstes Mitglied auto-geclaimt. Neuinstallation: manueller Claim → Weckplan sofort da. |
+| TC-21 | Zeitvalidierung | latestWakeUp ≤ earliestWakeUp blockiert Speichern. Nachtschicht-Zeiten korrekt akzeptiert. |
+| TC-22 | Reorder & Wochentage | Drag & Drop mit Bestätigungsdialog. „Ganze Woche"-Warnung bei Unterschieden. Abbrechen setzt zurück. |
+| TC-23 | Puffer | Global (0–15 Min). Kursiv = geerbt, fett = Override. Manuelles 0m überschreibt global. |
+| TC-24 | Einfacher Modus | Erweiterte Optionen ausgeblendet. Feste Weckzeit zugewiesen. |
+| TC-25 | Offline-Erstellung | Flugmodus: Familie → Mitglieder → Claim → Wecker stellt sich. App-Kill + Neustart: Daten erhalten. |
 
 ### 3. Wecker, Alarm & Snooze
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-30 | Alarm-Zyklus | Wecker klingelt zuverlässig (Hintergrund, Sperrbildschirm). Stop → App öffnet mit Begrüßung. Kein doppelter Ton. |
-| TC-31 | Snooze (1/2) | Eigene Weckzeit +5 Min, Badzeit absorbiert Verschiebung. Andere nicht verschoben. Banner: „Schlummern bis HH:MM (1/2)". Zähler zeigt korrekt 1/2. |
-| TC-32 | Snooze (2/2) | Eigene Weckzeit +5 Min, volle Badzeit. Nachfolgende Mitglieder werden verschoben. Banner zeigt korrekt (2/2). |
-| TC-33 | Snooze-Maximum | 3. Snooze-Klick: Alarm endet, Begrüßung erscheint beim Entsperren, Lock-Screen-Hinweis „Snooze nicht möglich". |
-| TC-34 | Snooze abbrechen | „Abbrechen" im Banner → Snooze-State reset, Plan neu berechnet, Sync auf alle Geräte. |
-| TC-35 | Ghost-Alarm-Schutz | Kein Wecker wenn globaler Schalter OFF, wenn eigener Member pausiert wird (bei aktiven anderen), nach Neustart oder Mitglieder-Bearbeitung. |
-| TC-35b | Snooze-Reset Folgetag | Nach 2× Snooze gestern: Snooze-Button heute wieder aktiv (Count automatisch zurückgesetzt). |
-| TC-35c | Lock-Screen Snooze | Snooze-Button auf AlarmKit-Sperrbildschirm: Alarm stoppt, neuer Alarm in 5 Min geplant, Banner erscheint. |
-| TC-36 | „Ich bin wach" | Stoppt Wecker, Button bleibt am Weckertag sichtbar (oder 4h vorher). Reset am Folgetag. |
-| TC-37 | Snooze nach Reboot | Gerät neustarten während Snooze aktiv → Snooze-Alarm wird aus AlarmBackupPrefs wiederhergestellt. |
+| TC-30 | Alarm-Zyklus | Wecker klingelt (Hintergrund, Sperrbildschirm, Lock-Screen). Stop → Begrüßung. Kein Doppelton. |
+| TC-31 | Snooze (1/2 → 2/2) | 1. Snooze: +5 Min, Badzeit absorbiert. 2. Snooze: volle Badzeit, Nachfolgende verschoben. Banner + Zähler korrekt. |
+| TC-32 | Snooze-Maximum | 3. Klick: Alarm endet, Begrüßung erscheint. Lock-Screen: „Snooze nicht möglich". |
+| TC-33 | Snooze nach Reboot | Gerät neu starten während Snooze → Alarm aus Backup wiederhergestellt. |
+| TC-34 | Ghost-Alarm-Schutz | Kein Wecker bei: globalem Schalter OFF, pausiertem Member, nach Neustart oder Bearbeitung. Snooze-Count am Folgetag zurückgesetzt. |
 
-### 4. Sync & Benachrichtigungen
+### 4. Sync & Push
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| TC-40 | Push-Events | Manuelle Änderungen senden stumme Pushes an Mitbewohner (kein Self-Push). Auto-Resets werden gefiltert. Toggle OFF → keine Pushes. |
-| TC-41 | Multi-Device Sync | Claim, Alarm-Status, Reihenfolge und Snooze synchronisieren sofort. 💤-Symbol bei snoozendem Mitglied. |
-| TC-43 | Offline→Online Sync | Offline-Familie erstellt → Flugmodus aus → Familie bekommt echte ID + Join-Code. Members erhalten. Firestore-Listener aktiv. |
-| TC-42 | Pause-Toggle | Sofortiger lokaler State, kein Flackern durch eingehende Snapshots. |
+| TC-40 | Push-Events | Manuelle Änderungen → stumme Pushes an Mitbewohner (kein Self-Push). Auto-Resets gefiltert. Toggle OFF → keine Pushes. |
+| TC-41 | Multi-Device Sync | Claim, Alarm-Status, Reihenfolge, Snooze synchron. 💤-Symbol bei Snooze. |
+| TC-42 | Pause-Toggle | Sofortiger lokaler State, kein Flackern durch Snapshots. |
+| TC-43 | Offline→Online Sync | Offline-Familie → Flugmodus aus → echte ID + Join-Code. Firestore-Listener aktiv. |
+
+### 5. Navigation & UI (neu in v2.0.2)
+| ID | Testfall | Erwartetes Ergebnis |
+|:---|:---|:---|
+| TC-50 | NavigationStack (iOS) | Schneller Wechsel Hauptbildschirm ↔ Einstellungen ↔ Mitglied-Editor: kein Crash. Zurück-Button-Text nicht abgeschnitten. |
+| TC-51 | Modal-Close-Buttons | Alle Dialoge/Sheets: einheitlicher X-Button oben rechts. Schließen per ESC/Backdrop funktioniert. |
+| TC-52 | Donations deaktiviert | iOS: Kein Donation-Button in Einstellungen sichtbar. Android: Donation funktionsfähig. |
 
 ---
 
@@ -57,26 +59,24 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Datensicherheit und geräteüber
 
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| EC-01 | Zeitkonflikte | Kompromissvorschläge, AutoFix nur für Ziel-Wochentag. Puffer-Reduktion vor Zeitverschiebung. Warnung bei >6 aktiven Mitgliedern. |
-| EC-02 | Offline-Betrieb (4+ Tage) | Familie + Members offline voll nutzbar. Alarm funktioniert. Kein Absturz. Bei Reconnect: Auto-Sync zur Cloud. Family-Join einzige Ausnahme. |
+| EC-01 | Zeitkonflikte | Kompromissvorschläge, AutoFix nur für Ziel-Wochentag. Puffer-Reduktion vor Zeitverschiebung. Warnung bei >6 Mitgliedern. |
+| EC-02 | Offline (4+ Tage) | Alarm funktioniert, kein Absturz. Bei Reconnect: Auto-Sync. Family-Join einzige Ausnahme. |
 | EC-03 | Backend-Schutz | Zugriff auf fremde Profile → PERMISSION_DENIED. |
-| EC-04 | Bildschirm-Timeout | Bildschirm bleibt nur im aktiven Vordergrund wach, nicht in Sheets oder im Hintergrund. |
-| EC-05 | Dynamic Type | Große Systemschrift (Accessibility): Buttons und Chips skalieren mit, kein Clipping. |
+| EC-04 | Bildschirm-Timeout | Bildschirm nur im aktiven Vordergrund wach, nicht in Sheets oder Hintergrund. |
 
 ---
 
-## 🎨 UI & Lokalisation
+## 🎨 UI & Barrierefreiheit
 
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
-| UI-01 | Layout | Tastatur verdeckt keine Buttons. Tablet-Hochformat. iPhone SE Weekday-Chips scrollbar. |
+| UI-01 | Layout | Tastatur verdeckt keine Buttons. iPhone SE Chips scrollbar. |
 | UI-02 | Sprachen & Themes | 25 Sprachen absturzfrei. Dark/Light sofort. |
-| UI-03 | Fehlerhinweise | Sync-Fehler (Reihenfolge, Pause, Snooze, Puffer) → verständliche Meldung. |
-| UI-04 | Barrierefreiheit | VoiceOver (iOS) / TalkBack (Android): alle Buttons, Toggles, Picker mit Label. Initialen-Avatare lesbar. |
-| UI-05 | Initialen-Avatare | Farbiger Kreis mit 2 Buchstaben pro Mitglied. Deterministische Farbe basierend auf Name. |
+| UI-03 | Fehlerhinweise | Sync-/Netzfehler → verständliche Meldung. |
+| UI-04 | Barrierefreiheit | VoiceOver/TalkBack: alle Buttons, Toggles, Picker gelabelt. Initialen-Avatare lesbar. Dynamic Type: kein Clipping. |
 
 ---
 
 ## 📈 Validierung
-- **Automatisiert:** 13 Unit-Tests für Scheduler (inkl. Buffer-Tests) in GitHub Actions.
-- **Manuell:** Vor jedem Release Live-Test auf mind. 2 Geräten (Snooze-Sync, Ghost-Alarm, Multi-Device).
+- **Automatisiert:** 13 Unit-Tests für Scheduler (inkl. Buffer) in GitHub Actions.
+- **Manuell:** Vor Release: Live-Test auf mind. 2 Geräten (Snooze-Sync, Ghost-Alarm, Multi-Device, Navigation).

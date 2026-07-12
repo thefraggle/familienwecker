@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.0.2 – 2026-07-12
+✨ Improved:
+• More stable navigation – no more crash when quickly switching between settings and main screen
+• Consistent close buttons across all dialogs and overlays
+• Back button text no longer truncated
+• Faster and more robust backend operation through internal optimization
+
 ## 2.0.1 – 2026-06-24
 🆕 Offline Mode – Create families and manage members without internet. Auto-sync when you're back online.
 
