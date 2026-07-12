@@ -1,6 +1,9 @@
 name: iOS Release Build
 
 on:
+  push:
+    tags:
+      - v*
   workflow_dispatch:
 
 concurrency:

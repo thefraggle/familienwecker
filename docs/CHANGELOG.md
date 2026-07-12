@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.0.2 – 2026-07-12
+✨ Verbessert:
+• Navigation stabiler – kein Absturz mehr beim schnellen Wechsel zwischen Einstellungen und Hauptbildschirm
+• Einheitlichere Schließen-Buttons in allen Dialogen und Overlays
+• Zurück-Button-Text wird nicht mehr abgeschnitten
+• Schnellerer und robusterer Backend-Betrieb durch interne Optimierung
+
 ## 2.0.1 – 2026-06-24
 🆕 Offline-Modus – Familien erstellen und Mitglieder verwalten funktioniert jetzt auch ohne Internet. Automatische Synchronisierung sobald die Verbindung zurückkehrt.
 
