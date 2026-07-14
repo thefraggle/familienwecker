@@ -113,6 +113,7 @@ struct OnboardingView: View {
                 .font(.title2).fontWeight(.bold)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity)
 
             Spacer().frame(height: 16)
@@ -122,6 +123,7 @@ struct OnboardingView: View {
                 .foregroundStyle(.white.opacity(0.85))
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
+                .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity)
 
             Spacer()
