@@ -1,160 +1,173 @@
 {
-  "sourceLanguage": "de",
-  "strings": {
-    "CFBundleDisplayName": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familienwecker"
+  "sourceLanguage" : "de",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "localizations" : {
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফ্যামিলি অ্যালার্ম ঘড়ি"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "家族の目覚まし時計"
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familievækkeur"
           }
         },
-        "mr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "कौटुंबिक अलार्म"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familienwecker"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Family Alarm Clock"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Family Alarm Clock"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сімейний будильник"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Despertador Familiar"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Despertador Familiar"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réveil Familial"
           }
         },
-        "da": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familievækkeur"
+        "gsw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familiewecker"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sveglia familiare"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फ़ैमिली अलार्म"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familjeväckarklocka"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jam Alarm Keluarga"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "가족 알람시계"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sveglia familiare"
           }
         },
-        "gsw": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familiewecker"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "家族の目覚まし時計"
           }
         },
-        "no": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familievekkerklokke"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가족 알람시계"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aile Çalar Saati"
+        "ksh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familienwecker"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Budzik Rodzinny"
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कौटुंबिक अलार्म"
           }
         },
-        "ksh": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familienwecker"
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familievekkerklokke"
           }
         },
-        "swg": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familienwegger"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familiewekker"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Báo thức Gia đình"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Budzik Rodzinny"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Семейный будильник"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Despertador Familiar"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Réveil Familial"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Семейный будильник"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jam Alarm Keluarga"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familjeväckarklocka"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familiewekker"
+        "swg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familienwegger"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Despertador Familiar"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aile Çalar Saati"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ফ্যামিলি অ্যালার্ম ঘড়ি"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сімейний будильник"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "फ़ैमिली अलार्म"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Báo thức Gia đình"
           }
         },
-        "zh": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "家庭闹钟"
+        "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "家庭闹钟"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FamWake"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
