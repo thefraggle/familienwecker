@@ -146,10 +146,18 @@ service cloud.firestore {
     }
 
     // Feedback: Nur Admins dürfen lesen, bearbeiten und löschen.
-    // Erstellen darf jeder eingeloggte Nutzer (write würde auch update/delete erlauben).
+    // Erstellen darf jeder eingeloggte Nutzer mit Feldvalidierung.
     match /feedback/{doc} {
       allow read, update, delete: if isAdmin();
-      allow create: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.keys().hasAll(['uid', 'category', 'message', 'appVersion', 'device', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'category', 'message', 'appVersion', 'device', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.category is string && request.resource.data.category.size() > 0 && request.resource.data.category.size() <= 100
+        && request.resource.data.message is string && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 5000
+        && request.resource.data.appVersion is string && request.resource.data.appVersion.size() <= 50
+        && request.resource.data.device is string && request.resource.data.device.size() <= 100
+        && request.resource.data.createdAt == request.time;
     }
   }
 }

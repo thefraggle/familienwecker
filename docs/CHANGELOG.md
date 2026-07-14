@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.0.3 – 2026-07-14
+✨ Verbessert:
+• Lesbarkeit optimiert: Der Text in der kurzen App-Tour wird auf kleineren Bildschirmen nicht mehr abgeschnitten.
+• Erhöhte Sicherheit bei der Übermittlung von Feedback-Nachrichten.
+
 ## 2.0.2 – 2026-07-12
 ✨ Verbessert:
 • Navigation stabiler – kein Absturz mehr beim schnellen Wechsel zwischen Einstellungen und Hauptbildschirm

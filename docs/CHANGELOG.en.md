@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.0.3 – 2026-07-14
+✨ Improved:
+• Optimized readability: Text in the quick app tour is no longer cut off on smaller screens.
+• Enhanced security when submitting feedback messages.
+
 ## 2.0.2 – 2026-07-12
 ✨ Improved:
 • More stable navigation – no more crash when quickly switching between settings and main screen
