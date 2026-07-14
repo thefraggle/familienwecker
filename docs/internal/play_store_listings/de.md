@@ -51,7 +51,7 @@ FamWake ist weltweit in 25 Sprachen verfügbar — und sogar auf Schwäbisch, Sc
 • Keine Werbung — niemals.
 • Kein Datenverkauf — garantiert.
 • Verschlüsselte Verbindungen und minimale Datenspeicherung.
-• Sicherer Login über Google.
+• Sicherer Login über Google oder Apple.
 
 <b>So funktioniert's — in 3 Schritten:</b>
 1️⃣ Erstelle eine Familie und lade deine Liebsten per Einladungscode ein.
