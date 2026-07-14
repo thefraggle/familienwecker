@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 2.0.2
-**Datum:** 2026-07-12
+**Version:** 2.0.3
+**Datum:** 2026-07-14
 
 ---
 
@@ -15,7 +15,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und 
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | TC-01 | Registrierung & Login | E-Mail, Google, Apple, Anonym. Passwort-Reset. Buttons erst nach Eingabe aktiv. |
-| TC-02 | Onboarding | 4 Slides, anonymer Nutzer erstellt (Double-Click-Schutz). Gast-Warnung auf Setup-Screen. |
+| TC-02 | Onboarding | 4 Slides, anonymer Nutzer erstellt (Double-Click-Schutz). Gast-Warnung auf Setup-Screen. iOS: Tour-Text bricht auf kleinen Bildschirmen (z. B. iPhone SE) korrekt um ohne abgeschnitten zu werden. |
 | TC-03 | Familien-Lifecycle | Gründen + Beitreten (Code/Link). Nur Creator löscht. Verlassen deaktiviert Wecker sofort. Fehlermeldung bei Netzproblemen. |
 | TC-04 | DSGVO-Löschung | Konto löschen entfernt alle Daten inkl. Push-Tokens und entclaimt Profile. |
 
@@ -63,6 +63,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und 
 | EC-02 | Offline (4+ Tage) | Alarm funktioniert, kein Absturz. Bei Reconnect: Auto-Sync. Family-Join einzige Ausnahme. |
 | EC-03 | Backend-Schutz | Zugriff auf fremde Profile → PERMISSION_DENIED. |
 | EC-04 | Bildschirm-Timeout | Bildschirm nur im aktiven Vordergrund wach, nicht in Sheets oder Hintergrund. |
+| EC-05 | Feedback-Validierung | Firestore Rules verwerfen fehlerhafte, fremde oder zu lange Feedback-Dokumente (Schutz vor Missbrauch). |
 
 ---
 
