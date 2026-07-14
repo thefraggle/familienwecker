@@ -15,6 +15,9 @@ FONT_BOLD_PATH = os.path.join(PROJECT_ROOT, "app/src/main/res/font/nunito_bold.t
 
 SYSTEM_HELVETICA = "/System/Library/Fonts/Helvetica.ttc"
 SYSTEM_JAPANESE = "/System/Library/Fonts/Hiragino Sans GB.ttc"
+SYSTEM_KOREAN = "/System/Library/Fonts/AppleSDGothicNeo.ttc"
+SYSTEM_DEVANAGARI = "/System/Library/Fonts/Supplemental/Devanagari Sangam MN.ttc"
+SYSTEM_BENGALI = "/System/Library/Fonts/Supplemental/Bangla Sangam MN.ttc"
 
 # Design Constants
 ACCENT_COLOR = "#FF8C42"  # Sunrise Orange
@@ -77,7 +80,11 @@ SLIDES_TEMPLATES = [
     }
 ]
 
-LANGUAGES = ["da", "de", "en", "es", "fr", "it", "ja", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk"]
+# Total 22 app languages (excluding dialects like en-IN)
+LANGUAGES = [
+    "bn", "da", "de", "en", "es", "fr", "hi", "id", "it", "ja", "ko",
+    "mr", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk", "vi", "zh-CN"
+]
 
 def translate_text(text, target_lang):
     if not text.strip(): return text
@@ -173,8 +180,8 @@ def wrap_text(text, font, max_width, draw):
             wrapped_lines.append("")
             continue
             
-        # Detect CJK characters (Japanese range)
-        is_cjk = any(ord(char) > 0x3000 for char in para)
+        # Detect CJK characters (Japanese and Chinese range) or Korean
+        is_cjk = any(ord(char) > 0x3000 or (0xAC00 <= ord(char) <= 0xD7A3) for char in para)
         
         if is_cjk:
             current_line = ""
@@ -216,12 +223,23 @@ def build_screenshot(slide, lang, size_name, target_size):
     d_size = int(46 * scale)
     
     # Determine font paths and indices based on language
-    if lang == "ja":
-        font_h = ImageFont.truetype(SYSTEM_JAPANESE, h_size, index=2) # Bold
-        font_d = ImageFont.truetype(SYSTEM_JAPANESE, d_size, index=0) # Regular
-        # For status bar clock rendering inside create_iphone_mockup
+    if lang in ("ja", "zh-CN"):
+        font_h = ImageFont.truetype(SYSTEM_JAPANESE, h_size, index=2) # Bold (W6)
+        font_d = ImageFont.truetype(SYSTEM_JAPANESE, d_size, index=0) # Regular (W3)
         font_status = ImageFont.truetype(SYSTEM_JAPANESE, 34, index=2)
-    elif lang in ("ru", "uk", "pl", "tr"):
+    elif lang == "ko":
+        font_h = ImageFont.truetype(SYSTEM_KOREAN, h_size, index=6) # Bold
+        font_d = ImageFont.truetype(SYSTEM_KOREAN, d_size, index=0) # Regular
+        font_status = ImageFont.truetype(SYSTEM_KOREAN, 34, index=6)
+    elif lang in ("hi", "mr"):
+        font_h = ImageFont.truetype(SYSTEM_DEVANAGARI, h_size, index=1) # Bold
+        font_d = ImageFont.truetype(SYSTEM_DEVANAGARI, d_size, index=0) # Regular
+        font_status = ImageFont.truetype(SYSTEM_DEVANAGARI, 34, index=1)
+    elif lang == "bn":
+        font_h = ImageFont.truetype(SYSTEM_BENGALI, h_size, index=1) # Bold
+        font_d = ImageFont.truetype(SYSTEM_BENGALI, d_size, index=0) # Regular
+        font_status = ImageFont.truetype(SYSTEM_BENGALI, 34, index=1)
+    elif lang in ("ru", "uk", "pl", "tr", "vi"):
         font_h = ImageFont.truetype(SYSTEM_HELVETICA, h_size, index=1) # Bold
         font_d = ImageFont.truetype(SYSTEM_HELVETICA, d_size, index=0) # Regular
         font_status = ImageFont.truetype(SYSTEM_HELVETICA, 34, index=1)
@@ -320,7 +338,7 @@ def main():
                 t_hl = translate_text(hl, lang)
                 t_tx = translate_text(tx, lang)
                 slides_text.append((t_hl, t_tx))
-                time.sleep(0.1) # Rate limit protection
+                time.sleep(0.15) # Rate limit protection
                 
         # Build slides configurations
         slides = []
