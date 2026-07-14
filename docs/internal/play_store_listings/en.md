@@ -49,7 +49,7 @@ FamWake is available worldwide in 25 languages — and even in Schwäbisch, Schw
 • No ads — ever.
 • No data selling — guaranteed.
 • Encrypted connections and minimal data storage.
-• Secure login via Google.
+• Secure login via Google or Apple.
 
 <b>How It Works — 3 Simple Steps:</b>
 1️⃣ Create a family and invite your loved ones with a join code.
