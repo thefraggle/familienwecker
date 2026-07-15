@@ -162,14 +162,17 @@ struct MainView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(alignment: .center, spacing: 16) {
-                        if familyViewModel.isOffline {
-                            Image(systemName: "icloud.slash")
-                                .foregroundStyle(theme.outline)
-                                .font(.caption)
-                        } else if familyViewModel.isSyncing {
-                            RotatingIcon(systemName: "arrow.triangle.2.circlepath", color: theme.tertiary)
-                                .font(.caption)
+                        // Fester Frame verhindert Höhen-Sprung wenn Status-Icons ein-/ausblenden
+                        Group {
+                            if familyViewModel.isOffline {
+                                Image(systemName: "icloud.slash")
+                                    .foregroundStyle(theme.outline)
+                            } else if familyViewModel.isSyncing {
+                                RotatingIcon(systemName: "arrow.triangle.2.circlepath", color: theme.tertiary)
+                            }
                         }
+                        .font(.caption)
+                        .frame(width: 16, height: 16)
 
                         Button(action: { navPath.append(NavigationRoute.settings) }) {
                             Image(systemName: "gearshape.fill")
