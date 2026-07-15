@@ -34,7 +34,7 @@ jobs:
           # Gradle-Caching übernimmt gradle/actions/setup-gradle vollständiger
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: false
 
@@ -44,7 +44,7 @@ jobs:
         run: echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
 
       - name: Cache NDK
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: ndk-cache
         with:
           path: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
@@ -161,7 +161,7 @@ jobs:
       # GitHub Release nur mit AAB
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
