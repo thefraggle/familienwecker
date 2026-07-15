@@ -4,14 +4,22 @@ on:
     types: [published] # Startet automatisch bei jedem neuen Release
   workflow_dispatch: # Erlaubt manuelles Starten im GitHub Actions Tab
 
+permissions:
+  contents: write
+
 jobs:
   clean:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout (für gh CLI)
+        uses: actions/checkout@v5
+
       - name: Behalte nur die neuesten 10 Releases
-        uses: dev-drprasad/delete-older-releases@v0.3.3
-        with:
-          keep_latest: 10
-          delete_tags: true # Löscht auch die zugehörigen Tags
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Alle Releases nach Datum sortiert holen, ab dem 11. löschen
+          gh release list --limit 100 --json tagName --jq '.[].tagName' | tail -n +11 | while read -r tag; do
+            echo "Lösche Release + Tag: $tag"
+            gh release delete "$tag" --yes --cleanup-tag
+          done

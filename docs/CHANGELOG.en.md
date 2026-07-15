@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.0.4 – 2026-07-15
+🔧 Improved:
+• Faster and more reliable updates through modernized backend systems.
+• Improved compatibility with the latest devices and operating systems.
+
 ## 2.0.3 – 2026-07-14
 ✨ Improved:
 • Optimized readability: Text in the quick app tour is no longer cut off on smaller screens.
