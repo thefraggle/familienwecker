@@ -2,10 +2,10 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 2.0.4 – 2026-07-15
-🔧 Verbessert:
-• Schnellere und zuverlässigere Updates durch modernisierte Hintergrund-Systeme.
-• Verbesserte Kompatibilität mit aktuellen Geräten und Betriebssystemen.
+## 2.0.4 – 2026-07-16
+✨ Verbessert:
+• Einstellungen-Button bleibt jetzt ruhig stehen, auch wenn im Hintergrund synchronisiert wird.
+• Allgemeine Stabilitäts- und Performance-Verbesserungen unter der Haube.
 
 ## 2.0.3 – 2026-07-14
 ✨ Verbessert:

@@ -2,10 +2,10 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 2.0.4 – 2026-07-15
-🔧 Improved:
-• Faster and more reliable updates through modernized backend systems.
-• Improved compatibility with the latest devices and operating systems.
+## 2.0.4 – 2026-07-16
+✨ Improved:
+• The settings button no longer jumps around while the app syncs in the background.
+• General stability and performance improvements under the hood.
 
 ## 2.0.3 – 2026-07-14
 ✨ Improved:
