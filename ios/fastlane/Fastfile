@@ -105,8 +105,7 @@ platform :ios do
       metadata_path: "./fastlane/metadata",
       run_precheck_before_submit: false,
       precheck_include_in_app_purchases: false,
-      # Only upload release_notes, skip all other metadata fields
-      skip_app_version_update: true
+      skip_app_version_update: false
     )
   end
 end
