@@ -43,6 +43,7 @@ ios/FamWake/Config/Secrets.xcconfig
 *.log
 /tmp/
 release-notes/
+ios/fastlane/metadata/
 
 # Internal documentation
 .antigravity/
