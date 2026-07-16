@@ -23,27 +23,26 @@ def truncate_to_bytes(text, max_bytes=4000, suffix="..."):
 
 
 def strip_emojis(text):
-    """Remove emoji characters that App Store Connect rejects.
-    Careful not to strip CJK characters (U+3000-U+9FFF) which are valid text."""
-    emoji_pattern = re.compile(
-        r'[\U0001F600-\U0001F64F'  # Emoticons
-        r'\U0001F300-\U0001F5FF'   # Misc Symbols & Pictographs
-        r'\U0001F680-\U0001F6FF'   # Transport & Map
-        r'\U0001F1E0-\U0001F1FF'   # Flags
-        r'\U0001FA00-\U0001FA6F'   # Chess, extended-A
-        r'\U0001FA70-\U0001FAFF'   # Symbols extended-A
-        r'\U0001F900-\U0001F9FF'   # Supplemental
-        r'\U00002702-\U000027B0'   # Dingbats
-        r'\U0000FE00-\U0000FE0F'   # Variation selectors
-        r'\U0000200D'               # Zero-width joiner
-        r'\U00002600-\U000026FF'   # Misc Symbols (⏰ ☕ etc.)
-        r'\U00002300-\U000023FF'   # Misc Technical (⏱ etc.)
-        r'\U00002B50-\U00002B55'   # Stars
-        r'\U0000203C\U00002049'    # ‼ ⁉ only (NOT a range — avoids CJK)
-        r'\U000020E3'               # Combining enclosing keycap (from 1️⃣ etc.)
-        r']+', flags=re.UNICODE
-    )
-    return emoji_pattern.sub('', text)
+    """Remove all characters that App Store Connect rejects.
+    Uses Unicode category whitelist instead of emoji blacklist regex,
+    because Apple's rejection list is unpredictable and keeps growing."""
+    import unicodedata
+    cleaned = []
+    for ch in text:
+        cat = unicodedata.category(ch)
+        # Exclude variation selectors (U+FE00-FE0F) — emoji modifiers with Mn category
+        if '\uFE00' <= ch <= '\uFE0F':
+            continue
+        # Keep: Letters (L*), Numbers (N*), Punctuation (P*),
+        # Separators/spaces (Zs), diacritics (Mn, Mc), currency (Sc),
+        # math symbols (Sm), modifier symbols (Sk), and whitespace
+        if cat[0] in ('L', 'N', 'P') or cat in ('Zs', 'Mn', 'Mc', 'Sc', 'Sm', 'Sk'):
+            cleaned.append(ch)
+        elif ch in '\n\r\t ':
+            cleaned.append(ch)
+        # Skip everything else: So (other symbols = emoji), Me (enclosing marks),
+        # Cf (format chars like ZWJ), Co (private use), Cn (unassigned)
+    return ''.join(cleaned)
 
 
 def strip_html(text):
