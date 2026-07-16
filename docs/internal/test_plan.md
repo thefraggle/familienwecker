@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 2.0.3
-**Datum:** 2026-07-14
+**Version:** 2.0.4
+**Datum:** 2026-07-16
 
 ---
 
@@ -51,7 +51,8 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und 
 |:---|:---|:---|
 | TC-50 | NavigationStack (iOS) | Schneller Wechsel Hauptbildschirm ↔ Einstellungen ↔ Mitglied-Editor: kein Crash. Zurück-Button-Text nicht abgeschnitten. |
 | TC-51 | Modal-Close-Buttons | Alle Dialoge/Sheets: einheitlicher X-Button oben rechts. Schließen per ESC/Backdrop funktioniert. |
-| TC-52 | Donations deaktiviert | iOS: Kein Donation-Button in Einstellungen sichtbar. Android: Donation funktionsfähig. |
+| TC-52 | Donations deaktiviert | Kein Donation-Button in Einstellungen sichtbar (iOS). Android: Donation funktionsfähig. |
+| TC-53 | Settings-Button Stabilität (neu in v2.0.4) | Einstellungen-Zahnrad springt nicht, wenn Sync-Status sich ändert (z. B. beim Öffnen der App oder nach Netzwechsel). |
 
 ---
 
@@ -80,4 +81,5 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und 
 
 ## 📈 Validierung
 - **Automatisiert:** 13 Unit-Tests für Scheduler (inkl. Buffer) in GitHub Actions.
-- **Manuell:** Vor Release: Live-Test auf mind. 2 Geräten (Snooze-Sync, Ghost-Alarm, Multi-Device, Navigation).
+- **CI:** Multi-Language Release Notes (23 Sprachen) für App Store + Play Store werden automatisch generiert.
+- **Manuell:** Vor Release: Live-Test auf mind. 2 Geräten (Snooze-Sync, Ghost-Alarm, Multi-Device, Navigation, Settings-Button-Stabilität).
