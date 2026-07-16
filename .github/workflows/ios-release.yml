@@ -107,6 +107,11 @@ jobs:
           fi
           echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
 
+      - name: Generate iOS Release Notes (all languages)
+        run: |
+          pip3 install deep-translator==1.11.4
+          python3 scripts/generate_ios_metadata.py
+
       - name: Build & Upload to TestFlight via Fastlane
         env:
           APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
@@ -116,3 +121,12 @@ jobs:
         run: |
           cd ios
           bundle exec fastlane release version_name:${{ steps.metadata.outputs.app_version }}
+
+      - name: Upload Release Notes to App Store Connect
+        env:
+          APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+          APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+        run: |
+          cd ios
+          bundle exec fastlane upload_metadata

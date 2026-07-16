@@ -56,12 +56,55 @@ platform :ios do
       }
     )
 
-    # 4. Upload to TestFlight
+    # 4. Read EN changelog for TestFlight "What's New"
+    changelog_file = File.join(Dir.pwd, "..", "docs", "CHANGELOG.en.md")
+    changelog_text = ""
+    if File.exist?(changelog_file)
+      content = File.read(changelog_file)
+      # Extract the first version block (everything between first ## and next ##)
+      match = content.match(/## [\d.]+.*?\n(.*?)(?=\n## \d|\z)/m)
+      if match
+        raw = match[1].strip
+        # Clean up Markdown: strip bold/italic, bullet prefixes, section headers
+        lines = raw.split("\n").map { |l| l.strip }.reject { |l| l.empty? || l.start_with?("###") }
+        lines = lines.map { |l| l.gsub(/(\*\*|\*|__|_)/, '').sub(/^- /, '').strip }.reject(&:empty?)
+        changelog_text = lines.join(". ")
+      end
+    end
+    UI.message("TestFlight changelog: #{changelog_text[0..100]}...") unless changelog_text.empty?
+
+    # 5. Upload to TestFlight with changelog
     upload_to_testflight(
       api_key: api_key,
       ipa: "build/FamWake.ipa",
+      changelog: changelog_text.empty? ? nil : changelog_text,
       skip_waiting_for_build_processing: true,
       skip_submission: true
+    )
+  end
+
+  desc "Upload multi-language release notes to App Store Connect (no binary, no submit)"
+  lane :upload_metadata do
+    # Authenticate
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
+      key_content: ENV["APP_STORE_CONNECT_API_KEY_KEY"],
+      is_key_content_base64: false
+    )
+
+    # Upload only release notes metadata — no binary, no screenshots, no submit
+    deliver(
+      api_key: api_key,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_metadata: false,
+      force: true,
+      submit_for_review: false,
+      automatic_release: false,
+      metadata_path: "./fastlane/metadata",
+      # Only upload release_notes, skip all other metadata fields
+      skip_app_version_update: true
     )
   end
 end
