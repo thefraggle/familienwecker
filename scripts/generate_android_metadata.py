@@ -70,17 +70,13 @@ def write_file(path, content):
 
 
 # Mapping: Play Store locale → listing file key
-# Google Play uses different locale codes than our file names
+# Aligned to the 23 verified core languages supported by the app.
 PLAY_TO_LISTING = {
     'de-DE': 'de',
     'en-US': 'en',
     'en-GB': 'en',
-    'en-IN': 'en-IN',
     'fr-FR': 'fr',
-    'fr-CA': 'fr',
     'es-ES': 'es',
-    'es-US': 'es',
-    'es-419': 'es',
     'pt-PT': 'pt',
     'pt-BR': 'pt',
     'it-IT': 'it',
@@ -96,9 +92,6 @@ PLAY_TO_LISTING = {
     'nb-NO': 'no',
     'id': 'id',
     'vi': 'vi',
-    'bn-IN': 'bn',
-    'bn-BD': 'bn',
-    'mr-IN': 'mr',
     'hi-IN': 'hi',
     'uk': 'uk',
 }
@@ -107,6 +100,12 @@ PLAY_TO_LISTING = {
 def main():
     listings_dir = os.path.join('docs', 'internal', 'play_store_listings')
     metadata_base = os.path.join('android', 'fastlane', 'metadata', 'android')
+
+    # Remove the entire metadata directory first to clean up old unused folders
+    # (Fastlane supply tries to upload every directory it finds, so we must delete removed locales)
+    if os.path.exists(metadata_base):
+        import shutil
+        shutil.rmtree(metadata_base)
 
     print("=" * 60)
     print("  Generating Google Play metadata (Fastlane supply format)")
