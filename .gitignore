@@ -49,6 +49,7 @@ ios/fastlane/metadata/
 .antigravity/
 .agents/
 docs/internal/
+!docs/internal/play_store_listings/
 
 # Firebase Functions
 functions/node_modules/
