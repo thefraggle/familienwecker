@@ -23,9 +23,8 @@ def truncate_to_bytes(text, max_bytes=4000, suffix="..."):
 
 
 def strip_emojis(text):
-    """Remove all emoji characters — App Store Connect rejects them."""
-    # Covers all standard emoji ranges including miscellaneous symbols,
-    # dingbats, emoticons, transport, flags, and variation selectors
+    """Remove emoji characters that App Store Connect rejects.
+    Careful not to strip CJK characters (U+3000-U+9FFF) which are valid text."""
     emoji_pattern = re.compile(
         r'[\U0001F600-\U0001F64F'  # Emoticons
         r'\U0001F300-\U0001F5FF'   # Misc Symbols & Pictographs
@@ -40,7 +39,7 @@ def strip_emojis(text):
         r'\U00002600-\U000026FF'   # Misc Symbols (⏰ ☕ etc.)
         r'\U00002300-\U000023FF'   # Misc Technical (⏱ etc.)
         r'\U00002B50-\U00002B55'   # Stars
-        r'\U0000203C-\U00003299'   # CJK symbols, enclosed
+        r'\U0000203C\U00002049'    # ‼ ⁉ only (NOT a range — avoids CJK)
         r']+', flags=re.UNICODE
     )
     return emoji_pattern.sub('', text)
@@ -79,28 +78,25 @@ def get_latest_changelog(file_path):
 
 def get_description_from_listing(listing_path):
     """Extract the full description from a Play Store listing markdown file.
-    Looks for '## Full Description' or '## Vollständige Beschreibung' or similar,
-    then takes everything until the end of file."""
+    The description is always the 3rd ## section in the file
+    (after app name and short description)."""
     if not os.path.exists(listing_path):
         return None
     with open(listing_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Match the full description section (various languages use different headers)
-    match = re.search(
-        r'##\s+(?:Full Description|Vollständige Beschreibung|Description complète|'
-        r'Descripción completa|Descrição completa|Descrizione completa|'
-        r'Volledige beschrijving|Полное описание|Tam Açıklama|'
-        r'Pełny opis|Fullständig beskrivning|Fuld beskrivelse|'
-        r'Fullstendig beskrivelse|Deskripsi Lengkap|Mô tả đầy đủ|'
-        r'पूर्ण विवरण|Повний опис|완전한 설명|完整描述|完全な説明|'
-        r'সম্পূর্ণ বিবরণ|पूर्ण वर्णन).*?\n(.*)',
-        content, re.DOTALL | re.IGNORECASE
-    )
-    if not match:
+    # Find all ## section positions
+    sections = list(re.finditer(r'^## .+', content, re.MULTILINE))
+    if len(sections) < 3:
         return None
 
-    return match.group(1).strip()
+    # Description starts after the 3rd ## header
+    desc_start = sections[2].end()
+    # Description ends at the 4th ## header, or end of file
+    desc_end = sections[3].start() if len(sections) > 3 else len(content)
+    desc = content[desc_start:desc_end].strip()
+
+    return desc if desc else None
 
 
 # Mapping: ASC locale → Play Store listing file key
@@ -151,6 +147,11 @@ TRANSLATION_TARGETS = {
 
 PROMO_TEXT_DE = 'Schluss mit Morgenchaos! FamWake koordiniert Weckzeiten, Badezimmer-Reihenfolge und Frühstück für die ganze Familie.'
 PROMO_TEXT_EN = 'No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.'
+
+# App Store keywords: max 100 chars, comma-separated, no spaces after commas
+# These are the core search terms users would use to find this app
+KEYWORDS_DE = 'Familienwecker,Morgenroutine,Badezimmer,Wecker,Kinder,Aufstehen,Frühstück,Zeitplan,Snooze,Familie'
+KEYWORDS_EN = 'family alarm,morning routine,bathroom,schedule,kids alarm,wake up,breakfast,planner,snooze,organizer'
 
 
 def write_file(path, content):
@@ -244,13 +245,36 @@ def main():
             promo = promo[:167] + "..."
         write_file(os.path.join(locale_dir, 'promotional_text.txt'), promo)
 
+        # ── 4. KEYWORDS ─────────────────────────────────────────────
+        if asc_locale.startswith('de'):
+            keywords = KEYWORDS_DE
+        elif asc_locale.startswith('en'):
+            keywords = KEYWORDS_EN
+        elif translator_available:
+            try:
+                keywords = GoogleTranslator(
+                    source='en', target=target_lang
+                ).translate(KEYWORDS_EN)
+            except Exception:
+                keywords = KEYWORDS_EN
+        else:
+            keywords = KEYWORDS_EN
+
+        keywords = strip_emojis(keywords).strip()
+        # App Store limit: 100 characters for keywords
+        if len(keywords) > 100:
+            # Trim to last complete keyword within 100 chars
+            keywords = keywords[:100].rsplit(',', 1)[0]
+        write_file(os.path.join(locale_dir, 'keywords.txt'), keywords)
+
         desc_bytes = len(desc.encode('utf-8'))
         notes_bytes = len(notes.encode('utf-8'))
         promo_len = len(promo)
-        print(f"  ✅ {asc_locale:10s} | notes: {notes_bytes:4d}B | desc: {desc_bytes:4d}B | promo: {promo_len:3d}/170")
+        kw_len = len(keywords)
+        print(f"  ✅ {asc_locale:10s} | notes: {notes_bytes:4d}B | desc: {desc_bytes:4d}B | promo: {promo_len:3d}/170 | kw: {kw_len:3d}/100")
 
     print(f"\n✅ {len(ASC_TO_LISTING)} locales generated in {metadata_base}/")
-    print("   Files per locale: release_notes.txt, description.txt, promotional_text.txt")
+    print("   Files per locale: release_notes.txt, description.txt, promotional_text.txt, keywords.txt")
 
 
 if __name__ == "__main__":
