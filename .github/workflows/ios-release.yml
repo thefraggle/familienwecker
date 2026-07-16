@@ -122,7 +122,10 @@ jobs:
           cd ios
           bundle exec fastlane release version_name:${{ steps.metadata.outputs.app_version }}
 
+      # Best-effort: fails silently if no editable version exists in ASC yet.
+      # Re-run via ios-metadata.yml after creating the version manually.
       - name: Upload Release Notes to App Store Connect
+        continue-on-error: true
         env:
           APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
           APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
