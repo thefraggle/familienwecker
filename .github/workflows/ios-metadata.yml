@@ -1,0 +1,43 @@
+name: iOS – Upload Release Notes
+
+# Manual trigger: run after creating a new version in App Store Connect.
+# Generates multi-language release notes and uploads them via Fastlane deliver.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  upload-metadata:
+    name: Generate & Upload Release Notes
+    runs-on: macos-26
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+          working-directory: ios
+
+      - name: Generate iOS Release Notes (all languages)
+        run: |
+          pip3 install deep-translator==1.11.4
+          python3 scripts/generate_ios_metadata.py
+
+      - name: Upload Release Notes to App Store Connect
+        env:
+          APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+          APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+        run: |
+          cd ios
+          bundle exec fastlane upload_metadata
