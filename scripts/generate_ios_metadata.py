@@ -178,6 +178,33 @@ PROMO_TEXTS = {
 KEYWORDS_DE = 'Familienwecker,Morgenroutine,Badezimmer,Wecker,Kinder,Aufstehen,Frühstück,Zeitplan,Snooze,Familie'
 KEYWORDS_EN = 'family alarm,morning routine,bathroom,schedule,kids alarm,wake up,breakfast,planner,snooze,organizer'
 
+# App Store subtitle: max 30 chars, shown below app name.
+# Hardcoded per locale for consistency.
+SUBTITLES = {
+    'de-DE':   'Familienwecker & Morgenplaner',
+    'en-US':   'Family Alarm & Morning Planner',
+    'en-GB':   'Family Alarm & Morning Planner',
+    'fr-FR':   'R\u00e9veil familial & planning',
+    'es-ES':   'Alarma familiar & planificador',
+    'es-MX':   'Alarma familiar & planificador',
+    'pt-BR':   'Alarme familiar & planejador',
+    'pt-PT':   'Alarme familiar & planejador',
+    'it':      'Sveglia famiglia & pianifica',
+    'nl-NL':   'Familiewekker & ochtendplanner',
+    'ja':      '家族目覚まし＆朝のプランナー',
+    'ko':      '가족 알람 및 아침 플래너',
+    'zh-Hans': '家庭闹钟和早晨规划',
+    'ru':      'Семейный будильник & планер',
+    'tr':      'Aile alarm\u0131 & sabah planlay\u0131c\u0131',
+    'pl':      'Budzik rodzinny & planer',
+    'sv':      'Familjev\u00e4ckare & morgonplan',
+    'da':      'Familiev\u00e6kker & morgenplan',
+    'no':      'Familievekker & morgenplan',
+    'id':      'Alarm keluarga & perencana',
+    'vi':      'B\u00e1o th\u1ee9c gia \u0111\u00ecnh & k\u1ebf ho\u1ea1ch',
+    'hi':      'परिवार अलार्म और प्लानर',
+    'uk':      'С\u0456мейний будильник & планер',
+}
 
 def write_file(path, content):
     """Write content to file, creating directories as needed."""
@@ -277,14 +304,19 @@ def main():
             keywords = keywords[:100].rsplit(',', 1)[0]
         write_file(os.path.join(locale_dir, 'keywords.txt'), keywords)
 
+        # ── 5. SUBTITLE ────────────────────────────────────────────
+        subtitle = SUBTITLES.get(asc_locale, SUBTITLES['en-US'])
+        write_file(os.path.join(locale_dir, 'subtitle.txt'), subtitle)
+
         desc_bytes = len(desc.encode('utf-8'))
         notes_bytes = len(notes.encode('utf-8'))
         promo_len = len(promo)
         kw_len = len(keywords)
-        print(f"  ✅ {asc_locale:10s} | notes: {notes_bytes:4d}B | desc: {desc_bytes:4d}B | promo: {promo_len:3d}/170 | kw: {kw_len:3d}/100")
+        sub_len = len(subtitle)
+        print(f"  ✅ {asc_locale:10s} | notes: {notes_bytes:4d}B | desc: {desc_bytes:4d}B | promo: {promo_len:3d}/170 | kw: {kw_len:3d}/100 | sub: {sub_len:2d}/30")
 
     print(f"\n✅ {len(ASC_TO_LISTING)} locales generated in {metadata_base}/")
-    print("   Files per locale: release_notes.txt, description.txt, promotional_text.txt, keywords.txt")
+    print("   Files per locale: release_notes.txt, description.txt, promotional_text.txt, keywords.txt, subtitle.txt")
 
 
 if __name__ == "__main__":
