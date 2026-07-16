@@ -145,8 +145,33 @@ TRANSLATION_TARGETS = {
     'hi': 'hi', 'uk': 'uk',
 }
 
-PROMO_TEXT_DE = 'Schluss mit Morgenchaos! FamWake koordiniert Weckzeiten, Badezimmer-Reihenfolge und Frühstück für die ganze Familie.'
-PROMO_TEXT_EN = 'No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.'
+# Hardcoded promotional texts per locale — verified and locked in.
+# Update these manually when the promo message changes.
+PROMO_TEXTS = {
+    'de-DE':   'Schluss mit Morgenchaos! FamWake koordiniert Weckzeiten, Badezimmer-Reihenfolge und Frühstück für die ganze Familie.',
+    'en-US':   'No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.',
+    'en-GB':   'No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.',
+    'fr-FR':   'Fini le chaos matinal ! FamWake coordonne les heures de réveil, les tours de toilettes et le petit-déjeuner pour toute la famille.',
+    'es-ES':   '¡No más caos matutino! FamWake coordina los horarios de despertarse, ir al baño y desayunar para toda la familia.',
+    'es-MX':   '¡No más caos matutino! FamWake coordina los horarios de despertarse, ir al baño y desayunar para toda la familia.',
+    'pt-BR':   'Chega de caos matinal! FamWake coordena horários de despertar, horários de ir ao banheiro e café da manhã para toda a família.',
+    'pt-PT':   'Chega de caos matinal! FamWake coordena horários de despertar, horários de ir ao banheiro e café da manhã para toda a família.',
+    'it':      'Niente più caos mattutino! FamWake coordina gli orari di sveglia, i turni del bagno e la colazione per tutta la famiglia.',
+    'nl-NL':   'Geen ochtendchaos meer! FamWake coördineert de wektijden, de badkamerbeurten en het ontbijt voor het hele gezin.',
+    'ja':      '朝の混乱はもうありません！ FamWake は、家族全員の起床時間、トイレの順番、朝食を調整します。',
+    'ko':      '더 이상 아침의 혼란은 없습니다! FamWake는 온 가족을 위한 기상 시간, 화장실 회전 및 아침 식사를 조정합니다.',
+    'zh-Hans': '早上不再混乱！ FamWake 协调全家人的起床时间、上厕所时间和早餐。',
+    'ru':      'Больше никакого утреннего хаоса! FamWake координирует время пробуждения, посещения туалета и завтрака для всей семьи.',
+    'tr':      'Artık sabah kaosuna son! FamWake tüm aile için uyanma saatlerini, banyo dönüşlerini ve kahvaltıyı koordine eder.',
+    'pl':      'Nigdy więcej porannego chaosu! FamWake koordynuje godziny pobudek, toalety i śniadanie dla całej rodziny.',
+    'sv':      'Inget mer morgonkaos! FamWake koordinerar väckningstider, badrumsvängningar och frukost för hela familjen.',
+    'da':      'Ikke mere morgenkaos! FamWake koordinerer opvågningstider, badeværelsesvendinger og morgenmad for hele familien.',
+    'no':      'Ikke mer morgenkaos! FamWake koordinerer oppvåkningstider, baderomsvendinger og frokost for hele familien.',
+    'id':      'Tidak ada lagi kekacauan pagi hari! FamWake mengoordinasikan waktu bangun, pergantian kamar mandi, dan sarapan untuk seluruh keluarga.',
+    'vi':      'Không còn sự hỗn loạn buổi sáng! FamWake điều phối thời gian thức dậy, thời gian đi vệ sinh và bữa sáng cho cả gia đình.',
+    'hi':      'अब सुबह की अव्यवस्था नहीं! फैमवेक पूरे परिवार के लिए जागने के समय, बाथरूम जाने और नाश्ते के समय का समन्वय करता है।',
+    'uk':      'Більше ніякого ранкового хаосу! FamWake координує час пробудження, чергування в туалеті та сніданок для всієї родини.',
+}
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # These are the core search terms users would use to find this app
@@ -227,22 +252,7 @@ def main():
         write_file(os.path.join(locale_dir, 'description.txt'), desc)
 
         # ── 3. PROMOTIONAL TEXT ───────────────────────────────────
-        if asc_locale.startswith('de'):
-            promo = PROMO_TEXT_DE
-        elif asc_locale.startswith('en'):
-            promo = PROMO_TEXT_EN
-        elif translator_available:
-            try:
-                promo = GoogleTranslator(source='en', target=target_lang).translate(PROMO_TEXT_EN)
-            except Exception:
-                promo = PROMO_TEXT_EN
-        else:
-            promo = PROMO_TEXT_EN
-
-        promo = strip_emojis(promo).strip()
-        # Promotional text limit: 170 chars
-        if len(promo) > 170:
-            promo = promo[:167] + "..."
+        promo = PROMO_TEXTS.get(asc_locale, PROMO_TEXTS['en-US'])
         write_file(os.path.join(locale_dir, 'promotional_text.txt'), promo)
 
         # ── 4. KEYWORDS ─────────────────────────────────────────────
