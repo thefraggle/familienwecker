@@ -1,0 +1,63 @@
+# 📦 Play Store Listing – FamWake (Nederlands)
+*Laatst bijgewerkt: 2026-05-01*
+
+---
+
+## App-naam (30 tekens max)
+FamWake Gezinswekker
+
+## Korte beschrijving (80 tekens max)
+Klaar met de ochtendchaos! Gezinswekker met badkamerplanner & ontbijttijd.
+
+## Volledige beschrijving (4000 tekens max)
+
+<b>Klaar met de ochtendchaos! Jouw gezinswekker voor een ontspannen ochtendroutine.</b> ⏰
+
+Iedereen moet tegelijk de deur uit, de badkamer is bezet en iemand komt altijd te laat. Herkenbaar? Bij mij ook — elke ochtend weer. Daarom heb ik als vader <b>FamWake</b> gebouwd: de gezinswekker die ik altijd al had willen hebben.
+
+FamWake berekent voor elk gezinslid het <b>perfecte wektijdstip</b> — afgestemd op de badkamer, het ontbijt en de vertrektijd. Iedereen slaapt zo lang mogelijk uit en toch is niemand te laat.
+
+<b>🚿 Geen wachtrij meer voor de badkamer</b>
+FamWake plant automatisch in wie wanneer de badkamer gebruikt — zonder overlap. Je wordt pas gewekt als je ook echt aan de beurt bent. Geen onnodig vroeg opstaan meer "voor de zekerheid".
+
+<b>☕ Samen ontbijten</b>
+Zet de ontbijtoptie aan en FamWake plant een gezamenlijk moment in voor een rustig ontbijt — voordat de drukte van de dag begint.
+
+<b>👨‍👩‍👧‍👦 Het hele gezin in één oogopslag</b>
+Het dashboard toont het ochtendplan in realtime: wie staat wanneer op, wie is er in de badkamer en wanneer vertrekt iedereen. Ideaal voor de ochtendroutine van de kinderen. Pas de volgorde simpel aan via drag & drop.
+
+<b>😴 Al wakker?</b>
+Eén tik op "Al wakker" en je wekker gaat niet af — je bent tenslotte al op. Geen wekker nodig vandaag? Pauzeer jezelf gewoon even en FamWake herberekent automatisch het schema voor de rest van het gezin.
+
+<b>📲 Pushmeldingen</b>
+Als iemand zijn wekker of de volgorde wijzigt, krijg je direct een pushmelding — zo is het hele gezin altijd up-to-date.
+
+<b>🔔 Betrouwbare wekker</b>
+FamWake wekt je zelfs als de app is afgesloten — altijd netjes op tijd. Kies je eigen wekkergeluid en gebruik de snooze-functie als dat nodig is.
+
+<b>⏱️ Tijdconflicten? Opgelost!</b>
+Als de tijd begint te dringen, merkt FamWake dit automatisch op en zie je direct wat er aangepast moet worden om de ochtend vlekkeloos te laten verlopen.
+
+<b>🎨 Modern design</b>
+Kies tussen een licht en donker thema — of laat het automatisch aanpassen aan de instellingen van je telefoon. Strak en rustig voor de ogen.
+
+<b>🌍 25 talen</b>
+FamWake spreekt English, Deutsch, Français, Español, Italiano, Nederlands, Polski, Português, Русский, Українська, Türkçe, Svenska, Norsk, Dansk, 日本語, 한국어, 中文, Bahasa Indonesia, Tiếng Việt, বাংলা, मराठी, हिन्दी — en zelfs Schwäbisch, Schweizerdeutsch en Ruhrpott-Deutsch!
+
+<b>🔒 Je gegevens zijn veilig</b>
+• Geen account nodig: Gebruik de app volledig anoniem. Alleen de persoon die de familie aanmaakt, hoeft in te loggen.
+• Geen advertenties — nooit.
+• Geen verkoop van gegevens — gegarandeerd.
+• Versleutelde verbindingen en minimale dataopslag.
+• Veilig inloggen via Google.
+
+<b>Zo werkt het — in 3 stappen:</b>
+1️⃣ Maak een gezin aan en nodig je huisgenoten uit met een uitnodigingscode.
+2️⃣ Iedereen vult de gewenste badkamertijd, ontbijtvoorkeur en vertrektijd in.
+3️⃣ FamWake berekent het perfecte schema — automatisch, elke ochtend.
+
+<b>Gratis beginnen — geen verborgen kosten.</b>
+Alle kernfuncties van FamWake zijn en blijven <b>voor altijd gratis</b> — geen abonnementen, geen addertjes onder het gras. In de toekomst komen er optionele premiumfuncties voor nog meer gemak. Als je de app nu al fijn vindt, kun je ons steunen met een kleine vrijwillige donatie. ❤️
+
+<b>Gebouwd door een vader, voor gezinnen.</b>
+FamWake is een project recht uit het hart — ontstaan aan onze eigen ontbijttafel en gemaakt voor gezinnen die samen hun ochtendroutine onder controle willen krijgen. Download FamWake Gezinswekker nu en ontdek hoe ontspannen een ochtend zonder chaos kan zijn! 🚀
