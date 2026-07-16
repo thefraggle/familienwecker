@@ -314,10 +314,7 @@ def main():
             marketing_url = "https://familienwecker.de/index.html"
             web_lang = "de"
         else:
-            # Map translation codes to web language suffixes (e.g. zh-CN -> zh)
             web_lang = target_lang
-            if web_lang == 'zh-CN':
-                web_lang = 'zh'
             support_url = f"https://familienwecker.de/imprint-{web_lang}.html"
             marketing_url = f"https://familienwecker.de/index-{web_lang}.html"
 
