@@ -308,15 +308,31 @@ def main():
         subtitle = SUBTITLES.get(asc_locale, SUBTITLES['en-US'])
         write_file(os.path.join(locale_dir, 'subtitle.txt'), subtitle)
 
+        # ── 6. SUPPORT & MARKETING URLS ────────────────────────────
+        if asc_locale == 'de-DE':
+            support_url = "https://familienwecker.de/imprint.html"
+            marketing_url = "https://familienwecker.de/index.html"
+            web_lang = "de"
+        else:
+            # Map translation codes to web language suffixes (e.g. zh-CN -> zh)
+            web_lang = target_lang
+            if web_lang == 'zh-CN':
+                web_lang = 'zh'
+            support_url = f"https://familienwecker.de/imprint-{web_lang}.html"
+            marketing_url = f"https://familienwecker.de/index-{web_lang}.html"
+
+        write_file(os.path.join(locale_dir, 'support_url.txt'), support_url)
+        write_file(os.path.join(locale_dir, 'marketing_url.txt'), marketing_url)
+
         desc_bytes = len(desc.encode('utf-8'))
         notes_bytes = len(notes.encode('utf-8'))
         promo_len = len(promo)
         kw_len = len(keywords)
         sub_len = len(subtitle)
-        print(f"  ✅ {asc_locale:10s} | notes: {notes_bytes:4d}B | desc: {desc_bytes:4d}B | promo: {promo_len:3d}/170 | kw: {kw_len:3d}/100 | sub: {sub_len:2d}/30")
+        print(f"  ✅ {asc_locale:10s} | notes: {notes_bytes:4d}B | desc: {desc_bytes:4d}B | promo: {promo_len:3d}/170 | kw: {kw_len:3d}/100 | sub: {sub_len:2d}/30 | urls: {web_lang}")
 
     print(f"\n✅ {len(ASC_TO_LISTING)} locales generated in {metadata_base}/")
-    print("   Files per locale: release_notes.txt, description.txt, promotional_text.txt, keywords.txt, subtitle.txt")
+    print("   Files per locale: release_notes.txt, description.txt, promotional_text.txt, keywords.txt, subtitle.txt, support_url.txt, marketing_url.txt")
 
 
 if __name__ == "__main__":
