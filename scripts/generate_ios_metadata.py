@@ -40,6 +40,7 @@ def strip_emojis(text):
         r'\U00002300-\U000023FF'   # Misc Technical (⏱ etc.)
         r'\U00002B50-\U00002B55'   # Stars
         r'\U0000203C\U00002049'    # ‼ ⁉ only (NOT a range — avoids CJK)
+        r'\U000020E3'               # Combining enclosing keycap (from 1️⃣ etc.)
         r']+', flags=re.UNICODE
     )
     return emoji_pattern.sub('', text)
