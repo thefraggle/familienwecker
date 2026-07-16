@@ -275,7 +275,7 @@ def main():
         desc = re.sub(r' {2,}', ' ', desc)
         desc = re.sub(r'\n ', '\n', desc)
         desc = desc.replace("..", ".").strip()
-        desc = truncate_to_bytes(desc, max_bytes=4000)
+        desc = truncate_to_bytes(desc, max_bytes=3900)
         write_file(os.path.join(locale_dir, 'description.txt'), desc)
 
         # ── 3. PROMOTIONAL TEXT ───────────────────────────────────
