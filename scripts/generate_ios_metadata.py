@@ -24,10 +24,31 @@ def truncate_to_bytes(text, max_bytes=4000, suffix="..."):
 
 def strip_emojis(text):
     """Remove all emoji characters — App Store Connect rejects them."""
-    return re.sub(
-        r'[\U0001F300-\U0001F9FF\U00002702-\U000027B0\U0000FE00-\U0000FE0F'
-        r'\U0000200D\U00002600-\U000026FF\U00002B50-\U00002B55]+', '', text
+    # Covers all standard emoji ranges including miscellaneous symbols,
+    # dingbats, emoticons, transport, flags, and variation selectors
+    emoji_pattern = re.compile(
+        r'[\U0001F600-\U0001F64F'  # Emoticons
+        r'\U0001F300-\U0001F5FF'   # Misc Symbols & Pictographs
+        r'\U0001F680-\U0001F6FF'   # Transport & Map
+        r'\U0001F1E0-\U0001F1FF'   # Flags
+        r'\U0001FA00-\U0001FA6F'   # Chess, extended-A
+        r'\U0001FA70-\U0001FAFF'   # Symbols extended-A
+        r'\U0001F900-\U0001F9FF'   # Supplemental
+        r'\U00002702-\U000027B0'   # Dingbats
+        r'\U0000FE00-\U0000FE0F'   # Variation selectors
+        r'\U0000200D'               # Zero-width joiner
+        r'\U00002600-\U000026FF'   # Misc Symbols (⏰ ☕ etc.)
+        r'\U00002300-\U000023FF'   # Misc Technical (⏱ etc.)
+        r'\U00002B50-\U00002B55'   # Stars
+        r'\U0000203C-\U00003299'   # CJK symbols, enclosed
+        r']+', flags=re.UNICODE
     )
+    return emoji_pattern.sub('', text)
+
+
+def strip_html(text):
+    """Remove HTML tags — App Store uses plain text, not HTML like Play Store."""
+    return re.sub(r'<[^>]+>', '', text)
 
 
 def get_latest_changelog(file_path):
@@ -195,7 +216,11 @@ def main():
             # Fallback to EN description
             desc = get_description_from_listing(os.path.join(listings_dir, 'en.md')) or ""
 
+        desc = strip_html(desc)
         desc = strip_emojis(desc)
+        # Clean up artifacts from stripping: double spaces, leading spaces on lines
+        desc = re.sub(r' {2,}', ' ', desc)
+        desc = re.sub(r'\n ', '\n', desc)
         desc = desc.replace("..", ".").strip()
         desc = truncate_to_bytes(desc, max_bytes=4000)
         write_file(os.path.join(locale_dir, 'description.txt'), desc)
