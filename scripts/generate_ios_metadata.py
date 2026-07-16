@@ -266,7 +266,7 @@ def main():
         desc = get_description_from_listing(listing_file)
 
         if not desc:
-            # Fallback to EN description
+            print(f"  ⚠️  [FALLBACK] Using EN description for {asc_locale} (listing file: {listing_key}.md)")
             desc = get_description_from_listing(os.path.join(listings_dir, 'en.md')) or ""
 
         desc = strip_html(desc)
