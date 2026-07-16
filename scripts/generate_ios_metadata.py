@@ -1,5 +1,6 @@
 """
 Generate multi-language release notes for App Store Connect (Fastlane metadata format).
+Note: App Store Connect rejects emoji characters in release notes.
 
 Reads the latest changelog entry from docs/CHANGELOG.en.md (EN) and docs/CHANGELOG.md (DE),
 then translates to all supported App Store languages via deep-translator.
@@ -41,7 +42,7 @@ def get_latest_changelog(file_path):
         line = line.strip()
         if not line or line.startswith('###'):
             continue
-        # Strip Markdown formatting but keep emoji prefixes for readability
+        # Strip Markdown formatting
         line = re.sub(r'(\*\*|\*|__|_)', '', line)
         line = line.lstrip('- ').strip()
         if line:
@@ -119,8 +120,15 @@ def main():
         if not content:
             content = changelog_en
 
-        # Cleanup and enforce byte limit
-        content = content.replace("..", ".")
+        # Cleanup: strip emojis (ASC rejects them), remove label prefixes, enforce byte limit
+        # Remove all emoji characters (Unicode emoji ranges)
+        content = re.sub(
+            r'[\U0001F300-\U0001F9FF\U00002702-\U000027B0\U0000FE00-\U0000FE0F'
+            r'\U0000200D\U00002600-\U000026FF\U00002B50-\U00002B55]+', '', content
+        )
+        # Remove standalone label prefixes like "Improved:" / "Verbessert:" that were preceded by emoji
+        content = re.sub(r'^\s*(Improved|Verbessert|Améliore|Migliorato|Mejorado|Melhorado)\s*:\s*\.?\s*', '', content, flags=re.IGNORECASE)
+        content = content.replace("..", ".").strip()
         content = truncate_to_bytes(content)
 
         with open(dest_file, 'w', encoding='utf-8') as f:
