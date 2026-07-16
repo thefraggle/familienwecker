@@ -40,4 +40,4 @@ jobs:
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
         run: |
           cd ios
-          bundle exec fastlane upload_metadata
+          bundle exec fastlane upload_metadata --verbose
