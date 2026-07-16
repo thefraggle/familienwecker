@@ -103,6 +103,8 @@ platform :ios do
       submit_for_review: false,
       automatic_release: false,
       metadata_path: "./fastlane/metadata",
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
       # Only upload release_notes, skip all other metadata fields
       skip_app_version_update: true
     )
