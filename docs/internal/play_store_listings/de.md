@@ -4,7 +4,7 @@
 ---
 
 ## App-Name (30 Zeichen max)
-FamWake · Familienwecker App
+FamWake Familienwecker
 
 ## Kurzbeschreibung (80 Zeichen max)
 Familienwecker & Morgenroutine für Kinder. Wecker mit Bad-Reihenfolge & Snooze.
