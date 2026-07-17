@@ -25,4 +25,10 @@ Morgenroutine ohne Stress – smarte, dynamische Planung für die ganze Familie.
 - [ ] **Eigene Playlists:** Spotify-Integration für den Weck-Screen.
 - [ ] **Zeitumstellungs-Schutz (DST):** Absicherung der Berechnung bei Sommer-/Winterzeit.
 
+### Ideenpool (nächste Produktrunden)
+- [ ] **„Bad ist frei“-Button:** Per Klick Nachfolgenden wecken/benachrichtigen, wenn man früher fertig ist.
+- [ ] **Quick-Verzögerung:** Button auf dem Weck-Screen für „Brauche heute +5 Min im Bad“ (live Neuberechnung).
+- [ ] **Gast-Modus:** Temporäre Profile für Wochenendbesuch ohne vollen Account.
+- [ ] **Dynamische Schlafenszeit-Erinnerung:** Push am Vorabend basierend auf berechneter Weckzeit morgen.
+
 ---

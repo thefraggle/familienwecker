@@ -25,4 +25,10 @@ Stress-free mornings – smart, dynamic planning for the whole family.
 - [ ] **Custom playlists:** Spotify integration for the wake-up screen.
 - [ ] **DST protection:** Guard schedule calculations against daylight saving time changes.
 
+### Ideas Pool (Future Product Rounds)
+- [ ] **"Bathroom is free" button:** Wake/notify the next person if you finish early.
+- [ ] **Quick delay:** Wake screen button for "+5 min in bathroom" (live recalculation).
+- [ ] **Guest mode:** Temporary profiles for weekend guests without full registration.
+- [ ] **Dynamic bedtime reminder:** Push notification based on tomorrow's calculated wake time.
+
 ---
