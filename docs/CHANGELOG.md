@@ -6,6 +6,7 @@
 ✨ Verbessert:
 • Schnellerer App-Start & weniger Speicherplatz: Wir haben das Design und die Ladezeiten optimiert, damit die App noch flüssiger läuft und weniger Speicherplatz auf deinem Gerät belegt.
 • Besseres Weck-Erlebnis: Die Anzeige des klingelnden Weckers passt sich nun noch nahtloser an moderne Bildschirme an.
+• Zuverlässige Links: Die Links im Einstellungsmenü lassen sich wieder fehlerfrei öffnen.
 
 ## 2.0.4 – 2026-07-16
 ✨ Verbessert:
