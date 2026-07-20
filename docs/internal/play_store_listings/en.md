@@ -70,7 +70,7 @@ FamWake is a passion project — born at our own breakfast table and designed as
 FamWake Family Alarm Clock
 
 ## iOS Untertitel (30 Zeichen max)
-Morning Routine & Schedule
+Family Alarm & Morning Planner
 
 ## iOS Promo-Text (170 Zeichen max)
 No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.

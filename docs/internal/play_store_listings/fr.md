@@ -76,4 +76,4 @@ Réveil familial & planning
 Fini le chaos matinal ! FamWake coordonne les heures de réveil, les tours de toilettes et le petit-déjeuner pour toute la famille.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
-reveil,familial,enfants,matin,routine,salle de bain,intelligent,planning,alarme,snooze,organisation
+reveil,familial,enfants,matin,routine,salle de bain,intelligent,planning,alarme,snooze,partage,groupe

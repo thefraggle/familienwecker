@@ -76,4 +76,4 @@ Budzik rodzinny & planer
 Nigdy więcej porannego chaosu! FamWake koordynuje godziny pobudek, toalety i śniadanie dla całej rodziny.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
-budzik,rodzinny,dzieci,rano,rutyna,lazienka,planer,alarm,wielokrotny,inteligentny,budzenie,snooze
+budzik,rodzinny,dzieci,rano,rutyna,lazienka,planer,alarm,inteligentny,wspolny,grupa,snooze

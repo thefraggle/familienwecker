@@ -76,4 +76,4 @@ Alarme familiar & planejador
 Chega de caos matinal! FamWake coordena horários de despertar, horários de ir ao banheiro e café da manhã para toda a família.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
-despertador,familiar,alarme,familia,rotina,manha,planejador,banheiro,acordar,organizador,snooze
+despertador,familiar,alarme,familia,rotina,manha,planejador,banheiro,compartilhado,grupo,snooze
