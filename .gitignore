@@ -58,3 +58,4 @@ firebase-debug.log
 scratch/
 .mcp.json
 .mcp_config.json
+.env
