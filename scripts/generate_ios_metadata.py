@@ -99,6 +99,43 @@ def get_description_from_listing(listing_path):
     return desc if desc else None
 
 
+def extract_ios_sections(listing_path):
+    """
+    Extract App Store metadata from listing markdown file.
+    Expects sections like:
+    ## iOS App-Name (or Title)
+    ## iOS Untertitel (or Subtitle)
+    ## iOS Promo-Text (or Promotional Text)
+    ## iOS Keywords (or Keywords)
+    """
+    if not os.path.exists(listing_path):
+        return None, None, None, None
+
+    with open(listing_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    # Find the App Store header or split there
+    parts = re.split(r'#+ 🍎 App Store Listing', content)
+    if len(parts) < 2:
+        return None, None, None, None
+
+    ios_content = parts[1]
+    sections = list(re.finditer(r'^## .+', ios_content, re.MULTILINE))
+    if len(sections) < 4:
+        return None, None, None, None
+
+    # Title is between 1st and 2nd heading
+    title = ios_content[sections[0].end():sections[1].start()].strip()
+    # Subtitle is between 2nd and 3rd heading
+    subtitle = ios_content[sections[1].end():sections[2].start()].strip()
+    # Promo is between 3rd and 4th heading
+    promo = ios_content[sections[2].end():sections[3].start()].strip()
+    # Keywords is from 4th heading to end of file or next heading
+    keywords = ios_content[sections[3].end():].strip()
+
+    return title, subtitle, promo, keywords
+
+
 # Mapping: ASC locale → Play Store listing file key
 ASC_TO_LISTING = {
     'de-DE':   'de',
@@ -124,6 +161,8 @@ ASC_TO_LISTING = {
     'vi':      'vi',
     'hi':      'hi',
     'uk':      'uk',
+    'bn':      'bn',
+    'mr':      'mr',
 }
 
 # Changelog source files per locale (only DE/EN have dedicated files)
@@ -142,7 +181,8 @@ TRANSLATION_TARGETS = {
     'zh-Hans': 'zh-CN', 'ru': 'ru', 'tr': 'tr',
     'pl': 'pl', 'sv': 'sv', 'da': 'da',
     'no': 'no', 'id': 'id', 'vi': 'vi',
-    'hi': 'hi', 'uk': 'uk',
+    'hi':      'hi', 'uk': 'uk',
+    'bn':      'bn', 'mr': 'mr',
 }
 
 # Hardcoded promotional texts per locale — verified and locked in.
@@ -171,6 +211,8 @@ PROMO_TEXTS = {
     'vi':      'Không còn sự hỗn loạn buổi sáng! FamWake điều phối thời gian thức dậy, thời gian đi vệ sinh và bữa sáng cho cả gia đình.',
     'hi':      'अब सुबह की अव्यवस्था नहीं! फैमवेक पूरे परिवार के लिए जागने के समय, बाथरूम जाने और नाश्ते के समय का समन्वय करता है।',
     'uk':      'Більше ніякого ранкового хаосу! FamWake координує час пробудження, чергування в туалеті та сніданок для всієї родини.',
+    'bn':      'আর সকালের বিশৃঙ্খলা নয়! FamWake পুরো পরিবারের জন্য ঘুম থেকে ওঠার সময়, বাথরুমের পালা এবং প্রাতঃরাশের সমন্বয় করে।',
+    'mr':      'आणखी सकाळचा गोंधळ नाही! FamWake संपूर्ण कुटुंबासाठी उठण्याची वेळ, बाथरूमची वेळ आणि नाश्ता यांचे संयोजन करते.',
 }
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
@@ -204,6 +246,8 @@ SUBTITLES = {
     'vi':      'B\u00e1o th\u1ee9c gia \u0111\u00ecnh & k\u1ebf ho\u1ea1ch',
     'hi':      'परिवार अलार्म और प्लानर',
     'uk':      'С\u0456мейний будильник & планер',
+    'bn':      'পারিবারিক অ্যালার্ম ও সূচি',
+    'mr':      'कौटुंबिक अलार्म आणि नियोजक',
 }
 
 def write_file(path, content):
@@ -278,34 +322,46 @@ def main():
         desc = truncate_to_bytes(desc, max_bytes=3900)
         write_file(os.path.join(locale_dir, 'description.txt'), desc)
 
+        # Try to read iOS metadata from local markdown file
+        parsed_title, parsed_subtitle, parsed_promo, parsed_keywords = extract_ios_sections(listing_file)
+
         # ── 3. PROMOTIONAL TEXT ───────────────────────────────────
-        promo = PROMO_TEXTS.get(asc_locale, PROMO_TEXTS['en-US'])
+        promo = parsed_promo or PROMO_TEXTS.get(asc_locale, PROMO_TEXTS['en-US'])
+        promo = strip_emojis(promo).strip()
+        if len(promo) > 170:
+            promo = promo[:167] + "..."
         write_file(os.path.join(locale_dir, 'promotional_text.txt'), promo)
 
         # ── 4. KEYWORDS ─────────────────────────────────────────────
-        if asc_locale.startswith('de'):
-            keywords = KEYWORDS_DE
-        elif asc_locale.startswith('en'):
-            keywords = KEYWORDS_EN
-        elif translator_available:
-            try:
-                keywords = GoogleTranslator(
-                    source='en', target=target_lang
-                ).translate(KEYWORDS_EN)
-            except Exception:
+        keywords = parsed_keywords
+        if not keywords:
+            if asc_locale.startswith('de'):
+                keywords = KEYWORDS_DE
+            elif asc_locale.startswith('en'):
                 keywords = KEYWORDS_EN
-        else:
-            keywords = KEYWORDS_EN
+            elif translator_available:
+                try:
+                    keywords = GoogleTranslator(
+                        source='en', target=target_lang
+                    ).translate(KEYWORDS_EN)
+                except Exception:
+                    keywords = KEYWORDS_EN
+            else:
+                keywords = KEYWORDS_EN
 
         keywords = strip_emojis(keywords).strip()
+        # Clean: remove spaces after commas
+        keywords = ','.join([kw.strip() for kw in keywords.split(',') if kw.strip()])
         # App Store limit: 100 characters for keywords
         if len(keywords) > 100:
-            # Trim to last complete keyword within 100 chars
             keywords = keywords[:100].rsplit(',', 1)[0]
         write_file(os.path.join(locale_dir, 'keywords.txt'), keywords)
 
         # ── 5. SUBTITLE ────────────────────────────────────────────
-        subtitle = SUBTITLES.get(asc_locale, SUBTITLES['en-US'])
+        subtitle = parsed_subtitle or SUBTITLES.get(asc_locale, SUBTITLES['en-US'])
+        subtitle = strip_emojis(subtitle).strip()
+        if len(subtitle) > 30:
+            subtitle = subtitle[:27] + "..."
         write_file(os.path.join(locale_dir, 'subtitle.txt'), subtitle)
 
         # ── 6. SUPPORT & MARKETING URLS ────────────────────────────

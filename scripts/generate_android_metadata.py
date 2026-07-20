@@ -70,13 +70,16 @@ def write_file(path, content):
 
 
 # Mapping: Play Store locale → listing file key
-# Aligned to the 23 verified core languages supported by the app.
 PLAY_TO_LISTING = {
     'de-DE': 'de',
     'en-US': 'en',
     'en-GB': 'en',
+    'en-IN': 'en',
     'fr-FR': 'fr',
+    'fr-CA': 'fr',
     'es-ES': 'es',
+    'es-419': 'es',
+    'es-US': 'es',
     'pt-PT': 'pt',
     'pt-BR': 'pt',
     'it-IT': 'it',
@@ -90,10 +93,14 @@ PLAY_TO_LISTING = {
     'sv-SE': 'sv',
     'da-DK': 'da',
     'nb-NO': 'no',
+    'no-NO': 'no',
     'id': 'id',
     'vi': 'vi',
     'hi-IN': 'hi',
     'uk': 'uk',
+    'bn-BD': 'bn',
+    'bn-IN': 'bn',
+    'mr-IN': 'mr',
 }
 
 
