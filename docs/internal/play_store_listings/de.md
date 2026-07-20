@@ -72,10 +72,10 @@ FamWake ist ein Herzensprojekt — entstanden am eigenen Frühstückstisch. Morg
 FamWake Familienwecker
 
 ## iOS Untertitel (30 Zeichen max)
-Morgenroutine & Zeitplaner
+Familienwecker & Morgenplaner
 
 ## iOS Promo-Text (170 Zeichen max)
 Schluss mit Morgenchaos! FamWake koordiniert Weckzeiten, Badezimmer-Reihenfolge und Frühstück für die ganze Familie.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
-familienwecker,kinderwecker,wecker,kinder,morgenroutine,alltagsplaner,zeitplaner,aufsteh,snooze,badplaner
+familienwecker,kinderwecker,wecker,kinder,morgenroutine,alltagsplaner,zeitplaner,aufsteh,gemeinsam,teilen

@@ -73,7 +73,7 @@ FamWake Báo thức gia đình
 Báo thức gia đình & kế hoạch
 
 ## iOS Promo-Text (170 Zeichen max)
-Không còn sự hỗn loạn buổi sáng! FamWake điều phối thời gian thức dậy, thời gian đi vệสะия và bữa sáng cho cả gia đình.
+Không còn sự hỗn loạn buổi sáng! FamWake điều phối thời gian thức dậy, thời gian đi vệ sinh và bữa sáng cho cả gia đình.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
 bao thuc,gia dinh,tre em,buoi sang,thoi quen,nha tam,ke hoach,bao thuc nhom,snooze

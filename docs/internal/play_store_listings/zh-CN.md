@@ -70,7 +70,7 @@ FamWake 是一个充满热忱的项目——它诞生于我们自家的餐桌上
 FamWake 家庭闹钟
 
 ## iOS Untertitel (30 Zeichen max)
-家庭闹钟和早晨规划
+家庭闹钟 and 早晨规划
 
 ## iOS Promo-Text (170 Zeichen max)
 早上不再混乱！ FamWake 协调全家人的起床时间、上厕所时间和早餐。

@@ -76,4 +76,4 @@ Aile alarmı & sabah planlayıcı
 Artık sabah kaosuna son! FamWake tüm aile için uyanma saatlerini, banyo dönüşlerini ve kahvaltıyı koordine eder.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
-aile,alarm,saati,sabah,rutini,cocuk,banyo,sirasi,uyandirma,akilli,snooze,planlayici,organizasyon
+aile,alarm,saati,sabah,rutini,cocuk,banyo,sirasi,uyandirma,akilli,ortak,grup,planlayici
