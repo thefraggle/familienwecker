@@ -75,9 +75,97 @@ enum L {
     static var settingsNoMembers: String { s("settings_no_members") }
     static var settingsPleaseSelect: String { s("settings_please_select") }
     static var settingsDonateSuccess: String { s("settings_donate_success") }
-    static var settingsTermsOfUseUrl: String { s("settings_terms_of_use_url") }
-    static var settingsPrivacyPolicyUrl: String { s("settings_privacy_policy_url") }
-    static var settingsDeleteAccountUrl: String { s("settings_delete_account_url") }
+    private static var currentLang: String {
+        let identifier = LanguageManager.shared.currentLocale.identifier
+        let parts = identifier.split(separator: "_")
+        if let first = parts.first {
+            return String(first).lowercased()
+        }
+        return "en"
+    }
+
+    private static func isGermanLang(_ lang: String) -> Bool {
+        return lang == "de" || lang == "gsw" || lang == "swg" || lang == "ksh"
+    }
+
+    static var settingsTermsOfUseUrl: String {
+        let lang = currentLang
+        if isGermanLang(lang) { return "https://www.familienwecker.de/terms.html" }
+        if lang == "da" { return "https://www.familienwecker.de/terms-da.html" }
+        if lang == "es" { return "https://www.familienwecker.de/terms-es.html" }
+        if lang == "fr" { return "https://www.familienwecker.de/terms-fr.html" }
+        if lang == "it" { return "https://www.familienwecker.de/terms-it.html" }
+        if lang == "ja" { return "https://www.familienwecker.de/terms-ja.html" }
+        if lang == "nl" { return "https://www.familienwecker.de/terms-nl.html" }
+        if lang == "no" || lang == "nb" { return "https://www.familienwecker.de/terms-no.html" }
+        if lang == "pl" { return "https://www.familienwecker.de/terms-pl.html" }
+        if lang == "pt" { return "https://www.familienwecker.de/terms-pt.html" }
+        if lang == "ru" { return "https://www.familienwecker.de/terms-ru.html" }
+        if lang == "sv" { return "https://www.familienwecker.de/terms-sv.html" }
+        if lang == "uk" { return "https://www.familienwecker.de/terms-uk.html" }
+        if lang == "zh" { return "https://www.familienwecker.de/terms-zh-CN.html" }
+        if lang == "id" || lang == "in" { return "https://www.familienwecker.de/terms-id.html" }
+        return "https://www.familienwecker.de/terms-en.html"
+    }
+
+    static var settingsPrivacyPolicyUrl: String {
+        let lang = currentLang
+        if isGermanLang(lang) { return "https://www.familienwecker.de/privacy-policy.html" }
+        if lang == "da" { return "https://www.familienwecker.de/privacy-policy-da.html" }
+        if lang == "es" { return "https://www.familienwecker.de/privacy-policy-es.html" }
+        if lang == "fr" { return "https://www.familienwecker.de/privacy-policy-fr.html" }
+        if lang == "it" { return "https://www.familienwecker.de/privacy-policy-it.html" }
+        if lang == "ja" { return "https://www.familienwecker.de/privacy-policy-ja.html" }
+        if lang == "nl" { return "https://www.familienwecker.de/privacy-policy-nl.html" }
+        if lang == "no" || lang == "nb" { return "https://www.familienwecker.de/privacy-policy-no.html" }
+        if lang == "pl" { return "https://www.familienwecker.de/privacy-policy-pl.html" }
+        if lang == "pt" { return "https://www.familienwecker.de/privacy-policy-pt.html" }
+        if lang == "ru" { return "https://www.familienwecker.de/privacy-policy-ru.html" }
+        if lang == "sv" { return "https://www.familienwecker.de/privacy-policy-sv.html" }
+        if lang == "uk" { return "https://www.familienwecker.de/privacy-policy-uk.html" }
+        if lang == "zh" { return "https://www.familienwecker.de/privacy-policy-zh-CN.html" }
+        if lang == "id" || lang == "in" { return "https://www.familienwecker.de/privacy-policy-id.html" }
+        return "https://www.familienwecker.de/privacy-policy-en.html"
+    }
+
+    static var settingsDeleteAccountUrl: String {
+        let lang = currentLang
+        if isGermanLang(lang) { return "https://www.familienwecker.de/account-deletion.html" }
+        if lang == "da" { return "https://www.familienwecker.de/account-deletion-da.html" }
+        if lang == "es" { return "https://www.familienwecker.de/account-deletion-es.html" }
+        if lang == "fr" { return "https://www.familienwecker.de/account-deletion-fr.html" }
+        if lang == "it" { return "https://www.familienwecker.de/account-deletion-it.html" }
+        if lang == "ja" { return "https://www.familienwecker.de/account-deletion-ja.html" }
+        if lang == "nl" { return "https://www.familienwecker.de/account-deletion-nl.html" }
+        if lang == "no" || lang == "nb" { return "https://www.familienwecker.de/account-deletion-no.html" }
+        if lang == "pl" { return "https://www.familienwecker.de/account-deletion-pl.html" }
+        if lang == "pt" { return "https://www.familienwecker.de/account-deletion-pt.html" }
+        if lang == "ru" { return "https://www.familienwecker.de/account-deletion-ru.html" }
+        if lang == "sv" { return "https://www.familienwecker.de/account-deletion-sv.html" }
+        if lang == "uk" { return "https://www.familienwecker.de/account-deletion-uk.html" }
+        if lang == "zh" { return "https://www.familienwecker.de/account-deletion-zh-CN.html" }
+        if lang == "id" || lang == "in" { return "https://www.familienwecker.de/account-deletion-id.html" }
+        return "https://www.familienwecker.de/account-deletion-en.html"
+    }
+
+    static var settingsImprintUrl: String {
+        let lang = currentLang
+        if isGermanLang(lang) { return "https://www.familienwecker.de/imprint.html" }
+        if lang == "da" { return "https://www.familienwecker.de/imprint-da.html" }
+        if lang == "es" { return "https://www.familienwecker.de/imprint-es.html" }
+        if lang == "fr" { return "https://www.familienwecker.de/imprint-fr.html" }
+        if lang == "it" { return "https://www.familienwecker.de/imprint-it.html" }
+        if lang == "ja" { return "https://www.familienwecker.de/imprint-ja.html" }
+        if lang == "nl" { return "https://www.familienwecker.de/imprint-nl.html" }
+        if lang == "no" || lang == "nb" { return "https://www.familienwecker.de/imprint-no.html" }
+        if lang == "pl" { return "https://www.familienwecker.de/imprint-pl.html" }
+        if lang == "pt" { return "https://www.familienwecker.de/imprint-pt.html" }
+        if lang == "ru" { return "https://www.familienwecker.de/imprint-ru.html" }
+        if lang == "sv" { return "https://www.familienwecker.de/imprint-sv.html" }
+        if lang == "uk" { return "https://www.familienwecker.de/imprint-uk.html" }
+        if lang == "id" || lang == "in" { return "https://www.familienwecker.de/imprint-id.html" }
+        return "https://www.familienwecker.de/imprint-en.html"
+    }
 
     // MARK: - FamilySetup
     static var setupCreateTab: String { s("setup_create_tab") }
