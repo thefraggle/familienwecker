@@ -7,28 +7,7 @@
 Morgenroutine ohne Stress – smarte, dynamische Planung für die ganze Familie.
 
 ---
+## 🛠️ Weiterentwicklung & Backlog
+Die gesamte Weiterentwicklung, Feature-Ideen und das Backlog werden ab sofort direkt über **GitHub Issues** gepflegt und nachverfolgt.
 
-## 🛠️ Backlog / Offene Ideen
-
-### Prio: Mittel (Usability & UI)
-- [ ] **Snooze-Sync:** Plan der anderen passt sich „live" an, wenn jemand länger braucht.
-- [ ] **Unterstützung für 2 Badezimmer:** Parallele Slot-Berechnung.
-- [ ] **Individuelle Frühstücksdauer:** Jedes Mitglied kann eigene Zeiten setzen.
-- [ ] **Haptik-Profile:** Unterschiedliche Vibrationsmuster für Voralarm und Hauptalarm.
-- [ ] **Homescreen-Widget:** Eigene heutige Weckzeit ohne App öffnen.
-- [ ] **Weck-Bestätigung mit Familien-Push:** „Bin wach!"-Button schickt Push an alle.
-- [ ] **Urlaubs-Datum:** Wecker reaktiviert sich automatisch nach Ablauf.
-- [ ] **Plan-Übersicht als Wochentabelle:** Kompakte Tabelle aller Mitglieder × Wochentage.
-
-### Prio: Niedrig (Nice-to-have)
-- [ ] **Abendlicher Check-In:** Push-Reminder um 21 Uhr für die Zeiten von morgen.
-- [ ] **Eigene Playlists:** Spotify-Integration für den Weck-Screen.
-- [ ] **Zeitumstellungs-Schutz (DST):** Absicherung der Berechnung bei Sommer-/Winterzeit.
-
-### Ideenpool (nächste Produktrunden)
-- [ ] **„Bad ist frei“-Button:** Per Klick Nachfolgenden wecken/benachrichtigen, wenn man früher fertig ist.
-- [ ] **Quick-Verzögerung:** Button auf dem Weck-Screen für „Brauche heute +5 Min im Bad“ (live Neuberechnung).
-- [ ] **Gast-Modus:** Temporäre Profile für Wochenendbesuch ohne vollen Account.
-- [ ] **Dynamische Schlafenszeit-Erinnerung:** Push am Vorabend basierend auf berechneter Weckzeit morgen.
-
----
+👉 [GitHub Issues](https://github.com/thefraggle/familienwecker/issues)
