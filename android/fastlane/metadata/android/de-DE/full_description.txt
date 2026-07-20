@@ -1,6 +1,6 @@
 <b>Schluss mit Morgen-Chaos! Dein Familienwecker & Kinder Wecker für eine entspannte Morgenroutine.</b> 
 
-FamWake ist deine Wecker App und Aufsteh-App für entspannte Familienmorgen — Morgenplanung, Bad-Reihenfolge und Schlafplaner in einer smarten Familien App.
+FamWake ist deine Wecker App und Aufsteh-App für entspannte Familienmorgen — Morgenplanung, Bad-Reihenfolge und Schlafplaner in einer smarten Familien App, die dir beim täglichen Zeitmanagement hilft. Nutze FamWake als deinen Alltagsplaner und Zeitplaner für den perfekten Morgen.
 
 Alle müssen gleichzeitig raus und am Ende kommt jeder zu spät. Deshalb habe ich als Vater <b>FamWake</b> entwickelt: den Familienwecker, den ich mir immer gewünscht hätte. Ob als cleverer Kinderwecker, als Hilfe für die Morgenroutine für Kinder oder als gemeinsamer Wecker — unsere Familien Wecker App macht es einfach.
 
@@ -49,4 +49,4 @@ FamWake ist weltweit in 25 Sprachen verfügbar — und sogar auf Schwäbisch, Sc
 Alle Kernfunktionen von FamWake sind und bleiben <b>dauerhaft kostenlos</b> — kein Abo, keine Tricks. In Zukunft wird es optionale Premium-Features für noch mehr Komfort geben. Wenn dir die App jetzt schon gefällt, kannst du uns mit einer kleinen freiwilligen Spende unterstützen. 
 
 <b>Von einem Vater für Familien gebaut.</b>
-FamWake ist ein Herzensprojekt — entstanden am eigenen Frühstückstisch. Morgenroutine kostenlos und gemeinsam meistern. Lade dir FamWake Familienwecker jetzt herunter!
+FamWake ist ein Herzensprojekt — entstanden am eigenen Frühstückstisch. M...
