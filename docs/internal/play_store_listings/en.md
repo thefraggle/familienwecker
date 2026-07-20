@@ -7,13 +7,13 @@
 FamWake Family Alarm Clock
 
 ## Short Description (80 characters max)
-Smart alarm clock for families & shared bathroom schedule routine planner.
+Shared alarm clock for families. Group wake up & bathroom schedule planner.
 
 ## Full Description (4000 characters max)
 
 <b>End the morning chaos! The smart alarm clock for families and stress-free mornings.</b> ⏰
 
-Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b> as a father: the best family wake up app I'd always wished we had. Whether you need a smart kids alarm clock, family coordination, or a daily routine planner for your family schedule, FamWake makes it easy with multiple alarms in one family app.
+Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b> as a father: the best family wake up app I'd always wished we had. Whether you need a smart kids alarm clock, a **shared alarm clock** for family coordination, or a **group alarm** routine planner, FamWake makes it easy with multiple alarms in one family app.
 
 FamWake calculates the <b>perfect wake-up time</b> for each family member — based on bathroom needs, breakfast plans, and departure times. Everyone sleeps as long as possible, and nobody is late.
 
@@ -76,4 +76,4 @@ Morning Routine & Schedule
 No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
-family alarm,kids alarm,morning routine,bathroom schedule,wake up,breakfast,planner,snooze,organizer
+family alarm,kids alarm,morning routine,bathroom schedule,wake up,shared alarm,group alarm,snooze
