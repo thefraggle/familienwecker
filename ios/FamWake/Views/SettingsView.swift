@@ -643,7 +643,7 @@ struct SettingsView: View {
             if let url = URL(string: L.settingsPrivacyPolicyUrl) { UIApplication.shared.open(url) }
         }.buttonStyle(.borderless)
         Button(L.s("settings_imprint")) {
-            if let url = URL(string: L.s("settings_imprint_url")) { UIApplication.shared.open(url) }
+            if let url = URL(string: L.settingsImprintUrl) { UIApplication.shared.open(url) }
         }.buttonStyle(.borderless)
     }
 
