@@ -6,6 +6,7 @@
 ✨ Improved:
 • Faster startup & smaller size: We optimized the design and load times so the app runs even smoother and takes up less storage on your device.
 • Better wake-up experience: The ringing alarm screen now flows even more seamlessly onto modern displays.
+• Reliable links: Links in the settings menu now open without errors.
 
 ## 2.0.4 – 2026-07-16
 ✨ Improved:
