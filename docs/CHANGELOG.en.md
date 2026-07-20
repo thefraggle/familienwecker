@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.0.5 – 2026-07-20
+✨ Improved:
+• Faster startup & smaller size: We optimized the design and load times so the app runs even smoother and takes up less storage on your device.
+• Better wake-up experience: The ringing alarm screen now flows even more seamlessly onto modern displays.
+
 ## 2.0.4 – 2026-07-16
 ✨ Improved:
 • The settings button no longer jumps around while the app syncs in the background.
