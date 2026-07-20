@@ -61,3 +61,19 @@ FamWake 的所有核心功能现在和未来都将<b>永久免费</b>——没�
 
 <b>一位父亲为家庭量身打造。</b>
 FamWake 是一个充满热忱的项目——它诞生于我们自家的餐桌上，专为希望共同掌控晨间日常的家庭而开发。现在就下载 FamWake 家庭闹钟，亲自体验一下没有混乱的早晨能有多么轻松惬意！🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (ZH-CN)
+
+## iOS App-Name (30 Zeichen max)
+FamWake 家庭闹钟
+
+## iOS Untertitel (30 Zeichen max)
+家庭闹钟和早晨规划
+
+## iOS Promo-Text (170 Zeichen max)
+早上不再混乱！ FamWake 协调全家人的起床时间、上厕所时间和早餐。
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+闹钟,家庭,儿童,早晨,常规,浴室,规划,重响,日程,工具,famwake

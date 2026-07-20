@@ -61,3 +61,19 @@ Tutte le funzionalità principali di FamWake sono e rimarranno <b>gratuite per s
 
 <b>Creata da un padre, per le famiglie.</b>
 FamWake è un progetto nato dal cuore — al nostro stesso tavolo della colazione e pensato per le famiglie che vogliono gestire la loro routine mattutina insieme. Scarica FamWake Sveglia Familiare ora e scopri quanto può essere rilassante una mattina senza caos! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (IT)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Sveglia Familiare
+
+## iOS Untertitel (30 Zeichen max)
+Sveglia famiglia & pianifica
+
+## iOS Promo-Text (170 Zeichen max)
+Niente più caos mattutino! FamWake coordina gli orari di sveglia, i turni del bagno e la colazione per tutta la famiglia.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+sveglia,familiare,bambini,mattina,routine,bagno,pianificatore,allarme,snooze,famiglia,organizzatore

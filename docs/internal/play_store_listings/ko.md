@@ -61,3 +61,19 @@ FamWake의 모든 핵심 기능은 앞으로도 계속 <b>무료로 제공</b>�
 
 <b>한 아버지가 가족들을 위해 만들었습니다.</b>
 FamWake는 저희 집 아침 식탁에서 탄생한 진심 어린 프로젝트이며, 아침 루틴을 함께 맞춰가고자 하는 모든 가족을 위해 만들어졌습니다. 지금 FamWake 가족 알람시계를 다운로드하고, 혼란 없는 아침이 얼마나 여유로울 수 있는지 직접 경험해 보세요! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (KO)
+
+## iOS App-Name (30 Zeichen max)
+FamWake 가족 알람시계
+
+## iOS Untertitel (30 Zeichen max)
+가족 알람 및 아침 플래너
+
+## iOS Promo-Text (170 Zeichen max)
+더 이상 아침의 혼란은 없습니다! FamWake는 온 가족을 위한 기상 시간, 화장실 회전 및 아침 식사를 조정합니다.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+알람,가족,어린이,아침,루틴,욕실,플래너,스누즈,일정,도구,famwake

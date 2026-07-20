@@ -63,3 +63,19 @@ Alle Kernfunktionen von FamWake sind und bleiben <b>dauerhaft kostenlos</b> — 
 
 <b>Von einem Vater für Familien gebaut.</b>
 FamWake ist ein Herzensprojekt — entstanden am eigenen Frühstückstisch. Morgenroutine kostenlos und gemeinsam meistern. Lade dir FamWake Familienwecker jetzt herunter! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (DE)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Familienwecker
+
+## iOS Untertitel (30 Zeichen max)
+Familienwecker & Morgenplaner
+
+## iOS Promo-Text (170 Zeichen max)
+Schluss mit Morgenchaos! FamWake koordiniert Weckzeiten, Badezimmer-Reihenfolge und Frühstück für die ganze Familie.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+familienwecker,kinderwecker,wecker,kinder,morgenroutine,alltagsplaner,zeitplaner,aufsteh,snooze,badplaner

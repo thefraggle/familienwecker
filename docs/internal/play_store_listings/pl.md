@@ -61,3 +61,19 @@ Wszystkie podstawowe funkcje FamWake są i pozostaną <b>na zawsze bezpłatne</b
 
 <b>Stworzone przez ojca, dla rodzin.</b>
 FamWake to projekt płynący z serca — zrodzony przy naszym własnym stole śniadaniowym i stworzony dla rodzin, które chcą wspólnie opanować swoje poranne rutyny. Pobierz ten budzik inteligentny teraz i odkryj, jak łatwe może być budzenie dzieci i codzienna organizacja! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (PL)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Budzik Rodzinny
+
+## iOS Untertitel (30 Zeichen max)
+Budzik rodzinny & planer
+
+## iOS Promo-Text (170 Zeichen max)
+Nigdy więcej porannego chaosu! FamWake koordynuje godziny pobudek, toalety i śniadanie dla całej rodziny.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+budzik,rodzinny,dzieci,rano,rutyna,lazienka,planer,alarm,wielokrotny,inteligentny,budzenie,snooze
