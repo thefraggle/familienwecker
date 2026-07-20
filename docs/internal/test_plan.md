@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 2.0.4
-**Datum:** 2026-07-16
+**Version:** 2.0.5
+**Datum:** 2026-07-20
 
 ---
 
@@ -37,6 +37,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und 
 | TC-32 | Snooze-Maximum | 3. Klick: Alarm endet, Begrüßung erscheint. Lock-Screen: „Snooze nicht möglich". |
 | TC-33 | Snooze nach Reboot | Gerät neu starten während Snooze → Alarm aus Backup wiederhergestellt. |
 | TC-34 | Ghost-Alarm-Schutz | Kein Wecker bei: globalem Schalter OFF, pausiertem Member, nach Neustart oder Bearbeitung. Snooze-Count am Folgetag zurückgesetzt. |
+| TC-35 | Randlose Anzeige (Edge-to-Edge) (neu in v2.0.5) | Die Wecker-Anzeige füllt den gesamten Bildschirm aus, blendet Systemleisten aus oder zeichnet unter ihnen, ohne dass Interaktionselemente abgeschnitten sind. |
 
 ### 4. Sync & Push
 | ID | Testfall | Erwartetes Ergebnis |
@@ -73,9 +74,10 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und 
 | ID | Testfall | Erwartetes Ergebnis |
 |:---|:---|:---|
 | UI-01 | Layout | Tastatur verdeckt keine Buttons. iPhone SE Chips scrollbar. |
-| UI-02 | Sprachen & Themes | 25 Sprachen absturzfrei. Dark/Light sofort. |
-| UI-03 | Fehlerhinweise | Sync-/Netzfehler → verständliche Meldung. |
-| UI-04 | Barrierefreiheit | VoiceOver/TalkBack: alle Buttons, Toggles, Picker gelabelt. Initialen-Avatare lesbar. Dynamic Type: kein Clipping. |
+| UI-02 | WebP-Hintergrund (neu in v2.0.5) | Das optimierte Onboarding-Hintergrundbild wird fehlerfrei und ohne Qualitätseinbußen oder Layout-Verzerrungen geladen. |
+| UI-03 | Sprachen & Themes | 25 Sprachen absturzfrei. Dark/Light sofort. |
+| UI-04 | Fehlerhinweise | Sync-/Netzfehler → verständliche Meldung. |
+| UI-05 | Barrierefreiheit | VoiceOver/TalkBack: alle Buttons, Toggles, Picker gelabelt. Initialen-Avatare lesbar. Dynamic Type: kein Clipping. |
 
 ---
 

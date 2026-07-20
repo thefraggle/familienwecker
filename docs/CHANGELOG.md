@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.0.5 – 2026-07-20
+✨ Verbessert:
+• Schnellerer App-Start & weniger Speicherplatz: Wir haben das Design und die Ladezeiten optimiert, damit die App noch flüssiger läuft und weniger Speicherplatz auf deinem Gerät belegt.
+• Besseres Weck-Erlebnis: Die Anzeige des klingelnden Weckers passt sich nun noch nahtloser an moderne Bildschirme an.
+
 ## 2.0.4 – 2026-07-16
 ✨ Verbessert:
 • Einstellungen-Button bleibt jetzt ruhig stehen, auch wenn im Hintergrund synchronisiert wird.
