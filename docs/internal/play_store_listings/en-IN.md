@@ -61,3 +61,19 @@ All core features of FamWake are and will remain <b>free forever</b> — no subs
 
 <b>Built by a father, for families.</b>
 FamWake is a passion project — born at our own breakfast table and made for families who want to master their morning routine together. Download our family schedule manager now and discover how relaxed a morning can be with the perfect wake up time! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (EN-IN)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Family Alarm Clock
+
+## iOS Untertitel (30 Zeichen max)
+Family Alarm & Morning Planner
+
+## iOS Promo-Text (170 Zeichen max)
+No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+family alarm,kids alarm,morning routine,bathroom schedule,wake up,breakfast,planner,snooze,organizer

@@ -61,3 +61,19 @@ Todas as funcionalidades essenciais do FamWake são e continuarão sendo <b>grat
 
 <b>Criado por um pai, para famílias.</b>
 O FamWake é um projeto do coração — nascido na nossa própria mesa de café da manhã e feito para famílias que querem organizar a rotina matinal juntas. Baixe o FamWake agora, o seu novo despertador inteligente e alarme família, e descubra como acordar na hora e ter uma rotina matinal sem caos pode ser relaxante! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (PT)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Despertador Familiar
+
+## iOS Untertitel (30 Zeichen max)
+Alarme familiar & planejador
+
+## iOS Promo-Text (170 Zeichen max)
+Chega de caos matinal! FamWake coordena horários de despertar, horários de ir ao banheiro e café da manhã para toda a família.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+despertador,familiar,alarme,familia,rotina,manha,planejador,banheiro,acordar,organizador,snooze

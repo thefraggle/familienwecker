@@ -61,3 +61,19 @@ Semua fitur utama FamWake <b>gratis selamanya</b> — tanpa langganan, tanpa jeb
 
 <b>Dibuat oleh seorang ayah, untuk keluarga.</b>
 FamWake adalah proyek dari hati — bermula dari meja sarapan kami sendiri dan didedikasikan untuk keluarga yang ingin mengelola rutinitas dan jadwal pagi mereka bersama. Unduh pengatur waktu dan alarm pagi ini sekarang dan rasakan betapa santainya pagi harimu! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (ID)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Jam Alarm Keluarga
+
+## iOS Untertitel (30 Zeichen max)
+Alarm keluarga & perencana
+
+## iOS Promo-Text (170 Zeichen max)
+Tidak ada lagi kekacauan pagi hari! FamWake mengoordinasikan waktu bangun, pergantian kamar mandi, dan sarapan untuk seluruh keluarga.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+alarm,keluarga,jam,pagi,rutinitas,bangun,tidur,bersama,anak,grup,jadwal,pengatur,waktu,snooze

@@ -61,3 +61,19 @@ FamWakeのすべての基本機能は、現在もこれからも<b>ずっと無�
 
 <b>一人の父親が、家族のために作りました。</b>
 FamWakeは、私自身の家の朝食のテーブルで生まれた、思い入れの強いプロジェクトです。朝のルーティンをみんなで乗り切りたいと願う、すべての家族のために作られました。今すぐ FamWake ファミリー目覚まし をダウンロードして、バタバタしない朝がどれほど快適か体験してみてください！🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (JA)
+
+## iOS App-Name (30 Zeichen max)
+FamWake ファミリー目覚まし
+
+## iOS Untertitel (30 Zeichen max)
+家族目覚まし＆朝のプランナー
+
+## iOS Promo-Text (170 Zeichen max)
+朝の混乱はもうありません！ FamWake は、家族全員の起床時間、トイレの順番、朝食を調整します。
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,家族,朝食,朝のバタバタ

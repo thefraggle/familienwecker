@@ -61,3 +61,19 @@ FamWake'in tüm temel özellikleri <b>sonsuza kadar ücretsizdir</b> ve öyle ka
 
 <b>Bir baba tarafından, aileler için geliştirildi.</b>
 FamWake bir gönül projesidir — kendi kahvaltı masamızda doğdu ve sabah rutinlerini birlikte ustaca yönetmek isteyen aileler için yapıldı. FamWake Aile Alarm Saati'ni şimdi indir ve sabah alarmı çaldığında kaossuz bir uyanma zamanı yaşa! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (TR)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Aile Alarm Saati
+
+## iOS Untertitel (30 Zeichen max)
+Aile alarmı & sabah planlayıcı
+
+## iOS Promo-Text (170 Zeichen max)
+Artık sabah kaosuna son! FamWake tüm aile için uyanma saatlerini, banyo dönüşlerini ve kahvaltıyı koordine eder.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+aile,alarm,saati,sabah,rutini,cocuk,banyo,sirasi,uyandirma,akilli,snooze,planlayici,organizasyon

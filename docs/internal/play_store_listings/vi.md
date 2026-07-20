@@ -61,3 +61,19 @@ Tất cả các tính năng cốt lõi của FamWake đang và sẽ <b>miễn ph
 
 <b>Được tạo ra bởi một người cha, dành cho các gia đình.</b>
 FamWake là một dự án đầy tâm huyết — ra đời ngay tại bàn ăn sáng của chính gia đình chúng tôi và được thiết kế dành cho các gia đình muốn cùng nhau làm chủ thói quen buổi sáng. Tải xuống FamWake Báo thức gia đình ngay bây giờ và khám phá xem một buổi sáng không có sự hỗn loạn có thể thư giãn đến nhường nào! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (VI)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Báo thức gia đình
+
+## iOS Untertitel (30 Zeichen max)
+Báo thức gia đình & kế hoạch
+
+## iOS Promo-Text (170 Zeichen max)
+Không còn sự hỗn loạn buổi sáng! FamWake điều phối thời gian thức dậy, thời gian đi vệสะия và bữa sáng cho cả gia đình.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+bao thuc,gia dinh,tre em,buoi sang,thoi quen,nha tam,ke hoach,bao thuc nhom,snooze

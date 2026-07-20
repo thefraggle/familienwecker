@@ -56,3 +56,5 @@ functions/node_modules/
 firebase-debug.log
 .runtimeconfig.json
 scratch/
+.mcp.json
+.mcp_config.json

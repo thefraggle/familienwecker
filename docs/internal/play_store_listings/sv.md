@@ -61,3 +61,19 @@ Alla kärnfunktioner i FamWake är och förblir <b>gratis för alltid</b> — in
 
 <b>Utvecklad av en pappa, för familjer.</b>
 FamWake är ett hjärteprojekt — fött vid vårt eget frukostbord och skapat för familjer som vill bemästra sin morgonrutin tillsammans. Ladda ner FamWake Familjeväckarklocka nu och upptäck hur avslappnad en morgon utan kaos kan vara! 🚀
+
+---
+
+# 🍎 App Store Listing – FamWake (SV)
+
+## iOS App-Name (30 Zeichen max)
+FamWake Familjeväckarklocka
+
+## iOS Untertitel (30 Zeichen max)
+Familjeväckare & morgonplan
+
+## iOS Promo-Text (170 Zeichen max)
+Inget mer morgonkaos! FamWake koordinerar väckningstider, badrumsvängningar och frukost för hela familjen.
+
+## iOS Keywords (100 Zeichen max, Komma-separiert)
+väckarklocka,familj,barn,morgon,rutin,badrum,planerare,alarm,snooze,organisatör
