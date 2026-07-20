@@ -99,7 +99,6 @@ PLAY_TO_LISTING = {
     'hi-IN': 'hi',
     'uk': 'uk',
     'bn-BD': 'bn',
-    'bn-IN': 'bn',
     'mr-IN': 'mr',
 }
 
