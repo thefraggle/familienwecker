@@ -30,7 +30,7 @@ android {
     defaultConfig {
         applicationId = "de.familienwecker.famwake"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = versionCodeTimestamp
         versionName = appVersion
 
