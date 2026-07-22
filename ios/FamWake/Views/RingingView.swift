@@ -20,9 +20,6 @@ struct RingingView: View {
     // Dynamic Type: Button-Höhe skaliert mit Systemschriftgröße
     @ScaledMetric(relativeTo: .headline) private var buttonHeight: CGFloat = 56
 
-    // Lottie Platzhalter (TODO: echte Lottie-Integration)
-    @State private var iconScale: CGFloat = 1.0
-
     var body: some View {
         ZStack {
             // Gradient: Dunkellila → Warm Peach
