@@ -68,7 +68,6 @@ def main():
         'ja-JP': None,   # Japanese
         'id': None,      # Indonesian
         'vi': None,      # Vietnamese
-        'bn-IN': None,   # Bengali (India)
         'bn-BD': None,   # Bengali (Bangladesh)
         'mr-IN': None,   # Marathi
         'hi-IN': None,   # Hindi
