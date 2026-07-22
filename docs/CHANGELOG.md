@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.0.6 – 2026-07-22
+✨ Verbessert:
+• Zukunftssicher: Wir haben die App unter der Haube aktualisiert, um die neuesten Richtlinien der App-Stores zu erfüllen und maximale Stabilität zu gewährleisten.
+• Aufgeräumter Code: Ein ungenutzter Lottie-Platzhalter wurde entfernt für eine sauberere Codebasis.
+
 ## 2.0.5 – 2026-07-20
 ✨ Verbessert:
 • Schnellerer App-Start & weniger Speicherplatz: Wir haben das Design und die Ladezeiten optimiert, damit die App noch flüssiger läuft und weniger Speicherplatz auf deinem Gerät belegt.
