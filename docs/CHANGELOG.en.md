@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.0.6 – 2026-07-22
+✨ Improved:
+• Future-proof: We updated the app under the hood to comply with the latest app store guidelines and ensure maximum stability.
+• Clean code: Removed an unused Lottie placeholder for a cleaner codebase.
+
 ## 2.0.5 – 2026-07-20
 ✨ Improved:
 • Faster startup & smaller size: We optimized the design and load times so the app runs even smoother and takes up less storage on your device.
