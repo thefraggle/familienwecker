@@ -520,10 +520,29 @@ class FamilyViewModel: ObservableObject {
         guard let fid = familyId else { return }
         let oldState = isAwakeTodayLocal
         isAwakeTodayLocal = awake
+        
+        if awake {
+            snoozeUntil = nil
+            snoozeCount = 0
+            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            UserDefaults.standard.set(0, forKey: "snooze_count")
+            AlarmService.shared.cancelWakeUp(memberId: memberId)
+        }
+        
         Task {
             await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
-                try await FamilyFirestoreService.shared.setAwake(familyId: fid, memberId: memberId, awake: awake)
+                if awake {
+                    let memberRef = db.collection("families").document(fid)
+                        .collection("members").document(memberId)
+                    try await memberRef.updateData([
+                        "isAwakeToday": true,
+                        "snoozeUntil": FieldValue.delete(),
+                        "snoozeCount": 0
+                    ])
+                } else {
+                    try await FamilyFirestoreService.shared.setAwake(familyId: fid, memberId: memberId, awake: awake)
+                }
                 await MainActor.run {
                     TelemetryManager.send(awake ? "awake.markedAwake" : "awake.reset")
                 }
@@ -1578,6 +1597,16 @@ class FamilyViewModel: ObservableObject {
         // KRITISCH: Wenn der globale Switch OFF ist, NIEMALS einen Alarm planen!
         // Ohne diesen Guard plant der Snapshot-Listener nach dem Cancel erneut Alarme.
         guard isAlarmEnabled else {
+            if let myId = myMemberId {
+                AlarmService.shared.cancelWakeUp(memberId: myId)
+            }
+            return
+        }
+
+        let today = Calendar.current.startOfDay(for: Date())
+        let targetDate = schedule.targetDate ?? today
+
+        if isAwakeTodayLocal && targetDate == today {
             if let myId = myMemberId {
                 AlarmService.shared.cancelWakeUp(memberId: myId)
             }

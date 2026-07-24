@@ -2,6 +2,10 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.0.7 – 2026-07-24
+✨ Improved:
+• Reliable wake-up: Fixed an issue where the snooze function incorrectly overrode the “already awake” option.
+
 ## 2.0.6 – 2026-07-22
 ✨ Improved:
 • Future-proof: We updated the app under the hood to comply with the latest app store guidelines and ensure maximum stability.

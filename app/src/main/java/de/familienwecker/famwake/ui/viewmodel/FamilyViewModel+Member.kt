@@ -255,7 +255,11 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
 
     appSettings.setAwakeToday(newAwakeState)
     TelemetryDeck.signal(if (newAwakeState) "awake.markedAwake" else "awake.reset")
-    val updatedMember = member.copy(isAwakeToday = newAwakeState)
+    val updatedMember = member.copy(
+        isAwakeToday = newAwakeState,
+        snoozeUntil = if (newAwakeState) null else member.snoozeUntil,
+        snoozeCount = if (newAwakeState) 0 else member.snoozeCount
+    )
     // pushMeta VOR dem debounced Member-Write, damit die CF den Sender erkennt
     val currentFamilyId = familyId.value
     val currentUid = auth.currentUser?.uid
@@ -280,6 +284,10 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
     addOrUpdateMemberDebounced(updatedMember)
 
     if (newAwakeState) {
+        appSettings.setSnoozeUntil(null)
+        appSettings.setSnoozeCount(0)
+        AlarmBackupPrefs.clearSnooze(app)
+        alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
         cancelAlarmForCurrentUser()
         lastScheduledAlarmMillis = null
     } else {

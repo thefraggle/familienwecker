@@ -249,7 +249,20 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
         }
         return
     }
-    if (schedule.memberSchedules.isEmpty()) return
+    val myMemberSchedule = schedule.memberSchedules.find { it.member.id == currentMyMemberId }
+    val myWakeUpTime = myMemberSchedule?.wakeUpTime
+    val targetDate = schedule.targetDate
+        ?: if (myWakeUpTime != null && now > myWakeUpTime) tomorrow else today
+
+    if (appSettings.isAwakeTodayEffective() && targetDate == today) {
+        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+            android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling all alarms")
+        }
+        alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = false)
+        alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = true)
+        lastScheduledAlarmMillis = null
+        return
+    }
 
     // Snooze-Guard: Während eines aktiven Snooze keine regulären Alarme planen.
     // WICHTIG: Den Snooze-Alarm selbst IMMER neu planen – nach App-Kill oder
