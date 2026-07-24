@@ -2,6 +2,10 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.0.7 – 2026-07-24
+✨ Verbessert:
+• Zuverlässigeres Aufwachen: Ein Problem wurde behoben, bei dem die Schlummerfunktion fälschlicherweise die „Schon wach“-Option überschrieben hat.
+
 ## 2.0.6 – 2026-07-22
 ✨ Verbessert:
 • Zukunftssicher: Wir haben die App unter der Haube aktualisiert, um die neuesten Richtlinien der App-Stores zu erfüllen und maximale Stabilität zu gewährleisten.
