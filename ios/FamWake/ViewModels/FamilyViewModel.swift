@@ -1603,8 +1603,22 @@ class FamilyViewModel: ObservableObject {
             return
         }
 
-        let today = Calendar.current.startOfDay(for: Date())
-        let targetDate = schedule.targetDate ?? today
+        let cal = Calendar.current
+        let now = Date()
+        let today = cal.startOfDay(for: now)
+        guard let tomorrow = cal.date(byAdding: .day, value: 1, to: today) else { return }
+
+        let targetDate: Date
+        if let target = schedule.targetDate {
+            targetDate = target
+        } else if let myId = myMemberId,
+                  let mySched = schedule.memberSchedules.first(where: { $0.member.id == myId }) {
+            let wakeUpTime = mySched.wakeUpTime
+            let todayAlarmDate = date(from: wakeUpTime, on: today) ?? now
+            targetDate = now > todayAlarmDate ? tomorrow : today
+        } else {
+            targetDate = today
+        }
 
         if isAwakeTodayLocal && targetDate == today {
             if let myId = myMemberId {
@@ -1630,11 +1644,6 @@ class FamilyViewModel: ObservableObject {
             return
         }
 
-        let cal = Calendar.current
-        let now = Date()
-        let today = cal.startOfDay(for: now)
-        guard let tomorrow = cal.date(byAdding: .day, value: 1, to: today) else { return }
-
         guard let currentMyMemberId = myMemberId else { return }
         guard let memberSchedule = schedule.memberSchedules.first(where: { $0.member.id == currentMyMemberId }) else {
             // Eigener Member nicht im Plan (pausiert, deaktiviert, etc.) → alten Alarm canceln,
@@ -1644,7 +1653,6 @@ class FamilyViewModel: ObservableObject {
         }
 
         let wakeUpTime = memberSchedule.wakeUpTime
-        let targetDate = schedule.targetDate ?? (now > (date(from: wakeUpTime, on: today) ?? now) ? tomorrow : today)
 
         // Grace-Period: verhindert, dass ein soeben gefeuerter Alarm den nächsten
         // Tag überspringt, weil targetDate nun bereits auf morgen zeigt.
