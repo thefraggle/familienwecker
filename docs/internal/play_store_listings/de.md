@@ -78,4 +78,4 @@ Familienwecker & Morgenplaner
 Schluss mit Morgenchaos! FamWake koordiniert Weckzeiten, Badezimmer-Reihenfolge und Frühstück für die ganze Familie.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
-familienwecker,kinderwecker,wecker,kinder,morgenroutine,alltagsplaner,zeitplaner,aufsteh,gemeinsam,teilen
+kinderwecker,morgenroutine,badplaner,zeitmanagement,alltagsplaner,zeitplaner,aufstehen,schlafplaner

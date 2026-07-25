@@ -76,4 +76,4 @@ Family Alarm & Morning Planner
 No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.
 
 ## iOS Keywords (100 Zeichen max, Komma-separiert)
-family alarm,kids alarm,morning routine,bathroom schedule,wake up,shared alarm,group alarm,snooze
+kids alarm clock,daily routine planner,routine app,bathroom timer,wake up call,schedule
