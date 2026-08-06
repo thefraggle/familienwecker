@@ -21,5 +21,5 @@ jobs:
           # Alle Releases nach Datum sortiert holen, ab dem 11. löschen
           gh release list --limit 100 --json tagName --jq '.[].tagName' | tail -n +11 | while read -r tag; do
             echo "Lösche Release + Tag: $tag"
-            gh release delete "$tag" --yes --cleanup-tag
+            gh release delete "$tag" --yes --cleanup-tag || gh release delete "$tag" --yes || true
           done
