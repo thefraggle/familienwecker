@@ -292,10 +292,8 @@ final class AlarmService: ObservableObject {
             sound: finalSoundNameToUse.map { .named($0) } ?? .default
         )
         
-        let oldUuid = Self.getUUID(for: memberId)
-        try? await AlarmManager.shared.cancel(id: oldUuid)
-        
-        let uuid = Self.generateNewUUID(for: memberId)
+        let uuid = Self.getUUID(for: memberId)
+        try? await AlarmManager.shared.cancel(id: uuid)
         try await AlarmManager.shared.schedule(id: uuid, configuration: config)
     }
 

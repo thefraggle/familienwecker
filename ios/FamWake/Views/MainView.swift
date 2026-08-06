@@ -20,6 +20,8 @@ struct MainView: View {
     @State private var pendingReorderFrom: Int? = nil
     @State private var pendingReorderTo: Int? = nil
     @State private var showReorderConfirmation = false
+    @State private var showJoinConflictAlert = false
+    @State private var isJoiningFromDeepLink = false
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -194,6 +196,29 @@ struct MainView: View {
                     AddEditMemberView(memberId: id) { navPath.removeLast() }
                 }
             }
+            .alert(
+                L.s("join_conflict_title"),
+                isPresented: $showJoinConflictAlert
+            ) {
+                Button(L.s("join_conflict_confirm"), role: .destructive) {
+                    guard let code = familyViewModel.pendingJoinCode else { return }
+                    isJoiningFromDeepLink = true
+                    familyViewModel.leaveFamily { _ in
+                        familyViewModel.joinFamily(code) { success in
+                            isJoiningFromDeepLink = false
+                            familyViewModel.clearPendingJoinCode()
+                            if !success {
+                                familyViewModel.errorMessage = L.s("error_leave_failed")
+                            }
+                        }
+                    }
+                }
+                Button(L.cancelButton, role: .cancel) {
+                    familyViewModel.clearPendingJoinCode()
+                }
+            } message: {
+                Text(String(format: L.s("join_conflict_text"), familyViewModel.familyName ?? ""))
+            }
             .alert(L.settingsDeleteMemberTitle, isPresented: $showDeleteMemberAlert, presenting: memberToDelete) { member in
                 Button(L.settingsDeleteMemberConfirm, role: .destructive) {
                     familyViewModel.deleteMember(member.id)
@@ -245,6 +270,13 @@ struct MainView: View {
             }
             .onChange(of: familyViewModel.familyId) { _, newId in
                 if newId == nil { appState.route = .familySetup }
+            }
+            .onChange(of: familyViewModel.pendingJoinCode) { _, newCode in
+                // Deep-Link-Join während aktiver Familienmitgliedschaft:
+                // pendingJoinCode wird in FamilySetupView direkt konsumiert.
+                // Hier zeigen wir den "Familie verlassen?"-Konfirmations-Dialog.
+                guard newCode != nil, familyViewModel.familyId != nil else { return }
+                showJoinConflictAlert = true
             }
             .onAppear {
                 if familyViewModel.familyId == nil {
