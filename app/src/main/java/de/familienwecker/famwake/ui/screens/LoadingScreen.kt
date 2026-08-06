@@ -76,6 +76,10 @@ fun LoadingScreen(
                     navigationTriggered = true
                     onNavigateToOnboarding()
                 } else if (familyId != null) {
+                    // User ist bereits in einer Familie → immer zum Main navigieren.
+                    // Wenn zusätzlich ein pendingJoinCode vorliegt (Deep-Link während
+                    // aktiver Familienmitgliedschaft), zeigt der MainScreen den
+                    // „Familie verlassen?"-Dialog – hier keinen automatischen Join auslösen.
                     navigationTriggered = true
                     onNavigateToMain()
                 } else if (pendingJoinCode != null) {
