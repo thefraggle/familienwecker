@@ -411,7 +411,7 @@ private struct DayProfileCard: View {
                     DatePickerRow(
                         label: L.addMemberLatestWake,
                         time: Binding(
-                            get: { profile.latestWakeUp.asTime ?? Date() },
+                            get: { profile.latestWakeUp.asTime ?? Calendar.current.date(bySettingHour: 7, minute: 0, second: 0, of: Date())! },
                             set: { onChange(profile.withLatest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
                         ),
                         theme: theme
@@ -421,7 +421,7 @@ private struct DayProfileCard: View {
                     DatePickerRow(
                         label: L.addMemberEarliestWake,
                         time: Binding(
-                            get: { profile.earliestWakeUp.asTime ?? Date() },
+                            get: { profile.earliestWakeUp.asTime ?? Calendar.current.date(bySettingHour: 6, minute: 0, second: 0, of: Date())! },
                             set: { onChange(profile.withEarliest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
                         ),
                         theme: theme
@@ -433,7 +433,7 @@ private struct DayProfileCard: View {
                         DatePickerRow(
                             label: L.addMemberLatestWake,
                             time: Binding(
-                                get: { profile.latestWakeUp.asTime ?? Date() },
+                                get: { profile.latestWakeUp.asTime ?? Calendar.current.date(bySettingHour: 7, minute: 0, second: 0, of: Date())! },
                                 set: { onChange(profile.withLatest(.from(hour: Calendar.current.component(.hour, from: $0), minute: Calendar.current.component(.minute, from: $0)))) }
                             ),
                             isError: latestError,
