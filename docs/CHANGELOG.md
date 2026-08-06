@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.0 – 2026-08-06
+✨ Verbessert:
+• Zuverlässigeres Wecken: Fehler behoben, bei denen Wecker zur falschen Zeit oder doppelt klingelten.
+• Einfacheres Einladen: Der Freigabelink zum Beitreten einer Familie funktioniert jetzt noch flüssiger und der Einladungstext wird wieder zuverlässig angezeigt.
+
 ## 2.0.7 – 2026-07-24
 ✨ Verbessert:
 • Zuverlässigeres Aufwachen: Ein Problem wurde behoben, bei dem die Schlummerfunktion fälschlicherweise die „Schon wach“-Option überschrieben hat.

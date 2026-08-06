@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 2.0.7
-**Datum:** 2026-07-24
+**Version:** 2.1.0
+**Datum:** 2026-08-06
 
 ---
 
@@ -18,6 +18,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und 
 | TC-02 | Onboarding | 4 Slides, anonymer Nutzer erstellt (Double-Click-Schutz). Gast-Warnung auf Setup-Screen. iOS: Tour-Text bricht auf kleinen Bildschirmen (z. B. iPhone SE) korrekt um ohne abgeschnitten zu werden. |
 | TC-03 | Familien-Lifecycle | Gründen + Beitreten (Code/Link). Nur Creator löscht. Verlassen deaktiviert Wecker sofort. Fehlermeldung bei Netzproblemen. |
 | TC-04 | DSGVO-Löschung | Konto löschen entfernt alle Daten inkl. Push-Tokens und entclaimt Profile. |
+| TC-05 | Freigabelink & Teilen | Teilen-Text wird beim Einladen fehlerfrei mit Link und Code generiert. Klick auf WhatsApp-Freigabelink bei bereits bestehender Familie zeigt Abfrage zum Verlassen & Beitreten. |
 
 ### 2. Mitglieder & Konfiguration
 | ID | Testfall | Erwartetes Ergebnis |
@@ -38,6 +39,7 @@ Scheduler-Korrektheit, Wecker-Zuverlässigkeit, Navigation, Datensicherheit und 
 | TC-33 | Snooze nach Reboot | Gerät neu starten während Snooze → Alarm aus Backup wiederhergestellt. |
 | TC-34 | Ghost-Alarm-Schutz | Kein Wecker bei: globalem Schalter OFF, pausiertem Member, nach Neustart oder Bearbeitung. Snooze-Count am Folgetag zurückgesetzt. |
 | TC-35 | Randlose Anzeige (Edge-to-Edge) (neu in v2.0.5) | Die Wecker-Anzeige füllt den gesamten Bildschirm aus, blendet Systemleisten aus oder zeichnet unter ihnen, ohne dass Interaktionselemente abgeschnitten sind. |
+| TC-36 | Alarm-ID Stabilität | Bei Anpassung des Weckplans oder Bearbeitung von Mitgliedern wird die interne Alarm-ID stabil gehalten. Der Wecker klingelt nur zur neuen Zeit, alte Zeiten werden überschrieben und es entstehen keine Geisterwecker. Fallbacks im DatePicker verhindern das Speichern aktueller Nachmittagszeiten beim ersten Setup. |
 
 ### 4. Sync & Push
 | ID | Testfall | Erwartetes Ergebnis |
