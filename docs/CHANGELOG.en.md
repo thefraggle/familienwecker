@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.0 – 2026-08-06
+✨ Improved:
+• Reliable wake-up: Fixed issues where alarms rang at the wrong time or multiple times.
+• Easy sharing: Joining a family via shared links now works smoothly, and the invitation text is generated correctly.
+
 ## 2.0.7 – 2026-07-24
 ✨ Improved:
 • Reliable wake-up: Fixed an issue where the snooze function incorrectly overrode the “already awake” option.
