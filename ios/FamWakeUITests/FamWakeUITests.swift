@@ -6,7 +6,17 @@ class FamWakeUITests: XCTestCase {
         continueAfterFailure = false
     }
     
-    func testCaptureScreenshots() throws {
+    func testCaptureScreenshotsLight() throws {
+        XCUIDevice.shared.appearance = .light
+        try captureScreenshots(suffix: "Light")
+    }
+    
+    func testCaptureScreenshotsDark() throws {
+        XCUIDevice.shared.appearance = .dark
+        try captureScreenshots(suffix: "Dark")
+    }
+    
+    private func captureScreenshots(suffix: String) throws {
         let app = XCUIApplication()
         
         // Pass screenshotMode argument to trigger mock data loading
@@ -18,7 +28,7 @@ class FamWakeUITests: XCTestCase {
         
         // --- SCREENSHOT 1: Dashboard (Main Weckplan) ---
         Thread.sleep(forTimeInterval: 2.0)
-        snapshot("01_MainDashboard")
+        snapshot("01_MainDashboard_\(suffix)")
         
         // --- SCREENSHOT 2: Settings eines Members (Weckzeit) ---
         // Tap on the dad's member card to open settings (ID is member_card_mock_dad)
@@ -26,7 +36,7 @@ class FamWakeUITests: XCTestCase {
         if firstCard.exists {
             firstCard.tap()
             Thread.sleep(forTimeInterval: 1.0)
-            snapshot("02_MemberSettings")
+            snapshot("02_MemberSettings_\(suffix)")
             
             // Go back to Main
             let backButton = app.navigationBars.buttons.element(boundBy: 0)
@@ -42,7 +52,9 @@ class FamWakeUITests: XCTestCase {
         if gearButton.exists {
             gearButton.tap()
             Thread.sleep(forTimeInterval: 1.0)
-            snapshot("03_ShareFamily")
+            snapshot("03_ShareFamily_\(suffix)")
         }
+        
+        app.terminate()
     }
 }
