@@ -167,7 +167,11 @@ class FamilyViewModel(
     internal val _deviceSchedule = MutableStateFlow<FamilySchedule?>(null)
     val deviceSchedule: StateFlow<FamilySchedule?> = _deviceSchedule.asStateFlow()
     internal val _errorMessage = MutableStateFlow<UiText?>(null)
-    val errorMessage: StateFlow<UiText?> = _errorMessage.asStateFlow()
+    val errorMessage: StateFlow<UiText?> = if (de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
+        MutableStateFlow<UiText?>(null).asStateFlow()
+    } else {
+        _errorMessage.asStateFlow()
+    }
 
     fun setError(message: UiText) { _errorMessage.value = message }
     fun clearError() { _errorMessage.value = null }
@@ -376,7 +380,7 @@ class FamilyViewModel(
                         memberRepository.clearCache()
                     }
                     _schedule.value = null
-                    if (!currentFamilyId.isNullOrBlank() && !appSettings.isLocalOnlyFamily.value) {
+                    if (!currentFamilyId.isNullOrBlank() && !appSettings.isLocalOnlyFamily.value && !de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                             android.util.Log.d("FamilyViewModel", "Start sync for family: $currentFamilyId")
                         }

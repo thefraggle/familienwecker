@@ -15,3 +15,6 @@ clear_previous_screenshots(true)
 
 # List of locales to capture (start with DE and EN for testing)
 locales(["de-DE", "en-US"])
+
+# Reinstall app to ensure a fresh state
+reinstall_app(true)
