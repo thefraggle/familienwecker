@@ -27,6 +27,17 @@ class FamWakeUITests: XCTestCase {
         setupSnapshot(app)
         app.launch()
         
+        // --- SCREENSHOT 0: Onboarding Welcome Screen ---
+        Thread.sleep(forTimeInterval: 2.0)
+        snapshot("00_Welcome_\(suffix)")
+        
+        // Tap "Ohne Konto starten" to navigate to main dashboard
+        let onboardingBtn = app.buttons["onboarding_start_button"]
+        if onboardingBtn.waitForExistence(timeout: 5.0) {
+            onboardingBtn.tap()
+            Thread.sleep(forTimeInterval: 1.5)
+        }
+        
         // Dismiss alarm permission error banner if present so screenshots look clean
         let dismissBtn = app.buttons["error_dismiss_button"]
         if dismissBtn.waitForExistence(timeout: 3.0) {

@@ -194,6 +194,7 @@ struct OnboardingView: View {
             .disabled(isStarting)
             .opacity(isStarting ? 0.6 : 1.0)
             .padding(.horizontal, 24)
+            .accessibilityIdentifier("onboarding_start_button")
 
             // Login / Registrieren Link (last page, not logged in)
             if isLastPage && !isLoggedIn {
