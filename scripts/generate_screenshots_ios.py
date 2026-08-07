@@ -35,10 +35,10 @@ SCREEN_CROP_BOX = (63, 195, 1124, 2390)
 # Map original design templates to raw Fastlane snapshot filenames (light mode versions)
 SNAPSHOT_MAPPING = {
     "main_scrolled.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Light.png",
-    "times.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Light.png",
-    "pause.png": "iPhone 17 Pro Max-03_MemberSettings_Light.png",
+    "times.png": "iPhone 17 Pro Max-03_MemberSettings_Light.png",
+    "pause.png": "iPhone 17 Pro Max-01_MainDashboard_Empty_Light.png",
     "share.png": "iPhone 17 Pro Max-04_ShareFamily_Light.png",
-    "main_full.png": "iPhone 17 Pro Max-01_MainDashboard_Empty_Light.png"
+    "main_full.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Light.png"
 }
 
 # Verified German and English screenshot text lists
