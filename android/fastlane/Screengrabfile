@@ -8,7 +8,7 @@ tests_package_name("de.familienwecker.famwake.test")
 use_tests_in_packages(["de.familienwecker.famwake"])
 
 # Output directory for Android screenshots
-screenshots_path("screenshots")
+output_directory("screenshots")
 
 # Clear screenshots directory before running
 clear_previous_screenshots(true)
