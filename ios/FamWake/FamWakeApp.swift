@@ -233,6 +233,7 @@ struct FamWakeApp: App {
         UserDefaults.standard.set(true, forKey: "is_local_only_family")
         UserDefaults.standard.set("MOCK_FAMILY_ID", forKey: "family_id")
         UserDefaults.standard.set("FW-982-XYZ", forKey: "family_join_code")
+        UserDefaults.standard.set(false, forKey: "tooltips_enabled")
         
         // 2. Systemsprache ermitteln
         let lang = Locale.current.language.languageCode?.identifier ?? "en"
