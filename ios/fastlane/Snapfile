@@ -1,6 +1,6 @@
 # Die zu verwendenden Simulatoren
 devices([
-  "iPhone 15 Pro Max"
+  "iPhone 17 Pro Max"
 ])
 
 # Die Liste aller 22/25 lokalisierten Sprachen
