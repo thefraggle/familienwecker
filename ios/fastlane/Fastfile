@@ -112,5 +112,6 @@ platform :ios do
   desc "Generiert alle App Store Screenshots in allen Sprachen"
   lane :generate_screenshots do
     capture_screenshots
+    sh("python3 generate_html.py")
   end
 end
