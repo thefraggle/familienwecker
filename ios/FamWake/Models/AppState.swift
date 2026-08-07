@@ -90,7 +90,7 @@ class AppState: ObservableObject {
 
     func load(authViewModel: AuthViewModel, familyViewModel: FamilyViewModel) async {
         if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
-            route = .main
+            route = .onboardingWelcome
             return
         }
         if case .loading = route {

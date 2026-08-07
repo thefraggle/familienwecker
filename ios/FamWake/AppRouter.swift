@@ -18,6 +18,10 @@ struct AppRouter: View {
                     onFinished: { tooltipsEnabled in
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         appState.markOnboardingDone()
+                        if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
+                            appState.route = .main
+                            return
+                        }
                         if !authViewModel.isLoggedIn {
                             TelemetryManager.send("onboarding.completed_anonymously")
                             authViewModel.signInAnonymously()
@@ -39,6 +43,10 @@ struct AppRouter: View {
                     onFinished: { tooltipsEnabled in
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         appState.markOnboardingDone()
+                        if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
+                            appState.route = .main
+                            return
+                        }
                         if !authViewModel.isLoggedIn {
                             TelemetryManager.send("onboarding.completed_anonymously")
                             authViewModel.signInAnonymously()
