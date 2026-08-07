@@ -5,13 +5,11 @@ platform :android do
   lane :generate_screenshots do
     # 1. Build the APKs first to ensure latest changes are used
     gradle(
-      task: "assemble",
-      build_type: "Debug",
+      task: ":app:assembleDebug",
       project_dir: ".."
     )
     gradle(
-      task: "assembleAndroidTest",
-      build_type: "Debug",
+      task: ":app:assembleDebugAndroidTest",
       project_dir: ".."
     )
     
