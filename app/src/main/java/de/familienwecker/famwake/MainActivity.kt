@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             setupMockDataForScreenshots()
         }
         
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !FamWakeApplication.isScreenshotMode) {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 
