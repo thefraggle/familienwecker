@@ -16,8 +16,6 @@ struct SettingsView: View {
     @State private var showLeaveFamilyAlert = false
     @State private var showDeleteFamilyAlert = false
     @State private var showDeleteFamilyFinalAlert = false
-    @State private var showShareSheet = false
-    @State private var shareContent = ""
     @State private var showDonationSheet = false
     @State private var memberToSteal: FamilyMember? = nil
     @State private var showStealAlert = false
@@ -115,7 +113,6 @@ struct SettingsView: View {
             .navigationTitle(L.settingsTitle)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showFeedback) { FeedbackView() }
-            .sheet(isPresented: $showShareSheet) { ActivityViewController(activityItems: [shareContent]) }
             .sheet(isPresented: $showProfilePicker) { profilePickerSheet }
             .sheet(isPresented: $showDonationSheet) { donationSheet }
             .sheet(isPresented: $showSoundPicker) { soundPickerSheet }
@@ -316,8 +313,8 @@ struct SettingsView: View {
                     if authViewModel.isAnonymous {
                         familyViewModel.errorMessage = L.s("settings_share_code_locked")
                     } else {
-                        shareContent = L.settingsShareMessage(fName, code)
-                        showShareSheet = true
+                        let text = L.settingsShareMessage(fName, code)
+                        presentShareSheet(with: text)
                     }
                 }) {
                     HStack {
@@ -1112,14 +1109,19 @@ private struct LanguagePickerView: View {
         }
         .foregroundStyle(theme.onSurface)
     }
-}
 
-// MARK: - UIKit Share Sheet Wrapper
-struct ActivityViewController: UIViewControllerRepresentable {
-    var activityItems: [Any]
-
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    private func presentShareSheet(with text: String) {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
+            return
+        }
+        let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        if let popoverController = activityVC.popoverPresentationController {
+            popoverController.sourceView = rootViewController.view
+            popoverController.sourceRect = CGRect(x: rootViewController.view.bounds.midX, y: rootViewController.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        rootViewController.present(activityVC, animated: true, completion: nil)
     }
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
+
