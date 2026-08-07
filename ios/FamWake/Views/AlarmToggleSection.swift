@@ -28,6 +28,7 @@ struct AlarmToggleSection: View {
                     .disabled(familyViewModel.myMemberId == nil)
                     .tint(theme.secondary)
                     .accessibilityLabel(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
+                    .accessibilityIdentifier("main_alarm_toggle")
                 }
 
                 if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipSwitchSeen {
