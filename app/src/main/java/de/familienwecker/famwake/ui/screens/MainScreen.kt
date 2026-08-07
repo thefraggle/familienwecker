@@ -1,5 +1,7 @@
 package de.familienwecker.famwake.ui.screens
 
+import androidx.compose.ui.platform.testTag
+
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.animateFloatAsState
@@ -282,7 +284,9 @@ fun MainScreen(
                         val settingsInteractionSource = remember { MutableInteractionSource() }
                         IconButton(
                             onClick = onNavigateToSettings,
-                            modifier = Modifier.bounceClick(settingsInteractionSource),
+                            modifier = Modifier
+                                .bounceClick(settingsInteractionSource)
+                                .testTag("settings_button"),
                             interactionSource = settingsInteractionSource
                         ) {
                             Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title))
