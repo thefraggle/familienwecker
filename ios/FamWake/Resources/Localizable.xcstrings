@@ -32668,6 +32668,12 @@
             "value": "तू"
           }
         },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du"
+          }
+        },
         "nl": {
           "stringUnit": {
             "state": "translated",
