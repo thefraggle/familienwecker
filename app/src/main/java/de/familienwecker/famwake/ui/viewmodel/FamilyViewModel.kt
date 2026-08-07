@@ -372,7 +372,9 @@ class FamilyViewModel(
                     syncStatusJob?.cancel()
                     // Sofort leeren: verhindert dass Mitglieder/Zeitplan der Vorgänger-Familie
                     // kurz angezeigt werden, während der neue Firestore-Sync noch läuft.
-                    memberRepository.clearCache()
+                    if (!de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
+                        memberRepository.clearCache()
+                    }
                     _schedule.value = null
                     if (!currentFamilyId.isNullOrBlank() && !appSettings.isLocalOnlyFamily.value) {
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
