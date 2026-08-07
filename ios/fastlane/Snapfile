@@ -5,7 +5,9 @@ devices([
 
 # Die Liste aller 22/25 lokalisierten Sprachen
 languages([
-  "de", "en"
+  "de", "en", "da", "no", "sv", "nl", "fr", "es", "it", "pt", 
+  "pl", "ru", "tr", "uk", "ja", "ko", "zh-Hans", "id", "vi", "bn", 
+  "mr", "hi"
 ])
 
 # Das UI-Test-Schema deines Xcode-Projekts
