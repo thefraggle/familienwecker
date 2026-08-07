@@ -4,11 +4,7 @@
 app_package_name("de.familienwecker.famwake")
 tests_package_name("de.familienwecker.famwake.test")
 
-# Paths to APKs
-app_apk_path("../../app/build/outputs/apk/debug/app-debug.apk")
-tests_apk_path("../../app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk")
-
-# Test settings
+# Use tests in packages
 use_tests_in_packages(["de.familienwecker.famwake"])
 
 # Output directory for Android screenshots
