@@ -37,10 +37,17 @@ struct InitialsAvatar: View {
         }
     }
 
-    /// Deterministische Farbwahl basierend auf dem String-Hash
+    private var stableHash: Int {
+        var hash = 5381
+        for unicodeScalar in name.unicodeScalars {
+            hash = ((hash << 5) &+ hash) &+ Int(unicodeScalar.value)
+        }
+        return abs(hash)
+    }
+
+    /// Deterministische Farbwahl basierend auf dem stabilen String-Hash
     private var avatarColor: Color {
-        let hash = abs(name.hashValue)
-        return Self.palette[hash % Self.palette.count]
+        return Self.palette[stableHash % Self.palette.count]
     }
 
     var body: some View {
