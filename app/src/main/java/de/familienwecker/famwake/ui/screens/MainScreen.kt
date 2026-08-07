@@ -242,17 +242,6 @@ fun MainScreen(
                         )
                     },
                     actions = {
-                        val syncRotationTransition = rememberInfiniteTransition(label = "syncRotation")
-                        val syncRotation by syncRotationTransition.animateFloat(
-                            initialValue = 0f,
-                            targetValue = 360f,
-                            animationSpec = infiniteRepeatable(
-                                animation = tween(1000, easing = LinearEasing),
-                                repeatMode = RepeatMode.Restart
-                            ),
-                            label = "syncRotationAngle"
-                        )
-
                         if (isOffline) {
                             Box(modifier = Modifier.padding(end = 4.dp)) {
                                 Icon(
@@ -268,6 +257,16 @@ fun MainScreen(
                                 enter = fadeIn(),
                                 exit = fadeOut()
                             ) {
+                                val syncRotationTransition = rememberInfiniteTransition(label = "syncRotation")
+                                val syncRotation by syncRotationTransition.animateFloat(
+                                    initialValue = 0f,
+                                    targetValue = 360f,
+                                    animationSpec = infiniteRepeatable(
+                                        animation = tween(1000, easing = LinearEasing),
+                                        repeatMode = RepeatMode.Restart
+                                    ),
+                                    label = "syncRotationAngle"
+                                )
                                 Box(modifier = Modifier.padding(end = 4.dp)) {
                                     Icon(
                                         imageVector = Icons.Default.Sync,
