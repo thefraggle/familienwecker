@@ -424,6 +424,7 @@ struct MainView: View {
                             .foregroundStyle(theme.onErrorContainer)
                     }
                     .accessibilityLabel(L.s("accessibility_error_dismiss"))
+                    .accessibilityIdentifier("error_dismiss_button")
                 }
                 
                 if error == L.errorFamilyNotFound {
