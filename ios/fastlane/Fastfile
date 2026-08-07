@@ -108,4 +108,9 @@ platform :ios do
       skip_app_version_update: false
     )
   end
+
+  desc "Generiert alle App Store Screenshots in allen Sprachen"
+  lane :generate_screenshots do
+    capture_screenshots
+  end
 end

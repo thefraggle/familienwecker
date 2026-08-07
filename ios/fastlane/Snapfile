@@ -1,0 +1,23 @@
+# Die zu verwendenden Simulatoren
+devices([
+  "iPhone 15 Pro Max"
+])
+
+# Die Liste aller 22/25 lokalisierten Sprachen
+languages([
+  "de", "en", "da", "no", "sv", "nl", "fr", "es", "it", "pt", 
+  "pl", "ru", "tr", "uk", "ja", "ko", "zh-Hans", "id", "vi", "bn", 
+  "mr", "hi"
+])
+
+# Das UI-Test-Schema deines Xcode-Projekts
+scheme("FamWakeUITests")
+
+# Ordner, in dem die Screenshots gespeichert werden
+output_directory("./fastlane/screenshots")
+
+# HTML-Übersicht nach dem Durchlauf anzeigen
+html_report(true)
+
+# Simulatoren vor dem Durchlauf automatisch bereinigen
+clear_previous_screenshots(true)

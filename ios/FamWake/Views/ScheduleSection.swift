@@ -386,5 +386,6 @@ struct ScheduleSection: View {
         )
         .accessibilityElement(children: .combine)
         .accessibilityLabel(L.s("accessibility_schedule_card", sched.member.name, sched.wakeUpTime.formatted(), sched.bathroomStart.formatted(), sched.bathroomEnd.formatted()))
+        .accessibilityIdentifier("member_card_\(sched.member.id)")
     }
 }
