@@ -48,6 +48,11 @@ fun LoadingScreen(
     val errorMessage by familyViewModel.errorMessage.collectAsStateWithLifecycle()
 
     LaunchedEffect(authState, isRestoring, familyId, pendingJoinCode, onboardingCompleted) {
+        if (de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
+            onNavigateToMain()
+            return@LaunchedEffect
+        }
+
         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
             android.util.Log.d("LoadingScreen", "State: auth=$authState, isRestoring=$isRestoring, familyId=$familyId")
         }

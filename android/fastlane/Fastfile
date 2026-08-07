@@ -1,0 +1,24 @@
+default_platform(:android)
+
+platform :android do
+  desc "Generates localized screenshots for the Play Store using Screengrab"
+  lane :generate_screenshots do
+    # 1. Build the APKs first to ensure latest changes are used
+    gradle(
+      task: "assemble",
+      build_type: "Debug",
+      project_dir: ".."
+    )
+    gradle(
+      task: "assembleAndroidTest",
+      build_type: "Debug",
+      project_dir: ".."
+    )
+    
+    # 2. Run Screengrab UI tests on the emulator
+    screengrab
+    
+    # 3. Re-compile the custom screenshots gallery dashboard
+    sh("python3 ../../scripts/generate_html.py")
+  end
+end

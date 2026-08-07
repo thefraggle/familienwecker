@@ -17,6 +17,7 @@ class FamWakeApplication : Application() {
     companion object {
         lateinit var instance: FamWakeApplication
             private set
+        var isScreenshotMode = false
     }
 
     val appSettings: de.familienwecker.famwake.data.AppSettings by lazy {

@@ -1,5 +1,7 @@
 package de.familienwecker.famwake.ui.screens
 
+import androidx.compose.ui.platform.testTag
+
 import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
@@ -84,6 +86,7 @@ fun AlarmToggleSection(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
+
                 Switch(
                     checked = isAlarmEnabled,
                     onCheckedChange = {
@@ -92,7 +95,8 @@ fun AlarmToggleSection(
                             viewModel.checkAndShowReview(activity)
                         }
                     },
-                    enabled = myMemberId != null
+                    enabled = myMemberId != null,
+                    modifier = Modifier.testTag("main_alarm_toggle")
                 )
             }
 

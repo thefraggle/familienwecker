@@ -349,7 +349,9 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
                     if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                         android.util.Log.e("FamWake_Alarm", "applyAlarms: SCHEDULE_EXACT_ALARM permission denied!")
                     }
-                    _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
+                    if (!de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
+                        _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
+                    }
                 }
             )
             lastScheduledAlarmMillis = newAlarmMillis
@@ -621,7 +623,9 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
         soundUri = alarmSoundUri.value,
         isSnooze = true,
         onPermissionDenied = {
-            _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
+            if (!de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
+                _errorMessage.value = UiText.StringResource(R.string.error_alarm_permission)
+            }
         }
     )
 
