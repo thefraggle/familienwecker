@@ -1,5 +1,6 @@
 import XCTest
 
+@MainActor
 class FamWakeUITests: XCTestCase {
     
     override func setUpWithError() throws {
