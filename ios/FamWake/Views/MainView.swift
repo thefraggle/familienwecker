@@ -181,6 +181,7 @@ struct MainView: View {
                                 .foregroundStyle(theme.onSurface)
                         }
                         .accessibilityLabel(L.s("accessibility_settings_button"))
+                        .accessibilityIdentifier("settings_button")
                     }
                 }
             }
