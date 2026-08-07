@@ -121,6 +121,9 @@ struct AppRouter: View {
     }
 
     private func handleAuthState(_ state: AuthState) async {
+        if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
+            return
+        }
         switch state {
         case .authenticated:
             let currentUid = authViewModel.currentUserId
