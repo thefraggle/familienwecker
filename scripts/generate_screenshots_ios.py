@@ -32,6 +32,15 @@ SIZES = {
 # Bounding box of the clean screen inside the 1187x2513 Android mockup.
 SCREEN_CROP_BOX = (63, 195, 1124, 2390)
 
+# Map original design templates to raw Fastlane snapshot filenames (light mode versions)
+SNAPSHOT_MAPPING = {
+    "main_scrolled.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Light.png",
+    "times.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Light.png",
+    "pause.png": "iPhone 17 Pro Max-03_MemberSettings_Light.png",
+    "share.png": "iPhone 17 Pro Max-04_ShareFamily_Light.png",
+    "main_full.png": "iPhone 17 Pro Max-01_MainDashboard_Empty_Light.png"
+}
+
 # Verified German and English screenshot text lists
 VERIFIED_SS = {
     "de": [
@@ -254,17 +263,35 @@ def build_screenshot(slide, lang, size_name, target_size):
             font_d = ImageFont.truetype(SYSTEM_HELVETICA, d_size, index=0)
             font_status = ImageFont.truetype(SYSTEM_HELVETICA, 34, index=1)
             
-    # Load Android mockup and crop the clean screen area
+    # Locate the image file (check fastlane snapshots first, then fall back to devices folder)
     device_file = slide["device_file"]
-    device_path = os.path.join(DEVICES_DIR, lang, device_file)
-    if not os.path.exists(device_path):
-        device_path = os.path.join(DEVICES_DIR, "en", device_file)
+    device_path = None
+
+    if device_file in SNAPSHOT_MAPPING:
+        snapshot_name = SNAPSHOT_MAPPING[device_file]
+        path = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots", lang, snapshot_name)
+        if os.path.exists(path):
+            device_path = path
+        else:
+            path_en = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots", "en", snapshot_name)
+            if os.path.exists(path_en):
+                device_path = path_en
+
+    if not device_path:
+        device_path = os.path.join(DEVICES_DIR, lang, device_file)
         if not os.path.exists(device_path):
-            print(f"Device file {device_file} not found, skipping!")
-            return None
-            
+            device_path = os.path.join(DEVICES_DIR, "en", device_file)
+            if not os.path.exists(device_path):
+                print(f"Device file {device_file} not found, skipping!")
+                return None
+
     with Image.open(device_path) as dev_img:
-        screen_img = dev_img.crop(SCREEN_CROP_BOX)
+        if dev_img.size == (1187, 2513):
+            # Old mockup, needs cropping
+            screen_img = dev_img.crop(SCREEN_CROP_BOX)
+        else:
+            # Clean new simulator screenshot, use directly
+            screen_img = dev_img.copy()
         
     # Create framed iOS phone mockup
     phone = create_iphone_mockup(screen_img, font_status)
