@@ -14,7 +14,10 @@ platform :android do
     )
     
     # 2. Run Screengrab UI tests on the emulator
-    screengrab
+    screengrab(
+      app_apk_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+      tests_apk_path: lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS].find { |p| p.include?("androidTest") }
+    )
     
     # 3. Re-compile the custom screenshots gallery dashboard
     sh("python3 ../../scripts/generate_html.py")
