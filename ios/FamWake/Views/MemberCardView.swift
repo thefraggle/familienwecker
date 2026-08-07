@@ -115,6 +115,7 @@ struct MemberCardView: View {
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(member.name), \(member.isPaused ? L.memberStatusPaused : "")")
+        .accessibilityIdentifier("member_list_card_\(member.id)")
     }
 
     // MARK: - Alarm Status Badge (Android MemberCard.kt:86-114)

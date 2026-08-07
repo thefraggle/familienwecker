@@ -32,8 +32,8 @@ class FamWakeUITests: XCTestCase {
         snapshot("01_MainDashboard_\(suffix)")
         
         // --- SCREENSHOT 2: Settings eines Members (Weckzeit) ---
-        // Tap on the dad's member card to open settings (ID is member_card_mock_dad)
-        let firstCard = app.buttons["member_card_mock_dad"]
+        // Tap on the dad's member list card to open settings (ID is member_list_card_mock_dad)
+        let firstCard = app.buttons["member_list_card_mock_dad"]
         if firstCard.exists {
             firstCard.tap()
             Thread.sleep(forTimeInterval: 1.0)
