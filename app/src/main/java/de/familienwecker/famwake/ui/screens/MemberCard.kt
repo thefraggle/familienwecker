@@ -18,6 +18,8 @@ import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.compose.ui.platform.LocalContext
 import java.time.format.DateTimeFormatter
 
+import androidx.compose.ui.platform.testTag
+
 /**
  * Kachel zur Darstellung eines Familienmitglieds in der Mitgliederliste.
  * Zeigt Name, Weckzeitfenster, Badezimmer-Info sowie Aktions-Buttons (Pause, Edit, Delete).
@@ -54,7 +56,9 @@ fun MemberCard(
 
     Card(
         onClick = { if (!isOtherUserClaim) onEdit() },
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag("member_list_card_${member.id}"),
         shape = MaterialTheme.shapes.extraLarge,
         // Tonal statt Shadow-Elevation: Pixel/Material-You-Stil
         elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),

@@ -51,6 +51,9 @@ import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.core.net.toUri
 import com.telemetrydeck.sdk.TelemetryDeck
 
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+
 class MainActivity : AppCompatActivity() {
 
     private val familyViewModel: FamilyViewModel by viewModels {
@@ -68,6 +71,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+        
+        if (FamWakeApplication.isScreenshotMode) {
+            setupMockDataForScreenshots()
+        }
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -127,6 +134,148 @@ class MainActivity : AppCompatActivity() {
                     authViewModel.applyActionCode(oobCode)
                 }
             }
+        }
+    }
+
+    private fun setupMockDataForScreenshots() {
+        val appSettings = (application as FamWakeApplication).appSettings
+        val memberRepository = (application as FamWakeApplication).memberRepository
+        
+        appSettings.clearAll()
+        appSettings.setAlarmEnabled(true)
+        appSettings.setOnboardingCompleted(true)
+        appSettings.setLocalOnlyFamily(true)
+        appSettings.setFamilyId("MOCK_FAMILY_ID")
+        appSettings.setJoinCode("FW-982-XYZ")
+        appSettings.setTooltipsEnabled(false)
+        
+        val lang = java.util.Locale.getDefault().language
+        var fatherName = "Papa"
+        var motherName = "Mama"
+        var childName = "Paul"
+        var familyName = "Familie Müller"
+        
+        if (lang == "en") {
+            fatherName = "Dad"
+            motherName = "Mom"
+            childName = "Alex"
+            familyName = "The Millers"
+        } else if (lang == "no" || lang == "nb") {
+            fatherName = "Pappa"
+            motherName = "Mamma"
+            childName = "Jonas"
+            familyName = "Familien"
+        } else if (lang == "da") {
+            fatherName = "Far"
+            motherName = "Mor"
+            childName = "Lucas"
+            familyName = "Familien"
+        } else if (lang == "nl") {
+            fatherName = "Papa"
+            motherName = "Mama"
+            childName = "Daan"
+            familyName = "Familie"
+        } else if (lang == "fr") {
+            fatherName = "Papa"
+            motherName = "Maman"
+            childName = "Lucas"
+            familyName = "Famille"
+        } else if (lang == "es") {
+            fatherName = "Papá"
+            motherName = "Mamá"
+            childName = "Mateo"
+            familyName = "Familia"
+        } else if (lang == "it") {
+            fatherName = "Papà"
+            motherName = "Mamma"
+            childName = "Leonardo"
+            familyName = "Famiglia"
+        }
+        
+        appSettings.setFamilyName(familyName)
+        val dadId = "mock_dad"
+        appSettings.setMyMemberId(dadId)
+        appSettings.setMyMemberName(fatherName)
+        
+        fun makeDayProfiles(earliest: kotlinx.datetime.LocalTime, latest: kotlinx.datetime.LocalTime, bathroom: Long, leave: kotlinx.datetime.LocalTime?): Map<Int, de.familienwecker.famwake.model.DayProfile> {
+            val profiles = mutableMapOf<Int, de.familienwecker.famwake.model.DayProfile>()
+            for (day in 1..7) {
+                profiles[day] = de.familienwecker.famwake.model.DayProfile(
+                    isActive = true,
+                    earliestWakeUp = earliest,
+                    latestWakeUp = latest,
+                    bathroomDurationMinutes = bathroom,
+                    wantsBreakfast = true,
+                    leaveHomeTime = leave,
+                    isSimpleMode = false
+                )
+            }
+            return profiles
+        }
+        
+        val earliestWakeDad = kotlinx.datetime.LocalTime(6, 0)
+        val latestWakeDad = kotlinx.datetime.LocalTime(7, 15)
+        val leaveDad = kotlinx.datetime.LocalTime(8, 0)
+        val dadProfiles = makeDayProfiles(earliest = earliestWakeDad, latest = latestWakeDad, bathroom = 15, leave = leaveDad)
+        
+        val earliestWakeMom = kotlinx.datetime.LocalTime(6, 0)
+        val latestWakeMom = kotlinx.datetime.LocalTime(7, 30)
+        val leaveMom = kotlinx.datetime.LocalTime(8, 15)
+        val momProfiles = makeDayProfiles(earliest = earliestWakeMom, latest = latestWakeMom, bathroom = 20, leave = leaveMom)
+        
+        val earliestWakeChild = kotlinx.datetime.LocalTime(6, 0)
+        val latestWakeChild = kotlinx.datetime.LocalTime(7, 45)
+        val leaveChild = kotlinx.datetime.LocalTime(8, 15)
+        val childProfiles = makeDayProfiles(earliest = earliestWakeChild, latest = latestWakeChild, bathroom = 10, leave = leaveChild)
+        
+        val dad = de.familienwecker.famwake.model.FamilyMember(
+            id = dadId,
+            name = fatherName,
+            earliestWakeUp = earliestWakeDad,
+            latestWakeUp = latestWakeDad,
+            bathroomDurationMinutes = 15,
+            wantsBreakfast = true,
+            leaveHomeTime = leaveDad,
+            isPaused = false,
+            isAwakeToday = false,
+            claimedByUserId = "mock_user_id",
+            claimedByUserName = fatherName,
+            claimedByDeviceId = appSettings.deviceId,
+            sequenceOrder = 0,
+            deviceAlarmEnabled = true,
+            dayProfiles = dadProfiles
+        )
+        
+        val mom = de.familienwecker.famwake.model.FamilyMember(
+            id = "mock_mom",
+            name = motherName,
+            earliestWakeUp = earliestWakeMom,
+            latestWakeUp = latestWakeMom,
+            bathroomDurationMinutes = 20,
+            wantsBreakfast = true,
+            leaveHomeTime = leaveMom,
+            isPaused = false,
+            isAwakeToday = false,
+            sequenceOrder = 1,
+            dayProfiles = momProfiles
+        )
+        
+        val child = de.familienwecker.famwake.model.FamilyMember(
+            id = "mock_child",
+            name = childName,
+            earliestWakeUp = earliestWakeChild,
+            latestWakeUp = latestWakeChild,
+            bathroomDurationMinutes = 10,
+            wantsBreakfast = true,
+            leaveHomeTime = leaveChild,
+            isPaused = false,
+            isAwakeToday = false,
+            sequenceOrder = 2,
+            dayProfiles = childProfiles
+        )
+        
+        lifecycleScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            memberRepository.cacheMembers(listOf(dad, mom, child))
         }
     }
 }
