@@ -27,35 +27,20 @@ class FamWakeUITests: XCTestCase {
         setupSnapshot(app)
         app.launch()
         
-        // --- SCREENSHOT 0: Onboarding Welcome Screen ---
+        // Wait for dashboard to render
         Thread.sleep(forTimeInterval: 2.0)
-        snapshot("00_Welcome_\(suffix)")
-        
-        // Tap "Ohne Konto starten" to navigate to main dashboard
-        let onboardingBtn = app.buttons["onboarding_start_button"]
-        if onboardingBtn.waitForExistence(timeout: 5.0) {
-            onboardingBtn.tap()
-            Thread.sleep(forTimeInterval: 1.5)
-        }
-        
-        // Dismiss alarm permission error banner if present so screenshots look clean
-        let dismissBtn = app.buttons["error_dismiss_button"]
-        if dismissBtn.waitForExistence(timeout: 3.0) {
-            dismissBtn.tap()
-            Thread.sleep(forTimeInterval: 0.5)
-        }
         
         // --- SCREENSHOT 1: Dashboard (Wecker AUS - Mond) ---
         // Tap on the main alarm toggle to switch it off
         let alarmToggle = app.switches["main_alarm_toggle"]
         if alarmToggle.waitForExistence(timeout: 5.0) {
             alarmToggle.tap()
-            Thread.sleep(forTimeInterval: 1.0)
+            Thread.sleep(forTimeInterval: 1.5)
             snapshot("01_MainDashboard_Empty_\(suffix)")
             
             // Switch it back on for the next screenshots
             alarmToggle.tap()
-            Thread.sleep(forTimeInterval: 1.0)
+            Thread.sleep(forTimeInterval: 1.5)
         }
         
         // --- SCREENSHOT 2: Dashboard (Main Weckplan aktiv) ---
@@ -66,14 +51,14 @@ class FamWakeUITests: XCTestCase {
         let firstCard = app.buttons["member_list_card_mock_dad"]
         if firstCard.waitForExistence(timeout: 5.0) {
             firstCard.tap()
-            Thread.sleep(forTimeInterval: 1.0)
+            Thread.sleep(forTimeInterval: 1.5)
             snapshot("03_MemberSettings_\(suffix)")
             
             // Go back to Main
             let backButton = app.navigationBars.buttons.element(boundBy: 0)
             if backButton.waitForExistence(timeout: 2.0) {
                 backButton.tap()
-                Thread.sleep(forTimeInterval: 1.0)
+                Thread.sleep(forTimeInterval: 1.5)
             }
         }
         
@@ -82,7 +67,7 @@ class FamWakeUITests: XCTestCase {
         let gearButton = app.buttons["settings_button"]
         if gearButton.waitForExistence(timeout: 5.0) {
             gearButton.tap()
-            Thread.sleep(forTimeInterval: 1.0)
+            Thread.sleep(forTimeInterval: 1.5)
             snapshot("04_ShareFamily_\(suffix)")
         }
         
