@@ -217,6 +217,156 @@ struct FamWakeApp: App {
         UINavigationBar.appearance().largeTitleTextAttributes = [
             .font: UIFont.systemFont(ofSize: 28, weight: .bold)
         ]
+        
+        if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
+            setupMockDataForScreenshots()
+        }
+    }
+    
+    private func setupMockDataForScreenshots() {
+        // 1. Lokale Datenbank / UserDefaults leeren & vorbereiten
+        UserDefaults.standard.removeObject(forKey: "snooze_until")
+        UserDefaults.standard.set(0, forKey: "snooze_count")
+        
+        UserDefaults.standard.set(true, forKey: "alarm_enabled")
+        UserDefaults.standard.set(true, forKey: "onboarding_completed")
+        UserDefaults.standard.set(true, forKey: "is_local_only_family")
+        UserDefaults.standard.set("MOCK_FAMILY_ID", forKey: "family_id")
+        UserDefaults.standard.set("FW-982-XYZ", forKey: "family_join_code")
+        
+        // 2. Systemsprache ermitteln
+        let lang = Locale.current.language.languageCode?.identifier ?? "en"
+        
+        // 3. Lokalisierte Namen & Texte definieren
+        var fatherName = "Papa"
+        var motherName = "Mama"
+        var childName = "Paul"
+        var familyName = "Familie Müller"
+        
+        if lang == "en" {
+            fatherName = "Dad"
+            motherName = "Mom"
+            childName = "Alex"
+            familyName = "The Millers"
+        } else if lang == "no" || lang == "nb" {
+            fatherName = "Pappa"
+            motherName = "Mamma"
+            childName = "Jonas"
+            familyName = "Familien"
+        } else if lang == "da" {
+            fatherName = "Far"
+            motherName = "Mor"
+            childName = "Lucas"
+            familyName = "Familien"
+        } else if lang == "nl" {
+            fatherName = "Papa"
+            motherName = "Mama"
+            childName = "Daan"
+            familyName = "Familie"
+        } else if lang == "fr" {
+            fatherName = "Papa"
+            motherName = "Maman"
+            childName = "Lucas"
+            familyName = "Famille"
+        } else if lang == "es" {
+            fatherName = "Papá"
+            motherName = "Mamá"
+            childName = "Mateo"
+            familyName = "Familia"
+        } else if lang == "it" {
+            fatherName = "Papà"
+            motherName = "Mamma"
+            childName = "Leonardo"
+            familyName = "Famiglia"
+        }
+        
+        UserDefaults.standard.set(familyName, forKey: "family_name")
+        
+        // Set myMemberId to father so he is the claimed user on this device
+        let dadId = "mock_dad"
+        UserDefaults.standard.set(dadId, forKey: "my_member_id")
+        
+        // 4. DayProfiles generieren, damit der Weckzeitplan berechnet werden kann
+        func makeDayProfiles(earliest: DateComponents, latest: DateComponents, bathroom: Int, leave: DateComponents?) -> [Int: DayProfile] {
+            var profiles: [Int: DayProfile] = [:]
+            for day in 1...7 {
+                profiles[day] = DayProfile(
+                    isActive: true,
+                    earliestWakeUp: earliest,
+                    latestWakeUp: latest,
+                    bathroomDurationMinutes: bathroom,
+                    wantsBreakfast: true,
+                    leaveHomeTime: leave,
+                    isSimpleMode: false
+                )
+            }
+            return profiles
+        }
+        
+        let earliestWakeDad = DateComponents(hour: 6, minute: 0)
+        let latestWakeDad = DateComponents(hour: 7, minute: 15)
+        let leaveDad = DateComponents(hour: 8, minute: 0)
+        let dadProfiles = makeDayProfiles(earliest: earliestWakeDad, latest: latestWakeDad, bathroom: 15, leave: leaveDad)
+        
+        let earliestWakeMom = DateComponents(hour: 6, minute: 0)
+        let latestWakeMom = DateComponents(hour: 7, minute: 30)
+        let leaveMom = DateComponents(hour: 8, minute: 15)
+        let momProfiles = makeDayProfiles(earliest: earliestWakeMom, latest: latestWakeMom, bathroom: 20, leave: leaveMom)
+        
+        let earliestWakeChild = DateComponents(hour: 6, minute: 0)
+        let latestWakeChild = DateComponents(hour: 7, minute: 45)
+        let leaveChild = DateComponents(hour: 8, minute: 15)
+        let childProfiles = makeDayProfiles(earliest: earliestWakeChild, latest: latestWakeChild, bathroom: 10, leave: leaveChild)
+        
+        let dad = FamilyMember(
+            id: dadId,
+            name: fatherName,
+            earliestWakeUp: earliestWakeDad,
+            latestWakeUp: latestWakeDad,
+            bathroomDurationMinutes: 15,
+            wantsBreakfast: true,
+            leaveHomeTime: leaveDad,
+            isPaused: false,
+            isAwakeToday: false,
+            claimedByUserId: "mock_user_id",
+            claimedByUserName: fatherName,
+            sequenceOrder: 0,
+            deviceAlarmEnabled: true,
+            dayProfiles: dadProfiles
+        )
+        
+        let mom = FamilyMember(
+            id: "mock_mom",
+            name: motherName,
+            earliestWakeUp: earliestWakeMom,
+            latestWakeUp: latestWakeMom,
+            bathroomDurationMinutes: 20,
+            wantsBreakfast: true,
+            leaveHomeTime: leaveMom,
+            isPaused: false,
+            isAwakeToday: false,
+            sequenceOrder: 1,
+            deviceAlarmEnabled: false,
+            dayProfiles: momProfiles
+        )
+        
+        let child = FamilyMember(
+            id: "mock_child",
+            name: childName,
+            earliestWakeUp: earliestWakeChild,
+            latestWakeUp: latestWakeChild,
+            bathroomDurationMinutes: 10,
+            wantsBreakfast: true,
+            leaveHomeTime: leaveChild,
+            isPaused: false,
+            isAwakeToday: false,
+            sequenceOrder: 2,
+            deviceAlarmEnabled: false,
+            dayProfiles: childProfiles
+        )
+        
+        // Save to Cache
+        LocalMemberStore.shared.save(members: [dad, mom, child], familyId: "MOCK_FAMILY_ID")
     }
 
     var body: some Scene {

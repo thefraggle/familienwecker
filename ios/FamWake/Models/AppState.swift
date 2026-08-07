@@ -89,6 +89,10 @@ class AppState: ObservableObject {
     }
 
     func load(authViewModel: AuthViewModel, familyViewModel: FamilyViewModel) async {
+        if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
+            route = .main
+            return
+        }
         if case .loading = route {
             // Warten bis Firebase Auth initialisiert ist (maximal 5 Sekunden)
             var attempts = 0
