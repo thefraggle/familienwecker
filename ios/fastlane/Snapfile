@@ -17,7 +17,7 @@ scheme("FamWakeUITests")
 output_directory("./fastlane/screenshots")
 
 # HTML-Übersicht nach dem Durchlauf anzeigen
-html_report(true)
+skip_open_summary(false)
 
 # Simulatoren vor dem Durchlauf automatisch bereinigen
 clear_previous_screenshots(true)
