@@ -1036,6 +1036,20 @@ struct SettingsView: View {
         default:    return L.settingsLanguageSystem
         }
     }
+
+    private func presentShareSheet(with text: String) {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
+            return
+        }
+        let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        if let popoverController = activityVC.popoverPresentationController {
+            popoverController.sourceView = rootViewController.view
+            popoverController.sourceRect = CGRect(x: rootViewController.view.bounds.midX, y: rootViewController.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        rootViewController.present(activityVC, animated: true, completion: nil)
+    }
 }
 
 // MARK: - Language Picker View (NavigationLink-Destination)
@@ -1108,20 +1122,6 @@ private struct LanguagePickerView: View {
             }
         }
         .foregroundStyle(theme.onSurface)
-    }
-
-    private func presentShareSheet(with text: String) {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
-            return
-        }
-        let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
-        if let popoverController = activityVC.popoverPresentationController {
-            popoverController.sourceView = rootViewController.view
-            popoverController.sourceRect = CGRect(x: rootViewController.view.bounds.midX, y: rootViewController.view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-        }
-        rootViewController.present(activityVC, animated: true, completion: nil)
     }
 }
 
