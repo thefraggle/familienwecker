@@ -149,7 +149,11 @@ fun LoadingScreen(
                 }
             }
         } else {
-            CircularProgressIndicator()
+            if (de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
+                Text("Loading...")
+            } else {
+                CircularProgressIndicator()
+            }
         }
     }
 }
