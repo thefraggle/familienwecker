@@ -14,7 +14,10 @@ output_directory("screenshots")
 clear_previous_screenshots(true)
 
 # List of locales to capture (start with DE and EN for testing)
-locales(["de-DE", "en-US"])
+locales(["de-DE"])
 
 # Reinstall app to ensure a fresh state
 reinstall_app(true)
+
+# Custom runner that disables Espresso idling (prevents Firestore/Compose infinite hang)
+test_instrumentation_runner("de.familienwecker.famwake.NoIdlingTestRunner")

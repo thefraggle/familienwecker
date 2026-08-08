@@ -1,6 +1,6 @@
 # 🧪 Testplan: FamWake
-**Version:** 2.1.0
-**Datum:** 2026-08-06
+**Version:** 2.1.1
+**Datum:** 2026-08-08
 
 ---
 

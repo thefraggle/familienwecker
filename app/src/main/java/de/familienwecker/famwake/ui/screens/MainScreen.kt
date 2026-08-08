@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.ui.screens
 
 import androidx.compose.ui.platform.testTag
+import de.familienwecker.famwake.FamWakeApplication
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -327,21 +328,25 @@ fun MainScreen(
                 // Exakter Alarm Warnung (Android 14)
                 item {
                     val hasActiveSchedule = members.any { !it.isPaused }
-                    ExactAlarmWarningBanner(
-                        isVisible = !isExactAlarmPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null,
-                        isDarkTheme = isDarkTheme,
-                        onRequestPermission = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) }
-                    )
+                    if (!FamWakeApplication.isScreenshotMode) {
+                        ExactAlarmWarningBanner(
+                            isVisible = !isExactAlarmPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null,
+                            isDarkTheme = isDarkTheme,
+                            onRequestPermission = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestExactAlarmPermission(context) }
+                        )
+                    }
                 }
                 
                 // Full Screen Intent Warnung (Android 14+) - wird erst gezeigt, wenn Exact Alarm erlaubt ist
                 item {
                     val hasActiveSchedule = members.any { !it.isPaused }
-                    FullScreenIntentWarningBanner(
-                        isVisible = isExactAlarmPermitted.value && !isFullScreenIntentPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null,
-                        isDarkTheme = isDarkTheme,
-                        onRequestPermission = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestFullScreenIntentPermission(context) }
-                    )
+                    if (!FamWakeApplication.isScreenshotMode) {
+                        FullScreenIntentWarningBanner(
+                            isVisible = isExactAlarmPermitted.value && !isFullScreenIntentPermitted.value && isAlarmEnabled && hasActiveSchedule && myMemberId != null,
+                            isDarkTheme = isDarkTheme,
+                            onRequestPermission = { de.familienwecker.famwake.util.AlarmPermissionUtils.requestFullScreenIntentPermission(context) }
+                        )
+                    }
                 }
                 
                 // Fehlermeldung (falls vorhanden)
