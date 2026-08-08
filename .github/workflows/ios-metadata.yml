@@ -26,8 +26,12 @@ jobs:
         with:
           ruby-version: '3.2'
           bundler: latest
-          bundler-cache: true
           working-directory: ios
+
+      - name: Install dependencies
+        run: |
+          cd ios
+          bundle update fastlane
 
       - name: Generate iOS Release Notes (all languages)
         run: |
