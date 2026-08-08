@@ -96,6 +96,7 @@ LANGUAGES = [
 ]
 
 LOCALE_MAP = {
+    "bn": ["bn-BD"],
     "da": ["da"],
     "de": ["de-DE"],
     "en": ["en-US"],
@@ -106,6 +107,7 @@ LOCALE_MAP = {
     "it": ["it"],
     "ja": ["ja"],
     "ko": ["ko"],
+    "mr": ["mr-IN"],
     "nl": ["nl-NL"],
     "no": ["no"],
     "pl": ["pl"],
