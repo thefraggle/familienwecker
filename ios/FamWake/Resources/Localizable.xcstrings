@@ -45099,6 +45099,144 @@
             "state": "translated",
             "value": "Bright Alert"
           }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "উজ্জ্বল সতর্কতা"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lys alarm"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alerta brillante"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alerte lumineuse"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Helle Alarm"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "तेज अलर्ट"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peringatan terang"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allarme squillante"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明るいアラート"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "밝은 알림음"
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Helle Alarm"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "तेजस्वी चेतावणी"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lys alarm"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heldere alert"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jasny alert"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alerta brilhante"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Яркий сигнал"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ljus signal"
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heller Alarm"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parlak uyarı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Яскравий сигнал"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cảnh báo sáng"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明亮警报"
+          }
         }
       }
     },
@@ -45329,7 +45467,7 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "디지털 레트로"
+            "value": "디ジタル 레트로"
           }
         },
         "ksh": {
@@ -45430,7 +45568,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "কোমল চাইম"
+            "value": "কোमल চাইम"
           }
         },
         "da": {
@@ -45770,7 +45908,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सिस्टम डिफ़ॉल्ट"
+            "value": "सिستم डिफ़ॉल्ट"
           }
         },
         "id": {
