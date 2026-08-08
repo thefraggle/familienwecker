@@ -50823,6 +50823,316 @@
           }
         }
       }
+    },
+    "anonymous_warning_title": {
+      "extractionState": "stale",
+      "localizations": {
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ অতিথি অ্যাকাউন্ট सक्रिय"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Gæstekonto aktiv"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Gastkonto aktiv"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Guest account active"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Cuenta de invitado activa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Compte invité actif"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Gastkonto aktiv"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ अतिथि खाता सक्रिय"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Akun tamu aktif"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Account ospite attivo"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ ゲストアカウントが有効です"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ 게스트 계정 활성화됨"
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Gastkonto aktiv"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ अतिथी खाते सक्रिय"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Gjestekonto aktiv"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Gastaccount actief"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Konto gościa aktywne"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Conta de convidado activa"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Гостевой аккаунт активен"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Gästkonto aktivt"
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Gastkonto aktiv"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Misafir hesabı aktif"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Гостьовий акаунт активний"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ Tài khoản khách đang hoạt động"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠️ 访客帐户处于活动状态"
+          }
+        }
+      }
+    },
+    "anonymous_warning_desc": {
+      "extractionState": "stale",
+      "localizations": {
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আপনি একটি অতিথি অ্যাকাউন্ট ব্যবহার করছেন। আপনি যদি অ্যাপটি পুনরায় ইনস্টল করেন তবে আপনার ডেটা হারিয়ে যেতে পারে। আপনার পারিবারিক সেটিংস রাখতে দয়া করে নিবন্ধন করুন।"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du bruger en gæstekonto. Dine data kan gå tabt, hvis du geninstallerer appen. Registrer dig venligst for at beholde dine familieindstillinger."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du nutzt ein Gastkonto. Deine Daten könnten verloren gehen, wenn du die App neu installierst. Bitte registriere dich, um deine Familieneinstellungen zu behalten."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You are using a guest account. Your data could be lost if you reinstall the app. Please register to keep your family settings."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estás usando una cuenta de invitado. Tus datos podrían perderse si reinstalas la aplicación. Regístrate para conservar la configuración familiar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous utilisez un compte invité. Vos données pourraient être perdues si vous réinstallez l'application. Veuillez vous inscrire pour conserver vos paramètres familiaux."
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du bruchsch es Gaschtkonto. Dini Date chönd verlore gah, wänn du d'App neu installiersch. Bitte registrier dich, zum dini Familie-Iistellige z'bhalte."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आप अतिथि खाते का उपयोग कर रहे हैं। यदि आप ऐप को पुन: इंस्टॉल करते हैं तो आपका डेटा खो सकता है। कृपया अपने परिवार की सेटिंग्स रखने के लिए पंजीकरण करें।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anda menggunakan akun tamu. Data Anda dapat hilang jika Anda menginstal ulang aplikasi. Silakan mendaftar untuk menyimpan pengaturan keluarga Anda."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stai usando un account ospite. I tuoi dati potrebbero andare perduti se reinstalli l'app. Registrati per mantenere le impostazioni familiari."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ゲストアカウントを使用しています。アプリを再インストールするとデータが失われる可能性があります。家族の設定を維持するには、登録してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "게스트 계정을 사용 중입니다. 앱을 재설치하면 데이터가 손실될 수 있습니다. 가족 설정을 유지하려면 가입하세요."
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du bruchß e Jaskonto. Ding Date künnte verloren jonn, wenn de de App neu installiersch. Bitte rejistreer dich, um ding Familieneinstellunge zu behale."
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "तुम्ही अतिथी खाते वापरत आहात. तुम्ही अ‍ॅप पुन्हा इंस्टॉल केल्यास तुमचा डेटा गमावला जाऊ शकतो. कृपया तुमचे कौटुंबिक सेटिंग्ज ठेवण्यासाठी नोंदणी करा."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du bruker en gjestekonto. Dataene dine kan gå tapt hvis du installerer appen på nytt. Registrer deg for å beholde familieinnstillingene dine."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je gebruikt een gastaccount. Je gegevens kunnen verloren gaan als je de app opnieuw installeert. Registreer je om je familie-instellingen te behouden."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Używasz konta gościa. Twoje dane mogą zostać utracone, jeśli ponownie zainstalujesz aplikację. Zarejestruj się, aby zachować ustawienia rodzinne."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você está usando uma conta de convidado. Seus dados podem ser perdidos se você reinstalar o aplicativo. Registre-se para manter suas configurações familiares."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вы используете гостевой аккаунт. Ваши данные могут быть утеряны при переустановке приложения. Пожалуйста, зарегистрируйтесь, чтобы сохранить настройки семьи."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du använder ett gästkonto. Dina data kan gå förlorade om du installerar om appen. Registrera dig för å behålla dina familjeinställningar."
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du nutzt a Gastkonto. Deine Doda kenndet verlora gau, wenn du d'App neu installiersch. Bitte registrier di, um deine Familie-Eistellunga zu behalda."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Misafir hesabı kullanıyorsunuz. Uygulamayı yeniden yüklerseniz verileriniz kaybolabilir. Aile ayarlarınızı korumak için lütfen kaydolun."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ви використовуєте гостьовий акаунт. Ваші дані можуть бути втрачені, якщо ви перевстановите додаток. Будь ласка, зареєструйтеся, щоб зберегти налаштування родини."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn đang sử dụng tài khoản khách. Dữ liệu của bạn có thể bị mất nếu bạn cài đặt lại ứng dụng. Vui lòng đăng ký để giữ cài đặt gia đình."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您正在使用访客帐户。如果重新安装该应用程序，您的数据可能会丢失。请注册以保留您的家庭设置。"
+          }
+        }
+      }
     }
   },
   "version": "1.1"
