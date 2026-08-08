@@ -361,4 +361,5 @@
     <string name="reorder_dialog_today">Chỉ hôm nay (%1$s)</string>
     <string name="reorder_dialog_week">Cả tuần</string>
     <string name="schedule_you_badge">Bạn</string>
+    <string name="anonymous_warning_title">⚠️ Tài khoản khách đang hoạt động</string>
 </resources>

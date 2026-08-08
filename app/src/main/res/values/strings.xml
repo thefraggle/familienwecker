@@ -375,7 +375,7 @@
     <string name="app_name_brand_prefix">FamWake</string>
 
     <!-- M18: Hinweis für anonyme User auf FamilySetupScreen -->
-    <string name="anonymous_warning_title">⚠️ You are not logged in!</string>
+    <string name="anonymous_warning_title">⚠️ Guest account active</string>
     <string name="anonymous_warning_desc">You are using a guest account. Your data could be lost if you reinstall the app. Please register to keep your family settings.</string>
 
     <!-- L7: Warnung bei Verlust tagesspezifischer Reihenfolge -->

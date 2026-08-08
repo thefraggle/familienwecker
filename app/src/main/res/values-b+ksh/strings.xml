@@ -355,4 +355,5 @@
     <string name="reorder_dialog_today">Nur für heute (%1$s)</string>
     <string name="reorder_dialog_week">Ganze Woche</string>
     <string name="schedule_you_badge">Du</string>
+    <string name="anonymous_warning_title">⚠️ Gastkonto aktiv</string>
 </resources>
