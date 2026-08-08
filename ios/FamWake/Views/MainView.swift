@@ -218,7 +218,8 @@ struct MainView: View {
                     familyViewModel.clearPendingJoinCode()
                 }
             } message: {
-                Text(String(format: L.s("join_conflict_text"), familyViewModel.familyName ?? ""))
+                let fName = familyViewModel.familyName ?? ""
+                Text(String(format: L.s("join_conflict_text"), fName, fName))
             }
             .alert(L.settingsDeleteMemberTitle, isPresented: $showDeleteMemberAlert, presenting: memberToDelete) { member in
                 Button(L.settingsDeleteMemberConfirm, role: .destructive) {
