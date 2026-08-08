@@ -125,6 +125,7 @@ platform :ios do
       skip_screenshots: false,
       skip_metadata: true,
       force: true,
+      overwrite_screenshots: true,
       submit_for_review: false,
       screenshots_path: "./fastlane/screenshots",
       run_precheck_before_submit: false,
