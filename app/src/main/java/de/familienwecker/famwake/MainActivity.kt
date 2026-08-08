@@ -72,6 +72,15 @@ class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         
+        // Erkennung aus adb-Intent (direkter Launch ohne Test-Runner)
+        android.util.Log.d("FamWakeDebug", "Intent: " + intent.toString())
+        intent.extras?.keySet()?.forEach { key ->
+            android.util.Log.d("FamWakeDebug", "  Extra $key = ${intent.extras?.get(key)}")
+        }
+        if (intent.getBooleanExtra("screenshot_mode", false) || intent.getStringExtra("screenshot_mode") == "true") {
+            FamWakeApplication.isScreenshotMode = true
+            android.util.Log.d("FamWakeDebug", "Screenshot mode enabled via intent extra!")
+        }
         if (FamWakeApplication.isScreenshotMode) {
             setupMockDataForScreenshots()
         }
@@ -149,7 +158,8 @@ class MainActivity : AppCompatActivity() {
         appSettings.setJoinCode("FW-982-XYZ")
         appSettings.setTooltipsEnabled(false)
         
-        val lang = java.util.Locale.getDefault().language
+        val lang = intent.getStringExtra("lang") ?: java.util.Locale.getDefault().language
+        appSettings.setLanguage(lang)
         var fatherName = "Papa"
         var motherName = "Mama"
         var childName = "Paul"

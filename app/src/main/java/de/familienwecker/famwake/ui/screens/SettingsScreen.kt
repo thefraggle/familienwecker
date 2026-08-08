@@ -482,7 +482,7 @@ fun SettingsScreen(
                 onDispose { lifecycleOwnerSettings.lifecycle.removeObserver(observer) }
             }
 
-            if (isBatteryOptimized.value) {
+            if (isBatteryOptimized.value && !de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
                 PermissionWarningCard(
                     title = stringResource(R.string.settings_battery_warning_title),
                     body = stringResource(R.string.settings_battery_warning_text),
@@ -492,7 +492,7 @@ fun SettingsScreen(
                 )
             }
 
-            if (!isExactAlarmPermitted.value) {
+            if (!isExactAlarmPermitted.value && !de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
                 PermissionWarningCard(
                     title = stringResource(R.string.settings_exact_alarm_warning_title),
                     body = stringResource(R.string.settings_exact_alarm_warning_text),
@@ -502,7 +502,7 @@ fun SettingsScreen(
                 )
             }
 
-            if (!isFullScreenIntentPermitted.value) {
+            if (!isFullScreenIntentPermitted.value && !de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
                 PermissionWarningCard(
                     title = stringResource(R.string.permission_fullscreen_title),
                     body = stringResource(R.string.permission_fullscreen_message),

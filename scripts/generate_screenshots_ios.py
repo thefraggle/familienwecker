@@ -34,11 +34,11 @@ SCREEN_CROP_BOX = (63, 195, 1124, 2390)
 
 # Map original design templates to raw Fastlane snapshot filenames (light mode versions)
 SNAPSHOT_MAPPING = {
-    "main_scrolled.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Light.png",
-    "times.png": "iPhone 17 Pro Max-03_MemberSettings_Light.png",
-    "pause.png": "iPhone 17 Pro Max-01_MainDashboard_Empty_Light.png",
-    "share.png": "iPhone 17 Pro Max-04_ShareFamily_Light.png",
-    "main_full.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Light.png"
+    "main_scrolled.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Dark.png",
+    "times.png": "iPhone 17 Pro Max-03_MemberSettings_Dark.png",
+    "pause.png": "iPhone 17 Pro Max-01_MainDashboard_Empty_Dark.png",
+    "share.png": "iPhone 17 Pro Max-04_ShareFamily_Dark.png",
+    "main_full.png": "iPhone 17 Pro Max-02_MainDashboard_Active_Dark.png"
 }
 
 # Verified German and English screenshot text lists
@@ -269,7 +269,8 @@ def build_screenshot(slide, lang, size_name, target_size):
 
     if device_file in SNAPSHOT_MAPPING:
         snapshot_name = SNAPSHOT_MAPPING[device_file]
-        path = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots", lang, snapshot_name)
+        fastlane_lang = "zh-Hans" if lang == "zh-CN" else lang
+        path = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots", fastlane_lang, snapshot_name)
         if os.path.exists(path):
             device_path = path
         else:
@@ -355,6 +356,15 @@ def main():
         lang_output_dir = os.path.join(OUTPUT_DIR, lang)
         os.makedirs(lang_output_dir, exist_ok=True)
         
+        fastlane_lang = "zh-Hans" if lang == "zh-CN" else lang
+        fastlane_lang_dir = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots", fastlane_lang)
+        os.makedirs(fastlane_lang_dir, exist_ok=True)
+        # Clear existing raw/old files to prevent duplicates or dark mode uploads
+        for f in os.listdir(fastlane_lang_dir):
+            f_path = os.path.join(fastlane_lang_dir, f)
+            if os.path.isfile(f_path):
+                os.remove(f_path)
+
         # Load or generate localized strings
         if lang in VERIFIED_SS:
             slides_text = VERIFIED_SS[lang]
@@ -379,12 +389,19 @@ def main():
             
         for size_name, size in SIZES.items():
             print(f"Generating screenshots for '{lang}' size {size_name} ({size[0]}x{size[1]})...")
+            device_name = "iPhone 11 Pro Max" if size_name == "6.5" else "iPhone 17 Pro Max"
             for idx, slide in enumerate(slides):
                 img = build_screenshot(slide, lang, size_name, size)
                 if img:
+                    # 1. Save to docs/ (for preview/checking)
                     filename = f"screenshot_{idx+1}_{lang}_{size_name}.jpg"
                     save_path = os.path.join(lang_output_dir, filename)
                     img.save(save_path, "JPEG", quality=93)
+                    
+                    # 2. Save directly to fastlane/screenshots/ as PNG for automated deliver upload
+                    fastlane_filename = f"{device_name}-0{idx+1}_Slide.png"
+                    fastlane_save_path = os.path.join(fastlane_lang_dir, fastlane_filename)
+                    img.save(fastlane_save_path, "PNG")
             print(f"  Done '{lang}' size {size_name}")
 
 if __name__ == "__main__":

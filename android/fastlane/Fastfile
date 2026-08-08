@@ -1,25 +1,134 @@
 default_platform(:android)
 
+ADB      = "#{ENV['HOME']}/Library/Android/sdk/platform-tools/adb"
+DEVICE   = "emulator-5554"
+PACKAGE  = "de.familienwecker.famwake"
+LOCALE   = "de-DE"
+OUT_BASE = File.expand_path("screenshots/#{LOCALE}/images/screenshots", __dir__)
+
+# Hilfsmethode: Element mit find_coords.py suchen und tippen
+def tap_element(adb, device, type, value, label)
+  # Dump XML und auf Local ziehen
+  system("#{adb} -s #{device} shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1")
+  system("#{adb} -s #{device} pull /sdcard/ui.xml ui.xml > /dev/null 2>&1")
+  
+  # Koordinaten mit Python-Skript ermitteln
+  coords_str = `python3 find_coords.py ui.xml #{type} "#{value}"`.strip
+  if $?.success? && !coords_str.empty?
+    x, y = coords_str.split(" ")
+    UI.message("▶ Tippe #{label} bei #{x},#{y}")
+    system("#{adb} -s #{device} shell input tap #{x} #{y}")
+    true
+  else
+    UI.error("❌ #{label} nicht in UI-Dump gefunden (#{type}='#{value}')")
+    false
+  end
+end
+
+def screencap(adb, device, out_dir, filename)
+  FileUtils.mkdir_p(out_dir)
+  path = File.join(out_dir, filename)
+  system("#{adb} -s #{device} exec-out screencap -p > '#{path}'")
+  UI.success("📸 #{filename}")
+  path
+end
+
 platform :android do
-  desc "Generates localized screenshots for the Play Store using Screengrab"
+  desc "Generiert 4 Play Store Screenshots (Main leer, Main aktiv, Edit Member, Settings) für Light Mode"
   lane :generate_screenshots do
-    # 1. Build the APKs first to ensure latest changes are used
-    gradle(
-      task: ":app:assembleDebug",
-      project_dir: ".."
-    )
-    gradle(
-      task: ":app:assembleDebugAndroidTest",
-      project_dir: ".."
-    )
+
+    # 1. App bauen
+    gradle(task: ":app:assembleDebug", project_dir: "..")
+    app_apk = Dir["../../app/build/outputs/apk/debug/*.apk"].reject { |p| p.include?("androidTest") }.first
+    UI.user_error!("App APK nicht gefunden") if app_apk.nil?
+
+    # 2. App installieren und konfigurieren
+    sh("#{ADB} -s #{DEVICE} uninstall #{PACKAGE} || true")
+    sh("#{ADB} -s #{DEVICE} install -t -r '#{File.expand_path(app_apk)}'")
+    sh("#{ADB} -s #{DEVICE} shell pm grant #{PACKAGE} android.permission.POST_NOTIFICATIONS || true")
+
+    # ============================================================
+    # Starten der App mit Screenshot-Mode (Mock-Daten)
+    # ============================================================
+    sh("#{ADB} -s #{DEVICE} shell am force-stop #{PACKAGE}")
+    sleep(1)
+    sh("#{ADB} -s #{DEVICE} shell am start -n #{PACKAGE}/.MainActivity --ez screenshot_mode true")
+    UI.message("Warte 7s auf App-Start und Mock-Daten...")
+    sleep(7)
+
+    # ============================================================
+    # SCREEN 01: Main Dashboard – leer / inaktiv (Alarm AUS)
+    # ============================================================
+    UI.message("--- SCREEN 01: Main leer (Alarm AUS) ---")
     
-    # 2. Run Screengrab UI tests on the emulator
-    screengrab(
-      app_apk_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
-      tests_apk_path: lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS].find { |p| p.include?("androidTest") }
-    )
+    # Switch ausschalten
+    tapped = tap_element(ADB, DEVICE, "switch", "", "AlarmSwitch")
+    unless tapped
+      UI.message("Fallback: Tippe Switch direkt bei 927 936")
+      system("#{ADB} -s #{DEVICE} shell input tap 927 936")
+    end
+    sleep(2.5)
+
+    screencap(ADB, DEVICE, OUT_BASE, "01_MainDashboard_Empty_Light.png")
+
+    # ============================================================
+    # SCREEN 02: Main Dashboard – aktiv (Alarm AN)
+    # ============================================================
+    UI.message("--- SCREEN 02: Main aktiv (Alarm AN) ---")
     
-    # 3. Re-compile the custom screenshots gallery dashboard
-    sh("python3 ../../scripts/generate_html.py")
+    # Switch wieder einschalten
+    tapped = tap_element(ADB, DEVICE, "switch", "", "AlarmSwitch")
+    unless tapped
+      UI.message("Fallback: Tippe Switch direkt bei 927 936")
+      system("#{ADB} -s #{DEVICE} shell input tap 927 936")
+    end
+    sleep(2.5)
+
+    screencap(ADB, DEVICE, OUT_BASE, "02_MainDashboard_Active_Light.png")
+
+    # ============================================================
+    # SCREEN 03: Edit Member (Klick auf Papa-Kachel)
+    # ============================================================
+    UI.message("--- SCREEN 03: Edit Member (Papa) ---")
+    
+    # Nach "Papa" oder "06:45 - Papa" suchen
+    tapped = tap_element(ADB, DEVICE, "text", "06:45 - Papa", "MemberCard_Papa")
+    unless tapped
+      tapped = tap_element(ADB, DEVICE, "text", "Papa", "MemberCard_Papa")
+    end
+    unless tapped
+      UI.message("Fallback: Tippe Papa-Kachel bei 270 1915")
+      system("#{ADB} -s #{DEVICE} shell input tap 270 1915")
+    end
+    sleep(3.5)
+
+    screencap(ADB, DEVICE, OUT_BASE, "03_MemberSettings_Light.png")
+
+    # Zurück zum Dashboard
+    sh("#{ADB} -s #{DEVICE} shell input keyevent KEYCODE_BACK")
+    sleep(2.5)
+
+    # ============================================================
+    # SCREEN 04: Settings / Share Code (Klick auf Zahnrad)
+    # ============================================================
+    UI.message("--- SCREEN 04: Settings ---")
+    
+    # Nach Einstellungen-Zahnrad suchen
+    tapped = tap_element(ADB, DEVICE, "desc", "Einstellungen", "SettingsButton")
+    unless tapped
+      UI.message("Fallback: Tippe Settings-Zahnrad bei 1006 348")
+      system("#{ADB} -s #{DEVICE} shell input tap 1006 348")
+    end
+    sleep(3.5)
+
+    screencap(ADB, DEVICE, OUT_BASE, "04_ShareFamily_Light.png")
+
+    # App beenden
+    sh("#{ADB} -s #{DEVICE} shell am force-stop #{PACKAGE}")
+
+    # Galerie neu erstellen
+    sh("python3 ../../scripts/generate_html.py || true")
+
+    UI.success("✅ Alle 4 Screenshots erfolgreich erstellt!")
   end
 end

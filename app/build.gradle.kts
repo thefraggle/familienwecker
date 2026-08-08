@@ -8,7 +8,7 @@ plugins {
 }
 
 // Fallback version if no versionName property is provided (e.g. for local builds)
-val appVersion = project.findProperty("versionName")?.toString() ?: "2.1.0-dev"
+val appVersion = project.findProperty("versionName")?.toString() ?: "2.1.1-dev"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -53,7 +53,7 @@ android {
         buildConfigField("String", "COMMIT_DATE", "\"${commitDate}\"")
         buildConfigField("String", "REVENUECAT_PUBLIC_API_KEY", "\"${revenueCatKey}\"")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "de.familienwecker.famwake.NoIdlingTestRunner"
     }
 
     buildTypes {
