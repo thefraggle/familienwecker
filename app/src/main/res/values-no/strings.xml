@@ -357,4 +357,5 @@
     <string name="reorder_dialog_today">Bare i dag (%1$s)</string>
     <string name="reorder_dialog_week">Hele uken</string>
     <string name="schedule_you_badge">Deg</string>
+    <string name="anonymous_warning_title">⚠️ Gjestekonto aktiv</string>
 </resources>
