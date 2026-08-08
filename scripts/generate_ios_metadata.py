@@ -161,8 +161,6 @@ ASC_TO_LISTING = {
     'vi':      'vi',
     'hi':      'hi',
     'uk':      'uk',
-    'bn-BD':   'bn',
-    'mr-IN':   'mr',
 }
 
 # Changelog source files per locale (only DE/EN have dedicated files)
@@ -182,7 +180,6 @@ TRANSLATION_TARGETS = {
     'pl': 'pl', 'sv': 'sv', 'da': 'da',
     'no': 'no', 'id': 'id', 'vi': 'vi',
     'hi':      'hi', 'uk': 'uk',
-    'bn-BD':   'bn', 'mr-IN': 'mr',
 }
 
 # Hardcoded promotional texts per locale — verified and locked in.
@@ -211,8 +208,6 @@ PROMO_TEXTS = {
     'vi':      'Không còn sự hỗn loạn buổi sáng! FamWake điều phối thời gian thức dậy, thời gian đi vệ sinh và bữa sáng cho cả gia đình.',
     'hi':      'अब सुबह की अव्यवस्था नहीं! फैमवेक पूरे परिवार के लिए जागने के समय, बाथरूम जाने और नाश्ते के समय का समन्वय करता है।',
     'uk':      'Більше ніякого ранкового хаосу! FamWake координує час пробудження, чергування в туалеті та сніданок для всієї родини.',
-    'bn-BD':   'আর সকালের বিশৃঙ্খলা নয়! FamWake পুরো পরিবারের জন্য ঘুম থেকে ওঠার সময়, বাথরুমের পালা এবং প্রাতঃরাশের সমন্বয় করে।',
-    'mr-IN':   'आणखी सकाळचा गोंधळ नाही! FamWake संपूर्ण कुटुंबासाठी उठण्याची वेळ, बाथरूमची वेळ आणि नाश्ता यांचे संयोजन करते.',
 }
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
@@ -246,8 +241,6 @@ SUBTITLES = {
     'vi':      'B\u00e1o th\u1ee9c gia \u0111\u00ecnh & k\u1ebf ho\u1ea1ch',
     'hi':      'परिवार अलार्म और प्लानर',
     'uk':      'С\u0456мейний будильник & планер',
-    'bn-BD':   'পারিবারিক অ্যালার্ম ও সূচি',
-    'mr-IN':   'कौटुंबिक अलार्म आणि नियोजक',
 }
 
 def write_file(path, content):
