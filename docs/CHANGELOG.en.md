@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.1 – 2026-08-08
+✨ Improved:
+• Better translations: Fixed localization bugs where raw placeholders (like "minutes_suffix" or "sound_name_standard") were shown in the bathroom duration picker or alarm sound settings. The profile badge ("You") is now correctly translated in all languages.
+• Stable profile colors: The background colors for profile initials in the member list now remain stable and constant, rather than changing randomly upon app restart.
+• Reliable sharing: The invitation text for your family code is now generated and copied reliably in all scenarios.
+
 ## 2.1.0 – 2026-08-06
 ✨ Improved:
 • Reliable wake-up: Fixed issues where alarms rang at the wrong time or multiple times.

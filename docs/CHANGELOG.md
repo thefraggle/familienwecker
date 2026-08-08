@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.1 – 2026-08-08
+✨ Verbessert:
+• Bessere Übersetzungen: Fehler behoben, bei denen in einigen Sprachen Platzhalter-Texte bei der Badezeit ("minutes_suffix") oder den Tönen ("sound_name_standard") angezeigt wurden. Der eigene Namens-Badge ("Du") ist nun in allen Sprachen korrekt übersetzt.
+• Stabile Profilfarben: Die Hintergrundfarben der Initialen-Kreise in der Mitgliederliste bleiben jetzt dauerhaft stabil und ändern sich nicht mehr nach einem Neustart der App.
+• Zuverlässiges Teilen: Der Einladungstext zum Teilen eures Familiencodes wird nun wieder in allen Fällen zuverlässig ausgegeben.
+
 ## 2.1.0 – 2026-08-06
 ✨ Verbessert:
 • Zuverlässigeres Wecken: Fehler behoben, bei denen Wecker zur falschen Zeit oder doppelt klingelten.
