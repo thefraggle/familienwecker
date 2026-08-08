@@ -34,6 +34,30 @@ struct FamilySetupView: View {
 
                 Spacer()
 
+                if authViewModel.isAnonymous {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(L.s("anonymous_warning_title"))
+                            .font(.subheadline).fontWeight(.bold)
+                            .foregroundStyle(theme.onErrorContainer)
+                        Text(L.s("anonymous_warning_desc"))
+                            .font(.caption)
+                            .foregroundStyle(theme.onErrorContainer.opacity(0.9))
+                    }
+                    .padding(16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(theme.errorContainer)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(theme.error.opacity(0.3), lineWidth: 1)
+                    )
+                    .onTapGesture {
+                        appState.route = .login
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 16)
+                }
+
                 VStack(spacing: 0) {
                     // Tabs
                     Picker("", selection: $isCreateMode) {
