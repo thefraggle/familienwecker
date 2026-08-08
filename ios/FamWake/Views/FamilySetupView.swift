@@ -35,25 +35,31 @@ struct FamilySetupView: View {
                 Spacer()
 
                 if authViewModel.isAnonymous {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(L.s("anonymous_warning_title"))
-                            .font(.subheadline).fontWeight(.bold)
-                            .foregroundStyle(theme.onErrorContainer)
-                        Text(L.s("anonymous_warning_desc"))
-                            .font(.caption)
-                            .foregroundStyle(theme.onErrorContainer.opacity(0.9))
+                    Button(action: { appState.route = .login }) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(L.s("anonymous_warning_title"))
+                                .font(.subheadline).fontWeight(.bold)
+                                .foregroundStyle(theme.onErrorContainer)
+                            Text(L.s("anonymous_warning_desc"))
+                                .font(.caption)
+                                .foregroundStyle(theme.onErrorContainer.opacity(0.85))
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .background(
+                            .regularMaterial,
+                            in: RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        )
+                        .background(
+                            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                                .fill(colorScheme == .dark ? theme.errorContainer.opacity(0.4) : theme.errorContainer.opacity(0.8))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                                .stroke(theme.outline.opacity(0.2), lineWidth: 1)
+                        )
                     }
-                    .padding(16)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(theme.errorContainer)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(theme.error.opacity(0.3), lineWidth: 1)
-                    )
-                    .onTapGesture {
-                        appState.route = .login
-                    }
+                    .buttonStyle(.plain)
                     .padding(.horizontal, 24)
                     .padding(.bottom, 16)
                 }
