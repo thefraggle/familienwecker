@@ -136,6 +136,22 @@ def fit_background(bg_path, target_size):
     bottom = top + tgt_h
     return bg_resized.crop((left, top, right, bottom))
 
+def draw_bottom_vignette(img):
+    # Draw a gradient at the bottom to increase text readability on light backgrounds
+    w, h = img.size
+    overlay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+    
+    # We create a gradient from Y=1150 (alpha=0) to Y=1920 (alpha=170)
+    start_y = 1150
+    end_y = 1920
+    for y in range(start_y, end_y):
+        alpha = int(170 * ((y - start_y) / (end_y - start_y)))
+        # Dark indigo matching the app's dark theme
+        draw.line([(0, y), (w, y)], fill=(11, 17, 30, alpha))
+        
+    return Image.alpha_composite(img.convert("RGBA"), overlay)
+
 def draw_android_status_bar(draw, clock_font, fill_color):
     # Left clock: 10:00 (Android default)
     draw.text((80, 68), "10:00", font=clock_font, fill=fill_color)
@@ -249,6 +265,11 @@ def wrap_text(text, font, max_width, draw):
 
 def build_screenshot(slide, lang, target_size):
     img = fit_background(BACKGROUND_PATH, target_size)
+    
+    layout = slide["layout"]
+    if layout == "top":
+        img = draw_bottom_vignette(img)
+        
     draw = ImageDraw.Draw(img)
     
     # 1080x1920 absolute design specifications
