@@ -5,7 +5,7 @@ import glob
 def generate_report():
     project_root = "/Users/daniel.notthoff/GIT_Repos/_privat/familienwecker"
     ios_base_dir = os.path.join(project_root, "ios", "fastlane", "screenshots")
-    android_base_dir = os.path.join(project_root, "android", "fastlane", "screenshots")
+    android_base_dir = os.path.join(project_root, "android", "fastlane", "metadata", "android")
     html_file = os.path.join(ios_base_dir, "screenshots.html")
     
     # Nested dictionary to hold parsed images
@@ -53,7 +53,7 @@ def generate_report():
     
     for filepath in android_files:
         # Relative path from the HTML file directory (ios_base_dir)
-        rel_path = "../../../android/fastlane/screenshots/" + os.path.relpath(filepath, android_base_dir)
+        rel_path = "../../../android/fastlane/metadata/android/" + os.path.relpath(filepath, android_base_dir)
         parts = os.path.relpath(filepath, android_base_dir).split(os.sep)
         if len(parts) < 2:
             continue
