@@ -149,25 +149,25 @@ def fit_background(bg_path, target_size):
     bottom = top + tgt_h
     return bg_resized.crop((left, top, right, bottom))
 
-def draw_iphone_status_bar(draw, clock_font):
+def draw_iphone_status_bar(draw, clock_font, fill_color):
     # Left clock
-    draw.text((120, 68), "9:41", font=clock_font, fill="#FFFFFF")
+    draw.text((120, 68), "9:41", font=clock_font, fill=fill_color)
     
     # Right icons: signal bars
-    draw.rectangle([980, 78, 984, 88], fill="#FFFFFF")
-    draw.rectangle([988, 74, 992, 88], fill="#FFFFFF")
-    draw.rectangle([996, 70, 1000, 88], fill="#FFFFFF")
-    draw.rectangle([1004, 66, 1008, 88], fill="#FFFFFF")
+    draw.rectangle([980, 78, 984, 88], fill=fill_color)
+    draw.rectangle([988, 74, 992, 88], fill=fill_color)
+    draw.rectangle([996, 70, 1000, 88], fill=fill_color)
+    draw.rectangle([1004, 66, 1008, 88], fill=fill_color)
     
     # WiFi triangle
-    draw.polygon([(1025, 86), (1035, 70), (1045, 86)], fill="#FFFFFF")
+    draw.polygon([(1025, 86), (1035, 70), (1045, 86)], fill=fill_color)
     
     # Battery body
-    draw.rounded_rectangle([1060, 70, 1095, 86], radius=4, outline="#FFFFFF", width=2)
+    draw.rounded_rectangle([1060, 70, 1095, 86], radius=4, outline=fill_color, width=2)
     # Battery tip
-    draw.rectangle([1095, 74, 1098, 82], fill="#FFFFFF")
+    draw.rectangle([1095, 74, 1098, 82], fill=fill_color)
     # Battery level
-    draw.rectangle([1063, 73, 1088, 83], fill="#FFFFFF")
+    draw.rectangle([1063, 73, 1088, 83], fill=fill_color)
 
 def create_iphone_mockup(screen_img, font_bold):
     # Base canvas for mock with bezel: 1130x2295
@@ -191,13 +191,35 @@ def create_iphone_mockup(screen_img, font_bold):
     # Draw iOS components on top
     screen_draw = ImageDraw.Draw(mock)
     
-    draw_iphone_status_bar(screen_draw, font_bold)
+    # Detect background color of the status bar from screenshot
+    try:
+        r, g, b = ss_resized.getpixel((50, 50))[:3]
+    except Exception:
+        r, g, b = 15, 23, 42
+        
+    brightness = 0.299 * r + 0.587 * g + 0.114 * b
+    is_dark = brightness < 128
+    
+    # Fill status bar background to cover any raw simulator icons/text
+    bg_color = (r, g, b, 255)
+    screen_draw.rectangle([25, 25, 1105, 125], fill=bg_color)
+    
+    fill_color = "#FFFFFF" if is_dark else "#000000"
+    
+    draw_iphone_status_bar(screen_draw, font_bold, fill_color)
     
     # Dynamic Island pill centered at X=565, Y=65 (width=220, height=55)
     screen_draw.rounded_rectangle([565 - 110, 52, 565 + 110, 88], radius=18, fill="#000000")
     
     # Home indicator at the bottom (centered, Y=2260, width=320, height=6)
-    screen_draw.rounded_rectangle([565 - 160, 2256, 565 + 160, 2262], radius=3, fill="#FFFFFF")
+    try:
+        bot_r, bot_g, bot_b = ss_resized.getpixel((540, 2220))[:3]
+        bot_brightness = 0.299 * bot_r + 0.587 * bot_g + 0.114 * bot_b
+        home_color = "#FFFFFF" if bot_brightness < 128 else "#000000"
+    except Exception:
+        home_color = "#FFFFFF"
+        
+    screen_draw.rounded_rectangle([565 - 160, 2256, 565 + 160, 2262], radius=3, fill=home_color)
     
     return mock
 
