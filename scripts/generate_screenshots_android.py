@@ -301,12 +301,12 @@ def build_screenshot(slide, lang, target_size):
         if dev_img.size == (1187, 2513):
             screen_img = dev_img.crop(SCREEN_CROP_BOX)
         elif w == 1290 and h == 2796:
-            # Crop iOS status bar and home indicator
-            screen_img = dev_img.crop((0, 140, 1290, 2796 - 60))
+            # Keep top intact (Y=0) to prevent cutting off the app header text, crop only bottom home indicator
+            screen_img = dev_img.crop((0, 0, 1290, 2796 - 60))
         elif w == 1242 and h == 2688:
-            screen_img = dev_img.crop((0, 130, 1242, 2688 - 50))
+            screen_img = dev_img.crop((0, 0, 1242, 2688 - 50))
         else:
-            screen_img = dev_img.crop((0, int(h * 0.05), w, int(h * 0.98)))
+            screen_img = dev_img.crop((0, 0, w, int(h * 0.98)))
         
     # Create framed Android mockup
     phone = create_android_mockup(screen_img, font_status)
