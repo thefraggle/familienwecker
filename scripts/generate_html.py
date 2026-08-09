@@ -16,7 +16,7 @@ def generate_report():
     # Format: ios/fastlane/screenshots/<lang>/<device>-<screen>_<appearance>.png
     ios_pattern = os.path.join(ios_base_dir, "**", "*.png")
     ios_files = glob.glob(ios_pattern, recursive=True)
-    ios_regex = re.compile(r"([^/]+)-([0-9]+_[A-Za-z_]+)_(Light|Dark)\.png$")
+    ios_regex = re.compile(r"([^/]+)-([0-9]+)(?:_[A-Za-z_]+)?_(Light|Dark|Slide)\.png$")
     
     for filepath in ios_files:
         # Relative path from the HTML file directory (ios_base_dir)
@@ -49,7 +49,7 @@ def generate_report():
     # Format: android/fastlane/screenshots/<lang>/<screen>_<appearance>.png
     android_pattern = os.path.join(android_base_dir, "**", "*.png")
     android_files = glob.glob(android_pattern, recursive=True)
-    android_regex = re.compile(r"([0-9]+_[A-Za-z_]+)_(Light|Dark)\.png$")
+    android_regex = re.compile(r"([0-9]+)(?:_[A-Za-z_]+)?_(Light|Dark|Slide)\.png$")
     
     for filepath in android_files:
         # Relative path from the HTML file directory (ios_base_dir)
@@ -373,19 +373,33 @@ def generate_report():
                     
                     # Add screens
                     for screen in sorted(list(data[lang][platform][device].keys())):
-                        clean_title = screen.split("_", 1)[-1]
+                        screen_num = screen.split("_")[0]
+                        clean_title = screen.split("_", 1)[-1] if "_" in screen else ""
                         # Format to a nice readable name
-                        clean_title = " ".join(re.findall("[A-Z][a-z_]*", clean_title)).replace("_", " ")
+                        if clean_title:
+                            clean_title = " ".join(re.findall("[A-Z][a-z_]*", clean_title)).replace("_", " ")
                         if not clean_title:
-                            clean_title = screen
+                            if screen_num == "01": clean_title = "Dashboard (Empty)"
+                            elif screen_num == "02": clean_title = "Dashboard (Active)"
+                            elif screen_num == "03": clean_title = "Edit Member"
+                            elif screen_num == "04": clean_title = "Share Settings"
+                            else: clean_title = f"Screen {screen_num}"
                         
                         html += f'                    <div class="screenshot-card">\n'
                         html += f'                        <div class="card-header">\n'
                         html += f'                            <span>{clean_title}</span>\n'
-                        html += f'                            <span class="screen-num">Screen {screen.split("_")[0]}</span>\n'
+                        html += f'                            <span class="screen-num">Screen {screen_num}</span>\n'
                         html += f'                        </div>\n'
                         html += f'                        <div class="card-body">\n'
                         
+                        # Render Slide image if exists
+                        if "Slide" in data[lang][platform][device][screen]:
+                            slide_path = data[lang][platform][device][screen]["Slide"]
+                            html += f'                            <div class="image-wrapper">\n'
+                            html += f'                                <span class="image-label">SLIDE</span>\n'
+                            html += f'                                <img class="screenshot-img" src="{slide_path}" alt="{clean_title} Slide" onclick="openModal(\'{slide_path}\')">\n'
+                            html += f'                            </div>\n'
+                            
                         # Render Light image if exists
                         if "Light" in data[lang][platform][device][screen]:
                             light_path = data[lang][platform][device][screen]["Light"]
