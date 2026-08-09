@@ -25,13 +25,13 @@ SYSTEM_BENGALI = "/System/Library/Fonts/Supplemental/Bangla Sangam MN.ttc"
 ACCENT_COLOR = "#FF8C42"  # Sunrise Orange
 TEXT_COLOR = "#FFFFFF"    # White
 
-# Output display size (Google Play accepts 1242x2688 aspect ratio)
-TARGET_SIZE = (1242, 2688)
+# Output display size (Google Play Store standard portrait is 1080x1920, 16:9)
+TARGET_SIZE = (1080, 1920)
 
 # Bounding box of the clean screen inside the old 1187x2513 template mockup
 SCREEN_CROP_BOX = (63, 195, 1124, 2390)
 
-# Verified German and English screenshot text lists
+# Verified German and English screenshot text lists (matching original layouts)
 VERIFIED_SS = {
     "de": [
         ("Nie wieder\nBad-Stau!", "Der smarte Plan für Bad, Frühstück\nund ganz entspanntes Aufstehen."),
@@ -162,9 +162,9 @@ def create_android_mockup(screen_img, font_bold):
     draw = ImageDraw.Draw(mock)
     
     # Bezel shadow / dark metal rim (Pixel style - less rounded)
-    draw.rounded_rectangle([0, 0, bezel_w, bezel_h], radius=55, fill="#1F1F1F")
+    draw.rounded_rectangle([0, 0, bezel_w, bezel_h], radius=60, fill="#2C2C2C")
     # Bezel inner black
-    draw.rounded_rectangle([5, 5, bezel_w-5, bezel_h-5], radius=50, fill="#000000")
+    draw.rounded_rectangle([4, 4, bezel_w-4, bezel_h-4], radius=56, fill="#000000")
     
     # Paste screenshot inside bezel
     mock.paste(ss_resized, (25, 25), ss_resized)
@@ -251,11 +251,9 @@ def build_screenshot(slide, lang, target_size):
     img = fit_background(BACKGROUND_PATH, target_size)
     draw = ImageDraw.Draw(img)
     
-    tgt_w, tgt_h = target_size
-    scale = tgt_w / 1242.0
-    
-    h_size = int(105 * scale)
-    d_size = int(46 * scale)
+    # 1080x1920 absolute design specifications
+    h_size = 100
+    d_size = 44
     
     if lang in ("ja", "zh-CN"):
         font_h = ImageFont.truetype(SYSTEM_JAPANESE, h_size, index=2)
@@ -301,62 +299,61 @@ def build_screenshot(slide, lang, target_size):
     with Image.open(device_path) as dev_img:
         w, h = dev_img.size
         if dev_img.size == (1187, 2513):
-            # Old styled mockup, needs cropping
             screen_img = dev_img.crop(SCREEN_CROP_BOX)
         elif w == 1290 and h == 2796:
-            # Clean iOS 17 Pro Max simulator screenshot: crop iOS status bar and home indicator
+            # Crop iOS status bar and home indicator
             screen_img = dev_img.crop((0, 140, 1290, 2796 - 60))
         elif w == 1242 and h == 2688:
-            # Clean iOS 11 Pro Max simulator screenshot
             screen_img = dev_img.crop((0, 130, 1242, 2688 - 50))
         else:
-            # Fallback crop
             screen_img = dev_img.crop((0, int(h * 0.05), w, int(h * 0.98)))
         
     # Create framed Android mockup
     phone = create_android_mockup(screen_img, font_status)
     
-    # Scale phone mockup
-    phone_tgt_w = int(900 * scale)
+    # Scale phone mockup to occupy almost full width (880px on 1080px wide canvas)
+    phone_tgt_w = 880
     phone_ratio = phone.width / phone.height
     phone_tgt_h = int(phone_tgt_w / phone_ratio)
     phone = phone.resize((phone_tgt_w, phone_tgt_h), Image.Resampling.LANCZOS)
     
     # Create drop shadow
-    shadow_blur_radius = int(24 * scale)
+    shadow_blur_radius = 24
     shadow = Image.new('RGBA', phone.size, (0, 0, 0, 0))
     alpha = phone.split()[3]
     shadow.paste((0, 0, 0, 120), mask=alpha)
     shadow = shadow.filter(ImageFilter.GaussianBlur(shadow_blur_radius))
     
     # Wrap text
-    max_text_width = tgt_w - int(200 * scale)
+    max_text_width = 920  # Margin 80 on each side
     wrapped_headline = wrap_text(slide["headline"], font_h, max_text_width, draw)
     wrapped_desc = wrap_text(slide["description"], font_d, max_text_width, draw)
     
     layout = slide["layout"]
-    text_x = int(100 * scale)
+    text_x = 80
     
     if layout == "bottom":
-        text_y = int(180 * scale)
+        # Text at top, Phone at bottom running off screen
+        text_y = 120
         draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=15)
         bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h)
-        desc_y = bbox_h[3] + int(45 * scale)
+        desc_y = bbox_h[3] + 35
         draw.text((text_x, desc_y), wrapped_desc, font=font_d, fill=TEXT_COLOR, spacing=15)
         
-        paste_x = (tgt_w - phone.width) // 2
-        paste_y = int(1000 * scale)
+        paste_x = (1080 - phone.width) // 2
+        paste_y = 630
     else:  # layout == "top"
-        paste_x = (tgt_w - phone.width) // 2
-        paste_y = int(-330 * scale)
+        # Phone at top running off screen, Text at bottom
+        paste_x = (1080 - phone.width) // 2
+        paste_y = -470
         
-        text_y = int(1620 * scale)
+        text_y = 1370
         draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=15)
         bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h)
-        desc_y = bbox_h[3] + int(45 * scale)
+        desc_y = bbox_h[3] + 35
         draw.text((text_x, desc_y), wrapped_desc, font=font_d, fill=TEXT_COLOR, spacing=15)
         
-    shadow_offset = (0, int(15 * scale))
+    shadow_offset = (0, 15)
     img.paste(shadow, (paste_x + shadow_offset[0], paste_y + shadow_offset[1]), shadow)
     img.paste(phone, (paste_x, paste_y), phone)
     
