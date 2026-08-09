@@ -32,6 +32,16 @@ jobs:
           cd ios
           bundle update fastlane
 
+      - name: Capture Raw Screenshots (Fastlane Snapshot)
+        run: |
+          cd ios
+          bundle exec fastlane snapshot
+
+      - name: Generate Framed App Store Screenshots
+        run: |
+          pip3 install --break-system-packages deep-translator==1.11.4 pillow==10.3.0
+          python3 scripts/generate_screenshots_ios.py
+
       - name: Upload Screenshots to App Store Connect
         env:
           APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
