@@ -1,5 +1,6 @@
 import os
 import time
+import shutil
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from deep_translator import GoogleTranslator
 
@@ -321,10 +322,26 @@ def build_screenshot(slide, lang, size_name, target_size):
         path = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots_temp", fastlane_lang, snapshot_name)
         if os.path.exists(path):
             device_path = path
+            # Persist raw screenshot inside docs/internal/images/screenshots/devices/{lang}/
+            pers_dir = os.path.join(DEVICES_DIR, lang)
+            os.makedirs(pers_dir, exist_ok=True)
+            pers_path = os.path.join(pers_dir, device_file)
+            try:
+                shutil.copy2(device_path, pers_path)
+            except Exception as e:
+                print(f"Could not persist raw screenshot to devices: {e}")
         else:
             path_en = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots_temp", "en", snapshot_name)
             if os.path.exists(path_en):
                 device_path = path_en
+                # Persist raw fallback screenshot inside docs/internal/images/screenshots/devices/{lang}/
+                pers_dir = os.path.join(DEVICES_DIR, lang)
+                os.makedirs(pers_dir, exist_ok=True)
+                pers_path = os.path.join(pers_dir, device_file)
+                try:
+                    shutil.copy2(device_path, pers_path)
+                except Exception as e:
+                    print(f"Could not persist raw fallback screenshot to devices: {e}")
 
     if not device_path:
         device_path = os.path.join(DEVICES_DIR, lang, device_file)
