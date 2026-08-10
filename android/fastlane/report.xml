@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000219">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: :app:assembleDebug" time="7.808568">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: /Users/daniel.notthoff/Library/Android/sdk/platform-tools/adb -s emulator-5554 uninstall de.familienwecker.famwake || true" time="0.437696">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: /Users/daniel.notthoff/Library/Android/sdk/platform-tools/adb -s emulator-5554 install -t -r '/Users/daniel.notthoff/GIT_Repos/_privat/familienwecker/app/build/outputs/apk/debug/FamWake-Familienwecker-v2.1.0-dev-dev-debug.apk'" time="1.82124">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: /Users/daniel.notthoff/Library/Android/sdk/platform-tools/adb -s emulator-5554 shell pm grant de.familienwecker.famwake android.permission.POST_NOTIFICATIONS || true" time="0.209345">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: /Users/daniel.notthoff/Library/Android/sdk/platform-tools/adb -s emulator-5554 shell am force-stop de.familienwecker.famwake" time="0.07922">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: /Users/daniel.notthoff/Library/Android/sdk/platform-tools/adb -s emulator-5554 shell am start -n de.familienwecker.famwake/.MainActivity --ez screenshot_mode true" time="0.123649">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: /Users/daniel.notthoff/Library/Android/sdk/platform-tools/adb -s emulator-5554 shell input keyevent KEYCODE_BACK" time="0.115048">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="8: /Users/daniel.notthoff/Library/Android/sdk/platform-tools/adb -s emulator-5554 shell am force-stop de.familienwecker.famwake" time="0.065086">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="9: python3 ../../scripts/generate_html.py || true" time="0.119952">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
