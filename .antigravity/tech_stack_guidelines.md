@@ -158,6 +158,14 @@ Wenn `android.builtInKotlin=false` + `android.newDsl=false` entfernt werden soll
 
 ## ASO Screenshots: Erstellung & Regeneration
 
+### 0. Rohe iOS-Screenshots über Simulatoren neu erstellen (Laufzeit ~2h)
+* **Befehl (aus Ordner `/ios/`)**: `bundle exec fastlane generate_screenshots`
+* **Arbeitsweise**:
+  1. Startet Simulatoren für alle konfigurierten iOS-Locales.
+  2. Führt UI-Tests aus, um die App-Zustände vollautomatisch abzufotografieren (`capture_screenshots`).
+  3. Legt die rohen PNGs unter `ios/fastlane/screenshots/` ab.
+  4. Die rohen Bilder werden nach dem anschließenden Ausführen des Framing-Skripts automatisch im Git-Verzeichnis `docs/internal/images/screenshots/devices/{lang}/` für die dauerhafte Persistenz abgelegt.
+
 ### 1. iOS-Screenshots neu generieren
 * **Skript**: `python3 scripts/generate_screenshots_ios.py`
 * **Arbeitsweise**:
