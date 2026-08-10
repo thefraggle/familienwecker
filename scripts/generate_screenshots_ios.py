@@ -156,9 +156,9 @@ def draw_bottom_vignette(img, target_size):
     overlay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     draw = ImageDraw.Draw(overlay)
     
-    # We create a gradient from Y=1600*scale (alpha=0) to bottom (alpha=170)
+    # We create a gradient from Y=1730*scale (alpha=0) to bottom (alpha=170)
     scale = w / 1242.0
-    start_y = int(1600 * scale)
+    start_y = int(1730 * scale)
     end_y = h
     for y in range(start_y, end_y):
         if y >= h: break
@@ -408,7 +408,7 @@ def build_screenshot(slide, lang, size_name, target_size):
     text_x = int(100 * scale)
     
     if layout == "bottom":
-        text_y = int(220 * scale)
+        text_y = int(140 * scale)
         draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=15)
         bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h)
         desc_y = bbox_h[3] + int(45 * scale)
@@ -419,9 +419,9 @@ def build_screenshot(slide, lang, size_name, target_size):
         
     else:  # layout == "top"
         paste_x = (tgt_w - phone.width) // 2
-        paste_y = int(-400 * scale)
+        paste_y = int(-220 * scale)
         
-        text_y = int(1850 * scale)
+        text_y = int(1980 * scale)
         draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=15)
         bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h)
         desc_y = bbox_h[3] + int(45 * scale)
