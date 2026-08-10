@@ -188,5 +188,14 @@ Wenn `android.builtInKotlin=false` + `android.newDsl=false` entfernt werden soll
 ### 3. Git-Tracking & Gitignore-Bypass
 * **WICHTIG**: Da der Pfad `docs/internal/` in der `.gitignore` eingetragen ist, ignoriert Git alle dortigen Roh- und Vorschaubilder standardmäßig.
 * Nach jeder Neugenerierung müssen geänderte oder neue Bilder explizit mit force hinzugefügt werden:
-  `git add -f docs/internal/images/screenshots/`
+  `git add -f docs/internal/images/screenshots/ docs/internal/images/feature_graphics/`
 * Danach normal committen und pushen.
+
+### 4. Play Store Feature Graphics neu generieren
+* **Skript**: `python3 scripts/generate_feature_graphics.py`
+* **Arbeitsweise**:
+  1. Verwendet das Querformat-Hintergrundbild `docs/internal/images/hintergrund_quer.png` als Canvas (`1024x500`).
+  2. Übersetzt die Texte (Titel, Subtitle, Description) dynamisch für alle 22 Sprachen (mit verifizierten Fallbacks für Deutsch und Englisch).
+  3. Baut ein Pixel-Mockup mit dem aktuellen Dashboard-Screenshot (`main_scrolled.png`), neigt es um `12` Grad gegen den Uhrzeigersinn und versieht es mit einem weichen Schlagschatten.
+  4. Platziert das Mockup so auf der rechten Seite, dass es stilvoll über den oberen, unteren und rechten Rand hinausläuft (wie im Originaldesign).
+  5. Speichert die PNGs direkt in den Play Store Fastlane-Pfaden `android/fastlane/metadata/android/{locale}/images/featureGraphic.png` sowie als PNG unter `docs/internal/images/feature_graphics/`.
