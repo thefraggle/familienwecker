@@ -33,6 +33,7 @@ def generate_report():
         
         device, screen, appearance = match.groups()
         lang = lang_raw.split("-")[0].lower() # Normalize "de-DE" or "de" to "de"
+        if lang == "no": lang = "nb"
         
         if lang not in data:
             data[lang] = {}
@@ -66,6 +67,7 @@ def generate_report():
         
         screen, appearance = match.groups()
         lang = lang_raw.split("-")[0].lower() # Normalize "de-DE" to "de"
+        if lang == "no": lang = "nb"
         device = "Android Phone"
         
         if lang not in data:
