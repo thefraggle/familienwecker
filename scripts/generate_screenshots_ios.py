@@ -150,6 +150,24 @@ def fit_background(bg_path, target_size):
     bottom = top + tgt_h
     return bg_resized.crop((left, top, right, bottom))
 
+def draw_bottom_vignette(img, target_size):
+    # Draw a gradient at the bottom to increase text readability on light backgrounds
+    w, h = target_size
+    overlay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+    
+    # We create a gradient from Y=1600*scale (alpha=0) to bottom (alpha=170)
+    scale = w / 1242.0
+    start_y = int(1600 * scale)
+    end_y = h
+    for y in range(start_y, end_y):
+        if y >= h: break
+        alpha = int(170 * ((y - start_y) / (end_y - start_y)))
+        # Dark indigo matching the app's dark theme
+        draw.line([(0, y), (w, y)], fill=(11, 17, 30, alpha))
+        
+    return Image.alpha_composite(img.convert("RGBA"), overlay)
+
 def draw_iphone_status_bar(draw, clock_font, fill_color):
     # Left clock
     draw.text((120, 68), "9:41", font=clock_font, fill=fill_color)
@@ -271,14 +289,19 @@ def wrap_text(text, font, max_width, draw):
 def build_screenshot(slide, lang, size_name, target_size):
     # Fit background
     img = fit_background(BACKGROUND_PATH, target_size)
-    draw = ImageDraw.Draw(img)
     
     # Setup fonts and scales
     tgt_w, tgt_h = target_size
     scale = tgt_w / 1242.0
     
-    h_size = int(105 * scale)
-    d_size = int(46 * scale)
+    layout = slide["layout"]
+    if layout == "top":
+        img = draw_bottom_vignette(img, target_size)
+        
+    draw = ImageDraw.Draw(img)
+    
+    h_size = int(120 * scale)
+    d_size = int(50 * scale)
     
     # Determine font paths and indices based on language
     if lang in ("ja", "zh-CN"):
@@ -363,7 +386,7 @@ def build_screenshot(slide, lang, size_name, target_size):
     phone = create_iphone_mockup(screen_img, font_status)
     
     # Scale phone to target size
-    phone_tgt_w = int(900 * scale)
+    phone_tgt_w = int(1010 * scale)
     phone_ratio = phone.width / phone.height
     phone_tgt_h = int(phone_tgt_w / phone_ratio)
     phone = phone.resize((phone_tgt_w, phone_tgt_h), Image.Resampling.LANCZOS)
@@ -385,20 +408,20 @@ def build_screenshot(slide, lang, size_name, target_size):
     text_x = int(100 * scale)
     
     if layout == "bottom":
-        text_y = int(180 * scale)
+        text_y = int(220 * scale)
         draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=15)
         bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h)
         desc_y = bbox_h[3] + int(45 * scale)
         draw.text((text_x, desc_y), wrapped_desc, font=font_d, fill=TEXT_COLOR, spacing=15)
         
         paste_x = (tgt_w - phone.width) // 2
-        paste_y = tgt_h - phone.height
+        paste_y = int(720 * scale)
         
     else:  # layout == "top"
         paste_x = (tgt_w - phone.width) // 2
-        paste_y = int(-330 * scale)
+        paste_y = int(-400 * scale)
         
-        text_y = int(1620 * scale)
+        text_y = int(1850 * scale)
         draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=15)
         bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h)
         desc_y = bbox_h[3] + int(45 * scale)
