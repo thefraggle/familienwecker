@@ -30,7 +30,7 @@ TARGET_SIZE = (1024, 500)
 # Total 22 app languages
 LANGUAGES = [
     "bn", "da", "de", "en", "es", "fr", "hi", "id", "it", "ja", "ko",
-    "mr", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk", "vi", "zh-CN"
+    "mr", "nl", "no", "nb", "pl", "pt", "ru", "sv", "tr", "uk", "vi", "zh-CN"
 ]
 
 # Android Locale Map
@@ -49,6 +49,7 @@ LOCALE_MAP = {
     "mr": ["mr-IN"],
     "nl": ["nl-NL"],
     "no": ["no-NO", "nb-NO"],
+    "nb": ["no-NO", "nb-NO"],
     "pl": ["pl-PL"],
     "pt": ["pt-PT", "pt-BR"],
     "ru": ["ru-RU"],
@@ -71,6 +72,18 @@ VERIFIED_FG = {
         "title_2": "Family Alarm Clock",
         "subtitle": "No More Morning Chaos",
         "desc": "The smart plan for bath, breakfast and\na relaxed wake-up."
+    },
+    "no": {
+        "title_1": "FamWake",
+        "title_2": "Familievekker",
+        "subtitle": "Ingen mer morgenkaos",
+        "desc": "Den smarte planen for bad, frokost og\nen avslappet start på dagen."
+    },
+    "nb": {
+        "title_1": "FamWake",
+        "title_2": "Familievekker",
+        "subtitle": "Ingen mer morgenkaos",
+        "desc": "Den smarte planen for bad, frokost og\nen avslappet start på dagen."
     }
 }
 

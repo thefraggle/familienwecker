@@ -235,8 +235,8 @@ struct FamWakeApp: App {
         UserDefaults.standard.set("FW-982-XYZ", forKey: "family_join_code")
         UserDefaults.standard.set(false, forKey: "tooltips_enabled")
         
-        // 2. Systemsprache ermitteln
-        let lang = Locale.current.language.languageCode?.identifier ?? "en"
+        // 2. Systemsprache ermitteln (über LanguageManager)
+        let lang = LanguageManager.shared.currentLocale.language.languageCode?.identifier ?? "en"
         
         // 3. Lokalisierte Namen & Texte definieren
         var fatherName = "Papa"
@@ -279,6 +279,71 @@ struct FamWakeApp: App {
             motherName = "Mamma"
             childName = "Leonardo"
             familyName = "Famiglia"
+        } else if lang == "pt" {
+            fatherName = "Pai"
+            motherName = "Mãe"
+            childName = "Lucas"
+            familyName = "Família"
+        } else if lang == "id" || lang == "in" {
+            fatherName = "Ayah"
+            motherName = "Ibu"
+            childName = "Budi"
+            familyName = "Keluarga"
+        } else if lang == "hi" {
+            fatherName = "पापा"
+            motherName = "मम्मी"
+            childName = "अर्णव"
+            familyName = "परिवार"
+        } else if lang == "bn" {
+            fatherName = "বাবা"
+            motherName = "মা"
+            childName = "রাহুল"
+            familyName = "পরিবার"
+        } else if lang == "mr" {
+            fatherName = "बाबा"
+            motherName = "आई"
+            childName = "रोहन"
+            familyName = "कुटुंब"
+        } else if lang == "ja" {
+            fatherName = "お父さん"
+            motherName = "お母さん"
+            childName = "蓮"
+            familyName = "ファミリー"
+        } else if lang == "ko" {
+            fatherName = "아빠"
+            motherName = "엄마"
+            childName = "민준"
+            familyName = "가족"
+        } else if lang == "zh" {
+            fatherName = "爸爸"
+            motherName = "妈妈"
+            childName = "小明"
+            familyName = "家庭"
+        } else if lang == "ru" || lang == "uk" {
+            fatherName = "Папа"
+            motherName = "Мама"
+            childName = "Саша"
+            familyName = "Семья"
+        } else if lang == "tr" {
+            fatherName = "Baba"
+            motherName = "Anne"
+            childName = "Can"
+            familyName = "Aile"
+        } else if lang == "vi" {
+            fatherName = "Bố"
+            motherName = "Mẹ"
+            childName = "Minh"
+            familyName = "Gia đình"
+        } else if lang == "pl" {
+            fatherName = "Tata"
+            motherName = "Mama"
+            childName = "Jan"
+            familyName = "Rodzina"
+        } else if lang == "sv" {
+            fatherName = "Pappa"
+            motherName = "Mamma"
+            childName = "Emil"
+            familyName = "Familjen"
         }
         
         UserDefaults.standard.set(familyName, forKey: "family_name")

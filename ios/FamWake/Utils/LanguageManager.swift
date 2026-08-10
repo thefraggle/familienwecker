@@ -41,17 +41,20 @@ final class LanguageManager {
         bundle = .main
     }
 
-    // Löst "system" und Dialekte in den tatsächlichen Bundle-Code auf
+    // Löst "system", Sprachvarianten und Dialekte in den tatsächlichen Bundle-Code auf
     private func resolvedCode(_ code: String) -> String {
-        if code == "system" {
+        var raw = code
+        if raw == "system" {
             let preferred = Locale.preferredLanguages.first ?? "en"
-            let lang = String(preferred.prefix(2))
-            return baseCodes.contains(lang) ? lang : "en"
+            raw = String(preferred.prefix(2)).lowercased()
         }
-        return supported.contains(code) ? code : "en"
+        if raw == "no" || raw == "nb" { return "nb" }
+        if raw == "in" || raw == "id" { return "id" }
+        if raw.hasPrefix("zh") { return "zh-Hans" }
+        return supported.contains(raw) ? raw : "en"
     }
 
-    private let baseCodes    = ["en", "da", "de", "es", "fr", "it", "ja", "ko", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk", "zh", "id", "vi", "bn", "mr", "hi"]
+    private let baseCodes    = ["en", "da", "de", "es", "fr", "it", "ja", "ko", "nl", "no", "nb", "pl", "pt", "ru", "sv", "tr", "uk", "zh", "id", "vi", "bn", "mr", "hi"]
     private let dialectCodes = ["gsw", "swg", "ksh"]
-    private let supported    = ["en", "da", "de", "es", "fr", "it", "ja", "ko", "nl", "no", "pl", "pt", "ru", "sv", "tr", "uk", "zh", "id", "vi", "bn", "mr", "hi", "gsw", "swg", "ksh"]
+    private let supported    = ["en", "da", "de", "es", "fr", "it", "ja", "ko", "nl", "no", "nb", "pl", "pt", "ru", "sv", "tr", "uk", "zh", "id", "vi", "bn", "mr", "hi", "gsw", "swg", "ksh"]
 }
