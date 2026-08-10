@@ -368,7 +368,7 @@ def build_screenshot(slide, lang, target_size):
         paste_x = (1080 - phone.width) // 2
         paste_y = -470
         
-        text_y = 1370
+        text_y = 1440
         draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=15)
         bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h)
         desc_y = bbox_h[3] + 35
