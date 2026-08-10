@@ -5,7 +5,7 @@ devices([
 
 # Die Liste aller 22/25 lokalisierten Sprachen
 languages([
-  "de", "en", "da", "no", "sv", "nl", "fr", "es", "it", "pt", 
+  "de", "en", "da", "no", "nb", "sv", "nl", "fr", "es", "it", "pt", 
   "pl", "ru", "tr", "uk", "ja", "ko", "zh-Hans", "id", "vi", "bn", 
   "mr", "hi"
 ])
