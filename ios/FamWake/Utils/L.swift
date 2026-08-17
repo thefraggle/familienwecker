@@ -4,8 +4,18 @@ import Foundation
 /// Nutzung: L.loginButton statt NSLocalizedString("login_button", ...)
 enum L {
     static func s(_ key: String, _ args: CVarArg...) -> String {
-        let bundle = LanguageManager.shared.bundle
-        let format = bundle.localizedString(forKey: key, value: nil, table: nil)
+        let locale = LanguageManager.shared.currentLocale
+        var format = String(localized: String.LocalizationValue(key), table: "Localizable", bundle: .main, locale: locale, comment: "")
+        if format == key || format.isEmpty {
+            let bundle = LanguageManager.shared.bundle
+            format = bundle.localizedString(forKey: key, value: nil, table: "Localizable")
+        }
+        if format == key || format.isEmpty {
+            if let enPath = Bundle.main.path(forResource: "en", ofType: "lproj"),
+               let enBundle = Bundle(path: enPath) {
+                format = enBundle.localizedString(forKey: key, value: nil, table: "Localizable")
+            }
+        }
         if args.isEmpty { return format }
         return String(format: format, arguments: args)
     }

@@ -388,21 +388,32 @@ def build_screenshot(slide, lang, size_name, target_size):
 
     if device_file in SNAPSHOT_MAPPING:
         snapshot_name = SNAPSHOT_MAPPING[device_file]
-        fastlane_lang = "zh-Hans" if lang == "zh-CN" else ("nb" if lang in ("no", "nb") else lang)
-        path = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots_temp", fastlane_lang, snapshot_name)
-        if os.path.exists(path):
-            device_path = path
-            pers_dir = os.path.join(DEVICES_DIR, lang)
-            os.makedirs(pers_dir, exist_ok=True)
-            pers_path = os.path.join(pers_dir, device_file)
-            try:
-                shutil.copy2(device_path, pers_path)
-            except Exception as e:
-                print(f"Could not persist raw screenshot: {e}")
-        else:
-            path_en = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots_temp", "en", snapshot_name)
-            if os.path.exists(path_en):
-                device_path = path_en
+        locs = LOCALE_MAP.get(lang, [lang])
+        possible_folders = list(locs) + [lang]
+        if lang == "zh-CN": possible_folders.append("zh-Hans")
+        if lang in ("no", "nb"): possible_folders.extend(["no-NO", "nb-NO", "no", "nb"])
+        if lang == "id": possible_folders.extend(["id-ID", "id"])
+        if lang == "hi": possible_folders.extend(["hi-IN", "hi"])
+        
+        for folder in possible_folders:
+            chk_path = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots", folder, snapshot_name)
+            if os.path.exists(chk_path):
+                device_path = chk_path
+                pers_dir = os.path.join(DEVICES_DIR, lang)
+                os.makedirs(pers_dir, exist_ok=True)
+                pers_path = os.path.join(pers_dir, device_file)
+                try:
+                    shutil.copy2(device_path, pers_path)
+                except Exception as e:
+                    print(f"Could not persist raw screenshot: {e}")
+                break
+        
+        if not device_path:
+            chk_en = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots", "en-US", snapshot_name)
+            if not os.path.exists(chk_en):
+                chk_en = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots", "en", snapshot_name)
+            if os.path.exists(chk_en):
+                device_path = chk_en
                 pers_dir = os.path.join(DEVICES_DIR, lang)
                 os.makedirs(pers_dir, exist_ok=True)
                 pers_path = os.path.join(pers_dir, device_file)
@@ -449,26 +460,35 @@ def build_screenshot(slide, lang, size_name, target_size):
     wrapped_headline = wrap_text(slide["headline"], font_h, max_text_width, draw)
     wrapped_desc = wrap_text(slide["description"], font_d, max_text_width, draw)
     
-    # Line spacing tuning
-    line_spacing = int(10 * scale)
-    if lang in ("ja", "zh-CN", "ko"):
-        line_spacing = -int(25 * scale)
-    elif lang in ("hi", "mr", "bn"):
-        line_spacing = 0
+    factor = 1.35 if lang in ("ja", "zh-CN", "ko", "hi", "mr", "bn") else 1.20
+    h_line_height = int(font_h.size * factor)
+    d_line_height = int(font_d.size * factor)
+    
+    headline_lines = wrapped_headline.split("\n")
+    desc_lines = wrapped_desc.split("\n")
+    
+    headline_height = len(headline_lines) * h_line_height
+    desc_height = len(desc_lines) * d_line_height
 
     text_x = int(100 * scale)
     
     if layout == "bottom":
         text_y = int(140 * scale)
-        bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h, spacing=line_spacing)
-        desc_y = bbox_h[3] + int(35 * scale)
-        bbox_d = draw.textbbox((text_x, desc_y), wrapped_desc, font=font_d, spacing=line_spacing)
+        desc_y = text_y + headline_height + int(30 * scale)
+        end_y = desc_y + desc_height
         
-        draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=line_spacing)
-        draw.text((text_x, desc_y), wrapped_desc, font=font_d, fill=TEXT_COLOR, spacing=line_spacing)
-        
+        curr_y = text_y
+        for line in headline_lines:
+            draw.text((text_x, curr_y), line, font=font_h, fill=ACCENT_COLOR)
+            curr_y += h_line_height
+            
+        curr_y = desc_y
+        for line in desc_lines:
+            draw.text((text_x, curr_y), line, font=font_d, fill=TEXT_COLOR)
+            curr_y += d_line_height
+            
         paste_x = (tgt_w - phone.width) // 2
-        min_paste_y = bbox_d[3] + int(35 * scale)
+        min_paste_y = end_y + int(30 * scale)
         paste_y = max(int(720 * scale), min_paste_y)
         
     else:  # layout == "top"
@@ -476,17 +496,23 @@ def build_screenshot(slide, lang, size_name, target_size):
         paste_y = int(-220 * scale)
         
         text_y = int(1980 * scale)
-        bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h, spacing=line_spacing)
-        desc_y = bbox_h[3] + int(35 * scale)
-        bbox_d = draw.textbbox((text_x, desc_y), wrapped_desc, font=font_d, spacing=line_spacing)
+        desc_y = text_y + headline_height + int(30 * scale)
+        end_y = desc_y + desc_height
         
-        if bbox_d[3] > tgt_h - int(40 * scale):
-            overflow = bbox_d[3] - (tgt_h - int(40 * scale))
+        if end_y > tgt_h - int(40 * scale):
+            overflow = end_y - (tgt_h - int(40 * scale))
             text_y -= overflow
             desc_y -= overflow
             
-        draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=line_spacing)
-        draw.text((text_x, desc_y), wrapped_desc, font=font_d, fill=TEXT_COLOR, spacing=line_spacing)
+        curr_y = text_y
+        for line in headline_lines:
+            draw.text((text_x, curr_y), line, font=font_h, fill=ACCENT_COLOR)
+            curr_y += h_line_height
+            
+        curr_y = desc_y
+        for line in desc_lines:
+            draw.text((text_x, curr_y), line, font=font_d, fill=TEXT_COLOR)
+            curr_y += d_line_height
         
     shadow_offset = (0, int(15 * scale))
     img.paste(shadow, (paste_x + shadow_offset[0], paste_y + shadow_offset[1]), shadow)
@@ -499,22 +525,8 @@ def build_screenshot(slide, lang, size_name, target_size):
 
 def main():
     ios_screenshots_dir = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots")
-    temp_screenshots_dir = os.path.join(PROJECT_ROOT, "ios/fastlane/screenshots_temp")
     
-    if os.path.exists(temp_screenshots_dir):
-        shutil.rmtree(temp_screenshots_dir)
-        
-    if os.path.exists(ios_screenshots_dir):
-        print(f"Creating backup of raw screenshots to: {temp_screenshots_dir}")
-        shutil.copytree(ios_screenshots_dir, temp_screenshots_dir)
-    else:
-        print("Warning: ios/fastlane/screenshots does not exist. No raw screenshots found!")
-        os.makedirs(temp_screenshots_dir, exist_ok=True)
-        
-    if os.path.exists(ios_screenshots_dir):
-        shutil.rmtree(ios_screenshots_dir)
     os.makedirs(ios_screenshots_dir, exist_ok=True)
-    
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     print(f"Target root docs directory: {OUTPUT_DIR}")
     
@@ -566,10 +578,6 @@ def main():
                         img.save(fastlane_save_path, "PNG")
                         
             print(f"  Done '{lang}' size {size_name}")
-            
-    if os.path.exists(temp_screenshots_dir):
-        print(f"Cleaning up temporary directory: {temp_screenshots_dir}")
-        shutil.rmtree(temp_screenshots_dir)
 
 if __name__ == "__main__":
     main()

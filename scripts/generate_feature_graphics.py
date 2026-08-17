@@ -276,7 +276,16 @@ def build_feature_graphic(lang, title_1, title_2, subtitle, desc):
     wrapped_desc = wrap_text(desc, font_d, max_text_width, draw)
     
     draw.text((text_x, 235), subtitle, font=font_sub, fill=TEXT_COLOR)
-    draw.text((text_x, 305), wrapped_desc, font=font_d, fill=TEXT_COLOR, spacing=8)
+    
+    # Draw description line-by-line manually to prevent spacing bugs on complex fonts
+    is_complex = any(lang in l for l in [["zh-CN", "ja", "ko"], ["hi", "mr", "bn"]])
+    factor = 1.45 if is_complex else 1.25
+    desc_line_height = int(font_d.size * factor)
+    
+    desc_y = 305
+    for line in wrapped_desc.split("\n"):
+        draw.text((text_x, desc_y), line, font=font_d, fill=TEXT_COLOR)
+        desc_y += desc_line_height
     
     # 3. Add slanted phone mockup on the right side
     # Use "main_scrolled.png" (raw dashboard screen)
