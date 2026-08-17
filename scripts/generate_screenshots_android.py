@@ -170,8 +170,8 @@ LOCALE_MAP = {
     "en": ["en-US"],
     "es": ["es-ES", "es-419"],
     "fr": ["fr-FR"],
-    "hi": ["hi-IN"],
-    "id": ["id-ID"],
+    "hi": ["hi-IN", "hi"],
+    "id": ["id-ID", "id"],
     "it": ["it-IT"],
     "ja": ["ja-JP"],
     "ko": ["ko-KR"],
@@ -407,25 +407,35 @@ def build_screenshot(slide, lang, target_size):
     wrapped_headline = wrap_text(slide["headline"], font_h, max_text_width, draw)
     wrapped_desc = wrap_text(slide["description"], font_d, max_text_width, draw)
     
-    line_spacing = 10
-    if lang in ("ja", "zh-CN", "ko"):
-        line_spacing = -22
-    elif lang in ("hi", "mr", "bn"):
-        line_spacing = 0
+    factor = 1.35 if lang in ("ja", "zh-CN", "ko", "hi", "mr", "bn") else 1.20
+    h_line_height = int(font_h.size * factor)
+    d_line_height = int(font_d.size * factor)
+    
+    headline_lines = wrapped_headline.split("\n")
+    desc_lines = wrapped_desc.split("\n")
+    
+    headline_height = len(headline_lines) * h_line_height
+    desc_height = len(desc_lines) * d_line_height
 
     text_x = 80
     
     if layout == "bottom":
         text_y = 120
-        bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h, spacing=line_spacing)
-        desc_y = bbox_h[3] + 30
-        bbox_d = draw.textbbox((text_x, desc_y), wrapped_desc, font=font_d, spacing=line_spacing)
+        desc_y = text_y + headline_height + 25
+        end_y = desc_y + desc_height
         
-        draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=line_spacing)
-        draw.text((text_x, desc_y), wrapped_desc, font=font_d, fill=TEXT_COLOR, spacing=line_spacing)
-        
+        curr_y = text_y
+        for line in headline_lines:
+            draw.text((text_x, curr_y), line, font=font_h, fill=ACCENT_COLOR)
+            curr_y += h_line_height
+            
+        curr_y = desc_y
+        for line in desc_lines:
+            draw.text((text_x, curr_y), line, font=font_d, fill=TEXT_COLOR)
+            curr_y += d_line_height
+            
         paste_x = (1080 - phone.width) // 2
-        min_paste_y = bbox_d[3] + 30
+        min_paste_y = end_y + 30
         paste_y = max(630, min_paste_y)
         
     else:  # layout == "top"
@@ -433,17 +443,23 @@ def build_screenshot(slide, lang, target_size):
         paste_y = -470
         
         text_y = 1440
-        bbox_h = draw.textbbox((text_x, text_y), wrapped_headline, font=font_h, spacing=line_spacing)
-        desc_y = bbox_h[3] + 30
-        bbox_d = draw.textbbox((text_x, desc_y), wrapped_desc, font=font_d, spacing=line_spacing)
+        desc_y = text_y + headline_height + 25
+        end_y = desc_y + desc_height
         
-        if bbox_d[3] > 1920 - 35:
-            overflow = bbox_d[3] - (1920 - 35)
+        if end_y > 1920 - 35:
+            overflow = end_y - (1920 - 35)
             text_y -= overflow
             desc_y -= overflow
             
-        draw.text((text_x, text_y), wrapped_headline, font=font_h, fill=ACCENT_COLOR, spacing=line_spacing)
-        draw.text((text_x, desc_y), wrapped_desc, font=font_d, fill=TEXT_COLOR, spacing=line_spacing)
+        curr_y = text_y
+        for line in headline_lines:
+            draw.text((text_x, curr_y), line, font=font_h, fill=ACCENT_COLOR)
+            curr_y += h_line_height
+            
+        curr_y = desc_y
+        for line in desc_lines:
+            draw.text((text_x, curr_y), line, font=font_d, fill=TEXT_COLOR)
+            curr_y += d_line_height
         
     shadow_offset = (0, 15)
     img.paste(shadow, (paste_x + shadow_offset[0], paste_y + shadow_offset[1]), shadow)

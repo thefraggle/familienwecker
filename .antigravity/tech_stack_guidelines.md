@@ -110,6 +110,10 @@
 | 2026-05-25 | Cross-Platform: Buffer, reordering & iOS push delivery | Centered iOS main buffer display by grouping each card and buffer inside a `VStack` as a single List Row (avoiding default List spacing). Persisted global `sequenceOrder` in Firestore update payloads to fix weekly reorder resets. Modified functions `index.js` to send native high-priority APNs alerts to prevent Apple from dropping iOS silent pushes, and added duplicate banner checks in `FamWakeApp.swift`. |
 | 2026-05-25 | Android: Centering buffer line and atomic reorder batch | Centered Android buffer divider line using Box instead of HorizontalDivider in `MainScreen.kt`, and set `top = 16.dp` and `bottom = 0.dp` padding on the buffer Row to offset the LazyColumn's `verticalArrangement = spacedBy(16.dp)` gap. Grouped `dayProfiles` and `sequenceOrder` into a single batch update to prevent snapshot listener race conditions from resetting UI. |
 | 2026-05-26 | Cross-Platform: Bathroom buffer logic bug when global=0m | Fixed bug where individual bathroom buffers were applied to the successor rather than the predecessor in the Scheduler backward loop. Refactored the loop to index and subtract predecessor's buffer (`prevBuffer`) from `wakeUpTime`, and set `bufferAfter` to the current member's buffer (0 if last member). |
+| 2026-08-08 | iOS: Lokalisierungs-Helper `L.s` bei String Catalogs fehlerhaft | Umstellung auf `String(localized:table:bundle:locale:comment:)`. Behebt den Fallback auf Englisch bei Simulator-Screenshots, da Xcode 15 String Catalogs keine physischen `.lproj`-Verzeichnisse im Bundle mehr anlegen. |
+| 2026-08-08 | Cross-Platform: Pillow Textüberlappungen bei komplexen Schriften (TTC) | Pillow's `draw.text` mit `spacing` liefert falsche Metriken für Systemschriften (Hiragino, Devanagari). Textrendering in `generate_screenshots_*.py` und `generate_feature_graphics.py` auf manuellen, zeilenweisen Zeilenumbruch mit sprachspezifischem Faktor (`1.35` / `1.45` für CJK/Hindi/Bengali, `1.20` / `1.25` für Latein) umgestellt. |
+| 2026-08-08 | Play Store: Indonesische Screenshots in Metadaten veraltet | Play-Store-Verzeichnis `"id"` (ohne `-ID`) wurde in `generate_screenshots_android.py` nicht aktualisiert. `LOCALE_MAP` um `"id"` erweitert, damit beide Ordner korrekt indonesische Bilder erhalten. |
+
 
 
 
@@ -199,3 +203,20 @@ Wenn `android.builtInKotlin=false` + `android.newDsl=false` entfernt werden soll
   3. Baut ein Pixel-Mockup mit dem aktuellen Dashboard-Screenshot (`main_scrolled.png`), neigt es um `12` Grad gegen den Uhrzeigersinn und versieht es mit einem weichen Schlagschatten.
   4. Platziert das Mockup so auf der rechten Seite, dass es stilvoll über den oberen, unteren und rechten Rand hinausläuft (wie im Originaldesign).
   5. Speichert die PNGs direkt in den Play Store Fastlane-Pfaden `android/fastlane/metadata/android/{locale}/images/featureGraphic.png` sowie als PNG unter `docs/internal/images/feature_graphics/`.
+
+## ASO & Metadaten Best Practices (Applyra)
+
+### 1. iOS App Store Keyword-Synergie
+- **Indexierungs-Kombination**: Apple indiziert Suchbegriffe kombiniert aus `App Title` (max. 30 Zeichen), `Subtitle` (max. 30 Zeichen) und `Keyword-Feld` (max. 100 Zeichen).
+- **Keine Redundanzen**: Wörter, die bereits im Title oder Subtitle vorkommen (z.B. *Familienwecker*, *Morgenplaner*, *Family*, *Alarm*), dürfen **nicht** in `keywords.txt` wiederholt werden. Dies spart wertvolle Zeichen für zusätzliche High-Traffic Keywords (*kostenlos*, *laut*, *badplaner*, *shared*, *tracker*).
+- **Formatierung**: Kommagetrennt ohne Leerzeichen (z.B. `kinderwecker,morgenroutine,zeitmanagement,...`), keine Wortwiederholungen, keine Plural-/Singular-Duplikate.
+
+### 2. Google Play Store Keyword-Dichte
+- **Indexierung**: Google Play indiziert `Title` (max. 30 Zeichen), `Short Description` (max. 80 Zeichen) und `Full Description` (max. 4000 Zeichen).
+- **Optimale Keyword-Dichte**: Primäre Keywords (*Familienwecker*, *Kinderwecker*, *shared alarm clock*, *morning routine*) sollten eine natürliche Dichte von **1.2% – 1.5%** in der `full_description.txt` aufweisen (ca. 6–8 Erwähnungen bei ~500 Wörtern).
+- **Kein Keyword-Stuffing**: Keywords sinnvoll in Fließtext und strukturierte Feature-Überschriften einbinden.
+
+### 3. Applyra MCP Workflow
+- **Wöchentliche Routine**: Keywords mit Traffic $< 5$ oder Duplikate (Case-Sensitive Einträge wie *Schlafplaner* vs. *schlafplaner*) via `untrack_keyword` bereinigen.
+- **Potenzialsuche**: Regelmäßige Nischen- und Autocomplete-Abfragen nach Begriffen mit **Traffic $> 10$** und **Difficulty $< 40$** (KEI $\ge 1.0$).
+

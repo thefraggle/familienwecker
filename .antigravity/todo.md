@@ -1,33 +1,26 @@
 # FamWake – Internes Todo
 
 ## Laufende Aufgaben
+- [ ] ASO/iOS: `keywords.txt` für `de-DE` und `en-US` mit High-Potential Keywords (*kostenlos*, *laut*, *badplaner*, *shared*, *tracker*) optimieren 🚀
+- [ ] ASO/Android: Keyword-Dichte in `full_description.txt` (`de-DE`, `en-US`) auf 1.2–1.5% optimieren 📈
 - [ ] UX: Vertikales Padding um Zahnrad & Header-Größe optimieren (iOS & Android) 📱 (GitHub Issue #26)
 - [ ] UX: Wochentag-Auswahl vom Hauptbildschirm beim Bearbeiten eines Mitglieds übernehmen 🗓️ (GitHub Issue #27)
+- [ ] Refactor: "Ich bin schon wach" Button-Logik auf relatives 4h-Zeitfenster vereinheitlichen ⏰ (GitHub Issue #41)
+- [ ] Bug (iOS): Settings-Icon (Zahnrad) glitched/springt wiederholt auf dem Screen ⚙️ (GitHub Issue #42)
+
+## Abgeschlossen (KW 34 / August 2026)
+- [x] ASO/Applyra: Wöchentliche ASO-Analyse (iOS & Android) durchgeführt, Duplikate bereinigt & Report in `.antigravity/applyra_status_report.md` erstellt ✅
+- [x] ASO/Applyra: Nischen- & Autocomplete-Potenziale (*wecker kostenlos*, *wecker laut*, *my morning routine*, *kids morning routine*) identifiziert ✅
+- [x] ASO/Applyra: App-Score Benchmark gegen Alarmy für alle 10 Kernmärkte dokumentiert ✅
 
 ## Abgeschlossen (v2.1.1)
-- [x] iOS: Share-Message (Einladungstext) beim Teilen der Familie repariert (Language-Bundle & Key-Lookup-Problem behoben) ✅
+- [x] iOS: Share-Message (Einladungstext) beim Teilen der Familie repariert ✅
 - [x] iOS: InitialsAvatar-Hintergrundfarben stabilisiert / persistent zugeordnet 🎨 (GitHub Issue #31) ✅
-- [x] Lokalisierung: "(Du)"-Label auf Kachel für eigene Mitglieder in allen Sprachen übersetzt 🇩🇪/🇬🇧 (GitHub Issue #32) ✅
-- [x] Lokalisierung: `minutes_suffix` Platzhalter auf EditMember-Screen bei Badzeit in allen Sprachen behoben 🇩🇰 (GitHub Issue #33) ✅
-- [x] Lokalisierung: `sound_name_standard` Platzhalter im Einstellungs-Menü bei Klingelton behoben 🔔 (GitHub Issue #34) ✅
-- [x] ASO/iOS: Bengali (`bn-BD`) und Marathi (`mr-IN`) Support reaktiviert, Screenshots & Metadaten generiert & hochgeladen ✅
-- [x] ASO/iOS: Statusbar-Uhrzeit-Überlappung (`9:417:42` Fix) behoben & automatische Raw-Screenshot-Persistenz im Git-Repo integriert ✅
-- [x] CI/CD: Fastlane auf v2.237.0 hochgezogen, um neue Apple-Locales zu unterstützen & Bundler-Deployment-Inkompatibilitäten gelöst ✅
-- [x] iOS Emulator: Impressum / Datenschutzerklärung-Links im Simulator verifizieren (erledigt für v2.0.5) ✅
-- [x] ASO/Applyra: Keyword- & Nischen-Analyse für iOS durchführen (KW32 live) ✅
-- [x] ASO/Applyra: App-Store Autocomplete-Suche analysieren zur Optimierung des iOS Keyword-Felds ✅
-- [x] ASO/Android: Screenshots-Lane, Klick-Erkennungs-Fixes und Procedural 16:9 Play-Store-Framing vollständig abgeschlossen ✅
-- [x] ASO/iOS: App-Store Screenshots-Framing überarbeitet (iPhone Mockup auf 1010px vergrößert, Y-Abstände angepasst, Vignette für Textlesbarkeit integriert) ✅
+- [x] Lokalisierung: "(Du)"-Label auf Kachel in allen Sprachen übersetzt 🇩🇪/🇬🇧 (GitHub Issue #32) ✅
+- [x] Lokalisierung: `minutes_suffix` und `sound_name_standard` Platzhalter behoben 🔔 (GitHub Issues #33, #34) ✅
+- [x] ASO/iOS: Bengali (`bn-BD`) und Marathi (`mr-IN`) Support reaktiviert, Screenshots & Metadaten online ✅
+- [x] ASO/iOS: Statusbar-Uhrzeit-Überlappung (`9:417:42`) behoben & Procedural Framing überarbeitet ✅
+- [x] ASO/Android: Screenshots-Lane, Klick-Erkennung und 16:9 Play-Store-Framing abgeschlossen ✅
 
-## Abgeschlossen (v2.0.7)
-- [x] iOS & Android: Snooze- & "Schon wach"-Logikfehler behoben (Snooze blockiert nicht mehr "Schon wach") ✅
-- [x] ASO/Changelog: Release-Notes, Changelogs & Metadaten für v2.0.7 erstellt ✅
-
-## Abgeschlossen (v2.0.6)
-- [x] Android: targetSdk auf 36 (Android 16) angehoben zur Einhaltung der Play Store Richtlinien ✅
-- [x] iOS: Ungenutztes `iconScale` und Lottie-Platzhalterkommentar in `RingingView.swift` aufgeräumt ✅
-- [x] Release-Notes: Metadaten für v2.0.6 generiert und `bn-IN` bereinigt ✅
-
-## Weiterentwicklung & Feature-Backlog
-Ab sofort als GitHub Issues nachverfolgt:
+## Feature-Backlog
 👉 [GitHub Issues](https://github.com/thefraggle/familienwecker/issues)

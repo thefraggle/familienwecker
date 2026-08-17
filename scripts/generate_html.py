@@ -13,13 +13,11 @@ def generate_report():
     data = {}
     
     # 1. Parse iOS Screenshots
-    # Format: ios/fastlane/screenshots/<lang>/<device>-<screen>_<appearance>.png
     ios_pattern = os.path.join(ios_base_dir, "**", "*.png")
     ios_files = glob.glob(ios_pattern, recursive=True)
     ios_regex = re.compile(r"([^/]+)-([0-9]+)(?:_[A-Za-z_]+)?_(Light|Dark|Slide)\.png$")
     
     for filepath in ios_files:
-        # Relative path from the HTML file directory (ios_base_dir)
         rel_path = os.path.relpath(filepath, ios_base_dir)
         parts = rel_path.split(os.sep)
         if len(parts) < 2 or filepath == html_file:
@@ -32,7 +30,7 @@ def generate_report():
             continue
         
         device, screen, appearance = match.groups()
-        lang = lang_raw.split("-")[0].lower() # Normalize "de-DE" or "de" to "de"
+        lang = lang_raw.split("-")[0].lower()
         if lang == "no": lang = "nb"
         
         if lang not in data:
@@ -47,13 +45,11 @@ def generate_report():
         data[lang]["ios"][device][screen][appearance] = rel_path
 
     # 2. Parse Android Screenshots
-    # Format: android/fastlane/screenshots/<lang>/<screen>_<appearance>.png
     android_pattern = os.path.join(android_base_dir, "**", "*.png")
     android_files = glob.glob(android_pattern, recursive=True)
     android_regex = re.compile(r"([0-9]+)(?:_[A-Za-z_]+)?_(Light|Dark|Slide)\.png$")
     
     for filepath in android_files:
-        # Relative path from the HTML file directory (ios_base_dir)
         rel_path = "../../../android/fastlane/metadata/android/" + os.path.relpath(filepath, android_base_dir)
         parts = os.path.relpath(filepath, android_base_dir).split(os.sep)
         if len(parts) < 2:
@@ -66,7 +62,7 @@ def generate_report():
             continue
         
         screen, appearance = match.groups()
-        lang = lang_raw.split("-")[0].lower() # Normalize "de-DE" to "de"
+        lang = lang_raw.split("-")[0].lower()
         if lang == "no": lang = "nb"
         device = "Android Phone"
         
@@ -81,7 +77,33 @@ def generate_report():
             
         data[lang]["android"][device][screen][appearance] = rel_path
 
-    # Build the HTML content
+    # 3. Parse Android Feature Graphics
+    fg_base_dir = os.path.join(project_root, "docs", "internal", "images", "feature_graphics")
+    fg_pattern = os.path.join(fg_base_dir, "*.png")
+    fg_files = glob.glob(fg_pattern)
+    
+    for filepath in fg_files:
+        filename = os.path.basename(filepath)
+        if not filename.startswith("feature_graphic_"):
+            continue
+        lang = filename.replace("feature_graphic_", "").replace(".png", "").lower()
+        if lang == "no": lang = "nb"
+        
+        rel_path = "../../../docs/internal/images/feature_graphics/" + filename
+        device = "Android Play Store"
+        screen = "01_Feature Graphic"
+        
+        if lang not in data:
+            data[lang] = {}
+        if "feature" not in data[lang]:
+            data[lang]["feature"] = {}
+        if device not in data[lang]["feature"]:
+            data[lang]["feature"][device] = {}
+        if screen not in data[lang]["feature"][device]:
+            data[lang]["feature"][device][screen] = {}
+            
+        data[lang]["feature"][device][screen]["Banner"] = rel_path
+
     languages = sorted(list(data.keys()))
     if not languages:
         print("No screenshots found to generate HTML report.")
@@ -330,21 +352,22 @@ def generate_report():
 <body>
 
     <header>
-        <h1>FamWake Screenshots</h1>
-        <p class="subtitle">Lokalisierte App Store & Play Store Screenshots im Light & Dark Mode</p>
+        <h1>FamWake Screenshots Overview</h1>
+        <p class="subtitle">Lokalisierte App Store & Play Store Assets für alle 22 Sprachen</p>
     </header>
 
     <div class="controls-container">
         <div class="control-row">
-            <span class="control-label">Plattform:</span>
-            <button class="btn plat-btn active" onclick="setPlatform('ios')">iOS (App Store)</button>
-            <button class="btn plat-btn" onclick="setPlatform('android')">Android (Play Store)</button>
+            <span class="control-label">Asset-Typ:</span>
+            <button class="btn plat-btn active" onclick="setPlatform('ios')">iOS Screenshots</button>
+            <button class="btn plat-btn" onclick="setPlatform('android')">Android Screenshots</button>
+            <button class="btn plat-btn" onclick="setPlatform('feature')">Feature Graphics</button>
         </div>
         <div class="control-row">
             <span class="control-label">Sprache:</span>
 """
     
-    # Add language buttons
+    default_lang = languages[0]
     for idx, lang in enumerate(languages):
         active_class = " active" if idx == 0 else ""
         html += f'            <button class="btn lang-btn{active_class}" onclick="setLanguage(\'{lang}\')">{lang.upper()}</button>\n'
@@ -355,82 +378,88 @@ def generate_report():
     <div class="gallery-container">
 """
 
-    # Add gallery sections for all platform + lang combinations
-    default_lang = languages[0]
-    
-    for platform in ["ios", "android"]:
+    for platform in ["ios", "android", "feature"]:
         for lang in languages:
             is_active = (platform == "ios" and lang == default_lang)
             active_class = " active" if is_active else ""
             
             html += f'        <div id="gallery-{platform}-{lang}" class="gallery-section{active_class}">\n'
             
-            # Check if this combination has screenshots
             if lang in data and platform in data[lang]:
-                # Add devices
                 for device in sorted(list(data[lang][platform].keys())):
                     html += f'            <div class="device-group">\n'
                     html += f'                <h2 class="device-title">{device}</h2>\n'
-                    html += f'                <div class="screenshot-grid">\n'
                     
-                    # Add screens
-                    for screen in sorted(list(data[lang][platform][device].keys())):
-                        screen_num = screen.split("_")[0]
-                        clean_title = screen.split("_", 1)[-1] if "_" in screen else ""
-                        # Format to a nice readable name
-                        if clean_title:
-                            clean_title = " ".join(re.findall("[A-Z][a-z_]*", clean_title)).replace("_", " ")
-                        if not clean_title:
-                            if screen_num == "01": clean_title = "Dashboard (Empty)"
-                            elif screen_num == "02": clean_title = "Dashboard (Active)"
-                            elif screen_num == "03": clean_title = "Edit Member"
-                            elif screen_num == "04": clean_title = "Share Settings"
-                            else: clean_title = f"Screen {screen_num}"
-                        
-                        html += f'                    <div class="screenshot-card">\n'
-                        html += f'                        <div class="card-header">\n'
-                        html += f'                            <span>{clean_title}</span>\n'
-                        html += f'                            <span class="screen-num">Screen {screen_num}</span>\n'
-                        html += f'                        </div>\n'
-                        html += f'                        <div class="card-body">\n'
-                        
-                        # Render Slide image if exists
-                        if "Slide" in data[lang][platform][device][screen]:
-                            slide_path = data[lang][platform][device][screen]["Slide"]
-                            html += f'                            <div class="image-wrapper">\n'
-                            html += f'                                <span class="image-label">SLIDE</span>\n'
-                            html += f'                                <img class="screenshot-img" src="{slide_path}" alt="{clean_title} Slide" onclick="openModal(\'{slide_path}\')">\n'
+                    if platform == "feature":
+                        # Render Banner in wide 1-column layout
+                        html += f'                <div class="screenshot-grid" style="grid-template-columns: 1fr;">\n'
+                        for screen in sorted(list(data[lang][platform][device].keys())):
+                            banner_path = data[lang][platform][device][screen]["Banner"]
+                            html += f'                    <div class="screenshot-card" style="max-width: 800px; margin: 0 auto;">\n'
+                            html += f'                        <div class="card-header">\n'
+                            html += f'                            <span>Android Play Store Banner</span>\n'
+                            html += f'                            <span class="screen-num">1024x500</span>\n'
+                            html += f'                        </div>\n'
+                            html += f'                        <div class="card-body" style="padding: 20px;">\n'
+                            html += f'                            <div class="image-wrapper" style="max-width: 100%; width: 100%;">\n'
+                            html += f'                                <span class="image-label">FEATURE GRAPHIC</span>\n'
+                            html += f'                                <img class="screenshot-img" src="{banner_path}" alt="Feature Graphic" style="aspect-ratio: 1024/500; width: 100%; max-width: 760px; border-radius: 12px;" onclick="openModal(\'{banner_path}\')">\n'
                             html += f'                            </div>\n'
+                            html += f'                        </div>\n'
+                            html += f'                    </div>\n'
+                    else:
+                        # Render normal screenshots grid
+                        html += f'                <div class="screenshot-grid">\n'
+                        for screen in sorted(list(data[lang][platform][device].keys())):
+                            screen_num = screen.split("_")[0]
+                            clean_title = screen.split("_", 1)[-1] if "_" in screen else ""
+                            if clean_title:
+                                clean_title = " ".join(re.findall("[A-Z][a-z_]*", clean_title)).replace("_", " ")
+                            if not clean_title:
+                                if screen_num == "01": clean_title = "Dashboard (Empty)"
+                                elif screen_num == "02": clean_title = "Dashboard (Active)"
+                                elif screen_num == "03": clean_title = "Edit Member"
+                                elif screen_num == "04": clean_title = "Share Settings"
+                                else: clean_title = f"Screen {screen_num}"
+                                
+                            html += f'                    <div class="screenshot-card">\n'
+                            html += f'                        <div class="card-header">\n'
+                            html += f'                            <span>{clean_title}</span>\n'
+                            html += f'                            <span class="screen-num">Screen {screen_num}</span>\n'
+                            html += f'                        </div>\n'
+                            html += f'                        <div class="card-body">\n'
                             
-                        # Render Light image if exists
-                        if "Light" in data[lang][platform][device][screen]:
-                            light_path = data[lang][platform][device][screen]["Light"]
-                            html += f'                            <div class="image-wrapper">\n'
-                            html += f'                                <span class="image-label">LIGHT</span>\n'
-                            html += f'                                <img class="screenshot-img" src="{light_path}" alt="{clean_title} Light Mode" onclick="openModal(\'{light_path}\')">\n'
-                            html += f'                            </div>\n'
+                            if "Slide" in data[lang][platform][device][screen]:
+                                slide_path = data[lang][platform][device][screen]["Slide"]
+                                html += f'                            <div class="image-wrapper">\n'
+                                html += f'                                <span class="image-label">SLIDE</span>\n'
+                                html += f'                                <img class="screenshot-img" src="{slide_path}" alt="Slide" onclick="openModal(\'{slide_path}\')">\n'
+                                html += f'                            </div>\n'
+                            if "Light" in data[lang][platform][device][screen]:
+                                light_path = data[lang][platform][device][screen]["Light"]
+                                html += f'                            <div class="image-wrapper">\n'
+                                html += f'                                <span class="image-label">LIGHT</span>\n'
+                                html += f'                                <img class="screenshot-img" src="{light_path}" alt="Light" onclick="openModal(\'{light_path}\')">\n'
+                                html += f'                            </div>\n'
+                            if "Dark" in data[lang][platform][device][screen]:
+                                dark_path = data[lang][platform][device][screen]["Dark"]
+                                html += f'                            <div class="image-wrapper">\n'
+                                html += f'                                <span class="image-label">DARK</span>\n'
+                                html += f'                                <img class="screenshot-img" src="{dark_path}" alt="Dark" onclick="openModal(\'{dark_path}\')">\n'
+                                html += f'                            </div>\n'
+                            html += f'                        </div>\n'
+                            html += f'                    </div>\n'
                             
-                        # Render Dark image if exists
-                        if "Dark" in data[lang][platform][device][screen]:
-                            dark_path = data[lang][platform][device][screen]["Dark"]
-                            html += f'                            <div class="image-wrapper">\n'
-                            html += f'                                <span class="image-label">DARK</span>\n'
-                            html += f'                                <img class="screenshot-img" src="{dark_path}" alt="{clean_title} Dark Mode" onclick="openModal(\'{dark_path}\')">\n'
-                            html += f'                            </div>\n'
-                            
-                        html += f'                        </div>\n'
-                        html += f'                    </div>\n'
-                        
                     html += f'                </div>\n'
                     html += f'            </div>\n'
             else:
                 html += f'            <div class="device-group" style="text-align: center; padding: 40px; color: #64748b;">\n'
-                html += f'                <h3>Keine Screenshots für diese Plattform in {lang.upper()} vorhanden.</h3>\n'
-                html += f'                <p style="margin-top: 10px; font-size: 0.9rem;">Führe die fastlane-Lane aus, um die Bilder zu generieren.</p>\n'
+                html += f'                <h3>Keine Assets für {platform.upper()} in {lang.upper()} vorhanden.</h3>\n'
+                html += f'                <p style="margin-top: 10px; font-size: 0.9rem;">Führe die Generierungsskripte aus.</p>\n'
                 html += f'            </div>\n'
                 
             html += f'        </div>\n'
-        
+            
     html += """    </div>
 
     <!-- The Modal -->
@@ -445,7 +474,6 @@ def generate_report():
         function setLanguage(langCode) {
             currentLang = langCode;
             
-            // Update active language button styling
             var buttons = document.getElementsByClassName('lang-btn');
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].classList.remove('active');
@@ -460,11 +488,11 @@ def generate_report():
         function setPlatform(platform) {
             currentPlatform = platform;
             
-            // Update active platform button styling
             var buttons = document.getElementsByClassName('plat-btn');
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].classList.remove('active');
-                if (buttons[i].textContent.toLowerCase().includes(platform)) {
+                if (buttons[i].textContent.toLowerCase().includes(platform) || 
+                    (platform === 'feature' && buttons[i].textContent.toLowerCase().includes('feature'))) {
                     buttons[i].classList.add('active');
                 }
             }
@@ -473,13 +501,11 @@ def generate_report():
         }
         
         function updateGallery() {
-            // Hide all sections
             var sections = document.getElementsByClassName('gallery-section');
             for (var i = 0; i < sections.length; i++) {
                 sections[i].classList.remove('active');
             }
             
-            // Show active gallery section
             var targetId = 'gallery-' + currentPlatform + '-' + currentLang;
             var target = document.getElementById(targetId);
             if (target) {
@@ -499,7 +525,6 @@ def generate_report():
             modal.style.display = "none";
         }
         
-        // Support ESC key to close modal
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
                 closeModal();
