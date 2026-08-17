@@ -202,6 +202,10 @@ struct FamWakeApp: App {
         settings.isPersistenceEnabled = true
         Firestore.firestore().settings = settings
         RevenueCatService.configure()
+        
+        if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
+            setupMockDataForScreenshots()
+        }
     }()
     
     @StateObject private var appState: AppState = {
@@ -217,14 +221,11 @@ struct FamWakeApp: App {
         UINavigationBar.appearance().largeTitleTextAttributes = [
             .font: UIFont.systemFont(ofSize: 28, weight: .bold)
         ]
-        
-        if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
-            setupMockDataForScreenshots()
-        }
     }
     
-    private func setupMockDataForScreenshots() {
+    private static func setupMockDataForScreenshots() {
         // 1. Lokale Datenbank / UserDefaults leeren & vorbereiten
+        UserDefaults.standard.removeObject(forKey: "language")
         UserDefaults.standard.removeObject(forKey: "snooze_until")
         UserDefaults.standard.set(0, forKey: "snooze_count")
         
@@ -235,8 +236,37 @@ struct FamWakeApp: App {
         UserDefaults.standard.set("FW-982-XYZ", forKey: "family_join_code")
         UserDefaults.standard.set(false, forKey: "tooltips_enabled")
         
-        // 2. Systemsprache ermitteln (über LanguageManager)
-        let lang = LanguageManager.shared.currentLocale.language.languageCode?.identifier ?? "en"
+        // 2. Systemsprache aus Locale.preferredLanguages oder CLI-Args (-AppleLanguages) ermitteln
+        var lang = "en"
+        if let pref = Locale.preferredLanguages.first {
+            let code = String(pref.prefix(2)).lowercased()
+            if code == "in" || code == "id" { lang = "id" }
+            else if code == "zh" { lang = "zh-Hans" }
+            else if code == "no" || code == "nb" { lang = "nb" }
+            else { lang = code }
+        }
+        
+        let args = ProcessInfo.processInfo.arguments
+        for (i, arg) in args.enumerated() {
+            if arg == "-AppleLanguages" && i + 1 < args.count {
+                let rawVal = args[i + 1]
+                    .replacingOccurrences(of: "(", with: "")
+                    .replacingOccurrences(of: ")", with: "")
+                    .replacingOccurrences(of: "\"", with: "")
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                let first = rawVal.split(separator: ",").first.map(String.init) ?? rawVal
+                var code = String(first.prefix(2)).lowercased()
+                if code == "in" || code == "id" { code = "id" }
+                if code == "zh" { code = "zh-Hans" }
+                if code == "no" || code == "nb" { code = "nb" }
+                lang = code
+                break
+            }
+        }
+        
+        // Force-apply language to LanguageManager & UserDefaults for UI tests
+        UserDefaults.standard.set(lang, forKey: "language")
+        LanguageManager.shared.apply(lang)
         
         // 3. Lokalisierte Namen & Texte definieren
         var fatherName = "Papa"
