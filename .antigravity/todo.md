@@ -1,14 +1,16 @@
 # FamWake – Internes Todo
 
 ## Laufende Aufgaben
-- [ ] ASO/iOS: `keywords.txt` für `de-DE` und `en-US` mit High-Potential Keywords (*kostenlos*, *laut*, *badplaner*, *shared*, *tracker*) optimieren 🚀
-- [ ] ASO/Android: Keyword-Dichte in `full_description.txt` (`de-DE`, `en-US`) auf 1.2–1.5% optimieren 📈
 - [ ] UX: Vertikales Padding um Zahnrad & Header-Größe optimieren (iOS & Android) 📱 (GitHub Issue #26)
 - [ ] UX: Wochentag-Auswahl vom Hauptbildschirm beim Bearbeiten eines Mitglieds übernehmen 🗓️ (GitHub Issue #27)
 - [ ] Refactor: "Ich bin schon wach" Button-Logik auf relatives 4h-Zeitfenster vereinheitlichen ⏰ (GitHub Issue #41)
 - [ ] Bug (iOS): Settings-Icon (Zahnrad) glitched/springt wiederholt auf dem Screen ⚙️ (GitHub Issue #42)
 
 ## Abgeschlossen (KW 34 / August 2026)
+- [x] ASO/iOS: `keywords.txt` für `de-DE` und `en-US` mit High-Potential Keywords (*kostenlos*, *laut*, *badplaner*, *shared*, *tracker*) optimiert 🚀
+- [x] ASO/Android: Keyword-Dichte in `full_description.txt` (`de-DE`, `en-US`) auf Zielwerte optimiert & fehlerhafte Formatierungen bereinigt 📈
+- [x] ASO/Store Listings: Alle 29 Sprachen auf Play Store / App Store Limits (<=4000 Bytes) validiert & Sammeldatei `STORE_LISTINGS.md` erstellt 📄
+- [x] CI/CD / Scripts: `generate_android_metadata.py` korrigiert (verhindert Löschen der Screenshot-Images bei Generierung) 🛠️
 - [x] ASO/Applyra: Wöchentliche ASO-Analyse (iOS & Android) durchgeführt, Duplikate bereinigt & Report in `.antigravity/applyra_status_report.md` erstellt ✅
 - [x] ASO/Applyra: Nischen- & Autocomplete-Potenziale (*wecker kostenlos*, *wecker laut*, *my morning routine*, *kids morning routine*) identifiziert ✅
 - [x] ASO/Applyra: App-Score Benchmark gegen Alarmy für alle 10 Kernmärkte dokumentiert ✅

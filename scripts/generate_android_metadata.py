@@ -107,11 +107,8 @@ def main():
     listings_dir = os.path.join('docs', 'internal', 'play_store_listings')
     metadata_base = os.path.join('android', 'fastlane', 'metadata', 'android')
 
-    # Remove the entire metadata directory first to clean up old unused folders
-    # (Fastlane supply tries to upload every directory it finds, so we must delete removed locales)
-    if os.path.exists(metadata_base):
-        import shutil
-        shutil.rmtree(metadata_base)
+    # Ensure base metadata directory exists (do not delete to preserve screenshot images)
+    os.makedirs(metadata_base, exist_ok=True)
 
     print("=" * 60)
     print("  Generating Google Play metadata (Fastlane supply format)")
