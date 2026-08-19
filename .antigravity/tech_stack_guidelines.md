@@ -113,6 +113,7 @@
 | 2026-08-08 | iOS: Lokalisierungs-Helper `L.s` bei String Catalogs fehlerhaft | Umstellung auf `String(localized:table:bundle:locale:comment:)`. Behebt den Fallback auf Englisch bei Simulator-Screenshots, da Xcode 15 String Catalogs keine physischen `.lproj`-Verzeichnisse im Bundle mehr anlegen. |
 | 2026-08-08 | Cross-Platform: Pillow Textüberlappungen bei komplexen Schriften (TTC) | Pillow's `draw.text` mit `spacing` liefert falsche Metriken für Systemschriften (Hiragino, Devanagari). Textrendering in `generate_screenshots_*.py` und `generate_feature_graphics.py` auf manuellen, zeilenweisen Zeilenumbruch mit sprachspezifischem Faktor (`1.35` / `1.45` für CJK/Hindi/Bengali, `1.20` / `1.25` für Latein) umgestellt. |
 | 2026-08-08 | Play Store: Indonesische Screenshots in Metadaten veraltet | Play-Store-Verzeichnis `"id"` (ohne `-ID`) wurde in `generate_screenshots_android.py` nicht aktualisiert. `LOCALE_MAP` um `"id"` erweitert, damit beide Ordner korrekt indonesische Bilder erhalten. |
+| 2026-08-19 | Play Store Generator löschte Screenshots & überlange Texte führten zu >4000 Zeichen Fehler | `scripts/generate_android_metadata.py` nutzte `shutil.rmtree(metadata_base)`, was `images/` Ordner vernichtete. `rmtree` entfernt (nur noch `makedirs`). Quelltexte in `docs/internal/play_store_listings/` auf <=3400 Zeichen gekürzt und mit Applyra-Keywords synchronisiert. Sammeldatei `STORE_LISTINGS.md` für manuelle Updates etabliert. |
 
 
 

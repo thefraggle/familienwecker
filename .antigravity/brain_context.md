@@ -7,15 +7,13 @@
 - Letzter Push & Tag: `v2.1.1` (2026-08-08) – iOS v2.1.1 mit neuen Grafiken und Metadaten online.
 - Letzte lokale Version: v2.1.1-dev (Android) / v2.1.1 (iOS)
 
-## ASO & Applyra Status (KW 34 / August 2026)
-- **Wöchentlicher Report**: `.antigravity/applyra_status_report.md` erstellt.
-- **Top-Chancen (Traffic > 10, Diff < 40)**:
-  - DE: *wecker kostenlos* (Traffic 63, Diff 33), *wecker laut* (Traffic 39, Diff 35), *badplaner* (Traffic 67), *Zeitmanagement* (Traffic 52)
-  - US: *my morning routine* (Traffic 25, Diff 17), *kids morning routine* (Traffic 25, Diff 16), *morning routine free* (Traffic 22, Diff 11)
-- **Wettbewerber-Benchmark (Alarmy)**: FamWake Scores: iOS bis 62 (ID/PL/GB 52-62, DE/US 47); Android 11-58 (FR/GB/US 54-58, DE 36).
-- **Metadaten-Hebel**:
-  - iOS: Redundanzen zwischen Subtitle und `keywords.txt` entfernen, um Platz für *kostenlos*, *laut*, *badplaner*, *shared*, *tracker* zu gewinnen.
-  - Android: Keyword-Dichte von Kernbegriffen (*Familienwecker*, *Kinderwecker*, *shared alarm clock*) auf 1.2–1.5% anheben.
+## ASO & Store Listings Status (KW 34 / August 2026)
+- **Applyra Analyse**: `.antigravity/applyra_status_report.md` erstellt.
+- **Store Listings synchronisiert**:
+  - iOS & Android für alle 29 Sprachen aktualisiert (DE/US mit High-Potential Keywords wie *kostenlos*, *laut*, *badplaner*, *kids morning routine*, *shared alarm clock*).
+  - Zeichen- und Byte-Limits (Titel <=30, Kurzbeschreibung <=80, Volltext <=4000 Bytes) in allen 29 Sprachen zu 100% validiert.
+  - Sammeldatei `STORE_LISTINGS.md` in Root, `android/fastlane/metadata/android/` und `docs/internal/play_store_listings/` bereitgestellt.
+  - Generator-Fix: `generate_android_metadata.py` löscht `images/` nicht mehr. Quelltexte in `docs/internal/play_store_listings/` synchronisiert.
 
 ## Screenshot & Feature-Graphics (August 2026)
 - **Norwegisch (no / nb)**: Mapping-Konflikt gelöst, Snapshot-Lauf stabilisiert.
