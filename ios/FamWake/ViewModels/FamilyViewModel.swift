@@ -318,47 +318,26 @@ class FamilyViewModel: ObservableObject {
         
         let cal = Calendar.current
         let now = Date()
-        let nowMinutes = cal.component(.hour, from: now) * 60 + cal.component(.minute, from: now)
         let weekdayRaw = cal.component(.weekday, from: now)
         let todayDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
-        
-        var offsetDays: Int? = nil
-        var targetProfile: DayProfile? = nil
+        let startOfToday = cal.startOfDay(for: now)
         
         for offset in 0..<7 {
             let checkDow = ((todayDow - 1 + offset) % 7) + 1
             if let p = myMember.dayProfiles?[checkDow], p.isActive {
-                if offset == 0 {
-                    if nowMinutes < p.latestWakeUp.totalMinutes {
-                        offsetDays = offset
-                        targetProfile = p
-                        break
-                    }
-                } else {
-                    offsetDays = offset
-                    targetProfile = p
-                    break
+                let myScheduledTime = (offset == 0) ? deviceSchedule?.memberSchedules.first(where: { $0.id == myId })?.wakeUpTime : nil
+                let alarmTime = myScheduledTime ?? p.earliestWakeUp
+                guard let targetDayDate = cal.date(byAdding: .day, value: offset, to: startOfToday),
+                      let targetDate = cal.date(bySettingHour: alarmTime.hour ?? 0, minute: alarmTime.minute ?? 0, second: 0, of: targetDayDate) else {
+                    continue
+                }
+                if now < targetDate {
+                    guard let windowStart = cal.date(byAdding: .hour, value: -4, to: targetDate) else { return false }
+                    return now >= windowStart && now < targetDate
                 }
             }
         }
-        guard let offset = offsetDays, let profile = targetProfile else { return false }
-        
-        let myScheduledTime = deviceSchedule?.memberSchedules.first(where: { $0.id == myId })?.wakeUpTime
-        let alarmTime = myScheduledTime ?? profile.earliestWakeUp
-        
-        let startOfToday = cal.startOfDay(for: now)
-        guard let targetDayDate = cal.date(byAdding: .day, value: offset, to: startOfToday) else { return false }
-        guard let targetDate = cal.date(bySettingHour: alarmTime.hour ?? 0, minute: alarmTime.minute ?? 0, second: 0, of: targetDayDate) else { return false }
-        
-        if isAwakeTodayLocal {
-            // Nur anzeigen, wenn der Alarm für HEUTE ist und noch in der Zukunft liegt.
-            // Sobald offset > 0 (nächster Alarm ist morgen), verschwindet der Button für heute.
-            return offset == 0 && now < targetDate
-        }
-        
-        let isToday = offset == 0
-        guard let windowStart = cal.date(byAdding: .hour, value: -4, to: targetDate) else { return false }
-        return (isToday || now >= windowStart) && now < targetDate
+        return false
     }
 
     func deleteFamily(completion: @escaping (Bool) -> Void) {
