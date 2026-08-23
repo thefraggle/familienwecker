@@ -22,9 +22,11 @@ captures/
 .DS_Store
 Thumbs.db
 
-# Google Services
+# Google Services & API Keys
 google-services.json
 GoogleService-Info.plist
+*.google-services.json
+*GoogleService-Info.plist
 
 # iOS / Xcode
 ios/FamWake.xcodeproj/xcuserdata/
@@ -34,10 +36,19 @@ ios/DerivedData/
 ios/Pods/
 *.xcuserstate
 ios/FamWake/Config/Secrets.xcconfig
+*.xcconfig
 
-# Keystore files
+# Keystore & Signing Certificates & Keys
 *.jks
 *.keystore
+*.p12
+*.p8
+*.mobileprovision
+*.pem
+*.key
+*.der
+*.crt
+*.cer
 
 # Temporary / Log files
 *.log
@@ -45,13 +56,13 @@ ios/FamWake/Config/Secrets.xcconfig
 release-notes/
 ios/fastlane/metadata/
 
-# Internal documentation
+# Internal documentation & Agent workspaces
 .antigravity/
 .agents/
 docs/internal/
 !docs/internal/play_store_listings/
 
-# Firebase Functions
+# Firebase Functions & Configs
 functions/node_modules/
 firebase-debug.log
 .runtimeconfig.json
@@ -59,6 +70,17 @@ scratch/
 .mcp.json
 .mcp_config.json
 .env
+.env.*
+!.env.example
+
+# Fastlane credentials
+fastlane/Appfile
+fastlane/Fastfile.private
+fastlane/Matchfile
+fastlane/README.md
+fastlane/report.xml
+fastlane/screenshots
+fastlane/test_output
 
 # Ruby Bundler
 ios/.bundle/
