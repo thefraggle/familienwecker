@@ -16,7 +16,7 @@ struct HelpFeedbackSettingsCard: View {
             Button(action: { showTourSheet = true }) {
                 HStack(spacing: 8) {
                     Image(systemName: "map.fill")
-                    Text(L.settingsTourButton)
+                    Text(L.s("settings_start_onboarding"))
                     Spacer()
                     Image(systemName: "chevron.right").font(.caption).foregroundStyle(theme.outline)
                 }
