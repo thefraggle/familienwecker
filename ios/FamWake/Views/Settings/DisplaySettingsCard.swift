@@ -17,11 +17,8 @@ struct DisplaySettingsCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 SettingsSectionLabel(icon: "circle.lefthalf.filled", text: L.s("settings_theme_title"))
                 Picker(L.s("settings_theme_title"), selection: Binding(
-                    get: { familyViewModel.themeMode },
-                    set: {
-                        familyViewModel.setThemeMode($0)
-                        appState.themeMode = $0
-                    }
+                    get: { appState.themePreference },
+                    set: { appState.setTheme($0) }
                 )) {
                     Text(L.s("settings_theme_system")).tag("system")
                     Text(L.settingsThemeLight).tag("light")
@@ -106,8 +103,8 @@ struct DisplaySettingsCard: View {
 
             // Push Notification Toggle
             Toggle(isOn: Binding(
-                get: { familyViewModel.pushEnabled },
-                set: { familyViewModel.setPushEnabled($0) }
+                get: { appState.pushNotificationsEnabled },
+                set: { appState.setPushNotificationsEnabled($0) }
             )) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(L.settingsPushTitle).font(.body)
