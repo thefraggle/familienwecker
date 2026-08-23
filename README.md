@@ -83,14 +83,12 @@ git add -f docs/internal/images/screenshots/ docs/internal/images/feature_graphi
 
 ---
 
-## ⚖️ Copyright & License
+## ⚖️ Lizenz (License)
 
-Copyright (c) 2026 Daniel Notthoff. All rights reserved. 
+Dieses Projekt ist unter der **GNU General Public License v3.0 (GPL-3.0)** lizenziert. Weitere Informationen findest du in der Datei [LICENSE](LICENSE).
 
-The source code in this repository is provided for educational and review purposes only. It may not be copied, modified, or distributed without explicit permission from the author.
-
-* [Changelog (Version History)](docs/CHANGELOG.md)
-* [Roadmap (Geplante Features)](docs/ROADMAP.md)
+* [Website & Landing Page](https://familienwecker.de)
+* [Changelog (Versionsverlauf)](docs/CHANGELOG.md)
 * [Datenschutzerklärung (Privacy Policy)](https://familienwecker.de/privacy-policy.html)
 * [Impressum (Imprint)](https://familienwecker.de/imprint.html)
 * [Konto & Daten löschen (Account Deletion)](https://familienwecker.de/account-deletion.html)
