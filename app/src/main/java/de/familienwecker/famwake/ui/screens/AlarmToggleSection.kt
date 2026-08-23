@@ -35,6 +35,9 @@ import de.familienwecker.famwake.ui.viewmodel.checkAndShowReview
 import de.familienwecker.famwake.ui.viewmodel.toggleAwakeMember
 import de.familienwecker.famwake.util.findActivity
 
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+
 @Composable
 fun AlarmToggleSection(
     viewModel: FamilyViewModel,
@@ -49,6 +52,7 @@ fun AlarmToggleSection(
     deviceSchedule: FamilySchedule?,
     isAwakeTodayLocal: Boolean
 ) {
+    val haptic = LocalHapticFeedback.current
     val toggleCardColor by animateColorAsState(
         targetValue = if (isDarkTheme) {
             if (isAlarmEnabled) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
@@ -90,6 +94,7 @@ fun AlarmToggleSection(
                 Switch(
                     checked = isAlarmEnabled,
                     onCheckedChange = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                         viewModel.setAlarmEnabled(it)
                         context.findActivity()?.let { activity ->
                             viewModel.checkAndShowReview(activity)
@@ -158,7 +163,10 @@ fun AlarmToggleSection(
                         val awakeInteractionSource = remember { MutableInteractionSource() }
 
                         Button(
-                            onClick = { myMemberId?.let { viewModel.toggleAwakeMember(it) } },
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                myMemberId?.let { viewModel.toggleAwakeMember(it) }
+                            },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(56.dp)

@@ -22,7 +22,10 @@ struct AlarmToggleSection: View {
                     Spacer()
                     Toggle("", isOn: Binding(
                         get: { familyViewModel.isAlarmEnabled },
-                        set: { familyViewModel.setAlarmEnabled($0) }
+                        set: {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            familyViewModel.setAlarmEnabled($0)
+                        }
                     ))
                     .labelsHidden()
                     .disabled(familyViewModel.myMemberId == nil)
@@ -41,6 +44,7 @@ struct AlarmToggleSection: View {
                 if familyViewModel.isAwakeButtonVisible {
                     let isAwake = familyViewModel.isAwakeTodayLocal
                     Button(action: {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         familyViewModel.myMemberId.map { familyViewModel.toggleAwakeMember($0) }
                     }) {
                         HStack {

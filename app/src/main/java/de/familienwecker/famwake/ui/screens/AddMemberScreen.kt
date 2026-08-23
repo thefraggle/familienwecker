@@ -78,6 +78,7 @@ private fun defaultDayProfiles(
 fun AddMemberScreen(
     viewModel: FamilyViewModel,
     memberId: String? = null,
+    initialDay: Int? = null,
     onNavigateBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -111,21 +112,25 @@ fun AddMemberScreen(
  
     var name by remember(memberId) { mutableStateOf(initialName) }
     var dayProfiles by remember(memberId) { mutableStateOf(initialDayProfiles) }
-    val initialSelectedDay = remember(memberId, initialDayProfiles) {
-        val today = java.time.LocalDate.now().dayOfWeek.value
-        var targetDay = today
-        if (initialDayProfiles[today]?.isActive != true) {
-            for (offset in 1..6) {
-                val checkDay = (today - 1 + offset) % 7 + 1
-                if (initialDayProfiles[checkDay]?.isActive == true) {
-                    targetDay = checkDay
-                    break
+    val initialSelectedDay = remember(memberId, initialDayProfiles, initialDay) {
+        if (initialDay != null && initialDay in 1..7) {
+            initialDay
+        } else {
+            val today = java.time.LocalDate.now().dayOfWeek.value
+            var targetDay = today
+            if (initialDayProfiles[today]?.isActive != true) {
+                for (offset in 1..6) {
+                    val checkDay = (today - 1 + offset) % 7 + 1
+                    if (initialDayProfiles[checkDay]?.isActive == true) {
+                        targetDay = checkDay
+                        break
+                    }
                 }
             }
+            targetDay
         }
-        targetDay
     }
-    var selectedDay by remember(memberId) { mutableStateOf(initialSelectedDay) }
+    var selectedDay by remember(memberId, initialDay) { mutableStateOf(initialSelectedDay) }
     var showCopyDialog by remember { mutableStateOf(false) }
     var showDiscardConfirmDialog by remember { mutableStateOf(false) }
     var showNameError by remember { mutableStateOf(false) }
