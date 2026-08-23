@@ -4,10 +4,10 @@
 
 ## 2.1.2 – 2026-08-23
 ✨ Improved:
-• Weekday Context in Edit: Selecting a weekday on the schedule screen now directly opens that specific day profile when editing a family member.
-• Haptic Feedback: Tactile response for core actions (alarm switch, "already awake", buffer adjustments).
-• Stable Header: Fixed layout alignment prevents header icon shifts during sync/offline transitions.
-• Snappier Performance: Modularized settings architecture for smoother navigation and faster builds.
+• Right on schedule: Editing a family member now immediately opens the currently selected day of the week.
+• Tactile feedback: Gentle vibration when toggling alarms, tapping "Already awake", and adjusting buffer times.
+• Calmer top bar: Header icons stay firmly in place without jumping during status updates.
+• Smoother experience: Faster, more responsive settings menu.
 
 ## 2.1.1 – 2026-08-08
 ✨ Improved:
