@@ -10,11 +10,11 @@ struct SettingsFooterSection: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack(spacing: 16) {
-                Link(L.settingsPrivacy, destination: URL(string: "https://familien-wecker.de/datenschutz")!)
+                Link(L.s("settings_privacy"), destination: URL(string: L.settingsPrivacyPolicyUrl)!)
                     .font(.footnote)
                     .foregroundStyle(theme.primary)
                 Text("•").foregroundStyle(theme.outline)
-                Link(L.settingsImprint, destination: URL(string: "https://familien-wecker.de/impressum")!)
+                Link(L.s("settings_imprint"), destination: URL(string: "https://familien-wecker.de/impressum")!)
                     .font(.footnote)
                     .foregroundStyle(theme.primary)
             }
