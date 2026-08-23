@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import FirebaseAuth
 
 struct SettingsView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
@@ -249,7 +250,7 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
                 Text(L.s("settings_leave_family_confirm"))
             }
             .alert(L.settingsDeleteFamily, isPresented: $showDeleteFamilyAlert) {
-                Button(L.settingsDeleteConfirm, role: .destructive) {
+                Button(L.s("settings_delete_confirm"), role: .destructive) {
                     familyViewModel.deleteFamily { success in
                         if success {
                             dismiss()
@@ -258,7 +259,7 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.settingsDeleteFamilyConfirm)
+                Text(L.s("settings_delete_family_confirm"))
             }
     }
 }
@@ -281,16 +282,18 @@ private struct SettingsAccountAlertsModifier: ViewModifier {
                 Text(L.s("settings_logout_message"))
             }
             .alert(L.settingsDeleteAccount, isPresented: $showDeleteAccountAlert) {
-                Button(L.settingsDeleteAccountConfirm, role: .destructive) {
-                    authViewModel.deleteAccount { success, err in
-                        if success {
-                            dismiss()
+                Button(L.s("settings_delete_account_confirm"), role: .destructive) {
+                    if let user = Auth.auth().currentUser {
+                        user.delete { error in
+                            if error == nil {
+                                dismiss()
+                            }
                         }
                     }
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.settingsDeleteAccountMessage)
+                Text(L.s("settings_delete_account_message"))
             }
     }
 }
@@ -306,7 +309,7 @@ private struct SettingsOtherAlertsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(L.s("settings_profile_claim_title"), isPresented: $showProfileConfirmAlert) {
-                Button(L.confirmButton) {
+                Button(L.s("confirm_button")) {
                     if let id = pendingClaimMemberId {
                         familyViewModel.setMyMemberId(id) { _ in }
                         showProfilePicker = false
@@ -317,15 +320,15 @@ private struct SettingsOtherAlertsModifier: ViewModifier {
                 Text(L.s("settings_profile_claim_message"))
             }
             .alert(L.s("settings_admin_reset_schedule"), isPresented: $showResetScheduleAlert) {
-                Button(L.confirmButton, role: .destructive) {
-                    familyViewModel.resetSchedule()
+                Button(L.s("confirm_button"), role: .destructive) {
+                    familyViewModel.checkAndResetMembers()
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
                 Text(L.s("settings_admin_reset_schedule_confirm"))
             }
             .alert(L.s("settings_reset_tips"), isPresented: $showResetTipsAlert) {
-                Button(L.confirmButton) {
+                Button(L.s("confirm_button")) {
                     familyViewModel.resetAllTooltips()
                 }
                 Button(L.cancelButton, role: .cancel) {}
