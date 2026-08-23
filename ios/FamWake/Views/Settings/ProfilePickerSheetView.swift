@@ -13,36 +13,18 @@ struct ProfilePickerSheetView: View {
         NavigationStack {
             List {
                 ForEach(familyViewModel.members) { member in
-                    Button(action: {
-                        pendingClaimMemberId = member.id
-                        showProfileConfirmAlert = true
-                    }) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(member.name)
-                                    .font(.headline)
-                                    .foregroundStyle(theme.onSurface)
-                                if member.id == familyViewModel.myMemberId {
-                                    Text(L.settingsProfileClaimed)
-                                        .font(.caption)
-                                        .foregroundStyle(theme.tertiary)
-                                } else if member.claimedByUserId != nil {
-                                    Text(L.settingsProfileOther)
-                                        .font(.caption)
-                                        .foregroundStyle(theme.outline)
-                                }
-                            }
-                            Spacer()
-                            if member.id == familyViewModel.myMemberId {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundStyle(theme.tertiary)
-                            }
+                    ProfilePickerRowView(
+                        member: member,
+                        myMemberId: familyViewModel.myMemberId,
+                        theme: theme,
+                        onSelect: {
+                            pendingClaimMemberId = member.id
+                            showProfileConfirmAlert = true
                         }
-                    }
-                    .disabled(member.id == familyViewModel.myMemberId)
+                    )
                 }
             }
-            .navigationTitle(L.settingsProfilePickerTitle)
+            .navigationTitle(L.s("settings_profile_picker_title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -55,5 +37,44 @@ struct ProfilePickerSheetView: View {
                 }
             }
         }
+    }
+}
+
+private struct ProfilePickerRowView: View {
+    let member: FamilyMember
+    let myMemberId: String?
+    let theme: FamWakeTheme
+    let onSelect: () -> Void
+
+    private var isMe: Bool {
+        member.id == myMemberId
+    }
+
+    var body: some View {
+        Button(action: onSelect) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(member.name)
+                        .font(.headline)
+                        .foregroundStyle(theme.onSurface)
+
+                    if isMe {
+                        Text(L.s("settings_profile_claimed"))
+                            .font(.caption)
+                            .foregroundStyle(theme.tertiary)
+                    } else if member.claimedByUserId != nil {
+                        Text(L.s("settings_profile_other"))
+                            .font(.caption)
+                            .foregroundStyle(theme.outline)
+                    }
+                }
+                Spacer()
+                if isMe {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(theme.tertiary)
+                }
+            }
+        }
+        .disabled(isMe)
     }
 }
