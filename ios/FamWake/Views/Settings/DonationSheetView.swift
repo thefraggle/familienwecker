@@ -1,4 +1,5 @@
 import SwiftUI
+import RevenueCat
 
 struct DonationSheetView: View {
     @EnvironmentObject var donationViewModel: DonationViewModel
