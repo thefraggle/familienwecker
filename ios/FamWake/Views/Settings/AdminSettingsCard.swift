@@ -15,7 +15,7 @@ struct AdminSettingsCard: View {
             // Toggle admin panel
             Button(action: { showAdminPanel.toggle() }) {
                 HStack {
-                    Text(L.settingsAdminPanel).font(.body)
+                    Text(L.s("settings_admin_panel")).font(.body)
                     Spacer()
                     Image(systemName: showAdminPanel ? "chevron.up" : "chevron.down").font(.caption)
                 }
@@ -31,7 +31,7 @@ struct AdminSettingsCard: View {
                 Button(action: { showResetScheduleAlert = true }) {
                     HStack(spacing: 8) {
                         Image(systemName: "arrow.counterclockwise")
-                        Text(L.settingsAdminResetSchedule)
+                        Text(L.s("settings_admin_reset_schedule"))
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
