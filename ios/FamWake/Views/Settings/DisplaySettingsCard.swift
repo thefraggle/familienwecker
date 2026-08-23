@@ -32,7 +32,7 @@ struct DisplaySettingsCard: View {
 
             // Time Format
             VStack(alignment: .leading, spacing: 4) {
-                SettingsSectionLabel(icon: "clock.fill", text: L.settingsTimeFormatTitle)
+                SettingsSectionLabel(icon: "clock.fill", text: L.s("settings_time_format_title"))
                 Button(action: { showTimePickerSheet = true }) {
                     HStack {
                         Text(timeFormatLabel(familyViewModel.timeFormat)).font(.body)
@@ -80,7 +80,7 @@ struct DisplaySettingsCard: View {
             )) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(L.settingsTooltipsTitle).font(.body)
-                    Text(L.settingsTooltipsDesc).font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                    Text(L.s("settings_tooltips_desc")).font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                 }
             }
             .tint(theme.secondary)
@@ -90,7 +90,7 @@ struct DisplaySettingsCard: View {
             Button(action: { showResetTipsAlert = true }) {
                 HStack(spacing: 8) {
                     Image(systemName: "arrow.counterclockwise")
-                    Text(L.settingsResetTips)
+                    Text(L.s("settings_reset_tips"))
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
@@ -107,8 +107,8 @@ struct DisplaySettingsCard: View {
                 set: { appState.setPushNotificationsEnabled($0) }
             )) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(L.settingsPushTitle).font(.body)
-                    Text(L.settingsPushDesc).font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                    Text(L.s("settings_push_title")).font(.body)
+                    Text(L.s("settings_push_desc")).font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                 }
             }
             .tint(theme.secondary)
