@@ -1,94 +1,92 @@
-# ⏰ **FamWake** Familienwecker / Family Alarm
+# ⏰ **FamWake** Family Alarm
 
-[![Website: familienwecker.de](https://img.shields.io/badge/Website-familienwecker.de-blue)](https://www.familienwecker.de)
+[![Website: familienwecker.de](https://img.shields.io/badge/Website-familienwecker.de/en-blue)](https://www.familienwecker.de/index-en.html)
 
-*[🇬🇧 English version](README.en.md)*
+Stop the morning chaos! **FamWake** is the smart family alarm & bathroom scheduler that organizes your morning as a perfectly synced team.
 
-Schluss mit dem morgendlichen Chaos! **FamWake** ist der intelligente Familienwecker & Bad-Planer, der euren Morgen als perfekt eingespieltes Team organisiert.
-
-👉 **Alle Informationen, Features und Early Access auf:**  
-🌐 [familienwecker.de](https://familienwecker.de)
+👉 **Find all information, features and early access at:**  
+🌐 [familienwecker.de/en](https://familienwecker.de/index-en.html)
 
 ---
 
-## ✨ Die Highlights
+## ✨ Highlights
 
-* **Smarter Fahrplan:** Ein intelligenter Algorithmus koordiniert Bad, Frühstück und Aufstehen für die ganze Familie.
-* **Synchronisierter Morgen:** Live-Status für alle – wer wann ins Bad darf, steht fest. Keine Schlange, kein Stress.
-* **Maximale Flexibilität:** "Bin schon wach"-Button für Frühaussteher und intuitive Drag & Drop Planung.
-* **Sicher & Privat:** Anmeldung via Google oder E-Mail. Keine Werbung, kein Datenverkauf – dein Morgen gehört dir.
+* **Smart Schedule:** An intelligent algorithm coordinates bathroom, breakfast, and wake-up for your entire family.
+* **In Sync:** Live status for everyone – scheduled bathroom slots for the whole family. No more queues, no stress.
+* **Maximum Flexibility:** "Already awake" button for early birds and intuitive drag & drop planning.
+* **Secure & Private:** Sign in via Google or Email. No ads, no data sales – your morning belongs to you.
 
 ---
 
-## 🛠️ Entwickler-Dokumentation (Developer Setup)
+## 🛠️ Developer Setup
 
-Dieses Projekt ist eine Kotlin Multiplatform (KMP) App für iOS und Android mit einem Firebase-Backend.
+This project is a Kotlin Multiplatform (KMP) App for iOS and Android with a Firebase backend.
 
-### Voraussetzungen (Prerequisites)
-* **OS**: macOS (erforderlich für iOS-Builds)
-* **JDK**: Java 17+ (z. B. Azul Zulu)
+### Prerequisites
+* **OS**: macOS (required for iOS builds)
+* **JDK**: Java 17+ (e.g. Azul Zulu)
 * **Android**: Android Studio & Android SDK
 * **iOS**: Xcode 15+ & CocoaPods
 * **Backend**: Node.js & Firebase CLI (`npx firebase-tools`)
 
-### Projektstruktur
+### Project Structure
 * `/app`: Android App (Jetpack Compose, targetSdk 36)
 * `/ios`: iOS App (SwiftUI, iOS 16+)
-* `/shared`: KMP Modul (Weckplan-Logik, Shared Preferences, Datenbanken)
+* `/shared`: KMP shared module (scheduling logic, shared preferences, databases)
 * `/functions`: Firebase Cloud Functions (Node.js)
-* `/scripts`: Python-Hilfsskripte für ASO-Metadaten und Screenshot-Framing
+* `/scripts`: Python helper scripts for ASO metadata and screenshot framing
 
-### Wichtige Befehle (Core Commands)
+### Core Commands
 
-#### 1. Firebase Backend deployen
-Aus dem Projekt-Root-Verzeichnis:
+#### 1. Deploy Firebase Backend
+From the project root directory:
 ```bash
 npx firebase-tools deploy
 ```
 
-#### 2. Rohe iOS-Screenshots über Simulatoren erstellen (Laufzeit ~2h)
-Wechseln in das Verzeichnis `/ios/` und ausführen:
+#### 2. Capture Raw Simulator Screenshots (Takes ~2h)
+Switch to the `/ios/` directory and run:
 ```bash
 bundle exec fastlane generate_screenshots
 ```
-Die Rohbilder werden unter `docs/internal/images/screenshots/devices/{lang}/` abgelegt.
+Raw screenshots will be stored in `docs/internal/images/screenshots/devices/{lang}/`.
 
-#### 3. App Store Screenshots framen (iPhone Mockup + Texte)
-Aus dem Projekt-Root-Verzeichnis:
+#### 3. Frame App Store Screenshots (iPhone Mockup + Text Overlay)
+From the project root directory:
 ```bash
 python3 scripts/generate_screenshots_ios.py
 python3 scripts/generate_html.py
 ```
-Die fertigen Grafiken liegen unter `/ios/fastlane/screenshots/`, die HTML-Vorschaugalerie unter `/ios/fastlane/screenshots/screenshots.html`.
+Framed images are saved to `/ios/fastlane/screenshots/`, and the HTML preview gallery is located at `/ios/fastlane/screenshots/screenshots.html`.
 
-#### 4. Play Store Screenshots framen (Pixel Mockup + Texte)
-Aus dem Projekt-Root-Verzeichnis:
+#### 4. Frame Play Store Screenshots (Pixel Mockup + Text Overlay)
+From the project root directory:
 ```bash
 python3 scripts/generate_screenshots_android.py
 ```
-Die fertigen Play-Store-Grafiken liegen unter `/android/fastlane/metadata/android/`.
+Framed Play Store graphics are saved to `/android/fastlane/metadata/android/`.
 
-#### 5. Google Play Store Feature Graphics generieren
-Aus dem Projekt-Root-Verzeichnis:
+#### 5. Generate Play Store Feature Graphics
+From the project root directory:
 ```bash
 python3 scripts/generate_feature_graphics.py
 ```
-Erstellt die `1024x500` Feature Graphics in allen 22 Sprachen unter `/docs/internal/images/feature_graphics/` und kopiert sie direkt in die Fastlane-Verzeichnisse.
+This generates the `1024x500` feature graphics for all 22 languages in `/docs/internal/images/feature_graphics/` and copies them straight to the fastlane directories.
 
-#### 6. Git-Tracking für ASO-Bilder
-Da `docs/internal/` in der `.gitignore` eingetragen ist, müssen neu generierte Roh- und Framed-Bilder mit `force` hinzugefügt werden:
+#### 6. Git Tracking for ASO Graphics
+Since `/docs/internal/` is added to `.gitignore`, newly generated raw or framed images must be added using `force`:
 ```bash
 git add -f docs/internal/images/screenshots/ docs/internal/images/feature_graphics/
 ```
 
 ---
 
-## ⚖️ Lizenz (License)
+## ⚖️ License
 
-Dieses Projekt ist unter der **GNU General Public License v3.0 (GPL-3.0)** lizenziert. Weitere Informationen findest du in der Datei [LICENSE](LICENSE).
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. See the [LICENSE](LICENSE) file for details.
 
-* [Website & Landing Page](https://familienwecker.de)
-* [Changelog (Versionsverlauf)](docs/CHANGELOG.md)
-* [Datenschutzerklärung (Privacy Policy)](https://familienwecker.de/privacy-policy.html)
-* [Impressum (Imprint)](https://familienwecker.de/imprint.html)
-* [Konto & Daten löschen (Account Deletion)](https://familienwecker.de/account-deletion.html)
+* [Website & Landing Page](https://familienwecker.de/index-en.html)
+* [Changelog (Version History)](docs/CHANGELOG.en.md)
+* [Privacy Policy](https://familienwecker.de/privacy-policy.html)
+* [Imprint](https://familienwecker.de/imprint-en.html)
+* [Account Deletion](https://familienwecker.de/account-deletion-en.html)
