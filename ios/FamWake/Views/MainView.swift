@@ -164,8 +164,8 @@ struct MainView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(alignment: .center, spacing: 16) {
-                        // Fester Frame verhindert Höhen-Sprung wenn Status-Icons ein-/ausblenden
-                        Group {
+                        // Fester Frame verhindert Höhen- und Breiten-Sprung wenn Status-Icons ein-/ausblenden
+                        ZStack {
                             if familyViewModel.isOffline {
                                 Image(systemName: "icloud.slash")
                                     .foregroundStyle(theme.outline)
@@ -174,12 +174,13 @@ struct MainView: View {
                             }
                         }
                         .font(.caption)
-                        .frame(width: 16, height: 16)
+                        .frame(width: 20, height: 20)
 
                         Button(action: { navPath.append(NavigationRoute.settings) }) {
                             Image(systemName: "gearshape.fill")
                                 .foregroundStyle(theme.onSurface)
                         }
+                        .frame(width: 44, height: 44)
                         .accessibilityLabel(L.s("accessibility_settings_button"))
                         .accessibilityIdentifier("settings_button")
                     }
@@ -192,9 +193,9 @@ struct MainView: View {
                         .environment(\.colorScheme, colorScheme)
                         .preferredColorScheme(colorScheme)
                 case .addMember:
-                    AddEditMemberView(memberId: nil) { navPath.removeLast() }
+                    AddEditMemberView(memberId: nil, initialDay: familyViewModel.selectedDayOfWeek) { navPath.removeLast() }
                 case .editMember(let id):
-                    AddEditMemberView(memberId: id) { navPath.removeLast() }
+                    AddEditMemberView(memberId: id, initialDay: familyViewModel.selectedDayOfWeek) { navPath.removeLast() }
                 }
             }
             .alert(
