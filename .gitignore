@@ -60,7 +60,18 @@ ios/fastlane/metadata/
 .antigravity/
 .agents/
 docs/internal/
-!docs/internal/play_store_listings/
+docs/scripts/
+STORE_LISTINGS.md
+images/
+
+# Internal Automation & Screenshot Scripts (Keep only core release metadata scripts)
+scripts/
+!scripts/generate_metadata.py
+!scripts/generate_ios_metadata.py
+
+# Screenshots & Store Graphics (Large assets)
+ios/fastlane/screenshots/
+android/fastlane/metadata/android/*/images/
 
 # Firebase Functions & Configs
 functions/node_modules/
