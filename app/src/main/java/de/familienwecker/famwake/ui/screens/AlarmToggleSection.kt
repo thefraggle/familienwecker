@@ -122,34 +122,26 @@ fun AlarmToggleSection(
                 val nowDt = java.time.LocalDateTime.now()
                 val todayDate = nowDt.toLocalDate()
 
-                val nextActiveProfile = (0..6).mapNotNull { offset ->
+                for (offset in 0..6) {
                     val date = todayDate.plusDays(offset.toLong())
                     val dow = date.dayOfWeek.value
                     val profile = myMember.dayProfiles?.get(dow)
-                    if (profile != null && profile.isActive) date to profile else null
-                }.firstOrNull { (date, profile) ->
-                    if (date == todayDate) nowDt.toLocalTime() < profile.latestWakeUp.toJavaLocalTime()
-                    else true
-                }
+                    if (profile != null && profile.isActive) {
+                        val myScheduledTime = if (offset == 0) {
+                            deviceSchedule?.memberSchedules
+                                ?.find { it.member.id == myMemberId }
+                                ?.wakeUpTime?.toJavaLocalTime()
+                        } else null
+                        val alarmTime = myScheduledTime ?: profile.earliestWakeUp.toJavaLocalTime()
+                        val targetDt = java.time.LocalDateTime.of(date, alarmTime)
 
-                if (nextActiveProfile != null) {
-                    val (targetDate, profile) = nextActiveProfile
-                    val myScheduledTime = deviceSchedule?.memberSchedules
-                        ?.find { it.member.id == myMemberId }
-                        ?.wakeUpTime?.toJavaLocalTime()
-                    val alarmTime = myScheduledTime ?: profile.earliestWakeUp.toJavaLocalTime()
-                    val targetDt = java.time.LocalDateTime.of(targetDate, alarmTime)
-
-                    if (isAwakeTodayLocal) {
-                        targetDate == todayDate && nowDt < targetDt
-                    } else {
-                        val isToday = targetDate == todayDate
-                        val windowStart = targetDt.minusHours(4)
-                        (isToday || nowDt >= windowStart) && nowDt < targetDt
+                        if (nowDt < targetDt) {
+                            val windowStart = targetDt.minusHours(4)
+                            return@remember nowDt >= windowStart && nowDt < targetDt
+                        }
                     }
-                } else {
-                    false
                 }
+                false
             }
 
             AnimatedVisibility(
