@@ -4,10 +4,10 @@
 
 ## 2.1.2 – 2026-08-23
 ✨ Verbessert:
-• Wochentag-Kontext beim Bearbeiten: Wenn ein Wochentag im Weckplan ausgewählt ist, öffnet die Bearbeitung eines Mitglieds direkt das Profil dieses Tages.
-• Spürbares Feedback: Haptisches Feedback bei Kernaktionen (Wecker an/aus, „Schon wach", Puffer-Änderungen).
-• Ruhiger Header: Feste Ausrichtung und optimierte Abstände im App-Header verhindern ein Springen des Einstellungs-Icons bei Statusänderungen.
-• Schnellere Ladezeiten: Einstellungen unter der Haube modularisiert und optimiert.
+• Direkt am richtigen Tag: Beim Bearbeiten eines Familienmitglieds öffnet sich automatisch der aktuell ausgewählte Wochentag.
+• Spürbares Feedback: Dezente Vibration bei wichtigen Aktionen wie Wecker ein-/ausschalten, „Schon wach“ und Pufferzeiten anpassen.
+• Ruhigere Ansicht: Die Symbole in der oberen Leiste bleiben jederzeit stabil am selben Platz.
+• Flüssigere Bedienung: Schnellere Reaktionszeiten im Einstellungsmenü.
 
 ## 2.1.1 – 2026-08-08
 ✨ Verbessert:
