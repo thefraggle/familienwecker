@@ -27,7 +27,6 @@ struct SettingsView: View {
     @State private var showSoundPicker = false
     @State private var showProfilePicker = false
     @State private var showDonationSheet = false
-    @State private var showTimePickerSheet = false
     @State private var previewPlayer: AVAudioPlayer?
 
     var body: some View {
@@ -79,8 +78,7 @@ struct SettingsView: View {
 
                     // Card 3: Display, Theme, Tooltips, Push
                     DisplaySettingsCard(
-                        showResetTipsAlert: $showResetTipsAlert,
-                        showTimePickerSheet: $showTimePickerSheet
+                        showResetTipsAlert: $showResetTipsAlert
                     )
 
                     // Card 4: Help & Feedback
@@ -143,16 +141,6 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $showFeedbackSheet) {
             FeedbackView()
-        }
-        .confirmationDialog(
-            L.settingsTimeFormatTitle,
-            isPresented: $showTimePickerSheet,
-            titleVisibility: .visible
-        ) {
-            Button(L.settingsTimeFormatAuto) { familyViewModel.setTimeFormat("system") }
-            Button(L.settingsTimeFormat12) { familyViewModel.setTimeFormat("12h") }
-            Button(L.settingsTimeFormat24) { familyViewModel.setTimeFormat("24h") }
-            Button(L.cancelButton, role: .cancel) {}
         }
         // Alerts
         .alert(L.settingsLeaveFamily, isPresented: $showLeaveFamilyAlert) {

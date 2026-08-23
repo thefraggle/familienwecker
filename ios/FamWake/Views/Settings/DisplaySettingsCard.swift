@@ -5,7 +5,6 @@ struct DisplaySettingsCard: View {
     @EnvironmentObject var appState: AppState
     @Environment(\.colorScheme) private var colorScheme
     @Binding var showResetTipsAlert: Bool
-    @Binding var showTimePickerSheet: Bool
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
@@ -26,26 +25,6 @@ struct DisplaySettingsCard: View {
                 }
                 .pickerStyle(.segmented)
                 .accessibilityLabel(L.s("accessibility_theme_picker"))
-            }
-
-            Divider().background(theme.outline.opacity(0.15))
-
-            // Time Format
-            VStack(alignment: .leading, spacing: 4) {
-                SettingsSectionLabel(icon: "clock.fill", text: L.s("settings_time_format_title"))
-                Button(action: { showTimePickerSheet = true }) {
-                    HStack {
-                        Text(timeFormatLabel(familyViewModel.timeFormat)).font(.body)
-                        Spacer()
-                        Image(systemName: "chevron.right").font(.caption).foregroundStyle(theme.outline)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .padding(.horizontal, 16)
-                }
-                .foregroundStyle(theme.onSurface)
-                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(theme.outline.opacity(0.4), lineWidth: 1))
-                .accessibilityLabel(L.s("accessibility_time_format_button"))
             }
 
             Divider().background(theme.outline.opacity(0.15))
@@ -116,13 +95,6 @@ struct DisplaySettingsCard: View {
         }
     }
 
-    private func timeFormatLabel(_ format: String) -> String {
-        switch format {
-        case "12h": return L.s("settings_time_format_12")
-        case "24h": return L.s("settings_time_format_24")
-        default:    return L.s("settings_time_format_auto")
-        }
-    }
 
     private func languageName(for code: String) -> String {
         switch code {
