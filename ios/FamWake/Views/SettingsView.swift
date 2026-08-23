@@ -123,101 +123,217 @@ struct SettingsView: View {
                 .accessibilityLabel(L.s("accessibility_back_button"))
             }
         }
-        // Sheets
-        .sheet(isPresented: $showProfilePicker) {
-            ProfilePickerSheetView(
-                showProfileConfirmAlert: $showProfileConfirmAlert,
-                pendingClaimMemberId: $pendingClaimMemberId
-            )
-        }
-        .sheet(isPresented: $showSoundPicker) {
-            SoundPickerSheetView(previewPlayer: $previewPlayer)
-        }
-        .sheet(isPresented: $showDonationSheet) {
-            DonationSheetView(showDonationSheet: $showDonationSheet)
-        }
-        .sheet(isPresented: $showTourSheet) {
-            OnboardingView(isTour: true)
-        }
-        .sheet(isPresented: $showFeedbackSheet) {
-            FeedbackView()
-        }
-        // Alerts
-        .alert(L.settingsLeaveFamily, isPresented: $showLeaveFamilyAlert) {
-            Button(L.settingsLeaveConfirm, role: .destructive) {
-                familyViewModel.leaveFamily { success in
-                    if success {
-                        dismiss()
+        .settingsSheets(
+            showProfilePicker: $showProfilePicker,
+            showSoundPicker: $showSoundPicker,
+            showDonationSheet: $showDonationSheet,
+            showTourSheet: $showTourSheet,
+            showFeedbackSheet: $showFeedbackSheet,
+            showProfileConfirmAlert: $showProfileConfirmAlert,
+            pendingClaimMemberId: $pendingClaimMemberId,
+            previewPlayer: $previewPlayer
+        )
+        .settingsFamilyAlerts(
+            showLeaveFamilyAlert: $showLeaveFamilyAlert,
+            showDeleteFamilyAlert: $showDeleteFamilyAlert,
+            dismiss: dismiss
+        )
+        .settingsAccountAlerts(
+            showLogoutAlert: $showLogoutAlert,
+            showDeleteAccountAlert: $showDeleteAccountAlert,
+            dismiss: dismiss
+        )
+        .settingsOtherAlerts(
+            showProfileConfirmAlert: $showProfileConfirmAlert,
+            showResetScheduleAlert: $showResetScheduleAlert,
+            showResetTipsAlert: $showResetTipsAlert,
+            showProfilePicker: $showProfilePicker,
+            pendingClaimMemberId: $pendingClaimMemberId
+        )
+    }
+}
+
+private extension View {
+    func settingsSheets(
+        showProfilePicker: Binding<Bool>,
+        showSoundPicker: Binding<Bool>,
+        showDonationSheet: Binding<Bool>,
+        showTourSheet: Binding<Bool>,
+        showFeedbackSheet: Binding<Bool>,
+        showProfileConfirmAlert: Binding<Bool>,
+        pendingClaimMemberId: Binding<String?>,
+        previewPlayer: Binding<AVAudioPlayer?>
+    ) -> some View {
+        self
+            .sheet(isPresented: showProfilePicker) {
+                ProfilePickerSheetView(
+                    showProfileConfirmAlert: showProfileConfirmAlert,
+                    pendingClaimMemberId: pendingClaimMemberId
+                )
+            }
+            .sheet(isPresented: showSoundPicker) {
+                SoundPickerSheetView(previewPlayer: previewPlayer)
+            }
+            .sheet(isPresented: showDonationSheet) {
+                DonationSheetView(showDonationSheet: showDonationSheet)
+            }
+            .sheet(isPresented: showTourSheet) {
+                OnboardingView(isTour: true)
+            }
+            .sheet(isPresented: showFeedbackSheet) {
+                FeedbackView()
+            }
+    }
+
+    func settingsFamilyAlerts(
+        showLeaveFamilyAlert: Binding<Bool>,
+        showDeleteFamilyAlert: Binding<Bool>,
+        dismiss: DismissAction
+    ) -> some View {
+        self.modifier(SettingsFamilyAlertsModifier(
+            showLeaveFamilyAlert: showLeaveFamilyAlert,
+            showDeleteFamilyAlert: showDeleteFamilyAlert,
+            dismiss: dismiss
+        ))
+    }
+
+    func settingsAccountAlerts(
+        showLogoutAlert: Binding<Bool>,
+        showDeleteAccountAlert: Binding<Bool>,
+        dismiss: DismissAction
+    ) -> some View {
+        self.modifier(SettingsAccountAlertsModifier(
+            showLogoutAlert: showLogoutAlert,
+            showDeleteAccountAlert: showDeleteAccountAlert,
+            dismiss: dismiss
+        ))
+    }
+
+    func settingsOtherAlerts(
+        showProfileConfirmAlert: Binding<Bool>,
+        showResetScheduleAlert: Binding<Bool>,
+        showResetTipsAlert: Binding<Bool>,
+        showProfilePicker: Binding<Bool>,
+        pendingClaimMemberId: Binding<String?>
+    ) -> some View {
+        self.modifier(SettingsOtherAlertsModifier(
+            showProfileConfirmAlert: showProfileConfirmAlert,
+            showResetScheduleAlert: showResetScheduleAlert,
+            showResetTipsAlert: showResetTipsAlert,
+            showProfilePicker: showProfilePicker,
+            pendingClaimMemberId: pendingClaimMemberId
+        ))
+    }
+}
+
+private struct SettingsFamilyAlertsModifier: ViewModifier {
+    @EnvironmentObject var familyViewModel: FamilyViewModel
+    @Binding var showLeaveFamilyAlert: Bool
+    @Binding var showDeleteFamilyAlert: Bool
+    let dismiss: DismissAction
+
+    func body(content: Content) -> some View {
+        content
+            .alert(L.settingsLeaveFamily, isPresented: $showLeaveFamilyAlert) {
+                Button(L.settingsLeaveConfirm, role: .destructive) {
+                    familyViewModel.leaveFamily { success in
+                        if success {
+                            dismiss()
+                        }
                     }
                 }
+                Button(L.cancelButton, role: .cancel) {}
+            } message: {
+                Text(L.settingsLeaveFamilyConfirm)
             }
-            Button(L.cancelButton, role: .cancel) {}
-        } message: {
-            Text(L.settingsLeaveFamilyConfirm)
-        }
-        .alert(L.settingsDeleteFamily, isPresented: $showDeleteFamilyAlert) {
-            Button(L.settingsDeleteConfirm, role: .destructive) {
-                familyViewModel.deleteFamily { success in
-                    if success {
-                        dismiss()
+            .alert(L.settingsDeleteFamily, isPresented: $showDeleteFamilyAlert) {
+                Button(L.settingsDeleteConfirm, role: .destructive) {
+                    familyViewModel.deleteFamily { success in
+                        if success {
+                            dismiss()
+                        }
                     }
                 }
+                Button(L.cancelButton, role: .cancel) {}
+            } message: {
+                Text(L.settingsDeleteFamilyConfirm)
             }
-            Button(L.cancelButton, role: .cancel) {}
-        } message: {
-            Text(L.settingsDeleteFamilyConfirm)
-        }
-        .alert(L.settingsLogout, isPresented: $showLogoutAlert) {
-            Button(L.settingsLogoutConfirm, role: .destructive) {
-                authViewModel.logout()
-                familyViewModel.logout()
-                dismiss()
+    }
+}
+
+private struct SettingsAccountAlertsModifier: ViewModifier {
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var familyViewModel: FamilyViewModel
+    @Binding var showLogoutAlert: Bool
+    @Binding var showDeleteAccountAlert: Bool
+    let dismiss: DismissAction
+
+    func body(content: Content) -> some View {
+        content
+            .alert(L.settingsLogout, isPresented: $showLogoutAlert) {
+                Button(L.settingsLogoutConfirm, role: .destructive) {
+                    authViewModel.logout()
+                    familyViewModel.logout()
+                    dismiss()
+                }
+                Button(L.cancelButton, role: .cancel) {}
+            } message: {
+                Text(L.settingsLogoutMessage)
             }
-            Button(L.cancelButton, role: .cancel) {}
-        } message: {
-            Text(L.settingsLogoutMessage)
-        }
-        .alert(L.settingsDeleteAccount, isPresented: $showDeleteAccountAlert) {
-            Button(L.settingsDeleteAccountConfirm, role: .destructive) {
-                authViewModel.deleteAccount { success, err in
-                    if success {
-                        familyViewModel.logout()
-                        dismiss()
-                    } else if let err = err {
-                        familyViewModel.errorMessage = err
+            .alert(L.settingsDeleteAccount, isPresented: $showDeleteAccountAlert) {
+                Button(L.settingsDeleteAccountConfirm, role: .destructive) {
+                    authViewModel.deleteAccount { success, err in
+                        if success {
+                            familyViewModel.logout()
+                            dismiss()
+                        } else if let err = err {
+                            familyViewModel.errorMessage = err
+                        }
                     }
                 }
+                Button(L.cancelButton, role: .cancel) {}
+            } message: {
+                Text(L.settingsDeleteAccountMessage)
             }
-            Button(L.cancelButton, role: .cancel) {}
-        } message: {
-            Text(L.settingsDeleteAccountMessage)
-        }
-        .alert(L.settingsProfileClaimTitle, isPresented: $showProfileConfirmAlert) {
-            Button(L.confirmButton) {
-                if let id = pendingClaimMemberId {
-                    familyViewModel.claimProfile(memberId: id)
-                    showProfilePicker = false
+    }
+}
+
+private struct SettingsOtherAlertsModifier: ViewModifier {
+    @EnvironmentObject var familyViewModel: FamilyViewModel
+    @Binding var showProfileConfirmAlert: Bool
+    @Binding var showResetScheduleAlert: Bool
+    @Binding var showResetTipsAlert: Bool
+    @Binding var showProfilePicker: Bool
+    @Binding var pendingClaimMemberId: String?
+
+    func body(content: Content) -> some View {
+        content
+            .alert(L.settingsProfileClaimTitle, isPresented: $showProfileConfirmAlert) {
+                Button(L.confirmButton) {
+                    if let id = pendingClaimMemberId {
+                        familyViewModel.claimProfile(memberId: id)
+                        showProfilePicker = false
+                    }
                 }
+                Button(L.cancelButton, role: .cancel) {}
+            } message: {
+                Text(L.settingsProfileClaimMessage)
             }
-            Button(L.cancelButton, role: .cancel) {}
-        } message: {
-            Text(L.settingsProfileClaimMessage)
-        }
-        .alert(L.settingsAdminResetSchedule, isPresented: $showResetScheduleAlert) {
-            Button(L.confirmButton, role: .destructive) {
-                familyViewModel.resetSchedule()
+            .alert(L.settingsAdminResetSchedule, isPresented: $showResetScheduleAlert) {
+                Button(L.confirmButton, role: .destructive) {
+                    familyViewModel.resetSchedule()
+                }
+                Button(L.cancelButton, role: .cancel) {}
+            } message: {
+                Text(L.settingsAdminResetScheduleConfirm)
             }
-            Button(L.cancelButton, role: .cancel) {}
-        } message: {
-            Text(L.settingsAdminResetScheduleConfirm)
-        }
-        .alert(L.settingsResetTips, isPresented: $showResetTipsAlert) {
-            Button(L.confirmButton) {
-                familyViewModel.resetAllTooltips()
+            .alert(L.settingsResetTips, isPresented: $showResetTipsAlert) {
+                Button(L.confirmButton) {
+                    familyViewModel.resetAllTooltips()
+                }
+                Button(L.cancelButton, role: .cancel) {}
+            } message: {
+                Text(L.settingsResetTipsConfirm)
             }
-            Button(L.cancelButton, role: .cancel) {}
-        } message: {
-            Text(L.settingsResetTipsConfirm)
-        }
     }
 }
