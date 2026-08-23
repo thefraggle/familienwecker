@@ -178,7 +178,9 @@ private extension View {
                 DonationSheetView(showDonationSheet: showDonationSheet)
             }
             .sheet(isPresented: showTourSheet) {
-                OnboardingView(isTour: true)
+                OnboardingView(startAtWelcome: false, onFinished: { _ in
+                    showTourSheet.wrappedValue = false
+                })
             }
             .sheet(isPresented: showFeedbackSheet) {
                 FeedbackView()
@@ -235,7 +237,7 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(L.settingsLeaveFamily, isPresented: $showLeaveFamilyAlert) {
-                Button(L.settingsLeaveConfirm, role: .destructive) {
+                Button(L.s("settings_leave_confirm"), role: .destructive) {
                     familyViewModel.leaveFamily { success in
                         if success {
                             dismiss()
@@ -244,7 +246,7 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.settingsLeaveFamilyConfirm)
+                Text(L.s("settings_leave_family_confirm"))
             }
             .alert(L.settingsDeleteFamily, isPresented: $showDeleteFamilyAlert) {
                 Button(L.settingsDeleteConfirm, role: .destructive) {
@@ -263,7 +265,6 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
 
 private struct SettingsAccountAlertsModifier: ViewModifier {
     @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var familyViewModel: FamilyViewModel
     @Binding var showLogoutAlert: Bool
     @Binding var showDeleteAccountAlert: Bool
     let dismiss: DismissAction
@@ -271,23 +272,19 @@ private struct SettingsAccountAlertsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(L.settingsLogout, isPresented: $showLogoutAlert) {
-                Button(L.settingsLogoutConfirm, role: .destructive) {
+                Button(L.s("settings_logout_confirm"), role: .destructive) {
                     authViewModel.logout()
-                    familyViewModel.logout()
                     dismiss()
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.settingsLogoutMessage)
+                Text(L.s("settings_logout_message"))
             }
             .alert(L.settingsDeleteAccount, isPresented: $showDeleteAccountAlert) {
                 Button(L.settingsDeleteAccountConfirm, role: .destructive) {
                     authViewModel.deleteAccount { success, err in
                         if success {
-                            familyViewModel.logout()
                             dismiss()
-                        } else if let err = err {
-                            familyViewModel.errorMessage = err
                         }
                     }
                 }
@@ -308,32 +305,32 @@ private struct SettingsOtherAlertsModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .alert(L.settingsProfileClaimTitle, isPresented: $showProfileConfirmAlert) {
+            .alert(L.s("settings_profile_claim_title"), isPresented: $showProfileConfirmAlert) {
                 Button(L.confirmButton) {
                     if let id = pendingClaimMemberId {
-                        familyViewModel.claimProfile(memberId: id)
+                        familyViewModel.setMyMemberId(id) { _ in }
                         showProfilePicker = false
                     }
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.settingsProfileClaimMessage)
+                Text(L.s("settings_profile_claim_message"))
             }
-            .alert(L.settingsAdminResetSchedule, isPresented: $showResetScheduleAlert) {
+            .alert(L.s("settings_admin_reset_schedule"), isPresented: $showResetScheduleAlert) {
                 Button(L.confirmButton, role: .destructive) {
                     familyViewModel.resetSchedule()
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.settingsAdminResetScheduleConfirm)
+                Text(L.s("settings_admin_reset_schedule_confirm"))
             }
-            .alert(L.settingsResetTips, isPresented: $showResetTipsAlert) {
+            .alert(L.s("settings_reset_tips"), isPresented: $showResetTipsAlert) {
                 Button(L.confirmButton) {
                     familyViewModel.resetAllTooltips()
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.settingsResetTipsConfirm)
+                Text(L.s("settings_reset_tips_confirm"))
             }
     }
 }
