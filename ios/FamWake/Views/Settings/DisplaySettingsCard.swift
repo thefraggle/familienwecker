@@ -15,15 +15,15 @@ struct DisplaySettingsCard: View {
 
             // Theme Picker
             VStack(alignment: .leading, spacing: 4) {
-                SettingsSectionLabel(icon: "circle.lefthalf.filled", text: L.settingsThemeTitle)
-                Picker(L.settingsThemeTitle, selection: Binding(
+                SettingsSectionLabel(icon: "circle.lefthalf.filled", text: L.s("settings_theme_title"))
+                Picker(L.s("settings_theme_title"), selection: Binding(
                     get: { familyViewModel.themeMode },
                     set: {
                         familyViewModel.setThemeMode($0)
                         appState.themeMode = $0
                     }
                 )) {
-                    Text(L.settingsThemeSystem).tag("system")
+                    Text(L.s("settings_theme_system")).tag("system")
                     Text(L.settingsThemeLight).tag("light")
                     Text(L.settingsThemeDark).tag("dark")
                 }
@@ -121,9 +121,9 @@ struct DisplaySettingsCard: View {
 
     private func timeFormatLabel(_ format: String) -> String {
         switch format {
-        case "12h": return L.settingsTimeFormat12
-        case "24h": return L.settingsTimeFormat24
-        default:    return L.settingsTimeFormatAuto
+        case "12h": return L.s("settings_time_format_12")
+        case "24h": return L.s("settings_time_format_24")
+        default:    return L.s("settings_time_format_auto")
         }
     }
 
