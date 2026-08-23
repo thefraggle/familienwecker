@@ -243,43 +243,49 @@ fun MainScreen(
                         )
                     },
                     actions = {
-                        if (isOffline) {
-                            Box(modifier = Modifier.padding(end = 4.dp)) {
-                                Icon(
-                                    imageVector = Icons.Default.CloudOff,
-                                    contentDescription = stringResource(R.string.cd_offline_indicator),
-                                    tint = MaterialTheme.colorScheme.outline,
-                                    modifier = Modifier.size(20.dp)
-                                )
-                            }
-                        } else {
-                            AnimatedVisibility(
-                                visible = isSyncing,
-                                enter = fadeIn(),
-                                exit = fadeOut()
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .padding(end = 4.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                val syncRotationTransition = rememberInfiniteTransition(label = "syncRotation")
-                                val syncRotation by syncRotationTransition.animateFloat(
-                                    initialValue = 0f,
-                                    targetValue = 360f,
-                                    animationSpec = infiniteRepeatable(
-                                        animation = tween(1000, easing = LinearEasing),
-                                        repeatMode = RepeatMode.Restart
-                                    ),
-                                    label = "syncRotationAngle"
-                                )
-                                Box(modifier = Modifier.padding(end = 4.dp)) {
+                                if (isOffline) {
                                     Icon(
-                                        imageVector = Icons.Default.Sync,
-                                        contentDescription = stringResource(R.string.cd_sync_indicator),
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier
-                                            .size(20.dp)
-                                            .graphicsLayer { rotationZ = syncRotation }
+                                        imageVector = Icons.Default.CloudOff,
+                                        contentDescription = stringResource(R.string.cd_offline_indicator),
+                                        tint = MaterialTheme.colorScheme.outline,
+                                        modifier = Modifier.size(20.dp)
                                     )
+                                } else {
+                                    this@Row.AnimatedVisibility(
+                                        visible = isSyncing,
+                                        enter = fadeIn(),
+                                        exit = fadeOut()
+                                    ) {
+                                        val syncRotationTransition = rememberInfiniteTransition(label = "syncRotation")
+                                        val syncRotation by syncRotationTransition.animateFloat(
+                                            initialValue = 0f,
+                                            targetValue = 360f,
+                                            animationSpec = infiniteRepeatable(
+                                                animation = tween(1000, easing = LinearEasing),
+                                                repeatMode = RepeatMode.Restart
+                                            ),
+                                            label = "syncRotationAngle"
+                                        )
+                                        Icon(
+                                            imageVector = Icons.Default.Sync,
+                                            contentDescription = stringResource(R.string.cd_sync_indicator),
+                                            tint = MaterialTheme.colorScheme.primary,
+                                            modifier = Modifier
+                                                .size(20.dp)
+                                                .graphicsLayer { rotationZ = syncRotation }
+                                        )
+                                    }
                                 }
                             }
-                        }
 
                         val settingsInteractionSource = remember { MutableInteractionSource() }
                         IconButton(
@@ -291,7 +297,8 @@ fun MainScreen(
                         ) {
                             Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title))
                         }
-                    },
+                    }
+                },
                     scrollBehavior = scrollBehavior,
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surface else Color.Transparent,

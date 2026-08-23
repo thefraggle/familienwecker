@@ -31,6 +31,7 @@ struct MemberSection: View {
                     Spacer()
                     
                     Button(action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                         familyViewModel.setGlobalBufferMinutes(max(0, familyViewModel.globalBufferMinutes - 5))
                     }) {
                         Image(systemName: "minus.circle.fill")
@@ -45,6 +46,7 @@ struct MemberSection: View {
                         .frame(minWidth: 50, alignment: .center)
                     
                     Button(action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                         familyViewModel.setGlobalBufferMinutes(min(15, familyViewModel.globalBufferMinutes + 5))
                     }) {
                         Image(systemName: "plus.circle.fill")

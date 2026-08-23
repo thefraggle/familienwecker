@@ -504,17 +504,21 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                 )
             }
             composable(Routes.ADD_MEMBER) {
+                val selectedDayOfWeek by familyViewModel.selectedDayOfWeek.collectAsStateWithLifecycle()
                 AddMemberScreen(
                     viewModel = familyViewModel,
                     memberId = null,
+                    initialDay = selectedDayOfWeek,
                     onNavigateBack = { navController.popBackStack() }
                 )
             }
             composable(Routes.EDIT_MEMBER) { backStackEntry ->
                 val memberId = backStackEntry.arguments?.getString("memberId")
+                val selectedDayOfWeek by familyViewModel.selectedDayOfWeek.collectAsStateWithLifecycle()
                 AddMemberScreen(
                     viewModel = familyViewModel,
                     memberId = memberId,
+                    initialDay = selectedDayOfWeek,
                     onNavigateBack = { navController.popBackStack() }
                 )
             }

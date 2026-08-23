@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.2 – 2026-08-23
+✨ Verbessert:
+• Wochentag-Kontext beim Bearbeiten: Wenn ein Wochentag im Weckplan ausgewählt ist, öffnet die Bearbeitung eines Mitglieds direkt das Profil dieses Tages.
+• Spürbares Feedback: Haptisches Feedback bei Kernaktionen (Wecker an/aus, „Schon wach", Puffer-Änderungen).
+• Ruhiger Header: Feste Ausrichtung und optimierte Abstände im App-Header verhindern ein Springen des Einstellungs-Icons bei Statusänderungen.
+• Schnellere Ladezeiten: Einstellungen unter der Haube modularisiert und optimiert.
+
 ## 2.1.1 – 2026-08-08
 ✨ Verbessert:
 • Bessere Übersetzungen: Fehler behoben, bei denen in einigen Sprachen Platzhalter-Texte bei der Badezeit ("minutes_suffix") oder den Tönen ("sound_name_standard") angezeigt wurden. Der eigene Namens-Badge ("Du") ist nun in allen Sprachen korrekt übersetzt.

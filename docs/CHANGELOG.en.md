@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.2 – 2026-08-23
+✨ Improved:
+• Weekday Context in Edit: Selecting a weekday on the schedule screen now directly opens that specific day profile when editing a family member.
+• Haptic Feedback: Tactile response for core actions (alarm switch, "already awake", buffer adjustments).
+• Stable Header: Fixed layout alignment prevents header icon shifts during sync/offline transitions.
+• Snappier Performance: Modularized settings architecture for smoother navigation and faster builds.
+
 ## 2.1.1 – 2026-08-08
 ✨ Improved:
 • Better translations: Fixed localization bugs where raw placeholders (like "minutes_suffix" or "sound_name_standard") were shown in the bathroom duration picker or alarm sound settings. The profile badge ("You") is now correctly translated in all languages.

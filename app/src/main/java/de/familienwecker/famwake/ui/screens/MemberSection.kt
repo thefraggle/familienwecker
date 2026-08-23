@@ -80,8 +80,12 @@ fun LazyListScope.memberSection(
                         )
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
+                        val haptic = androidx.compose.ui.platform.LocalHapticFeedback.current
                         IconButton(
-                            onClick = { viewModel.setGlobalBufferMinutes((globalBufferMinutes - 5).coerceAtLeast(0L)) },
+                            onClick = { 
+                                haptic.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress)
+                                viewModel.setGlobalBufferMinutes((globalBufferMinutes - 5).coerceAtLeast(0L)) 
+                            },
                             enabled = globalBufferMinutes > 0,
                             modifier = Modifier.size(32.dp)
                         ) {
@@ -98,7 +102,10 @@ fun LazyListScope.memberSection(
                             modifier = Modifier.padding(horizontal = 4.dp)
                         )
                         IconButton(
-                            onClick = { viewModel.setGlobalBufferMinutes((globalBufferMinutes + 5).coerceAtMost(15L)) },
+                            onClick = { 
+                                haptic.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress)
+                                viewModel.setGlobalBufferMinutes((globalBufferMinutes + 5).coerceAtMost(15L)) 
+                            },
                             enabled = globalBufferMinutes < 15,
                             modifier = Modifier.size(32.dp)
                         ) {

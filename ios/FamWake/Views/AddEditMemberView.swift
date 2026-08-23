@@ -40,6 +40,7 @@ struct AddEditMemberView: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @Environment(\.colorScheme) private var colorScheme
     var memberId: String?
+    var initialDay: Int? = nil
     var onDone: () -> Void
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
@@ -304,18 +305,22 @@ struct AddEditMemberView: View {
         initialName = name
         initialProfiles = dayProfiles
 
-        let today = currentDayOfWeek()
-        var targetDay = today
-        if !(dayProfiles[today]?.isActive ?? false) {
-            for offset in 1..<7 {
-                let checkDay = (today - 1 + offset) % 7 + 1
-                if dayProfiles[checkDay]?.isActive ?? false {
-                    targetDay = checkDay
-                    break
+        if let initDay = initialDay, initDay >= 1, initDay <= 7 {
+            selectedDay = initDay
+        } else {
+            let today = currentDayOfWeek()
+            var targetDay = today
+            if !(dayProfiles[today]?.isActive ?? false) {
+                for offset in 1..<7 {
+                    let checkDay = (today - 1 + offset) % 7 + 1
+                    if dayProfiles[checkDay]?.isActive ?? false {
+                        targetDay = checkDay
+                        break
+                    }
                 }
             }
+            selectedDay = targetDay
         }
-        selectedDay = targetDay
     }
 
     private func saveMember() {
