@@ -65,7 +65,7 @@ STORE_LISTINGS.md
 images/
 
 # Internal Automation & Screenshot Scripts (Keep only core release metadata scripts)
-scripts/
+scripts/*
 !scripts/generate_metadata.py
 !scripts/generate_ios_metadata.py
 
