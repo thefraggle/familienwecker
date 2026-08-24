@@ -19,8 +19,6 @@ struct SettingsView: View {
     @State private var showLogoutAlert = false
     @State private var showProfileConfirmAlert = false
     @State private var pendingClaimMemberId: String?
-    @State private var showAdminPanel = false
-    @State private var showResetScheduleAlert = false
     @State private var showResetTipsAlert = false
     @State private var showTourSheet = false
     @State private var showFeedbackSheet = false
@@ -94,14 +92,6 @@ struct SettingsView: View {
                         showDeleteAccountAlert: $showDeleteAccountAlert
                     )
 
-                    // Card 6: Admin Panel (if admin)
-                    if familyViewModel.isAdmin {
-                        AdminSettingsCard(
-                            showAdminPanel: $showAdminPanel,
-                            showResetScheduleAlert: $showResetScheduleAlert
-                        )
-                    }
-
                     // Footer
                     SettingsFooterSection(
                         showDonationSheet: $showDonationSheet
@@ -146,7 +136,6 @@ struct SettingsView: View {
         )
         .settingsOtherAlerts(
             showProfileConfirmAlert: $showProfileConfirmAlert,
-            showResetScheduleAlert: $showResetScheduleAlert,
             showResetTipsAlert: $showResetTipsAlert,
             showProfilePicker: $showProfilePicker,
             pendingClaimMemberId: $pendingClaimMemberId
@@ -214,14 +203,12 @@ private extension View {
 
     func settingsOtherAlerts(
         showProfileConfirmAlert: Binding<Bool>,
-        showResetScheduleAlert: Binding<Bool>,
         showResetTipsAlert: Binding<Bool>,
         showProfilePicker: Binding<Bool>,
         pendingClaimMemberId: Binding<String?>
     ) -> some View {
         self.modifier(SettingsOtherAlertsModifier(
             showProfileConfirmAlert: showProfileConfirmAlert,
-            showResetScheduleAlert: showResetScheduleAlert,
             showResetTipsAlert: showResetTipsAlert,
             showProfilePicker: showProfilePicker,
             pendingClaimMemberId: pendingClaimMemberId
@@ -301,7 +288,6 @@ private struct SettingsAccountAlertsModifier: ViewModifier {
 private struct SettingsOtherAlertsModifier: ViewModifier {
     @EnvironmentObject var familyViewModel: FamilyViewModel
     @Binding var showProfileConfirmAlert: Bool
-    @Binding var showResetScheduleAlert: Bool
     @Binding var showResetTipsAlert: Bool
     @Binding var showProfilePicker: Bool
     @Binding var pendingClaimMemberId: String?
@@ -318,14 +304,6 @@ private struct SettingsOtherAlertsModifier: ViewModifier {
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
                 Text(L.s("settings_profile_claim_message"))
-            }
-            .alert(L.s("settings_admin_reset_schedule"), isPresented: $showResetScheduleAlert) {
-                Button(L.s("confirm_button"), role: .destructive) {
-                    familyViewModel.checkAndResetMembers()
-                }
-                Button(L.cancelButton, role: .cancel) {}
-            } message: {
-                Text(L.s("settings_admin_reset_schedule_confirm"))
             }
             .alert(L.settingsTooltipsReset, isPresented: $showResetTipsAlert) {
                 Button(L.s("confirm_button")) {

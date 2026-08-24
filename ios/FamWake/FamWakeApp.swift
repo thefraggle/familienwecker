@@ -472,6 +472,8 @@ struct FamWakeApp: App {
                 .environmentObject(authViewModel)
                 .environmentObject(familyViewModel)
                 .environmentObject(donationViewModel)
+                .environment(\.locale, LanguageManager.shared.currentLocale)
+                .id(appState.languageId)
                 .preferredColorScheme(appState.colorScheme)
                 .onOpenURL { url in
                     // Google Sign-In URL handler for OAuth callback
