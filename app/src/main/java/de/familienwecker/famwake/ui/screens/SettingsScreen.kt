@@ -1306,13 +1306,6 @@ fun SettingsScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
                 )
-                // All rights reserved
-                Text(
-                    text = stringResource(R.string.settings_footer_rights),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 

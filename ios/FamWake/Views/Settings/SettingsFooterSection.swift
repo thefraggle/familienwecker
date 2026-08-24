@@ -24,11 +24,6 @@ struct SettingsFooterSection: View {
                     .font(.footnote)
                     .foregroundStyle(theme.onSurfaceVariant)
                     .multilineTextAlignment(.center)
-
-                Text(L.settingsFooterRights)
-                    .font(.footnote)
-                    .foregroundStyle(theme.onSurfaceVariant)
-                    .multilineTextAlignment(.center)
             }
             .padding(.top, 8)
 
