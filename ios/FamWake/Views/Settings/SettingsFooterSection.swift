@@ -7,23 +7,47 @@ struct SettingsFooterSection: View {
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
+    private var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.1.3"
+    }
+
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 16) {
+            // Version & Copyright Info
+            VStack(spacing: 4) {
+                Text("FamWake \(L.appNameShort) v\(appVersion)")
+                    .font(.footnote)
+                    .foregroundStyle(theme.onSurfaceVariant)
+                    .multilineTextAlignment(.center)
+
+                Text(L.settingsFooterCopyright)
+                    .font(.footnote)
+                    .foregroundStyle(theme.onSurfaceVariant)
+                    .multilineTextAlignment(.center)
+
+                Text(L.settingsFooterRights)
+                    .font(.footnote)
+                    .foregroundStyle(theme.onSurfaceVariant)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.top, 8)
+
+            // Links: Nutzungsbedingungen · Datenschutzerklärung · Impressum
             HStack(spacing: 16) {
+                Link(L.settingsTermsOfUse, destination: URL(string: L.settingsTermsOfUseUrl)!)
+                    .font(.footnote)
+                    .foregroundStyle(theme.primary)
+
                 Link(L.settingsPrivacyPolicy, destination: URL(string: L.settingsPrivacyPolicyUrl)!)
                     .font(.footnote)
                     .foregroundStyle(theme.primary)
-                Text("•").foregroundStyle(theme.outline)
+
                 Link(L.settingsImprint, destination: URL(string: L.settingsImprintUrl)!)
                     .font(.footnote)
                     .foregroundStyle(theme.primary)
             }
-            .padding(.top, 8)
-
-            Text("FamWake v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.1.3") (Build \(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"))")
-                .font(.caption2)
-                .foregroundStyle(theme.outline)
         }
-        .padding(.bottom, 24)
+        .frame(maxWidth: .infinity)
+        .padding(.bottom, 28)
     }
 }
