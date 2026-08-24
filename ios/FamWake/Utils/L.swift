@@ -70,8 +70,11 @@ enum L {
     static var settingsBatteryWarningTitle: String { s("settings_battery_warning_title") }
     static var settingsPushTitle: String { s("settings_push_title") }
     static var settingsPushLabel: String { s("settings_push_label") }
+    static var settingsTermsOfUse: String { s("settings_terms_of_use") }
     static var settingsPrivacyPolicy: String { s("settings_privacy_policy") }
     static var settingsImprint: String { s("settings_imprint") }
+    static var settingsFooterCopyright: String { s("settings_footer_copyright") }
+    static var settingsFooterRights: String { s("settings_footer_rights") }
     static var settingsThemeDark: String { s("settings_theme_dark") }
     static var settingsThemeLight: String { s("settings_theme_light") }
     static var settingsLanguageSystem: String { s("settings_language_system") }
