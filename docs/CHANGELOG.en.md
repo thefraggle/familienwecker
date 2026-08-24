@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.3 – 2026-08-24
+✨ Improved:
+• Flexible early wake-up: The "Already awake" button now appears precisely 4 hours before your upcoming alarm, allowing you to dismiss it early without stress.
+• Enhanced reliability: Under-the-hood optimizations ensure even more dependable alarms.
+
 ## 2.1.2 – 2026-08-23
 ✨ Improved:
 • Right on schedule: Editing a family member now immediately opens the currently selected day of the week.

@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.3 – 2026-08-24
+✨ Verbessert:
+• Flexibler früher wach: Der Button „Ich bin schon wach“ erscheint jetzt passgenau 4 Stunden vor deinem nächsten Wecker – ideal, um das Klingeln vorab sanft zu deaktivieren.
+• Verbesserte Zuverlässigkeit: Optimierungen im Hintergrund sorgen für noch stabilere Weckabläufe.
+
 ## 2.1.2 – 2026-08-23
 ✨ Verbessert:
 • Direkt am richtigen Tag: Beim Bearbeiten eines Familienmitglieds öffnet sich automatisch der aktuell ausgewählte Wochentag.

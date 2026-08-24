@@ -20,7 +20,7 @@ struct SettingsFooterSection: View {
             }
             .padding(.top, 8)
 
-            Text("FamWake v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.1.2") (Build \(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"))")
+            Text("FamWake v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.1.3") (Build \(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"))")
                 .font(.caption2)
                 .foregroundStyle(theme.outline)
         }
