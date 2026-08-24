@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.4 – 2026-08-24
+✨ Verbessert:
+• Kompakterer Kopfbereich: Eine schlankere Ansicht oben sorgt für mehr Übersicht und besseren Fokus auf deinen Familien-Weckplan.
+• Zuverlässige Sprachauswahl: Der Wechsel der Sprache wird nun direkt und fehlerfrei in der gesamten App übernommen.
+• Aufgeräumte Einstellungen: Das Einstellungsmenü und der Fußbereich wurden übersichtlicher gestaltet.
+
 ## 2.1.3 – 2026-08-24
 ✨ Verbessert:
 • Flexibler früher wach: Der Button „Ich bin schon wach“ erscheint jetzt passgenau 4 Stunden vor deinem nächsten Wecker – ideal, um das Klingeln vorab sanft zu deaktivieren.
