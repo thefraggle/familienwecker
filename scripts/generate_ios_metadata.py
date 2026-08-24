@@ -67,13 +67,16 @@ def get_latest_changelog(file_path):
         line = line.strip()
         if not line or line.startswith('###'):
             continue
-        # Strip Markdown formatting
+        # Strip Markdown formatting & bullets
         line = re.sub(r'(\*\*|\*|__|_)', '', line)
-        line = line.lstrip('- ').strip()
+        line = re.sub(r'^[•\-\*\s]+', '', line)
+        # Skip section headers like "✨ Improved:" or "Verbessert:"
+        if re.match(r'^(✨\s*)?(Improved|Verbessert)\s*:\s*$', line, flags=re.IGNORECASE):
+            continue
         if line:
             cleaned.append(line)
 
-    return ". ".join(cleaned) if cleaned else None
+    return "\n".join(f"• {item}" for item in cleaned) if cleaned else None
 
 
 def get_description_from_listing(listing_path):
@@ -289,9 +292,16 @@ def main():
         if changelog_path:
             notes = get_latest_changelog(changelog_path) or ""
 
-        if not notes and translator_available:
+        if not notes and translator_available and changelog_en:
             try:
-                notes = GoogleTranslator(source='en', target=target_lang).translate(changelog_en)
+                translated_lines = []
+                for line in changelog_en.split("\n"):
+                    clean_line = re.sub(r'^[•\-\*\s]+', '', line).strip()
+                    if clean_line:
+                        translated_text = GoogleTranslator(source='en', target=target_lang).translate(clean_line)
+                        translated_lines.append(f"• {translated_text}")
+                if translated_lines:
+                    notes = "\n".join(translated_lines)
             except Exception as e:
                 print(f"  ⚠️  Release notes translation failed for {asc_locale}: {e}")
 
