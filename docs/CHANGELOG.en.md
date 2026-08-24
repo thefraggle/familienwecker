@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.4 – 2026-08-24
+✨ Improved:
+• Compact header: A sleeker top bar provides a clearer overview and puts the focus directly on your family schedule.
+• Instant language switching: Changing your language now updates the entire app immediately and reliably.
+• Cleaner settings: Streamlined settings layout and footer design for an easier overview.
+
 ## 2.1.3 – 2026-08-24
 ✨ Improved:
 • Flexible early wake-up: The "Already awake" button now appears precisely 4 hours before your upcoming alarm, allowing you to dismiss it early without stress.
