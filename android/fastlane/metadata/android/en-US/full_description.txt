@@ -13,7 +13,7 @@ FamWake is a shared alarm clock that manages your bathroom schedule automaticall
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop for effortless morning planning and kids morning routine management.
+The dashboard shows your family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your visual schedule for effortless morning planning, my morning routine, and kids morning routine management.
 
 <b> Already Awake?</b>
 One tap on "Already Awake" and your alarm won't ring. Don't need an alarm today? Simply pause yourself and the family alarm clock recalculates the schedule for everyone else.
@@ -46,7 +46,3 @@ All core features are <b>free forever</b> — a truly free alarm clock with no s
 
 <b>Built by a father, for families.</b>
 FamWake is a passion project born at our own breakfast table. Download the family alarm clock now and master your kids morning routine together!
-
----
-
-#  App Store Listing – FamWake (EN)

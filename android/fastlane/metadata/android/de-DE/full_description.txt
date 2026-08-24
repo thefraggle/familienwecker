@@ -13,7 +13,7 @@ Wer wann ins Bad darf, plant FamWake automatisch als intelligenter <b>Badplaner<
 Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam frühstücken können — vor dem Start in Schule oder Arbeit.
 
 <b> Die ganze Familie im Blick</b>
-Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein Familienplaner für kinderleichtes Zeitmanagement und eine harmonische Morgenroutine.
+Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan und Familienplaner für kinderleichtes Zeitmanagement und eine harmonische Morgenroutine.
 
 <b> Schon früher wach?</b>
 Ein Tipp auf „Schon wach“ und dein Wecker bleibt stumm — du bist ja schon auf. Brauchst du an einem Tag keinen Wecker? Pausiere dich einfach und der Familienwecker berechnet den Zeitplan automatisch neu.
@@ -46,7 +46,3 @@ Alle Kernfunktionen sind und bleiben dauerhaft <b>kostenlos</b> — dieser Wecke
 
 <b>Von einem Vater für Familien gebaut.</b>
 FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den Familienwecker und starte jeden Morgen mit einer entspannten Morgenroutine!
-
----
-
-#  App Store Listing – FamWake (DE)
