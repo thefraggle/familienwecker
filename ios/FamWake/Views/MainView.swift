@@ -162,28 +162,22 @@ struct MainView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(alignment: .center, spacing: 16) {
-                        // Fester Frame verhindert Höhen- und Breiten-Sprung wenn Status-Icons ein-/ausblenden
-                        ZStack {
-                            if familyViewModel.isOffline {
-                                Image(systemName: "icloud.slash")
-                                    .foregroundStyle(theme.outline)
-                            } else if familyViewModel.isSyncing {
-                                RotatingIcon(systemName: "arrow.triangle.2.circlepath", color: theme.tertiary)
-                            }
-                        }
-                        .font(.caption)
-                        .frame(width: 20, height: 20)
-
-                        Button(action: { navPath.append(NavigationRoute.settings) }) {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundStyle(theme.onSurface)
-                        }
-                        .frame(width: 44, height: 44)
-                        .accessibilityLabel(L.s("accessibility_settings_button"))
-                        .accessibilityIdentifier("settings_button")
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    if familyViewModel.isOffline {
+                        Image(systemName: "icloud.slash")
+                            .font(.caption)
+                            .foregroundStyle(theme.outline)
+                    } else if familyViewModel.isSyncing {
+                        RotatingIcon(systemName: "arrow.triangle.2.circlepath", color: theme.tertiary)
+                            .font(.caption)
                     }
+
+                    Button(action: { navPath.append(NavigationRoute.settings) }) {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundStyle(theme.onSurface)
+                    }
+                    .accessibilityLabel(L.s("accessibility_settings_button"))
+                    .accessibilityIdentifier("settings_button")
                 }
             }
             .navigationDestination(for: NavigationRoute.self) { route in

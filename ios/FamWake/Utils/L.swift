@@ -66,6 +66,10 @@ enum L {
     static var settingsTooltipsReset: String { s("settings_tooltips_reset") }
     static var settingsSupportTitle: String { s("settings_support_title") }
     static var settingsBatteryWarningTitle: String { s("settings_battery_warning_title") }
+    static var settingsPushTitle: String { s("settings_push_title") }
+    static var settingsPushLabel: String { s("settings_push_label") }
+    static var settingsPrivacyPolicy: String { s("settings_privacy_policy") }
+    static var settingsImprint: String { s("settings_imprint") }
     static var settingsThemeDark: String { s("settings_theme_dark") }
     static var settingsThemeLight: String { s("settings_theme_light") }
     static var settingsLanguageSystem: String { s("settings_language_system") }
@@ -350,7 +354,7 @@ enum L {
     static var settingsDeleteMemberConfirm: String { s("delete_confirm") }
 
     // MARK: - Help / Tour
-    static var settingsHelpTitle: String { s("settings_help_title") }
+    static var settingsHelpTitle: String { s("settings_help_feedback_title") }
     static var settingsRestartTour: String { s("settings_restart_tour") }
 
     // MARK: - Admin (L14)
