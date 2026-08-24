@@ -26,15 +26,22 @@ final class LanguageManager {
 
     func apply(_ langCode: String) {
         let code = resolvedCode(langCode)
-        // Primär: path-basierter Lookup
+        // 1. Primär: path-basierter Lookup
         if let path = Bundle.main.path(forResource: code, ofType: "lproj"),
            let b = Bundle(path: path) {
             bundle = b
             return
         }
-        // Fallback: URL-basierter Lookup (robuster auf neueren iOS-Versionen)
+        // 2. URL-basierter Lookup
         if let url = Bundle.main.url(forResource: code, withExtension: "lproj"),
            let b = Bundle(url: url) {
+            bundle = b
+            return
+        }
+        // 3. Fallback auf 2-stelligen Sprachcode (z.B. zh statt zh-Hans)
+        let shortCode = String(code.prefix(2)).lowercased()
+        if let path = Bundle.main.path(forResource: shortCode, ofType: "lproj"),
+           let b = Bundle(path: path) {
             bundle = b
             return
         }
@@ -50,7 +57,7 @@ final class LanguageManager {
         }
         if raw == "no" || raw == "nb" { return "nb" }
         if raw == "in" || raw == "id" { return "id" }
-        if raw.hasPrefix("zh") { return "zh-Hans" }
+        if raw.hasPrefix("zh") { return "zh" }
         return supported.contains(raw) ? raw : "en"
     }
 
