@@ -327,13 +327,13 @@ private struct SettingsOtherAlertsModifier: ViewModifier {
             } message: {
                 Text(L.s("settings_admin_reset_schedule_confirm"))
             }
-            .alert(L.s("settings_reset_tips"), isPresented: $showResetTipsAlert) {
+            .alert(L.settingsTooltipsReset, isPresented: $showResetTipsAlert) {
                 Button(L.s("confirm_button")) {
                     familyViewModel.resetAllTooltips()
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.s("settings_reset_tips_confirm"))
+                Text(L.settingsTooltipsLabel)
             }
     }
 }

@@ -14,17 +14,17 @@ struct DisplaySettingsCard: View {
 
             // Theme Picker
             VStack(alignment: .leading, spacing: 4) {
-                SettingsSectionLabel(icon: "circle.lefthalf.filled", text: L.s("settings_theme_title"))
-                Picker(L.s("settings_theme_title"), selection: Binding(
+                SettingsSectionLabel(icon: "circle.lefthalf.filled", text: L.settingsAppearanceTitle)
+                Picker(L.settingsAppearanceTitle, selection: Binding(
                     get: { appState.themePreference },
                     set: { appState.setTheme($0) }
                 )) {
-                    Text(L.s("settings_theme_system")).tag("system")
+                    Text(L.settingsLanguageSystem).tag("system")
                     Text(L.settingsThemeLight).tag("light")
                     Text(L.settingsThemeDark).tag("dark")
                 }
                 .pickerStyle(.segmented)
-                .accessibilityLabel(L.s("accessibility_theme_picker"))
+                .accessibilityLabel(L.settingsAppearanceTitle)
             }
 
             Divider().background(theme.outline.opacity(0.15))
@@ -59,24 +59,26 @@ struct DisplaySettingsCard: View {
             )) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(L.settingsTooltipsTitle).font(.body)
-                    Text(L.s("settings_tooltips_desc")).font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                    Text(L.settingsTooltipsLabel).font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                 }
             }
             .tint(theme.secondary)
             .accessibilityLabel(L.s("accessibility_tooltips_toggle"))
 
             // Reset Tooltips Button
-            Button(action: { showResetTipsAlert = true }) {
-                HStack(spacing: 8) {
-                    Image(systemName: "arrow.counterclockwise")
-                    Text(L.s("settings_reset_tips"))
+            if familyViewModel.tooltipsEnabled {
+                Button(action: { showResetTipsAlert = true }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "arrow.counterclockwise")
+                        Text(L.settingsTooltipsReset)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
+                .foregroundStyle(theme.onSurface)
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                .accessibilityLabel(L.s("accessibility_reset_tooltips"))
             }
-            .foregroundStyle(theme.onSurface)
-            .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
-            .accessibilityLabel(L.s("accessibility_reset_tooltips"))
 
             Divider().background(theme.outline.opacity(0.15))
 
@@ -86,8 +88,8 @@ struct DisplaySettingsCard: View {
                 set: { appState.setPushNotificationsEnabled($0) }
             )) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(L.s("settings_push_title")).font(.body)
-                    Text(L.s("settings_push_desc")).font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                    Text(L.settingsPushTitle).font(.body)
+                    Text(L.settingsPushLabel).font(.caption).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                 }
             }
             .tint(theme.secondary)

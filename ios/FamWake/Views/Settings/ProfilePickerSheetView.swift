@@ -24,7 +24,7 @@ struct ProfilePickerSheetView: View {
                     )
                 }
             }
-            .navigationTitle(L.s("settings_profile_picker_title"))
+            .navigationTitle(L.settingsProfileTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -58,12 +58,8 @@ private struct ProfilePickerRowView: View {
                         .font(.headline)
                         .foregroundStyle(theme.onSurface)
 
-                    if isMe {
-                        Text(L.s("settings_profile_claimed"))
-                            .font(.caption)
-                            .foregroundStyle(theme.tertiary)
-                    } else if member.claimedByUserId != nil {
-                        Text(L.s("settings_profile_other"))
+                    if !isMe && member.claimedByUserId != nil {
+                        Text(L.settingsAlreadyClaimed)
                             .font(.caption)
                             .foregroundStyle(theme.outline)
                     }
