@@ -11,8 +11,6 @@ struct AccountActionsSettingsCard: View {
 
     var body: some View {
         SettingsCardContainer {
-            SettingsSectionHeader(icon: "person.crop.circle.badge.xmark", title: L.s("settings_account_actions_title"))
-
             // Logout Button
             Button(action: { showLogoutAlert = true }) {
                 HStack(spacing: 8) {

@@ -223,7 +223,7 @@ fun MainScreen(
                 }
             },
             topBar = {
-                LargeTopAppBar(
+                MediumTopAppBar(
                     title = {
                         val appShortName = stringResource(R.string.app_name_short)
                         // M14: Brand-Prefix aus String-Resource statt hardcoded
