@@ -19,7 +19,7 @@ FamWake Familienwecker
 Familienwecker & Morgenroutine für Kinder. Wecker mit Bad-Reihenfolge & Snooze.
 ```
 
-### Vollständige Beschreibung (3358 / 4000 Zeichen)
+### Vollständige Beschreibung (3339 / 4000 Zeichen)
 ```html
 <b>Schluss mit Morgen-Chaos! Dein Familienwecker & Kinderwecker für eine entspannte Morgenroutine.</b>
 
@@ -36,7 +36,7 @@ Wer wann ins Bad darf, plant FamWake automatisch als intelligenter <b>Badplaner<
 Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam frühstücken können — vor dem Start in Schule oder Arbeit.
 
 <b> Die ganze Familie im Blick</b>
-Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein Familienplaner für kinderleichtes Zeitmanagement und eine harmonische Morgenroutine.
+Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan und Familienplaner für kinderleichtes Zeitmanagement und eine harmonische Morgenroutine.
 
 <b> Schon früher wach?</b>
 Ein Tipp auf „Schon wach“ und dein Wecker bleibt stumm — du bist ja schon auf. Brauchst du an einem Tag keinen Wecker? Pausiere dich einfach und der Familienwecker berechnet den Zeitplan automatisch neu.
@@ -69,10 +69,6 @@ Alle Kernfunktionen sind und bleiben dauerhaft <b>kostenlos</b> — dieser Wecke
 
 <b>Von einem Vater für Familien gebaut.</b>
 FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den Familienwecker und starte jeden Morgen mit einer entspannten Morgenroutine!
-
----
-
-#  App Store Listing – FamWake (DE)
 ```
 
 ---
@@ -89,7 +85,7 @@ FamWake Family Alarm Clock
 Smart family alarm clock & morning routine app. Bathroom queue & group alarms.
 ```
 
-### Vollständige Beschreibung (3017 / 4000 Zeichen)
+### Vollständige Beschreibung (3019 / 4000 Zeichen)
 ```html
 <b>End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.</b>
 
@@ -106,7 +102,7 @@ FamWake is a shared alarm clock that manages your bathroom schedule automaticall
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop for effortless morning planning and kids morning routine management.
+The dashboard shows your family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your visual schedule for effortless morning planning, my morning routine, and kids morning routine management.
 
 <b> Already Awake?</b>
 One tap on "Already Awake" and your alarm won't ring. Don't need an alarm today? Simply pause yourself and the family alarm clock recalculates the schedule for everyone else.
@@ -139,10 +135,6 @@ All core features are <b>free forever</b> — a truly free alarm clock with no s
 
 <b>Built by a father, for families.</b>
 FamWake is a passion project born at our own breakfast table. Download the family alarm clock now and master your kids morning routine together!
-
----
-
-#  App Store Listing – FamWake (EN)
 ```
 
 ---
@@ -210,9 +202,6 @@ All core features are <b>free forever</b> — a truly free alarm clock with no s
 <b>Built by a father, for families.</b>
 FamWake is a passion project born at our own breakfast table. Download the family alarm clock now and master your kids morning routine together!
 
----
-
-#  App Store Listing – FamWake (EN)
 ```
 
 ---
@@ -280,9 +269,6 @@ All core features are <b>free forever</b> — a truly free alarm clock with no s
 <b>Built by a father, for families.</b>
 FamWake is a passion project born at our own breakfast table. Download the family alarm clock now and master your kids morning routine together!
 
----
-
-#  App Store Listing – FamWake (EN)
 ```
 
 ---
@@ -488,9 +474,6 @@ Todas las funciones principales de FamWake son y serán <b>gratuitas para siempr
 <b>Creado por un padre, para familias.</b>
 FamWake es un proyecto que nace del corazón — creado en nuestra propia mesa de desayuno y hecho para familias que quieren dominar su rutina matinal juntos. ¡Descarga tu despertador familiar ahora y descubre lo relajada que puede ser una mañana para despertar en hora! 
 
----
-
-#  App Store Listing – FamWake (ES)
 ```
 
 ---
@@ -560,9 +543,6 @@ Todas las funciones principales de FamWake son y serán <b>gratuitas para siempr
 <b>Creado por un padre, para familias.</b>
 FamWake es un proyecto que nace del corazón — creado en nuestra propia mesa de desayuno y hecho para familias que quieren dominar su rutina matinal juntos. ¡Descarga tu despertador familiar ahora y descubre lo relajada que puede ser una mañana para despertar en hora! 
 
----
-
-#  App Store Listing – FamWake (ES)
 ```
 
 ---
@@ -632,9 +612,6 @@ Todas las funciones principales de FamWake son y serán <b>gratuitas para siempr
 <b>Creado por un padre, para familias.</b>
 FamWake es un proyecto que nace del corazón — creado en nuestra propia mesa de desayuno y hecho para familias que quieren dominar su rutina matinal juntos. ¡Descarga tu despertador familiar ahora y descubre lo relajada que puede ser una mañana para despertar en hora! 
 
----
-
-#  App Store Listing – FamWake (ES)
 ```
 
 ---
@@ -704,9 +681,6 @@ Tutte le funzionalità principali di FamWake sono e rimarranno <b>gratuite per s
 <b>Creata da un padre, per le famiglie.</b>
 FamWake è un progetto nato dal cuore — al nostro stesso tavolo della colazione e pensato per le famiglie che vogliono gestire la loro routine mattutina insieme. Scarica FamWake Sveglia Familiare ora e scopri quanto può essere rilassante una mattina senza caos! 
 
----
-
-#  App Store Listing – FamWake (IT)
 ```
 
 ---
@@ -776,9 +750,6 @@ Alle kernfuncties van FamWake zijn en blijven <b>voor altijd gratis</b> — geen
 <b>Gebouwd door een vader, voor gezinnen.</b>
 FamWake is een project recht uit het hart — ontstaan aan onze eigen ontbijttafel en gemaakt voor gezinnen die samen hun ochtendroutine onder controle willen krijgen. Download FamWake Gezinswekker nu en ontdek hoe ontspannen een ochtend zonder chaos kan zijn! 
 
----
-
-#  App Store Listing – FamWake (NL)
 ```
 
 ---
@@ -848,9 +819,6 @@ Todas as funcionalidades essenciais do FamWake são e continuarão sendo <b>grat
 <b>Criado por um pai, para famílias.</b>
 O FamWake é um projeto do coração — nascido na nossa própria mesa de café da manhã e feito para famílias que querem organizar a rotina matinal juntas. Baixe o FamWake agora, o seu novo despertador inteligente e alarme família, e descubra como acordar na hora e ter uma rotina matinal sem caos pode ser relaxante! 
 
----
-
-#  App Store Listing ...
 ```
 
 ---
@@ -920,9 +888,6 @@ Todas as funcionalidades essenciais do FamWake são e continuarão sendo <b>grat
 <b>Criado por um pai, para famílias.</b>
 O FamWake é um projeto do coração — nascido na nossa própria mesa de café da manhã e feito para famílias que querem organizar a rotina matinal juntas. Baixe o FamWake agora, o seu novo despertador inteligente e alarme família, e descubra como acordar na hora e ter uma rotina matinal sem caos pode ser relaxante! 
 
----
-
-#  App Store Listing ...
 ```
 
 ---
@@ -992,9 +957,6 @@ Wszystkie podstawowe funkcje FamWake są i pozostaną <b>na zawsze bezpłatne</b
 <b>Stworzone przez ojca, dla rodzin.</b>
 FamWake to projekt płynący z serca — zrodzony przy naszym własnym stole śniadaniowym i stworzony dla rodzin, które chcą wspólnie opanować swoje poranne rutyny. Pobierz ten budzik inteligentny teraz i odkryj, jak łatwe może być budzenie dzieci i codzienna organizacja! 
 
----
-
-#  App Store Listing –...
 ```
 
 ---
@@ -1238,9 +1200,6 @@ Alle kernefunktioner i FamWake er og forbliver <b>gratis for altid</b> — intet
 <b>Udviklet af en far, til familier.</b>
 FamWake er et hjerteprojekt — født ved vores eget morgenmadsbord og lavet til familier, der vil mestre deres morgenrutine sammen. Download FamWake Familievækkeur nu og opdag, hvor afslappet en morgen uden kaos kan være! 
 
----
-
-#  App Store Listing – FamWake (DA)
 ```
 
 ---
@@ -1310,9 +1269,6 @@ Alla kärnfunktioner i FamWake är och förblir <b>gratis för alltid</b> — in
 <b>Utvecklad av en pappa, för familjer.</b>
 FamWake är ett hjärteprojekt — fött vid vårt eget frukostbord och skapat för familjer som vill bemästra sin morgonrutin tillsammans. Ladda ner FamWake Familjeväckarklocka nu och upptäck hur avslappnad en morgon utan kaos kan vara! 
 
----
-
-#  App Store Listing – FamWake (SV)
 ```
 
 ---
@@ -1382,9 +1338,6 @@ Alle kjernefunksjoner i FamWake er og forblir <b>gratis for alltid</b> — ingen
 <b>Utviklet av en far, for familier.</b>
 FamWake er et hjerteprosjekt — født ved vårt eget frokostbord og laget for familier som vil mestre morgenrutinen sin sammen. Last ned FamWake Familievekkerklokke nå og oppdag hvor avslappet en morgen uten kaos kan være! 
 
----
-
-#  App Store Listing – FamWake (NO)
 ```
 
 ---
@@ -1454,9 +1407,6 @@ Alle kjernefunksjoner i FamWake er og forblir <b>gratis for alltid</b> — ingen
 <b>Utviklet av en far, for familier.</b>
 FamWake er et hjerteprosjekt — født ved vårt eget frokostbord og laget for familier som vil mestre morgenrutinen sin sammen. Last ned FamWake Familievekkerklokke nå og oppdag hvor avslappet en morgen uten kaos kan være! 
 
----
-
-#  App Store Listing – FamWake (NO)
 ```
 
 ---
@@ -1526,9 +1476,6 @@ Semua fitur utama FamWake <b>gratis selamanya</b> — tanpa langganan, tanpa jeb
 <b>Dibuat oleh seorang ayah, untuk keluarga.</b>
 FamWake adalah proyek dari hati — bermula dari meja sarapan kami sendiri dan didedikasikan untuk keluarga yang ingin mengelola rutinitas dan jadwal pagi mereka bersama. Unduh pengatur waktu dan alarm pagi ini sekarang dan rasakan betapa santainya pagi harimu! 
 
----
-
-#  App Store Listing – FamWake (ID)
 ```
 
 ---
@@ -1789,9 +1736,6 @@ FamWake 的所有核心功能现在和未来都将<b>永久免费</b>——没�
 <b>一位父亲为家庭量身打造。</b>
 FamWake 是一个充满热忱的项目——它诞生于我们自家的餐桌上，专为希望共同掌控晨间日常的家庭而开发。现在就下载 FamWake 家庭闹钟，亲自体验一下没有混乱的早晨能有多么轻松惬意！
 
----
-
-#  App Store Listing – FamWake (ZH-CN)
 ```
 
 ---
