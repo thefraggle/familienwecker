@@ -1,82 +1,62 @@
-# ⏰ **FamWake** Family Alarm
+# ⏰ **FamWake** – Smart Family Alarm & Morning Scheduler
 
-[![Website: familienwecker.de](https://img.shields.io/badge/Website-familienwecker.de/en-blue)](https://www.familienwecker.de/index-en.html)
+[![Website: familienwecker.de](https://img.shields.io/badge/Website-familienwecker.de-blue)](https://familienwecker.de)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-purple.svg)](LICENSE)
 
-Stop the morning chaos! **FamWake** is the smart family alarm & bathroom scheduler that organizes your morning as a perfectly synced team.
+Stop the morning chaos! **FamWake** is the smart family alarm & bathroom scheduler that organizes your morning routine as a synchronized team.
 
-👉 **Find all information, features and early access at:**  
-🌐 [familienwecker.de/en](https://familienwecker.de/index-en.html)
+👉 **Available now on the App Store and Google Play Store:**  
+🌐 [familienwecker.de](https://familienwecker.de)
 
 ---
 
 ## ✨ Highlights
 
-* **Smart Schedule:** An intelligent algorithm coordinates bathroom, breakfast, and wake-up for your entire family.
-* **In Sync:** Live status for everyone – scheduled bathroom slots for the whole family. No more queues, no stress.
-* **Maximum Flexibility:** "Already awake" button for early birds and intuitive drag & drop planning.
-* **Secure & Private:** Sign in via Google or Email. No ads, no data sales – your morning belongs to you.
+* **Smart Morning Schedule:** Intelligent scheduling coordinates bathroom slots, breakfast, and wake-up times for the whole family.
+* **In Sync & Real-Time:** Live status updates for everyone – no more bathroom queues and zero morning stress.
+* **No Account Required:** Start immediately without registration or create an optional account (Google / Email) to sync seamlessly across multiple devices.
+* **Maximum Flexibility:** "Already awake" feature for early birds and intuitive routine adjustments.
+* **Privacy-First:** Strictly privacy-focused, ad-free, and no data tracking.
 
 ---
 
 ## 🛠️ Developer Setup
 
-This project is a Kotlin Multiplatform (KMP) App for iOS and Android with a Firebase backend.
+FamWake is built as a Kotlin Multiplatform (KMP) project for Android and iOS with a Firebase backend.
 
 ### Prerequisites
 * **OS**: macOS (required for iOS builds)
 * **JDK**: Java 17+ (e.g. Azul Zulu)
-* **Android**: Android Studio & Android SDK
-* **iOS**: Xcode 15+ & CocoaPods
+* **Android**: Android Studio & Android SDK (Target SDK 36)
+* **iOS**: Xcode 16+
 * **Backend**: Node.js & Firebase CLI (`npx firebase-tools`)
 
 ### Project Structure
-* `/app`: Android App (Jetpack Compose, targetSdk 36)
-* `/ios`: iOS App (SwiftUI, iOS 16+)
-* `/shared`: KMP shared module (scheduling logic, shared preferences, databases)
-* `/functions`: Firebase Cloud Functions (Node.js)
-* `/scripts`: Python helper scripts for ASO metadata and screenshot framing
+* `/app`: Android Application (Jetpack Compose, Room, Kotlin)
+* `/ios`: iOS Application (SwiftUI, AlarmKit)
+* `/shared`: Kotlin Multiplatform shared module (scheduler logic, shared models)
+* `/functions`: Firebase Cloud Functions (Node.js backend)
 
-### Core Commands
+### Core Build Commands
 
-#### 1. Deploy Firebase Backend
-From the project root directory:
+#### Android
+```bash
+# Run unit tests
+./gradlew testDebugUnitTest
+
+# Assemble debug build
+./gradlew assembleDebug
+```
+
+#### iOS
+Open `ios/FamWake.xcodeproj` in Xcode or build via terminal:
+```bash
+xcodebuild -project ios/FamWake.xcodeproj -scheme FamWake -destination "generic/platform=iOS Simulator" build
+```
+
+#### Firebase Backend
 ```bash
 npx firebase-tools deploy
-```
-
-#### 2. Capture Raw Simulator Screenshots (Takes ~2h)
-Switch to the `/ios/` directory and run:
-```bash
-bundle exec fastlane generate_screenshots
-```
-Raw screenshots will be stored in `docs/internal/images/screenshots/devices/{lang}/`.
-
-#### 3. Frame App Store Screenshots (iPhone Mockup + Text Overlay)
-From the project root directory:
-```bash
-python3 scripts/generate_screenshots_ios.py
-python3 scripts/generate_html.py
-```
-Framed images are saved to `/ios/fastlane/screenshots/`, and the HTML preview gallery is located at `/ios/fastlane/screenshots/screenshots.html`.
-
-#### 4. Frame Play Store Screenshots (Pixel Mockup + Text Overlay)
-From the project root directory:
-```bash
-python3 scripts/generate_screenshots_android.py
-```
-Framed Play Store graphics are saved to `/android/fastlane/metadata/android/`.
-
-#### 5. Generate Play Store Feature Graphics
-From the project root directory:
-```bash
-python3 scripts/generate_feature_graphics.py
-```
-This generates the `1024x500` feature graphics for all 22 languages in `/docs/internal/images/feature_graphics/` and copies them straight to the fastlane directories.
-
-#### 6. Git Tracking for ASO Graphics
-Since `/docs/internal/` is added to `.gitignore`, newly generated raw or framed images must be added using `force`:
-```bash
-git add -f docs/internal/images/screenshots/ docs/internal/images/feature_graphics/
 ```
 
 ---
@@ -85,8 +65,8 @@ git add -f docs/internal/images/screenshots/ docs/internal/images/feature_graphi
 
 This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. See the [LICENSE](LICENSE) file for details.
 
-* [Website & Landing Page](https://familienwecker.de/index-en.html)
-* [Changelog (Version History)](docs/CHANGELOG.en.md)
+* [Website](https://familienwecker.de)
+* [Changelog](docs/CHANGELOG.en.md)
 * [Privacy Policy](https://familienwecker.de/privacy-policy.html)
 * [Imprint](https://familienwecker.de/imprint-en.html)
 * [Account Deletion](https://familienwecker.de/account-deletion-en.html)
