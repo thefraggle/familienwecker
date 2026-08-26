@@ -87,8 +87,7 @@ struct OnboardingView: View {
                         ).tag(3)
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .always))
-                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                .tabViewStyle(.page(indexDisplayMode: .never))
                 .animation(.easeInOut(duration: 0.3), value: currentPage)
             }
             .safeAreaInset(edge: .bottom) {
@@ -107,29 +106,26 @@ struct OnboardingView: View {
             content()
                 .frame(maxWidth: 280, maxHeight: 280)
 
-            Spacer().frame(height: 32)
+            Spacer().frame(height: 28)
 
             Text(L.s(titleKey))
                 .font(.title2).fontWeight(.bold)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity)
 
-            Spacer().frame(height: 16)
+            Spacer().frame(height: 12)
 
             Text(L.s(bodyKey))
                 .font(.body)
                 .foregroundStyle(.white.opacity(0.85))
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-                .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity)
 
             Spacer()
         }
-        .padding(.horizontal, 32)
-        .padding(.bottom, 120) // Space for bottom controls
+        .padding(.horizontal, 28)
     }
 
     // MARK: - Lottie View
@@ -144,7 +140,18 @@ struct OnboardingView: View {
     // MARK: - Bottom Controls
     @ViewBuilder
     private var bottomControls: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 16) {
+            // Page indicators (1:1 Android)
+            HStack(spacing: 8) {
+                ForEach(0..<actualSlideCount, id: \.self) { index in
+                    let isActive = index == currentPage
+                    Circle()
+                        .fill(isActive ? Color.white : Color.white.opacity(0.4))
+                        .frame(width: isActive ? 10 : 7, height: isActive ? 10 : 7)
+                }
+            }
+            .padding(.bottom, 4)
+            .animation(.easeInOut(duration: 0.2), value: currentPage)
 
             // Tooltips checkbox (last page only)
             if isLastPage {
@@ -177,7 +184,7 @@ struct OnboardingView: View {
                 Group {
                     if isStarting {
                         ProgressView()
-                            .tint(theme.primary)
+                            .tint(.nightBlue950)
                     } else {
                         Text(isLastPage
                              ? (isLoggedIn ? L.s("close_desc") : L.onboardingDone)
@@ -185,10 +192,10 @@ struct OnboardingView: View {
                             .fontWeight(.bold)
                     }
                 }
-                .foregroundStyle(theme.onPrimary)
+                .foregroundStyle(Color.nightBlue950)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
-                .background(theme.primary)
+                .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .disabled(isStarting)
