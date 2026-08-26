@@ -24,17 +24,17 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
 
       - name: Setup Java JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
         with:
           distribution: 'temurin'
           java-version: '17'
           # Gradle-Caching übernimmt gradle/actions/setup-gradle vollständiger
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
         with:
           cache-read-only: false
 
@@ -44,7 +44,7 @@ jobs:
         run: echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
 
       - name: Cache NDK
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
         id: ndk-cache
         with:
           path: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
@@ -161,7 +161,7 @@ jobs:
       # GitHub Release nur mit AAB
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
           files: |
             FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
@@ -173,7 +173,7 @@ jobs:
       # Automatische Veröffentlichung im Closed Testing Track "FamWake" der Play Console
       - name: Upload to Google Play (Closed Testing)
         if: startsWith(github.ref, 'refs/tags/')
-        uses: r0adkll/upload-google-play@7f5b759879c088a86faf85d18779f7f14e79a086 # v1 – SHA gepinnt um stille Breaking Changes zu verhindern
+        uses: r0adkll/upload-google-play@7f5b759879c088a86faf85d18779f7f14e79a086 # v1.1.4
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: de.familienwecker.famwake
