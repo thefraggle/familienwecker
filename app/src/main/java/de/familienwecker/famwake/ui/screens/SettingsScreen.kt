@@ -988,7 +988,7 @@ fun SettingsScreen(
 
                     val themeOptions = listOf(
                         ThemeOption("light",  Icons.Default.WbSunny,       stringResource(R.string.settings_theme_light)),
-                        ThemeOption("system", Icons.Default.BrightnessAuto, stringResource(R.string.settings_language_system)),
+                        ThemeOption("system", Icons.Default.BrightnessAuto, stringResource(R.string.settings_theme_system)),
                         ThemeOption("dark",   Icons.Default.DarkMode,       stringResource(R.string.settings_theme_dark)),
                     )
                     SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
