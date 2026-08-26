@@ -428,4 +428,6 @@
     <string name="offline_syncing_banner">Wird synchronisiert…</string>
     <string name="offline_sync_success">Synchronisierung abgeschlossen ✓</string>
     <string name="settings_theme_system">System</string>
+    <string name="quick_tile_alarm_on">Wecker AN</string>
+    <string name="quick_tile_alarm_off">Wecker AUS</string>
 </resources>

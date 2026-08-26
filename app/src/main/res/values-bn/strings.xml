@@ -360,4 +360,6 @@
     <string name="schedule_you_badge">তুমি</string>
     <string name="anonymous_warning_title">⚠️ অতিথি অ্যাকাউন্ট সক্রিয়</string>
     <string name="settings_theme_system">সিস্টেম</string>
+    <string name="quick_tile_alarm_on">অ্যালার্ম চালু</string>
+    <string name="quick_tile_alarm_off">অ্যালার্ম বন্ধ</string>
 </resources>

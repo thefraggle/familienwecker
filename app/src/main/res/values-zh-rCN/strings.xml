@@ -357,4 +357,6 @@
     <string name="reorder_dialog_week">整个星期</string>
     <string name="schedule_you_badge">你</string>
     <string name="settings_theme_system">系统</string>
+    <string name="quick_tile_alarm_on">闹钟 开启</string>
+    <string name="quick_tile_alarm_off">闹钟 关闭</string>
 </resources>

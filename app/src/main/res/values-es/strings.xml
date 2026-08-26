@@ -357,4 +357,6 @@
     <string name="schedule_you_badge">Tú</string>
     <string name="anonymous_warning_title">⚠️ Cuenta de invitado activa</string>
     <string name="settings_theme_system">Sistema</string>
+    <string name="quick_tile_alarm_on">Alarma ACTIVADA</string>
+    <string name="quick_tile_alarm_off">Alarma DESACTIVADA</string>
 </resources>

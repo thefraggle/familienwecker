@@ -358,4 +358,6 @@
     <string name="schedule_you_badge">나</string>
     <string name="anonymous_warning_title">⚠️ 게스트 계정 활성화됨</string>
     <string name="settings_theme_system">시스템</string>
+    <string name="quick_tile_alarm_on">알람 켜짐</string>
+    <string name="quick_tile_alarm_off">알람 꺼짐</string>
 </resources>

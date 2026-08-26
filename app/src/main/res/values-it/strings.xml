@@ -357,4 +357,6 @@
     <string name="schedule_you_badge">Tu</string>
     <string name="anonymous_warning_title">⚠️ Account ospite attivo</string>
     <string name="settings_theme_system">Sistema</string>
+    <string name="quick_tile_alarm_on">Sveglia ATTIVA</string>
+    <string name="quick_tile_alarm_off">Sveglia DISATTIVA</string>
 </resources>

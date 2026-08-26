@@ -357,4 +357,6 @@
     <string name="schedule_you_badge">Jij</string>
     <string name="anonymous_warning_title">⚠️ Gastaccount actief</string>
     <string name="settings_theme_system">Systeem</string>
+    <string name="quick_tile_alarm_on">Wekker AAN</string>
+    <string name="quick_tile_alarm_off">Wekker UIT</string>
 </resources>

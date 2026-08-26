@@ -363,4 +363,6 @@
     <string name="schedule_you_badge">Ти</string>
     <string name="anonymous_warning_title">⚠️ Гостьовий акаунт активний</string>
     <string name="settings_theme_system">Система</string>
+    <string name="quick_tile_alarm_on">Будильник УВІМК</string>
+    <string name="quick_tile_alarm_off">Будильник ВИМК</string>
 </resources>

@@ -360,4 +360,6 @@
     <string name="schedule_you_badge">आप</string>
     <string name="anonymous_warning_title">⚠️ अतिथि खाता सक्रिय</string>
     <string name="settings_theme_system">सिस्टम</string>
+    <string name="quick_tile_alarm_on">अलार्म चालू</string>
+    <string name="quick_tile_alarm_off">अलार्म बंद</string>
 </resources>

@@ -358,4 +358,6 @@
     <string name="schedule_you_badge">Du</string>
     <string name="anonymous_warning_title">⚠️ Gastkonto aktiv</string>
     <string name="settings_theme_system">System</string>
+    <string name="quick_tile_alarm_on">Wecker AN</string>
+    <string name="quick_tile_alarm_off">Wecker AUS</string>
 </resources>
