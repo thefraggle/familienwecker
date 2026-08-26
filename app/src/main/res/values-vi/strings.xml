@@ -363,4 +363,6 @@
     <string name="schedule_you_badge">Bạn</string>
     <string name="anonymous_warning_title">⚠️ Tài khoản khách đang hoạt động</string>
     <string name="settings_theme_system">Hệ thống</string>
+    <string name="quick_tile_alarm_on">Báo thức BẬT</string>
+    <string name="quick_tile_alarm_off">Báo thức TẮT</string>
 </resources>

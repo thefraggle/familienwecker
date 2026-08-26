@@ -103,6 +103,9 @@ struct AppRouter: View {
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.NSSystemTimeZoneDidChange)) { _ in
             familyViewModel.recalculateSchedule()
         }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("recalculateScheduleFromIntent"))) { _ in
+            familyViewModel.recalculateSchedule()
+        }
         .fullScreenCover(isPresented: $appState.isRinging) {
             RingingView(
                 memberId: appState.ringingMemberId,

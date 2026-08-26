@@ -360,4 +360,6 @@
     <string name="schedule_you_badge">あなた</string>
     <string name="anonymous_warning_title">⚠️ ゲストアカウントが有効です</string>
     <string name="settings_theme_system">システム</string>
+    <string name="quick_tile_alarm_on">アラーム ON</string>
+    <string name="quick_tile_alarm_off">アラーム OFF</string>
 </resources>
