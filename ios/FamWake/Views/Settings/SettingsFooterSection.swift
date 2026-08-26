@@ -8,7 +8,7 @@ struct SettingsFooterSection: View {
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
     private var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.1.4"
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.1.5"
     }
 
     var body: some View {
