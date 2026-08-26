@@ -97,6 +97,12 @@ struct AppRouter: View {
             appState.stopRinging()
             familyViewModel.checkSnoozeStatus()
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+            familyViewModel.recalculateSchedule()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.NSSystemTimeZoneDidChange)) { _ in
+            familyViewModel.recalculateSchedule()
+        }
         .fullScreenCover(isPresented: $appState.isRinging) {
             RingingView(
                 memberId: appState.ringingMemberId,
