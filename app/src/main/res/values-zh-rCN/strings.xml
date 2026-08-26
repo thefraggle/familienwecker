@@ -356,4 +356,5 @@
     <string name="reorder_dialog_today">仅限今天 (%1$s)</string>
     <string name="reorder_dialog_week">整个星期</string>
     <string name="schedule_you_badge">你</string>
+    <string name="settings_theme_system">系统</string>
 </resources>

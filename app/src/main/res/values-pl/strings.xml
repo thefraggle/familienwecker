@@ -356,4 +356,5 @@
     <string name="reorder_dialog_week">Cały tydzień</string>
     <string name="schedule_you_badge">Ty</string>
     <string name="anonymous_warning_title">⚠️ Konto gościa aktywne</string>
+    <string name="settings_theme_system">System</string>
 </resources>

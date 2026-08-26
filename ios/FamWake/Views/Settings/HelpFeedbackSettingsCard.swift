@@ -17,6 +17,8 @@ struct HelpFeedbackSettingsCard: View {
                 HStack(spacing: 8) {
                     Image(systemName: "map.fill")
                     Text(L.s("settings_start_onboarding"))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                     Spacer()
                     Image(systemName: "chevron.right").font(.caption).foregroundStyle(theme.outline)
                 }
@@ -33,6 +35,8 @@ struct HelpFeedbackSettingsCard: View {
                 HStack(spacing: 8) {
                     Image(systemName: "envelope.fill")
                     Text(L.settingsFeedbackButton)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                     Spacer()
                     Image(systemName: "chevron.right").font(.caption).foregroundStyle(theme.outline)
                 }

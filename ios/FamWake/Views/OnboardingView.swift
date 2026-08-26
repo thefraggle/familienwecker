@@ -36,64 +36,63 @@ struct OnboardingView: View {
     private var isLastPage: Bool { currentPage == actualSlideCount - 1 }
 
     var body: some View {
-        ZStack {
-            // Background image from Android
-            if let bgImage = UIImage(named: "onboarding_bg") {
-                Image(uiImage: bgImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .ignoresSafeArea()
-            } else {
-                // Fallback gradient if image missing
-                LinearGradient(colors: [theme.surface, theme.background],
-                              startPoint: .top, endPoint: .bottom)
-                    .ignoresSafeArea()
-            }
+        VStack(spacing: 0) {
+            // Pager
+            TabView(selection: $currentPage) {
+                // Slide 0 – Panda Lottie
+                slideView(
+                    titleKey: "onboarding_slide0_title",
+                    bodyKey: "onboarding_slide0_body",
+                    content: { lottieView("panda") }
+                ).tag(0)
 
-            // Dark scrim for readability
-            Color.black.opacity(0.45)
-                .ignoresSafeArea()
+                // Slide 1 – Schedule Mockup (on-the-fly, localized)
+                slideView(
+                    titleKey: "onboarding_slide1_title",
+                    bodyKey: "onboarding_slide1_body",
+                    content: { ScheduleMockup() }
+                ).tag(1)
 
-            VStack(spacing: 0) {
-                // Pager
-                TabView(selection: $currentPage) {
-                    // Slide 0 – Panda Lottie
+                // Slide 2 – Invite Mockup (on-the-fly, localized)
+                slideView(
+                    titleKey: "onboarding_slide3_title",
+                    bodyKey: "onboarding_slide3_body",
+                    content: { InviteMockup() }
+                ).tag(2)
+
+                // Slide 3 – WakeUp Lottie (Only if not logged in)
+                if !isLoggedIn {
                     slideView(
-                        titleKey: "onboarding_slide0_title",
-                        bodyKey: "onboarding_slide0_body",
-                        content: { lottieView("panda") }
-                    ).tag(0)
-
-                    // Slide 1 – Schedule Mockup (on-the-fly, localized)
-                    slideView(
-                        titleKey: "onboarding_slide1_title",
-                        bodyKey: "onboarding_slide1_body",
-                        content: { ScheduleMockup() }
-                    ).tag(1)
-
-                    // Slide 2 – Invite Mockup (on-the-fly, localized)
-                    slideView(
-                        titleKey: "onboarding_slide3_title",
-                        bodyKey: "onboarding_slide3_body",
-                        content: { InviteMockup() }
-                    ).tag(2)
-
-                    // Slide 3 – WakeUp Lottie (Only if not logged in)
-                    if !isLoggedIn {
-                        slideView(
-                            titleKey: "onboarding_slide5_title",
-                            bodyKey: "onboarding_slide5_body",
-                            content: { lottieView("wakeup") }
-                        ).tag(3)
-                    }
+                        titleKey: "onboarding_slide5_title",
+                        bodyKey: "onboarding_slide5_body",
+                        content: { lottieView("wakeup") }
+                    ).tag(3)
                 }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .animation(.easeInOut(duration: 0.3), value: currentPage)
             }
-            .safeAreaInset(edge: .bottom) {
-                bottomControls
-                    .padding(.bottom, 24)
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .animation(.easeInOut(duration: 0.3), value: currentPage)
+        }
+        .safeAreaInset(edge: .bottom) {
+            bottomControls
+                .padding(.bottom, 24)
+        }
+        .background {
+            ZStack {
+                // Background image from Android
+                if let bgImage = UIImage(named: "onboarding_bg") {
+                    Image(uiImage: bgImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    // Fallback gradient if image missing
+                    LinearGradient(colors: [theme.surface, theme.background],
+                                  startPoint: .top, endPoint: .bottom)
+                }
+
+                // Dark scrim for readability
+                Color.black.opacity(0.45)
             }
+            .ignoresSafeArea()
         }
     }
 

@@ -357,4 +357,5 @@
     <string name="reorder_dialog_week">Semaine entière</string>
     <string name="schedule_you_badge">Toi</string>
     <string name="anonymous_warning_title">⚠️ Compte invité actif</string>
+    <string name="settings_theme_system">Système</string>
 </resources>

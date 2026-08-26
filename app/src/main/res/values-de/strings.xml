@@ -427,4 +427,5 @@
     <string name="offline_no_join_code">Join-Code verfügbar sobald online</string>
     <string name="offline_syncing_banner">Wird synchronisiert…</string>
     <string name="offline_sync_success">Synchronisierung abgeschlossen ✓</string>
+    <string name="settings_theme_system">System</string>
 </resources>
