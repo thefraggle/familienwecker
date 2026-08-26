@@ -34,16 +34,17 @@ jobs:
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: |
-          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/google-services.json
+          echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
 
       - name: Prepare Build Metadata
         id: metadata
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version_name }}
         run: |
           echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo "date=$(git log -1 --format=%cd --date=format:%d.%m.%Y\ %H:%M)" >> $GITHUB_OUTPUT
           
           GRADLE_VERSION=$(grep "val appVersion" app/build.gradle.kts | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/-DEV//')
-          INPUT_VERSION="${{ github.event.inputs.version_name }}"
           APP_VERSION="${INPUT_VERSION:-$GRADLE_VERSION}"
           echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
 
