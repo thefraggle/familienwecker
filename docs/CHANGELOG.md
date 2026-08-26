@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.5 – 2026-08-26
+✨ Verbessert:
+• Pünktlich bei Zeitumstellung: Automatische Absicherung bei Sommer- und Winterzeit, damit dein Wecker verlässlich zur gewohnten Zeit klingelt.
+• Praktischer Schnellzugriff: Schalte deinen Wecker jetzt noch bequemer direkt über das Schnellmenü deines Smartphones ein und aus.
+• Feinschliff für die App-Tour: Perfekt angepasste Texte und saubere Übergänge bei der Einführung und in den Einstellungen.
+
 ## 2.1.4 – 2026-08-24
 ✨ Verbessert:
 • Kompakterer Kopfbereich: Eine schlankere Ansicht oben sorgt für mehr Übersicht und besseren Fokus auf deinen Familien-Weckplan.

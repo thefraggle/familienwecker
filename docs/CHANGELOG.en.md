@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.5 – 2026-08-26
+✨ Improved:
+• Reliable through time changes: Automatic daylight saving time protection ensures your alarm rings reliably at your scheduled time.
+• Quick toggle access: Conveniently turn your alarm on and off directly from your phone's quick settings.
+• Polished app tour & settings: Clean text formatting and improved layout across the onboarding tour and settings.
+
 ## 2.1.4 – 2026-08-24
 ✨ Improved:
 • Compact header: A sleeker top bar provides a clearer overview and puts the focus directly on your family schedule.
