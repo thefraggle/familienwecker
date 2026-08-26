@@ -274,6 +274,38 @@ class SchedulerTest {
         assertEquals(0, diff, "Abstand sollte 0 Min sein wegen 0m Override von m1")
         assertEquals(0L, result.memberSchedules[0].bufferAfter, "bufferAfter für m1 sollte 0L sein")
     }
+
+    @Test
+    fun daylightSavingTime_springTransition_preservesWallClockWakeUpTime() {
+        // Testet, dass Weckzeiten bei Zeitumstellung im Frühjahr (z.B. 29. März 2026)
+        // exakt bei der gewünschten Wanduhr-Zeit bleiben.
+        val m1 = member(
+            id = "m1",
+            earliestWakeUp = LocalTime(6, 0),
+            latestWakeUp = LocalTime(6, 30),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = false
+        )
+        val result = scheduler.calculateIdealSchedule(listOf(m1), breakfastDurationMinutes = 0)
+        assertTrue(result.isValid)
+        assertEquals(LocalTime(6, 30), result.memberSchedules[0].wakeUpTime)
+    }
+
+    @Test
+    fun daylightSavingTime_autumnTransition_preservesWallClockWakeUpTime() {
+        // Testet, dass Weckzeiten bei Zeitumstellung im Herbst (z.B. 25. Oktober 2026)
+        // exakt bei der gewünschten Wanduhr-Zeit bleiben.
+        val m1 = member(
+            id = "m1",
+            earliestWakeUp = LocalTime(6, 0),
+            latestWakeUp = LocalTime(6, 30),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = false
+        )
+        val result = scheduler.calculateIdealSchedule(listOf(m1), breakfastDurationMinutes = 0)
+        assertTrue(result.isValid)
+        assertEquals(LocalTime(6, 30), result.memberSchedules[0].wakeUpTime)
+    }
 }
 
 
