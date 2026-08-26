@@ -52,6 +52,29 @@ struct OpenFamWakeIntent: LiveActivityIntent {
     }
 }
 
+// MARK: - Global Alarm Quick Toggle Intent (iOS Control Center / Shortcuts / Lock Screen)
+struct ToggleGlobalAlarmIntent: AppIntent {
+    static var title: LocalizedStringResource = "FamWake Wecker umschalten"
+    static var description = IntentDescription("Schaltet den globalen FamWake Wecker an oder aus")
+    static var openAppWhenRun: Bool = false
+
+    func perform() async throws -> some IntentResult {
+        let currentEnabled = UserDefaults.standard.object(forKey: "alarm_enabled") as? Bool ?? true
+        let newEnabled = !currentEnabled
+        UserDefaults.standard.set(newEnabled, forKey: "alarm_enabled")
+
+        if !newEnabled {
+            await AlarmService.shared.cancelAll()
+        } else {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name("recalculateScheduleFromIntent"), object: nil)
+            }
+        }
+
+        return .result()
+    }
+}
+
 // MARK: - Snooze Intent (REAKTIVIERT)
 // Führt Weckwiederholung im Hintergrund ohne Vordergrund-Erzwingung durch.
 struct SnoozeNotifyIntent: LiveActivityIntent {

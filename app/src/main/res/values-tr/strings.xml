@@ -363,4 +363,6 @@
     <string name="schedule_you_badge">Sen</string>
     <string name="anonymous_warning_title">⚠️ Misafir hesabı aktif</string>
     <string name="settings_theme_system">Sistem</string>
+    <string name="quick_tile_alarm_on">Alarm AÇIK</string>
+    <string name="quick_tile_alarm_off">Alarm KAPALI</string>
 </resources>

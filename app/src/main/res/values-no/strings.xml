@@ -359,4 +359,6 @@
     <string name="schedule_you_badge">Deg</string>
     <string name="anonymous_warning_title">⚠️ Gjestekonto aktiv</string>
     <string name="settings_theme_system">System</string>
+    <string name="quick_tile_alarm_on">Alarm PÅ</string>
+    <string name="quick_tile_alarm_off">Alarm AV</string>
 </resources>
