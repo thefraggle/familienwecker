@@ -357,4 +357,5 @@
     <string name="reorder_dialog_week">일주일 내내</string>
     <string name="schedule_you_badge">나</string>
     <string name="anonymous_warning_title">⚠️ 게스트 계정 활성화됨</string>
+    <string name="settings_theme_system">시스템</string>
 </resources>

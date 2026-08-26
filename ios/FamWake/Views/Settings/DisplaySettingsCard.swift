@@ -19,7 +19,7 @@ struct DisplaySettingsCard: View {
                     get: { appState.themePreference },
                     set: { appState.setTheme($0) }
                 )) {
-                    Text(L.settingsLanguageSystem).tag("system")
+                    Text(L.settingsThemeSystem).tag("system")
                     Text(L.settingsThemeLight).tag("light")
                     Text(L.settingsThemeDark).tag("dark")
                 }

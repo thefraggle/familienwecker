@@ -75,6 +75,7 @@ enum L {
     static var settingsImprint: String { s("settings_imprint") }
     static var settingsFooterCopyright: String { s("settings_footer_copyright") }
     static var settingsFooterRights: String { s("settings_footer_rights") }
+    static var settingsThemeSystem: String { s("settings_theme_system") }
     static var settingsThemeDark: String { s("settings_theme_dark") }
     static var settingsThemeLight: String { s("settings_theme_light") }
     static var settingsLanguageSystem: String { s("settings_language_system") }

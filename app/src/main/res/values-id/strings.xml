@@ -357,4 +357,5 @@
     <string name="reorder_dialog_week">Sepanjang minggu</string>
     <string name="schedule_you_badge">Kamu</string>
     <string name="anonymous_warning_title">⚠️ Akun tamu aktif</string>
+    <string name="settings_theme_system">Sistem</string>
 </resources>
