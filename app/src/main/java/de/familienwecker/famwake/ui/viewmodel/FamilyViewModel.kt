@@ -303,7 +303,7 @@ class FamilyViewModel(
         }
 
         // Integritätscheck beim Start – asynchron, blockiert den Init nicht.
-        // Ergebnis wird in TelemetryDeck geloggt ("integrity.check").
+        // Ergebnis wird in Aptabase geloggt ("integrity_check").
         // Im Monitoring-Modus (v1.7.7) ist isSyncBlocked immer false.
         viewModelScope.launch(Dispatchers.IO) {
             val trustManager = DeviceTrustManager(getApplication())

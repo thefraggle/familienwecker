@@ -89,11 +89,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- TelemetryDeck: anonyme, datenschutzkonforme Nutzungsanalyse -->
-        <meta-data
-            android:name="com.telemetrydeck.appID"
-            android:value="65B4CF62-F147-42B5-9B7A-14CF0ADF949D" />
-
         <!-- FCM: Empfängt Push-Notifications und verwaltet Token-Lifecycle -->
         <service
             android:name=".FamWakeMessagingService"

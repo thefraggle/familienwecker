@@ -3,7 +3,7 @@ import Combine
 import FirebaseAuth
 import GoogleSignIn
 import GoogleSignInSwift
-import TelemetryClient
+import Aptabase
 import FirebaseFunctions
 import AuthenticationServices
 import CryptoKit
@@ -100,7 +100,7 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try await Auth.auth().signInAnonymously()
-                TelemetryManager.send("auth.loginSuccess", with: ["method": "anonymous"])
+                Aptabase.shared.trackEvent("auth_login", with: ["method": "anonymous"])
                 MessagingService.shared.refreshAndSaveToken()
             } catch {
                 authState = .error(mapFirebaseError(error))
@@ -114,7 +114,7 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try await Auth.auth().signIn(withEmail: email, password: password)
-                TelemetryManager.send("auth.loginSuccess", with: ["method": "email"])
+                Aptabase.shared.trackEvent("auth_login", with: ["method": "email"])
                 MessagingService.shared.refreshAndSaveToken()
             } catch {
                 authState = .error(mapFirebaseError(error))
@@ -137,7 +137,7 @@ class AuthViewModel: ObservableObject {
                         if code == .credentialAlreadyInUse || code == .emailAlreadyInUse {
                             // Account existiert schon → normaler Login
                             try await Auth.auth().signIn(withEmail: email, password: password)
-                            TelemetryManager.send("auth.loginSuccess", with: ["method": "email"])
+                            Aptabase.shared.trackEvent("auth_login", with: ["method": "email"])
                             MessagingService.shared.refreshAndSaveToken()
                         } else {
                             throw error
@@ -145,7 +145,7 @@ class AuthViewModel: ObservableObject {
                     }
                 } else {
                     let result = try await Auth.auth().createUser(withEmail: email, password: password)
-                    TelemetryManager.send("auth.registerSuccess")
+                    Aptabase.shared.trackEvent("auth_register")
                     try await sendVerificationEmailViaFunction(email: email)
                 }
                 authState = .awaitingEmailVerification(email: email)
@@ -156,7 +156,7 @@ class AuthViewModel: ObservableObject {
     }
 
     func logout() {
-        TelemetryManager.send("auth.logout")
+        Aptabase.shared.trackEvent("auth_logout")
         MessagingService.shared.deleteTokenOnLogout()
         do {
             try Auth.auth().signOut()
@@ -267,7 +267,7 @@ class AuthViewModel: ObservableObject {
                 } else {
                     try await Auth.auth().signIn(with: credential)
                 }
-                TelemetryManager.send("auth.loginSuccess", with: ["method": "google"])
+                Aptabase.shared.trackEvent("auth_login", with: ["method": "google"])
                 MessagingService.shared.refreshAndSaveToken()
                 // authState set via listener
             } catch {
@@ -334,7 +334,7 @@ class AuthViewModel: ObservableObject {
                         } else {
                             try await Auth.auth().signIn(with: credential)
                         }
-                        TelemetryManager.send("auth.loginSuccess", with: ["method": "apple"])
+                        Aptabase.shared.trackEvent("auth_login", with: ["method": "apple"])
                         MessagingService.shared.refreshAndSaveToken()
                     } catch {
                         authState = .error(mapFirebaseError(error))

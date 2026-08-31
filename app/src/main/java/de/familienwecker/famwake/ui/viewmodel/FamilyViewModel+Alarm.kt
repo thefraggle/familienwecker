@@ -1,6 +1,6 @@
 package de.familienwecker.famwake.ui.viewmodel
 
-import com.telemetrydeck.sdk.TelemetryDeck
+import com.aptabase.Aptabase
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.model.FamilySchedule
 import de.familienwecker.famwake.model.ScheduleMessage
@@ -650,7 +650,7 @@ fun FamilyViewModel.snooze(memberId: String, memberName: String) {
         }
     }
 
-    TelemetryDeck.signal("alarm.snoozed", mapOf("snoozeCount" to newCount.toString()))
+    Aptabase.instance.trackEvent("alarm_snoozed", mapOf("snooze_count" to newCount))
 }
 
 fun FamilyViewModel.cancelSnooze(memberId: String) {

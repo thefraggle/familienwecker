@@ -1,5 +1,5 @@
 import SwiftUI
-import TelemetryClient
+import Aptabase
 
 /// Zentrales Navigation-Management – analog zu MainActivity/Routes.kt
 struct AppRouter: View {
@@ -23,7 +23,7 @@ struct AppRouter: View {
                             return
                         }
                         if !authViewModel.isLoggedIn {
-                            TelemetryManager.send("onboarding.completed_anonymously")
+                            Aptabase.shared.trackEvent("onboarding_completed", with: ["mode": "anonymous"])
                             authViewModel.signInAnonymously()
                         } else if familyViewModel.hasFamilyId {
                             appState.route = .main
@@ -48,7 +48,7 @@ struct AppRouter: View {
                             return
                         }
                         if !authViewModel.isLoggedIn {
-                            TelemetryManager.send("onboarding.completed_anonymously")
+                            Aptabase.shared.trackEvent("onboarding_completed", with: ["mode": "anonymous"])
                             authViewModel.signInAnonymously()
                         } else if familyViewModel.hasFamilyId {
                             appState.route = .main

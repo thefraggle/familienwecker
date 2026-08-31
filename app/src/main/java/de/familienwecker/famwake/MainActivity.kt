@@ -49,7 +49,7 @@ import de.familienwecker.famwake.ui.viewmodel.*
 import de.familienwecker.famwake.ui.Routes
 import de.familienwecker.famwake.ui.theme.LocalDarkTheme
 import androidx.core.net.toUri
-import com.telemetrydeck.sdk.TelemetryDeck
+import com.aptabase.Aptabase
 
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         // keine veralteten setStatusBarColor/setNavigationBarColor-Aufrufe absetzt
         enableEdgeToEdge()
         // Tracking: App wurde kalt gestartet – gibt grundlegende Nutzungsfrequenz wieder
-        TelemetryDeck.signal("app.launched")
+        Aptabase.instance.trackEvent("app_launched")
 
         setContent {
             val themePref by familyViewModel.themePreference.collectAsStateWithLifecycle()
@@ -383,7 +383,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     onStartAnonymously = { tooltipsEnabled ->
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         familyViewModel.setOnboardingCompleted(true)
-                        TelemetryDeck.signal("onboarding.completed_anonymously")
+                        Aptabase.instance.trackEvent("onboarding_completed", mapOf("mode" to "anonymous"))
                         authViewModel.signInAnonymously {
                             val dest = if (familyViewModel.familyId.value != null) Routes.MAIN else Routes.SETUP
                             navController.navigate(dest) {
@@ -415,7 +415,7 @@ fun FamilienweckerApp(familyViewModel: FamilyViewModel, authViewModel: AuthViewM
                     onStartAnonymously = { tooltipsEnabled ->
                         familyViewModel.setTooltipsEnabled(tooltipsEnabled)
                         familyViewModel.setOnboardingCompleted(true)
-                        TelemetryDeck.signal("onboarding.completed_anonymously")
+                        Aptabase.instance.trackEvent("onboarding_completed", mapOf("mode" to "anonymous"))
                         authViewModel.signInAnonymously {
                             val dest = if (familyViewModel.familyId.value != null) Routes.MAIN else Routes.SETUP
                             navController.navigate(dest) {

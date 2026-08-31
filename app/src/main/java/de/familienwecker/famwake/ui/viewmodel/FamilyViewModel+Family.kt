@@ -1,6 +1,6 @@
 package de.familienwecker.famwake.ui.viewmodel
 
-import com.telemetrydeck.sdk.TelemetryDeck
+import com.aptabase.Aptabase
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.data.FamilyNotFoundException
 import de.familienwecker.famwake.data.CodeGenerationFailedException
@@ -33,7 +33,7 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
             appSettings.setJoinCode(null) // Kein Join-Code ohne Cloud
             appSettings.setLocalOnlyFamily(true)
             _errorMessage.value = null
-            TelemetryDeck.signal("family.created.offline")
+            Aptabase.instance.trackEvent("family_created", mapOf("offline" to true))
             onComplete(true)
             return@launch
         }
@@ -52,7 +52,7 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
             // die Security Rules den frischen users/{uid}.familyId noch nicht sehen.
             _errorMessage.value = null
             // Tracking: Nutzer hat erfolgreich eine neue Familie angelegt
-            TelemetryDeck.signal("family.created")
+            Aptabase.instance.trackEvent("family_created", mapOf("offline" to false))
             onComplete(true)
         }.onFailure { error ->
             when {
@@ -99,7 +99,7 @@ fun FamilyViewModel.joinFamily(code: String, onComplete: (Boolean) -> Unit) {
             if (_pendingJoinCode.value == code) _pendingJoinCode.value = null
             _isJoiningFamily.value = false
             // Tracking: Nutzer ist erfolgreich einer bestehenden Familie beigetreten
-            TelemetryDeck.signal("family.joined")
+            Aptabase.instance.trackEvent("family_joined")
             onComplete(true)
         }.onFailure { error ->
             when {
@@ -236,7 +236,7 @@ fun FamilyViewModel.leaveFamily(onComplete: (Boolean) -> Unit = {}) {
                 appSettings.setMyMemberName(null)
                 // Etwaige Race-Condition-Fehlermeldung clearen
                 _errorMessage.value = null
-                TelemetryDeck.signal("family.left")
+                Aptabase.instance.trackEvent("family_left")
                 onComplete(true)
             } else {
                 val errorMsg = result.exceptionOrNull()?.message ?: ""
@@ -290,7 +290,7 @@ fun FamilyViewModel.deleteFamily(onComplete: (Boolean) -> Unit) {
             appSettings.setMyMemberName(null)
             // Etwaige Race-Condition-Fehlermeldung aus dem Listener clearen
             _errorMessage.value = null
-            TelemetryDeck.signal("family.deleted")
+            Aptabase.instance.trackEvent("family_deleted")
             onComplete(true)
         } else {
             _errorMessage.value = UiText.StringResource(R.string.error_delete_family, result.exceptionOrNull()?.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))
@@ -358,8 +358,8 @@ fun FamilyViewModel.triggerRefresh() {
 
 fun FamilyViewModel.logout() {
     _errorMessage.value = null
-    // Tracking: Logout-Rate für Retention-Analyse (vor clearAll, da danach User-Kontext weg)
-    TelemetryDeck.signal("auth.logout")
+    // Tracking: Logout
+    Aptabase.instance.trackEvent("auth_logout")
     // Alarm-State persistiert in SharedPrefs (ALARM_ENABLED ist kein Session-State).
     // clearAll() berührt ihn nicht – kein explizites Save nötig.
     cancelAlarmForCurrentUser()
@@ -391,8 +391,6 @@ fun FamilyViewModel.syncPendingFamily() {
 
                 // Room-Cache aktualisieren: alte Temp-IDs entfernen, Firestore-Listener übernimmt
                 memberRepository.clearCache()
-
-                TelemetryDeck.signal("family.synced")
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.d("FamilyViewModel", "Local family synced to cloud: $newFamilyId")
                 }
