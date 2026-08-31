@@ -101,6 +101,8 @@
     <string name="settings_alarm_default">デフォルト</string>
     <string name="settings_alarm_select">音：%1$s</string>
     <string name="settings_alarm_picker_title">アラーム音を選択してください</string>
+    <string name="settings_gentle_wake_title">やさしい目覚まし</string>
+    <string name="settings_gentle_wake_desc">30秒かけて音量が徐々に大きくなります</string>
     <string name="settings_account_title">家族とアカウント</string>
     <string name="settings_share_code_locked">招待コードを共有するにはログインしてください。</string>
     <string name="settings_anonymous_login_button">ログイン / 登録</string>

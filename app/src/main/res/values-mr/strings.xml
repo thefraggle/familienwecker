@@ -101,6 +101,8 @@
     <string name="settings_alarm_default">डीफॉल्ट</string>
     <string name="settings_alarm_select">आवाज: %1$s</string>
     <string name="settings_alarm_picker_title">तुमचा अलार्मचा आवाज निवडा</string>
+    <string name="settings_gentle_wake_title">हळुवार जागरण</string>
+    <string name="settings_gentle_wake_desc">३० सेकंदात आवाज हळूहळू वाढतो</string>
     <string name="settings_account_title">कुटुंब आणि खाते</string>
     <string name="settings_share_code_locked">आमंत्रण कोड शेअर करण्यासाठी कृपया लॉग इन करा.</string>
     <string name="settings_join_code">%1$s साठी आमंत्रण कोड:</string>
