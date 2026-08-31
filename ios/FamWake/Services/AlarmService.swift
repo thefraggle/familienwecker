@@ -421,7 +421,16 @@ final class AlarmService: ObservableObject {
             try? AVAudioSession.sharedInstance().setActive(true)
             audioPlayer = player
             audioPlayer?.numberOfLoops = -1
-            audioPlayer?.play()
+
+            let isGentleWake = UserDefaults.standard.object(forKey: "gentle_wake_enabled") as? Bool ?? true
+            if isGentleWake {
+                audioPlayer?.volume = 0.05
+                audioPlayer?.play()
+                audioPlayer?.setVolume(1.0, fadeDuration: 30.0)
+            } else {
+                audioPlayer?.volume = 1.0
+                audioPlayer?.play()
+            }
         } else {
             // Fallback auf System Sound Dauerschleife via AudioServices
             AudioServicesPlaySystemSound(1005)

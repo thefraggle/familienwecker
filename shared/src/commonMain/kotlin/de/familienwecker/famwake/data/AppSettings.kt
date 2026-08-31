@@ -45,6 +45,9 @@ interface AppSettings {
     val alarmSoundUri: StateFlow<String?>
     fun setAlarmSoundUri(uri: String?)
 
+    val isGentleWakeEnabled: StateFlow<Boolean>
+    fun setGentleWakeEnabled(enabled: Boolean)
+
     val isAwakeToday: StateFlow<Boolean>
     fun setAwakeToday(awake: Boolean)
     /** Liest den Wach-Status direkt aus SharedPrefs inkl. Datumsprüfung.
@@ -200,6 +203,14 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     override fun setAlarmSoundUri(uri: String?) {
         _alarmSoundUri.value = uri
         if (uri == null) settings.remove("ALARM_SOUND_URI") else settings["ALARM_SOUND_URI"] = uri
+    }
+
+    private val _isGentleWakeEnabled = MutableStateFlow(settings.getBoolean("GENTLE_WAKE_ENABLED", true))
+    override val isGentleWakeEnabled = _isGentleWakeEnabled.asStateFlow()
+
+    override fun setGentleWakeEnabled(enabled: Boolean) {
+        _isGentleWakeEnabled.value = enabled
+        settings["GENTLE_WAKE_ENABLED"] = enabled
     }
 
     private fun computeAwakeTodayEffective(): Boolean {

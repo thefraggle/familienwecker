@@ -101,6 +101,8 @@
     <string name="settings_alarm_default">Standard</string>
     <string name="settings_alarm_select">Ton: %1$s</string>
     <string name="settings_alarm_picker_title">Wähle deinen Weckton</string>
+    <string name="settings_gentle_wake_title">Sanftes Wecken</string>
+    <string name="settings_gentle_wake_desc">Lautstärke steigt über 30 Sekunden sanft an</string>
     <string name="settings_account_title">Familie &amp; Konto</string>
     <string name="settings_share_code_locked">Bitte logge dich ein, um deinen Code zu teilen.</string>
     <string name="settings_anonymous_login_button">Anmelden / Registrieren</string>

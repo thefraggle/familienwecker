@@ -24,6 +24,10 @@ fun FamilyViewModel.setTooltipsEnabled(enabled: Boolean) {
 
 }
 
+fun FamilyViewModel.setGentleWakeEnabled(enabled: Boolean) {
+    appSettings.setGentleWakeEnabled(enabled)
+}
+
 fun FamilyViewModel.checkAndShowReview(activity: Activity) {
     ReviewHelper.launchReview(activity, appSettings)
 }

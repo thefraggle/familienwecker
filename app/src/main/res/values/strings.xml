@@ -101,6 +101,8 @@
     <string name="settings_alarm_default">Default</string>
     <string name="settings_alarm_select">Sound: %1$s</string>
     <string name="settings_alarm_picker_title">Choose your alarm sound</string>
+    <string name="settings_gentle_wake_title">Gentle Wake-Up</string>
+    <string name="settings_gentle_wake_desc">Volume gradually increases over 30 seconds</string>
     <string name="settings_account_title">Family &amp; Account</string>
     <string name="settings_share_code_locked">Please log in to share your invite code.</string>
     <string name="settings_anonymous_login_button">Log in / Sign up</string>

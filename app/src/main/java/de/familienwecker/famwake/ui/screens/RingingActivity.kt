@@ -54,6 +54,7 @@ import kotlinx.coroutines.launch
 class RingingActivity : AppCompatActivity() {
 
     private var mediaPlayer: MediaPlayer? = null
+    private var fadeInJob: kotlinx.coroutines.Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -217,6 +218,7 @@ class RingingActivity : AppCompatActivity() {
     private fun playRingtone() {
         val appSettings = (application as FamWakeApplication).appSettings
         val savedUriString = appSettings.alarmSoundUri.value
+        val isGentleWake = appSettings.isGentleWakeEnabled.value
 
         // Versuche zunächst den gespeicherten Ton, dann System-Alarm, dann System-Ringtone
         val uriChain = listOfNotNull(
@@ -229,15 +231,50 @@ class RingingActivity : AppCompatActivity() {
             val player = buildMediaPlayer(uri)
             if (player != null) {
                 mediaPlayer = player
-                player.start()
+                if (isGentleWake) {
+                    player.setVolume(0.05f, 0.05f)
+                    player.start()
+                    startVolumeFadeIn(player)
+                } else {
+                    player.setVolume(1.0f, 1.0f)
+                    player.start()
+                }
                 return
             }
         }
         // Wenn alle Versuche scheitern, klingelt die App lautlos (besser als Crash)
     }
 
+    /**
+     * Erhöht die Lautstärke des Alarmtons über 30 Sekunden schrittweise von 5 % auf 100 %.
+     */
+    private fun startVolumeFadeIn(player: MediaPlayer) {
+        fadeInJob?.cancel()
+        fadeInJob = lifecycleScope.launch {
+            val durationMs = 30_000L
+            val stepIntervalMs = 500L
+            val totalSteps = (durationMs / stepIntervalMs).toInt()
+            val startVolume = 0.05f
+            val endVolume = 1.0f
+
+            for (step in 1..totalSteps) {
+                kotlinx.coroutines.delay(stepIntervalMs)
+                if (!player.isPlaying) break
+                val fraction = step.toFloat() / totalSteps
+                val currentVolume = startVolume + (endVolume - startVolume) * fraction
+                try {
+                    player.setVolume(currentVolume, currentVolume)
+                } catch (_: Exception) {
+                    break
+                }
+            }
+        }
+    }
+
     // Stop: Sound aus, Flags behalten damit MainActivity sichtbar wird
     private fun stopRingtoneAndOpenApp() {
+        fadeInJob?.cancel()
+        fadeInJob = null
         try {
             val appSettings = (application as FamWakeApplication).appSettings
             appSettings.setLastAlarmTime(System.currentTimeMillis())
@@ -251,6 +288,8 @@ class RingingActivity : AppCompatActivity() {
 
     // Snooze: Sound aus, Flags löschen damit Handy gesperrt bleibt
     private fun stopRingtoneAndLock() {
+        fadeInJob?.cancel()
+        fadeInJob = null
         try {
             val appSettings = (application as FamWakeApplication).appSettings
             appSettings.setLastAlarmTime(System.currentTimeMillis())
@@ -275,6 +314,8 @@ class RingingActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        fadeInJob?.cancel()
+        fadeInJob = null
         try {
             mediaPlayer?.stop()
         } catch (_: IllegalStateException) {

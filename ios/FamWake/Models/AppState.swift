@@ -36,7 +36,8 @@ class AppState: ObservableObject {
         self.ringingMemberName = memberName
         self.isRinging = true
         self.isGreeting = false
-        AlarmService.shared.playAlarm(soundUri: nil)
+        let soundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
+        AlarmService.shared.playAlarm(soundUri: soundUri)
     }
 
     func startGreeting(memberId: String, memberName: String) {

@@ -51,6 +51,8 @@ enum L {
     static var settingsAlarmTitle: String { s("settings_alarm_title") }
     static var settingsAlarmDefault: String { s("settings_alarm_default") }
     static var settingsAlarmPickerTitle: String { s("settings_alarm_picker_title") }
+    static var settingsGentleWakeTitle: String { s("settings_gentle_wake_title") }
+    static var settingsGentleWakeDesc: String { s("settings_gentle_wake_desc") }
     static var settingsAccountTitle: String { s("settings_account_title") }
     static var settingsJoinCode: String { s("settings_join_code") }
     static func settingsJoinCodeName(_ name: String) -> String { s("settings_join_code", name) }

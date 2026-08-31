@@ -114,6 +114,7 @@ fun SettingsScreen(
     val members by viewModel.members.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val alarmSoundUri by viewModel.alarmSoundUri.collectAsStateWithLifecycle()
+    val isGentleWakeEnabled by viewModel.isGentleWakeEnabled.collectAsStateWithLifecycle()
     val currentLanguage by viewModel.language.collectAsStateWithLifecycle()
     val familyName by viewModel.familyName.collectAsStateWithLifecycle()
     val isAdmin by viewModel.isAdmin.collectAsStateWithLifecycle()
@@ -462,7 +463,33 @@ fun SettingsScreen(
                         )
                     }
 
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
 
+                    // Sanftes Wecken (Gentle Fade-In)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(modifier = Modifier.weight(1f).padding(end = 16.dp)) {
+                            Text(
+                                text = stringResource(R.string.settings_gentle_wake_title),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = stringResource(R.string.settings_gentle_wake_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Switch(
+                            checked = isGentleWakeEnabled,
+                            onCheckedChange = { viewModel.setGentleWakeEnabled(it) }
+                        )
+                    }
                 }
             }
 

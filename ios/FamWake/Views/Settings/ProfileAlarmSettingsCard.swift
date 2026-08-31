@@ -77,6 +77,27 @@ struct ProfileAlarmSettingsCard: View {
                     familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyAlarmSound)
                 }
             }
+
+            Divider()
+                .background(theme.outline.opacity(0.15))
+                .padding(.vertical, 8)
+
+            // Sanftes Wecken Toggle
+            Toggle(isOn: Binding(
+                get: { familyViewModel.isGentleWakeEnabled },
+                set: { familyViewModel.setGentleWakeEnabled($0) }
+            )) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(L.settingsGentleWakeTitle)
+                        .font(.body)
+                        .foregroundStyle(theme.onSurface)
+                    Text(L.settingsGentleWakeDesc)
+                        .font(.caption)
+                        .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                }
+            }
+            .tint(Color.sunriseOrange500)
+            .padding(.vertical, 4)
         }
     }
 
