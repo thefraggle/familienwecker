@@ -101,6 +101,8 @@
     <string name="settings_alarm_default">Par défaut</string>
     <string name="settings_alarm_select">Sonnerie : %1$s</string>
     <string name="settings_alarm_picker_title">Choisis ta sonnerie de réveil</string>
+    <string name="settings_gentle_wake_title">Réveil en douceur</string>
+    <string name="settings_gentle_wake_desc">Le volume augmente progressivement sur 30 secondes</string>
     <string name="settings_account_title">Famille &amp; Compte</string>
     <string name="settings_share_code_locked">Connecte-toi pour partager ton code d\'invitation.</string>
     <string name="settings_anonymous_login_button">Se connecter / S\'inscrire</string>

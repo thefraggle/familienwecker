@@ -101,6 +101,8 @@
     <string name="settings_alarm_default">默认</string>
     <string name="settings_alarm_select">声音：%1$s</string>
     <string name="settings_alarm_picker_title">选择您的闹钟铃声</string>
+    <string name="settings_gentle_wake_title">渐强闹钟</string>
+    <string name="settings_gentle_wake_desc">音量在30秒内逐渐增强</string>
     <string name="settings_account_title">家庭与帐号</string>
     <string name="settings_share_code_locked">请先登录以分享您的邀请码。</string>
     <string name="settings_anonymous_login_button">登录 / 注册</string>
