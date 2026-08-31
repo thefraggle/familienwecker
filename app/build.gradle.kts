@@ -151,6 +151,6 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.sqlite.bundled)
 
-    // TelemetryDeck – anonyme Nutzungsanalyse (privacy-first)
-    implementation(libs.telemetrydeck)
+    // Aptabase – anonyme Nutzungsanalyse (privacy-first)
+    implementation(libs.aptabase)
 }

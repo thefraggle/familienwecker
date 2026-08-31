@@ -44,6 +44,12 @@ class FamWakeApplication : Application() {
         de.familienwecker.famwake.data.FirebaseRepository.configurePersistentCache()
         // S2: Debug-Logging im shared-Modul an BuildConfig koppeln
         de.familienwecker.famwake.data.FirebaseRepository.debugLogging = BuildConfig.DEBUG
+        // Aptabase – anonyme Nutzungsanalyse (self-hosted)
+        com.aptabase.Aptabase.instance.initialize(
+            this,
+            "A-SH-1020983988",
+            com.aptabase.InitOptions(host = "https://telemetry-apps.goork.de")
+        )
         // Push: Notification Channels einmalig registrieren (Android 8+, idempotent)
         NotificationChannels.register(this)
 

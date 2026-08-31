@@ -5,7 +5,7 @@ import android.util.Log
 import com.google.android.play.core.integrity.IntegrityManagerFactory
 import com.google.android.play.core.integrity.IntegrityTokenRequest
 import com.google.firebase.functions.FirebaseFunctions
-import com.telemetrydeck.sdk.TelemetryDeck
+import com.aptabase.Aptabase
 import de.familienwecker.famwake.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -19,7 +19,7 @@ enum class DeviceTrustLevel {
 }
 
 /**
- * Führt den Play Integrity Check durch und loggt das Ergebnis via TelemetryDeck.
+ * Führt den Play Integrity Check durch und loggt das Ergebnis via Aptabase.
  *
  * Monitoring-Modus (v1.7.7): ENFORCEMENT_ENABLED = false.
  * In diesem Modus wird der Check immer durchgeführt und geloggt,
@@ -37,7 +37,7 @@ class DeviceTrustManager(private val context: Context) {
         private const val FIREBASE_REGION = "europe-west3"
 
         // Monitoring-Phase: auf true setzen wenn echte Nutzungsdaten
-        // aus TelemetryDeck zeigen, dass keine legitimen Nutzer betroffen sind.
+        // aus Aptabase zeigen, dass keine legitimen Nutzer betroffen sind.
         private const val ENFORCEMENT_ENABLED = false
 
         // Nonce muss mind. 16 Zeichen lang sein (Play Integrity Anforderung)
@@ -125,16 +125,16 @@ class DeviceTrustManager(private val context: Context) {
     }
 
     /**
-     * Loggt das Ergebnis in TelemetryDeck (privacy-first, kein User-Identifier).
-     * Sichtbar im TelemetryDeck-Dashboard unter "integrity.check".
+     * Loggt das Ergebnis in Aptabase (privacy-first, kein User-Identifier).
+     * Sichtbar im Aptabase-Dashboard unter "integrity_check".
      *
      * Nur in Release-Builds: Debug/Emulator-Daten würden die Monitoring-Statistik verfälschen.
      */
     private fun logVerdict(verdict: DeviceTrustLevel) {
         val verdictLabel = verdict.name // "TRUSTED", "UNTRUSTED", "UNKNOWN"
         if (!BuildConfig.DEBUG) {
-            TelemetryDeck.signal(
-                "integrity.check",
+            Aptabase.instance.trackEvent(
+                "integrity_check",
                 mapOf(
                     "verdict" to verdictLabel,
                     "enforcement" to ENFORCEMENT_ENABLED.toString()

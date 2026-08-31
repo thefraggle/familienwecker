@@ -46,7 +46,7 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
 import androidx.core.net.toUri
-import com.telemetrydeck.sdk.TelemetryDeck
+import com.aptabase.Aptabase
 import kotlinx.coroutines.CancellationException
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -72,7 +72,7 @@ class RingingActivity : AppCompatActivity() {
         showOnLockScreenAndTurnScreenOn()
         playRingtone()
         // Tracking: Wecker wurde tatsächlich ausgelöst (getrennt von Snooze tracken)
-        TelemetryDeck.signal("alarm.triggered")
+        Aptabase.instance.trackEvent("alarm_triggered")
 
         // Auto-Timeout: Nach 10 Minuten ohne Interaktion automatisch beenden
         lifecycleScope.launch {
@@ -119,7 +119,7 @@ class RingingActivity : AppCompatActivity() {
                             }
 
                             // Tracking: Nutzer hat den Alarm aktiv abgebrochen (nicht durch Snooze)
-                            TelemetryDeck.signal("alarm.dismissed")
+                            Aptabase.instance.trackEvent("alarm_dismissed")
                             // M19: Nur Sound stoppen und RingingActivity beenden –
                             // die MainActivity wird automatisch sichtbar, da sie im Back-Stack liegt.
                             // Vorher wurde hier redundant ein Intent mit FLAG_ACTIVITY_CLEAR_TASK
@@ -170,7 +170,7 @@ class RingingActivity : AppCompatActivity() {
                                 }
                             }
 
-                            TelemetryDeck.signal("alarm.snoozed", mapOf("snoozeCount" to newCount.toString()))
+                            Aptabase.instance.trackEvent("alarm_snoozed", mapOf("snooze_count" to newCount))
                             stopRingtoneAndLock()
                         }
                     )

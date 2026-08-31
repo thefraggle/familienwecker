@@ -3,7 +3,7 @@ import Combine
 import FirebaseFirestore
 import FirebaseAuth
 import FirebaseFunctions
-import TelemetryClient
+import Aptabase
 import Network
 import UserNotifications
 
@@ -146,7 +146,7 @@ class FamilyViewModel: ObservableObject {
                     saveFamilyLocally(id: tempFamilyId, name: name, code: "")
                     PendingSyncManager.shared.isLocalOnlyFamily = true
                     isLocalOnlyFamily = true
-                    TelemetryManager.send("family.created.offline")
+                    Aptabase.shared.trackEvent("family_created", with: ["offline": true])
                     completion(true)
                     isSyncing = false
                 }
@@ -156,7 +156,7 @@ class FamilyViewModel: ObservableObject {
                 let result = try await FamilyFirestoreService.shared.createFamily(name: name)
                 await MainActor.run {
                     saveFamilyLocally(id: result.familyId, name: result.familyName, code: result.joinCode)
-                    TelemetryManager.send("family.created")
+                    Aptabase.shared.trackEvent("family_created", with: ["offline": false])
                     listenToFamily(id: result.familyId)
                     completion(true)
                 }
@@ -179,7 +179,7 @@ class FamilyViewModel: ObservableObject {
                 let result = try await FamilyFirestoreService.shared.joinFamily(code: code)
                 await MainActor.run {
                     saveFamilyLocally(id: result.familyId, name: result.familyName, code: result.joinCode)
-                    TelemetryManager.send("family.joined")
+                    Aptabase.shared.trackEvent("family_joined")
                     listenToFamily(id: result.familyId)
                     completion(true)
                 }
@@ -285,7 +285,7 @@ class FamilyViewModel: ObservableObject {
             do {
                 try await FamilyFirestoreService.shared.leaveFamily(familyId: fid, memberId: myId)
                 await MainActor.run {
-                    TelemetryManager.send("family.left")
+                    Aptabase.shared.trackEvent("family_left")
                     self.clearFamilyLocally()
                     self.familyListener?.remove()
                     self.membersListener?.remove()
@@ -348,7 +348,7 @@ class FamilyViewModel: ObservableObject {
             do {
                 try await FamilyFirestoreService.shared.deleteFamily(familyId: fid)
                 await MainActor.run {
-                    TelemetryManager.send("family.deleted")
+                    Aptabase.shared.trackEvent("family_deleted")
                     clearFamilyLocally()
                     familyListener?.remove()
                     membersListener?.remove()
@@ -399,7 +399,7 @@ class FamilyViewModel: ObservableObject {
             do {
                 try await FamilyFirestoreService.shared.addOrUpdateMember(familyId: fid, member: updatedMember)
                 await MainActor.run {
-                    TelemetryManager.send("member.created")
+                    Aptabase.shared.trackEvent("member_created")
                     if shouldClaim {
                         myMemberId = updatedMember.id
                         UserDefaults.standard.set(updatedMember.id, forKey: "my_member_id")
@@ -441,7 +441,7 @@ class FamilyViewModel: ObservableObject {
             do {
                 try await FamilyFirestoreService.shared.deleteMember(familyId: fid, memberId: memberId)
                 await MainActor.run {
-                    TelemetryManager.send("member.deleted")
+                    Aptabase.shared.trackEvent("member_deleted")
                     members.removeAll { $0.id == memberId }
                     if wasMyMember {
                         myMemberId = nil
@@ -524,7 +524,7 @@ class FamilyViewModel: ObservableObject {
                     try await FamilyFirestoreService.shared.setAwake(familyId: fid, memberId: memberId, awake: awake)
                 }
                 await MainActor.run {
-                    TelemetryManager.send(awake ? "awake.markedAwake" : "awake.reset")
+                    Aptabase.shared.trackEvent(awake ? "awake_marked" : "awake_reset")
                 }
             } catch {
                 await MainActor.run {
@@ -619,7 +619,7 @@ class FamilyViewModel: ObservableObject {
                 }
                 self.myMemberId = memberId
                 UserDefaults.standard.set(memberId, forKey: "my_member_id")
-                TelemetryManager.send("member.claimed.offline")
+                Aptabase.shared.trackEvent("member_claimed", with: ["offline": true])
             } else {
                 self.myMemberId = nil
                 UserDefaults.standard.removeObject(forKey: "my_member_id")
@@ -703,7 +703,7 @@ class FamilyViewModel: ObservableObject {
                         await MainActor.run {
                             self.myMemberId = memberId
                             UserDefaults.standard.set(memberId, forKey: "my_member_id")
-                            TelemetryManager.send("member.claimed")
+                            Aptabase.shared.trackEvent("member_claimed", with: ["offline": false])
                             self.recalculateSchedule()
                         }
                         completion(true)
@@ -1390,7 +1390,6 @@ class FamilyViewModel: ObservableObject {
                     saveFamilyLocally(id: newFamilyId, name: name, code: newJoinCode)
                     PendingSyncManager.shared.isLocalOnlyFamily = false
                     isLocalOnlyFamily = false
-                    TelemetryManager.send("family.synced")
                     listenToFamily(id: newFamilyId)
                 }
             } catch {

@@ -3,7 +3,7 @@ import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 import FirebaseMessaging
-import TelemetryClient
+import Aptabase
 import UserNotifications
 import FirebaseFirestore
 
@@ -14,9 +14,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
         }
         
-        let configuration = TelemetryManagerConfiguration(appID: "65B4CF62-F147-42B5-9B7A-14CF0ADF949D")
-        TelemetryManager.initialize(with: configuration)
-        TelemetryManager.send("app.launched")
+        Aptabase.shared.initialize(
+            appKey: "A-SH-1020983988",
+            options: InitOptions(host: "https://telemetry-apps.goork.de")
+        )
+        Aptabase.shared.trackEvent("app_launched")
         
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self
@@ -58,7 +60,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        TelemetryManager.send("auth.apnsRegistrationFailed", with: ["error": error.localizedDescription])
+        #if DEBUG
+        print("Failed to register for remote notifications: \(error.localizedDescription)")
+        #endif
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
@@ -155,7 +159,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
         
         if response.actionIdentifier == "STOP_ACTION" {
-            TelemetryManager.send("alarm.dismissed_background")
+            Aptabase.shared.trackEvent("alarm_dismissed", with: ["source": "background"])
             AlarmService.shared.cancelWakeUp(memberId: memberId)
             UserDefaults.standard.removeObject(forKey: "snooze_until")
             
@@ -163,7 +167,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: ["memberId": memberId])
             }
         } else if response.actionIdentifier == "SNOOZE_ACTION" {
-            TelemetryManager.send("alarm.snoozed_background")
+            Aptabase.shared.trackEvent("alarm_snoozed", with: ["source": "background"])
             AlarmService.shared.cancelWakeUp(memberId: memberId)
             
             let snoozeTime = Date().addingTimeInterval(5 * 60)
