@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.7 – 2026-08-31
+✨ Verbessert:
+• Verbesserter Datenschutz & Stabilität: Eine noch sparsamere und ressourcenschonende Messung im Hintergrund sorgt für höchste Zuverlässigkeit und noch bessere Stabilität im Alltag – vollkommen anonym und ohne persönliche Daten.
+• Zuverlässigere Abläufe: Optimierte Hintergrundprozesse sorgen für einen noch flüssigeren Ablauf und schonen den Akku.
+
 ## 2.1.6 – 2026-08-31
 ✨ Neu & Verbessert:
 • Sanftes Aufwachen: Dein Wecker startet jetzt leise und wird über 30 Sekunden behutsam lauter – für einen stressfreien Start in den Tag, besonders für Kinder.
