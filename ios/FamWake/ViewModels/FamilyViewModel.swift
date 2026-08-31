@@ -37,6 +37,7 @@ class FamilyViewModel: ObservableObject {
     @Published var snoozeUntil: Date? = nil
     @Published var snoozeCount: Int = UserDefaults.standard.integer(forKey: "snooze_count")
     @Published var alarmSoundUri: String? = UserDefaults.standard.string(forKey: "alarm_sound_uri")
+    @Published var isGentleWakeEnabled: Bool = UserDefaults.standard.object(forKey: "gentle_wake_enabled") as? Bool ?? true
     @Published var themePreference: String = UserDefaults.standard.string(forKey: "theme_preference") ?? "system"
     @Published var language: String = UserDefaults.standard.string(forKey: "language") ?? "system"
     @Published var tooltipsEnabled: Bool = UserDefaults.standard.bool(forKey: "tooltips_enabled")
@@ -1077,6 +1078,11 @@ class FamilyViewModel: ObservableObject {
     func setAlarmSoundUri(_ uri: String?) {
         alarmSoundUri = uri
         UserDefaults.standard.set(uri, forKey: "alarm_sound_uri")
+    }
+
+    func setGentleWakeEnabled(_ enabled: Bool) {
+        isGentleWakeEnabled = enabled
+        UserDefaults.standard.set(enabled, forKey: "gentle_wake_enabled")
     }
 
     func clearErrorMessage() { errorMessage = nil }

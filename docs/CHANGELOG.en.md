@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.6 – 2026-08-31
+✨ New & Improved:
+• Gentle Wake-Up: Alarm sounds now gradually increase in volume over 30 seconds (from 5% to 100%) for a peaceful, stress-free morning.
+• Customizable: Easily enable or disable the gentle volume fade-in directly within your profile settings.
+
 ## 2.1.5 – 2026-08-26
 ✨ Improved:
 • Reliable through time changes: Automatic daylight saving time protection ensures your alarm rings reliably at your scheduled time.
