@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
-import com.telemetrydeck.sdk.TelemetryDeck
+import com.aptabase.Aptabase
 import java.security.MessageDigest
 import java.util.UUID
 
@@ -198,8 +198,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         android.util.Log.d("AuthViewModel", "User logged in and verified. Starting restoration...")
                     }
                     _isRestoringFamily.value = true
-                    // Tracking: E-Mail-Login erfolgreich (method-Payload trennt E-Mail von Google Sign-In)
-                    TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "email"))
+                    // Tracking: E-Mail-Login erfolgreich
+                    Aptabase.instance.trackEvent("auth_login", mapOf("method" to "email"))
                     // Push: Token nach Login sicherstellen
                     de.familienwecker.famwake.FamWakeMessagingService.refreshAndSaveToken()
                     _authState.value = AuthState.Authenticated(user)
@@ -231,8 +231,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 if (sendResult.isFailure && de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.e("AuthViewModel", "Failed to send verification email: ${sendResult.exceptionOrNull()}")
                 }
-                // Tracking: Registrierung erfolgreich (E-Mail-Verifikation steht noch aus)
-                TelemetryDeck.signal("auth.registerSuccess")
+                // Tracking: Registrierung erfolgreich
+                Aptabase.instance.trackEvent("auth_register")
                 _authState.value = AuthState.AwaitingEmailVerification
             }.onFailure { error ->
                 _authState.value = AuthState.Error(appErrorFromException((error as? Exception) ?: Exception(error.message)).toUiText())
@@ -298,8 +298,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     val gitliveCredential = dev.gitlive.firebase.auth.GoogleAuthProvider.credential(googleIdTokenCredential.idToken, null)
                     val authResult = authRepository.signInWithGoogleCredential(gitliveCredential)
                     authResult.onSuccess { user ->
-                        // Tracking: Google Sign-In erfolgreich (getrennt von E-Mail via method-Payload)
-                        TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "google"))
+                        // Tracking: Google Sign-In erfolgreich
+                        Aptabase.instance.trackEvent("auth_login", mapOf("method" to "google"))
                         // Push: Token nach Google-Login sicherstellen
                         de.familienwecker.famwake.FamWakeMessagingService.refreshAndSaveToken()
                         _authState.value = AuthState.Authenticated(user)
@@ -344,7 +344,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             _authState.value = AuthState.Loading
             val result = authRepository.signInAnonymously()
             result.onSuccess { user ->
-                TelemetryDeck.signal("auth.loginSuccess", mapOf("method" to "anonymous"))
+                Aptabase.instance.trackEvent("auth_login", mapOf("method" to "anonymous"))
                 de.familienwecker.famwake.FamWakeMessagingService.refreshAndSaveToken()
                 _authState.value = AuthState.Authenticated(user)
                 onSuccess()

@@ -1,7 +1,7 @@
 package de.familienwecker.famwake.ui.viewmodel
 
 import android.util.Log
-import com.telemetrydeck.sdk.TelemetryDeck
+import com.aptabase.Aptabase
 import de.familienwecker.famwake.BuildConfig
 import de.familienwecker.famwake.alarm.AlarmBackupPrefs
 import de.familienwecker.famwake.R
@@ -77,7 +77,7 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                 }
                 _isAutoClaimInProgress.value = false
             } else if (isNewMember) {
-                TelemetryDeck.signal("member.created")
+                Aptabase.instance.trackEvent("member_created")
             } else {
                 // Removed member.updated noise
             }
@@ -134,7 +134,7 @@ fun FamilyViewModel.removeMember(id: String) {
     }
     val currentFamilyId = familyId.value ?: return
     alarmScheduler.cancelWakeUp(id)
-    TelemetryDeck.signal("member.deleted")
+    Aptabase.instance.trackEvent("member_deleted")
     val wasMyMember = myMemberId.value == id
     scope.launch {
         val result = repository.removeMember(currentFamilyId, id)
@@ -188,7 +188,7 @@ fun FamilyViewModel.setMyMemberId(id: String?, force: Boolean = false, onComplet
                     val memberName = currentMember?.name ?: _members.value.find { it.id == id }?.name
                     appSettings.setMyMemberName(memberName)
                     appSettings.setAlarmEnabled(true)
-                    TelemetryDeck.signal("member.claimed")
+                    Aptabase.instance.trackEvent("member_claimed")
                     onComplete(true)
                 } else {
                     onComplete(false)
@@ -255,7 +255,7 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
     val newAwakeState = !isAwakeTodayLocal.value
 
     appSettings.setAwakeToday(newAwakeState)
-    TelemetryDeck.signal(if (newAwakeState) "awake.markedAwake" else "awake.reset")
+    Aptabase.instance.trackEvent(if (newAwakeState) "awake_marked" else "awake_reset")
     val updatedMember = member.copy(
         isAwakeToday = newAwakeState,
         snoozeUntil = if (newAwakeState) null else member.snoozeUntil,

@@ -2,7 +2,7 @@ import SwiftUI
 import AVFoundation
 import UserNotifications
 import Lottie
-import TelemetryClient
+import Aptabase
 
 /// RingingView – iOS-Äquivalent zur Android RingingActivity
 /// Wird angezeigt wenn die Notification geöffnet wird oder per App-Link
@@ -80,7 +80,7 @@ struct RingingView: View {
                     } else {
                         // Stop – Solid
                         Button(action: {
-                            TelemetryManager.send("alarm.dismissed")
+                            Aptabase.shared.trackEvent("alarm_dismissed")
                             AlarmService.shared.stopAlarm()
                             onStop()
                         }) {
@@ -105,7 +105,7 @@ struct RingingView: View {
                             #if DEBUG
                             print("[RingingView] Snooze tapped! snoozeCount=\(snoozeCount), maxSnooze=\(SnoozeConfig.maxSnoozeCount)")
                             #endif
-                            TelemetryManager.send("alarm.snoozed")
+                            Aptabase.shared.trackEvent("alarm_snoozed", with: ["snooze_count": snoozeCount + 1])
                             AlarmService.shared.stopAlarm()
                             onSnooze()
                         }) {
@@ -139,7 +139,7 @@ struct RingingView: View {
             }
         }
         .onAppear {
-            TelemetryManager.send("alarm.triggered")
+            Aptabase.shared.trackEvent("alarm_triggered")
             let messages = L.ringingMessagesArray.components(separatedBy: "||")
             randomMessage = messages.randomElement() ?? "☀️"
             
