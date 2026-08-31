@@ -96,8 +96,9 @@ struct ProfileAlarmSettingsCard: View {
                         .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                 }
             }
-            .tint(Color.sunriseOrange500)
+            .tint(theme.secondary)
             .padding(.vertical, 4)
+            .accessibilityLabel(L.settingsGentleWakeTitle)
         }
     }
 
