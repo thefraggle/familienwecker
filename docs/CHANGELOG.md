@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.6 – 2026-08-31
+✨ Neu & Verbessert:
+• Sanftes Wecken: Der Weckton steigt jetzt über 30 Sekunden behutsam an (von 5 % auf 100 %) – perfekt für einen entspannten Morgen ohne Erschrecken.
+• Individuell anpassbar: Die ansteigende Lautstärke lässt sich in den Profileinstellungen nach Wunsch aktivieren oder deaktivieren.
+
 ## 2.1.5 – 2026-08-26
 ✨ Verbessert:
 • Pünktlich bei Zeitumstellung: Automatische Absicherung bei Sommer- und Winterzeit, damit dein Wecker verlässlich zur gewohnten Zeit klingelt.
