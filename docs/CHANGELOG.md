@@ -4,8 +4,8 @@
 
 ## 2.1.6 – 2026-08-31
 ✨ Neu & Verbessert:
-• Sanftes Wecken: Der Weckton steigt jetzt über 30 Sekunden behutsam an (von 5 % auf 100 %) – perfekt für einen entspannten Morgen ohne Erschrecken.
-• Individuell anpassbar: Die ansteigende Lautstärke lässt sich in den Profileinstellungen nach Wunsch aktivieren oder deaktivieren.
+• Sanftes Aufwachen: Dein Wecker startet jetzt leise und wird über 30 Sekunden behutsam lauter – für einen stressfreien Start in den Tag, besonders für Kinder.
+• Volle Kontrolle: Die ansteigende Lautstärke lässt sich in den Einstellungen jederzeit ganz nach deinen Wünschen an- oder ausschalten.
 
 ## 2.1.5 – 2026-08-26
 ✨ Verbessert:
