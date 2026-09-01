@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.9 – 2026-09-01
+✨ New & Improved:
+• Evening Check-In Reminder: A gentle reminder at 8:30 PM prompts you in the evening to quickly double-check tomorrow morning's alarm schedule so everyone is ready.
+• Complete Control: Easily enable or disable the evening reminder anytime with a single tap in your profile settings.
+
 ## 2.1.8 – 2026-09-01
 ✨ Improved:
 • Enhanced Privacy & Stability: A leaner, privacy-first background measurement ensures maximum reliability and a stable routine – completely anonymous with no personal data.

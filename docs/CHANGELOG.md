@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.9 – 2026-09-01
+✨ Neu & Verbessert:
+• Abendliche Wecker-Erinnerung: Ein dezenter Hinweis um 20:30 Uhr erinnert dich abends daran, deinen Weckplan für den nächsten Morgen kurz zu prüfen – damit niemand verschläft.
+• Volle Flexibilität: Die abendliche Erinnerung lässt sich in den Profileinstellungen jederzeit ganz einfach mit einem Klick aktivieren oder deaktivieren.
+
 ## 2.1.8 – 2026-09-01
 ✨ Verbessert:
 • Verbesserter Datenschutz & Stabilität: Eine noch sparsamere und ressourcenschonende Messung im Hintergrund sorgt für höchste Zuverlässigkeit und noch bessere Stabilität im Alltag – vollkommen anonym und ohne persönliche Daten.
