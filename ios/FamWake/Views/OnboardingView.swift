@@ -1,5 +1,6 @@
 import SwiftUI
 import Lottie
+import Aptabase
 
 // MARK: - Onboarding (1:1 Android OnboardingScreen.kt)
 // 4 Slides: Panda Lottie → Schedule Mockup → Invite Mockup → WakeUp Lottie
@@ -223,6 +224,11 @@ struct OnboardingView: View {
             }
         }
         .animation(.easeInOut(duration: 0.2), value: isLastPage)
+        .onAppear {
+            if !startAtWelcome && currentPage == 0 {
+                Aptabase.shared.trackEvent("onboarding_started")
+            }
+        }
     }
 }
 
