@@ -1,6 +1,10 @@
 package de.familienwecker.famwake
 
+import android.app.ActivityManager
 import android.app.Application
+import android.content.pm.ApplicationInfo
+import android.os.Build
+import android.provider.Settings
 import de.familienwecker.famwake.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,11 +49,46 @@ class FamWakeApplication : Application() {
         // S2: Debug-Logging im shared-Modul an BuildConfig koppeln
         de.familienwecker.famwake.data.FirebaseRepository.debugLogging = BuildConfig.DEBUG
         // Aptabase – anonyme Nutzungsanalyse (self-hosted)
+        val isTestLab = try {
+            Settings.System.getString(contentResolver, "firebase.test.lab") == "true"
+        } catch (_: Exception) { false }
+        val isTestHarness = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && try {
+            ActivityManager.isRunningInUserTestHarness()
+        } catch (_: Exception) { false }
+        val isEmulator = Build.FINGERPRINT.startsWith("generic") ||
+                Build.FINGERPRINT.startsWith("unknown") ||
+                Build.MODEL.contains("google_sdk") ||
+                Build.MODEL.contains("Emulator") ||
+                Build.MODEL.contains("Android SDK built for x86") ||
+                Build.HARDWARE.contains("goldfish") ||
+                Build.HARDWARE.contains("ranchu") ||
+                Build.PRODUCT.contains("sdk_google") ||
+                Build.PRODUCT.contains("google_sdk") ||
+                Build.PRODUCT.contains("sdk") ||
+                Build.PRODUCT.contains("sdk_x86") ||
+                Build.PRODUCT.contains("vbox86p") ||
+                Build.PRODUCT.contains("emulator") ||
+                Build.PRODUCT.contains("simulator") ||
+                Build.DEVICE.contains("cuttlefish")
+        val isDebug = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0 || isTestLab || isTestHarness || isEmulator || BuildConfig.DEBUG
+
         com.aptabase.Aptabase.instance.initialize(
             this,
             "A-SH-1020983988",
             com.aptabase.InitOptions(host = "https://telemetry-apps.goork.de")
         )
+        if (isDebug) {
+            try {
+                val envField = com.aptabase.Aptabase.instance.javaClass.getDeclaredField("env")
+                envField.isAccessible = true
+                val env = envField.get(com.aptabase.Aptabase.instance)
+                if (env != null) {
+                    val debugField = env.javaClass.getDeclaredField("isDebug")
+                    debugField.isAccessible = true
+                    debugField.setBoolean(env, true)
+                }
+            } catch (_: Exception) {}
+        }
         // Push: Notification Channels einmalig registrieren (Android 8+, idempotent)
         NotificationChannels.register(this)
 

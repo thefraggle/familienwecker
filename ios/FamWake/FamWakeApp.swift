@@ -14,9 +14,18 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
         }
         
+        #if targetEnvironment(simulator) || DEBUG
+        let isDebug = true
+        #else
+        let isDebug = false
+        #endif
+
         Aptabase.shared.initialize(
             appKey: "A-SH-1020983988",
-            options: InitOptions(host: "https://telemetry-apps.goork.de")
+            options: InitOptions(
+                host: "https://telemetry-apps.goork.de",
+                trackingMode: isDebug ? .asDebug : .asRelease
+            )
         )
         Aptabase.shared.trackEvent("app_launched")
         
