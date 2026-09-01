@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.8 – 2026-09-01
+✨ Improved:
+• Enhanced Privacy & Stability: A leaner, privacy-first background measurement ensures maximum reliability and a stable routine – completely anonymous with no personal data.
+• Smoother Performance: Under-the-hood synchronization optimizations keep everything running seamlessly while conserving battery life.
+
 ## 2.1.7 – 2026-08-31
 ✨ Improved:
 • Enhanced Privacy & Stability: A leaner, privacy-first background measurement ensures maximum reliability and a stable routine – completely anonymous with no personal data.
