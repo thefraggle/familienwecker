@@ -6,6 +6,7 @@
 ✨ New & Improved:
 • Evening Check-In Reminder: A gentle reminder at 8:30 PM prompts you in the evening to quickly double-check tomorrow morning's alarm schedule so everyone is ready.
 • Complete Control: Easily enable or disable the evening reminder anytime with a single tap in your profile settings.
+• Privacy & Stability: Optimized background and telemetry handling ensures higher reliability while conserving battery life.
 
 ## 2.1.8 – 2026-09-01
 ✨ Improved:

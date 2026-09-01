@@ -6,6 +6,7 @@
 ✨ Neu & Verbessert:
 • Abendliche Wecker-Erinnerung: Ein dezenter Hinweis um 20:30 Uhr erinnert dich abends daran, deinen Weckplan für den nächsten Morgen kurz zu prüfen – damit niemand verschläft.
 • Volle Flexibilität: Die abendliche Erinnerung lässt sich in den Profileinstellungen jederzeit ganz einfach mit einem Klick aktivieren oder deaktivieren.
+• Datenschutz & Stabilität: Optimierte Hintergrund- und Telemetrieprozesse sorgen für noch höhere Zuverlässigkeit und schonen den Akku.
 
 ## 2.1.8 – 2026-09-01
 ✨ Verbessert:
