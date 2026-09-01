@@ -2,6 +2,7 @@ package de.familienwecker.famwake.ui.screens
 
 
 import androidx.compose.animation.AnimatedVisibility
+import com.aptabase.Aptabase
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -84,6 +85,12 @@ fun OnboardingScreen(
     val isLastPage    = pagerState.currentPage == slides.size - 1
     var isStarting    by remember { mutableStateOf(false) }
     var tooltipsEnabled by remember { mutableStateOf(initialTooltipsEnabled) }
+
+    LaunchedEffect(Unit) {
+        if (!startAtWelcome) {
+            Aptabase.instance.trackEvent("onboarding_started")
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Globaler Hintergrund (onboarding_bg.png)

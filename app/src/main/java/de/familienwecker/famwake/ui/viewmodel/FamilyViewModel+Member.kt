@@ -224,7 +224,7 @@ fun FamilyViewModel.togglePauseMember(memberId: String) {
     _members.value = currentList.toPersistentList()
     recalculateSchedule()
 
-    // Tracking removed für Paused/Unpaused
+    Aptabase.instance.trackEvent(if (newPausedState) "member_paused" else "member_resumed")
     scope.launch {
         try {
             // pushMeta VOR dem Firestore-Write, damit die CF den Sender erkennt
