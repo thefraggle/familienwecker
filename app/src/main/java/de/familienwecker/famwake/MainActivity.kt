@@ -94,8 +94,10 @@ class MainActivity : AppCompatActivity() {
         // Edge-to-Edge muss vor setContent() aufgerufen werden, damit AppCompat
         // keine veralteten setStatusBarColor/setNavigationBarColor-Aufrufe absetzt
         enableEdgeToEdge()
-        // Tracking: App wurde kalt gestartet – gibt grundlegende Nutzungsfrequenz wieder
-        Aptabase.instance.trackEvent("app_launched")
+        // Tracking: App wurde kalt gestartet – nur beim echten Erststart (nicht bei Configuration Changes wie Rotation/Theme)
+        if (savedInstanceState == null) {
+            Aptabase.instance.trackEvent("app_launched")
+        }
 
         setContent {
             val themePref by familyViewModel.themePreference.collectAsStateWithLifecycle()
