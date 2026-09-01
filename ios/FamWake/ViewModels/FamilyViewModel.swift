@@ -536,6 +536,7 @@ class FamilyViewModel: ObservableObject {
     }
 
     func setAlarmEnabled(_ enabled: Bool) {
+        Aptabase.shared.trackEvent("alarm_enabled_toggled", with: ["enabled": enabled])
         isAlarmEnabled = enabled
         UserDefaults.standard.set(enabled, forKey: "alarm_enabled")
         
@@ -1078,6 +1079,7 @@ class FamilyViewModel: ObservableObject {
     func setAlarmSoundUri(_ uri: String?) {
         alarmSoundUri = uri
         UserDefaults.standard.set(uri, forKey: "alarm_sound_uri")
+        Aptabase.shared.trackEvent("alarm_sound_changed", with: ["sound": uri ?? "default"])
     }
 
     func setGentleWakeEnabled(_ enabled: Bool) {
@@ -1139,6 +1141,7 @@ class FamilyViewModel: ObservableObject {
             do {
                 try await functions.httpsCallable("sendFeedbackEmail").call(data)
                 feedbackSubmitted = true
+                Aptabase.shared.trackEvent("feedback_submitted", with: ["category": category])
             } catch {
                 feedbackError = mapFirebaseError(error)
             }

@@ -1,4 +1,5 @@
 import SwiftUI
+import Aptabase
 
 struct FamilyAccountSettingsCard: View {
     @EnvironmentObject var familyViewModel: FamilyViewModel
@@ -116,6 +117,7 @@ struct FamilyAccountSettingsCard: View {
     }
 
     private func presentShareSheet(with text: String) {
+        Aptabase.shared.trackEvent("family_invite_shared")
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
             return

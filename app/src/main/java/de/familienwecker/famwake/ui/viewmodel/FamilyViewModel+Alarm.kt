@@ -444,6 +444,7 @@ internal fun FamilyViewModel.cancelAlarmForCurrentUser() {
 fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
     if (enabled && myMemberId.value == null) return
     checkOfflineAndHint()
+    Aptabase.instance.trackEvent("alarm_enabled_toggled", mapOf("enabled" to enabled))
     // Beim Aus- UND Einschalten wird „Schon wach" zurückgesetzt.
     // Bewusster Toggle = expliziter Neustart – unabhängig vom vorherigen Zustand.
     appSettings.setAwakeToday(false)
@@ -528,6 +529,7 @@ fun FamilyViewModel.setAlarmSoundUri(uri: String) {
     val parsedUri = android.net.Uri.parse(uri)
     val soundName = parsedUri.getQueryParameter("title")
         ?: uri.substringAfterLast("/").substringBeforeLast(".")
+    Aptabase.instance.trackEvent("alarm_sound_changed", mapOf("sound" to soundName))
 }
 
 /**

@@ -1,5 +1,6 @@
 package de.familienwecker.famwake.ui.screens
 
+import com.aptabase.Aptabase
 import kotlinx.coroutines.launch
 
 import android.app.Activity
@@ -680,6 +681,7 @@ fun SettingsScreen(
                                         snackbarHostState.showSnackbar(context.getString(R.string.settings_share_code_locked))
                                     }
                                 } else {
+                                    Aptabase.instance.trackEvent("family_invite_shared")
                                     val sendIntent = Intent().apply {
                                         action = Intent.ACTION_SEND
                                         putExtra(Intent.EXTRA_TEXT, shareMessage)

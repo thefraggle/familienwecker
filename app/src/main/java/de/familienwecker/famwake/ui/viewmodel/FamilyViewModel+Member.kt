@@ -188,7 +188,7 @@ fun FamilyViewModel.setMyMemberId(id: String?, force: Boolean = false, onComplet
                     val memberName = currentMember?.name ?: _members.value.find { it.id == id }?.name
                     appSettings.setMyMemberName(memberName)
                     appSettings.setAlarmEnabled(true)
-                    Aptabase.instance.trackEvent("member_claimed")
+                    Aptabase.instance.trackEvent("member_claimed", mapOf("offline" to false))
                     onComplete(true)
                 } else {
                     onComplete(false)
