@@ -364,4 +364,11 @@
     <string name="settings_theme_system">システム</string>
     <string name="quick_tile_alarm_on">アラーム ON</string>
     <string name="quick_tile_alarm_off">アラーム OFF</string>
+
+    <string name="settings_evening_reminder_title">夜のリマインダー (20:30)</string>
+    <string name="settings_evening_reminder_desc">夜に明日のアラームスケジュールを確認するよう通知します。</string>
+    <string name="notif_evening_reminder_title">明日のスケジュール 🌙</string>
+    <string name="notif_evening_reminder_desc">明日のアラームは準備できていますか？ファミリースケジュールを確認しましょう。</string>
+    <string name="notif_channel_evening_reminder_name">夜のリマインダー</string>
+    <string name="notif_channel_evening_reminder_desc">夜にアラームスケジュールを確認するよう通知します。</string>
 </resources>

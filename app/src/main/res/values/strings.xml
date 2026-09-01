@@ -437,4 +437,11 @@
     <string name="settings_theme_system">System</string>
     <string name="quick_tile_alarm_on">Alarm ON</string>
     <string name="quick_tile_alarm_off">Alarm OFF</string>
+
+    <string name="settings_evening_reminder_title">Evening Reminder (8:30 PM)</string>
+    <string name="settings_evening_reminder_desc">Reminds you in the evening to check your alarm schedule for tomorrow.</string>
+    <string name="notif_evening_reminder_title">Schedule for Tomorrow 🌙</string>
+    <string name="notif_evening_reminder_desc">Is your alarm ready for tomorrow? Take a quick look at your family schedule.</string>
+    <string name="notif_channel_evening_reminder_name">Evening Reminder</string>
+    <string name="notif_channel_evening_reminder_desc">Reminds you in the evening to check your alarm schedule.</string>
 </resources>

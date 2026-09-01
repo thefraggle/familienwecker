@@ -451,4 +451,38 @@ final class AlarmService: ObservableObject {
         systemSoundTimer?.invalidate()
         systemSoundTimer = nil
     }
+
+    // MARK: - Evening Check-In Reminder (20:30 Uhr)
+    func scheduleEveningReminder() {
+        let isEnabled = UserDefaults.standard.object(forKey: "evening_reminder_enabled") as? Bool ?? true
+        guard isEnabled else {
+            cancelEveningReminder()
+            return
+        }
+
+        let center = UNUserNotificationCenter.current()
+        let identifier = "evening_checkin_reminder"
+
+        let content = UNMutableNotificationContent()
+        content.title = L.notifEveningReminderTitle
+        content.body = L.notifEveningReminderDesc
+        content.sound = .default
+
+        var dateComponents = DateComponents()
+        dateComponents.hour = 20
+        dateComponents.minute = 30
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+        center.add(request) { error in
+            if let error = error {
+                debugPrint("FamWake/Alarm: Failed to schedule evening reminder: \(error)")
+            }
+        }
+    }
+
+    func cancelEveningReminder() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["evening_checkin_reminder"])
+    }
 }

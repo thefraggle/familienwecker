@@ -361,4 +361,11 @@
     <string name="settings_theme_system">Sistema</string>
     <string name="quick_tile_alarm_on">Alarme ATIVO</string>
     <string name="quick_tile_alarm_off">Alarme INATIVO</string>
+
+    <string name="settings_evening_reminder_title">Lembrete noturno (20:30)</string>
+    <string name="settings_evening_reminder_desc">Lembra você à noite de verificar seu horário de alarme para amanhã.</string>
+    <string name="notif_evening_reminder_title">Horário para amanhã 🌙</string>
+    <string name="notif_evening_reminder_desc">Seu alarme está pronto para amanhã? Dê uma olhada rápida no horário da família.</string>
+    <string name="notif_channel_evening_reminder_name">Lembrete noturno</string>
+    <string name="notif_channel_evening_reminder_desc">Lembra você à noite de verificar seu horário de alarme.</string>
 </resources>

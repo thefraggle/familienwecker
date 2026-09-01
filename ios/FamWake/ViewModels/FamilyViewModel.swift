@@ -38,6 +38,7 @@ class FamilyViewModel: ObservableObject {
     @Published var snoozeCount: Int = UserDefaults.standard.integer(forKey: "snooze_count")
     @Published var alarmSoundUri: String? = UserDefaults.standard.string(forKey: "alarm_sound_uri")
     @Published var isGentleWakeEnabled: Bool = UserDefaults.standard.object(forKey: "gentle_wake_enabled") as? Bool ?? true
+    @Published var isEveningReminderEnabled: Bool = UserDefaults.standard.object(forKey: "evening_reminder_enabled") as? Bool ?? true
     @Published var themePreference: String = UserDefaults.standard.string(forKey: "theme_preference") ?? "system"
     @Published var language: String = UserDefaults.standard.string(forKey: "language") ?? "system"
     @Published var tooltipsEnabled: Bool = UserDefaults.standard.bool(forKey: "tooltips_enabled")
@@ -1086,6 +1087,17 @@ class FamilyViewModel: ObservableObject {
     func setGentleWakeEnabled(_ enabled: Bool) {
         isGentleWakeEnabled = enabled
         UserDefaults.standard.set(enabled, forKey: "gentle_wake_enabled")
+    }
+
+    func setEveningReminderEnabled(_ enabled: Bool) {
+        isEveningReminderEnabled = enabled
+        UserDefaults.standard.set(enabled, forKey: "evening_reminder_enabled")
+        if enabled {
+            AlarmService.shared.scheduleEveningReminder()
+        } else {
+            AlarmService.shared.cancelEveningReminder()
+        }
+        Aptabase.shared.trackEvent("evening_reminder_toggled", with: ["enabled": enabled])
     }
 
     func clearErrorMessage() { errorMessage = nil }

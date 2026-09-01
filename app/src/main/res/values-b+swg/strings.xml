@@ -361,4 +361,11 @@
     <string name="settings_theme_system">System</string>
     <string name="quick_tile_alarm_on">Wecker AN</string>
     <string name="quick_tile_alarm_off">Wecker AUS</string>
+
+    <string name="settings_evening_reminder_title">Abendliche Erinnerung (20:30 Uhr)</string>
+    <string name="settings_evening_reminder_desc">Erinnert di am Obend dra, dein Weckplan für morge zum brüfe.</string>
+    <string name="notif_evening_reminder_title">Weckplan für morge 🌙</string>
+    <string name="notif_evening_reminder_desc">Isch dein Wegger für morge beroid? Guck kurz noch deim Familieplan.</string>
+    <string name="notif_channel_evening_reminder_name">Abendliche Erinnerung</string>
+    <string name="notif_channel_evening_reminder_desc">Erinnert di am Obend dra, dein Weckplan zum brüfe.</string>
 </resources>

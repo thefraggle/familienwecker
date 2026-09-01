@@ -362,4 +362,11 @@
     <string name="settings_theme_system">System</string>
     <string name="quick_tile_alarm_on">Wecker AN</string>
     <string name="quick_tile_alarm_off">Wecker AUS</string>
+
+    <string name="settings_evening_reminder_title">Abig-Erinnerig (20:30 Uhr)</string>
+    <string name="settings_evening_reminder_desc">Erinneret di am Abig draa, din Weckplan für morn z\'überprüefe.</string>
+    <string name="notif_evening_reminder_title">Weckplan für morn 🌙</string>
+    <string name="notif_evening_reminder_desc">Isch din Wecker für morn parat? Wirf en churze Blick uf din Familiäplan.</string>
+    <string name="notif_channel_evening_reminder_name">Abig-Erinnerig</string>
+    <string name="notif_channel_evening_reminder_desc">Erinneret di am Abig draa, din Weckplan z\'überprüefe.</string>
 </resources>

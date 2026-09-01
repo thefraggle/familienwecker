@@ -13,6 +13,7 @@ object NotificationChannels {
 
     const val SCHEDULE_CHANGE = "schedule_change"
     const val FAMILY_EVENTS   = "family_events"
+    const val EVENING_REMINDER = "evening_reminder"
 
     fun register(context: Context) {
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -37,6 +38,17 @@ object NotificationChannels {
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = context.getString(R.string.notif_channel_family_events_desc)
+            }
+        )
+
+        // Abendliche Erinnerung (20:30 Uhr)
+        manager.createNotificationChannel(
+            NotificationChannel(
+                EVENING_REMINDER,
+                context.getString(R.string.notif_channel_evening_reminder_name),
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = context.getString(R.string.notif_channel_evening_reminder_desc)
             }
         )
     }

@@ -361,4 +361,11 @@
     <string name="settings_theme_system">Systeem</string>
     <string name="quick_tile_alarm_on">Wekker AAN</string>
     <string name="quick_tile_alarm_off">Wekker UIT</string>
+
+    <string name="settings_evening_reminder_title">Avondherinnering (20:30 uur)</string>
+    <string name="settings_evening_reminder_desc">Herinnert je er \'s avonds aan om je wekschema voor morgen te controleren.</string>
+    <string name="notif_evening_reminder_title">Wekschema voor morgen 🌙</string>
+    <string name="notif_evening_reminder_desc">Staat je wekker klaar voor morgen? Neem een snelle blik op je familieschema.</string>
+    <string name="notif_channel_evening_reminder_name">Avondherinnering</string>
+    <string name="notif_channel_evening_reminder_desc">Herinnert je er \'s avonds aan om je wekschema te controleren.</string>
 </resources>

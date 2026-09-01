@@ -362,4 +362,11 @@
     <string name="settings_theme_system">Sistem</string>
     <string name="quick_tile_alarm_on">Alarm NYALA</string>
     <string name="quick_tile_alarm_off">Alarm MATI</string>
+
+    <string name="settings_evening_reminder_title">Pengingat Malam (20.30)</string>
+    <string name="settings_evening_reminder_desc">Mengingatkanmu di malam hari untuk memeriksa jadwal alarm besok.</string>
+    <string name="notif_evening_reminder_title">Jadwal untuk Besok 🌙</string>
+    <string name="notif_evening_reminder_desc">Apakah alarmmu sudah siap untuk besok? Lihat sekilas jadwal keluargamu.</string>
+    <string name="notif_channel_evening_reminder_name">Pengingat Malam</string>
+    <string name="notif_channel_evening_reminder_desc">Mengingatkanmu di malam hari untuk memeriksa jadwal alarm.</string>
 </resources>

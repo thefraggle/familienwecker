@@ -362,4 +362,11 @@
     <string name="settings_theme_system">System</string>
     <string name="quick_tile_alarm_on">Alarm PÅ</string>
     <string name="quick_tile_alarm_off">Alarm AV</string>
+
+    <string name="settings_evening_reminder_title">Kvällspåminnelse (kl. 20:30)</string>
+    <string name="settings_evening_reminder_desc">Påminner dig på kvällen om att kontrollera ditt väckningsschema för i morgon.</string>
+    <string name="notif_evening_reminder_title">Väckningsschema för i morgon 🌙</string>
+    <string name="notif_evening_reminder_desc">Är ditt larm redo för i morgon? Ta en snabb titt på ditt familjeschema.</string>
+    <string name="notif_channel_evening_reminder_name">Kvällspåminnelse</string>
+    <string name="notif_channel_evening_reminder_desc">Påminner dig på kvällen om att kontrollera ditt väckningsschema.</string>
 </resources>

@@ -367,4 +367,11 @@
     <string name="settings_theme_system">Система</string>
     <string name="quick_tile_alarm_on">Будильник УВІМК</string>
     <string name="quick_tile_alarm_off">Будильник ВИМК</string>
+
+    <string name="settings_evening_reminder_title">Вечірнє нагадування (20:30)</string>
+    <string name="settings_evening_reminder_desc">Нагадує ввечері перевірити розклад будильника на завтра.</string>
+    <string name="notif_evening_reminder_title">Розклад на завтра 🌙</string>
+    <string name="notif_evening_reminder_desc">Чи готовий твій будильник на завтра? Швидко перевір розклад своєї родини.</string>
+    <string name="notif_channel_evening_reminder_name">Вечірнє нагадування</string>
+    <string name="notif_channel_evening_reminder_desc">Нагадує ввечері перевірити розклад будильника.</string>
 </resources>

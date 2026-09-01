@@ -53,6 +53,8 @@ enum L {
     static var settingsAlarmPickerTitle: String { s("settings_alarm_picker_title") }
     static var settingsGentleWakeTitle: String { s("settings_gentle_wake_title") }
     static var settingsGentleWakeDesc: String { s("settings_gentle_wake_desc") }
+    static var settingsEveningReminderTitle: String { s("settings_evening_reminder_title") }
+    static var settingsEveningReminderDesc: String { s("settings_evening_reminder_desc") }
     static var settingsAccountTitle: String { s("settings_account_title") }
     static var settingsJoinCode: String { s("settings_join_code") }
     static func settingsJoinCodeName(_ name: String) -> String { s("settings_join_code", name) }
@@ -280,6 +282,8 @@ enum L {
     static var notifMemberJoinedBody: String { s("notif_member_joined_body") }
     static var notifMemberLeftTitle: String { s("notif_member_left_title") }
     static var notifMemberLeftBody: String { s("notif_member_left_body") }
+    static var notifEveningReminderTitle: String { s("notif_evening_reminder_title") }
+    static var notifEveningReminderDesc: String { s("notif_evening_reminder_desc") }
 
     // MARK: - Ringing
     static func ringingWakeUp(_ name: String) -> String { s("ringing_wake_up", name) }

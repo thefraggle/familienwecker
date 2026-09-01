@@ -67,6 +67,10 @@
             android:name=".alarm.AlarmReceiver"
             android:exported="false" />
 
+        <receiver
+            android:name=".alarm.EveningReminderReceiver"
+            android:exported="false" />
+
         <!-- Alarm nach Neustart wiederherstellen (auch vor erstem Unlock via LOCKED_BOOT_COMPLETED) -->
         <receiver
             android:name=".alarm.BootReceiver"

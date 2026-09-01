@@ -362,4 +362,11 @@
     <string name="settings_theme_system">Système</string>
     <string name="quick_tile_alarm_on">Alarme ACTIVÉE</string>
     <string name="quick_tile_alarm_off">Alarme DÉSACTIVÉE</string>
+
+    <string name="settings_evening_reminder_title">Rappel du soir (20h30)</string>
+    <string name="settings_evening_reminder_desc">Te rappelle le soir de vérifier ton planning de réveil pour demain.</string>
+    <string name="notif_evening_reminder_title">Planning pour demain 🌙</string>
+    <string name="notif_evening_reminder_desc">Ton réveil est-il prêt pour demain ? Jette un œil à ton planning familial.</string>
+    <string name="notif_channel_evening_reminder_name">Rappel du soir</string>
+    <string name="notif_channel_evening_reminder_desc">Te rappelle le soir de vérifier ton planning de réveil.</string>
 </resources>

@@ -91,6 +91,7 @@ class FamWakeApplication : Application() {
         }
         // Push: Notification Channels einmalig registrieren (Android 8+, idempotent)
         NotificationChannels.register(this)
+        de.familienwecker.famwake.alarm.EveningReminderScheduler.schedule(this)
 
         // Ausstehende Firestore-Writes (z.B. lastModifiedByUid) können nach einem
         // Familienwechsel mit PERMISSION_DENIED abgelehnt werden → dies ist erwartet
