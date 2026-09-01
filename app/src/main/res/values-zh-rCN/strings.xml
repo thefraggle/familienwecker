@@ -361,4 +361,11 @@
     <string name="settings_theme_system">系统</string>
     <string name="quick_tile_alarm_on">闹钟 开启</string>
     <string name="quick_tile_alarm_off">闹钟 关闭</string>
+
+    <string name="settings_evening_reminder_title">晚间提醒 (20:30)</string>
+    <string name="settings_evening_reminder_desc">在晚间提醒你查看明天的闹钟计划。</string>
+    <string name="notif_evening_reminder_title">明天的闹钟计划 🌙</string>
+    <string name="notif_evening_reminder_desc">明天的闹钟准备好了吗？快来查看你的家庭日程。</string>
+    <string name="notif_channel_evening_reminder_name">晚间提醒</string>
+    <string name="notif_channel_evening_reminder_desc">在晚间提醒你查看闹钟计划。</string>
 </resources>

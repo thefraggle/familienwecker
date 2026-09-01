@@ -362,4 +362,11 @@
     <string name="settings_theme_system">System</string>
     <string name="quick_tile_alarm_on">Alarm TIL</string>
     <string name="quick_tile_alarm_off">Alarm FRA</string>
+
+    <string name="settings_evening_reminder_title">Aftenpåmindelse (kl. 20:30)</string>
+    <string name="settings_evening_reminder_desc">Minder dig om aftenen om at tjekke din vækkeplan for i morgen.</string>
+    <string name="notif_evening_reminder_title">Vækkeplan for i morgen 🌙</string>
+    <string name="notif_evening_reminder_desc">Er dit vækkeur klar til i morgen? Tag et hurtigt kig på din familieplan.</string>
+    <string name="notif_channel_evening_reminder_name">Aftenpåmindelse</string>
+    <string name="notif_channel_evening_reminder_desc">Minder dig om aftenen om at tjekke din vækkeplan.</string>
 </resources>

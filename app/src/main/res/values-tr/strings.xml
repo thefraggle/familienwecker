@@ -367,4 +367,11 @@
     <string name="settings_theme_system">Sistem</string>
     <string name="quick_tile_alarm_on">Alarm AÇIK</string>
     <string name="quick_tile_alarm_off">Alarm KAPALI</string>
+
+    <string name="settings_evening_reminder_title">Akşam Hatırlatıcısı (20:30)</string>
+    <string name="settings_evening_reminder_desc">Yarınki alarm programınızı kontrol etmeniz için akşamları hatırlatır.</string>
+    <string name="notif_evening_reminder_title">Yarının Programı 🌙</string>
+    <string name="notif_evening_reminder_desc">Yarın için alarmınız hazır mı? Aile programınıza hızlıca göz atın.</string>
+    <string name="notif_channel_evening_reminder_name">Akşam Hatırlatıcısı</string>
+    <string name="notif_channel_evening_reminder_desc">Alarm programınızı kontrol etmeniz için akşamları hatırlatır.</string>
 </resources>

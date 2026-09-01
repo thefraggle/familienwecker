@@ -29,6 +29,17 @@ fun FamilyViewModel.setGentleWakeEnabled(enabled: Boolean) {
     appSettings.setGentleWakeEnabled(enabled)
 }
 
+fun FamilyViewModel.setEveningReminderEnabled(enabled: Boolean) {
+    appSettings.setEveningReminderEnabled(enabled)
+    val context = getApplication<android.app.Application>()
+    if (enabled) {
+        de.familienwecker.famwake.alarm.EveningReminderScheduler.schedule(context)
+    } else {
+        de.familienwecker.famwake.alarm.EveningReminderScheduler.cancel(context)
+    }
+    Aptabase.instance.trackEvent("evening_reminder_toggled", mapOf("enabled" to enabled))
+}
+
 fun FamilyViewModel.checkAndShowReview(activity: Activity) {
     ReviewHelper.launchReview(activity, appSettings)
 }

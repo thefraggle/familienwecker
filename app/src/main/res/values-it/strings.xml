@@ -361,4 +361,11 @@
     <string name="settings_theme_system">Sistema</string>
     <string name="quick_tile_alarm_on">Sveglia ATTIVA</string>
     <string name="quick_tile_alarm_off">Sveglia DISATTIVA</string>
+
+    <string name="settings_evening_reminder_title">Promemoria serale (20:30)</string>
+    <string name="settings_evening_reminder_desc">Ti ricorda alla sera di controllare il tuo programma della sveglia per domani.</string>
+    <string name="notif_evening_reminder_title">Programma per domani 🌙</string>
+    <string name="notif_evening_reminder_desc">La tua sveglia è pronta per domani? Dai un\'occhiata al tuo programma di famiglia.</string>
+    <string name="notif_channel_evening_reminder_name">Promemoria serale</string>
+    <string name="notif_channel_evening_reminder_desc">Ti ricorda alla sera di controllare il tuo programma della sveglia.</string>
 </resources>

@@ -48,6 +48,9 @@ interface AppSettings {
     val isGentleWakeEnabled: StateFlow<Boolean>
     fun setGentleWakeEnabled(enabled: Boolean)
 
+    val isEveningReminderEnabled: StateFlow<Boolean>
+    fun setEveningReminderEnabled(enabled: Boolean)
+
     val isAwakeToday: StateFlow<Boolean>
     fun setAwakeToday(awake: Boolean)
     /** Liest den Wach-Status direkt aus SharedPrefs inkl. Datumsprüfung.
@@ -211,6 +214,14 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     override fun setGentleWakeEnabled(enabled: Boolean) {
         _isGentleWakeEnabled.value = enabled
         settings["GENTLE_WAKE_ENABLED"] = enabled
+    }
+
+    private val _isEveningReminderEnabled = MutableStateFlow(settings.getBoolean("EVENING_REMINDER_ENABLED", true))
+    override val isEveningReminderEnabled = _isEveningReminderEnabled.asStateFlow()
+
+    override fun setEveningReminderEnabled(enabled: Boolean) {
+        _isEveningReminderEnabled.value = enabled
+        settings["EVENING_REMINDER_ENABLED"] = enabled
     }
 
     private fun computeAwakeTodayEffective(): Boolean {

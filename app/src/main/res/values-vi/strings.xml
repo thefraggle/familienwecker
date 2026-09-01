@@ -367,4 +367,11 @@
     <string name="settings_theme_system">Hệ thống</string>
     <string name="quick_tile_alarm_on">Báo thức BẬT</string>
     <string name="quick_tile_alarm_off">Báo thức TẮT</string>
+
+    <string name="settings_evening_reminder_title">Nhắc nhở buổi tối (20:30)</string>
+    <string name="settings_evening_reminder_desc">Nhắc bạn vào buổi tối kiểm tra lịch báo thức cho ngày mai.</string>
+    <string name="notif_evening_reminder_title">Lịch trình cho ngày mai 🌙</string>
+    <string name="notif_evening_reminder_desc">Báo thức ngày mai đã sẵn sàng chưa? Xem nhanh lịch trình gia đình của bạn.</string>
+    <string name="notif_channel_evening_reminder_name">Nhắc nhở buổi tối</string>
+    <string name="notif_channel_evening_reminder_desc">Nhắc bạn vào buổi tối kiểm tra lịch báo thức.</string>
 </resources>
