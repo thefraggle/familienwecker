@@ -17,7 +17,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         #if targetEnvironment(simulator) || DEBUG
         let isDebug = true
         #else
-        let isDebug = false
+        let isSandbox = Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
+        let isTestHarness = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        let isDebug = isSandbox || isTestHarness
         #endif
 
         Aptabase.shared.initialize(
