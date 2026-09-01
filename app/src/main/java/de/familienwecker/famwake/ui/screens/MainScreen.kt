@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.ui.screens
 
 import androidx.compose.ui.platform.testTag
+import com.aptabase.Aptabase
 import de.familienwecker.famwake.FamWakeApplication
 
 import androidx.compose.animation.animateColorAsState
@@ -191,6 +192,7 @@ fun MainScreen(
                     if (currentJoinCode != null && !isAnonymous) {
                         SmallFloatingActionButton(
                             onClick = {
+                                Aptabase.instance.trackEvent("family_invite_shared")
                                 val shareText = context.getString(R.string.settings_share_message, currentFamilyName ?: "", currentJoinCode ?: "")
                                 val sendIntent = Intent().apply {
                                     action = Intent.ACTION_SEND
