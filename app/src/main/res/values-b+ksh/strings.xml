@@ -361,4 +361,11 @@
     <string name="settings_theme_system">System</string>
     <string name="quick_tile_alarm_on">Wecker AN</string>
     <string name="quick_tile_alarm_off">Wecker AUS</string>
+
+    <string name="settings_evening_reminder_title">Ovends-Erinnerung (20:30 Uhr)</string>
+    <string name="settings_evening_reminder_desc">Erinnert dich ovends dran, dinge Weckplan för morje ze pröfe.</string>
+    <string name="notif_evening_reminder_title">Weckplan för morje 🌙</string>
+    <string name="notif_evening_reminder_desc">Es dinge Wecker för morje fäädich? Luur koot noh dingem Weckplan.</string>
+    <string name="notif_channel_evening_reminder_name">Ovends-Erinnerung</string>
+    <string name="notif_channel_evening_reminder_desc">Erinnert dich ovends dran, dinge Weckplan ze pröfe.</string>
 </resources>

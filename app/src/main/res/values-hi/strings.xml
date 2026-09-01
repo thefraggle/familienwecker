@@ -364,4 +364,11 @@
     <string name="settings_theme_system">सिस्टम</string>
     <string name="quick_tile_alarm_on">अलार्म चालू</string>
     <string name="quick_tile_alarm_off">अलार्म बंद</string>
+
+    <string name="settings_evening_reminder_title">शाम का रिमाइंडर (रात 8:30)</string>
+    <string name="settings_evening_reminder_desc">कल के अलार्म शेड्यूल की जांच करने के लिए आपको शाम को याद दिलाता है।</string>
+    <string name="notif_evening_reminder_title">कल का शेड्यूल 🌙</string>
+    <string name="notif_evening_reminder_desc">क्या आपका अलार्म कल के लिए तैयार है? अपने पारिवारिक शेड्यूल पर एक नज़र डालें।</string>
+    <string name="notif_channel_evening_reminder_name">शाम का रिमाइंडर</string>
+    <string name="notif_channel_evening_reminder_desc">अलार्म शेड्यूल की जांच करने के लिए आपको शाम को याद दिलाता है।</string>
 </resources>

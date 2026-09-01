@@ -364,4 +364,11 @@
     <string name="settings_theme_system">সিস্টেম</string>
     <string name="quick_tile_alarm_on">অ্যালার্ম চালু</string>
     <string name="quick_tile_alarm_off">অ্যালার্ম বন্ধ</string>
+
+    <string name="settings_evening_reminder_title">সান্ধ্য অনুস্মারক (রাত ৮:৩০)</string>
+    <string name="settings_evening_reminder_desc">আগামীকালের অ্যালার্ম সময়সূচী পরীক্ষা করার জন্য আপনাকে সন্ধ্যায় মনে করিয়ে দেয়।</string>
+    <string name="notif_evening_reminder_title">আগামীকালের সময়সূচী 🌙</string>
+    <string name="notif_evening_reminder_desc">আগামীকালের জন্য আপনার অ্যালার্ম প্রস্তুত? আপনার পারিবারিক সময়সূচী একবার দেখে নিন।</string>
+    <string name="notif_channel_evening_reminder_name">সান্ধ্য অনুস্মারক</string>
+    <string name="notif_channel_evening_reminder_desc">অ্যালার্ম সময়সূচী পরীক্ষা করার জন্য আপনাকে সন্ধ্যায় মনে করিয়ে দেয়।</string>
 </resources>

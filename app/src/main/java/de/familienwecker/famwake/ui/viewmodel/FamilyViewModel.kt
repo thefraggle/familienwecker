@@ -91,6 +91,7 @@ class FamilyViewModel(
     val myMemberId: StateFlow<String?> = appSettings.myMemberId
     val alarmSoundUri: StateFlow<String?> = appSettings.alarmSoundUri
     val isGentleWakeEnabled: StateFlow<Boolean> = appSettings.isGentleWakeEnabled
+    val isEveningReminderEnabled: StateFlow<Boolean> = appSettings.isEveningReminderEnabled
     val familyId: StateFlow<String?> = appSettings.familyId
     val joinCode: StateFlow<String?> = appSettings.joinCode
     val familyName: StateFlow<String?> = appSettings.familyName

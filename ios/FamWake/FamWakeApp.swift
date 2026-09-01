@@ -60,6 +60,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             Task { await AlarmService.shared.cancelAll() }
         }
         
+        AlarmService.shared.scheduleEveningReminder()
+        
         return true
     }
     

@@ -28,6 +28,10 @@ class BootReceiver : BroadcastReceiver() {
         if (action != Intent.ACTION_BOOT_COMPLETED &&
             action != Intent.ACTION_LOCKED_BOOT_COMPLETED) return
 
+        if (action == Intent.ACTION_BOOT_COMPLETED) {
+            EveningReminderScheduler.schedule(context)
+        }
+
         // Plain Prefs – immer lesbar, auch vor erstem Unlock
         if (!AlarmBackupPrefs.isEnabled(context)) return
 

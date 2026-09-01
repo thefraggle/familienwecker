@@ -99,6 +99,28 @@ struct ProfileAlarmSettingsCard: View {
             .tint(theme.secondary)
             .padding(.vertical, 4)
             .accessibilityLabel(L.settingsGentleWakeTitle)
+
+            Divider()
+                .background(theme.outline.opacity(0.15))
+                .padding(.vertical, 8)
+
+            // Abendlicher Check-In Reminder (20:30 Uhr) Toggle
+            Toggle(isOn: Binding(
+                get: { familyViewModel.isEveningReminderEnabled },
+                set: { familyViewModel.setEveningReminderEnabled($0) }
+            )) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(L.settingsEveningReminderTitle)
+                        .font(.body)
+                        .foregroundStyle(theme.onSurface)
+                    Text(L.settingsEveningReminderDesc)
+                        .font(.caption)
+                        .foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                }
+            }
+            .tint(theme.secondary)
+            .padding(.vertical, 4)
+            .accessibilityLabel(L.settingsEveningReminderTitle)
         }
     }
 

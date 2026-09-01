@@ -361,4 +361,11 @@
     <string name="settings_theme_system">System</string>
     <string name="quick_tile_alarm_on">Budzik WŁ.</string>
     <string name="quick_tile_alarm_off">Budzik WYŁ.</string>
+
+    <string name="settings_evening_reminder_title">Przypomnienie wieczorne (20:30)</string>
+    <string name="settings_evening_reminder_desc">Przypomina wieczorem o sprawdzeniu planu budzenia na jutro.</string>
+    <string name="notif_evening_reminder_title">Plan budzenia na jutro 🌙</string>
+    <string name="notif_evening_reminder_desc">Czy Twój budzik jest gotowy na jutro? Sprawdź szybko plan swojej rodziny.</string>
+    <string name="notif_channel_evening_reminder_name">Przypomnienie wieczorne</string>
+    <string name="notif_channel_evening_reminder_desc">Przypomina wieczorem o sprawdzeniu planu budzenia.</string>
 </resources>

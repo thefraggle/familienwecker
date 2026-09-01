@@ -51657,6 +51657,972 @@
           }
         }
       }
+    },
+    "settings_evening_reminder_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abendliche Erinnerung (20:30 Uhr)"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evening Reminder (8:30 PM)"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aftenpåmindelse (kl. 20:30)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recordatorio nocturno (20:30)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rappel du soir (20h30)"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "शाम का रिमाइंडर (रात 8:30)"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pengingat Malam (20.30)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Promemoria serale (20:30)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "夜のリマインダー (20:30)"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저녁 알림 (오후 8:30)"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "संध्याकाळची आठवण (रात्री 8:30)"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avondherinnering (20:30 uur)"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kveldspåminnelse (kl. 20:30)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przypomnienie wieczorne (20:30)"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lembrete noturno (20:30)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вечернее напоминание (20:30)"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kvällspåminnelse (kl. 20:30)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Akşam Hatırlatıcısı (20:30)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вечірнє нагадування (20:30)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc nhở buổi tối (20:30)"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "晚间提醒 (20:30)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "晚间提醒 (20:30)"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "সান্ধ্য অনুস্মারক (রাত ৮:৩০)"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abig-Erinnerig (20:30 Uhr)"
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovends-Erinnerung (20:30 Uhr)"
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abendliche Erinnerung (20:30 Uhr)"
+          }
+        }
+      }
+    },
+    "settings_evening_reminder_desc": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erinnert dich abends daran, deinen Weckplan für morgen zu prüfen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminds you in the evening to check your alarm schedule for tomorrow."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minder dig om aftenen om at tjekke din vækkeplan for i morgen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te recuerda por la noche que revises tu horario de despertador para mañana."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te rappelle le soir de vérifier ton planning de réveil pour demain."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कल के अलार्म शेड्यूल की जांच करने के लिए आपको शाम को याद दिलाता है।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mengingatkanmu di malam hari untuk memeriksa jadwal alarm besok."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti ricorda alla sera di controllare il tuo programma della sveglia per domani."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "夜に明日のアラームスケジュールを確認するよう通知します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내일의 알람 일정을 확인하도록 저녁에 알려줍니다."
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "उद्याच्या अलार्मचे वेळापत्रक तपासण्यासाठी तुम्हाला संध्याकाळी आठवण करून देते."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herinnert je er 's avonds aan om je wekschema voor morgen te controleren."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minner deg om kvelden på å sjekke vekkeplanen for i morgen."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przypomina wieczorem o sprawdzeniu planu budzenia na jutro."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lembra você à noite de verificar seu horário de alarme para amanhã."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Напоминает вечером проверить расписание будильника на завтра."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Påminner dig på kvällen om att kontrollera ditt väckningsschema för i morgon."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yarınki alarm programınızı kontrol etmeniz için akşamları hatırlatır."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нагадує ввечері перевірити розклад будильника на завтра."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc bạn vào buổi tối kiểm tra lịch báo thức cho ngày mai."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在晚间提醒你查看明天的闹钟计划。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在晚间提醒你查看明天的闹钟计划。"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আগামীকালের অ্যালার্ম সময়সূচী পরীক্ষা করার জন্য আপনাকে সন্ধ্যায় মনে করিয়ে দেয়।"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erinneret di am Abig draa, din Weckplan für morn z'überprüefe."
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erinnert dich ovends dran, dinge Weckplan för morje ze pröfe."
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erinnert di am Obend dra, dein Weckplan für morge zum brüfe."
+          }
+        }
+      }
+    },
+    "notif_evening_reminder_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weckplan für morgen 🌙"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schedule for Tomorrow 🌙"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vækkeplan for i morgen 🌙"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Horario para mañana 🌙"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planning pour demain 🌙"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कल का शेड्यूल 🌙"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jadwal untuk Besok 🌙"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Programma per domani 🌙"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明日のスケジュール 🌙"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내일의 일정 🌙"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "उद्याचे वेळापत्रक 🌙"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wekschema voor morgen 🌙"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vekkeplan for i morgen 🌙"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan budzenia na jutro 🌙"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Horário para amanhã 🌙"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расписание на завтра 🌙"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Väckningsschema för i morgon 🌙"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yarının Programı 🌙"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розклад на завтра 🌙"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lịch trình cho ngày mai 🌙"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明天的闹钟计划 🌙"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明天的闹钟计划 🌙"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আগামীকালের সময়সূচী 🌙"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weckplan für morn 🌙"
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weckplan för morje 🌙"
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weckplan für morge 🌙"
+          }
+        }
+      }
+    },
+    "notif_evening_reminder_desc": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ist dein Wecker für morgen bereit? Wirf einen kurzen Blick auf deinen Familienplan."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Is your alarm ready for tomorrow? Take a quick look at your family schedule."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Er dit vækkeur klar til i morgen? Tag et hurtigt kig på din familieplan."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Tu despertador está listo para mañana? Echa un vistazo rápido a tu horario familiar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton réveil est-il prêt pour demain ? Jette un œil à ton planning familial."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "क्या आपका अलार्म कल के लिए तैयार है? अपने पारिवारिक शेड्यूल पर एक नज़र डालें।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apakah alarmmu sudah siap untuk besok? Lihat sekilas jadwal keluargamu."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua sveglia è pronta per domani? Dai un'occhiata al tuo programma di famiglia."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明日のアラームは準備できていますか？ファミリースケジュールを確認しましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내일 알람이 준비되었나요? 가족 일정을 빠르게 확인해보세요."
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "उद्यासाठी तुमचा अलार्म तयार आहे का? तुमच्या कौटुंबिक वेळापत्रकावर एक नजर टाका."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Staat je wekker klaar voor morgen? Neem een snelle blik op je familieschema."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Er vekkerklokken klar for i morgen? Ta en rask titt på familieplanen."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Czy Twój budzik jest gotowy na jutro? Sprawdź szybko plan swojej rodziny."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seu alarme está pronto para amanhã? Dê uma olhada rápida no horário da família."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Будильник на завтра готов? Взгляните на расписание вашей семьи."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Är ditt larm redo för i morgon? Ta en snabb titt på ditt familjeschema."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yarın için alarmınız hazır mı? Aile programınıza hızlıca göz atın."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чи готовий твій будильник на завтра? Швидко перевір розклад своєї родини."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Báo thức ngày mai đã sẵn sàng chưa? Xem nhanh lịch trình gia đình của bạn."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明天的闹钟准备好了吗？快来查看你的家庭日程。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明天的闹钟准备好了吗？快来查看你的家庭日程。"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আগামীকালের জন্য আপনার অ্যালার্ম প্রস্তুত? আপনার পারিবারিক সময়সূচী একবার দেখে নিন।"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Isch din Wecker für morn parat? Wirf en churze Blick uf din Familiäplan."
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es dinge Wecker för morje fäädich? Luur koot noh dingem Weckplan."
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Isch dein Wegger für morge beroid? Guck kurz noch deim Familieplan."
+          }
+        }
+      }
+    },
+    "notif_channel_evening_reminder_name": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abendliche Erinnerung"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evening Reminder"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aftenpåmindelse"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recordatorio nocturno"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rappel du soir"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "शाम का रिमाइंडर"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pengingat Malam"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Promemoria serale"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "夜のリマインダー"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저녁 알림"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "संध्याकाळची आठवण"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avondherinnering"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kveldspåminnelse"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przypomnienie wieczorne"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lembrete noturno"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вечернее напоминание"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kvällspåminnelse"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Akşam Hatırlatıcısı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вечірнє нагадування"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc nhở buổi tối"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "晚间提醒"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "晚间提醒"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "সান্ধ্য অনুস্মারক"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abig-Erinnerig"
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovends-Erinnerung"
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abendliche Erinnerung"
+          }
+        }
+      }
+    },
+    "notif_channel_evening_reminder_desc": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erinnert dich abends daran, deinen Weckplan zu prüfen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminds you in the evening to check your alarm schedule."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minder dig om aftenen om at tjekke din vækkeplan."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te recuerda por la noche que revises tu horario de despertador."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te rappelle le soir de vérifier ton planning de réveil."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "अलार्म शेड्यूल की जांच करने के लिए आपको शाम को याद दिलाता है।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mengingatkanmu di malam hari untuk memeriksa jadwal alarm."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti ricorda alla sera di controllare il tuo programma della sveglia."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "夜にアラームスケジュールを確認するよう通知します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알람 일정을 확인하도록 저녁에 알려줍니다."
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "अलार्मचे वेळापत्रक तपासण्यासाठी तुम्हाला संध्याकाळी आठवण करून देते."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herinnert je er 's avonds aan om je wekschema te controleren."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minner deg om kvelden på å sjekke vekkeplanen."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przypomina wieczorem o sprawdzeniu planu budzenia."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lembra você à noite de verificar seu horário de alarme."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Напоминает вечером проверить расписание будильника."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Påminner dig på kvällen om att kontrollera ditt väckningsschema."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarm programınızı kontrol etmeniz için akşamları hatırlatır."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нагадує ввечері перевірити розклад будильника."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc bạn vào buổi tối kiểm tra lịch báo thức."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在晚间提醒你查看闹钟计划。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在晚间提醒你查看闹钟计划。"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "অ্যালার্ম সময়সূচী পরীক্ষা করার জন্য আপনাকে সন্ধ্যায় মনে করিয়ে দেয়।"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erinneret di am Abig draa, din Weckplan z'überprüefe."
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erinnert dich ovends dran, dinge Weckplan ze pröfe."
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erinnert di am Obend dra, dein Weckplan zum brüfe."
+          }
+        }
+      }
     }
   },
   "version": "1.1"

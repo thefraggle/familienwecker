@@ -361,4 +361,11 @@
     <string name="settings_theme_system">Sistema</string>
     <string name="quick_tile_alarm_on">Alarma ACTIVADA</string>
     <string name="quick_tile_alarm_off">Alarma DESACTIVADA</string>
+
+    <string name="settings_evening_reminder_title">Recordatorio nocturno (20:30)</string>
+    <string name="settings_evening_reminder_desc">Te recuerda por la noche que revises tu horario de despertador para mañana.</string>
+    <string name="notif_evening_reminder_title">Horario para mañana 🌙</string>
+    <string name="notif_evening_reminder_desc">¿Tu despertador está listo para mañana? Echa un vistazo rápido a tu horario familiar.</string>
+    <string name="notif_channel_evening_reminder_name">Recordatorio nocturno</string>
+    <string name="notif_channel_evening_reminder_desc">Te recuerda por la noche que revises tu horario de despertador.</string>
 </resources>

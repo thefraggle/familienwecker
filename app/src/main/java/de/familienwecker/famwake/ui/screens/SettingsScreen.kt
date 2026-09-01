@@ -116,6 +116,7 @@ fun SettingsScreen(
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val alarmSoundUri by viewModel.alarmSoundUri.collectAsStateWithLifecycle()
     val isGentleWakeEnabled by viewModel.isGentleWakeEnabled.collectAsStateWithLifecycle()
+    val isEveningReminderEnabled by viewModel.isEveningReminderEnabled.collectAsStateWithLifecycle()
     val currentLanguage by viewModel.language.collectAsStateWithLifecycle()
     val familyName by viewModel.familyName.collectAsStateWithLifecycle()
     val isAdmin by viewModel.isAdmin.collectAsStateWithLifecycle()
@@ -489,6 +490,34 @@ fun SettingsScreen(
                         Switch(
                             checked = isGentleWakeEnabled,
                             onCheckedChange = { viewModel.setGentleWakeEnabled(it) }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Abendlicher Check-In Reminder (20:30 Uhr)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(modifier = Modifier.weight(1f).padding(end = 16.dp)) {
+                            Text(
+                                text = stringResource(R.string.settings_evening_reminder_title),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = stringResource(R.string.settings_evening_reminder_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Switch(
+                            checked = isEveningReminderEnabled,
+                            onCheckedChange = { viewModel.setEveningReminderEnabled(it) }
                         )
                     }
                 }

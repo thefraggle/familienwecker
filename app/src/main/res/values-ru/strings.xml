@@ -362,4 +362,11 @@
     <string name="settings_theme_system">Система</string>
     <string name="quick_tile_alarm_on">Будильник ВКЛ</string>
     <string name="quick_tile_alarm_off">Будильник ВЫКЛ</string>
+
+    <string name="settings_evening_reminder_title">Вечернее напоминание (20:30)</string>
+    <string name="settings_evening_reminder_desc">Напоминает вечером проверить расписание будильника на завтра.</string>
+    <string name="notif_evening_reminder_title">Расписание на завтра 🌙</string>
+    <string name="notif_evening_reminder_desc">Будильник на завтра готов? Взгляните на расписание вашей семьи.</string>
+    <string name="notif_channel_evening_reminder_name">Вечернее напоминание</string>
+    <string name="notif_channel_evening_reminder_desc">Напоминает вечером проверить расписание будильника.</string>
 </resources>

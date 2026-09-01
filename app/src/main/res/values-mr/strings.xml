@@ -362,4 +362,11 @@
     <string name="settings_theme_system">सिस्टम</string>
     <string name="quick_tile_alarm_on">अलार्म सुरू</string>
     <string name="quick_tile_alarm_off">अलार्म बंद</string>
+
+    <string name="settings_evening_reminder_title">संध्याकाळची आठवण (रात्री 8:30)</string>
+    <string name="settings_evening_reminder_desc">उद्याच्या अलार्मचे वेळापत्रक तपासण्यासाठी तुम्हाला संध्याकाळी आठवण करून देते.</string>
+    <string name="notif_evening_reminder_title">उद्याचे वेळापत्रक 🌙</string>
+    <string name="notif_evening_reminder_desc">उद्यासाठी तुमचा अलार्म तयार आहे का? तुमच्या कौटुंबिक वेळापत्रकावर एक नजर टाका.</string>
+    <string name="notif_channel_evening_reminder_name">संध्याकाळची आठवण</string>
+    <string name="notif_channel_evening_reminder_desc">अलार्मचे वेळापत्रक तपासण्यासाठी तुम्हाला संध्याकाळी आठवण करून देते.</string>
 </resources>
