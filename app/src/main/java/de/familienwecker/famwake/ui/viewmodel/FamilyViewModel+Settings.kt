@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.ui.viewmodel
 
 import android.app.Activity
+import com.aptabase.Aptabase
 
 import de.familienwecker.famwake.R
 import de.familienwecker.famwake.ui.util.UiText
@@ -77,7 +78,7 @@ fun FamilyViewModel.sendFeedback(
         if (result.isSuccess) {
             _feedbackSubmitted.value = true
             appSettings.setLastFeedbackSentAt(System.currentTimeMillis())
-
+            Aptabase.instance.trackEvent("feedback_submitted", mapOf("category" to category))
         } else {
             // F3: Fehlertyp differenzieren – Netzwerk vs. Rate-Limit vs. Server
             val ex = result.exceptionOrNull()

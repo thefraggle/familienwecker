@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.aptabase.Aptabase
 import com.revenuecat.purchases.*
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
@@ -34,6 +35,7 @@ class DonationViewModel : ViewModel() {
         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
             android.util.Log.d("FamWakeDonation", "Fetching offerings from RevenueCat...")
         }
+        Aptabase.instance.trackEvent("donation_sheet_opened")
         try {
             Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
                 override fun onReceived(offerings: Offerings) {
@@ -82,15 +84,27 @@ class DonationViewModel : ViewModel() {
 
     fun purchasePackage(activity: android.app.Activity, packageToPurchase: Package) {
         _purchaseState.value = PurchaseState.Loading
+        Aptabase.instance.trackEvent(
+            "donation_package_selected",
+            mapOf("package_id" to packageToPurchase.identifier)
+        )
         val params = PurchaseParams.Builder(activity, packageToPurchase).build()
         Purchases.sharedInstance.purchase(
             params,
             object : PurchaseCallback {
                 override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
                     _purchaseState.value = PurchaseState.Success
+                    Aptabase.instance.trackEvent(
+                        "donation_completed",
+                        mapOf("package_id" to packageToPurchase.identifier)
+                    )
                 }
                 override fun onError(error: PurchasesError, userCancelled: Boolean) {
                     if (!userCancelled) {
+                        Aptabase.instance.trackEvent(
+                            "donation_failed",
+                            mapOf("error" to error.message)
+                        )
                         val uiText = when (error.code) {
                             PurchasesErrorCode.PurchaseNotAllowedError -> 
                                 UiText.StringResource(R.string.settings_donate_error_not_allowed)
@@ -105,6 +119,7 @@ class DonationViewModel : ViewModel() {
                         }
                         _purchaseState.value = PurchaseState.Error(uiText)
                     } else {
+                        Aptabase.instance.trackEvent("donation_cancelled")
                         _purchaseState.value = PurchaseState.Idle
                     }
                 }
