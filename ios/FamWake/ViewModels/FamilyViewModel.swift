@@ -471,6 +471,7 @@ class FamilyViewModel: ObservableObject {
             members[idx].isPaused = newPausedState
             recalculateSchedule()
         }
+        Aptabase.shared.trackEvent(newPausedState ? "member_paused" : "member_resumed")
         
         Task {
             await FamilyFirestoreService.shared.trackUserAction(familyId: fid)

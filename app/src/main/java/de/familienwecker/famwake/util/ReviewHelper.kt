@@ -2,6 +2,7 @@ package de.familienwecker.famwake.util
 
 import android.app.Activity
 import android.util.Log
+import com.aptabase.Aptabase
 import de.familienwecker.famwake.BuildConfig
 import com.google.android.play.core.review.ReviewManagerFactory
 import de.familienwecker.famwake.data.AppSettings
@@ -74,6 +75,7 @@ object ReviewHelper {
         request.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val reviewInfo = task.result
+                Aptabase.instance.trackEvent("in_app_review_prompted")
                 val flow = manager.launchReviewFlow(activity, reviewInfo)
                 flow.addOnCompleteListener { _ ->
                     prefs.setLastReviewPromptTime(System.currentTimeMillis())
