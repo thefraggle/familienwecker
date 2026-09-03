@@ -2,12 +2,16 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 2.1.9 – 2026-09-03
+## 2.1.10 – 2026-09-03
+✨ Verbessert:
+• Bessere Verständlichkeit: Technische Fehlermeldungen bei Verbindungsproblemen wurden durch klare, verständliche Hinweise ersetzt.
+• Barrierefreiheit & Komfort: Vollständige Screenreader-Unterstützung für alle Bedienelemente in allen unterstützten Sprachen sowie ein bequemer Schließen-Button in allen Menüs und Dialogen.
+• Optimierte Telemetrie & Stabilität: Verbesserte Hintergrundprozesse sorgen für einen noch flüssigeren Ablauf und schonen den Akku.
+
+## 2.1.9 – 2026-09-01
 ✨ Neu & Verbessert:
 • Abendliche Wecker-Erinnerung: Ein dezenter Hinweis um 20:30 Uhr erinnert dich abends daran, deinen Weckplan für den nächsten Morgen kurz zu prüfen – damit niemand verschläft.
 • Volle Flexibilität: Die abendliche Erinnerung lässt sich in den Profileinstellungen jederzeit ganz einfach mit einem Klick aktivieren oder deaktivieren.
-• Bessere Verständlichkeit: Technische Fehlermeldungen bei Verbindungsproblemen wurden durch klare, verständliche Hinweise ersetzt.
-• Barrierefreiheit & Komfort: Vollständige Screenreader-Unterstützung für alle Bedienelemente in allen unterstützten Sprachen sowie ein bequemer Schließen-Button in allen Menüs und Dialogen.
 • Datenschutz & Stabilität: Optimierte Hintergrund- und Telemetrieprozesse sorgen für noch höhere Zuverlässigkeit und schonen den Akku.
 
 ## 2.1.8 – 2026-09-01
