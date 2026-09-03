@@ -1,0 +1,63 @@
+name: CI (Build & Tests)
+
+on:
+  push:
+    branches: [ "main" ]
+    tags-ignore:
+      - 'v*'
+  pull_request:
+    branches: [ "main" ]
+
+# Concurrency: Cancels redundant in-progress runs for the same PR/branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android-check:
+    name: Android Build & Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          cache-read-only: false
+
+      - name: Run Android Unit Tests
+        run: ./gradlew testDebugUnitTest --build-cache --parallel
+
+      - name: Build Android Debug APK
+        run: ./gradlew assembleDebug --build-cache --parallel
+
+  ios-check:
+    name: iOS Simulator Build
+    runs-on: macos-26
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - name: Create Dummy Secrets Configuration
+        run: |
+          mkdir -p ios/FamWake/Config
+          cat << 'SECRETS' > ios/FamWake/Config/Secrets.xcconfig
+          REVENUECAT_IOS_API_KEY =
+          APTABASE_APP_KEY =
+          APTABASE_HOST = https:\/\/telemetry-apps.goork.de
+          SECRETS
+
+      - name: Build iOS App for Simulator (Pure Compile Check)
+        run: |
+          xcodebuild -project ios/FamWake.xcodeproj \
+            -scheme FamWake \
+            -destination "generic/platform=iOS Simulator" \
+            CODE_SIGNING_ALLOWED=NO \
+            build

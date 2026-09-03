@@ -3,10 +3,21 @@ import RevenueCat
 
 /// RevenueCat-Konfiguration für Spenden
 enum RevenueCatService {
-    private static let apiKey = "appl_cHVPunINzmngYBhsXCPcwleBtfs"
+    private static var apiKey: String? {
+        if let key = Bundle.main.infoDictionary?["RevenueCatAPIKey"] as? String,
+           !key.isEmpty,
+           !key.hasPrefix("$(") {
+            return key
+        }
+        return nil
+    }
 
     static func configure() {
-        Purchases.configure(withAPIKey: apiKey)
+        guard let key = apiKey, !key.isEmpty else {
+            print("[RevenueCat] Kein API-Key konfiguriert – RevenueCat deaktiviert.")
+            return
+        }
+        Purchases.configure(withAPIKey: key)
         print("[RevenueCat] SDK erfolgreich konfiguriert")
     }
 }

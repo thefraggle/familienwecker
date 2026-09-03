@@ -33,6 +33,12 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>GIDClientID</key>
 	<string>979926159025-fvnvvgap5aop142p2vhubpm7bnq7ma3v.apps.googleusercontent.com</string>
+	<key>RevenueCatAPIKey</key>
+	<string>$(REVENUECAT_IOS_API_KEY)</string>
+	<key>AptabaseAppKey</key>
+	<string>$(APTABASE_APP_KEY)</string>
+	<key>AptabaseHost</key>
+	<string>$(APTABASE_HOST)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSAlarmKitUsageDescription</key>

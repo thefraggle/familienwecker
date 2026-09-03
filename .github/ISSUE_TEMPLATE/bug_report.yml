@@ -1,0 +1,58 @@
+name: Bug Report
+description: Create a report to help us improve FamWake
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for reporting a bug! Please provide as much detail as possible.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which platform are you seeing the problem on?
+      options:
+        - Android
+        - iOS
+        - Both
+    validations:
+      required: true
+  - type: input
+    id: app_version
+    attributes:
+      label: App Version
+      placeholder: e.g. 2.1.9
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device & OS Version
+      placeholder: e.g. Pixel 8 (Android 15) / iPhone 15 (iOS 18)
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the Bug
+      description: A clear and concise description of what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the issue?
+      placeholder: |
+        1. Open the app
+        2. Go to '...'
+        3. Tap on '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened instead?
+    validations:
+      required: true

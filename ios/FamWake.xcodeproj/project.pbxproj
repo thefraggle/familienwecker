@@ -41,6 +41,7 @@
 		C086E7074B5FA78DB69F649D /* FamWakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FamWakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C28246152F75628D00F033BE /* FamWake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamWake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C505FCFD0B1355D8FD70E8AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB0000012F90000000000001 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = FamWake/Config/Secrets.xcconfig; sourceTree = "<group>"; };
 		EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = "GoogleService-Info.plist"; path = "FamWake/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -449,6 +450,7 @@
 		};
 		C28246212F75629000F033BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB0000012F90000000000001 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -489,6 +491,7 @@
 		};
 		C28246222F75629000F033BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB0000012F90000000000001 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -28,6 +28,18 @@ jobs:
         run: |
           echo "$GOOGLE_SERVICE_INFO_PLIST" > ios/FamWake/GoogleService-Info.plist
 
+      - name: Create Secrets Config (iOS)
+        env:
+          REVENUECAT_IOS_API_KEY: ${{ secrets.REVENUECAT_IOS_API_KEY }}
+          APTABASE_APP_KEY: ${{ secrets.APTABASE_APP_KEY }}
+          APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
+        run: |
+          mkdir -p ios/FamWake/Config
+          echo "REVENUECAT_IOS_API_KEY = ${REVENUECAT_IOS_API_KEY:-}" > ios/FamWake/Config/Secrets.xcconfig
+          echo "APTABASE_APP_KEY = ${APTABASE_APP_KEY:-}" >> ios/FamWake/Config/Secrets.xcconfig
+          echo "APTABASE_HOST = ${APTABASE_HOST:-https:\/\/telemetry-apps.goork.de}" >> ios/FamWake/Config/Secrets.xcconfig
+
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
         with:

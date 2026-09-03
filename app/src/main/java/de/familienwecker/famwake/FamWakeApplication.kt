@@ -72,11 +72,13 @@ class FamWakeApplication : Application() {
                 Build.DEVICE.contains("cuttlefish")
         val isDebug = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0 || isTestLab || isTestHarness || isEmulator || BuildConfig.DEBUG
 
-        com.aptabase.Aptabase.instance.initialize(
-            this,
-            "A-SH-1020983988",
-            com.aptabase.InitOptions(host = "https://telemetry-apps.goork.de")
-        )
+        if (BuildConfig.APTABASE_APP_KEY.isNotBlank()) {
+            com.aptabase.Aptabase.instance.initialize(
+                this,
+                BuildConfig.APTABASE_APP_KEY,
+                com.aptabase.InitOptions(host = BuildConfig.APTABASE_HOST)
+            )
+        }
         if (isDebug) {
             try {
                 val envField = com.aptabase.Aptabase.instance.javaClass.getDeclaredField("env")

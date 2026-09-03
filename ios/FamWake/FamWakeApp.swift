@@ -22,14 +22,19 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let isDebug = isSandbox || isTestHarness
         #endif
 
-        Aptabase.shared.initialize(
-            appKey: "A-SH-1020983988",
-            options: InitOptions(
-                host: "https://telemetry-apps.goork.de",
-                trackingMode: isDebug ? .asDebug : .asRelease
+        let aptaKey = Bundle.main.infoDictionary?["AptabaseAppKey"] as? String
+        let aptaHost = Bundle.main.infoDictionary?["AptabaseHost"] as? String ?? "https://telemetry-apps.goork.de"
+        if let key = aptaKey, !key.isEmpty, !key.hasPrefix("$(") {
+            let host = aptaHost.hasPrefix("$(") ? "https://telemetry-apps.goork.de" : aptaHost
+            Aptabase.shared.initialize(
+                appKey: key,
+                options: InitOptions(
+                    host: host,
+                    trackingMode: isDebug ? .asDebug : .asRelease
+                )
             )
-        )
-        Aptabase.shared.trackEvent("app_launched")
+            Aptabase.shared.trackEvent("app_launched")
+        }
         
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self
