@@ -1,8 +1,6 @@
-name: Alte Releases löschen
+name: Alte Releases bereinigen (Manuell)
 on:
-  release:
-    types: [published] # Startet automatisch bei jedem neuen Release
-  workflow_dispatch: # Erlaubt manuelles Starten im GitHub Actions Tab
+  workflow_dispatch: # Nur manuelles Starten im GitHub Actions Tab
 
 permissions:
   contents: write

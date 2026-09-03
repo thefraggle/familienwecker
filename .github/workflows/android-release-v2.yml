@@ -86,6 +86,8 @@ jobs:
       - name: Build AAB (Store Release)
         env:
           REVENUECAT_PUBLIC_API_KEY: ${{ secrets.REVENUECAT_PUBLIC_API_KEY }}
+          APTABASE_APP_KEY: ${{ secrets.APTABASE_APP_KEY }}
+          APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
         run: |
           ./gradlew bundleRelease \
             --build-cache --parallel --configuration-cache \
