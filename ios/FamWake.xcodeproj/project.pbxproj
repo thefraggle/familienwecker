@@ -88,6 +88,7 @@
 				C28246172F75628D00F033BE /* FamWake */,
 				C28246162F75628D00F033BE /* Products */,
 				EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */,
+				EB0000012F90000000000001 /* Secrets.xcconfig */,
 				C97B3833155989DC791CB078 /* FamWakeUITests */,
 			);
 			sourceTree = "<group>";
