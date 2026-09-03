@@ -444,4 +444,8 @@
     <string name="notif_evening_reminder_desc">Is your alarm ready for tomorrow? Take a quick look at your family schedule.</string>
     <string name="notif_channel_evening_reminder_name">Evening Reminder</string>
     <string name="notif_channel_evening_reminder_desc">Reminds you in the evening to check your alarm schedule.</string>
+    <string name="notif_channel_missed_alarm">Missed alarms</string>
+    <string name="notif_alarm_missed">Missed alarm (%1$02d:%2$02d)</string>
+    <string name="loading_dots">Loading…</string>
 </resources>
+

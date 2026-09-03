@@ -21,8 +21,6 @@
 		C24673F22F7586810060DFFC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C24673F12F7586810060DFFC /* FirebaseAuth */; };
 		C24673F42F7586810060DFFC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C24673F32F7586810060DFFC /* FirebaseFirestore */; };
 		C24673F62F7586810060DFFC /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = C24673F52F7586810060DFFC /* FirebaseFunctions */; };
-		C28246252F7564CE00F033BE /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C28246242F7564CE00F033BE /* shared.xcframework */; };
-		C28246262F7564CE00F033BE /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C28246242F7564CE00F033BE /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,20 +33,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		C28246272F7564CE00F033BE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C28246262F7564CE00F033BE /* shared.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		429FA24C9471060946B76511 /* FamWakeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamWakeUITests.swift; sourceTree = "<group>"; };
 		46338CFFE4495DCCC8FF63E9 /* FamWakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FamWakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,7 +40,6 @@
 		9C6E54CFA014A4B969C74152 /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		C086E7074B5FA78DB69F649D /* FamWakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FamWakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C28246152F75628D00F033BE /* FamWake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamWake.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C28246242F7564CE00F033BE /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = shared.xcframework; path = ../shared/build/XCFrameworks/debug/shared.xcframework; sourceTree = "<group>"; };
 		C505FCFD0B1355D8FD70E8AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = "GoogleService-Info.plist"; path = "FamWake/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,7 +57,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C28246252F7564CE00F033BE /* shared.xcframework in Frameworks */,
 				C24673F22F7586810060DFFC /* FirebaseAuth in Frameworks */,
 				C24673F42F7586810060DFFC /* FirebaseFirestore in Frameworks */,
 				C24673F62F7586810060DFFC /* FirebaseFunctions in Frameworks */,
@@ -103,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				C28246172F75628D00F033BE /* FamWake */,
-				C28246232F7564CD00F033BE /* Frameworks */,
 				C28246162F75628D00F033BE /* Products */,
 				EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */,
 				C97B3833155989DC791CB078 /* FamWakeUITests */,
@@ -119,14 +100,6 @@
 				C086E7074B5FA78DB69F649D /* FamWakeUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C28246232F7564CD00F033BE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C28246242F7564CE00F033BE /* shared.xcframework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C97B3833155989DC791CB078 /* FamWakeUITests */ = {
@@ -166,11 +139,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C28246202F75629000F033BE /* Build configuration list for PBXNativeTarget "FamWake" */;
 			buildPhases = (
-				C28246282F7564E000F033BE /* ShellScript */,
 				C28246112F75628D00F033BE /* Sources */,
 				C28246122F75628D00F033BE /* Frameworks */,
 				C28246132F75628D00F033BE /* Resources */,
-				C28246272F7564CE00F033BE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -285,26 +256,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C28246282F7564E000F033BE /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# KMP XCFramework build disabled – using pure Swift\necho \"Skipping KMP shared build\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		070B33615179F79BF59ED17A /* Sources */ = {

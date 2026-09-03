@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlinx.serialization)
@@ -12,19 +10,6 @@ kotlin {
     androidTarget {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-        }
-    }
-    
-    val xcf = XCFramework("shared")
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "shared"
-            isStatic = true
-            xcf.add(this)
         }
     }
 
@@ -54,8 +39,6 @@ kotlin {
             implementation(libs.kotlinx.coroutines.play.services)
             implementation(libs.androidx.datastore.preferences)
         }
-        iosMain.dependencies {
-        }
     }
 }
 
@@ -72,9 +55,6 @@ dependencies {
     // Room Compiler needs to be added via ksp for the specific targets
     add("kspCommonMainMetadata", libs.androidx.room.compiler)
     add("kspAndroid", libs.androidx.room.compiler)
-    add("kspIosX64", libs.androidx.room.compiler)
-    add("kspIosArm64", libs.androidx.room.compiler)
-    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 }
 
 android {

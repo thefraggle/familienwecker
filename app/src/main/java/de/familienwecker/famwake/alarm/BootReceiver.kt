@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import de.familienwecker.famwake.model.toKmpLocalDateTime
+import de.familienwecker.famwake.R
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -62,16 +63,18 @@ class BootReceiver : BroadcastReceiver() {
             } else {
                 // Zu lange her → Notification + nächster Tag
                 try {
+                    val channelName = context.getString(R.string.notif_channel_missed_alarm)
                     val channel = android.app.NotificationChannel(
-                        "missed_alarm", "Verpasste Wecker",
+                        "missed_alarm", channelName,
                         android.app.NotificationManager.IMPORTANCE_HIGH
                     )
                     val nm = context.getSystemService(android.app.NotificationManager::class.java)
                     nm.createNotificationChannel(channel)
+                    val notificationText = context.getString(R.string.notif_alarm_missed, alarmTime.hour, alarmTime.minute)
                     val notification = android.app.Notification.Builder(context, "missed_alarm")
                         .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
                         .setContentTitle(memberName.ifEmpty { "FamWake" })
-                        .setContentText("Wecker verpasst (${alarmTime.hour}:${"%02d".format(alarmTime.minute)})")
+                        .setContentText(notificationText)
                         .setAutoCancel(true)
                         .build()
                     nm.notify(9999, notification)

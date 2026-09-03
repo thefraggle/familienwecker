@@ -54,8 +54,8 @@ struct OpenFamWakeIntent: LiveActivityIntent {
 
 // MARK: - Global Alarm Quick Toggle Intent (iOS Control Center / Shortcuts / Lock Screen)
 struct ToggleGlobalAlarmIntent: AppIntent {
-    static var title: LocalizedStringResource = "FamWake Wecker umschalten"
-    static var description = IntentDescription("Schaltet den globalen FamWake Wecker an oder aus")
+    static var title: LocalizedStringResource = LocalizedStringResource("intent_toggle_alarm_title", defaultValue: "Toggle FamWake Alarm")
+    static var description = IntentDescription(LocalizedStringResource("intent_toggle_alarm_desc", defaultValue: "Toggles the global FamWake alarm on or off"))
     static var openAppWhenRun: Bool = false
 
     func perform() async throws -> some IntentResult {

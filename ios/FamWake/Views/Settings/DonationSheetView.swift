@@ -64,7 +64,7 @@ struct DonationSheetView: View {
                     Button(action: {
                         donationViewModel.resetState()
                     }) {
-                        Text(L.s("error_profile_claim_retry") != "error_profile_claim_retry" ? L.s("error_profile_claim_retry") : "Zurück")
+                        Text(L.s("error_profile_claim_retry") != "error_profile_claim_retry" ? L.s("error_profile_claim_retry") : L.s("back_desc"))
                             .frame(maxWidth: .infinity)
                             .frame(height: 56)
                             .background(theme.primary)

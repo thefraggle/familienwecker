@@ -94,5 +94,11 @@ fastlane/screenshots
 fastlane/test_output
 
 # Ruby Bundler
+.bundle/
+*/.bundle/
 ios/.bundle/
+android/.bundle/
+vendor/
+*/vendor/
 ios/vendor/
+

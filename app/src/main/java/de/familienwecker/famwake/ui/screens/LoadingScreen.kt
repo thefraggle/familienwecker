@@ -150,7 +150,7 @@ fun LoadingScreen(
             }
         } else {
             if (de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
-                Text("Loading...")
+                Text(stringResource(R.string.loading_dots))
             } else {
                 CircularProgressIndicator()
             }
