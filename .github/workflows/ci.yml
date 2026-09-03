@@ -1,10 +1,6 @@
-name: CI (Build & Tests)
+name: CI (PR Checks)
 
 on:
-  push:
-    branches: [ "main" ]
-    tags-ignore:
-      - 'v*'
   pull_request:
     branches: [ "main" ]
 
