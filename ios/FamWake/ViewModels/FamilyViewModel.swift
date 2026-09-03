@@ -163,7 +163,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
+                    errorMessage = mapFirebaseError(error)
                     completion(false)
                 }
             }
@@ -186,7 +186,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
+                    errorMessage = mapFirebaseError(error)
                     completion(false)
                 }
             }
@@ -270,7 +270,7 @@ class FamilyViewModel: ObservableObject {
                 } catch {
                     print("Batch commit failed during member reset: \(error.localizedDescription)")
                     await MainActor.run {
-                        self.errorMessage = "Mitglieder konnten nicht zurückgesetzt werden: \(error.localizedDescription)"
+                        self.errorMessage = self.mapFirebaseError(error)
                     }
                 }
             }
@@ -307,7 +307,7 @@ class FamilyViewModel: ObservableObject {
                         self.schedule = nil
                         completion(true)
                     } else {
-                        self.errorMessage = error.localizedDescription
+                        self.errorMessage = self.mapFirebaseError(error)
                         completion(false)
                     }
                 }
@@ -359,7 +359,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
+                    errorMessage = mapFirebaseError(error)
                     completion(false)
                 }
             }
@@ -415,7 +415,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
+                    errorMessage = mapFirebaseError(error)
                     isSyncing = false
                 }
             }
@@ -454,7 +454,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = (error as NSError).userInfo[NSLocalizedDescriptionKey] as? String ?? L.errorGeneric
+                    errorMessage = mapFirebaseError(error)
                 }
             }
         }
@@ -843,7 +843,7 @@ class FamilyViewModel: ObservableObject {
                         .updateData(updatePayload)
                 } catch {
                     await MainActor.run {
-                        self.errorMessage = "Reihenfolge konnte nicht gespeichert werden: \(error.localizedDescription)"
+                        self.errorMessage = self.mapFirebaseError(error)
                     }
                 }
             }
