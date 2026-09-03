@@ -2,12 +2,16 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
-## 2.1.9 – 2026-09-03
+## 2.1.10 – 2026-09-03
+✨ Improved:
+• Clearer Error Messages: Technical error messages during network disruptions have been replaced with helpful, easy-to-understand guidance.
+• Accessibility & Usability: Full screen reader support across all controls in every supported language, plus a dedicated close button on all sheets and menus.
+• Optimized Telemetry & Stability: Streamlined background operations keep everything running smoothly while preserving battery life.
+
+## 2.1.9 – 2026-09-01
 ✨ New & Improved:
 • Evening Check-In Reminder: A gentle reminder at 8:30 PM prompts you in the evening to quickly double-check tomorrow morning's alarm schedule so everyone is ready.
 • Complete Control: Easily enable or disable the evening reminder anytime with a single tap in your profile settings.
-• Clearer Error Messages: Technical error messages during network disruptions have been replaced with helpful, easy-to-understand guidance.
-• Accessibility & Usability: Full screen reader support across all controls in every supported language, plus a dedicated close button on all sheets and menus.
 • Privacy & Stability: Optimized background and telemetry handling ensures higher reliability while conserving battery life.
 
 ## 2.1.8 – 2026-09-01
