@@ -439,4 +439,8 @@
     <string name="notif_evening_reminder_desc">Ist dein Wecker für morgen bereit? Wirf einen kurzen Blick auf deinen Familienplan.</string>
     <string name="notif_channel_evening_reminder_name">Abendliche Erinnerung</string>
     <string name="notif_channel_evening_reminder_desc">Erinnert dich abends daran, deinen Weckplan zu prüfen.</string>
+    <string name="notif_channel_missed_alarm">Verpasste Wecker</string>
+    <string name="notif_alarm_missed">Wecker verpasst (%1$02d:%2$02d)</string>
+    <string name="loading_dots">Laden…</string>
 </resources>
+
