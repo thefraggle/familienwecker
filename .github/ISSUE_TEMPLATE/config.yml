@@ -3,6 +3,10 @@ contact_links:
   - name: Security Vulnerabilities
     url: https://github.com/thefraggle/familienwecker/security/policy
     about: Please report security issues privately via our Security Policy.
+  - name: Support & Contact
+    url: mailto:daniel.notthoff@gmail.com
+    about: Reach out directly for questions or support: daniel.notthoff@gmail.com
   - name: Official Website
     url: https://familienwecker.de
     about: Learn more about FamWake on our website.
+

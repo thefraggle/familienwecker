@@ -43,3 +43,8 @@ xcodebuild -project ios/FamWake.xcodeproj -scheme FamWake -destination "generic/
 2. **Test your code**: Ensure all unit tests pass before submitting.
 3. **No secrets**: Never commit private keys, keystores, or configuration files (`local.properties`, `google-services.json`, `GoogleService-Info.plist`, `Secrets.xcconfig`).
 4. **Commit messages**: Use [Conventional Commits](https://www.conventionalcommits.org/) (e.g., `fix: ...`, `feat: ...`, `docs: ...`).
+
+## Questions & Contact
+
+For questions, support, or feedback, please reach out to **daniel.notthoff@gmail.com** or open an issue on GitHub.
+
