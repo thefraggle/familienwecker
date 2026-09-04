@@ -70,3 +70,5 @@ This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**
 * [Privacy Policy](https://familienwecker.de/privacy-policy.html)
 * [Imprint](https://familienwecker.de/imprint-en.html)
 * [Account Deletion](https://familienwecker.de/account-deletion-en.html)
+* [Contact / Support](mailto:daniel.notthoff@gmail.com)
+
