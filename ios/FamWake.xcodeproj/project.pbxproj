@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B10000012F90000000000001 /* SchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000012F90000000000001 /* SchedulerTests.swift */; };
+		B10000022F90000000000002 /* FirebaseErrorMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000022F90000000000002 /* FirebaseErrorMapperTests.swift */; };
+		B10000032F90000000000003 /* FamilyModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000032F90000000000003 /* FamilyModelsTests.swift */; };
 		12C43A1CE9835BFBF3EDA916 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */; };
 		22FA8F237A30F464EE608DC4 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F4EE56F9FF20E4C1CE93CC62 /* FirebaseCore */; };
 		4F17EEDD79E7E0F7C84DFC02 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6E54CFA014A4B969C74152 /* SnapshotHelper.swift */; };
@@ -24,6 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B30000012F90000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C282460D2F75628D00F033BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C28246142F75628D00F033BE;
+			remoteInfo = FamWake;
+		};
 		ECE0390B3485241A969EB47A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C282460D2F75628D00F033BE /* Project object */;
@@ -34,6 +44,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20000012F90000000000001 /* SchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerTests.swift; sourceTree = "<group>"; };
+		B20000022F90000000000002 /* FirebaseErrorMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseErrorMapperTests.swift; sourceTree = "<group>"; };
+		B20000032F90000000000003 /* FamilyModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyModelsTests.swift; sourceTree = "<group>"; };
+		B20000042F90000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B20000052F90000000000005 /* FamWakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FamWakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		429FA24C9471060946B76511 /* FamWakeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamWakeUITests.swift; sourceTree = "<group>"; };
 		46338CFFE4495DCCC8FF63E9 /* FamWakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FamWakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68887D6C7869E003119AEDF9 /* FamWakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FamWakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +69,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B70000022F90000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C28246122F75628D00F033BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,6 +104,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B40000012F90000000000001 /* FamWakeTests */ = {
+			isa = PBXGroup;
+			children = (
+				B20000042F90000000000004 /* Info.plist */,
+				B20000012F90000000000001 /* SchedulerTests.swift */,
+				B20000022F90000000000002 /* FirebaseErrorMapperTests.swift */,
+				B20000032F90000000000003 /* FamilyModelsTests.swift */,
+			);
+			path = FamWakeTests;
+			sourceTree = "<group>";
+		};
 		C282460C2F75628D00F033BE = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +123,7 @@
 				EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */,
 				EB0000012F90000000000001 /* Secrets.xcconfig */,
 				C97B3833155989DC791CB078 /* FamWakeUITests */,
+				B40000012F90000000000001 /* FamWakeTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				C28246152F75628D00F033BE /* FamWake.app */,
+				B20000052F90000000000005 /* FamWakeTests.xctest */,
 				68887D6C7869E003119AEDF9 /* FamWakeUITests.xctest */,
 				46338CFFE4495DCCC8FF63E9 /* FamWakeUITests.xctest */,
 				C086E7074B5FA78DB69F649D /* FamWakeUITests.xctest */,
@@ -117,6 +152,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B50000012F90000000000001 /* FamWakeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B60000012F90000000000001 /* Build configuration list for PBXNativeTarget "FamWakeTests" */;
+			buildPhases = (
+				B70000012F90000000000001 /* Sources */,
+				B70000022F90000000000002 /* Frameworks */,
+				B70000032F90000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B80000012F90000000000001 /* PBXTargetDependency */,
+			);
+			name = FamWakeTests;
+			packageProductDependencies = (
+			);
+			productName = FamWakeTests;
+			productReference = B20000052F90000000000005 /* FamWakeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AB17B48E9DE0735B665A957D /* FamWakeUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E7B6A109E90963AB18F9659 /* Build configuration list for PBXNativeTarget "FamWakeUITests" */;
@@ -237,11 +292,19 @@
 			targets = (
 				C28246142F75628D00F033BE /* FamWake */,
 				AB17B48E9DE0735B665A957D /* FamWakeUITests */,
+				B50000012F90000000000001 /* FamWakeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B70000032F90000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5F2145E323520D1861399BF2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -260,6 +323,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B70000012F90000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000012F90000000000001 /* SchedulerTests.swift in Sources */,
+				B10000022F90000000000002 /* FirebaseErrorMapperTests.swift in Sources */,
+				B10000032F90000000000003 /* FamilyModelsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		070B33615179F79BF59ED17A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -279,6 +352,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B80000012F90000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C28246142F75628D00F033BE /* FamWake */;
+			targetProxy = B30000012F90000000000001 /* PBXContainerItemProxy */;
+		};
 		2374D67F628D35A5FA182249 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C28246142F75628D00F033BE /* FamWake */;
@@ -287,6 +365,53 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		B90000012F90000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FamWakeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.familienwecker.FamWakeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FamWake.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FamWake";
+			};
+			name = Debug;
+		};
+		B90000022F90000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FamWakeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.familienwecker.FamWakeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FamWake.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FamWake";
+			};
+			name = Release;
+		};
 		3007F8319D6749955A73FC1A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -534,6 +659,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B60000012F90000000000001 /* Build configuration list for PBXNativeTarget "FamWakeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B90000012F90000000000001 /* Debug */,
+				B90000022F90000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6E7B6A109E90963AB18F9659 /* Build configuration list for PBXNativeTarget "FamWakeUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

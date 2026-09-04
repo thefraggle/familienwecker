@@ -111,11 +111,21 @@ jobs:
           echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
 
       - name: Generate iOS Release Notes (all languages)
+
         run: |
           pip3 install --break-system-packages deep-translator==1.11.4
           python3 scripts/generate_ios_metadata.py
 
+      - name: Run Unit Tests
+        run: |
+          SIM_NAME=$(xcrun simctl list devices available | grep -E "iPhone (16|17)" | head -n 1 | sed -E 's/^[[:space:]]*//' | sed -E 's/ \([A-F0-9-]+\).*//')
+          xcodebuild test -project ios/FamWake.xcodeproj \
+            -scheme FamWake \
+            -destination "platform=iOS Simulator,name=${SIM_NAME:-iPhone 16}" \
+            CODE_SIGNING_ALLOWED=NO
+
       - name: Build & Upload to TestFlight via Fastlane
+
         env:
           APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
           APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}

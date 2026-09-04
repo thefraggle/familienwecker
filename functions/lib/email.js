@@ -275,3 +275,8 @@ exports.sendVerificationEmail = onCall(
     }
   }
 );
+
+exports.buildEmailHtml = buildEmailHtml;
+exports.buildConfirmEmailHtml = buildConfirmEmailHtml;
+exports.buildVerifyEmailHtml = buildVerifyEmailHtml;
+

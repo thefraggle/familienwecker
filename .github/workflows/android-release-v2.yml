@@ -81,7 +81,7 @@ jobs:
 
 
       - name: Run Unit Tests
-        run: ./gradlew :shared:testDebugUnitTest --build-cache
+        run: ./gradlew testDebugUnitTest --build-cache
 
       - name: Build AAB (Store Release)
         env:
