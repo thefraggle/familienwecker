@@ -57,7 +57,7 @@ describe("Functions i18n Localization Integrity", () => {
           `Missing or empty field '${field}' in EMAIL_CONTENT for language: ${lang}`
         );
       }
-      assert.ok(content.security.includes("daniel.notthoff@gmail.com"), `Security note for ${lang} must contain daniel.notthoff@gmail.com`);
+      assert.ok(content.security.includes("famwake@goork.de"), `Security note for ${lang} must contain famwake@goork.de`);
     }
   });
 
@@ -75,7 +75,7 @@ describe("Functions i18n Localization Integrity", () => {
           `Missing or empty field '${field}' in EMAIL_CONTENT_CONFIRM for language: ${lang}`
         );
       }
-      assert.ok(content.security.includes("daniel.notthoff@gmail.com"), `Confirm security note for ${lang} must contain daniel.notthoff@gmail.com`);
+      assert.ok(content.security.includes("famwake@goork.de"), `Confirm security note for ${lang} must contain famwake@goork.de`);
     }
   });
 

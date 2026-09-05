@@ -15,7 +15,7 @@ describe("Functions Email HTML Builders", () => {
     assert.ok(htmlDe.includes("Passwort zurücksetzen"), "Must include German action button text");
     assert.ok(htmlDe.includes("Datenschutzerklärung"), "Must include privacy link");
     assert.ok(htmlDe.includes("Impressum"), "Must include imprint link");
-    assert.ok(htmlDe.includes("daniel.notthoff@gmail.com"), "Must include security contact email");
+    assert.ok(htmlDe.includes("famwake@goork.de"), "Must include security contact email");
 
     const htmlEn = buildEmailHtml(dummyLink, "en");
     assert.ok(htmlEn.includes(dummyLink));
@@ -26,7 +26,7 @@ describe("Functions Email HTML Builders", () => {
   test("buildConfirmEmailHtml generates valid confirmation notice", () => {
     const htmlDe = buildConfirmEmailHtml("de");
     assert.ok(htmlDe.includes("Datenschutzerklärung"));
-    assert.ok(htmlDe.includes("daniel.notthoff@gmail.com"));
+    assert.ok(htmlDe.includes("famwake@goork.de"));
 
     const htmlEn = buildConfirmEmailHtml("en");
     assert.ok(htmlEn.includes("Privacy Policy"));

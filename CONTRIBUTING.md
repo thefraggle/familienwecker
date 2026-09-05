@@ -46,5 +46,5 @@ xcodebuild -project ios/FamWake.xcodeproj -scheme FamWake -destination "generic/
 
 ## Questions & Contact
 
-For questions, support, or feedback, please reach out to **daniel.notthoff@gmail.com** or open an issue on GitHub.
+For questions, support, or feedback, please reach out to **famwake@goork.de** or open an issue on GitHub.
 
