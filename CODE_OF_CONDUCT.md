@@ -17,4 +17,4 @@ Examples of behavior that contributes to a positive environment for our communit
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team at **daniel.notthoff@gmail.com**. All complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team at **famwake@goork.de**. All complaints will be reviewed and investigated promptly and fairly.

@@ -14,7 +14,7 @@ We release patches and security updates for the latest version of FamWake:
 If you discover a security vulnerability within FamWake, please do **not** report it via a public GitHub issue.
 
 Instead, please send an email directly to:
-**daniel.notthoff@gmail.com**
+**famwake@goork.de**
 
 Please include:
 * A description of the vulnerability and its potential impact.

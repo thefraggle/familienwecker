@@ -1261,7 +1261,7 @@ fun SettingsScreen(
                         onClick = {
                             val subject = Uri.encode("Feedback: FamWake App")
                             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                                data = "mailto:daniel.notthoff@gmail.com?subject=$subject".toUri()
+                                data = "mailto:famwake@goork.de?subject=$subject".toUri()
                             }
                             try {
                                 context.startActivity(intent)

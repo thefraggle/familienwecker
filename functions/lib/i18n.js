@@ -70,7 +70,7 @@ const EMAIL_CONTENT = {
     instruction: "Klicke auf den folgenden Button, um ein neues Passwort zu vergeben:",
     button: "Passwort zurücksetzen",
     fallback: "Falls der Button nicht funktioniert, kopiere bitte diesen Link in deinen Browser:",
-    security: "⚠️ Falls du diese Anfrage <strong>nicht</strong> gestellt hast, kannst du diese E-Mail einfach ignorieren. Dein Passwort bleibt unverändert. Solltest du verdächtige Aktivitäten bemerken, wende dich bitte an: daniel.notthoff@gmail.com",
+    security: "⚠️ Falls du diese Anfrage <strong>nicht</strong> gestellt hast, kannst du diese E-Mail einfach ignorieren. Dein Passwort bleibt unverändert. Solltest du verdächtige Aktivitäten bemerken, wende dich bitte an: famwake@goork.de",
     footerNote: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt auf diese E-Mail.",
   },
   en: {
@@ -81,7 +81,7 @@ const EMAIL_CONTENT = {
     instruction: "Click the button below to set a new password:",
     button: "Reset Password",
     fallback: "If the button doesn't work, please paste this link into your browser:",
-    security: "⚠️ If you did <strong>not</strong> request this, you can safely ignore this email. Your password will remain unchanged. If you notice any suspicious activity, please contact us at: daniel.notthoff@gmail.com",
+    security: "⚠️ If you did <strong>not</strong> request this, you can safely ignore this email. Your password will remain unchanged. If you notice any suspicious activity, please contact us at: famwake@goork.de",
     footerNote: "This is an automated message. Please do not reply directly to this email.",
   },
   es: {
@@ -92,7 +92,7 @@ const EMAIL_CONTENT = {
     instruction: "Haz clic en el botón de abajo para establecer una nueva contraseña:",
     button: "Restablecer contraseña",
     fallback: "Si el botón no funciona, copia este enlace en tu navegador:",
-    security: "⚠️ Si no has solicitado esto, puedes ignorar este correo de forma segura. Tu contraseña no cambiará. Si notas alguna actividad sospechosa, ponte en contacto con nosotros en: daniel.notthoff@gmail.com",
+    security: "⚠️ Si no has solicitado esto, puedes ignorar este correo de forma segura. Tu contraseña no cambiará. Si notas alguna actividad sospechosa, ponte en contacto con nosotros en: famwake@goork.de",
     footerNote: "Este es un mensaje generado automáticamente. Por favor, no respondas directamente a este correo.",
   },
   fr: {
@@ -103,7 +103,7 @@ const EMAIL_CONTENT = {
     instruction: "Clique sur le bouton ci-dessous pour définir un nouveau mot de passe :",
     button: "Réinitialiser le mot de passe",
     fallback: "Si le bouton ne fonctionne pas, merci de copier ce lien dans ton navigateur :",
-    security: "⚠️ Si tu n'as <strong>pas</strong> fait cette demande, tu peux ignorer cet e-mail. Ton mot de passe restera inchangé. Si tu remarques une activité suspecte, contacte-nous à l'adresse : daniel.notthoff@gmail.com",
+    security: "⚠️ Si tu n'as <strong>pas</strong> fait cette demande, tu peux ignorer cet e-mail. Ton mot de passe restera inchangé. Si tu remarques une activité suspecte, contacte-nous à l'adresse : famwake@goork.de",
     footerNote: "Ceci est un message généré automatiquement. Merci de ne pas répondre directement à cet e-mail.",
   },
   it: {
@@ -114,7 +114,7 @@ const EMAIL_CONTENT = {
     instruction: "Clicca sul pulsante qui sotto per impostare una nuova password:",
     button: "Reimposta password",
     fallback: "Se il pulsante non funziona, copia questo link nel tuo browser:",
-    security: "⚠️ Se <strong>non</strong> hai richiesto tu questa modifica, puoi ignorare tranquillamente questa email. La tua password rimarrà invariata. Se noti attività sospette, contattaci all'indirizzo: daniel.notthoff@gmail.com",
+    security: "⚠️ Se <strong>non</strong> hai richiesto tu questa modifica, puoi ignorare tranquillamente questa email. La tua password rimarrà invariata. Se noti attività sospette, contattaci all'indirizzo: famwake@goork.de",
     footerNote: "Questo è un messaggio generato automaticamente. Si prega di non rispondere direttamente a questa email.",
   },
   da: {
@@ -125,7 +125,7 @@ const EMAIL_CONTENT = {
     instruction: "Klik på knappen nedenfor for at angive en ny adgangskode:",
     button: "Nulstil adgangskode",
     fallback: "Hvis knappen ikke virker, skal du kopiere dette link til din browser:",
-    security: "⚠️ Hvis du <strong>ikke</strong> har anmodet om dette, kan du blot ignorere denne e-mail. Din adgangskode forbliver uændret. Hvis du bemærker mistænkelig aktivitet, kontakt os på: daniel.notthoff@gmail.com",
+    security: "⚠️ Hvis du <strong>ikke</strong> har anmodet om dette, kan du blot ignorere denne e-mail. Din adgangskode forbliver uændret. Hvis du bemærker mistænkelig aktivitet, kontakt os på: famwake@goork.de",
     footerNote: "Dette er en automatisk genereret besked. Svar venligst ikke direkte på denne e-mail.",
   },
   ja: {
@@ -136,7 +136,7 @@ const EMAIL_CONTENT = {
     instruction: "以下のボタンをクリックして、新しいパスワードを設定してください：",
     button: "パスワードをリセット",
     fallback: "ボタンが機能しない場合は、このリンクをブラウザにコピーしてください：",
-    security: "⚠️ このリクエストに<strong>心当たりがない</strong>場合は、このメールを無視してください。パスワードは変更されません。不審なアクティビティに気づいた場合は、こちらまでご連絡ください：daniel.notthoff@gmail.com",
+    security: "⚠️ このリクエストに<strong>心当たりがない</strong>場合は、このメールを無視してください。パスワードは変更されません。不審なアクティビティに気づいた場合は、こちらまでご連絡ください：famwake@goork.de",
     footerNote: "これは自動生成されたメッセージです。このメールに直接返信しないでください。",
   },
   nl: {
@@ -147,7 +147,7 @@ const EMAIL_CONTENT = {
     instruction: "Klik op de onderstaande knop om een nieuw wachtwoord in te stellen:",
     button: "Wachtwoord opnieuw instellen",
     fallback: "Als de knop niet werkt, kopieer dan deze link naar je browser:",
-    security: "⚠️ Als je dit verzoek <strong>niet</strong> hebt gedaan, kun je deze e-mail gewoon negeren. Je wachtwoord blijft ongewijzigd. Als je verdachte activiteit opmerkt, neem dan contact met ons op: daniel.notthoff@gmail.com",
+    security: "⚠️ Als je dit verzoek <strong>niet</strong> hebt gedaan, kun je deze e-mail gewoon negeren. Je wachtwoord blijft ongewijzigd. Als je verdachte activiteit opmerkt, neem dan contact met ons op: famwake@goork.de",
     footerNote: "Dit is een automatisch gegenereerd bericht. Reageer niet rechtstreeks op deze e-mail.",
   },
   no: {
@@ -158,7 +158,7 @@ const EMAIL_CONTENT = {
     instruction: "Klikk på knappen nedenfor for å angi et nytt passord:",
     button: "Tilbakestill passord",
     fallback: "Hvis knappen ikke fungerer, lim inn denne lenken i nettleseren din:",
-    security: "⚠️ Hvis du <strong>ikke</strong> har bedt om dette, kan du trygt ignorere denne e-posten. Passordet ditt forblir uendret. Hvis du merker mistenkelig aktivitet, kontakt oss på: daniel.notthoff@gmail.com",
+    security: "⚠️ Hvis du <strong>ikke</strong> har bedt om dette, kan du trygt ignorere denne e-posten. Passordet ditt forblir uendret. Hvis du merker mistenkelig aktivitet, kontakt oss på: famwake@goork.de",
     footerNote: "Dette er en automatisk generert melding. Vennligst ikke svar direkte på denne e-posten.",
   },
   pl: {
@@ -169,7 +169,7 @@ const EMAIL_CONTENT = {
     instruction: "Kliknij poniższy przycisk, aby ustawić nowe hasło:",
     button: "Zresetuj hasło",
     fallback: "Jeśli przycisk nie działa, skopiuj ten link do przeglądarki:",
-    security: "⚠️ Jeśli <strong>nie</strong> wysyłałeś tej prośby, możesz zignorować ten e-mail. Twoje hasło pozostanie bez zmian. Jeśli zauważysz podejrzaną aktywność, skontaktuj się z nami: daniel.notthoff@gmail.com",
+    security: "⚠️ Jeśli <strong>nie</strong> wysyłałeś tej prośby, możesz zignorować ten e-mail. Twoje hasło pozostanie bez zmian. Jeśli zauważysz podejrzaną aktywność, skontaktuj się z nami: famwake@goork.de",
     footerNote: "To jest wiadomość wygenerowana automatycznie. Prosimy nie odpowiadać bezpośrednio na ten e-mail.",
   },
   pt: {
@@ -180,7 +180,7 @@ const EMAIL_CONTENT = {
     instruction: "Clique no botão abaixo para definir uma nova senha:",
     button: "Redefinir senha",
     fallback: "Se o botão não funcionar, copie este link para o seu navegador:",
-    security: "⚠️ Se você <strong>não</strong> fez esta solicitação, pode ignorar este e-mail. Sua senha permanecerá inalterada. Se notar atividade suspeita, entre em contato: daniel.notthoff@gmail.com",
+    security: "⚠️ Se você <strong>não</strong> fez esta solicitação, pode ignorar este e-mail. Sua senha permanecerá inalterada. Se notar atividade suspeita, entre em contato: famwake@goork.de",
     footerNote: "Esta é uma mensagem gerada automaticamente. Por favor, não responda diretamente a este e-mail.",
   },
   ru: {
@@ -191,7 +191,7 @@ const EMAIL_CONTENT = {
     instruction: "Нажми на кнопку ниже, чтобы установить новый пароль:",
     button: "Сбросить пароль",
     fallback: "Если кнопка не работает, скопируй эту ссылку в браузер:",
-    security: "⚠️ Если ты <strong>не</strong> запрашивал сброс, просто проигнорируй это письмо. Твой пароль останется без изменений. Если заметишь подозрительную активность, свяжись с нами: daniel.notthoff@gmail.com",
+    security: "⚠️ Если ты <strong>не</strong> запрашивал сброс, просто проигнорируй это письмо. Твой пароль останется без изменений. Если заметишь подозрительную активность, свяжись с нами: famwake@goork.de",
     footerNote: "Это автоматически сгенерированное сообщение. Пожалуйста, не отвечай на него напрямую.",
   },
   sv: {
@@ -202,7 +202,7 @@ const EMAIL_CONTENT = {
     instruction: "Klicka på knappen nedan för att ange ett nytt lösenord:",
     button: "Återställ lösenord",
     fallback: "Om knappen inte fungerar, kopiera den här länken till din webbläsare:",
-    security: "⚠️ Om du <strong>inte</strong> har begärt detta kan du ignorera detta e-postmeddelande. Ditt lösenord förblir oförändrat. Om du märker misstänkt aktivitet, kontakta oss på: daniel.notthoff@gmail.com",
+    security: "⚠️ Om du <strong>inte</strong> har begärt detta kan du ignorera detta e-postmeddelande. Ditt lösenord förblir oförändrat. Om du märker misstänkt aktivitet, kontakta oss på: famwake@goork.de",
     footerNote: "Detta är ett automatiskt genererat meddelande. Svara inte direkt på detta e-postmeddelande.",
   },
   tr: {
@@ -213,7 +213,7 @@ const EMAIL_CONTENT = {
     instruction: "Yeni bir şifre belirlemek için aşağıdaki düğmeye tıkla:",
     button: "Şifreyi sıfırla",
     fallback: "Düğme çalışmıyorsa, bu bağlantıyı tarayıcına kopyalayabilirsin:",
-    security: "⚠️ Bu talebi <strong>sen</strong> yapmadıysan, bu e-postayı görmezden gelebilirsin. Şifren değişmeden kalacak. Şüpheli bir etkinlik fark edersen bizimle iletişime geç: daniel.notthoff@gmail.com",
+    security: "⚠️ Bu talebi <strong>sen</strong> yapmadıysan, bu e-postayı görmezden gelebilirsin. Şifren değişmeden kalacak. Şüpheli bir etkinlik fark edersen bizimle iletişime geç: famwake@goork.de",
     footerNote: "Bu otomatik olarak oluşturulmuş bir mesajdır. Lütfen bu e-postaya doğrudan yanıt verme.",
   },
   uk: {
@@ -224,7 +224,7 @@ const EMAIL_CONTENT = {
     instruction: "Натисни кнопку нижче, щоб встановити новий пароль:",
     button: "Скинути пароль",
     fallback: "Якщо кнопка не працює, скопіюй це посилання у браузер:",
-    security: "⚠️ Якщо ти <strong>не</strong> робив цей запит, просто ігноруй цей лист. Твій пароль залишиться без змін. Якщо помітиш підозрілу активність, звʼяжися з нами: daniel.notthoff@gmail.com",
+    security: "⚠️ Якщо ти <strong>не</strong> робив цей запит, просто ігноруй цей лист. Твій пароль залишиться без змін. Якщо помітиш підозрілу активність, звʼяжися з нами: famwake@goork.de",
     footerNote: "Це автоматично згенероване повідомлення. Будь ласка, не відповідай на нього безпосередньо.",
   },
   id: {
@@ -235,7 +235,7 @@ const EMAIL_CONTENT = {
     instruction: "Klik tombol di bawah ini untuk menetapkan kata sandi baru:",
     button: "Atur Ulang Kata Sandi",
     fallback: "Jika tombolnya tidak berfungsi, silakan salin tautan ini ke browser kamu:",
-    security: "⚠️ Jika kamu <strong>tidak</strong> meminta ini, kamu bisa mengabaikan email ini dengan aman. Kata sandi kamu tidak akan berubah. Jika kamu melihat ada aktivitas mencurigakan, hubungi kami di: daniel.notthoff@gmail.com",
+    security: "⚠️ Jika kamu <strong>tidak</strong> meminta ini, kamu bisa mengabaikan email ini dengan aman. Kata sandi kamu tidak akan berubah. Jika kamu melihat ada aktivitas mencurigakan, hubungi kami di: famwake@goork.de",
     footerNote: "Ini adalah pesan otomatis. Mohon jangan langsung membalas email ini.",
   },
   vi: {
@@ -246,7 +246,7 @@ const EMAIL_CONTENT = {
     instruction: "Nhấp vào nút bên dưới để đặt mật khẩu mới:",
     button: "Đặt lại mật khẩu",
     fallback: "Nếu nút không hoạt động, vui lòng sao chép liên kết này vào trình duyệt của bạn:",
-    security: "⚠️ Nếu bạn <strong>không</strong> yêu cầu điều này, bạn có thể an tâm bỏ qua email này. Mật khẩu của bạn sẽ không thay đổi. Nếu bạn nhận thấy bất kỳ hoạt động đáng ngờ nào, vui lòng liên hệ với chúng tôi tại: daniel.notthoff@gmail.com",
+    security: "⚠️ Nếu bạn <strong>không</strong> yêu cầu điều này, bạn có thể an tâm bỏ qua email này. Mật khẩu của bạn sẽ không thay đổi. Nếu bạn nhận thấy bất kỳ hoạt động đáng ngờ nào, vui lòng liên hệ với chúng tôi tại: famwake@goork.de",
     footerNote: "Đây là tin nhắn tự động. Vui lòng không trả lời trực tiếp email này.",
   },
   bn: {
@@ -257,7 +257,7 @@ const EMAIL_CONTENT = {
     instruction: "নতুন পাসওয়ার্ড সেট করতে নিচের বোতামে ক্লিক করুন:",
     button: "পাসওয়ার্ড রিসেট করুন",
     fallback: "যদি বোতামটি কাজ না করে, অনুগ্রহ করে এই লিঙ্কটি আপনার ব্রাউজারে পেস্ট করুন:",
-    security: "⚠️ যদি আপনি এই অনুরোধটি <strong>না</strong> করে থাকেন, তবে আপনি নিরাপদে এই ইমেলটি এড়িয়ে যেতে পারেন। আপনার পাসওয়ার্ড অপরিবর্তিত থাকবে। আপনি যদি কোন সন্দেহজনক কার্যকলাপ লক্ষ্য করেন, অনুগ্রহ করে যোগাযোগ করুন: daniel.notthoff@gmail.com",
+    security: "⚠️ যদি আপনি এই অনুরোধটি <strong>না</strong> করে থাকেন, তবে আপনি নিরাপদে এই ইমেলটি এড়িয়ে যেতে পারেন। আপনার পাসওয়ার্ড অপরিবর্তিত থাকবে। আপনি যদি কোন সন্দেহজনক কার্যকলাপ লক্ষ্য করেন, অনুগ্রহ করে যোগাযোগ করুন: famwake@goork.de",
     footerNote: "এটি একটি স্বয়ংক্রিয় বার্তা। দয়া করে এই ইমেলের সরাসরি উত্তর দেবেন না।",
   },
   mr: {
@@ -268,7 +268,7 @@ const EMAIL_CONTENT = {
     instruction: "नवीन पासवर्ड सेट करण्यासाठी खालील बटणावर क्लिक करा:",
     button: "पासवर्ड रीसेट करा",
     fallback: "बटण काम करत नसल्यास, कृपया ही लिंक तुमच्या ब्राउझरमध्ये पेस्ट करा:",
-    security: "⚠️ जर तुम्ही ही विनंती <strong>केली नसेल</strong>, तर तुम्ही या ईमेलकडे सुरक्षितपणे दुर्लक्ष करू शकता. तुमचा पासवर्ड बदलणार नाही. तुम्हाला काही संशयास्पद क्रियाकलाप दिसल्यास, कृपया आमच्याशी संपर्क साधा: daniel.notthoff@gmail.com",
+    security: "⚠️ जर तुम्ही ही विनंती <strong>केली नसेल</strong>, तर तुम्ही या ईमेलकडे सुरक्षितपणे दुर्लक्ष करू शकता. तुमचा पासवर्ड बदलणार नाही. तुम्हाला काही संशयास्पद क्रियाकलाप दिसल्यास, कृपया आमच्याशी संपर्क साधा: famwake@goork.de",
     footerNote: "हा एक स्वयंचलित संदेश आहे. कृपया या ईमेलला थेट उत्तर देऊ नका.",
   },
   hi: {
@@ -279,7 +279,7 @@ const EMAIL_CONTENT = {
     instruction: "नया पासवर्ड सेट करने के लिए नीचे दिए गए बटन पर क्लिक करें:",
     button: "पासवर्ड रीसेट करें",
     fallback: "यदि बटन काम नहीं करता है, तो कृपया इस लिंक को अपने ब्राउज़र में कॉपी करें:",
-    security: "⚠️ अगर आपने यह अनुरोध <strong>नहीं</strong> किया है, तो आप इस ईमेल को अनदेखा कर सकते हैं। आपका पासवर्ड नहीं बदलेगा। यदि आपको कोई संदिग्ध गतिविधि दिखाई देती है, तो कृपया हमसे संपर्क करें: daniel.notthoff@gmail.com",
+    security: "⚠️ अगर आपने यह अनुरोध <strong>नहीं</strong> किया है, तो आप इस ईमेल को अनदेखा कर सकते हैं। आपका पासवर्ड नहीं बदलेगा। यदि आपको कोई संदिग्ध गतिविधि दिखाई देती है, तो कृपया हमसे संपर्क करें: famwake@goork.de",
     footerNote: "यह एक स्वचालित संदेश है। कृपया इस ईमेल का सीधा जवाब न दें।",
   },
   "zh-CN": {
@@ -290,7 +290,7 @@ const EMAIL_CONTENT = {
     instruction: "请点击下方按钮设置新密码：",
     button: "重置密码",
     fallback: "如果按钮不起作用，请将此链接复制到您的浏览器中：",
-    security: "⚠️ 如果您<strong>没有</strong>提交此请求，可以安全地忽略此邮件。您的密码将保持不变。如果您发现任何可疑活动，请联系我们：daniel.notthoff@gmail.com",
+    security: "⚠️ 如果您<strong>没有</strong>提交此请求，可以安全地忽略此邮件。您的密码将保持不变。如果您发现任何可疑活动，请联系我们：famwake@goork.de",
     footerNote: "这是一封自动发送的邮件。请不要直接回复。",
   },
   ko: {
@@ -301,7 +301,7 @@ const EMAIL_CONTENT = {
     instruction: "새 비밀번호를 설정하려면 아래 버튼을 클릭하세요.",
     button: "비밀번호 재설정",
     fallback: "버튼이 작동하지 않으면 다음 링크를 브라우저에 복사해 붙여넣으세요:",
-    security: "⚠️ 본인이 요청하지 <strong>않은</strong> 경우 이 이메일을 무시하셔도 됩니다. 귀하의 비밀번호는 변경되지 않습니다. 의심스러운 활동을 발견한 경우 다음 주소로 문의해 주세요: daniel.notthoff@gmail.com",
+    security: "⚠️ 본인이 요청하지 <strong>않은</strong> 경우 이 이메일을 무시하셔도 됩니다. 귀하의 비밀번호는 변경되지 않습니다. 의심스러운 활동을 발견한 경우 다음 주소로 문의해 주세요: famwake@goork.de",
     footerNote: "이것은 자동 생성된 메시지입니다. 이 이메일에 직접 회신하지 마십시오.",
   },
 };
@@ -313,7 +313,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Hallo!",
     intro: "Dein Passwort für dein <strong>FamWake</strong> Familienwecker-Konto wurde erfolgreich geändert.",
     instruction: "Du kannst dich ab sofort mit deinem neuen Passwort in der App anmelden.",
-    security: "⚠️ Falls du dein Passwort <strong>nicht</strong> geändert hast, wende dich bitte umgehend an uns: daniel.notthoff@gmail.com",
+    security: "⚠️ Falls du dein Passwort <strong>nicht</strong> geändert hast, wende dich bitte umgehend an uns: famwake@goork.de",
     footerNote: "Dies ist eine automatisch generierte Nachricht. Bitte antworte nicht direkt auf diese E-Mail.",
   },
   en: {
@@ -322,7 +322,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Hello!",
     intro: "The password for your <strong>FamWake</strong> Family Alarm account has been successfully changed.",
     instruction: "You can now log in to the app with your new password.",
-    security: "⚠️ If you did <strong>not</strong> change your password, please contact us immediately: daniel.notthoff@gmail.com",
+    security: "⚠️ If you did <strong>not</strong> change your password, please contact us immediately: famwake@goork.de",
     footerNote: "This is an automated message. Please do not reply directly to this email.",
   },
   es: {
@@ -331,7 +331,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "¡Hola!",
     intro: "La contraseña de tu cuenta de <strong>FamWake</strong> Despertador Familiar se ha cambiado con éxito.",
     instruction: "Ya puedes iniciar sesión en la aplicación con tu nueva contraseña.",
-    security: "⚠️ Si <strong>no</strong> fuiste tú quien cambió la contraseña, ponte en contacto con nosotros inmediatamente: daniel.notthoff@gmail.com",
+    security: "⚠️ Si <strong>no</strong> fuiste tú quien cambió la contraseña, ponte en contacto con nosotros inmediatamente: famwake@goork.de",
     footerNote: "Este es un mensaje generado automáticamente. Por favor, no respondas directamente a este correo.",
   },
   fr: {
@@ -340,7 +340,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Bonjour !",
     intro: "Le mot de passe de ton compte <strong>FamWake</strong> Réveil Familial a été modifié avec succès.",
     instruction: "Tu peux désormais te connecter à l'application avec ton nouveau mot de passe.",
-    security: "⚠️ Si tu n'as <strong>pas</strong> modifié ton mot de passe, merci de nous contacter immédiatement : daniel.notthoff@gmail.com",
+    security: "⚠️ Si tu n'as <strong>pas</strong> modifié ton mot de passe, merci de nous contacter immédiatement : famwake@goork.de",
     footerNote: "Ceci est un message généré automatiquement. Merci de ne pas répondre directement à cet e-mail.",
   },
   it: {
@@ -349,7 +349,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Ciao!",
     intro: "La password del tuo account <strong>FamWake</strong> Sveglia Famiglia è stata modificata con successo.",
     instruction: "Ora puoi accedere all'app con la tua nuova password.",
-    security: "⚠️ Se <strong>non</strong> hai modificato tu la password, contattaci immediatamente: daniel.notthoff@gmail.com",
+    security: "⚠️ Se <strong>non</strong> hai modificato tu la password, contattaci immediatamente: famwake@goork.de",
     footerNote: "Questo è un messaggio generato automaticamente. Si prega di non rispondere direttamente a questa email.",
   },
   da: {
@@ -358,7 +358,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Hej!",
     intro: "Adgangskoden til din <strong>FamWake</strong> Familievækker-konto er blevet ændret.",
     instruction: "Du kan nu logge ind på appen med din nye adgangskode.",
-    security: "⚠️ Hvis du <strong>ikke</strong> har ændret din adgangskode, bedes du kontakte os straks: daniel.notthoff@gmail.com",
+    security: "⚠️ Hvis du <strong>ikke</strong> har ændret din adgangskode, bedes du kontakte os straks: famwake@goork.de",
     footerNote: "Dette er en automatisk genereret besked. Svar venligst ikke direkte på denne e-mail.",
   },
   ja: {
@@ -367,7 +367,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "こんにちは！",
     intro: "<strong>FamWake</strong> ファミリーアラームのアカウントのパスワードが正常に変更されました。",
     instruction: "新しいパスワードでアプリにログインできます。",
-    security: "⚠️ パスワードを<strong>変更していない</strong>場合は、すぐにご連絡ください：daniel.notthoff@gmail.com",
+    security: "⚠️ パスワードを<strong>変更していない</strong>場合は、すぐにご連絡ください：famwake@goork.de",
     footerNote: "これは自動生成されたメッセージです。このメールに直接返信しないでください。",
   },
   nl: {
@@ -376,7 +376,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Hallo!",
     intro: "Het wachtwoord van je <strong>FamWake</strong> Gezinswekker-account is succesvol gewijzigd.",
     instruction: "Je kunt nu inloggen in de app met je nieuwe wachtwoord.",
-    security: "⚠️ Als je je wachtwoord <strong>niet</strong> hebt gewijzigd, neem dan onmiddellijk contact met ons op: daniel.notthoff@gmail.com",
+    security: "⚠️ Als je je wachtwoord <strong>niet</strong> hebt gewijzigd, neem dan onmiddellijk contact met ons op: famwake@goork.de",
     footerNote: "Dit is een automatisch gegenereerd bericht. Reageer niet rechtstreeks op deze e-mail.",
   },
   no: {
@@ -385,7 +385,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Hei!",
     intro: "Passordet for din <strong>FamWake</strong> Familievekker-konto er endret.",
     instruction: "Du kan nå logge inn i appen med ditt nye passord.",
-    security: "⚠️ Hvis du <strong>ikke</strong> har endret passordet ditt, kontakt oss umiddelbart: daniel.notthoff@gmail.com",
+    security: "⚠️ Hvis du <strong>ikke</strong> har endret passordet ditt, kontakt oss umiddelbart: famwake@goork.de",
     footerNote: "Dette er en automatisk generert melding. Vennligst ikke svar direkte på denne e-posten.",
   },
   pl: {
@@ -394,7 +394,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Cześć!",
     intro: "Hasło do Twojego konta <strong>FamWake</strong> Budzik Rodzinny zostało pomyślnie zmienione.",
     instruction: "Możesz teraz zalogować się do aplikacji za pomocą nowego hasła.",
-    security: "⚠️ Jeśli <strong>nie</strong> zmieniałeś hasła, skontaktuj się z nami natychmiast: daniel.notthoff@gmail.com",
+    security: "⚠️ Jeśli <strong>nie</strong> zmieniałeś hasła, skontaktuj się z nami natychmiast: famwake@goork.de",
     footerNote: "To jest wiadomość wygenerowana automatycznie. Prosimy nie odpowiadać bezpośrednio na ten e-mail.",
   },
   pt: {
@@ -403,7 +403,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Olá!",
     intro: "A senha da sua conta <strong>FamWake</strong> Despertador Familiar foi alterada com sucesso.",
     instruction: "Agora você pode fazer login no aplicativo com sua nova senha.",
-    security: "⚠️ Se <strong>não</strong> foi você que alterou a senha, entre em contato conosco imediatamente: daniel.notthoff@gmail.com",
+    security: "⚠️ Se <strong>não</strong> foi você que alterou a senha, entre em contato conosco imediatamente: famwake@goork.de",
     footerNote: "Esta é uma mensagem gerada automaticamente. Por favor, não responda diretamente a este e-mail.",
   },
   ru: {
@@ -412,7 +412,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Привет!",
     intro: "Пароль твоей учётной записи <strong>FamWake</strong> Семейный Будильник был успешно изменён.",
     instruction: "Теперь ты можешь войти в приложение с новым паролем.",
-    security: "⚠️ Если ты <strong>не</strong> менял пароль, немедленно свяжись с нами: daniel.notthoff@gmail.com",
+    security: "⚠️ Если ты <strong>не</strong> менял пароль, немедленно свяжись с нами: famwake@goork.de",
     footerNote: "Это автоматически сгенерированное сообщение. Пожалуйста, не отвечай на него напрямую.",
   },
   sv: {
@@ -421,7 +421,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Hej!",
     intro: "Lösenordet för ditt <strong>FamWake</strong> Familjens Väckarklocka-konto har ändrats.",
     instruction: "Du kan nu logga in i appen med ditt nya lösenord.",
-    security: "⚠️ Om du <strong>inte</strong> har ändrat ditt lösenord, kontakta oss omedelbart: daniel.notthoff@gmail.com",
+    security: "⚠️ Om du <strong>inte</strong> har ändrat ditt lösenord, kontakta oss omedelbart: famwake@goork.de",
     footerNote: "Detta är ett automatiskt genererat meddelande. Svara inte direkt på detta e-postmeddelande.",
   },
   tr: {
@@ -430,7 +430,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Merhaba!",
     intro: "<strong>FamWake</strong> Aile Alarmı hesabının şifresi başarıyla değiştirildi.",
     instruction: "Artık yeni şifrenle uygulamaya giriş yapabilirsin.",
-    security: "⚠️ Şifreni <strong>sen</strong> değiştirmediysen, lütfen hemen bizimle iletişime geç: daniel.notthoff@gmail.com",
+    security: "⚠️ Şifreni <strong>sen</strong> değiştirmediysen, lütfen hemen bizimle iletişime geç: famwake@goork.de",
     footerNote: "Bu otomatik olarak oluşturulmuş bir mesajdır. Lütfen bu e-postaya doğrudan yanıt verme.",
   },
   uk: {
@@ -439,7 +439,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Привіт!",
     intro: "Пароль твого облікового запису <strong>FamWake</strong> Сімейний Будильник було успішно змінено.",
     instruction: "Тепер ти можеш увійти в застосунок з новим паролем.",
-    security: "⚠️ Якщо ти <strong>не</strong> змінював пароль, негайно звʼяжися з нами: daniel.notthoff@gmail.com",
+    security: "⚠️ Якщо ти <strong>не</strong> змінював пароль, негайно звʼяжися з нами: famwake@goork.de",
     footerNote: "Це автоматично згенероване повідомлення. Будь ласка, не відповідай на нього безпосередньо.",
   },
   id: {
@@ -448,7 +448,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Halo!",
     intro: "Kata sandi untuk akun <strong>FamWake</strong> Jam Alarm Keluarga kamu telah berhasil diubah.",
     instruction: "Kamu sekarang dapat masuk ke aplikasi dengan kata sandi baru.",
-    security: "⚠️ Jika kamu <strong>tidak</strong> mengubah kata sandi ini, segera hubungi kami: daniel.notthoff@gmail.com",
+    security: "⚠️ Jika kamu <strong>tidak</strong> mengubah kata sandi ini, segera hubungi kami: famwake@goork.de",
     footerNote: "Ini adalah pesan otomatis. Mohon jangan langsung membalas email ini.",
   },
   vi: {
@@ -457,7 +457,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "Xin chào!",
     intro: "Mật khẩu cho tài khoản <strong>FamWake</strong> Báo thức gia đình của bạn đã được thay đổi thành công.",
     instruction: "Bây giờ bạn có thể đăng nhập vào ứng dụng bằng mật khẩu mới của mình.",
-    security: "⚠️ Nếu bạn <strong>không</strong> thay đổi mật khẩu của mình, hãy liên hệ ngay với chúng tôi: daniel.notthoff@gmail.com",
+    security: "⚠️ Nếu bạn <strong>không</strong> thay đổi mật khẩu của mình, hãy liên hệ ngay với chúng tôi: famwake@goork.de",
     footerNote: "Đây là tin nhắn tự động. Vui lòng không trả lời trực tiếp email này.",
   },
   bn: {
@@ -466,7 +466,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "নমস্কার!",
     intro: "আপনার <strong>FamWake</strong> পারিবারিক অ্যালার্ম অ্যাকাউন্টের পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে।",
     instruction: "আপনি এখন আপনার নতুন পাসওয়ার্ড দিয়ে অ্যাপে লগ ইন করতে পারেন।",
-    security: "⚠️ যদি আপনি আপনার পাসওয়ার্ড পরিবর্তন <strong>না</strong> করে থাকেন, তবে অবিলম্বে আমাদের সাথে যোগাযোগ করুন: daniel.notthoff@gmail.com",
+    security: "⚠️ যদি আপনি আপনার পাসওয়ার্ড পরিবর্তন <strong>না</strong> করে থাকেন, তবে অবিলম্বে আমাদের সাথে যোগাযোগ করুন: famwake@goork.de",
     footerNote: "এটি একটি স্বয়ংক্রিয় বার্তা। দয়া করে এই ইমেলের সরাসরি উত্তর দেবেন না।",
   },
   mr: {
@@ -475,7 +475,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "नमस्कार!",
     intro: "तुमच्या <strong>FamWake</strong> कौटुंबिक अलार्म खात्याचा पासवर्ड यशस्वीरित्या बदलला आहे.",
     instruction: "तुम्ही आता तुमच्या नवीन पासवर्डने ॲपमध्ये लॉग इन करू शकता.",
-    security: "⚠️ जर तुम्ही तुमचा पासवर्ड <strong>बदलला नसेल</strong>, तर कृपया आमच्याशी त्वरित संपर्क साधा: daniel.notthoff@gmail.com",
+    security: "⚠️ जर तुम्ही तुमचा पासवर्ड <strong>बदलला नसेल</strong>, तर कृपया आमच्याशी त्वरित संपर्क साधा: famwake@goork.de",
     footerNote: "हा एक स्वयंचलित संदेश आहे. कृपया या ईमेलला थेट उत्तर देऊ नका.",
   },
   hi: {
@@ -484,7 +484,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "नमस्ते!",
     intro: "आपके <strong>FamWake</strong> पारिवारिक अलार्म खाते का पासवर्ड सफलतापूर्वक बदल दिया गया है।",
     instruction: "अब आप अपने नए पासवर्ड के साथ ऐप में लॉग इन कर सकते हैं।",
-    security: "⚠️ अगर आपने अपना पासवर्ड <strong>नहीं</strong> बदला है, तो कृपया तुरंत हमसे संपर्क करें: daniel.notthoff@gmail.com",
+    security: "⚠️ अगर आपने अपना पासवर्ड <strong>नहीं</strong> बदला है, तो कृपया तुरंत हमसे संपर्क करें: famwake@goork.de",
     footerNote: "यह एक स्वचालित संदेश है। कृपया इस ईमेल का सीधा जवाब न दें।",
   },
   "zh-CN": {
@@ -493,7 +493,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "你好！",
     intro: "您的 <strong>FamWake</strong> 家庭闹钟帐户密码已成功更改。",
     instruction: "您现在可以使用新密码登录应用程序。",
-    security: "⚠️ 如果您<strong>没有</strong>更改密码，请立即联系我们：daniel.notthoff@gmail.com",
+    security: "⚠️ 如果您<strong>没有</strong>更改密码，请立即联系我们：famwake@goork.de",
     footerNote: "这是一封自动发送的邮件。请不要直接回复。",
   },
   ko: {
@@ -502,7 +502,7 @@ const EMAIL_CONTENT_CONFIRM = {
     greeting: "안녕하세요!",
     intro: "귀하의 <strong>FamWake</strong> 계정 비밀번호가 성공적으로 변경되었습니다.",
     instruction: "이제 새 비밀번호로 앱에 로그인할 수 있습니다.",
-    security: "⚠️ 본인이 비밀번호를 변경하지 <strong>않은</strong> 경우 즉시 다음 주소로 연락해 주세요: daniel.notthoff@gmail.com",
+    security: "⚠️ 본인이 비밀번호를 변경하지 <strong>않은</strong> 경우 즉시 다음 주소로 연락해 주세요: famwake@goork.de",
     footerNote: "이것은 자동 생성된 메시지입니다. 이 이메일에 직접 회신하지 마십시오.",
   },
 };

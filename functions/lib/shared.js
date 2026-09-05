@@ -93,7 +93,7 @@ async function checkEmailRateLimit(email, type = "email") {
   if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
 }
 
-const NOTIFY_EMAIL = "daniel.notthoff@gmail.com";
+const NOTIFY_EMAIL = "famwake@goork.de";
 // Security: PRIMARY_ADMIN_UID aus Firebase Secret Manager – nicht hartkodiert.
 const primaryAdminUidSecret = defineSecret("PRIMARY_ADMIN_UID");
 const BRAND_BLUE = "#1A3A5C";
