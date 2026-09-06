@@ -29,6 +29,16 @@ class EveningReminderReceiver : BroadcastReceiver() {
             return
         }
 
+        // Urlaubsmodus: 20:30-Check stummschalten, solange der Folgetag (morgen) im Urlaub liegt.
+        // Erst am Vorabend des ersten Tags nach dem Urlaub (tomorrow > vacationUntil) wieder erinnern.
+        val vacationUntil = appSettings.vacationUntil.value
+        if (!vacationUntil.isNullOrBlank()) {
+            val tomorrow = java.time.LocalDate.now().plusDays(1).toString()
+            if (tomorrow <= vacationUntil) {
+                return
+            }
+        }
+
         // Berechtigung auf Android 13+ prüfen
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {

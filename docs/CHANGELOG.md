@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.11 – 2026-09-06
+✨ Neu:
+• „Bad ist frei!“-Signal: Mit einem Klick der nächsten Person Bescheid geben, sobald das Badezimmer frei ist.
+• Eigene Frühstückszeit: Die Dauer fürs Frühstück lässt sich jetzt für jedes Familienmitglied passgenau einstellen.
+• Urlaubsmodus: Wecker für die Ferienzeit einfach pausieren – die abendliche Erinnerung meldet sich erst rechtzeitig vor dem ersten Schultag wieder.
+
 ## 2.1.10 – 2026-09-03
 ✨ Verbessert:
 • Bessere Verständlichkeit: Technische Fehlermeldungen bei Verbindungsproblemen wurden durch klare, verständliche Hinweise ersetzt.

@@ -430,4 +430,16 @@
     <string name="notif_channel_missed_alarm">놓친 알람</string>
     <string name="notif_alarm_missed">놓친 알람(%1$02d:%2$02d)</string>
     <string name="loading_dots">로드 중…</string>
+
+    <string name="bathroom_free_button">화장실 비었어요! 🚿</string>
+    <string name="bathroom_free_success">신호를 보냈습니다! 🚿</string>
+    <string name="notif_bathroom_free_title">화장실 비었어요! 🚿</string>
+    <string name="notif_bathroom_free_body">이제 화장실을 쓰실 수 있습니다!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s님이 화장실을 다 썼어요. 다음 차례입니다!</string>
+    <string name="member_breakfast_duration">아침 식사 시간</string>
+    <string name="vacation_mode_title">휴가 모드</string>
+    <string name="vacation_mode_banner_title">휴가 모드 활성화됨 🌴</string>
+    <string name="vacation_mode_banner_desc">%1$s까지 알람 일시 중지</string>
+    <string name="vacation_mode_end_button">휴가 종료</string>
+    <string name="vacation_mode_select_date">휴가 마지막 날 선택</string>
 </resources>

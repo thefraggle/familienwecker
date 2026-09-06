@@ -430,4 +430,16 @@
     <string name="notif_channel_missed_alarm">गजर चुकला</string>
     <string name="notif_alarm_missed">चुकलेला अलार्म (%1$02d:%2$02d)</string>
     <string name="loading_dots">लोड करत आहे...</string>
+
+    <string name="bathroom_free_button">बाथरूम रिकामे आहे! 🚿</string>
+    <string name="bathroom_free_success">सिग्नल पाठवला! 🚿</string>
+    <string name="notif_bathroom_free_title">बाथरूम रिकामे आहे! 🚿</string>
+    <string name="notif_bathroom_free_body">बाथरूम आता तुमच्यासाठी रिकामे आहे!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s चे बाथरूममधील काम पूर्ण झाले आहे. आता तुमची पाळी!</string>
+    <string name="member_breakfast_duration">न्याहारीची वेळ</string>
+    <string name="vacation_mode_title">सुट्टी मोड</string>
+    <string name="vacation_mode_banner_title">सुट्टी मोड सक्रिय 🌴</string>
+    <string name="vacation_mode_banner_desc">%1$s पर्यंत अलार्म थांबवले आहेत</string>
+    <string name="vacation_mode_end_button">सुट्टी समाप्त करा</string>
+    <string name="vacation_mode_select_date">सुट्टीचा शेवटचा दिवस निवडा</string>
 </resources>

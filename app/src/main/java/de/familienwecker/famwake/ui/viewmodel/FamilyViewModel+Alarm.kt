@@ -264,6 +264,18 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
         return
     }
 
+    // Urlaubs-Guard: Wenn targetDate im Urlaubszeitraum liegt -> keine Alarme planen
+    val vacationUntil = appSettings.vacationUntil.value
+    if (!vacationUntil.isNullOrBlank() && targetDate.toString() <= vacationUntil) {
+        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+            android.util.Log.d("FamWake_Alarm", "applyAlarms: targetDate $targetDate is in vacation (until $vacationUntil) -> cancelling alarms")
+        }
+        alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = false)
+        alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = true)
+        lastScheduledAlarmMillis = null
+        return
+    }
+
     // Snooze-Guard: Während eines aktiven Snooze keine regulären Alarme planen.
     // WICHTIG: Den Snooze-Alarm selbst IMMER neu planen – nach App-Kill oder
     // Reinstall sind PendingIntents verloren. Nur bei echtem Reboot stellt der

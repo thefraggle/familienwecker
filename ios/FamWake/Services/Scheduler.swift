@@ -148,8 +148,31 @@ struct Scheduler {
                 maxBathroomEnd = currentLatestBathroomEnd
             }
 
-            if member.wantsBreakfast, let bt = breakfastTime, maxBathroomEnd.totalMinutes >= bt.totalMinutes {
-                maxBathroomEnd = bt
+            if member.wantsBreakfast, let bt = breakfastTime {
+                let effectiveDuration = member.breakfastDurationMinutes ?? breakfastDurationMinutes
+                let memberBreakfastStart: DateComponents
+                if effectiveDuration == breakfastDurationMinutes {
+                    memberBreakfastStart = bt
+                } else {
+                    let mStart: DateComponents
+                    if !breakfastEaters.isEmpty {
+                        var minLeave = DateComponents(hour: 23, minute: 59)
+                        for m in breakfastEaters {
+                            let naturalEnd = m.latestWakeUp.adding(minutes: m.bathroomDurationMinutes)
+                            let leave = m.leaveHomeTime ?? naturalEnd
+                            if leave < minLeave { minLeave = leave }
+                        }
+                        mStart = minLeave.totalMinutes < 4 * 60 ? DateComponents(hour: 4, minute: 0) : minLeave
+                    } else {
+                        mStart = DateComponents(hour: 8, minute: 0)
+                    }
+                    let calculated = mStart.subtracting(minutes: effectiveDuration)
+                    memberBreakfastStart = mStart < calculated ? DateComponents(hour: 3, minute: 30) : calculated
+                }
+
+                if maxBathroomEnd.totalMinutes >= memberBreakfastStart.totalMinutes {
+                    maxBathroomEnd = memberBreakfastStart
+                }
             }
 
             if let leave = member.leaveHomeTime, leave < maxBathroomEnd {
@@ -238,10 +261,32 @@ struct Scheduler {
         // Post-Validation Frühstück (bei Snooze tolerieren, da temporär)
         if let bt = breakfastTime, isValid, !hasSnoozeActive {
             for s in forwardSchedules {
-                if s.member.wantsBreakfast && bt < s.bathroomEnd {
-                    isValid = false
-                    if !includeInvalid {
-                        return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .memberConflict(""))
+                if s.member.wantsBreakfast {
+                    let cutoff: DateComponents
+                    if let dur = s.member.breakfastDurationMinutes, dur != breakfastDurationMinutes {
+                        let mStart: DateComponents
+                        if !breakfastEaters.isEmpty {
+                            var minLeave = DateComponents(hour: 23, minute: 59)
+                            for m in breakfastEaters {
+                                let naturalEnd = m.latestWakeUp.adding(minutes: m.bathroomDurationMinutes)
+                                let leave = m.leaveHomeTime ?? naturalEnd
+                                if leave < minLeave { minLeave = leave }
+                            }
+                            mStart = minLeave.totalMinutes < 4 * 60 ? DateComponents(hour: 4, minute: 0) : minLeave
+                        } else {
+                            mStart = DateComponents(hour: 8, minute: 0)
+                        }
+                        let calculated = mStart.subtracting(minutes: dur)
+                        cutoff = mStart < calculated ? DateComponents(hour: 3, minute: 30) : calculated
+                    } else {
+                        cutoff = bt
+                    }
+
+                    if cutoff < s.bathroomEnd {
+                        isValid = false
+                        if !includeInvalid {
+                            return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .memberConflict(""))
+                        }
                     }
                 }
             }

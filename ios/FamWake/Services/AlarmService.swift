@@ -462,11 +462,43 @@ final class AlarmService: ObservableObject {
 
         let center = UNUserNotificationCenter.current()
         let identifier = "evening_checkin_reminder"
+        cancelEveningReminder()
 
         let content = UNMutableNotificationContent()
         content.title = L.notifEveningReminderTitle
         content.body = L.notifEveningReminderDesc
         content.sound = .default
+
+        let vacationUntil = UserDefaults.standard.string(forKey: "vacation_until")
+        let cal = Calendar.current
+        let now = Date()
+
+        if let vacStr = vacationUntil, !vacStr.isEmpty {
+            // Urlaubsmodus aktiv: Erinnerung erst am Vorabend des ersten Tags nach dem Urlaub planen
+            let f = DateFormatter()
+            f.dateFormat = "yyyy-MM-dd"
+            if let vacDate = f.date(from: vacStr) {
+                // vacDate ist der letzte Urlaubstag. Der erste Schultag/Arbeitstag ist vacDate + 1 Tag.
+                // Der Vorabend dazu ist vacDate um 20:30 Uhr!
+                var eveComponents = cal.dateComponents([.year, .month, .day], from: vacDate)
+                eveComponents.hour = 20
+                eveComponents.minute = 30
+                if let eveDate = cal.date(from: eveComponents), eveDate > now {
+                    let trigger = UNCalendarNotificationTrigger(dateMatching: eveComponents, repeats: false)
+                    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+                    center.add(request) { error in
+                        if let error = error {
+                            debugPrint("FamWake/Alarm: Failed to schedule vacation eve reminder: \(error)")
+                        }
+                    }
+                    return
+                } else if let eveDate = cal.date(from: eveComponents), now >= eveDate {
+                    // Urlaub ist vorbei oder heute ist der Vorabend gewesen -> normaler täglicher Reminder
+                } else {
+                    return
+                }
+            }
+        }
 
         var dateComponents = DateComponents()
         dateComponents.hour = 20

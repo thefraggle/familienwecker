@@ -447,5 +447,17 @@
     <string name="notif_channel_missed_alarm">Missed alarms</string>
     <string name="notif_alarm_missed">Missed alarm (%1$02d:%2$02d)</string>
     <string name="loading_dots">Loading…</string>
+
+    <string name="bathroom_free_button">Bathroom is free! 🚿</string>
+    <string name="bathroom_free_success">Signal sent! 🚿</string>
+    <string name="notif_bathroom_free_title">Bathroom is free! 🚿</string>
+    <string name="notif_bathroom_free_body">The bathroom is now free for you!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s is finished in the bathroom. It\'s your turn!</string>
+    <string name="member_breakfast_duration">Breakfast duration</string>
+    <string name="vacation_mode_title">Vacation mode</string>
+    <string name="vacation_mode_banner_title">Vacation mode active 🌴</string>
+    <string name="vacation_mode_banner_desc">Alarms paused until %1$s</string>
+    <string name="vacation_mode_end_button">End vacation</string>
+    <string name="vacation_mode_select_date">Select last day of vacation</string>
 </resources>
 

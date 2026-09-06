@@ -429,4 +429,16 @@
     <string name="notif_channel_missed_alarm">Gemiste alarmen</string>
     <string name="notif_alarm_missed">Gemist alarm (%1$02d:%2$02d)</string>
     <string name="loading_dots">Laden…</string>
+
+    <string name="bathroom_free_button">Badkamer is vrij! 🚿</string>
+    <string name="bathroom_free_success">Signaal verzonden! 🚿</string>
+    <string name="notif_bathroom_free_title">Badkamer is vrij! 🚿</string>
+    <string name="notif_bathroom_free_body">De badkamer is nu vrij voor jou!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s is klaar in de badkamer. Jij bent aan de beurt!</string>
+    <string name="member_breakfast_duration">Ontbijtduur</string>
+    <string name="vacation_mode_title">Vakantiemodus</string>
+    <string name="vacation_mode_banner_title">Vakantiemodus actief 🌴</string>
+    <string name="vacation_mode_banner_desc">Wekkers gepauzeerd tot %1$s</string>
+    <string name="vacation_mode_end_button">Vakantie beëindigen</string>
+    <string name="vacation_mode_select_date">Laatste vakantiedag kiezen</string>
 </resources>

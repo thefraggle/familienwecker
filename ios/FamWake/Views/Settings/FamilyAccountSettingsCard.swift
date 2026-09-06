@@ -79,6 +79,53 @@ struct FamilyAccountSettingsCard: View {
                 .accessibilityLabel(L.s("accessibility_share_code"))
             }
 
+            // Urlaubsmodus
+            Divider().padding(.vertical, 4)
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("🌴").font(.subheadline)
+                    Text(L.vacationModeTitle)
+                        .font(.headline)
+                }
+
+                if let vac = familyViewModel.vacationUntil, !vac.isEmpty {
+                    Text(L.vacationModeBannerDesc(vac))
+                        .font(.subheadline)
+                        .foregroundStyle(theme.onSurfaceVariant)
+
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        familyViewModel.clearVacation()
+                    }) {
+                        Text(L.vacationModeEndButton)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 44)
+                    }
+                    .foregroundStyle(theme.onSurface)
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                } else {
+                    Text(L.vacationModeSelectDate)
+                        .font(.caption)
+                        .foregroundStyle(theme.onSurfaceVariant)
+
+                    DatePicker(
+                        L.vacationModeSelectDate,
+                        selection: Binding(
+                            get: { Date() },
+                            set: { selectedDate in
+                                let f = DateFormatter()
+                                f.dateFormat = "yyyy-MM-dd"
+                                familyViewModel.setVacationUntil(f.string(from: selectedDate))
+                            }
+                        ),
+                        in: Date()...,
+                        displayedComponents: .date
+                    )
+                    .datePickerStyle(.compact)
+                }
+            }
+            .padding(.bottom, 8)
+
             // Leave and Delete Family Buttons
             VStack(spacing: 8) {
                 // Leave Family

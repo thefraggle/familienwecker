@@ -113,6 +113,51 @@ class FamilyViewModel(
     internal val _globalBufferMinutes = MutableStateFlow(0L)
     val globalBufferMinutes: StateFlow<Long> = _globalBufferMinutes.asStateFlow()
 
+    // ── Urlaubsmodus ──────────────────────────────────────────────────────────
+    val vacationUntil: StateFlow<String?> = appSettings.vacationUntil
+
+    fun setVacationUntil(date: String?) {
+        scope.launch {
+            appSettings.setVacationUntil(date)
+            val currentFamilyId = familyId.value
+            if (!currentFamilyId.isNullOrBlank() && !appSettings.isLocalOnlyFamily.value) {
+                repository.updateVacationUntil(currentFamilyId, date)
+            }
+            recalculateSchedule()
+        }
+    }
+
+    fun clearVacation() {
+        setVacationUntil(null)
+    }
+
+    // ── „Bad ist frei!“-Push ──────────────────────────────────────────────────
+    private val _bathroomFreeSending = MutableStateFlow(false)
+    val bathroomFreeSending: StateFlow<Boolean> = _bathroomFreeSending.asStateFlow()
+
+    private val _bathroomFreeSent = MutableStateFlow(false)
+    val bathroomFreeSent: StateFlow<Boolean> = _bathroomFreeSent.asStateFlow()
+
+    fun notifyBathroomFree(onComplete: (Boolean) -> Unit = {}) {
+        val fid = familyId.value ?: return
+        val myId = myMemberId.value ?: return
+        val myMember = members.value.find { it.id == myId } ?: return
+
+        scope.launch {
+            _bathroomFreeSending.value = true
+            val result = repository.notifyBathroomFree(fid, myId)
+            _bathroomFreeSending.value = false
+            result.onSuccess {
+                _bathroomFreeSent.value = true
+                onComplete(true)
+                delay(3000)
+                _bathroomFreeSent.value = false
+            }.onFailure {
+                onComplete(false)
+            }
+        }
+    }
+
     // ── Tooltip-Flows ────────────────────────────────────────────────────────
 
     val tooltipsEnabled: StateFlow<Boolean> = appSettings.tooltipsEnabled
@@ -392,6 +437,7 @@ class FamilyViewModel(
                                 val data = repository.getFamilyData(currentFamilyId)
                                 _familyCreatorId.value = data?.createdByUserId
                                 _globalBufferMinutes.value = data?.globalBufferMinutes ?: 0L
+                                data?.vacationUntil?.let { appSettings.setVacationUntil(it) }
                             } catch (e: CancellationException) {
                                 throw e
                             } catch (e: Exception) {

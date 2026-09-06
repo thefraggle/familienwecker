@@ -429,4 +429,16 @@
     <string name="notif_channel_missed_alarm">Verpasste Wecker</string>
     <string name="notif_alarm_missed">Wecker verpasst (%1$02d:%2$02d)</string>
     <string name="loading_dots">Laden…</string>
+
+    <string name="bathroom_free_button">Et Bad es frei! 🚿</string>
+    <string name="bathroom_free_success">Signal jeschick! 🚿</string>
+    <string name="notif_bathroom_free_title">Et Bad es frei! 🚿</string>
+    <string name="notif_bathroom_free_body">Et Bad es jetz frei för dich!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s es fäädisch em Bad. Do bes dran!</string>
+    <string name="member_breakfast_duration">Fröhstöcksdauer</string>
+    <string name="vacation_mode_title">Vakanz-Modus</string>
+    <string name="vacation_mode_banner_title">Vakanz-Modus aktiv 🌴</string>
+    <string name="vacation_mode_banner_desc">Wecker pausiert bes %1$s</string>
+    <string name="vacation_mode_end_button">Vakanz beende</string>
+    <string name="vacation_mode_select_date">Letzte Vakanzdag ussöke</string>
 </resources>

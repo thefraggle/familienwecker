@@ -432,4 +432,16 @@
     <string name="notif_channel_missed_alarm">छूटे हुए अलार्म</string>
     <string name="notif_alarm_missed">छूटा हुआ अलार्म (%1$02d:%2$02d)</string>
     <string name="loading_dots">लोड हो रहा है...</string>
+
+    <string name="bathroom_free_button">बाथरूम खाली है! 🚿</string>
+    <string name="bathroom_free_success">सिग्नल भेजा गया! 🚿</string>
+    <string name="notif_bathroom_free_title">बाथरूम खाली है! 🚿</string>
+    <string name="notif_bathroom_free_body">बाथरूम अब आपके लिए खाली है!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s बाथरूम से बाहर आ चुके हैं। अब आपकी बारी है!</string>
+    <string name="member_breakfast_duration">नाश्ते का समय</string>
+    <string name="vacation_mode_title">छुट्टी मोड</string>
+    <string name="vacation_mode_banner_title">छुट्टी मोड सक्रिय 🌴</string>
+    <string name="vacation_mode_banner_desc">अलार्म %1$s तक रोक दिए गए हैं</string>
+    <string name="vacation_mode_end_button">छुट्टी समाप्त करें</string>
+    <string name="vacation_mode_select_date">छुट्टी का अंतिम दिन चुनें</string>
 </resources>

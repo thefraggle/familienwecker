@@ -430,4 +430,16 @@
     <string name="notif_channel_missed_alarm">错过闹钟</string>
     <string name="notif_alarm_missed">错过警报 (%1$02d:%2$02d)</string>
     <string name="loading_dots">加载中…</string>
+
+    <string name="bathroom_free_button">洗手间空了！ 🚿</string>
+    <string name="bathroom_free_success">信号已发送！ 🚿</string>
+    <string name="notif_bathroom_free_title">洗手间空了！ 🚿</string>
+    <string name="notif_bathroom_free_body">洗手间现在可以使用了！</string>
+    <string name="notif_bathroom_free_body_arg">%1$s已用完洗手间。轮到你了！</string>
+    <string name="member_breakfast_duration">早餐时间</string>
+    <string name="vacation_mode_title">休假模式</string>
+    <string name="vacation_mode_banner_title">休假模式进行中 🌴</string>
+    <string name="vacation_mode_banner_desc">闹钟暂停至 %1$s</string>
+    <string name="vacation_mode_end_button">结束休假</string>
+    <string name="vacation_mode_select_date">选择休假最后一天</string>
 </resources>

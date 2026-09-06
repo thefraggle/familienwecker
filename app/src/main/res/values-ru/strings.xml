@@ -430,4 +430,16 @@
     <string name="notif_channel_missed_alarm">Пропущенные будильники</string>
     <string name="notif_alarm_missed">Пропущенный сигнал тревоги (%1$02d:%2$02d)</string>
     <string name="loading_dots">Загрузка…</string>
+
+    <string name="bathroom_free_button">Ванная свободна! 🚿</string>
+    <string name="bathroom_free_success">Сигнал отправлен! 🚿</string>
+    <string name="notif_bathroom_free_title">Ванная свободна! 🚿</string>
+    <string name="notif_bathroom_free_body">Ванная комната теперь свободна!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s освободил(а) ванную. Твоя очередь!</string>
+    <string name="member_breakfast_duration">Длительность завтрака</string>
+    <string name="vacation_mode_title">Режим отпуска</string>
+    <string name="vacation_mode_banner_title">Режим отпуска активен 🌴</string>
+    <string name="vacation_mode_banner_desc">Будильники отключены до %1$s</string>
+    <string name="vacation_mode_end_button">Завершить отпуск</string>
+    <string name="vacation_mode_select_date">Выбрать последний день отпуска</string>
 </resources>

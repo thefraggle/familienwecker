@@ -57,6 +57,9 @@ class FamilyViewModel: ObservableObject {
     @Published var isSendingFeedback: Bool = false
     @Published var feedbackSubmitted: Bool = false
     @Published var feedbackError: String? = nil
+    @Published var vacationUntil: String? = UserDefaults.standard.string(forKey: "vacation_until")
+    @Published var bathroomFreeSending: Bool = false
+    @Published var bathroomFreeSent: Bool = false
 
 
     /// IDs von Members deren Pause-Toggle noch auf Firestore-Bestätigung wartet.
@@ -1134,6 +1137,65 @@ class FamilyViewModel: ObservableObject {
 
     func clearPendingJoinCode() { pendingJoinCode = nil }
 
+    // MARK: - Vacation Mode
+    func setVacationUntil(_ date: String?) {
+        vacationUntil = date
+        if let date = date {
+            UserDefaults.standard.set(date, forKey: "vacation_until")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "vacation_until")
+        }
+        if isEveningReminderEnabled {
+            AlarmService.shared.scheduleEveningReminder()
+        }
+        recalculateSchedule()
+
+        guard let fid = familyId, !isLocalOnlyFamily else { return }
+        Task {
+            do {
+                try await FamilyFirestoreService.shared.updateVacationUntil(familyId: fid, vacationUntil: date)
+            } catch {
+                await MainActor.run { errorMessage = error.localizedDescription }
+            }
+        }
+    }
+
+    func clearVacation() {
+        setVacationUntil(nil)
+    }
+
+    // MARK: - Bathroom Free Notification
+    func notifyBathroomFree(completion: @escaping (Bool) -> Void = { _ in }) {
+        guard let fid = familyId, let myId = myMemberId else {
+            completion(false)
+            return
+        }
+        let myMember = members.first(where: { $0.id == myId })
+        let memberName = myMember?.name ?? "jemand"
+
+        bathroomFreeSending = true
+        Task {
+            do {
+                try await FamilyFirestoreService.shared.notifyBathroomFree(familyId: fid, memberId: myId, memberName: memberName)
+                await MainActor.run {
+                    self.bathroomFreeSending = false
+                    self.bathroomFreeSent = true
+                    completion(true)
+                }
+                try? await Task.sleep(nanoseconds: 3_000_000_000)
+                await MainActor.run {
+                    self.bathroomFreeSent = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.bathroomFreeSending = false
+                    self.errorMessage = error.localizedDescription
+                    completion(false)
+                }
+            }
+        }
+    }
+
     // MARK: - Error Mapping
     private func mapFirebaseError(_ error: Error) -> String {
         FirebaseErrorMapper.map(error)
@@ -1191,6 +1253,13 @@ class FamilyViewModel: ObservableObject {
             self.familyName = data["name"] as? String
             self.joinCode = data["joinCode"] as? String
             self.globalBufferMinutes = (data["globalBufferMinutes"] as? NSNumber)?.intValue ?? 0
+            if let vac = data["vacationUntil"] as? String {
+                self.vacationUntil = vac
+                UserDefaults.standard.set(vac, forKey: "vacation_until")
+            } else if data["vacationUntil"] == nil && self.vacationUntil != nil {
+                self.vacationUntil = nil
+                UserDefaults.standard.removeObject(forKey: "vacation_until")
+            }
             let uid = Auth.auth().currentUser?.uid
             self.isAdmin = (data["createdByUserId"] as? String) == uid
         }
@@ -1621,6 +1690,17 @@ class FamilyViewModel: ObservableObject {
         }
 
         if isAwakeTodayLocal && targetDate == today {
+            if let myId = myMemberId {
+                AlarmService.shared.cancelWakeUp(memberId: myId)
+            }
+            return
+        }
+
+        // Urlaubsmodus-Check: Wenn targetDate innerhalb des Urlaubs liegt, keine Wecker stellen
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let targetDateStr = dateFormatter.string(from: targetDate)
+        if let vacUntil = vacationUntil, !vacUntil.isEmpty, targetDateStr <= vacUntil {
             if let myId = myMemberId {
                 AlarmService.shared.cancelWakeUp(memberId: myId)
             }

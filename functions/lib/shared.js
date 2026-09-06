@@ -149,6 +149,9 @@ async function sendPushToUser(uid, payload) {
   } else if (payload.type === "family_left") {
     titleLocKey = "notif_member_left_title";
     bodyLocKey = "notif_member_left_body";
+  } else if (payload.type === "bathroom_free") {
+    titleLocKey = "notif_bathroom_free_title";
+    bodyLocKey = "notif_bathroom_free_body";
   }
 
   const message = {
@@ -157,6 +160,7 @@ async function sendPushToUser(uid, payload) {
       type: payload.type || "info",
       title: payload.title || "",
       body: payload.body || "",
+      senderName: payload.senderName || "",
     },
     android: { priority: "high" },
     apns: {
@@ -167,7 +171,8 @@ async function sendPushToUser(uid, payload) {
         aps: {
           alert: titleLocKey ? {
             "title-loc-key": titleLocKey,
-            "loc-key": bodyLocKey
+            "loc-key": bodyLocKey,
+            ...(payload.senderName ? { "loc-args": [payload.senderName] } : {})
           } : undefined,
           "content-available": 1
         }

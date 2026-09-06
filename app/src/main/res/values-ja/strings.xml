@@ -432,4 +432,16 @@
     <string name="notif_channel_missed_alarm">通知設定を開く</string>
     <string name="notif_alarm_missed">すべてのヒントを再度表示する</string>
     <string name="loading_dots">スケジュールを他の日にコピーする</string>
+
+    <string name="bathroom_free_button">お風呂あいたよ！ 🚿</string>
+    <string name="bathroom_free_success">合図を送りました！ 🚿</string>
+    <string name="notif_bathroom_free_title">お風呂あいたよ！ 🚿</string>
+    <string name="notif_bathroom_free_body">お風呂・洗面所が空きました！</string>
+    <string name="notif_bathroom_free_body_arg">%1$sの順番が終わりました。次はあなたの番です！</string>
+    <string name="member_breakfast_duration">朝食の時間</string>
+    <string name="vacation_mode_title">休暇モード</string>
+    <string name="vacation_mode_banner_title">休暇モード中 🌴</string>
+    <string name="vacation_mode_banner_desc">%1$sまでアラーム停止中</string>
+    <string name="vacation_mode_end_button">休暇を終了する</string>
+    <string name="vacation_mode_select_date">休暇の最終日を選択</string>
 </resources>

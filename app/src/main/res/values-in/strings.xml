@@ -431,4 +431,16 @@
     <string name="notif_channel_missed_alarm">Alarm tidak terjawab</string>
     <string name="notif_alarm_missed">Alarm tidak terjawab (%1$02d:%2$02d)</string>
     <string name="loading_dots">Memuat…</string>
+
+    <string name="bathroom_free_button">Kamar mandi kosong! 🚿</string>
+    <string name="bathroom_free_success">Sinyal terkirim! 🚿</string>
+    <string name="notif_bathroom_free_title">Kamar mandi kosong! 🚿</string>
+    <string name="notif_bathroom_free_body">Kamar mandi sekarang sudah kosong untukmu!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s sudah selesai di kamar mandi. Giliranmu!</string>
+    <string name="member_breakfast_duration">Durasi sarapan</string>
+    <string name="vacation_mode_title">Mode liburan</string>
+    <string name="vacation_mode_banner_title">Mode liburan aktif 🌴</string>
+    <string name="vacation_mode_banner_desc">Alarm dijeda hingga %1$s</string>
+    <string name="vacation_mode_end_button">Akhiri liburan</string>
+    <string name="vacation_mode_select_date">Pilih hari terakhir liburan</string>
 </resources>

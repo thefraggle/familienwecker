@@ -22,7 +22,8 @@ class SchedulerTest {
         bathroomDurationMinutes: Long = 20L,
         wantsBreakfast: Boolean = true,
         leaveHomeTime: LocalTime? = null,
-        isPaused: Boolean = false
+        isPaused: Boolean = false,
+        breakfastDurationMinutes: Long? = null
     ) = FamilyMember(
         id = id,
         name = name,
@@ -31,7 +32,8 @@ class SchedulerTest {
         bathroomDurationMinutes = bathroomDurationMinutes,
         wantsBreakfast = wantsBreakfast,
         leaveHomeTime = leaveHomeTime,
-        isPaused = isPaused
+        isPaused = isPaused,
+        breakfastDurationMinutes = breakfastDurationMinutes
     )
 
     @Test
@@ -305,6 +307,25 @@ class SchedulerTest {
         val result = scheduler.calculateIdealSchedule(listOf(m1), breakfastDurationMinutes = 0)
         assertTrue(result.isValid)
         assertEquals(LocalTime(6, 30), result.memberSchedules[0].wakeUpTime)
+    }
+
+    @Test
+    fun individualBreakfastDuration_respectedInSchedule() {
+        // m1 braucht nur 15 Min Frühstück statt standardmäßiger 30 Min
+        val m1 = member(
+            id = "m1",
+            earliestWakeUp = LocalTime(6, 0),
+            latestWakeUp = LocalTime(7, 30),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = true,
+            leaveHomeTime = LocalTime(7, 30),
+            breakfastDurationMinutes = 15L
+        )
+        val result = scheduler.calculateIdealSchedule(listOf(m1), breakfastDurationMinutes = 30)
+        assertTrue(result.isValid)
+        // Mit 15 Min Frühstück: Badende um 07:15, Aufstehzeit um 06:55
+        assertEquals(LocalTime(6, 55), result.memberSchedules[0].wakeUpTime)
+        assertEquals(LocalTime(7, 15), result.memberSchedules[0].bathroomEndTime)
     }
 }
 

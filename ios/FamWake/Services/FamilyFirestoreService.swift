@@ -118,6 +118,33 @@ final class FamilyFirestoreService {
         }
     }
 
+    func updateVacationUntil(familyId: String, vacationUntil: String?) async throws {
+        do {
+            if let date = vacationUntil {
+                try await db.collection("families").document(familyId)
+                    .updateData(["vacationUntil": date])
+            } else {
+                try await db.collection("families").document(familyId)
+                    .updateData(["vacationUntil": FieldValue.delete()])
+            }
+        } catch {
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+        }
+    }
+
+    func notifyBathroomFree(familyId: String, memberId: String, memberName: String) async throws {
+        let data: [String: Any] = [
+            "familyId": familyId,
+            "memberId": memberId,
+            "memberName": memberName
+        ]
+        do {
+            _ = try await functions.httpsCallable("notifyBathroomFree").call(data)
+        } catch {
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+        }
+    }
+
     func sendFeedback(category: String, message: String, email: String, appVersion: String, device: String) async throws {
         let data: [String: Any] = [
             "category": category,

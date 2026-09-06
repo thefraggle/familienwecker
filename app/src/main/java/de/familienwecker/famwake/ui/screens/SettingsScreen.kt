@@ -641,6 +641,79 @@ fun SettingsScreen(
                 }
             }
 
+            // Urlaubs- & Ferienmodus
+            val vacationUntil by viewModel.vacationUntil.collectAsStateWithLifecycle()
+            var showVacationDatePicker by remember { mutableStateOf(false) }
+
+            if (showVacationDatePicker) {
+                val nowCal = java.util.Calendar.getInstance()
+                val datePickerDialog = android.app.DatePickerDialog(
+                    context,
+                    { _, year, month, dayOfMonth ->
+                        val selectedDate = String.format(java.util.Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth)
+                        viewModel.setVacationUntil(selectedDate)
+                        showVacationDatePicker = false
+                    },
+                    nowCal.get(java.util.Calendar.YEAR),
+                    nowCal.get(java.util.Calendar.MONTH),
+                    nowCal.get(java.util.Calendar.DAY_OF_MONTH)
+                )
+                datePickerDialog.datePicker.minDate = System.currentTimeMillis()
+                datePickerDialog.setOnDismissListener { showVacationDatePicker = false }
+                datePickerDialog.show()
+            }
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.extraLarge,
+                elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isDarkTheme) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                    else MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("🌴", style = MaterialTheme.typography.titleMedium)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            stringResource(R.string.vacation_mode_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        if (!vacationUntil.isNullOrBlank())
+                            stringResource(R.string.vacation_mode_banner_desc, vacationUntil!!)
+                        else
+                            stringResource(R.string.vacation_mode_select_date),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    if (!vacationUntil.isNullOrBlank()) {
+                        OutlinedButton(
+                            onClick = { viewModel.clearVacation() },
+                            modifier = Modifier.fillMaxWidth().height(48.dp),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        ) {
+                            Text(stringResource(R.string.vacation_mode_end_button))
+                        }
+                    } else {
+                        Button(
+                            onClick = { showVacationDatePicker = true },
+                            modifier = Modifier.fillMaxWidth().height(48.dp),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        ) {
+                            Text(stringResource(R.string.vacation_mode_select_date))
+                        }
+                    }
+                }
+            }
+
             // Familie & Account
             val currentJoinCode by viewModel.joinCode.collectAsStateWithLifecycle()
             

@@ -25,6 +25,7 @@ struct FamilyMember: Identifiable, Codable, Equatable {
     var isSimpleMode: Bool
     var snoozeUntil: Date?
     var snoozeCount: Int
+    var breakfastDurationMinutes: Int?
 
     init(
         id: String = UUID().uuidString,
@@ -47,7 +48,8 @@ struct FamilyMember: Identifiable, Codable, Equatable {
         dayProfiles: [Int: DayProfile]? = nil,
         isSimpleMode: Bool = false,
         snoozeUntil: Date? = nil,
-        snoozeCount: Int = 0
+        snoozeCount: Int = 0,
+        breakfastDurationMinutes: Int? = nil
     ) {
         self.id = id
         self.name = name
@@ -70,6 +72,7 @@ struct FamilyMember: Identifiable, Codable, Equatable {
         self.isSimpleMode = isSimpleMode
         self.snoozeUntil = snoozeUntil
         self.snoozeCount = snoozeCount
+        self.breakfastDurationMinutes = breakfastDurationMinutes
     }
 }
 
@@ -85,6 +88,7 @@ struct DayProfile: Codable, Equatable {
     var bufferMinutes: Int?
     var isSimpleMode: Bool
     var sequenceOrder: Int?
+    var breakfastDurationMinutes: Int?
 
     init(
         isActive: Bool = true,
@@ -95,7 +99,8 @@ struct DayProfile: Codable, Equatable {
         leaveHomeTime: DateComponents? = nil,
         bufferMinutes: Int? = nil,
         isSimpleMode: Bool = false,
-        sequenceOrder: Int? = nil
+        sequenceOrder: Int? = nil,
+        breakfastDurationMinutes: Int? = nil
     ) {
         self.isActive = isActive
         self.earliestWakeUp = earliestWakeUp
@@ -106,6 +111,7 @@ struct DayProfile: Codable, Equatable {
         self.bufferMinutes = bufferMinutes
         self.isSimpleMode = isSimpleMode
         self.sequenceOrder = sequenceOrder
+        self.breakfastDurationMinutes = breakfastDurationMinutes
     }
 
     /// Alle Tage standardmäßig inaktiv (Opt-In für neue Mitglieder)

@@ -18,6 +18,7 @@ exports.createFamily = family.createFamily;
 exports.leaveFamily = family.leaveFamily;
 exports.deleteFamily = family.deleteFamily;
 exports.onMemberScheduleChanged = family.onMemberScheduleChanged;
+exports.notifyBathroomFree = family.notifyBathroomFree;
 
 // Cleanup
 exports.cleanupUnverifiedUsers = cleanup.cleanupUnverifiedUsers;

@@ -431,4 +431,16 @@
     <string name="notif_channel_missed_alarm">Tapte alarmer</string>
     <string name="notif_alarm_missed">Tapt alarm (%1$02d:%2$02d)</string>
     <string name="loading_dots">Laster inn …</string>
+
+    <string name="bathroom_free_button">Badet er ledig! 🚿</string>
+    <string name="bathroom_free_success">Signal sendt! 🚿</string>
+    <string name="notif_bathroom_free_title">Badet er ledig! 🚿</string>
+    <string name="notif_bathroom_free_body">Badet er nå ledig for deg!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s er ferdig på badet. Det er din tur!</string>
+    <string name="member_breakfast_duration">Frokostvarighet</string>
+    <string name="vacation_mode_title">Feriemodus</string>
+    <string name="vacation_mode_banner_title">Feriemodus aktiv 🌴</string>
+    <string name="vacation_mode_banner_desc">Vekkerklokker satt på pause til %1$s</string>
+    <string name="vacation_mode_end_button">Avslutt ferie</string>
+    <string name="vacation_mode_select_date">Velg siste feriedag</string>
 </resources>

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import de.familienwecker.famwake.BuildConfig
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -157,13 +158,43 @@ class FamWakeMessagingService : FirebaseMessagingService() {
             "family_left" ->
                 getString(R.string.notif_member_left_title) to
                 getString(R.string.notif_member_left_body)
+            "bathroom_free" -> {
+                val senderName = message.data["senderName"]
+                val b = if (!senderName.isNullOrBlank()) {
+                    getString(R.string.notif_bathroom_free_body_arg, senderName)
+                } else {
+                    getString(R.string.notif_bathroom_free_body)
+                }
+                getString(R.string.notif_bathroom_free_title) to b
+            }
             else -> return
         }
+
+        // Haptisches 2-Puls-Signal für "Bad ist frei!"
+        if (type == "bathroom_free") {
+            try {
+                val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    val vm = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? android.os.VibratorManager
+                    vm?.defaultVibrator
+                } else {
+                    @Suppress("DEPRECATION")
+                    getSystemService(Context.VIBRATOR_SERVICE) as? android.os.Vibrator
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator?.vibrate(android.os.VibrationEffect.createWaveform(longArrayOf(0, 200, 100, 300), -1))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator?.vibrate(longArrayOf(0, 200, 100, 300), -1)
+                }
+            } catch (_: Exception) {}
+        }
+
         // Feste ID pro Typ: Falls doch ein Doppel-Push durchkommt, überschreibt er sich selbst
         val notifId = when (type) {
             "schedule_change" -> 1001
             "family_joined"   -> 1002
             "family_left"     -> 1003
+            "bathroom_free"   -> 1004
             else              -> 1000
         }
         showNotification(title, body, channel, notifId)
