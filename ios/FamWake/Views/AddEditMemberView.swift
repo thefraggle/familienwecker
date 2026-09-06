@@ -552,6 +552,44 @@ private struct DayProfileCard: View {
                     ))
                     .accessibilityLabel(L.s("accessibility_breakfast_toggle"))
 
+                    if profile.wantsBreakfast {
+                        HStack {
+                            Text(L.memberBreakfastDuration)
+                                .font(.body)
+                            Spacer()
+                            HStack(spacing: 12) {
+                                let currentBf = profile.breakfastDurationMinutes ?? 30
+                                Button {
+                                    if currentBf > 10 {
+                                        onChange(profile.withBreakfastDuration(currentBf - 5))
+                                    }
+                                } label: {
+                                    Image(systemName: "minus.circle.fill")
+                                        .font(.title2)
+                                        .foregroundStyle(currentBf > 10 ? theme.primary : Color.gray.opacity(0.5))
+                                }
+                                .disabled(currentBf <= 10)
+
+                                Text("\(currentBf) min")
+                                    .font(.headline)
+                                    .frame(minWidth: 64)
+                                    .multilineTextAlignment(.center)
+
+                                Button {
+                                    if currentBf < 60 {
+                                        onChange(profile.withBreakfastDuration(currentBf + 5))
+                                    }
+                                } label: {
+                                    Image(systemName: "plus.circle.fill")
+                                        .font(.title2)
+                                        .foregroundStyle(currentBf < 60 ? theme.primary : Color.gray.opacity(0.5))
+                                }
+                                .disabled(currentBf >= 60)
+                            }
+                        }
+                        .padding(.leading, 12)
+                    }
+
                     // Abfahrtszeit – Mitternachts-Wraparound analog zu validateDayProfile()
                     let inlineLeaveT = (profile.leaveHomeTime?.hour ?? 8) * 60 + (profile.leaveHomeTime?.minute ?? 0)
                     let inlineEarliestT = (profile.earliestWakeUp.hour ?? 6) * 60 + (profile.earliestWakeUp.minute ?? 0)
@@ -674,6 +712,7 @@ extension DayProfile {
     }
     func withBathroom(_ v: Int) -> DayProfile { var c = self; c.bathroomDurationMinutes = v; return c }
     func withBreakfast(_ v: Bool) -> DayProfile { var c = self; c.wantsBreakfast = v; return c }
+    func withBreakfastDuration(_ v: Int?) -> DayProfile { var c = self; c.breakfastDurationMinutes = v; return c }
     func withLeave(_ v: DateComponents?) -> DayProfile { var c = self; c.leaveHomeTime = v; return c }
     func withBuffer(_ v: Int?) -> DayProfile { var c = self; c.bufferMinutes = v; return c }
     func withSimpleMode(_ v: Bool) -> DayProfile {

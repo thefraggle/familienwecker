@@ -430,4 +430,16 @@
     <string name="notif_channel_missed_alarm">Missade larm</string>
     <string name="notif_alarm_missed">Missat larm (%1$02d:%2$02d)</string>
     <string name="loading_dots">Laddar...</string>
+
+    <string name="bathroom_free_button">Badrummet är ledigt! 🚿</string>
+    <string name="bathroom_free_success">Signal skickad! 🚿</string>
+    <string name="notif_bathroom_free_title">Badrummet är ledigt! 🚿</string>
+    <string name="notif_bathroom_free_body">Badrummet är nu ledigt för dig!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s är klar i badrummet. Det är din tur!</string>
+    <string name="member_breakfast_duration">Frukosttid</string>
+    <string name="vacation_mode_title">Semesterläge</string>
+    <string name="vacation_mode_banner_title">Semesterläge aktivt 🌴</string>
+    <string name="vacation_mode_banner_desc">Väckarklockor pausade till %1$s</string>
+    <string name="vacation_mode_end_button">Avsluta semester</string>
+    <string name="vacation_mode_select_date">Välj sista semesterdagen</string>
 </resources>

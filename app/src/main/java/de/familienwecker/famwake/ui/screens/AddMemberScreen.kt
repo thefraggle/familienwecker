@@ -936,6 +936,47 @@ private fun DayProfileCard(
                                 onCheckedChange = { onProfileChange(profile.copy(wantsBreakfast = it)) }
                             )
                         }
+
+                        // Individuelle Frühstücksdauer wenn wantsBreakfast aktiv
+                        AnimatedVisibility(visible = profile.wantsBreakfast) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(start = 26.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    stringResource(R.string.member_breakfast_duration),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    val currentBf = profile.breakfastDurationMinutes ?: 30L
+                                    IconButton(
+                                        onClick = {
+                                            if (currentBf > 10) {
+                                                onProfileChange(profile.copy(breakfastDurationMinutes = currentBf - 5))
+                                            }
+                                        },
+                                        enabled = currentBf > 10
+                                    ) { Text("−", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                                    Text(
+                                        "$currentBf min",
+                                        style = MaterialTheme.typography.titleSmall,
+                                        fontWeight = FontWeight.SemiBold,
+                                        modifier = Modifier.widthIn(min = 56.dp),
+                                        textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                    )
+                                    IconButton(
+                                        onClick = {
+                                            if (currentBf < 60) {
+                                                onProfileChange(profile.copy(breakfastDurationMinutes = currentBf + 5))
+                                            }
+                                        },
+                                        enabled = currentBf < 60
+                                    ) { Text("+", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
+                                }
+                            }
+                        }
                     }
                 }
             }

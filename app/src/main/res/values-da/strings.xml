@@ -430,4 +430,16 @@
     <string name="notif_channel_missed_alarm">Glemte alarmer</string>
     <string name="notif_alarm_missed">Mistet alarm (%1$02d:%2$02d)</string>
     <string name="loading_dots">Loading…</string>
+
+    <string name="bathroom_free_button">Badeværelset er ledigt! 🚿</string>
+    <string name="bathroom_free_success">Signal sendt! 🚿</string>
+    <string name="notif_bathroom_free_title">Badeværelset er ledigt! 🚿</string>
+    <string name="notif_bathroom_free_body">Badeværelset er nu ledigt til dig!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s er færdig på badeværelset. Det er din tur!</string>
+    <string name="member_breakfast_duration">Morgenmadsvarighed</string>
+    <string name="vacation_mode_title">Ferietilstand</string>
+    <string name="vacation_mode_banner_title">Ferietilstand aktiv 🌴</string>
+    <string name="vacation_mode_banner_desc">Vækkeure sat på pause indtil %1$s</string>
+    <string name="vacation_mode_end_button">Afslut ferie</string>
+    <string name="vacation_mode_select_date">Vælg sidste feriedag</string>
 </resources>

@@ -429,4 +429,16 @@
     <string name="notif_channel_missed_alarm">Allarmi mancati</string>
     <string name="notif_alarm_missed">Allarme mancato (%1$02d:%2$02d)</string>
     <string name="loading_dots">Caricamento…</string>
+
+    <string name="bathroom_free_button">Bagno libero! 🚿</string>
+    <string name="bathroom_free_success">Segnale inviato! 🚿</string>
+    <string name="notif_bathroom_free_title">Bagno libero! 🚿</string>
+    <string name="notif_bathroom_free_body">Il bagno adesso è libero per te!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s ha finito in bagno. Tocca a te!</string>
+    <string name="member_breakfast_duration">Durata colazione</string>
+    <string name="vacation_mode_title">Modalità vacanza</string>
+    <string name="vacation_mode_banner_title">Modalità vacanza attiva 🌴</string>
+    <string name="vacation_mode_banner_desc">Sveglie in pausa fino al %1$s</string>
+    <string name="vacation_mode_end_button">Termina vacanza</string>
+    <string name="vacation_mode_select_date">Seleziona ultimo giorno di vacanza</string>
 </resources>

@@ -470,3 +470,81 @@ async function notifyFamilyMemberLeft(recipientUids, leftUid) {
     // Android lokalisiert self via type
   });
 }
+
+// ─── Feature #20: Bad ist frei! ──────────────────────────────────────────────
+exports.notifyBathroomFree = onCall(
+  { region: "europe-west3" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
+    const uid = request.auth.uid;
+    const { familyId, memberId } = request.data || {};
+    if (!familyId || !memberId) {
+      throw new HttpsError("invalid-argument", "MISSING_PARAMETERS");
+    }
+
+    // Rate-Limiting: max. 1 Ruf alle 15 Sekunden pro UID
+    const isLimited = await checkSingleRateLimit(`bath_${uid}`, 15 * 1000, 1);
+    if (isLimited) {
+      throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+    }
+
+    // Prüfen, ob User zur Familie gehört
+    const familyRef = admin.firestore().collection("families").doc(familyId);
+    const familyDoc = await familyRef.get();
+    if (!familyDoc.exists) {
+      throw new HttpsError("not-found", "FAMILY_NOT_FOUND");
+    }
+    const userIds = familyDoc.data().userIds || [];
+    if (!userIds.includes(uid)) {
+      throw new HttpsError("permission-denied", "NOT_A_MEMBER");
+    }
+
+    // Mitglieder abrufen und sortieren
+    const membersSnap = await familyRef.collection("members").get();
+    const members = membersSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    const sender = members.find(m => m.id === memberId);
+    if (!sender) {
+      throw new HttpsError("not-found", "MEMBER_NOT_FOUND");
+    }
+
+    // Aktive Mitglieder nach Reihenfolge sortieren (sequenceOrder, dann createdAt)
+    const activeMembers = members
+      .filter(m => !m.isPaused)
+      .sort((a, b) => (a.sequenceOrder ?? 0) - (b.sequenceOrder ?? 0) || (a.createdAt ?? 0) - (b.createdAt ?? 0));
+
+    const senderIdx = activeMembers.findIndex(m => m.id === memberId);
+    // Nächstes aktives Mitglied in der Reihe
+    let nextMember = null;
+    if (senderIdx !== -1 && senderIdx < activeMembers.length - 1) {
+      nextMember = activeMembers[senderIdx + 1];
+    }
+
+    const now = Date.now();
+    // Firestore Familien-Dokument aktualisieren für Live-Sync
+    await familyRef.update({
+      bathroomFreeInfo: {
+        freedByMemberId: memberId,
+        freedByName: sender.name || "",
+        nextMemberId: nextMember ? nextMember.id : null,
+        nextMemberName: nextMember ? nextMember.name : null,
+        timestamp: now,
+      }
+    });
+
+    // Wenn nachfolgende Person geclaimt ist und eine UID hat: Gezielten Push senden!
+    if (nextMember && nextMember.claimedByUserId && nextMember.claimedByUserId !== uid) {
+      await sendPushToUsers([nextMember.claimedByUserId], {
+        type: "bathroom_free",
+        senderName: sender.name || "",
+      });
+    }
+
+    return {
+      success: true,
+      nextMemberName: nextMember ? nextMember.name : null,
+    };
+  }
+);

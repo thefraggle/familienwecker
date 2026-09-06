@@ -85,6 +85,12 @@ interface IFirebaseRepository {
     /** Aktualisiert den globalen Puffer zwischen Bad-Slots im Family-Dokument. */
     suspend fun updateGlobalBufferMinutes(familyId: String, minutes: Long)
 
+    /** Aktualisiert den Urlaubszeitraum im Family-Dokument (null = beenden). */
+    suspend fun updateVacationUntil(familyId: String, vacationUntil: String?)
+
+    /** Sendet das „Bad ist frei!“-Signal an das nachfolgende Familienmitglied. */
+    suspend fun notifyBathroomFree(familyId: String, memberId: String): Result<String?>
+
     // ── Admin / Status ────────────────────────────────────────────────────────
 
     fun checkIsGlobalAdminFlow(uid: String): Flow<Boolean>

@@ -157,8 +157,28 @@ class Scheduler {
                 maxAllowedBathroomEnd = currentLatestBathroomEndTime
             }
 
-            if (member.wantsBreakfast && breakfastTime != null && !breakfastTime.isAfter(maxAllowedBathroomEnd)) {
-                maxAllowedBathroomEnd = breakfastTime
+            if (member.wantsBreakfast && breakfastTime != null) {
+                // Individuelle Frühstücksdauer berücksichtigen (Fallback: globaler/übergebener Wert)
+                val effectiveDuration = member.breakfastDurationMinutes ?: breakfastDurationMinutes
+                val memberBreakfastStart = if (effectiveDuration == breakfastDurationMinutes) {
+                    breakfastTime
+                } else {
+                    val mStart = if (breakfastEaters.isNotEmpty()) {
+                        var minLeave = LocalTime(23, 59)
+                        for (m in breakfastEaters) {
+                            val naturalEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes.coerceAtLeast(0))
+                            val leave = m.leaveHomeTime ?: naturalEnd
+                            if (leave.isBefore(minLeave)) minLeave = leave
+                        }
+                        if (minLeave.isBefore(LocalTime(4, 0))) LocalTime(4, 0) else minLeave
+                    } else LocalTime(8, 0)
+                    val calculated = mStart.minusMinutes(effectiveDuration)
+                    if (calculated.isAfter(mStart)) LocalTime(3, 30) else calculated
+                }
+
+                if (!memberBreakfastStart.isAfter(maxAllowedBathroomEnd)) {
+                    maxAllowedBathroomEnd = memberBreakfastStart
+                }
             }
 
             val leaveTime = member.leaveHomeTime
@@ -251,9 +271,26 @@ class Scheduler {
         // Post-Validation (auf korrigierte Schedules) – bei Snooze tolerieren, da temporär
         if (breakfastTime != null && isValid && !hasSnoozeActive) {
             for (s in forwardSchedules) {
-                if (s.member.wantsBreakfast && s.bathroomEndTime.isAfter(breakfastTime)) {
-                    isValid = false
-                    if (!includeInvalid) return FamilySchedule(emptyList(), null, false, ScheduleMessage.NoValidScheduleFound)
+                if (s.member.wantsBreakfast) {
+                    val cutoff = if (s.member.breakfastDurationMinutes != null && s.member.breakfastDurationMinutes != breakfastDurationMinutes) {
+                        val mStart = if (breakfastEaters.isNotEmpty()) {
+                            var minLeave = LocalTime(23, 59)
+                            for (m in breakfastEaters) {
+                                val naturalEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes.coerceAtLeast(0))
+                                val leave = m.leaveHomeTime ?: naturalEnd
+                                if (leave.isBefore(minLeave)) minLeave = leave
+                            }
+                            if (minLeave.isBefore(LocalTime(4, 0))) LocalTime(4, 0) else minLeave
+                        } else LocalTime(8, 0)
+                        val calculated = mStart.minusMinutes(s.member.breakfastDurationMinutes)
+                        if (calculated.isAfter(mStart)) LocalTime(3, 30) else calculated
+                    } else {
+                        breakfastTime
+                    }
+                    if (s.bathroomEndTime.isAfter(cutoff)) {
+                        isValid = false
+                        if (!includeInvalid) return FamilySchedule(emptyList(), null, false, ScheduleMessage.NoValidScheduleFound)
+                    }
                 }
             }
         }

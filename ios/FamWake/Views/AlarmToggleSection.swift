@@ -75,6 +75,33 @@ struct AlarmToggleSection: View {
                             familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyAwake)
                         }
                     }
+
+                    // "Bad ist frei! 🚿"-Button
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        familyViewModel.notifyBathroomFree()
+                    }) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "shower.fill")
+                                .font(.body)
+                            Text(familyViewModel.bathroomFreeSent ? L.bathroomFreeSuccess : L.bathroomFreeButton)
+                                .font(.subheadline).fontWeight(.semibold)
+                            if familyViewModel.bathroomFreeSending {
+                                Spacer()
+                                ProgressView()
+                                    .tint(theme.onSecondaryContainer)
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(minHeight: 48)
+                        .padding(.horizontal, 16)
+                        .background(familyViewModel.bathroomFreeSent ? theme.tertiaryContainer : theme.secondaryContainer)
+                        .foregroundStyle(familyViewModel.bathroomFreeSent ? theme.onTertiaryContainer : theme.onSecondaryContainer)
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(familyViewModel.bathroomFreeSending)
+                    .animation(.easeInOut(duration: 0.2), value: familyViewModel.bathroomFreeSent)
                 }
             }
             .padding()

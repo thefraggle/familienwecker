@@ -429,4 +429,16 @@
     <string name="notif_channel_missed_alarm">Przegapione alarmy</string>
     <string name="notif_alarm_missed">Przeoczony alarm (%1$02d:%2$02d)</string>
     <string name="loading_dots">Ładowanie…</string>
+
+    <string name="bathroom_free_button">Łazienka wolna! 🚿</string>
+    <string name="bathroom_free_success">Sygnał wysłany! 🚿</string>
+    <string name="notif_bathroom_free_title">Łazienka wolna! 🚿</string>
+    <string name="notif_bathroom_free_body">Łazienka jest już dla Ciebie wolna!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s skończył(a) w łazience. Twoja kolej!</string>
+    <string name="member_breakfast_duration">Czas śniadania</string>
+    <string name="vacation_mode_title">Tryb wakacyjny</string>
+    <string name="vacation_mode_banner_title">Tryb wakacyjny aktywny 🌴</string>
+    <string name="vacation_mode_banner_desc">Budziki wstrzymane do %1$s</string>
+    <string name="vacation_mode_end_button">Zakończ wakacje</string>
+    <string name="vacation_mode_select_date">Wybierz ostatni dzień wakacji</string>
 </resources>

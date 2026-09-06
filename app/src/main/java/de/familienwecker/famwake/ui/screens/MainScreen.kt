@@ -368,7 +368,17 @@ fun MainScreen(
                     )
                 }
                 
-
+                // Urlaubsmodus Banner
+                item {
+                    val vacationUntil by viewModel.vacationUntil.collectAsStateWithLifecycle()
+                    if (!vacationUntil.isNullOrBlank()) {
+                        VacationModeBanner(
+                            vacationUntil = vacationUntil!!,
+                            isDarkTheme = isDarkTheme,
+                            onEndVacation = { viewModel.clearVacation() }
+                        )
+                    }
+                }
 
                 // 0b. Wecker Ein/Aus Schalter
                 item {
@@ -806,6 +816,58 @@ fun UnclaimedWarningBanner(memberName: String, isDarkTheme: Boolean) {
                 text = stringResource(R.string.main_unclaimed_first_desc, memberName),
                 style = MaterialTheme.typography.bodySmall, color = textColor.copy(alpha = 0.85f)
             )
+        }
+    }
+}
+
+@Composable
+fun VacationModeBanner(
+    vacationUntil: String,
+    isDarkTheme: Boolean,
+    onEndVacation: () -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.extraLarge,
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isDarkTheme) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+            else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(R.string.vacation_mode_banner_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = stringResource(R.string.vacation_mode_banner_desc, vacationUntil),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                )
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            TextButton(
+                onClick = onEndVacation,
+                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary)
+            ) {
+                Text(
+                    text = stringResource(R.string.vacation_mode_end_button),
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
         }
     }
 }

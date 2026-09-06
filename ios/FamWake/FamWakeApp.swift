@@ -96,7 +96,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         if let type = userInfo["type"] as? String {
             let hasAlert = (userInfo["aps"] as? [AnyHashable: Any])?["alert"] != nil
             if !hasAlert {
-                handleIncomingDataMessage(type: type)
+                let senderName = userInfo["senderName"] as? String
+                handleIncomingDataMessage(type: type, senderName: senderName)
             }
             completionHandler(.newData)
             return
@@ -107,7 +108,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     // Client-Debounce: doppelte Pushes desselben Typs innerhalb 10s ignorieren
     private var lastNotifTimestamps: [String: Date] = [:]
     
-    private func handleIncomingDataMessage(type: String) {
+    private func handleIncomingDataMessage(type: String, senderName: String? = nil) {
         // Push in App deaktiviert? → keine lokale Notification erzeugen
         let isEnabled = UserDefaults.standard.bool(forKey: "push_notifications_enabled")
         guard isEnabled else { return }
@@ -121,6 +122,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         let title: String
         let body: String
+        var isHeadsUp = false
         
         switch type {
         case "schedule_change":
@@ -132,6 +134,22 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         case "family_left":
             title = L.notifMemberLeftTitle
             body = L.notifMemberLeftBody
+        case "bathroom_free":
+            title = L.notifBathroomFreeTitle
+            if let sender = senderName, !sender.isEmpty {
+                body = L.notifBathroomFreeBodyArg(sender)
+            } else {
+                body = L.notifBathroomFreeBody
+            }
+            isHeadsUp = true
+            DispatchQueue.main.async {
+                // 2-Puls-Haptik für "Bad ist frei!"
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    generator.notificationOccurred(.success)
+                }
+            }
         default:
             return
         }
@@ -139,7 +157,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
-        // Kein Sound – stille Notification im Tray (analog Android IMPORTANCE_LOW)
+        if isHeadsUp {
+            content.sound = .default
+        }
         
         // Feste IDs pro Typ wie in Android
         let reqId = "famwake_push_\(type)"

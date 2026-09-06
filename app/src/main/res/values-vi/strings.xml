@@ -435,4 +435,16 @@
     <string name="notif_channel_missed_alarm">Báo thức bị bỏ lỡ</string>
     <string name="notif_alarm_missed">Báo thức bị nhỡ (%1$02d:%2$02d)</string>
     <string name="loading_dots">Đang tải…</string>
+
+    <string name="bathroom_free_button">Phòng tắm trống rồi! 🚿</string>
+    <string name="bathroom_free_success">Đã gửi tín hiệu! 🚿</string>
+    <string name="notif_bathroom_free_title">Phòng tắm trống rồi! 🚿</string>
+    <string name="notif_bathroom_free_body">Phòng tắm bây giờ đã sẵn sàng cho bạn!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s đã xong trong phòng tắm. Đến lượt bạn!</string>
+    <string name="member_breakfast_duration">Thời gian ăn sáng</string>
+    <string name="vacation_mode_title">Chế độ nghỉ lễ</string>
+    <string name="vacation_mode_banner_title">Chế độ nghỉ lễ đang bật 🌴</string>
+    <string name="vacation_mode_banner_desc">Báo thức tạm dừng đến %1$s</string>
+    <string name="vacation_mode_end_button">Kết thúc nghỉ lễ</string>
+    <string name="vacation_mode_select_date">Chọn ngày nghỉ lễ cuối cùng</string>
 </resources>

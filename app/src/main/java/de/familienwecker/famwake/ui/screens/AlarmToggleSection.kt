@@ -15,6 +15,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Shower
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -205,6 +206,59 @@ fun AlarmToggleSection(
                                 onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeyAwake) },
                                 isDark = isDarkTheme
                             )
+                        }
+
+                        // „Bad ist frei! 🚿“-Button
+                        val bathroomFreeSending by viewModel.bathroomFreeSending.collectAsState()
+                        val bathroomFreeSent by viewModel.bathroomFreeSent.collectAsState()
+                        val bathroomInteractionSource = remember { MutableInteractionSource() }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Button(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                viewModel.notifyBathroomFree()
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(52.dp)
+                                .bounceClick(bathroomInteractionSource),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            interactionSource = bathroomInteractionSource,
+                            enabled = !bathroomFreeSending,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (bathroomFreeSent)
+                                    MaterialTheme.colorScheme.tertiary
+                                else
+                                    MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = if (bathroomFreeSent)
+                                    MaterialTheme.colorScheme.onTertiary
+                                else
+                                    MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Shower,
+                                contentDescription = null,
+                                modifier = Modifier.size(22.dp)
+                            )
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(
+                                text = if (bathroomFreeSent)
+                                    stringResource(R.string.bathroom_free_success)
+                                else
+                                    stringResource(R.string.bathroom_free_button),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            if (bathroomFreeSending) {
+                                Spacer(modifier = Modifier.width(12.dp))
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(18.dp),
+                                    strokeWidth = 2.dp,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            }
                         }
                     }
                 }

@@ -435,4 +435,16 @@
     <string name="notif_channel_missed_alarm">Пропущені будильники</string>
     <string name="notif_alarm_missed">Пропущений будильник (%1$02d:%2$02d)</string>
     <string name="loading_dots">Завантаження…</string>
+
+    <string name="bathroom_free_button">Ванна вільна! 🚿</string>
+    <string name="bathroom_free_success">Сигнал надіслано! 🚿</string>
+    <string name="notif_bathroom_free_title">Ванна вільна! 🚿</string>
+    <string name="notif_bathroom_free_body">Ванна кімната вільна для вас!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s завершив(ла) у ванній. Ваша черга!</string>
+    <string name="member_breakfast_duration">Тривалість сніданку</string>
+    <string name="vacation_mode_title">Режим відпустки</string>
+    <string name="vacation_mode_banner_title">Режим відпустки активний 🌴</string>
+    <string name="vacation_mode_banner_desc">Будильники призупинено до %1$s</string>
+    <string name="vacation_mode_end_button">Завершити відпустку</string>
+    <string name="vacation_mode_select_date">Оберіть останній день відпустки</string>
 </resources>

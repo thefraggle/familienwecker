@@ -13,7 +13,8 @@ final class SchedulerTests: XCTestCase {
         duration: Int = 20,
         breakfast: Bool = true,
         leave: (Int, Int)? = nil,
-        isPaused: Bool = false
+        isPaused: Bool = false,
+        breakfastDuration: Int? = nil
     ) -> FamilyMember {
         FamilyMember(
             id: id,
@@ -23,7 +24,8 @@ final class SchedulerTests: XCTestCase {
             bathroomDurationMinutes: duration,
             wantsBreakfast: breakfast,
             leaveHomeTime: leave.map { DateComponents(hour: $0.0, minute: $0.1) },
-            isPaused: isPaused
+            isPaused: isPaused,
+            breakfastDurationMinutes: breakfastDuration
         )
     }
 
@@ -95,5 +97,23 @@ final class SchedulerTests: XCTestCase {
         let m1EndMin = (m1End.hour ?? 0) * 60 + (m1End.minute ?? 0)
         let m2StartMin = (m2Start.hour ?? 0) * 60 + (m2Start.minute ?? 0)
         XCTAssertGreaterThanOrEqual(m2StartMin - m1EndMin, 5, "m2 must start at least 5 minutes after m1 bathroom end")
+    }
+
+    func testIndividualBreakfastDuration_respectedInSchedule() {
+        let m1 = makeMember(
+            id: "m1",
+            earliest: (6, 0),
+            latest: (7, 30),
+            duration: 20,
+            breakfast: true,
+            leave: (7, 30),
+            breakfastDuration: 15
+        )
+        let result = scheduler.calculateIdealSchedule(members: [m1], breakfastDurationMinutes: 30)
+        XCTAssertTrue(result.isValid)
+        XCTAssertEqual(result.memberSchedules[0].wakeUpTime.hour, 6)
+        XCTAssertEqual(result.memberSchedules[0].wakeUpTime.minute, 55)
+        XCTAssertEqual(result.memberSchedules[0].bathroomEnd.hour, 7)
+        XCTAssertEqual(result.memberSchedules[0].bathroomEnd.minute, 15)
     }
 }

@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.11 – 2026-09-06
+✨ New:
+• "Bathroom is free!" signal: Let the next person know with a single tap as soon as the bathroom is ready.
+• Custom breakfast time: Easily adjust breakfast duration for each family member to fit your morning routine.
+• Vacation mode: Pause alarms during holidays – evening reminders stay silent until right before school starts again.
+
 ## 2.1.10 – 2026-09-03
 ✨ Improved:
 • Clearer Error Messages: Technical error messages during network disruptions have been replaced with helpful, easy-to-understand guidance.

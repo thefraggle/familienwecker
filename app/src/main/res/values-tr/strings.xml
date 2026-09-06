@@ -435,4 +435,16 @@
     <string name="notif_channel_missed_alarm">Kaçırılan alarmlar</string>
     <string name="notif_alarm_missed">Kaçırılan alarm (%1$02d:%2$02d)</string>
     <string name="loading_dots">Yükleniyor…</string>
+
+    <string name="bathroom_free_button">Banyo müsait! 🚿</string>
+    <string name="bathroom_free_success">Sinyal gönderildi! 🚿</string>
+    <string name="notif_bathroom_free_title">Banyo müsait! 🚿</string>
+    <string name="notif_bathroom_free_body">Banyo artık senin için müsait!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s banyoyu bitirdi. Sıra sende!</string>
+    <string name="member_breakfast_duration">Kahvaltı süresi</string>
+    <string name="vacation_mode_title">Tatil modu</string>
+    <string name="vacation_mode_banner_title">Tatil modu aktif 🌴</string>
+    <string name="vacation_mode_banner_desc">Alarmlar %1$s tarihine kadar duraklatıldı</string>
+    <string name="vacation_mode_end_button">Tatili bitir</string>
+    <string name="vacation_mode_select_date">Tatilin son gününü seç</string>
 </resources>

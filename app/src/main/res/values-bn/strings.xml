@@ -432,4 +432,16 @@
     <string name="notif_channel_missed_alarm">আবার সব টিপস দেখান</string>
     <string name="notif_alarm_missed">Copy schedule to other days</string>
     <string name="loading_dots">Family created locally. Sync will happen automatically.</string>
+
+    <string name="bathroom_free_button">বাথরুম খালি আছে! 🚿</string>
+    <string name="bathroom_free_success">সংকেত পাঠানো হয়েছে! 🚿</string>
+    <string name="notif_bathroom_free_title">বাথরুম খালি আছে! 🚿</string>
+    <string name="notif_bathroom_free_body">বাথরুম এখন আপনার জন্য খালি!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s বাথরুম ব্যবহার শেষ করেছেন। এবার আপনার পালা!</string>
+    <string name="member_breakfast_duration">প্রাতঃরাশের সময়</string>
+    <string name="vacation_mode_title">ছুটির মোড</string>
+    <string name="vacation_mode_banner_title">ছুটির মোড সক্রিয় 🌴</string>
+    <string name="vacation_mode_banner_desc">%1$s পর্যন্ত অ্যালার্ম বন্ধ রয়েছে</string>
+    <string name="vacation_mode_end_button">ছুটি শেষ করুন</string>
+    <string name="vacation_mode_select_date">ছুটির শেষ দিন বেছে নিন</string>
 </resources>

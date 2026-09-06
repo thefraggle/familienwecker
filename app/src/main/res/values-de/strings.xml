@@ -442,5 +442,17 @@
     <string name="notif_channel_missed_alarm">Verpasste Wecker</string>
     <string name="notif_alarm_missed">Wecker verpasst (%1$02d:%2$02d)</string>
     <string name="loading_dots">Laden…</string>
+
+    <string name="bathroom_free_button">Bad ist frei! 🚿</string>
+    <string name="bathroom_free_success">Signal gesendet! 🚿</string>
+    <string name="notif_bathroom_free_title">Bad ist frei! 🚿</string>
+    <string name="notif_bathroom_free_body">Das Bad ist jetzt frei für dich!</string>
+    <string name="notif_bathroom_free_body_arg">%1$s ist fertig im Bad. Du bist jetzt dran!</string>
+    <string name="member_breakfast_duration">Frühstücksdauer</string>
+    <string name="vacation_mode_title">Urlaubsmodus</string>
+    <string name="vacation_mode_banner_title">Urlaubsmodus aktiv 🌴</string>
+    <string name="vacation_mode_banner_desc">Wecker pausiert bis %1$s</string>
+    <string name="vacation_mode_end_button">Urlaub beenden</string>
+    <string name="vacation_mode_select_date">Letzten Urlaubstag wählen</string>
 </resources>
 

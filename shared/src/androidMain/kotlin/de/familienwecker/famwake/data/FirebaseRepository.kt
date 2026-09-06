@@ -135,7 +135,8 @@ class FirebaseRepository : IFirebaseRepository {
             val createdByUserId: String? = doc.get<String?>("createdByUserId")
             // Nullable Long: Alte Familien haben das Feld nicht → Default 0
             val globalBufferMinutes: Long = doc.get<Long?>("globalBufferMinutes") ?: 0L
-            FamilyData(id = familyId, name = name, createdByUserId = createdByUserId, globalBufferMinutes = globalBufferMinutes)
+            val vacationUntil: String? = doc.get<String?>("vacationUntil")
+            FamilyData(id = familyId, name = name, createdByUserId = createdByUserId, globalBufferMinutes = globalBufferMinutes, vacationUntil = vacationUntil)
         } catch (e: Exception) {
             null
         }
@@ -653,6 +654,34 @@ class FirebaseRepository : IFirebaseRepository {
         } catch (e: Exception) {
             if (debugLogging) Log.e(TAG, "updateGlobalBufferMinutes failed for $familyId: ${e.message}")
             throw e
+        }
+    }
+
+    override suspend fun updateVacationUntil(familyId: String, vacationUntil: String?) {
+        try {
+            val updateData: Map<String, Any?> = if (vacationUntil != null) {
+                mapOf("vacationUntil" to vacationUntil)
+            } else {
+                mapOf("vacationUntil" to com.google.firebase.firestore.FieldValue.delete())
+            }
+            db.collection(COLLECTION_FAMILIES).document(familyId)
+                .update(updateData)
+        } catch (e: Exception) {
+            if (debugLogging) Log.e(TAG, "updateVacationUntil failed for $familyId: ${e.message}")
+            throw e
+        }
+    }
+
+    override suspend fun notifyBathroomFree(familyId: String, memberId: String): Result<String?> {
+        return try {
+            val functions = Firebase.functions(FIREBASE_REGION)
+            val params = mapOf("familyId" to familyId, "memberId" to memberId)
+            val result = functions.httpsCallable("notifyBathroomFree").invoke(params).android.data as? Map<*, *>
+            val nextMemberName = result?.get("nextMemberName") as? String
+            Result.success(nextMemberName)
+        } catch (e: Exception) {
+            if (debugLogging) Log.e(TAG, "notifyBathroomFree failed: ${e.message}")
+            Result.failure(e)
         }
     }
 

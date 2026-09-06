@@ -13,6 +13,8 @@ data class DayProfile(
     val leaveHomeTime: LocalTime? = null,
     // Individueller Puffer nach Bad-Slot (null = globalen Default nutzen, 0+ = Override)
     val bufferMinutes: Long? = null,
+    // Individuelle Frühstücksdauer (null = globalen Default 30 Min nutzen)
+    val breakfastDurationMinutes: Long? = null,
     val isSimpleMode: Boolean = false,
     val sequenceOrder: Int? = null
 )
@@ -26,6 +28,8 @@ data class FamilyMember(
     val bathroomDurationMinutes: Long,
     val wantsBreakfast: Boolean,
     val leaveHomeTime: LocalTime? = null,
+    // Individuelle Frühstücksdauer (null = globalen Default 30 Min nutzen)
+    val breakfastDurationMinutes: Long? = null,
     val isPaused: Boolean = false,
     val isAwakeToday: Boolean = false,
     val lastResetDate: String = "", // YYYY-MM-DD
@@ -71,7 +75,9 @@ data class FamilyData(
     val name: String,
     val createdByUserId: String?,
     // Globaler Puffer zwischen Bad-Slots (Default 0 = kein Puffer, Backward-Compat)
-    val globalBufferMinutes: Long = 0
+    val globalBufferMinutes: Long = 0,
+    // Urlaubsmodus: Letzter Urlaubstag im Format YYYY-MM-DD (null = kein Urlaub aktiv)
+    val vacationUntil: String? = null
 )
 
 @Serializable

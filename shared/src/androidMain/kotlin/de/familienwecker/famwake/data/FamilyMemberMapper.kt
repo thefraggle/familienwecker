@@ -47,6 +47,11 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
                 is Number -> bufferRaw.toLong()
                 else -> null
             },
+            breakfastDurationMinutes = when (val bRaw = map["breakfastDurationMinutes"]) {
+                is Long -> bRaw
+                is Number -> bRaw.toLong()
+                else -> null
+            },
             isSimpleMode = map["isSimpleMode"] as? Boolean ?: false,
             sequenceOrder = when (val seqRaw = map["sequenceOrder"]) {
                 is Long -> seqRaw.toInt()
@@ -101,6 +106,11 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         leaveHomeTime = (get<String?>("leaveHomeTime"))?.let {
             try { LocalTime.parse(it) } catch (e: Exception) { null }
         },
+        breakfastDurationMinutes = when (val bRaw = get<Any?>("breakfastDurationMinutes")) {
+            is Long -> bRaw
+            is Number -> bRaw.toLong()
+            else -> null
+        },
         isPaused = get<Boolean?>("isPaused") ?: false,
         isAwakeToday = get<Boolean?>("isAwakeToday") ?: false,
         lastResetDate = get("lastResetDate") ?: "",
@@ -132,6 +142,7 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
                 put("wantsBreakfast", profile.wantsBreakfast)
                 profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
                 profile.bufferMinutes?.let { put("bufferMinutes", it) }
+                profile.breakfastDurationMinutes?.let { put("breakfastDurationMinutes", it) }
                 put("isSimpleMode", profile.isSimpleMode)
                 profile.sequenceOrder?.let { put("sequenceOrder", it) }
             }
@@ -144,6 +155,7 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
         "bathroomDurationMinutes" to bathroomDurationMinutes,
         "wantsBreakfast" to wantsBreakfast,
         "leaveHomeTime" to leaveHomeTime?.toString(),
+        "breakfastDurationMinutes" to breakfastDurationMinutes,
         "isPaused" to isPaused,
         "isAwakeToday" to isAwakeToday,
         "lastResetDate" to lastResetDate,

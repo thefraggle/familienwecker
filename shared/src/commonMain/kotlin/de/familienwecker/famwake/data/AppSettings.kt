@@ -89,6 +89,10 @@ interface AppSettings {
     val lastLoggedInUid: StateFlow<String?>
     fun setLastLoggedInUid(uid: String)
 
+    /** Urlaubsmodus: Letzter Urlaubstag im Format YYYY-MM-DD (null = kein Urlaub aktiv). */
+    val vacationUntil: StateFlow<String?>
+    fun setVacationUntil(date: String?)
+
     fun clearAll()
 }
 
@@ -341,18 +345,29 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
         settings["LAST_LOGGED_IN_UID"] = uid
     }
 
+    private val _vacationUntil = MutableStateFlow(settings.getStringOrNull("VACATION_UNTIL"))
+    override val vacationUntil = _vacationUntil.asStateFlow()
+
+    override fun setVacationUntil(date: String?) {
+        _vacationUntil.value = date
+        if (date == null) settings.remove("VACATION_UNTIL") else settings["VACATION_UNTIL"] = date
+    }
+
     override fun clearAll() {
-        setMyMemberId(null)
-        setMyMemberName(null)
-        setFamilyId(null)
-        setJoinCode(null)
-        setFamilyName(null)
-        setAwakeToday(false)
-        settings.remove("AWAKE_TODAY_DATE")
-        setSnoozeUntil(null)
-        setSnoozeCount(0)
-        setLocalOnlyFamily(false)
-        // Note: language, theme und isAlarmEnabled persistieren – sind Gerätepräferenzen, kein Session-State.
-        // Alarm-State-Transitions werden ausschließlich vom myMemberId-Observer in FamilyViewModel gesteuert.
+        settings.clear()
+        _isAlarmEnabled.value = true
+        _isAwakeToday.value = false
+        _snoozeUntil.value = null
+        _snoozeCount.value = 0
+        _onboardingCompleted.value = false
+        _isLocalOnlyFamily.value = false
+        _tooltipsEnabled.value = true
+        _tooltipsSeen.value = tooltipKeys.associateWith { false }
+        _installTime.value = 0L
+        _lastAlarmTime.value = 0L
+        _lastReviewPromptTime.value = 0L
+        _lastFeedbackSentAt.value = 0L
+        _lastLoggedInUid.value = null
+        _vacationUntil.value = null
     }
 }

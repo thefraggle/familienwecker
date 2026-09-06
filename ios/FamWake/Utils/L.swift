@@ -284,6 +284,19 @@ enum L {
     static var notifMemberLeftBody: String { s("notif_member_left_body") }
     static var notifEveningReminderTitle: String { s("notif_evening_reminder_title") }
     static var notifEveningReminderDesc: String { s("notif_evening_reminder_desc") }
+    static var notifBathroomFreeTitle: String { s("notif_bathroom_free_title") }
+    static var notifBathroomFreeBody: String { s("notif_bathroom_free_body") }
+    static func notifBathroomFreeBodyArg(_ name: String) -> String { s("notif_bathroom_free_body_arg", name) }
+
+    // MARK: - Bathroom Free & Vacation Mode
+    static var bathroomFreeButton: String { s("bathroom_free_button") }
+    static var bathroomFreeSuccess: String { s("bathroom_free_success") }
+    static var memberBreakfastDuration: String { s("member_breakfast_duration") }
+    static var vacationModeTitle: String { s("vacation_mode_title") }
+    static var vacationModeBannerTitle: String { s("vacation_mode_banner_title") }
+    static func vacationModeBannerDesc(_ date: String) -> String { s("vacation_mode_banner_desc", date) }
+    static var vacationModeEndButton: String { s("vacation_mode_end_button") }
+    static var vacationModeSelectDate: String { s("vacation_mode_select_date") }
 
     // MARK: - Ringing
     static func ringingWakeUp(_ name: String) -> String { s("ringing_wake_up", name) }
