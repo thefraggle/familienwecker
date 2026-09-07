@@ -21,8 +21,8 @@ Ein Tipp auf „Schon wach“ und dein Wecker bleibt stumm — du bist ja schon 
 <b> Push-Benachrichtigungen</b>
 Ändert jemand seinen Wecker oder die Reihenfolge, wirst du sofort per Push benachrichtigt.
 
-<b> Zuverlässiger und lauter Wecker</b>
-FamWake weckt dich zuverlässig auch bei stummem Gerät. Wähle deinen Weckton und nutze die Snooze-Funktion. Kinder aufwecken mit einem sanften oder lauten Kinderwecker war noch nie so entspannt.
+<b> Zuverlässiger, sanfter Wecker & lauter Wecker</b>
+FamWake weckt dich zuverlässig auch bei stummem Gerät — ob als sanfter Wecker mit angenehmen Wecktönen oder als Wecker laut und durchsetzungsstark für Tiefschläfer. Kinder aufwecken mit einem sanften oder lauten Kinderwecker war noch nie so entspannt.
 
 <b> Zeitkonflikte automatisch gelöst</b>
 Wird es zeitlich mal eng, erkennt FamWake das sofort und zeigt dir direkt, wo angepasst werden muss.
@@ -41,8 +41,8 @@ Helles und dunkles Design, augenfreundlich gestaltet. Weltweit in 25 Sprachen ve
 2. Bad-Zeit, Frühstück und Abfahrtszeit eingeben.
 3. FamWake berechnet als Familienwecker und Kinderwecker den perfekten Ablauf — jeden Morgen automatisch.
 
-<b>100% kostenloser Wecker</b>
-Alle Kernfunktionen sind und bleiben dauerhaft <b>kostenlos</b> — dieser Wecker ist kostenlos ohne Abo. Optionale Premium-Features folgen später.
+<b>100% Wecker kostenlos</b>
+Alle Kernfunktionen sind und bleiben dauerhaft <b>kostenlos</b> — dieser Wecker kostenlos ohne Abo garantiert einen stressfreien Morgen für die ganze Familie. Optionale Premium-Features folgen später.
 
 <b>Von einem Vater für Familien gebaut.</b>
 FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den Familienwecker und starte jeden Morgen mit einer entspannten Morgenroutine!

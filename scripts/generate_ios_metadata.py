@@ -220,8 +220,18 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # These are the core search terms users would use to find this app
-KEYWORDS_DE = 'Familienwecker,Morgenroutine,Badezimmer,Wecker,Kinder,Aufstehen,Frühstück,Zeitplan,Snooze,Familie'
-KEYWORDS_EN = 'family alarm,morning routine,bathroom,schedule,kids alarm,wake up,breakfast,planner,snooze,organizer'
+KEYWORDS_DE = 'kinderwecker,morgenroutine,zeitmanagement,zeitplaner,kostenlos,badplaner,laut,visuell,sanft,timer'
+KEYWORDS_EN = 'kids,clock,daily,routine,bathroom,timer,wake,schedule,checklist,free,shared,group,visual,loud,sleep'
+
+# Hardcoded optimized keywords per locale (ASO KW 37)
+KEYWORDS_BY_LOCALE = {
+    'de-DE': KEYWORDS_DE,
+    'en-US': KEYWORDS_EN,
+    'en-GB': KEYWORDS_EN,
+    'ja': '目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,家族,共有,グループアラーム,習慣,タイマー,無料,スヌーズ',
+    'ko': '알람,가족,어린이,아침,루틴,욕실,플래너,스누즈,일정,도구,famwake,모닝콜,시간표,무료,기상,습관,타이머',
+    'zh-Hans': '闹钟,家庭,儿童,早晨,常规,浴室,规划,重响,日程,工具,famwake,习惯,计时器,起床,免费,提醒,时间管理,共享',
+}
 
 # App Store subtitle: max 30 chars, shown below app name.
 # Hardcoded per locale for consistency.
@@ -238,7 +248,7 @@ SUBTITLES = {
     'nl-NL':   'Familiewekker & ochtendplanner',
     'ja':      '家族目覚まし＆朝のプランナー',
     'ko':      '가족 알람 및 아침 플래너',
-    'zh-Hans': '家庭闹钟和早晨规划',
+    'zh-Hans': '家庭智能闹钟 & 早晨日程规划',
     'ru':      'Семейный будильник & планер',
     'tr':      'Aile alarm\u0131 & sabah planlay\u0131c\u0131',
     'pl':      'Budzik rodzinny & planer',
@@ -343,7 +353,7 @@ def main():
         write_file(os.path.join(locale_dir, 'promotional_text.txt'), promo)
 
         # ── 4. KEYWORDS ─────────────────────────────────────────────
-        keywords = parsed_keywords
+        keywords = KEYWORDS_BY_LOCALE.get(asc_locale) or parsed_keywords
         if not keywords:
             if asc_locale.startswith('de'):
                 keywords = KEYWORDS_DE
