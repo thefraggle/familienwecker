@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.12 – 2026-09-09
+✨ Verbessert:
+• Zuverlässige Anmeldung: Dein Profil und deine Familie bleiben auch nach dem Ab- und Wiederanmelden jederzeit sicher erhalten.
+• Sofort startklar: Deine Weckzeiten und Familienmitglieder sind beim Öffnen der App direkt ohne Verzögerung sichtbar.
+• Nahtlose Synchronisation: Weckzeiten und Urlaubszeiten werden jederzeit zuverlässig und aktuell zwischen deinen Geräten abgeglichen.
+
 ## 2.1.11 – 2026-09-06
 ✨ Neu:
 • „Bad ist frei!“-Signal: Mit einem Klick der nächsten Person Bescheid geben, sobald das Badezimmer frei ist.
