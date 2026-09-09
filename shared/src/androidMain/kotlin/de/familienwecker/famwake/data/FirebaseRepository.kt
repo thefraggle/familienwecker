@@ -142,6 +142,25 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
+    override fun getFamilyDataFlow(familyId: String): Flow<FamilyData?> = callbackFlow {
+        val docRef = db.collection(COLLECTION_FAMILIES).document(familyId)
+        docRef.snapshots.collect { doc ->
+            try {
+                if (!doc.exists) {
+                    trySend(null)
+                    return@collect
+                }
+                val name: String = doc.get<String?>("name") ?: ""
+                val createdByUserId: String? = doc.get<String?>("createdByUserId")
+                val globalBufferMinutes: Long = doc.get<Long?>("globalBufferMinutes") ?: 0L
+                val vacationUntil: String? = doc.get<String?>("vacationUntil")
+                trySend(FamilyData(id = familyId, name = name, createdByUserId = createdByUserId, globalBufferMinutes = globalBufferMinutes, vacationUntil = vacationUntil))
+            } catch (e: Exception) {
+                if (debugLogging) Log.e(TAG, "getFamilyDataFlow failed for $familyId: ${e.message}")
+            }
+        }
+    }
+
     override suspend fun getUserContext(uid: String): Result<Pair<String, String>?> {
         return try {
             val functions = Firebase.functions(FIREBASE_REGION)

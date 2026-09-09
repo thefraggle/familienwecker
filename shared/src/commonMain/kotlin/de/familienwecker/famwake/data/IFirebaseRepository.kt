@@ -26,6 +26,9 @@ interface IFirebaseRepository {
 
     suspend fun getFamilyData(familyId: String): FamilyData?
 
+    /** Echtzeit-Flow für Familiendaten (Name, Urlaubsmodus, Puffer, Creator). */
+    fun getFamilyDataFlow(familyId: String): Flow<FamilyData?>
+
     /** Familienkontext des Users via Cloud Function (1 Call statt 3 Firestore-Reads). */
     suspend fun getUserContext(uid: String): Result<Pair<String, String>?>
 

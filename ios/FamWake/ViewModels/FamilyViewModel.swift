@@ -1322,8 +1322,7 @@ class FamilyViewModel: ObservableObject {
                         UserDefaults.standard.set(claimed.id, forKey: "my_member_id")
                     } else if claimedByMe == nil && self.myMemberId != nil {
                         let myIdExistsInList = self.members.contains { $0.id == self.myMemberId }
-                        let shouldClear = self.members.isEmpty ? !self.isSyncing : !myIdExistsInList
-                        if shouldClear {
+                        if !self.members.isEmpty && !myIdExistsInList {
                             self.myMemberId = nil
                             UserDefaults.standard.removeObject(forKey: "my_member_id")
                             self.isAlarmEnabled = false

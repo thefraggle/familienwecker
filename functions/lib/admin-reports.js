@@ -212,15 +212,40 @@ exports.getUserContext = onCall(
     try {
       // Schritt 1: users/{uid} lesen
       const userDoc = await admin.firestore().collection("users").doc(uid).get();
-      const familyId = userDoc.exists ? userDoc.data().familyId : null;
+      let familyId = userDoc.exists ? userDoc.data().familyId : null;
+
+      if (!familyId) {
+        // Fallback: Suche in families nach userIds array-contains uid oder createdByUserId == uid
+        const byUserIds = await admin.firestore().collection("families")
+          .where("userIds", "array-contains", uid)
+          .limit(1)
+          .get();
+        if (!byUserIds.empty) {
+          familyId = byUserIds.docs[0].id;
+        } else {
+          const byCreator = await admin.firestore().collection("families")
+            .where("createdByUserId", "==", uid)
+            .limit(1)
+            .get();
+          if (!byCreator.empty) {
+            familyId = byCreator.docs[0].id;
+          }
+        }
+        if (familyId) {
+          // Selbstheilung: users/{uid}.familyId reparieren
+          await admin.firestore().collection("users").doc(uid).set(
+            { familyId },
+            { merge: true }
+          );
+          console.log(`getUserContext: Auto-repaired users/${uid}.familyId -> ${familyId}`);
+        }
+      }
 
       if (!familyId) {
         return { familyId: null, joinCode: null };
       }
 
-      // Schritt 2: families/{familyId} lesen (Batch mit users/{uid} wäre getAll, aber
-      // da familyId erst aus Step 1 kommt, ist sequenziell hier unvermeidbar.
-      // Gegenüber Client-Pfad: kein 3. Query-Fallback, kein Netz-Overhead pro Read.)
+      // Schritt 2: families/{familyId} lesen
       const familyDoc = await admin.firestore().collection("families").doc(familyId).get();
 
       if (!familyDoc.exists) {
