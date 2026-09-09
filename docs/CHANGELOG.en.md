@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.12 – 2026-09-09
+✨ Improved:
+• Reliable Sign-In: Your profile and family are safely preserved at all times, even after signing out and back in.
+• Ready Instantly: Your alarms and family members are immediately visible whenever you open the app.
+• Seamless Synchronization: Alarm schedules and vacation times stay reliably up to date across all your devices.
+
 ## 2.1.11 – 2026-09-06
 ✨ New:
 • "Bathroom is free!" signal: Let the next person know with a single tap as soon as the bathroom is ready.
