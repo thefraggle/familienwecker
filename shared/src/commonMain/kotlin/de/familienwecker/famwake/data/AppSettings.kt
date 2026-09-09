@@ -354,20 +354,20 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     }
 
     override fun clearAll() {
-        settings.clear()
-        _isAlarmEnabled.value = true
-        _isAwakeToday.value = false
-        _snoozeUntil.value = null
-        _snoozeCount.value = 0
-        _onboardingCompleted.value = false
-        _isLocalOnlyFamily.value = false
-        _tooltipsEnabled.value = true
-        _tooltipsSeen.value = tooltipKeys.associateWith { false }
-        _installTime.value = 0L
-        _lastAlarmTime.value = 0L
-        _lastReviewPromptTime.value = 0L
-        _lastFeedbackSentAt.value = 0L
+        setMyMemberId(null)
+        setMyMemberName(null)
+        setFamilyId(null)
+        setJoinCode(null)
+        setFamilyName(null)
+        setAwakeToday(false)
+        settings.remove("AWAKE_TODAY_DATE")
+        setSnoozeUntil(null)
+        setSnoozeCount(0)
+        setLocalOnlyFamily(false)
+        setVacationUntil(null)
         _lastLoggedInUid.value = null
-        _vacationUntil.value = null
+        settings.remove("LAST_LOGGED_IN_UID")
+        // Note: language, theme, deviceId, onboardingCompleted, tooltips und isAlarmEnabled
+        // persistieren bewusst – sind Geräte- und Benutzerpräferenzen, kein flüchtiger Session-State.
     }
 }

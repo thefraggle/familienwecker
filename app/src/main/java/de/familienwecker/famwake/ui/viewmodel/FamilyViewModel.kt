@@ -271,6 +271,7 @@ class FamilyViewModel(
     private var offlineDebounceJob: Job? = null
     private var membersJob: Job? = null
     private var syncStatusJob: Job? = null
+    private var familyDataJob: Job? = null
     internal var lastScheduledAlarmMillis: Long? = null
     /** Letzte bekannte Weckzeit des eigenen Members – für Snooze-Shift-Notification. */
     internal var lastKnownWakeUpTime: kotlinx.datetime.LocalTime? = null
@@ -390,21 +391,22 @@ class FamilyViewModel(
 
                 val uid = auth.currentUser?.uid
                 if (uid != null) {
-                    // Legacy-Upgrade: Falls ein Member von dieser UID geclaimt ist, aber noch keine Device-ID hat, aktualisieren wir es heimlich
-                    val legacyClaim = checkedMembers.find { it.claimedByUserId == uid && it.claimedByDeviceId == null }
-                    if (legacyClaim != null) {
-                        addOrUpdateMemberDebounced(legacyClaim.copy(claimedByDeviceId = appSettings.deviceId))
-                    }
-
-                    val claimedByMe = checkedMembers.find { it.claimedByUserId == uid && (it.claimedByDeviceId == appSettings.deviceId || it.claimedByDeviceId == null) }
-                    if (claimedByMe != null && claimedByMe.id != myMemberId.value) {
-                        appSettings.setMyMemberId(claimedByMe.id)
-                        appSettings.setMyMemberName(claimedByMe.name)
-                    } else if (claimedByMe == null && myMemberId.value != null && !_isAutoClaimInProgress.value) {
-                        // Profil wurde von einem anderen Gerät "gestohlen" oder gelöscht!
+                    val memberForMe = checkedMembers.find { it.claimedByUserId == uid }
+                    if (memberForMe != null) {
+                        if (memberForMe.id != myMemberId.value) {
+                            appSettings.setMyMemberId(memberForMe.id)
+                            appSettings.setMyMemberName(memberForMe.name)
+                        }
+                        // Selbstheilung: Falls die deviceId nach Reinstall/Preferences-Wipe abweicht,
+                        // automatisch im Firestore aktualisieren
+                        if (memberForMe.claimedByDeviceId != appSettings.deviceId) {
+                            addOrUpdateMemberDebounced(memberForMe.copy(claimedByDeviceId = appSettings.deviceId))
+                        }
+                    } else if (myMemberId.value != null && !_isAutoClaimInProgress.value) {
+                        // Profil wurde aktiv von der Familie gelöscht oder freigegeben.
+                        // WICHTIG: Niemals clearen wenn die Liste leer ist (z.B. während Sync/Cache-Laden)!
                         val myIdExistsInList = checkedMembers.any { it.id == myMemberId.value }
-                        val shouldClear = if (checkedMembers.isEmpty()) !_isSyncing.value else !myIdExistsInList
-                        if (shouldClear) {
+                        if (checkedMembers.isNotEmpty() && !myIdExistsInList) {
                             appSettings.setMyMemberId(null)
                             appSettings.setMyMemberName(null)
                             appSettings.setAlarmEnabled(false)
@@ -418,31 +420,45 @@ class FamilyViewModel(
         // Sync-Datenfluss: Firestore → Room
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                var previousFamilyId: String? = null
                 familyId.collect { currentFamilyId ->
                     membersJob?.cancel()
                     syncStatusJob?.cancel()
-                    // Sofort leeren: verhindert dass Mitglieder/Zeitplan der Vorgänger-Familie
-                    // kurz angezeigt werden, während der neue Firestore-Sync noch läuft.
-                    if (!de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
-                        memberRepository.clearCache()
+                    familyDataJob?.cancel()
+
+                    // Cache nur leeren, wenn tatsächlich zu einer ANDEREN Familie gewechselt wurde.
+                    // Verhindert, dass beim Kaltstart mit derselben Familie die Members kurz gelöscht werden.
+                    if (previousFamilyId != null && previousFamilyId != currentFamilyId) {
+                        if (!de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
+                            memberRepository.clearCache()
+                        }
+                        _schedule.value = null
                     }
-                    _schedule.value = null
+                    previousFamilyId = currentFamilyId
+
                     if (!currentFamilyId.isNullOrBlank() && !appSettings.isLocalOnlyFamily.value && !de.familienwecker.famwake.FamWakeApplication.isScreenshotMode) {
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                             android.util.Log.d("FamilyViewModel", "Start sync for family: $currentFamilyId")
                         }
                         refreshData()
-                        launch {
+                        familyDataJob = launch {
                             try {
-                                val data = repository.getFamilyData(currentFamilyId)
-                                _familyCreatorId.value = data?.createdByUserId
-                                _globalBufferMinutes.value = data?.globalBufferMinutes ?: 0L
-                                data?.vacationUntil?.let { appSettings.setVacationUntil(it) }
+                                repository.getFamilyDataFlow(currentFamilyId).collect { data ->
+                                    if (data != null) {
+                                        _familyCreatorId.value = data.createdByUserId
+                                        _globalBufferMinutes.value = data.globalBufferMinutes
+                                        // Urlaubsmodus: auch null übernehmen, wenn Urlaub beendet wurde
+                                        appSettings.setVacationUntil(data.vacationUntil)
+                                        if (data.name.isNotBlank()) {
+                                            appSettings.setFamilyName(data.name)
+                                        }
+                                    }
+                                }
                             } catch (e: CancellationException) {
                                 throw e
                             } catch (e: Exception) {
                                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                                    android.util.Log.e("FamilyViewModel", "Error loading family creator: ${e.message}")
+                                    android.util.Log.e("FamilyViewModel", "FamilyData Flow Error: ${e.message}")
                                 }
                             }
                         }
@@ -669,6 +685,8 @@ class FamilyViewModel(
         membersJob = null
         syncStatusJob?.cancel()
         syncStatusJob = null
+        familyDataJob?.cancel()
+        familyDataJob = null
     }
 
     // ── Lifecycle ─────────────────────────────────────────────────────────────
@@ -678,6 +696,7 @@ class FamilyViewModel(
         try { networkMonitor.stopMonitoring() } catch (_: Exception) {}
         membersJob?.cancel()
         syncStatusJob?.cancel()
+        familyDataJob?.cancel()
         offlineDebounceJob?.cancel()
         scheduleJob?.cancel()
     }

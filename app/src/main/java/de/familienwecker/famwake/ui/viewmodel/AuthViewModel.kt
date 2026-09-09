@@ -87,85 +87,59 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         _isRestoringFamily.value = true
         viewModelScope.launch {
             try {
-                // isOnline-Check bewusst entfernt: NET_CAPABILITY_VALIDATED wird beim Cold Start
-                // ~1–3s verzögert gesetzt und würde den Restore-Flow vorzeitig abbrechen.
-                // withTimeoutOrNull dient als Safety-Net; Firestore-Cache liefert Daten auch offline.
-
-                // Primärpfad: getUserContext() via Cloud Function (1 Call statt 3 Reads)
-                val result = withTimeoutOrNull(3000) {
+                // Primärpfad: getUserContext() via Cloud Function
+                var pair: Pair<String, String>? = null
+                val cfResult = withTimeoutOrNull(3000) {
                     dbRepository.getUserContext(uid)
-                } ?: run {
-                    // Timeout → Fallback auf direkten Firestore-Pfad mit Cache
-                    if (BuildConfig.DEBUG) {
-                        android.util.Log.w("AuthViewModel", "getUserContext timed out, falling back to getUserFamily")
-                    }
-                    withTimeoutOrNull(2000) {
-                        dbRepository.getUserFamily(uid, cachedJoinCode = appSettings.joinCode.value)
-                    }
                 }
-
-                if (result == null) {
-                    if (BuildConfig.DEBUG) {
-                        android.util.Log.w("AuthViewModel", "User family fetch timed out entirely")
-                    }
-                    _isRestoringFamily.value = false
-                    return@launch
-                }
-
-                // Fallback bei CF-Fehler (z.B. noch nicht deployed)
-                val finalResult = if (result.isFailure) {
-                    if (BuildConfig.DEBUG) {
-                        android.util.Log.w("AuthViewModel", "getUserContext failed, falling back: ${result.exceptionOrNull()?.message}")
-                    }
-                    withTimeoutOrNull(2000) {
-                        dbRepository.getUserFamily(uid, cachedJoinCode = appSettings.joinCode.value)
-                    } ?: result
+                if (cfResult != null && cfResult.isSuccess && cfResult.getOrNull() != null) {
+                    pair = cfResult.getOrNull()
                 } else {
-                    result
+                    // Fallback: Direkter Firestore-Pfad mit Cache & userIds-Query
+                    if (BuildConfig.DEBUG) {
+                        android.util.Log.w("AuthViewModel", "getUserContext returned null or failed, falling back to getUserFamily")
+                    }
+                    val fsResult = withTimeoutOrNull(2500) {
+                        dbRepository.getUserFamily(uid, cachedJoinCode = appSettings.joinCode.value)
+                    }
+                    if (fsResult != null && fsResult.isSuccess) {
+                        pair = fsResult.getOrNull()
+                    }
                 }
 
-                finalResult.onSuccess { pair ->
-                    if (pair != null) {
-                        val familyExistsResult = kotlin.runCatching {
-                            withTimeoutOrNull(2000) { dbRepository.checkFamilyExists(pair.first) }
+                if (pair != null) {
+                    appSettings.setFamilyId(pair.first)
+                    appSettings.setJoinCode(pair.second)
+
+                    val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(pair.first) }
+                    if (!familyName.isNullOrBlank()) {
+                        appSettings.setFamilyName(familyName)
+                    }
+
+                    val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
+
+                    // Alarm-State nur bei echtem User-Wechsel auf neuem Device anpassen
+                    val lastUid = appSettings.lastLoggedInUid.value
+                    val isNewUser = lastUid != null && lastUid != uid
+                    if (isNewUser) {
+                        appSettings.setAlarmEnabled(claimedMember != null)
+                    }
+                    appSettings.setLastLoggedInUid(uid)
+
+                    if (claimedMember != null) {
+                        // Selbstheilung: Wenn der Member zu dieser Auth-UID gehört, verknüpfen wir ihn,
+                        // selbst wenn die deviceId nach einer Neuinstallation/Clear abweicht.
+                        appSettings.setMyMemberId(claimedMember.id)
+                        appSettings.setMyMemberName(claimedMember.name)
+                    }
+                } else {
+                    // Nur wenn der User nachweislich in keiner Familie ist, lokalen State leeren
+                    if (appSettings.familyId.value != null) {
+                        if (BuildConfig.DEBUG) {
+                            android.util.Log.i("AuthViewModel", "No family found for user $uid, clearing session")
                         }
-                        if (familyExistsResult.getOrNull() == true) {
-                            appSettings.setFamilyId(pair.first)
-                            appSettings.setJoinCode(pair.second)
-
-                            val familyName = withTimeoutOrNull(2000) { dbRepository.getFamilyName(pair.first) }
-                            appSettings.setFamilyName(familyName)
-
-                            val claimedMember = withTimeoutOrNull(2000) { dbRepository.getClaimedMember(pair.first, uid) }
-
-                            // Alarm-State nur bei User-Wechsel auf neuem Device anpassen.
-                            // Gleiche UID → Logout/Login-Persistenz: State unverändert lassen.
-                            val lastUid = appSettings.lastLoggedInUid.value
-                            val isNewUser = lastUid != null && lastUid != uid
-                            if (isNewUser) {
-                                // Anderer User auf diesem Gerät: Alarm-State auf sicheren Default setzen.
-                                // Claimed = ON (User hat aktiv einen Member gewählt), unclaimed = OFF.
-                                appSettings.setAlarmEnabled(claimedMember != null)
-                            }
-                            appSettings.setLastLoggedInUid(uid)
-
-                            if (claimedMember != null && (claimedMember.claimedByDeviceId == appSettings.deviceId || claimedMember.claimedByDeviceId == null)) {
-                                appSettings.setMyMemberId(claimedMember.id)
-                                appSettings.setMyMemberName(claimedMember.name)
-                            }
-                        } else if (familyExistsResult.getOrNull() == false) {
-                            dbRepository.removeUserFamily(uid, pair.first)
-                            appSettings.clearAll()
-                        }
-                    } else {
                         appSettings.clearAll()
                     }
-                    _isRestoringFamily.value = false
-                }.onFailure { error ->
-                    if (BuildConfig.DEBUG) {
-                        android.util.Log.e("AuthViewModel", "Restoration failed: ${error.message}")
-                    }
-                    _isRestoringFamily.value = false
                 }
             } catch (e: kotlinx.coroutines.CancellationException) {
                 throw e
@@ -173,6 +147,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 if (BuildConfig.DEBUG) {
                     android.util.Log.e("AuthViewModel", "Error during restoreUserFamily: ${e.message}")
                 }
+            } finally {
                 _isRestoringFamily.value = false
             }
         }

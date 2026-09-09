@@ -234,17 +234,37 @@ exports.leaveFamily = onCall(
       }
     }
 
-    // Mit memberId vom Client: prüfe dass das Member-Dokument dem User gehört
-    // (Schutz: Familienmitglied darf nicht fremde Member-Profile löschen)
-    const finalMemberId = memberId || uid;
+    // Member-Dokument ermitteln und löschen:
+    // Wenn memberId übergeben: prüfen dass es dem User gehört.
+    // Wenn keine memberId übergeben: nach Member mit claimedByUserId == uid suchen.
+    let targetMemberRef = null;
     if (memberId) {
       const memberDocRef = familyDocRef.collection("members").doc(memberId);
       const memberDoc = await memberDocRef.get();
-      if (memberDoc.exists && memberDoc.data().claimedByUserId !== uid) {
-        throw new HttpsError("permission-denied", "CANNOT_DELETE_OTHER_MEMBER");
+      if (memberDoc.exists) {
+        if (memberDoc.data().claimedByUserId && memberDoc.data().claimedByUserId !== uid) {
+          throw new HttpsError("permission-denied", "CANNOT_DELETE_OTHER_MEMBER");
+        }
+        targetMemberRef = memberDocRef;
+      }
+    } else {
+      const claimedSnap = await familyDocRef.collection("members")
+        .where("claimedByUserId", "==", uid)
+        .limit(1)
+        .get();
+      if (!claimedSnap.empty) {
+        targetMemberRef = claimedSnap.docs[0].ref;
+      } else {
+        // Fallback: altes Legacy-Verhalten falls doc.id == uid
+        const fallbackDoc = familyDocRef.collection("members").doc(uid);
+        if ((await fallbackDoc.get()).exists) {
+          targetMemberRef = fallbackDoc;
+        }
       }
     }
-    await familyDocRef.collection("members").doc(finalMemberId).delete();
+    if (targetMemberRef) {
+      await targetMemberRef.delete();
+    }
 
     // Remove familyId from user's document
     await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
