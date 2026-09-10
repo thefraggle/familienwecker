@@ -10,6 +10,16 @@ import kotlinx.datetime.toInstant
 import com.google.firebase.Timestamp // Added import for native Firebase Timestamp
 
 /**
+ * Deserialisiert breakfastDurationMinutes sicher aus Firestore / Map (Long, Number oder null).
+ * Verhindert SerializationException durch Vermeidung von get<Any?>() in GitLive.
+ */
+fun parseBreakfastDuration(raw: Any?): Long? = when (raw) {
+    is Long -> raw
+    is Number -> raw.toLong()
+    else -> null
+}
+
+/**
  * Mapper: Firestore DocumentSnapshot → FamilyMember (GitLive API)
  * Nutzt android.get() für alle Felder die Serialization-Probleme verursachen könnten.
  */
@@ -47,11 +57,7 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
                 is Number -> bufferRaw.toLong()
                 else -> null
             },
-            breakfastDurationMinutes = when (val bRaw = map["breakfastDurationMinutes"]) {
-                is Long -> bRaw
-                is Number -> bRaw.toLong()
-                else -> null
-            },
+            breakfastDurationMinutes = parseBreakfastDuration(map["breakfastDurationMinutes"]),
             isSimpleMode = map["isSimpleMode"] as? Boolean ?: false,
             sequenceOrder = when (val seqRaw = map["sequenceOrder"]) {
                 is Long -> seqRaw.toInt()
@@ -106,11 +112,7 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
         leaveHomeTime = (get<String?>("leaveHomeTime"))?.let {
             try { LocalTime.parse(it) } catch (e: Exception) { null }
         },
-        breakfastDurationMinutes = when (val bRaw = get<Any?>("breakfastDurationMinutes")) {
-            is Long -> bRaw
-            is Number -> bRaw.toLong()
-            else -> null
-        },
+        breakfastDurationMinutes = parseBreakfastDuration(android.get("breakfastDurationMinutes")),
         isPaused = get<Boolean?>("isPaused") ?: false,
         isAwakeToday = get<Boolean?>("isAwakeToday") ?: false,
         lastResetDate = get("lastResetDate") ?: "",
