@@ -133,12 +133,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         appSettings.setMyMemberName(claimedMember.name)
                     }
                 } else {
-                    // Nur wenn der User nachweislich in keiner Familie ist, lokalen State leeren
-                    if (appSettings.familyId.value != null) {
-                        if (BuildConfig.DEBUG) {
-                            android.util.Log.i("AuthViewModel", "No family found for user $uid, clearing session")
-                        }
-                        appSettings.clearAll()
+                    if (BuildConfig.DEBUG) {
+                        android.util.Log.i("AuthViewModel", "restoreUserFamily: No family confirmed for user $uid (could be offline). Keeping local state.")
                     }
                 }
             } catch (e: kotlinx.coroutines.CancellationException) {

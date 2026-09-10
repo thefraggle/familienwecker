@@ -15,15 +15,7 @@ class MemberRepository(private val memberDao: MemberDao) {
     
     val members: Flow<List<FamilyMember>> = memberDao.getAllMembers().map { entities ->
         entities.map { it.toDomain() }
-    }.distinctUntilChanged { old, new ->
-        old.size == new.size &&
-        old.zip(new).all { (a, b) ->
-            a.id == b.id &&
-            a.lastUpdatedAt == b.lastUpdatedAt &&
-            a.snoozeUntil == b.snoozeUntil &&
-            a.deviceAlarmEnabled == b.deviceAlarmEnabled
-        }
-    }
+    }.distinctUntilChanged()
 
     suspend fun cacheMembers(members: List<FamilyMember>) {
         if (members.isEmpty()) return // Schutz: 0-Docs-Snapshot nicht als "alle gelöscht" interpretieren
@@ -54,6 +46,7 @@ private fun de.familienwecker.famwake.db.FamilyMemberEntity.toDomain(): FamilyMe
     bathroomDurationMinutes = bathroomDurationMinutes,
     wantsBreakfast = wantsBreakfast,
     leaveHomeTime = leaveHomeTime?.let { kotlinx.datetime.LocalTime.parse(it) },
+    breakfastDurationMinutes = breakfastDurationMinutes,
     isPaused = isPaused,
     isAwakeToday = isAwakeToday,
     lastResetDate = lastResetDate,
@@ -65,6 +58,7 @@ private fun de.familienwecker.famwake.db.FamilyMemberEntity.toDomain(): FamilyMe
     lastUpdatedAt = lastUpdatedAt,
     deviceAlarmEnabled = deviceAlarmEnabled,
     dayProfiles = dayProfilesJson?.let { json.decodeFromString(it) },
+    isSimpleMode = isSimpleMode,
     snoozeUntil = snoozeUntil?.let { kotlinx.datetime.LocalDateTime.parse(it) },
     snoozeCount = snoozeCount
 )
@@ -77,6 +71,7 @@ private fun FamilyMember.toEntity(): de.familienwecker.famwake.db.FamilyMemberEn
     bathroomDurationMinutes = bathroomDurationMinutes,
     wantsBreakfast = wantsBreakfast,
     leaveHomeTime = leaveHomeTime?.toString(),
+    breakfastDurationMinutes = breakfastDurationMinutes,
     isPaused = isPaused,
     isAwakeToday = isAwakeToday,
     lastResetDate = lastResetDate,
@@ -88,6 +83,7 @@ private fun FamilyMember.toEntity(): de.familienwecker.famwake.db.FamilyMemberEn
     lastUpdatedAt = lastUpdatedAt,
     deviceAlarmEnabled = deviceAlarmEnabled,
     dayProfilesJson = dayProfiles?.let { json.encodeToString(it) },
+    isSimpleMode = isSimpleMode,
     snoozeUntil = snoozeUntil?.toString(),
     snoozeCount = snoozeCount
 )

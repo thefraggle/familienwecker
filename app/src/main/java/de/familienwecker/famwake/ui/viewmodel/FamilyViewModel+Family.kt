@@ -223,7 +223,7 @@ fun FamilyViewModel.leaveFamily(onComplete: (Boolean) -> Unit = {}) {
             // Snapshot-Listener VOR dem Leave stoppen – die Cloud Function entfernt
             // den User serverseitig, was PERMISSION_DENIED im Listener auslöst.
             stopSyncJobs()
-            val result = if (currentFamilyId != null && currentMemberId != null) {
+            val result = if (currentFamilyId != null) {
                 repository.leaveFamilyBatch(uid, currentFamilyId, currentMemberId)
             } else {
                 Result.success(Unit)

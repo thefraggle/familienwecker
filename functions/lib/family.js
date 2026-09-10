@@ -274,7 +274,7 @@ exports.leaveFamily = onCall(
       userIds: admin.firestore.FieldValue.arrayRemove(uid)
     });
 
-    console.log(`User ${uid} (Member: ${finalMemberId}) successfully left family ${familyId}.`);
+    console.log(`User ${uid} successfully left family ${familyId}.`);
 
     // Feature #4: Verbleibende Members über Austritt informieren (fire-and-forget)
     // userIds aus dem bereits geladenen familyDoc (vor arrayRemove) – kein extra Read

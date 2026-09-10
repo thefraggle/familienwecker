@@ -187,7 +187,7 @@ class FirebaseRepository : IFirebaseRepository {
             if (familyId == null) {
                 // Kein familyId in users/{uid} → Collection-Query als Fallback
                 val queryResults = db.collection(COLLECTION_FAMILIES)
-                    .where { "userIds" equalTo uid }
+                    .where { "userIds" contains uid }
                     .limit(1)
                     .get()
                 val doc = queryResults.documents.firstOrNull()
@@ -251,10 +251,13 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
-    override suspend fun leaveFamilyBatch(userId: String, familyId: String, memberId: String): Result<Unit> {
+    override suspend fun leaveFamilyBatch(userId: String, familyId: String, memberId: String?): Result<Unit> {
         return try {
             val functions = Firebase.functions(FIREBASE_REGION)
-            val data = mapOf("familyId" to familyId, "memberId" to memberId)
+            val data = buildMap {
+                put("familyId", familyId)
+                if (memberId != null) put("memberId", memberId)
+            }
             functions.httpsCallable("leaveFamily").invoke(data)
             Result.success(Unit)
         } catch (e: Exception) {
