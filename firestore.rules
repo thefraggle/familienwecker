@@ -14,7 +14,7 @@ service cloud.firestore {
     // Prüft, ob der Nutzer Ersteller der Familie oder Admin ist
     function isFamilyCreator(familyId) {
       let familyPath = /databases/$(database)/documents/families/$(familyId);
-      return isAdmin() || (signedIn() && exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid);
+      return isAdmin() || (signedIn() && exists(familyPath) && get(familyPath).data.get('createdByUserId', '') == request.auth.uid);
     }
 
     // Prüft, ob der Nutzer Teil dieser Familie ist.
@@ -25,11 +25,11 @@ service cloud.firestore {
       return isAdmin() || (signedIn() &&
         (
           // Option A: familyId ist im User-Dokument hinterlegt (häufigster Pfad, schnellste Prüfung)
-          (exists(userPath) && get(userPath).data.familyId == familyId) ||
+          (exists(userPath) && get(userPath).data.get('familyId', '') == familyId) ||
           // Option B: User ist Ersteller der Familie
-          (exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid) ||
+          (exists(familyPath) && get(familyPath).data.get('createdByUserId', '') == request.auth.uid) ||
           // Option C: User ist in userIds-Array der Familie (Legacy-Fallback)
-          (exists(familyPath) && get(familyPath).data.keys().hasAll(['userIds']) && request.auth.uid in get(familyPath).data.userIds)
+          (exists(familyPath) && ('userIds' in get(familyPath).data) && request.auth.uid in get(familyPath).data.userIds)
         ));
     }
 
@@ -67,7 +67,7 @@ service cloud.firestore {
                     (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['createdByUserId', 'joinCode']));
       
       // Löschen erlaubt wenn der Nutzer der Ersteller ist ODER Admin
-      allow delete: if isAdmin() || (signedIn() && resource.data.createdByUserId == request.auth.uid);
+      allow delete: if isAdmin() || (signedIn() && resource.data.get('createdByUserId', '') == request.auth.uid);
 
       // Mitglieder-Subcollection
       match /members/{memberId} {
@@ -105,7 +105,7 @@ service cloud.firestore {
             // Stehlen / Umclaimen (Claim von A auf B) ist erlaubt.
             (
               request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
-              request.resource.data.claimedByUserId == request.auth.uid
+              request.resource.data.get('claimedByUserId', '') == request.auth.uid
             )
             ||
             // Unclaimen: Eigenes Profil darf jeder Nutzer freigeben.
