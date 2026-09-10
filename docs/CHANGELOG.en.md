@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.13 – 2026-09-10
+✨ Improved:
+• Solid Protection: Your family, alarms, and profile settings are always safely preserved, even offline or with a weak connection.
+• Breakfast Times Saved: Schedule adjustments now reliably keep your customized breakfast durations intact.
+• Clearer Translations: Text corrections across all languages provide an even smoother experience.
+
 ## 2.1.12 – 2026-09-09
 ✨ Improved:
 • Reliable Sign-In: Your profile and family are safely preserved at all times, even after signing out and back in.
