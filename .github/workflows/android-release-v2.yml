@@ -83,13 +83,13 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest --build-cache
 
-      - name: Build AAB (Store Release)
+      - name: Build AAB and APK (Release)
         env:
           REVENUECAT_PUBLIC_API_KEY: ${{ secrets.REVENUECAT_PUBLIC_API_KEY }}
           APTABASE_APP_KEY: ${{ secrets.APTABASE_APP_KEY }}
           APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
         run: |
-          ./gradlew bundleRelease \
+          ./gradlew bundleRelease assembleRelease \
             --build-cache --parallel --configuration-cache \
             -PversionName=${{ steps.metadata.outputs.app_version }} \
             -PcommitHash=${{ steps.metadata.outputs.hash }} \
@@ -120,6 +120,20 @@ jobs:
             -keypass "$KEY_PASSWORD" \
             "$AAB_PATH" "$KEY_ALIAS"
           cp "$AAB_PATH" FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
+
+      - name: Sign APK
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: |
+          APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
+          zipalign -v 4 "$APK_PATH" aligned.apk
+          apksigner sign --ks "$RUNNER_TEMP/keystore.jks" \
+            --ks-pass env:KEYSTORE_PASSWORD \
+            --key-pass env:KEY_PASSWORD \
+            --ks-key-alias "$KEY_ALIAS" \
+            --out FamWake-v${{ steps.metadata.outputs.app_version }}.apk aligned.apk
 
       - name: Generate Play Store Metadata
         run: |
@@ -160,13 +174,14 @@ jobs:
           cat release-notes/whatsnew-ko-KR || echo "No KO file"
 
 
-      # GitHub Release nur mit AAB
+      # GitHub Release mit AAB und APK
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
           files: |
             FamWake-v${{ steps.metadata.outputs.app_version }}-release.aab
+            FamWake-v${{ steps.metadata.outputs.app_version }}.apk
           name: Release ${{ github.ref_name }}
           body: "[CHANGELOG.en.md](https://github.com/thefraggle/familienwecker/blob/main/docs/CHANGELOG.en.md)"
           prerelease: false
