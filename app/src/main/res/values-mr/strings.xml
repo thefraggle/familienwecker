@@ -442,4 +442,11 @@
     <string name="vacation_mode_banner_desc">%1$s पर्यंत अलार्म थांबवले आहेत</string>
     <string name="vacation_mode_end_button">सुट्टी समाप्त करा</string>
     <string name="vacation_mode_select_date">सुट्टीचा शेवटचा दिवस निवडा</string>
+    <string name="vacation_mode_last_day_off">🏖️ शेवटचा सुट्टीचा दिवस: %1$s (अलार्म बंद)</string>
+    <string name="vacation_mode_first_alarm">🔔 पहिला अलार्म: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 सुट्टीनंतर कोणताही सक्रिय अलार्म नाही</string>
+    <string name="vacation_mode_preset_1week">+1 आठवडा</string>
+    <string name="vacation_mode_preset_2weeks">+2 आठवडे</string>
+    <string name="vacation_mode_preset_month_end">महिन्याच्या शेवटपर्यंत</string>
+    <string name="vacation_mode_alarm_paused_desc">%1$s पर्यंत सुट्टी – अलार्म थांबवला</string>
 </resources>

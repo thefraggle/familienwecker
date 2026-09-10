@@ -442,4 +442,11 @@
     <string name="vacation_mode_banner_desc">Réveils en pause jusqu\'au %1$s</string>
     <string name="vacation_mode_end_button">Terminer les vacances</string>
     <string name="vacation_mode_select_date">Choisir le dernier jour de vacances</string>
+    <string name="vacation_mode_last_day_off">🏖️ Dernier jour de congé : %1$s (alarme désactivée)</string>
+    <string name="vacation_mode_first_alarm">🔔 Premier réveil : %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 Aucun réveil actif après les vacances</string>
+    <string name="vacation_mode_preset_1week">+1 semaine</string>
+    <string name="vacation_mode_preset_2weeks">+2 semaines</string>
+    <string name="vacation_mode_preset_month_end">Jusqu\'à fin du mois</string>
+    <string name="vacation_mode_alarm_paused_desc">Vacances jusqu\'au %1$s – réveil en pause</string>
 </resources>

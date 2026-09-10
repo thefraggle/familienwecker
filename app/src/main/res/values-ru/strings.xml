@@ -442,4 +442,11 @@
     <string name="vacation_mode_banner_desc">Будильники отключены до %1$s</string>
     <string name="vacation_mode_end_button">Завершить отпуск</string>
     <string name="vacation_mode_select_date">Выбрать последний день отпуска</string>
+    <string name="vacation_mode_last_day_off">🏖️ Последний выходной: %1$s (будильник выкл)</string>
+    <string name="vacation_mode_first_alarm">🔔 Первый будильник: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 Нет активного будильника после отпуска</string>
+    <string name="vacation_mode_preset_1week">+1 неделя</string>
+    <string name="vacation_mode_preset_2weeks">+2 недели</string>
+    <string name="vacation_mode_preset_month_end">До конца месяца</string>
+    <string name="vacation_mode_alarm_paused_desc">Отпуск до %1$s – будильник на паузе</string>
 </resources>

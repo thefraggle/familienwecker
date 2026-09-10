@@ -441,4 +441,11 @@
     <string name="vacation_mode_banner_desc">Alarmas pausadas hasta el %1$s</string>
     <string name="vacation_mode_end_button">Finalizar vacaciones</string>
     <string name="vacation_mode_select_date">Elegir último día de vacaciones</string>
+    <string name="vacation_mode_last_day_off">🏖️ Último día libre: %1$s (alarma desactivada)</string>
+    <string name="vacation_mode_first_alarm">🔔 Primera alarma: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 Sin alarma activa tras las vacaciones</string>
+    <string name="vacation_mode_preset_1week">+1 semana</string>
+    <string name="vacation_mode_preset_2weeks">+2 semanas</string>
+    <string name="vacation_mode_preset_month_end">Hasta fin de mes</string>
+    <string name="vacation_mode_alarm_paused_desc">Vacaciones hasta %1$s – alarma en pausa</string>
 </resources>

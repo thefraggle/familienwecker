@@ -442,4 +442,11 @@
     <string name="vacation_mode_banner_desc">Wecker pausiert bis %1$s</string>
     <string name="vacation_mode_end_button">Feriä beände</string>
     <string name="vacation_mode_select_date">Letschte Feriätag wähle</string>
+    <string name="vacation_mode_last_day_off">🏖️ Letschti freii Dag: %1$s (Wecker us)</string>
+    <string name="vacation_mode_first_alarm">🔔 Erschte Wecker: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 Kei aktive Wecker nach em Urlaub</string>
+    <string name="vacation_mode_preset_1week">+1 Woche</string>
+    <string name="vacation_mode_preset_2weeks">+2 Wochen</string>
+    <string name="vacation_mode_preset_month_end">Bis Monatsend</string>
+    <string name="vacation_mode_alarm_paused_desc">Urlaub bis %1$s – Wecker pausiert</string>
 </resources>

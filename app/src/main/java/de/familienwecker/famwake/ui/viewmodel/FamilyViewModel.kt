@@ -131,6 +131,60 @@ class FamilyViewModel(
         setVacationUntil(null)
     }
 
+    fun setVacationPreset(daysToAdd: Long) {
+        val target = java.time.LocalDate.now().plusDays(daysToAdd)
+        setVacationUntil(target.toString())
+    }
+
+    fun setVacationPresetEndOfMonth() {
+        val now = java.time.LocalDate.now()
+        val target = now.withDayOfMonth(now.lengthOfMonth())
+        setVacationUntil(target.toString())
+    }
+
+    fun formatVacationDate(dateStr: String?): String {
+        if (dateStr.isNullOrBlank()) return ""
+        return try {
+            val date = java.time.LocalDate.parse(dateStr)
+            val formatter = java.time.format.DateTimeFormatter.ofPattern("EEE, d. MMM", java.util.Locale.getDefault())
+            date.format(formatter)
+        } catch (_: Exception) {
+            dateStr
+        }
+    }
+
+    fun getFirstAlarmDateAfterVacation(vacationUntilStr: String?): String? {
+        if (vacationUntilStr.isNullOrBlank()) return null
+        return try {
+            val vacEndDate = java.time.LocalDate.parse(vacationUntilStr)
+            val startSearchDate = vacEndDate.plusDays(1)
+            val currentMembers = members.value
+            val currentMyId = myMemberId.value
+            val myMember = currentMembers.find { it.id == currentMyId }
+
+            for (offset in 0L..6L) {
+                val checkDate = startSearchDate.plusDays(offset)
+                val dow = checkDate.dayOfWeek.value
+                val hasAlarm = if (myMember != null) {
+                    val profile = myMember.dayProfiles?.get(dow)
+                    !myMember.isPaused && (profile?.isActive ?: false)
+                } else {
+                    currentMembers.any { m ->
+                        val profile = m.dayProfiles?.get(dow)
+                        !m.isPaused && (profile?.isActive ?: false)
+                    }
+                }
+                if (hasAlarm) {
+                    val formatter = java.time.format.DateTimeFormatter.ofPattern("EEE, d. MMM", java.util.Locale.getDefault())
+                    return checkDate.format(formatter)
+                }
+            }
+            null
+        } catch (_: Exception) {
+            null
+        }
+    }
+
     // ── „Bad ist frei!“-Push ──────────────────────────────────────────────────
     private val _bathroomFreeSending = MutableStateFlow(false)
     val bathroomFreeSending: StateFlow<Boolean> = _bathroomFreeSending.asStateFlow()
@@ -448,10 +502,24 @@ class FamilyViewModel(
                                     if (data != null) {
                                         _familyCreatorId.value = data.createdByUserId
                                         _globalBufferMinutes.value = data.globalBufferMinutes
-                                        // Urlaubsmodus: auch null übernehmen, wenn Urlaub beendet wurde
-                                        appSettings.setVacationUntil(data.vacationUntil)
+                                        val oldVac = appSettings.vacationUntil.value
+                                        val newVac = data.vacationUntil
+                                        val todayStr = java.time.LocalDate.now().toString()
+
+                                        // Zombie-Cleanup: wenn Urlaub in der Vergangenheit liegt, automatisch löschen
+                                        val effectiveVac = if (newVac != null && newVac.compareTo(todayStr) < 0) {
+                                            clearVacation()
+                                            null
+                                        } else {
+                                            newVac
+                                        }
+
+                                        appSettings.setVacationUntil(effectiveVac)
                                         if (data.name.isNotBlank()) {
                                             appSettings.setFamilyName(data.name)
+                                        }
+                                        if (oldVac != effectiveVac) {
+                                            recalculateSchedule()
                                         }
                                     }
                                 }

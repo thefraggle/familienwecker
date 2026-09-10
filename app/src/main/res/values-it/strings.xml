@@ -441,4 +441,11 @@
     <string name="vacation_mode_banner_desc">Sveglie in pausa fino al %1$s</string>
     <string name="vacation_mode_end_button">Termina vacanza</string>
     <string name="vacation_mode_select_date">Seleziona ultimo giorno di vacanza</string>
+    <string name="vacation_mode_last_day_off">🏖️ Ultimo giorno libero: %1$s (sveglia disattivata)</string>
+    <string name="vacation_mode_first_alarm">🔔 Prima sveglia: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 Nessuna sveglia attiva dopo le vacanze</string>
+    <string name="vacation_mode_preset_1week">+1 settimana</string>
+    <string name="vacation_mode_preset_2weeks">+2 settimane</string>
+    <string name="vacation_mode_preset_month_end">Fino a fine mese</string>
+    <string name="vacation_mode_alarm_paused_desc">Vacanze fino al %1$s – sveglia in pausa</string>
 </resources>

@@ -441,4 +441,11 @@
     <string name="vacation_mode_banner_desc">Wecker pausiert bis %1$s</string>
     <string name="vacation_mode_end_button">Urlaub beende</string>
     <string name="vacation_mode_select_date">Letzte Urlaubstag aussuache</string>
+    <string name="vacation_mode_last_day_off">🏖️ Letztr freier Dag: %1$s (Weckr aus)</string>
+    <string name="vacation_mode_first_alarm">🔔 Erschtr Weckr: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 Koi aktivr Weckr nach em Urlaub</string>
+    <string name="vacation_mode_preset_1week">+1 Woche</string>
+    <string name="vacation_mode_preset_2weeks">+2 Wochen</string>
+    <string name="vacation_mode_preset_month_end">Bis Monatsend</string>
+    <string name="vacation_mode_alarm_paused_desc">Urlaub bis %1$s – Weckr pausiert</string>
 </resources>

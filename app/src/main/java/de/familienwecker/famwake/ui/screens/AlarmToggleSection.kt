@@ -74,6 +74,12 @@ fun AlarmToggleSection(
         colors = CardDefaults.cardColors(containerColor = toggleCardColor)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
+            val vacationUntil by viewModel.vacationUntil.collectAsState()
+            val isVacationActive = remember(vacationUntil) {
+                if (vacationUntil.isNullOrBlank()) false
+                else java.time.LocalDate.now().toString() <= vacationUntil!!
+            }
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -85,8 +91,16 @@ fun AlarmToggleSection(
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Black
                     )
+                    val alarmDescText = if (isVacationActive && !vacationUntil.isNullOrBlank()) {
+                        val formattedVac = viewModel.formatVacationDate(vacationUntil)
+                        stringResource(R.string.vacation_mode_alarm_paused_desc, formattedVac)
+                    } else if (isAlarmEnabled) {
+                        stringResource(R.string.main_alarm_enabled_desc)
+                    } else {
+                        stringResource(R.string.main_alarm_disabled_desc)
+                    }
                     Text(
-                        text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled_desc) else stringResource(R.string.main_alarm_disabled_desc),
+                        text = alarmDescText,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -117,8 +131,10 @@ fun AlarmToggleSection(
             }
 
             val myMember = members.find { it.id == myMemberId }
-            val isAwakeButtonVisible = remember(myMember, isAlarmEnabled, deviceSchedule, isAwakeTodayLocal) {
-                if (myMember == null || !isAlarmEnabled) return@remember false
+
+            // Phase 1: "Ich bin schon wach ☀️" – nur VOR der Weckzeit und wenn noch nicht als wach markiert
+            val isAwakeButtonVisible = remember(myMember, isAlarmEnabled, deviceSchedule, isAwakeTodayLocal, isVacationActive) {
+                if (myMember == null || !isAlarmEnabled || isAwakeTodayLocal || isVacationActive) return@remember false
 
                 val nowDt = java.time.LocalDateTime.now()
                 val todayDate = nowDt.toLocalDate()
@@ -145,6 +161,35 @@ fun AlarmToggleSection(
                 false
             }
 
+            // Phase 2: "Bad ist frei! 🚿" – NACH dem Aufstehen (entweder vorzeitig via Wach-Button oder ab regulärer Weckzeit bis +120 Min)
+            val isBathroomFreeButtonVisible = remember(myMember, isAlarmEnabled, deviceSchedule, isAwakeTodayLocal, isVacationActive) {
+                if (myMember == null || !isAlarmEnabled || isVacationActive) return@remember false
+
+                val nowDt = java.time.LocalDateTime.now()
+                val todayDate = nowDt.toLocalDate()
+                val todayDow = todayDate.dayOfWeek.value
+                val todayProfile = myMember.dayProfiles?.get(todayDow)
+                if (todayProfile != null && todayProfile.isActive) {
+                    val myScheduledTime = deviceSchedule?.memberSchedules
+                        ?.find { it.member.id == myMemberId }
+                        ?.wakeUpTime?.toJavaLocalTime()
+                    val alarmTime = myScheduledTime ?: todayProfile.earliestWakeUp.toJavaLocalTime()
+                    val todayAlarmDt = java.time.LocalDateTime.of(todayDate, alarmTime)
+                    val windowEnd = todayAlarmDt.plusMinutes(120)
+
+                    if (isAwakeTodayLocal) {
+                        // Vorab aufgestanden: Sichtbar ab Klick im Morgenfenster bis 2h nach Weckzeit
+                        val windowStart = todayAlarmDt.minusHours(4)
+                        return@remember nowDt >= windowStart && nowDt <= windowEnd
+                    } else {
+                        // Regulär aufgestanden: Sichtbar ab Weckzeit bis 2h danach
+                        return@remember nowDt >= todayAlarmDt && nowDt <= windowEnd
+                    }
+                }
+                false
+            }
+
+            // Animated Container für Phase 1: "Ich bin schon wach"
             AnimatedVisibility(
                 visible = isAwakeButtonVisible,
                 enter = expandVertically() + fadeIn(),
@@ -168,14 +213,8 @@ fun AlarmToggleSection(
                             interactionSource = awakeInteractionSource,
                             enabled = true,
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = if (isAwakeTodayLocal)
-                                    MaterialTheme.colorScheme.secondary
-                                else
-                                    MaterialTheme.colorScheme.primary,
-                                contentColor = if (isAwakeTodayLocal)
-                                    MaterialTheme.colorScheme.onSecondary
-                                else
-                                    MaterialTheme.colorScheme.onPrimary
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
                             )
                         ) {
                             Icon(
@@ -185,17 +224,9 @@ fun AlarmToggleSection(
                             )
                             Spacer(modifier = Modifier.width(12.dp))
                             Text(
-                                text = if (isAwakeTodayLocal) stringResource(R.string.awake_active_desc) else stringResource(R.string.awake_today_desc),
+                                text = stringResource(R.string.awake_today_desc),
                                 style = MaterialTheme.typography.titleMedium
                             )
-                            if (isAwakeTodayLocal) {
-                                Spacer(modifier = Modifier.weight(1f))
-                                Icon(
-                                    imageVector = Icons.Default.Check,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            }
                         }
 
                         if (tooltipsEnabled && !tooltipAwakeSeen) {
@@ -207,13 +238,23 @@ fun AlarmToggleSection(
                                 isDark = isDarkTheme
                             )
                         }
+                    }
+                }
+            }
 
-                        // „Bad ist frei! 🚿“-Button
+            // Animated Container für Phase 2: "Bad ist frei! 🚿"
+            AnimatedVisibility(
+                visible = isBathroomFreeButtonVisible,
+                enter = expandVertically() + fadeIn(),
+                exit = shrinkVertically() + fadeOut()
+            ) {
+                if (myMember != null) {
+                    Column {
                         val bathroomFreeSending by viewModel.bathroomFreeSending.collectAsState()
                         val bathroomFreeSent by viewModel.bathroomFreeSent.collectAsState()
                         val bathroomInteractionSource = remember { MutableInteractionSource() }
 
-                        Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
                         Button(
                             onClick = {
                                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -225,7 +266,7 @@ fun AlarmToggleSection(
                                 .bounceClick(bathroomInteractionSource),
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                             interactionSource = bathroomInteractionSource,
-                            enabled = !bathroomFreeSending,
+                            enabled = !bathroomFreeSending && !bathroomFreeSent,
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = if (bathroomFreeSent)
                                     MaterialTheme.colorScheme.tertiary

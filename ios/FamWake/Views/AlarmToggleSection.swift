@@ -14,7 +14,17 @@ struct AlarmToggleSection: View {
                         Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
                             .font(.title3).fontWeight(.bold)
                             .foregroundStyle(theme.onPrimaryContainer)
-                        Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabledDesc : L.mainAlarmDisabledDesc)
+                        let alarmDescText: String = {
+                            if familyViewModel.isVacationActive, let vac = familyViewModel.vacationUntil {
+                                let fVac = familyViewModel.formatVacationDate(vac)
+                                return L.vacationModeAlarmPausedDesc(fVac)
+                            } else if familyViewModel.isAlarmEnabled {
+                                return L.mainAlarmEnabledDesc
+                            } else {
+                                return L.mainAlarmDisabledDesc
+                            }
+                        }()
+                        Text(alarmDescText)
                             .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
                             .lineLimit(1)
                             .minimumScaleFactor(0.8)
@@ -40,34 +50,27 @@ struct AlarmToggleSection: View {
                     }
                 }
 
-                // "I'm awake" Button
+                // Phase 1: "I'm awake" Button (nur vor Weckzeit und noch nicht wach)
                 if familyViewModel.isAwakeButtonVisible {
-                    let isAwake = familyViewModel.isAwakeTodayLocal
                     Button(action: {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         familyViewModel.myMemberId.map { familyViewModel.toggleAwakeMember($0) }
                     }) {
                         HStack {
-                            Image(systemName: isAwake ? "sun.max.fill" : "sun.max")
+                            Image(systemName: "sun.max")
                                 .font(.body)
-                            Text(isAwake ? L.awakeActiveDesc : L.awakeTodayDesc)
+                            Text(L.awakeTodayDesc)
                                 .font(.subheadline).fontWeight(.semibold)
-                            if isAwake {
-                                Spacer()
-                                Image(systemName: "checkmark")
-                                    .font(.body).fontWeight(.bold)
-                            }
                         }
                         .frame(maxWidth: .infinity)
                         .frame(minHeight: 48)
                         .padding(.horizontal, 16)
-                        .background(isAwake ? theme.secondary : theme.primary)
-                        .foregroundStyle(isAwake ? theme.onSecondary : theme.onPrimary)
+                        .background(theme.primary)
+                        .foregroundStyle(theme.onPrimary)
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     }
                     .buttonStyle(.plain)
-                    .animation(.easeInOut(duration: 0.2), value: isAwake)
-                    .accessibilityLabel(isAwake ? L.awakeActiveDesc : L.awakeTodayDesc)
+                    .accessibilityLabel(L.awakeTodayDesc)
 
                     // Tooltip A
                     if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipAwakeSeen {
@@ -75,8 +78,10 @@ struct AlarmToggleSection: View {
                             familyViewModel.markTooltipSeen(familyViewModel.tooltipKeyAwake)
                         }
                     }
+                }
 
-                    // "Bad ist frei! 🚿"-Button
+                // Phase 2: "Bad ist frei! 🚿"-Button (nach Weckzeit oder nach "Ich bin wach")
+                if familyViewModel.isBathroomFreeButtonVisible {
                     Button(action: {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         familyViewModel.notifyBathroomFree()
@@ -100,7 +105,7 @@ struct AlarmToggleSection: View {
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     }
                     .buttonStyle(.plain)
-                    .disabled(familyViewModel.bathroomFreeSending)
+                    .disabled(familyViewModel.bathroomFreeSending || familyViewModel.bathroomFreeSent)
                     .animation(.easeInOut(duration: 0.2), value: familyViewModel.bathroomFreeSent)
                 }
             }
