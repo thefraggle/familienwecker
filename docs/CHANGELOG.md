@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.15 – 2026-09-10
+✨ Verbessert:
+• Zuverlässiger Urlaubsmodus: Wecker bleiben während der Ferienzeit stumm und schalten sich am ersten Schultag oder Arbeitstag nach den Ferien automatisch und pünktlich wieder ein – kein Verschlafen mehr möglich.
+• Klare Urlaubs-Vorschau: Eine übersichtliche 2-Zeilen-Anzeige zeigt dir genau, welcher Tag der letzte freie Tag ist und an welchem Tag dein Wecker das erste Mal wieder klingelt.
+• Schnellauswahl für Ferien: Wähle deinen Urlaub ab sofort bequem mit einem Klick (+1 Woche, +2 Wochen oder bis Monatsende).
+• Morgen-Ablauf optimiert: Der Button „Bad ist frei!“ erscheint jetzt passgenau erst nach dem Aufstehen und bleibt auch nach dem Weckerklingeln verlässlich erreichbar.
+
 ## 2.1.14 – 2026-09-10
 ✨ Verbessert:
 • Dauerhafte Weckzeiten: Neu angelegte Profile und Weckzeiten bleiben ab sofort auch nach dem Schließen und erneuten Öffnen der App immer zuverlässig erhalten.

@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.15 – 2026-09-10
+✨ Improved:
+• Reliable Vacation Mode: Alarms stay quiet during holidays and turn back on automatically right on your first school or work day – never oversleep again.
+• Clear Vacation Preview: A clear 2-line display shows you exactly when your last free day is and when your alarm will ring again.
+• Quick Vacation Presets: Pick your holiday duration with a single tap (+1 week, +2 weeks, or end of the month).
+• Smoother Morning Routine: The "Bathroom is free!" button now appears right when you get up and stays readily accessible even after your alarm rings.
+
 ## 2.1.14 – 2026-09-10
 ✨ Improved:
 • Reliable Schedule Saving: Newly created profiles and alarm times now remain safely saved even after closing and reopening the app.
