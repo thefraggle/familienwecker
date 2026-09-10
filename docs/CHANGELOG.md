@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.13 – 2026-09-10
+✨ Verbessert:
+• Felsenfest geschützt: Deine Familie, Weckzeiten und Profile bleiben auch ohne Internetverbindung oder bei schlechtem Empfang jederzeit zuverlässig erhalten.
+• Frühstückszeiten sicher: Einstellungsänderungen am Weckplan behalten deine individuellen Frühstückszeiten dauerhaft bei.
+• Klare Texte: Fehlerhafte Übersetzungen wurden korrigiert für eine verständliche App in allen Sprachen.
+
 ## 2.1.12 – 2026-09-09
 ✨ Verbessert:
 • Zuverlässige Anmeldung: Dein Profil und deine Familie bleiben auch nach dem Ab- und Wiederanmelden jederzeit sicher erhalten.
