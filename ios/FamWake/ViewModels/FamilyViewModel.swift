@@ -318,8 +318,18 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
+    var isVacationActive: Bool {
+        guard let vac = vacationUntil, !vac.isEmpty else { return false }
+        let f = DateFormatter()
+        f.calendar = Calendar(identifier: .gregorian)
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "yyyy-MM-dd"
+        let todayStr = f.string(from: Date())
+        return todayStr <= vac
+    }
+
     var isAwakeButtonVisible: Bool {
-        guard isAlarmEnabled, let myId = myMemberId, let myMember = members.first(where: { $0.id == myId }) else { return false }
+        guard isAlarmEnabled, !isAwakeTodayLocal, !isVacationActive, let myId = myMemberId, let myMember = members.first(where: { $0.id == myId }) else { return false }
         
         let cal = Calendar.current
         let now = Date()
@@ -343,6 +353,31 @@ class FamilyViewModel: ObservableObject {
             }
         }
         return false
+    }
+
+    var isBathroomFreeButtonVisible: Bool {
+        guard isAlarmEnabled, !isVacationActive, let myId = myMemberId, let myMember = members.first(where: { $0.id == myId }) else { return false }
+        
+        let cal = Calendar.current
+        let now = Date()
+        let weekdayRaw = cal.component(.weekday, from: now)
+        let todayDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
+        let startOfToday = cal.startOfDay(for: now)
+        
+        guard let p = myMember.dayProfiles?[todayDow], p.isActive else { return false }
+        let myScheduledTime = deviceSchedule?.memberSchedules.first(where: { $0.id == myId })?.wakeUpTime
+        let alarmTime = myScheduledTime ?? p.earliestWakeUp
+        guard let todayAlarmDate = cal.date(bySettingHour: alarmTime.hour ?? 0, minute: alarmTime.minute ?? 0, second: 0, of: startOfToday),
+              let windowEnd = cal.date(byAdding: .minute, value: 120, to: todayAlarmDate) else {
+            return false
+        }
+        
+        if isAwakeTodayLocal {
+            guard let windowStart = cal.date(byAdding: .hour, value: -4, to: todayAlarmDate) else { return false }
+            return now >= windowStart && now <= windowEnd
+        } else {
+            return now >= todayAlarmDate && now <= windowEnd
+        }
     }
 
     func deleteFamily(completion: @escaping (Bool) -> Void) {
@@ -1164,6 +1199,79 @@ class FamilyViewModel: ObservableObject {
         setVacationUntil(nil)
     }
 
+    func setVacationPreset(daysToAdd: Int) {
+        let cal = Calendar.current
+        guard let target = cal.date(byAdding: .day, value: daysToAdd, to: Date()) else { return }
+        let f = DateFormatter()
+        f.calendar = Calendar(identifier: .gregorian)
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "yyyy-MM-dd"
+        setVacationUntil(f.string(from: target))
+    }
+
+    func setVacationPresetEndOfMonth() {
+        let cal = Calendar.current
+        let now = Date()
+        guard let range = cal.range(of: .day, in: .month, for: now),
+              let lastDay = range.last,
+              let target = cal.date(bySetting: .day, value: lastDay, of: now) else { return }
+        let f = DateFormatter()
+        f.calendar = Calendar(identifier: .gregorian)
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "yyyy-MM-dd"
+        setVacationUntil(f.string(from: target))
+    }
+
+    func formatVacationDate(_ dateStr: String?) -> String {
+        guard let dateStr = dateStr, !dateStr.isEmpty else { return "" }
+        let fIn = DateFormatter()
+        fIn.calendar = Calendar(identifier: .gregorian)
+        fIn.locale = Locale(identifier: "en_US_POSIX")
+        fIn.dateFormat = "yyyy-MM-dd"
+        guard let d = fIn.date(from: dateStr) else { return dateStr }
+        
+        let fOut = DateFormatter()
+        fOut.setLocalizedDateFormatFromTemplate("EEEdMMM")
+        return fOut.string(from: d)
+    }
+
+    func getFirstAlarmDateAfterVacation(_ vacationUntilStr: String?) -> String? {
+        guard let vacationUntilStr = vacationUntilStr, !vacationUntilStr.isEmpty else { return nil }
+        let fIn = DateFormatter()
+        fIn.calendar = Calendar(identifier: .gregorian)
+        fIn.locale = Locale(identifier: "en_US_POSIX")
+        fIn.dateFormat = "yyyy-MM-dd"
+        guard let vacEndDate = fIn.date(from: vacationUntilStr) else { return nil }
+        
+        let cal = Calendar.current
+        guard let startSearchDate = cal.date(byAdding: .day, value: 1, to: vacEndDate) else { return nil }
+        let currentMyId = self.myMemberId
+        let myMember = members.first(where: { $0.id == currentMyId })
+
+        for offset in 0..<7 {
+            if let checkDate = cal.date(byAdding: .day, value: offset, to: startSearchDate) {
+                let weekdayRaw = cal.component(.weekday, from: checkDate)
+                let checkIsoDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
+                let hasAlarm: Bool
+                if let my = myMember {
+                    let profile = my.dayProfiles?[checkIsoDow]
+                    hasAlarm = !my.isPaused && (profile?.isActive ?? false)
+                } else {
+                    hasAlarm = members.contains { m in
+                        let profile = m.dayProfiles?[checkIsoDow]
+                        return !m.isPaused && (profile?.isActive ?? false)
+                    }
+                }
+                if hasAlarm {
+                    let fOut = DateFormatter()
+                    fOut.setLocalizedDateFormatFromTemplate("EEEdMMM")
+                    return fOut.string(from: checkDate)
+                }
+            }
+        }
+        return nil
+    }
+
     // MARK: - Bathroom Free Notification
     func notifyBathroomFree(completion: @escaping (Bool) -> Void = { _ in }) {
         guard let fid = familyId, let myId = myMemberId else {
@@ -1255,11 +1363,28 @@ class FamilyViewModel: ObservableObject {
             self.joinCode = data["joinCode"] as? String
             self.globalBufferMinutes = (data["globalBufferMinutes"] as? NSNumber)?.intValue ?? 0
             if let vac = data["vacationUntil"] as? String {
-                self.vacationUntil = vac
-                UserDefaults.standard.set(vac, forKey: "vacation_until")
+                let f = DateFormatter()
+                f.calendar = Calendar(identifier: .gregorian)
+                f.locale = Locale(identifier: "en_US_POSIX")
+                f.dateFormat = "yyyy-MM-dd"
+                let todayStr = f.string(from: Date())
+                if vac < todayStr {
+                    // Zombie-Cleanup: Abgelaufener Urlaub wird automatisch gelöscht
+                    self.vacationUntil = nil
+                    UserDefaults.standard.removeObject(forKey: "vacation_until")
+                    self.clearVacation()
+                } else {
+                    let changed = self.vacationUntil != vac
+                    self.vacationUntil = vac
+                    UserDefaults.standard.set(vac, forKey: "vacation_until")
+                    if changed {
+                        self.recalculateSchedule()
+                    }
+                }
             } else if data["vacationUntil"] == nil && self.vacationUntil != nil {
                 self.vacationUntil = nil
                 UserDefaults.standard.removeObject(forKey: "vacation_until")
+                self.recalculateSchedule()
             }
             let uid = Auth.auth().currentUser?.uid
             self.isAdmin = (data["createdByUserId"] as? String) == uid
@@ -1615,18 +1740,45 @@ class FamilyViewModel: ObservableObject {
 
         // 2. Device Alarm Target Date & Calculation (ALWAYS Auto Mode)
         let deviceTargetDate: Date
-        let todayMembers = rawMembers.map { resolveEffectiveMember($0, forDate: today) }
-        let todayHasActive = todayMembers.contains { !$0.isPaused }
-        if todayHasActive {
-            let todaySchedule = Scheduler().calculateIdealSchedule(members: todayMembers, globalBufferMinutes: globalBufferMinutes)
-            let latestAlarm = todaySchedule.memberSchedules.compactMap { date(from: $0.wakeUpTime, on: today) }.max()
-            if let latest = latestAlarm, now < latest {
-                deviceTargetDate = today
+        if isVacationActive, let vacUntil = vacationUntil {
+            let f = DateFormatter()
+            f.calendar = Calendar(identifier: .gregorian)
+            f.locale = Locale(identifier: "en_US_POSIX")
+            f.dateFormat = "yyyy-MM-dd"
+            if let vacEndDate = f.date(from: vacUntil),
+               let startSearchDate = cal.date(byAdding: .day, value: 1, to: vacEndDate) {
+                var foundDate: Date? = nil
+                for offset in 0..<7 {
+                    if let checkDate = cal.date(byAdding: .day, value: offset, to: startSearchDate) {
+                        let checkWeekdayRaw = cal.component(.weekday, from: checkDate)
+                        let checkIsoDow = checkWeekdayRaw == 1 ? 7 : checkWeekdayRaw - 1
+                        let hasActive = rawMembers.contains { m in
+                            !m.isPaused && (m.dayProfiles?[checkIsoDow]?.isActive ?? false)
+                        }
+                        if hasActive {
+                            foundDate = checkDate
+                            break
+                        }
+                    }
+                }
+                deviceTargetDate = foundDate ?? startSearchDate
             } else {
                 deviceTargetDate = tomorrow
             }
         } else {
-            deviceTargetDate = tomorrow
+            let todayMembers = rawMembers.map { resolveEffectiveMember($0, forDate: today) }
+            let todayHasActive = todayMembers.contains { !$0.isPaused }
+            if todayHasActive {
+                let todaySchedule = Scheduler().calculateIdealSchedule(members: todayMembers, globalBufferMinutes: globalBufferMinutes)
+                let latestAlarm = todaySchedule.memberSchedules.compactMap { date(from: $0.wakeUpTime, on: today) }.max()
+                if let latest = latestAlarm, now < latest {
+                    deviceTargetDate = today
+                } else {
+                    deviceTargetDate = tomorrow
+                }
+            } else {
+                deviceTargetDate = tomorrow
+            }
         }
 
         let deviceDayOfWeekRaw = cal.component(.weekday, from: deviceTargetDate)
@@ -1701,6 +1853,8 @@ class FamilyViewModel: ObservableObject {
 
         // Urlaubsmodus-Check: Wenn targetDate innerhalb des Urlaubs liegt, keine Wecker stellen
         let dateFormatter = DateFormatter()
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let targetDateStr = dateFormatter.string(from: targetDate)
         if let vacUntil = vacationUntil, !vacUntil.isEmpty, targetDateStr <= vacUntil {

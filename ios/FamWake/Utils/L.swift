@@ -297,6 +297,13 @@ enum L {
     static func vacationModeBannerDesc(_ date: String) -> String { s("vacation_mode_banner_desc", date) }
     static var vacationModeEndButton: String { s("vacation_mode_end_button") }
     static var vacationModeSelectDate: String { s("vacation_mode_select_date") }
+    static func vacationModeLastDayOff(_ date: String) -> String { s("vacation_mode_last_day_off", date) }
+    static func vacationModeFirstAlarm(_ date: String) -> String { s("vacation_mode_first_alarm", date) }
+    static var vacationModeNoAlarmAfter: String { s("vacation_mode_no_alarm_after") }
+    static var vacationModePreset1Week: String { s("vacation_mode_preset_1week") }
+    static var vacationModePreset2Weeks: String { s("vacation_mode_preset_2weeks") }
+    static var vacationModePresetMonthEnd: String { s("vacation_mode_preset_month_end") }
+    static func vacationModeAlarmPausedDesc(_ date: String) -> String { s("vacation_mode_alarm_paused_desc", date) }
 
     // MARK: - Ringing
     static func ringingWakeUp(_ name: String) -> String { s("ringing_wake_up", name) }

@@ -442,4 +442,11 @@
     <string name="vacation_mode_banner_desc">闹钟暂停至 %1$s</string>
     <string name="vacation_mode_end_button">结束休假</string>
     <string name="vacation_mode_select_date">选择休假最后一天</string>
+    <string name="vacation_mode_last_day_off">🏖️ 最后休假日: %1$s (闹钟已关闭)</string>
+    <string name="vacation_mode_first_alarm">🔔 首个闹钟: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 假期后没有活跃的闹钟</string>
+    <string name="vacation_mode_preset_1week">+1周</string>
+    <string name="vacation_mode_preset_2weeks">+2周</string>
+    <string name="vacation_mode_preset_month_end">至月底</string>
+    <string name="vacation_mode_alarm_paused_desc">假期至 %1$s – 闹钟已暂停</string>
 </resources>

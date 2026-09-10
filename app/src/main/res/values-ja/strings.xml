@@ -446,4 +446,11 @@
     <string name="vacation_mode_banner_desc">%1$sまでアラーム停止中</string>
     <string name="vacation_mode_end_button">休暇を終了する</string>
     <string name="vacation_mode_select_date">休暇の最終日を選択</string>
+    <string name="vacation_mode_last_day_off">🏖️ 最終休暇日: %1$s (アラームオフ)</string>
+    <string name="vacation_mode_first_alarm">🔔 最初のアラーム: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 休暇後にアクティブなアラームはありません</string>
+    <string name="vacation_mode_preset_1week">+1週間</string>
+    <string name="vacation_mode_preset_2weeks">+2週間</string>
+    <string name="vacation_mode_preset_month_end">月末まで</string>
+    <string name="vacation_mode_alarm_paused_desc">%1$sまで休暇 – アラーム一時停止中</string>
 </resources>

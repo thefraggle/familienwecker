@@ -441,4 +441,11 @@
     <string name="vacation_mode_banner_desc">Wekkers gepauzeerd tot %1$s</string>
     <string name="vacation_mode_end_button">Vakantie beëindigen</string>
     <string name="vacation_mode_select_date">Laatste vakantiedag kiezen</string>
+    <string name="vacation_mode_last_day_off">🏖️ Laatste vrije dag: %1$s (wekker uit)</string>
+    <string name="vacation_mode_first_alarm">🔔 Eerste wekker: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 Geen actieve wekker na de vakantie</string>
+    <string name="vacation_mode_preset_1week">+1 week</string>
+    <string name="vacation_mode_preset_2weeks">+2 weken</string>
+    <string name="vacation_mode_preset_month_end">Tot eind van de maand</string>
+    <string name="vacation_mode_alarm_paused_desc">Vakantie tot %1$s – wekker gepauzeerd</string>
 </resources>

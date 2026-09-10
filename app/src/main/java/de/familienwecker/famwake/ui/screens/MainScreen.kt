@@ -374,6 +374,7 @@ fun MainScreen(
                     if (!vacationUntil.isNullOrBlank()) {
                         VacationModeBanner(
                             vacationUntil = vacationUntil!!,
+                            viewModel = viewModel,
                             isDarkTheme = isDarkTheme,
                             onEndVacation = { viewModel.clearVacation() }
                         )
@@ -823,6 +824,7 @@ fun UnclaimedWarningBanner(memberName: String, isDarkTheme: Boolean) {
 @Composable
 fun VacationModeBanner(
     vacationUntil: String,
+    viewModel: de.familienwecker.famwake.ui.viewmodel.FamilyViewModel,
     isDarkTheme: Boolean,
     onEndVacation: () -> Unit
 ) {
@@ -850,11 +852,23 @@ fun VacationModeBanner(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
-                Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(4.dp))
+                val formattedVac = viewModel.formatVacationDate(vacationUntil)
                 Text(
-                    text = stringResource(R.string.vacation_mode_banner_desc, vacationUntil),
+                    text = stringResource(R.string.vacation_mode_last_day_off, formattedVac),
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.9f)
+                )
+                val firstAlarm = viewModel.getFirstAlarmDateAfterVacation(vacationUntil)
+                val firstAlarmText = if (firstAlarm != null) {
+                    stringResource(R.string.vacation_mode_first_alarm, firstAlarm)
+                } else {
+                    stringResource(R.string.vacation_mode_no_alarm_after)
+                }
+                Text(
+                    text = firstAlarmText,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.9f)
                 )
             }
             Spacer(modifier = Modifier.width(8.dp))

@@ -442,4 +442,11 @@
     <string name="vacation_mode_banner_desc">%1$s까지 알람 일시 중지</string>
     <string name="vacation_mode_end_button">휴가 종료</string>
     <string name="vacation_mode_select_date">휴가 마지막 날 선택</string>
+    <string name="vacation_mode_last_day_off">🏖️ 마지막 휴일: %1$s (알람 꺼짐)</string>
+    <string name="vacation_mode_first_alarm">🔔 첫 번째 알람: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 휴가 후 활성화된 알람 없음</string>
+    <string name="vacation_mode_preset_1week">+1주</string>
+    <string name="vacation_mode_preset_2weeks">+2주</string>
+    <string name="vacation_mode_preset_month_end">월말까지</string>
+    <string name="vacation_mode_alarm_paused_desc">%1$s까지 휴가 – 알람 일시 중지됨</string>
 </resources>

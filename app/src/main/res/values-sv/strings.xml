@@ -442,4 +442,11 @@
     <string name="vacation_mode_banner_desc">Väckarklockor pausade till %1$s</string>
     <string name="vacation_mode_end_button">Avsluta semester</string>
     <string name="vacation_mode_select_date">Välj sista semesterdagen</string>
+    <string name="vacation_mode_last_day_off">🏖️ Sista lediga dagen: %1$s (larm av)</string>
+    <string name="vacation_mode_first_alarm">🔔 Första larmet: %1$s</string>
+    <string name="vacation_mode_no_alarm_after">🔔 Inget aktivt larm efter semestern</string>
+    <string name="vacation_mode_preset_1week">+1 vecka</string>
+    <string name="vacation_mode_preset_2weeks">+2 veckor</string>
+    <string name="vacation_mode_preset_month_end">Till månadens slut</string>
+    <string name="vacation_mode_alarm_paused_desc">Semester till %1$s – larmet pausat</string>
 </resources>

@@ -125,20 +125,52 @@ internal fun FamilyViewModel.recalculateSchedule() {
 
                 // 2. Berechne Device Alarm Schedule (IMMER Auto-Modus)
                 val deviceTargetDate = run {
-                    val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
-                    val todayHasActive = todayMembers.any { !it.isPaused }
-                    if (todayHasActive) {
-                        val todaySchedule = withContext(Dispatchers.Default) {
-                            scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
+                    val vacationUntilStr = appSettings.vacationUntil.value
+                    val isVacationActive = !vacationUntilStr.isNullOrBlank() && today.toString() <= vacationUntilStr
+
+                    if (isVacationActive) {
+                        // Verschlaf-Schutz: Berechne den ersten aktiven Wecktag NACH dem Urlaub
+                        val vacEndLocalDate = try {
+                            LocalDate.parse(vacationUntilStr!!)
+                        } catch (_: Exception) {
+                            null
                         }
-                        val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
-                        if (latestAlarm != null && now < latestAlarm) {
-                            today
+
+                        if (vacEndLocalDate != null) {
+                            val startSearchDate = vacEndLocalDate.plus(1, DateTimeUnit.DAY)
+                            var foundDate: LocalDate? = null
+                            for (offset in 0..6) {
+                                val checkDate = startSearchDate.plus(offset, DateTimeUnit.DAY)
+                                val dow = checkDate.dayOfWeek.value
+                                val hasActiveMember = rawMembers.any { member ->
+                                    val profile = member.dayProfiles?.get(dow)
+                                    !member.isPaused && (profile?.isActive ?: false)
+                                }
+                                if (hasActiveMember) {
+                                    foundDate = checkDate
+                                    break
+                                }
+                            }
+                            foundDate ?: startSearchDate
                         } else {
                             tomorrow
                         }
                     } else {
-                        tomorrow
+                        val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
+                        val todayHasActive = todayMembers.any { !it.isPaused }
+                        if (todayHasActive) {
+                            val todaySchedule = withContext(Dispatchers.Default) {
+                                scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
+                            }
+                            val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
+                            if (latestAlarm != null && now < latestAlarm) {
+                                today
+                            } else {
+                                tomorrow
+                            }
+                        } else {
+                            tomorrow
+                        }
                     }
                 }
 

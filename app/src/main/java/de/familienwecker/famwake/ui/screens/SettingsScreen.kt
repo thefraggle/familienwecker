@@ -684,17 +684,27 @@ fun SettingsScreen(
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        if (!vacationUntil.isNullOrBlank())
-                            stringResource(R.string.vacation_mode_banner_desc, vacationUntil!!)
-                        else
-                            stringResource(R.string.vacation_mode_select_date),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-
                     if (!vacationUntil.isNullOrBlank()) {
+                        val formattedVac = viewModel.formatVacationDate(vacationUntil)
+                        Text(
+                            text = stringResource(R.string.vacation_mode_last_day_off, formattedVac),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        val firstAlarm = viewModel.getFirstAlarmDateAfterVacation(vacationUntil)
+                        val firstAlarmText = if (firstAlarm != null) {
+                            stringResource(R.string.vacation_mode_first_alarm, firstAlarm)
+                        } else {
+                            stringResource(R.string.vacation_mode_no_alarm_after)
+                        }
+                        Text(
+                            text = firstAlarmText,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+
                         OutlinedButton(
                             onClick = { viewModel.clearVacation() },
                             modifier = Modifier.fillMaxWidth().height(48.dp),
@@ -703,6 +713,36 @@ fun SettingsScreen(
                             Text(stringResource(R.string.vacation_mode_end_button))
                         }
                     } else {
+                        Text(
+                            text = stringResource(R.string.vacation_mode_select_date),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        // Schnell-Auswahl-Chips
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            SuggestionChip(
+                                onClick = { viewModel.setVacationPreset(7) },
+                                label = { Text(stringResource(R.string.vacation_mode_preset_1week)) },
+                                modifier = Modifier.weight(1f)
+                            )
+                            SuggestionChip(
+                                onClick = { viewModel.setVacationPreset(14) },
+                                label = { Text(stringResource(R.string.vacation_mode_preset_2weeks)) },
+                                modifier = Modifier.weight(1f)
+                            )
+                            SuggestionChip(
+                                onClick = { viewModel.setVacationPresetEndOfMonth() },
+                                label = { Text(stringResource(R.string.vacation_mode_preset_month_end)) },
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
+
                         Button(
                             onClick = { showVacationDatePicker = true },
                             modifier = Modifier.fillMaxWidth().height(48.dp),

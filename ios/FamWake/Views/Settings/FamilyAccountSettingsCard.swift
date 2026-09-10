@@ -89,9 +89,22 @@ struct FamilyAccountSettingsCard: View {
                 }
 
                 if let vac = familyViewModel.vacationUntil, !vac.isEmpty {
-                    Text(L.vacationModeBannerDesc(vac))
-                        .font(.subheadline)
-                        .foregroundStyle(theme.onSurfaceVariant)
+                    VStack(alignment: .leading, spacing: 4) {
+                        let formattedVac = familyViewModel.formatVacationDate(vac)
+                        Text(L.vacationModeLastDayOff(formattedVac))
+                            .font(.subheadline)
+                            .foregroundStyle(theme.onSurface)
+                        if let firstAlarm = familyViewModel.getFirstAlarmDateAfterVacation(vac) {
+                            Text(L.vacationModeFirstAlarm(firstAlarm))
+                                .font(.caption)
+                                .foregroundStyle(theme.onSurfaceVariant)
+                        } else {
+                            Text(L.vacationModeNoAlarmAfter)
+                                .font(.caption)
+                                .foregroundStyle(theme.onSurfaceVariant)
+                        }
+                    }
+                    .padding(.vertical, 4)
 
                     Button(action: {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -108,12 +121,53 @@ struct FamilyAccountSettingsCard: View {
                         .font(.caption)
                         .foregroundStyle(theme.onSurfaceVariant)
 
+                    // Presets
+                    HStack(spacing: 8) {
+                        Button(action: {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                            familyViewModel.setVacationPreset(daysToAdd: 7)
+                        }) {
+                            Text(L.vacationModePreset1Week)
+                                .font(.caption2).fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 8)
+                                .background(theme.surfaceVariant.opacity(0.5))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
+                        Button(action: {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                            familyViewModel.setVacationPreset(daysToAdd: 14)
+                        }) {
+                            Text(L.vacationModePreset2Weeks)
+                                .font(.caption2).fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 8)
+                                .background(theme.surfaceVariant.opacity(0.5))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
+                        Button(action: {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                            familyViewModel.setVacationPresetEndOfMonth()
+                        }) {
+                            Text(L.vacationModePresetMonthEnd)
+                                .font(.caption2).fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 8)
+                                .background(theme.surfaceVariant.opacity(0.5))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(theme.onSurface)
+
                     DatePicker(
                         L.vacationModeSelectDate,
                         selection: Binding(
                             get: { Date() },
                             set: { selectedDate in
                                 let f = DateFormatter()
+                                f.calendar = Calendar(identifier: .gregorian)
+                                f.locale = Locale(identifier: "en_US_POSIX")
                                 f.dateFormat = "yyyy-MM-dd"
                                 familyViewModel.setVacationUntil(f.string(from: selectedDate))
                             }

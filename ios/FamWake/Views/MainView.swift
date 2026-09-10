@@ -322,13 +322,23 @@ struct MainView: View {
     private func vacationModeBanner(until: String) -> some View {
         Group {
             HStack {
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 4) {
                     Text(L.vacationModeBannerTitle)
                         .font(.subheadline).fontWeight(.bold)
                         .foregroundStyle(theme.onPrimaryContainer)
-                    Text(L.vacationModeBannerDesc(until))
+                    let formattedVac = familyViewModel.formatVacationDate(until)
+                    Text(L.vacationModeLastDayOff(formattedVac))
                         .font(.caption)
-                        .foregroundStyle(theme.onPrimaryContainer.opacity(0.8))
+                        .foregroundStyle(theme.onPrimaryContainer.opacity(0.9))
+                    if let firstAlarm = familyViewModel.getFirstAlarmDateAfterVacation(until) {
+                        Text(L.vacationModeFirstAlarm(firstAlarm))
+                            .font(.caption)
+                            .foregroundStyle(theme.onPrimaryContainer.opacity(0.9))
+                    } else {
+                        Text(L.vacationModeNoAlarmAfter)
+                            .font(.caption)
+                            .foregroundStyle(theme.onPrimaryContainer.opacity(0.9))
+                    }
                 }
                 Spacer()
                 Button(L.vacationModeEndButton) {
