@@ -4,10 +4,9 @@
 
 ## 2.1.15 – 2026-09-10
 ✨ Improved:
-• Reliable Vacation Mode: Alarms stay quiet during holidays and turn back on automatically right on your first school or work day – never oversleep again.
-• Clear Vacation Preview: A clear 2-line display shows you exactly when your last free day is and when your alarm will ring again.
-• Quick Vacation Presets: Pick your holiday duration with a single tap (+1 week, +2 weeks, or end of the month).
-• Smoother Morning Routine: The "Bathroom is free!" button now appears right when you get up and stays readily accessible even after your alarm rings.
+• Vacation Mode with Sleep-In Protection: Alarms pause during holidays and turn back on automatically right on your first school or work day.
+• Clear Preview & Presets: A 2-line display shows your last free day and first alarm. Pick holiday presets with a single tap (+1 or +2 weeks).
+• Smoother Morning Routine: "Bathroom is free!" appears right after waking up and stays easily accessible even after your alarm.
 
 ## 2.1.14 – 2026-09-10
 ✨ Improved:
