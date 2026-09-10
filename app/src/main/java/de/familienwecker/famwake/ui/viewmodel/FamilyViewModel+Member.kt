@@ -66,6 +66,7 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
             _members.value = currentList.toPersistentList()
             recalculateSchedule()
 
+            memberRepository.upsertMember(safeMember)
             repository.addOrUpdateMember(currentFamilyId, safeMember)
             
             if (willAutoClaim && finalMember.claimedByUserId != null) {
@@ -108,6 +109,7 @@ internal fun FamilyViewModel.addOrUpdateMemberDebounced(member: FamilyMember, on
             val safeMember = if (member.id == myMemberId.value) {
                 member.copy(deviceAlarmEnabled = isAlarmEnabled.value)
             } else member
+            memberRepository.upsertMember(safeMember)
             repository.addOrUpdateMember(currentFamilyId, safeMember)
             onComplete?.invoke()
         } catch (e: kotlinx.coroutines.CancellationException) {

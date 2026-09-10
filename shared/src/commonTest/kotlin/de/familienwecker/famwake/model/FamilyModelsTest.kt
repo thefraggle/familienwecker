@@ -54,4 +54,41 @@ class FamilyModelsTest {
         assertEquals("user-abc", member.claimedByUserId)
         assertEquals(1, member.snoozeCount)
     }
+
+    @Test
+    fun familyMember_breakfastDurationMinutes_defaultsToNull() {
+        val member = FamilyMember(
+            id = "m-1",
+            name = "Kind",
+            earliestWakeUp = LocalTime(6, 0),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 10L,
+            wantsBreakfast = true
+        )
+        assertNull(member.breakfastDurationMinutes)
+    }
+
+    @Test
+    fun familyMember_breakfastDurationMinutes_customValueRetained() {
+        val member = FamilyMember(
+            id = "m-2",
+            name = "Kind",
+            earliestWakeUp = LocalTime(6, 0),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 10L,
+            wantsBreakfast = true,
+            breakfastDurationMinutes = 25L
+        )
+        assertEquals(25L, member.breakfastDurationMinutes)
+    }
+
+    @Test
+    fun dayProfile_breakfastDurationMinutes_handling() {
+        val defaultProfile = DayProfile()
+        assertNull(defaultProfile.breakfastDurationMinutes)
+
+        val customProfile = DayProfile(breakfastDurationMinutes = 35L)
+        assertEquals(35L, customProfile.breakfastDurationMinutes)
+    }
 }
+
