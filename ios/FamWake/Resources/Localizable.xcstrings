@@ -11884,6 +11884,12 @@
             "state": "translated",
             "value": "E-Mail hat schon n anderer genommen."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ця електронна адреса вже зареєстрована."
+          }
         }
       }
     },
@@ -14550,6 +14556,12 @@
             "state": "translated",
             "value": "Kei Mail-App jefunge."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не знайдено поштової програми."
+          }
         }
       }
     },
@@ -17090,6 +17102,12 @@
             "state": "translated",
             "value": "Fähler"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помилка"
+          }
         }
       }
     },
@@ -17918,6 +17936,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "E-Mail oder Passwort is fürn Eimer. Guck nochma."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неправильна електронна адреса або пароль. Будь ласка, перевірте."
           }
         }
       }
@@ -30423,6 +30447,12 @@
             "state": "translated",
             "value": "%1$s braucht länger. Dein Wecker klingelt jetzt um %2$s"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ потребує більше часу. Ваш будильник тепер задзвонить о %@"
+          }
         }
       }
     },
@@ -30583,6 +30613,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Weckzeit verschoben"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Час пробудження зміщено"
           }
         }
       }
@@ -30939,6 +30975,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ОК"
           }
         }
       }
@@ -37310,6 +37352,12 @@
             "state": "translated",
             "value": "(verjrasselt)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "(зміщено)"
+          }
         }
       }
     },
@@ -39597,6 +39645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Admin"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адміністратор"
           }
         }
       }
@@ -50775,6 +50829,12 @@
             "state": "translated",
             "value": "⏰ Test-Wecker (2 Min)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⏰ Тестовий будильник (2 хв)"
+          }
         }
       }
     },
@@ -53679,6 +53739,12 @@
             "state": "translated",
             "value": "Schlummern (%1$d/%2$d)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дрімати (%d/%d)"
+          }
         }
       }
     },
@@ -53838,6 +53904,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Maximale Snooze-Anzahl erreicht. Aufstehen! 💪"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Досягнуто максимальну кількість відкладень. Час вставати! 💪"
           }
         }
       }
@@ -62921,6 +62993,12 @@
             "state": "translated",
             "value": "Dütsch"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Німецька"
+          }
         }
       }
     },
@@ -63081,6 +63159,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Änglisch"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Англійська"
           }
         }
       }
@@ -63243,6 +63327,12 @@
             "state": "translated",
             "value": "Tour neu starte"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустити огляд"
+          }
         }
       }
     },
@@ -63403,6 +63493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Französisch"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Французька"
           }
         }
       }
@@ -63565,6 +63661,12 @@
             "state": "translated",
             "value": "Spanisch"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іспанська"
+          }
         }
       }
     },
@@ -63725,6 +63827,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Italienisch"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Італійська"
           }
         }
       }
@@ -63887,6 +63995,12 @@
             "state": "translated",
             "value": "Polnisch"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Польська"
+          }
         }
       }
     },
@@ -64047,6 +64161,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Holländisch"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нідерландська"
           }
         }
       }
@@ -64209,6 +64329,12 @@
             "state": "translated",
             "value": "Portugiesisch"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Португальська"
+          }
         }
       }
     },
@@ -64369,6 +64495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Schwiizerdütsch"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Швейцарський німецький"
           }
         }
       }
@@ -64531,6 +64663,12 @@
             "state": "translated",
             "value": "Schwäbisch"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Швабський діалект"
+          }
         }
       }
     },
@@ -64691,6 +64829,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ruhrpott"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рурський діалект"
           }
         }
       }
