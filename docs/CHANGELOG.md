@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.14 – 2026-09-10
+✨ Verbessert:
+• Dauerhafte Weckzeiten: Neu angelegte Profile und Weckzeiten bleiben ab sofort auch nach dem Schließen und erneuten Öffnen der App immer zuverlässig erhalten.
+• Sofort startklar: Deine Familienmitglieder und Weckzeiten stehen beim App-Start direkt ohne Verzögerung bereit.
+
 ## 2.1.13 – 2026-09-10
 ✨ Verbessert:
 • Felsenfest geschützt: Deine Familie, Weckzeiten und Profile bleiben auch ohne Internetverbindung oder bei schlechtem Empfang jederzeit zuverlässig erhalten.

@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.14 – 2026-09-10
+✨ Improved:
+• Reliable Schedule Saving: Newly created profiles and alarm times now remain safely saved even after closing and reopening the app.
+• Ready Instantly: Your family members and alarms are ready without delay on every app launch.
+
 ## 2.1.13 – 2026-09-10
 ✨ Improved:
 • Solid Protection: Your family, alarms, and profile settings are always safely preserved, even offline or with a weak connection.
