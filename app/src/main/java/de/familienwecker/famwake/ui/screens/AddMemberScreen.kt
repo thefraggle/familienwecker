@@ -61,7 +61,8 @@ private fun defaultDayProfiles(
     latestWakeUp: LocalTime = LocalTime.of(7, 30),
     bathroomDurationMinutes: Long = 20L,
     wantsBreakfast: Boolean = true,
-    leaveHomeTime: LocalTime? = null
+    leaveHomeTime: LocalTime? = null,
+    breakfastDurationMinutes: Long? = null
 ): Map<Int, DayProfile> = WEEKDAY_KEYS.associateWith { day ->
     DayProfile(
         isActive = false, // Standardmäßig inaktiv (Opt-In)
@@ -69,7 +70,8 @@ private fun defaultDayProfiles(
         latestWakeUp = latestWakeUp.toKmpLocalTime(),
         bathroomDurationMinutes = bathroomDurationMinutes,
         wantsBreakfast = wantsBreakfast,
-        leaveHomeTime = leaveHomeTime?.toKmpLocalTime()
+        leaveHomeTime = leaveHomeTime?.toKmpLocalTime(),
+        breakfastDurationMinutes = breakfastDurationMinutes
     )
 }
 
@@ -106,7 +108,8 @@ fun AddMemberScreen(
             latestWakeUp = memberToEdit?.latestWakeUp?.toJavaLocalTime() ?: LocalTime.of(7, 30),
             bathroomDurationMinutes = memberToEdit?.bathroomDurationMinutes ?: 20L,
             wantsBreakfast = memberToEdit?.wantsBreakfast ?: true,
-            leaveHomeTime = memberToEdit?.leaveHomeTime?.toJavaLocalTime()
+            leaveHomeTime = memberToEdit?.leaveHomeTime?.toJavaLocalTime(),
+            breakfastDurationMinutes = memberToEdit?.breakfastDurationMinutes
         )
     }
  
@@ -307,6 +310,7 @@ fun AddMemberScreen(
                             bathroomDurationMinutes = refProfile?.bathroomDurationMinutes ?: 20L,
                             wantsBreakfast = refProfile?.wantsBreakfast ?: true,
                             leaveHomeTime = refProfile?.leaveHomeTime,
+                            breakfastDurationMinutes = refProfile?.breakfastDurationMinutes,
                             isPaused = memberToEdit?.isPaused ?: false,
                             // Sicherheitsnetz: Falls Room den Claim noch nicht hat (Stale-Cache),
                             // aber memberId == myMemberId, nehmen wir die UID aus dem Auth-State.

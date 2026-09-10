@@ -31,8 +31,16 @@ class FamilyMemberMapperTest {
     }
 
     @Test
+    fun parseBreakfastDuration_validNumericStringConvertedToLong() {
+        assertEquals(30L, parseBreakfastDuration("30"))
+        assertEquals(25L, parseBreakfastDuration(" 25 "))
+        assertEquals(40L, parseBreakfastDuration("40.0"))
+    }
+
+    @Test
     fun parseBreakfastDuration_invalidTypesReturnNull() {
-        assertNull(parseBreakfastDuration("30"))
+        assertNull(parseBreakfastDuration("not a number"))
+        assertNull(parseBreakfastDuration(""))
         assertNull(parseBreakfastDuration(true))
         assertNull(parseBreakfastDuration(listOf(30)))
         assertNull(parseBreakfastDuration(mapOf("duration" to 30)))
