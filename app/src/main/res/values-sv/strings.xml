@@ -445,8 +445,11 @@
     <string name="vacation_mode_last_day_off">🏖️ Sista lediga dagen: %1$s (larm av)</string>
     <string name="vacation_mode_first_alarm">🔔 Första larmet: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 Inget aktivt larm efter semestern</string>
-    <string name="vacation_mode_preset_1week">+1 vecka</string>
-    <string name="vacation_mode_preset_2weeks">+2 veckor</string>
-    <string name="vacation_mode_preset_month_end">Till månadens slut</string>
+    <string name="vacation_mode_preset_1week">7 dagar (1 vecka)</string>
+    <string name="vacation_mode_preset_2weeks">14 dagar (2 veckor)</string>
+    <string name="vacation_mode_preset_month_end">Till månadsslut</string>
     <string name="vacation_mode_alarm_paused_desc">Semester till %1$s – larmet pausat</string>
+    <string name="vacation_mode_select_custom_date">Välj datum…</string>
+    <string name="vacation_mode_duration_subtitle">Hur länge vill du pausa?</string>
+    <string name="vacation_mode_active_badge">Aktiv</string>
 </resources>

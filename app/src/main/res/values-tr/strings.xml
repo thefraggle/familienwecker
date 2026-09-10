@@ -450,8 +450,11 @@
     <string name="vacation_mode_last_day_off">🏖️ Son tatil günü: %1$s (alarm kapalı)</string>
     <string name="vacation_mode_first_alarm">🔔 İlk alarm: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 Tatilden sonra aktif alarm yok</string>
-    <string name="vacation_mode_preset_1week">+1 hafta</string>
-    <string name="vacation_mode_preset_2weeks">+2 hafta</string>
+    <string name="vacation_mode_preset_1week">7 gün (1 hafta)</string>
+    <string name="vacation_mode_preset_2weeks">14 gün (2 hafta)</string>
     <string name="vacation_mode_preset_month_end">Ay sonuna kadar</string>
     <string name="vacation_mode_alarm_paused_desc">%1$s tarihine kadar tatil – alarm duraklatıldı</string>
+    <string name="vacation_mode_select_custom_date">Tarih seç…</string>
+    <string name="vacation_mode_duration_subtitle">Alarmlar ne kadar süre duraklatılsın?</string>
+    <string name="vacation_mode_active_badge">Aktif</string>
 </resources>

@@ -445,8 +445,11 @@
     <string name="vacation_mode_last_day_off">🏖️ Sidste fridag: %1$s (vækkeur slået fra)</string>
     <string name="vacation_mode_first_alarm">🔔 Første vækkeur: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 Intet aktivt vækkeur efter ferien</string>
-    <string name="vacation_mode_preset_1week">+1 uge</string>
-    <string name="vacation_mode_preset_2weeks">+2 uger</string>
-    <string name="vacation_mode_preset_month_end">Til månedens udgang</string>
+    <string name="vacation_mode_preset_1week">7 dage (1 uge)</string>
+    <string name="vacation_mode_preset_2weeks">14 dage (2 uger)</string>
+    <string name="vacation_mode_preset_month_end">Til månedsslut</string>
     <string name="vacation_mode_alarm_paused_desc">Ferie indtil %1$s – vækkeur sat på pause</string>
+    <string name="vacation_mode_select_custom_date">Vælg dato…</string>
+    <string name="vacation_mode_duration_subtitle">Hvor længe holder du pause?</string>
+    <string name="vacation_mode_active_badge">Aktiv</string>
 </resources>

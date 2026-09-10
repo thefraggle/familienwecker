@@ -444,8 +444,11 @@
     <string name="vacation_mode_last_day_off">🏖️ Letzte freie Daach: %1$s (Wecker us)</string>
     <string name="vacation_mode_first_alarm">🔔 Ieschte Wecker: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 Kein aktive Wecker noh em Urlaub</string>
-    <string name="vacation_mode_preset_1week">+1 Woch</string>
-    <string name="vacation_mode_preset_2weeks">+2 Woche</string>
-    <string name="vacation_mode_preset_month_end">Bes Monatsengk</string>
+    <string name="vacation_mode_preset_1week">7 Daach (1 Woch)</string>
+    <string name="vacation_mode_preset_2weeks">14 Daach (2 Woche)</string>
+    <string name="vacation_mode_preset_month_end">Bes Engk vum Moond</string>
     <string name="vacation_mode_alarm_paused_desc">Urlaub bes %1$s – Wecker pausiert</string>
+    <string name="vacation_mode_select_custom_date">Dattum ussöke…</string>
+    <string name="vacation_mode_duration_subtitle">Wie lang maachß de Paus?</string>
+    <string name="vacation_mode_active_badge">Aktiev</string>
 </resources>

@@ -368,19 +368,6 @@ fun MainScreen(
                     )
                 }
                 
-                // Urlaubsmodus Banner
-                item {
-                    val vacationUntil by viewModel.vacationUntil.collectAsStateWithLifecycle()
-                    if (!vacationUntil.isNullOrBlank()) {
-                        VacationModeBanner(
-                            vacationUntil = vacationUntil!!,
-                            viewModel = viewModel,
-                            isDarkTheme = isDarkTheme,
-                            onEndVacation = { viewModel.clearVacation() }
-                        )
-                    }
-                }
-
                 // 0b. Wecker Ein/Aus Schalter
                 item {
                     AlarmToggleSection(
@@ -821,67 +808,4 @@ fun UnclaimedWarningBanner(memberName: String, isDarkTheme: Boolean) {
     }
 }
 
-@Composable
-fun VacationModeBanner(
-    vacationUntil: String,
-    viewModel: de.familienwecker.famwake.ui.viewmodel.FamilyViewModel,
-    isDarkTheme: Boolean,
-    onEndVacation: () -> Unit
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.extraLarge,
-        elevation = CardDefaults.cardElevation(defaultElevation = if (isDarkTheme) 0.dp else 2.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isDarkTheme) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-            else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(R.string.vacation_mode_banner_title),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                val formattedVac = viewModel.formatVacationDate(vacationUntil)
-                Text(
-                    text = stringResource(R.string.vacation_mode_last_day_off, formattedVac),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.9f)
-                )
-                val firstAlarm = viewModel.getFirstAlarmDateAfterVacation(vacationUntil)
-                val firstAlarmText = if (firstAlarm != null) {
-                    stringResource(R.string.vacation_mode_first_alarm, firstAlarm)
-                } else {
-                    stringResource(R.string.vacation_mode_no_alarm_after)
-                }
-                Text(
-                    text = firstAlarmText,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.9f)
-                )
-            }
-            Spacer(modifier = Modifier.width(8.dp))
-            TextButton(
-                onClick = onEndVacation,
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary)
-            ) {
-                Text(
-                    text = stringResource(R.string.vacation_mode_end_button),
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.labelLarge
-                )
-            }
-        }
-    }
-}
+

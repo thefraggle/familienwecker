@@ -65364,67 +65364,67 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 Woche"
+            "value": "7 Tage (1 Woche)"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 week"
+            "value": "7 days (1 week)"
           }
         },
         "gsw": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 Woche"
+            "value": "7 Däg (1 Wuche)"
           }
         },
         "swg": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 Woche"
+            "value": "7 Dag (1 Woch)"
           }
         },
         "ksh": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 Woch"
+            "value": "7 Daach (1 Woch)"
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 uge"
+            "value": "7 dage (1 uge)"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 semana"
+            "value": "7 días (1 semana)"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 semaine"
+            "value": "7 jours (1 semaine)"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 settimana"
+            "value": "7 giorni (1 settimana)"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 week"
+            "value": "7 dagen (1 week)"
           }
         },
         "no": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 uke"
+            "value": "7 dager (1 uke)"
           }
         },
         "nb": {
@@ -65436,61 +65436,61 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 tydzień"
+            "value": "7 dni (1 tydzień)"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 semana"
+            "value": "7 dias (1 semana)"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 неделя"
+            "value": "7 дней (1 неделя)"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 vecka"
+            "value": "7 dagar (1 vecka)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 hafta"
+            "value": "7 gün (1 hafta)"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 тиждень"
+            "value": "7 днів (1 тиждень)"
           }
         },
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 सप्ताह"
+            "value": "7 दिन (1 सप्ताह)"
           }
         },
         "mr": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 आठवडा"
+            "value": "7 दिवस (1 आठवडा)"
           }
         },
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "+১ সপ্তাহ"
+            "value": "7 দিন (1 সপ্তাহ)"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 minggu"
+            "value": "7 hari (1 minggu)"
           }
         },
         "in": {
@@ -65502,19 +65502,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1 tuần"
+            "value": "7 ngày (1 tuần)"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1週間"
+            "value": "7日間 (1週間)"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1주"
+            "value": "7일 (1주)"
           }
         },
         "zh": {
@@ -65526,7 +65526,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "+1周"
+            "value": "7天 (1周)"
           }
         }
       }
@@ -65537,67 +65537,67 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 Wochen"
+            "value": "14 Tage (2 Wochen)"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 weeks"
+            "value": "14 days (2 weeks)"
           }
         },
         "gsw": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 Wochen"
+            "value": "14 Däg (2 Wuche)"
           }
         },
         "swg": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 Wochen"
+            "value": "14 Dag (2 Wocha)"
           }
         },
         "ksh": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 Woche"
+            "value": "14 Daach (2 Woche)"
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 uger"
+            "value": "14 dage (2 uger)"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 semanas"
+            "value": "14 días (2 semanas)"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 semaines"
+            "value": "14 jours (2 semaines)"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 settimane"
+            "value": "14 giorni (2 settimane)"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 weken"
+            "value": "14 dagen (2 weken)"
           }
         },
         "no": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 uker"
+            "value": "14 dager (2 uker)"
           }
         },
         "nb": {
@@ -65609,61 +65609,61 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 tygodnie"
+            "value": "14 dni (2 tygodnie)"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 semanas"
+            "value": "14 dias (2 semanas)"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 недели"
+            "value": "14 дней (2 недели)"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 veckor"
+            "value": "14 dagar (2 veckor)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 hafta"
+            "value": "14 gün (2 hafta)"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 тижні"
+            "value": "14 днів (2 тижні)"
           }
         },
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 सप्ताह"
+            "value": "14 दिन (2 सप्ताह)"
           }
         },
         "mr": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 आठवडे"
+            "value": "14 दिवस (2 आठवडे)"
           }
         },
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "+২ সপ্তাহ"
+            "value": "14 দিন (2 সপ্তাহ)"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 minggu"
+            "value": "14 hari (2 minggu)"
           }
         },
         "in": {
@@ -65675,19 +65675,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2 tuần"
+            "value": "14 ngày (2 tuần)"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2週間"
+            "value": "14日間 (2週間)"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2주"
+            "value": "14일 (2주)"
           }
         },
         "zh": {
@@ -65699,7 +65699,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "+2周"
+            "value": "14天 (2周)"
           }
         }
       }
@@ -65716,49 +65716,49 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Until end of month"
+            "value": "End of month"
           }
         },
         "gsw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bis Monatsend"
+            "value": "Bis Monatsändi"
           }
         },
         "swg": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bis Monatsend"
+            "value": "Bis Monatsende"
           }
         },
         "ksh": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bes Monatsengk"
+            "value": "Bes Engk vum Moond"
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Til månedens udgang"
+            "value": "Til månedsslut"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hasta fin de mes"
+            "value": "Fin de mes"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jusqu'à fin du mois"
+            "value": "Fin du mois"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fino a fine mese"
+            "value": "Fine mese"
           }
         },
         "nl": {
@@ -65770,7 +65770,7 @@
         "no": {
           "stringUnit": {
             "state": "translated",
-            "value": "Til slutten av måneden"
+            "value": "Til månedsslutt"
           }
         },
         "nb": {
@@ -65788,7 +65788,7 @@
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Até o fim do mês"
+            "value": "Fim do mês"
           }
         },
         "ru": {
@@ -65800,7 +65800,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Till månadens slut"
+            "value": "Till månadsslut"
           }
         },
         "tr": {
@@ -65824,7 +65824,7 @@
         "mr": {
           "stringUnit": {
             "state": "translated",
-            "value": "महिन्याच्या शेवटपर्यंत"
+            "value": "महिन्याच्या अखेरीपर्यंत"
           }
         },
         "bn": {
@@ -65836,7 +65836,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hingga akhir bulan"
+            "value": "Akhir bulan"
           }
         },
         "in": {
@@ -66046,6 +66046,471 @@
           "stringUnit": {
             "state": "translated",
             "value": "假期至 %1$@ – 闹钟已暂停"
+          }
+        }
+      }
+    },
+    "vacation_mode_select_custom_date": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum wählen…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pick date…"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum wähle…"
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum wähla…"
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dattum ussöke…"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vælg dato…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir fecha…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir date…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli data…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum kiezen…"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Velg dato…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybierz datę…"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolher data…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбрать дату…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välj datum…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarih seç…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обрати дату…"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "तारीख चुनें…"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "तारीख निवडा…"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "তারিখ বাছুন…"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pilih tanggal…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chọn ngày…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日付を選択…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "날짜 선택…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择日期…"
+          }
+        }
+      }
+    },
+    "vacation_mode_duration_subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie lange machst du Pause?"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How long are you pausing alarms?"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie lang machsch Pause?"
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie lang machsch Pause?"
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie lang maachß de Paus?"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hvor længe holder du pause?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuánto durará la pausa?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Combien de temps dure la pause ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quanto dura la pausa?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoe lang pauzeer je de wekkers?"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hvor lenge pauser du alarmen?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na jak długo wstrzymujesz budziki?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por quanto tempo quer pausar?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На сколько дней пауза?"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hur länge vill du pausa?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarmlar ne kadar süre duraklatılsın?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На скільки днів ставити паузу?"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "अलार्म कितने समय के लिए रोकना है?"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "अलार्म किती काळ थांबवायचा आहे?"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "অ্যালার্ম কতক্ষণ বিরতি রাখবেন?"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Berapa lama alarm dijeda?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn muốn tạm dừng báo thức bao lâu?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "どのくらいの期間休止しますか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알람을 얼마 동안 일시중지할까요?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂停闹钟多长时间？"
+          }
+        }
+      }
+    },
+    "vacation_mode_active_badge": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiv"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Active"
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiv"
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiv"
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiev"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiv"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actif"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attivo"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actief"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiv"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktywny"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ativo"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активен"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiv"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktif"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активний"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "सक्रिय"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "सक्रिय"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "সক্রিয়"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktif"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang bật"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有効"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "활성"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已启用"
           }
         }
       }

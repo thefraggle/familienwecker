@@ -462,9 +462,12 @@
     <string name="vacation_mode_last_day_off">🏖️ Last day off: %1$s (alarm off)</string>
     <string name="vacation_mode_first_alarm">🔔 First alarm: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 No active alarm after vacation</string>
-    <string name="vacation_mode_preset_1week">+1 week</string>
-    <string name="vacation_mode_preset_2weeks">+2 weeks</string>
-    <string name="vacation_mode_preset_month_end">Until end of month</string>
+    <string name="vacation_mode_preset_1week">7 days (1 week)</string>
+    <string name="vacation_mode_preset_2weeks">14 days (2 weeks)</string>
+    <string name="vacation_mode_preset_month_end">End of month</string>
+    <string name="vacation_mode_select_custom_date">Pick date…</string>
+    <string name="vacation_mode_duration_subtitle">How long are you pausing alarms?</string>
+    <string name="vacation_mode_active_badge">Active</string>
     <string name="vacation_mode_alarm_paused_desc">Vacation until %1$s – Alarm paused</string>
 </resources>
 

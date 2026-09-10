@@ -1,6 +1,12 @@
-# Changelog
+# Changelog (English)
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
+
+## 2.1.16 – 2026-09-10
+✨ Improved:
+• Stable Vacation End: Ending vacation mode early now works smoothly without app crashes.
+• Clean Dashboard: Active vacation mode is now displayed in a single, compact overview card without clutter.
+• Intuitive Holiday Presets: Choose holiday duration in an easy-to-read grid (7 days, 14 days, end of month, or custom date).
 
 ## 2.1.15 – 2026-09-10
 ✨ Improved:

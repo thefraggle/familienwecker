@@ -80,54 +80,111 @@ fun AlarmToggleSection(
                 else java.time.LocalDate.now().toString() <= vacationUntil!!
             }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled) else stringResource(R.string.main_alarm_disabled),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Black
-                    )
-                    val alarmDescText = if (isVacationActive && !vacationUntil.isNullOrBlank()) {
-                        val formattedVac = viewModel.formatVacationDate(vacationUntil)
-                        stringResource(R.string.vacation_mode_alarm_paused_desc, formattedVac)
-                    } else if (isAlarmEnabled) {
-                        stringResource(R.string.main_alarm_enabled_desc)
-                    } else {
-                        stringResource(R.string.main_alarm_disabled_desc)
+            if (isVacationActive && !vacationUntil.isNullOrBlank()) {
+                // Urlaubsmodus aktiv: Elegante, aufgeräumte Einzelkarte ohne widersprüchlichen Schalter
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f, fill = false)
+                    ) {
+                        Text("🌴", style = MaterialTheme.typography.titleLarge)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.vacation_mode_banner_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
                     }
-                    Text(
-                        text = alarmDescText,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+
+                    OutlinedButton(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            viewModel.clearVacation()
+                        },
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                        modifier = Modifier.height(36.dp),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.4f))
+                    ) {
+                        Text(
+                            text = stringResource(R.string.vacation_mode_end_button),
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.15f))
+                Spacer(modifier = Modifier.height(10.dp))
+
+                val formattedVac = viewModel.formatVacationDate(vacationUntil)
+                Text(
+                    text = stringResource(R.string.vacation_mode_last_day_off, formattedVac),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                val firstAlarm = viewModel.getFirstAlarmDateAfterVacation(vacationUntil)
+                val firstAlarmText = if (firstAlarm != null) {
+                    stringResource(R.string.vacation_mode_first_alarm, firstAlarm)
+                } else {
+                    stringResource(R.string.vacation_mode_no_alarm_after)
+                }
+                Text(
+                    text = firstAlarmText,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            } else {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled) else stringResource(R.string.main_alarm_disabled),
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Black
+                        )
+                        Text(
+                            text = if (isAlarmEnabled) stringResource(R.string.main_alarm_enabled_desc) else stringResource(R.string.main_alarm_disabled_desc),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
+                    Switch(
+                        checked = isAlarmEnabled,
+                        onCheckedChange = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            viewModel.setAlarmEnabled(it)
+                            context.findActivity()?.let { activity ->
+                                viewModel.checkAndShowReview(activity)
+                            }
+                        },
+                        enabled = myMemberId != null,
+                        modifier = Modifier.testTag("main_alarm_toggle")
                     )
                 }
 
-                Switch(
-                    checked = isAlarmEnabled,
-                    onCheckedChange = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        viewModel.setAlarmEnabled(it)
-                        context.findActivity()?.let { activity ->
-                            viewModel.checkAndShowReview(activity)
-                        }
-                    },
-                    enabled = myMemberId != null,
-                    modifier = Modifier.testTag("main_alarm_toggle")
-                )
-            }
-
-            if (tooltipsEnabled && !tooltipSwitchSeen && myMemberId != null) {
-                Spacer(modifier = Modifier.height(8.dp))
-                TooltipBubble(
-                    visible = true,
-                    text = stringResource(R.string.tooltip_alarm_switch),
-                    onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeySwitch) },
-                    isDark = isDarkTheme
-                )
+                if (tooltipsEnabled && !tooltipSwitchSeen && myMemberId != null) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    TooltipBubble(
+                        visible = true,
+                        text = stringResource(R.string.tooltip_alarm_switch),
+                        onDismiss = { viewModel.markTooltipSeen(viewModel.tooltipKeySwitch) },
+                        isDark = isDarkTheme
+                    )
+                }
             }
 
             val myMember = members.find { it.id == myMemberId }

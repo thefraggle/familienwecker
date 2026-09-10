@@ -9,44 +9,78 @@ struct AlarmToggleSection: View {
     var body: some View {
         Group {
             VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
-                            .font(.title3).fontWeight(.bold)
-                            .foregroundStyle(theme.onPrimaryContainer)
-                        let alarmDescText: String = {
-                            if familyViewModel.isVacationActive, let vac = familyViewModel.vacationUntil {
-                                let fVac = familyViewModel.formatVacationDate(vac)
-                                return L.vacationModeAlarmPausedDesc(fVac)
-                            } else if familyViewModel.isAlarmEnabled {
-                                return L.mainAlarmEnabledDesc
-                            } else {
-                                return L.mainAlarmDisabledDesc
-                            }
-                        }()
-                        Text(alarmDescText)
-                            .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.8)
-                    }
-                    Spacer()
-                    Toggle("", isOn: Binding(
-                        get: { familyViewModel.isAlarmEnabled },
-                        set: {
-                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            familyViewModel.setAlarmEnabled($0)
+                if familyViewModel.isVacationActive, let vac = familyViewModel.vacationUntil, !vac.isEmpty {
+                    HStack {
+                        HStack(spacing: 6) {
+                            Text("🌴").font(.title3)
+                            Text(L.vacationModeBannerTitle)
+                                .font(.headline).fontWeight(.bold)
+                                .foregroundStyle(theme.onPrimaryContainer)
                         }
-                    ))
-                    .labelsHidden()
-                    .disabled(familyViewModel.myMemberId == nil)
-                    .tint(theme.secondary)
-                    .accessibilityLabel(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
-                    .accessibilityIdentifier("main_alarm_toggle")
-                }
+                        Spacer()
+                        Button(action: {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            familyViewModel.clearVacation()
+                        }) {
+                            Text(L.vacationModeEndButton)
+                                .font(.caption).fontWeight(.semibold)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .stroke(theme.primary.opacity(0.4), lineWidth: 1)
+                                )
+                        }
+                        .foregroundStyle(theme.primary)
+                    }
 
-                if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipSwitchSeen {
-                    TooltipBubble(text: L.tooltipAlarmSwitch) {
-                        familyViewModel.markTooltipSeen(familyViewModel.tooltipKeySwitch)
+                    Divider().background(theme.outline.opacity(0.2))
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        let formattedVac = familyViewModel.formatVacationDate(vac)
+                        Text(L.vacationModeLastDayOff(formattedVac))
+                            .font(.subheadline)
+                            .foregroundStyle(theme.onSurface)
+                        if let firstAlarm = familyViewModel.getFirstAlarmDateAfterVacation(vac) {
+                            Text(L.vacationModeFirstAlarm(firstAlarm))
+                                .font(.subheadline).fontWeight(.medium)
+                                .foregroundStyle(theme.primary)
+                        } else {
+                            Text(L.vacationModeNoAlarmAfter)
+                                .font(.subheadline)
+                                .foregroundStyle(theme.onSurfaceVariant)
+                        }
+                    }
+                } else {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
+                                .font(.title3).fontWeight(.bold)
+                                .foregroundStyle(theme.onPrimaryContainer)
+                            Text(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabledDesc : L.mainAlarmDisabledDesc)
+                                .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.7))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                        }
+                        Spacer()
+                        Toggle("", isOn: Binding(
+                            get: { familyViewModel.isAlarmEnabled },
+                            set: {
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                familyViewModel.setAlarmEnabled($0)
+                            }
+                        ))
+                        .labelsHidden()
+                        .disabled(familyViewModel.myMemberId == nil)
+                        .tint(theme.secondary)
+                        .accessibilityLabel(familyViewModel.isAlarmEnabled ? L.mainAlarmEnabled : L.mainAlarmDisabled)
+                        .accessibilityIdentifier("main_alarm_toggle")
+                    }
+
+                    if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipSwitchSeen {
+                        TooltipBubble(text: L.tooltipAlarmSwitch) {
+                            familyViewModel.markTooltipSeen(familyViewModel.tooltipKeySwitch)
+                        }
                     }
                 }
 

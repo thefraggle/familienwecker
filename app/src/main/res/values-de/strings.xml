@@ -457,9 +457,12 @@
     <string name="vacation_mode_last_day_off">🏖️ Letzter freier Tag: %1$s (Wecker aus)</string>
     <string name="vacation_mode_first_alarm">🔔 Erster Wecker: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 Kein aktiver Wecker nach dem Urlaub</string>
-    <string name="vacation_mode_preset_1week">+1 Woche</string>
-    <string name="vacation_mode_preset_2weeks">+2 Wochen</string>
+    <string name="vacation_mode_preset_1week">7 Tage (1 Woche)</string>
+    <string name="vacation_mode_preset_2weeks">14 Tage (2 Wochen)</string>
     <string name="vacation_mode_preset_month_end">Bis Monatsende</string>
+    <string name="vacation_mode_select_custom_date">Datum wählen…</string>
+    <string name="vacation_mode_duration_subtitle">Wie lange machst du Pause?</string>
+    <string name="vacation_mode_active_badge">Aktiv</string>
     <string name="vacation_mode_alarm_paused_desc">Urlaub bis %1$s – Wecker pausiert</string>
 </resources>
 

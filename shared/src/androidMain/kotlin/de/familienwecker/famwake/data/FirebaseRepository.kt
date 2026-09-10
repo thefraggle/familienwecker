@@ -681,13 +681,15 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun updateVacationUntil(familyId: String, vacationUntil: String?) {
         try {
-            val updateData: Map<String, Any?> = if (vacationUntil != null) {
+            val nativeDb = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+            val docRef = nativeDb.collection(COLLECTION_FAMILIES).document(familyId)
+            val updateData: Map<String, Any> = if (vacationUntil != null) {
                 mapOf("vacationUntil" to vacationUntil)
             } else {
                 mapOf("vacationUntil" to com.google.firebase.firestore.FieldValue.delete())
             }
-            db.collection(COLLECTION_FAMILIES).document(familyId)
-                .update(updateData)
+            docRef.update(updateData).await()
+            if (debugLogging) Log.d(TAG, "updateVacationUntil success for $familyId: $vacationUntil")
         } catch (e: Exception) {
             if (debugLogging) Log.e(TAG, "updateVacationUntil failed for $familyId: ${e.message}")
             throw e

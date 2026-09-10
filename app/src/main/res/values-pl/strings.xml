@@ -444,8 +444,11 @@
     <string name="vacation_mode_last_day_off">🏖️ Ostatni dzień wolny: %1$s (budzik wyłączony)</string>
     <string name="vacation_mode_first_alarm">🔔 Pierwszy budzik: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 Brak aktywnego budzika po urlopie</string>
-    <string name="vacation_mode_preset_1week">+1 tydzień</string>
-    <string name="vacation_mode_preset_2weeks">+2 tygodnie</string>
+    <string name="vacation_mode_preset_1week">7 dni (1 tydzień)</string>
+    <string name="vacation_mode_preset_2weeks">14 dni (2 tygodnie)</string>
     <string name="vacation_mode_preset_month_end">Do końca miesiąca</string>
     <string name="vacation_mode_alarm_paused_desc">Urlop do %1$s – budzik wstrzymany</string>
+    <string name="vacation_mode_select_custom_date">Wybierz datę…</string>
+    <string name="vacation_mode_duration_subtitle">Na jak długo wstrzymujesz budziki?</string>
+    <string name="vacation_mode_active_badge">Aktywny</string>
 </resources>

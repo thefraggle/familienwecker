@@ -445,8 +445,11 @@
     <string name="vacation_mode_last_day_off">🏖️ Последний выходной: %1$s (будильник выкл)</string>
     <string name="vacation_mode_first_alarm">🔔 Первый будильник: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 Нет активного будильника после отпуска</string>
-    <string name="vacation_mode_preset_1week">+1 неделя</string>
-    <string name="vacation_mode_preset_2weeks">+2 недели</string>
+    <string name="vacation_mode_preset_1week">7 дней (1 неделя)</string>
+    <string name="vacation_mode_preset_2weeks">14 дней (2 недели)</string>
     <string name="vacation_mode_preset_month_end">До конца месяца</string>
     <string name="vacation_mode_alarm_paused_desc">Отпуск до %1$s – будильник на паузе</string>
+    <string name="vacation_mode_select_custom_date">Выбрать дату…</string>
+    <string name="vacation_mode_duration_subtitle">На сколько дней пауза?</string>
+    <string name="vacation_mode_active_badge">Активен</string>
 </resources>
