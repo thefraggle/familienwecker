@@ -16,6 +16,7 @@ import com.google.firebase.Timestamp // Added import for native Firebase Timesta
 fun parseBreakfastDuration(raw: Any?): Long? = when (raw) {
     is Long -> raw
     is Number -> raw.toLong()
+    is String -> raw.trim().toLongOrNull() ?: raw.trim().toDoubleOrNull()?.toLong()
     else -> null
 }
 

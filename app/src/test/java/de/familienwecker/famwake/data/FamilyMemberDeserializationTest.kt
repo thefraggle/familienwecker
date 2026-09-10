@@ -43,8 +43,21 @@ class FamilyMemberDeserializationTest {
     }
 
     @Test
+    fun parseBreakfastDuration_withStringNumber_convertsToLong() {
+        val stringLongResult = parseBreakfastDuration("30")
+        assertEquals(30L, stringLongResult)
+
+        val stringWhitespaceResult = parseBreakfastDuration(" 25 ")
+        assertEquals(25L, stringWhitespaceResult)
+
+        val stringDoubleResult = parseBreakfastDuration("45.0")
+        assertEquals(45L, stringDoubleResult)
+    }
+
+    @Test
     fun parseBreakfastDuration_withUnsupportedTypes_returnsNullSafely() {
         assertNull(parseBreakfastDuration("not a number"))
+        assertNull(parseBreakfastDuration(""))
         assertNull(parseBreakfastDuration(true))
         assertNull(parseBreakfastDuration(listOf("invalid")))
     }
