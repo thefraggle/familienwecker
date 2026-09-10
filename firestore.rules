@@ -11,6 +11,12 @@ service cloud.firestore {
       return signedIn() && exists(/databases/$(database)/documents/_admins/$(request.auth.uid));
     }
 
+    // Prüft, ob der Nutzer Ersteller der Familie oder Admin ist
+    function isFamilyCreator(familyId) {
+      let familyPath = /databases/$(database)/documents/families/$(familyId);
+      return isAdmin() || (signedIn() && exists(familyPath) && get(familyPath).data.createdByUserId == request.auth.uid);
+    }
+
     // Prüft, ob der Nutzer Teil dieser Familie ist.
     // get(familyPath) wird von Firestore Rules bei gleichem Pfad gecacht → zählt nur einmal.
     function isFamilyMember(familyId) {
@@ -81,11 +87,18 @@ service cloud.firestore {
             !request.resource.data.diff(resource.data).affectedKeys()
               .hasAny(['name', 'claimedByUserId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'])
             ||
-            // Besitzer darf sein eigenes Profil vollständig bearbeiten (name, dayProfiles, etc.).
-            // Erforderlich damit User 2 sein eigenes Member-Profil speichern kann.
+            // Ungeclaimte Profile bearbeiten (z.B. Eltern benennen Kinderprofile um oder passen Einstellungen an).
+            // Profil bleibt ungeclaimt.
             (
-              resource.data.claimedByUserId == request.auth.uid &&
-              request.resource.data.claimedByUserId == request.auth.uid
+              resource.data.get('claimedByUserId', null) == null &&
+              request.resource.data.get('claimedByUserId', null) == null
+            )
+            ||
+            // Besitzer darf sein eigenes Profil vollständig bearbeiten (name, dayProfiles, etc.).
+            // Erforderlich damit User sein eigenes Member-Profil speichern kann.
+            (
+              resource.data.get('claimedByUserId', null) == request.auth.uid &&
+              request.resource.data.get('claimedByUserId', null) == request.auth.uid
             )
             ||
             // Claimen: Jedes Familienmitglied darf ein Profil auf sich selbst setzen.
@@ -98,17 +111,25 @@ service cloud.firestore {
             // Unclaimen: Eigenes Profil darf jeder Nutzer freigeben.
             (
               request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'isAwakeToday', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
-              resource.data.claimedByUserId == request.auth.uid &&
-              request.resource.data.claimedByUserId == null
+              resource.data.get('claimedByUserId', null) == request.auth.uid &&
+              request.resource.data.get('claimedByUserId', null) == null
             )
             ||
             // Admin darf alles.
             isAdmin()
           );
 
-        // Löschen erlaubt für alle Familienmitglieder.
-        // isAdmin() ist in isFamilyMember() bereits enthalten – kein redundanter Check.
-        allow delete: if isFamilyMember(familyId);
+        // Löschen:
+        // - Admin darf alles.
+        // - Familienmitglieder dürfen nur ihr eigenes Profil löschen (claimedByUserId == request.auth.uid).
+        // - Ungeclaimte Profile dürfen vom Ersteller der Familie (oder Admin) gelöscht werden.
+        // - Fremde geclaimte Profile dürfen nicht von anderen Mitgliedern gelöscht werden.
+        allow delete: if isAdmin() || (
+          isFamilyMember(familyId) && (
+            resource.data.get('claimedByUserId', null) == request.auth.uid ||
+            (resource.data.get('claimedByUserId', null) == null && isFamilyCreator(familyId))
+          )
+        );
       }
     }
 

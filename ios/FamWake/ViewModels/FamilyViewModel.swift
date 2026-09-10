@@ -1240,7 +1240,8 @@ class FamilyViewModel: ObservableObject {
         familyListener?.remove()
         familyListener = db.collection("families").document(id).addSnapshotListener { [weak self] snap, error in
             guard let self else { return }
-            if let err = error as NSError?, err.domain == FirestoreErrorDomain, err.code == FirestoreErrorCode.permissionDenied.rawValue {
+            if let error = error {
+                // Bei Offline / Netzwerkfehlern / Permission-Denied niemals Session löschen!
                 return
             }
             guard let snapshot = snap, snapshot.exists else {
@@ -1271,8 +1272,7 @@ class FamilyViewModel: ObservableObject {
         membersListener = db.collection("families/\(familyId)/members")
             .addSnapshotListener { [weak self] snap, error in
                 guard let self else { return }
-                if let err = error as NSError?, err.domain == FirestoreErrorDomain, err.code == FirestoreErrorCode.permissionDenied.rawValue {
-                    // Suppress error during transition
+                if let error = error {
                     return
                 }
                 // M7 revert: isFromCache ist nicht zuverlässig für Offline-Erkennung,
@@ -1280,6 +1280,10 @@ class FamilyViewModel: ObservableObject {
                 // Der NWPathMonitor (startNetworkMonitor) ist die einzige Quelle für isOffline.
                 guard let docs = snap?.documents else { return }
                 let parsed = docs.compactMap { FamilyMember.fromFirestore($0.data(), id: $0.documentID) }
+                // Schutz gegen 0-Docs-Snapshot: Wenn die lokale Liste bereits Members hat und der Snapshot leer ist, nicht wipen
+                if parsed.isEmpty && !self.members.isEmpty {
+                    return
+                }
                 var sorted = parsed.sorted { $0.sequenceOrder < $1.sequenceOrder }
                 // Lokalen State für eigenen Member beibehalten,
                 // um Flackern zwischen lokalem Toggle/Snooze und Firestore-Roundtrip zu verhindern

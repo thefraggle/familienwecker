@@ -18,6 +18,7 @@ extension FamilyMember {
 
         let bathroom = (data["bathroomDurationMinutes"] as? NSNumber)?.intValue ?? 20
         let breakfast = data["wantsBreakfast"] as? Bool ?? true
+        let breakfastDuration = (data["breakfastDurationMinutes"] as? NSNumber)?.intValue
         let paused = data["isPaused"] as? Bool ?? false
         let awake = data["isAwakeToday"] as? Bool ?? false
         let resetDate = data["lastResetDate"] as? String ?? ""
@@ -63,7 +64,8 @@ extension FamilyMember {
             dayProfiles: dayProfiles,
             isSimpleMode: isSimple,
             snoozeUntil: snoozeUntil,
-            snoozeCount: snoozeCount
+            snoozeCount: snoozeCount,
+            breakfastDurationMinutes: breakfastDuration
         )
     }
 
@@ -87,6 +89,10 @@ extension FamilyMember {
 
         if let leave = leaveHomeTime {
             data["leaveHomeTime"] = leave.toTimeString()
+        }
+
+        if let bDur = breakfastDurationMinutes {
+            data["breakfastDurationMinutes"] = bDur
         }
 
         if let uid = claimedByUserId { data["claimedByUserId"] = uid }
@@ -115,6 +121,9 @@ extension FamilyMember {
                 }
                 if let buffer = profile.bufferMinutes {
                     profileDict["bufferMinutes"] = buffer
+                }
+                if let bDur = profile.breakfastDurationMinutes {
+                    profileDict["breakfastDurationMinutes"] = bDur
                 }
                 if let seq = profile.sequenceOrder {
                     profileDict["sequenceOrder"] = seq
@@ -157,6 +166,7 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
         let buffer = (dp["bufferMinutes"] as? NSNumber)?.intValue
         let simpleMode = dp["isSimpleMode"] as? Bool ?? false
         let seq = (dp["sequenceOrder"] as? NSNumber)?.intValue
+        let breakfastDuration = (dp["breakfastDurationMinutes"] as? NSNumber)?.intValue
 
         result[day] = DayProfile(
             isActive: active,
@@ -167,7 +177,8 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
             leaveHomeTime: leave,
             bufferMinutes: buffer,
             isSimpleMode: simpleMode,
-            sequenceOrder: seq
+            sequenceOrder: seq,
+            breakfastDurationMinutes: breakfastDuration
         )
     }
     return result.isEmpty ? nil : result

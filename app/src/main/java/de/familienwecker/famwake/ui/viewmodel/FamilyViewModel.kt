@@ -397,9 +397,10 @@ class FamilyViewModel(
                             appSettings.setMyMemberId(memberForMe.id)
                             appSettings.setMyMemberName(memberForMe.name)
                         }
-                        // Selbstheilung: Falls die deviceId nach Reinstall/Preferences-Wipe abweicht,
-                        // automatisch im Firestore aktualisieren
-                        if (memberForMe.claimedByDeviceId != appSettings.deviceId) {
+                        // Selbstheilung: Falls die deviceId nach Reinstall/Preferences-Wipe fehlt,
+                        // automatisch im Firestore nachtragen – nur wenn null/blank, um Ping-Pong-Schreibschleifen
+                        // zwischen mehreren Geräten mit demselben Account zu verhindern.
+                        if (memberForMe.claimedByDeviceId.isNullOrBlank()) {
                             addOrUpdateMemberDebounced(memberForMe.copy(claimedByDeviceId = appSettings.deviceId))
                         }
                     } else if (myMemberId.value != null && !_isAutoClaimInProgress.value) {
