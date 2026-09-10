@@ -450,8 +450,11 @@
     <string name="vacation_mode_last_day_off">🏖️ Ngày nghỉ cuối: %1$s (tắt báo thức)</string>
     <string name="vacation_mode_first_alarm">🔔 Báo thức đầu tiên: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 Không có báo thức hoạt động sau kỳ nghỉ</string>
-    <string name="vacation_mode_preset_1week">+1 tuần</string>
-    <string name="vacation_mode_preset_2weeks">+2 tuần</string>
+    <string name="vacation_mode_preset_1week">7 ngày (1 tuần)</string>
+    <string name="vacation_mode_preset_2weeks">14 ngày (2 tuần)</string>
     <string name="vacation_mode_preset_month_end">Đến cuối tháng</string>
     <string name="vacation_mode_alarm_paused_desc">Kỳ nghỉ đến %1$s – báo thức tạm dừng</string>
+    <string name="vacation_mode_select_custom_date">Chọn ngày…</string>
+    <string name="vacation_mode_duration_subtitle">Bạn muốn tạm dừng báo thức bao lâu?</string>
+    <string name="vacation_mode_active_badge">Đang bật</string>
 </resources>

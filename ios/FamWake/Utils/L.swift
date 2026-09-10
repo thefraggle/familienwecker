@@ -303,6 +303,9 @@ enum L {
     static var vacationModePreset1Week: String { s("vacation_mode_preset_1week") }
     static var vacationModePreset2Weeks: String { s("vacation_mode_preset_2weeks") }
     static var vacationModePresetMonthEnd: String { s("vacation_mode_preset_month_end") }
+    static var vacationModeSelectCustomDate: String { s("vacation_mode_select_custom_date") }
+    static var vacationModeDurationSubtitle: String { s("vacation_mode_duration_subtitle") }
+    static var vacationModeActiveBadge: String { s("vacation_mode_active_badge") }
     static func vacationModeAlarmPausedDesc(_ date: String) -> String { s("vacation_mode_alarm_paused_desc", date) }
 
     // MARK: - Ringing

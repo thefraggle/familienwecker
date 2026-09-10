@@ -1,6 +1,7 @@
 package de.familienwecker.famwake.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import de.familienwecker.famwake.algorithm.Scheduler
@@ -118,12 +119,17 @@ class FamilyViewModel(
 
     fun setVacationUntil(date: String?) {
         scope.launch {
-            appSettings.setVacationUntil(date)
-            val currentFamilyId = familyId.value
-            if (!currentFamilyId.isNullOrBlank() && !appSettings.isLocalOnlyFamily.value) {
-                repository.updateVacationUntil(currentFamilyId, date)
+            try {
+                appSettings.setVacationUntil(date)
+                val currentFamilyId = familyId.value
+                if (!currentFamilyId.isNullOrBlank() && !appSettings.isLocalOnlyFamily.value) {
+                    repository.updateVacationUntil(currentFamilyId, date)
+                }
+                recalculateSchedule()
+            } catch (e: Exception) {
+                Log.e("FamilyViewModel", "Failed to update vacationUntil: ${e.message}", e)
+                recalculateSchedule()
             }
-            recalculateSchedule()
         }
     }
 

@@ -65,11 +65,6 @@ struct MainView: View {
                             .padding(.top, 16)
                     }
 
-                    // Vacation Mode Banner
-                    if let vacUntil = familyViewModel.vacationUntil, !vacUntil.isEmpty {
-                        vacationModeBanner(until: vacUntil)
-                    }
-
                     // Alarm Toggle Card
                     AlarmToggleSection()
 
@@ -318,47 +313,7 @@ struct MainView: View {
 
     // MARK: - Helper Sections
 
-    @ViewBuilder
-    private func vacationModeBanner(until: String) -> some View {
-        Group {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(L.vacationModeBannerTitle)
-                        .font(.subheadline).fontWeight(.bold)
-                        .foregroundStyle(theme.onPrimaryContainer)
-                    let formattedVac = familyViewModel.formatVacationDate(until)
-                    Text(L.vacationModeLastDayOff(formattedVac))
-                        .font(.caption)
-                        .foregroundStyle(theme.onPrimaryContainer.opacity(0.9))
-                    if let firstAlarm = familyViewModel.getFirstAlarmDateAfterVacation(until) {
-                        Text(L.vacationModeFirstAlarm(firstAlarm))
-                            .font(.caption)
-                            .foregroundStyle(theme.onPrimaryContainer.opacity(0.9))
-                    } else {
-                        Text(L.vacationModeNoAlarmAfter)
-                            .font(.caption)
-                            .foregroundStyle(theme.onPrimaryContainer.opacity(0.9))
-                    }
-                }
-                Spacer()
-                Button(L.vacationModeEndButton) {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    familyViewModel.clearVacation()
-                }
-                .font(.caption).fontWeight(.bold)
-                .foregroundStyle(theme.primary)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 12)
-            .background(colorScheme == .dark ? theme.primaryContainer.opacity(0.4) : theme.primaryContainer.opacity(0.7))
-            .background(.regularMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-            .padding(.bottom, 12)
-        }
-        .listRowBackground(Color.clear)
-        .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-    }
+
 
     @ViewBuilder
     private func snoozeBanner(until: Date) -> some View {

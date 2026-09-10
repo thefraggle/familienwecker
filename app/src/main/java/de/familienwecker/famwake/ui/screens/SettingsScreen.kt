@@ -674,17 +674,39 @@ fun SettingsScreen(
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("🌴", style = MaterialTheme.typography.titleMedium)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            stringResource(R.string.vacation_mode_title),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
                     if (!vacationUntil.isNullOrBlank()) {
+                        // Aktiver Zustand
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("🌴", style = MaterialTheme.typography.titleMedium)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    stringResource(R.string.vacation_mode_title),
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            Surface(
+                                color = MaterialTheme.colorScheme.primaryContainer,
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.vacation_mode_active_badge),
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(10.dp))
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.15f))
+                        Spacer(modifier = Modifier.height(10.dp))
+
                         val formattedVac = viewModel.formatVacationDate(vacationUntil)
                         Text(
                             text = stringResource(R.string.vacation_mode_last_day_off, formattedVac),
@@ -701,54 +723,112 @@ fun SettingsScreen(
                         Text(
                             text = firstAlarmText,
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        OutlinedButton(
+                        Button(
                             onClick = { viewModel.clearVacation() },
                             modifier = Modifier.fillMaxWidth().height(48.dp),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.errorContainer,
+                                contentColor = MaterialTheme.colorScheme.onErrorContainer
+                            )
                         ) {
-                            Text(stringResource(R.string.vacation_mode_end_button))
+                            Text(
+                                stringResource(R.string.vacation_mode_end_button),
+                                fontWeight = FontWeight.Bold,
+                                style = MaterialTheme.typography.labelLarge
+                            )
                         }
                     } else {
+                        // Inaktiver Zustand: Überschrift & 2x2 Grid für Auswahl
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("🌴", style = MaterialTheme.typography.titleMedium)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(R.string.vacation_mode_title),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(6.dp))
                         Text(
-                            text = stringResource(R.string.vacation_mode_select_date),
-                            style = MaterialTheme.typography.bodyMedium,
+                            text = stringResource(R.string.vacation_mode_duration_subtitle),
+                            style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.height(12.dp))
 
-                        // Schnell-Auswahl-Chips
+                        // 2x2 Grid
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            SuggestionChip(
+                            OutlinedButton(
                                 onClick = { viewModel.setVacationPreset(7) },
-                                label = { Text(stringResource(R.string.vacation_mode_preset_1week)) },
-                                modifier = Modifier.weight(1f)
-                            )
-                            SuggestionChip(
+                                modifier = Modifier.weight(1f).height(46.dp),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.vacation_mode_preset_1week),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Medium,
+                                    maxLines = 1,
+                                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                )
+                            }
+                            OutlinedButton(
                                 onClick = { viewModel.setVacationPreset(14) },
-                                label = { Text(stringResource(R.string.vacation_mode_preset_2weeks)) },
-                                modifier = Modifier.weight(1f)
-                            )
-                            SuggestionChip(
-                                onClick = { viewModel.setVacationPresetEndOfMonth() },
-                                label = { Text(stringResource(R.string.vacation_mode_preset_month_end)) },
-                                modifier = Modifier.weight(1f)
-                            )
+                                modifier = Modifier.weight(1f).height(46.dp),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.vacation_mode_preset_2weeks),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Medium,
+                                    maxLines = 1,
+                                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                )
+                            }
                         }
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Button(
-                            onClick = { showVacationDatePicker = true },
-                            modifier = Modifier.fillMaxWidth().height(48.dp),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            Text(stringResource(R.string.vacation_mode_select_date))
+                            OutlinedButton(
+                                onClick = { viewModel.setVacationPresetEndOfMonth() },
+                                modifier = Modifier.weight(1f).height(46.dp),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.vacation_mode_preset_month_end),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Medium,
+                                    maxLines = 1,
+                                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                )
+                            }
+                            Button(
+                                onClick = { showVacationDatePicker = true },
+                                modifier = Modifier.weight(1f).height(46.dp),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.vacation_mode_select_custom_date),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.SemiBold,
+                                    maxLines = 1,
+                                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                )
+                            }
                         }
                     }
                 }

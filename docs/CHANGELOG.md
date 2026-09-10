@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.16 – 2026-09-10
+✨ Verbessert:
+• Urlaubsmodus stabil beenden: Das vorzeitige Beenden des Urlaubsmodus funktioniert jetzt reibungslos ohne Abstürze.
+• Aufgeräumter Startbildschirm: Bei aktivem Urlaub wird eine einheitliche, kompakte Übersichtskarte angezeigt – ganz ohne doppelte Anzeigen.
+• Neue Urlaubs-Schnellauswahl: Urlaubsdauer bequem im übersichtlichen Raster wählen (7 Tage, 14 Tage, bis Monatsende oder Wunschdatum).
+
 ## 2.1.15 – 2026-09-10
 ✨ Verbessert:
 • Urlaubsmodus mit Verschlaf-Schutz: Wecker pausieren in den Ferien und schalten sich am ersten Schultag oder Arbeitstag danach automatisch wieder pünktlich ein.

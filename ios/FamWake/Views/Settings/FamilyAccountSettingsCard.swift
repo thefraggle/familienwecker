@@ -89,15 +89,15 @@ struct FamilyAccountSettingsCard: View {
                 }
 
                 if let vac = familyViewModel.vacationUntil, !vac.isEmpty {
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: 6) {
                         let formattedVac = familyViewModel.formatVacationDate(vac)
                         Text(L.vacationModeLastDayOff(formattedVac))
                             .font(.subheadline)
                             .foregroundStyle(theme.onSurface)
                         if let firstAlarm = familyViewModel.getFirstAlarmDateAfterVacation(vac) {
                             Text(L.vacationModeFirstAlarm(firstAlarm))
-                                .font(.caption)
-                                .foregroundStyle(theme.onSurfaceVariant)
+                                .font(.subheadline).fontWeight(.medium)
+                                .foregroundStyle(theme.primary)
                         } else {
                             Text(L.vacationModeNoAlarmAfter)
                                 .font(.caption)
@@ -111,50 +111,56 @@ struct FamilyAccountSettingsCard: View {
                         familyViewModel.clearVacation()
                     }) {
                         Text(L.vacationModeEndButton)
+                            .font(.subheadline).fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .frame(height: 44)
                     }
-                    .foregroundStyle(theme.onSurface)
-                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
+                    .foregroundStyle(theme.error)
+                    .background(theme.error.opacity(0.12))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 } else {
-                    Text(L.vacationModeSelectDate)
+                    Text(L.vacationModeDurationSubtitle)
                         .font(.caption)
                         .foregroundStyle(theme.onSurfaceVariant)
 
-                    // Presets
-                    HStack(spacing: 8) {
-                        Button(action: {
-                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                            familyViewModel.setVacationPreset(daysToAdd: 7)
-                        }) {
-                            Text(L.vacationModePreset1Week)
-                                .font(.caption2).fontWeight(.semibold)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
-                                .background(theme.surfaceVariant.opacity(0.5))
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                    // Presets in 2 Rows
+                    VStack(spacing: 8) {
+                        HStack(spacing: 8) {
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                familyViewModel.setVacationPreset(daysToAdd: 7)
+                            }) {
+                                Text(L.vacationModePreset1Week)
+                                    .font(.caption).fontWeight(.medium)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 38)
+                                    .background(theme.surfaceVariant.opacity(0.5))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                familyViewModel.setVacationPreset(daysToAdd: 14)
+                            }) {
+                                Text(L.vacationModePreset2Weeks)
+                                    .font(.caption).fontWeight(.medium)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 38)
+                                    .background(theme.surfaceVariant.opacity(0.5))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
                         }
-                        Button(action: {
-                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                            familyViewModel.setVacationPreset(daysToAdd: 14)
-                        }) {
-                            Text(L.vacationModePreset2Weeks)
-                                .font(.caption2).fontWeight(.semibold)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
-                                .background(theme.surfaceVariant.opacity(0.5))
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                        }
-                        Button(action: {
-                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                            familyViewModel.setVacationPresetEndOfMonth()
-                        }) {
-                            Text(L.vacationModePresetMonthEnd)
-                                .font(.caption2).fontWeight(.semibold)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
-                                .background(theme.surfaceVariant.opacity(0.5))
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        HStack(spacing: 8) {
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                familyViewModel.setVacationPresetEndOfMonth()
+                            }) {
+                                Text(L.vacationModePresetMonthEnd)
+                                    .font(.caption).fontWeight(.medium)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 38)
+                                    .background(theme.surfaceVariant.opacity(0.5))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
                         }
                     }
                     .buttonStyle(.plain)

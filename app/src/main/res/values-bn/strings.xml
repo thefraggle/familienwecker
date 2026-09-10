@@ -449,8 +449,11 @@
     <string name="vacation_mode_last_day_off">🏖️ ছুটির শেষ দিন: %1$s (অ্যালার্ম বন্ধ)</string>
     <string name="vacation_mode_first_alarm">🔔 প্রথম অ্যালার্ম: %1$s</string>
     <string name="vacation_mode_no_alarm_after">🔔 ছুটির পর কোন সক্রিয় অ্যালার্ম নেই</string>
-    <string name="vacation_mode_preset_1week">+১ সপ্তাহ</string>
-    <string name="vacation_mode_preset_2weeks">+২ সপ্তাহ</string>
+    <string name="vacation_mode_preset_1week">7 দিন (1 সপ্তাহ)</string>
+    <string name="vacation_mode_preset_2weeks">14 দিন (2 সপ্তাহ)</string>
     <string name="vacation_mode_preset_month_end">মাসের শেষ পর্যন্ত</string>
     <string name="vacation_mode_alarm_paused_desc">%1$s পর্যন্ত ছুটি – অ্যালার্ম বিরতিপ্রাপ্ত</string>
+    <string name="vacation_mode_select_custom_date">তারিখ বাছুন…</string>
+    <string name="vacation_mode_duration_subtitle">অ্যালার্ম কতক্ষণ বিরতি রাখবেন?</string>
+    <string name="vacation_mode_active_badge">সক্রিয়</string>
 </resources>
