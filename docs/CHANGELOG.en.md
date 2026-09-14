@@ -4,10 +4,10 @@
 
 ## 2.1.17 – 2026-09-14
 ✨ Improved:
-• Faster Onboarding: Streamlined to 3 quick steps. Tapping "Skip" now gets you started right away.
-• Contextual Permissions: No more unexpected system prompts on app launch – enable alarms and evening reminders smoothly with a single tap.
-• Direct Sign-In: Returning users can now log in directly from the start screen with 1 tap.
-• Complete Localization: Confirmation dialogs (e.g. leave/delete family, log out) and accessibility labels completed across all languages.
+• Faster Start: The intro is now streamlined to 3 quick steps. Tap "Skip" to get started right away.
+• Smooth Setup: No unexpected popups when opening the app – turn on notifications for alarms and reminders with a single tap.
+• Direct Sign-In: Returning users can now log into their existing account right from the welcome screen.
+• Polish: Clearer confirmation messages and settings across all menus.
 
 ## 2.1.16 – 2026-09-10
 ✨ Improved:

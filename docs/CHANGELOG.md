@@ -4,10 +4,10 @@
 
 ## 2.1.17 – 2026-09-14
 ✨ Verbessert:
-• Schneller Einstieg: Das Onboarding ist jetzt auf 3 kurze Schritte gestrafft. Mit „Überspringen“ bist du sofort startklar.
-• Transparente Berechtigungen: Keine ungefragten Systemdialoge beim App-Start mehr – Mitteilungen für Wecker und Vorabend-Erinnerung aktivierst du entspannt mit einem Klick.
-• Direkter Login: Bestandskunden können sich ab sofort direkt auf der Startseite mit einem Klick anmelden.
-• Lückenlose Übersetzungen: Bestätigungsdialoge (z. B. Familie verlassen/löschen, Abmelden) und Bedienungshilfen in allen Sprachen vervollständigt.
+• Schnellerer Start: Die Einführung ist auf 3 kurze Schritte gestrafft. Mit „Überspringen“ bist du sofort startklar.
+• Entspannter Einstieg: Keine störenden Abfragen beim ersten Öffnen – Mitteilungen für Wecker und Erinnerungen aktivierst du bequem mit einem Klick.
+• Direkter Login: Bestehende Konten können sich sofort auf der Startseite anmelden.
+• Feinschliff: Klarere Hinweise und Bestätigungen in allen Menüs.
 
 ## 2.1.16 – 2026-09-10
 ✨ Verbessert:
