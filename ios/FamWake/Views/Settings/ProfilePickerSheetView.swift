@@ -18,8 +18,13 @@ struct ProfilePickerSheetView: View {
                         myMemberId: familyViewModel.myMemberId,
                         theme: theme,
                         onSelect: {
-                            pendingClaimMemberId = member.id
-                            showProfileConfirmAlert = true
+                            if member.claimedByUserId != nil && member.claimedByUserId != familyViewModel.myMemberId {
+                                pendingClaimMemberId = member.id
+                                showProfileConfirmAlert = true
+                            } else {
+                                familyViewModel.setMyMemberId(member.id) { _ in }
+                                dismiss()
+                            }
                         }
                     )
                 }

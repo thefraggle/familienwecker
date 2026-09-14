@@ -452,4 +452,7 @@
     <string name="vacation_mode_select_custom_date">Wybierz datę…</string>
     <string name="vacation_mode_duration_subtitle">Na jak długo wstrzymujesz budziki?</string>
     <string name="vacation_mode_active_badge">Aktywny</string>
+    <string name="settings_leave_family_confirm">Czy na pewno chcesz opuścić rodzinę? Utracisz dostęp do wspólnych budzików.</string>
+    <string name="settings_logout_message">Czy na pewno chcesz się wylogować?</string>
+    <string name="settings_delete_account_message">Czy na pewno chcesz trwale usunąć swoje konto? Wszystkie dane zostaną usunięte.</string>
 </resources>

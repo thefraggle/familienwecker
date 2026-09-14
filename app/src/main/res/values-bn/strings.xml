@@ -457,4 +457,7 @@
     <string name="vacation_mode_select_custom_date">তারিখ বাছুন…</string>
     <string name="vacation_mode_duration_subtitle">অ্যালার্ম কতক্ষণ বিরতি রাখবেন?</string>
     <string name="vacation_mode_active_badge">সক্রিয়</string>
+    <string name="settings_leave_family_confirm">আপনি কি সত্যিই পরিবার ত্যাগ করতে চান? আপনি শেয়ার করা অ্যালার্মের অ্যাক্সেস হারাবেন।</string>
+    <string name="settings_logout_message">আপনি কি সত্যিই লগ আউট করতে চান?</string>
+    <string name="settings_delete_account_message">আপনি কি সত্যিই আপনার অ্যাকাউন্ট স্থায়ীভাবে মুছে ফেলতে চান? সমস্ত ডেটা সরানো হবে।</string>
 </resources>

@@ -454,4 +454,7 @@
     <string name="vacation_mode_select_custom_date">Pilih tanggal…</string>
     <string name="vacation_mode_duration_subtitle">Berapa lama alarm dijeda?</string>
     <string name="vacation_mode_active_badge">Aktif</string>
+    <string name="settings_leave_family_confirm">Apakah kamu yakin ingin keluar dari keluarga? Kamu akan kehilangan akses ke alarm bersama.</string>
+    <string name="settings_logout_message">Apakah kamu yakin ingin keluar?</string>
+    <string name="settings_delete_account_message">Apakah kamu yakin ingin menghapus akunmu secara permanen? Semua data akan dihapus.</string>
 </resources>

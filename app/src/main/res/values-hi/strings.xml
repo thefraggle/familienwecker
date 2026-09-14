@@ -455,4 +455,7 @@
     <string name="vacation_mode_select_custom_date">तारीख चुनें…</string>
     <string name="vacation_mode_duration_subtitle">अलार्म कितने समय के लिए रोकना है?</string>
     <string name="vacation_mode_active_badge">सक्रिय</string>
+    <string name="settings_leave_family_confirm">क्या आप वाकई परिवार छोड़ना चाहते हैं? आप साझा किए गए अलार्म तक पहुंच खो देंगे।</string>
+    <string name="settings_logout_message">क्या आप वाकई लॉग आउट करना चाहते हैं?</string>
+    <string name="settings_delete_account_message">क्या आप वाकई अपना खाता स्थायी रूप से हटाना चाहते हैं? सारा डेटा हटा दिया जाएगा।</string>
 </resources>

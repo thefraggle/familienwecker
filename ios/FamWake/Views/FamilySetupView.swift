@@ -104,7 +104,7 @@ struct FamilySetupView: View {
                             .accessibilityLabel(L.s("accessibility_create_family"))
 
                             if familyViewModel.isOffline {
-                                Text(L.s("offline_family_created_hint"))
+                                Text(L.offlineFamilyCreated)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                                     .padding(.top, 4)

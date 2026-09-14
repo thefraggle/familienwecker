@@ -470,5 +470,8 @@
     <string name="vacation_mode_duration_subtitle">How long are you pausing alarms?</string>
     <string name="vacation_mode_active_badge">Active</string>
     <string name="vacation_mode_alarm_paused_desc">Vacation until %1$s – Alarm paused</string>
+    <string name="settings_leave_family_confirm">Do you really want to leave the family? You will lose access to the shared alarms.</string>
+    <string name="settings_logout_message">Do you really want to log out?</string>
+    <string name="settings_delete_account_message">Do you really want to permanently delete your account? All data will be removed.</string>
 </resources>
 

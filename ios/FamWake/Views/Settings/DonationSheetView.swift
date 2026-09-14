@@ -148,7 +148,7 @@ struct DonationSheetView: View {
                             .font(.title3)
                             .foregroundStyle(theme.onSurfaceVariant)
                     }
-                    .accessibilityLabel(L.s("close"))
+                    .accessibilityLabel(L.s("close_desc"))
                 }
             }
             .onAppear {

@@ -452,4 +452,7 @@
     <string name="vacation_mode_select_custom_date">Dattum ussöke…</string>
     <string name="vacation_mode_duration_subtitle">Wie lang maachß de Paus?</string>
     <string name="vacation_mode_active_badge">Aktiev</string>
+    <string name="settings_leave_family_confirm">Wells de de Famillich wirklich verlohse? Do verliers de Zojangk zo de jemeinsame Weckere.</string>
+    <string name="settings_logout_message">Wells de dich wirklich afmelde?</string>
+    <string name="settings_delete_account_message">Wells de dinge Account wirklich für immer fottmaache? All Date weede jelösch.</string>
 </resources>

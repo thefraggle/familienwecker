@@ -28,7 +28,7 @@ struct HelpFeedbackSettingsCard: View {
             }
             .foregroundStyle(theme.onSurface)
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
-            .accessibilityLabel(L.s("accessibility_tour_button"))
+            .accessibilityLabel(L.s("accessibility_restart_tour"))
 
             // Feedback Button
             Button(action: { showFeedbackSheet = true }) {

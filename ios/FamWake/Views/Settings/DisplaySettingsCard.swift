@@ -77,7 +77,7 @@ struct DisplaySettingsCard: View {
                 }
                 .foregroundStyle(theme.onSurface)
                 .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.outline.opacity(0.4), lineWidth: 1))
-                .accessibilityLabel(L.s("accessibility_reset_tooltips"))
+                .accessibilityLabel(L.s("accessibility_tooltips_reset"))
             }
 
             Divider().background(theme.outline.opacity(0.15))

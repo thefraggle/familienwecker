@@ -454,4 +454,7 @@
     <string name="vacation_mode_select_custom_date">Velg dato…</string>
     <string name="vacation_mode_duration_subtitle">Hvor lenge pauser du alarmen?</string>
     <string name="vacation_mode_active_badge">Aktiv</string>
+    <string name="settings_leave_family_confirm">Vil du virkelig forlate familien? Du mister tilgangen til de delte vekkerklokkene.</string>
+    <string name="settings_logout_message">Vil du virkelig logge ut?</string>
+    <string name="settings_delete_account_message">Vil du virkelig slette kontoen din permanent? Alle data vil bli fjernet.</string>
 </resources>

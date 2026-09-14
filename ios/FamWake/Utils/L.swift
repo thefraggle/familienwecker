@@ -61,9 +61,12 @@ enum L {
     static var settingsShareCode: String { s("settings_share_code") }
     static func settingsShareMessage(_ familyName: String, _ code: String) -> String { s("settings_share_message", code, code, familyName) }
     static var settingsLeaveFamily: String { s("settings_leave_family") }
+    static var settingsLeaveFamilyConfirm: String { s("settings_leave_family_confirm") }
     static var settingsDeleteFamily: String { s("settings_delete_family") }
     static var settingsLogout: String { s("settings_logout") }
+    static var settingsLogoutMessage: String { s("settings_logout_message") }
     static var settingsDeleteAccount: String { s("settings_delete_account") }
+    static var settingsDeleteAccountMessage: String { s("settings_delete_account_message") }
     static var settingsDisplayTitle: String { s("settings_display_title") }
     static var settingsLanguageTitle: String { s("settings_language_title") }
     static var settingsAppearanceTitle: String { s("settings_appearance_title") }
@@ -364,6 +367,7 @@ enum L {
     static var errorAlarmPermission: String { s("error_alarm_permission") }
     static var errorOffline: String { s("error_offline") }
     static var offlineWriteHint: String { s("offline_write_hint") }
+    static var offlineFamilyCreated: String { s("offline_family_created") }
 
     // MARK: - Weekdays
     static func weekday(_ day: Int) -> String { s("weekday_\(day)") }

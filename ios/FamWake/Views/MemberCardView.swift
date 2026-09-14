@@ -98,7 +98,7 @@ struct MemberCardView: View {
                                 .foregroundStyle(theme.error)
                         }
                         .buttonStyle(.plain)
-                        .accessibilityLabel(L.s("delete_member_confirm_title"))
+                        .accessibilityLabel(L.settingsDeleteMemberTitle)
                     }
                 }
             }

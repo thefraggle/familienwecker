@@ -453,4 +453,7 @@
     <string name="vacation_mode_select_custom_date">Выбрать дату…</string>
     <string name="vacation_mode_duration_subtitle">На сколько дней пауза?</string>
     <string name="vacation_mode_active_badge">Активен</string>
+    <string name="settings_leave_family_confirm">Вы действительно хотите покинуть семью? Вы потеряете доступ к общим будильникам.</string>
+    <string name="settings_logout_message">Вы действительно хотите выйти?</string>
+    <string name="settings_delete_account_message">Вы действительно хотите навсегда удалить свой аккаунт? Все данные будут удалены.</string>
 </resources>

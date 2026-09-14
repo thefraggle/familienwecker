@@ -465,5 +465,8 @@
     <string name="vacation_mode_duration_subtitle">Wie lange machst du Pause?</string>
     <string name="vacation_mode_active_badge">Aktiv</string>
     <string name="vacation_mode_alarm_paused_desc">Urlaub bis %1$s – Wecker pausiert</string>
+    <string name="settings_leave_family_confirm">Möchtest du die Familie wirklich verlassen? Du verlierst den Zugriff auf die gemeinsamen Wecker.</string>
+    <string name="settings_logout_message">Möchtest du dich wirklich abmelden?</string>
+    <string name="settings_delete_account_message">Möchtest du deinen Account wirklich unwiderruflich löschen? Alle Daten werden entfernt.</string>
 </resources>
 
