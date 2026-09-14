@@ -339,6 +339,7 @@
     <string name="notif_permission_title">Brauch Rechte fürs Bimmeln</string>
     <string name="notif_permission_desc">Ohne Rechte darf der Wecker nich rappeln. Mach an den Bums, sonst verpennste.</string>
     <string name="notif_permission_button">Meldungen anmachen</string>
+    <string name="notif_permission_active">Benohrichtijunge aktiv ✓</string>
     <string name="onboarding_login_create">Anmelden / Registrieren</string>
     <string name="onboarding_slide5_title">Auf geht\'s!</string>
     <string name="onboarding_slide5_body">Hör ma, du kanns die App direkt ohne Anmeldung ausprobieren. Ein Konto brauchsse erst, wenn de deine Familie einläds.</string>

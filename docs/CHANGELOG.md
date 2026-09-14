@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.17 – 2026-09-14
+✨ Verbessert:
+• Schneller Einstieg: Das Onboarding ist jetzt auf 3 kurze Schritte gestrafft. Mit „Überspringen“ bist du sofort startklar.
+• Transparente Berechtigungen: Keine ungefragten Systemdialoge beim App-Start mehr – Mitteilungen für Wecker und Vorabend-Erinnerung aktivierst du entspannt mit einem Klick.
+• Direkter Login: Bestandskunden können sich ab sofort direkt auf der Startseite mit einem Klick anmelden.
+
 ## 2.1.16 – 2026-09-10
 ✨ Verbessert:
 • Urlaubsmodus stabil beenden: Das vorzeitige Beenden des Urlaubsmodus funktioniert jetzt reibungslos ohne Abstürze.

@@ -344,6 +344,7 @@
     <string name="notif_permission_title">Notifikationer påkrævet</string>
     <string name="notif_permission_desc">Hvis du slår notifikationer fra, virker din alarm muligvis ikke ordentligt. Lad dem venligst være slået til.</string>
     <string name="notif_permission_button">Slå notifikationer til</string>
+    <string name="notif_permission_active">Notifikationer aktive ✓</string>
     <string name="settings_steal_title">Brug denne profil?</string>
     <string name="settings_steal_text">%1$s er allerede valgt. Vil du bruge denne profil?</string>
     <string name="settings_steal_confirm">Ja, brug den</string>

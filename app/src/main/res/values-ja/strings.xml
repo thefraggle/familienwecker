@@ -344,6 +344,7 @@
     <string name="notif_permission_title">通知が必要です</string>
     <string name="notif_permission_desc">通知をオフにすると、アラームが正しく鳴らない場合があります。オンのままにしてください。</string>
     <string name="notif_permission_button">通知をオンにする</string>
+    <string name="notif_permission_active">通知が有効です ✓</string>
 
 
     <string name="settings_steal_title">このプロフィールを使いますか？</string>

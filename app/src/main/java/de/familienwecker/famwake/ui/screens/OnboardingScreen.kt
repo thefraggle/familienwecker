@@ -1,6 +1,11 @@
 package de.familienwecker.famwake.ui.screens
 
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import com.aptabase.Aptabase
 import androidx.compose.animation.core.tween
@@ -20,12 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import de.familienwecker.famwake.ui.theme.*
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -38,7 +45,7 @@ private data class OnboardingSlide(
     val titleRes: Int,
     val bodyRes: Int,
     val lottieRes: Int? = null,                        // Lottie-Animation (Slide 0)
-    val mockupContent: (@Composable () -> Unit)? = null // Compose-Mockup (Slides 1–4)
+    val mockupContent: (@Composable () -> Unit)? = null // Compose-Mockup (Slides 1–2)
 )
 
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
@@ -51,6 +58,28 @@ fun OnboardingScreen(
     onStartAnonymously: (Boolean) -> Unit,
     onLogin: (Boolean) -> Unit
 ) {
+    val context = LocalContext.current
+    val notifPermission = Manifest.permission.POST_NOTIFICATIONS
+    var isNotifGranted by remember {
+        mutableStateOf(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ContextCompat.checkSelfPermission(context, notifPermission) == PackageManager.PERMISSION_GRANTED
+            } else {
+                true
+            }
+        )
+    }
+
+    val requestPermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        isNotifGranted = granted
+        Aptabase.instance.trackEvent(
+            "permission_notification_result",
+            mapOf("granted" to granted)
+        )
+    }
+
     val slides = listOf(
         // Slide 0 – emotionale Einstiegs-Slide mit Panda-Lottie
         OnboardingSlide(
@@ -58,22 +87,29 @@ fun OnboardingScreen(
             bodyRes   = R.string.onboarding_slide0_body,
             lottieRes = R.raw.panda
         ),
-        // Slides 1–4: Compose-Mockups → automatisch lokalisiert, keine PNG-Wartung nötig
-        // Reihenfolge: Zeitplan → Invite
+        // Slide 1: Visueller Zeitplan
         OnboardingSlide(
             titleRes      = R.string.onboarding_slide1_title,
             bodyRes       = R.string.onboarding_slide1_body,
             mockupContent = { Slide1ScheduleMockup() }
         ),
-        OnboardingSlide(
-            titleRes      = R.string.onboarding_slide3_title,
-            bodyRes       = R.string.onboarding_slide3_body,
-            mockupContent = { Slide2InviteMockup() }
-        ),
+        // Slide 2: Berechtigungen & Start
         OnboardingSlide(
             titleRes      = R.string.onboarding_slide5_title,
             bodyRes       = R.string.onboarding_slide5_body,
-            lottieRes     = R.raw.wakeup
+            mockupContent = {
+                SlidePermissionMockup(
+                    isGranted = isNotifGranted,
+                    onRequestPermission = {
+                        Aptabase.instance.trackEvent("permission_notification_requested")
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            requestPermissionLauncher.launch(notifPermission)
+                        } else {
+                            isNotifGranted = true
+                        }
+                    }
+                )
+            }
         )
     ).let { list ->
         if (isLoggedIn) list.dropLast(1) else list
@@ -90,6 +126,10 @@ fun OnboardingScreen(
         if (!startAtWelcome) {
             Aptabase.instance.trackEvent("onboarding_started")
         }
+    }
+
+    LaunchedEffect(pagerState.currentPage) {
+        Aptabase.instance.trackEvent("onboarding_slide_viewed", mapOf("slide" to pagerState.currentPage))
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -124,7 +164,7 @@ fun OnboardingScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 28.dp)
-                        .padding(top = 56.dp, bottom = 180.dp)
+                        .padding(top = 64.dp, bottom = 180.dp)
                 ) {
                     when {
                         slide.mockupContent != null -> {
@@ -148,7 +188,7 @@ fun OnboardingScreen(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(28.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
 
                     Text(
                         text      = stringResource(slide.titleRes),
@@ -158,14 +198,41 @@ fun OnboardingScreen(
                         textAlign = TextAlign.Center
                     )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
                         text       = stringResource(slide.bodyRes),
                         style      = MaterialTheme.typography.bodyLarge,
                         color      = Color.White.copy(alpha = 0.85f),
                         textAlign  = TextAlign.Center,
-                        lineHeight = 26.sp
+                        lineHeight = 24.sp
+                    )
+                }
+            }
+        }
+
+        // Top Bar: Login Button für Bestandskunden auf allen Slides
+        if (!isLoggedIn) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .align(Alignment.TopEnd),
+                horizontalArrangement = Arrangement.End
+            ) {
+                TextButton(
+                    onClick = {
+                        Aptabase.instance.trackEvent("onboarding_login_clicked")
+                        onLogin(tooltipsEnabled)
+                    },
+                    colors = ButtonDefaults.textButtonColors(contentColor = Color.White)
+                ) {
+                    Text(
+                        text = stringResource(R.string.login_button),
+                        color = Color.White,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
@@ -176,7 +243,7 @@ fun OnboardingScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 24.dp)
-                .padding(bottom = 48.dp),
+                .padding(bottom = 40.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -272,7 +339,10 @@ fun OnboardingScreen(
                 enter   = fadeIn(tween(200)),
                 exit    = fadeOut(tween(200))
             ) {
-                TextButton(onClick = { onLogin(tooltipsEnabled) }) {
+                TextButton(onClick = {
+                    Aptabase.instance.trackEvent("onboarding_login_clicked")
+                    onLogin(tooltipsEnabled)
+                }) {
                     Text(
                         text     = stringResource(R.string.onboarding_login_create),
                         color    = Color.White.copy(alpha = 0.9f),
@@ -288,14 +358,16 @@ fun OnboardingScreen(
                 exit    = fadeOut(tween(200))
             ) {
                 TextButton(onClick = {
-                    coroutineScope.launch {
-                        pagerState.animateScrollToPage(slides.size - 1)
+                    Aptabase.instance.trackEvent("onboarding_skipped", mapOf("from_slide" to pagerState.currentPage))
+                    if (!isStarting) {
+                        isStarting = true
+                        onStartAnonymously(tooltipsEnabled)
                     }
                 }) {
                     Text(
                         text     = stringResource(R.string.onboarding_skip),
-                        color    = Color.White.copy(alpha = 0.7f),
-                        fontSize = 14.sp
+                        color    = Color.White.copy(alpha = 0.8f),
+                        fontSize = 15.sp
                     )
                 }
             }

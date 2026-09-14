@@ -344,6 +344,7 @@
     <string name="notif_permission_title">Benachrichtigunge nötig</string>
     <string name="notif_permission_desc">Wänn du Benachrichtigunge uusschaltisch, funktioniert diin Wecker villicht nöd richtig. Bitte laa si aa.</string>
     <string name="notif_permission_button">Benachrichtigunge aamache</string>
+    <string name="notif_permission_active">Benachrichtigunge aktiv ✓</string>
     <string name="settings_steal_title">Profil nutze?</string>
     <string name="settings_steal_text">%1$s isch scho vergäh. Wottsch es für dich übernäh?</string>
     <string name="settings_steal_confirm">Ja, übernäh</string>

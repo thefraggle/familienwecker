@@ -340,6 +340,7 @@
     <string name="notif_permission_title">Notificações necessárias</string>
     <string name="notif_permission_desc">Se você desativar as notificações, seu alarme pode não funcionar direito. Por favor, deixe-as ativadas.</string>
     <string name="notif_permission_button">Ativar notificações</string>
+    <string name="notif_permission_active">Notificações ativas ✓</string>
     <string name="onboarding_login_create">Entrar / Cadastrar</string>
     <string name="onboarding_slide5_title">Vamos começar!</string>
     <string name="onboarding_slide5_body">Você pode testar o app na hora sem uma conta. Você só vai precisar de uma quando quiser convidar sua família.</string>

@@ -340,6 +340,7 @@
     <string name="notif_permission_title">알림이 필요해요</string>
     <string name="notif_permission_desc">알림을 끄면 알람이 제대로 작동하지 않을 수 있습니다. 켜두시는 것을 권장합니다.</string>
     <string name="notif_permission_button">알림 켜기</string>
+    <string name="notif_permission_active">알림 활성화됨 ✓</string>
     <string name="onboarding_login_create">로그인 / 가입하기</string>
     <string name="onboarding_slide5_title">시작해 볼까요!</string>
     <string name="onboarding_slide5_body">계정이 없어도 바로 앱을 사용해 볼 수 있습니다. 가족을 초대하고 싶을 때만 계정을 만드시면 됩니다.</string>

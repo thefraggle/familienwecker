@@ -341,6 +341,7 @@
     <string name="notif_permission_title">需要通知权限</string>
     <string name="notif_permission_desc">如果您关闭通知，闹钟可能无法正常工作。请保持开启状态。</string>
     <string name="notif_permission_button">开启通知</string>
+    <string name="notif_permission_active">通知已启用 ✓</string>
     <string name="onboarding_login_create">登录 / 注册</string>
     <string name="settings_steal_title">使用此个人资料？</string>
     <string name="settings_steal_text">%1$s 已被选择。您想使用这个个人资料吗？</string>

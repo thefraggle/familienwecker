@@ -346,6 +346,7 @@
     <string name="notif_permission_title">Потрібні сповіщення</string>
     <string name="notif_permission_desc">Якщо ви вимкнете сповіщення, ваш будильник може працювати неправильно. Будь ласка, залиште їх увімкненими.</string>
     <string name="notif_permission_button">Увімкнути сповіщення</string>
+    <string name="notif_permission_active">Сповіщення активні ✓</string>
     <string name="settings_steal_title">Використовувати цей профіль?</string>
     <string name="settings_steal_text">Профіль %1$s вже кимось вибраний. Бажаєте використовувати його для себе?</string>
     <string name="settings_steal_confirm">Так, використовувати</string>

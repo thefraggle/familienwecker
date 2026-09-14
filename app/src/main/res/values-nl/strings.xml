@@ -335,6 +335,7 @@
     <string name="notif_permission_title">Meldingen vereist</string>
     <string name="notif_permission_desc">Als je meldingen uitschakelt, werkt je wekker mogelijk niet goed. Laat ze a.u.b. ingeschakeld.</string>
     <string name="notif_permission_button">Meldingen aanzetten</string>
+    <string name="notif_permission_active">Meldingen actief ✓</string>
     <string name="onboarding_login_create">Inloggen / Registreren</string>
     <string name="onboarding_slide5_title">Laten we beginnen!</string>
     <string name="onboarding_slide5_body">Je kunt de app meteen uitproberen zonder account. Je hebt er pas een nodig als je je familie wilt uitnodigen.</string>

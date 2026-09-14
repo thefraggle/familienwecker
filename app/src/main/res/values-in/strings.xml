@@ -341,6 +341,7 @@
     <string name="notif_permission_title">Notifikasi diperlukan</string>
     <string name="notif_permission_desc">Jika Anda mematikan notifikasi, alarm Anda mungkin tidak berfungsi dengan baik. Tolong biarkan tetap menyala.</string>
     <string name="notif_permission_button">Nyalakan notifikasi</string>
+    <string name="notif_permission_active">Notifikasi aktif ✓</string>
     <string name="onboarding_login_create">Masuk / Daftar</string>
     <string name="onboarding_slide5_title">Mari kita mulai!</string>
     <string name="onboarding_slide5_body">Anda dapat langsung mencoba aplikasinya tanpa akun. Anda hanya memerlukan akun saat ingin mengundang keluarga Anda.</string>

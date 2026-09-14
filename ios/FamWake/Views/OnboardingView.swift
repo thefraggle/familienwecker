@@ -1,11 +1,13 @@
 import SwiftUI
 import Lottie
 import Aptabase
+import UserNotifications
 
 // MARK: - Onboarding (1:1 Android OnboardingScreen.kt)
-// 4 Slides: Panda Lottie → Schedule Mockup → Invite Mockup → WakeUp Lottie
+// 3 Slides: Panda Lottie → Schedule Mockup → Permission Mockup
 // Background: onboarding_bg.jpg + dark scrim
-// Bottom: Page dots, tooltips checkbox, start/next button, skip/login links
+// Top: Persistent Login button
+// Bottom: Page dots, tooltips checkbox, start/next button, immediate skip
 
 struct OnboardingView: View {
     var startAtWelcome: Bool
@@ -16,6 +18,7 @@ struct OnboardingView: View {
     @State private var currentPage: Int
     @State private var tooltipsEnabled: Bool
     @State private var isStarting = false
+    @State private var isNotificationAuthorized = false
     
     @Environment(\.colorScheme) private var colorScheme
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
@@ -28,16 +31,31 @@ struct OnboardingView: View {
         self.onFinished = onFinished
         self.onLoginRequested = onLoginRequested
         self.isLoggedIn = isLoggedIn
-        let count = isLoggedIn ? 3 : 4
+        let count = isLoggedIn ? 2 : 3
         self._currentPage = State(initialValue: startAtWelcome ? count - 1 : 0)
         self._tooltipsEnabled = State(initialValue: UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true)
     }
 
-    private var actualSlideCount: Int { isLoggedIn ? 3 : 4 }
+    private var actualSlideCount: Int { isLoggedIn ? 2 : 3 }
     private var isLastPage: Bool { currentPage == actualSlideCount - 1 }
 
     var body: some View {
         VStack(spacing: 0) {
+            // Top Bar: Persistent Login Button für Bestandskunden
+            if !isLoggedIn {
+                HStack {
+                    Spacer()
+                    Button(L.loginButton) {
+                        Aptabase.shared.trackEvent("onboarding_login_clicked")
+                        onLoginRequested?()
+                    }
+                    .foregroundStyle(.white)
+                    .font(.subheadline).fontWeight(.bold)
+                    .padding(.trailing, 20)
+                    .padding(.top, 12)
+                }
+            }
+
             // Pager
             TabView(selection: $currentPage) {
                 // Slide 0 – Panda Lottie
@@ -54,24 +72,25 @@ struct OnboardingView: View {
                     content: { ScheduleMockup() }
                 ).tag(1)
 
-                // Slide 2 – Invite Mockup (on-the-fly, localized)
-                slideView(
-                    titleKey: "onboarding_slide3_title",
-                    bodyKey: "onboarding_slide3_body",
-                    content: { InviteMockup() }
-                ).tag(2)
-
-                // Slide 3 – WakeUp Lottie (Only if not logged in)
+                // Slide 2 – Berechtigungen & Start (Pre-Permission UI, nur wenn nicht eingeloggt)
                 if !isLoggedIn {
                     slideView(
                         titleKey: "onboarding_slide5_title",
                         bodyKey: "onboarding_slide5_body",
-                        content: { lottieView("wakeup") }
-                    ).tag(3)
+                        content: {
+                            PermissionMockup(
+                                isGranted: isNotificationAuthorized,
+                                onRequestPermission: requestNotificationPermission
+                            )
+                        }
+                    ).tag(2)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut(duration: 0.3), value: currentPage)
+            .onChange(of: currentPage) { _, newPage in
+                Aptabase.shared.trackEvent("onboarding_slide_viewed", with: ["slide": newPage])
+            }
         }
         .safeAreaInset(edge: .bottom) {
             bottomControls
@@ -94,6 +113,31 @@ struct OnboardingView: View {
                 Color.black.opacity(0.45)
             }
             .ignoresSafeArea()
+        }
+        .task {
+            checkNotificationStatus()
+        }
+    }
+
+    private func checkNotificationStatus() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                self.isNotificationAuthorized = settings.authorizationStatus == .authorized
+            }
+        }
+    }
+
+    private func requestNotificationPermission() {
+        Aptabase.shared.trackEvent("permission_notification_requested")
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+            DispatchQueue.main.async {
+                self.isNotificationAuthorized = granted
+                Aptabase.shared.trackEvent("permission_notification_result", with: ["granted": granted])
+                if granted {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    MessagingService.shared.refreshAndSaveToken()
+                }
+            }
         }
     }
 
@@ -206,6 +250,7 @@ struct OnboardingView: View {
             // Login / Registrieren Link (last page, not logged in)
             if isLastPage && !isLoggedIn {
                 Button(L.s("onboarding_login_create")) {
+                    Aptabase.shared.trackEvent("onboarding_login_clicked")
                     onLoginRequested?()
                 }
                 .foregroundStyle(.white.opacity(0.9))
@@ -213,12 +258,15 @@ struct OnboardingView: View {
                 .transition(.opacity)
             }
 
-            // Skip (not last page)
+            // Skip (not last page) - SOFORTIGER Einstieg!
             if !isLastPage {
                 Button(L.onboardingSkip) {
-                    withAnimation { currentPage = actualSlideCount - 1 }
+                    Aptabase.shared.trackEvent("onboarding_skipped", with: ["from_slide": currentPage])
+                    guard !isStarting else { return }
+                    isStarting = true
+                    onFinished(tooltipsEnabled)
                 }
-                .foregroundStyle(.white.opacity(0.7))
+                .foregroundStyle(.white.opacity(0.8))
                 .font(.subheadline)
                 .transition(.opacity)
             }
@@ -265,6 +313,73 @@ private struct ScheduleMockup: View {
         }
     }
 }
+
+// MARK: - Permission Mockup (Slide 2 – Pre-Permission UI)
+
+private struct PermissionMockup: View {
+    let isGranted: Bool
+    let onRequestPermission: () -> Void
+    @Environment(\.colorScheme) private var colorScheme
+    private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
+
+    var body: some View {
+        MockupCard(height: 275) {
+            VStack(spacing: 12) {
+                // Icon
+                ZStack {
+                    Circle()
+                        .fill(isGranted ? Color.green.opacity(0.25) : theme.primary.opacity(0.15))
+                        .frame(width: 64, height: 64)
+                    Text(isGranted ? "✓" : "🔔")
+                        .font(.system(size: 30))
+                        .foregroundStyle(isGranted ? Color.green : theme.primary)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, 8)
+
+                Text(L.s("notif_permission_title"))
+                    .font(.subheadline).fontWeight(.bold)
+                    .foregroundStyle(theme.onBackground)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+
+                Text(L.s("notif_permission_desc"))
+                    .font(.caption2)
+                    .foregroundStyle(theme.onSurfaceVariant)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(2)
+                    .padding(.horizontal, 12)
+                    .frame(maxWidth: .infinity)
+
+                Spacer().frame(height: 8)
+
+                if isGranted {
+                    HStack(spacing: 6) {
+                        Text(L.s("notif_permission_active"))
+                            .font(.caption).fontWeight(.bold)
+                            .foregroundStyle(.white)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(Color.green.opacity(0.85))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                } else {
+                    Button(action: onRequestPermission) {
+                        Text(L.s("notif_permission_button"))
+                            .font(.caption).fontWeight(.bold)
+                            .foregroundStyle(Color.nightBlue950)
+                            .padding(.horizontal, 18)
+                            .padding(.vertical, 10)
+                            .background(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity)
+        }
+    }
+}
+
 
 // MARK: - Invite Mockup (Slide 2 – on-the-fly, fully localized)
 

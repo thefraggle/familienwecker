@@ -346,6 +346,7 @@
     <string name="notif_permission_title">নোটিফিকেশনের অনুমতি দিন</string>
     <string name="notif_permission_desc">নোটিফিকেশন বন্ধ করলে অ্যালার্ম ঠিকমতো কাজ নাও করতে পারে। এগুলো চালু রাখুন।</string>
     <string name="notif_permission_button">নোটিফিকেশন চালু করুন</string>
+    <string name="notif_permission_active">বিজ্ঞপ্তি সক্রিয় ✓</string>
     <string name="settings_steal_title">এই প্রোফাইলটি ব্যবহার করবেন?</string>
     <string name="settings_steal_text">%1$s ইতিমধ্যেই নেওয়া হয়েছে। আপনি কি এটি আপনার জন্য ব্যবহার করতে চান?</string>
     <string name="settings_steal_confirm">হ্যাঁ, ব্যবহার করুন</string>
