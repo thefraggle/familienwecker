@@ -66620,18 +66620,6 @@
             "value": "Powiadomienia aktywne ✓"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Notificações ativas ✓"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Notificações ativas ✓"
-          }
-        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -66669,6 +66657,24 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知已启用 ✓"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notificações ativas ✓"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Varsler aktive ✓"
+          }
+        },
+        "zh": {
           "stringUnit": {
             "state": "translated",
             "value": "通知已启用 ✓"
