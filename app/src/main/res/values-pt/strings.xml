@@ -452,4 +452,7 @@
     <string name="vacation_mode_select_custom_date">Escolher data…</string>
     <string name="vacation_mode_duration_subtitle">Por quanto tempo quer pausar?</string>
     <string name="vacation_mode_active_badge">Ativo</string>
+    <string name="settings_leave_family_confirm">Tens a certeza de que queres sair da família? Perderás o acesso aos alarmes partilhados.</string>
+    <string name="settings_logout_message">Tens a certeza de que queres terminar sessão?</string>
+    <string name="settings_delete_account_message">Tens a certeza de que queres eliminar permanentemente a tua conta? Todos os dados serão removidos.</string>
 </resources>

@@ -458,4 +458,7 @@
     <string name="vacation_mode_select_custom_date">Chọn ngày…</string>
     <string name="vacation_mode_duration_subtitle">Bạn muốn tạm dừng báo thức bao lâu?</string>
     <string name="vacation_mode_active_badge">Đang bật</string>
+    <string name="settings_leave_family_confirm">Bạn có thực sự muốn rời khỏi gia đình? Bạn sẽ mất quyền truy cập vào báo thức chung.</string>
+    <string name="settings_logout_message">Bạn có thực sự muốn đăng xuất?</string>
+    <string name="settings_delete_account_message">Bạn có thực sự muốn xóa vĩnh viễn tài khoản của mình không? Mọi dữ liệu sẽ bị xóa.</string>
 </resources>

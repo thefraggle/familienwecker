@@ -38,7 +38,7 @@ struct SoundPickerSheetView: View {
                             }
                         }
                     }
-                    .accessibilityLabel(L.s("accessibility_sound_option", L.s(sound.nameKey)))
+                    .accessibilityLabel(L.s(sound.nameKey))
                 }
             }
             .navigationTitle(L.settingsAlarmTitle)

@@ -457,4 +457,7 @@
     <string name="vacation_mode_select_custom_date">日付を選択…</string>
     <string name="vacation_mode_duration_subtitle">どのくらいの期間休止しますか？</string>
     <string name="vacation_mode_active_badge">有効</string>
+    <string name="settings_leave_family_confirm">本当にファミリーを退出しますか？共有アラームにアクセスできなくなります。</string>
+    <string name="settings_logout_message">本当にログアウトしますか？</string>
+    <string name="settings_delete_account_message">本当にアカウントを完全に削除しますか？すべてのデータが削除されます。</string>
 </resources>

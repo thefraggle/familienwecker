@@ -458,4 +458,7 @@
     <string name="vacation_mode_select_custom_date">Обрати дату…</string>
     <string name="vacation_mode_duration_subtitle">На скільки днів ставити паузу?</string>
     <string name="vacation_mode_active_badge">Активний</string>
+    <string name="settings_leave_family_confirm">Ви дійсно хочете покинути сім\'ю? Ви втратите доступ до спільних будильників.</string>
+    <string name="settings_logout_message">Ви дійсно хочете вийти з облікового запису?</string>
+    <string name="settings_delete_account_message">Ви дійсно хочете остаточно видалити свій обліковий запис? Усі дані буде видалено.</string>
 </resources>

@@ -43,7 +43,7 @@ struct SettingsView: View {
                     if familyViewModel.isOffline {
                         HStack(spacing: 8) {
                             Image(systemName: "icloud.slash").foregroundStyle(theme.outline)
-                            Text(L.s("offline_banner_desc")).font(.subheadline).foregroundStyle(theme.outline)
+                            Text(L.offlineWriteHint).font(.subheadline).foregroundStyle(theme.outline)
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -111,7 +111,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(.borderless)
                 .foregroundStyle(theme.primary)
-                .accessibilityLabel(L.s("accessibility_back_button"))
+                .accessibilityLabel(L.backDesc)
             }
         }
         .settingsSheets(
@@ -225,7 +225,7 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(L.settingsLeaveFamily, isPresented: $showLeaveFamilyAlert) {
-                Button(L.s("settings_leave_confirm"), role: .destructive) {
+                Button(L.settingsLeaveFamily, role: .destructive) {
                     familyViewModel.leaveFamily { success in
                         if success {
                             dismiss()
@@ -234,10 +234,10 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.s("settings_leave_family_confirm"))
+                Text(L.settingsLeaveFamilyConfirm)
             }
-            .alert(L.settingsDeleteFamily, isPresented: $showDeleteFamilyAlert) {
-                Button(L.s("settings_delete_confirm"), role: .destructive) {
+            .alert(L.settingsDeleteFamilyDialogTitle, isPresented: $showDeleteFamilyAlert) {
+                Button(L.settingsDeleteFamilyDialogConfirm, role: .destructive) {
                     familyViewModel.deleteFamily { success in
                         if success {
                             dismiss()
@@ -246,7 +246,7 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.s("settings_delete_family_confirm"))
+                Text(L.settingsDeleteFamilyDialogText)
             }
     }
 }
@@ -260,16 +260,16 @@ private struct SettingsAccountAlertsModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(L.settingsLogout, isPresented: $showLogoutAlert) {
-                Button(L.s("settings_logout_confirm"), role: .destructive) {
+                Button(L.settingsLogout, role: .destructive) {
                     authViewModel.logout()
                     dismiss()
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.s("settings_logout_message"))
+                Text(L.settingsLogoutMessage)
             }
             .alert(L.settingsDeleteAccount, isPresented: $showDeleteAccountAlert) {
-                Button(L.s("settings_delete_account_confirm"), role: .destructive) {
+                Button(L.settingsDeleteAccount, role: .destructive) {
                     if let user = Auth.auth().currentUser {
                         user.delete { error in
                             if error == nil {
@@ -280,7 +280,7 @@ private struct SettingsAccountAlertsModifier: ViewModifier {
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.s("settings_delete_account_message"))
+                Text(L.settingsDeleteAccountMessage)
             }
     }
 }
@@ -293,9 +293,10 @@ private struct SettingsOtherAlertsModifier: ViewModifier {
     @Binding var pendingClaimMemberId: String?
 
     func body(content: Content) -> some View {
+        let pendingMember = familyViewModel.members.first { $0.id == pendingClaimMemberId }
         content
-            .alert(L.s("settings_profile_claim_title"), isPresented: $showProfileConfirmAlert) {
-                Button(L.s("confirm_button")) {
+            .alert(L.s("settings_steal_title"), isPresented: $showProfileConfirmAlert) {
+                Button(L.s("settings_steal_confirm")) {
                     if let id = pendingClaimMemberId {
                         familyViewModel.setMyMemberId(id) { _ in }
                         showProfilePicker = false
@@ -303,10 +304,10 @@ private struct SettingsOtherAlertsModifier: ViewModifier {
                 }
                 Button(L.cancelButton, role: .cancel) {}
             } message: {
-                Text(L.s("settings_profile_claim_message"))
+                Text(L.s("settings_steal_text", pendingMember?.name ?? ""))
             }
             .alert(L.settingsTooltipsReset, isPresented: $showResetTipsAlert) {
-                Button(L.s("confirm_button")) {
+                Button(L.okButton) {
                     familyViewModel.resetAllTooltips()
                 }
                 Button(L.cancelButton, role: .cancel) {}

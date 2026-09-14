@@ -453,4 +453,7 @@
     <string name="vacation_mode_select_custom_date">Datum wähle…</string>
     <string name="vacation_mode_duration_subtitle">Wie lang machsch Pause?</string>
     <string name="vacation_mode_active_badge">Aktiv</string>
+    <string name="settings_leave_family_confirm">Möchtsch d\'Familie würkli verlah? Du verlürsch de Zuegriff uf di gmeinsame Wecker.</string>
+    <string name="settings_logout_message">Möchtsch di würkli abmelde?</string>
+    <string name="settings_delete_account_message">Möchtsch din Account würkli unwiderrueflich lösche? Alli Date werded glöscht.</string>
 </resources>

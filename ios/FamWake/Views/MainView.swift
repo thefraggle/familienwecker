@@ -308,7 +308,7 @@ struct MainView: View {
         let targetDate = familyViewModel.schedule?.targetDate ?? today
         let weekdayRaw = cal.component(.weekday, from: targetDate)
         let dayOfWeek = familyViewModel.selectedDayOfWeek ?? (weekdayRaw == 1 ? 7 : weekdayRaw - 1)
-        return L.s("weekday_\(dayOfWeek)")
+        return L.weekday(dayOfWeek)
     }
 
     // MARK: - Helper Sections

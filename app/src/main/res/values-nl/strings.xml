@@ -452,4 +452,7 @@
     <string name="vacation_mode_select_custom_date">Datum kiezen…</string>
     <string name="vacation_mode_duration_subtitle">Hoe lang pauzeer je de wekkers?</string>
     <string name="vacation_mode_active_badge">Actief</string>
+    <string name="settings_leave_family_confirm">Weet je zeker dat je de familie wilt verlaten? Je verliest toegang tot de gedeelde wekkers.</string>
+    <string name="settings_logout_message">Weet je zeker dat je wilt uitloggen?</string>
+    <string name="settings_delete_account_message">Weet je zeker dat je je account permanent wilt verwijderen? Alle gegevens worden gewist.</string>
 </resources>

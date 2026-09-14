@@ -458,4 +458,7 @@
     <string name="vacation_mode_select_custom_date">Tarih seç…</string>
     <string name="vacation_mode_duration_subtitle">Alarmlar ne kadar süre duraklatılsın?</string>
     <string name="vacation_mode_active_badge">Aktif</string>
+    <string name="settings_leave_family_confirm">Aileden gerçekten ayrılmak istiyor musunuz? Paylaşılan alarmlara erişiminizi kaybedeceksiniz.</string>
+    <string name="settings_logout_message">Gerçekten çıkış yapmak istiyor musunuz?</string>
+    <string name="settings_delete_account_message">Hesabınızı kalıcı olarak silmek istediğinizden emin misiniz? Tüm veriler silinecektir.</string>
 </resources>
