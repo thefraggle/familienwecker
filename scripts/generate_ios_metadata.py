@@ -220,17 +220,17 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # These are the core search terms users would use to find this app
-KEYWORDS_DE = 'kinderwecker,morgenroutine,zeitmanagement,zeitplaner,kostenlos,badplaner,laut,visuell,sanft,timer'
+KEYWORDS_DE = 'kinderwecker,morgenroutine,zeitmanagement,zeitplan,kostenlos,badplaner,laut,visuell,sanft,timer,uhr'
 KEYWORDS_EN = 'kids,clock,daily,routine,bathroom,timer,wake,schedule,checklist,free,shared,group,visual,loud,sleep'
 
-# Hardcoded optimized keywords per locale (ASO KW 37)
+# Hardcoded optimized keywords per locale (ASO KW 38)
 KEYWORDS_BY_LOCALE = {
     'de-DE': KEYWORDS_DE,
     'en-US': KEYWORDS_EN,
     'en-GB': KEYWORDS_EN,
-    'ja': '目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,家族,共有,グループアラーム,習慣,タイマー,無料,スヌーズ',
-    'ko': '알람,가족,어린이,아침,루틴,욕실,플래너,스누즈,일정,도구,famwake,모닝콜,시간표,무료,기상,습관,타이머',
-    'zh-Hans': '闹钟,家庭,儿童,早晨,常规,浴室,规划,重响,日程,工具,famwake,习惯,计时器,起床,免费,提醒,时间管理,共享',
+    'ja': '目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,家族,共有,グループアラーム,習慣,タイマー,無料,スヌーズ,時間管理,時計,生活リズム',
+    'ko': '알람,가족,어린이,아침,루틴,욕실,플래너,스누즈,일정,도구,famwake,모닝콜,시간표,무료,기상,습관,타이머,시간관리,탁상시계,기상시간,모닝루틴',
+    'zh-Hans': '闹钟,家庭,儿童,早晨,常规,浴室,规划,重响,日程,工具,famwake,习惯,计时器,起床,免费,提醒,时间管理,共享,早起,生活习惯,作息时间,儿童闹钟',
 }
 
 # App Store subtitle: max 30 chars, shown below app name.
