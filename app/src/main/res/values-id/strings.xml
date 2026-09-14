@@ -344,6 +344,7 @@
     <string name="notif_permission_title">Notifikasi diperlukan</string>
     <string name="notif_permission_desc">Jika Anda mematikan notifikasi, alarm Anda mungkin tidak berfungsi dengan baik. Tolong biarkan tetap menyala.</string>
     <string name="notif_permission_button">Nyalakan notifikasi</string>
+    <string name="notif_permission_active">Notifikasi aktif ✓</string>
     <string name="settings_steal_title">Gunakan profil ini?</string>
     <string name="settings_steal_text">Profil %1$s sudah dipakai orang lain. Apakah Anda ingin menggunakannya?</string>
     <string name="settings_steal_confirm">Ya, gunakan</string>

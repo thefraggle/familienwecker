@@ -344,6 +344,7 @@
     <string name="notif_permission_title">Aviseringar krävs</string>
     <string name="notif_permission_desc">Om du stänger av aviseringar kanske ditt larm inte fungerar som det ska. Låt dem vara på.</string>
     <string name="notif_permission_button">Slå på aviseringar</string>
+    <string name="notif_permission_active">Aviseringar aktiverade ✓</string>
     <string name="settings_steal_title">Använda den här profilen?</string>
     <string name="settings_steal_text">%1$s används redan. Vill du använda den här profilen?</string>
     <string name="settings_steal_confirm">Ja, använd den</string>

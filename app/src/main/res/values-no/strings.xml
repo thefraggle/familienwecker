@@ -341,6 +341,7 @@
     <string name="notif_permission_title">Varsler kreves</string>
     <string name="notif_permission_desc">Hvis du slår av varsler, kan det hende at alarmen din ikke fungerer som den skal. Vennligst la dem være på.</string>
     <string name="notif_permission_button">Slå på varsler</string>
+    <string name="notif_permission_active">Varsler aktive ✓</string>
     <string name="onboarding_login_create">Logg inn / Registrer deg</string>
     <string name="onboarding_slide5_title">La oss komme i gang!</string>
     <string name="onboarding_slide5_body">Du kan prøve appen med en gang uten konto. Du trenger bare en når du vil invitere familien din.</string>

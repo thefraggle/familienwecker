@@ -340,6 +340,7 @@
     <string name="notif_permission_title">Notifications nécessaires</string>
     <string name="notif_permission_desc">Si tu désactives les notifications, ton réveil risque de ne pas fonctionner correctement. Merci de les laisser activées.</string>
     <string name="notif_permission_button">Activer les notifications</string>
+    <string name="notif_permission_active">Notifications activées ✓</string>
     <string name="onboarding_login_create">Connexion / S\'inscrire</string>
     <string name="onboarding_slide5_title">C\'est parti !</string>
     <string name="onboarding_slide5_body">Tu peux essayer l\'appli tout de suite sans avoir de compte. Tu n\'en auras besoin que lorsque tu voudras inviter ta famille.</string>

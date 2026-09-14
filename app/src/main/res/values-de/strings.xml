@@ -344,6 +344,7 @@
     <string name="notif_permission_title">Benachrichtigungen nötig</string>
     <string name="notif_permission_desc">Wenn du Benachrichtigungen ausschaltest, funktioniert dein Wecker vielleicht nicht richtig. Bitte lass sie an.</string>
     <string name="notif_permission_button">Benachrichtigungen anmachen</string>
+    <string name="notif_permission_active">Benachrichtigungen aktiv ✓</string>
     <string name="settings_steal_title">Profil nutzen?</string>
     <string name="settings_steal_text">%1$s ist bereits vergeben. Möchtest du es für dich übernehmen?</string>
     <string name="settings_steal_confirm">Ja, übernehmen</string>

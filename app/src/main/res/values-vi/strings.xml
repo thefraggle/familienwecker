@@ -349,6 +349,7 @@
     <string name="notif_permission_title">Cần có thông báo</string>
     <string name="notif_permission_desc">Nếu bạn tắt thông báo, báo thức có thể không hoạt động đúng. Vui lòng bật chúng.</string>
     <string name="notif_permission_button">Bật thông báo</string>
+    <string name="notif_permission_active">Đã bật thông báo ✓</string>
     <string name="settings_steal_title">Sử dụng hồ sơ này?</string>
     <string name="settings_steal_text">Hồ sơ %1$s đã được chọn. Bạn có muốn sử dụng hồ sơ này không?</string>
     <string name="settings_steal_confirm">Có, sử dụng</string>

@@ -335,6 +335,7 @@
     <string name="notif_permission_title">Wymagane powiadomienia</string>
     <string name="notif_permission_desc">Jeśli wyłączysz powiadomienia, Twój alarm może nie działać prawidłowo. Zostaw je włączone.</string>
     <string name="notif_permission_button">Włącz powiadomienia</string>
+    <string name="notif_permission_active">Powiadomienia aktywne ✓</string>
     <string name="onboarding_login_create">Zaloguj się / Zarejestruj się</string>
     <string name="onboarding_slide5_title">Zaczynamy!</string>
     <string name="onboarding_slide5_body">Możesz wypróbować aplikację od razu, bez posiadania konta. Będziesz go potrzebować dopiero wtedy, gdy będziesz chciał zaprosić swoją rodzinę.</string>

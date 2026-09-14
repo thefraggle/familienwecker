@@ -64,10 +64,6 @@ class MainActivity : AppCompatActivity() {
         de.familienwecker.famwake.ui.viewmodel.AuthViewModelFactory(application)
     }
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { _ -> /* Berechtigung wird im ViewModel verarbeitet */ }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -83,10 +79,6 @@ class MainActivity : AppCompatActivity() {
         }
         if (FamWakeApplication.isScreenshotMode) {
             setupMockDataForScreenshots()
-        }
-        
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !FamWakeApplication.isScreenshotMode) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 
         handleDeepLink(intent, familyViewModel, authViewModel)

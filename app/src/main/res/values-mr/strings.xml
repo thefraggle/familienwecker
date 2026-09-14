@@ -340,6 +340,7 @@
     <string name="notif_permission_title">सूचना आवश्यक आहेत</string>
     <string name="notif_permission_desc">तुम्ही सूचना बंद केल्यास, तुमचा अलार्म कदाचित नीट चालणार नाही. कृपया त्या चालू ठेवा.</string>
     <string name="notif_permission_button">सूचना चालू करा</string>
+    <string name="notif_permission_active">सूचना सक्रिय आहेत ✓</string>
     <string name="onboarding_login_create">लॉग इन / साइन अप करा</string>
     <string name="onboarding_slide5_title">चला सुरू करूया!</string>
     <string name="onboarding_slide5_body">तुम्ही खाते न बनवताही ॲप लगेच वापरून पाहू शकता. जेव्हा तुम्हाला तुमच्या कुटुंबाला आमंत्रित करायचे असेल तेव्हाच तुम्हाला खात्याची आवश्यकता असेल.</string>

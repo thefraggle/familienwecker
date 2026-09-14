@@ -336,6 +336,7 @@
     <string name="notif_permission_title">Meldonga braucha mr</string>
     <string name="notif_permission_desc">Wenn d\'Meldonga ausmachsch, funktioniert dei Wegger vielleicht net richtig. Bitte lass se aa.</string>
     <string name="notif_permission_button">Meldonga aamacha</string>
+    <string name="notif_permission_active">Benachrichtigonga aktiv ✓</string>
     <string name="onboarding_login_create">Aamelda / Regischtriera</string>
     <string name="onboarding_slide5_title">Auf goht\'s!</string>
     <string name="onboarding_slide5_body">Du kannsch d\'App direkt ohne Aameldung ausprobiera. A Konto brauchsch erscht, wenn de dei Familie eiladsch.</string>

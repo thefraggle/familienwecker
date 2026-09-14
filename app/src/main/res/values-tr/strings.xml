@@ -349,6 +349,7 @@
     <string name="notif_permission_title">Bildirimler gerekli</string>
     <string name="notif_permission_desc">Bildirimleri kapatırsan alarmın düzgün çalışmayabilir. Lütfen açık bırak.</string>
     <string name="notif_permission_button">Bildirimleri aç</string>
+    <string name="notif_permission_active">Bildirimler aktif ✓</string>
     <string name="settings_steal_title">Bu profili kullan?</string>
     <string name="settings_steal_text">%1$s zaten kullanımda. Bu profili kendiniz için kullanmak ister misiniz?</string>
     <string name="settings_steal_confirm">Evet, kullan</string>

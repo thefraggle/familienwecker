@@ -431,3 +431,93 @@ fun Slide4ReliableMockup() {
         )
     }
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Slide Permission Mockup – Berechtigungen für Wecker & Benachrichtigungen
+// ─────────────────────────────────────────────────────────────────────────────
+@Composable
+fun SlidePermissionMockup(
+    isGranted: Boolean,
+    onRequestPermission: () -> Unit
+) {
+    OnboardingMockupCard(offsetY = 0f, height = 275.dp) {
+        Column(
+            modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(64.dp)
+                    .clip(CircleShape)
+                    .background(if (isGranted) Color(0xFF2E7D32).copy(alpha = 0.25f) else MockAccent.copy(alpha = 0.15f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = if (isGranted) "✓" else "🔔",
+                    fontSize = 30.sp,
+                    color = if (isGranted) Color(0xFF4CAF50) else MockAccent
+                )
+            }
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            Text(
+                text = stringResource(R.string.notif_permission_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MockText,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(R.string.notif_permission_desc),
+                style = MaterialTheme.typography.bodySmall,
+                color = MockSubText,
+                textAlign = TextAlign.Center,
+                lineHeight = 18.sp,
+                modifier = Modifier.padding(horizontal = 12.dp)
+            )
+
+            Spacer(modifier = Modifier.height(18.dp))
+
+            if (isGranted) {
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = Color(0xFF2E7D32).copy(alpha = 0.85f)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.notif_permission_active),
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        )
+                    }
+                }
+            } else {
+                Button(
+                    onClick = onRequestPermission,
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.White,
+                        contentColor = Color(0xFF1A237E)
+                    ),
+                    modifier = Modifier.height(44.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.notif_permission_button),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp
+                    )
+                }
+            }
+        }
+    }
+}
+

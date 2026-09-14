@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.17 – 2026-09-14
+✨ Improved:
+• Faster Onboarding: Streamlined to 3 quick steps. Tapping "Skip" now gets you started right away.
+• Contextual Permissions: No more unexpected system prompts on app launch – enable alarms and evening reminders smoothly with a single tap.
+• Direct Sign-In: Returning users can now log in directly from the start screen with 1 tap.
+
 ## 2.1.16 – 2026-09-10
 ✨ Improved:
 • Stable Vacation End: Ending vacation mode early now works smoothly without app crashes.

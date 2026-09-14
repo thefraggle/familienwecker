@@ -132,15 +132,6 @@ class AppState: ObservableObject {
                             UIApplication.shared.registerForRemoteNotifications()
                         }
                         MessagingService.shared.refreshAndSaveToken()
-                    } else if settings.authorizationStatus == .notDetermined {
-                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-                            if granted {
-                                DispatchQueue.main.async {
-                                    UIApplication.shared.registerForRemoteNotifications()
-                                }
-                                MessagingService.shared.refreshAndSaveToken()
-                            }
-                        }
                     }
                 }
             }

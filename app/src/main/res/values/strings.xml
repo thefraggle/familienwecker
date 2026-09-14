@@ -349,6 +349,7 @@
     <string name="notif_permission_title">Notifications needed</string>
     <string name="notif_permission_desc">If you turn off notifications, your alarm might not work properly. Please leave them on.</string>
     <string name="notif_permission_button">Turn on notifications</string>
+    <string name="notif_permission_active">Notifications active ✓</string>
     <string name="settings_steal_title">Use this profile?</string>
     <string name="settings_steal_text">%1$s is already taken. Do you want to take it over?</string>
     <string name="settings_steal_confirm">Yes, use it</string>
