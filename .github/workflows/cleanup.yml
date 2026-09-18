@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout (für gh CLI)
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
 
       - name: Behalte nur die neuesten 10 Releases
         env:
