@@ -116,4 +116,20 @@ final class SchedulerTests: XCTestCase {
         XCTAssertEqual(result.memberSchedules[0].bathroomEnd.hour, 7)
         XCTAssertEqual(result.memberSchedules[0].bathroomEnd.minute, 15)
     }
+
+    func testLateEveningShift_calculatesWithoutHourOverflow() {
+        let m1 = makeMember(
+            id: "m1",
+            earliest: (23, 0),
+            latest: (23, 45),
+            duration: 30,
+            breakfast: false,
+            leave: nil
+        )
+        let result = scheduler.calculateIdealSchedule(members: [m1], breakfastDurationMinutes: 0)
+        XCTAssertTrue(result.isValid)
+        XCTAssertEqual(result.memberSchedules.count, 1)
+        let bathEnd = result.memberSchedules[0].bathroomEnd
+        XCTAssertLessThan(bathEnd.hour ?? 0, 24, "Hour must always be < 24")
+    }
 }
