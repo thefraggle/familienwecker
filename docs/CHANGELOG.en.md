@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.18 – 2026-09-19
+✨ Improved:
+• Reliable Schedule Calculation: Automatic schedule planning for late shifts and early morning routines is now even more precise.
+• Punctual Daily Reset: Daily alarm and snooze quotas reliably reset on time every morning for the entire family.
+
 ## 2.1.17 – 2026-09-14
 ✨ Improved:
 • Faster Start: The intro is now streamlined to 3 quick steps. Tap "Skip" to get started right away.

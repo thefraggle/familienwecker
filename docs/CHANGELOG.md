@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.18 – 2026-09-19
+✨ Verbessert:
+• Zuverlässige Weckzeiten: Die automatische Zeitberechnung für späte Schichten und frühe Morgenstunden läuft jetzt noch präziser.
+• Pünktlicher Tageswechsel: Der tägliche Wecker- und Schlummer-Reset stellt sich am nächsten Morgen verlässlich und pünktlich für die ganze Familie zurück.
+
 ## 2.1.17 – 2026-09-14
 ✨ Verbessert:
 • Schnellerer Start: Die Einführung ist auf 3 kurze Schritte gestrafft. Mit „Überspringen“ bist du sofort startklar.
