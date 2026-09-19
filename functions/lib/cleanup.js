@@ -214,6 +214,8 @@ exports.scheduledMemberReset = onSchedule(
     const options = { timeZone: "Europe/Berlin", hour12: false };
     const todayStr = now.toLocaleDateString("en-CA", options); // YYYY-MM-DD
     const currentTimeStr = now.toLocaleTimeString("en-GB", options).slice(0, 5); // HH:mm
+    const [currH, currM] = currentTimeStr.split(":").map(Number);
+    const currentMinutes = currH * 60 + currM;
 
     console.log(`Running scheduled reset check at ${currentTimeStr} (${todayStr}).`);
 
@@ -227,18 +229,18 @@ exports.scheduledMemberReset = onSchedule(
         const member = memberDoc.data();
         const latestWakeUp = member.latestWakeUp; // "HH:mm"
 
-        if (!latestWakeUp) return;
+        if (!latestWakeUp || typeof latestWakeUp !== "string" || !latestWakeUp.includes(":")) return;
 
-        // Schwellenwert berechnen (latestWakeUp + 2h)
+        // Schwellenwert berechnen (latestWakeUp + 2h in Minuten seit Mitternacht)
         const [hours, minutes] = latestWakeUp.split(":").map(Number);
-        const resetDate = new Date();
-        resetDate.setHours(hours + 2, minutes, 0, 0);
-        const resetTimeStr = resetDate.toLocaleTimeString("en-GB", options).slice(0, 5);
+        if (isNaN(hours) || isNaN(minutes)) return;
+
+        const resetThresholdMinutes = (hours + 2) * 60 + minutes;
 
         // Reset nur wenn:
-        // 1. Aktuelle Zeit > (latestWakeUp + 2h)
+        // 1. Aktuelle Zeit >= (latestWakeUp + 2h)
         // 2. lastResetDate != today (sichert dass 1x pro Tag resettet wird)
-        const isPastResetThreshold = currentTimeStr >= resetTimeStr;
+        const isPastResetThreshold = currentMinutes >= resetThresholdMinutes;
         const needsReset = isPastResetThreshold && member.lastResetDate !== todayStr;
 
         if (needsReset) {
@@ -246,7 +248,9 @@ exports.scheduledMemberReset = onSchedule(
           const updates = {
             isAwakeToday: false,
             lastResetDate: todayStr,
-            lastUpdatedAt: admin.firestore.FieldValue.serverTimestamp()
+            lastUpdatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            snoozeUntil: null,
+            snoozeCount: 0,
           };
 
           if (isUnclaimed) {

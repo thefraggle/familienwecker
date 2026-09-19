@@ -310,15 +310,12 @@ struct Scheduler {
 // MARK: - DateComponents Arithmetic Helpers (Scheduler)
 private extension DateComponents {
     func adding(minutes: Int) -> DateComponents {
-        let total = self.totalMinutes + minutes
+        var total = (self.totalMinutes + minutes) % (24 * 60)
+        if total < 0 { total += 24 * 60 }
         return DateComponents(hour: total / 60, minute: total % 60)
     }
 
     func subtracting(minutes: Int) -> DateComponents {
-        var total = self.totalMinutes - minutes
-        // M10: Mitternachts-Wraparound – bei negativer Differenz auf den Vortag wrappen
-        // statt auf 0 zu clampen, z.B. 01:00 - 90min = 23:30 statt 00:00
-        if total < 0 { total += 24 * 60 }
-        return DateComponents(hour: total / 60, minute: total % 60)
+        return adding(minutes: -minutes)
     }
 }
