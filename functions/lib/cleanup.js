@@ -197,8 +197,8 @@ exports.cleanupInactiveFamilies = onSchedule(
 
 /**
  * Täglicher Reset-Job für Familienmitglieder (alle 1h).
- * Setzt "isAwakeToday" und "isPaused" (nur bei ungeclaimten) zurück.
- * Schwellenwert: latestWakeUp + 2 Stunden.
+ * Setzt "isAwakeToday", "snoozeState" und "isPaused" (nur bei ungeclaimten) gezielt zurück.
+ * Nutzt collectionGroup-Queries statt Full-Table-Scans (O(Dirty_Members) statt O(Families * Members)).
  */
 exports.scheduledMemberReset = onSchedule(
   {
@@ -207,67 +207,96 @@ exports.scheduledMemberReset = onSchedule(
     timeZone: "Europe/Berlin",
   },
   async (event) => {
-    const familiesSnapshot = await admin.firestore().collection("families").get();
     const now = new Date();
-
-    // Berlin Zeit für den Vergleich (YYYY-MM-DD und HH:mm)
     const options = { timeZone: "Europe/Berlin", hour12: false };
     const todayStr = now.toLocaleDateString("en-CA", options); // YYYY-MM-DD
     const currentTimeStr = now.toLocaleTimeString("en-GB", options).slice(0, 5); // HH:mm
     const [currH, currM] = currentTimeStr.split(":").map(Number);
     const currentMinutes = currH * 60 + currM;
+    const currentDow = now.getDay() === 0 ? 7 : now.getDay(); // 1=Mo..7=So
 
-    console.log(`Running scheduled reset check at ${currentTimeStr} (${todayStr}).`);
+    console.log(`Running optimized scheduled reset check at ${currentTimeStr} (${todayStr}).`);
 
-    for (const familyDoc of familiesSnapshot.docs) {
-      const membersRef = familyDoc.ref.collection("members");
-      const membersSnapshot = await membersRef.get();
-      const batch = admin.firestore().batch();
-      let hasUpdates = false;
+    // 1. Nur Member abfragen, die tatsächlich im modifizierten Zustand sind
+    const [awakeSnap, snoozeSnap, pausedSnap] = await Promise.all([
+      admin.firestore().collectionGroup("members").where("isAwakeToday", "==", true).get(),
+      admin.firestore().collectionGroup("members").where("snoozeCount", ">", 0).get(),
+      admin.firestore().collectionGroup("members").where("isPaused", "==", true).get(),
+    ]);
 
-      membersSnapshot.forEach((memberDoc) => {
-        const member = memberDoc.data();
-        const latestWakeUp = member.latestWakeUp; // "HH:mm"
+    const docsToProcessMap = new Map();
+    [...awakeSnap.docs, ...snoozeSnap.docs, ...pausedSnap.docs].forEach(doc => {
+      docsToProcessMap.set(doc.ref.path, doc);
+    });
 
-        if (!latestWakeUp || typeof latestWakeUp !== "string" || !latestWakeUp.includes(":")) return;
+    if (docsToProcessMap.size === 0) {
+      console.log("No dirty member documents to reset.");
+      return;
+    }
 
-        // Schwellenwert berechnen (latestWakeUp + 2h in Minuten seit Mitternacht)
-        const [hours, minutes] = latestWakeUp.split(":").map(Number);
-        if (isNaN(hours) || isNaN(minutes)) return;
+    console.log(`Evaluating ${docsToProcessMap.size} potentially dirty member documents.`);
 
-        const resetThresholdMinutes = (hours + 2) * 60 + minutes;
+    let batch = admin.firestore().batch();
+    let batchCount = 0;
+    let totalResetCount = 0;
 
-        // Reset nur wenn:
-        // 1. Aktuelle Zeit >= (latestWakeUp + 2h)
-        // 2. lastResetDate != today (sichert dass 1x pro Tag resettet wird)
-        const isPastResetThreshold = currentMinutes >= resetThresholdMinutes;
-        const needsReset = isPastResetThreshold && member.lastResetDate !== todayStr;
+    for (const memberDoc of docsToProcessMap.values()) {
+      const member = memberDoc.data();
+      
+      // Tagesprofil für den heutigen Wochentag berücksichtigen (Fallback auf Standardfeld)
+      const dayProfile = member.dayProfiles?.[currentDow] || member.dayProfiles?.[String(currentDow)];
+      const latestWakeUp = dayProfile?.latestWakeUp || member.latestWakeUp || "07:30";
 
-        if (needsReset) {
-          const isUnclaimed = !member.claimedByUserId;
-          const updates = {
-            isAwakeToday: false,
-            lastResetDate: todayStr,
-            lastUpdatedAt: admin.firestore.FieldValue.serverTimestamp(),
-            snoozeUntil: null,
-            snoozeCount: 0,
-          };
+      if (!latestWakeUp || typeof latestWakeUp !== "string" || !latestWakeUp.includes(":")) continue;
 
+      const [hours, minutes] = latestWakeUp.split(":").map(Number);
+      if (isNaN(hours) || isNaN(minutes)) continue;
+
+      const resetThresholdMinutes = (hours + 2) * 60 + minutes;
+      const isPastResetThreshold = currentMinutes >= resetThresholdMinutes;
+      const needsDailyReset = isPastResetThreshold && member.lastResetDate !== todayStr;
+
+      // Abgelaufenen Snooze immer aufräumen
+      const snoozeUntilMs = member.snoozeUntil
+        ? (typeof member.snoozeUntil.toMillis === "function" ? member.snoozeUntil.toMillis() : member.snoozeUntil)
+        : null;
+      const isSnoozeExpired = snoozeUntilMs && snoozeUntilMs < Date.now();
+
+      if (needsDailyReset || isSnoozeExpired) {
+        const isUnclaimed = !member.claimedByUserId;
+        const updates = {
+          lastUpdatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        };
+
+        if (needsDailyReset) {
+          updates.isAwakeToday = false;
+          updates.lastResetDate = todayStr;
+          updates.snoozeUntil = null;
+          updates.snoozeCount = 0;
           if (isUnclaimed) {
             updates.isPaused = false;
           }
-
-          batch.update(memberDoc.ref, updates);
-          hasUpdates = true;
+        } else if (isSnoozeExpired) {
+          updates.snoozeUntil = null;
         }
-      });
 
-      if (hasUpdates) {
-        await batch.commit();
-        console.log(`Reset performed for members in family ${familyDoc.id}`);
+        batch.update(memberDoc.ref, updates);
+        batchCount++;
+        totalResetCount++;
+
+        if (batchCount >= 450) {
+          await batch.commit();
+          batch = admin.firestore().batch();
+          batchCount = 0;
+        }
       }
     }
-    console.log("Scheduled member reset completed.");
+
+    if (batchCount > 0) {
+      await batch.commit();
+    }
+
+    console.log(`Scheduled member reset completed: ${totalResetCount} members reset.`);
   }
 );
 

@@ -334,24 +334,7 @@ class FirebaseRepository : IFirebaseRepository {
             delay(delayMillis)
             true
         }
-    }.distinctUntilChanged { old, new ->
-        // Snapshot als identisch werten wenn Anzahl, IDs und alle relevanten Felder gleich sind.
-        // Verhindert redundante Room-Writes bei Firestore-Metadaten-Updates (z.B. hasPendingWrites).
-        // WICHTIG: lastUpdatedAt allein reicht nicht – Claim und Erstellung können in derselben
-        // Sekunde passieren (Timestamp.seconds * 1000L), was identische Werte ergibt und den
-        // Claim-Update fälschlicherweise herausfiltert. Deshalb auch claimedByUserId + isPaused prüfen.
-        old.size == new.size &&
-        old.zip(new).all { (a, b) ->
-            a.id == b.id &&
-            a.lastUpdatedAt == b.lastUpdatedAt &&
-            a.claimedByUserId == b.claimedByUserId &&
-            a.isPaused == b.isPaused &&
-            a.isAwakeToday == b.isAwakeToday &&
-            a.deviceAlarmEnabled == b.deviceAlarmEnabled &&
-            a.snoozeUntil == b.snoozeUntil &&
-            a.snoozeCount == b.snoozeCount
-        }
-    }
+    }.distinctUntilChanged()
 
     override suspend fun addOrUpdateMember(familyId: String, member: FamilyMember) {
         try {
@@ -666,6 +649,21 @@ class FirebaseRepository : IFirebaseRepository {
         } catch (e: Exception) {
             Log.e(TAG, "Fehler beim Schreiben von snoozeState für $memberId: ${e.message}")
             throw e
+        }
+    }
+
+    override suspend fun updateMemberAwakeToday(familyId: String, memberId: String, isAwakeToday: Boolean) {
+        try {
+            val nativeDb = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+            val docRef = nativeDb.collection(COLLECTION_FAMILIES).document(familyId)
+                .collection(COLLECTION_MEMBERS).document(memberId)
+            docRef.update(mapOf(
+                "isAwakeToday" to isAwakeToday,
+                "lastUpdatedAt" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+            )).await()
+            if (debugLogging) Log.d(TAG, "updateMemberAwakeToday success für $memberId: isAwakeToday=$isAwakeToday")
+        } catch (e: Exception) {
+            if (debugLogging) Log.e(TAG, "updateMemberAwakeToday failed for $memberId: ${e.message}")
         }
     }
 

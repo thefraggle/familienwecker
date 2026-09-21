@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.19 – 2026-09-20
+✨ What's New & Improved:
+• Instant Synchronization: Changes to wake-up times, weekly schedules, or bathroom order now sync immediately across the entire family.
+• Real-Time Awake Status: Turning off your alarm in the morning now instantly lets everyone in the family know you are awake.
+• Smarter Daily Reset: The automatic daily schedule reset now adapts even more precisely to each family member's individual plan.
+• Enhanced Reliability: Multiple under-the-hood improvements ensure a smoother, even more dependable wake-up routine and cleaner notifications.
+
 ## 2.1.18 – 2026-09-19
 ✨ Improved:
 • Reliable Schedule Calculation: Automatic schedule planning for late shifts and early morning routines is now even more precise.

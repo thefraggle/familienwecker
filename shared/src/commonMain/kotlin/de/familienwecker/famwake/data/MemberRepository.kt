@@ -41,11 +41,21 @@ class MemberRepository(private val memberDao: MemberDao) {
 private fun de.familienwecker.famwake.db.FamilyMemberEntity.toDomain(): FamilyMember = FamilyMember(
     id = id,
     name = name,
-    earliestWakeUp = kotlinx.datetime.LocalTime.parse(earliestWakeUp),
-    latestWakeUp = kotlinx.datetime.LocalTime.parse(latestWakeUp),
+    earliestWakeUp = try {
+        kotlinx.datetime.LocalTime.parse(earliestWakeUp)
+    } catch (_: Exception) {
+        kotlinx.datetime.LocalTime(6, 0)
+    },
+    latestWakeUp = try {
+        kotlinx.datetime.LocalTime.parse(latestWakeUp)
+    } catch (_: Exception) {
+        kotlinx.datetime.LocalTime(7, 30)
+    },
     bathroomDurationMinutes = bathroomDurationMinutes,
     wantsBreakfast = wantsBreakfast,
-    leaveHomeTime = leaveHomeTime?.let { kotlinx.datetime.LocalTime.parse(it) },
+    leaveHomeTime = leaveHomeTime?.let {
+        try { kotlinx.datetime.LocalTime.parse(it) } catch (_: Exception) { null }
+    },
     breakfastDurationMinutes = breakfastDurationMinutes,
     isPaused = isPaused,
     isAwakeToday = isAwakeToday,
@@ -57,9 +67,13 @@ private fun de.familienwecker.famwake.db.FamilyMemberEntity.toDomain(): FamilyMe
     createdAt = createdAt,
     lastUpdatedAt = lastUpdatedAt,
     deviceAlarmEnabled = deviceAlarmEnabled,
-    dayProfiles = dayProfilesJson?.let { json.decodeFromString(it) },
+    dayProfiles = dayProfilesJson?.let {
+        try { json.decodeFromString(it) } catch (_: Exception) { null }
+    },
     isSimpleMode = isSimpleMode,
-    snoozeUntil = snoozeUntil?.let { kotlinx.datetime.LocalDateTime.parse(it) },
+    snoozeUntil = snoozeUntil?.let {
+        try { kotlinx.datetime.LocalDateTime.parse(it) } catch (_: Exception) { null }
+    },
     snoozeCount = snoozeCount
 )
 
