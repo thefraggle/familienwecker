@@ -107,12 +107,13 @@ class RingingActivity : AppCompatActivity() {
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = false)
 
-                            // Firestore: Snooze-State zurücksetzen (best-effort)
+                            // Firestore: Snooze-State zurücksetzen + isAwakeToday aktualisieren (best-effort)
                             val familyId = appSettings.familyId.value
-                            if (familyId != null) {
-                            lifecycleScope.launch {
+                            if (familyId != null && memberId.isNotEmpty()) {
+                                lifecycleScope.launch {
                                     try {
                                         FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(familyId, memberId, null, 0)
+                                        FamWakeApplication.instance.firebaseRepository.updateMemberAwakeToday(familyId, memberId, true)
                                     } catch (e: CancellationException) { throw e }
                                     catch (_: Exception) { /* best-effort */ }
                                 }

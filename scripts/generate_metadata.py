@@ -114,6 +114,8 @@ def main():
             target_lang = LANG_CODE_MAP.get(lang_code, lang_code)
             if translator_available and changelog_en:
                 try:
+                    import time
+                    time.sleep(0.4)
                     print(f"Translating for {locale}...")
                     translation = GoogleTranslator(source='en', target=target_lang).translate(changelog_en)
                     content = translation

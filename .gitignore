@@ -61,6 +61,7 @@ ios/fastlane/metadata/
 .agents/
 docs/internal/
 docs/scripts/
+STORE_LISTING.md
 STORE_LISTINGS.md
 images/
 

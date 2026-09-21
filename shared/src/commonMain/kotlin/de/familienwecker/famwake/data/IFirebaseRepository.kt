@@ -85,6 +85,9 @@ interface IFirebaseRepository {
     /** Synchronisiert den Snooze-State eines Members (snoozeUntil + snoozeCount) nach Firestore. */
     suspend fun updateMemberSnoozeState(familyId: String, memberId: String, snoozeUntil: kotlinx.datetime.LocalDateTime?, snoozeCount: Int)
 
+    /** Aktualisiert den Wach-Status (isAwakeToday) eines Members direkt in Firestore. */
+    suspend fun updateMemberAwakeToday(familyId: String, memberId: String, isAwakeToday: Boolean)
+
     /** Aktualisiert den globalen Puffer zwischen Bad-Slots im Family-Dokument. */
     suspend fun updateGlobalBufferMinutes(familyId: String, minutes: Long)
 

@@ -57,6 +57,19 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        // Veraltete dynamische Channels aufräumen, damit sich keine Kanäle in den Android-Einstellungen ansammeln
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            try {
+                notificationManager.notificationChannels.forEach { ch ->
+                    if (ch.id.startsWith("ALARM_CHANNEL_S_") && ch.id != dynamicChannelId) {
+                        notificationManager.deleteNotificationChannel(ch.id)
+                    }
+                }
+            } catch (_: Exception) {
+                // Best-effort Channel-Cleanup
+            }
+        }
+
         val channelName = context.getString(R.string.alarm_channel_name)
         val channel = NotificationChannel(dynamicChannelId, channelName, NotificationManager.IMPORTANCE_HIGH).apply {
             setBypassDnd(true)

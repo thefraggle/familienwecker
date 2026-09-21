@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.19 – 2026-09-20
+✨ Neu & Verbessert:
+• Sofortige Synchronisation: Änderungen an Weckzeiten, Wochenplänen und der Reihenfolge werden ab sofort ohne Verzögerung für die gesamte Familie aktualisiert.
+• Wach-Status in Echtzeit: Sobald du deinen Wecker morgens ausschaltest, sehen alle anderen Familienmitglieder sofort, wer bereits aufgestanden ist.
+• Präziserer Tages-Reset: Der nächtliche Neustart der Weckzeiten passt sich jetzt noch genauer an die individuellen Pläne jedes Familienmitglieds an.
+• Verbesserte Zuverlässigkeit: Zahlreiche Optimierungen unter der Haube sorgen für noch stabilere Weckabläufe und sauberere Benachrichtigungen.
+
 ## 2.1.18 – 2026-09-19
 ✨ Verbessert:
 • Zuverlässige Weckzeiten: Die automatische Zeitberechnung für späte Schichten und frühe Morgenstunden läuft jetzt noch präziser.
