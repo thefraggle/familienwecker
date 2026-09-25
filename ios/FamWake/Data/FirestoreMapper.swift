@@ -82,7 +82,7 @@ extension FamilyMember {
             "lastResetDate": lastResetDate,
             "sequenceOrder": sequenceOrder,
             "createdAt": createdAt ?? Date().timeIntervalSince1970 * 1000,
-            "lastUpdatedAt": Date().timeIntervalSince1970 * 1000,
+            "lastUpdatedAt": FieldValue.serverTimestamp(),
             "isSimpleMode": isSimpleMode,
             "snoozeCount": snoozeCount
         ]

@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.20 – 2026-09-25
+✨ Improved:
+• Reliable Morning Routines: Enhanced stability and seamless wake-up and snooze coordination for the whole family.
+• Seamless Synchronization: Updates to schedules and awake statuses sync even more dependably.
+• Clearer Guidance: Easy-to-understand feedback for connection issues and schedule adjustments.
+
 ## 2.1.19 – 2026-09-20
 ✨ What's New & Improved:
 • Instant Synchronization: Changes to wake-up times, weekly schedules, or bathroom order now sync immediately across the entire family.

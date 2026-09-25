@@ -5,18 +5,20 @@
 > - **Kurzbeschreibung**: Max. 80 Zeichen
 > - **Vollständige Beschreibung**: Max. 4.000 Zeichen (HTML-Tags wie `<b>` erlaubt)
 
-## Übersicht der aktuellen ASO-Textänderungen (KW 37 / September 2026)
+## Übersicht der aktuellen ASO-Textänderungen (KW 39 / 21. September 2026)
 
 * **Deutsch (`de-DE`)**:
-  * Abschnitt `<b> Zuverlässiger, sanfter Wecker & lauter Wecker</b>` integriert zur exakten Indexierung von *sanfter Wecker* (Applyra Traffic: 61, Difficulty: 28, KEI: 2.18) und *Wecker laut*.
-  * Abschnitt `<b>100% Wecker kostenlos</b>` präzisiert zur Stärkung des reichweitenstarken Suchbegriffs *Wecker kostenlos*.
-  * Dashboard-Abschnitt hebt *visueller Zeitplan* und *Zeitmanagement* optimal hervor.
+  * Integration von *visueller Timer für Kinder* (Applyra Traffic: 48, Difficulty: 16, KEI: 3.00, iOS Rang #44) & *visueller Timer Kinder* (Applyra Traffic: 25, Difficulty: 16, KEI: 1.56) in den Dashboard-Abschnitt („Dein visueller Zeitplan, visueller Timer für Kinder und Familienplaner...“) und in Schritt 3 („FamWake berechnet als Familienwecker, visueller Timer für Kinder und Kinderwecker...“).
+  * Stärkung der Marktführer-Position für *Kinderwecker* (Applyra Traffic: 25, Difficulty: 26, Google Play Store Rang #1).
+  * Optimale Keyword-Dichte für *sanfter Wecker* (Traffic: 61), *Wecker kostenlos* (Traffic: 60) und *Badplaner* (Traffic: 70).
 * **Englisch (`en-US`, `en-GB`, `en-IN`)**:
-  * Einleitung erweitert um *family routine planner* zur Abdeckung des High-Opportunity Keywords *family routine* (Traffic: 34, Difficulty: 27, KEI: 1.26).
-  * Dashboard und Call-to-Action harmonisiert (*"shows your family routine and family morning routine in real-time"*, *"organize your family routine"*).
-  * Bereinigung historischer Fastlane-Artefakte in `en-GB` und `en-IN`.
+  * Integration von *visual schedule for kids* (Applyra Traffic: 25 / 23, Difficulty: 9 / 21, KEI: 2.78 / 1.10) im Dashboard-Abschnitt („your visual schedule for kids and visual timer for kids“) zur gezielten Erschließung dieses High-KEI Nischen-Begriffs.
+  * Stärkung von *kids alarm* (Play Store Rang #4, iOS Rang #35) und *kids alarm clock* (Play Store Rang #7, iOS Rang #5).
+  * Integration von *visual timer routine* in der Einleitung.
+* **Japanisch (`ja-JP`)**:
+  * Stärkung der Spitzenpositionen für *子供用目覚まし* (Rang #1) und *ファミリー目覚まし* (Rang #2) sowie Morgenroutine (*朝のルーティン* Rang #24).
 * **Alle weiteren Sprachen (`fr`, `es`, `pt`, `it`, `pl`, `tr`, `ru`, etc.)**:
-  * Vollständige Metadaten für alle 29 unterstützten Store-Locales zusammengefasst und validiert.
+  * Vollständige Metadaten für alle 29 unterstützten Store-Locales zusammengefasst, synchronisiert und validiert.
 
 ---
 
@@ -32,7 +34,7 @@ FamWake Familienwecker
 Familienwecker & Morgenroutine für Kinder. Wecker mit Bad-Reihenfolge & Snooze.
 ```
 
-### Vollständige Beschreibung (3464 / 4000 Zeichen)
+### Vollständige Beschreibung (3522 / 4000 Zeichen)
 ```html
 <b>Schluss mit Morgen-Chaos! Dein Familienwecker & Kinderwecker für eine entspannte Morgenroutine.</b>
 
@@ -49,7 +51,7 @@ Wer wann ins Bad darf, plant FamWake automatisch als intelligenter <b>Badplaner<
 Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam frühstücken können — vor dem Start in Schule oder Arbeit.
 
 <b> Die ganze Familie im Blick</b>
-Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan und Familienplaner für kinderleichtes Zeitmanagement und eine harmonische Morgenroutine.
+Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan, visueller Timer für Kinder und Familienplaner für kinderleichtes Zeitmanagement und eine harmonische Morgenroutine.
 
 <b> Schon früher wach?</b>
 Ein Tipp auf „Schon wach“ und dein Wecker bleibt stumm — du bist ja schon auf. Brauchst du an einem Tag keinen Wecker? Pausiere dich einfach und der Familienwecker berechnet den Zeitplan automatisch neu.
@@ -75,7 +77,7 @@ Helles und dunkles Design, augenfreundlich gestaltet. Weltweit in 25 Sprachen ve
 <b>So funktioniert's:</b>
 1. Familie erstellen und Einladungscode teilen.
 2. Bad-Zeit, Frühstück und Abfahrtszeit eingeben.
-3. FamWake berechnet als Familienwecker und Kinderwecker den perfekten Ablauf — jeden Morgen automatisch.
+3. FamWake berechnet als Familienwecker, visueller Timer für Kinder und Kinderwecker den perfekten Ablauf — jeden Morgen automatisch.
 
 <b>100% Wecker kostenlos</b>
 Alle Kernfunktionen sind und bleiben dauerhaft <b>kostenlos</b> — dieser Wecker kostenlos ohne Abo garantiert einen stressfreien Morgen für die ganze Familie. Optionale Premium-Features folgen später.
@@ -98,11 +100,11 @@ FamWake Family Alarm Clock
 Smart family alarm clock & morning routine app. Bathroom queue & group alarms.
 ```
 
-### Vollständige Beschreibung (3093 / 4000 Zeichen)
+### Vollständige Beschreibung (3123 / 4000 Zeichen)
 ```html
 <b>End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.</b>
 
-FamWake is your all-in-one family routine planner, morning routine app, and shared alarm clock for families — morning schedule, bathroom queue, and visual routine in one simple app.
+FamWake is your all-in-one family routine planner, morning routine app, and shared alarm clock for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
 Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart <b>kids alarm clock</b>, a helper for your <b>kids morning routine</b>, or a <b>shared alarm clock</b> for couples and roommates — FamWake makes mornings easy.
 
@@ -115,7 +117,7 @@ FamWake is a shared alarm clock that manages your bathroom schedule automaticall
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your visual schedule for effortless morning planning, my morning routine, and kids morning routine management.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your visual schedule for kids and visual timer for kids, designed for effortless morning planning and kids morning routine management.
 
 <b> Already Awake?</b>
 One tap on "Already Awake" and your alarm won't ring. Don't need an alarm today? Simply pause yourself and the family alarm clock recalculates the schedule for everyone else.
@@ -164,11 +166,11 @@ FamWake Family Alarm Clock
 Smart family alarm clock & morning routine app. Bathroom queue & group alarms.
 ```
 
-### Vollständige Beschreibung (3093 / 4000 Zeichen)
+### Vollständige Beschreibung (3123 / 4000 Zeichen)
 ```html
 <b>End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.</b>
 
-FamWake is your all-in-one family routine planner, morning routine app, and shared alarm clock for families — morning schedule, bathroom queue, and visual routine in one simple app.
+FamWake is your all-in-one family routine planner, morning routine app, and shared alarm clock for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
 Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart <b>kids alarm clock</b>, a helper for your <b>kids morning routine</b>, or a <b>shared alarm clock</b> for couples and roommates — FamWake makes mornings easy.
 
@@ -181,7 +183,7 @@ FamWake is a shared alarm clock that manages your bathroom schedule automaticall
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your visual schedule for effortless morning planning, my morning routine, and kids morning routine management.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your visual schedule for kids and visual timer for kids, designed for effortless morning planning and kids morning routine management.
 
 <b> Already Awake?</b>
 One tap on "Already Awake" and your alarm won't ring. Don't need an alarm today? Simply pause yourself and the family alarm clock recalculates the schedule for everyone else.
@@ -230,11 +232,11 @@ FamWake Family Alarm Clock
 Smart family alarm clock & morning routine app. Bathroom queue & group alarms.
 ```
 
-### Vollständige Beschreibung (3093 / 4000 Zeichen)
+### Vollständige Beschreibung (3123 / 4000 Zeichen)
 ```html
 <b>End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.</b>
 
-FamWake is your all-in-one family routine planner, morning routine app, and shared alarm clock for families — morning schedule, bathroom queue, and visual routine in one simple app.
+FamWake is your all-in-one family routine planner, morning routine app, and shared alarm clock for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
 Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart <b>kids alarm clock</b>, a helper for your <b>kids morning routine</b>, or a <b>shared alarm clock</b> for couples and roommates — FamWake makes mornings easy.
 
@@ -247,7 +249,7 @@ FamWake is a shared alarm clock that manages your bathroom schedule automaticall
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your visual schedule for effortless morning planning, my morning routine, and kids morning routine management.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your visual schedule for kids and visual timer for kids, designed for effortless morning planning and kids morning routine management.
 
 <b> Already Awake?</b>
 One tap on "Already Awake" and your alarm won't ring. Don't need an alarm today? Simply pause yourself and the family alarm clock recalculates the schedule for everyone else.

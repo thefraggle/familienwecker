@@ -9,7 +9,8 @@ final class LocalMemberStore {
     private let fileManager = FileManager.default
     
     private var storeDirectory: URL {
-        let docs = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let docs = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+            ?? fileManager.temporaryDirectory
         return docs.appendingPathComponent("FamWakeCache", isDirectory: true)
     }
     
