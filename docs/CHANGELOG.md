@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.20 – 2026-09-25
+✨ Verbessert:
+• Zuverlässige Morgenroutinen: Verbesserte Stabilität und reibungslose Weck- und Schlummerabläufe für die ganze Familie.
+• Nahtlose Synchronisation: Aktualisierungen von Weckzeiten und Statusmeldungen werden noch verlässlicher geteilt.
+• Klarere Hinweise: Verständliche Rückmeldungen bei Verbindungsproblemen oder Anpassungen im Familienplan.
+
 ## 2.1.19 – 2026-09-20
 ✨ Neu & Verbessert:
 • Sofortige Synchronisation: Änderungen an Weckzeiten, Wochenplänen und der Reihenfolge werden ab sofort ohne Verzögerung für die gesamte Familie aktualisiert.

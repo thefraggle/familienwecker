@@ -7,22 +7,22 @@ package de.familienwecker.famwake.data
  */
 sealed class AppError {
     // Auth
-    object EmailOrPasswordEmpty : AppError()
-    object LoginFailed : AppError()
-    object RegistrationFailed : AppError()
-    object GoogleSignInFailed : AppError()
-    object UserNotFound : AppError()
-    object InvalidEmail : AppError()
-    object TooManyRequests : AppError()
-    object ResetFailed : AppError()
-    object EmailAlreadyInUse : AppError()
-    object WeakPassword : AppError()
+    data object EmailOrPasswordEmpty : AppError()
+    data object LoginFailed : AppError()
+    data object RegistrationFailed : AppError()
+    data object GoogleSignInFailed : AppError()
+    data object UserNotFound : AppError()
+    data object InvalidEmail : AppError()
+    data object TooManyRequests : AppError()
+    data object ResetFailed : AppError()
+    data object EmailAlreadyInUse : AppError()
+    data object WeakPassword : AppError()
 
     // Family
-    object FamilyNotFound : AppError()
-    object CodeGenerationFailed : AppError()
+    data object FamilyNotFound : AppError()
+    data object CodeGenerationFailed : AppError()
     data class PermissionDenied(val message: String? = null) : AppError()
-    object LoadMembersFailed : AppError()
+    data object LoadMembersFailed : AppError()
 
     // Fallback
     data class Unknown(val message: String?) : AppError()

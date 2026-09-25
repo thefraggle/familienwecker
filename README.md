@@ -31,6 +31,20 @@ FamWake is built as a Kotlin Multiplatform (KMP) project for Android and iOS wit
 * **iOS**: Xcode 16+
 * **Backend**: Node.js & Firebase CLI (`npx firebase-tools`)
 
+### Configuration & Secrets
+For local builds, template files are provided and must be populated:
+* **Android**: 
+  * Place your Firebase configuration in `app/google-services.json`.
+  * Create `local.properties` in root with:
+    ```properties
+    DEFAULT_WEB_CLIENT_ID=your_google_web_client_id
+    REVENUECAT_PUBLIC_API_KEY=your_revenuecat_key
+    APTABASE_APP_KEY=your_aptabase_key
+    ```
+* **iOS**: 
+  * Copy `ios/FamWake/Config/Secrets.xcconfig.template` to `ios/FamWake/Config/Secrets.xcconfig` and insert your API keys.
+  * Place your iOS Firebase configuration in `ios/FamWake/GoogleService-Info.plist`.
+
 ### Project Structure
 * `/app`: Android Application (Jetpack Compose, Room, Kotlin)
 * `/ios`: iOS Application (SwiftUI, AlarmKit)

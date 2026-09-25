@@ -20,10 +20,6 @@ fun FamilyViewModel.setThemePreference(theme: String) {
 
 }
 
-fun FamilyViewModel.setTooltipsEnabled(enabled: Boolean) {
-    appSettings.setTooltipsEnabled(enabled)
-
-}
 
 fun FamilyViewModel.setGentleWakeEnabled(enabled: Boolean) {
     appSettings.setGentleWakeEnabled(enabled)

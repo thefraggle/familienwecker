@@ -95,9 +95,12 @@ def get_description_from_listing(listing_path):
 
     # Description starts after the 3rd ## header
     desc_start = sections[2].end()
-    # Description ends at the 4th ## header, or end of file
+    # Description starts after the 3rd ## header
     desc_end = sections[3].start() if len(sections) > 3 else len(content)
     desc = content[desc_start:desc_end].strip()
+    app_store_split = re.search(r'\n---+\s*\n#+ ', desc)
+    if app_store_split:
+        desc = desc[:app_store_split.start()].strip()
 
     return desc if desc else None
 
@@ -220,10 +223,10 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # These are the core search terms users would use to find this app
-KEYWORDS_DE = 'kinderwecker,morgenroutine,zeitmanagement,zeitplan,kostenlos,badplaner,laut,visuell,sanft,timer,uhr'
+KEYWORDS_DE = 'kinderwecker,morgenroutine,zeitmanagement,badplaner,kostenlos,laut,visuell,sanft,timer,uhr,adhs,plan'
 KEYWORDS_EN = 'kids,clock,daily,routine,bathroom,timer,wake,schedule,checklist,free,shared,group,visual,loud,sleep'
 
-# Hardcoded optimized keywords per locale (ASO KW 38)
+# Hardcoded optimized keywords per locale (ASO KW 39)
 KEYWORDS_BY_LOCALE = {
     'de-DE': KEYWORDS_DE,
     'en-US': KEYWORDS_EN,
