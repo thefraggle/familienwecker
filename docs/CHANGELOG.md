@@ -4,10 +4,10 @@
 
 ## 2.1.21 – 2026-10-01
 ✨ Verbessert:
-• Zuverlässige Weckzeiten nach Geräteneustart: Alle Familienwecker bleiben nach einem Neustart garantiert erhalten.
-• Barrierefreie Zeitplan-Steuerung: Die Reihenfolge im Morgenplan kann nun auch per Screenreader und Tastatur intuitiv angepasst werden.
-• Verbesserte Audio-Zuverlässigkeit: Wecksignale ertönen auch bei entsperrtem Display verlässlich mit vollem Weckton.
-• Erhöhte Datensicherheit und beschleunigtes Laden der Einstellungen ohne Hänger.
+• Zuverlässige Weckzeiten: Alle Wecker für die ganze Familie bleiben auch nach einem Geräteneustart sicher aktiv.
+• Klingelt garantiert: Der Weckton ertönt jetzt in jeder Situation verlässlich in voller Lautstärke.
+• Einfachere Bedienung: Die Reihenfolge eurer Morgenroutine lässt sich noch leichter und barrierefrei anpassen.
+• Spürbar flüssiger: Einstellungen und Änderungen speichern und laden ohne Verzögerung.
 
 ## 2.1.20 – 2026-09-25
 ✨ Verbessert:
