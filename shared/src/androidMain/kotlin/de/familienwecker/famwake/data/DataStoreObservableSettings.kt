@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.*
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SettingsListener
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
@@ -20,7 +21,21 @@ class DataStoreObservableSettings(
     private val writeMutex = Mutex()
 
     init {
-        // Asynchrones Laden und kontinuierliches Beobachten ohne Main-Thread-Blockierung
+        // Synchroner Initial-Load in den Memory-Cache:
+        // Stellt sicher, dass synchron initialisierende Klassen (wie AppSettingsImpl)
+        // sofort die gespeicherten Werte vorfinden und keine falschen Defaults lesen.
+        try {
+            runBlocking(Dispatchers.IO) {
+                val prefs = dataStore.data.first()
+                prefs.asMap().forEach { (key, value) ->
+                    cache[key.name] = value
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("DataStoreSettings", "Initialer DataStore-Load fehlgeschlagen: ${e.message}", e)
+        }
+
+        // Asynchrones Beobachten von Hintergrund-Änderungen
         scope.launch {
             try {
                 dataStore.data.collect { prefs ->
