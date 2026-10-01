@@ -80,7 +80,10 @@ npx firebase-tools deploy
 This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. See the [LICENSE](LICENSE) file for details.
 
 * [Website](https://familienwecker.de)
+* [Architecture](ARCHITECTURE.md)
+* [Contributing](CONTRIBUTING.md)
 * [Changelog](docs/CHANGELOG.en.md)
+* [Security Policy](SECURITY.md)
 * [Privacy Policy](https://familienwecker.de/privacy-policy.html)
 * [Imprint](https://familienwecker.de/imprint-en.html)
 * [Account Deletion](https://familienwecker.de/account-deletion-en.html)
