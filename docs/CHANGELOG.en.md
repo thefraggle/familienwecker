@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.21 – 2026-10-01
+✨ Improved:
+• Reliable Alarms After Reboot: All family alarms are now preserved reliably after your device restarts.
+• Accessible Schedule Reordering: Reordering the morning routine is now fully accessible with screen readers and keyboard actions.
+• Reliable Alarm Audio: Alarms ring out loud with full volume even when the screen is active.
+• Hardened Data Security and faster, non-blocking settings loading.
+
 ## 2.1.20 – 2026-09-25
 ✨ Improved:
 • Reliable Morning Routines: Enhanced stability and seamless wake-up and snooze coordination for the whole family.

@@ -22,6 +22,8 @@
     <string name="join_loading_text">Connecting to family…</string>
 
     <string name="main_add_member_desc">Add member</string>
+    <string name="a11y_move_up">Move up</string>
+    <string name="a11y_move_down">Move down</string>
     <string name="main_family_members">Family members</string>
     <string name="main_current_schedule">Current schedule</string>
     <string name="main_no_active_schedule">No active alarms right now.</string>

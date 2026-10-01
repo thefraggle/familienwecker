@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.21 – 2026-10-01
+✨ Verbessert:
+• Zuverlässige Weckzeiten nach Geräteneustart: Alle Familienwecker bleiben nach einem Neustart garantiert erhalten.
+• Barrierefreie Zeitplan-Steuerung: Die Reihenfolge im Morgenplan kann nun auch per Screenreader und Tastatur intuitiv angepasst werden.
+• Verbesserte Audio-Zuverlässigkeit: Wecksignale ertönen auch bei entsperrtem Display verlässlich mit vollem Weckton.
+• Erhöhte Datensicherheit und beschleunigtes Laden der Einstellungen ohne Hänger.
+
 ## 2.1.20 – 2026-09-25
 ✨ Verbessert:
 • Zuverlässige Morgenroutinen: Verbesserte Stabilität und reibungslose Weck- und Schlummerabläufe für die ganze Familie.

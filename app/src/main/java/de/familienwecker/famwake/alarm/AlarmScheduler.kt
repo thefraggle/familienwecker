@@ -73,7 +73,11 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
 
         // Backup in plain SharedPreferences – lesbar auch vor erstem Unlock nach Reboot
-        AlarmBackupPrefs.save(context, memberId, memberName, soundUri, timeInMillis)
+        if (!isSnooze) {
+            AlarmBackupPrefs.save(context, memberId, memberName, soundUri, timeInMillis)
+        } else {
+            AlarmBackupPrefs.saveSnooze(context, timeInMillis, 1, memberId)
+        }
     }
 
     override fun cancelWakeUp(memberId: String, isSnooze: Boolean) {
@@ -89,8 +93,12 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         )
         alarmManager.cancel(pendingIntent)
 
-        // Backup-Eintrag ebenfalls löschen, aber nur wenn er diesem Member gehört
-        AlarmBackupPrefs.clear(context, memberId)
+        // Backup-Eintrag gezielt löschen (Snooze vs. Hauptwecker trennen)
+        if (!isSnooze) {
+            AlarmBackupPrefs.clear(context, memberId)
+        } else {
+            AlarmBackupPrefs.clearSnooze(context, memberId)
+        }
     }
 }
 

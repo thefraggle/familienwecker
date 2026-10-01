@@ -1,11 +1,13 @@
 package de.familienwecker.famwake.data
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SettingsListener
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
 
 class DataStoreObservableSettings(
@@ -15,49 +17,42 @@ class DataStoreObservableSettings(
 
     private val cache = ConcurrentHashMap<String, Any>()
     private val listeners = ConcurrentHashMap<String, MutableList<Pair<Class<*>, (Any?) -> Unit>>>()
+    private val writeMutex = Mutex()
 
     init {
-        // Synchroner Initial-Load über runBlocking
-        runBlocking {
-            try {
-                val prefs = dataStore.data.first()
-                prefs.asMap().forEach { (key, value) ->
-                    cache[key.name] = value
-                }
-            } catch (e: Exception) {
-                // Falls Laden fehlschlägt
-            }
-        }
-
-        // Asynchrones Beobachten von Hintergrund-Änderungen
+        // Asynchrones Laden und kontinuierliches Beobachten ohne Main-Thread-Blockierung
         scope.launch {
-            dataStore.data.collect { prefs ->
-                val newKeys = prefs.asMap().mapKeys { it.key.name }
-                
-                // Aktualisiere Cache und benachrichtige Listener bei geänderten Werten
-                val allKeys = cache.keys + newKeys.keys
-                for (keyName in allKeys) {
-                    val oldValue = cache[keyName]
-                    val newValue = newKeys[keyName]
-                    if (oldValue != newValue) {
-                        if (newValue == null) {
-                            cache.remove(keyName)
-                        } else {
-                            cache[keyName] = newValue
+            try {
+                dataStore.data.collect { prefs ->
+                    val newKeys = prefs.asMap().mapKeys { it.key.name }
+
+                    // Aktualisiere Cache und benachrichtige Listener bei geänderten Werten
+                    val allKeys = cache.keys + newKeys.keys
+                    for (keyName in allKeys) {
+                        val oldValue = cache[keyName]
+                        val newValue = newKeys[keyName]
+                        if (oldValue != newValue) {
+                            if (newValue == null) {
+                                cache.remove(keyName)
+                            } else {
+                                cache[keyName] = newValue
+                            }
+                            notifyListeners(keyName, newValue)
                         }
-                        notifyListeners(keyName, newValue)
                     }
                 }
+            } catch (e: Exception) {
+                Log.e("DataStoreSettings", "Fehler beim Laden/Beobachten von DataStore: ${e.message}", e)
             }
         }
     }
 
     private fun notifyListeners(key: String, value: Any?) {
-        listeners[key]?.forEach { (type, callback) ->
+        listeners[key]?.forEach { (_, callback) ->
             try {
                 callback(value)
             } catch (e: Exception) {
-                // Ignoriere Fehler bei Callbacks
+                Log.w("DataStoreSettings", "Fehler im Listener für $key: ${e.message}")
             }
         }
     }
@@ -67,11 +62,17 @@ class DataStoreObservableSettings(
 
     override fun clear() {
         cache.clear()
-        runBlocking {
-            dataStore.edit { it.clear() }
-        }
-        listeners.forEach { (key, list) ->
+        listeners.forEach { (_, list) ->
             list.forEach { (_, callback) -> callback(null) }
+        }
+        scope.launch {
+            try {
+                writeMutex.withLock {
+                    dataStore.edit { it.clear() }
+                }
+            } catch (e: Exception) {
+                Log.e("DataStoreSettings", "Fehler beim Löschen des DataStores: ${e.message}", e)
+            }
         }
     }
 
@@ -79,26 +80,38 @@ class DataStoreObservableSettings(
 
     override fun remove(key: String) {
         cache.remove(key)
-        runBlocking {
-            dataStore.edit { prefs ->
-                val prefKey = prefs.asMap().keys.find { it.name == key }
-                if (prefKey != null) {
-                    prefs.remove(prefKey)
+        notifyListeners(key, null)
+        scope.launch {
+            try {
+                writeMutex.withLock {
+                    dataStore.edit { prefs ->
+                        val prefKey = prefs.asMap().keys.find { it.name == key }
+                        if (prefKey != null) {
+                            prefs.remove(prefKey)
+                        }
+                    }
                 }
+            } catch (e: Exception) {
+                Log.e("DataStoreSettings", "Fehler beim Entfernen von $key: ${e.message}", e)
             }
         }
-        notifyListeners(key, null)
     }
 
-    // Generic put helper
+    // Generic non-blocking put helper
     private fun <T : Any> putValue(keyName: String, value: T, prefKey: Preferences.Key<T>) {
         cache[keyName] = value
-        runBlocking {
-            dataStore.edit { prefs ->
-                prefs[prefKey] = value
+        notifyListeners(keyName, value)
+        scope.launch {
+            try {
+                writeMutex.withLock {
+                    dataStore.edit { prefs ->
+                        prefs[prefKey] = value
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("DataStoreSettings", "Fehler beim Speichern von $keyName: ${e.message}", e)
             }
         }
-        notifyListeners(keyName, value)
     }
 
     // Custom helper to get value or default

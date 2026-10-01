@@ -34,6 +34,10 @@ import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -395,11 +399,32 @@ fun LazyListScope.scheduleSection(
                 label = "dragContentColor"
             )
 
+            val moveUpLabel = stringResource(R.string.a11y_move_up)
+            val moveDownLabel = stringResource(R.string.a11y_move_down)
+            val posDesc = "${sched.member.name}, Position ${index + 1} von $totalItems"
+
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .animateItem()
                     .zIndex(if (isDragging) 10f else 0f)
+                    .semantics {
+                        contentDescription = posDesc
+                        customActions = listOfNotNull(
+                            if (index > 0) {
+                                CustomAccessibilityAction(moveUpLabel) {
+                                    setPendingReorder(Pair(index, index - 1))
+                                    true
+                                }
+                            } else null,
+                            if (index < totalItems - 1) {
+                                CustomAccessibilityAction(moveDownLabel) {
+                                    setPendingReorder(Pair(index, index + 1))
+                                    true
+                                }
+                            } else null
+                        )
+                    }
                     .graphicsLayer {
                         translationY = if (isDragging) draggingOffset else otherItemTranslationY
                         scaleX = if (isDragging) 1.08f else 1f

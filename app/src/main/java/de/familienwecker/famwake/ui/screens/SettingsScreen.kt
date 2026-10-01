@@ -939,7 +939,8 @@ fun SettingsScreen(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     val deleteFamilyInteractionSource = remember { MutableInteractionSource() }
-                    if (isAdmin) {
+                    val canDeleteFamily = isAdmin || members.none { it.id != myMemberId }
+                    if (canDeleteFamily) {
                         OutlinedButton(
                             onClick = { showDeleteDialog = true },
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
