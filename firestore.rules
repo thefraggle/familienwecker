@@ -60,14 +60,14 @@ service cloud.firestore {
       // Kein direkter Client-Zugriff für Create (nur Cloud Functions)
       allow create: if false;
 
-      // Update nur für Mitglieder; createdByUserId und joinCode dürfen vom Client nie geändert werden.
+      // Update nur für Mitglieder; createdByUserId, joinCode und userIds dürfen vom Client nie geändert werden.
       // Hinweis: Cloud Functions nutzen das Admin SDK und umgehen diese Rules vollständig –
       // createFamily, joinFamilyByCode, leaveFamily etc. funktionieren weiterhin uneingeschränkt.
       allow update: if isFamilyMember(familyId) && 
-                    (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['createdByUserId', 'joinCode']));
+                    (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['createdByUserId', 'joinCode', 'userIds']));
       
-      // Löschen erlaubt wenn der Nutzer der Ersteller ist ODER Admin
-      allow delete: if isAdmin() || (signedIn() && resource.data.get('createdByUserId', '') == request.auth.uid);
+      // Löschen nur via Admin/Cloud Functions (Client-Delete verboten, um verwaiste Subcollections zu verhindern)
+      allow delete: if isAdmin();
 
       // Mitglieder-Subcollection
       match /members/{memberId} {

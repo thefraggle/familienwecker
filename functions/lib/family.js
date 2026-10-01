@@ -313,14 +313,22 @@ exports.deleteFamily = onCall(
     // Global Admin Check
     const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
     const isGlobalAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
-
-    // Only the creator OR global admin can delete the family
-    if (!isGlobalAdmin && familyData.createdByUserId !== uid) {
-      throw new HttpsError("permission-denied", "ONLY_CREATOR_OR_ADMIN_CAN_DELETE_FAMILY");
-    }
+    const isCreator = familyData.createdByUserId === uid;
 
     // Delete all member documents and remove familyId from their user profiles
     const membersSnapshot = await familyDocRef.collection("members").get();
+
+    // Der Ersteller oder Admin kann die Familie immer löschen.
+    // Andere Mitglieder können die Familie nur löschen, wenn keine anderen Mitglieder enthalten sind.
+    const otherMembers = membersSnapshot.docs.filter(doc => {
+      const claimedUid = doc.data().claimedByUserId;
+      return claimedUid ? claimedUid !== uid : true;
+    });
+
+    if (!isGlobalAdmin && !isCreator && otherMembers.length > 0) {
+      throw new HttpsError("permission-denied", "NON_CREATOR_CANNOT_DELETE_NON_EMPTY_FAMILY");
+    }
+
     const batch = admin.firestore().batch();
 
     for (const memberDoc of membersSnapshot.docs) {
@@ -329,11 +337,14 @@ exports.deleteFamily = onCall(
 
       const claimedUid = data.claimedByUserId;
       if (claimedUid) {
-        // Remove familyId from user's document using claimed UID
-        // Use set({familyId: delete}, {merge: true}) instead of update to avoid errors if doc doesn't exist
-        batch.set(admin.firestore().collection("users").doc(claimedUid), {
-          familyId: admin.firestore.FieldValue.delete()
-        }, { merge: true });
+        // Sicherstellen, dass das Profil nur geleert wird, wenn es noch dieser Familie zugeordnet ist
+        const userDocRef = admin.firestore().collection("users").doc(claimedUid);
+        const userDoc = await userDocRef.get();
+        if (userDoc.exists && userDoc.data().familyId === familyId) {
+          batch.set(userDocRef, {
+            familyId: admin.firestore.FieldValue.delete()
+          }, { merge: true });
+        }
       }
     }
 

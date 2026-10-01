@@ -36,80 +36,79 @@ class BootReceiver : BroadcastReceiver() {
         // Plain Prefs – immer lesbar, auch vor erstem Unlock
         if (!AlarmBackupPrefs.isEnabled(context)) return
 
-        val memberId   = AlarmBackupPrefs.getMemberId(context)   ?: return
-        val memberName = AlarmBackupPrefs.getMemberName(context) ?: ""
-        val soundUri   = AlarmBackupPrefs.getSoundUri(context)
-        val savedMillis = AlarmBackupPrefs.getWakeUpMillis(context)
+        val backups = AlarmBackupPrefs.getAllBackups(context)
+        if (backups.isEmpty()) return
 
-        if (savedMillis == 0L) return
-
-        // Gespeicherten Zeitstempel lesen und Datum anpassen:
-        // - Liegt der Zeitpunkt in der Zukunft → exakt diesen Zeitpunkt verwenden
-        // - Liegt er in der Vergangenheit → gleiche Uhrzeit am nächsten Tag
         val zone = ZoneId.systemDefault()
-        val savedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(savedMillis), zone)
-        val alarmTime: LocalTime = savedDateTime.toLocalTime()
-
         val now = LocalDateTime.now(zone)
-        val targetDateTime = if (savedDateTime.isAfter(now)) {
-            // Noch in der Zukunft – exakt diesen Termin wiederherstellen
-            savedDateTime
-        } else {
-            // Bereits vergangen – prüfe wie lange her
-            val minutesMissed = java.time.Duration.between(savedDateTime, now).toMinutes()
-            if (minutesMissed <= 30) {
-                // Kurz verpasst → sofort klingeln (in 10 Sekunden)
-                now.plusSeconds(10)
-            } else {
-                // Zu lange her → Notification + nächster Tag
-                try {
-                    val channelName = context.getString(R.string.notif_channel_missed_alarm)
-                    val channel = android.app.NotificationChannel(
-                        "missed_alarm", channelName,
-                        android.app.NotificationManager.IMPORTANCE_HIGH
-                    )
-                    val nm = context.getSystemService(android.app.NotificationManager::class.java)
-                    nm.createNotificationChannel(channel)
-                    val notificationText = context.getString(R.string.notif_alarm_missed, alarmTime.hour, alarmTime.minute)
-                    val notification = android.app.Notification.Builder(context, "missed_alarm")
-                        .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
-                        .setContentTitle(memberName.ifEmpty { "FamWake" })
-                        .setContentText(notificationText)
-                        .setAutoCancel(true)
-                        .build()
-                    nm.notify(9999, notification)
-                } catch (_: Exception) { /* Best-effort */ }
-                val nextDay = now.toLocalDate().plusDays(1)
-                LocalDateTime.of(nextDay, alarmTime)
-            }
-        }
-
         val scheduler = AlarmScheduler(context)
-        scheduler.scheduleWakeUp(
-            wakeUpTime = targetDateTime.toKmpLocalDateTime(),
-            memberId   = memberId,
-            memberName = memberName,
-            soundUri   = soundUri
-        )
 
-        // Snooze-Alarm wiederherstellen, falls einer aktiv war
-        val snoozeMillis = AlarmBackupPrefs.getSnoozeUntilMillis(context)
-        if (snoozeMillis > 0L) {
-            val snoozeDateTime = LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(snoozeMillis), zone
-            )
-            if (snoozeDateTime.isAfter(now)) {
-                // Snooze liegt noch in der Zukunft → als Snooze-Alarm planen
-                scheduler.scheduleWakeUp(
-                    wakeUpTime = snoozeDateTime.toKmpLocalDateTime(),
-                    memberId   = memberId,
-                    memberName = memberName,
-                    soundUri   = soundUri,
-                    isSnooze   = true
-                )
+        for (backup in backups) {
+            val savedMillis = backup.wakeUpMillis
+            if (savedMillis == 0L) continue
+
+            val savedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(savedMillis), zone)
+            val alarmTime: LocalTime = savedDateTime.toLocalTime()
+
+            val targetDateTime = if (savedDateTime.isAfter(now)) {
+                // Noch in der Zukunft – exakt diesen Termin wiederherstellen
+                savedDateTime
             } else {
-                // Snooze abgelaufen → Backup aufräumen
-                AlarmBackupPrefs.clearSnooze(context)
+                // Bereits vergangen – prüfe wie lange her
+                val minutesMissed = java.time.Duration.between(savedDateTime, now).toMinutes()
+                if (minutesMissed <= 30) {
+                    // Kurz verpasst → sofort klingeln (in 10 Sekunden)
+                    now.plusSeconds(10)
+                } else {
+                    // Zu lange her → Notification + nächster Tag
+                    try {
+                        val channelName = context.getString(R.string.notif_channel_missed_alarm)
+                        val channel = android.app.NotificationChannel(
+                            "missed_alarm", channelName,
+                            android.app.NotificationManager.IMPORTANCE_HIGH
+                        )
+                        val nm = context.getSystemService(android.app.NotificationManager::class.java)
+                        nm?.createNotificationChannel(channel)
+                        val notificationText = context.getString(R.string.notif_alarm_missed, alarmTime.hour, alarmTime.minute)
+                        val notification = android.app.Notification.Builder(context, "missed_alarm")
+                            .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
+                            .setContentTitle(backup.memberName.ifEmpty { "FamWake" })
+                            .setContentText(notificationText)
+                            .setAutoCancel(true)
+                            .build()
+                        nm?.notify(backup.memberId.hashCode().and(0x7fffffff), notification)
+                    } catch (_: Exception) { /* Best-effort */ }
+                    val nextDay = now.toLocalDate().plusDays(1)
+                    LocalDateTime.of(nextDay, alarmTime)
+                }
+            }
+
+            scheduler.scheduleWakeUp(
+                wakeUpTime = targetDateTime.toKmpLocalDateTime(),
+                memberId   = backup.memberId,
+                memberName = backup.memberName,
+                soundUri   = backup.soundUri
+            )
+
+            // Snooze-Alarm wiederherstellen, falls einer aktiv war
+            val snoozeMillis = backup.snoozeUntilMillis
+            if (snoozeMillis > 0L) {
+                val snoozeDateTime = LocalDateTime.ofInstant(
+                    Instant.ofEpochMilli(snoozeMillis), zone
+                )
+                if (snoozeDateTime.isAfter(now)) {
+                    // Snooze liegt noch in der Zukunft → als Snooze-Alarm planen
+                    scheduler.scheduleWakeUp(
+                        wakeUpTime = snoozeDateTime.toKmpLocalDateTime(),
+                        memberId   = backup.memberId,
+                        memberName = backup.memberName,
+                        soundUri   = backup.soundUri,
+                        isSnooze   = true
+                    )
+                } else {
+                    // Snooze abgelaufen → Backup aufräumen
+                    AlarmBackupPrefs.clearSnooze(context, backup.memberId)
+                }
             }
         }
     }

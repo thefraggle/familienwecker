@@ -1,7 +1,7 @@
 // admin-reports.js – Admin Functions, Reports, User-Kontext
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { onSchedule } = require("firebase-functions/v2/scheduler");
-const functions = require("firebase-functions");
+const functions = require("firebase-functions/v1");
 const { Resend } = require("resend");
 const { admin, escapeHtml, checkSingleRateLimit, primaryAdminUidSecret, NOTIFY_EMAIL, BRAND_BLUE, sendEmail } = require("./shared");
 const { SENDER } = require("./i18n");

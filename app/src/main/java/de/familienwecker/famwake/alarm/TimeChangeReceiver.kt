@@ -23,30 +23,36 @@ class TimeChangeReceiver : BroadcastReceiver() {
 
         if (!AlarmBackupPrefs.isEnabled(context)) return
 
-        val memberId = AlarmBackupPrefs.getMemberId(context) ?: return
-        val memberName = AlarmBackupPrefs.getMemberName(context) ?: ""
-        val soundUri = AlarmBackupPrefs.getSoundUri(context)
-        val savedMillis = AlarmBackupPrefs.getWakeUpMillis(context)
-
-        if (savedMillis == 0L) return
+        val backups = AlarmBackupPrefs.getAllBackups(context)
+        if (backups.isEmpty()) return
 
         val zone = ZoneId.systemDefault()
-        val savedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(savedMillis), zone)
-        val alarmTime: LocalTime = savedDateTime.toLocalTime()
-
         val now = LocalDateTime.now(zone)
-        val targetDateTime = if (now.toLocalTime().isBefore(alarmTime)) {
-            LocalDateTime.of(now.toLocalDate(), alarmTime)
-        } else {
-            LocalDateTime.of(now.toLocalDate().plusDays(1), alarmTime)
-        }
-
         val scheduler = AlarmScheduler(context)
-        scheduler.scheduleWakeUp(
-            wakeUpTime = targetDateTime.toKmpLocalDateTime(),
-            memberId = memberId,
-            memberName = memberName,
-            soundUri = soundUri
-        )
+
+        for (backup in backups) {
+            val savedMillis = backup.wakeUpMillis
+            if (savedMillis == 0L) continue
+
+            val savedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(savedMillis), zone)
+            val alarmTime: LocalTime = savedDateTime.toLocalTime()
+
+            // Wenn der geplante Alarm noch in der Zukunft liegt, behalten wir das Datum bei (z.B. Wecker für übermorgen).
+            // Nur wenn er in der Vergangenheit liegt, wird auf heute bzw. morgen korrigiert.
+            val targetDateTime = if (savedDateTime.isAfter(now)) {
+                savedDateTime
+            } else if (now.toLocalTime().isBefore(alarmTime)) {
+                LocalDateTime.of(now.toLocalDate(), alarmTime)
+            } else {
+                LocalDateTime.of(now.toLocalDate().plusDays(1), alarmTime)
+            }
+
+            scheduler.scheduleWakeUp(
+                wakeUpTime = targetDateTime.toKmpLocalDateTime(),
+                memberId = backup.memberId,
+                memberName = backup.memberName,
+                soundUri = backup.soundUri
+            )
+        }
     }
 }

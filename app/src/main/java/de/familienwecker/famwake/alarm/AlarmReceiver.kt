@@ -65,22 +65,27 @@ class AlarmReceiver : BroadcastReceiver() {
                         notificationManager.deleteNotificationChannel(ch.id)
                     }
                 }
-            } catch (_: Exception) {
-                // Best-effort Channel-Cleanup
+            } catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamWake_Alarm", "Channel-Cleanup: ${e.message}")
+                }
             }
         }
 
         val channelName = context.getString(R.string.alarm_channel_name)
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
         val channel = NotificationChannel(dynamicChannelId, channelName, NotificationManager.IMPORTANCE_HIGH).apply {
             setBypassDnd(true)
             description = channelName
             lockscreenVisibility = android.app.Notification.VISIBILITY_PUBLIC
             enableVibration(true)
-            val audioAttributes = AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_ALARM)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build()
-            setSound(null, null)
+            // Fallback-Ton setzen, damit der Wecker auch bei entsperrtem Display oder
+            // blockiertem Background-Activity-Start zuverlässig akustisch klingelt.
+            setSound(soundUri, audioAttributes)
         }
         notificationManager.createNotificationChannel(channel)
 
@@ -92,11 +97,10 @@ class AlarmReceiver : BroadcastReceiver() {
             .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
             .setContentTitle(notificationTitle)
             .setContentText(notificationText)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setFullScreenIntent(fullScreenPendingIntent, true)
-            // Kein .setSound() hier: Ton wird ausschließlich von RingingActivity's
-            // MediaPlayer mit USAGE_ALARM gespielt. Doppelton vermeiden.
+            .setSound(soundUri)
             .setVibrate(longArrayOf(0, 500, 500, 500))
             .setAutoCancel(true)
 
