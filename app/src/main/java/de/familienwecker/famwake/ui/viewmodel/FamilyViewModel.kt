@@ -463,6 +463,12 @@ class FamilyViewModel(
                         if (memberForMe.claimedByDeviceId.isNullOrBlank()) {
                             addOrUpdateMemberDebounced(memberForMe.copy(claimedByDeviceId = appSettings.deviceId))
                         }
+                        // Selbstheilung: Wenn der Nutzer einen aktiven Member hat und in der App
+                        // isAlarmEnabled fälschlich aus ist (z.B. nach Update 2.1.21),
+                        // den Wecker automatisch wieder aktivieren, sofern nicht explizit pausiert.
+                        if (!isAlarmEnabled.value && memberForMe.deviceAlarmEnabled != false && !memberForMe.isPaused) {
+                            setAlarmEnabled(true)
+                        }
                     } else if (myMemberId.value != null && !_isAutoClaimInProgress.value) {
                         // Profil wurde aktiv von der Familie gelöscht oder freigegeben.
                         // WICHTIG: Niemals clearen wenn die Liste leer ist (z.B. während Sync/Cache-Laden)!

@@ -77,16 +77,16 @@ fun LoadingScreen(
                 timeoutJob.cancel()
                 if (navigationTriggered) return@LaunchedEffect
                 
-                if (!onboardingCompleted) {
-                    navigationTriggered = true
-                    onNavigateToOnboarding()
-                } else if (familyId != null) {
+                if (familyId != null) {
                     // User ist bereits in einer Familie → immer zum Main navigieren.
-                    // Wenn zusätzlich ein pendingJoinCode vorliegt (Deep-Link während
-                    // aktiver Familienmitgliedschaft), zeigt der MainScreen den
-                    // „Familie verlassen?"-Dialog – hier keinen automatischen Join auslösen.
+                    if (!onboardingCompleted) {
+                        familyViewModel.setOnboardingCompleted(true)
+                    }
                     navigationTriggered = true
                     onNavigateToMain()
+                } else if (!onboardingCompleted) {
+                    navigationTriggered = true
+                    onNavigateToOnboarding()
                 } else if (pendingJoinCode != null) {
                     // Netzwerk-Check vor automatischem Beitritt
                     if (de.familienwecker.famwake.util.NetworkUtils.isOnline(context)) {

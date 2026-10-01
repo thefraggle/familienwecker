@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.22 – 2026-10-01
+✨ Improved:
+• Seamless updates: Your family and settings stay immediately active after updating without showing the intro tour again.
+• Dependable wake-up schedules: Existing alarms automatically resume right away as scheduled.
+
 ## 2.1.21 – 2026-10-01
 ✨ Improved:
 • Reliable alarms: All family alarms stay safely set, even after restarting your device.

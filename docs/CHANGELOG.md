@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.22 – 2026-10-01
+✨ Verbessert:
+• Nahtloses Update: Deine Familie und alle Einstellungen bleiben beim Aktualisieren sofort aktiv erhalten, ohne erneute Einführungstour.
+• Zuverlässige Weckzeiten: Bestehende Wecker starten nach einem Update automatisch wieder wie gewohnt.
+
 ## 2.1.21 – 2026-10-01
 ✨ Verbessert:
 • Zuverlässige Weckzeiten: Alle Wecker für die ganze Familie bleiben auch nach einem Geräteneustart sicher aktiv.
