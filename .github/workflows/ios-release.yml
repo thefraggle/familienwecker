@@ -116,7 +116,7 @@ jobs:
 
         run: |
           pip3 install --break-system-packages deep-translator==1.11.4
-          python3 scripts/generate_ios_metadata.py
+          python3 distribution/scripts/generate_ios_metadata.py
 
       - name: Run Unit Tests
         run: |
