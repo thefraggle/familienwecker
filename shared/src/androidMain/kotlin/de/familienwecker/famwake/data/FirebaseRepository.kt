@@ -19,6 +19,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.launch
@@ -727,55 +728,26 @@ class FirebaseRepository : IFirebaseRepository {
         }
     }
 
-    override fun getSyncStatusFlow(familyId: String): Flow<SyncStatus> = callbackFlow {
+    override fun getSyncStatusFlow(familyId: String): Flow<SyncStatus> {
         val familyRef = db.collection(COLLECTION_FAMILIES).document(familyId)
         val membersRef = familyRef.collection(COLLECTION_MEMBERS)
 
-        var familySynced = SyncStatus()
-        var membersSynced = SyncStatus()
-
-        fun emitCombined() {
-            trySend(SyncStatus(
-                isFromCache = familySynced.isFromCache || membersSynced.isFromCache,
-                hasPendingWrites = familySynced.hasPendingWrites || membersSynced.hasPendingWrites
-            ))
-        }
-
-        // #5 Strukturiertes Concurrency: 'this' nutzt den callbackFlow-Scope statt eines
-        // manuellen CoroutineScope(Dispatchers.IO) – Jobs werden in awaitClose() sauber gecancelt.
-        val familyJob = this.launch {
-            familyRef.snapshots.collect { snapshot ->
-                familySynced = SyncStatus(
-                    isFromCache = snapshot.metadata.isFromCache,
-                    hasPendingWrites = snapshot.metadata.hasPendingWrites
-                )
-                emitCombined()
+        return combine(familyRef.snapshots, membersRef.snapshots) { familySnapshot, membersSnapshot ->
+            SyncStatus(
+                isFromCache = familySnapshot.metadata.isFromCache || membersSnapshot.metadata.isFromCache,
+                hasPendingWrites = familySnapshot.metadata.hasPendingWrites || membersSnapshot.metadata.hasPendingWrites
+            )
+        }.retryWhen { cause, attempt ->
+            val isPermissionError = cause.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true
+            if (isPermissionError || attempt >= 5) {
+                if (debugLogging) Log.w(TAG, "getSyncStatusFlow giving up (attempt=$attempt, permission=$isPermissionError): ${cause.message}")
+                false
+            } else {
+                val delayMillis = minOf(1000L * (attempt + 1), 10000L)
+                delay(delayMillis)
+                true
             }
-        }
-        val membersJob = this.launch {
-            membersRef.snapshots.collect { snapshot ->
-                membersSynced = SyncStatus(
-                    isFromCache = snapshot.metadata.isFromCache,
-                    hasPendingWrites = snapshot.metadata.hasPendingWrites
-                )
-                emitCombined()
-            }
-        }
-
-        awaitClose {
-            familyJob.cancel()
-            membersJob.cancel()
-        }
-    }.retryWhen { cause, attempt ->
-        val isPermissionError = cause.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true
-        if (isPermissionError || attempt >= 5) {
-            if (debugLogging) Log.w(TAG, "getSyncStatusFlow giving up (attempt=$attempt, permission=$isPermissionError): ${cause.message}")
-            false
-        } else {
-            val delayMillis = minOf(1000L * (attempt + 1), 10000L)
-            delay(delayMillis)
-            true
-        }
+        }.distinctUntilChanged()
     }
 
     override suspend fun requestAdminStatsReport(): Result<Unit> {

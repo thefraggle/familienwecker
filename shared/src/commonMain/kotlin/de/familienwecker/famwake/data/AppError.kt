@@ -24,6 +24,9 @@ sealed class AppError {
     data class PermissionDenied(val message: String? = null) : AppError()
     data object LoadMembersFailed : AppError()
 
+    // Network & Connectivity
+    data object Network : AppError()
+
     // Fallback
     data class Unknown(val message: String?) : AppError()
 }

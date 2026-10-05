@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.23 – 2026-10-05
+✨ Improved:
+• Reliable synchronization: Family updates and status indicators now sync even more dependably and without lag.
+• Clearer connection notices: You now receive helpful and clear feedback whenever your internet connection is unavailable.
+• Smooth family switching: Joining or creating a new family group is now completely seamless.
+
 ## 2.1.22 – 2026-10-01
 ✨ Improved:
 • Seamless updates: Your family and settings stay immediately active after updating without showing the intro tour again.
