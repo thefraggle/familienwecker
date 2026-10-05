@@ -4,6 +4,80 @@ const { onDocumentWritten } = require("firebase-functions/v2/firestore");
 const { randomInt } = require("crypto");
 const { admin, checkSingleRateLimit, primaryAdminUidSecret, sendPushToUsers } = require("./shared");
 
+/**
+ * Interner Helper: Trägt einen User sauber aus einer alten Familie aus,
+ * wenn er einer neuen beitritt oder eine neue erstellt (H7).
+ */
+async function internalLeaveFamily(uid, familyId, memberId = null) {
+  try {
+    const familyDocRef = admin.firestore().collection("families").doc(familyId);
+    const familyDoc = await familyDocRef.get();
+
+    if (!familyDoc.exists) {
+      return;
+    }
+
+    const familyData = familyDoc.data() || {};
+    const membersSnapshot = await familyDocRef.collection("members").get();
+
+    // Falls User der Ersteller war und noch andere Mitglieder existieren: neuen Ersteller bestimmen
+    if (familyData.createdByUserId === uid) {
+      const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== (memberId || uid) && doc.data().claimedByUserId !== uid);
+      if (otherMembers.length > 0) {
+        const newCreatorDoc = otherMembers.find(doc => doc.data().claimedByUserId);
+        const newCreatorUid = newCreatorDoc ? newCreatorDoc.data().claimedByUserId : null;
+        if (newCreatorUid) {
+          await familyDocRef.update({ createdByUserId: newCreatorUid });
+          console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
+        }
+      }
+    }
+
+    // Member-Dokument ermitteln und löschen
+    let targetMemberRef = null;
+    if (memberId) {
+      const memberDocRef = familyDocRef.collection("members").doc(memberId);
+      const memberDoc = await memberDocRef.get();
+      if (memberDoc.exists) {
+        if (memberDoc.data().claimedByUserId && memberDoc.data().claimedByUserId !== uid) {
+          throw new HttpsError("permission-denied", "CANNOT_DELETE_OTHER_MEMBER");
+        }
+        targetMemberRef = memberDocRef;
+      }
+    } else {
+      const claimedSnap = await familyDocRef.collection("members")
+        .where("claimedByUserId", "==", uid)
+        .limit(1)
+        .get();
+      if (!claimedSnap.empty) {
+        targetMemberRef = claimedSnap.docs[0].ref;
+      } else {
+        const fallbackDoc = familyDocRef.collection("members").doc(uid);
+        if ((await fallbackDoc.get()).exists) {
+          targetMemberRef = fallbackDoc;
+        }
+      }
+    }
+    if (targetMemberRef) {
+      await targetMemberRef.delete();
+    }
+
+    // UID aus userIds der Familie entfernen
+    await familyDocRef.update({
+      userIds: admin.firestore.FieldValue.arrayRemove(uid)
+    });
+
+    // Verbleibende Mitglieder informieren (fire-and-forget)
+    const existingUserIds = familyData.userIds || [];
+    notifyFamilyMemberLeft(existingUserIds, uid).catch(err =>
+      console.warn("notifyFamilyMemberLeft failed (non-critical):", err?.message)
+    );
+  } catch (err) {
+    if (err instanceof HttpsError) throw err;
+    console.error(`Fehler bei internalLeaveFamily für User ${uid} in Familie ${familyId}:`, err);
+  }
+}
+
 // ─── Sicherer Join-Flow via Cloud Function ────────────────────────────────────
 // Verhindert direkten Firestore-Zugriff auf alle Familien und ermöglicht
 // serverseitiges Rate-Limiting gegen Brute-Force-Versuche auf Join-Codes.
@@ -60,8 +134,17 @@ exports.joinFamilyByCode = onCall(
     }
 
     const familyId = snapshot.docs[0].id;
+
+    // H7: Falls der User bereits in einer anderen Familie war, sauber austragen
+    const userDocRef = admin.firestore().collection("users").doc(uid);
+    const userDoc = await userDocRef.get();
+    const oldFamilyId = userDoc.exists ? userDoc.data()?.familyId : null;
+    if (oldFamilyId && oldFamilyId !== familyId) {
+      await internalLeaveFamily(uid, oldFamilyId);
+    }
+
     // Security Fix: Write familyId to users collection server-side
-    await admin.firestore().collection("users").doc(uid).set({ familyId }, { merge: true });
+    await userDocRef.set({ familyId }, { merge: true });
     // Keep userIds array in sync for Firestore Security Rules (read permission)
     await admin.firestore().collection("families").doc(familyId).update({
       userIds: admin.firestore.FieldValue.arrayUnion(uid)
@@ -165,8 +248,16 @@ exports.createFamily = onCall(
     const docRef = await admin.firestore().collection("families").add(familyData);
     const familyId = docRef.id;
 
+    // H7: Falls der User bereits in einer anderen Familie war, sauber austragen
+    const userDocRef = admin.firestore().collection("users").doc(uid);
+    const userDoc = await userDocRef.get();
+    const oldFamilyId = userDoc.exists ? userDoc.data()?.familyId : null;
+    if (oldFamilyId && oldFamilyId !== familyId) {
+      await internalLeaveFamily(uid, oldFamilyId);
+    }
+
     // Security Fix: Write familyId to users collection server-side
-    await admin.firestore().collection("users").doc(uid).set({ familyId }, { merge: true });
+    await userDocRef.set({ familyId }, { merge: true });
 
     // Security: joinCode nicht loggen – ist ein Zugangsdaten-Äquivalent.
     console.log(`Family '${sanitizedName}' created by ${uid} with id ${familyId}`);
@@ -196,92 +287,12 @@ exports.leaveFamily = onCall(
       throw new HttpsError("failed-precondition", "NOT_A_MEMBER_OF_THIS_FAMILY");
     }
 
-    const familyDocRef = admin.firestore().collection("families").doc(familyId);
-    const familyDoc = await familyDocRef.get();
-
-    if (!familyDoc.exists) {
-      // Family might have been deleted by another user
-      await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
-      console.log(`User ${uid} left non-existent family ${familyId}.`);
-      return { success: true };
-    }
-
-    const familyData = familyDoc.data();
-
-    // Check if user is the last member
-    const membersSnapshot = await familyDocRef.collection("members").get();
-    const memberCount = membersSnapshot.size;
-
-    if (memberCount === 1) {
-      // Logic changed: Do NOT automatically delete families when the last member leaves,
-      // to keep the joinCode valid for future members. Empty families will be cleaned up later.
-      console.log(`User ${uid} is the last member of family ${familyId}. Keeping family document.`);
-    }
-
-    // If user is the creator and there are other members, reassign creator
-    if (familyData.createdByUserId === uid) {
-      const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== (memberId || uid));
-      if (otherMembers.length > 0) {
-        // Use claimedByUserId (real Auth UID), NOT doc.id (which is the member doc ID, not a user UID)
-        const newCreatorDoc = otherMembers.find(doc => doc.data().claimedByUserId);
-        const newCreatorUid = newCreatorDoc ? newCreatorDoc.data().claimedByUserId : null;
-        if (newCreatorUid) {
-          await familyDocRef.update({ createdByUserId: newCreatorUid });
-          console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
-        } else {
-          console.log(`No claimed member found to reassign creator of family ${familyId}. Field stays stale.`);
-        }
-      }
-    }
-
-    // Member-Dokument ermitteln und löschen:
-    // Wenn memberId übergeben: prüfen dass es dem User gehört.
-    // Wenn keine memberId übergeben: nach Member mit claimedByUserId == uid suchen.
-    let targetMemberRef = null;
-    if (memberId) {
-      const memberDocRef = familyDocRef.collection("members").doc(memberId);
-      const memberDoc = await memberDocRef.get();
-      if (memberDoc.exists) {
-        if (memberDoc.data().claimedByUserId && memberDoc.data().claimedByUserId !== uid) {
-          throw new HttpsError("permission-denied", "CANNOT_DELETE_OTHER_MEMBER");
-        }
-        targetMemberRef = memberDocRef;
-      }
-    } else {
-      const claimedSnap = await familyDocRef.collection("members")
-        .where("claimedByUserId", "==", uid)
-        .limit(1)
-        .get();
-      if (!claimedSnap.empty) {
-        targetMemberRef = claimedSnap.docs[0].ref;
-      } else {
-        // Fallback: altes Legacy-Verhalten falls doc.id == uid
-        const fallbackDoc = familyDocRef.collection("members").doc(uid);
-        if ((await fallbackDoc.get()).exists) {
-          targetMemberRef = fallbackDoc;
-        }
-      }
-    }
-    if (targetMemberRef) {
-      await targetMemberRef.delete();
-    }
+    await internalLeaveFamily(uid, familyId, memberId);
 
     // Remove familyId from user's document
     await userDocRef.update({ familyId: admin.firestore.FieldValue.delete() });
 
-    // Remove uid from family's userIds array (Firestore Security Rules read access)
-    await familyDocRef.update({
-      userIds: admin.firestore.FieldValue.arrayRemove(uid)
-    });
-
     console.log(`User ${uid} successfully left family ${familyId}.`);
-
-    // Feature #4: Verbleibende Members über Austritt informieren (fire-and-forget)
-    // userIds aus dem bereits geladenen familyDoc (vor arrayRemove) – kein extra Read
-    const existingUserIds = familyData.userIds || [];
-    notifyFamilyMemberLeft(existingUserIds, uid).catch(err =>
-      console.warn("notifyFamilyMemberLeft failed (non-critical):", err?.message)
-    );
 
     return { success: true, familyDeleted: false };
   }

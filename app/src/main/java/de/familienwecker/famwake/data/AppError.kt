@@ -22,6 +22,7 @@ fun AppError.toUiText(): UiText = when (this) {
     is AppError.CodeGenerationFailed  -> UiText.StringResource(R.string.error_code_generation_failed)
     is AppError.PermissionDenied      -> UiText.StringResource(R.string.error_permission_denied)
     is AppError.LoadMembersFailed     -> UiText.StringResource(R.string.error_load_members, "")
+    is AppError.Network               -> UiText.StringResource(R.string.error_network)
     is AppError.Unknown               -> UiText.StringResource(R.string.error_unknown)
 }
 
@@ -32,6 +33,11 @@ fun AppError.toUiText(): UiText = when (this) {
 fun appErrorFromException(e: Exception): AppError {
     val msg = e.message?.uppercase() ?: ""
     return when {
+        e is com.google.firebase.FirebaseNetworkException
+                || e is java.io.IOException
+                || msg.contains("UNAVAILABLE")
+                || msg.contains("DEADLINE_EXCEEDED")
+                || msg.contains("NETWORK")                 -> AppError.Network
         e is com.google.firebase.auth.FirebaseAuthInvalidUserException
                 || msg.contains("USER_NOT_FOUND")          -> AppError.UserNotFound
         e is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException

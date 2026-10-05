@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.23 – 2026-10-05
+✨ Verbessert:
+• Zuverlässige Synchronisation: Aktualisierungen innerhalb der Familie und Statusanzeigen synchronisieren jetzt noch stabiler und ohne Verzögerung.
+• Verständliche Hinweise: Bei fehlender Internetverbindung erhältst du ab sofort eine klare Rückmeldung.
+• Reibungsloser Familienwechsel: Der Wechsel oder Beitritt zu einer neuen Familiengruppe läuft sauber und unterbrechungsfrei.
+
 ## 2.1.22 – 2026-10-01
 ✨ Verbessert:
 • Nahtloses Update: Deine Familie und alle Einstellungen bleiben beim Aktualisieren sofort aktiv erhalten, ohne erneute Einführungstour.
