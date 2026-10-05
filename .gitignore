@@ -56,21 +56,27 @@ ios/FamWake/Config/Secrets.xcconfig
 release-notes/
 ios/fastlane/metadata/
 
-# Internal documentation & Agent workspaces
+# Python Virtual Environments & Cache
+venv/
+.venv/
+*/venv/
+*/.venv/
+__pycache__/
+*.py[cod]
+
+# Internal Tools, Dashboards, Marketing & Private Scripts
+internal/
 .antigravity/
 .agents/
-docs/internal/
-docs/scripts/
-STORE_LISTING.md
-STORE_LISTINGS.md
-images/
 
-# Internal Automation & Screenshot Scripts (Keep only core release metadata scripts)
-scripts/*
-!scripts/generate_metadata.py
-!scripts/generate_ios_metadata.py
-
-# Screenshots & Store Graphics (Large assets)
+# Fastlane test reports & build artifacts
+*/fastlane/report.xml
+fastlane/report.xml
+report.xml
+screenshots.html
+*/fastlane/screenshots/
+fastlane/screenshots/
+android/fastlane/screenshots/
 ios/fastlane/screenshots/
 android/fastlane/metadata/android/*/images/
 
@@ -90,8 +96,6 @@ fastlane/Appfile
 fastlane/Fastfile.private
 fastlane/Matchfile
 fastlane/README.md
-fastlane/report.xml
-fastlane/screenshots
 fastlane/test_output
 
 # Ruby Bundler

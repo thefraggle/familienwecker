@@ -50,6 +50,8 @@ For local builds, template files are provided and must be populated:
 * `/ios`: iOS Application (SwiftUI, AlarmKit)
 * `/shared`: Kotlin Multiplatform shared module (scheduler logic, shared models)
 * `/functions`: Firebase Cloud Functions (Node.js backend)
+* `/distribution`: App store assets, listings, and release automation scripts
+* `/docs`: Documentation and changelogs (German & English)
 
 ### Core Build Commands
 
