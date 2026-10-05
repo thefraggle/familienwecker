@@ -223,10 +223,10 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # These are the core search terms users would use to find this app
-KEYWORDS_DE = 'kinderwecker,zeitmanagement,badplaner,kostenlos,laut,visuell,sanft,timer,uhr,adhs,plan,aufgaben,kind'
-KEYWORDS_EN = 'kids,clock,daily,routine,bathroom,timer,wake,schedule,checklist,free,shared,group,visual,loud,sleep'
+KEYWORDS_DE = 'kinderwecker,zeitmanagement,badplaner,laut,visuell,sanft,timer,mission,adhs,plan,aufgaben,struktur'
+KEYWORDS_EN = 'kids,daily,routine,bathroom,timer,wake,schedule,checklist,shared,group,visual,first,then,loud'
 
-# Hardcoded optimized keywords per locale (ASO KW 40)
+# Hardcoded optimized keywords per locale (ASO KW 41)
 KEYWORDS_BY_LOCALE = {
     'de-DE': KEYWORDS_DE,
     'en-US': KEYWORDS_EN,
