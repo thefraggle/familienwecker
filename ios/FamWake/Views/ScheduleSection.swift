@@ -354,12 +354,14 @@ struct ScheduleSection: View {
                     }
                 }
                 
-                HStack(spacing: 6) {
-                    Image(systemName: "bathtub.fill")
-                        .font(.caption)
-                        .foregroundStyle(theme.onSurfaceVariant.opacity(0.6))
-                    Text(L.mainScheduleBathroom(sched.bathroomStart.formatted(), sched.bathroomEnd.formatted()))
-                        .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.8))
+                if sched.bathroomStart != sched.bathroomEnd {
+                    HStack(spacing: 6) {
+                        Image(systemName: "bathtub.fill")
+                            .font(.caption)
+                            .foregroundStyle(theme.onSurfaceVariant.opacity(0.6))
+                        Text(L.mainScheduleBathroom(sched.bathroomStart.formatted(), sched.bathroomEnd.formatted()))
+                            .font(.subheadline).foregroundStyle(theme.onSurfaceVariant.opacity(0.8))
+                    }
                 }
                 
                 if let leave = sched.member.leaveHomeTime {
@@ -385,7 +387,11 @@ struct ScheduleSection: View {
                 .stroke(isMe ? theme.primary.opacity(0.5) : Color.clear, lineWidth: 1.5)
         )
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(L.s("accessibility_schedule_card", sched.member.name, sched.wakeUpTime.formatted(), sched.bathroomStart.formatted(), sched.bathroomEnd.formatted()))
+        .accessibilityLabel(
+            sched.bathroomStart != sched.bathroomEnd
+            ? L.s("accessibility_schedule_card", sched.member.name, sched.wakeUpTime.formatted(), sched.bathroomStart.formatted(), sched.bathroomEnd.formatted())
+            : "\(sched.member.name), \(sched.wakeUpTime.formatted())"
+        )
         .accessibilityIdentifier("member_card_\(sched.member.id)")
     }
 }

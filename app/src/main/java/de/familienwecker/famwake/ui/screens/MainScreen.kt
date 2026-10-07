@@ -186,8 +186,8 @@ fun MainScreen(
     val is24h = android.text.format.DateFormat.is24HourFormat(context)
     val timeFormatter = remember(is24h) { DateTimeFormatter.ofPattern(if (is24h) "HH:mm" else "h:mm a") }
 
-    // Scroll-Verhalten für LargeTopAppBar: Titel kollabiert beim Scrollen nach oben
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    // Scroll-Verhalten für TopAppBar: bleibt dezent gepinnt beim Scrollen
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Box(modifier = Modifier.fillMaxSize().background(backgroundGradient)) {
         Scaffold(
@@ -236,7 +236,7 @@ fun MainScreen(
                 }
             },
             topBar = {
-                MediumTopAppBar(
+                TopAppBar(
                     title = {
                         val appShortName = stringResource(R.string.app_name_short)
                         // M14: Brand-Prefix aus String-Resource statt hardcoded
@@ -694,8 +694,7 @@ private fun ErrorMessageBanner(
 ) {
     errorMessage?.let { error ->
         val errorString = error.asString()
-        val isJoinError = errorString.contains(stringResource(R.string.error_family_not_found)) ||
-                          errorString.contains(stringResource(R.string.error_invalid_code))
+        val isFamilyDeleted = errorString.contains(stringResource(R.string.error_family_not_found))
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.extraLarge,
@@ -707,20 +706,48 @@ private fun ErrorMessageBanner(
             )
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "⚠️ $errorString", color = MaterialTheme.colorScheme.onErrorContainer, style = MaterialTheme.typography.bodyMedium)
-                Spacer(modifier = Modifier.height(8.dp))
-                Row {
-                    if (isJoinError) {
-                        TextButton(onClick = onClearError) { Text(stringResource(R.string.cancel_button)) }
-                    } else {
-                        TextButton(
-                            onClick = onLeaveFamily,
-                            colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                        ) {
-                            Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(stringResource(R.string.settings_leave_family))
-                        }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        Text(
+                            text = "⚠️",
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text(
+                            text = errorString,
+                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                    IconButton(
+                        onClick = onClearError,
+                        modifier = Modifier.size(24.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = stringResource(R.string.close_desc),
+                            tint = MaterialTheme.colorScheme.onErrorContainer,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
+
+                if (isFamilyDeleted) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    TextButton(
+                        onClick = onLeaveFamily,
+                        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                    ) {
+                        Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.settings_leave_family))
                     }
                 }
             }

@@ -528,19 +528,21 @@ fun LazyListScope.scheduleSection(
                             modifier = Modifier.size(28.dp).alpha(if (isDragging) 1.0f else 0.6f)
                         )
                     }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Bathtub,
-                            contentDescription = null,
-                            modifier = Modifier.size(14.dp),
-                            tint = contentColor.copy(alpha = if (isDragging) 0.8f else 0.5f)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toJavaLocalTime().format(timeFormatter), sched.bathroomEndTime.toJavaLocalTime().format(timeFormatter)),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
-                        )
+                    if (sched.bathroomStartTime != sched.bathroomEndTime) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Bathtub,
+                                contentDescription = null,
+                                modifier = Modifier.size(14.dp),
+                                tint = contentColor.copy(alpha = if (isDragging) 0.8f else 0.5f)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = stringResource(R.string.main_schedule_bathroom, sched.bathroomStartTime.toJavaLocalTime().format(timeFormatter), sched.bathroomEndTime.toJavaLocalTime().format(timeFormatter)),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = contentColor.copy(alpha = if (isDragging) 0.9f else 0.7f)
+                            )
+                        }
                     }
                     if (sched.member.leaveHomeTime != null) {
                         Row(verticalAlignment = Alignment.CenterVertically) {

@@ -7,7 +7,10 @@
 • Bessere Lesbarkeit: Texte in der Einführung passen sich jetzt flexibel an jeden Bildschirm an, ohne dass Bedienelemente den Text überdecken.
 • Perfekt lokalisiert: Datums- und Wochentagsanzeigen im Zeitplan passen sich nun weltweit der gewohnten Landesschreibweise an.
 • Klarere Rückmeldungen: Sobald du dein erstes Profil anlegst, erhältst du eine kurze Bestätigung über deine aktiven Weckzeiten.
-• Bequemere Bedienung: Die Pufferzeit für das Badezimmer lässt sich jetzt noch einfacher anpassen, ohne von anderen Tasten verdeckt zu werden.
+• Sichere Hinweise: Verbindungsmeldungen lassen sich jetzt bequem per Knopfdruck schließen, ohne versehentlich die Familie zu verlassen.
+• Aufgeräumter Zeitplan: Profile ohne Badezimmerzeit zeigen keine redundanten Zeitspannen mehr an.
+• Kompaktere Kopfzeile: Der obere Bildschirmbereich ist nun eleganter und übersichtlicher gestaltet.
+• Bequemere Bedienung: Die Pufferzeit für das Badezimmer lässt sich noch einfacher anpassen, ohne von anderen Tasten verdeckt zu werden.
 
 ## 2.1.23 – 2026-10-05
 ✨ Verbessert:
