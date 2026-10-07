@@ -283,6 +283,11 @@ class FamilyViewModel(
     fun setError(message: UiText) { _errorMessage.value = message }
     fun clearError() { _errorMessage.value = null }
 
+    internal val _infoMessage = MutableStateFlow<UiText?>(null)
+    val infoMessage: StateFlow<UiText?> = _infoMessage.asStateFlow()
+    fun showInfo(message: UiText) { _infoMessage.value = message }
+    fun clearInfo() { _infoMessage.value = null }
+
 
 
     internal val _isSyncing = MutableStateFlow(false)

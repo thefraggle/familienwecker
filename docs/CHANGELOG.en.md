@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.1.24 – 2026-10-07
+✨ Improved:
+• Better Readability: Introduction texts now adjust smoothly to all screen sizes without buttons or page indicators overlapping.
+• Localized Dates: Schedule dates and weekdays now follow your regional formatting conventions naturally.
+• Clearer Feedback: When creating your first family profile, you now receive an immediate confirmation that your alarms are active.
+• Easier Controls: Adjusting the bathroom buffer time is now smoother and free from overlapping buttons.
+
 ## 2.1.23 – 2026-10-05
 ✨ Improved:
 • Reliable synchronization: Family updates and status indicators now sync even more dependably and without lag.

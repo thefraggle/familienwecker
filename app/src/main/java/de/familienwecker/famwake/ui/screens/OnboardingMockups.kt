@@ -440,7 +440,7 @@ fun SlidePermissionMockup(
     isGranted: Boolean,
     onRequestPermission: () -> Unit
 ) {
-    OnboardingMockupCard(offsetY = 0f, height = 275.dp) {
+    OnboardingMockupCard(offsetY = 0f, height = 245.dp) {
         Column(
             modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally

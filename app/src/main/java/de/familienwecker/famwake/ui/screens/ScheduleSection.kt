@@ -269,12 +269,11 @@ fun LazyListScope.scheduleSection(
                     val targetJava = scheduleTargetDate?.let { java.time.LocalDate.of(it.year, it.monthNumber, it.dayOfMonth) }
                     if (targetJava != null && targetJava != todayJava) {
                         val appLocale = context.resources.configuration.locales[0]
-                        val dayName = targetJava.dayOfWeek
-                            .getDisplayName(java.time.format.TextStyle.FULL, appLocale)
-                            .replaceFirstChar { it.uppercase() }
-                        val dateStr = targetJava.format(java.time.format.DateTimeFormatter.ofPattern("d. MMMM", appLocale))
+                        val pattern = android.text.format.DateFormat.getBestDateTimePattern(appLocale, "EEEE d MMMM")
+                        val formatter = java.time.format.DateTimeFormatter.ofPattern(pattern, appLocale)
+                        val dateFormatted = targetJava.format(formatter)
                         Text(
-                            text = "$dayName, $dateStr",
+                            text = dateFormatted,
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(top = 2.dp)
