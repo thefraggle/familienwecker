@@ -156,6 +156,17 @@ fun MainScreen(
         }
     }
 
+    val infoMessage by viewModel.infoMessage.collectAsStateWithLifecycle()
+    LaunchedEffect(infoMessage) {
+        infoMessage?.let { msg ->
+            snackbarHostState.showSnackbar(
+                message = msg.asString(context),
+                duration = SnackbarDuration.Short
+            )
+            viewModel.clearInfo()
+        }
+    }
+
     val isDarkTheme = when (themePreference) {
         "dark" -> true
         "light" -> false
@@ -330,7 +341,7 @@ fun MainScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
-                contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 100.dp),
+                contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 120.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 

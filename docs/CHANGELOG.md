@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.1.24 – 2026-10-07
+✨ Verbessert:
+• Bessere Lesbarkeit: Texte in der Einführung passen sich jetzt flexibel an jeden Bildschirm an, ohne dass Bedienelemente den Text überdecken.
+• Perfekt lokalisiert: Datums- und Wochentagsanzeigen im Zeitplan passen sich nun weltweit der gewohnten Landesschreibweise an.
+• Klarere Rückmeldungen: Sobald du dein erstes Profil anlegst, erhältst du eine kurze Bestätigung über deine aktiven Weckzeiten.
+• Bequemere Bedienung: Die Pufferzeit für das Badezimmer lässt sich jetzt noch einfacher anpassen, ohne von anderen Tasten verdeckt zu werden.
+
 ## 2.1.23 – 2026-10-05
 ✨ Verbessert:
 • Zuverlässige Synchronisation: Aktualisierungen innerhalb der Familie und Statusanzeigen synchronisieren jetzt noch stabiler und ohne Verzögerung.

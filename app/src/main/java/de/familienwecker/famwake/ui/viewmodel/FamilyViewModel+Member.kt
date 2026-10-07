@@ -74,6 +74,7 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
                 appSettings.setMyMemberId(finalMember.id)
                 appSettings.setMyMemberName(finalMember.name)
                 appSettings.setAlarmEnabled(true)
+                showInfo(de.familienwecker.famwake.ui.util.UiText.StringResource(de.familienwecker.famwake.R.string.main_alarm_enabled_desc))
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.i("FamilyViewModel", "Auto-Claim: ${finalMember.name} (${finalMember.id}) automatisch geclaimt")
                 }

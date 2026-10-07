@@ -18,6 +18,8 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -158,13 +160,15 @@ fun OnboardingScreen(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
+                val scrollState = rememberScrollState()
                 Column(
                     horizontalAlignment  = Alignment.CenterHorizontally,
                     verticalArrangement  = Arrangement.Top,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 28.dp)
-                        .padding(top = 64.dp, bottom = 180.dp)
+                        .padding(top = 56.dp, bottom = 240.dp)
+                        .verticalScroll(scrollState)
                 ) {
                     when {
                         slide.mockupContent != null -> {
@@ -181,14 +185,14 @@ fun OnboardingScreen(
                                 iterations  = LottieConstants.IterateForever,
                                 speed       = 0.7f,
                                 modifier    = Modifier
-                                    .sizeIn(maxWidth = 280.dp, maxHeight = 280.dp)
+                                    .sizeIn(maxWidth = 220.dp, maxHeight = 220.dp)
                                     .fillMaxWidth()
                                     .aspectRatio(1f)
                             )
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     Text(
                         text      = stringResource(slide.titleRes),
@@ -243,9 +247,10 @@ fun OnboardingScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 24.dp)
-                .padding(bottom = 40.dp),
+                .navigationBarsPadding()
+                .padding(bottom = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Page indicators
             Row(
