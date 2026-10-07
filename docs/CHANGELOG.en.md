@@ -7,6 +7,9 @@
 • Better Readability: Introduction texts now adjust smoothly to all screen sizes without buttons or page indicators overlapping.
 • Localized Dates: Schedule dates and weekdays now follow your regional formatting conventions naturally.
 • Clearer Feedback: When creating your first family profile, you now receive an immediate confirmation that your alarms are active.
+• Safer Notices: Connection notices can now be easily dismissed at any time without accidentally leaving your family.
+• Cleaner Schedules: Profiles without bathroom time no longer display redundant time slots.
+• Streamlined Header: The top navigation area is now cleaner and more compact on every device.
 • Easier Controls: Adjusting the bathroom buffer time is now smoother and free from overlapping buttons.
 
 ## 2.1.23 – 2026-10-05
