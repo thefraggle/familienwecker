@@ -2,6 +2,10 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.0 – 2026-10-08
+✨ Improved:
+• Flexible Alarms: Setting a later alarm for the same day now activates reliably right away, and the "Already awake?" button is immediately available as expected.
+
 ## 2.1.24 – 2026-10-07
 ✨ Improved:
 • Better Readability: Introduction texts now adjust smoothly to all screen sizes without buttons or page indicators overlapping.

@@ -2,6 +2,10 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.0 – 2026-10-08
+✨ Verbessert:
+• Flexible Weckzeiten: Wenn du für denselben Tag einen späteren Wecker einstellst, ist er sofort verlässlich aktiv und die Taste „Schon wach?“ steht wie gewohnt bereit.
+
 ## 2.1.24 – 2026-10-07
 ✨ Verbessert:
 • Bessere Lesbarkeit: Texte in der Einführung passen sich jetzt flexibel an jeden Bildschirm an, ohne dass Bedienelemente den Text überdecken.

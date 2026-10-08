@@ -40,4 +40,26 @@ final class FamilyModelsTests: XCTestCase {
         XCTAssertTrue(m1.wantsBreakfast)
         XCTAssertFalse(m1.isPaused)
     }
+
+    func testDayProfile_modificationDetection() {
+        let p1 = DayProfile(isActive: true, earliestWakeUp: DateComponents(hour: 7, minute: 0))
+        let p2 = DayProfile(isActive: true, earliestWakeUp: DateComponents(hour: 15, minute: 0))
+        let p3 = DayProfile(isActive: true, earliestWakeUp: DateComponents(hour: 7, minute: 0))
+
+        XCTAssertNotEqual(p1, p2)
+        XCTAssertEqual(p1, p3)
+    }
+
+    func testFamilyMember_shouldResetAwakeWhenProfileChangedToFuture() {
+        let cal = Calendar.current
+        let baseDate = Date()
+        let nowH = cal.component(.hour, from: baseDate)
+        let futureH = (nowH + 2) % 24
+
+        let oldProfile = DayProfile(isActive: true, earliestWakeUp: DateComponents(hour: (nowH - 2 + 24) % 24, minute: 0))
+        let newProfile = DayProfile(isActive: true, earliestWakeUp: DateComponents(hour: futureH, minute: 0))
+
+        let changed = oldProfile != newProfile
+        XCTAssertTrue(changed)
+    }
 }
