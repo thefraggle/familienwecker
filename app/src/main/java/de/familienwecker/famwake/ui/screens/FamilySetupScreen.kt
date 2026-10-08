@@ -39,6 +39,11 @@ import de.familienwecker.famwake.ui.viewmodel.*
 import de.familienwecker.famwake.ui.components.bounceClick
 import androidx.activity.compose.BackHandler
 import android.app.Activity
+import android.content.ClipboardManager
+import android.content.Context
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.ContentPaste
 import de.familienwecker.famwake.util.findActivity
 import android.view.WindowManager
 
@@ -63,6 +68,31 @@ fun FamilySetupScreen(
     var familyName by remember { mutableStateOf("") }
     var joinCode by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
+    var isClipboardCodeDetected by remember { mutableStateOf(false) }
+
+    fun readCodeFromClipboard(): String? {
+        return try {
+            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+            val clip = clipboard?.primaryClip
+            if (clip != null && clip.itemCount > 0) {
+                val item = clip.getItemAt(0)?.text?.toString()?.trim()?.uppercase()
+                if (item != null && item.matches(Regex("^[A-Z0-9]{6}$"))) {
+                    item
+                } else null
+            } else null
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        val detected = readCodeFromClipboard()
+        if (detected != null && joinCode.isEmpty()) {
+            joinCode = detected
+            isCreateMode = false
+            isClipboardCodeDetected = true
+        }
+    }
 
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
@@ -254,6 +284,9 @@ fun FamilySetupScreen(
                                             val sanitized = input.filter { it.isLetterOrDigit() }.uppercase()
                                             if (sanitized.length <= 6) {
                                                 joinCode = sanitized
+                                                if (sanitized != joinCode) {
+                                                    isClipboardCodeDetected = false
+                                                }
                                             }
                                         },
                                         label = { Text(stringResource(R.string.setup_join_code_label)) },
@@ -261,6 +294,23 @@ fun FamilySetupScreen(
                                         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                         modifier = Modifier.fillMaxWidth(),
                                         placeholder = { Text(stringResource(R.string.setup_join_code_placeholder)) },
+                                        trailingIcon = {
+                                            IconButton(
+                                                onClick = {
+                                                    val detected = readCodeFromClipboard()
+                                                    if (detected != null) {
+                                                        joinCode = detected
+                                                        isClipboardCodeDetected = true
+                                                    }
+                                                }
+                                            ) {
+                                                Icon(
+                                                    imageVector = Icons.Default.ContentPaste,
+                                                    contentDescription = stringResource(R.string.setup_paste_clipboard),
+                                                    tint = MaterialTheme.colorScheme.primary
+                                                )
+                                            }
+                                        },
                                         keyboardOptions = KeyboardOptions(
                                             capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.Characters,
                                             autoCorrectEnabled = false,
@@ -270,6 +320,35 @@ fun FamilySetupScreen(
                                             onDone = { focusManager.clearFocus() }
                                         )
                                     )
+
+                                    if (isClipboardCodeDetected && joinCode.length == 6) {
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        Surface(
+                                            color = MaterialTheme.colorScheme.primaryContainer,
+                                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                            shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) {
+                                            Row(
+                                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                Icon(
+                                                    imageVector = Icons.Default.CheckCircle,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.size(16.dp),
+                                                    tint = MaterialTheme.colorScheme.primary
+                                                )
+                                                Spacer(modifier = Modifier.width(8.dp))
+                                                Text(
+                                                    text = stringResource(R.string.setup_clipboard_code_detected, joinCode),
+                                                    style = MaterialTheme.typography.labelMedium,
+                                                    fontWeight = FontWeight.SemiBold
+                                                )
+                                            }
+                                        }
+                                    }
+
                                     Spacer(modifier = Modifier.height(16.dp))
                                     
                                     val joinInteractionSource = remember { MutableInteractionSource() }

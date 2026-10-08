@@ -10,6 +10,7 @@ struct FamilySetupView: View {
     @State private var familyName = ""
     @State private var joinCode = ""
     @State private var isLoading = false
+    @State private var detectedClipboardCode: String? = nil
 
     private var theme: FamWakeTheme { FamWakeTheme.current(for: colorScheme) }
 
@@ -112,17 +113,52 @@ struct FamilySetupView: View {
                         }
                     } else {
                         // Familie beitreten
-                        VStack(spacing: 16) {
-                            TextField(L.setupJoinCodeLabel, text: $joinCode)
-                                .textFieldStyle(.roundedBorder)
-                                .accessibilityLabel(L.s("accessibility_join_code_field"))
-                                .textCase(.uppercase)
-                                .textInputAutocapitalization(.characters)
-                                .autocorrectionDisabled()
-                                .onChange(of: joinCode) { _, new in
-                                    let filtered = new.filter { $0.isLetter || $0.isNumber }.uppercased()
-                                    joinCode = String(filtered.prefix(6))
+                        VStack(spacing: 14) {
+                            HStack(spacing: 8) {
+                                TextField(L.setupJoinCodeLabel, text: $joinCode)
+                                    .textFieldStyle(.roundedBorder)
+                                    .accessibilityLabel(L.s("accessibility_join_code_field"))
+                                    .textCase(.uppercase)
+                                    .textInputAutocapitalization(.characters)
+                                    .autocorrectionDisabled()
+                                    .onChange(of: joinCode) { _, new in
+                                        let filtered = new.filter { $0.isLetter || $0.isNumber }.uppercased()
+                                        joinCode = String(filtered.prefix(6))
+                                        if joinCode != detectedClipboardCode {
+                                            detectedClipboardCode = nil
+                                        }
+                                    }
+
+                                if #available(iOS 16.0, *) {
+                                    PasteButton(payloadType: String.self) { strings in
+                                        guard let first = strings.first else { return }
+                                        let sanitized = String(first.filter { $0.isLetter || $0.isNumber }.uppercased().prefix(6))
+                                        if sanitized.count == 6 {
+                                            joinCode = sanitized
+                                            detectedClipboardCode = sanitized
+                                        }
+                                    }
+                                    .buttonBorderShape(.roundedRectangle(radius: 8))
+                                    .labelStyle(.iconOnly)
+                                    .tint(theme.primary)
                                 }
+                            }
+
+                            if let detected = detectedClipboardCode, joinCode == detected, joinCode.count == 6 {
+                                HStack(spacing: 6) {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(theme.primary)
+                                        .font(.caption)
+                                    Text(L.setupClipboardCodeDetected(joinCode))
+                                        .font(.caption)
+                                        .foregroundColor(theme.primary)
+                                        .fontWeight(.semibold)
+                                }
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 5)
+                                .background(theme.primary.opacity(0.12))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            }
 
                             Button(action: {
                                 isLoading = true
@@ -183,6 +219,20 @@ struct FamilySetupView: View {
                 isLoading = false
                 familyViewModel.clearPendingJoinCode()
                 if success { appState.route = .main }
+            }
+        }
+        .onAppear {
+            if UIPasteboard.general.hasStrings {
+                if let clip = UIPasteboard.general.string {
+                    let sanitized = String(clip.filter { $0.isLetter || $0.isNumber }.uppercased().prefix(6))
+                    if sanitized.count == 6 && sanitized.range(of: "^[A-Z0-9]{6}$", options: .regularExpression) != nil {
+                        if joinCode.isEmpty {
+                            joinCode = sanitized
+                            isCreateMode = false
+                            detectedClipboardCode = sanitized
+                        }
+                    }
+                }
             }
         }
         .onDisappear {
