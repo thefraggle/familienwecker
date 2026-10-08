@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
+import kotlinx.datetime.toLocalDateTime
 
 // ─── Member-Logik ─────────────────────────────────────────────────────────────
 
@@ -56,9 +57,37 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
             
             // Eigenen Member's deviceAlarmEnabled immer mit lokalem Switch-State überschreiben,
             // damit die Edit-UI keinen stale null-Wert nach Firestore schreibt.
+            val currentDao = Clock.System.todayIn(TimeZone.currentSystemDefault())
+            val todayDow = currentDao.dayOfWeek.value
+            val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
+
+            val oldMember = _members.value.find { it.id == member.id }
+            val oldProfile = oldMember?.dayProfiles?.get(todayDow)
+            val newProfile = finalMember.dayProfiles?.get(todayDow)
+
+            val oldWakeUp = oldProfile?.earliestWakeUp ?: oldMember?.earliestWakeUp
+            val newWakeUp = newProfile?.earliestWakeUp ?: finalMember.earliestWakeUp
+            val oldIsActive = oldProfile?.isActive ?: !(oldMember?.isPaused ?: false)
+            val newIsActive = newProfile?.isActive ?: !finalMember.isPaused
+
+            val todayProfileChanged = oldProfile != newProfile || oldWakeUp != newWakeUp || oldIsActive != newIsActive
+            val hasFutureAlarmToday = newIsActive && newWakeUp > now
+
+            val isMyMember = finalMember.id == myMemberId.value || willAutoClaim
+            val shouldResetAwake = todayProfileChanged && hasFutureAlarmToday
+            if (shouldResetAwake && isMyMember) {
+                appSettings.setAwakeToday(false)
+            }
+
+            val finalIsAwakeToday = if (shouldResetAwake) false else finalMember.isAwakeToday
             val safeMember = if (finalMember.id == myMemberId.value) {
-                finalMember.copy(deviceAlarmEnabled = isAlarmEnabled.value)
-            } else finalMember
+                finalMember.copy(
+                    deviceAlarmEnabled = isAlarmEnabled.value,
+                    isAwakeToday = finalIsAwakeToday
+                )
+            } else {
+                finalMember.copy(isAwakeToday = finalIsAwakeToday)
+            }
 
             // Optimistisches lokales Update für sofortiges Feedback (Offline-First)
             val currentList = _members.value.toMutableList()

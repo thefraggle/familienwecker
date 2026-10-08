@@ -462,6 +462,11 @@ class FamilyViewModel(
                             appSettings.setMyMemberId(memberForMe.id)
                             appSettings.setMyMemberName(memberForMe.name)
                         }
+                        // Synchronisiere lokalen Wach-Status, wenn Firestore/Room den Member als nicht-wach führt
+                        // (z. B. nach Cloud Function Reset um Mitternacht oder Reset durch anderes Gerät).
+                        if (!memberForMe.isAwakeToday && appSettings.isAwakeToday.value) {
+                            appSettings.setAwakeToday(false)
+                        }
                         // Selbstheilung: Falls die deviceId nach Reinstall/Preferences-Wipe fehlt,
                         // automatisch im Firestore nachtragen – nur wenn null/blank, um Ping-Pong-Schreibschleifen
                         // zwischen mehreren Geräten mit demselben Account zu verhindern.

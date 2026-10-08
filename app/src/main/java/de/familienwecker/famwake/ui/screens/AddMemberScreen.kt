@@ -313,6 +313,10 @@ fun AddMemberScreen(
                             leaveHomeTime = refProfile?.leaveHomeTime,
                             breakfastDurationMinutes = refProfile?.breakfastDurationMinutes,
                             isPaused = memberToEdit?.isPaused ?: false,
+                            isAwakeToday = memberToEdit?.isAwakeToday ?: false,
+                            lastResetDate = memberToEdit?.lastResetDate ?: "",
+                            snoozeUntil = memberToEdit?.snoozeUntil,
+                            snoozeCount = memberToEdit?.snoozeCount ?: 0,
                             // Sicherheitsnetz: Falls Room den Claim noch nicht hat (Stale-Cache),
                             // aber memberId == myMemberId, nehmen wir die UID aus dem Auth-State.
                             // Verhindert, dass beim Speichern claimedByUserId auf null überschrieben

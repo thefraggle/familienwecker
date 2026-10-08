@@ -415,6 +415,37 @@ class FamilyViewModel: ObservableObject {
             updatedMember.claimedByDeviceId = UIDevice.current.identifierForVendor?.uuidString
             updatedMember.deviceAlarmEnabled = true
         }
+
+        let cal = Calendar.current
+        let now = Date()
+        let weekdayRaw = cal.component(.weekday, from: now)
+        let todayDow = weekdayRaw == 1 ? 7 : weekdayRaw - 1
+
+        let oldMember = members.first(where: { $0.id == member.id })
+        let oldProfile = oldMember?.dayProfiles?[todayDow]
+        let newProfile = member.dayProfiles?[todayDow]
+
+        let oldWakeUp = oldProfile?.earliestWakeUp ?? oldMember?.earliestWakeUp
+        let newWakeUp = newProfile?.earliestWakeUp ?? member.earliestWakeUp
+        let oldIsActive = oldProfile?.isActive ?? !(oldMember?.isPaused ?? false)
+        let newIsActive = newProfile?.isActive ?? !member.isPaused
+
+        let todayProfileChanged = oldProfile != newProfile || oldWakeUp != newWakeUp || oldIsActive != newIsActive
+
+        var hasFutureAlarmToday = false
+        if newIsActive, let targetDate = cal.date(bySettingHour: newWakeUp.hour ?? 0, minute: newWakeUp.minute ?? 0, second: 0, of: now) {
+            hasFutureAlarmToday = targetDate > now
+        }
+
+        let isMyMember = member.id == myMemberId || shouldClaim
+        let shouldResetAwake = todayProfileChanged && hasFutureAlarmToday
+        if shouldResetAwake {
+            updatedMember.isAwakeToday = false
+            if isMyMember {
+                self.isAwakeTodayLocal = false
+                UserDefaults.standard.set(false, forKey: "is_awake_today_\(updatedMember.id)")
+            }
+        }
         if isLocalOnlyFamily {
             // Offline-Only: Nur lokal speichern, kein Firestore
             if let idx = members.firstIndex(where: { $0.id == updatedMember.id }) {
@@ -582,6 +613,21 @@ class FamilyViewModel: ObservableObject {
         
         if let mid = myMemberId, let idx = members.firstIndex(where: { $0.id == mid }) {
             members[idx].deviceAlarmEnabled = enabled
+        }
+
+        // Beim Aus- UND Einschalten wird „Schon wach" zurückgesetzt analog zu Android.
+        // Bewusster Toggle = expliziter Neustart – unabhängig vom vorherigen Zustand.
+        isAwakeTodayLocal = false
+        if let mid = myMemberId {
+            UserDefaults.standard.set(false, forKey: "is_awake_today_\(mid)")
+            if let idx = members.firstIndex(where: { $0.id == mid }) {
+                members[idx].isAwakeToday = false
+            }
+            if let fid = familyId {
+                Task {
+                    try? await FamilyFirestoreService.shared.setAwake(familyId: fid, memberId: mid, awake: false)
+                }
+            }
         }
         
         // KRITISCH: Bei OFF sofort ALLE Alarme canceln und WARTEN bis fertig,
