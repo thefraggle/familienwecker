@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.1 – 2026-10-08
+✨ Verbessert:
+• Nahtloser Familienbeitritt: Einladungscodes aus der Zwischenablage werden beim Öffnen des Beitreten-Bildschirms automatisch erkannt und vorausgefüllt.
+• Schnelles Einfügen: Neuer Einfügen-Knopf direkt im Code-Feld zum blitzschnellen Übernehmen von Einladungen.
+• Klares Feedback: Eine dezent eingeblendete Bestätigung zeigt dir sofort, dass dein Einladungscode erkannt wurde.
+
 ## 2.2.0 – 2026-10-08
 ✨ Verbessert:
 • Flexible Weckzeiten: Wenn du für denselben Tag einen späteren Wecker einstellst, ist er sofort verlässlich aktiv und die Taste „Schon wach?“ steht wie gewohnt bereit.

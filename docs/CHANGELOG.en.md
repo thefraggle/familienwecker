@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.1 – 2026-10-08
+✨ Improved:
+• Seamless Family Joining: Invite codes copied to your clipboard are now automatically detected and pre-filled when opening the join screen.
+• Quick Paste: New dedicated paste button directly in the code input field for effortless code entry.
+• Instant Feedback: A clear confirmation badge immediately indicates when your invite code has been recognized.
+
 ## 2.2.0 – 2026-10-08
 ✨ Improved:
 • Flexible Alarms: Setting a later alarm for the same day now activates reliably right away, and the "Already awake?" button is immediately available as expected.
