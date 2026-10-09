@@ -19,6 +19,16 @@ final class LanguageManager {
         return Locale(identifier: code)
     }
 
+    var currentLanguage: String {
+        let saved = UserDefaults.standard.string(forKey: "language") ?? "system"
+        return resolvedCode(saved)
+    }
+
+    var isGerman: Bool {
+        let lang = currentLanguage
+        return lang == "de" || dialectCodes.contains(lang)
+    }
+
     private init() {
         let saved = UserDefaults.standard.string(forKey: "language") ?? "system"
         apply(saved)

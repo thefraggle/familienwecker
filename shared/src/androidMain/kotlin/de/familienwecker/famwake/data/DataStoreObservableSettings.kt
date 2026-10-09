@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.*
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SettingsListener
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -19,6 +20,8 @@ class DataStoreObservableSettings(
     private val cache = ConcurrentHashMap<String, Any>()
     private val listeners = ConcurrentHashMap<String, MutableList<Pair<Class<*>, (Any?) -> Unit>>>()
     private val writeMutex = Mutex()
+    private val pendingWrites = ConcurrentHashMap<String, Int>()
+    private val pendingClears = java.util.concurrent.atomic.AtomicInteger(0)
 
     init {
         // Synchroner Initial-Load in den Memory-Cache:
@@ -35,15 +38,17 @@ class DataStoreObservableSettings(
             Log.e("DataStoreSettings", "Initialer DataStore-Load fehlgeschlagen: ${e.message}", e)
         }
 
-        // Asynchrones Beobachten von Hintergrund-Änderungen
+        // Asynchrones Beobachten von Hintergrund-Änderungen (Initial-Zustand bereits via runBlocking im Cache)
         scope.launch {
             try {
-                dataStore.data.collect { prefs ->
+                dataStore.data.drop(1).collect { prefs ->
+                    if (pendingClears.get() > 0) return@collect
                     val newKeys = prefs.asMap().mapKeys { it.key.name }
 
                     // Aktualisiere Cache und benachrichtige Listener bei geänderten Werten
                     val allKeys = cache.keys + newKeys.keys
                     for (keyName in allKeys) {
+                        if (pendingWrites.containsKey(keyName)) continue
                         val oldValue = cache[keyName]
                         val newValue = newKeys[keyName]
                         if (oldValue != newValue) {
@@ -80,6 +85,7 @@ class DataStoreObservableSettings(
         listeners.forEach { (_, list) ->
             list.forEach { (_, callback) -> callback(null) }
         }
+        pendingClears.incrementAndGet()
         scope.launch {
             try {
                 writeMutex.withLock {
@@ -87,6 +93,8 @@ class DataStoreObservableSettings(
                 }
             } catch (e: Exception) {
                 Log.e("DataStoreSettings", "Fehler beim Löschen des DataStores: ${e.message}", e)
+            } finally {
+                pendingClears.decrementAndGet()
             }
         }
     }
@@ -96,6 +104,7 @@ class DataStoreObservableSettings(
     override fun remove(key: String) {
         cache.remove(key)
         notifyListeners(key, null)
+        pendingWrites.compute(key) { _, count -> (count ?: 0) + 1 }
         scope.launch {
             try {
                 writeMutex.withLock {
@@ -108,6 +117,11 @@ class DataStoreObservableSettings(
                 }
             } catch (e: Exception) {
                 Log.e("DataStoreSettings", "Fehler beim Entfernen von $key: ${e.message}", e)
+            } finally {
+                pendingWrites.compute(key) { _, count ->
+                    val current = count ?: 1
+                    if (current <= 1) null else current - 1
+                }
             }
         }
     }
@@ -116,6 +130,7 @@ class DataStoreObservableSettings(
     private fun <T : Any> putValue(keyName: String, value: T, prefKey: Preferences.Key<T>) {
         cache[keyName] = value
         notifyListeners(keyName, value)
+        pendingWrites.compute(keyName) { _, count -> (count ?: 0) + 1 }
         scope.launch {
             try {
                 writeMutex.withLock {
@@ -125,6 +140,11 @@ class DataStoreObservableSettings(
                 }
             } catch (e: Exception) {
                 Log.e("DataStoreSettings", "Fehler beim Speichern von $keyName: ${e.message}", e)
+            } finally {
+                pendingWrites.compute(keyName) { _, count ->
+                    val current = count ?: 1
+                    if (current <= 1) null else current - 1
+                }
             }
         }
     }

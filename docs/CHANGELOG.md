@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.2 – 2026-10-09
+✨ Verbessert:
+• Pünktliche Abend-Erinnerung: Die tägliche Erinnerung am Vorabend erreicht dich jetzt minutengenau zur gewohnten Zeit.
+• Verlässliche Synchronisation: Große Familienprofile und Aktualisierungen der Morgenroutine werden noch stabiler im Hintergrund abgeglichen.
+• Reibungslose Abläufe: Optimierte Datenbereinigung und verbesserte Hintergrundstabilität sorgen für ein rundum verlässliches Erlebnis.
+
 ## 2.2.1 – 2026-10-08
 ✨ Verbessert:
 • Nahtloser Familienbeitritt: Einladungscodes aus der Zwischenablage werden beim Öffnen des Beitreten-Bildschirms automatisch erkannt und vorausgefüllt.

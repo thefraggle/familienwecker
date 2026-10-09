@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.2 – 2026-10-09
+✨ Improved:
+• Punctual Evening Reminder: Your daily evening reminder now arrives right on time to help you prepare for tomorrow.
+• Reliable Synchronization: Large family profiles and routine adjustments sync even more smoothly in the background.
+• Seamless Experience: Optimized data cleanup and background enhancements ensure reliable everyday performance.
+
 ## 2.2.1 – 2026-10-08
 ✨ Improved:
 • Seamless Family Joining: Invite codes copied to your clipboard are now automatically detected and pre-filled when opening the join screen.

@@ -455,15 +455,17 @@ class FirebaseRepository : IFirebaseRepository {
     override suspend fun updateMemberOrders(familyId: String, orders: Map<String, Int>) {
         try {
             val collection = db.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS)
-            db.batch().run {
-                orders.forEach { (memberId, order) ->
-                    val docRef = collection.document(memberId)
-                    update(docRef, mapOf(
-                        "sequenceOrder" to order,
-                        "lastUpdatedAt"  to FieldValue.serverTimestamp
-                    ))
+            orders.entries.chunked(500).forEach { chunk ->
+                db.batch().run {
+                    chunk.forEach { (memberId, order) ->
+                        val docRef = collection.document(memberId)
+                        update(docRef, mapOf(
+                            "sequenceOrder" to order,
+                            "lastUpdatedAt"  to FieldValue.serverTimestamp
+                        ))
+                    }
+                    commit()
                 }
-                commit()
             }
         } catch (e: Exception) {
             if (debugLogging) Log.e(TAG, "Fehler beim Batch-Update der Reihenfolge: ${e.message}")
@@ -474,30 +476,32 @@ class FirebaseRepository : IFirebaseRepository {
     override suspend fun updateMemberOrderAndProfiles(familyId: String, members: List<FamilyMember>) {
         try {
             val collection = db.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS)
-            db.batch().run {
-                members.forEach { member ->
-                    val dayProfilesData = member.dayProfiles?.mapKeys { it.key.toString() }
-                        ?.mapValues { (_, profile) ->
-                            buildMap<String, Any?> {
-                                put("isActive", profile.isActive)
-                                put("earliestWakeUp", profile.earliestWakeUp.toString())
-                                put("latestWakeUp", profile.latestWakeUp.toString())
-                                put("bathroomDurationMinutes", profile.bathroomDurationMinutes)
-                                put("wantsBreakfast", profile.wantsBreakfast)
-                                profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
-                                profile.bufferMinutes?.let { put("bufferMinutes", it) }
-                                put("isSimpleMode", profile.isSimpleMode)
-                                profile.sequenceOrder?.let { put("sequenceOrder", it) }
+            members.chunked(500).forEach { chunk ->
+                db.batch().run {
+                    chunk.forEach { member ->
+                        val dayProfilesData = member.dayProfiles?.mapKeys { it.key.toString() }
+                            ?.mapValues { (_, profile) ->
+                                buildMap<String, Any?> {
+                                    put("isActive", profile.isActive)
+                                    put("earliestWakeUp", profile.earliestWakeUp.toString())
+                                    put("latestWakeUp", profile.latestWakeUp.toString())
+                                    put("bathroomDurationMinutes", profile.bathroomDurationMinutes)
+                                    put("wantsBreakfast", profile.wantsBreakfast)
+                                    profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
+                                    profile.bufferMinutes?.let { put("bufferMinutes", it) }
+                                    put("isSimpleMode", profile.isSimpleMode)
+                                    profile.sequenceOrder?.let { put("sequenceOrder", it) }
+                                }
                             }
-                        }
-                    val docRef = collection.document(member.id)
-                    update(docRef, mapOf(
-                        "sequenceOrder" to member.sequenceOrder,
-                        "dayProfiles" to dayProfilesData,
-                        "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
-                    ))
+                        val docRef = collection.document(member.id)
+                        update(docRef, mapOf(
+                            "sequenceOrder" to member.sequenceOrder,
+                            "dayProfiles" to dayProfilesData,
+                            "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
+                        ))
+                    }
+                    commit()
                 }
-                commit()
             }
         } catch (e: Exception) {
             if (debugLogging) Log.e(TAG, "Fehler beim Batch-Update von Profilen und Reihenfolge: ${e.message}")
