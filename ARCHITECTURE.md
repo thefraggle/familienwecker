@@ -67,6 +67,12 @@ flowchart TB
 | [`/ios`](ios) | Swift, SwiftUI, AlarmKit | Native iOS application, Live Activities, lock screen interactions, and local persistence. |
 | [`/functions`](functions) | Node.js 22, Firebase SDK v2 | Cloud Functions for background maintenance, family management (`deleteFamily`, `joinFamilyByCode`), and transactional emails. |
 
+### KMP-Strategie & Modul-Rolle (`:shared`)
+- **Architektur-Entscheidung:** Das Modul `:shared` beherbergt plattformunabhängige Domänenmodelle, den Kern-Planungsalgorithmus (`Scheduler.kt`), Multiplatform Settings und die Room-Datenbank.
+- **Android:** `:shared` wird direkt vom Android-Client (`:app`) als Kernbibliothek eingebunden.
+- **iOS:** Die iOS-Applikation setzt auf 100% natives Swift/SwiftUI mit tief integrierten Systemdiensten (AlarmKit, ActivityKit). Die Planungslogik ist in purem Swift gespiegelt (`Scheduler.swift`), um maximale Performance und minimale Binary-Größe ohne Kotlin/Native-Overhead zu garantieren. `:shared` ist als KMP-Basis vorbereitet, falls künftig gemeinsame Logik via XCFramework geteilt werden soll.
+
+
 ---
 
 ## 4. Scheduling Engine

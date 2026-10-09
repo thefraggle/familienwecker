@@ -308,9 +308,9 @@ exports.verifyIntegrityToken = onCall(
       return { trusted, verdict: verdictArray };
 
     } catch (err) {
-      // Fail-open: bei API-Fehler UNKNOWN zurückgeben, nicht blocken
+      // Fail-closed: bei API-Fehler nicht vertrauenswürdig zurückgeben
       console.error("verifyIntegrityToken error:", err?.message ?? err);
-      return { trusted: null, verdict: [], error: "API_ERROR" };
+      return { trusted: false, verdict: [], error: "API_ERROR" };
     }
   }
 );

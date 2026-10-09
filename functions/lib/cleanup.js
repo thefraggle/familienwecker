@@ -111,27 +111,27 @@ exports.cleanupInactiveFamilies = onSchedule(
       let isStale = false;
       const familyData = familyDoc.data();
 
-      // createdAt prüfen: Fallback Date.now() (= nie löschen) wenn Feld fehlt
+      // createdAt prüfen: Fehlendes createdAt deutet auf Legacy-Dokument hin (Fallback: 0)
       const createdAtMs = familyData.createdAt
         ? (typeof familyData.createdAt.toMillis === "function"
           ? familyData.createdAt.toMillis()
           : familyData.createdAt)
-        : Date.now(); // Sicherer Fallback: kein Datum → als "jetzt" behandeln, nie löschen
+        : 0;
 
       if (createdAtMs <= sixMonthsAgoMs) {
-        // Familie selbst ist alt genug – prüfe ob Members aktiv waren
+        // Familie selbst ist alt genug (oder Legacy) – prüfe ob Members aktiv waren
         if (membersSnapshot.empty) {
-          // Keine Members UND Familie älter als 6 Monate → stale
+          // Keine Members UND Familie älter als 6 Monate (oder ohne Datum) → stale
           isStale = true;
         } else {
           const latestMember = membersSnapshot.docs[0].data();
-          // Firestore Timestamps haben .toMillis() – direkter Vergleich mit > wäre nur bei Numbers korrekt
-          // Fallback Date.now() wenn lastUpdatedAt fehlt → sicher, nicht löschen
+          // Firestore Timestamps haben .toMillis()
+          // Fallback 0 bei fehlendem lastUpdatedAt (Legacy)
           const lastUpdatedMs = latestMember.lastUpdatedAt
             ? (typeof latestMember.lastUpdatedAt.toMillis === "function"
               ? latestMember.lastUpdatedAt.toMillis()
               : latestMember.lastUpdatedAt)
-            : Date.now();
+            : 0;
           if (lastUpdatedMs <= sixMonthsAgoMs) {
             isStale = true;
           }

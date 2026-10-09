@@ -36,9 +36,9 @@ class DeviceTrustManager(private val context: Context) {
         private const val TAG = "DeviceTrustManager"
         private const val FIREBASE_REGION = "europe-west3"
 
-        // Monitoring-Phase: auf true setzen wenn echte Nutzungsdaten
+        // Monitoring-Phase Default: auf true setzbar, wenn echte Nutzungsdaten
         // aus Aptabase zeigen, dass keine legitimen Nutzer betroffen sind.
-        private const val ENFORCEMENT_ENABLED = false
+        const val DEFAULT_ENFORCEMENT_ENABLED = false
 
         // Nonce muss mind. 16 Zeichen lang sein (Play Integrity Anforderung)
         private fun generateNonce(): String {
@@ -47,13 +47,16 @@ class DeviceTrustManager(private val context: Context) {
         }
     }
 
+    /** Steuert ob UNTRUSTED-Geräte gesperrt werden (Enforcement) oder nur geloggt wird (Monitoring). */
+    var isEnforcementEnabled: Boolean = DEFAULT_ENFORCEMENT_ENABLED
+
     /**
      * Prüft die Geräteintegrität via Play Integrity API.
      *
-     * Im Monitoring-Modus (ENFORCEMENT_ENABLED = false):
+     * Im Monitoring-Modus (isEnforcementEnabled = false):
      *   → Check + Log läuft, gibt aber immer UNKNOWN zurück (kein Blocking).
      *
-     * Im Enforcement-Modus (ENFORCEMENT_ENABLED = true):
+     * Im Enforcement-Modus (isEnforcementEnabled = true):
      *   → UNTRUSTED-Geräte erhalten keinen Firebase-Sync.
      */
     suspend fun checkTrust(): DeviceTrustLevel = withContext(Dispatchers.IO) {
@@ -61,7 +64,7 @@ class DeviceTrustManager(private val context: Context) {
         logVerdict(verdict)
 
         // Monitoring: Immer fail-open, Sync wird nie gesperrt
-        if (!ENFORCEMENT_ENABLED) return@withContext DeviceTrustLevel.UNKNOWN
+        if (!isEnforcementEnabled) return@withContext DeviceTrustLevel.UNKNOWN
 
         verdict
     }
@@ -137,12 +140,12 @@ class DeviceTrustManager(private val context: Context) {
                 "integrity_check",
                 mapOf(
                     "verdict" to verdictLabel,
-                    "enforcement" to ENFORCEMENT_ENABLED.toString()
+                    "enforcement" to isEnforcementEnabled.toString()
                 )
             )
         }
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "Integrity verdict: $verdictLabel (enforcement=$ENFORCEMENT_ENABLED, telemetry skipped in debug)")
+            Log.d(TAG, "Integrity verdict: $verdictLabel (enforcement=$isEnforcementEnabled, telemetry skipped in debug)")
         }
     }
 }

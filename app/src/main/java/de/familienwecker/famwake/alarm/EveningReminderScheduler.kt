@@ -38,8 +38,23 @@ object EveningReminderScheduler {
         )
 
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setAndAllowWhileIdle(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (alarmManager.canScheduleExactAlarms()) {
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        pendingIntent
+                    )
+                } else {
+                    android.util.Log.i("EveningReminder", "Exact alarms not permitted, falling back to setAndAllowWhileIdle")
+                    alarmManager.setAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        pendingIntent
+                    )
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
                     calendar.timeInMillis,
                     pendingIntent
@@ -51,8 +66,21 @@ object EveningReminderScheduler {
                     pendingIntent
                 )
             }
-        } catch (_: SecurityException) {
-            // Fallback bei restriktiven OEM-Einstellungen
+        } catch (e: SecurityException) {
+            android.util.Log.w("EveningReminder", "SecurityException scheduling exact reminder: ${e.message}, falling back to non-exact")
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        pendingIntent
+                    )
+                }
+            } catch (fallbackEx: Exception) {
+                android.util.Log.e("EveningReminder", "Failed to schedule fallback reminder: ${fallbackEx.message}")
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("EveningReminder", "Unexpected error scheduling evening reminder: ${e.message}")
         }
     }
 

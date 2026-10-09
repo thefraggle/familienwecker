@@ -43,9 +43,7 @@ class AlarmReceiver : BroadcastReceiver() {
         try {
             context.startActivity(ringingIntent)
         } catch (e: Exception) {
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.e("FamWake_Alarm", "AlarmReceiver: startActivity failed: ${e.message}")
-            }
+            android.util.Log.e("FamWake_Alarm", "AlarmReceiver: startActivity failed: ${e.message}", e)
         }
 
         val fullScreenPendingIntent = PendingIntent.getActivity(
@@ -66,9 +64,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     }
                 }
             } catch (e: Exception) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.w("FamWake_Alarm", "Channel-Cleanup: ${e.message}")
-                }
+                android.util.Log.w("FamWake_Alarm", "Channel-Cleanup warning: ${e.message}")
             }
         }
 

@@ -205,7 +205,7 @@ enum L {
     static func setupClipboardCodeDetected(_ code: String) -> String {
         let text = s("setup_clipboard_code_detected", code)
         if text == "setup_clipboard_code_detected" {
-            let isDe = LanguageManager.shared.currentLanguage == "de"
+            let isDe = LanguageManager.shared.isGerman
             return isDe ? "Code \(code) aus Zwischenablage erkannt" : "Code \(code) detected from clipboard"
         }
         return text
@@ -213,7 +213,7 @@ enum L {
     static var setupPasteClipboard: String {
         let text = s("setup_paste_clipboard")
         if text == "setup_paste_clipboard" {
-            let isDe = LanguageManager.shared.currentLanguage == "de"
+            let isDe = LanguageManager.shared.isGerman
             return isDe ? "Aus Zwischenablage einfügen" : "Paste from clipboard"
         }
         return text
