@@ -58,7 +58,11 @@ class AuthRepository {
     }
 
     suspend fun logout() {
-        try { auth.signOut() } catch (_: Exception) {}
+        try {
+            auth.signOut()
+        } catch (e: Exception) {
+            Log.e("AuthRepository", "auth.signOut failed: ${e.message}", e)
+        }
     }
 
     suspend fun sendPasswordResetEmail(email: String, language: String = "de"): Result<Unit> {

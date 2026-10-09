@@ -461,4 +461,8 @@
     <string name="settings_leave_family_confirm">Bạn có thực sự muốn rời khỏi gia đình? Bạn sẽ mất quyền truy cập vào báo thức chung.</string>
     <string name="settings_logout_message">Bạn có thực sự muốn đăng xuất?</string>
     <string name="settings_delete_account_message">Bạn có thực sự muốn xóa vĩnh viễn tài khoản của mình không? Mọi dữ liệu sẽ bị xóa.</string>
+    <string name="a11y_move_up">Di chuyển lên</string>
+    <string name="a11y_move_down">Di chuyển xuống</string>
+    <string name="setup_paste_clipboard">Dán từ bộ nhớ tạm</string>
+    <string name="setup_clipboard_code_detected">Mã mời %1$s được phát hiện từ bộ nhớ tạm</string>
 </resources>

@@ -55,7 +55,7 @@ interface MemberDao {
 //   .fallbackToDestructiveMigration()
 // When bumping this version, do NOT add manual migrations – just increment and rely on
 // fallbackToDestructiveMigration.
-@Database(entities = [FamilyMemberEntity::class], version = 4, exportSchema = false)
+@Database(entities = [FamilyMemberEntity::class], version = 4, exportSchema = true)
 @ConstructedBy(FamWakeDatabaseConstructor::class)
 abstract class FamWakeDatabase : RoomDatabase() {
     abstract fun memberDao(): MemberDao

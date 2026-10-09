@@ -456,4 +456,8 @@
     <string name="settings_leave_family_confirm">Vil du virkelig forlade familien? Du mister adgangen til de delte vækkeure.</string>
     <string name="settings_logout_message">Vil du virkelig logge ud?</string>
     <string name="settings_delete_account_message">Vil du virkelig slette din konto permanent? Alle data vil blive fjernet.</string>
+    <string name="a11y_move_up">Flyt op</string>
+    <string name="a11y_move_down">Flyt ned</string>
+    <string name="setup_paste_clipboard">Indsæt fra udklipsholder</string>
+    <string name="setup_clipboard_code_detected">Invitationskode %1$s fundet i udklipsholder</string>
 </resources>

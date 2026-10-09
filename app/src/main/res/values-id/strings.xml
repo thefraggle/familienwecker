@@ -456,4 +456,8 @@
     <string name="settings_leave_family_confirm">Apakah kamu yakin ingin keluar dari keluarga? Kamu akan kehilangan akses ke alarm bersama.</string>
     <string name="settings_logout_message">Apakah kamu yakin ingin keluar?</string>
     <string name="settings_delete_account_message">Apakah kamu yakin ingin menghapus akunmu secara permanen? Semua data akan dihapus.</string>
+    <string name="a11y_move_up">Pindahkan ke atas</string>
+    <string name="a11y_move_down">Pindahkan ke bawah</string>
+    <string name="setup_paste_clipboard">Tempel dari papan klip</string>
+    <string name="setup_clipboard_code_detected">Kode undangan %1$s terdeteksi dari papan klip</string>
 </resources>

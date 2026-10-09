@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.3 – 2026-10-09
+✨ Improved:
+• Early Bird Flexibility: Morning routines now adapt smoothly and reliably to early schedules before 4:00 AM.
+• Smooth Navigation: Popups and settings can now be dismissed even more intuitively.
+• Enhanced Reliability: Precise time synchronization and rock-solid background routines for the whole family.
+• Resource Efficient: Reduced energy and memory usage for helpful tips and notifications.
+
 ## 2.2.2 – 2026-10-09
 ✨ Improved:
 • Punctual Evening Reminder: Your daily evening reminder now arrives right on time to help you prepare for tomorrow.

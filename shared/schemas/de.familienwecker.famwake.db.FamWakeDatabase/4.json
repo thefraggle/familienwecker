@@ -1,0 +1,147 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "5f4f1bd39229cb7731a3b8ff48fedf90",
+    "entities": [
+      {
+        "tableName": "members",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `earliestWakeUp` TEXT NOT NULL, `latestWakeUp` TEXT NOT NULL, `bathroomDurationMinutes` INTEGER NOT NULL, `wantsBreakfast` INTEGER NOT NULL, `leaveHomeTime` TEXT, `isPaused` INTEGER NOT NULL, `isAwakeToday` INTEGER NOT NULL, `lastResetDate` TEXT NOT NULL, `claimedByUserId` TEXT, `claimedByUserName` TEXT, `claimedByDeviceId` TEXT, `sequenceOrder` INTEGER NOT NULL, `createdAt` INTEGER, `lastUpdatedAt` INTEGER, `deviceAlarmEnabled` INTEGER, `dayProfilesJson` TEXT, `snoozeUntil` TEXT, `snoozeCount` INTEGER NOT NULL, `breakfastDurationMinutes` INTEGER, `isSimpleMode` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "earliestWakeUp",
+            "columnName": "earliestWakeUp",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latestWakeUp",
+            "columnName": "latestWakeUp",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bathroomDurationMinutes",
+            "columnName": "bathroomDurationMinutes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wantsBreakfast",
+            "columnName": "wantsBreakfast",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leaveHomeTime",
+            "columnName": "leaveHomeTime",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "isPaused",
+            "columnName": "isPaused",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isAwakeToday",
+            "columnName": "isAwakeToday",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastResetDate",
+            "columnName": "lastResetDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "claimedByUserId",
+            "columnName": "claimedByUserId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "claimedByUserName",
+            "columnName": "claimedByUserName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "claimedByDeviceId",
+            "columnName": "claimedByDeviceId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sequenceOrder",
+            "columnName": "sequenceOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastUpdatedAt",
+            "columnName": "lastUpdatedAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "deviceAlarmEnabled",
+            "columnName": "deviceAlarmEnabled",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "dayProfilesJson",
+            "columnName": "dayProfilesJson",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "snoozeUntil",
+            "columnName": "snoozeUntil",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "snoozeCount",
+            "columnName": "snoozeCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "breakfastDurationMinutes",
+            "columnName": "breakfastDurationMinutes",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isSimpleMode",
+            "columnName": "isSimpleMode",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f4f1bd39229cb7731a3b8ff48fedf90')"
+    ]
+  }
+}

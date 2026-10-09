@@ -456,4 +456,8 @@
     <string name="settings_leave_family_confirm">Vill du verkligen lämna familjen? Du förlorar åtkomsten till de delade väckarklockorna.</string>
     <string name="settings_logout_message">Vill du verkligen logga ut?</string>
     <string name="settings_delete_account_message">Vill du verkligen radera ditt konto permanent? All data tas bort.</string>
+    <string name="a11y_move_up">Flytta upp</string>
+    <string name="a11y_move_down">Flytta ned</string>
+    <string name="setup_paste_clipboard">Klistra in från urklipp</string>
+    <string name="setup_clipboard_code_detected">Inbjudningskod %1$s upptäckt från urklipp</string>
 </resources>

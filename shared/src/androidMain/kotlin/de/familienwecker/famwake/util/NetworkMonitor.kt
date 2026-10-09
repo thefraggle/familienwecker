@@ -49,14 +49,18 @@ class AndroidNetworkMonitor(private val context: Context) : NetworkMonitor {
             .build()
         try {
             connectivityManager.registerNetworkCallback(request, callback)
-        } catch (_: Exception) {}
+        } catch (e: Exception) {
+            android.util.Log.w("NetworkMonitor", "registerNetworkCallback failed: ${e.message}")
+        }
     }
 
     override fun stopMonitoring() {
         try {
             connectivityManager.unregisterNetworkCallback(callback)
             offlineDebounceJob?.cancel()
-        } catch (_: Exception) {}
+        } catch (e: Exception) {
+            android.util.Log.w("NetworkMonitor", "unregisterNetworkCallback failed: ${e.message}")
+        }
     }
 }
 

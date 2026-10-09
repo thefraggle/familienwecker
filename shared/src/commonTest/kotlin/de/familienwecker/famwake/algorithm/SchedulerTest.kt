@@ -327,6 +327,24 @@ class SchedulerTest {
         assertEquals(LocalTime(6, 55), result.memberSchedules[0].wakeUpTime)
         assertEquals(LocalTime(7, 15), result.memberSchedules[0].bathroomEndTime)
     }
+
+    @Test
+    fun earlyShift_allowsBreakfastBeforeFourAm() {
+        val earlyBird = member(
+            id = "early1",
+            earliestWakeUp = LocalTime(2, 0),
+            latestWakeUp = LocalTime(3, 0),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = true,
+            leaveHomeTime = LocalTime(3, 30),
+            breakfastDurationMinutes = 30L
+        )
+        val result = scheduler.calculateIdealSchedule(listOf(earlyBird), breakfastDurationMinutes = 30)
+        assertTrue(result.isValid)
+        assertEquals(LocalTime(3, 0), result.breakfastTime)
+        assertEquals(LocalTime(3, 0), result.memberSchedules[0].bathroomEndTime)
+        assertEquals(LocalTime(2, 40), result.memberSchedules[0].wakeUpTime)
+    }
 }
 
 

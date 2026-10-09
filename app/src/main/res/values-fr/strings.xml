@@ -456,4 +456,8 @@
     <string name="settings_leave_family_confirm">Voulez-vous vraiment quitter la famille ? Vous perdrez l\'accès aux réveils partagés.</string>
     <string name="settings_logout_message">Voulez-vous vraiment vous déconnecter ?</string>
     <string name="settings_delete_account_message">Voulez-vous vraiment supprimer définitivement votre compte ? Toutes les données seront effacées.</string>
+    <string name="a11y_move_up">Déplacer vers le haut</string>
+    <string name="a11y_move_down">Déplacer vers le bas</string>
+    <string name="setup_paste_clipboard">Coller depuis le presse-papiers</string>
+    <string name="setup_clipboard_code_detected">"Code d'invitation %1$s détecté dans le presse-papiers"</string>
 </resources>

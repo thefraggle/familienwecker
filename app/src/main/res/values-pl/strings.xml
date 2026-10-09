@@ -455,4 +455,8 @@
     <string name="settings_leave_family_confirm">Czy na pewno chcesz opuścić rodzinę? Utracisz dostęp do wspólnych budzików.</string>
     <string name="settings_logout_message">Czy na pewno chcesz się wylogować?</string>
     <string name="settings_delete_account_message">Czy na pewno chcesz trwale usunąć swoje konto? Wszystkie dane zostaną usunięte.</string>
+    <string name="a11y_move_up">Przesuń w górę</string>
+    <string name="a11y_move_down">Przesuń w dół</string>
+    <string name="setup_paste_clipboard">Wklej ze schowka</string>
+    <string name="setup_clipboard_code_detected">Kod zaproszenia %1$s wykryty ze schowka</string>
 </resources>
