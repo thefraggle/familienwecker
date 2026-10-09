@@ -425,8 +425,8 @@ class FamilyViewModel: ObservableObject {
         let oldProfile = oldMember?.dayProfiles?[todayDow]
         let newProfile = member.dayProfiles?[todayDow]
 
-        let oldWakeUp = oldProfile?.earliestWakeUp ?? oldMember?.earliestWakeUp
-        let newWakeUp = newProfile?.earliestWakeUp ?? member.earliestWakeUp
+        let oldWakeUp = oldProfile?.latestWakeUp ?? oldProfile?.earliestWakeUp ?? oldMember?.latestWakeUp ?? oldMember?.earliestWakeUp
+        let newWakeUp = newProfile?.latestWakeUp ?? newProfile?.earliestWakeUp ?? member.latestWakeUp ?? member.earliestWakeUp
         let oldIsActive = oldProfile?.isActive ?? !(oldMember?.isPaused ?? false)
         let newIsActive = newProfile?.isActive ?? !member.isPaused
 
@@ -446,13 +446,16 @@ class FamilyViewModel: ObservableObject {
                 UserDefaults.standard.set(false, forKey: "is_awake_today_\(updatedMember.id)")
             }
         }
+        // Optimistisches lokales Update für sofortige UI-Aktualisierung (Offline-First)
+        if let idx = members.firstIndex(where: { $0.id == updatedMember.id }) {
+            members[idx] = updatedMember
+        } else {
+            members.append(updatedMember)
+        }
+        recalculateSchedule()
+
         if isLocalOnlyFamily {
             // Offline-Only: Nur lokal speichern, kein Firestore
-            if let idx = members.firstIndex(where: { $0.id == updatedMember.id }) {
-                members[idx] = updatedMember
-            } else {
-                members.append(updatedMember)
-            }
             if shouldClaim {
                 myMemberId = updatedMember.id
                 UserDefaults.standard.set(updatedMember.id, forKey: "my_member_id")
@@ -1474,6 +1477,12 @@ class FamilyViewModel: ObservableObject {
                     if self.pendingPauseToggleIds.contains(sorted[i].id),
                        let localMember = self.members.first(where: { $0.id == sorted[i].id }) {
                         sorted[i].isPaused = localMember.isPaused
+                    }
+                }
+                // Awake-State-Guard: Wenn lokal nicht wach, veraltete Firestore-Werte nicht übernehmen
+                if let mid = self.myMemberId, !self.isAwakeTodayLocal {
+                    if let myIdx = sorted.firstIndex(where: { $0.id == mid }) {
+                        sorted[myIdx].isAwakeToday = false
                     }
                 }
                 self.members = sorted

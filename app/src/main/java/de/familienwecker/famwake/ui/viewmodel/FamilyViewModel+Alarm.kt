@@ -534,7 +534,10 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
         val currentList = _members.value.toMutableList()
         val idx = currentList.indexOfFirst { it.id == currentMemberId }
         if (idx != -1) {
-            currentList[idx] = currentList[idx].copy(deviceAlarmEnabled = enabled)
+            currentList[idx] = currentList[idx].copy(
+                deviceAlarmEnabled = enabled,
+                isAwakeToday = false
+            )
             _members.value = currentList.toPersistentList()
         }
     }

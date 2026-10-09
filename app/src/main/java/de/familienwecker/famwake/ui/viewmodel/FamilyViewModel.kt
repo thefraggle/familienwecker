@@ -435,7 +435,10 @@ class FamilyViewModel(
                 if (myId != null) {
                     val idx = checkedMembers.indexOfFirst { it.id == myId }
                     if (idx != -1) {
-                        var overridden = checkedMembers[idx].copy(deviceAlarmEnabled = alarmsOn)
+                        var overridden = checkedMembers[idx].copy(
+                            deviceAlarmEnabled = alarmsOn,
+                            isAwakeToday = if (!appSettings.isAwakeToday.value) false else checkedMembers[idx].isAwakeToday
+                        )
                         // Snooze-State: Lokal gesetzten Snooze beibehalten, da der Firestore/Room-Write
                         // noch unterwegs sein kann und der Observer sonst den Snooze überschreibt
                         val localSnooze = appSettings.snoozeUntil.value
