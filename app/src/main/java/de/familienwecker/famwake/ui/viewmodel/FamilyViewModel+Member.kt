@@ -65,8 +65,9 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
             val oldProfile = oldMember?.dayProfiles?.get(todayDow)
             val newProfile = finalMember.dayProfiles?.get(todayDow)
 
-            val oldWakeUp = oldProfile?.earliestWakeUp ?: oldMember?.earliestWakeUp
-            val newWakeUp = newProfile?.earliestWakeUp ?: finalMember.earliestWakeUp
+            // Berücksichtige sowohl earliest als auch latest wake up time (für einfachen wie Standard-Modus)
+            val oldWakeUp = oldProfile?.latestWakeUp ?: oldProfile?.earliestWakeUp ?: oldMember?.latestWakeUp ?: oldMember?.earliestWakeUp
+            val newWakeUp = newProfile?.latestWakeUp ?: newProfile?.earliestWakeUp ?: finalMember.latestWakeUp ?: finalMember.earliestWakeUp
             val oldIsActive = oldProfile?.isActive ?: !(oldMember?.isPaused ?: false)
             val newIsActive = newProfile?.isActive ?: !finalMember.isPaused
 
@@ -294,6 +295,12 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
         snoozeUntil = if (newAwakeState) null else member.snoozeUntil,
         snoozeCount = if (newAwakeState) 0 else member.snoozeCount
     )
+    val currentList = _members.value.toMutableList()
+    val idx = currentList.indexOfFirst { it.id == memberId }
+    if (idx != -1) {
+        currentList[idx] = updatedMember
+        _members.value = currentList.toPersistentList()
+    }
     // pushMeta VOR dem debounced Member-Write, damit die CF den Sender erkennt
     val currentFamilyId = familyId.value
     val currentUid = auth.currentUser?.uid
