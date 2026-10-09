@@ -108,13 +108,16 @@ struct Scheduler {
                 }
             }
             
-            // Safety-Guard: Clamp auf 04:00
-            let startTime = minLeaveForBreakfastEaters.totalMinutes < 4 * 60 ? DateComponents(hour: 4, minute: 0) : minLeaveForBreakfastEaters
-            breakfastTime = startTime.subtracting(minutes: breakfastDurationMinutes)
+            // Safety-Guard: Verhindert Mitternachts-Überlauf (negative Zeit bzw. Sprung zurück zum Vortag).
+            // Unterstützt auch frühe Schichten (z. B. vor 04:00 Uhr).
+            let startTime = minLeaveForBreakfastEaters
+            let calculatedBreakfast = startTime.subtracting(minutes: breakfastDurationMinutes)
             
-            // Wraparound Check (03:30)
-            if let bt = breakfastTime, startTime < bt {
-                breakfastTime = DateComponents(hour: 3, minute: 30)
+            // Wraparound Check (über Mitternacht zurück)
+            if startTime < calculatedBreakfast {
+                breakfastTime = DateComponents(hour: 0, minute: 0)
+            } else {
+                breakfastTime = calculatedBreakfast
             }
         }
 

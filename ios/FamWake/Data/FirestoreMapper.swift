@@ -81,7 +81,7 @@ extension FamilyMember {
             "isAwakeToday": isAwakeToday,
             "lastResetDate": lastResetDate,
             "sequenceOrder": sequenceOrder,
-            "createdAt": createdAt ?? Date().timeIntervalSince1970 * 1000,
+            "createdAt": createdAt != nil ? (createdAt! as Any) : FieldValue.serverTimestamp(),
             "lastUpdatedAt": FieldValue.serverTimestamp(),
             "isSimpleMode": isSimpleMode,
             "snoozeCount": snoozeCount

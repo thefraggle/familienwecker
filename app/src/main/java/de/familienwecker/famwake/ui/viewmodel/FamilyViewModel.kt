@@ -222,15 +222,15 @@ class FamilyViewModel(
 
     val tooltipsEnabled: StateFlow<Boolean> = appSettings.tooltipsEnabled
     private val _tooltipsSeen = appSettings.tooltipsSeen
-    val tooltipAwakeSeen: StateFlow<Boolean>      = _tooltipsSeen.map { it[TooltipKeys.AWAKE]       ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipDragSeen: StateFlow<Boolean>       = _tooltipsSeen.map { it[TooltipKeys.DRAG]        ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipWakeWindowSeen: StateFlow<Boolean> = _tooltipsSeen.map { it[TooltipKeys.WAKE_WINDOW] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipBathroomSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it[TooltipKeys.BATHROOM]    ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipInviteSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.INVITE]      ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipSwitchSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.SWITCH]      ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipWeekdaysSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it[TooltipKeys.WEEKDAYS]    ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipAlarmSoundSeen: StateFlow<Boolean> = _tooltipsSeen.map { it[TooltipKeys.ALARM_SOUND] ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
-    val tooltipBufferSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.BUFFER]      ?: false }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val tooltipAwakeSeen: StateFlow<Boolean>      = _tooltipsSeen.map { it[TooltipKeys.AWAKE]       ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val tooltipDragSeen: StateFlow<Boolean>       = _tooltipsSeen.map { it[TooltipKeys.DRAG]        ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val tooltipWakeWindowSeen: StateFlow<Boolean> = _tooltipsSeen.map { it[TooltipKeys.WAKE_WINDOW] ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val tooltipBathroomSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it[TooltipKeys.BATHROOM]    ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val tooltipInviteSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.INVITE]      ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val tooltipSwitchSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.SWITCH]      ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val tooltipWeekdaysSeen: StateFlow<Boolean>   = _tooltipsSeen.map { it[TooltipKeys.WEEKDAYS]    ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val tooltipAlarmSoundSeen: StateFlow<Boolean> = _tooltipsSeen.map { it[TooltipKeys.ALARM_SOUND] ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+    val tooltipBufferSeen: StateFlow<Boolean>     = _tooltipsSeen.map { it[TooltipKeys.BUFFER]      ?: false }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     fun setOnboardingCompleted(completed: Boolean) = appSettings.setOnboardingCompleted(completed)
     fun setTooltipsEnabled(enabled: Boolean)        = appSettings.setTooltipsEnabled(enabled)

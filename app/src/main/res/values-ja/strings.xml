@@ -460,4 +460,8 @@
     <string name="settings_leave_family_confirm">本当にファミリーを退出しますか？共有アラームにアクセスできなくなります。</string>
     <string name="settings_logout_message">本当にログアウトしますか？</string>
     <string name="settings_delete_account_message">本当にアカウントを完全に削除しますか？すべてのデータが削除されます。</string>
+    <string name="a11y_move_up">上に移動</string>
+    <string name="a11y_move_down">下に移動</string>
+    <string name="setup_paste_clipboard">クリップボードから貼り付け</string>
+    <string name="setup_clipboard_code_detected">クリップボードから招待コード %1$s を検出しました</string>
 </resources>

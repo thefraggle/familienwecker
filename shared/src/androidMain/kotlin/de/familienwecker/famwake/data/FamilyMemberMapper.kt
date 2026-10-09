@@ -166,7 +166,7 @@ fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
         "claimedByUserName" to claimedByUserName,
         "claimedByDeviceId" to claimedByDeviceId,
         "sequenceOrder" to sequenceOrder,
-        "createdAt" to (createdAt ?: System.currentTimeMillis()),
+        "createdAt" to (createdAt ?: dev.gitlive.firebase.firestore.FieldValue.serverTimestamp),
         "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp,
         "deviceAlarmEnabled" to deviceAlarmEnabled,
         "dayProfiles" to dayProfilesData,

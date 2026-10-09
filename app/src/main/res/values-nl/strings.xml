@@ -455,4 +455,8 @@
     <string name="settings_leave_family_confirm">Weet je zeker dat je de familie wilt verlaten? Je verliest toegang tot de gedeelde wekkers.</string>
     <string name="settings_logout_message">Weet je zeker dat je wilt uitloggen?</string>
     <string name="settings_delete_account_message">Weet je zeker dat je je account permanent wilt verwijderen? Alle gegevens worden gewist.</string>
+    <string name="a11y_move_up">Omhoog verplaatsen</string>
+    <string name="a11y_move_down">Omlaag verplaatsen</string>
+    <string name="setup_paste_clipboard">Plakken vanaf klembord</string>
+    <string name="setup_clipboard_code_detected">Uitnodigingscode %1$s herkend van klembord</string>
 </resources>

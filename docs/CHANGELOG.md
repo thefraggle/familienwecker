@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.3 – 2026-10-09
+✨ Verbessert:
+• Flexible Frühaufsteher: Der gemeinsame Morgenplan passt sich jetzt auch an sehr frühe Startzeiten vor 4:00 Uhr morgens verlässlich an.
+• Reibungslose Bedienung: Fenster und Einstellungen lassen sich noch intuitiver und bequemer schließen.
+• Verlässliche Abläufe: Verbesserte Zeitsynchronisation und stabilere Hintergrundprozesse für die ganze Familie.
+• Ressourcenschonend: Optimierter Speicher- und Energieverbrauch bei Hinweisen und Hilfetexten.
+
 ## 2.2.2 – 2026-10-09
 ✨ Verbessert:
 • Pünktliche Abend-Erinnerung: Die tägliche Erinnerung am Vorabend erreicht dich jetzt minutengenau zur gewohnten Zeit.

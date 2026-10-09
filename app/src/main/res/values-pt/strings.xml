@@ -455,4 +455,8 @@
     <string name="settings_leave_family_confirm">Tens a certeza de que queres sair da família? Perderás o acesso aos alarmes partilhados.</string>
     <string name="settings_logout_message">Tens a certeza de que queres terminar sessão?</string>
     <string name="settings_delete_account_message">Tens a certeza de que queres eliminar permanentemente a tua conta? Todos os dados serão removidos.</string>
+    <string name="a11y_move_up">Mover para cima</string>
+    <string name="a11y_move_down">Mover para baixo</string>
+    <string name="setup_paste_clipboard">Colar da área de transferência</string>
+    <string name="setup_clipboard_code_detected">Código de convite %1$s detectado da área de transferência</string>
 </resources>

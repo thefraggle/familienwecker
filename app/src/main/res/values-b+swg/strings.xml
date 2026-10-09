@@ -455,4 +455,8 @@
     <string name="settings_leave_family_confirm">Möchtesch d\'Familie wirklich verlassa? Du verliersch da Zuegriff auf d\'gemeinsame Wecker.</string>
     <string name="settings_logout_message">Möchtesch di wirklich abmelda?</string>
     <string name="settings_delete_account_message">Möchtesch dein Account wirklich unwiderruflich lösche? Alle Date werded glöscht.</string>
+    <string name="a11y_move_up">Nuffschieba</string>
+    <string name="a11y_move_down">Nonderschieba</string>
+    <string name="setup_paste_clipboard">Aus dr Zwischablage eifüga</string>
+    <string name="setup_clipboard_code_detected">Eiladungscode %1$s aus dr Zwischablage gfonde</string>
 </resources>

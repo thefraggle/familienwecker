@@ -132,7 +132,8 @@ internal fun FamilyViewModel.recalculateSchedule() {
                         // Verschlaf-Schutz: Berechne den ersten aktiven Wecktag NACH dem Urlaub
                         val vacEndLocalDate = try {
                             LocalDate.parse(vacationUntilStr!!)
-                        } catch (_: Exception) {
+                        } catch (e: Exception) {
+                            android.util.Log.w("FamWake_Alarm", "Failed to parse vacationUntil: $vacationUntilStr (${e.message})")
                             null
                         }
 

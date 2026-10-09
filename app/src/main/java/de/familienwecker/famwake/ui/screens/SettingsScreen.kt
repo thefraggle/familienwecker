@@ -108,10 +108,6 @@ fun SettingsScreen(
         onNavigateBack()
     }
 
-    BackHandler(enabled = true) {
-        handleBack()
-    }
-
     val members by viewModel.members.collectAsStateWithLifecycle()
     val myMemberId by viewModel.myMemberId.collectAsStateWithLifecycle()
     val alarmSoundUri by viewModel.alarmSoundUri.collectAsStateWithLifecycle()
@@ -133,6 +129,17 @@ fun SettingsScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showAdminDialog by remember { mutableStateOf(false) }
     var showDonationDialog by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = true) {
+        when {
+            showLanguagePicker -> showLanguagePicker = false
+            showMemberPicker -> showMemberPicker = false
+            showDonationDialog -> showDonationDialog = false
+            showDeleteDialog -> showDeleteDialog = false
+            showAdminDialog -> showAdminDialog = false
+            else -> handleBack()
+        }
+    }
     
     val offerings by donationViewModel.offerings.collectAsStateWithLifecycle()
     val purchaseState by donationViewModel.purchaseState.collectAsStateWithLifecycle()

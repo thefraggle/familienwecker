@@ -455,4 +455,8 @@
     <string name="settings_leave_family_confirm">Wells de de Famillich wirklich verlohse? Do verliers de Zojangk zo de jemeinsame Weckere.</string>
     <string name="settings_logout_message">Wells de dich wirklich afmelde?</string>
     <string name="settings_delete_account_message">Wells de dinge Account wirklich für immer fottmaache? All Date weede jelösch.</string>
+    <string name="a11y_move_up">Noh bovve schovve</string>
+    <string name="a11y_move_down">Noh unge schovve</string>
+    <string name="setup_paste_clipboard">Us de Zweschenaflach enföje</string>
+    <string name="setup_clipboard_code_detected">Enladungscode %1$s us de Zweschenaflach jefonge</string>
 </resources>

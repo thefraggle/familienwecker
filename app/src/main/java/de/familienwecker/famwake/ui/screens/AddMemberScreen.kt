@@ -150,7 +150,11 @@ fun AddMemberScreen(
     }
  
     BackHandler(enabled = true) {
-        handleBack()
+        when {
+            showCopyDialog -> showCopyDialog = false
+            showDiscardConfirmDialog -> showDiscardConfirmDialog = false
+            else -> handleBack()
+        }
     }
 
     val themePreference by viewModel.themePreference.collectAsStateWithLifecycle()
