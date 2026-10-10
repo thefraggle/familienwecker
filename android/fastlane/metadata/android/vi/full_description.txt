@@ -1,43 +1,46 @@
-<b>Chấm dứt sự hỗn loạn mỗi sáng! Đồng hồ báo thức gia đình giúp bạn có thói quen buổi sáng nhẹ nhàng.</b> 
+<b>Chấm dứt hỗn loạn buổi sáng! Báo thức gia đình và báo thức trẻ em thông minh.</b>
 
-Mọi người phải ra khỏi nhà cùng lúc, phòng tắm luôn kẹt cứng và luôn có người bị muộn. Nghe quen chứ? Đó cũng từng là cuộc sống của tôi — vào mỗi buổi sáng. Đó là lý do vì sao, với tư cách là một người cha, tôi đã tạo ra <b>FamWake</b>: chiếc đồng hồ báo thức gia đình mà tôi luôn mong ước.
+FamWake là ứng dụng lịch trình buổi sáng và báo thức gia đình toàn diện — quản lý phòng tắm, bữa sáng và thời gian biểu trong một ứng dụng duy nhất.
 
-FamWake tính toán <b>thời gian thức dậy hoàn hảo</b> cho mỗi thành viên trong gia đình — dựa trên thời gian dùng phòng tắm, kế hoạch ăn sáng và giờ khởi hành. Mọi người đều được ngủ nướng tối đa mà không ai bị muộn.
+Mọi người đều phải ra khỏi nhà cùng lúc, phòng tắm luôn kẹt và luôn có người trễ giờ. Là một người cha, tôi đã tạo ra <b>FamWake</b>: chiếc <b>báo thức gia đình</b> mà tôi luôn mơ ước để mỗi sáng đều thảnh thơi.
 
-<b> Không còn cảnh xếp hàng đợi phòng tắm</b>
-FamWake tự động lên lịch ai dùng phòng tắm và khi nào — hoàn toàn không bị trùng lặp. Bạn chỉ bị đánh thức khi thực sự đến lượt mình. Không cần phải dậy sớm "để đề phòng" nữa.
+FamWake tính toán <b>thời điểm thức dậy hoàn hảo</b> cho từng người — phối hợp nhịp nhàng giữa phòng tắm, ăn sáng và giờ đi học, đi làm.
 
-<b> Bữa sáng cùng gia đình</b>
-Chỉ cần bật tùy chọn ăn sáng, FamWake sẽ lên lịch một khoảng thời gian chung để cả nhà có thể ngồi ăn cùng nhau — trước khi bắt đầu sự hối hả của ngày mới.
+<b> Hết cảnh chen chúc phòng tắm</b>
+FamWake tự động sắp xếp lượt dùng phòng tắm không trùng lặp và có thời gian đệm hợp lý. Bạn chỉ cần thức dậy khi thực sự đến lượt mình.
 
-<b> Quản lý cả gia đình trong nháy mắt</b>
-Bảng điều khiển hiển thị toàn bộ lịch trình buổi sáng theo thời gian thực: ai dậy lúc nào, ai đang trong phòng tắm và khi nào mọi người rời đi. Dễ dàng thay đổi thứ tự chỉ bằng thao tác kéo và thả.
+<b> Bữa sáng sum họp gia đình</b>
+Bật tính năng ăn sáng để cả nhà có khoảng thời gian quây quần ấm cúng trước khi bắt đầu ngày mới.
 
-<b> Bạn đã dậy rồi?</b>
-Chỉ cần một chạm vào "Đã dậy" và báo thức của bạn sẽ không đổ chuông nữa — vì bạn đã thức rồi. Hôm nay bạn không cần báo thức? Chỉ cần tạm dừng báo thức của mình, FamWake sẽ tự động tính toán lại lịch trình cho những người còn lại.
+<b> Theo dõi cả gia đình trực quan</b>
+Bảng điều khiển hiển thị lịch trình thời gian thực: ai dậy lúc nào, ai đang trong phòng tắm và khi nào xuất phát. Kéo thả đổi thứ tự dễ dàng — rất phù hợp cho trẻ nhỏ và trẻ có nhu cầu ADHD.
 
-<b> Thông báo đẩy</b>
-Khi ai đó thay đổi báo thức hoặc thứ tự, bạn sẽ nhận được thông báo đẩy ngay lập tức — giúp cả gia đình luôn nắm bắt được lịch trình mới nhất.
+<b> Lịch theo ngày trong tuần & Chế độ Nghỉ lễ</b>
+• <b>Hồ sơ từng ngày:</b> Cài đặt giờ thức dậy riêng cho từng ngày (học lệch ca, làm việc tại nhà).
+• <b>Chế độ Nghỉ lễ:</b> Tạm dừng toàn bộ báo thức và nhắc nhở chỉ với một chạm cho đến hết kỳ nghỉ. Tự động bật lại vào ngày đầu đi học!
 
-<b> Báo thức đáng tin cậy</b>
-FamWake đánh thức bạn ngay cả khi ứng dụng đã đóng — luôn luôn đúng giờ. Chọn nhạc chuông yêu thích và sử dụng tính năng báo lại (snooze) khi cần.
+<b> Thức dậy êm ái & Chuông báo lớn</b>
+Báo thức chuẩn xác ngay cả khi điện thoại ở chế độ im lặng. Âm lượng tăng dần trong 30 giây giúp trẻ thức dậy nhẹ nhàng, không bị giật mình. Có chuông lớn cho người ngủ say.
 
-<b> Xung đột lịch trình? Đã được giải quyết!</b>
-Khi thời gian quá sát sao, FamWake sẽ tự động phát hiện và chỉ cho bạn chính xác những gì cần điều chỉnh — để đảm bảo mọi người có một buổi sáng suôn sẻ.
+<b> Nhắc nhở 20:30 tối & «Đã dậy rồi»</b>
+• <b>Kiểm tra lúc 20:30 tối:</b> Nhắc nhở nhẹ nhàng mỗi tối giúp bạn yên tâm lịch sáng mai đã sẵn sàng.
+• <b>Dậy sớm hơn?</b> Chỉ cần chạm vào «Đã dậy rồi» và chuông báo hôm nay sẽ không kêu.
+• <b>Tự động sửa lỗi 1 chạm:</b> Phát hiện xung đột giờ giấc và giải quyết tự động tức thì.
 
-<b> Thiết kế hiện đại</b>
-Chuyển đổi giữa chế độ sáng và tối — hoặc để ứng dụng tự động đồng bộ với hệ thống điện thoại của bạn. Giao diện mượt mà và thân thiện với mắt.
+<b> Tham gia tức thì không cần tài khoản cho con</b>
+Không cần đăng ký tài khoản cho con hay người thân: Chia sẻ mã gia đình, ứng dụng tự động nhận diện mã từ bộ nhớ tạm khi mở app!
 
-<b> 25 ngôn ngữ</b>
-FamWake hỗ trợ các ngôn ngữ: English, Deutsch, Français, Español, Italiano, Nederlands, Polski, Português, Русский, Українська, Türkçe, Svenska, Norsk, Dansk, 日本語, 한국어, 中文, Bahasa Indonesia, Tiếng Việt, বাংলা, मराठी, हिन्दी — và thậm chí cả Schwäbisch, Schweizerdeutsch, và Ruhrpott-Deutsch!
+<b> Bảo mật và Riêng tư</b>
+• Sử dụng hoàn toàn ẩn danh (chỉ người tạo gia đình mới đăng nhập).
+• Không quảng cáo. Không bán dữ liệu. Hỗ trợ 25 ngôn ngữ.
 
-<b> Dữ liệu của bạn luôn an toàn</b>
-• Không cần tài khoản: Sử dụng ứng dụng hoàn toàn ẩn danh. Chỉ người tạo gia đình mới cần đăng nhập.
-• Không có quảng cáo — mãi mãi.
-• Không bán dữ liệu — được đảm bảo chắc chắn.
-• Kết nối được mã hóa và lưu trữ dữ liệu ở mức tối thiểu.
-• Đăng nhập an toàn qua Google.
+<b>Cách sử dụng:</b>
+1. Tạo gia đình và chia sẻ mã mời.
+2. Nhập thời gian phòng tắm, ăn sáng và giờ ra khỏi nhà.
+3. FamWake tự động tính toán lịch trình hoàn hảo mỗi buổi sáng.
 
-<b>Cách thức hoạt động — với 3 bước đơn giản:</b>
-1 Tạo một nhóm gia đình và mời người thân tham gia bằng mã mời.
-2 Mỗi người...
+<b>Báo thức 100% Miễn phí</b>
+Tất cả tính năng cốt lõi <b>miễn phí mãi mãi</b> — không đăng ký thuê bao, không phí ẩn.
+
+<b>Được tạo bởi một người cha, dành cho các gia đình.</b>
+Tải FamWake ngay hôm nay để mỗi sáng trôi qua thật bình yên và gắn kết!

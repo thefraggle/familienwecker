@@ -1,50 +1,47 @@
-<b>Alarm pagi untuk jadwal pagi keluarga yang tenang dan bebas stres!</b> 
+<b>Akhiri kekacauan pagi hari! Jam alarm keluarga pintar & alarm anak untuk pagi yang damai.</b>
 
-Semua harus berangkat bersamaan, kamar mandi penuh, dan pasti ada yang terlambat. Terdengar familier? Itulah yang saya alami setiap pagi. Itulah sebabnya saya sebagai seorang ayah menciptakan <b>FamWake</b>: jam alarm keluarga yang selalu saya impikan.
+FamWake adalah aplikasi rutinitas pagi pintar dan jam alarm keluarga lengkap — giliran kamar mandi, jadwal sarapan, dan perencanaan pagi dalam satu aplikasi.
 
-FamWake menghitung <b>waktu bangun yang sempurna</b> untuk setiap anggota keluarga — berdasarkan durasi mandi, rencana sarapan, dan waktu berangkat. Semua bisa tidur selama mungkin, dan tidak ada lagi yang terlambat.
+Semua orang harus berangkat pada waktu yang sama, kamar mandi penuh, dan selalu ada yang terlambat. Sebagai seorang ayah, saya menciptakan <b>FamWake</b>: <b>alarm keluarga</b> yang selalu saya impikan untuk mengawali hari tanpa stres.
 
-<b> Pengatur Waktu Kamar Mandi</b>
-FamWake menjadwalkan siapa yang menggunakan kamar mandi dan kapan — secara otomatis, tanpa bentrok. Kamu hanya dibangunkan saat giliranmu tiba. Tidak perlu lagi bangun lebih awal "hanya untuk berjaga-jaga".
+FamWake menghitung <b>waktu bangun tidur yang sempurna</b> untuk setiap anggota keluarga — disesuaikan dengan giliran kamar mandi, sarapan, dan jam keberangkatan.
 
-<b> Sarapan Bersama</b>
-Aktifkan opsi sarapan dan FamWake akan mengatur waktu di mana seluruh keluarga bisa duduk dan makan bersama — sebelum kesibukan pagi dimulai.
+<b> Tidak Ada Lagi Antrean Kamar Mandi</b>
+FamWake mengatur jadwal kamar mandi secara otomatis tanpa bentrok dan dengan waktu jeda khusus. Anda hanya bangun saat giliran Anda tiba.
 
-<b> Pantau Seluruh Keluarga</b>
-Dasbor menampilkan jadwal pagi secara real-time: siapa yang bangun jam berapa, siapa yang sedang di kamar mandi, dan kapan setiap orang berangkat. Ubah urutannya dengan mudah menggunakan drag & drop.
+<b> Sarapan Bersama Keluarga</b>
+Aktifkan opsi sarapan agar semua bisa duduk dan makan bersama dengan tenang sebelum kesibukan sekolah atau kantor dimulai.
 
-<b> Sudah Bangun?</b>
-Cukup ketuk "Sudah Bangun" dan alarmmu tidak akan berbunyi — karena kamu sudah bangun. Tidak butuh alarm hari ini? Cukup jeda alarmmu dan FamWake akan menghitung ulang jadwal untuk anggota keluarga lainnya secara otomatis.
+<b> Seluruh Keluarga dalam Satu Tampilan</b>
+Dasbor menampilkan jadwal secara langsung: siapa bangun jam berapa, siapa di kamar mandi, dan kapan harus berangkat. Ubah urutan dengan seret-dan-lepas — sangat bagus untuk anak-anak dan rutinitas ADHD.
 
-<b> Notifikasi Push</b>
-Jika ada yang mengubah alarm atau urutan jadwal, kamu akan langsung menerima notifikasi push — agar seluruh keluarga selalu mendapatkan info terbaru.
+<b> Profil Hari Fleksibel & Mode Liburan</b>
+• <b>Profil Harian:</b> Atur waktu bangun yang berbeda untuk tiap hari (jadwal sekolah berbeda, WFH).
+• <b>Mode Liburan:</b> Jeda semua alarm dan pengingat hanya dengan satu ketukan hingga liburan usai. Otomatis aktif kembali di hari pertama masuk sekolah!
 
-<b> Alarm Pagi yang Andal</b>
-FamWake membangunkanmu meskipun aplikasi ditutup — selalu tepat waktu. Pilih nada dering alarmmu sendiri dan gunakan fitur snooze jika perlu.
+<b> Bangun Lembut & Alarm Keras</b>
+Berdering andal meski ponsel dalam mode senyap. Peningkatan volume perlahan selama 30 detik membangunkan anak dengan tenang tanpa kaget. Nada dering keras tersedia untuk yang tidur nyenyak.
 
-<b> Jadwal Bentrok? Teratasi!</b>
-Saat waktu mepet, FamWake akan mendeteksinya secara otomatis dan menunjukkan bagian mana yang harus disesuaikan — agar pagi hari tetap berjalan lancar.
+<b> Pengingat Malam 20:30 & «Sudah Bangun»</b>
+• <b>Cek Malam 20:30:</b> Notifikasi ramah di malam hari memastikan rencana besok pagi siap tanpa kejutan.
+• <b>Sudah bangun lebih awal?</b> Ketuk «Sudah Bangun» dan alarm tidak akan berbunyi hari ini.
+• <b>Auto-Fix 1-Klik:</b> Mendeteksi bentrokan waktu dan menyelesaikannya secara otomatis.
 
-<b> Desain Modern</b>
-Pilih antara mode terang dan gelap — atau biarkan menyesuaikan dengan sistem ponselmu secara otomatis. Elegan dan nyaman di mata.
+<b> Gabung Cepat Tanpa Akun untuk Anak</b>
+Tanpa ribet daftar akun untuk anak atau pasangan: Bagikan kode keluarga, aplikasi otomatis membaca kode dari papan klip saat dibuka!
 
-<b> 25 Bahasa</b>
-FamWake mendukung English, Deutsch, Français, Español, Italiano, Nederlands, Polski, Português, Русский, Українська, Türkçe, Svenska, Norsk, Dansk, 日本語, 한국어, 中文, Bahasa Indonesia, Tiếng Việt, বাংলা, मराठी, हिन्दी — dan bahkan Schwäbisch, Schweizerdeutsch, serta Ruhrpott-Deutsch!
+<b> Privasi Anda Terjamin</b>
+• Penggunaan sepenuhnya anonim (hanya pembuat keluarga yang masuk).
+• Tanpa iklan — selamanya. Data tidak pernah dijual.
+• Tersedia dalam 25 bahasa.
 
-<b> Datamu Aman</b>
-• Tidak perlu akun: Gunakan aplikasi sepenuhnya secara anonim. Hanya orang yang membuat keluarga yang perlu masuk.
-• Tanpa iklan — selamanya.
-• Tidak ada penjualan data — dijamin.
-• Koneksi terenkripsi dan penyimpanan data minimal.
-• Login aman menggunakan Google.
+<b>Cara Kerja:</b>
+1. Buat keluarga dan bagikan kode undangan.
+2. Masukkan durasi mandi, sarapan, dan jam berangkat.
+3. FamWake otomatis menghitung jadwal pagi yang sempurna setiap hari.
 
-<b>Cara Kerja — dalam 3 Langkah:</b>
-1 Buat grup keluarga dan undang orang tersayang menggunakan kode undangan.
-2 Masing-masing memasukkan durasi mandi, pilihan sarapan, dan waktu keberangkatan.
-3 FamWake menghitung jadwal yang sempurna — secara otomatis, setiap pagi.
-
-<b>Gratis digunakan — tanpa biaya tersembunyi.</b>
-Semua fitur utama FamWake <b>gratis selamanya</b> — tanpa langganan, tanpa jebakan. Ke depannya, akan ada fitur premium opsional untuk kenyamanan ekstra. Jika kamu menyukai aplikasi ini, kamu bisa mendukung kami melalui donasi sukarela. 
+<b>100% Alarm Gratis</b>
+Semua fitur utama <b>gratis selamanya</b> — tanpa langganan atau biaya tersembunyi.
 
 <b>Dibuat oleh seorang ayah, untuk keluarga.</b>
-FamWake adalah proyek dari hati — bermula dari meja sarapan kami sendiri dan didedikasikan untuk keluarga yang ingin mengelola rutinitas dan jadwal pagi mereka bersama. Unduh pengatur waktu dan alarm pagi ini sekarang dan rasakan betapa santainya pagi harimu!
+Unduh FamWake sekarang dan nikmati pagi yang harmonis bersama keluarga!

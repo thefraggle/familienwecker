@@ -1,50 +1,47 @@
-<b>Ton réveil intelligent et familial pour une routine matinale sans chaos !</b> 
+<b>Fini le chaos du matin ! Ton réveil familial et réveil enfant pour une routine matinale sereine.</b>
 
-Tout le monde doit partir en même temps, la salle de bain est occupée et quelqu'un finit toujours par être en retard. Ça te dit quelque chose ? C'était mon quotidien aussi — chaque matin. C'est pourquoi j'ai créé <b>FamWake</b> en tant que père de famille : le réveil personnalisé dont j'avais toujours rêvé. Grâce à son réveil automatique et sa gestion salle de bain, FamWake simplifie vos matins.
+FamWake est ton application de routine matinale intelligente et réveil familial pour toute la maison — gestion de la salle de bain, ordre de passage et planning du matin dans une seule application.
 
-FamWake calcule le <b>moment idéal de réveil</b> pour chaque membre de la famille — en fonction de la salle de bain, du petit-déjeuner et de l'heure de départ. Chacun dort le plus longtemps possible et personne n'est en retard.
+Tout le monde doit partir en même temps, la salle de bain est occupée et quelqu'un finit toujours en retard. En tant que père, j'ai créé <b>FamWake</b> : le <b>réveil familial</b> dont j'avais toujours rêvé. Que ce soit comme <b>réveil enfant</b>, pour structurer la <b>routine matinale des enfants</b> ou comme réveil partagé en couple ou colocation — FamWake simplifie vos matins.
 
-<b> Gestion salle de bain intelligente</b>
-FamWake planifie automatiquement qui utilise la salle de bain et quand — sans chevauchement. Tu n'es réveillé que lorsque c'est vraiment ton tour. Plus besoin de se lever tôt "au cas où".
+FamWake calcule le <b>moment de réveil idéal</b> pour chaque membre de la famille — synchronisé avec le passage à la salle de bain, le petit-déjeuner et l'heure de départ.
+
+<b> Fini les embouteillages dans la salle de bain</b>
+FamWake planifie automatiquement l'accès à la salle de bain sans chevauchement et avec des temps tampons personnalisés. Tu ne te lèves que lorsque c'est vraiment ton tour.
 
 <b> Petit-déjeuner en famille</b>
-Active l'option petit-déjeuner et FamWake planifie un créneau commun pour un repas tranquille tous ensemble — avant que la course de la journée ne commence.
+Active l'option petit-déjeuner pour partager un moment convivial tous ensemble avant de partir à l'école ou au travail.
 
 <b> Toute la famille en un coup d'œil</b>
-Le tableau de bord affiche le plan du matin en temps réel : qui se lève quand, qui est dans la salle de bain et quand tout le monde part. Idéal pour la routine des enfants. Réorganise l'ordre par un simple glisser-déposer.
+Le tableau de bord affiche le planning en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — idéal pour les enfants et adapté aux besoins TDAH.
 
-<b> Déjà réveillé ?</b>
-Un tap sur « Déjà réveillé » et ton alarme ne sonne pas — tu es déjà debout. Pas besoin de réveil aujourd'hui ? Mets-toi simplement en pause et FamWake recalcule automatiquement le planning pour tous les autres.
+<b> Profils par jour de la semaine & Mode Vacances</b>
+• <b>Profils quotidiens :</b> Définis des heures de réveil et durées de salle de bain spécifiques pour chaque jour (cours décalés, télétravail).
+• <b>Mode Vacances :</b> Mets en pause alarmes et rappels d'un simple clic jusqu'à la rentrée. Reprise 100% automatique le premier jour d'école !
 
-<b> Notifications push</b>
-Quand quelqu'un change son alarme ou l'ordre, tu es prévenu instantanément par notification push — toute la famille reste toujours à jour.
+<b> Réveil en douceur & Alarme puissante</b>
+Fonctionne de manière fiable même en mode silencieux. Le réveil progressif augmente doucement le volume sur 30 secondes pour réveiller les enfants sans sursaut. Tonalités fortes disponibles pour les gros dormeurs.
 
-<b> Réveil fiable</b>
-FamWake te réveille même lorsque l'application est fermée — à l'heure, à chaque fois. Choisis ta propre sonnerie et utilise la fonction snooze si besoin.
+<b> Rappel du soir & « Déjà réveillé »</b>
+• <b>Check-in à 20h30 :</b> Une notification discrète la veille au soir pour vérifier que le planning de demain est prêt.
+• <b>Déjà debout ?</b> Un appui sur « Déjà réveillé » et ton réveil reste silencieux aujourd'hui.
+• <b>Auto-Fix en 1 clic :</b> Détecte immédiatement les conflits d'horaires et les résout automatiquement.
 
-<b> Conflits d'horaires ? Résolus !</b>
-Quand le temps manque, FamWake le détecte automatiquement et te montre exactement ce qu'il faut ajuster pour que la matinée se passe sans accroc.
+<b> Rejoint instantanément sans création de compte</b>
+Aucun compte nécessaire pour les enfants ou le partenaire : partage le code familial. L'application détecte automatiquement le code dans le presse-papiers dès l'ouverture !
 
-<b> Design moderne</b>
-Passe du mode clair au mode sombre — ou laisse l'application s'adapter automatiquement à ton système. Élégant et agréable pour les yeux.
+<b> Confidentialité et sécurité</b>
+• Utilisation anonyme (seul le créateur de la famille se connecte).
+• Aucune publicité — jamais. Aucune vente de données.
+• Disponible dans le monde entier en 25 langues.
 
-<b> 25 langues</b>
-FamWake parle English, Deutsch, Français, Español, Italiano, Nederlands, Polski, Português, Русский, Українська, Türkçe, Svenska, Norsk, Dansk, 日本語, 한국어, 中文, Bahasa Indonesia, Tiếng Việt, বাংলা, मराठी, हिन्दी — et même Schwäbisch, Schweizerdeutsch et Ruhrpott-Deutsch !
+<b>Comment ça marche :</b>
+1. Crée une famille et partage le code (aucun compte requis pour les membres).
+2. Indique la durée de salle de bain, le petit-déjeuner et l'heure de départ.
+3. FamWake calcule automatiquement le planning matinal parfait chaque matin.
 
-<b> Tes données sont en sécurité</b>
-• Aucun compte nécessaire : utilisez l'application de manière totalement anonyme. Seule la personne qui crée la famille doit se connecter.
-• Aucune publicité — jamais.
-• Aucune vente de données — garanti.
-• Connexions chiffrées et stockage minimal des données.
-• Connexion sécurisée via Google.
-
-<b>Comment ça marche — en 3 étapes :</b>
-1 Crée une famille et invite tes proches avec un code d'invitation.
-2 Chacun entre son temps de salle de bain, sa préférence de petit-déjeuner et son heure de départ.
-3 FamWake calcule le planning parfait — automatiquement, chaque matin.
-
-<b>Gratuit pour commencer — sans coûts cachés.</b>
-Toutes les fonctionnalités essentielles de FamWake sont et resteront <b>gratuites pour toujours</b> — sans abonnement, sans piège. Des fonctionnalités premium optionnelles seront disponibles à l'avenir pour encore plus de confort. Si tu aimes déjà l'application, tu peux nous soutenir avec un petit don volontaire. 
+<b>100% Réveil Gratuit</b>
+Toutes les fonctionnalités essentielles sont et resteront <b>gratuites</b> — sans abonnement ni frais cachés.
 
 <b>Créé par un père, pour les familles.</b>
-FamWake est un projet de cœur — né à notre propre table de petit-déjeuner et fait pour les familles qui veulent maîtriser leur routine...
+FamWake est né autour de notre table de petit-déjeuner. Télécharge FamWake dès maintenant pour des matins calmes et complices !
