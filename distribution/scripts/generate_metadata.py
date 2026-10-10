@@ -15,11 +15,18 @@ def truncate_to_bytes(text, max_bytes=500, suffix="..."):
     # Sicherstellen, dass kein halbiertes Multibyte-Zeichen entsteht
     return truncated.decode('utf-8', errors='ignore') + suffix
 
-def get_latest_changelog(file_path):
-    if not os.path.exists(file_path):
+def safe_read_file(file_path):
+    """Safely validate, canonicalize and read file content."""
+    real_path = os.path.realpath(file_path)
+    if not os.path.isfile(real_path):
         return None
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read()
+    with open(real_path, 'r', encoding='utf-8') as f:
+        return f.read()
+
+def get_latest_changelog(file_path):
+    content = safe_read_file(file_path)
+    if not content:
+        return None
     
     # Match the first ## [Version] header and everything until the next one
     match = re.search(r'## \d+\.\d+\.\d+.*?\n(.*?)(?=\n## \d+\.\d+\.\d+|$)', content, re.DOTALL)

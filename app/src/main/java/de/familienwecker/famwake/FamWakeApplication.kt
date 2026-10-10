@@ -89,7 +89,9 @@ class FamWakeApplication : Application() {
                     debugField.isAccessible = true
                     debugField.setBoolean(env, true)
                 }
-            } catch (_: Exception) {}
+            } catch (e: Exception) {
+                android.util.Log.w("FamWakeApp", "Could not set Aptabase isDebug flag via reflection", e)
+            }
         }
         // Push: Notification Channels einmalig registrieren (Android 8+, idempotent)
         NotificationChannels.register(this)

@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.4 – 2026-10-10
+✨ Verbessert:
+• Zuverlässige Zeitplanung: Eindeutigere Hinweise bei Terminkonflikten im Morgenplan für noch mehr Klarheit.
+• Reibungslose Einladung: Erkannte Einladungscodes aus der Zwischenablage werden jetzt weltweit in jeder Sprache fehlerfrei angezeigt.
+• Höchste Stabilität: Verbesserte Wecker-Abschaltung und optimierte Hintergrundprozesse sorgen für einen rundum verlässlichen Start in den Tag.
+
 ## 2.2.3 – 2026-10-09
 ✨ Verbessert:
 • Flexible Frühaufsteher: Der gemeinsame Morgenplan passt sich jetzt auch an sehr frühe Startzeiten vor 4:00 Uhr morgens verlässlich an.

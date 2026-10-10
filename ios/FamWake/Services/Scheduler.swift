@@ -84,7 +84,7 @@ struct Scheduler {
                 return .memberConflict(s.member.name)
             }
         }
-        return .memberConflict("")
+        return .noValidScheduleFound
     }
 
     private func evaluatePermutation(
@@ -195,7 +195,7 @@ struct Scheduler {
 
             if !isFixed && wakeUpTime < allowedEarliest {
                 if !includeInvalid {
-                    return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .memberConflict(""))
+                    return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .noValidScheduleFound)
                 }
                 isValid = false
             }
@@ -288,7 +288,7 @@ struct Scheduler {
                     if cutoff < s.bathroomEnd {
                         isValid = false
                         if !includeInvalid {
-                            return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .memberConflict(""))
+                            return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .noValidScheduleFound)
                         }
                     }
                 }
@@ -305,7 +305,7 @@ struct Scheduler {
             memberSchedules: forwardSchedules,
             breakfastTime: breakfastTime,
             isValid: isValid,
-            scheduleMessage: isValid ? .optimal : .memberConflict("")
+            scheduleMessage: isValid ? .optimal : .noValidScheduleFound
         )
     }
 }

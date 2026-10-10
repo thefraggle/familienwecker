@@ -145,6 +145,7 @@ struct FamilySchedule {
 enum ScheduleMessage: Equatable {
     case optimal
     case noActiveSchedule
+    case noValidScheduleFound
     case memberConflict(String)
     case timeAdjusted(Int)
     case breakfastReduced(Int)
