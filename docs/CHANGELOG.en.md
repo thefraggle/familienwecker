@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.4 – 2026-10-10
+✨ Improved:
+• Reliable Scheduling: Clearer feedback on schedule conflicts in the morning plan for effortless coordination.
+• Seamless Invitations: Detected invitation codes from the clipboard are now cleanly localized in all languages.
+• Peak Stability: Enhanced alarm dismissal and optimized background routines ensure a consistently smooth wake-up experience.
+
 ## 2.2.3 – 2026-10-09
 ✨ Improved:
 • Early Bird Flexibility: Morning routines now adapt smoothly and reliably to early schedules before 4:00 AM.

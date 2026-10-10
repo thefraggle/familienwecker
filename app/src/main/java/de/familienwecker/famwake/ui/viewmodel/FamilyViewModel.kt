@@ -787,7 +787,11 @@ class FamilyViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        try { networkMonitor.stopMonitoring() } catch (_: Exception) {}
+        try {
+            networkMonitor.stopMonitoring()
+        } catch (e: Exception) {
+            Log.w("FamilyViewModel", "Failed to stop network monitoring", e)
+        }
         membersJob?.cancel()
         syncStatusJob?.cancel()
         familyDataJob?.cancel()

@@ -50,12 +50,20 @@ def strip_html(text):
     return re.sub(r'<[^>]+>', '', text)
 
 
+def safe_read_file(file_path):
+    """Safely validate, canonicalize and read file content."""
+    real_path = os.path.realpath(file_path)
+    if not os.path.isfile(real_path):
+        return None
+    with open(real_path, 'r', encoding='utf-8') as f:
+        return f.read()
+
+
 def get_latest_changelog(file_path):
     """Extract the first version block from a Markdown changelog."""
-    if not os.path.exists(file_path):
+    content = safe_read_file(file_path)
+    if not content:
         return None
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read()
 
     match = re.search(r'## [\d.]+.*?\n(.*?)(?=\n## \d|$)', content, re.DOTALL)
     if not match:
@@ -83,10 +91,9 @@ def get_description_from_listing(listing_path):
     """Extract the full description from a Play Store listing markdown file.
     The description is always the 3rd ## section in the file
     (after app name and short description)."""
-    if not os.path.exists(listing_path):
+    content = safe_read_file(listing_path)
+    if not content:
         return None
-    with open(listing_path, 'r', encoding='utf-8') as f:
-        content = f.read()
 
     # Find all ## section positions
     sections = list(re.finditer(r'^## .+', content, re.MULTILINE))
@@ -114,11 +121,9 @@ def extract_ios_sections(listing_path):
     ## iOS Promo-Text (or Promotional Text)
     ## iOS Keywords (or Keywords)
     """
-    if not os.path.exists(listing_path):
+    content = safe_read_file(listing_path)
+    if not content:
         return None, None, None, None
-
-    with open(listing_path, 'r', encoding='utf-8') as f:
-        content = f.read()
 
     # Find the App Store header or split there
     parts = re.split(r'#+ 🍎 App Store Listing', content)

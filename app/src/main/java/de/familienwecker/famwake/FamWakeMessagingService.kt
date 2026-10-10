@@ -186,7 +186,9 @@ class FamWakeMessagingService : FirebaseMessagingService() {
                     @Suppress("DEPRECATION")
                     vibrator?.vibrate(longArrayOf(0, 200, 100, 300), -1)
                 }
-            } catch (_: Exception) {}
+            } catch (e: Exception) {
+                Log.w(TAG, "Vibrator trigger failed: ${e.message}")
+            }
         }
 
         // Feste ID pro Typ: Falls doch ein Doppel-Push durchkommt, überschreibt er sich selbst

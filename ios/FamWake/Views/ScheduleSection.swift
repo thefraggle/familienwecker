@@ -57,6 +57,8 @@ struct ScheduleSection: View {
                                         } else {
                                             return String(format: L.s("schedule_message_member_conflict"), name)
                                         }
+                                    case .noValidScheduleFound:
+                                        return L.s("schedule_message_no_valid")
                                     default:
                                         return L.s("schedule_message_no_valid")
                                     }
@@ -75,6 +77,8 @@ struct ScheduleSection: View {
                                     } else {
                                         return L.s("schedule_message_member_conflict_desc")
                                     }
+                                case .noValidScheduleFound:
+                                    return L.s("schedule_message_no_valid_desc")
                                 default:
                                     return L.s("schedule_message_no_valid_desc")
                                 }

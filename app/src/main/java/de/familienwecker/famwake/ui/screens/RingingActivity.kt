@@ -2,6 +2,7 @@ package de.familienwecker.famwake.ui.screens
 
 import android.net.Uri
 import android.media.AudioAttributes
+import android.util.Log
 import de.familienwecker.famwake.FamWakeApplication
 import de.familienwecker.famwake.data.AppSettings
 
@@ -261,7 +262,8 @@ class RingingActivity : AppCompatActivity() {
                 val currentVolume = startVolume + (endVolume - startVolume) * fraction
                 try {
                     player.setVolume(currentVolume, currentVolume)
-                } catch (_: Exception) {
+                } catch (e: Exception) {
+                    Log.w("RingingActivity", "Failed to adjust volume: ${e.message}")
                     break
                 }
             }
@@ -275,8 +277,14 @@ class RingingActivity : AppCompatActivity() {
         try {
             val appSettings = (application as FamWakeApplication).appSettings
             appSettings.setLastAlarmTime(System.currentTimeMillis())
+        } catch (e: Exception) {
+            Log.w("RingingActivity", "Failed to update last alarm time", e)
+        }
+        try {
             mediaPlayer?.stop()
-        } catch (_: IllegalStateException) {}
+        } catch (e: IllegalStateException) {
+            Log.w("RingingActivity", "Failed to stop media player: ${e.message}")
+        }
         mediaPlayer?.release()
         mediaPlayer = null
         // KEINE Flags löschen – Keyguard bleibt dismissed, damit die App sichtbar ist
@@ -290,8 +298,14 @@ class RingingActivity : AppCompatActivity() {
         try {
             val appSettings = (application as FamWakeApplication).appSettings
             appSettings.setLastAlarmTime(System.currentTimeMillis())
+        } catch (e: Exception) {
+            Log.w("RingingActivity", "Failed to update last alarm time", e)
+        }
+        try {
             mediaPlayer?.stop()
-        } catch (_: IllegalStateException) {}
+        } catch (e: IllegalStateException) {
+            Log.w("RingingActivity", "Failed to stop media player: ${e.message}")
+        }
         mediaPlayer?.release()
         mediaPlayer = null
         

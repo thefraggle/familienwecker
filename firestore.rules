@@ -33,6 +33,44 @@ service cloud.firestore {
         ));
     }
 
+    // Validierung beim Anlegen eines neuen Mitglieds (Schema-, Claim- und Größenschutz)
+    function isValidMemberCreate() {
+      let d = request.resource.data;
+      return d.name is string
+        && d.name.size() > 0
+        && d.name.size() <= 50
+        && (!('claimedByUserId' in d)
+            || d.claimedByUserId == null
+            || (d.claimedByUserId is string && d.claimedByUserId == request.auth.uid))
+        && d.keys().hasOnly([
+          'name', 'earliestWakeUp', 'latestWakeUp', 'bathroomDurationMinutes',
+          'wantsBreakfast', 'leaveHomeTime', 'breakfastDurationMinutes',
+          'isPaused', 'isAwakeToday', 'lastResetDate',
+          'claimedByUserId', 'claimedByUserName', 'claimedByDeviceId',
+          'sequenceOrder', 'createdAt', 'lastUpdatedAt',
+          'deviceAlarmEnabled', 'dayProfiles', 'isSimpleMode',
+          'snoozeUntil', 'snoozeCount',
+          'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'
+        ])
+        && (!('claimedByUserName' in d) || d.claimedByUserName == null || (d.claimedByUserName is string && d.claimedByUserName.size() <= 100))
+        && (!('claimedByDeviceId' in d) || d.claimedByDeviceId == null || (d.claimedByDeviceId is string && d.claimedByDeviceId.size() <= 100))
+        && (!('earliestWakeUp' in d) || d.earliestWakeUp == null || (d.earliestWakeUp is string && d.earliestWakeUp.size() <= 10))
+        && (!('latestWakeUp' in d) || d.latestWakeUp == null || (d.latestWakeUp is string && d.latestWakeUp.size() <= 10))
+        && (!('leaveHomeTime' in d) || d.leaveHomeTime == null || (d.leaveHomeTime is string && d.leaveHomeTime.size() <= 10))
+        && (!('lastResetDate' in d) || d.lastResetDate == null || (d.lastResetDate is string && d.lastResetDate.size() <= 20))
+        && (!('soundUri' in d) || d.soundUri == null || (d.soundUri is string && d.soundUri.size() <= 500))
+        && (!('dayProfiles' in d) || d.dayProfiles == null || (d.dayProfiles is map && d.dayProfiles.keys().hasOnly(['1', '2', '3', '4', '5', '6', '7'])))
+        && (!('bathroomDurationMinutes' in d) || (d.bathroomDurationMinutes is number && d.bathroomDurationMinutes >= 0 && d.bathroomDurationMinutes <= 180))
+        && (!('breakfastDurationMinutes' in d) || d.breakfastDurationMinutes == null || (d.breakfastDurationMinutes is number && d.breakfastDurationMinutes >= 0 && d.breakfastDurationMinutes <= 180))
+        && (!('sequenceOrder' in d) || (d.sequenceOrder is number && d.sequenceOrder >= 0 && d.sequenceOrder <= 100))
+        && (!('snoozeCount' in d) || (d.snoozeCount is number && d.snoozeCount >= 0 && d.snoozeCount <= 10))
+        && (!('wantsBreakfast' in d) || d.wantsBreakfast is bool)
+        && (!('isPaused' in d) || d.isPaused is bool)
+        && (!('isAwakeToday' in d) || d.isAwakeToday is bool)
+        && (!('isSimpleMode' in d) || d.isSimpleMode is bool)
+        && (!('deviceAlarmEnabled' in d) || d.deviceAlarmEnabled == null || d.deviceAlarmEnabled is bool);
+    }
+
     match /users/{userId} {
       allow read: if request.auth != null && request.auth.uid == userId;
       allow write: if false;
@@ -74,8 +112,8 @@ service cloud.firestore {
         // WICHTIG: Erlaubt Queries auf Mitglieder, wenn man Teil der Familie ist
         allow read: if isFamilyMember(familyId);
         
-        // Erstellen erlaubt für alle Familienmitglieder (z.B. neues Profil anlegen)
-        allow create: if isFamilyMember(familyId);
+        // Erstellen erlaubt für alle Familienmitglieder mit Schema- und Größenschutz
+        allow create: if isFamilyMember(familyId) && isValidMemberCreate();
 
         // Update: Familienmitglieder dürfen isAwakeToday, isPaused, snoozeUntil, snoozeCount für ALLE setzen
         // (bewusste Design-Entscheidung: Familie koordiniert Wecker gemeinsam).
