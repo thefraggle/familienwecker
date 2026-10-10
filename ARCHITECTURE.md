@@ -66,12 +66,13 @@ flowchart TB
 | [`/shared`](shared) | Kotlin Multiplatform (KMP), Room DB | Shared scheduling algorithm (`Scheduler.kt`), domain models (`FamilyModels.kt`), Room database cache, and settings. |
 | [`/ios`](ios) | Swift, SwiftUI, AlarmKit | Native iOS application, Live Activities, lock screen interactions, and local persistence. |
 | [`/functions`](functions) | Node.js 22, Firebase SDK v2 | Cloud Functions for background maintenance, family management (`deleteFamily`, `joinFamilyByCode`), and transactional emails. |
+| [`/distribution`](distribution) | Python, Shell, Fastlane | Store listings across 29 locales, store assets, icons, feature graphics, and release automation scripts. |
+| [`/docs`](docs) | Markdown | Comprehensive architecture, guidelines, and bilingual release changelogs (`CHANGELOG.md` & `CHANGELOG.en.md`). |
 
 ### KMP-Strategie & Modul-Rolle (`:shared`)
 - **Architektur-Entscheidung:** Das Modul `:shared` beherbergt plattformunabhängige Domänenmodelle, den Kern-Planungsalgorithmus (`Scheduler.kt`), Multiplatform Settings und die Room-Datenbank.
 - **Android:** `:shared` wird direkt vom Android-Client (`:app`) als Kernbibliothek eingebunden.
 - **iOS:** Die iOS-Applikation setzt auf 100% natives Swift/SwiftUI mit tief integrierten Systemdiensten (AlarmKit, ActivityKit). Die Planungslogik ist in purem Swift gespiegelt (`Scheduler.swift`), um maximale Performance und minimale Binary-Größe ohne Kotlin/Native-Overhead zu garantieren. `:shared` ist als KMP-Basis vorbereitet, falls künftig gemeinsame Logik via XCFramework geteilt werden soll.
-
 
 ---
 
@@ -115,16 +116,40 @@ flowchart LR
     ├── joinCode: string (6 chars, unique)
     ├── createdByUserId: string
     ├── userIds: string[]
+    ├── globalBufferMinutes: number (optional)
+    ├── vacationUntil: string (optional, YYYY-MM-DD)
     └── members/{memberId}
-            ├── name: string
+            ├── name: string (1-50 chars)
             ├── isAwakeToday: boolean
             ├── isPaused: boolean
             ├── sequenceOrder: number
-            ├── dayProfiles: map
-            └── claimedByUserId: string (optional)
+            ├── dayProfiles: map<dayNumber, DayProfile>
+            ├── claimedByUserId: string (optional)
+            ├── claimedByUserName: string (optional)
+            ├── claimedByDeviceId: string (optional)
+            ├── deviceAlarmEnabled: boolean (optional)
+            ├── snoozeUntil: timestamp (optional)
+            ├── snoozeCount: number (optional)
+            ├── soundUri: string (optional)
+            └── createdAt / lastUpdatedAt: serverTimestamp
+
+/feedback/{feedbackId}
+    ├── uid: string
+    ├── category: string
+    ├── message: string
+    ├── appVersion: string
+    ├── device: string
+    └── createdAt: serverTimestamp
+
+/_admins/{userId}
+    └── email: string, promotedAt: timestamp
+
+/_rate_limits / _pushLocks (Internal Cloud Functions locks)
 ```
 
 ### Security Rules (`firestore.rules`)
-- **Read & Write Scoping:** Access is strictly limited to authenticated users whose `uid` is present in the family's `userIds` array (`isFamilyMember()`).
-- **Field-Level Protection:** Clients cannot modify immutable fields such as `createdByUserId`, `joinCode`, or `userIds` directly.
+- **Three-Tier Membership Verification (`isFamilyMember()`):** Fast-path check via `/users/{uid}.familyId`, fallback to family creator `createdByUserId`, or fallback to legacy `userIds` array.
+- **Strict Member Schema Validation (`isValidMemberCreate()`):** Enforces string length, key whitelisting via `hasOnly()`, type constraints on all fields, and prevents unauthorized profile claiming upon document creation.
+- **Field-Level Protection:** Clients cannot modify immutable fields such as `createdByUserId`, `joinCode`, or `userIds` directly. Profile-stealing and unclaiming are strictly constrained by claim status.
+- **Feedback Collection Guard:** Authenticated users can submit feedback with strictly validated payload sizes, matching `uid`, and server timestamp.
 - **Safe Deletion:** Direct client deletion of families is disallowed. Deletion is routed through the `deleteFamily` Cloud Function to guarantee recursive cleanup of member subcollections and user profiles.

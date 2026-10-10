@@ -14,8 +14,8 @@ Stop the morning chaos! **FamWake** is the smart family alarm & bathroom schedul
 
 * **Smart Morning Schedule:** Intelligent scheduling coordinates bathroom slots, breakfast, and wake-up times for the whole family.
 * **In Sync & Real-Time:** Live status updates for everyone – no more bathroom queues and zero morning stress.
-* **No Account Required:** Start immediately without registration or create an optional account (Google / Email) to sync seamlessly across multiple devices.
-* **Maximum Flexibility:** "Already awake" feature for early birds and intuitive routine adjustments.
+* **No Account Required:** Start immediately without registration, or use one-tap clipboard join. Optional account (Google / Email) syncs seamlessly across multiple devices.
+* **Maximum Flexibility:** Weekday profiles, vacation/holiday mode, "Already awake" feature, 30s crescendo gentle alarm, and evening routine check (20:30).
 * **Privacy-First:** Strictly privacy-focused, ad-free, and no data tracking.
 
 ---
@@ -26,10 +26,10 @@ FamWake is built as a Kotlin Multiplatform (KMP) project for Android and iOS wit
 
 ### Prerequisites
 * **OS**: macOS (required for iOS builds)
-* **JDK**: Java 17+ (e.g. Azul Zulu)
+* **JDK**: Java 17+ (Java 21+ required for Firebase Local Emulators)
 * **Android**: Android Studio & Android SDK (Target SDK 36)
-* **iOS**: Xcode 16+
-* **Backend**: Node.js & Firebase CLI (`npx firebase-tools`)
+* **iOS**: Xcode 16+ & Swift 5.0+
+* **Backend**: Node.js 22 & Firebase CLI (`npx firebase-tools`)
 
 ### Configuration & Secrets
 For local builds, template files are provided and must be populated:
@@ -48,10 +48,11 @@ For local builds, template files are provided and must be populated:
 ### Project Structure
 * `/app`: Android Application (Jetpack Compose, Room, Kotlin)
 * `/ios`: iOS Application (SwiftUI, AlarmKit)
-* `/shared`: Kotlin Multiplatform shared module (scheduler logic, shared models)
-* `/functions`: Firebase Cloud Functions (Node.js backend)
-* `/distribution`: App store assets, listings, and release automation scripts
+* `/shared`: Kotlin Multiplatform shared module (scheduler logic, shared models, settings, Room DB)
+* `/functions`: Firebase Cloud Functions (Node.js 22 backend)
+* `/distribution`: App store assets, listings across 29 locales, and release automation scripts
 * `/docs`: Documentation and changelogs (German & English)
+* `/internal`: Internal tools, marketing material, and dashboards (git-ignored)
 
 ### Core Build Commands
 
