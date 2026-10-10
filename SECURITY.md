@@ -6,8 +6,8 @@ We release patches and security updates for the latest version of FamWake:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 2.1.x   | :white_check_mark: |
-| < 2.1   | :x:                |
+| 2.2.x   | :white_check_mark: |
+| < 2.2   | :x:                |
 
 ## Reporting a Vulnerability
 
