@@ -1,50 +1,47 @@
-<b>Slut med morgenkaos! Dit familievækkeur til en afslappet morgenrutine.</b> 
+<b>Slut med morgenkaos! Dit smarte familievækkeur og børnevækkeur til rolige morgener.</b>
 
-Alle skal ud på samme tid, badeværelset er optaget, og nogen kommer altid for sent. Lyder det bekendt? Det gjorde det også for mig — hver eneste morgen. Derfor udviklede jeg <b>FamWake</b> som far: det familievækkeur, jeg altid havde ønsket mig.
+FamWake er din smarte morgenrutine-app og fælles vækkeur for hele familien — badeværelseskø, tidsplan og morgenoverblik samlet i én app.
 
-FamWake beregner det <b>perfekte vækketidspunkt</b> for hvert familiemedlem — baseret på badeværelse, morgenmad og afgangstid. Alle sover så længe som muligt, og ingen kommer for sent.
+Alle skal ud ad døren på samme tid, badeværelset er optaget, og nogen kommer altid for sent. Som far udviklede jeg <b>FamWake</b>: det <b>familievækkeur</b>, jeg altid har drømt om. Uanset om det er som <b>børnevækkeur</b>, støtte til børnenes morgenrutine eller fælles vækkeur.
 
-<b> Slut med badeværelseskøer</b>
-FamWake planlægger automatisk, hvem der bruger badeværelset hvornår — uden overlap. Du vækkes kun, når det virkelig er din tur.
+FamWake beregner det <b>perfekte vækketidspunkt</b> for hvert familiemedlem — afstemt efter badeværelsestid, morgenmad og afgangstid.
 
-<b> Fælles morgenmad</b>
-Aktiver morgenmadsindstillingen, og FamWake planlægger en fælles tid til et roligt måltid — inden alle skal af sted.
+<b> Slut med kø til badeværelset</b>
+FamWake planlægger automatisk tiderne på badeværelset uden overlap og med personlige buffertider. Du vågner først, når det rent faktisk er din tur.
 
-<b> Få overblik over hele familien</b>
-Dashboardet viser morgenplanen i realtid: hvem vågner hvornår, hvem er på badeværelset, og hvornår tager alle af sted. Skift rækkefølgen med nem træk-og-slip.
+<b> Fælles morgenmad for familien</b>
+Aktivér morgenmadsfunktionen, så I har tid til at sidde hyggeligt sammen, før skolen eller arbejdet kalder.
 
-<b> Allerede vågen?</b>
-Et tryk på "Allerede vågen", og din alarm ringer ikke — du er allerede oppe. Ingen alarm i dag? Sæt din egen alarm på pause, og FamWake beregner automatisk tidsplanen for alle andre.
+<b> Hele familien i realtid</b>
+Oversigten viser morgenplanen live: hvem står op hvornår, hvem er på badeværelset, og hvornår tager I af sted. Juster rækkefølgen med træk-og-slip — perfekt til børn og ADHD-venlig struktur.
 
-<b> Push-notifikationer</b>
-Når nogen ændrer sin alarm eller rækkefølgen, får du besked med det samme — hele familien er altid opdateret.
+<b> Fleksible ugedage & Ferietilstand</b>
+• <b>Ugedagsprofiler:</b> Indstil forskellige tider til ugens enkelte dage (senere mødetid, hjemmearbejde).
+• <b>Ferietilstand:</b> Sæt alle alarmer og påmindelser på pause med et enkelt tryk indtil feriens slutning. Starter automatisk igen på første skoledag!
 
-<b> Pålideligt vækkeur</b>
-FamWake vækker dig også, selvom appen er lukket — til tiden, altid. Vælg din egen vækkelyd og brug snooze ved behov.
+<b> Blid vækning & Høj alarm</b>
+Vækker pålideligt, selv når mobilen er på lydløs. 30 sekunders gradvis volumenstigning vækker børn roligt uden chok. Høje alarmtoner til rådighed for tungtsovende.
 
-<b> Tidskonflikter? Løst!</b>
-Når tiden er knap, opdager FamWake det automatisk og viser præcist, hvad der skal justeres.
+<b> Aften-tjek kl. 20:30 & „Allerede vågen“</b>
+• <b>Check-in kl. 20:30:</b> En venlig aftenpåmindelse sikrer, at morgendagens plan er helt klar.
+• <b>Allerede vågen?</b> Tryk på „Allerede vågen“, og dit vækkeur forbliver tavst i dag.
+• <b>1-klicks Auto-Fix:</b> Finder tidsmæssige konflikter med det samme og løser dem automatisk.
 
-<b> Moderne design</b>
-Skift mellem lyst og mørkt tema — eller lad det tilpasse sig automatisk.
+<b> Lynhurtig tilslutning uden konto for børn</b>
+Ingen oprettelse nødvendig for børn eller partner: Del familiekoden, og appen genkender den automatisk fra udklipsholderen ved åbning!
 
-<b> 25 sprog</b>
-FamWake taler English, Deutsch, Français, Español, Italiano, Nederlands, Polski, Português, Русский, Українська, Türkçe, Svenska, Norsk, Dansk, 日本語, 한국어, 中文, Bahasa Indonesia, Tiếng Việt, বাংলা, मराठी, हिन्दी — og endda Schwäbisch, Schweizerdeutsch og Ruhrpott-Deutsch!
+<b> Beskyttelse af personlige oplysninger</b>
+• Helt anonym brug (kun opretteren logger ind).
+• Ingen reklamer — nogensinde. Intet datasalg.
+• Tilgængelig på 25 sprog.
 
-<b> Dine data er sikre</b>
-• Ingen konto nødvendig: Brug appen helt anonymt. Kun den person, der opretter familien, skal logge ind.
-• Ingen reklamer — aldrig.
-• Intet datasalg — garanteret.
-• Krypterede forbindelser og minimal datalagring.
-• Sikker login via Google.
+<b>Sådan virker det:</b>
+1. Opret en familie og del koden.
+2. Indtast badeværelsestid, morgenmad og afgangstid.
+3. FamWake beregner den perfekte morgenplan automatisk hver dag.
 
-<b>Sådan virker det — i 3 trin:</b>
-1 Opret en familie og inviter dine kære med en invitationskode.
-2 Alle indtaster deres badetid, morgenmadsønske og afgangstid.
-3 FamWake beregner den perfekte plan — automatisk, hver morgen.
+<b>100% Gratis vækkeur</b>
+Alle kernefunktioner er og bliver <b>gratis</b> — uden abonnementer eller skjulte gebyrer.
 
-<b>Gratis at starte — ingen skjulte omkostninger.</b>
-Alle kernefunktioner i FamWake er og forbliver <b>gratis for altid</b> — intet abonnement, ingen tricks. I fremtiden kommer valgfrie premiumfunktioner. Hvis du allerede kan lide appen, kan du støtte os med en lille frivillig donation. 
-
-<b>Udviklet af en far, til familier.</b>
-FamWake er et hjerteprojekt — født ved vores eget morgenmadsbord og lavet til familier, der vil mestre deres morgenrutine sammen. Download FamWake Familievækkeur nu og opdag, hvor afslappet en morgen uden kaos kan være!
+<b>Udviklet af en far til familier.</b>
+Hent FamWake nu og start hver morgen i ro og harmoni!

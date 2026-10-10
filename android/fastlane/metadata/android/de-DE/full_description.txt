@@ -7,42 +7,41 @@ Alle müssen gleichzeitig raus und am Ende kommt jeder zu spät. Deshalb habe ic
 FamWake berechnet für jedes Familienmitglied den <b>perfekten Weckzeitpunkt</b> — abgestimmt auf Badezimmer, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und trotzdem sind alle pünktlich.
 
 <b> Kein Bad-Chaos – Dein smarter Badplaner</b>
-Wer wann ins Bad darf, plant FamWake automatisch als intelligenter <b>Badplaner</b> — ohne Überschneidungen. Perfekte Badezimmer-Reihenfolge: Du stehst erst auf, wenn du wirklich dran bist. Kein unnötig frühes Aufstehen mehr dank Badplaner.
+Wer wann ins Bad darf, plant FamWake automatisch als intelligenter <b>Badplaner</b> — ohne Überschneidungen und mit individuellen Pufferzeiten. Du stehst erst auf, wenn du wirklich dran bist.
 
 <b> Gemeinsam frühstücken</b>
 Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam frühstücken können — vor dem Start in Schule oder Arbeit.
 
 <b> Die ganze Familie im Blick</b>
-Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan, ADHS Planer und alltagstaugliche ADHS App für die Familie, visueller Timer für Kinder und Familienplaner für kinderleichtes Zeitmanagement und eine harmonische Morgenroutine.
+Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan, ADHS Planer und alltagstaugliche ADHS App für die Familie, visueller Timer für Kinder und Familienplaner für kinderleichtes Zeitmanagement.
 
-<b> Schon früher wach?</b>
-Ein Tipp auf „Schon wach“ und dein Wecker bleibt stumm — du bist ja schon auf. Brauchst du an einem Tag keinen Wecker? Pausiere dich einfach und der Familienwecker berechnet den Zeitplan automatisch neu.
+<b> Flexible Wochentage & Urlaubsmodus</b>
+• <b>Wochentags-Profile:</b> Für jeden Wochentag individuelle Weckzeiten und Schultage hinterlegen.
+• <b>Ferienmodus:</b> Wecker und Erinnerungen mit einem Klick bis zum Ferienende pausieren — am ersten Schultag startet alles automatisch neu.
 
-<b> Push-Benachrichtigungen</b>
-Ändert jemand seinen Wecker oder die Reihenfolge, wirst du sofort per Push benachrichtigt.
+<b> Sanftes Wecken & lauter Wecker</b>
+FamWake weckt zuverlässig auch bei stummem Gerät. Sanftes Wecken mit 30 Sekunden sanft ansteigender Lautstärke holt Kinder ohne Schreck aus dem Schlaf. Für Tiefschläfer gibt es durchsetzungsstarke Wecktöne.
 
-<b> Zuverlässiger, sanfter Wecker & lauter Wecker</b>
-FamWake weckt dich zuverlässig auch bei stummem Gerät — ob als sanfter Wecker mit angenehmen Wecktönen oder als Wecker laut und durchsetzungsstark für Tiefschläfer. Kinder aufwecken mit einem sanften oder lauten Kinderwecker war noch nie so entspannt.
+<b> Vorabend-Check & „Schon wach?“</b>
+• <b>Check-in um 20:30 Uhr:</b> Kurzer Abend-Hinweis, ob der Weckplan für morgen noch passt.
+• <b>Schon früher wach?</b> Ein Tipp auf „Schon wach“ und dein Wecker bleibt für heute stumm.
+• <b>1-Klick Auto-Fix:</b> Erkennt Zeitengpässe sofort und löst Konflikte automatisch.
 
-<b> Zeitkonflikte automatisch gelöst</b>
-Wird es zeitlich mal eng, erkennt FamWake das sofort und zeigt dir direkt, wo angepasst werden muss.
-
-<b> Modernes Design & 25 Sprachen</b>
-Helles und dunkles Design, augenfreundlich gestaltet. Weltweit in 25 Sprachen verfügbar — inklusive Schwäbisch, Schweizerdeutsch und Ruhrpott!
+<b> Blitzschneller Beitritt ohne Registrierung</b>
+Kein Konto für Kinder oder Partner nötig: Familien-Code teilen, App öffnen — der Code wird automatisch aus der Zwischenablage erkannt und alle sind sofort startklar.
 
 <b> Deine Daten sind sicher</b>
 • Völlig anonym nutzbar (nur der Ersteller meldet sich an).
-• Keine Werbung — niemals.
-• Kein Datenverkauf — garantiert.
-• Verschlüsselte Verbindungen.
+• Keine Werbung — niemals. Kein Datenverkauf.
+• Verfügbar in 25 Sprachen (inkl. Schwäbisch, Schweizerdeutsch, Ruhrpott).
 
 <b>So funktioniert's:</b>
-1. Familie erstellen und Einladungscode teilen.
-2. Bad-Zeit, Frühstück und Abfahrtszeit eingeben.
+1. Familie erstellen und Code teilen (keine Registrierung für Mitbewohner).
+2. Bad-Zeit, Frühstück und Abfahrtszeit festlegen.
 3. FamWake berechnet als Familienwecker, visueller Timer für Kinder und verlässlicher Kinder Wecker den perfekten Ablauf — wie ein Wecker mit Aufgaben und täglicher Wecker mit Mission, aber jeden Morgen vollautomatisch.
 
 <b>100% Wecker kostenlos</b>
-Alle Kernfunktionen sind und bleiben dauerhaft <b>kostenlos</b> — dieser Wecker kostenlos ohne Abo garantiert einen stressfreien Morgen für die ganze Familie. Optionale Premium-Features folgen später.
+Alle Kernfunktionen sind dauerhaft <b>kostenlos</b> — dieser Wecker kostenlos ohne Abo garantiert einen stressfreien Morgen für die ganze Familie.
 
 <b>Von einem Vater für Familien gebaut.</b>
-FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den Familienwecker und starte jeden Morgen mit einer entspannten Morgenroutine!
+FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den Familienwecker und starte jeden Morgen mit einer harmonischen Morgenroutine!

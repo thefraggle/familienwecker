@@ -1,50 +1,47 @@
-<b>O despertador inteligente e alarme familiar para sua rotina matinal sem caos!</b> 
+<b>Chega de caos matinal! Seu despertador familiar inteligente e despertador infantil para manhãs tranquilas.</b>
 
-Todo mundo precisa sair no mesmo horário, o banheiro está ocupado e alguém sempre se atrasa. Parece familiar? Comigo também era assim — toda santa manhã. Por isso criei o <b>FamWake</b> como pai de família: o alarme familiar e despertador inteligente que eu sempre quis ter para nos ajudar a acordar na hora e gerenciar a rotina matinal da família.
+O FamWake é seu app completo de rotina matinal e alarme compartilhado para toda a família — horários de banheiro, ordem matinal e planejamento em um só lugar.
 
-O FamWake calcula o <b>momento perfeito para acordar</b> para cada membro da família — com base no tempo de banheiro, no café da manhã e no horário de saída. Todos dormem o máximo possível e ninguém se atrasa.
+Todos precisam sair na mesma hora, o banheiro está ocupado e alguém sempre se atrasa. Como pai, criei o <b>FamWake</b>: o <b>despertador familiar</b> que sempre sonhei ter. Seja como <b>despertador para crianças</b>, auxílio na rotina matinal infantil ou alarme compartilhado para casais e colegas de casa.
 
-<b> Fila do banheiro sem estresse</b>
-O FamWake planeja automaticamente quem usa o banheiro e quando — sem sobreposições. Você só é acordado quando é realmente a sua vez. Chega de acordar mais cedo "só por precaução".
+O FamWake calcula o <b>horário perfeito de despertar</b> para cada pessoa — coordenado com o banheiro, o café da manhã e a hora de saída.
+
+<b> Fim das filas no banheiro</b>
+O FamWake organiza os turnos do banheiro automaticamente, sem sobreposições e com tempos de intervalo personalizados. Você só acorda quando realmente for sua vez.
 
 <b> Café da manhã em família</b>
-Ative a opção de café da manhã e o FamWake planeja um horário comum para que todos se sentem à mesa juntos — antes da correria começar.
+Ative a opção de café da manhã para desfrutarem de uma refeição calma juntos antes de começar a correria do dia.
 
-<b> Toda la família em um relance</b>
-O painel mostra o plano matinal em tempo real: quem acorda e quando, quem está no banheiro e quando cada um sai. Reordene a fila facilmente arrastando e soltando (drag & drop).
+<b> Toda a família visível em tempo real</b>
+O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — excelente para crianças e rotinas TDAH.
 
-<b> Já está acordado?</b>
-Um toque em "Já acordei" e o seu alarme não vai tocar — afinal, você já está de pé. Não precisa de alarme hoje? Basta pausar o seu alarme e o FamWake recalcula automaticamente a rotina para o resto da família.
+<b> Horários por dia da semana e Modo Férias</b>
+• <b>Perfis diários:</b> Defina horários específicos para cada dia da semana (aulas mais tarde, home office).
+• <b>Modo Férias:</b> Pause alarmes e lembretes até o final das férias com um só toque. Reativação automática no primeiro dia de aula!
 
-<b> Notificações push</b>
-Quando alguém muda o próprio alarme ou a ordem do banheiro, você recebe uma notificação push na hora — assim, toda a família fica sempre atualizada.
+<b> Despertar suave e Alarme alto</b>
+Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos para acordar as crianças com calma e sem sustos. Toques fortes para quem tem sono pesado.
 
-<b> Alarme confiável</b>
-O FamWake acorda você mesmo com o app fechado — sempre na hora certa. Escolha o seu próprio toque de alarme e use a função soneca (snooze) se precisar.
+<b> Lembrete noturno às 20h30 e «Já acordei»</b>
+• <b>Check-in às 20h30:</b> Um aviso suave na noite anterior garante que o plano do dia seguinte esteja pronto.
+• <b>Já está de pé?</b> Toque em «Já acordei» e o alarme não tocará hoje.
+• <b>Auto-Fix em 1 toque:</b> Detecta conflitos de horário e os resolve instantaneamente.
 
-<b> Conflitos de horário? Resolvido!</b>
-Quando o tempo aperta, o FamWake detecta automaticamente e mostra exatamente o que precisa ser ajustado para a manhã fluir sem estresse.
+<b> Entrada rápida sem conta para crianças</b>
+Sem necessidade de cadastro para filhos ou parceiro: basta compartilhar o código da família. O app lê o código da área de transferência ao abrir!
 
-<b> Design moderno</b>
-Alterne entre o modo claro e escuro — ou deixe que se adapte automaticamente ao sistema do seu celular. Elegante e confortável para os olhos.
+<b> Privacidade em primeiro lugar</b>
+• Uso totalmente anônimo (apenas o criador da família faz login).
+• Sem anúncios, nunca. Sem venda de dados.
+• Disponível em 25 idiomas.
 
-<b> 25 idiomas</b>
-O FamWake fala English, Deutsch, Français, Español, Italiano, Nederlands, Polski, Português, Русский, Українська, Türkçe, Svenska, Norsk, Dansk, 日本語, 한국어, 中文, Bahasa Indonesia, Tiếng Việt, Bangla, Marathi, हिन्दी — e até Schwäbisch, Schweizerdeutsch e Ruhrpott-Deutsch!
+<b>Como funciona:</b>
+1. Crie sua família e compartilhe o código de convite.
+2. Defina o tempo de banheiro, café da manhã e hora de saída.
+3. O FamWake calcula o cronograma matinal ideal todas as manhãs.
 
-<b> Seus dados estão seguros</b>
-• Não é necessária conta: use o aplicativo de forma totalmente anônima. Apenas a pessoa que cria a família precisa fazer login.
-• Sem anúncios — nunca.
-• Sem venda de dados — garantizado.
-• Conexões criptografadas e armazenamento mínimo de dados.
-• Login seguro via Google.
-
-<b>Como funciona — em 3 passos simples:</b>
-1 Crie uma família e convide seus familiares com um código de convite.
-2 Cada um insere o seu tempo de banheiro, preferência de café da manhã e horário de saída.
-3 O FamWake calcula o horário perfeito — automaticamente, toda manhã.
-
-<b>Gratuito para começar — sem custos ocultos.</b>
-Todas as funcionalidades essenciais do FamWake são e continuarão sendo <b>gratuitas para sempre</b> — sem assinaturas, sem pegadinhas. No futuro, funcionalidades premium opcionais estarão disponíveis para ainda mais conforto. Se você já gosta do app, pode nos apoiar com uma pequena doação voluntaria. 
+<b>Despertador 100% Gratuito</b>
+Todas as funcionalidades principais são e serão <b>gratuitas para sempre</b> — sem assinaturas.
 
 <b>Criado por um pai, para famílias.</b>
-O FamWake é um projeto do coração — nascido na nossa própria mesa de café da manhã e feito para famílias que querem organizar a rotina matinal juntas. Baixe o FamWake agora, o seu novo despertador inteligente e alarme família, e descubra como acordar na hora e ter uma rotina matinal sem caos pode ser relaxante!
+Baixe o FamWake agora e comece suas manhãs com paz e pontualidade!
