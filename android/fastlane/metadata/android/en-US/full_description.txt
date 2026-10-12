@@ -1,19 +1,19 @@
 <b>End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.</b>
 
-FamWake is your all-in-one family routine planner, morning routine app, visual schedule planner, and shared alarm clock for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
+FamWake is your all-in-one family routine planner, morning routine app, kids routine app, visual schedule planner, and shared alarm clock for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
 Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart <b>kids alarm clock</b>, a helper for your <b>kids morning routine</b>, or a <b>shared alarm clock</b> for couples and roommates — FamWake makes mornings easy.
 
 FamWake calculates the <b>perfect wake-up time</b> for each person — coordinated with bathroom turns, breakfast, and departure time. Everyone sleeps as long as possible, and nobody is late.
 
 <b> No More Bathroom Queues</b>
-FamWake is a shared alarm clock and synchronized group alarm that manages your bathroom schedule automatically with zero overlaps and custom buffer times. A reliable shared alarm ensures you only wake up when it's actually your turn.
+FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule automatically with zero overlaps and custom buffer times. A reliable shared alarm ensures you only wake up when it's actually your turn.
 
 <b> Family Breakfast Together</b>
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule and visual schedule for kids, designed for effortless morning planning, kids morning routine app management, and calm family starts.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule and visual schedule for kids, ideal as an ADHD habit tracker for effortless morning planning, kids morning routine app management, and calm family starts.
 
 <b> Flexible Weekdays & Vacation Mode</b>
 • <b>Day Profiles:</b> Set custom wake-up times and school routines for every single day of the week.

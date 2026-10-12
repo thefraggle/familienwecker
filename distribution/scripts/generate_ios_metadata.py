@@ -228,10 +228,10 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # These are the core search terms users would use to find this app
-KEYWORDS_DE = 'kinderwecker,zeitmanagement,badplaner,laut,visuell,sanft,timer,mission,adhs,plan,aufgaben,struktur'
-KEYWORDS_EN = 'kids,daily,routine,bathroom,timer,wake,schedule,checklist,shared,group,visual,first,then,loud'
+KEYWORDS_DE = 'kinderwecker,badplaner,zeitmanagement,extrem,laut,adhs,kids,timer,visuell,mission,aufgaben,sanft,app'
+KEYWORDS_EN = 'bathroom,schedule,checklist,shared,group,visual,first,then,loud,chore,habit,adhd,wake,planner,daily'
 
-# Hardcoded optimized keywords per locale (ASO KW 41)
+# Hardcoded optimized keywords per locale (ASO KW 42)
 KEYWORDS_BY_LOCALE = {
     'de-DE': KEYWORDS_DE,
     'en-US': KEYWORDS_EN,
@@ -245,8 +245,8 @@ KEYWORDS_BY_LOCALE = {
 # Hardcoded per locale for consistency.
 SUBTITLES = {
     'de-DE':   'Familienwecker & Morgenroutine',
-    'en-US':   'Family Alarm & Morning Planner',
-    'en-GB':   'Family Alarm & Morning Planner',
+    'en-US':   'Kids Morning Routine & Timer',
+    'en-GB':   'Kids Morning Routine & Timer',
     'fr-FR':   'R\u00e9veil familial & planning',
     'es-ES':   'Alarma familiar & planificador',
     'es-MX':   'Alarma familiar & planificador',
