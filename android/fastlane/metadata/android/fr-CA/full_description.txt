@@ -1,10 +1,10 @@
 <b>Fini le chaos du matin ! Ton réveil familial et réveil enfant pour une routine matinale sereine.</b>
 
-FamWake est ton application de routine matinale intelligente et réveil familial pour toute la maison — gestion de la salle de bain, ordre de passage et planning du matin dans une seule application.
+FamWake est ton application de routine matinale intelligente et planificateur pour toute la maison — gestion de la salle de bain, ordre de passage et planning du matin dans une seule application.
 
-Tout le monde doit partir en même temps, la salle de bain est occupée et quelqu'un finit toujours en retard. En tant que père, j'ai créé <b>FamWake</b> : le <b>réveil familial</b> dont j'avais toujours rêvé. Que ce soit comme <b>réveil enfant</b>, pour structurer la <b>routine matinale des enfants</b> ou comme réveil partagé en couple ou colocation — FamWake simplifie vos matins.
+Tout le monde doit partir en même temps, la salle de bain est occupée et quelqu'un finit toujours en retard. En tant que père, j'ai créé <b>FamWake</b> : le <b>réveil familial</b> dont j'avais toujours rêvé. Que ce soit comme <b>réveil enfant</b>, pour structurer la <b>routine matinale des enfants</b> ou comme planning partagé en couple ou colocation — FamWake simplifie vos matins.
 
-FamWake calcule le <b>moment de réveil idéal</b> pour chaque membre de la famille — synchronisé avec le passage à la salle de bain, le petit-déjeuner et l'heure de départ.
+FamWake calcule le <b>moment de lever idéal</b> pour chaque membre de la famille — synchronisé avec le passage à la salle de bain, le petit-déjeuner et l'heure de départ.
 
 <b> Fini les embouteillages dans la salle de bain</b>
 FamWake planifie automatiquement l'accès à la salle de bain sans chevauchement et avec des temps tampons personnalisés. Tu ne te lèves que lorsque c'est vraiment ton tour.
@@ -13,18 +13,18 @@ FamWake planifie automatiquement l'accès à la salle de bain sans chevauchement
 Active l'option petit-déjeuner pour partager un moment convivial tous ensemble avant de partir à l'école ou au travail.
 
 <b> Toute la famille en un coup d'œil</b>
-Le tableau de bord affiche le planning en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — idéal pour les enfants et adapté aux besoins TDAH.
+Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel idéal pour les enfants et adapté aux besoins TDAH.
 
 <b> Profils par jour de la semaine & Mode Vacances</b>
-• <b>Profils quotidiens :</b> Définis des heures de réveil et durées de salle de bain spécifiques pour chaque jour (cours décalés, télétravail).
+• <b>Profils quotidiens :</b> Définis des horaires et durées de salle de bain spécifiques pour chaque jour (cours décalés, télétravail).
 • <b>Mode Vacances :</b> Mets en pause alarmes et rappels d'un simple clic jusqu'à la rentrée. Reprise 100% automatique le premier jour d'école !
 
-<b> Réveil en douceur & Alarme puissante</b>
-Fonctionne de manière fiable même en mode silencieux. Le réveil progressif augmente doucement le volume sur 30 secondes pour réveiller les enfants sans sursaut. Tonalités fortes disponibles pour les gros dormeurs.
+<b> Éveil en douceur & Alarme puissante</b>
+Fonctionne de manière fiable même en mode silencieux. Le volume progressif augmente doucement sur 30 secondes pour éveiller les enfants sans sursaut. Tonalités fortes disponibles pour les gros dormeurs.
 
-<b> Rappel du soir & « Déjà réveillé »</b>
+<b> Rappel du soir & « Déjà debout »</b>
 • <b>Check-in à 20h30 :</b> Une notification discrète la veille au soir pour vérifier que le planning de demain est prêt.
-• <b>Déjà debout ?</b> Un appui sur « Déjà réveillé » et ton réveil reste silencieux aujourd'hui.
+• <b>Déjà debout ?</b> Un appui sur « Déjà réveillé » et ton alarme reste silencieuse aujourd'hui.
 • <b>Auto-Fix en 1 clic :</b> Détecte immédiatement les conflits d'horaires et les résout automatiquement.
 
 <b> Rejoint instantanément sans création de compte</b>
@@ -40,7 +40,7 @@ Aucun compte nécessaire pour les enfants ou le partenaire : partage le code fam
 2. Indique la durée de salle de bain, le petit-déjeuner et l'heure de départ.
 3. FamWake calcule automatiquement le planning matinal parfait chaque matin.
 
-<b>100% Réveil Gratuit</b>
+<b>100% Gratuit & Sans Publicité</b>
 Toutes les fonctionnalités essentielles sont et resteront <b>gratuites</b> — sans abonnement ni frais cachés.
 
 <b>Créé par un père, pour les familles.</b>

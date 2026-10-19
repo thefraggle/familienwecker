@@ -147,6 +147,35 @@ def extract_ios_sections(listing_path):
     return title, subtitle, promo, keywords
 
 
+# Mapping: ASC locale → Android Fastlane locale directory
+ASC_TO_ANDROID_LOCALE = {
+    'de-DE':   'de-DE',
+    'en-US':   'en-US',
+    'en-GB':   'en-GB',
+    'fr-FR':   'fr-FR',
+    'es-ES':   'es-ES',
+    'es-MX':   'es-419',
+    'pt-BR':   'pt-BR',
+    'pt-PT':   'pt-PT',
+    'it':      'it-IT',
+    'nl-NL':   'nl-NL',
+    'ja':      'ja-JP',
+    'ko':      'ko-KR',
+    'zh-Hans': 'zh-CN',
+    'ru':      'ru-RU',
+    'tr':      'tr-TR',
+    'pl':      'pl-PL',
+    'sv':      'sv-SE',
+    'da':      'da-DK',
+    'no':      'no-NO',
+    'id':      'id',
+    'vi':      'vi',
+    'hi':      'hi-IN',
+    'uk':      'uk',
+    'bn-BD':   'bn-BD',
+    'mr-IN':   'mr-IN',
+}
+
 # Mapping: ASC locale → Play Store listing file key
 ASC_TO_LISTING = {
     'de-DE':   'de',
@@ -227,33 +256,52 @@ PROMO_TEXTS = {
 }
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
-# These are the core search terms users would use to find this app
-KEYWORDS_DE = 'kinderwecker,badplaner,zeitmanagement,extrem,laut,adhs,kids,timer,visuell,mission,aufgaben,sanft,app'
-KEYWORDS_EN = 'bathroom,schedule,checklist,shared,group,visual,first,then,loud,chore,habit,adhd,wake,planner,daily'
+# Deduplicated against Title & Subtitle, policy-compliant (no price words like "free"/"kostenlos")
+KEYWORDS_DE = 'kinderwecker,badplaner,zeitplan,extrem,laut,adhs,kids,visuell,mission,aufgaben,sanft,tagesplan,wach'
+KEYWORDS_EN = 'checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,shared,timer,morning'
 
-# Hardcoded optimized keywords per locale (ASO KW 42)
+# Hardcoded optimized keywords per locale (ASO KW 43)
 KEYWORDS_BY_LOCALE = {
-    'de-DE': KEYWORDS_DE,
-    'en-US': KEYWORDS_EN,
-    'en-GB': KEYWORDS_EN,
-    'ja': '目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,家族,共有,グループアラーム,習慣,タイマー,無料,スヌーズ,時間管理,時計,生活リズム',
-    'ko': '알람,가족,어린이,아침,루틴,욕실,플래너,스누즈,일정,도구,famwake,모닝콜,시간표,무료,기상,습관,타이머,시간관리,탁상시계,기상시간,모닝루틴',
-    'zh-Hans': '闹钟,家庭,儿童,早晨,常规,浴室,规划,重响,日程,工具,famwake,习惯,计时器,起床,免费,提醒,时间管理,共享,早起,生活习惯,作息时间,儿童闹钟',
+    'de-DE':   KEYWORDS_DE,
+    'en-US':   KEYWORDS_EN,
+    'en-GB':   KEYWORDS_EN,
+    'fr-FR':   'enfant,matin,routine,salle,bain,horaire,famille,partagé,groupe,visuel,minuteur,tdah,habitude,tâches',
+    'es-ES':   'despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo,visual,tdah,hábitos',
+    'es-MX':   'despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo,visual,tdah,hábitos',
+    'pt-BR':   'despertador,infantil,crianças,rotina,manhã,banheiro,horário,compartilhado,grupo,visual,timer,tdah',
+    'pt-PT':   'despertador,infantil,crianças,rotina,manhã,banheiro,horário,compartilhado,grupo,visual,timer,tdah',
+    'it':      'bambini,routine,mattina,bagno,turni,orario,condivisa,gruppo,visivo,timer,adhd,abitudini,compiti',
+    'nl-NL':   'kinderwekker,ochtendroutine,kinderen,badkamer,tijdschema,gedeeld,groep,visueel,timer,adhd,taken',
+    'pl':      'dzieci,poranna,rutyna,łazienka,harmonogram,wspólny,grupowy,wizualny,minutnik,adhd,zadania,nawyki',
+    'tr':      'çalar,saat,çocuk,rutin,banyo,sırası,program,ortak,grup,görsel,zamanlayıcı,dehb,görev,alışkanlık',
+    'ru':      'дети,детский,утро,рутина,ванная,очередь,расписание,общий,таймер,визуальный,сдвг,привычки,задачи',
+    'uk':      'діти,дитячий,ранок,рутина,ванна,черга,розклад,спільний,таймер,візуальний,рдвг,звички,завдання',
+    'sv':      'väckarklocka,barn,morgonrutin,badrum,schema,delad,grupp,visuell,timer,adhd,uppgifter,vanor,familj',
+    'da':      'vækkeur,børnevækkeur,børn,morgenrutine,badeværelse,tidsplan,fælles,visuel,timer,adhd,opgaver,vaner',
+    'no':      'vekkerklokke,barnevekkerur,barn,morgenrutine,baderom,tidsplan,felles,visuell,timer,adhd,oppgaver',
+    'id':      'jam,anak,rutinitas,pagi,kamar,mandi,giliran,jadwal,bersama,grup,visual,timer,adhd,tugas,kebiasaan',
+    'vi':      'trẻ,em,lịch,trình,buổi,sáng,phòng,tắm,thời,gian,biểu,chung,nhóm,hẹn,giờ,adhd,thói,quen,nhiệm,vụ',
+    'ja':      '目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,洗面所,共有,グループ,習慣,タイマー,スヌーズ,時間管理,生活リズム,ADHD',
+    'ko':      '알람시계,어린이,루틴,욕실,스누즈,일정,모닝콜,시간표,기상,습관,타이머,시간관리,탁상시계,기상시간,모닝루틴,공유,그룹,ADHD',
+    'zh-Hans': '儿童闹钟,早晨,常规,浴室,洗漱,重响,日程表,习惯,计时器,起床,提醒,时间管理,共享,早起,生活习惯,作息时间,视觉计时器,多动症',
+    'hi':      'बच्चे,सुबह,रूटीन,बाथरूम,बारी,समय,सारणी,साझा,ग्रुप,विजुअल,टाइमर,आदत,टास्क,घड़ी,नाश्ता,स्कूल',
+    'bn-BD':   'শিশু,সকাল,রুটিন,বাথরুম,পালা,সময়সূচী,শেয়ার,গ্রুপ,ভিজ্যুয়াল,টাইমার,অভ্যাস,টাস্ক,ঘড়ি,নাশতা',
+    'mr-IN':   'मुले,सकाळ,रुटीन,बाथरूम,वेळ,वेळापत्रक,सामायिक,ग्रुप,व्हिज्युअल,टायमर,सवय,टास्क,घड्याळ,नाश्ता',
 }
 
 # App Store subtitle: max 30 chars, shown below app name.
 # Hardcoded per locale for consistency.
 SUBTITLES = {
     'de-DE':   'Familienwecker & Morgenroutine',
-    'en-US':   'Kids Morning Routine & Timer',
-    'en-GB':   'Kids Morning Routine & Timer',
+    'en-US':   'Bathroom Schedule & Routine',
+    'en-GB':   'Bathroom Schedule & Routine',
     'fr-FR':   'R\u00e9veil familial & planning',
     'es-ES':   'Alarma familiar & planificador',
     'es-MX':   'Alarma familiar & planificador',
     'pt-BR':   'Alarme familiar & planejador',
     'pt-PT':   'Alarme familiar & planejador',
     'it':      'Sveglia famiglia & pianifica',
-    'nl-NL':   'Familiewekker & ochtendplanner',
+    'nl-NL':   'Gezinswekker & ochtendplanner',
     'ja':      '家族目覚まし＆朝のプランナー',
     'ko':      '가족 알람 및 아침 플래너',
     'zh-Hans': '家庭智能闹钟 & 早晨日程规划',
@@ -267,7 +315,7 @@ SUBTITLES = {
     'vi':      'B\u00e1o th\u1ee9c gia \u0111\u00ecnh & k\u1ebf ho\u1ea1ch',
     'hi':      'परिवार अलार्म और प्लानर',
     'uk':      'Сімейний будильник & планер',
-    'bn-BD':   'পারিবারিক অ্যালার্ম ও সূचि',
+    'bn-BD':   'পারিবারিক অ্যালার্ম ও সূচি',
     'mr-IN':   'कौटुंबिक अलार्म आणि नियोजक',
 }
 
@@ -280,6 +328,7 @@ def write_file(path, content):
 
 def main():
     listings_dir = os.path.join('docs', 'internal', 'play_store_listings')
+    android_metadata_dir = os.path.join('android', 'fastlane', 'metadata', 'android')
     metadata_base = os.path.join('ios', 'fastlane', 'metadata')
     os.makedirs(metadata_base, exist_ok=True)
 
@@ -291,7 +340,7 @@ def main():
         from deep_translator import GoogleTranslator
         translator_available = True
     except ImportError:
-        print("⚠️  deep-translator not installed, falling back to EN for all locales")
+        print("⚠️  deep-translator not installed, using localized Fastlane sources")
         translator_available = False
 
     print("=" * 60)
@@ -303,6 +352,7 @@ def main():
         os.makedirs(locale_dir, exist_ok=True)
         target_lang = TRANSLATION_TARGETS[asc_locale]
         listing_key = ASC_TO_LISTING[asc_locale]
+        android_locale = ASC_TO_ANDROID_LOCALE.get(asc_locale, 'en-US')
 
         # ── 1. RELEASE NOTES ─────────────────────────────────────
         changelog_path = CHANGELOG_SOURCES.get(asc_locale)
@@ -334,12 +384,13 @@ def main():
         write_file(os.path.join(locale_dir, 'release_notes.txt'), notes)
 
         # ── 2. DESCRIPTION ───────────────────────────────────────
+        android_desc_file = os.path.join(android_metadata_dir, android_locale, 'full_description.txt')
         listing_file = os.path.join(listings_dir, f'{listing_key}.md')
-        desc = get_description_from_listing(listing_file)
+        desc = safe_read_file(android_desc_file) or get_description_from_listing(listing_file)
 
         if not desc:
-            print(f"  ⚠️  [FALLBACK] Using EN description for {asc_locale} (listing file: {listing_key}.md)")
-            desc = get_description_from_listing(os.path.join(listings_dir, 'en.md')) or ""
+            print(f"  ⚠️  [FALLBACK] Using EN description for {asc_locale}")
+            desc = safe_read_file(os.path.join(android_metadata_dir, 'en-US', 'full_description.txt')) or ""
 
         desc = strip_html(desc)
         desc = strip_emojis(desc)
