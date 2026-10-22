@@ -331,9 +331,8 @@ fun FamilyViewModel.toggleAwakeMember(memberId: String) {
         alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
         cancelAlarmForCurrentUser()
         lastScheduledAlarmMillis = null
-    } else {
-        recalculateSchedule()
     }
+    recalculateSchedule()
 }
 
 fun FamilyViewModel.moveMemberOrder(fromIndex: Int, toIndex: Int, wholeWeek: Boolean = false) {
@@ -373,6 +372,7 @@ fun FamilyViewModel.moveMemberOrder(fromIndex: Int, toIndex: Int, wholeWeek: Boo
                     bathroomDurationMinutes = m.bathroomDurationMinutes,
                     wantsBreakfast = m.wantsBreakfast,
                     leaveHomeTime = m.leaveHomeTime,
+                    breakfastDurationMinutes = m.breakfastDurationMinutes,
                     isSimpleMode = m.isSimpleMode
                 )
                 val updatedProfile = profile.copy(sequenceOrder = indexInTarget)
@@ -420,15 +420,24 @@ fun FamilyViewModel.saveMemberOrder() {
  * isAwakeToday / isPaused zurück. Schreibt Änderungen als Batch nach Firestore.
  */
 internal fun FamilyViewModel.checkAndResetMembers(members: List<FamilyMember>): List<FamilyMember> {
-    val today = java.time.LocalDate.now().toString()
+    val todayDate = java.time.LocalDate.now()
+    val today = todayDate.toString()
+    val todayDow = todayDate.dayOfWeek.value
     val now = java.time.LocalTime.now()
+    val nowMinutes = now.hour * 60 + now.minute
     val toUpdate = mutableListOf<FamilyMember>()
 
     val result = members.map { member ->
-        val resetThreshold = member.latestWakeUp.toJavaLocalTime().plusHours(2)
-        val isPastResetThreshold = now.isAfter(resetThreshold)
+        val effectiveLatest = (member.dayProfiles?.get(todayDow)?.latestWakeUp ?: member.latestWakeUp).toJavaLocalTime()
+        val latestMinutes = effectiveLatest.hour * 60 + effectiveLatest.minute
+        // Mitternachts-sichere Schwelle (max 23:59), verhindert Wraparound bei latestWakeUp >= 22:00
+        val thresholdMinutes = minOf(23 * 60 + 59, latestMinutes + 120)
+        val isPastTodayThreshold = nowMinutes >= thresholdMinutes
+        // Falls lastResetDate noch auf einem Vortag steht und wir uns am neuen Tag vor dem heutigen Weckfenster befinden
+        val isStaleFromPreviousDay = member.lastResetDate.isNotEmpty() && member.lastResetDate < today && nowMinutes < latestMinutes
+        val needsReset = (member.lastResetDate != today) && (isPastTodayThreshold || isStaleFromPreviousDay)
 
-        if (isPastResetThreshold && member.lastResetDate != today) {
+        if (needsReset) {
             val isUnclaimed = member.claimedByUserId == null
             val newIsPaused = if (isUnclaimed) false else member.isPaused
             // Snooze-State zurücksetzen: neuer Tag = neue Snooze-Kontingente
@@ -452,10 +461,13 @@ internal fun FamilyViewModel.checkAndResetMembers(members: List<FamilyMember>): 
     }
 
     val familyIdVal = familyId.value
-    if (familyIdVal != null && toUpdate.isNotEmpty()) {
+    if (toUpdate.isNotEmpty()) {
         scope.launch(kotlinx.coroutines.Dispatchers.IO) {
             try {
-                repository.updateMembersBatch(familyIdVal, toUpdate)
+                toUpdate.forEach { memberRepository.upsertMember(it) }
+                if (familyIdVal != null && !appSettings.isLocalOnlyFamily.value) {
+                    repository.updateMembersBatch(familyIdVal, toUpdate)
+                }
             } catch (e: Exception) {
                 if (BuildConfig.DEBUG) {
                     Log.e("FamilyViewModel", "Failed to reset member status batch: ${e.message}")

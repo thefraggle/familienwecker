@@ -49,6 +49,7 @@ import de.familienwecker.famwake.R
 import androidx.core.net.toUri
 import com.aptabase.Aptabase
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.first
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
@@ -108,16 +109,78 @@ class RingingActivity : AppCompatActivity() {
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = true)
                             alarmScheduler.cancelWakeUp(memberId, isSnooze = false)
 
-                            // Firestore: Snooze-State zurücksetzen + isAwakeToday aktualisieren (best-effort)
+                            // Lokalen Room-Cache aktualisieren, den Folge-Alarm für morgen planen
+                            // (falls MainActivity nicht im Back-Stack liegt) und Firestore synchronisieren.
+                            // Eigener IO-Scope, damit finish() die Coroutine nicht abbricht.
                             val familyId = appSettings.familyId.value
-                            if (familyId != null && memberId.isNotEmpty()) {
-                                lifecycleScope.launch {
-                                    try {
+                            val appContext = applicationContext
+                            kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                                try {
+                                    val memberRepo = FamWakeApplication.instance.memberRepository
+                                    val currentMembers = memberRepo.members.first()
+                                    val updatedMembers = currentMembers.map { m ->
+                                        if (m.id == memberId) {
+                                            m.copy(isAwakeToday = true, snoozeUntil = null, snoozeCount = 0)
+                                        } else m
+                                    }
+                                    val targetMember = updatedMembers.find { it.id == memberId }
+                                    if (targetMember != null) {
+                                        memberRepo.upsertMember(targetMember)
+                                    }
+
+                                    // Direkt den Wecker für morgen im AlarmManager + Backup planen,
+                                    // falls die App nach dem Beenden des Alarms nicht geöffnet wird.
+                                    if (appSettings.isAlarmEnabled.value && memberId.isNotEmpty() && updatedMembers.isNotEmpty()) {
+                                        val tomorrow = java.time.LocalDate.now().plusDays(1)
+                                        val tomorrowDow = tomorrow.dayOfWeek.value
+                                        val tomorrowMembers = updatedMembers.map { m ->
+                                            val profile = m.dayProfiles?.get(tomorrowDow)
+                                            if (profile != null) {
+                                                if (!profile.isActive) {
+                                                    m.copy(isPaused = true, snoozeUntil = null, snoozeCount = 0)
+                                                } else {
+                                                    m.copy(
+                                                        isPaused = m.isPaused,
+                                                        earliestWakeUp = profile.earliestWakeUp,
+                                                        latestWakeUp = profile.latestWakeUp,
+                                                        bathroomDurationMinutes = profile.bathroomDurationMinutes,
+                                                        wantsBreakfast = profile.wantsBreakfast,
+                                                        leaveHomeTime = profile.leaveHomeTime,
+                                                        breakfastDurationMinutes = m.breakfastDurationMinutes,
+                                                        snoozeUntil = null,
+                                                        snoozeCount = 0
+                                                    )
+                                                }
+                                            } else m.copy(snoozeUntil = null, snoozeCount = 0)
+                                        }.sortedBy { it.sequenceOrder }
+
+                                        val vacationUntilStr = appSettings.vacationUntil.value
+                                        val isOnVacation = vacationUntilStr != null && tomorrow.toString() <= vacationUntilStr
+                                        if (!isOnVacation) {
+                                            val schedule = de.familienwecker.famwake.algorithm.Scheduler().calculateIdealSchedule(
+                                                members = tomorrowMembers
+                                            )
+                                            val mySchedule = schedule.memberSchedules.find { it.member.id == memberId }
+                                            if (mySchedule != null && !mySchedule.member.isPaused && mySchedule.member.deviceAlarmEnabled != false) {
+                                                val wakeTime = java.time.LocalTime.of(mySchedule.wakeUpTime.hour, mySchedule.wakeUpTime.minute)
+                                                val wakeDateTime = java.time.LocalDateTime.of(tomorrow, wakeTime)
+                                                de.familienwecker.famwake.alarm.AlarmScheduler(appContext).scheduleWakeUp(
+                                                    wakeUpTime = wakeDateTime.toKmpLocalDateTime(),
+                                                    memberId = memberId,
+                                                    memberName = mySchedule.member.name,
+                                                    soundUri = appSettings.alarmSoundUri.value,
+                                                    isSnooze = false
+                                                )
+                                            }
+                                        }
+                                    }
+
+                                    if (familyId != null && memberId.isNotEmpty() && !familyId.startsWith("local_")) {
                                         FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(familyId, memberId, null, 0)
                                         FamWakeApplication.instance.firebaseRepository.updateMemberAwakeToday(familyId, memberId, true)
-                                    } catch (e: CancellationException) { throw e }
-                                    catch (_: Exception) { /* best-effort */ }
-                                }
+                                    }
+                                } catch (e: CancellationException) { throw e }
+                                catch (_: Exception) { /* best-effort */ }
                             }
 
                             // Tracking: Nutzer hat den Alarm aktiv abgebrochen (nicht durch Snooze)

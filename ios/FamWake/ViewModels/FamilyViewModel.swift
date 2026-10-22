@@ -106,6 +106,8 @@ class FamilyViewModel: ObservableObject {
             }
         }
         
+        self.isAwakeTodayLocal = isAwakeTodayEffective()
+        
         loadTooltipStates()
         loadFamilyFromLocal()
         startNetworkMonitor()
@@ -197,29 +199,53 @@ class FamilyViewModel: ObservableObject {
         }
     }
     
+    private func currentTodayStr(from now: Date = Date()) -> String {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: now)
+    }
+
+    func isAwakeTodayEffective() -> Bool {
+        let awake = UserDefaults.standard.bool(forKey: "awake_today")
+        let savedDate = UserDefaults.standard.string(forKey: "awake_today_date")
+        return awake && savedDate == currentTodayStr()
+    }
+
+    private func setAwakeTodayLocal(_ awake: Bool) {
+        isAwakeTodayLocal = awake
+        UserDefaults.standard.set(awake, forKey: "awake_today")
+        if awake {
+            UserDefaults.standard.set(currentTodayStr(), forKey: "awake_today_date")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "awake_today_date")
+        }
+    }
+
     func checkAndResetMembers() {
         guard !members.isEmpty, let familyId = familyId else { return }
         let now = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let todayStr = formatter.string(from: now)
-        
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
+        let cal = Calendar.current
+        let todayStr = currentTodayStr(from: now)
+        let weekdayRaw = cal.component(.weekday, from: now)
+        let todayIso = weekdayRaw == 1 ? 7 : weekdayRaw - 1
+        let nowMinutes = cal.component(.hour, from: now) * 60 + cal.component(.minute, from: now)
         
         var toUpdate = [FamilyMember]()
         var localMembersChanged = false
         
         for i in 0..<members.count {
             var member = members[i]
-            let latestWakeUp = member.latestWakeUp
+            let latestWakeUp = member.dayProfiles?[todayIso]?.latestWakeUp ?? member.latestWakeUp
+            let latestMinutes = (latestWakeUp.hour ?? 7) * 60 + (latestWakeUp.minute ?? 0)
+            // Bei sehr später Weckzeit (z. B. >= 22:00) auf 23:59 deckeln, damit +120 Min nicht über Mitternacht läuft
+            let thresholdMinutes = min(23 * 60 + 59, latestMinutes + 120)
+            let isPastTodayThreshold = nowMinutes >= thresholdMinutes
+            // Falls die App gestern nach dem Schwellenwert nicht mehr offen war, morgens vor der Weckzeit nachholen
+            let isStaleFromPreviousDay = !member.lastResetDate.isEmpty && member.lastResetDate < todayStr && nowMinutes < latestMinutes
             
-            // Berechne Schwellenwert (latestWakeUp + 2 Stunden)
-            let h = (latestWakeUp.hour ?? 0) + 2
-            let m = latestWakeUp.minute ?? 0
-            guard let resetThreshold = Calendar.current.date(bySettingHour: h, minute: m, second: 0, of: now) else { continue }
-            
-            if now > resetThreshold && member.lastResetDate != todayStr {
+            if member.lastResetDate != todayStr && (isPastTodayThreshold || isStaleFromPreviousDay) {
                 let isUnclaimed = member.claimedByUserId == nil
                 let newIsPaused = isUnclaimed ? false : member.isPaused
                 
@@ -234,6 +260,7 @@ class FamilyViewModel: ObservableObject {
                 localMembersChanged = true
                 
                 if member.id == myMemberId {
+                    setAwakeTodayLocal(false)
                     UserDefaults.standard.set(false, forKey: "is_awake_today_\(member.id)")
                     // Snooze-Count nur resetten wenn kein aktiver Snooze läuft –
                     // sonst wird der Count zwischen zwei Snoozes gelöscht
@@ -249,8 +276,10 @@ class FamilyViewModel: ObservableObject {
         }
         
         if localMembersChanged {
+            LocalMemberStore.shared.save(members: members, familyId: familyId)
             recalculateSchedule()
             
+            guard !isLocalOnlyFamily else { return }
             // Auf Firestore synchronisieren
             let batch = db.batch()
             for member in toUpdate {
@@ -573,7 +602,16 @@ class FamilyViewModel: ObservableObject {
     func setAwake(memberId: String, awake: Bool) {
         guard let fid = familyId else { return }
         let oldState = isAwakeTodayLocal
-        isAwakeTodayLocal = awake
+        setAwakeTodayLocal(awake)
+        
+        if let idx = members.firstIndex(where: { $0.id == memberId }) {
+            members[idx].isAwakeToday = awake
+            if awake {
+                members[idx].snoozeUntil = nil
+                members[idx].snoozeCount = 0
+            }
+            LocalMemberStore.shared.save(members: members, familyId: fid)
+        }
         
         if awake {
             snoozeUntil = nil
@@ -581,6 +619,15 @@ class FamilyViewModel: ObservableObject {
             UserDefaults.standard.removeObject(forKey: "snooze_until")
             UserDefaults.standard.set(0, forKey: "snooze_count")
             AlarmService.shared.cancelWakeUp(memberId: memberId)
+        }
+        
+        // Direkt neu berechnen, damit deviceTargetDate bei awake == true sofort auf morgen
+        // umschaltet und den morgigen Wecker plant (bzw. bei awake == false wieder auf heute).
+        recalculateSchedule()
+        
+        guard !isLocalOnlyFamily else {
+            Aptabase.shared.trackEvent(awake ? "awake_marked" : "awake_reset")
+            return
         }
         
         Task {
@@ -592,7 +639,8 @@ class FamilyViewModel: ObservableObject {
                     try await memberRef.updateData([
                         "isAwakeToday": true,
                         "snoozeUntil": FieldValue.delete(),
-                        "snoozeCount": 0
+                        "snoozeCount": 0,
+                        "lastUpdatedAt": FieldValue.serverTimestamp()
                     ])
                 } else {
                     try await FamilyFirestoreService.shared.setAwake(familyId: fid, memberId: memberId, awake: awake)
@@ -602,7 +650,11 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    self.isAwakeTodayLocal = oldState
+                    self.setAwakeTodayLocal(oldState)
+                    if let idx = self.members.firstIndex(where: { $0.id == memberId }) {
+                        self.members[idx].isAwakeToday = oldState
+                    }
+                    self.recalculateSchedule()
                     self.errorMessage = L.errorGeneric
                 }
             }
@@ -620,13 +672,13 @@ class FamilyViewModel: ObservableObject {
 
         // Beim Aus- UND Einschalten wird „Schon wach" zurückgesetzt analog zu Android.
         // Bewusster Toggle = expliziter Neustart – unabhängig vom vorherigen Zustand.
-        isAwakeTodayLocal = false
+        setAwakeTodayLocal(false)
         if let mid = myMemberId {
             UserDefaults.standard.set(false, forKey: "is_awake_today_\(mid)")
             if let idx = members.firstIndex(where: { $0.id == mid }) {
                 members[idx].isAwakeToday = false
             }
-            if let fid = familyId {
+            if let fid = familyId, !isLocalOnlyFamily {
                 Task {
                     try? await FamilyFirestoreService.shared.setAwake(familyId: fid, memberId: mid, awake: false)
                 }
@@ -1480,9 +1532,13 @@ class FamilyViewModel: ObservableObject {
                         sorted[i].isPaused = localMember.isPaused
                     }
                 }
-                // Awake-State-Guard: Wenn lokal nicht wach, veraltete Firestore-Werte nicht übernehmen
-                if let mid = self.myMemberId, !self.isAwakeTodayLocal {
-                    if let myIdx = sorted.firstIndex(where: { $0.id == mid }) {
+                // Awake-State-Guard: Lokales Flag hat am heutigen Tag Vorrang, damit ein noch
+                // ausstehender Firestore-Write das Flag nicht wieder auf false zurücksetzt.
+                if let mid = self.myMemberId,
+                   let myIdx = sorted.firstIndex(where: { $0.id == mid }) {
+                    if self.isAwakeTodayEffective() {
+                        sorted[myIdx].isAwakeToday = true
+                    } else if !self.isAwakeTodayLocal {
                         sorted[myIdx].isAwakeToday = false
                     }
                 }
@@ -1496,6 +1552,7 @@ class FamilyViewModel: ObservableObject {
                     }
                 }
                 #endif
+                self.checkAndResetMembers()
                 self.updateAwakeState()
                 
                 // Claim-Sync: Prüfe ob eigenes Profil noch gültig ist (Android FamilyViewModel.kt:251-283)
@@ -1522,25 +1579,29 @@ class FamilyViewModel: ObservableObject {
 
     private func updateAwakeState() {
         guard let mid = myMemberId else { return }
-        isAwakeTodayLocal = members.first(where: { $0.id == mid })?.isAwakeToday ?? false
+        let memberAwake = members.first(where: { $0.id == mid })?.isAwakeToday ?? false
+        if memberAwake || isAwakeTodayEffective() {
+            setAwakeTodayLocal(true)
+        } else {
+            setAwakeTodayLocal(false)
+        }
     }
 
     var hasFamilyIdPublished: Bool { familyId != nil }
 
     private func loadFamilyFromLocal() {
         if let fid = UserDefaults.standard.string(forKey: "family_id") {
+            self.familyId = fid
+            self.familyName = UserDefaults.standard.string(forKey: "family_name")
+            self.joinCode = UserDefaults.standard.string(forKey: "family_join_code")
             // Sofort: gecachte Members laden für Instant-Anzeige
             let cachedMembers = LocalMemberStore.shared.load(familyId: fid)
             if !cachedMembers.isEmpty {
                 self.members = cachedMembers
+                self.checkAndResetMembers()
                 self.recalculateSchedule()
             }
-            if isLocalOnlyFamily {
-                // Lokale Familie: kein Firestore-Listener nötig
-                self.familyId = fid
-                self.familyName = UserDefaults.standard.string(forKey: "family_name")
-                self.joinCode = UserDefaults.standard.string(forKey: "family_join_code")
-            } else {
+            if !isLocalOnlyFamily {
                 listenToFamily(id: fid)
             }
         }
@@ -1821,16 +1882,35 @@ class FamilyViewModel: ObservableObject {
             } else {
                 deviceTargetDate = tomorrow
             }
+        } else if isAwakeTodayEffective() {
+            // Wenn sich der eigene Nutzer für heute als „Schon wach" markiert hat,
+            // wird der eigene Geräte-Wecker direkt für morgen geplant (die Badzeiten
+            // der Familie für heute bleiben unverändert).
+            deviceTargetDate = tomorrow
         } else {
+            let todayWeekdayRaw = cal.component(.weekday, from: today)
+            let todayIsoDow = todayWeekdayRaw == 1 ? 7 : todayWeekdayRaw - 1
             let todayMembers = rawMembers.map { resolveEffectiveMember($0, forDate: today) }
+                .sorted { m1, m2 in
+                    let s1 = m1.dayProfiles?[todayIsoDow]?.sequenceOrder ?? m1.sequenceOrder
+                    let s2 = m2.dayProfiles?[todayIsoDow]?.sequenceOrder ?? m2.sequenceOrder
+                    if s1 != s2 { return s1 < s2 }
+                    return (m1.createdAt ?? 0) < (m2.createdAt ?? 0)
+                }
             let todayHasActive = todayMembers.contains { !$0.isPaused }
             if todayHasActive {
                 let todaySchedule = Scheduler().calculateIdealSchedule(members: todayMembers, globalBufferMinutes: globalBufferMinutes)
-                let latestAlarm = todaySchedule.memberSchedules.compactMap { date(from: $0.wakeUpTime, on: today) }.max()
-                if let latest = latestAlarm, now < latest {
-                    deviceTargetDate = today
+                if let myId = currentMyMemberId,
+                   let myTodaySchedule = todaySchedule.memberSchedules.first(where: { $0.member.id == myId }),
+                   let myTodayAlarmDate = date(from: myTodaySchedule.wakeUpTime, on: today) {
+                    deviceTargetDate = now < myTodayAlarmDate ? today : tomorrow
                 } else {
-                    deviceTargetDate = tomorrow
+                    let latestAlarm = todaySchedule.memberSchedules.compactMap { date(from: $0.wakeUpTime, on: today) }.max()
+                    if let latest = latestAlarm, now < latest {
+                        deviceTargetDate = today
+                    } else {
+                        deviceTargetDate = tomorrow
+                    }
                 }
             } else {
                 deviceTargetDate = tomorrow
@@ -1949,7 +2029,9 @@ class FamilyViewModel: ObservableObject {
 
         // Grace-Period: verhindert, dass ein soeben gefeuerter Alarm den nächsten
         // Tag überspringt, weil targetDate nun bereits auf morgen zeigt.
-        if targetDate != today {
+        // Ausnahme: Wenn der Nutzer explizit „Schon wach" aktiviert oder den Alarm gestoppt hat,
+        // soll der morgige Alarm sofort geplant werden.
+        if targetDate != today && !isAwakeTodayEffective() {
             if let todayAlarmDate = date(from: wakeUpTime, on: today) {
                 let millisSince = now.timeIntervalSince(todayAlarmDate) * 1000
                 if millisSince >= 0 && millisSince <= 300_000 { return }

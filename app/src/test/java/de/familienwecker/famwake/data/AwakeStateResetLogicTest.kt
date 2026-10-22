@@ -141,4 +141,50 @@ class AwakeStateResetLogicTest {
         val reset = shouldResetAwakeToday(oldMember, newMember, todayDow, now)
         assertTrue("isAwakeToday should be reset when today is activated with future alarm", reset)
     }
+
+    private fun shouldDailyResetMember(
+        member: FamilyMember,
+        todayStr: String,
+        todayDow: Int,
+        currentTime: LocalTime
+    ): Boolean {
+        val latestWakeUp = member.dayProfiles?.get(todayDow)?.latestWakeUp ?: member.latestWakeUp
+        val latestMinutes = latestWakeUp.hour * 60 + latestWakeUp.minute
+        val thresholdMinutes = minOf(23 * 60 + 59, latestMinutes + 120)
+        val nowMinutes = currentTime.hour * 60 + currentTime.minute
+        val isPastTodayThreshold = nowMinutes >= thresholdMinutes
+        val isStaleFromPreviousDay = member.lastResetDate.isNotBlank() &&
+            member.lastResetDate < todayStr &&
+            nowMinutes < latestMinutes
+        return member.lastResetDate != todayStr && (isPastTodayThreshold || isStaleFromPreviousDay)
+    }
+
+    @Test
+    fun dailyReset_usesWeekdayProfileAndClampsNearMidnight() {
+        val todayDow = 6 // Saturday
+        val member = createMember(
+            isAwakeToday = true,
+            dayProfiles = mapOf(
+                todayDow to DayProfile(
+                    isActive = true,
+                    earliestWakeUp = LocalTime(22, 0),
+                    latestWakeUp = LocalTime(22, 30)
+                )
+            )
+        ).copy(lastResetDate = "2026-10-20")
+
+        // At 23:00 (before 23:59 clamped threshold) -> no reset yet
+        assertFalse(shouldDailyResetMember(member, "2026-10-21", todayDow, LocalTime(23, 0)))
+        // At 23:59 (clamped threshold instead of overflowing past midnight) -> reset!
+        assertTrue(shouldDailyResetMember(member, "2026-10-21", todayDow, LocalTime(23, 59)))
+    }
+
+    @Test
+    fun dailyReset_staleFromPreviousDay_resetsBeforeNextMorningWakeUp() {
+        val todayDow = 4
+        val member = createMember(isAwakeToday = true).copy(lastResetDate = "2026-10-19")
+
+        // Morning at 06:30 (before 07:30 latestWakeUp) with stale lastResetDate -> resets!
+        assertTrue(shouldDailyResetMember(member, "2026-10-21", todayDow, LocalTime(6, 30)))
+    }
 }

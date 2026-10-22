@@ -156,15 +156,25 @@ internal fun FamilyViewModel.recalculateSchedule() {
                         } else {
                             tomorrow
                         }
+                    } else if (appSettings.isAwakeTodayEffective()) {
+                        // Eigener Nutzer ist heute bereits wach -> lokaler Wecker gilt für morgen
+                        tomorrow
                     } else {
                         val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
+                            .sortedWith(compareBy({ it.dayProfiles?.get(today.dayOfWeek.value)?.sequenceOrder ?: it.sequenceOrder }, { it.createdAt ?: 0L }))
                         val todayHasActive = todayMembers.any { !it.isPaused }
                         if (todayHasActive) {
                             val todaySchedule = withContext(Dispatchers.Default) {
                                 scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
                             }
+                            val myTodaySchedule = if (currentMyMemberId != null) {
+                                todaySchedule.memberSchedules.find { it.member.id == currentMyMemberId }
+                            } else null
                             val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
-                            if (latestAlarm != null && now < latestAlarm) {
+                            if (myTodaySchedule != null) {
+                                // Für das eigene Gerät zählt die eigene heutige Weckzeit
+                                if (now < myTodaySchedule.wakeUpTime) today else tomorrow
+                            } else if (latestAlarm != null && now < latestAlarm) {
                                 today
                             } else {
                                 tomorrow
@@ -347,8 +357,8 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
                 ?: if (now > wakeUpTime) tomorrow else today
 
             // Grace-Period: verhindert, dass ein soeben gefeuerter Alarm den nächsten
-            // Tag überspringt, weil targetDate nun bereits auf morgen zeigt.
-            if (targetDate != today) {
+            // Tag überspringt, weil targetDate nun bereits auf morgen zeigt (außer Nutzer hat bereits aktiv gestoppt/Schon wach gedrückt).
+            if (targetDate != today && !appSettings.isAwakeTodayEffective()) {
                 val todayAlarmMillis = LocalDateTime(today, wakeUpTime)
                     .toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
                 val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
