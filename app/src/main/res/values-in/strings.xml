@@ -139,10 +139,13 @@
     <string name="onboarding_skip">Lewati</string>
     <string name="onboarding_next">Selanjutnya</string>
     <string name="onboarding_done">Mulai tanpa akun</string>
+    <string name="onboarding_login_create">Masuk / Daftar</string>
+    <string name="onboarding_slide5_title">Mari kita mulai!</string>
+    <string name="onboarding_slide5_body">Anda dapat langsung mencoba aplikasinya tanpa akun. Anda hanya memerlukan akun saat ingin mengundang keluarga Anda.</string>
     <string name="onboarding_slide0_title">Memulai hari dengan santai bersama.</string>
     <string name="onboarding_slide0_body">Tanpa perdebatan, tanpa kekacauan. FamWake memastikan semua orang memulai hari dengan santai – dengan sendirinya.</string>
-    <string name="onboarding_slide1_title">Tidak perlu antre lagi.</string>
-    <string name="onboarding_slide1_body">FamWake menemukan waktu bangun yang tepat untuk semua orang di keluarga – berdasarkan waktu mandi, sarapan, dan jam berangkat.</string>
+    <string name="onboarding_slide1_title">Rencana cerdas untuk setiap hari</string>
+    <string name="onboarding_slide1_body">Baik itu kantor, sekolah, atau bekerja dari rumah – FamWake menghitung waktu bangun dan mandi yang sempurna untuk seluruh keluarga. Tanpa antrean di pagi hari.</string>
     <string name="onboarding_slide3_title">Terhubung dalam hitungan detik.</string>
     <string name="onboarding_slide3_body">Bagikan kode undangan Anda dan keluarga langsung bergabung. Jika ada yang mengubah waktunya, jadwal semua orang otomatis diperbarui.</string>
     
@@ -169,12 +172,12 @@
     <string name="feedback_success_title">Pesan Terkirim</string>
     <string name="feedback_success_message">Terima kasih atas bantuan Anda! Masukan Anda membantu kami membuat FamWake lebih baik untuk semua orang.</string>
     <string name="settings_terms_of_use">Syarat Penggunaan</string>
-    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-id.html</string>
+    <string name="settings_terms_of_use_url">https://www.familienwecker.de/terms-en.html</string>
     <string name="settings_privacy_policy">Kebijakan Privasi</string>
-    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-id.html</string>
+    <string name="settings_privacy_policy_url">https://www.familienwecker.de/privacy-policy-en.html</string>
     <string name="settings_imprint">Informasi Hukum</string>
-    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-id.html</string>
-    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-id.html</string>
+    <string name="settings_imprint_url">https://www.familienwecker.de/imprint-en.html</string>
+    <string name="settings_delete_account_url">https://www.familienwecker.de/account-deletion-en.html</string>
 
     <string name="registration_disclaimer">Dengan mendaftar, Anda menyetujui %1$s dan %2$s kami.</string>
     <string name="registration_terms_of_use">Syarat Penggunaan</string>
@@ -223,7 +226,7 @@
     <string name="join_conflict_text">Anda sudah berada di \"%1$s\". Untuk bergabung dengan keluarga baru, Anda harus keluar dari keluarga ini terlebih dahulu. Apakah Anda ingin keluar dari \"%1$s\" dan bergabung dengan yang baru?</string>
     <string name="join_conflict_confirm">Keluar &amp; Bergabung</string>
     <string name="error_delete_member">Tidak dapat menghapus anggota: %1$s</string>
-    <string name="error_sync_failed">Data tidak dapat diperbarui</string>
+    <string name="error_sync_failed">Tidak dapat memperbarui data</string>
     <string name="error_delete_family">Tidak dapat menghapus keluarga: %1$s</string>
     <string name="error_calculate_schedule">Tidak dapat menghitung waktu: %1$s</string>
     <string name="error_not_logged_in">Anda belum masuk.</string>
@@ -342,10 +345,6 @@
     <string name="notif_permission_desc">Jika Anda mematikan notifikasi, alarm Anda mungkin tidak berfungsi dengan baik. Tolong biarkan tetap menyala.</string>
     <string name="notif_permission_button">Nyalakan notifikasi</string>
     <string name="notif_permission_active">Notifikasi aktif ✓</string>
-    <string name="onboarding_login_create">Masuk / Daftar</string>
-    <string name="onboarding_slide5_title">Mari kita mulai!</string>
-    <string name="onboarding_slide5_body">Anda dapat langsung mencoba aplikasinya tanpa akun. Anda hanya memerlukan akun saat ingin mengundang keluarga Anda.</string>
-
     <string name="settings_steal_title">Gunakan profil ini?</string>
     <string name="settings_steal_text">Profil %1$s sudah dipakai orang lain. Apakah Anda ingin menggunakannya?</string>
     <string name="settings_steal_confirm">Ya, gunakan</string>

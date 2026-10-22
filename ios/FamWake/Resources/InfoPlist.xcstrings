@@ -1,173 +1,340 @@
 {
-  "sourceLanguage" : "de",
-  "strings" : {
-    "CFBundleDisplayName" : {
-      "comment" : "Bundle display name",
-      "localizations" : {
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ফ্যামিলি অ্যালার্ম ঘড়ি"
+  "sourceLanguage": "de",
+  "strings": {
+    "CFBundleDisplayName": {
+      "comment": "Bundle display name",
+      "localizations": {
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ফ্যামিলি অ্যালার্ম ঘড়ি"
           }
         },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Familievækkeur"
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Familievækkeur"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Familienwecker"
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Familienwecker"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Family Alarm Clock"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Family Alarm Clock"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Despertador Familiar"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Despertador Familiar"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réveil Familial"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réveil Familial"
           }
         },
-        "gsw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Familiewecker"
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Familiewecker"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "फ़ैमिली अलार्म"
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "फ़ैमिली अलार्म"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jam Alarm Keluarga"
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jam Alarm Keluarga"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sveglia familiare"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sveglia familiare"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "家族の目覚まし時計"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "家族の目覚まし時計"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "가족 알람시계"
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "가족 알람시계"
           }
         },
-        "ksh" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Familienwecker"
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Familienwecker"
           }
         },
-        "mr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "कौटुंबिक अलार्म"
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कौटुंबिक अलार्म"
           }
         },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Familievekkerklokke"
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Familievekkerklokke"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Familiewekker"
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Familiewekker"
           }
         },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Budzik Rodzinny"
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budzik Rodzinny"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Despertador Familiar"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Despertador Familiar"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Семейный будильник"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Семейный будильник"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Familjeväckarklocka"
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Familjeväckarklocka"
           }
         },
-        "swg" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Familienwegger"
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Familienwegger"
           }
         },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aile Çalar Saati"
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aile Çalar Saati"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сімейний будильник"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сімейний будильник"
           }
         },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Báo thức Gia đình"
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Báo thức Gia đình"
           }
         },
-        "zh" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "家庭闹钟"
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "家庭闹钟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "家庭闹钟"
           }
         }
       }
     },
-    "CFBundleName" : {
-      "comment" : "Bundle name",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "FamWake"
+    "CFBundleName": {
+      "comment": "Bundle name",
+      "extractionState": "extracted_with_value",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "new",
+            "value": "FamWake"
+          }
+        }
+      }
+    },
+    "NSAlarmKitUsageDescription": {
+      "comment": "AlarmKit usage description",
+      "localizations": {
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আপনার ডিভাইসে পরিবারের অ্যালার্ম নির্ভরযোগ্যভাবে নির্ধারণ করতে আমাদের AlarmKit প্রয়োজন।"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vi har brug for AlarmKit for at kunne planlægge familievækkeure pålideligt på din enhed."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wir benötigen AlarmKit, um Familienwecker zuverlässig auf deinem Gerät zu planen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We need AlarmKit to reliably schedule family alarms on your device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesitamos AlarmKit para programar las alarmas familiares de forma fiable en tu dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nous avons besoin d’AlarmKit pour programmer de manière fiable les réveils familiaux sur votre appareil."
+          }
+        },
+        "gsw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mir bruuched AlarmKit, um Familiewecker zueverlässig uuf diim Grät z plane."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आपके डिवाइस पर पारिवारिक अलार्म को भरोसेमंद रूप से शेड्यूल करने के लिए हमें AlarmKit की आवश्यकता है।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kami memerlukan AlarmKit untuk menjadwalkan alarm keluarga secara andal di perangkat Anda."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbiamo bisogno di AlarmKit per programmare in modo affidabile le sveglie familiari sul tuo dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "デバイス上で家族のアラームを確実にスケジュールするために、AlarmKitが必要です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기기에서 가족 알람을 안정적으로 예약하려면 AlarmKit 권한이 필요합니다."
+          }
+        },
+        "ksh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mer bruche AlarmKit, öm de Familienwecker zoverlässich op dingem Jerät ze plane."
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "तुमच्या डिव्हाइसवर कौटुंबिक अलार्म विश्वासार्हपणे शेड्यूल करण्यासाठी आम्हाला AlarmKit ची आवश्यकता आहे."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vi trenger AlarmKit for å planlegge familievekkere pålitelig på enheten din."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We hebben AlarmKit nodig om gezinswekkers betrouwbaar op je apparaat in te plannen."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Potrzebujemy AlarmKit, aby niezawodnie planować budziki rodzinne na Twoim urządzeniu."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precisamos do AlarmKit para agendar os despertadores da família com fiabilidade no seu dispositivo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нам необходим доступ к AlarmKit для надежного планирования семейных будильников на вашем устройстве."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vi behöver AlarmKit för att pålitligt schemalägga familjeväckningar på din enhet."
+          }
+        },
+        "swg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mir brauchet AlarmKit, om d’Familienwegger zuverlässig auf deim Grät z’plana."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aile alarmlarını cihazınızda güvenilir bir şekilde zamanlamak için AlarmKit erişimine ihtiyacımız var."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нам потрібен доступ до AlarmKit, щоб надійно планувати сімейні будильники на вашому пристрої."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chúng tôi cần AlarmKit để lên lịch báo thức gia đình một cách đáng tin cậy trên thiết bị của bạn."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我们需要 AlarmKit 权限，以便在您的设备上可靠地安排家庭闹钟。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我们需要 AlarmKit 权限，以便在您的设备上可靠地安排家庭闹钟。"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

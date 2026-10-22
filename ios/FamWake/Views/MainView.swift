@@ -214,7 +214,7 @@ struct MainView: View {
                 }
             } message: {
                 let fName = familyViewModel.familyName ?? ""
-                Text(String(format: L.s("join_conflict_text"), fName, fName))
+                Text(String(format: L.s("join_conflict_text"), fName, familyViewModel.pendingJoinCode ?? ""))
             }
             .alert(L.settingsDeleteMemberTitle, isPresented: $showDeleteMemberAlert, presenting: memberToDelete) { member in
                 Button(L.settingsDeleteMemberConfirm, role: .destructive) {
