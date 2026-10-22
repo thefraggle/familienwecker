@@ -99,9 +99,9 @@ class Scheduler {
     ): FamilySchedule {
         val breakfastEaters = orderedMembers.filter { it.wantsBreakfast && !it.isSimpleMode }
         var breakfastTime: LocalTime? = null
+        var minLeaveForBreakfastEaters = LocalTime(23, 59)
 
         if (breakfastEaters.isNotEmpty()) {
-            var minLeaveForBreakfastEaters = LocalTime(23, 59)
             for (m in breakfastEaters) {
                 val naturalBathEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes.coerceAtLeast(0))
                 val leave = m.leaveHomeTime ?: naturalBathEnd
@@ -141,14 +141,19 @@ class Scheduler {
                 continue
             }
 
-            val allowedLatestWakeUp = member.latestWakeUp.plusMinutes(shiftToleranceMinutes.toLong())
-            val allowedEarliestWakeUp = member.earliestWakeUp.minusMinutes(shiftToleranceMinutes.toLong())
+            val rawAllowedLatest = member.latestWakeUp.plusMinutes(shiftToleranceMinutes.toLong())
+            val allowedLatestWakeUp = if (rawAllowedLatest.isBefore(member.latestWakeUp)) LocalTime(23, 59) else rawAllowedLatest
+            val rawAllowedEarliest = member.earliestWakeUp.minusMinutes(shiftToleranceMinutes.toLong())
+            val allowedEarliestWakeUp = if (rawAllowedEarliest.isAfter(member.earliestWakeUp)) LocalTime(0, 0) else rawAllowedEarliest
 
-            // Fixierte Weckzeit (z.B. durch Snooze): earliestWakeUp == latestWakeUp
+            // Fixierte Weckzeit (z.B. durch Snooze oder 0-Minuten-Fenster): earliestWakeUp == latestWakeUp
             // → Weckzeit direkt verwenden, Constraint an Vorgänger weitergeben
             val isFixed = member.earliestWakeUp == member.latestWakeUp
+            val isMemberSnoozed = member.snoozeUntil != null
 
-            var maxAllowedBathroomEnd = allowedLatestWakeUp.plusMinutes(member.bathroomDurationMinutes.coerceAtLeast(0))
+            val bathDuration = member.bathroomDurationMinutes.coerceAtLeast(0)
+            val rawMaxBathroomEnd = allowedLatestWakeUp.plusMinutes(bathDuration)
+            var maxAllowedBathroomEnd = if (rawMaxBathroomEnd.isBefore(allowedLatestWakeUp)) LocalTime(23, 59) else rawMaxBathroomEnd
 
             if (currentLatestBathroomEndTime.isBefore(maxAllowedBathroomEnd)) {
                 maxAllowedBathroomEnd = currentLatestBathroomEndTime
@@ -160,17 +165,9 @@ class Scheduler {
                 val memberBreakfastStart = if (effectiveDuration == breakfastDurationMinutes) {
                     breakfastTime
                 } else {
-                    val mStart = if (breakfastEaters.isNotEmpty()) {
-                        var minLeave = LocalTime(23, 59)
-                        for (m in breakfastEaters) {
-                            val naturalEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes.coerceAtLeast(0))
-                            val leave = m.leaveHomeTime ?: naturalEnd
-                            if (leave.isBefore(minLeave)) minLeave = leave
-                        }
-                        if (minLeave.isBefore(LocalTime(4, 0))) LocalTime(4, 0) else minLeave
-                    } else LocalTime(8, 0)
+                    val mStart = if (breakfastEaters.isNotEmpty()) minLeaveForBreakfastEaters else LocalTime(8, 0)
                     val calculated = mStart.minusMinutes(effectiveDuration)
-                    if (calculated.isAfter(mStart)) LocalTime(3, 30) else calculated
+                    if (calculated.isAfter(mStart)) LocalTime(0, 0) else calculated
                 }
 
                 if (!memberBreakfastStart.isAfter(maxAllowedBathroomEnd)) {
@@ -188,9 +185,18 @@ class Scheduler {
             val bathroomEnd: LocalTime
             if (isFixed) {
                 wakeUpTime = member.latestWakeUp
-                bathroomEnd = wakeUpTime.plusMinutes(member.bathroomDurationMinutes.coerceAtLeast(0))
+                val rawEnd = wakeUpTime.plusMinutes(bathDuration)
+                bathroomEnd = if (rawEnd.isBefore(wakeUpTime)) LocalTime(23, 59) else rawEnd
+                // Wenn ein fixierter Member (kein Snooze!) seinen Bad-Slot nach maxAllowedBathroomEnd beendet → Konflikt
+                if (!isMemberSnoozed && bathroomEnd.isAfter(maxAllowedBathroomEnd)) {
+                    if (!includeInvalid) {
+                        return FamilySchedule(emptyList(), null, false, ScheduleMessage.NoValidScheduleFound)
+                    }
+                    isValid = false
+                }
             } else {
-                wakeUpTime = maxAllowedBathroomEnd.minusMinutes(member.bathroomDurationMinutes.coerceAtLeast(0))
+                val rawWake = maxAllowedBathroomEnd.minusMinutes(bathDuration)
+                wakeUpTime = if (rawWake.isAfter(maxAllowedBathroomEnd)) LocalTime(0, 0) else rawWake
                 bathroomEnd = maxAllowedBathroomEnd
             }
 
@@ -233,54 +239,65 @@ class Scheduler {
                     bufferAfter = effectiveBuffer
                 )
             )
-            currentLatestBathroomEndTime = wakeUpTime.minusMinutes(prevBuffer)
+            val rawPrevEnd = wakeUpTime.minusMinutes(prevBuffer)
+            currentLatestBathroomEndTime = if (rawPrevEnd.isAfter(wakeUpTime)) LocalTime(0, 0) else rawPrevEnd
         }
 
-        // Vorwärts-Korrektur-Pass: Wenn ein fixierter Member (Snooze) seine Badzeit
-        // in den Slot des Nachfolgers schiebt, müssen nachfolgende Members nach hinten
+        // Prüfe ob ein Snooze aktiv ist – nur bei echtem Snooze werden temporäre Verschiebungen toleriert
+        val hasSnoozeActive = orderedMembers.any { !it.isSimpleMode && it.snoozeUntil != null }
+
+        // Vorwärts-Korrektur-Pass: Wenn ein fixierter Member (z.B. Snooze) seine Badzeit
+        // in den Slot des Nachfolgers schiebt, müssen nachfolgende Bad-nutzende Members nach hinten
         // verschoben werden. schedules ist hier noch reversed (letzter Member zuerst).
         val forwardSchedules = schedules.reversed().toMutableList()
-        for (i in 0 until forwardSchedules.size - 1) {
-            val current = forwardSchedules[i]
-            val next = forwardSchedules[i + 1]
+        var lastBathIndex = -1
+        for (i in forwardSchedules.indices) {
+            val next = forwardSchedules[i]
             if (next.member.isSimpleMode) continue
 
-            val buffer = current.bufferAfter
-            val requiredNextStart = current.bathroomEndTime.plusMinutes(buffer)
+            if (lastBathIndex >= 0) {
+                val current = forwardSchedules[lastBathIndex]
+                val buffer = current.bufferAfter
+                val rawRequiredStart = current.bathroomEndTime.plusMinutes(buffer)
+                val requiredNextStart = if (rawRequiredStart.isBefore(current.bathroomEndTime)) LocalTime(23, 59) else rawRequiredStart
 
-            // Wenn der nachfolgende Member vor dem Ende des aktuellen (+ Puffer) startet → verschieben
-            if (next.wakeUpTime.isBefore(requiredNextStart)) {
-                val shiftedWakeUp = requiredNextStart
-                val shiftedBathroomEnd = shiftedWakeUp.plusMinutes(next.member.bathroomDurationMinutes.coerceAtLeast(0))
-                forwardSchedules[i + 1] = next.copy(
-                    wakeUpTime = shiftedWakeUp,
-                    bathroomStartTime = shiftedWakeUp,
-                    bathroomEndTime = shiftedBathroomEnd
-                )
+                // Wenn der nachfolgende Member vor dem Ende des aktuellen (+ Puffer) startet → verschieben
+                if (next.wakeUpTime.isBefore(requiredNextStart)) {
+                    val shiftedWakeUp = requiredNextStart
+                    val nextBathDuration = next.member.bathroomDurationMinutes.coerceAtLeast(0)
+                    val rawShiftedEnd = shiftedWakeUp.plusMinutes(nextBathDuration)
+                    val shiftedBathroomEnd = if (rawShiftedEnd.isBefore(shiftedWakeUp)) LocalTime(23, 59) else rawShiftedEnd
+
+                    if (!hasSnoozeActive) {
+                        val rawNextAllowedLatest = next.member.latestWakeUp.plusMinutes(shiftToleranceMinutes.toLong())
+                        val nextAllowedLatest = if (rawNextAllowedLatest.isBefore(next.member.latestWakeUp)) LocalTime(23, 59) else rawNextAllowedLatest
+                        val nextLeave = next.member.leaveHomeTime
+                        if (shiftedWakeUp.isAfter(nextAllowedLatest) || (nextLeave != null && shiftedBathroomEnd.isAfter(nextLeave))) {
+                            isValid = false
+                            if (!includeInvalid) {
+                                return FamilySchedule(emptyList(), null, false, ScheduleMessage.NoValidScheduleFound)
+                            }
+                        }
+                    }
+
+                    forwardSchedules[i] = next.copy(
+                        wakeUpTime = shiftedWakeUp,
+                        bathroomStartTime = shiftedWakeUp,
+                        bathroomEndTime = shiftedBathroomEnd
+                    )
+                }
             }
+            lastBathIndex = i
         }
-
-
-
-        // Prüfe ob ein Snooze (fixierter Member) aktiv ist – dann toleriere Verschiebungen
-        val hasSnoozeActive = orderedMembers.any { it.earliestWakeUp == it.latestWakeUp }
 
         // Post-Validation (auf korrigierte Schedules) – bei Snooze tolerieren, da temporär
         if (breakfastTime != null && isValid && !hasSnoozeActive) {
             for (s in forwardSchedules) {
-                if (s.member.wantsBreakfast) {
+                if (s.member.wantsBreakfast && !s.member.isSimpleMode) {
                     val cutoff = if (s.member.breakfastDurationMinutes != null && s.member.breakfastDurationMinutes != breakfastDurationMinutes) {
-                        val mStart = if (breakfastEaters.isNotEmpty()) {
-                            var minLeave = LocalTime(23, 59)
-                            for (m in breakfastEaters) {
-                                val naturalEnd = m.latestWakeUp.plusMinutes(m.bathroomDurationMinutes.coerceAtLeast(0))
-                                val leave = m.leaveHomeTime ?: naturalEnd
-                                if (leave.isBefore(minLeave)) minLeave = leave
-                            }
-                            if (minLeave.isBefore(LocalTime(4, 0))) LocalTime(4, 0) else minLeave
-                        } else LocalTime(8, 0)
+                        val mStart = if (breakfastEaters.isNotEmpty()) minLeaveForBreakfastEaters else LocalTime(8, 0)
                         val calculated = mStart.minusMinutes(s.member.breakfastDurationMinutes)
-                        if (calculated.isAfter(mStart)) LocalTime(3, 30) else calculated
+                        if (calculated.isAfter(mStart)) LocalTime(0, 0) else calculated
                     } else {
                         breakfastTime
                     }

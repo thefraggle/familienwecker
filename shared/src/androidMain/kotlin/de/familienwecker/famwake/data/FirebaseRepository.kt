@@ -489,6 +489,7 @@ class FirebaseRepository : IFirebaseRepository {
                                     put("wantsBreakfast", profile.wantsBreakfast)
                                     profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
                                     profile.bufferMinutes?.let { put("bufferMinutes", it) }
+                                    profile.breakfastDurationMinutes?.let { put("breakfastDurationMinutes", it) }
                                     put("isSimpleMode", profile.isSimpleMode)
                                     profile.sequenceOrder?.let { put("sequenceOrder", it) }
                                 }
@@ -525,6 +526,7 @@ class FirebaseRepository : IFirebaseRepository {
                         put("wantsBreakfast", profile.wantsBreakfast)
                         profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
                         profile.bufferMinutes?.let { put("bufferMinutes", it) }
+                        profile.breakfastDurationMinutes?.let { put("breakfastDurationMinutes", it) }
                         put("isSimpleMode", profile.isSimpleMode)
                         profile.sequenceOrder?.let { put("sequenceOrder", it) }
                     }

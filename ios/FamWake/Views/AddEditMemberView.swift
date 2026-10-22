@@ -335,6 +335,7 @@ struct AddEditMemberView: View {
             memberToSave.bathroomDurationMinutes = refProfile.bathroomDurationMinutes
             memberToSave.wantsBreakfast = refProfile.wantsBreakfast
             memberToSave.leaveHomeTime = refProfile.leaveHomeTime
+            memberToSave.breakfastDurationMinutes = refProfile.breakfastDurationMinutes
             memberToSave.isSimpleMode = refProfile.isSimpleMode
             memberToSave.dayProfiles = dayProfiles
         } else {
@@ -346,8 +347,10 @@ struct AddEditMemberView: View {
                 bathroomDurationMinutes: refProfile.bathroomDurationMinutes,
                 wantsBreakfast: refProfile.wantsBreakfast,
                 leaveHomeTime: refProfile.leaveHomeTime,
+                sequenceOrder: familyViewModel.members.count,
                 dayProfiles: dayProfiles,
-                isSimpleMode: refProfile.isSimpleMode
+                isSimpleMode: refProfile.isSimpleMode,
+                breakfastDurationMinutes: refProfile.breakfastDurationMinutes
             )
         }
         

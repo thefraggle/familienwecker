@@ -345,6 +345,92 @@ class SchedulerTest {
         assertEquals(LocalTime(3, 0), result.memberSchedules[0].bathroomEndTime)
         assertEquals(LocalTime(2, 40), result.memberSchedules[0].wakeUpTime)
     }
+
+    @Test
+    fun simpleModeMember_doesNotMaskConflictBetweenBathroomUsers() {
+        // C-03: Ein Mitglied im Einfachen Modus (earliest == latest) darf NICHT als Snooze gewertet werden
+        // und darf unlösbare Konflikte anderer Bad-Nutzer nicht als OptimalPlan maskieren.
+        val m1 = member(
+            id = "m1",
+            name = "Anna",
+            earliestWakeUp = LocalTime(6, 55),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 40L,
+            wantsBreakfast = false
+        )
+        val mSimple = member(
+            id = "m2",
+            name = "Kind",
+            earliestWakeUp = LocalTime(7, 0),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 0L,
+            wantsBreakfast = false
+        ).copy(isSimpleMode = true)
+        val m3 = member(
+            id = "m3",
+            name = "Ben",
+            earliestWakeUp = LocalTime(6, 55),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 40L,
+            wantsBreakfast = false
+        )
+
+        val result = scheduler.calculateIdealSchedule(listOf(m1, mSimple, m3), breakfastDurationMinutes = 0)
+        assertFalse(result.isValid, "Unlösbarer Bad-Konflikt darf durch SimpleMode-Mitglied nicht als gültig markiert werden")
+    }
+
+    @Test
+    fun activeSnooze_allowsTemporaryForwardShiftAcrossSimpleModeMember() {
+        // Wenn m1 aktiv snoozed (snoozeUntil != null), soll m3 hinter einem dazwischenliegenden
+        // SimpleMode-Mitglied m2 sauber nach hinten verschoben werden und der Plan gültig bleiben.
+        val m1 = member(
+            id = "m1",
+            name = "Snoozer",
+            earliestWakeUp = LocalTime(6, 50),
+            latestWakeUp = LocalTime(6, 50),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = false
+        ).copy(snoozeUntil = kotlinx.datetime.LocalDateTime(2026, 10, 22, 6, 50), snoozeCount = 2)
+        val mSimple = member(
+            id = "m2",
+            name = "Simple",
+            earliestWakeUp = LocalTime(7, 0),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 0L,
+            wantsBreakfast = false
+        ).copy(isSimpleMode = true)
+        val m3 = member(
+            id = "m3",
+            name = "Nachfolger",
+            earliestWakeUp = LocalTime(6, 40),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = false
+        )
+
+        val result = scheduler.calculateIdealSchedule(listOf(m1, mSimple, m3), breakfastDurationMinutes = 0)
+        assertTrue(result.isValid)
+        // m1: 06:50-07:10 -> m3 muss auf 07:10 verschoben werden, obwohl mSimple dazwischen liegt
+        assertEquals(LocalTime(7, 10), result.memberSchedules[2].wakeUpTime)
+    }
+
+    @Test
+    fun earlyShift_customIndividualBreakfastDuration_allowsBeforeFourAm() {
+        // H-04: Auch bei individuellem breakfastDurationMinutes != global darf vor 04:00 Uhr gefrühstückt werden
+        val earlyBird = member(
+            id = "early1",
+            earliestWakeUp = LocalTime(2, 0),
+            latestWakeUp = LocalTime(3, 0),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = true,
+            leaveHomeTime = LocalTime(3, 30),
+            breakfastDurationMinutes = 15L
+        )
+        val result = scheduler.calculateIdealSchedule(listOf(earlyBird), breakfastDurationMinutes = 30)
+        assertTrue(result.isValid)
+        assertEquals(LocalTime(3, 15), result.memberSchedules[0].bathroomEndTime)
+        assertEquals(LocalTime(2, 55), result.memberSchedules[0].wakeUpTime)
+    }
 }
 
 

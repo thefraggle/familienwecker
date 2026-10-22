@@ -11,7 +11,9 @@ struct Scheduler {
         globalBufferMinutes: Int = 0
     ) -> FamilySchedule {
 
-        let activeMembers = members.filter { !$0.isPaused }.prefix(6).map { $0 }
+        let allActiveMembers = members.filter { !$0.isPaused }
+        let activeMembers = Array(allActiveMembers.prefix(6))
+        let memberLimitExceeded = allActiveMembers.count > 6
 
         if activeMembers.isEmpty {
             return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: true, scheduleMessage: .noActiveSchedule)
@@ -19,7 +21,14 @@ struct Scheduler {
 
         // 1. Versuche die exakte Reihung ohne Zeit-Verschiebung, mit vollem Puffer
         let initialResult = evaluatePermutation(activeMembers, breakfastDurationMinutes: breakfastDurationMinutes, shiftMinutes: 0, globalBufferMinutes: globalBufferMinutes, includeInvalid: true)
-        if initialResult.isValid { return initialResult }
+        if initialResult.isValid {
+            if memberLimitExceeded {
+                var limitedResult = initialResult
+                limitedResult.scheduleMessage = .memberLimitExceeded(allActiveMembers.count, 6)
+                return limitedResult
+            }
+            return initialResult
+        }
 
         // 2. Puffer schrittweise reduzieren (5er-Schritte)
         if globalBufferMinutes > 0 {
@@ -97,11 +106,11 @@ struct Scheduler {
 
         let breakfastEaters = orderedMembers.filter { $0.wantsBreakfast && !$0.isSimpleMode }
         var breakfastTime: DateComponents? = nil
+        var minLeaveForBreakfastEaters = DateComponents(hour: 23, minute: 59)
 
         if !breakfastEaters.isEmpty {
-            var minLeaveForBreakfastEaters = DateComponents(hour: 23, minute: 59)
             for m in breakfastEaters {
-                let naturalBathEnd = m.latestWakeUp.adding(minutes: m.bathroomDurationMinutes)
+                let naturalBathEnd = m.latestWakeUp.adding(minutes: max(0, m.bathroomDurationMinutes))
                 let leave = m.leaveHomeTime ?? naturalBathEnd
                 if leave < minLeaveForBreakfastEaters {
                     minLeaveForBreakfastEaters = leave
@@ -139,13 +148,18 @@ struct Scheduler {
                 continue
             }
 
-            let allowedLatest = member.latestWakeUp.adding(minutes: shiftMinutes)
-            let allowedEarliest = member.earliestWakeUp.subtracting(minutes: shiftMinutes)
+            let rawAllowedLatest = member.latestWakeUp.adding(minutes: shiftMinutes)
+            let allowedLatest = rawAllowedLatest < member.latestWakeUp ? DateComponents(hour: 23, minute: 59) : rawAllowedLatest
+            let rawAllowedEarliest = member.earliestWakeUp.subtracting(minutes: shiftMinutes)
+            let allowedEarliest = member.earliestWakeUp < rawAllowedEarliest ? DateComponents(hour: 0, minute: 0) : rawAllowedEarliest
 
-            // Fixierte Weckzeit (z.B. durch Snooze): earliestWakeUp == latestWakeUp
+            // Fixierte Weckzeit (z.B. durch Snooze oder 0-Minuten-Fenster): earliestWakeUp == latestWakeUp
             let isFixed = member.earliestWakeUp == member.latestWakeUp
+            let isMemberSnoozed = member.snoozeUntil != nil
 
-            var maxBathroomEnd = allowedLatest.adding(minutes: member.bathroomDurationMinutes)
+            let bathDuration = max(0, member.bathroomDurationMinutes)
+            let rawMaxBathroomEnd = allowedLatest.adding(minutes: bathDuration)
+            var maxBathroomEnd = rawMaxBathroomEnd < allowedLatest ? DateComponents(hour: 23, minute: 59) : rawMaxBathroomEnd
 
             if currentLatestBathroomEnd < maxBathroomEnd {
                 maxBathroomEnd = currentLatestBathroomEnd
@@ -157,20 +171,9 @@ struct Scheduler {
                 if effectiveDuration == breakfastDurationMinutes {
                     memberBreakfastStart = bt
                 } else {
-                    let mStart: DateComponents
-                    if !breakfastEaters.isEmpty {
-                        var minLeave = DateComponents(hour: 23, minute: 59)
-                        for m in breakfastEaters {
-                            let naturalEnd = m.latestWakeUp.adding(minutes: m.bathroomDurationMinutes)
-                            let leave = m.leaveHomeTime ?? naturalEnd
-                            if leave < minLeave { minLeave = leave }
-                        }
-                        mStart = minLeave.totalMinutes < 4 * 60 ? DateComponents(hour: 4, minute: 0) : minLeave
-                    } else {
-                        mStart = DateComponents(hour: 8, minute: 0)
-                    }
+                    let mStart = !breakfastEaters.isEmpty ? minLeaveForBreakfastEaters : DateComponents(hour: 8, minute: 0)
                     let calculated = mStart.subtracting(minutes: effectiveDuration)
-                    memberBreakfastStart = mStart < calculated ? DateComponents(hour: 3, minute: 30) : calculated
+                    memberBreakfastStart = mStart < calculated ? DateComponents(hour: 0, minute: 0) : calculated
                 }
 
                 if maxBathroomEnd.totalMinutes >= memberBreakfastStart.totalMinutes {
@@ -187,9 +190,17 @@ struct Scheduler {
             let bathroomEnd: DateComponents
             if isFixed {
                 wakeUpTime = member.latestWakeUp
-                bathroomEnd = wakeUpTime.adding(minutes: member.bathroomDurationMinutes)
+                let rawEnd = wakeUpTime.adding(minutes: bathDuration)
+                bathroomEnd = rawEnd < wakeUpTime ? DateComponents(hour: 23, minute: 59) : rawEnd
+                if !isMemberSnoozed && maxBathroomEnd < bathroomEnd {
+                    if !includeInvalid {
+                        return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .noValidScheduleFound)
+                    }
+                    isValid = false
+                }
             } else {
-                wakeUpTime = maxBathroomEnd.subtracting(minutes: member.bathroomDurationMinutes)
+                let rawWake = maxBathroomEnd.subtracting(minutes: bathDuration)
+                wakeUpTime = maxBathroomEnd < rawWake ? DateComponents(hour: 0, minute: 0) : rawWake
                 bathroomEnd = maxBathroomEnd
             }
 
@@ -231,56 +242,65 @@ struct Scheduler {
                 bufferAfter: effectiveBuffer
             ))
             
-            currentLatestBathroomEnd = wakeUpTime.subtracting(minutes: prevBuffer)
+            let rawPrevEnd = wakeUpTime.subtracting(minutes: prevBuffer)
+            currentLatestBathroomEnd = wakeUpTime < rawPrevEnd ? DateComponents(hour: 0, minute: 0) : rawPrevEnd
         }
 
-        // Vorwärts-Korrektur-Pass: Wenn ein fixierter Member (Snooze) seine Badzeit
-        // in den Slot des Nachfolgers schiebt, werden nachfolgende Members verschoben.
+        // Prüfe ob ein Snooze aktiv ist – nur bei echtem Snooze werden temporäre Verschiebungen toleriert
+        let hasSnoozeActive = orderedMembers.contains { !$0.isSimpleMode && $0.snoozeUntil != nil }
+
+        // Vorwärts-Korrektur-Pass: Wenn ein fixierter Member (z.B. Snooze) seine Badzeit
+        // in den Slot des Nachfolgers schiebt, werden nachfolgende Bad-nutzende Members verschoben.
         var forwardSchedules = Array(schedules.reversed())
-        for i in 0..<(forwardSchedules.count - 1) {
-            let current = forwardSchedules[i]
-            let next = forwardSchedules[i + 1]
+        var lastBathIndex = -1
+        for i in 0..<forwardSchedules.count {
+            let next = forwardSchedules[i]
             if next.member.isSimpleMode { continue }
 
-            let buffer = current.bufferAfter
-            let requiredNextStart = current.bathroomEnd.adding(minutes: buffer)
+            if lastBathIndex >= 0 {
+                let current = forwardSchedules[lastBathIndex]
+                let buffer = current.bufferAfter
+                let rawRequiredStart = current.bathroomEnd.adding(minutes: buffer)
+                let requiredNextStart = rawRequiredStart < current.bathroomEnd ? DateComponents(hour: 23, minute: 59) : rawRequiredStart
 
-            if next.wakeUpTime < requiredNextStart {
-                let shiftedWakeUp = requiredNextStart
-                let shiftedBathroomEnd = shiftedWakeUp.adding(minutes: next.member.bathroomDurationMinutes)
-                forwardSchedules[i + 1] = MemberSchedule(
-                    member: next.member,
-                    wakeUpTime: shiftedWakeUp,
-                    bathroomStart: shiftedWakeUp,
-                    bathroomEnd: shiftedBathroomEnd,
-                    bufferAfter: next.bufferAfter
-                )
+                if next.wakeUpTime < requiredNextStart {
+                    let shiftedWakeUp = requiredNextStart
+                    let nextBathDuration = max(0, next.member.bathroomDurationMinutes)
+                    let rawShiftedEnd = shiftedWakeUp.adding(minutes: nextBathDuration)
+                    let shiftedBathroomEnd = rawShiftedEnd < shiftedWakeUp ? DateComponents(hour: 23, minute: 59) : rawShiftedEnd
+
+                    if !hasSnoozeActive {
+                        let rawNextAllowedLatest = next.member.latestWakeUp.adding(minutes: shiftMinutes)
+                        let nextAllowedLatest = rawNextAllowedLatest < next.member.latestWakeUp ? DateComponents(hour: 23, minute: 59) : rawNextAllowedLatest
+                        if nextAllowedLatest < shiftedWakeUp || (next.member.leaveHomeTime != nil && next.member.leaveHomeTime! < shiftedBathroomEnd) {
+                            isValid = false
+                            if !includeInvalid {
+                                return FamilySchedule(memberSchedules: [], breakfastTime: nil, isValid: false, scheduleMessage: .noValidScheduleFound)
+                            }
+                        }
+                    }
+
+                    forwardSchedules[i] = MemberSchedule(
+                        member: next.member,
+                        wakeUpTime: shiftedWakeUp,
+                        bathroomStart: shiftedWakeUp,
+                        bathroomEnd: shiftedBathroomEnd,
+                        bufferAfter: next.bufferAfter
+                    )
+                }
             }
+            lastBathIndex = i
         }
-
-        // Prüfe ob ein Snooze (fixierter Member) aktiv ist – dann toleriere Verschiebungen
-        let hasSnoozeActive = orderedMembers.contains { $0.earliestWakeUp == $0.latestWakeUp }
 
         // Post-Validation Frühstück (bei Snooze tolerieren, da temporär)
         if let bt = breakfastTime, isValid, !hasSnoozeActive {
             for s in forwardSchedules {
-                if s.member.wantsBreakfast {
+                if s.member.wantsBreakfast && !s.member.isSimpleMode {
                     let cutoff: DateComponents
                     if let dur = s.member.breakfastDurationMinutes, dur != breakfastDurationMinutes {
-                        let mStart: DateComponents
-                        if !breakfastEaters.isEmpty {
-                            var minLeave = DateComponents(hour: 23, minute: 59)
-                            for m in breakfastEaters {
-                                let naturalEnd = m.latestWakeUp.adding(minutes: m.bathroomDurationMinutes)
-                                let leave = m.leaveHomeTime ?? naturalEnd
-                                if leave < minLeave { minLeave = leave }
-                            }
-                            mStart = minLeave.totalMinutes < 4 * 60 ? DateComponents(hour: 4, minute: 0) : minLeave
-                        } else {
-                            mStart = DateComponents(hour: 8, minute: 0)
-                        }
+                        let mStart = !breakfastEaters.isEmpty ? minLeaveForBreakfastEaters : DateComponents(hour: 8, minute: 0)
                         let calculated = mStart.subtracting(minutes: dur)
-                        cutoff = mStart < calculated ? DateComponents(hour: 3, minute: 30) : calculated
+                        cutoff = mStart < calculated ? DateComponents(hour: 0, minute: 0) : calculated
                     } else {
                         cutoff = bt
                     }
