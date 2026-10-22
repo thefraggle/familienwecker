@@ -191,6 +191,7 @@ enum L {
         if lang == "sv" { return "https://www.familienwecker.de/imprint-sv.html" }
         if lang == "uk" { return "https://www.familienwecker.de/imprint-uk.html" }
         if lang == "id" || lang == "in" { return "https://www.familienwecker.de/imprint-id.html" }
+        if lang == "zh" { return "https://www.familienwecker.de/imprint-zh-CN.html" }
         return "https://www.familienwecker.de/imprint-en.html"
     }
 
@@ -370,7 +371,10 @@ enum L {
     // MARK: - Errors
     static var errorGeneric: String { s("add_member_unknown") }
     static var errorFamilyNotFound: String { s("error_family_not_found") }
-    static var errorInvalidCode: String { s("error_invalid_code") }
+    static var errorInvalidCode: String {
+        s("error_invalid_code", "").replacingOccurrences(of: ": ", with: "").replacingOccurrences(of: "：", with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    static func errorInvalidCode(_ code: String) -> String { s("error_invalid_code", code) }
     static var errorProfileTaken: String { s("error_profile_taken") }
     static var errorProfileClaimOffline: String { s("error_profile_claim_offline") }
     static var errorDeleteNotAdmin: String { s("error_delete_not_admin") }
