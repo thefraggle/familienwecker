@@ -42,6 +42,13 @@ struct OpenFamWakeIntent: LiveActivityIntent {
         if !hasActiveSnooze {
             await AlarmService.shared.cancelWakeUp(memberId: memberId)
             UserDefaults.standard.removeObject(forKey: "snooze_until")
+            UserDefaults.standard.set(0, forKey: "snooze_count")
+            let formatter = DateFormatter()
+            formatter.calendar = Calendar(identifier: .gregorian)
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = "yyyy-MM-dd"
+            UserDefaults.standard.set(true, forKey: "awake_today")
+            UserDefaults.standard.set(formatter.string(from: Date()), forKey: "awake_today_date")
             
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .showGreetingView, object: nil, userInfo: ["memberId": memberId, "memberName": memberName])

@@ -94,7 +94,10 @@ final class FamilyFirestoreService {
     func setAwake(familyId: String, memberId: String, awake: Bool) async throws {
         do {
             try await db.collection("families").document(familyId).collection("members").document(memberId)
-                .updateData(["isAwakeToday": awake])
+                .updateData([
+                    "isAwakeToday": awake,
+                    "lastUpdatedAt": FieldValue.serverTimestamp()
+                ])
         } catch {
             throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
         }

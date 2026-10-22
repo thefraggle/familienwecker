@@ -437,8 +437,14 @@ class FamilyViewModel(
                     if (idx != -1) {
                         var overridden = checkedMembers[idx].copy(
                             deviceAlarmEnabled = alarmsOn,
-                            isAwakeToday = if (!appSettings.isAwakeToday.value) false else checkedMembers[idx].isAwakeToday
+                            // Lokales Flag hat am heutigen Tag Vorrang (z. B. nach Alarm-Dismissal in RingingActivity),
+                            // damit ein verzögerter Room/Firestore-Write das Flag nicht wieder auf false setzt.
+                            isAwakeToday = appSettings.isAwakeTodayEffective() || checkedMembers[idx].isAwakeToday
                         )
+                        // Synchronisiere lokalen Wach-Status, wenn Room/Firestore den Member als wach führt
+                        if (checkedMembers[idx].isAwakeToday && !appSettings.isAwakeTodayEffective()) {
+                            appSettings.setAwakeToday(true)
+                        }
                         // Snooze-State: Lokal gesetzten Snooze beibehalten, da der Firestore/Room-Write
                         // noch unterwegs sein kann und der Observer sonst den Snooze überschreibt
                         val localSnooze = appSettings.snoozeUntil.value

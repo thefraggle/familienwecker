@@ -82,13 +82,15 @@ struct AppRouter: View {
                let memberId = info["memberId"] as? String,
                let memberName = info["memberName"] as? String {
                 appState.startGreeting(memberId: memberId, memberName: memberName)
+                familyViewModel.cancelSnooze(memberId)
+                familyViewModel.setAwake(memberId: memberId, awake: true)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .stopAlarmFromNotification)) { notif in
             appState.stopRinging()
             if let info = notif.userInfo, let memberId = info["memberId"] as? String {
                 familyViewModel.cancelSnooze(memberId)
-                familyViewModel.recalculateSchedule()
+                familyViewModel.setAwake(memberId: memberId, awake: true)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .snoozeAlarmFromNotification)) { notif in
@@ -112,9 +114,10 @@ struct AppRouter: View {
                 memberName: appState.ringingMemberName,
                 isGreetingOnly: appState.isGreeting,
                 onStop: {
+                    let stoppedMemberId = appState.ringingMemberId
                     appState.stopRinging()
-                    familyViewModel.cancelSnooze(appState.ringingMemberId)
-                    familyViewModel.recalculateSchedule()
+                    familyViewModel.cancelSnooze(stoppedMemberId)
+                    familyViewModel.setAwake(memberId: stoppedMemberId, awake: true)
                 },
                 onSnooze: {
                     AlarmService.shared.cancelWakeUp(memberId: appState.ringingMemberId)
