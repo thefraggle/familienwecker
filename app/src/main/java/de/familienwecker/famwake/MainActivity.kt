@@ -68,16 +68,18 @@ class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         
-        // Erkennung aus adb-Intent (direkter Launch ohne Test-Runner)
-        android.util.Log.d("FamWakeDebug", "Intent: " + intent.toString())
-        intent.extras?.keySet()?.forEach { key ->
-            android.util.Log.d("FamWakeDebug", "  Extra $key = ${intent.extras?.get(key)}")
+        // Erkennung aus adb-Intent (direkter Launch ohne Test-Runner – nur in Debug-Builds!)
+        if (BuildConfig.DEBUG) {
+            android.util.Log.d("FamWakeDebug", "Intent: " + intent.toString())
+            intent.extras?.keySet()?.forEach { key ->
+                android.util.Log.d("FamWakeDebug", "  Extra $key = ${intent.extras?.get(key)}")
+            }
+            if (intent.getBooleanExtra("screenshot_mode", false) || intent.getStringExtra("screenshot_mode") == "true") {
+                FamWakeApplication.isScreenshotMode = true
+                android.util.Log.d("FamWakeDebug", "Screenshot mode enabled via intent extra!")
+            }
         }
-        if (intent.getBooleanExtra("screenshot_mode", false) || intent.getStringExtra("screenshot_mode") == "true") {
-            FamWakeApplication.isScreenshotMode = true
-            android.util.Log.d("FamWakeDebug", "Screenshot mode enabled via intent extra!")
-        }
-        if (FamWakeApplication.isScreenshotMode) {
+        if (BuildConfig.DEBUG && FamWakeApplication.isScreenshotMode) {
             setupMockDataForScreenshots()
         }
 

@@ -95,8 +95,9 @@ exports.sendBrandedResetEmail = onCall(
       if (code.includes("invalid-email") || code.includes("argument")) {
         throw new HttpsError("invalid-argument", "INVALID_EMAIL");
       } else if (code.includes("user-not-found") || code.includes("not-found")) {
-        console.log("Mapping to USER_NOT_FOUND");
-        throw new HttpsError("not-found", "USER_NOT_FOUND");
+        // OWASP User-Enumeration-Schutz: Nach außen Erfolg melden, auch wenn die E-Mail nicht registriert ist
+        console.log("User not found for password reset – returning generic success to prevent enumeration.");
+        return { success: true };
       } else if (code.includes("too-many-requests") || code.includes("resource-exhausted")) {
         throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
       }
@@ -139,11 +140,18 @@ exports.sendBrandedConfirmationEmail = onCall(
     invoker: "public",
   },
   async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
     const email = request.data?.email;
     const lang = resolveLanguage(request.data?.language);
 
-    if (!email) {
+    if (!email || typeof email !== "string") {
       throw new HttpsError("invalid-argument", "INVALID_EMAIL");
+    }
+    if (request.auth.token.email &&
+      email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
+      throw new HttpsError("permission-denied", "EMAIL_MISMATCH");
     }
 
     const resendKey = process.env.RESEND_API_KEY;

@@ -41,9 +41,10 @@ class DeviceTrustManager(private val context: Context) {
         const val DEFAULT_ENFORCEMENT_ENABLED = false
 
         // Nonce muss mind. 16 Zeichen lang sein (Play Integrity Anforderung)
+        private val secureRandom = java.security.SecureRandom()
         private fun generateNonce(): String {
             val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-            return (1..24).map { chars.random() }.joinToString("")
+            return (1..24).map { chars[secureRandom.nextInt(chars.length)] }.joinToString("")
         }
     }
 
