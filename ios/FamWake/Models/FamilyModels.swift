@@ -151,6 +151,7 @@ enum ScheduleMessage: Equatable {
     case breakfastReduced(Int)
     case breakfastAndTimeAdjusted(Int, Int)
     case bufferReduced(Int, Int)
+    case memberLimitExceeded(Int, Int)
 }
 
 // MARK: - DateComponents Helpers

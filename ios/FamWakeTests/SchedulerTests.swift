@@ -132,4 +132,46 @@ final class SchedulerTests: XCTestCase {
         let bathEnd = result.memberSchedules[0].bathroomEnd
         XCTAssertLessThan(bathEnd.hour ?? 0, 24, "Hour must always be < 24")
     }
+
+    func testSimpleModeMember_doesNotMaskConflictBetweenBathroomUsers() {
+        let m1 = makeMember(id: "m1", name: "Anna", earliest: (6, 55), latest: (7, 0), duration: 40, breakfast: false)
+        var mSimple = makeMember(id: "m2", name: "Kind", earliest: (7, 0), latest: (7, 0), duration: 0, breakfast: false)
+        mSimple.isSimpleMode = true
+        let m3 = makeMember(id: "m3", name: "Ben", earliest: (6, 55), latest: (7, 0), duration: 40, breakfast: false)
+
+        let result = scheduler.calculateIdealSchedule(members: [m1, mSimple, m3], breakfastDurationMinutes: 0)
+        XCTAssertFalse(result.isValid, "Conflict between bathroom users must not be masked by a SimpleMode member")
+    }
+
+    func testActiveSnooze_allowsTemporaryForwardShiftAcrossSimpleModeMember() {
+        var m1 = makeMember(id: "m1", name: "Snoozer", earliest: (6, 50), latest: (6, 50), duration: 20, breakfast: false)
+        m1.snoozeUntil = Date().addingTimeInterval(300)
+        m1.snoozeCount = 2
+        var mSimple = makeMember(id: "m2", name: "Simple", earliest: (7, 0), latest: (7, 0), duration: 0, breakfast: false)
+        mSimple.isSimpleMode = true
+        let m3 = makeMember(id: "m3", name: "Nachfolger", earliest: (6, 40), latest: (7, 0), duration: 20, breakfast: false)
+
+        let result = scheduler.calculateIdealSchedule(members: [m1, mSimple, m3], breakfastDurationMinutes: 0)
+        XCTAssertTrue(result.isValid)
+        XCTAssertEqual(result.memberSchedules[2].wakeUpTime.hour, 7)
+        XCTAssertEqual(result.memberSchedules[2].wakeUpTime.minute, 10)
+    }
+
+    func testEarlyShift_customIndividualBreakfastDuration_allowsBeforeFourAm() {
+        let earlyBird = makeMember(
+            id: "early1",
+            earliest: (2, 0),
+            latest: (3, 0),
+            duration: 20,
+            breakfast: true,
+            leave: (3, 30),
+            breakfastDuration: 15
+        )
+        let result = scheduler.calculateIdealSchedule(members: [earlyBird], breakfastDurationMinutes: 30)
+        XCTAssertTrue(result.isValid)
+        XCTAssertEqual(result.memberSchedules[0].bathroomEnd.hour, 3)
+        XCTAssertEqual(result.memberSchedules[0].bathroomEnd.minute, 15)
+        XCTAssertEqual(result.memberSchedules[0].wakeUpTime.hour, 2)
+        XCTAssertEqual(result.memberSchedules[0].wakeUpTime.minute, 55)
+    }
 }

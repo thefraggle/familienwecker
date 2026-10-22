@@ -866,7 +866,8 @@ class FamilyViewModel: ObservableObject {
                         bathroomDurationMinutes: m.bathroomDurationMinutes,
                         wantsBreakfast: m.wantsBreakfast,
                         leaveHomeTime: m.leaveHomeTime,
-                        isSimpleMode: m.isSimpleMode
+                        isSimpleMode: m.isSimpleMode,
+                        breakfastDurationMinutes: m.breakfastDurationMinutes
                     )
                     var updatedProfile = profile
                     updatedProfile.sequenceOrder = indexInTarget
@@ -2126,11 +2127,18 @@ class FamilyViewModel: ObservableObject {
         resolved.bathroomDurationMinutes = profile.bathroomDurationMinutes
         resolved.wantsBreakfast = profile.wantsBreakfast
         resolved.leaveHomeTime = profile.leaveHomeTime
+        resolved.breakfastDurationMinutes = profile.breakfastDurationMinutes ?? member.breakfastDurationMinutes
         resolved.dayProfiles = [targetDow: profile]
         resolved.isSimpleMode = profile.isSimpleMode
 
-        // Snooze-Constraint: Aktiv gesnoozter Member verschiebt nachfolgende
-        if let snoozeEnd = member.snoozeUntil, snoozeEnd > now {
+        let isToday = cal.isDate(targetDate, inSameDayAs: today)
+        if !isToday {
+            resolved.snoozeUntil = nil
+            resolved.snoozeCount = 0
+        }
+
+        // Snooze-Constraint: Aktiv gesnoozter Member verschiebt nachfolgende (nur heute!)
+        if isToday, let snoozeEnd = resolved.snoozeUntil, snoozeEnd > now, cal.isDate(snoozeEnd, inSameDayAs: targetDate) {
             let snoozeComps = cal.dateComponents([.hour, .minute], from: snoozeEnd)
 
             // Wake-up-Zeit auf snoozeUntil fixieren
@@ -2145,7 +2153,7 @@ class FamilyViewModel: ObservableObject {
             // Beim 2. Snooze: Badzeit bleibt gleich → Scheduler verschiebt nachfolgende Members.
             // Bei kurzer Badzeit (≤ MIN_BATHROOM): auch der 1. Snooze verschiebt.
             let absorbableMinutes: Int
-            if member.snoozeCount <= 1 {
+            if resolved.snoozeCount <= 1 {
                 absorbableMinutes = min(
                     SnoozeConfig.snoozeDurationMinutes,
                     max(0, resolved.bathroomDurationMinutes - Int(SnoozeConfig.minBathroomMinutes))
@@ -2155,8 +2163,11 @@ class FamilyViewModel: ObservableObject {
             }
             resolved.bathroomDurationMinutes = resolved.bathroomDurationMinutes - absorbableMinutes
             #if DEBUG
-            print("[Snooze] \(member.name): count=\(member.snoozeCount), absorbed=\(absorbableMinutes), bath=\(resolved.bathroomDurationMinutes)")
+            print("[Snooze] \(member.name): count=\(resolved.snoozeCount), absorbed=\(absorbableMinutes), bath=\(resolved.bathroomDurationMinutes)")
             #endif
+        } else {
+            resolved.snoozeUntil = nil
+            resolved.snoozeCount = 0
         }
 
         return resolved
