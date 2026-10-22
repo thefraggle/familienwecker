@@ -245,9 +245,11 @@ struct FamWakeApp: App {
         Firestore.firestore().settings = settings
         RevenueCatService.configure()
         
+        #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-screenshotMode") {
             setupMockDataForScreenshots()
         }
+        #endif
     }()
     
     @StateObject private var appState: AppState = {

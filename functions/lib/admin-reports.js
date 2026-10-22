@@ -59,6 +59,7 @@ exports.sendFeedbackEmail = onCall(
     const sanitizedAppVersion = escapeHtml((appVersion || "").slice(0, 50));
 
     const replyTo = email && email.trim() ? email.trim().slice(0, 254) : undefined;
+    const sanitizedReplyTo = replyTo ? escapeHtml(replyTo) : undefined;
     const subject = `📬 FamWake Feedback: ${sanitizedCategory}`;
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -67,7 +68,7 @@ exports.sendFeedbackEmail = onCall(
           <tr><td style="padding:6px 0; color:#666; width:130px;">Kategorie</td><td><strong>${sanitizedCategory}</strong></td></tr>
           <tr><td style="padding:6px 0; color:#666;">App-Version</td><td>${sanitizedAppVersion || "–"}</td></tr>
           <tr><td style="padding:6px 0; color:#666;">Gerät</td><td>${sanitizedDevice || "–"}</td></tr>
-          ${replyTo ? `<tr><td style="padding:6px 0; color:#666;">Antwort-E-Mail</td><td><a href="mailto:${replyTo}">${replyTo}</a></td></tr>` : ""}
+          ${sanitizedReplyTo ? `<tr><td style="padding:6px 0; color:#666;">Antwort-E-Mail</td><td><a href="mailto:${sanitizedReplyTo}">${sanitizedReplyTo}</a></td></tr>` : ""}
         </table>
         <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;">
         <h3 style="color: ${BRAND_BLUE};">Nachricht</h3>
@@ -94,6 +95,7 @@ exports.sendFeedbackEmail = onCall(
 
       // Feedback auch in Firestore für Archiv speichern
       await admin.firestore().collection("feedback").add({
+        uid,
         category: category || "",
         message: message.trim(),
         email: email?.trim() || "",
@@ -301,16 +303,18 @@ exports.verifyIntegrityToken = onCall(
       });
 
       const payload = response.data?.tokenPayloadExternal;
+      const pkgMatch = !payload?.requestDetails?.requestPackageName ||
+        payload.requestDetails.requestPackageName === packageName;
       const verdictArray = payload?.deviceIntegrity?.deviceRecognitionVerdict ?? [];
-      const trusted = Array.isArray(verdictArray) && verdictArray.includes("MEETS_DEVICE_INTEGRITY");
+      const trusted = pkgMatch && Array.isArray(verdictArray) && verdictArray.includes("MEETS_DEVICE_INTEGRITY");
 
-      console.log(`Play Integrity verdict: ${JSON.stringify(verdictArray)}, trusted=${trusted}`);
+      console.log(`Play Integrity verdict: ${JSON.stringify(verdictArray)}, pkgMatch=${pkgMatch}, trusted=${trusted}`);
       return { trusted, verdict: verdictArray };
 
     } catch (err) {
-      // Fail-closed: bei API-Fehler nicht vertrauenswürdig zurückgeben
+      // Fail-open (UNKNOWN) bei API-Ausfällen: trusted: null signalisiert dem Client DeviceTrustLevel.UNKNOWN
       console.error("verifyIntegrityToken error:", err?.message ?? err);
-      return { trusted: false, verdict: [], error: "API_ERROR" };
+      return { trusted: null, verdict: [], error: "API_ERROR" };
     }
   }
 );

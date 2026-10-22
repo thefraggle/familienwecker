@@ -33,15 +33,12 @@ service cloud.firestore {
         ));
     }
 
-    // Validierung beim Anlegen eines neuen Mitglieds (Schema-, Claim- und Größenschutz)
-    function isValidMemberCreate() {
+    // Gemeinsame Feld-, Typ- und Größenvalidierung für Mitglieder (Create & Update)
+    function isValidMemberData() {
       let d = request.resource.data;
       return d.name is string
         && d.name.size() > 0
         && d.name.size() <= 50
-        && (!('claimedByUserId' in d)
-            || d.claimedByUserId == null
-            || (d.claimedByUserId is string && d.claimedByUserId == request.auth.uid))
         && d.keys().hasOnly([
           'name', 'earliestWakeUp', 'latestWakeUp', 'bathroomDurationMinutes',
           'wantsBreakfast', 'leaveHomeTime', 'breakfastDurationMinutes',
@@ -52,6 +49,7 @@ service cloud.firestore {
           'snoozeUntil', 'snoozeCount',
           'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'
         ])
+        && (!('claimedByUserId' in d) || d.claimedByUserId == null || (d.claimedByUserId is string && d.claimedByUserId.size() <= 128))
         && (!('claimedByUserName' in d) || d.claimedByUserName == null || (d.claimedByUserName is string && d.claimedByUserName.size() <= 100))
         && (!('claimedByDeviceId' in d) || d.claimedByDeviceId == null || (d.claimedByDeviceId is string && d.claimedByDeviceId.size() <= 100))
         && (!('earliestWakeUp' in d) || d.earliestWakeUp == null || (d.earliestWakeUp is string && d.earliestWakeUp.size() <= 10))
@@ -71,6 +69,24 @@ service cloud.firestore {
         && (!('deviceAlarmEnabled' in d) || d.deviceAlarmEnabled == null || d.deviceAlarmEnabled is bool);
     }
 
+    // Validierung beim Anlegen eines neuen Mitglieds (Schema-, Claim- und Größenschutz)
+    function isValidMemberCreate() {
+      let d = request.resource.data;
+      return isValidMemberData()
+        && (!('claimedByUserId' in d)
+            || d.claimedByUserId == null
+            || (d.claimedByUserId is string && d.claimedByUserId == request.auth.uid));
+    }
+
+    // Validierung für Familien-Updates (Schutz unveränderlicher Felder + Typ-/Größengrenzen)
+    function isValidFamilyUpdate() {
+      let d = request.resource.data;
+      return !d.diff(resource.data).affectedKeys().hasAny(['createdByUserId', 'joinCode', 'userIds', 'createdAt'])
+        && (!('name' in d) || (d.name is string && d.name.size() > 0 && d.name.size() <= 100))
+        && (!('vacationUntil' in d) || d.vacationUntil == null || (d.vacationUntil is string && d.vacationUntil.size() <= 20))
+        && (!('globalBufferMinutes' in d) || (d.globalBufferMinutes is number && d.globalBufferMinutes >= 0 && d.globalBufferMinutes <= 60));
+    }
+
     match /users/{userId} {
       allow read: if request.auth != null && request.auth.uid == userId;
       allow write: if false;
@@ -78,13 +94,17 @@ service cloud.firestore {
       // FCM-Token-Subcollection: Gerät verwaltet eigene Tokens direkt vom Client.
       // Kein Server-Roundtrip nötig – Tokens sind gerätespezifisch und nicht sensibel.
       match /fcmTokens/{tokenId} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read, delete: if request.auth != null && request.auth.uid == userId;
+        allow create, update: if request.auth != null && request.auth.uid == userId
+          && request.resource.data.keys().size() <= 10;
       }
 
       // Push-Metadaten: Wer hat zuletzt einen Reorder ausgelöst?
       // Nur der Eigentümer schreibt/liest. Wird von der Cloud Function ausgewertet.
       match /pushMeta/{doc} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read, delete: if request.auth != null && request.auth.uid == userId;
+        allow create, update: if request.auth != null && request.auth.uid == userId
+          && request.resource.data.keys().size() <= 10;
       }
     }
 
@@ -98,11 +118,10 @@ service cloud.firestore {
       // Kein direkter Client-Zugriff für Create (nur Cloud Functions)
       allow create: if false;
 
-      // Update nur für Mitglieder; createdByUserId, joinCode und userIds dürfen vom Client nie geändert werden.
+      // Update nur für Mitglieder; createdByUserId, joinCode, userIds und createdAt dürfen vom Client nie geändert werden.
       // Hinweis: Cloud Functions nutzen das Admin SDK und umgehen diese Rules vollständig –
       // createFamily, joinFamilyByCode, leaveFamily etc. funktionieren weiterhin uneingeschränkt.
-      allow update: if isFamilyMember(familyId) && 
-                    (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['createdByUserId', 'joinCode', 'userIds']));
+      allow update: if isFamilyMember(familyId) && isValidFamilyUpdate();
       
       // Löschen nur via Admin/Cloud Functions (Client-Delete verboten, um verwaiste Subcollections zu verhindern)
       allow delete: if isAdmin();
@@ -119,42 +138,45 @@ service cloud.firestore {
         // (bewusste Design-Entscheidung: Familie koordiniert Wecker gemeinsam).
         allow update: if isFamilyMember(familyId) &&
           (
-            // Alle dürfen koordinative Felder schreiben (Wecker-Koordination).
-            // Implizit erlaubt: isPaused, isAwakeToday, lastResetDate, sequenceOrder,
-            // dayProfiles, deviceAlarmEnabled, snoozeUntil, snoozeCount, lastUpdatedAt, etc.
-            !request.resource.data.diff(resource.data).affectedKeys()
-              .hasAny(['name', 'claimedByUserId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'])
-            ||
-            // Ungeclaimte Profile bearbeiten (z.B. Eltern benennen Kinderprofile um oder passen Einstellungen an).
-            // Profil bleibt ungeclaimt.
+            isAdmin() ||
             (
-              resource.data.get('claimedByUserId', null) == null &&
-              request.resource.data.get('claimedByUserId', null) == null
+              isValidMemberData() &&
+              (
+                // Alle dürfen koordinative Felder schreiben (Wecker-Koordination).
+                // Implizit erlaubt: isPaused, isAwakeToday, lastResetDate, sequenceOrder,
+                // dayProfiles, deviceAlarmEnabled, snoozeUntil, snoozeCount, lastUpdatedAt, etc.
+                !request.resource.data.diff(resource.data).affectedKeys()
+                  .hasAny(['name', 'claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'])
+                ||
+                // Ungeclaimte Profile bearbeiten (z.B. Eltern benennen Kinderprofile um oder passen Einstellungen an).
+                // Profil bleibt ungeclaimt.
+                (
+                  resource.data.get('claimedByUserId', null) == null &&
+                  request.resource.data.get('claimedByUserId', null) == null
+                )
+                ||
+                // Besitzer darf sein eigenes Profil vollständig bearbeiten (name, dayProfiles, etc.).
+                // Erforderlich damit User sein eigenes Member-Profil speichern kann.
+                (
+                  resource.data.get('claimedByUserId', null) == request.auth.uid &&
+                  request.resource.data.get('claimedByUserId', null) == request.auth.uid
+                )
+                ||
+                // Claimen: Jedes Familienmitglied darf ein Profil auf sich selbst setzen.
+                // Stehlen / Umclaimen (Claim von A auf B) ist erlaubt.
+                (
+                  request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
+                  request.resource.data.get('claimedByUserId', '') == request.auth.uid
+                )
+                ||
+                // Unclaimen: Eigenes Profil darf jeder Nutzer freigeben.
+                (
+                  request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'isAwakeToday', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
+                  resource.data.get('claimedByUserId', null) == request.auth.uid &&
+                  request.resource.data.get('claimedByUserId', null) == null
+                )
+              )
             )
-            ||
-            // Besitzer darf sein eigenes Profil vollständig bearbeiten (name, dayProfiles, etc.).
-            // Erforderlich damit User sein eigenes Member-Profil speichern kann.
-            (
-              resource.data.get('claimedByUserId', null) == request.auth.uid &&
-              request.resource.data.get('claimedByUserId', null) == request.auth.uid
-            )
-            ||
-            // Claimen: Jedes Familienmitglied darf ein Profil auf sich selbst setzen.
-            // Stehlen / Umclaimen (Claim von A auf B) ist erlaubt.
-            (
-              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
-              request.resource.data.get('claimedByUserId', '') == request.auth.uid
-            )
-            ||
-            // Unclaimen: Eigenes Profil darf jeder Nutzer freigeben.
-            (
-              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'isAwakeToday', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
-              resource.data.get('claimedByUserId', null) == request.auth.uid &&
-              request.resource.data.get('claimedByUserId', null) == null
-            )
-            ||
-            // Admin darf alles.
-            isAdmin()
           );
 
         // Löschen:
