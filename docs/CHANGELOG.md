@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.5 – 2026-10-22
+✨ Verbessert:
+• Verlässliche Folge-Wecker: Nach „Schon wach“ oder dem Beenden des Weckers wird sofort der nächste Tag geplant, während der heutige Badplan bestehen bleibt.
+• Individuelle Frühstücksdauer: Eigene Frühstückszeiten bleiben bei jeder Planänderung dauerhaft erhalten.
+• Präziser Morgenplan: Genauere Konflikterkennung bei festen Wunsch-Weckzeiten und verlässlicher Tageswechsel.
+• Sprachqualität: Vervollständigte Übersetzungen in allen Sprachen.
+
 ## 2.2.4 – 2026-10-10
 ✨ Verbessert:
 • Zuverlässige Zeitplanung: Eindeutigere Hinweise bei Terminkonflikten im Morgenplan für noch mehr Klarheit.

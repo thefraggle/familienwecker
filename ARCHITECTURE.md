@@ -106,30 +106,37 @@ flowchart LR
   - **Device-Protected Storage (`AlarmBackupPrefs`):** Unencrypted plain storage readable even in Direct Boot mode (before device unlock / PIN entry) to restore exact alarms after unexpected reboots.
   - **DataStore:** Non-blocking asynchronous preferences via `DataStoreObservableSettings`.
 - **iOS:**
-  - **UserDefaults & AppStorage:** Local UI settings and member identifiers.
+  - **LocalMemberStore (JSON Cache):** Persists family member models locally on disk so schedules and offline edits survive cold starts and app kills.
+  - **UserDefaults & AppStorage:** Local UI settings, date-guarded awake states (`awake_today` + `awake_today_date`), and member identifiers.
   - **AlarmKit Framework:** Apple's official system-level framework for secure and reliable wake-up triggers.
 
 ### Cloud Firestore Schema
 ```
 /families/{familyId}
-    ├── name: string
+    ├── name: string (1-100 chars)
     ├── joinCode: string (6 chars, unique)
     ├── createdByUserId: string
     ├── userIds: string[]
-    ├── globalBufferMinutes: number (optional)
+    ├── globalBufferMinutes: number (optional, 0-60)
     ├── vacationUntil: string (optional, YYYY-MM-DD)
     └── members/{memberId}
             ├── name: string (1-50 chars)
             ├── isAwakeToday: boolean
             ├── isPaused: boolean
-            ├── sequenceOrder: number
+            ├── isSimpleMode: boolean
+            ├── sequenceOrder: number (0-100)
+            ├── bathroomDurationMinutes: number (0-180)
+            ├── breakfastDurationMinutes: number (0-180)
+            ├── wantsBreakfast: boolean
+            ├── earliestWakeUp / latestWakeUp / leaveHomeTime: string (HH:mm)
+            ├── lastResetDate: string (YYYY-MM-DD)
             ├── dayProfiles: map<dayNumber, DayProfile>
             ├── claimedByUserId: string (optional)
             ├── claimedByUserName: string (optional)
             ├── claimedByDeviceId: string (optional)
             ├── deviceAlarmEnabled: boolean (optional)
             ├── snoozeUntil: timestamp (optional)
-            ├── snoozeCount: number (optional)
+            ├── snoozeCount: number (optional, 0-10)
             ├── soundUri: string (optional)
             └── createdAt / lastUpdatedAt: serverTimestamp
 
@@ -149,7 +156,7 @@ flowchart LR
 
 ### Security Rules (`firestore.rules`)
 - **Three-Tier Membership Verification (`isFamilyMember()`):** Fast-path check via `/users/{uid}.familyId`, fallback to family creator `createdByUserId`, or fallback to legacy `userIds` array.
-- **Strict Member Schema Validation (`isValidMemberCreate()`):** Enforces string length, key whitelisting via `hasOnly()`, type constraints on all fields, and prevents unauthorized profile claiming upon document creation.
-- **Field-Level Protection:** Clients cannot modify immutable fields such as `createdByUserId`, `joinCode`, or `userIds` directly. Profile-stealing and unclaiming are strictly constrained by claim status.
+- **Strict Member Schema Validation (`isValidMemberData()` & `isValidMemberCreate()`):** Enforces string length, key whitelisting via `hasOnly()`, numeric bounds (`0..180` min durations, `0..10` snooze count), and type constraints on both `create` and `update` operations.
+- **Field-Level & Claim Protection (`isValidFamilyUpdate()`):** Clients cannot modify immutable family fields (`createdByUserId`, `joinCode`, `userIds`, `createdAt`) directly, and `name`, `vacationUntil`, and `globalBufferMinutes` are strictly validated. On member documents, coordinative updates by other family members cannot overwrite identity or claim fields (`claimedByUserId`, `claimedByUserName`, `claimedByDeviceId`, `soundUri`, or `name` of a profile claimed by another user).
 - **Feedback Collection Guard:** Authenticated users can submit feedback with strictly validated payload sizes, matching `uid`, and server timestamp.
 - **Safe Deletion:** Direct client deletion of families is disallowed. Deletion is routed through the `deleteFamily` Cloud Function to guarantee recursive cleanup of member subcollections and user profiles.
