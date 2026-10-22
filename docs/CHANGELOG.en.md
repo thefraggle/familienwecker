@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.5 – 2026-10-22
+✨ Improved:
+• Reliable Next-Day Alarms: Marking "Already awake" or stopping your alarm immediately schedules tomorrow's alarm while keeping today's bathroom plan unchanged.
+• Custom Breakfast Duration: Personal breakfast durations stay saved across all schedule updates.
+• Accurate Morning Plan: Improved conflict detection for fixed wake-up times and dependable daily resets.
+• Language Quality: Completed translations and formatting in all languages.
+
 ## 2.2.4 – 2026-10-10
 ✨ Improved:
 • Reliable Scheduling: Clearer feedback on schedule conflicts in the morning plan for effortless coordination.
