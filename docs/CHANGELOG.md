@@ -2,9 +2,8 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
-## 2.2.6 – 2026-10-26
+## 2.2.7 – 2026-10-26
 ✨ Neu & Verbessert:
-• Flexible Schichtprofile: Neue Schnellauswahl für Früh-, Spät- und Normalschichten sowie freie Tage zur mühelosen Wochenplanung.
 • Präziser Zeitplan: Zuverlässige Puffer-Berechnung im gemeinsamen Morgenplan, auch wenn Familienmitglieder ohne Badezimmerbedarf eingeplant sind.
 • Sichere Abmeldung: Vollständige Bereinigung lokaler Daten und zuverlässiges Deaktivieren aktiver Wecker beim Abmelden oder Kontolöschen.
 • Höchste Wecker-Zuverlässigkeit: Optimierte Schlummerfunktion, verlässliche Alarme bei Zeitzonenwechseln und lückenlose Folge-Planung bei verpassten Weckern.

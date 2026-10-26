@@ -15,7 +15,7 @@ Stop the morning chaos! **FamWake** is the smart family alarm & bathroom schedul
 * **Smart Morning Schedule:** Intelligent scheduling coordinates bathroom slots, breakfast, and wake-up times for the whole family.
 * **In Sync & Real-Time:** Live status updates for everyone – no more bathroom queues and zero morning stress.
 * **No Account Required:** Start immediately without registration, or use one-tap clipboard join. Optional account (Google / Email) syncs seamlessly across multiple devices.
-* **Maximum Flexibility:** Shift profiles (early, late, off day), weekday routines, vacation/holiday mode, "Already awake" feature, 30s crescendo gentle alarm, and evening routine check (20:30).
+* **Maximum Flexibility:** Weekday routines, vacation/holiday mode, "Already awake" feature, 30s crescendo gentle alarm, and evening routine check (20:30).
 * **Privacy-First:** Strictly privacy-focused, ad-free, and no data tracking.
 
 ---

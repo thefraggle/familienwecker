@@ -125,69 +125,6 @@ struct AddEditMemberView: View {
                             }
                         }
 
-                        // Schichtvorlagen
-                        HStack(spacing: 6) {
-                            Button(L.shiftEarly) {
-                                var current = dayProfiles[selectedDay] ?? DayProfile()
-                                current.isActive = true
-                                current.earliestWakeUp = DateComponents(hour: 5, minute: 0)
-                                current.latestWakeUp = DateComponents(hour: 5, minute: 30)
-                                current.bathroomDurationMinutes = 20
-                                current.wantsBreakfast = true
-                                current.leaveHomeTime = DateComponents(hour: 7, minute: 0)
-                                current.shiftName = "early"
-                                dayProfiles[selectedDay] = current
-                            }
-                            .font(.caption2).fontWeight(.medium)
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(theme.surfaceVariant)
-                            .clipShape(Capsule())
-
-                            Button(L.shiftLate) {
-                                var current = dayProfiles[selectedDay] ?? DayProfile()
-                                current.isActive = true
-                                current.earliestWakeUp = DateComponents(hour: 8, minute: 0)
-                                current.latestWakeUp = DateComponents(hour: 8, minute: 30)
-                                current.bathroomDurationMinutes = 20
-                                current.wantsBreakfast = true
-                                current.leaveHomeTime = DateComponents(hour: 10, minute: 0)
-                                current.shiftName = "late"
-                                dayProfiles[selectedDay] = current
-                            }
-                            .font(.caption2).fontWeight(.medium)
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(theme.surfaceVariant)
-                            .clipShape(Capsule())
-
-                            Button(L.shiftNormal) {
-                                var current = dayProfiles[selectedDay] ?? DayProfile()
-                                current.isActive = true
-                                current.earliestWakeUp = DateComponents(hour: 6, minute: 0)
-                                current.latestWakeUp = DateComponents(hour: 7, minute: 30)
-                                current.bathroomDurationMinutes = 20
-                                current.wantsBreakfast = true
-                                current.leaveHomeTime = DateComponents(hour: 8, minute: 0)
-                                current.shiftName = "normal"
-                                dayProfiles[selectedDay] = current
-                            }
-                            .font(.caption2).fontWeight(.medium)
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(theme.surfaceVariant)
-                            .clipShape(Capsule())
-
-                            Button(L.shiftOff) {
-                                var current = dayProfiles[selectedDay] ?? DayProfile()
-                                current.isActive = false
-                                current.shiftName = "off"
-                                dayProfiles[selectedDay] = current
-                            }
-                            .font(.caption2).fontWeight(.medium)
-                            .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(theme.surfaceVariant)
-                            .clipShape(Capsule())
-                        }
-                        .foregroundStyle(theme.onSurface)
-
                         // Tooltip G
                         if familyViewModel.tooltipsEnabled && !familyViewModel.tooltipWeekdaysSeen {
                             TooltipBubble(text: L.tooltipWeekdays) {
