@@ -177,14 +177,14 @@ final class SchedulerTests: XCTestCase {
 
     func testSimpleModeIntermediary_preservesBufferBetweenBathroomUsers() {
         var m1 = makeMember(id: "m1", name: "User A", earliest: (6, 0), latest: (7, 0), duration: 30, breakfast: false)
-        m1.dayProfiles = ["mon": DayProfile(bufferMinutes: 10)]
+        m1.dayProfiles = [1: DayProfile(bufferMinutes: 10)]
 
         var m2 = makeMember(id: "m2", name: "Simple User", earliest: (6, 30), latest: (6, 30), duration: 0, breakfast: false)
         m2.isSimpleMode = true
 
         let m3 = makeMember(id: "m3", name: "User B", earliest: (6, 40), latest: (6, 40), duration: 20, breakfast: false)
 
-        let result = scheduler.calculateIdealSchedule(members: [m1, m2, m3], globalBufferMinutes: 5, breakfastDurationMinutes: 0)
+        let result = scheduler.calculateIdealSchedule(members: [m1, m2, m3], breakfastDurationMinutes: 0, globalBufferMinutes: 5)
         XCTAssertTrue(result.isValid)
         let s1 = result.memberSchedules.first { $0.member.id == "m1" }!
         let s3 = result.memberSchedules.first { $0.member.id == "m3" }!
