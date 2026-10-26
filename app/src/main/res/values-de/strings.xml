@@ -72,6 +72,11 @@
     <string name="add_member_wants_breakfast">Mit Frühstück</string>
     <string name="add_member_leave_home">Haus verlassen um</string>
     <string name="add_member_day_profiles_title">Wochenplan</string>
+    <string name="shift_presets_title">Schichtvorlagen</string>
+    <string name="shift_early">Frühschicht</string>
+    <string name="shift_late">Spätschicht</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">Frei</string>
     <string name="add_member_day_active">Wecker aktiv</string>
     <string name="add_member_copy_to_days">"%1$s" auf andere Tage kopieren</string>
     <string name="add_member_copy_dialog_title">Auf Tage kopieren</string>

@@ -253,6 +253,7 @@ private struct SettingsFamilyAlertsModifier: ViewModifier {
 
 private struct SettingsAccountAlertsModifier: ViewModifier {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var familyViewModel: FamilyViewModel
     @Binding var showLogoutAlert: Bool
     @Binding var showDeleteAccountAlert: Bool
     let dismiss: DismissAction
@@ -261,6 +262,7 @@ private struct SettingsAccountAlertsModifier: ViewModifier {
         content
             .alert(L.settingsLogout, isPresented: $showLogoutAlert) {
                 Button(L.settingsLogout, role: .destructive) {
+                    familyViewModel.logout()
                     authViewModel.logout()
                     dismiss()
                 }
@@ -270,6 +272,7 @@ private struct SettingsAccountAlertsModifier: ViewModifier {
             }
             .alert(L.settingsDeleteAccount, isPresented: $showDeleteAccountAlert) {
                 Button(L.settingsDeleteAccount, role: .destructive) {
+                    familyViewModel.logout()
                     if let user = Auth.auth().currentUser {
                         user.delete { error in
                             if error == nil {
@@ -298,7 +301,7 @@ private struct SettingsOtherAlertsModifier: ViewModifier {
             .alert(L.s("settings_steal_title"), isPresented: $showProfileConfirmAlert) {
                 Button(L.s("settings_steal_confirm")) {
                     if let id = pendingClaimMemberId {
-                        familyViewModel.setMyMemberId(id) { _ in }
+                        familyViewModel.setMyMemberId(id, force: true) { _ in }
                         showProfilePicker = false
                     }
                 }

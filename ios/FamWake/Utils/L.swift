@@ -22,6 +22,13 @@ enum L {
         return String(format: format, arguments: args)
     }
 
+    // MARK: - Shift Presets
+    static var shiftPresetsTitle: String { s("shift_presets_title") }
+    static var shiftEarly: String { s("shift_early") }
+    static var shiftLate: String { s("shift_late") }
+    static var shiftNormal: String { s("shift_normal") }
+    static var shiftOff: String { s("shift_off") }
+
     // MARK: - Auth
     static var loginButton: String { s("login_button") }
     static var registerButton: String { s("register_button") }

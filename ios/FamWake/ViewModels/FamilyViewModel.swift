@@ -1650,6 +1650,16 @@ class FamilyViewModel: ObservableObject {
         UserDefaults.standard.set(code, forKey: "family_join_code")
     }
 
+    func logout() {
+        stopSyncJobs()
+        if let mid = myMemberId {
+            AlarmService.shared.cancelWakeUp(memberId: mid)
+        }
+        clearFamilyLocally()
+        members = []
+        schedule = nil
+    }
+
     private func clearFamilyLocally() {
         if let fid = familyId {
             LocalMemberStore.shared.delete(familyId: fid)

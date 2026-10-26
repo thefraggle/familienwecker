@@ -431,6 +431,43 @@ class SchedulerTest {
         assertEquals(LocalTime(3, 15), result.memberSchedules[0].bathroomEndTime)
         assertEquals(LocalTime(2, 55), result.memberSchedules[0].wakeUpTime)
     }
+
+    @Test
+    fun simpleModeIntermediary_preservesBufferBetweenBathroomUsers() {
+        val m1 = member(
+            id = "m1",
+            name = "User A",
+            earliestWakeUp = LocalTime(6, 0),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 30L,
+            wantsBreakfast = false
+        ).copy(dayProfiles = mapOf(1 to de.familienwecker.famwake.model.DayProfile(bufferMinutes = 10L)))
+
+        val m2 = member(
+            id = "m2",
+            name = "Simple User",
+            earliestWakeUp = LocalTime(6, 30),
+            latestWakeUp = LocalTime(6, 30),
+            bathroomDurationMinutes = 0L,
+            wantsBreakfast = false
+        ).copy(isSimpleMode = true)
+
+        val m3 = member(
+            id = "m3",
+            name = "User B",
+            earliestWakeUp = LocalTime(6, 40),
+            latestWakeUp = LocalTime(6, 40),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = false
+        )
+
+        val result = scheduler.calculateIdealSchedule(listOf(m1, m2, m3), globalBufferMinutes = 5L, breakfastDurationMinutes = 0)
+        assertTrue(result.isValid)
+        val s1 = result.memberSchedules.first { it.member.id == "m1" }
+        val s3 = result.memberSchedules.first { it.member.id == "m3" }
+        assertEquals(LocalTime(6, 40), s3.wakeUpTime)
+        assertTrue(s1.bathroomEndTime <= LocalTime(6, 30), "m1 bathroomEndTime (${s1.bathroomEndTime}) muss <= 06:30 sein wegen 10min Puffer vor m3 (06:40)")
+    }
 }
 
 

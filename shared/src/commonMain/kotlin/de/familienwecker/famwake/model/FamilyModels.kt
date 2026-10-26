@@ -16,7 +16,8 @@ data class DayProfile(
     // Individuelle Frühstücksdauer (null = globalen Default 30 Min nutzen)
     val breakfastDurationMinutes: Long? = null,
     val isSimpleMode: Boolean = false,
-    val sequenceOrder: Int? = null
+    val sequenceOrder: Int? = null,
+    val shiftName: String? = null
 )
 
 @Serializable

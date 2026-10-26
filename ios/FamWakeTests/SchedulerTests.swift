@@ -174,4 +174,23 @@ final class SchedulerTests: XCTestCase {
         XCTAssertEqual(result.memberSchedules[0].wakeUpTime.hour, 2)
         XCTAssertEqual(result.memberSchedules[0].wakeUpTime.minute, 55)
     }
+
+    func testSimpleModeIntermediary_preservesBufferBetweenBathroomUsers() {
+        var m1 = makeMember(id: "m1", name: "User A", earliest: (6, 0), latest: (7, 0), duration: 30, breakfast: false)
+        m1.dayProfiles = ["mon": DayProfile(bufferMinutes: 10)]
+
+        var m2 = makeMember(id: "m2", name: "Simple User", earliest: (6, 30), latest: (6, 30), duration: 0, breakfast: false)
+        m2.isSimpleMode = true
+
+        let m3 = makeMember(id: "m3", name: "User B", earliest: (6, 40), latest: (6, 40), duration: 20, breakfast: false)
+
+        let result = scheduler.calculateIdealSchedule(members: [m1, m2, m3], globalBufferMinutes: 5, breakfastDurationMinutes: 0)
+        XCTAssertTrue(result.isValid)
+        let s1 = result.memberSchedules.first { $0.member.id == "m1" }!
+        let s3 = result.memberSchedules.first { $0.member.id == "m3" }!
+        XCTAssertEqual(s3.wakeUpTime.hour, 6)
+        XCTAssertEqual(s3.wakeUpTime.minute, 40)
+        let s1EndMinutes = (s1.bathroomEnd.hour ?? 0) * 60 + (s1.bathroomEnd.minute ?? 0)
+        XCTAssertLessThanOrEqual(s1EndMinutes, 6 * 60 + 30)
+    }
 }

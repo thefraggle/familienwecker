@@ -31,6 +31,20 @@ class TimeChangeReceiver : BroadcastReceiver() {
         val scheduler = AlarmScheduler(context)
 
         for (backup in backups) {
+            // Aktiver Snooze hat Vorrang, sofern noch in der Zukunft
+            if (backup.snoozeUntilMillis > System.currentTimeMillis()) {
+                val snoozeDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(backup.snoozeUntilMillis), zone)
+                scheduler.scheduleWakeUp(
+                    wakeUpTime = snoozeDateTime.toKmpLocalDateTime(),
+                    memberId = backup.memberId,
+                    memberName = backup.memberName,
+                    soundUri = backup.soundUri,
+                    isSnooze = true,
+                    snoozeCount = backup.snoozeCount
+                )
+                continue
+            }
+
             val savedMillis = backup.wakeUpMillis
             if (savedMillis == 0L) continue
 

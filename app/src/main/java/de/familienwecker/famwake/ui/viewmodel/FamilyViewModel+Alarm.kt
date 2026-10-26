@@ -577,9 +577,19 @@ fun FamilyViewModel.setAlarmEnabled(enabled: Boolean) {
                         repository.updateDeviceAlarmEnabled(currentFamilyId, currentMemberId, enabled)
                     }
                 }
+            } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FamilyViewModel", "updateDeviceAlarmEnabled timed out", e)
+                }
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, "Timeout")
             } catch (e: kotlinx.coroutines.CancellationException) {
                 // Job wurde durch neuen setAlarmEnabled-Aufruf abgebrochen → kein Error, korrekt
                 throw e
+            } catch (e: Exception) {
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.e("FamilyViewModel", "updateDeviceAlarmEnabled failed", e)
+                }
+                _errorMessage.value = UiText.StringResource(R.string.error_sync_failed, e.localizedMessage ?: "")
             }
         }
     }

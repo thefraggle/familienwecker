@@ -203,6 +203,7 @@ struct FamilySetupView: View {
 
                 // Logout
                 Button(L.settingsLogout) {
+                    familyViewModel.logout()
                     authViewModel.logout()
                 }
                 .foregroundStyle(theme.error)

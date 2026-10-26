@@ -289,6 +289,7 @@ struct LoginView: View {
             .accessibilityLabel(L.s("accessibility_resend_email"))
 
             Button(L.cancelButton) {
+                familyViewModel.logout()
                 authViewModel.logout()
                 isRegistering = true
             }

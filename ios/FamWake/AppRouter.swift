@@ -106,6 +106,8 @@ struct AppRouter: View {
             familyViewModel.recalculateSchedule()
         }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("recalculateScheduleFromIntent"))) { _ in
+            let isEnabled = UserDefaults.standard.object(forKey: "alarm_enabled") as? Bool ?? true
+            familyViewModel.isAlarmEnabled = isEnabled
             familyViewModel.recalculateSchedule()
         }
         .fullScreenCover(isPresented: $appState.isRinging) {
@@ -125,6 +127,7 @@ struct AppRouter: View {
                     familyViewModel.snooze(memberId: appState.ringingMemberId, memberName: appState.ringingMemberName)
                 }
             )
+            .interactiveDismissDisabled(true)
         }
         .onReceive(authViewModel.$authState) { state in
             Task { @MainActor in

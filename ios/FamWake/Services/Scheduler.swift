@@ -221,16 +221,19 @@ struct Scheduler {
                 effectiveBuffer = activeProfile?.bufferMinutes ?? globalBufferMinutes
             }
 
-            // Für den nächsten Schritt (das vorhergehende Mitglied) ziehen wir den Puffer
-            // des vorhergehenden Mitglieds von unserer Wakeup-Zeit ab.
+            // Für den nächsten Schritt (das vorhergehende Bad-Mitglied) ziehen wir den Puffer
+            // des vorhergehenden Bad-Mitglieds von unserer Wakeup-Zeit ab.
+            // Falls direkte Vorgänger im Simple Mode sind, suchen wir rückwärts nach dem
+            // nächsten tatsächlichen Bad-Nutzer, damit dessen Puffer nicht verloren geht.
             var prevBuffer = 0
             if index > 0 {
-                let prevMember = orderedMembers[index - 1]
-                if !prevMember.isSimpleMode {
-                    // dayProfiles enthält nach resolveEffectiveMember() nur 1 Entry (den aktuellen Wochentag),
-                    // daher ist .first hier korrekt und liefert immer das richtige Tagesprofil.
-                    let activeProfile = prevMember.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
-                    prevBuffer = activeProfile?.bufferMinutes ?? globalBufferMinutes
+                for p in stride(from: index - 1, through: 0, by: -1) {
+                    let prev = orderedMembers[p]
+                    if !prev.isSimpleMode {
+                        let activeProfile = prev.dayProfiles?.sorted(by: { $0.key < $1.key }).first?.value
+                        prevBuffer = activeProfile?.bufferMinutes ?? globalBufferMinutes
+                        break
+                    }
                 }
             }
 

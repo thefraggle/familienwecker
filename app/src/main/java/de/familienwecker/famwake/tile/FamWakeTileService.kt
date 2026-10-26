@@ -45,7 +45,10 @@ class FamWakeTileService : TileService() {
 
         if (!newEnabled) {
             if (memberId != null) {
-                scheduler.cancelWakeUp(memberId)
+                // Wecker abbrechen, aber Backup-Zeit erhalten (clearBackup = false),
+                // damit beim erneuten Aktivieren über die Kachel der Wecker wiederhergestellt werden kann.
+                scheduler.cancelWakeUp(memberId, isSnooze = false, clearBackup = false)
+                scheduler.cancelWakeUp(memberId, isSnooze = true, clearBackup = true)
             }
         } else {
             // Wenn Wecker wieder aktiviert wird: Backup-Alarm direkt reaktivieren
