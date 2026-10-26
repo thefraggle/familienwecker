@@ -340,29 +340,28 @@ exports.deleteFamily = onCall(
       throw new HttpsError("permission-denied", "NON_CREATOR_CANNOT_DELETE_NON_EMPTY_FAMILY");
     }
 
+    const userIdsToClean = new Set([
+      ...(familyData.userIds || []),
+      ...membersSnapshot.docs.map(d => d.data().claimedByUserId).filter(Boolean)
+    ]);
+
     const batch = admin.firestore().batch();
 
     for (const memberDoc of membersSnapshot.docs) {
-      const data = memberDoc.data();
       batch.delete(memberDoc.ref); // Delete member document
-
-      const claimedUid = data.claimedByUserId;
-      if (claimedUid) {
-        // Sicherstellen, dass das Profil nur geleert wird, wenn es noch dieser Familie zugeordnet ist
-        const userDocRef = admin.firestore().collection("users").doc(claimedUid);
-        const userDoc = await userDocRef.get();
-        if (userDoc.exists && userDoc.data().familyId === familyId) {
-          batch.set(userDocRef, {
-            familyId: admin.firestore.FieldValue.delete()
-          }, { merge: true });
-        }
-      }
     }
+
+    for (const uid of userIdsToClean) {
+      batch.set(admin.firestore().collection("users").doc(uid), {
+        familyId: admin.firestore.FieldValue.delete()
+      }, { merge: true });
+    }
+
+    await batch.commit(); // Commit batch for member deletion and user profile cleanup
 
     // Recursively delete the family document and its subcollections
     // This is the robust way to ensure everything inside matches/members is gone
     await admin.firestore().recursiveDelete(familyDocRef);
-    await batch.commit(); // Commit batch for user profile updates
 
     console.log(`Family ${familyId} and all its members deleted by ${isGlobalAdmin ? "admin" : "creator"} ${uid}.`);
     return { success: true };

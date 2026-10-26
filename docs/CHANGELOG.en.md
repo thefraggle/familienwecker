@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.6 – 2026-10-26
+✨ New & Improved:
+• Flexible Shift Profiles: New quick presets for early, late, and standard shifts as well as off days for effortless weekly scheduling.
+• Precise Scheduling: Reliable buffer calculation in the family morning timeline, even when members without bathroom needs are scheduled.
+• Secure Logout: Complete cleanup of local data and reliable cancellation of active alarms upon logout or account deletion.
+• Maximum Alarm Reliability: Optimized snooze behavior, robust alarm handling across timezone changes, and seamless next-day scheduling for missed alarms.
+
 ## 2.2.5 – 2026-10-22
 ✨ Improved:
 • Reliable Next-Day Alarms: Marking "Already awake" or stopping your alarm immediately schedules tomorrow's alarm while keeping today's bathroom plan unchanged.

@@ -217,15 +217,20 @@ class Scheduler {
                 0L
             }
 
-            // Für den nächsten Schritt (das vorhergehende Mitglied) ziehen wir den Puffer
-            // des vorhergehenden Mitglieds von unserer Wakeup-Zeit ab.
+            // Für den nächsten Schritt (das vorhergehende Bad-Mitglied) ziehen wir den Puffer
+            // des vorhergehenden Bad-Mitglieds von unserer Wakeup-Zeit ab.
+            // Falls direkte Vorgänger im Simple Mode sind, suchen wir rückwärts nach dem
+            // nächsten tatsächlichen Bad-Nutzer, damit dessen Puffer nicht verloren geht.
             val prevBuffer = if (index > 0) {
-                val prevMember = orderedMembers[index - 1]
-                if (prevMember.isSimpleMode) {
-                    0L
-                } else {
-                    prevMember.dayProfiles?.values?.firstOrNull()?.bufferMinutes ?: globalBufferMinutes
+                var buffer = 0L
+                for (p in (index - 1) downTo 0) {
+                    val prev = orderedMembers[p]
+                    if (!prev.isSimpleMode) {
+                        buffer = prev.dayProfiles?.values?.firstOrNull()?.bufferMinutes ?: globalBufferMinutes
+                        break
+                    }
                 }
+                buffer
             } else {
                 0L
             }

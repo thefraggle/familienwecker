@@ -118,8 +118,13 @@ exports.sendFeedbackEmail = onCall(
 
 /** Hilfsfunktion zur Generierung des Statistik-Reports */
 async function getStatsReport() {
-  const usersResponse = await admin.auth().listUsers();
-  const users = usersResponse.users;
+  let users = [];
+  let pageToken = undefined;
+  do {
+    const listResult = await admin.auth().listUsers(1000, pageToken);
+    users = users.concat(listResult.users);
+    pageToken = listResult.pageToken;
+  } while (pageToken);
 
   const familiesSnapshot = await admin.firestore().collection("families").get();
   let familiesHtml = "";
@@ -332,6 +337,25 @@ exports.onUserDeleted = functions.region("europe-west3").auth.user().onDelete(
       if (userDoc.exists) {
         const familyId = userDoc.data().familyId;
         if (familyId) {
+          const familyDocRef = db.collection("families").doc(familyId);
+          const familyDoc = await familyDocRef.get();
+          if (familyDoc.exists) {
+            const familyData = familyDoc.data();
+            const currentUsers = familyData.userIds || [];
+            const remainingUsers = currentUsers.filter(id => id !== uid);
+
+            const familyUpdates = {
+              userIds: admin.firestore.FieldValue.arrayRemove(uid)
+            };
+
+            // Falls der gelöschte Nutzer der Creator war, Admin-Rolle ggf. übertragen
+            if (familyData.createdByUserId === uid) {
+              familyUpdates.createdByUserId = remainingUsers.length > 0 ? remainingUsers[0] : null;
+            }
+
+            await familyDocRef.update(familyUpdates);
+          }
+
           // Find and unclaim any members in this family claimed by this user
           const membersSnap = await db.collection("families").doc(familyId)
             .collection("members")

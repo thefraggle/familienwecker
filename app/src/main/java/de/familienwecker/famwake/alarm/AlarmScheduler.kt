@@ -23,13 +23,14 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
      *
      * @param onPermissionDenied Callback wenn SCHEDULE_EXACT_ALARM fehlt (Android 12+).
      */
-    override fun scheduleWakeUp(
+    fun scheduleWakeUp(
         wakeUpTime: LocalDateTime,
         memberId: String,
         memberName: String,
-        soundUri: String?,
-        isSnooze: Boolean,
-        onPermissionDenied: (() -> Unit)?
+        soundUri: String? = null,
+        isSnooze: Boolean = false,
+        snoozeCount: Int = 1,
+        onPermissionDenied: (() -> Unit)? = null
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!alarmManager.canScheduleExactAlarms()) {
@@ -76,11 +77,22 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         if (!isSnooze) {
             AlarmBackupPrefs.save(context, memberId, memberName, soundUri, timeInMillis)
         } else {
-            AlarmBackupPrefs.saveSnooze(context, timeInMillis, 1, memberId)
+            AlarmBackupPrefs.saveSnooze(context, timeInMillis, snoozeCount, memberId)
         }
     }
 
-    override fun cancelWakeUp(memberId: String, isSnooze: Boolean) {
+    override fun scheduleWakeUp(
+        wakeUpTime: LocalDateTime,
+        memberId: String,
+        memberName: String,
+        soundUri: String?,
+        isSnooze: Boolean,
+        onPermissionDenied: (() -> Unit)?
+    ) {
+        scheduleWakeUp(wakeUpTime, memberId, memberName, soundUri, isSnooze, 1, onPermissionDenied)
+    }
+
+    fun cancelWakeUp(memberId: String, isSnooze: Boolean = false, clearBackup: Boolean = true) {
         val intent = Intent(context, AlarmReceiver::class.java)
         // Gleiche Bitmask wie in scheduleWakeUp – damit stimmen schedule und cancel überein
         val idForHash = if (isSnooze) memberId + "_snooze" else memberId
@@ -94,11 +106,17 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         alarmManager.cancel(pendingIntent)
 
         // Backup-Eintrag gezielt löschen (Snooze vs. Hauptwecker trennen)
-        if (!isSnooze) {
-            AlarmBackupPrefs.clear(context, memberId)
-        } else {
-            AlarmBackupPrefs.clearSnooze(context, memberId)
+        if (clearBackup) {
+            if (!isSnooze) {
+                AlarmBackupPrefs.clear(context, memberId)
+            } else {
+                AlarmBackupPrefs.clearSnooze(context, memberId)
+            }
         }
+    }
+
+    override fun cancelWakeUp(memberId: String, isSnooze: Boolean) {
+        cancelWakeUp(memberId, isSnooze, clearBackup = true)
     }
 }
 

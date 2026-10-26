@@ -205,23 +205,45 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: ["memberId": memberId])
             }
         } else if response.actionIdentifier == "SNOOZE_ACTION" {
-            Aptabase.shared.trackEvent("alarm_snoozed", with: ["source": "background"])
-            AlarmService.shared.cancelWakeUp(memberId: memberId)
-            
-            let snoozeTime = Date().addingTimeInterval(5 * 60)
-            UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
-            
-            let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
-            AlarmService.shared.scheduleWakeUp(
-                wakeUpTime: snoozeTime,
-                memberId: memberId,
-                memberName: memberName,
-                soundUri: alarmSoundUri,
-                isSnooze: true
-            )
-            
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .snoozeAlarmFromNotification, object: nil, userInfo: ["memberId": memberId, "memberName": memberName, "snoozeTime": snoozeTime])
+            let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
+            if currentCount >= SnoozeConfig.maxSnoozeCount {
+                Aptabase.shared.trackEvent("alarm_dismissed", with: ["source": "background_max_snooze"])
+                AlarmService.shared.cancelWakeUp(memberId: memberId)
+                UserDefaults.standard.removeObject(forKey: "snooze_until")
+                UserDefaults.standard.set(0, forKey: "snooze_count")
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: ["memberId": memberId])
+                }
+            } else {
+                Aptabase.shared.trackEvent("alarm_snoozed", with: ["source": "background"])
+                AlarmService.shared.cancelWakeUp(memberId: memberId)
+                
+                let newCount = currentCount + 1
+                UserDefaults.standard.set(newCount, forKey: "snooze_count")
+                let snoozeTime = Date().addingTimeInterval(TimeInterval(SnoozeConfig.snoozeDurationMinutes * 60))
+                UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+                
+                let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
+                AlarmService.shared.scheduleWakeUp(
+                    wakeUpTime: snoozeTime,
+                    memberId: memberId,
+                    memberName: memberName,
+                    soundUri: alarmSoundUri,
+                    isSnooze: true
+                )
+                
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(
+                        name: .snoozeAlarmFromNotification,
+                        object: nil,
+                        userInfo: [
+                            "memberId": memberId,
+                            "memberName": memberName,
+                            "snoozeTime": snoozeTime,
+                            "snoozeCount": newCount
+                        ]
+                    )
+                }
             }
         } else {
             // Klick auf die Benachrichtigung selbst

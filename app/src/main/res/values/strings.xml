@@ -72,6 +72,11 @@
     <string name="add_member_wants_breakfast">Wants breakfast</string>
     <string name="add_member_leave_home">Needs to leave home at</string>
     <string name="add_member_day_profiles_title">Weekly schedule</string>
+    <string name="shift_presets_title">Shift presets</string>
+    <string name="shift_early">Early shift</string>
+    <string name="shift_late">Late shift</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">Off day</string>
     <string name="add_member_day_active">Alarm active</string>
     <string name="add_member_copy_to_days">Copy \"%1$s\" to other days</string>
     <string name="add_member_copy_dialog_title">Copy to days</string>

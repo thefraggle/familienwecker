@@ -364,7 +364,10 @@ fun FamilyViewModel.logout() {
     // clearAll() berührt ihn nicht – kein explizites Save nötig.
     cancelAlarmForCurrentUser()
     appSettings.clearAll()
-    scope.launch { auth.signOut() }
+    scope.launch {
+        memberRepository.clearCache()
+        auth.signOut()
+    }
 }
 
 /**

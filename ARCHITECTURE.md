@@ -88,7 +88,7 @@ flowchart LR
     D --> E["Final Family Schedule\n(Wake-Up, Bathroom Slot, Breakfast)"]
 ```
 
-1. **Input:** Each member has an active `DayProfile` specifying:
+1. **Input:** Each member has an active `DayProfile` (supporting shift work presets: Early, Late, Normal, Off Day) specifying:
    - Earliest and latest wake-up time (wake window).
    - Bathroom duration (e.g., 20 minutes).
    - Leave home time.

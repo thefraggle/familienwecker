@@ -139,7 +139,7 @@ exports.cleanupInactiveFamilies = onSchedule(
       }
 
       if (isStale) {
-        staleFamilies.push(familyDoc.ref);
+        staleFamilies.push({ ref: familyDoc.ref, data: familyDoc.data() });
       }
     }
 
@@ -150,18 +150,30 @@ exports.cleanupInactiveFamilies = onSchedule(
 
     console.log(`Found ${staleFamilies.length} families to delete. Starting deletion...`);
 
-    // In modern Admin SDKs, recursiveDelete deletes the document and all its subcollections
-    if (admin.firestore().recursiveDelete) {
-      for (const ref of staleFamilies) {
-        await admin.firestore().recursiveDelete(ref);
-      }
-    } else {
-      // Fallback
-      for (const ref of staleFamilies) {
-        const members = await ref.collection("members").get();
+    for (const item of staleFamilies) {
+      const familyData = item.data;
+      const membersSnapshot = await item.ref.collection("members").get();
+      const userIdsToClean = new Set([
+        ...(familyData.userIds || []),
+        ...membersSnapshot.docs.map(d => d.data().claimedByUserId).filter(Boolean)
+      ]);
+
+      if (userIdsToClean.size > 0) {
         const batch = admin.firestore().batch();
-        members.docs.forEach(doc => batch.delete(doc.ref));
-        batch.delete(ref);
+        for (const uid of userIdsToClean) {
+          batch.set(admin.firestore().collection("users").doc(uid), {
+            familyId: admin.firestore.FieldValue.delete()
+          }, { merge: true });
+        }
+        await batch.commit();
+      }
+
+      if (admin.firestore().recursiveDelete) {
+        await admin.firestore().recursiveDelete(item.ref);
+      } else {
+        const batch = admin.firestore().batch();
+        membersSnapshot.docs.forEach(doc => batch.delete(doc.ref));
+        batch.delete(item.ref);
         await batch.commit();
       }
     }
