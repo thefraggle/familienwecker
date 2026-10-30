@@ -13,14 +13,14 @@ FamWake plant de badkamertijd automatisch zonder overlappingen en met instelbare
 Schakel de ontbijtoptie in en FamWake reserveert een vast moment waarop iedereen samen kan eten voor school of werk begint.
 
 <b> Het hele gezin in één oogopslag</b>
-Het dashboard toont het ochtendplan in realtime: wie staat wanneer op, wie is in de badkamer en wanneer moet iedereen vertrekken. Versleep eenvoudig de volgorde — ideaal voor kinderen en ADHD-structuur.
+Het dashboard toont het ochtendplan in realtime: wie staat wanneer op, wie is in de badkamer en wanneer moet iedereen vertrekken. Versleep eenvoudig de volgorde — jouw visuele dagschema, visuele timer voor kinderen en ochtendroutineplanner geschikt voor ADHD en autisme.
 
 <b> Weekdagprofielen & Vakantiemodus</b>
 • <b>Dagprofielen:</b> Stel per weekdag andere wektijden en badkamertijden in (roosters, thuiswerk).
 • <b>Vakantiemodus:</b> Pauzeer alle wekkers en herinneringen met één tik tot het einde van de vakantie. Start automatisch weer op de eerste schooldag!
 
 <b> Zacht wekken & Krachtige wekker</b>
-Betrouwbare wekker, zelfs op stil. Het volume zwelt 30 seconden zachtjes aan, zodat kinderen rustig en zonder schrik wakker worden. Luide tonen beschikbaar voor diepe slapers.
+Betrouwbare wekker, zelfs op stil. Het volume zwelt 30 seconden zachtjes aan als zachte wekker en visuele timer, zodat kinderen rustig wakker worden. Luide tonen beschikbaar voor diepe slapers.
 
 <b> Avond-check om 20:30 & „Al wakker?”</b>
 • <b>Herinnering om 20:30:</b> Een vriendelijke melding de avond ervoor zorgt dat morgenochtend vlekkeloos verloopt.

@@ -13,7 +13,7 @@ FamWake planifie automatiquement l'accès à la salle de bain sans chevauchement
 Active l'option petit-déjeuner pour partager un moment convivial tous ensemble avant de partir à l'école ou au travail.
 
 <b> Toute la famille en un coup d'œil</b>
-Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel idéal pour les enfants et adapté aux besoins TDAH.
+Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel pour enfants, routine visuelle et suivi des habitudes adapté aux besoins TDAH et autisme.
 
 <b> Profils par jour de la semaine & Mode Vacances</b>
 • <b>Profils quotidiens :</b> Définis des horaires et durées de salle de bain spécifiques pour chaque jour (cours décalés, télétravail).

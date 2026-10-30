@@ -2,6 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.8 – 2026-10-30
+✨ Neu & Verbessert:
+• Höchste Wecker-Zuverlässigkeit nach Neustarts: Wecker werden auch nach nächtlichen Geräteneustarts ohne vorheriges Entsperren pünktlich ausgelöst.
+• Präziser Wecktermin: Nachholalarme nach kurzen Systemunterbrechungen überschreiben nicht mehr die dauerhaft hinterlegte Weckzeit.
+• Robuste Schlummerfunktion: Der Zähler für wiederholtes Schlummern wird beim Neustart verlässlich weitergeführt und nicht mehr zurückgesetzt.
+• Störungsfreies Abmelden: Benachrichtigungs-Token werden bei der Abmeldung sofort sauber aus der Cloud deregistriert, um verwaiste Mitteilungen auszuschließen.
+• Verbesserte Stabilität: Optimierte Absicherung externer Informationslinks und lückenlose Aktualisierung der lokalen Datensicherung beim Entfernen von Profilen.
+
 ## 2.2.7 – 2026-10-26
 ✨ Neu & Verbessert:
 • Präziser Zeitplan: Zuverlässige Puffer-Berechnung im gemeinsamen Morgenplan, auch wenn Familienmitglieder ohne Badezimmerbedarf eingeplant sind.

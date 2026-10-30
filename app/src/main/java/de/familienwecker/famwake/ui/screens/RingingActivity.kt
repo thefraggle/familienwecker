@@ -131,7 +131,8 @@ class RingingActivity : AppCompatActivity() {
                                 memberId = memberId,
                                 memberName = memberName,
                                 soundUri = appSettings.alarmSoundUri.value,
-                                isSnooze = true
+                                isSnooze = true,
+                                snoozeCount = newCount
                             )
 
                             // Firestore-Sync (best-effort, non-blocking)

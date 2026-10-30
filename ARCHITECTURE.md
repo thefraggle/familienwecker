@@ -11,7 +11,7 @@ FamWake is built with a **Client-First & Privacy-Focused** mindset:
 - **Local-First Computation:** The scheduling algorithm (calculating wake times, bathroom slots, breakfast, and buffers) runs locally on the user's device. No cloud round-trips are required to compute schedules.
 - **Offline Resilience:** The application functions fully offline. Both Android and iOS cache all family data locally. When offline, users can pause/resume alarms or change day profiles. Sync occurs automatically when connectivity is restored.
 - **Minimalist Backend:** Firebase Cloud Functions serve purely as infrastructure helpers (transactional email, scheduled daily resets, play integrity verification). They never make scheduling decisions.
-- **Privacy by Design:** Zero tracking of personal schedules or habits. Data is scoped strictly to the authenticated family.
+- **Privacy by Design:** Zero tracking of personal schedules or habits. Data is scoped strictly to the authenticated family. Only anonymous, non-identifying telemetry via self-hosted Aptabase without cross-app profiling.
 
 ---
 

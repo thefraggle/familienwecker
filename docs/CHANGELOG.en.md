@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.8 – 2026-10-30
+✨ New & Improved:
+• Maximum Alarm Reliability After Reboots: Scheduled wake-up calls now trigger reliably even after overnight device restarts before first unlock.
+• Precise Wake Times: Recovery alarms following brief device restarts no longer overwrite your saved daily wake-up schedule.
+• Robust Snooze Behavior: The repeated snooze counter is preserved accurately across app restarts without premature resets.
+• Clean Logout Handling: Notification tokens are deregistered cleanly from the cloud upon logout to prevent orphan messages.
+• Enhanced Stability: Hardened external information links and reliable local cache clearing when members are removed.
+
 ## 2.2.7 – 2026-10-26
 ✨ New & Improved:
 • Precise Scheduling: Reliable buffer calculation in the family morning timeline, even when members without bathroom needs are scheduled.

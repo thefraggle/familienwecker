@@ -314,7 +314,9 @@ final class AlarmService: ObservableObject {
         )
         
         let uuid = Self.getUUID(for: memberId)
+        try Task.checkCancellation()
         try? await AlarmManager.shared.cancel(id: uuid)
+        try Task.checkCancellation()
         try await AlarmManager.shared.schedule(id: uuid, configuration: config)
     }
 
@@ -374,7 +376,10 @@ final class AlarmService: ObservableObject {
     }
 
     func cancelWakeUp(memberId: String) {
-        Task {
+        schedulingTasks[memberId]?.cancel()
+        let previousTask = schedulingTasks[memberId]
+        schedulingTasks[memberId] = Task {
+            _ = await previousTask?.result
             if let uuid = Self.readUUID(for: memberId) {
                 try? await AlarmManager.shared.cancel(id: uuid)
             }

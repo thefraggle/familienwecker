@@ -325,6 +325,11 @@ exports.deleteFamily = onCall(
     const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
     const isGlobalAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
     const isCreator = familyData.createdByUserId === uid;
+    const isMember = (familyData.userIds || []).includes(uid);
+
+    if (!isGlobalAdmin && !isCreator && !isMember) {
+      throw new HttpsError("permission-denied", "NON_MEMBER_CANNOT_DELETE_FAMILY");
+    }
 
     // Delete all member documents and remove familyId from their user profiles
     const membersSnapshot = await familyDocRef.collection("members").get();

@@ -157,12 +157,16 @@ class AuthViewModel: ObservableObject {
 
     func logout() {
         Aptabase.shared.trackEvent("auth_logout")
-        MessagingService.shared.deleteTokenOnLogout()
-        do {
-            try Auth.auth().signOut()
-            authState = .unauthenticated
-        } catch {
-            authState = .error(mapFirebaseError(error))
+        Task {
+            await MessagingService.shared.deleteTokenOnLogoutAsync()
+            await MainActor.run {
+                do {
+                    try Auth.auth().signOut()
+                    authState = .unauthenticated
+                } catch {
+                    authState = .error(mapFirebaseError(error))
+                }
+            }
         }
     }
 

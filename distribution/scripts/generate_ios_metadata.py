@@ -257,36 +257,36 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # Deduplicated against Title & Subtitle, policy-compliant (no price words like "free"/"kostenlos")
-KEYWORDS_DE = 'kinderwecker,badplaner,zeitplan,extrem,laut,adhs,kids,visuell,mission,aufgaben,sanft,tagesplan,wach'
-KEYWORDS_EN = 'checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,shared,timer,morning'
+KEYWORDS_DE = 'kinderwecker,badplaner,zeitplan,timer,kinder,adhs,visuell,mission,aufgaben,sanft,tagesplan,kids,uhr'
+KEYWORDS_EN = 'checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning'
 
 # Hardcoded optimized keywords per locale (ASO KW 43)
 KEYWORDS_BY_LOCALE = {
-    'de-DE':   KEYWORDS_DE,
-    'en-US':   KEYWORDS_EN,
-    'en-GB':   KEYWORDS_EN,
-    'fr-FR':   'enfant,matin,routine,salle,bain,horaire,famille,partagé,groupe,visuel,minuteur,tdah,habitude,tâches',
-    'es-ES':   'despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo,visual,tdah,hábitos',
-    'es-MX':   'despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo,visual,tdah,hábitos',
-    'pt-BR':   'despertador,infantil,crianças,rotina,manhã,banheiro,horário,compartilhado,grupo,visual,timer,tdah',
-    'pt-PT':   'despertador,infantil,crianças,rotina,manhã,banheiro,horário,compartilhado,grupo,visual,timer,tdah',
-    'it':      'bambini,routine,mattina,bagno,turni,orario,condivisa,gruppo,visivo,timer,adhd,abitudini,compiti',
-    'nl-NL':   'kinderwekker,ochtendroutine,kinderen,badkamer,tijdschema,gedeeld,groep,visueel,timer,adhd,taken',
-    'pl':      'dzieci,poranna,rutyna,łazienka,harmonogram,wspólny,grupowy,wizualny,minutnik,adhd,zadania,nawyki',
-    'tr':      'çalar,saat,çocuk,rutin,banyo,sırası,program,ortak,grup,görsel,zamanlayıcı,dehb,görev,alışkanlık',
-    'ru':      'дети,детский,утро,рутина,ванная,очередь,расписание,общий,таймер,визуальный,сдвг,привычки,задачи',
-    'uk':      'діти,дитячий,ранок,рутина,ванна,черга,розклад,спільний,таймер,візуальний,рдвг,звички,завдання',
-    'sv':      'väckarklocka,barn,morgonrutin,badrum,schema,delad,grupp,visuell,timer,adhd,uppgifter,vanor,familj',
-    'da':      'vækkeur,børnevækkeur,børn,morgenrutine,badeværelse,tidsplan,fælles,visuel,timer,adhd,opgaver,vaner',
-    'no':      'vekkerklokke,barnevekkerur,barn,morgenrutine,baderom,tidsplan,felles,visuell,timer,adhd,oppgaver',
-    'id':      'jam,anak,rutinitas,pagi,kamar,mandi,giliran,jadwal,bersama,grup,visual,timer,adhd,tugas,kebiasaan',
-    'vi':      'trẻ,em,lịch,trình,buổi,sáng,phòng,tắm,thời,gian,biểu,chung,nhóm,hẹn,giờ,adhd,thói,quen,nhiệm,vụ',
-    'ja':      '目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,洗面所,共有,グループ,習慣,タイマー,スヌーズ,時間管理,生活リズム,ADHD',
-    'ko':      '알람시계,어린이,루틴,욕실,스누즈,일정,모닝콜,시간표,기상,습관,타이머,시간관리,탁상시계,기상시간,모닝루틴,공유,그룹,ADHD',
-    'zh-Hans': '儿童闹钟,早晨,常规,浴室,洗漱,重响,日程表,习惯,计时器,起床,提醒,时间管理,共享,早起,生活习惯,作息时间,视觉计时器,多动症',
-    'hi':      'बच्चे,सुबह,रूटीन,बाथरूम,बारी,समय,सारणी,साझा,ग्रुप,विजुअल,टाइमर,आदत,टास्क,घड़ी,नाश्ता,स्कूल',
-    'bn-BD':   'শিশু,সকাল,রুটিন,বাথরুম,পালা,সময়সূচী,শেয়ার,গ্রুপ,ভিজ্যুয়াল,টাইমার,অভ্যাস,টাস্ক,ঘড়ি,নাশতা',
-    'mr-IN':   'मुले,सकाळ,रुटीन,बाथरूम,वेळ,वेळापत्रक,सामायिक,ग्रुप,व्हिज्युअल,टायमर,सवय,टास्क,घड्याळ,नाश्ता',
+    'de-DE':   'kinderwecker,badplaner,zeitplan,timer,kinder,adhs,visuell,mission,aufgaben,sanft,tagesplan,kids,uhr',
+    'en-US':   'checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning',
+    'en-GB':   'checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning',
+    'fr-FR':   'enfant,matin,routine,salle,bain,horaire,famille,partagé,groupe,visuel,minuteur,tdah,autisme,habitude',
+    'es-ES':   'despertador,niños,infantil,rutina,mañana,baño,turnos,horario,visual,tdah,autismo,hábitos,alarma,app',
+    'es-MX':   'despertador,niños,infantil,rutina,mañana,baño,turnos,horario,visual,tdah,autismo,hábitos,alarma,app',
+    'pt-BR':   'despertador,infantil,crianças,rotina,manhã,banheiro,horário,visual,timer,tdah,autismo,hábitos,alarme',
+    'pt-PT':   'despertador,infantil,crianças,rotina,manhã,banheiro,horário,visual,timer,tdah,autismo,hábitos,alarme',
+    'it':   'bambini,routine,mattina,bagno,turni,orario,condivisa,visivo,timer,adhd,autismo,abitudini,sveglia',
+    'nl-NL':   'kinderwekker,ochtendroutine,kinderen,badkamer,tijdschema,gedeeld,visueel,timer,adhd,autisme,taken',
+    'pl':   'dzieci,poranna,rutyna,łazienka,harmonogram,wspólny,wizualny,minutnik,adhd,autyzm,zadania,nawyki,plan',
+    'tr':   'çalar,saat,çocuk,rutin,banyo,sırası,program,görsel,zamanlayıcı,dehb,otizm,görev,alışkanlık,aile,plan',
+    'ru':   'дети,детский,утро,рутина,ванная,очередь,расписание,таймер,визуальный,сдвг,аутизм,привычки,задачи,сон',
+    'uk':   'діти,дитячий,ранок,рутина,ванна,черга,розклад,таймер,візуальний,рдвг,аутизм,звички,завдання,годинник',
+    'sv':   'väckarklocka,barn,morgonrutin,badrum,schema,delad,visuell,timer,adhd,autism,uppgifter,vanor,familj',
+    'da':   'vækkeur,børnevækkeur,børn,morgenrutine,badeværelse,tidsplan,visuel,timer,adhd,autisme,opgaver,vaner',
+    'no':   'vekkerklokke,barnevekkerur,barn,morgenrutine,baderom,tidsplan,visuell,timer,adhd,autisme,oppgaver',
+    'id':   'jam,anak,rutinitas,pagi,kamar,mandi,giliran,jadwal,bersama,visual,timer,adhd,autisme,tugas,kebiasaan',
+    'vi':   'trẻ,em,lịch,trình,buổi,sáng,phòng,tắm,thời,gian,biểu,chung,hẹn,giờ,adhd,tự,kỷ,thói,quen,báo,thức',
+    'ja':   '目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,洗面所,共有,習慣,タイマー,スヌーズ,時間管理,生活リズム,ADHD,自閉症,視覚支援,朝活,時計,予定',
+    'ko':   '알람시계,어린이,루틴,욕실,스누즈,일정,모닝콜,시간표,기상,습관,타이머,시간관리,탁상시계,기상시간,모닝루틴,공유,ADHD,자폐,시각타이머,아침루틴,스케줄,가족,알람',
+    'zh-Hans':   '儿童闹钟,早晨,常规,浴室,洗漱,重响,日程表,习惯,计时器,起床,提醒,时间管理,共享,早起,生活习惯,作息时间,视觉计时器,多动症,自闭症,晨间例程,家庭闹钟,计划表,儿童时间',
+    'hi':   'बच्चे,सुबह,रूटीन,बाथरूम,बारी,समय,सारणी,साझा,ग्रुप,विजुअल,टाइमर,आदत,टास्क,घड़ी,नाश्ता,ऑटिज्म,अलार्म',
+    'bn-BD':   'শিশু,সকাল,রুটিন,বাথরুম,পালা,সময়সূচী,শেয়ার,গ্রুপ,ভিজ্যুয়াল,টাইমার,অভ্যাস,টাস্ক,অটিজম,অ্যালার্ম',
+    'mr-IN':   'मुले,सकाळ,रुटीन,बाथरूम,वेळ,वेळापत्रक,सामायिक,ग्रुप,व्हिज्युअल,टायमर,सवय,टास्क,नाश्ता,ऑटिझम,अलार्म',
 }
 
 # App Store subtitle: max 30 chars, shown below app name.

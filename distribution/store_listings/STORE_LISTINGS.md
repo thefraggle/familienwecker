@@ -8,23 +8,20 @@
 > - **iOS Promo-Text (App Store)**: Max. 170 Zeichen
 > - **Vollständige Beschreibung**: Max. 4.000 Zeichen (Google Play erlaubt `<b>`-HTML-Tags; iOS benötigt reinen Text ohne HTML/Emojis)
 
-## Übersicht der aktuellen ASO-Textänderungen (KW 43 / 19. Oktober 2026)
+## Übersicht der aktuellen ASO-Textänderungen (KW 44 / 26. Oktober 2026)
 
 * **Deutsch (`de-DE`)**:
-  * **Google Play Kurzbeschreibung (73 / 80 Zeichen)**: Titel-Duplikat *Familienwecker* durch das Top-Keyword *Kinderwecker* sowie die Reichweiten-Keywords *Badplaner* (Traffic: 70) und *Zeitplan* ersetzt: `Kinderwecker & Morgenroutine für Kinder. Wecker mit Badplaner & Zeitplan.` (**Applyra Simulation**: Global Score **+5 Punkte auf 58**, Coverage **+8 Punkte**, Targeting **+11 Punkte**).
-  * **Google Play & iOS Beschreibung**: Integration von *wecker app kostenlos* (Traffic: 48, Diff: 22, KEI: 2.18), *adhs planer kostenlos* (iOS KEI: 2.67, Android KEI: 1.47) und *wecker mit herausforderungen* (iOS KEI: 4.40, Android KEI: 1.00). Zudem *Snooze* im Abschnitt „Sanftes Wecken“ ergänzt (behebt `DESC_MISSING_KEYWORDS`) und die Wiederholungsdichte von *Wecker* reduziert (beseitigt `DESCRIPTION_STUFFING`).
-  * **iOS Keywords (99 / 100 Zeichen)**: `kinderwecker,badplaner,zeitplan,extrem,laut,adhs,kids,visuell,mission,aufgaben,sanft,tagesplan,wach` — ersetzt das übermächtige Keyword *timer* und das Stopwort *app* durch *zeitplan* (#40 gerankt), *tagesplan* und *wach* (Traffic: 84, Diff: 16). (**Applyra Simulation**: Targeting **+4 Punkte auf 82**, Global **+2 auf 67**, 0 Warnungen).
+  * **iOS Keywords (99 / 100 Zeichen)**: `kinderwecker,badplaner,zeitplan,timer,kinder,adhs,visuell,mission,aufgaben,sanft,tagesplan,kids,uhr` — ersetzt die generischen/unproduktiven Begriffe `extrem,laut,wach` durch die High-KEI Tokens `timer` (schaltet `visueller timer für kinder` Traffic 48, Diff 16, KEI 3.00 und `adhs timer` Traffic 25 frei), `kinder` (schaltet `adhs kinder` Traffic 25, KEI 2.78 und `zeitplan kinder` Rang #59 frei) sowie `uhr`. (**Applyra Simulation**: Coverage-Score steigt von 76 auf **79 (+3 Punkte)**, Global ASO Health steigt auf **66 (+1 Punkt)**).
+  * **Google Play & iOS Beschreibung**: Gezielte Erhöhung der Keyword-Dichte von `wecker` (1.67%), `kinder` (1.30%) und `timer` (0.37%) sowie Einbettung der neu gerankten High-KEI Keywords `visueller wecker` (Soforteinstieg Rang #7 auf iOS!) und `visueller timer für kinder`. Exakt byte-optimiert auf 3.899 Bytes (< 4.000 Byte-Limit).
+  * **Google Play Kurzbeschreibung (73 / 80 Zeichen)** & **iOS Untertitel (30 / 30 Zeichen)**: Beibehalten auf `Kinderwecker & Morgenroutine für Kinder. Wecker mit Badplaner & Zeitplan.` bzw. `Familienwecker & Morgenroutine`, welche die stabile Marktführerschaft vor Alarmy (58 vs. 54) und das #5 Podest auf iOS sichern.
 * **Englisch (`en-US`, `en-GB`, `en-IN`)**:
-  * **Google Play Kurzbeschreibung (78 / 80 Zeichen)**: Vollständige Beseitigung der Titel-Wiederholungen (*family*, *alarm*, *clock*): `Smart morning routine & kids wake up planner. Bathroom queue & group schedule.` (**Applyra Simulation**: Global Score **+2 Punkte auf 53**, Coverage **+5 Punkte**, eliminiert Store-Warning `Short description repeats title`).
-  * **Google Play & iOS Beschreibung**: Integration von *morning routine for kids* (KEI: 1.00), *visual timer for kids free* (iOS KEI: 1.25, Android KEI: 1.11), *visual timer for autism* (Android KEI: 1.39, iOS KEI: 1.60) und *task assignment app* (KEI: 0.83) bei gleichzeitigem Abbau von *alarm*-Wiederholungen (beseitigt `alarm (17x)` Stuffing-Warnung).
-  * **iOS Untertitel (27 / 30 Zeichen)**: Umstellung auf `Bathroom Schedule & Routine` (schafft direkte Synergie mit Platz #2 für *bathroom schedule* auf Android US).
-  * **iOS Keywords (100 / 100 Zeichen)**: `checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,shared,timer,morning` (**Applyra Simulation**: Coverage springt um **+10 Punkte auf 87**, Global Score **+2 auf 54**).
-* **Alle 29 Sprachen (`es`, `fr`, `pt`, `it`, `nl`, `pl`, `tr`, `ru`, `uk`, `da`, `sv`, `no`, `id`, `vi`, `ja`, `ko`, `zh`, `hi`, `mr`, `bn`)**:
-  * **Google Play Kurzbeschreibungen**: In allen 29 Locales wurden Wortdopplungen zum App-Titel entfernt und durch lokale High-Intent-Keywords (*Kinderwecker*, *Bad-Planung*, *Morgenroutine*) ersetzt (z. B. `es-ES` Global Score **72 (+1)**, Coverage **+5**; `fr-FR` Global Score **54 (+2)**, Coverage **+3**).
-  * **iOS Keywords & Beschreibungen**: Alle 25 iOS-Locales verfügen nun über native, lokal deduplizierte 100-Zeichen-Keyword-Sets (statt englischem Fallback) sowie vollständig synchronisierte Plain-Text-Beschreibungen ohne HTML-Tags.
-
----
-
+  * **iOS Keywords (97 / 100 Zeichen)**: `checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning` — ersetzt das durch den Titel `FamWake` redundante Token `wake` sowie das hart umkämpfte `loud` durch `autism` (schaltet `autism visual schedule` Traffic 25, Diff 5, KEI 5.00 – Level *excellent* frei). (**Applyra Simulation**: Coverage steigt von 86 auf **88 (+2 Punkte)**).
+  * **Google Play & iOS Beschreibung**: Stärkung der Keyword-Dichte von `kids` (1.76%), `visual` (1.28%), `morning chaos` (0.48%) und Integration von `visual habit tracker` (Traffic 25, Diff 19, KEI 1.32) zur Festigung des spektakulären Top-10-Durchbruchs von *kids alarm* (Platz #8, Traffic: 42) und *morning chaos* (Platz #72). Exakt byte-optimiert auf 3.866 Bytes (< 4.000 Byte-Limit).
+  * **iOS Untertitel (27 / 30 Zeichen)** & **Google Play Kurzbeschreibung (78 / 80 Zeichen)**: Beibehalten auf `Bathroom Schedule & Routine` bzw. `Smart morning routine & kids wake up planner. Bathroom queue & group schedule.`, um die Spitzenrankings für *bathroom schedule* (Rang #4 US) und *family alarm clock* (Rang #1) abzusichern.
+* **Rollout auf alle 29 Sprachen (`es`, `fr`, `pt`, `it`, `nl`, `pl`, `tr`, `ru`, `uk`, `da`, `sv`, `no`, `id`, `vi`, `ja`, `ko`, `zh`, `hi`, `mr`, `bn`)**:
+  * **iOS Keywords auf 90–100 Zeichen maximiert**: Vollständige Ablösung alter Fallbacks und Ausreizung der 100-Zeichen-Grenze für alle 25 iOS-Locales. Systematische Integration von Begriffen für Autismus (`autismo`, `autisme`, `autism`, `自閉症`, `자폐`), visuelle Timer (`temporizador visual`, `minuteur visuel`, `timer visivo`, `visuele timer`, `minutnik wizualny`, `視覚支援`) und gesunde Morgen-Gewohnheiten (`hábitos`, `habitudes`, `abitudini`, `nawyki`, `gewoontes`).
+  * **Android & iOS Beschreibungen**: Aktualisierung der Kernmärkte mit harmonisierter Keyword-Dichte bei durchgängig strikter Einhaltung des 4.000-UTF-8-Byte-Limits.
+  * **Vollständige Parität**: Alle 29 Sprachen sind für Google Play und Apple App Store 100% konsistent synchronisiert.
 ## Deutsch (Deutschland) (`de-DE` / iOS: `de-DE`)
 
 ### Titel (22 / 30 Zeichen)
@@ -44,7 +41,7 @@ Familienwecker & Morgenroutine
 
 ### iOS Keywords – App Store (99 / 100 Zeichen)
 ```text
-kinderwecker,badplaner,zeitplan,extrem,laut,adhs,kids,visuell,mission,aufgaben,sanft,tagesplan,wach
+kinderwecker,badplaner,zeitplan,timer,kinder,adhs,visuell,mission,aufgaben,sanft,tagesplan,kids,uhr
 ```
 
 ### iOS Promo-Text – App Store (116 / 170 Zeichen)
@@ -52,31 +49,31 @@ kinderwecker,badplaner,zeitplan,extrem,laut,adhs,kids,visuell,mission,aufgaben,s
 Schluss mit Morgenchaos! FamWake koordiniert Weckzeiten, Badezimmer-Reihenfolge und Frühstück für die ganze Familie.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3845 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3797 / 4000 Zeichen)
 ```html
 <b>Schluss mit Morgen-Chaos! Dein Familienwecker & Kinderwecker für eine entspannte Morgenroutine.</b>
 
-FamWake ist deine smarte Morgenroutine App und Wecker App kostenlos für den perfekten Familienmorgen — Morgenplanung, Bad-Reihenfolge und Zeitplaner in einer App, die dir beim täglichen Zeitmanagement hilft.
+FamWake ist deine smarte Morgenroutine App und Wecker App kostenlos für den perfekten Morgen — Morgenplanung, Bad-Reihenfolge und Zeitplaner in einer App für leichtes Zeitmanagement.
 
-Alle müssen gleichzeitig raus und am Ende kommt jeder zu spät. Deshalb habe ich als Vater <b>FamWake</b> entwickelt: den <b>Familienwecker</b>, den ich mir immer gewünscht hätte. Ob als cleverer <b>Kinderwecker</b>, als Hilfe für die <b>Morgenroutine für Kinder</b> oder als gemeinsamer Wecker — unsere Familienwecker App macht den Morgen stressfrei.
+Alle müssen gleichzeitig raus und jemand kommt zu spät. Deshalb habe ich als Vater <b>FamWake</b> entwickelt: den <b>Familienwecker</b>, den ich mir immer gewünscht hätte. Ob als cleverer <b>Kinderwecker</b>, Helfer für die <b>Morgenroutine für Kinder</b> oder gemeinsamer Wecker — unsere Familienwecker App macht den Morgen stressfrei.
 
-FamWake berechnet für jedes Familienmitglied den <b>perfekten Weckzeitpunkt</b> — abgestimmt auf Badezimmer, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und trotzdem sind alle pünktlich.
+FamWake berechnet für jedes Familienmitglied den <b>perfekten Weckzeitpunkt</b> — abgestimmt auf Bad, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und alle sind pünktlich.
 
 <b> Kein Bad-Chaos – Dein smarter Badplaner</b>
 Wer wann ins Bad darf, plant FamWake automatisch als intelligenter Badplaner — ohne Überschneidungen und mit individuellen Pufferzeiten. Du stehst erst auf, wenn du wirklich dran bist.
 
 <b> Gemeinsam frühstücken</b>
-Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam frühstücken können — vor dem Start in Schule oder Arbeit.
+Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam frühstücken — vor dem Start in Schule oder Arbeit.
 
 <b> Die ganze Familie im Blick</b>
-Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan, ADHS Planer kostenlos und alltagstaugliche ADHS App für die Familie und ADHS Kids, visueller Timer für Kinder und Familienplaner für kinderleichtes Zeitmanagement.
+Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan für Kinder, ADHS Planer kostenlos und alltagstaugliche ADHS App für Familie und ADHS Kids: Der integrierte visuelle Timer für Kinder und strukturierte Tagesplan minimiert Ablenkungen am Morgen.
 
 <b> Flexible Wochentage & Urlaubsmodus</b>
 • <b>Wochentags-Profile:</b> Für jeden Wochentag individuelle Weckzeiten und Schultage hinterlegen.
 • <b>Ferienmodus:</b> Alarme und Erinnerungen mit einem Klick bis zum Ferienende pausieren — am ersten Schultag startet alles automatisch neu.
 
 <b> Sanftes Wecken, Snooze & lauter Wecker</b>
-FamWake weckt zuverlässig auch bei stummem Gerät. Sanftes Wecken mit 30 Sekunden sanft ansteigender Lautstärke und smarter Schlummerfunktion (Snooze) holt Kinder ohne Schreck aus dem Schlaf. Für Tiefschläfer gibt es durchsetzungsstarke Wecktöne — dein lauter Wecker extrem durchsetzungsfähig für Morgenmuffel.
+FamWake weckt zuverlässig auch bei stummem Gerät. Ein sanfter Wecker mit 30 Sekunden Crescendo-Lautstärke und smarter Schlummerfunktion (Snooze) holt Kinder sanft aus dem Schlaf. Als motivierender Kinderwecker und visueller Wecker sorgt FamWake für einen leichten Start. Für Tiefschläfer gibt es durchsetzungsstarke Wecktöne — dein lauter Wecker für Morgenmuffel.
 
 <b> Vorabend-Check & „Schon wach?“</b>
 • <b>Check-in um 20:30 Uhr:</b> Kurzer Abend-Hinweis, ob der Weckplan für morgen noch passt.
@@ -84,17 +81,17 @@ FamWake weckt zuverlässig auch bei stummem Gerät. Sanftes Wecken mit 30 Sekund
 • <b>1-Klick Auto-Fix:</b> Erkennt Zeitengpässe sofort und löst Konflikte automatisch.
 
 <b> Blitzschneller Beitritt ohne Registrierung</b>
-Kein Konto für Kinder oder Partner nötig: Familien-Code teilen, App öffnen — der Code wird automatisch aus der Zwischenablage erkannt und alle sind sofort startklar.
+Kein Konto für Kinder oder Partner nötig: Code teilen, App öffnen — der Code wird automatisch aus der Zwischenablage erkannt und alle sind sofort startklar.
 
 <b> Deine Daten sind sicher</b>
 • Völlig anonym nutzbar (nur der Ersteller meldet sich an).
 • Keine Werbung — niemals. Kein Datenverkauf.
-• Verfügbar in 25 Sprachen (inkl. Schwäbisch, Schweizerdeutsch, Ruhrpott).
+• Verfügbar in 25 Sprachen (inkl. Dialekten).
 
 <b>So funktioniert's:</b>
 1. Familie erstellen und Code teilen (keine Registrierung für Mitbewohner).
 2. Bad-Zeit, Frühstück und Abfahrtszeit festlegen.
-3. FamWake berechnet als Familienwecker, visueller Timer für Kinder und verlässlicher Kinder Wecker den perfekten Ablauf — effektiv wie ein Wecker mit Aufgaben, Herausforderungen und Mission, aber jeden Morgen vollautomatisch.
+3. FamWake berechnet als Familienwecker, visueller Timer für Kinder und verlässlicher Kinder Wecker den perfekten Ablauf — wie ein Wecker mit Aufgaben und Herausforderungen, aber vollautomatisch.
 
 <b>100% kostenlos & ohne Werbung</b>
 Alle Kernfunktionen sind dauerhaft <b>kostenlos</b> — dieser Wecker ohne Werbung und ohne Abo garantiert einen stressfreien Morgen für die ganze Familie.
@@ -103,31 +100,31 @@ Alle Kernfunktionen sind dauerhaft <b>kostenlos</b> — dieser Wecker ohne Werbu
 FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den Familienwecker und starte jeden Morgen mit einer harmonischen Morgenroutine!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (3676 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3628 / 4000 Zeichen)
 ```text
 Schluss mit Morgen-Chaos! Dein Familienwecker & Kinderwecker für eine entspannte Morgenroutine.
 
-FamWake ist deine smarte Morgenroutine App und Wecker App kostenlos für den perfekten Familienmorgen — Morgenplanung, Bad-Reihenfolge und Zeitplaner in einer App, die dir beim täglichen Zeitmanagement hilft.
+FamWake ist deine smarte Morgenroutine App und Wecker App kostenlos für den perfekten Morgen — Morgenplanung, Bad-Reihenfolge und Zeitplaner in einer App für leichtes Zeitmanagement.
 
-Alle müssen gleichzeitig raus und am Ende kommt jeder zu spät. Deshalb habe ich als Vater FamWake entwickelt: den Familienwecker, den ich mir immer gewünscht hätte. Ob als cleverer Kinderwecker, als Hilfe für die Morgenroutine für Kinder oder als gemeinsamer Wecker — unsere Familienwecker App macht den Morgen stressfrei.
+Alle müssen gleichzeitig raus und jemand kommt zu spät. Deshalb habe ich als Vater FamWake entwickelt: den Familienwecker, den ich mir immer gewünscht hätte. Ob als cleverer Kinderwecker, Helfer für die Morgenroutine für Kinder oder gemeinsamer Wecker — unsere Familienwecker App macht den Morgen stressfrei.
 
-FamWake berechnet für jedes Familienmitglied den perfekten Weckzeitpunkt — abgestimmt auf Badezimmer, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und trotzdem sind alle pünktlich.
+FamWake berechnet für jedes Familienmitglied den perfekten Weckzeitpunkt — abgestimmt auf Bad, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und alle sind pünktlich.
 
 Kein Bad-Chaos – Dein smarter Badplaner
 Wer wann ins Bad darf, plant FamWake automatisch als intelligenter Badplaner — ohne Überschneidungen und mit individuellen Pufferzeiten. Du stehst erst auf, wenn du wirklich dran bist.
 
 Gemeinsam frühstücken
-Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam frühstücken können — vor dem Start in Schule oder Arbeit.
+Aktiviere die Frühstückszeit und FamWake plant einen festen Zeitraum ein, in dem alle gemeinsam frühstücken — vor dem Start in Schule oder Arbeit.
 
 Die ganze Familie im Blick
-Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan, ADHS Planer kostenlos und alltagstaugliche ADHS App für die Familie und ADHS Kids, visueller Timer für Kinder und Familienplaner für kinderleichtes Zeitmanagement.
+Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan für Kinder, ADHS Planer kostenlos und alltagstaugliche ADHS App für Familie und ADHS Kids: Der integrierte visuelle Timer für Kinder und strukturierte Tagesplan minimiert Ablenkungen am Morgen.
 
 Flexible Wochentage & Urlaubsmodus
 • Wochentags-Profile: Für jeden Wochentag individuelle Weckzeiten und Schultage hinterlegen.
 • Ferienmodus: Alarme und Erinnerungen mit einem Klick bis zum Ferienende pausieren — am ersten Schultag startet alles automatisch neu.
 
 Sanftes Wecken, Snooze & lauter Wecker
-FamWake weckt zuverlässig auch bei stummem Gerät. Sanftes Wecken mit 30 Sekunden sanft ansteigender Lautstärke und smarter Schlummerfunktion (Snooze) holt Kinder ohne Schreck aus dem Schlaf. Für Tiefschläfer gibt es durchsetzungsstarke Wecktöne — dein lauter Wecker extrem durchsetzungsfähig für Morgenmuffel.
+FamWake weckt zuverlässig auch bei stummem Gerät. Ein sanfter Wecker mit 30 Sekunden Crescendo-Lautstärke und smarter Schlummerfunktion (Snooze) holt Kinder sanft aus dem Schlaf. Als motivierender Kinderwecker und visueller Wecker sorgt FamWake für einen leichten Start. Für Tiefschläfer gibt es durchsetzungsstarke Wecktöne — dein lauter Wecker für Morgenmuffel.
 
 Vorabend-Check & „Schon wach?“
 • Check-in um 20:30 Uhr: Kurzer Abend-Hinweis, ob der Weckplan für morgen noch passt.
@@ -135,17 +132,17 @@ Vorabend-Check & „Schon wach?“
 • 1-Klick Auto-Fix: Erkennt Zeitengpässe sofort und löst Konflikte automatisch.
 
 Blitzschneller Beitritt ohne Registrierung
-Kein Konto für Kinder oder Partner nötig: Familien-Code teilen, App öffnen — der Code wird automatisch aus der Zwischenablage erkannt und alle sind sofort startklar.
+Kein Konto für Kinder oder Partner nötig: Code teilen, App öffnen — der Code wird automatisch aus der Zwischenablage erkannt und alle sind sofort startklar.
 
 Deine Daten sind sicher
 • Völlig anonym nutzbar (nur der Ersteller meldet sich an).
 • Keine Werbung — niemals. Kein Datenverkauf.
-• Verfügbar in 25 Sprachen (inkl. Schwäbisch, Schweizerdeutsch, Ruhrpott).
+• Verfügbar in 25 Sprachen (inkl. Dialekten).
 
 So funktioniert's:
 1. Familie erstellen und Code teilen (keine Registrierung für Mitbewohner).
 2. Bad-Zeit, Frühstück und Abfahrtszeit festlegen.
-3. FamWake berechnet als Familienwecker, visueller Timer für Kinder und verlässlicher Kinder Wecker den perfekten Ablauf — effektiv wie ein Wecker mit Aufgaben, Herausforderungen und Mission, aber jeden Morgen vollautomatisch.
+3. FamWake berechnet als Familienwecker, visueller Timer für Kinder und verlässlicher Kinder Wecker den perfekten Ablauf — wie ein Wecker mit Aufgaben und Herausforderungen, aber vollautomatisch.
 
 100% kostenlos & ohne Werbung
 Alle Kernfunktionen sind dauerhaft kostenlos — dieser Wecker ohne Werbung und ohne Abo garantiert einen stressfreien Morgen für die ganze Familie.
@@ -173,9 +170,9 @@ Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
 Bathroom Schedule & Routine
 ```
 
-### iOS Keywords – App Store (100 / 100 Zeichen)
+### iOS Keywords – App Store (97 / 100 Zeichen)
 ```text
-checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,shared,timer,morning
+checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning
 ```
 
 ### iOS Promo-Text – App Store (109 / 170 Zeichen)
@@ -183,31 +180,31 @@ checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,
 No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3649 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3832 / 4000 Zeichen)
 ```html
 <b>End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.</b>
 
 FamWake is your all-in-one family routine planner, morning routine app, kids routine app, visual schedule planner, and task assignment app for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
-Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart kids wake up planner, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake makes mornings easy.
+Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart kids alarm, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake stops morning chaos and makes mornings easy.
 
 FamWake calculates the <b>perfect wake-up time</b> for each person — coordinated with bathroom turns, breakfast, and departure time. Everyone sleeps as long as possible, and nobody is late.
 
 <b> No More Bathroom Queues</b>
-FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
+End morning chaos with an intelligent routine. FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
 
 <b> Family Breakfast Together</b>
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, and visual timer for autism, ideal as an ADHD habit tracker for effortless morning planning, kids morning routine app management, and calm family starts.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, visual habit tracker, and visual timer for autism, ideal as an ADHD visual routine planner for effortless morning planning, kids morning routine app management, and calm family starts.
 
 <b> Flexible Weekdays & Vacation Mode</b>
 • <b>Day Profiles:</b> Set custom wake-up times and school routines for every single day of the week.
 • <b>Vacation Mode:</b> Pause all timers and reminders until school starts again with one tap. Resumes automatically on day one!
 
 <b> Gentle Wake-Up & Loud Ringtone</b>
-Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes children calmly without shocking them awake. Loud tones available for heavy sleepers.
+Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes kids calmly without shocking them awake. As a gentle kids alarm and visual timer, FamWake helps children build positive morning habits. Loud tones available for heavy sleepers.
 
 <b> Evening Check-In & Already Awake</b>
 • <b>8:30 PM Check-In:</b> A gentle evening reminder ensures tomorrow's morning plan is ready with no morning surprises.
@@ -234,31 +231,31 @@ All core features are <b>free forever</b> — a truly ad-free morning routine pl
 FamWake is a passion project born at our own breakfast table. Download FamWake now, organize your family routine, and master your kids morning routine together!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (3494 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3677 / 4000 Zeichen)
 ```text
 End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.
 
 FamWake is your all-in-one family routine planner, morning routine app, kids routine app, visual schedule planner, and task assignment app for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
-Everyone needs to leave at the same time and someone always ends up late. That's why I built FamWake: the family alarm clock I always wished we had. Whether as a smart kids wake up planner, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake makes mornings easy.
+Everyone needs to leave at the same time and someone always ends up late. That's why I built FamWake: the family alarm clock I always wished we had. Whether as a smart kids alarm, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake stops morning chaos and makes mornings easy.
 
 FamWake calculates the perfect wake-up time for each person — coordinated with bathroom turns, breakfast, and departure time. Everyone sleeps as long as possible, and nobody is late.
 
 No More Bathroom Queues
-FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
+End morning chaos with an intelligent routine. FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
 
 Family Breakfast Together
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 Your Whole Family at a Glance
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, and visual timer for autism, ideal as an ADHD habit tracker for effortless morning planning, kids morning routine app management, and calm family starts.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, visual habit tracker, and visual timer for autism, ideal as an ADHD visual routine planner for effortless morning planning, kids morning routine app management, and calm family starts.
 
 Flexible Weekdays & Vacation Mode
 • Day Profiles: Set custom wake-up times and school routines for every single day of the week.
 • Vacation Mode: Pause all timers and reminders until school starts again with one tap. Resumes automatically on day one!
 
 Gentle Wake-Up & Loud Ringtone
-Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes children calmly without shocking them awake. Loud tones available for heavy sleepers.
+Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes kids calmly without shocking them awake. As a gentle kids alarm and visual timer, FamWake helps children build positive morning habits. Loud tones available for heavy sleepers.
 
 Evening Check-In & Already Awake
 • 8:30 PM Check-In: A gentle evening reminder ensures tomorrow's morning plan is ready with no morning surprises.
@@ -304,9 +301,9 @@ Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
 Bathroom Schedule & Routine
 ```
 
-### iOS Keywords – App Store (100 / 100 Zeichen)
+### iOS Keywords – App Store (97 / 100 Zeichen)
 ```text
-checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,shared,timer,morning
+checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning
 ```
 
 ### iOS Promo-Text – App Store (109 / 170 Zeichen)
@@ -314,31 +311,31 @@ checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,
 No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3649 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3832 / 4000 Zeichen)
 ```html
 <b>End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.</b>
 
 FamWake is your all-in-one family routine planner, morning routine app, kids routine app, visual schedule planner, and task assignment app for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
-Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart kids wake up planner, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake makes mornings easy.
+Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart kids alarm, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake stops morning chaos and makes mornings easy.
 
 FamWake calculates the <b>perfect wake-up time</b> for each person — coordinated with bathroom turns, breakfast, and departure time. Everyone sleeps as long as possible, and nobody is late.
 
 <b> No More Bathroom Queues</b>
-FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
+End morning chaos with an intelligent routine. FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
 
 <b> Family Breakfast Together</b>
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, and visual timer for autism, ideal as an ADHD habit tracker for effortless morning planning, kids morning routine app management, and calm family starts.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, visual habit tracker, and visual timer for autism, ideal as an ADHD visual routine planner for effortless morning planning, kids morning routine app management, and calm family starts.
 
 <b> Flexible Weekdays & Vacation Mode</b>
 • <b>Day Profiles:</b> Set custom wake-up times and school routines for every single day of the week.
 • <b>Vacation Mode:</b> Pause all timers and reminders until school starts again with one tap. Resumes automatically on day one!
 
 <b> Gentle Wake-Up & Loud Ringtone</b>
-Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes children calmly without shocking them awake. Loud tones available for heavy sleepers.
+Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes kids calmly without shocking them awake. As a gentle kids alarm and visual timer, FamWake helps children build positive morning habits. Loud tones available for heavy sleepers.
 
 <b> Evening Check-In & Already Awake</b>
 • <b>8:30 PM Check-In:</b> A gentle evening reminder ensures tomorrow's morning plan is ready with no morning surprises.
@@ -365,31 +362,31 @@ All core features are <b>free forever</b> — a truly ad-free morning routine pl
 FamWake is a passion project born at our own breakfast table. Download FamWake now, organize your family routine, and master your kids morning routine together!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (3494 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3677 / 4000 Zeichen)
 ```text
 End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.
 
 FamWake is your all-in-one family routine planner, morning routine app, kids routine app, visual schedule planner, and task assignment app for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
-Everyone needs to leave at the same time and someone always ends up late. That's why I built FamWake: the family alarm clock I always wished we had. Whether as a smart kids wake up planner, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake makes mornings easy.
+Everyone needs to leave at the same time and someone always ends up late. That's why I built FamWake: the family alarm clock I always wished we had. Whether as a smart kids alarm, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake stops morning chaos and makes mornings easy.
 
 FamWake calculates the perfect wake-up time for each person — coordinated with bathroom turns, breakfast, and departure time. Everyone sleeps as long as possible, and nobody is late.
 
 No More Bathroom Queues
-FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
+End morning chaos with an intelligent routine. FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
 
 Family Breakfast Together
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 Your Whole Family at a Glance
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, and visual timer for autism, ideal as an ADHD habit tracker for effortless morning planning, kids morning routine app management, and calm family starts.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, visual habit tracker, and visual timer for autism, ideal as an ADHD visual routine planner for effortless morning planning, kids morning routine app management, and calm family starts.
 
 Flexible Weekdays & Vacation Mode
 • Day Profiles: Set custom wake-up times and school routines for every single day of the week.
 • Vacation Mode: Pause all timers and reminders until school starts again with one tap. Resumes automatically on day one!
 
 Gentle Wake-Up & Loud Ringtone
-Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes children calmly without shocking them awake. Loud tones available for heavy sleepers.
+Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes kids calmly without shocking them awake. As a gentle kids alarm and visual timer, FamWake helps children build positive morning habits. Loud tones available for heavy sleepers.
 
 Evening Check-In & Already Awake
 • 8:30 PM Check-In: A gentle evening reminder ensures tomorrow's morning plan is ready with no morning surprises.
@@ -435,9 +432,9 @@ Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
 Bathroom Schedule & Routine
 ```
 
-### iOS Keywords – App Store (100 / 100 Zeichen)
+### iOS Keywords – App Store (97 / 100 Zeichen)
 ```text
-checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,shared,timer,morning
+checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning
 ```
 
 ### iOS Promo-Text – App Store (109 / 170 Zeichen)
@@ -445,31 +442,31 @@ checklist,visual,first,then,loud,chore,habit,adhd,wake,planner,daily,kids,group,
 No more morning chaos! FamWake coordinates wake-up times, bathroom turns, and breakfast for the whole family.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3649 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3832 / 4000 Zeichen)
 ```html
 <b>End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.</b>
 
 FamWake is your all-in-one family routine planner, morning routine app, kids routine app, visual schedule planner, and task assignment app for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
-Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart kids wake up planner, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake makes mornings easy.
+Everyone needs to leave at the same time and someone always ends up late. That's why I built <b>FamWake</b>: the <b>family alarm clock</b> I always wished we had. Whether as a smart kids alarm, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake stops morning chaos and makes mornings easy.
 
 FamWake calculates the <b>perfect wake-up time</b> for each person — coordinated with bathroom turns, breakfast, and departure time. Everyone sleeps as long as possible, and nobody is late.
 
 <b> No More Bathroom Queues</b>
-FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
+End morning chaos with an intelligent routine. FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
 
 <b> Family Breakfast Together</b>
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 <b> Your Whole Family at a Glance</b>
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, and visual timer for autism, ideal as an ADHD habit tracker for effortless morning planning, kids morning routine app management, and calm family starts.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, visual habit tracker, and visual timer for autism, ideal as an ADHD visual routine planner for effortless morning planning, kids morning routine app management, and calm family starts.
 
 <b> Flexible Weekdays & Vacation Mode</b>
 • <b>Day Profiles:</b> Set custom wake-up times and school routines for every single day of the week.
 • <b>Vacation Mode:</b> Pause all timers and reminders until school starts again with one tap. Resumes automatically on day one!
 
 <b> Gentle Wake-Up & Loud Ringtone</b>
-Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes children calmly without shocking them awake. Loud tones available for heavy sleepers.
+Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes kids calmly without shocking them awake. As a gentle kids alarm and visual timer, FamWake helps children build positive morning habits. Loud tones available for heavy sleepers.
 
 <b> Evening Check-In & Already Awake</b>
 • <b>8:30 PM Check-In:</b> A gentle evening reminder ensures tomorrow's morning plan is ready with no morning surprises.
@@ -496,31 +493,31 @@ All core features are <b>free forever</b> — a truly ad-free morning routine pl
 FamWake is a passion project born at our own breakfast table. Download FamWake now, organize your family routine, and master your kids morning routine together!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (3494 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3677 / 4000 Zeichen)
 ```text
 End the morning chaos! The smart family alarm clock & kids alarm clock for stress-free mornings.
 
 FamWake is your all-in-one family routine planner, morning routine app, kids routine app, visual schedule planner, and task assignment app for families — morning schedule, bathroom queue, and visual timer routine in one simple app.
 
-Everyone needs to leave at the same time and someone always ends up late. That's why I built FamWake: the family alarm clock I always wished we had. Whether as a smart kids wake up planner, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake makes mornings easy.
+Everyone needs to leave at the same time and someone always ends up late. That's why I built FamWake: the family alarm clock I always wished we had. Whether as a smart kids alarm, a helper for your morning routine for kids, or a shared schedule for couples and roommates — FamWake stops morning chaos and makes mornings easy.
 
 FamWake calculates the perfect wake-up time for each person — coordinated with bathroom turns, breakfast, and departure time. Everyone sleeps as long as possible, and nobody is late.
 
 No More Bathroom Queues
-FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
+End morning chaos with an intelligent routine. FamWake is a shared alarm clock, synchronized morning alarm clock, and group alarm that manages your bathroom schedule and bathroom queue automatically with zero overlaps and custom buffer times. A reliable group schedule ensures you only wake up when it's actually your turn.
 
 Family Breakfast Together
 Turn on the breakfast option and FamWake schedules a shared window where everyone sits down together before the day starts.
 
 Your Whole Family at a Glance
-The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, and visual timer for autism, ideal as an ADHD habit tracker for effortless morning planning, kids morning routine app management, and calm family starts.
+The dashboard shows your family routine and family morning routine in real-time: who wakes up when, who is in the bathroom, and departure times. Rearrange the order with a simple drag & drop — your first then visual schedule, visual timer for kids free, visual habit tracker, and visual timer for autism, ideal as an ADHD visual routine planner for effortless morning planning, kids morning routine app management, and calm family starts.
 
 Flexible Weekdays & Vacation Mode
 • Day Profiles: Set custom wake-up times and school routines for every single day of the week.
 • Vacation Mode: Pause all timers and reminders until school starts again with one tap. Resumes automatically on day one!
 
 Gentle Wake-Up & Loud Ringtone
-Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes children calmly without shocking them awake. Loud tones available for heavy sleepers.
+Reliable wake-up calls even in silent mode. A 30-second gentle volume crescendo wakes kids calmly without shocking them awake. As a gentle kids alarm and visual timer, FamWake helps children build positive morning habits. Loud tones available for heavy sleepers.
 
 Evening Check-In & Already Awake
 • 8:30 PM Check-In: A gentle evening reminder ensures tomorrow's morning plan is ready with no morning surprises.
@@ -566,17 +563,17 @@ Routine du matin et planning salle de bain pour enfants et toute la famille.
 Réveil familial & planning
 ```
 
-### iOS Keywords – App Store (99 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-enfant,matin,routine,salle,bain,horaire,famille,partagé,groupe,visuel,minuteur,tdah,habitude,tâches
+enfant,matin,routine,salle,bain,horaire,famille,partagé,groupe,visuel,minuteur,tdah,autisme,habitude
 ```
 
-### iOS Promo-Text – App Store (130 / 170 Zeichen)
+### iOS Promo-Text – App Store (145 / 170 Zeichen)
 ```text
-Fini le chaos matinal ! FamWake coordonne les heures de réveil, les tours de toilettes et le petit-déjeuner pour toute la famille.
+Fini le chaos matinal ! FamWake coordonne les heures de réveil, l’ordre de passage à la salle de bain et le petit-déjeuner pour toute la famille.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3543 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3582 / 4000 Zeichen)
 ```html
 <b>Fini le chaos du matin ! Ton réveil familial et réveil enfant pour une routine matinale sereine.</b>
 
@@ -593,7 +590,7 @@ FamWake planifie automatiquement l'accès à la salle de bain sans chevauchement
 Active l'option petit-déjeuner pour partager un moment convivial tous ensemble avant de partir à l'école ou au travail.
 
 <b> Toute la famille en un coup d'œil</b>
-Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel idéal pour les enfants et adapté aux besoins TDAH.
+Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel pour enfants, routine visuelle et suivi des habitudes adapté aux besoins TDAH et autisme.
 
 <b> Profils par jour de la semaine & Mode Vacances</b>
 • <b>Profils quotidiens :</b> Définis des horaires et durées de salle de bain spécifiques pour chaque jour (cours décalés, télétravail).
@@ -627,7 +624,7 @@ Toutes les fonctionnalités essentielles sont et resteront <b>gratuites</b> — 
 FamWake est né autour de notre table de petit-déjeuner. Télécharge FamWake dès maintenant pour des matins calmes et complices !
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (3374 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3413 / 4000 Zeichen)
 ```text
 Fini le chaos du matin ! Ton réveil familial et réveil enfant pour une routine matinale sereine.
 
@@ -644,7 +641,7 @@ Petit-déjeuner en famille
 Active l'option petit-déjeuner pour partager un moment convivial tous ensemble avant de partir à l'école ou au travail.
 
 Toute la famille en un coup d'œil
-Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel idéal pour les enfants et adapté aux besoins TDAH.
+Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel pour enfants, routine visuelle et suivi des habitudes adapté aux besoins TDAH et autisme.
 
 Profils par jour de la semaine & Mode Vacances
 • Profils quotidiens : Définis des horaires et durées de salle de bain spécifiques pour chaque jour (cours décalés, télétravail).
@@ -697,17 +694,17 @@ Routine du matin et planning salle de bain pour enfants et toute la famille.
 Réveil familial & planning
 ```
 
-### iOS Keywords – App Store (99 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-enfant,matin,routine,salle,bain,horaire,famille,partagé,groupe,visuel,minuteur,tdah,habitude,tâches
+enfant,matin,routine,salle,bain,horaire,famille,partagé,groupe,visuel,minuteur,tdah,autisme,habitude
 ```
 
-### iOS Promo-Text – App Store (130 / 170 Zeichen)
+### iOS Promo-Text – App Store (145 / 170 Zeichen)
 ```text
-Fini le chaos matinal ! FamWake coordonne les heures de réveil, les tours de toilettes et le petit-déjeuner pour toute la famille.
+Fini le chaos matinal ! FamWake coordonne les heures de réveil, l’ordre de passage à la salle de bain et le petit-déjeuner pour toute la famille.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3543 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3582 / 4000 Zeichen)
 ```html
 <b>Fini le chaos du matin ! Ton réveil familial et réveil enfant pour une routine matinale sereine.</b>
 
@@ -724,7 +721,7 @@ FamWake planifie automatiquement l'accès à la salle de bain sans chevauchement
 Active l'option petit-déjeuner pour partager un moment convivial tous ensemble avant de partir à l'école ou au travail.
 
 <b> Toute la famille en un coup d'œil</b>
-Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel idéal pour les enfants et adapté aux besoins TDAH.
+Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel pour enfants, routine visuelle et suivi des habitudes adapté aux besoins TDAH et autisme.
 
 <b> Profils par jour de la semaine & Mode Vacances</b>
 • <b>Profils quotidiens :</b> Définis des horaires et durées de salle de bain spécifiques pour chaque jour (cours décalés, télétravail).
@@ -758,7 +755,7 @@ Toutes les fonctionnalités essentielles sont et resteront <b>gratuites</b> — 
 FamWake est né autour de notre table de petit-déjeuner. Télécharge FamWake dès maintenant pour des matins calmes et complices !
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (3374 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3413 / 4000 Zeichen)
 ```text
 Fini le chaos du matin ! Ton réveil familial et réveil enfant pour une routine matinale sereine.
 
@@ -775,7 +772,7 @@ Petit-déjeuner en famille
 Active l'option petit-déjeuner pour partager un moment convivial tous ensemble avant de partir à l'école ou au travail.
 
 Toute la famille en un coup d'œil
-Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel idéal pour les enfants et adapté aux besoins TDAH.
+Le tableau de bord affiche le planning salle de bain et la routine du matin en temps réel : qui se lève quand, qui est dans la salle de bain et à quelle heure partir. Modifie l'ordre facilement par glisser-déposer — minuteur visuel pour enfants, routine visuelle et suivi des habitudes adapté aux besoins TDAH et autisme.
 
 Profils par jour de la semaine & Mode Vacances
 • Profils quotidiens : Définis des horaires et durées de salle de bain spécifiques pour chaque jour (cours décalés, télétravail).
@@ -828,9 +825,9 @@ Alarma infantil y rutina matinal para niños. Turnos de baño y horarios.
 Alarma familiar & planificador
 ```
 
-### iOS Keywords – App Store (97 / 100 Zeichen)
+### iOS Keywords – App Store (99 / 100 Zeichen)
 ```text
-despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo,visual,tdah,hábitos
+despertador,niños,infantil,rutina,mañana,baño,turnos,horario,visual,tdah,autismo,hábitos,alarma,app
 ```
 
 ### iOS Promo-Text – App Store (113 / 170 Zeichen)
@@ -838,7 +835,7 @@ despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo
 ¡No más caos matutino! FamWake coordina los horarios de despertarse, ir al baño y desayunar para toda la familia.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3147 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3248 / 4000 Zeichen)
 ```html
 <b>¡Se acabó el caos matutino! Tu despertador familiar y alarma infantil para mañanas tranquilas.</b>
 
@@ -855,14 +852,14 @@ FamWake organiza los turnos de baño automáticamente, sin esperas y con tiempos
 Activa la opción de desayuno para compartir un momento tranquilo todos juntos antes de empezar el día escolar o laboral.
 
 <b> Toda la familia de un vistazo</b>
-El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — ideal para niños y rutinas TDAH.
+El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — tu horario visual, temporizador visual infantil y planificador de hábitos adaptado a necesidades de autismo y TDAH.
 
 <b> Horarios por día de la semana y Modo Vacaciones</b>
 • <b>Perfiles diarios:</b> Configura horarios diferentes para cada día de la semana (clases más tarde, teletrabajo).
 • <b>Modo Vacaciones:</b> Pausa alarmas y avisos hasta el fin de las vacaciones con un solo toque. ¡Se reactiva automáticamente el primer día de clase!
 
 <b> Despertar suave y Alarma potente</b>
-Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños con tranquilidad y sin sobresaltos. Tonos intensos para dormilones.
+Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños como despertador suave y temporizador visual matinal. Tonos intensos para dormilones.
 
 <b> Aviso nocturno a las 20:30 y «Ya me desperté»</b>
 • <b>Check-in a las 20:30:</b> Un suave recordatorio la noche anterior asegura que todo esté listo para mañana.
@@ -889,7 +886,7 @@ Todas las funciones principales son y serán <b>gratuitas para siempre</b> — s
 FamWake nació en nuestra propia mesa de desayuno. ¡Descarga FamWake ahora y empieza el día con armonía!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (2978 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3079 / 4000 Zeichen)
 ```text
 ¡Se acabó el caos matutino! Tu despertador familiar y alarma infantil para mañanas tranquilas.
 
@@ -906,14 +903,14 @@ Desayuno en familia
 Activa la opción de desayuno para compartir un momento tranquilo todos juntos antes de empezar el día escolar o laboral.
 
 Toda la familia de un vistazo
-El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — ideal para niños y rutinas TDAH.
+El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — tu horario visual, temporizador visual infantil y planificador de hábitos adaptado a necesidades de autismo y TDAH.
 
 Horarios por día de la semana y Modo Vacaciones
 • Perfiles diarios: Configura horarios diferentes para cada día de la semana (clases más tarde, teletrabajo).
 • Modo Vacaciones: Pausa alarmas y avisos hasta el fin de las vacaciones con un solo toque. ¡Se reactiva automáticamente el primer día de clase!
 
 Despertar suave y Alarma potente
-Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños con tranquilidad y sin sobresaltos. Tonos intensos para dormilones.
+Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños como despertador suave y temporizador visual matinal. Tonos intensos para dormilones.
 
 Aviso nocturno a las 20:30 y «Ya me desperté»
 • Check-in a las 20:30: Un suave recordatorio la noche anterior asegura que todo esté listo para mañana.
@@ -959,9 +956,9 @@ Alarma infantil y rutina matinal para niños. Turnos de baño y horarios.
 Alarma familiar & planificador
 ```
 
-### iOS Keywords – App Store (97 / 100 Zeichen)
+### iOS Keywords – App Store (99 / 100 Zeichen)
 ```text
-despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo,visual,tdah,hábitos
+despertador,niños,infantil,rutina,mañana,baño,turnos,horario,visual,tdah,autismo,hábitos,alarma,app
 ```
 
 ### iOS Promo-Text – App Store (113 / 170 Zeichen)
@@ -969,7 +966,7 @@ despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo
 ¡No más caos matutino! FamWake coordina los horarios de despertarse, ir al baño y desayunar para toda la familia.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3147 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3248 / 4000 Zeichen)
 ```html
 <b>¡Se acabó el caos matutino! Tu despertador familiar y alarma infantil para mañanas tranquilas.</b>
 
@@ -986,14 +983,14 @@ FamWake organiza los turnos de baño automáticamente, sin esperas y con tiempos
 Activa la opción de desayuno para compartir un momento tranquilo todos juntos antes de empezar el día escolar o laboral.
 
 <b> Toda la familia de un vistazo</b>
-El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — ideal para niños y rutinas TDAH.
+El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — tu horario visual, temporizador visual infantil y planificador de hábitos adaptado a necesidades de autismo y TDAH.
 
 <b> Horarios por día de la semana y Modo Vacaciones</b>
 • <b>Perfiles diarios:</b> Configura horarios diferentes para cada día de la semana (clases más tarde, teletrabajo).
 • <b>Modo Vacaciones:</b> Pausa alarmas y avisos hasta el fin de las vacaciones con un solo toque. ¡Se reactiva automáticamente el primer día de clase!
 
 <b> Despertar suave y Alarma potente</b>
-Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños con tranquilidad y sin sobresaltos. Tonos intensos para dormilones.
+Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños como despertador suave y temporizador visual matinal. Tonos intensos para dormilones.
 
 <b> Aviso nocturno a las 20:30 y «Ya me desperté»</b>
 • <b>Check-in a las 20:30:</b> Un suave recordatorio la noche anterior asegura que todo esté listo para mañana.
@@ -1020,7 +1017,7 @@ Todas las funciones principales son y serán <b>gratuitas para siempre</b> — s
 FamWake nació en nuestra propia mesa de desayuno. ¡Descarga FamWake ahora y empieza el día con armonía!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (2978 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3079 / 4000 Zeichen)
 ```text
 ¡Se acabó el caos matutino! Tu despertador familiar y alarma infantil para mañanas tranquilas.
 
@@ -1037,14 +1034,14 @@ Desayuno en familia
 Activa la opción de desayuno para compartir un momento tranquilo todos juntos antes de empezar el día escolar o laboral.
 
 Toda la familia de un vistazo
-El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — ideal para niños y rutinas TDAH.
+El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — tu horario visual, temporizador visual infantil y planificador de hábitos adaptado a necesidades de autismo y TDAH.
 
 Horarios por día de la semana y Modo Vacaciones
 • Perfiles diarios: Configura horarios diferentes para cada día de la semana (clases más tarde, teletrabajo).
 • Modo Vacaciones: Pausa alarmas y avisos hasta el fin de las vacaciones con un solo toque. ¡Se reactiva automáticamente el primer día de clase!
 
 Despertar suave y Alarma potente
-Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños con tranquilidad y sin sobresaltos. Tonos intensos para dormilones.
+Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños como despertador suave y temporizador visual matinal. Tonos intensos para dormilones.
 
 Aviso nocturno a las 20:30 y «Ya me desperté»
 • Check-in a las 20:30: Un suave recordatorio la noche anterior asegura que todo esté listo para mañana.
@@ -1090,9 +1087,9 @@ Alarma infantil y rutina matinal para niños. Turnos de baño y horarios.
 Alarma familiar & planificador
 ```
 
-### iOS Keywords – App Store (97 / 100 Zeichen)
+### iOS Keywords – App Store (99 / 100 Zeichen)
 ```text
-despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo,visual,tdah,hábitos
+despertador,niños,infantil,rutina,mañana,baño,turnos,horario,visual,tdah,autismo,hábitos,alarma,app
 ```
 
 ### iOS Promo-Text – App Store (113 / 170 Zeichen)
@@ -1100,7 +1097,7 @@ despertador,niños,infantil,rutina,mañana,baño,turnos,horario,compartido,grupo
 ¡No más caos matutino! FamWake coordina los horarios de despertarse, ir al baño y desayunar para toda la familia.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3147 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3248 / 4000 Zeichen)
 ```html
 <b>¡Se acabó el caos matutino! Tu despertador familiar y alarma infantil para mañanas tranquilas.</b>
 
@@ -1117,14 +1114,14 @@ FamWake organiza los turnos de baño automáticamente, sin esperas y con tiempos
 Activa la opción de desayuno para compartir un momento tranquilo todos juntos antes de empezar el día escolar o laboral.
 
 <b> Toda la familia de un vistazo</b>
-El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — ideal para niños y rutinas TDAH.
+El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — tu horario visual, temporizador visual infantil y planificador de hábitos adaptado a necesidades de autismo y TDAH.
 
 <b> Horarios por día de la semana y Modo Vacaciones</b>
 • <b>Perfiles diarios:</b> Configura horarios diferentes para cada día de la semana (clases más tarde, teletrabajo).
 • <b>Modo Vacaciones:</b> Pausa alarmas y avisos hasta el fin de las vacaciones con un solo toque. ¡Se reactiva automáticamente el primer día de clase!
 
 <b> Despertar suave y Alarma potente</b>
-Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños con tranquilidad y sin sobresaltos. Tonos intensos para dormilones.
+Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños como despertador suave y temporizador visual matinal. Tonos intensos para dormilones.
 
 <b> Aviso nocturno a las 20:30 y «Ya me desperté»</b>
 • <b>Check-in a las 20:30:</b> Un suave recordatorio la noche anterior asegura que todo esté listo para mañana.
@@ -1151,7 +1148,7 @@ Todas las funciones principales son y serán <b>gratuitas para siempre</b> — s
 FamWake nació en nuestra propia mesa de desayuno. ¡Descarga FamWake ahora y empieza el día con armonía!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (2978 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (3079 / 4000 Zeichen)
 ```text
 ¡Se acabó el caos matutino! Tu despertador familiar y alarma infantil para mañanas tranquilas.
 
@@ -1168,14 +1165,14 @@ Desayuno en familia
 Activa la opción de desayuno para compartir un momento tranquilo todos juntos antes de empezar el día escolar o laboral.
 
 Toda la familia de un vistazo
-El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — ideal para niños y rutinas TDAH.
+El panel muestra la rutina en tiempo real: quién se levanta cuándo, quién está en el baño y a qué hora salir. Cambia el orden fácilmente arrastrando y soltando — tu horario visual, temporizador visual infantil y planificador de hábitos adaptado a necesidades de autismo y TDAH.
 
 Horarios por día de la semana y Modo Vacaciones
 • Perfiles diarios: Configura horarios diferentes para cada día de la semana (clases más tarde, teletrabajo).
 • Modo Vacaciones: Pausa alarmas y avisos hasta el fin de las vacaciones con un solo toque. ¡Se reactiva automáticamente el primer día de clase!
 
 Despertar suave y Alarma potente
-Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños con tranquilidad y sin sobresaltos. Tonos intensos para dormilones.
+Suena con total fiabilidad incluso con el móvil en silencio. El volumen en aumento gradual durante 30 segundos despierta a los niños como despertador suave y temporizador visual matinal. Tonos intensos para dormilones.
 
 Aviso nocturno a las 20:30 y «Ya me desperté»
 • Check-in a las 20:30: Un suave recordatorio la noche anterior asegura que todo esté listo para mañana.
@@ -1221,9 +1218,9 @@ Routine mattutina per bambini, turni bagno e orari per tutta la famiglia.
 Sveglia famiglia & pianifica
 ```
 
-### iOS Keywords – App Store (95 / 100 Zeichen)
+### iOS Keywords – App Store (96 / 100 Zeichen)
 ```text
-bambini,routine,mattina,bagno,turni,orario,condivisa,gruppo,visivo,timer,adhd,abitudini,compiti
+bambini,routine,mattina,bagno,turni,orario,condivisa,visivo,timer,adhd,autismo,abitudini,sveglia
 ```
 
 ### iOS Promo-Text – App Store (121 / 170 Zeichen)
@@ -1231,7 +1228,7 @@ bambini,routine,mattina,bagno,turni,orario,condivisa,gruppo,visivo,timer,adhd,ab
 Niente più caos mattutino! FamWake coordina gli orari di sveglia, i turni del bagno e la colazione per tutta la famiglia.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (3009 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3074 / 4000 Zeichen)
 ```html
 <b>Basta caos mattutino! La tua sveglia familiare intelligente per una routine serena.</b>
 
@@ -1248,14 +1245,14 @@ FamWake organizza automaticamente i turni del bagno senza sovrapposizioni e con 
 Attiva l'opzione colazione per iniziare la giornata tutti insieme con calma prima di scuola o lavoro.
 
 <b> Tutta la famiglia sotto controllo</b>
-La dashboard mostra la routine in tempo reale: chi si sveglia quando, chi è in bagno e a che ora si esce. Riordina i turni con un semplice tocco e trascina — perfetta per i bambini e orari ADHD.
+La dashboard mostra la routine in tempo reale: chi si sveglia quando, chi è in bagno e a che ora si esce. Riordina i turni con un semplice tocco e trascina — il tuo programma visivo, timer visivo per bambini e routine adatta ad ADHD e autismo.
 
 <b> Profili per giorno della settimana & Modalità Vacanza</b>
 • <b>Profili giornalieri:</b> Imposta orari diversi per ogni giorno della settimana (lezioni posticipate, smart working).
 • <b>Modalità Vacanza:</b> Metti in pausa tutte le sveglie e promemoria con un clic fino alla fine delle vacanze. Ripartenza automatica al rientro!
 
 <b> Risveglio dolce & Sveglia squillante</b>
-Affidabile anche con il telefono in modalità silenziosa. L'aumento graduale del volume in 30 secondi sveglia i bambini dolcemente e senza spaventi. Suonerie energiche per chi ha il sonno profondo.
+Affidabile anche con il telefono in modalità silenziosa. L'aumento graduale del volume in 30 secondi come sveglia dolce e timer visivo sveglia i bambini con calma. Suonerie energiche per chi ha il sonno profondo.
 
 <b> Check-in serale alle 20:30 & «Già sveglio»</b>
 • <b>Promemoria serale:</b> Una notifica discreta alle 20:30 assicura che il piano di domani sia pronto senza sorprese mattutine.
@@ -1282,7 +1279,7 @@ Tutte le funzioni essenziali sono e resteranno <b>gratuite</b> — nessun abbona
 Scarica FamWake ora e trasforma le tue mattine in momenti piacevoli e puntuali!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (2847 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (2912 / 4000 Zeichen)
 ```text
 Basta caos mattutino! La tua sveglia familiare intelligente per una routine serena.
 
@@ -1299,14 +1296,14 @@ Colazione insieme in famiglia
 Attiva l'opzione colazione per iniziare la giornata tutti insieme con calma prima di scuola o lavoro.
 
 Tutta la famiglia sotto controllo
-La dashboard mostra la routine in tempo reale: chi si sveglia quando, chi è in bagno e a che ora si esce. Riordina i turni con un semplice tocco e trascina — perfetta per i bambini e orari ADHD.
+La dashboard mostra la routine in tempo reale: chi si sveglia quando, chi è in bagno e a che ora si esce. Riordina i turni con un semplice tocco e trascina — il tuo programma visivo, timer visivo per bambini e routine adatta ad ADHD e autismo.
 
 Profili per giorno della settimana & Modalità Vacanza
 • Profili giornalieri: Imposta orari diversi per ogni giorno della settimana (lezioni posticipate, smart working).
 • Modalità Vacanza: Metti in pausa tutte le sveglie e promemoria con un clic fino alla fine delle vacanze. Ripartenza automatica al rientro!
 
 Risveglio dolce & Sveglia squillante
-Affidabile anche con il telefono in modalità silenziosa. L'aumento graduale del volume in 30 secondi sveglia i bambini dolcemente e senza spaventi. Suonerie energiche per chi ha il sonno profondo.
+Affidabile anche con il telefono in modalità silenziosa. L'aumento graduale del volume in 30 secondi come sveglia dolce e timer visivo sveglia i bambini con calma. Suonerie energiche per chi ha il sonno profondo.
 
 Check-in serale alle 20:30 & «Già sveglio»
 • Promemoria serale: Una notifica discreta alle 20:30 assicura che il piano di domani sia pronto senza sorprese mattutine.
@@ -1352,9 +1349,9 @@ Kinderwekker & ochtendroutine app. Badkamerplanning, volgorde en tijdschema.
 Gezinswekker & ochtendplanner
 ```
 
-### iOS Keywords – App Store (95 / 100 Zeichen)
+### iOS Keywords – App Store (97 / 100 Zeichen)
 ```text
-kinderwekker,ochtendroutine,kinderen,badkamer,tijdschema,gedeeld,groep,visueel,timer,adhd,taken
+kinderwekker,ochtendroutine,kinderen,badkamer,tijdschema,gedeeld,visueel,timer,adhd,autisme,taken
 ```
 
 ### iOS Promo-Text – App Store (112 / 170 Zeichen)
@@ -1362,7 +1359,7 @@ kinderwekker,ochtendroutine,kinderen,badkamer,tijdschema,gedeeld,groep,visueel,t
 Geen ochtendchaos meer! FamWake coördineert de wektijden, de badkamerbeurten en het ontbijt voor het hele gezin.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (2882 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (2968 / 4000 Zeichen)
 ```html
 <b>Klaar met de ochtendchaos! Jouw slimme gezinswekker & kinderwekker voor een ontspannen ochtend.</b>
 
@@ -1379,14 +1376,14 @@ FamWake plant de badkamertijd automatisch zonder overlappingen en met instelbare
 Schakel de ontbijtoptie in en FamWake reserveert een vast moment waarop iedereen samen kan eten voor school of werk begint.
 
 <b> Het hele gezin in één oogopslag</b>
-Het dashboard toont het ochtendplan in realtime: wie staat wanneer op, wie is in de badkamer en wanneer moet iedereen vertrekken. Versleep eenvoudig de volgorde — ideaal voor kinderen en ADHD-structuur.
+Het dashboard toont het ochtendplan in realtime: wie staat wanneer op, wie is in de badkamer en wanneer moet iedereen vertrekken. Versleep eenvoudig de volgorde — jouw visuele dagschema, visuele timer voor kinderen en ochtendroutineplanner geschikt voor ADHD en autisme.
 
 <b> Weekdagprofielen & Vakantiemodus</b>
 • <b>Dagprofielen:</b> Stel per weekdag andere wektijden en badkamertijden in (roosters, thuiswerk).
 • <b>Vakantiemodus:</b> Pauzeer alle wekkers en herinneringen met één tik tot het einde van de vakantie. Start automatisch weer op de eerste schooldag!
 
 <b> Zacht wekken & Krachtige wekker</b>
-Betrouwbare wekker, zelfs op stil. Het volume zwelt 30 seconden zachtjes aan, zodat kinderen rustig en zonder schrik wakker worden. Luide tonen beschikbaar voor diepe slapers.
+Betrouwbare wekker, zelfs op stil. Het volume zwelt 30 seconden zachtjes aan als zachte wekker en visuele timer, zodat kinderen rustig wakker worden. Luide tonen beschikbaar voor diepe slapers.
 
 <b> Avond-check om 20:30 & „Al wakker?”</b>
 • <b>Herinnering om 20:30:</b> Een vriendelijke melding de avond ervoor zorgt dat morgenochtend vlekkeloos verloopt.
@@ -1413,7 +1410,7 @@ Alle kernfuncties zijn en blijven <b>gratis</b> — geen abonnementen of verborg
 Download FamWake nu en geniet elke ochtend van rust en harmonie!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (2720 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (2806 / 4000 Zeichen)
 ```text
 Klaar met de ochtendchaos! Jouw slimme gezinswekker & kinderwekker voor een ontspannen ochtend.
 
@@ -1430,14 +1427,14 @@ Samen gezellig ontbijten
 Schakel de ontbijtoptie in en FamWake reserveert een vast moment waarop iedereen samen kan eten voor school of werk begint.
 
 Het hele gezin in één oogopslag
-Het dashboard toont het ochtendplan in realtime: wie staat wanneer op, wie is in de badkamer en wanneer moet iedereen vertrekken. Versleep eenvoudig de volgorde — ideaal voor kinderen en ADHD-structuur.
+Het dashboard toont het ochtendplan in realtime: wie staat wanneer op, wie is in de badkamer en wanneer moet iedereen vertrekken. Versleep eenvoudig de volgorde — jouw visuele dagschema, visuele timer voor kinderen en ochtendroutineplanner geschikt voor ADHD en autisme.
 
 Weekdagprofielen & Vakantiemodus
 • Dagprofielen: Stel per weekdag andere wektijden en badkamertijden in (roosters, thuiswerk).
 • Vakantiemodus: Pauzeer alle wekkers en herinneringen met één tik tot het einde van de vakantie. Start automatisch weer op de eerste schooldag!
 
 Zacht wekken & Krachtige wekker
-Betrouwbare wekker, zelfs op stil. Het volume zwelt 30 seconden zachtjes aan, zodat kinderen rustig en zonder schrik wakker worden. Luide tonen beschikbaar voor diepe slapers.
+Betrouwbare wekker, zelfs op stil. Het volume zwelt 30 seconden zachtjes aan als zachte wekker en visuele timer, zodat kinderen rustig wakker worden. Luide tonen beschikbaar voor diepe slapers.
 
 Avond-check om 20:30 & „Al wakker?”
 • Herinnering om 20:30: Een vriendelijke melding de avond ervoor zorgt dat morgenochtend vlekkeloos verloopt.
@@ -1483,9 +1480,9 @@ Alarme infantil, rotina matinal e horários de banheiro para toda a família.
 Alarme familiar & planejador
 ```
 
-### iOS Keywords – App Store (97 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-despertador,infantil,crianças,rotina,manhã,banheiro,horário,compartilhado,grupo,visual,timer,tdah
+despertador,infantil,crianças,rotina,manhã,banheiro,horário,visual,timer,tdah,autismo,hábitos,alarme
 ```
 
 ### iOS Promo-Text – App Store (126 / 170 Zeichen)
@@ -1493,7 +1490,7 @@ despertador,infantil,crianças,rotina,manhã,banheiro,horário,compartilhado,gru
 Chega de caos matinal! FamWake coordena horários de despertar, horários de ir ao banheiro e café da manhã para toda a família.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (2957 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3013 / 4000 Zeichen)
 ```html
 <b>Chega de caos matinal! Seu despertador familiar inteligente e despertador infantil para manhãs tranquilas.</b>
 
@@ -1510,14 +1507,14 @@ O FamWake organiza os turnos do banheiro automaticamente, sem sobreposições e 
 Ative a opção de café da manhã para desfrutarem de uma refeição calma juntos antes de começar a correria do dia.
 
 <b> Toda a família visível em tempo real</b>
-O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — excelente para crianças e rotinas TDAH.
+O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — seu cronograma visual, timer visual infantil e rotina adaptada para TDAH e autismo.
 
 <b> Horários por dia da semana e Modo Férias</b>
 • <b>Perfis diários:</b> Defina horários específicos para cada dia da semana (aulas mais tarde, home office).
 • <b>Modo Férias:</b> Pause alarmes e lembretes até o final das férias com um só toque. Reativação automática no primeiro dia de aula!
 
 <b> Despertar suave e Alarme alto</b>
-Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos para acordar as crianças com calma e sem sustos. Toques fortes para quem tem sono pesado.
+Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos como despertador suave e timer visual matinal para crianças. Toques fortes para quem tem sono pesado.
 
 <b> Lembrete noturno às 20h30 e «Já acordei»</b>
 • <b>Check-in às 20h30:</b> Um aviso suave na noite anterior garante que o plano do dia seguinte esteja pronto.
@@ -1544,7 +1541,7 @@ Todas as funcionalidades principais são e serão <b>gratuitas para sempre</b> �
 Baixe o FamWake agora e comece suas manhãs com paz e pontualidade!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (2795 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (2851 / 4000 Zeichen)
 ```text
 Chega de caos matinal! Seu despertador familiar inteligente e despertador infantil para manhãs tranquilas.
 
@@ -1561,14 +1558,14 @@ Café da manhã em família
 Ative a opção de café da manhã para desfrutarem de uma refeição calma juntos antes de começar a correria do dia.
 
 Toda a família visível em tempo real
-O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — excelente para crianças e rotinas TDAH.
+O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — seu cronograma visual, timer visual infantil e rotina adaptada para TDAH e autismo.
 
 Horários por dia da semana e Modo Férias
 • Perfis diários: Defina horários específicos para cada dia da semana (aulas mais tarde, home office).
 • Modo Férias: Pause alarmes e lembretes até o final das férias com um só toque. Reativação automática no primeiro dia de aula!
 
 Despertar suave e Alarme alto
-Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos para acordar as crianças com calma e sem sustos. Toques fortes para quem tem sono pesado.
+Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos como despertador suave e timer visual matinal para crianças. Toques fortes para quem tem sono pesado.
 
 Lembrete noturno às 20h30 e «Já acordei»
 • Check-in às 20h30: Um aviso suave na noite anterior garante que o plano do dia seguinte esteja pronto.
@@ -1614,9 +1611,9 @@ Alarme infantil, rotina matinal e horários de banheiro para toda a família.
 Alarme familiar & planejador
 ```
 
-### iOS Keywords – App Store (97 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-despertador,infantil,crianças,rotina,manhã,banheiro,horário,compartilhado,grupo,visual,timer,tdah
+despertador,infantil,crianças,rotina,manhã,banheiro,horário,visual,timer,tdah,autismo,hábitos,alarme
 ```
 
 ### iOS Promo-Text – App Store (126 / 170 Zeichen)
@@ -1624,7 +1621,7 @@ despertador,infantil,crianças,rotina,manhã,banheiro,horário,compartilhado,gru
 Chega de caos matinal! FamWake coordena horários de despertar, horários de ir ao banheiro e café da manhã para toda a família.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (2957 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3013 / 4000 Zeichen)
 ```html
 <b>Chega de caos matinal! Seu despertador familiar inteligente e despertador infantil para manhãs tranquilas.</b>
 
@@ -1641,14 +1638,14 @@ O FamWake organiza os turnos do banheiro automaticamente, sem sobreposições e 
 Ative a opção de café da manhã para desfrutarem de uma refeição calma juntos antes de começar a correria do dia.
 
 <b> Toda a família visível em tempo real</b>
-O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — excelente para crianças e rotinas TDAH.
+O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — seu cronograma visual, timer visual infantil e rotina adaptada para TDAH e autismo.
 
 <b> Horários por dia da semana e Modo Férias</b>
 • <b>Perfis diários:</b> Defina horários específicos para cada dia da semana (aulas mais tarde, home office).
 • <b>Modo Férias:</b> Pause alarmes e lembretes até o final das férias com um só toque. Reativação automática no primeiro dia de aula!
 
 <b> Despertar suave e Alarme alto</b>
-Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos para acordar as crianças com calma e sem sustos. Toques fortes para quem tem sono pesado.
+Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos como despertador suave e timer visual matinal para crianças. Toques fortes para quem tem sono pesado.
 
 <b> Lembrete noturno às 20h30 e «Já acordei»</b>
 • <b>Check-in às 20h30:</b> Um aviso suave na noite anterior garante que o plano do dia seguinte esteja pronto.
@@ -1675,7 +1672,7 @@ Todas as funcionalidades principais são e serão <b>gratuitas para sempre</b> �
 Baixe o FamWake agora e comece suas manhãs com paz e pontualidade!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (2795 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (2851 / 4000 Zeichen)
 ```text
 Chega de caos matinal! Seu despertador familiar inteligente e despertador infantil para manhãs tranquilas.
 
@@ -1692,14 +1689,14 @@ Café da manhã em família
 Ative a opção de café da manhã para desfrutarem de uma refeição calma juntos antes de começar a correria do dia.
 
 Toda a família visível em tempo real
-O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — excelente para crianças e rotinas TDAH.
+O painel mostra quem acorda a que horas, quem está no banheiro e o horário de saída. Reorganize a ordem facilmente arrastrando e soltando — seu cronograma visual, timer visual infantil e rotina adaptada para TDAH e autismo.
 
 Horários por dia da semana e Modo Férias
 • Perfis diários: Defina horários específicos para cada dia da semana (aulas mais tarde, home office).
 • Modo Férias: Pause alarmes e lembretes até o final das férias com um só toque. Reativação automática no primeiro dia de aula!
 
 Despertar suave e Alarme alto
-Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos para acordar as crianças com calma e sem sustos. Toques fortes para quem tem sono pesado.
+Desperta com pontualidade mesmo no modo silencioso. O volume aumenta gradualmente durante 30 segundos como despertador suave e timer visual matinal para crianças. Toques fortes para quem tem sono pesado.
 
 Lembrete noturno às 20h30 e «Já acordei»
 • Check-in às 20h30: Um aviso suave na noite anterior garante que o plano do dia seguinte esteja pronto.
@@ -1745,17 +1742,17 @@ Harmonogram łazienki, kolejność i planowanie na spokojne poranki dla dzieci.
 Budzik rodzinny & planer
 ```
 
-### iOS Keywords – App Store (96 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-dzieci,poranna,rutyna,łazienka,harmonogram,wspólny,grupowy,wizualny,minutnik,adhd,zadania,nawyki
+dzieci,poranna,rutyna,łazienka,harmonogram,wspólny,wizualny,minutnik,adhd,autyzm,zadania,nawyki,plan
 ```
 
-### iOS Promo-Text – App Store (105 / 170 Zeichen)
+### iOS Promo-Text – App Store (118 / 170 Zeichen)
 ```text
-Nigdy więcej porannego chaosu! FamWake koordynuje godziny pobudek, toalety i śniadanie dla całej rodziny.
+Nigdy więcej porannego chaosu! FamWake koordynuje godziny pobudek, kolejność w łazience i śniadanie dla całej rodziny.
 ```
 
-### Vollständige Beschreibung – Google Play HTML (2950 / 4000 Zeichen)
+### Vollständige Beschreibung – Google Play HTML (3012 / 4000 Zeichen)
 ```html
 <b>Koniec z porannym chaosem! Twój inteligentny budzik rodzinny i budzik dla dzieci na spokojne poranki.</b>
 
@@ -1772,7 +1769,7 @@ FamWake automatycznie ustala kolejność w łazience bez nakładania się termin
 Włącz opcję śniadania, aby zaplanować spokojny posiłek dla całej rodziny przed rozpoczęciem szkoły lub pracy.
 
 <b> Cała rodzina na jednym ekranie</b>
-Panel pokazuje plan poranka w czasie rzeczywistym: kto kiedy wstaje, kto jest w łazience i o której wychodzi. Zmieniaj kolejność przeciągając kafelki — idealne dla dzieci i harmonogramów ADHD.
+Panel pokazuje plan poranka w czasie rzeczywistym: kto kiedy wstaje, kto jest w łazience i o której wychodzi. Zmieniaj kolejność przeciągając kafelki — twój harmonogram wizualny, minutnik wizualny dla dzieci i wsparcie porannej rutyny dla ADHD i autyzmu.
 
 <b> Profile dni tygodnia i Tryb Wakacyjny</b>
 • <b>Harmonogram na każdy dzień:</b> Ustawiaj różne godziny na poszczególne dni tygodnia (późniejsze lekcje, praca zdalna).
@@ -1806,7 +1803,7 @@ Wszystkie kluczowe funkcje są i pozostaną <b>bezpłatne na zawsze</b> — bez 
 Pobierz FamWake już dziś i rozpocznij każdy dzień bez pośpiechu!
 ```
 
-### Vollständige Beschreibung – iOS Plain-Text (2788 / 4000 Zeichen)
+### Vollständige Beschreibung – iOS Plain-Text (2850 / 4000 Zeichen)
 ```text
 Koniec z porannym chaosem! Twój inteligentny budzik rodzinny i budzik dla dzieci na spokojne poranki.
 
@@ -1823,7 +1820,7 @@ Wspólne rodzinne śniadanie
 Włącz opcję śniadania, aby zaplanować spokojny posiłek dla całej rodziny przed rozpoczęciem szkoły lub pracy.
 
 Cała rodzina na jednym ekranie
-Panel pokazuje plan poranka w czasie rzeczywistym: kto kiedy wstaje, kto jest w łazience i o której wychodzi. Zmieniaj kolejność przeciągając kafelki — idealne dla dzieci i harmonogramów ADHD.
+Panel pokazuje plan poranka w czasie rzeczywistym: kto kiedy wstaje, kto jest w łazience i o której wychodzi. Zmieniaj kolejność przeciągając kafelki — twój harmonogram wizualny, minutnik wizualny dla dzieci i wsparcie porannej rutyny dla ADHD i autyzmu.
 
 Profile dni tygodnia i Tryb Wakacyjny
 • Harmonogram na każdy dzień: Ustawiaj różne godziny na poszczególne dni tygodnia (późniejsze lekcje, praca zdalna).
@@ -1876,14 +1873,14 @@ Akıllı sabah rutini, banyo sırası, sabah planlaması ve zaman yönetimi.
 Aile alarmı & sabah planlayıcı
 ```
 
-### iOS Keywords – App Store (95 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-çalar,saat,çocuk,rutin,banyo,sırası,program,ortak,grup,görsel,zamanlayıcı,dehb,görev,alışkanlık
+çalar,saat,çocuk,rutin,banyo,sırası,program,görsel,zamanlayıcı,dehb,otizm,görev,alışkanlık,aile,plan
 ```
 
-### iOS Promo-Text – App Store (112 / 170 Zeichen)
+### iOS Promo-Text – App Store (109 / 170 Zeichen)
 ```text
-Artık sabah kaosuna son! FamWake tüm aile için uyanma saatlerini, banyo dönüşlerini ve kahvaltıyı koordine eder.
+Artık sabah kaosuna son! FamWake tüm aile için uyanma saatlerini, banyo sırasını ve kahvaltıyı koordine eder.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (2853 / 4000 Zeichen)
@@ -2007,14 +2004,14 @@ FamWake Семейный Будильник
 Семейный будильник & планер
 ```
 
-### iOS Keywords – App Store (95 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-дети,детский,утро,рутина,ванная,очередь,расписание,общий,таймер,визуальный,сдвг,привычки,задачи
+дети,детский,утро,рутина,ванная,очередь,расписание,таймер,визуальный,сдвг,аутизм,привычки,задачи,сон
 ```
 
-### iOS Promo-Text – App Store (117 / 170 Zeichen)
+### iOS Promo-Text – App Store (115 / 170 Zeichen)
 ```text
-Больше никакого утреннего хаоса! FamWake координирует время пробуждения, посещения туалета и завтрака для всей семьи.
+Больше никакого утреннего хаоса! FamWake координирует время пробуждения, очередь в ванную и завтрак для всей семьи.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (2168 / 4000 Zeichen)
@@ -2120,14 +2117,14 @@ FamWake Сімейний Будильник
 Сімейний будильник & планер
 ```
 
-### iOS Keywords – App Store (93 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-діти,дитячий,ранок,рутина,ванна,черга,розклад,спільний,таймер,візуальний,рдвг,звички,завдання
+діти,дитячий,ранок,рутина,ванна,черга,розклад,таймер,візуальний,рдвг,аутизм,звички,завдання,годинник
 ```
 
-### iOS Promo-Text – App Store (116 / 170 Zeichen)
+### iOS Promo-Text – App Store (110 / 170 Zeichen)
 ```text
-Більше ніякого ранкового хаосу! FamWake координує час пробудження, чергування в туалеті та сніданок для всей родини.
+Більше ніякого ранкового хаосу! FamWake координує час пробудження, чергу у ванну та сніданок для всієї родини.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (2197 / 4000 Zeichen)
@@ -2233,14 +2230,14 @@ Slut med morgenkaos! Børnevækkeur, morgenrutine, badeværelseskø og tidsplan.
 Familievækker & morgenplan
 ```
 
-### iOS Keywords – App Store (98 / 100 Zeichen)
+### iOS Keywords – App Store (99 / 100 Zeichen)
 ```text
-vækkeur,børnevækkeur,børn,morgenrutine,badeværelse,tidsplan,fælles,visuel,timer,adhd,opgaver,vaner
+vækkeur,børnevækkeur,børn,morgenrutine,badeværelse,tidsplan,visuel,timer,adhd,autisme,opgaver,vaner
 ```
 
-### iOS Promo-Text – App Store (112 / 170 Zeichen)
+### iOS Promo-Text – App Store (101 / 170 Zeichen)
 ```text
-Ikke mere morgenkaos! FamWake koordinerer opvågningstider, badeværelsesvendinger og morgenmad for hele familien.
+Slut med morgenkaos! FamWake koordinerer vækketider, badeværelsesture og morgenmad for hele familien.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (2782 / 4000 Zeichen)
@@ -2364,14 +2361,14 @@ Slut på morgonkaoset! Barnväckarklocka, badrumsschema och morgonplanering.
 Familjeväckare & morgonplan
 ```
 
-### iOS Keywords – App Store (97 / 100 Zeichen)
+### iOS Keywords – App Store (98 / 100 Zeichen)
 ```text
-väckarklocka,barn,morgonrutin,badrum,schema,delad,grupp,visuell,timer,adhd,uppgifter,vanor,familj
+väckarklocka,barn,morgonrutin,badrum,schema,delad,visuell,timer,adhd,autism,uppgifter,vanor,familj
 ```
 
-### iOS Promo-Text – App Store (106 / 170 Zeichen)
+### iOS Promo-Text – App Store (101 / 170 Zeichen)
 ```text
-Inget mer morgonkaos! FamWake koordinerar väckningstider, badrumsvängningar och frukost för hela familjen.
+Inget mer morgonkaos! FamWake koordinerar väckningstider, badrumsturer och frukost för hela familjen.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (2719 / 4000 Zeichen)
@@ -2495,14 +2492,14 @@ Slutt på morgenkaoset! Barnevekkerur, morgenrutine, baderomskø og tidsplan.
 Familievekker & morgenplan
 ```
 
-### iOS Keywords – App Store (96 / 100 Zeichen)
+### iOS Keywords – App Store (97 / 100 Zeichen)
 ```text
-vekkerklokke,barnevekkerur,barn,morgenrutine,baderom,tidsplan,felles,visuell,timer,adhd,oppgaver
+vekkerklokke,barnevekkerur,barn,morgenrutine,baderom,tidsplan,visuell,timer,adhd,autisme,oppgaver
 ```
 
-### iOS Promo-Text – App Store (106 / 170 Zeichen)
+### iOS Promo-Text – App Store (96 / 170 Zeichen)
 ```text
-Ikke mer morgenkaos! FamWake koordinerer oppvåkningstider, baderomsvendinger og frokost for hele familien.
+Slutt på morgenkaos! FamWake koordinerer vekketider, baderomsturer og frokost for hele familien.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (2708 / 4000 Zeichen)
@@ -2626,14 +2623,14 @@ Slutt på morgenkaoset! Barnevekkerur, morgenrutine, baderomskø og tidsplan.
 Familievekker & morgenplan
 ```
 
-### iOS Keywords – App Store (96 / 100 Zeichen)
+### iOS Keywords – App Store (97 / 100 Zeichen)
 ```text
-vekkerklokke,barnevekkerur,barn,morgenrutine,baderom,tidsplan,felles,visuell,timer,adhd,oppgaver
+vekkerklokke,barnevekkerur,barn,morgenrutine,baderom,tidsplan,visuell,timer,adhd,autisme,oppgaver
 ```
 
-### iOS Promo-Text – App Store (106 / 170 Zeichen)
+### iOS Promo-Text – App Store (96 / 170 Zeichen)
 ```text
-Ikke mer morgenkaos! FamWake koordinerer oppvåkningstider, baderomsvendinger og frokost for hele familien.
+Slutt på morgenkaos! FamWake koordinerer vekketider, baderomsturer og frokost for hele familien.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (2708 / 4000 Zeichen)
@@ -2757,9 +2754,9 @@ Aplikasi rutinitas pagi pintar, giliran kamar mandi, dan perencanaan pagi.
 Alarm keluarga & perencana
 ```
 
-### iOS Keywords – App Store (97 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-jam,anak,rutinitas,pagi,kamar,mandi,giliran,jadwal,bersama,grup,visual,timer,adhd,tugas,kebiasaan
+jam,anak,rutinitas,pagi,kamar,mandi,giliran,jadwal,bersama,visual,timer,adhd,autisme,tugas,kebiasaan
 ```
 
 ### iOS Promo-Text – App Store (134 / 170 Zeichen)
@@ -2888,14 +2885,14 @@ FamWake Báo thức gia đình
 Báo thức gia đình & kế hoạch
 ```
 
-### iOS Keywords – App Store (95 / 100 Zeichen)
+### iOS Keywords – App Store (96 / 100 Zeichen)
 ```text
-trẻ,em,lịch,trình,buổi,sáng,phòng,tắm,thời,gian,biểu,chung,nhóm,hẹn,giờ,adhd,thói,quen,nhiệm,vụ
+trẻ,em,lịch,trình,buổi,sáng,phòng,tắm,thời,gian,biểu,chung,hẹn,giờ,adhd,tự,kỷ,thói,quen,báo,thức
 ```
 
-### iOS Promo-Text – App Store (120 / 170 Zeichen)
+### iOS Promo-Text – App Store (121 / 170 Zeichen)
 ```text
-Không còn sự hỗn loạn buổi sáng! FamWake điều phối thời gian thức dậy, thời gian đi vệ sinh và bữa sáng cho cả gia đình.
+Không còn sự hỗn loạn buổi sáng! FamWake điều phối thời gian thức dậy, thứ tự dùng phòng tắm và bữa sáng cho cả gia đình.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (2722 / 4000 Zeichen)
@@ -3017,14 +3014,14 @@ FamWake ファミリー目覚まし
 家族目覚まし＆朝のプランナー
 ```
 
-### iOS Keywords – App Store (82 / 100 Zeichen)
+### iOS Keywords – App Store (95 / 100 Zeichen)
 ```text
-目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,洗面所,共有,グループ,習慣,タイマー,スヌーズ,時間管理,生活リズム,ADHD
+目覚まし時計,アラーム,ファミリー,子供用,朝のルーティン,スケジュール,起床時間,洗面所,共有,習慣,タイマー,スヌーズ,時間管理,生活リズム,ADHD,自閉症,視覚支援,朝活,時計,予定
 ```
 
-### iOS Promo-Text – App Store (50 / 170 Zeichen)
+### iOS Promo-Text – App Store (52 / 170 Zeichen)
 ```text
-朝の混乱はもうありません！ FamWake は、家族全員の起床時間、トイレの順番、朝食を調整します。
+朝の混乱はもうありません！ FamWake は、家族全員の起床時間、バスルームの順番、朝食を調整します。
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (1358 / 4000 Zeichen)
@@ -3146,14 +3143,14 @@ FamWake 가족 알람시계
 가족 알람 및 아침 플래너
 ```
 
-### iOS Keywords – App Store (70 / 100 Zeichen)
+### iOS Keywords – App Store (91 / 100 Zeichen)
 ```text
-알람시계,어린이,루틴,욕실,스누즈,일정,모닝콜,시간표,기상,습관,타이머,시간관리,탁상시계,기상시간,모닝루틴,공유,그룹,ADHD
+알람시계,어린이,루틴,욕실,스누즈,일정,모닝콜,시간표,기상,습관,타이머,시간관리,탁상시계,기상시간,모닝루틴,공유,ADHD,자폐,시각타이머,아침루틴,스케줄,가족,알람
 ```
 
-### iOS Promo-Text – App Store (66 / 170 Zeichen)
+### iOS Promo-Text – App Store (65 / 170 Zeichen)
 ```text
-더 이상 아침의 혼란은 없습니다! FamWake는 온 가족을 위한 기상 시간, 화장실 회전 및 아침 식사를 조정합니다.
+더 이상 아침의 혼란은 없습니다! FamWake는 온 가족의 기상 시간, 욕실 사용 순서 및 아침 식사를 조율합니다.
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (1659 / 4000 Zeichen)
@@ -3275,14 +3272,14 @@ FamWake 家庭闹钟
 家庭智能闹钟 & 早晨日程规划
 ```
 
-### iOS Keywords – App Store (67 / 100 Zeichen)
+### iOS Keywords – App Store (90 / 100 Zeichen)
 ```text
-儿童闹钟,早晨,常规,浴室,洗漱,重响,日程表,习惯,计时器,起床,提醒,时间管理,共享,早起,生活习惯,作息时间,视觉计时器,多动症
+儿童闹钟,早晨,常规,浴室,洗漱,重响,日程表,习惯,计时器,起床,提醒,时间管理,共享,早起,生活习惯,作息时间,视觉计时器,多动症,自闭症,晨间例程,家庭闹钟,计划表,儿童时间
 ```
 
-### iOS Promo-Text – App Store (36 / 170 Zeichen)
+### iOS Promo-Text – App Store (35 / 170 Zeichen)
 ```text
-早上不再混乱！ FamWake 协调全家人的起床时间、上厕所时间和早餐。
+告别早晨的混乱！FamWake 协调全家人的起床时间、洗漱顺序和早餐。
 ```
 
 ### Vollständige Beschreibung – Google Play HTML (1195 / 4000 Zeichen)
@@ -3404,9 +3401,9 @@ FamWake पारिवारिक अलार्म
 परिवार अलार्म और प्लानर
 ```
 
-### iOS Keywords – App Store (90 / 100 Zeichen)
+### iOS Keywords – App Store (98 / 100 Zeichen)
 ```text
-बच्चे,सुबह,रूटीन,बाथरूम,बारी,समय,सारणी,साझा,ग्रुप,विजुअल,टाइमर,आदत,टास्क,घड़ी,नाश्ता,स्कूल
+बच्चे,सुबह,रूटीन,बाथरूम,बारी,समय,सारणी,साझा,ग्रुप,विजुअल,टाइमर,आदत,टास्क,घड़ी,नाश्ता,ऑटिज्म,अलार्म
 ```
 
 ### iOS Promo-Text – App Store (114 / 170 Zeichen)
@@ -3513,9 +3510,9 @@ FamWake कौटुंबिक अलार्म
 कौटुंबिक अलार्म आणि नियोजक
 ```
 
-### iOS Keywords – App Store (91 / 100 Zeichen)
+### iOS Keywords – App Store (97 / 100 Zeichen)
 ```text
-मुले,सकाळ,रुटीन,बाथरूम,वेळ,वेळापत्रक,सामायिक,ग्रुप,व्हिज्युअल,टायमर,सवय,टास्क,घड्याळ,नाश्ता
+मुले,सकाळ,रुटीन,बाथरूम,वेळ,वेळापत्रक,सामायिक,ग्रुप,व्हिज्युअल,टायमर,सवय,टास्क,नाश्ता,ऑटिझम,अलार्म
 ```
 
 ### iOS Promo-Text – App Store (108 / 170 Zeichen)
@@ -3622,9 +3619,9 @@ FamWake পারিবারিক অ্যালার্ম
 পারিবারিক অ্যালার্ম ও সূচি
 ```
 
-### iOS Keywords – App Store (91 / 100 Zeichen)
+### iOS Keywords – App Store (96 / 100 Zeichen)
 ```text
-শিশু,সকাল,রুটিন,বাথরুম,পালা,সময়সূচী,শেয়ার,গ্রুপ,ভিজ্যুয়াল,টাইমার,অভ্যাস,টাস্ক,ঘড়ি,নাশতা
+শিশু,সকাল,রুটিন,বাথরুম,পালা,সময়সূচী,শেয়ার,গ্রুপ,ভিজ্যুয়াল,টাইমার,অভ্যাস,টাস্ক,অটিজম,অ্যালার্ম
 ```
 
 ### iOS Promo-Text – App Store (114 / 170 Zeichen)

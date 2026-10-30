@@ -51,38 +51,50 @@ class BootReceiver : BroadcastReceiver() {
             val savedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(savedMillis), zone)
             val alarmTime: LocalTime = savedDateTime.toLocalTime()
 
+            val isMissedAndShouldRingNow: Boolean
             val targetDateTime = if (savedDateTime.isAfter(now)) {
                 // Noch in der Zukunft – exakt diesen Termin wiederherstellen
+                isMissedAndShouldRingNow = false
                 savedDateTime
             } else {
-                // Bereits vergangen – prüfe wie lange her
-                val minutesMissed = java.time.Duration.between(savedDateTime, now).toMinutes()
-                if (minutesMissed <= 30) {
-                    // Kurz verpasst → sofort klingeln (in 10 Sekunden)
-                    now.plusSeconds(10)
+                // Gespeicherter Termin liegt in der Vergangenheit
+                // Prüfe, ob die Weckzeit HEUTE noch bevorsteht (z.B. Reboot um 05:00, Wecker 06:00, aber savedDateTime war gestern)
+                if (now.toLocalTime().isBefore(alarmTime)) {
+                    isMissedAndShouldRingNow = false
+                    LocalDateTime.of(now.toLocalDate(), alarmTime)
                 } else {
-                    // Zu lange her → Notification + nächster Tag
-                    try {
-                        val channelName = context.getString(R.string.notif_channel_missed_alarm)
-                        val channel = android.app.NotificationChannel(
-                            "missed_alarm", channelName,
-                            android.app.NotificationManager.IMPORTANCE_HIGH
-                        )
-                        val nm = context.getSystemService(android.app.NotificationManager::class.java)
-                        nm?.createNotificationChannel(channel)
-                        val notificationText = context.getString(R.string.notif_alarm_missed, alarmTime.hour, alarmTime.minute)
-                        val notification = android.app.Notification.Builder(context, "missed_alarm")
-                            .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
-                            .setContentTitle(backup.memberName.ifEmpty { "FamWake" })
-                            .setContentText(notificationText)
-                            .setAutoCancel(true)
-                            .build()
-                        nm?.notify(backup.memberId.hashCode().and(0x7fffffff), notification)
-                    } catch (e: Exception) {
-                        Log.w("BootReceiver", "Missed alarm notification failed: ${e.message}", e)
+                    // Weckzeit für heute ist bereits vorbei. Prüfe wie lange her bezogen auf HEUTE (oder savedDateTime)
+                    val todayAlarmDateTime = LocalDateTime.of(now.toLocalDate(), alarmTime)
+                    val minutesMissed = java.time.Duration.between(todayAlarmDateTime, now).toMinutes()
+                    if (minutesMissed in 0..30) {
+                        // Kurz verpasst → sofort klingeln (in 10 Sekunden)
+                        isMissedAndShouldRingNow = true
+                        now.plusSeconds(10)
+                    } else {
+                        isMissedAndShouldRingNow = false
+                        // Zu lange her → Notification + nächster Tag
+                        try {
+                            val channelName = context.getString(R.string.notif_channel_missed_alarm)
+                            val channel = android.app.NotificationChannel(
+                                "missed_alarm", channelName,
+                                android.app.NotificationManager.IMPORTANCE_HIGH
+                            )
+                            val nm = context.getSystemService(android.app.NotificationManager::class.java)
+                            nm?.createNotificationChannel(channel)
+                            val notificationText = context.getString(R.string.notif_alarm_missed, alarmTime.hour, alarmTime.minute)
+                            val notification = android.app.Notification.Builder(context, "missed_alarm")
+                                .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
+                                .setContentTitle(backup.memberName.ifEmpty { "FamWake" })
+                                .setContentText(notificationText)
+                                .setAutoCancel(true)
+                                .build()
+                            nm?.notify(backup.memberId.hashCode().and(0x7fffffff), notification)
+                        } catch (e: Exception) {
+                            Log.w("BootReceiver", "Missed alarm notification failed: ${e.message}", e)
+                        }
+                        val nextDay = now.toLocalDate().plusDays(1)
+                        LocalDateTime.of(nextDay, alarmTime)
                     }
-                    val nextDay = now.toLocalDate().plusDays(1)
-                    LocalDateTime.of(nextDay, alarmTime)
                 }
             }
 
@@ -90,7 +102,8 @@ class BootReceiver : BroadcastReceiver() {
                 wakeUpTime = targetDateTime.toKmpLocalDateTime(),
                 memberId   = backup.memberId,
                 memberName = backup.memberName,
-                soundUri   = backup.soundUri
+                soundUri   = backup.soundUri,
+                persistBackup = !isMissedAndShouldRingNow
             )
 
             // Snooze-Alarm wiederherstellen, falls einer aktiv war

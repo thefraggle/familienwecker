@@ -57,6 +57,7 @@
         <activity
             android:name=".ui.screens.RingingActivity"
             android:exported="false"
+            android:directBootAware="true"
             android:showOnLockScreen="true"
             android:turnScreenOn="true"
             android:screenOrientation="portrait"
@@ -65,7 +66,8 @@
 
         <receiver
             android:name=".alarm.AlarmReceiver"
-            android:exported="false" />
+            android:exported="false"
+            android:directBootAware="true" />
 
         <receiver
             android:name=".alarm.EveningReminderReceiver"
