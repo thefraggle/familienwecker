@@ -29,17 +29,23 @@ struct SettingsFooterSection: View {
 
             // Links: Nutzungsbedingungen · Datenschutzerklärung · Impressum
             HStack(spacing: 16) {
-                Link(L.settingsTermsOfUse, destination: URL(string: L.settingsTermsOfUseUrl)!)
-                    .font(.footnote)
-                    .foregroundStyle(theme.primary)
+                if let url = URL(string: L.settingsTermsOfUseUrl) {
+                    Link(L.settingsTermsOfUse, destination: url)
+                        .font(.footnote)
+                        .foregroundStyle(theme.primary)
+                }
 
-                Link(L.settingsPrivacyPolicy, destination: URL(string: L.settingsPrivacyPolicyUrl)!)
-                    .font(.footnote)
-                    .foregroundStyle(theme.primary)
+                if let url = URL(string: L.settingsPrivacyPolicyUrl) {
+                    Link(L.settingsPrivacyPolicy, destination: url)
+                        .font(.footnote)
+                        .foregroundStyle(theme.primary)
+                }
 
-                Link(L.settingsImprint, destination: URL(string: L.settingsImprintUrl)!)
-                    .font(.footnote)
-                    .foregroundStyle(theme.primary)
+                if let url = URL(string: L.settingsImprintUrl) {
+                    Link(L.settingsImprint, destination: url)
+                        .font(.footnote)
+                        .foregroundStyle(theme.primary)
+                }
             }
         }
         .frame(maxWidth: .infinity)

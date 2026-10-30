@@ -23,7 +23,11 @@ final class LocalMemberStore {
     }
     
     func save(members: [FamilyMember], familyId: String) {
-        guard !members.isEmpty else { return } // Schutz: Niemals leere Liste cachen und Disk-Cache wipen
+        if members.isEmpty {
+            // Wird das letzte Mitglied entfernt, Cache-Datei synchron löschen
+            delete(familyId: familyId)
+            return
+        }
         do {
             let data = try JSONEncoder().encode(members)
             try data.write(to: fileURL(familyId: familyId), options: .atomic)

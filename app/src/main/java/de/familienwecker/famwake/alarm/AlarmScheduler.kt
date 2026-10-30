@@ -30,6 +30,7 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         soundUri: String? = null,
         isSnooze: Boolean = false,
         snoozeCount: Int = 1,
+        persistBackup: Boolean = true,
         onPermissionDenied: (() -> Unit)? = null
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -74,10 +75,12 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
 
         // Backup in plain SharedPreferences – lesbar auch vor erstem Unlock nach Reboot
-        if (!isSnooze) {
-            AlarmBackupPrefs.save(context, memberId, memberName, soundUri, timeInMillis)
-        } else {
-            AlarmBackupPrefs.saveSnooze(context, timeInMillis, snoozeCount, memberId)
+        if (persistBackup) {
+            if (!isSnooze) {
+                AlarmBackupPrefs.save(context, memberId, memberName, soundUri, timeInMillis)
+            } else {
+                AlarmBackupPrefs.saveSnooze(context, timeInMillis, snoozeCount, memberId)
+            }
         }
     }
 
@@ -89,7 +92,16 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         isSnooze: Boolean,
         onPermissionDenied: (() -> Unit)?
     ) {
-        scheduleWakeUp(wakeUpTime, memberId, memberName, soundUri, isSnooze, 1, onPermissionDenied)
+        scheduleWakeUp(
+            wakeUpTime = wakeUpTime,
+            memberId = memberId,
+            memberName = memberName,
+            soundUri = soundUri,
+            isSnooze = isSnooze,
+            snoozeCount = 1,
+            persistBackup = true,
+            onPermissionDenied = onPermissionDenied
+        )
     }
 
     fun cancelWakeUp(memberId: String, isSnooze: Boolean = false, clearBackup: Boolean = true) {

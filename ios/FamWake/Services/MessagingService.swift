@@ -71,6 +71,23 @@ class MessagingService {
             Messaging.messaging().deleteToken { _ in }
         }
     }
+
+    /// Asynchrones Löschen des FCM-Tokens VOR dem Auth-SignOut,
+    /// um permission-denied Fehler in Firestore Rules zu vermeiden.
+    func deleteTokenOnLogoutAsync() async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        if let token = try? await Messaging.messaging().token() {
+            let docId = sha256(token)
+            do {
+                try await Firestore.firestore().collection("users").document(uid).collection("fcmTokens").document(docId).delete()
+                print("FCM Token vor Logout erfolgreich aus Firestore gelöscht")
+            } catch {
+                print("FCM Token Firestore-Löschung fehlgeschlagen: \(error.localizedDescription)")
+            }
+        }
+        try? await Messaging.messaging().deleteToken()
+    }
     
     private func deleteTokenFromFirestore(uid: String, token: String) {
         let docId = sha256(token)

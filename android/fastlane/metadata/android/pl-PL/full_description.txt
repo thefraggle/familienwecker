@@ -13,7 +13,7 @@ FamWake automatycznie ustala kolejność w łazience bez nakładania się termin
 Włącz opcję śniadania, aby zaplanować spokojny posiłek dla całej rodziny przed rozpoczęciem szkoły lub pracy.
 
 <b> Cała rodzina na jednym ekranie</b>
-Panel pokazuje plan poranka w czasie rzeczywistym: kto kiedy wstaje, kto jest w łazience i o której wychodzi. Zmieniaj kolejność przeciągając kafelki — idealne dla dzieci i harmonogramów ADHD.
+Panel pokazuje plan poranka w czasie rzeczywistym: kto kiedy wstaje, kto jest w łazience i o której wychodzi. Zmieniaj kolejność przeciągając kafelki — twój harmonogram wizualny, minutnik wizualny dla dzieci i wsparcie porannej rutyny dla ADHD i autyzmu.
 
 <b> Profile dni tygodnia i Tryb Wakacyjny</b>
 • <b>Harmonogram na każdy dzień:</b> Ustawiaj różne godziny na poszczególne dni tygodnia (późniejsze lekcje, praca zdalna).

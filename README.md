@@ -16,13 +16,13 @@ Stop the morning chaos! **FamWake** is the smart family alarm & bathroom schedul
 * **In Sync & Real-Time:** Live status updates for everyone – no more bathroom queues and zero morning stress.
 * **No Account Required:** Start immediately without registration, or use one-tap clipboard join. Optional account (Google / Email) syncs seamlessly across multiple devices.
 * **Maximum Flexibility:** Weekday routines, vacation/holiday mode, "Already awake" feature, 30s crescendo gentle alarm, and evening routine check (20:30).
-* **Privacy-First:** Strictly privacy-focused, ad-free, and no data tracking.
+* **Privacy-First:** Strictly privacy-focused, ad-free, and privacy-friendly anonymous analytics (self-hosted Aptabase, no third-party tracking, no cross-app tracking).
 
 ---
 
 ## 🛠️ Developer Setup
 
-FamWake is built as a Kotlin Multiplatform (KMP) project for Android and iOS with a Firebase backend.
+FamWake uses a shared Kotlin Multiplatform (`:shared`) module for algorithms and models on Android, paired with a 100% native SwiftUI implementation on iOS and a Firebase backend.
 
 ### Prerequisites
 * **OS**: macOS (required for iOS builds)

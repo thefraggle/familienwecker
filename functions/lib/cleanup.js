@@ -329,8 +329,10 @@ exports.cleanupAnonymousUsers = onSchedule(
       result.users.forEach((user) => {
         // Anonyme User haben keine verknüpften Provider (providerData ist leer)
         const isAnonymous = user.providerData.length === 0;
-        const createdAtMs = Date.parse(user.metadata.creationTime);
-        if (isAnonymous && createdAtMs < thirtyDaysAgoMs) {
+        const lastActivityMs = Date.parse(
+          user.metadata.lastRefreshTime || user.metadata.lastSignInTime || user.metadata.creationTime
+        );
+        if (isAnonymous && lastActivityMs < thirtyDaysAgoMs) {
           staleAnonymousUsers.push(user.uid);
         }
       });
