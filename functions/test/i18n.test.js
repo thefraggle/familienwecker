@@ -18,10 +18,12 @@ describe("Functions i18n Localization Integrity", () => {
     assert.ok(SUPPORTED_LANGS.includes("zh-CN"));
   });
 
-  test("DIALECT_TO_LANG maps German dialects to 'de'", () => {
+  test("DIALECT_TO_LANG maps German dialects to 'de' and Norwegian variants to 'no'", () => {
     assert.equal(DIALECT_TO_LANG.gsw, "de");
     assert.equal(DIALECT_TO_LANG.swg, "de");
     assert.equal(DIALECT_TO_LANG.ksh, "de");
+    assert.equal(DIALECT_TO_LANG.nb, "no");
+    assert.equal(DIALECT_TO_LANG.nn, "no");
   });
 
   test("Every supported language has a sender name with valid format", () => {

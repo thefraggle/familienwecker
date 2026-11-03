@@ -84,7 +84,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- DST & Systemzeit-Absicherung: Wecker bei Zeit-/Zeitzonenwechsel sofort neu terminieren -->
+        <!-- DST, Systemzeit- & Exact-Alarm-Berechtigungsabsicherung: Wecker bei Zeit-/Zeitzonenwechsel oder Permission-Erteilung sofort neu terminieren -->
         <receiver
             android:name=".alarm.TimeChangeReceiver"
             android:exported="false">
@@ -92,6 +92,7 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
             </intent-filter>
         </receiver>
 

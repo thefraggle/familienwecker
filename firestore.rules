@@ -11,13 +11,13 @@ service cloud.firestore {
       return signedIn() && exists(/databases/$(database)/documents/_admins/$(request.auth.uid));
     }
 
-    // Prüft, ob der Nutzer Ersteller der Familie oder Admin ist
+    // Prüft, ob der Nutzer Ersteller der Familie und aktives Mitglied ist oder Admin (#59)
     function isFamilyCreator(familyId) {
       let familyPath = /databases/$(database)/documents/families/$(familyId);
-      return isAdmin() || (signedIn() && exists(familyPath) && get(familyPath).data.get('createdByUserId', '') == request.auth.uid);
+      return isAdmin() || (signedIn() && isFamilyMember(familyId) && exists(familyPath) && get(familyPath).data.get('createdByUserId', '') == request.auth.uid);
     }
 
-    // Prüft, ob der Nutzer Teil dieser Familie ist.
+    // Prüft, ob der Nutzer Teil dieser Familie ist (#59: Creator-Rechteverbleib nach Austritt behoben).
     // get(familyPath) wird von Firestore Rules bei gleichem Pfad gecacht → zählt nur einmal.
     function isFamilyMember(familyId) {
       let userPath = /databases/$(database)/documents/users/$(request.auth.uid);
@@ -26,14 +26,12 @@ service cloud.firestore {
         (
           // Option A: familyId ist im User-Dokument hinterlegt (häufigster Pfad, schnellste Prüfung)
           (exists(userPath) && get(userPath).data.get('familyId', '') == familyId) ||
-          // Option B: User ist Ersteller der Familie
-          (exists(familyPath) && get(familyPath).data.get('createdByUserId', '') == request.auth.uid) ||
           // Option C: User ist in userIds-Array der Familie (Legacy-Fallback)
           (exists(familyPath) && ('userIds' in get(familyPath).data) && request.auth.uid in get(familyPath).data.userIds)
         ));
     }
 
-    // Gemeinsame Feld-, Typ- und Größenvalidierung für Mitglieder (Create & Update)
+    // Gemeinsame Feld-, Typ- und Größenvalidierung für Mitglieder (Create & Update, #60)
     function isValidMemberData() {
       let d = request.resource.data;
       return d.name is string
@@ -47,7 +45,8 @@ service cloud.firestore {
           'sequenceOrder', 'createdAt', 'lastUpdatedAt',
           'deviceAlarmEnabled', 'dayProfiles', 'isSimpleMode',
           'snoozeUntil', 'snoozeCount',
-          'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'
+          'soundUri', 'wakeWindowMinutes', 'bathroomMinutes',
+          'systemResetAt'
         ])
         && (!('claimedByUserId' in d) || d.claimedByUserId == null || (d.claimedByUserId is string && d.claimedByUserId.size() <= 128))
         && (!('claimedByUserName' in d) || d.claimedByUserName == null || (d.claimedByUserName is string && d.claimedByUserName.size() <= 100))
@@ -66,7 +65,8 @@ service cloud.firestore {
         && (!('isPaused' in d) || d.isPaused is bool)
         && (!('isAwakeToday' in d) || d.isAwakeToday is bool)
         && (!('isSimpleMode' in d) || d.isSimpleMode is bool)
-        && (!('deviceAlarmEnabled' in d) || d.deviceAlarmEnabled == null || d.deviceAlarmEnabled is bool);
+        && (!('deviceAlarmEnabled' in d) || d.deviceAlarmEnabled == null || d.deviceAlarmEnabled is bool)
+        && (!('systemResetAt' in d) || d.systemResetAt == null || d.systemResetAt is timestamp);
     }
 
     // Validierung beim Anlegen eines neuen Mitglieds (Schema-, Claim- und Größenschutz)
@@ -78,13 +78,19 @@ service cloud.firestore {
             || (d.claimedByUserId is string && d.claimedByUserId == request.auth.uid));
     }
 
-    // Validierung für Familien-Updates (Schutz unveränderlicher Felder + Typ-/Größengrenzen)
+    // Validierung für Familien-Updates (Schutz unveränderlicher Felder + Typ-/Größengrenzen + Whitelist #46)
     function isValidFamilyUpdate() {
       let d = request.resource.data;
-      return !d.diff(resource.data).affectedKeys().hasAny(['createdByUserId', 'joinCode', 'userIds', 'createdAt'])
+      return d.keys().hasOnly([
+          'name', 'vacationUntil', 'globalBufferMinutes',
+          'createdByUserId', 'joinCode', 'userIds',
+          'createdAt', 'lastUpdatedAt', 'systemResetAt'
+        ])
+        && !d.diff(resource.data).affectedKeys().hasAny(['createdByUserId', 'joinCode', 'userIds', 'createdAt'])
         && (!('name' in d) || (d.name is string && d.name.size() > 0 && d.name.size() <= 100))
         && (!('vacationUntil' in d) || d.vacationUntil == null || (d.vacationUntil is string && d.vacationUntil.size() <= 20))
-        && (!('globalBufferMinutes' in d) || (d.globalBufferMinutes is number && d.globalBufferMinutes >= 0 && d.globalBufferMinutes <= 60));
+        && (!('globalBufferMinutes' in d) || (d.globalBufferMinutes is number && d.globalBufferMinutes >= 0 && d.globalBufferMinutes <= 60))
+        && (!('systemResetAt' in d) || d.systemResetAt == null || d.systemResetAt is timestamp);
     }
 
     match /users/{userId} {
@@ -146,7 +152,7 @@ service cloud.firestore {
                 // Implizit erlaubt: isPaused, isAwakeToday, lastResetDate, sequenceOrder,
                 // dayProfiles, deviceAlarmEnabled, snoozeUntil, snoozeCount, lastUpdatedAt, etc.
                 !request.resource.data.diff(resource.data).affectedKeys()
-                  .hasAny(['name', 'claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes'])
+                  .hasAny(['name', 'claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'soundUri', 'wakeWindowMinutes', 'bathroomMinutes', 'systemResetAt'])
                 ||
                 // Ungeclaimte Profile bearbeiten (z.B. Eltern benennen Kinderprofile um oder passen Einstellungen an).
                 // Profil bleibt ungeclaimt.

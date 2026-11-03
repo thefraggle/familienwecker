@@ -29,20 +29,9 @@ class AwakeStateResetLogicTest {
         newMember: FamilyMember,
         todayDow: Int,
         currentTime: LocalTime
-    ): Boolean {
-        val oldProfile = oldMember?.dayProfiles?.get(todayDow)
-        val newProfile = newMember.dayProfiles?.get(todayDow)
-
-        val oldWakeUp = oldProfile?.earliestWakeUp ?: oldMember?.earliestWakeUp
-        val newWakeUp = newProfile?.earliestWakeUp ?: newMember.earliestWakeUp
-        val oldIsActive = oldProfile?.isActive ?: !(oldMember?.isPaused ?: false)
-        val newIsActive = newProfile?.isActive ?: !newMember.isPaused
-
-        val todayProfileChanged = oldProfile != newProfile || oldWakeUp != newWakeUp || oldIsActive != newIsActive
-        val hasFutureAlarmToday = newIsActive && newWakeUp > currentTime
-
-        return todayProfileChanged && hasFutureAlarmToday
-    }
+    ): Boolean = de.familienwecker.famwake.algorithm.NextAlarmCalculator.shouldResetAwakeToday(
+        oldMember, newMember, todayDow, currentTime
+    )
 
     @Test
     fun futureAlarmToday_whenProfileChanged_shouldResetAwake() {

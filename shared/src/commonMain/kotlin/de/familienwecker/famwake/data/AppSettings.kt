@@ -93,7 +93,14 @@ interface AppSettings {
     val vacationUntil: StateFlow<String?>
     fun setVacationUntil(date: String?)
 
+    /** Wartet auf den Abschluss aller asynchronen Schreibvorgänge (z.B. vor Process-Kill). */
+    suspend fun flush()
+
     fun clearAll()
+}
+
+interface FlushableSettings {
+    suspend fun flush()
 }
 
 class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
@@ -351,6 +358,10 @@ class AppSettingsImpl(private val settings: ObservableSettings) : AppSettings {
     override fun setVacationUntil(date: String?) {
         _vacationUntil.value = date
         if (date == null) settings.remove("VACATION_UNTIL") else settings["VACATION_UNTIL"] = date
+    }
+
+    override suspend fun flush() {
+        (settings as? FlushableSettings)?.flush()
     }
 
     override fun clearAll() {

@@ -2,13 +2,19 @@ import Foundation
 
 /// Lokaler JSON-basierter Member-Cache.
 /// Persistiert Members auf Disk, damit sie App-Kills überleben.
-/// Bewusst kein CoreData/SwiftData – max ~10 Members, JSON reicht.
+/// Liegt in Application Support (nicht Documents, verhindert ungewollten iCloud-Sync).
 final class LocalMemberStore {
     static let shared = LocalMemberStore()
     
     private let fileManager = FileManager.default
     
     private var storeDirectory: URL {
+        let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+            ?? fileManager.temporaryDirectory
+        return appSupport.appendingPathComponent("FamWakeCache", isDirectory: true)
+    }
+
+    private var legacyStoreDirectory: URL {
         let docs = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
             ?? fileManager.temporaryDirectory
         return docs.appendingPathComponent("FamWakeCache", isDirectory: true)
@@ -16,6 +22,21 @@ final class LocalMemberStore {
     
     private init() {
         try? fileManager.createDirectory(at: storeDirectory, withIntermediateDirectories: true)
+        migrateFromLegacyDirectoryIfNeeded()
+    }
+
+    private func migrateFromLegacyDirectoryIfNeeded() {
+        guard fileManager.fileExists(atPath: legacyStoreDirectory.path) else { return }
+        if let files = try? fileManager.contentsOfDirectory(atPath: legacyStoreDirectory.path) {
+            for file in files {
+                let oldURL = legacyStoreDirectory.appendingPathComponent(file)
+                let newURL = storeDirectory.appendingPathComponent(file)
+                if !fileManager.fileExists(atPath: newURL.path) {
+                    try? fileManager.moveItem(at: oldURL, to: newURL)
+                }
+            }
+        }
+        try? fileManager.removeItem(at: legacyStoreDirectory)
     }
     
     private func fileURL(familyId: String) -> URL {

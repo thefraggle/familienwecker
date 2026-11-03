@@ -22,6 +22,7 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
      * Unlock erfolgt ist (EncryptedSharedPreferences wären da nicht verfügbar).
      *
      * @param onPermissionDenied Callback wenn SCHEDULE_EXACT_ALARM fehlt (Android 12+).
+     * @return true wenn der Alarm erfolgreich im System registriert wurde, false wenn Berechtigung fehlt.
      */
     fun scheduleWakeUp(
         wakeUpTime: LocalDateTime,
@@ -32,11 +33,11 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         snoozeCount: Int = 1,
         persistBackup: Boolean = true,
         onPermissionDenied: (() -> Unit)? = null
-    ) {
+    ): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!alarmManager.canScheduleExactAlarms()) {
                 onPermissionDenied?.invoke()
-                return
+                return false
             }
         }
 
@@ -82,6 +83,7 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
                 AlarmBackupPrefs.saveSnooze(context, timeInMillis, snoozeCount, memberId)
             }
         }
+        return true
     }
 
     override fun scheduleWakeUp(
@@ -91,8 +93,8 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         soundUri: String?,
         isSnooze: Boolean,
         onPermissionDenied: (() -> Unit)?
-    ) {
-        scheduleWakeUp(
+    ): Boolean {
+        return scheduleWakeUp(
             wakeUpTime = wakeUpTime,
             memberId = memberId,
             memberName = memberName,
@@ -131,4 +133,3 @@ class AlarmScheduler(private val context: Context) : AlarmPlatformScheduler {
         cancelWakeUp(memberId, isSnooze, clearBackup = true)
     }
 }
-

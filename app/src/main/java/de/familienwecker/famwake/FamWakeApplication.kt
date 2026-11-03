@@ -31,7 +31,7 @@ class FamWakeApplication : Application() {
 
     val memberRepository: de.familienwecker.famwake.data.MemberRepository by lazy {
         val db = de.familienwecker.famwake.db.getDatabaseBuilder(this)
-            .fallbackToDestructiveMigration(dropAllTables = true)
+            .fallbackToDestructiveMigrationFrom(dropAllTables = true, 1, 2, 3)
             .build()
         de.familienwecker.famwake.data.MemberRepository(db.memberDao())
     }
@@ -104,8 +104,9 @@ class FamWakeApplication : Application() {
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
             val isFirestorePermissionDenied = throwable is com.google.firebase.firestore.FirebaseFirestoreException &&
                 throwable.code == com.google.firebase.firestore.FirebaseFirestoreException.Code.PERMISSION_DENIED
-            if (isFirestorePermissionDenied) {
-                if (BuildConfig.DEBUG) android.util.Log.w("FamWakeApp", "Ignoring expected PERMISSION_DENIED after family leave: ${throwable.message}")
+            val isMainThread = android.os.Looper.getMainLooper().thread == thread
+            if (isFirestorePermissionDenied && !isMainThread) {
+                if (BuildConfig.DEBUG) android.util.Log.w("FamWakeApp", "Ignoring expected background PERMISSION_DENIED: ${throwable.message}")
             } else {
                 systemHandler?.uncaughtException(thread, throwable)
             }

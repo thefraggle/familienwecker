@@ -60,13 +60,12 @@ class FamWakeTileService : TileService() {
                 val savedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(savedMillis), zone)
                 val alarmTime = savedDateTime.toLocalTime()
                 val now = LocalDateTime.now(zone)
-                val targetDateTime = if (now.toLocalTime().isBefore(alarmTime)) {
-                    LocalDateTime.of(now.toLocalDate(), alarmTime)
-                } else {
-                    LocalDateTime.of(now.toLocalDate().plusDays(1), alarmTime)
-                }
+                val targetKmpDateTime = de.familienwecker.famwake.algorithm.NextAlarmCalculator.calculateNextAlarmFromSavedTime(
+                    alarmTime = kotlinx.datetime.LocalTime(alarmTime.hour, alarmTime.minute, alarmTime.second),
+                    now = now.toKmpLocalDateTime()
+                )
                 scheduler.scheduleWakeUp(
-                    wakeUpTime = targetDateTime.toKmpLocalDateTime(),
+                    wakeUpTime = targetKmpDateTime,
                     memberId = memberId,
                     memberName = memberName,
                     soundUri = soundUri

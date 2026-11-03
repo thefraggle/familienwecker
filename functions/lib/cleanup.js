@@ -149,36 +149,46 @@ exports.cleanupInactiveFamilies = onSchedule(
     }
 
     console.log(`Found ${staleFamilies.length} families to delete. Starting deletion...`);
+    let successfullyDeleted = 0;
 
     for (const item of staleFamilies) {
-      const familyData = item.data;
-      const membersSnapshot = await item.ref.collection("members").get();
-      const userIdsToClean = new Set([
-        ...(familyData.userIds || []),
-        ...membersSnapshot.docs.map(d => d.data().claimedByUserId).filter(Boolean)
-      ]);
+      try {
+        const familyData = item.data;
+        const membersSnapshot = await item.ref.collection("members").get();
+        const userIdsToClean = new Set([
+          ...(familyData.userIds || []),
+          ...membersSnapshot.docs.map(d => d.data().claimedByUserId).filter(Boolean)
+        ]);
 
-      if (userIdsToClean.size > 0) {
-        const batch = admin.firestore().batch();
-        for (const uid of userIdsToClean) {
-          batch.set(admin.firestore().collection("users").doc(uid), {
-            familyId: admin.firestore.FieldValue.delete()
-          }, { merge: true });
+        if (userIdsToClean.size > 0) {
+          const uids = [...userIdsToClean];
+          for (let i = 0; i < uids.length; i += 450) {
+            const chunk = uids.slice(i, i + 450);
+            const batch = admin.firestore().batch();
+            for (const uid of chunk) {
+              batch.set(admin.firestore().collection("users").doc(uid), {
+                familyId: admin.firestore.FieldValue.delete()
+              }, { merge: true });
+            }
+            await batch.commit();
+          }
         }
-        await batch.commit();
-      }
 
-      if (admin.firestore().recursiveDelete) {
-        await admin.firestore().recursiveDelete(item.ref);
-      } else {
-        const batch = admin.firestore().batch();
-        membersSnapshot.docs.forEach(doc => batch.delete(doc.ref));
-        batch.delete(item.ref);
-        await batch.commit();
+        if (admin.firestore().recursiveDelete) {
+          await admin.firestore().recursiveDelete(item.ref);
+        } else {
+          const batch = admin.firestore().batch();
+          membersSnapshot.docs.forEach(doc => batch.delete(doc.ref));
+          batch.delete(item.ref);
+          await batch.commit();
+        }
+        successfullyDeleted++;
+      } catch (err) {
+        console.error(`Error deleting stale family ${item.ref.id}:`, err);
       }
     }
 
-    console.log(`Successfully deleted ${staleFamilies.length} inactive families.`);
+    console.log(`Successfully deleted ${successfullyDeleted} of ${staleFamilies.length} inactive families.`);
 
     // Admin-Benachrichtigung senden
     const resendKey = process.env.RESEND_API_KEY;
@@ -225,9 +235,11 @@ exports.scheduledMemberReset = onSchedule(
     const currentTimeStr = now.toLocaleTimeString("en-GB", options).slice(0, 5); // HH:mm
     const [currH, currM] = currentTimeStr.split(":").map(Number);
     const currentMinutes = currH * 60 + currM;
-    const currentDow = now.getDay() === 0 ? 7 : now.getDay(); // 1=Mo..7=So
+    const berlinDate = new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Berlin", weekday: "short" }).format(now);
+    const DOW_MAP = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 };
+    const currentDow = DOW_MAP[berlinDate] || (now.getDay() === 0 ? 7 : now.getDay());
 
-    console.log(`Running optimized scheduled reset check at ${currentTimeStr} (${todayStr}).`);
+    console.log(`Running optimized scheduled reset check at ${currentTimeStr} (${todayStr}, DOW: ${currentDow}).`);
 
     // 1. Nur Member abfragen, die tatsächlich im modifizierten Zustand sind
     const [awakeSnap, snoozeSnap, pausedSnap] = await Promise.all([
@@ -264,8 +276,10 @@ exports.scheduledMemberReset = onSchedule(
       const [hours, minutes] = latestWakeUp.split(":").map(Number);
       if (isNaN(hours) || isNaN(minutes)) continue;
 
-      const resetThresholdMinutes = (hours + 2) * 60 + minutes;
-      const isPastResetThreshold = currentMinutes >= resetThresholdMinutes;
+      const resetThresholdMinutes = ((hours + 2) * 60 + minutes) % 1440;
+      const isPastResetThreshold = hours + 2 >= 24
+        ? (currentMinutes >= resetThresholdMinutes && currentMinutes < (hours * 60 + minutes))
+        : (currentMinutes >= resetThresholdMinutes);
       const needsDailyReset = isPastResetThreshold && member.lastResetDate !== todayStr;
 
       // Abgelaufenen Snooze immer aufräumen
@@ -277,7 +291,7 @@ exports.scheduledMemberReset = onSchedule(
       if (needsDailyReset || isSnoozeExpired) {
         const isUnclaimed = !member.claimedByUserId;
         const updates = {
-          lastUpdatedAt: admin.firestore.FieldValue.serverTimestamp(),
+          systemResetAt: admin.firestore.FieldValue.serverTimestamp(),
         };
 
         if (needsDailyReset) {

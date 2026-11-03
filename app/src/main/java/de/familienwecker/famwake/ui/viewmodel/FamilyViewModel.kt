@@ -152,7 +152,9 @@ class FamilyViewModel(
         if (dateStr.isNullOrBlank()) return ""
         return try {
             val date = java.time.LocalDate.parse(dateStr)
-            val formatter = java.time.format.DateTimeFormatter.ofPattern("EEE, d. MMM", java.util.Locale.getDefault())
+            val appLocale = java.util.Locale.getDefault()
+            val pattern = android.text.format.DateFormat.getBestDateTimePattern(appLocale, "EEEdMMM")
+            val formatter = java.time.format.DateTimeFormatter.ofPattern(pattern, appLocale)
             date.format(formatter)
         } catch (_: Exception) {
             dateStr
@@ -181,7 +183,9 @@ class FamilyViewModel(
                     }
                 }
                 if (hasAlarm) {
-                    val formatter = java.time.format.DateTimeFormatter.ofPattern("EEE, d. MMM", java.util.Locale.getDefault())
+                    val appLocale = java.util.Locale.getDefault()
+                    val pattern = android.text.format.DateFormat.getBestDateTimePattern(appLocale, "EEEdMMM")
+                    val formatter = java.time.format.DateTimeFormatter.ofPattern(pattern, appLocale)
                     return checkDate.format(formatter)
                 }
             }

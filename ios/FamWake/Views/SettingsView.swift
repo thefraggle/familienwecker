@@ -272,13 +272,18 @@ private struct SettingsAccountAlertsModifier: ViewModifier {
             }
             .alert(L.settingsDeleteAccount, isPresented: $showDeleteAccountAlert) {
                 Button(L.settingsDeleteAccount, role: .destructive) {
-                    familyViewModel.logout()
                     if let user = Auth.auth().currentUser {
                         user.delete { error in
-                            if error == nil {
+                            if let error = error {
+                                familyViewModel.errorMessage = error.localizedDescription
+                            } else {
+                                familyViewModel.logout()
                                 dismiss()
                             }
                         }
+                    } else {
+                        familyViewModel.logout()
+                        dismiss()
                     }
                 }
                 Button(L.cancelButton, role: .cancel) {}

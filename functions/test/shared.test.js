@@ -26,10 +26,12 @@ describe("Functions Shared Helpers", () => {
       assert.equal(resolveLanguage("fr"), "fr");
     });
 
-    test("maps German dialects to standard German 'de'", () => {
+    test("maps German dialects to standard German 'de' and Norwegian variants to 'no'", () => {
       assert.equal(resolveLanguage("gsw"), "de");
       assert.equal(resolveLanguage("swg"), "de");
       assert.equal(resolveLanguage("ksh"), "de");
+      assert.equal(resolveLanguage("nb"), "no");
+      assert.equal(resolveLanguage("nn"), "no");
     });
 
     test("handles Chinese locale mapping to zh-CN", () => {

@@ -143,12 +143,7 @@ struct RingingView: View {
             let messages = L.ringingMessagesArray.components(separatedBy: "||")
             randomMessage = messages.randomElement() ?? "☀️"
             
-            // Neuer Alarm-Zyklus: Count zurücksetzen wenn kein aktiver Snooze
-            let snoozeUntilTs = UserDefaults.standard.double(forKey: "snooze_until")
-            if snoozeUntilTs == 0 || snoozeUntilTs < Date().timeIntervalSince1970 {
-                UserDefaults.standard.set(0, forKey: "snooze_count")
-            }
-            snoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
+            snoozeCount = SnoozeController.shared.snoozeCount
         }
         .statusBarHidden(true)
     }

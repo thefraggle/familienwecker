@@ -64,6 +64,17 @@ fun FamilyViewModel.sendFeedback(
         _feedbackError.value = UiText.StringResource(R.string.error_offline_feedback)
         return
     }
+    // Google Play Pre-Launch Report (Firebase Test Lab) Bot-Erkennung
+    val isTestLab = try {
+        "true" == android.provider.Settings.System.getString(
+            getApplication<android.app.Application>().contentResolver,
+            "firebase.test.lab"
+        )
+    } catch (_: Exception) { false }
+    if (isTestLab) {
+        _feedbackSubmitted.value = true
+        return
+    }
     // S3: Client-seitiges Rate-Limiting – max. 1 Feedback pro 60 Sekunden
     val now = System.currentTimeMillis()
     val lastSent = appSettings.lastFeedbackSentAt.value

@@ -10,7 +10,7 @@ interface AlarmPlatformScheduler {
         soundUri: String? = null,
         isSnooze: Boolean = false,
         onPermissionDenied: (() -> Unit)? = null
-    )
+    ): Boolean
     
     fun cancelWakeUp(memberId: String, isSnooze: Boolean = false)
 }

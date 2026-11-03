@@ -62,20 +62,13 @@ fun FamilyViewModel.addOrUpdateMember(member: FamilyMember) {
             val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
 
             val oldMember = _members.value.find { it.id == member.id }
-            val oldProfile = oldMember?.dayProfiles?.get(todayDow)
-            val newProfile = finalMember.dayProfiles?.get(todayDow)
-
-            // Berücksichtige sowohl earliest als auch latest wake up time (für einfachen wie Standard-Modus)
-            val oldWakeUp = oldProfile?.latestWakeUp ?: oldProfile?.earliestWakeUp ?: oldMember?.latestWakeUp ?: oldMember?.earliestWakeUp
-            val newWakeUp = newProfile?.latestWakeUp ?: newProfile?.earliestWakeUp ?: finalMember.latestWakeUp ?: finalMember.earliestWakeUp
-            val oldIsActive = oldProfile?.isActive ?: !(oldMember?.isPaused ?: false)
-            val newIsActive = newProfile?.isActive ?: !finalMember.isPaused
-
-            val todayProfileChanged = oldProfile != newProfile || oldWakeUp != newWakeUp || oldIsActive != newIsActive
-            val hasFutureAlarmToday = newIsActive && newWakeUp > now
-
+            val shouldResetAwake = de.familienwecker.famwake.algorithm.NextAlarmCalculator.shouldResetAwakeToday(
+                oldMember = oldMember,
+                newMember = finalMember,
+                todayDow = todayDow,
+                currentTime = now
+            )
             val isMyMember = finalMember.id == myMemberId.value || willAutoClaim
-            val shouldResetAwake = todayProfileChanged && hasFutureAlarmToday
             if (shouldResetAwake && isMyMember) {
                 appSettings.setAwakeToday(false)
             }

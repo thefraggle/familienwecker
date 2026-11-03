@@ -4,6 +4,9 @@ const { Resend } = require("resend");
 const { admin, checkEmailRateLimit, BRAND_BLUE, resolveLanguage } = require("./shared");
 const { SENDER, LINK_LABELS, EMAIL_CONTENT, EMAIL_CONTENT_CONFIRM, EMAIL_CONTENT_VERIFY } = require("./i18n");
 
+const OPERATOR_NAME = process.env.OPERATOR_NAME || "Daniel Notthoff";
+const OPERATOR_ADDRESS = process.env.OPERATOR_ADDRESS || "Rudolf-Virchow-Str. 20, 58300 Wetter";
+
 function buildEmailHtml(link, lang) {
   const t = EMAIL_CONTENT[lang] || EMAIL_CONTENT.en;
   const privacyUrl = `https://www.familienwecker.de/privacy-policy${lang === "de" ? "" : "-" + lang}.html`;
@@ -25,8 +28,8 @@ function buildEmailHtml(link, lang) {
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 11px; color: #999; text-align: center;">
         <strong>${t.appName}</strong><br>
-        Daniel Notthoff<br>
-        Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
+        ${OPERATOR_NAME}<br>
+        ${OPERATOR_ADDRESS}<br><br>
         <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${l.home}</a> &nbsp;|&nbsp;
         <a href="${privacyUrl}" style="color: #999; text-decoration: none;">${l.privacy}</a> &nbsp;|&nbsp;
         <a href="${imprintUrl}" style="color: #999; text-decoration: none;">${l.imprint}</a><br><br>
@@ -140,7 +143,7 @@ exports.sendBrandedConfirmationEmail = onCall(
     invoker: "public",
   },
   async (request) => {
-    if (!request.auth) {
+    if (!request.auth || !request.auth.token.email) {
       throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
     }
     const email = request.data?.email;
@@ -149,8 +152,7 @@ exports.sendBrandedConfirmationEmail = onCall(
     if (!email || typeof email !== "string") {
       throw new HttpsError("invalid-argument", "INVALID_EMAIL");
     }
-    if (request.auth.token.email &&
-      email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
+    if (email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
       throw new HttpsError("permission-denied", "EMAIL_MISMATCH");
     }
 
@@ -208,8 +210,8 @@ function buildVerifyEmailHtml(link, lang) {
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 11px; color: #999; text-align: center;">
         <strong>${t.appName}</strong><br>
-        Daniel Notthoff<br>
-        Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
+        ${OPERATOR_NAME}<br>
+        ${OPERATOR_ADDRESS}<br><br>
         <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${l.home}</a> &nbsp;|&nbsp;
         <a href="${privacyUrl}" style="color: #999; text-decoration: none;">${l.privacy}</a> &nbsp;|&nbsp;
         <a href="${imprintUrl}" style="color: #999; text-decoration: none;">${l.imprint}</a><br><br>
@@ -227,12 +229,14 @@ exports.sendVerificationEmail = onCall(
   },
   async (request) => {
     // Security: Nur eingeloggte User dürfen für ihre eigene E-Mail-Adresse eine Verifikations-Mail anfordern.
-    if (!request.auth) {
+    if (!request.auth || !request.auth.token.email) {
       throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
     }
     const email = request.data?.email;
-    // E-Mail muss mit der des eingeloggten Users übereinstimmen.
-    if (email && request.auth.token.email && email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
+    if (!email || typeof email !== "string") {
+      throw new HttpsError("invalid-argument", "INVALID_EMAIL");
+    }
+    if (email.trim().toLowerCase() !== request.auth.token.email.toLowerCase()) {
       throw new HttpsError("permission-denied", "EMAIL_MISMATCH");
     }
     const lang = resolveLanguage(request.data?.language);
