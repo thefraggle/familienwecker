@@ -1479,7 +1479,8 @@ class FamilyViewModel: ObservableObject {
         clearFamilyLocally()
         members = []
         schedule = nil
-        snoozeState = .idle
+        snoozeUntil = nil
+        snoozeCount = 0
     }
 
     private func clearFamilyLocally() {
