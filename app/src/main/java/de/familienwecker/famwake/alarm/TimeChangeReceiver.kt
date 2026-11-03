@@ -17,9 +17,14 @@ class TimeChangeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action ?: return
+        val isExactAlarmPermissionChange = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            action == android.app.AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED
+        } else false
+
         if (action != Intent.ACTION_TIME_CHANGED &&
             action != Intent.ACTION_TIMEZONE_CHANGED &&
-            action != Intent.ACTION_DATE_CHANGED) return
+            action != Intent.ACTION_DATE_CHANGED &&
+            !isExactAlarmPermissionChange) return
 
         if (!AlarmBackupPrefs.isEnabled(context)) return
 
@@ -55,10 +60,15 @@ class TimeChangeReceiver : BroadcastReceiver() {
             // Nur wenn er in der Vergangenheit liegt, wird auf heute bzw. morgen korrigiert.
             val targetDateTime = if (savedDateTime.isAfter(now)) {
                 savedDateTime
-            } else if (now.toLocalTime().isBefore(alarmTime)) {
-                LocalDateTime.of(now.toLocalDate(), alarmTime)
             } else {
-                LocalDateTime.of(now.toLocalDate().plusDays(1), alarmTime)
+                val targetKmp = de.familienwecker.famwake.algorithm.NextAlarmCalculator.calculateNextAlarmFromSavedTime(
+                    alarmTime = kotlinx.datetime.LocalTime(alarmTime.hour, alarmTime.minute, alarmTime.second),
+                    now = now.toKmpLocalDateTime()
+                )
+                LocalDateTime.of(
+                    targetKmp.date.year, targetKmp.date.monthNumber, targetKmp.date.dayOfMonth,
+                    targetKmp.time.hour, targetKmp.time.minute, targetKmp.time.second
+                )
             }
 
             scheduler.scheduleWakeUp(

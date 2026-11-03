@@ -10,5 +10,5 @@ fun getDatabaseBuilder(context: Context): RoomDatabase.Builder<FamWakeDatabase> 
         context = context,
         name = dbFile.absolutePath
     ).setDriver(BundledSQLiteDriver()) // Empfohlen für KMP
-     .fallbackToDestructiveMigration(dropAllTables = true)
+     .fallbackToDestructiveMigrationFrom(dropAllTables = true, 1, 2, 3)
 }

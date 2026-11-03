@@ -468,6 +468,49 @@ class SchedulerTest {
         assertEquals(LocalTime(6, 40), s3.wakeUpTime)
         assertTrue(s1.bathroomEndTime <= LocalTime(6, 30), "m1 bathroomEndTime (${s1.bathroomEndTime}) muss <= 06:30 sein wegen 10min Puffer vor m3 (06:40)")
     }
+
+    @Test
+    fun goldenMaster_threeMembers_deterministicScheduleParity() {
+        val m1 = member(
+            id = "m1",
+            name = "Papa",
+            earliestWakeUp = LocalTime(6, 15),
+            latestWakeUp = LocalTime(7, 0),
+            bathroomDurationMinutes = 20L,
+            wantsBreakfast = true,
+            breakfastDurationMinutes = 15L,
+            leaveHomeTime = LocalTime(7, 45)
+        )
+        val m2 = member(
+            id = "m2",
+            name = "Mama",
+            earliestWakeUp = LocalTime(6, 30),
+            latestWakeUp = LocalTime(7, 15),
+            bathroomDurationMinutes = 25L,
+            wantsBreakfast = true,
+            breakfastDurationMinutes = 20L,
+            leaveHomeTime = LocalTime(7, 45)
+        )
+        val m3 = member(
+            id = "m3",
+            name = "Kind",
+            earliestWakeUp = LocalTime(7, 0),
+            latestWakeUp = LocalTime(7, 30),
+            bathroomDurationMinutes = 15L,
+            wantsBreakfast = false,
+            leaveHomeTime = LocalTime(8, 0)
+        )
+        val result = scheduler.calculateIdealSchedule(listOf(m1, m2, m3), breakfastDurationMinutes = 20, globalBufferMinutes = 5)
+        assertTrue(result.isValid)
+        assertEquals(LocalTime(6, 35), result.memberSchedules[0].wakeUpTime)
+        assertEquals(LocalTime(6, 55), result.memberSchedules[0].bathroomEndTime)
+        assertEquals(LocalTime(7, 0), result.memberSchedules[1].wakeUpTime)
+        assertEquals(LocalTime(7, 25), result.memberSchedules[1].bathroomEndTime)
+        assertEquals(LocalTime(7, 30), result.memberSchedules[2].wakeUpTime)
+        assertEquals(LocalTime(7, 45), result.memberSchedules[2].bathroomEndTime)
+        assertEquals(LocalTime(7, 25), result.breakfastTime)
+    }
 }
+
 
 

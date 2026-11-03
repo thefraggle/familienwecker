@@ -257,14 +257,14 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # Deduplicated against Title & Subtitle, policy-compliant (no price words like "free"/"kostenlos")
-KEYWORDS_DE = 'kinderwecker,badplaner,zeitplan,timer,kinder,adhs,visuell,mission,aufgaben,sanft,tagesplan,kids,uhr'
-KEYWORDS_EN = 'checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning'
+KEYWORDS_DE = 'kinderwecker,badplaner,zeitplan,timer,adhs,planer,visuell,mission,aufgaben,sanft,tagesplan,kids,wach'
+KEYWORDS_EN = 'checklist,visual,first,then,autism,chore,habit,adhd,planner,builder,kids,group,shared,timer,morning'
 
-# Hardcoded optimized keywords per locale (ASO KW 43)
+# Hardcoded optimized keywords per locale (ASO KW 45)
 KEYWORDS_BY_LOCALE = {
-    'de-DE':   'kinderwecker,badplaner,zeitplan,timer,kinder,adhs,visuell,mission,aufgaben,sanft,tagesplan,kids,uhr',
-    'en-US':   'checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning',
-    'en-GB':   'checklist,visual,first,then,autism,chore,habit,adhd,planner,daily,kids,group,shared,timer,morning',
+    'de-DE':   KEYWORDS_DE,
+    'en-US':   KEYWORDS_EN,
+    'en-GB':   KEYWORDS_EN,
     'fr-FR':   'enfant,matin,routine,salle,bain,horaire,famille,partagé,groupe,visuel,minuteur,tdah,autisme,habitude',
     'es-ES':   'despertador,niños,infantil,rutina,mañana,baño,turnos,horario,visual,tdah,autismo,hábitos,alarma,app',
     'es-MX':   'despertador,niños,infantil,rutina,mañana,baño,turnos,horario,visual,tdah,autismo,hábitos,alarma,app',

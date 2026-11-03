@@ -2,6 +2,14 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.9 – 2026-11-03
+✨ New & Improved:
+• Maximum Alarm Accuracy: Unified wake-up calculation logic and seamless alarm rescheduling when system permissions change.
+• Local Data Protection: Robust local storage safeguards your family profiles and schedules against data loss during app updates.
+• Enhanced Synchronization: Prevents duplicate family creation during network shifts and ensures seamless account deletion.
+• Dependable Snooze Behavior: Calendar-accurate snooze daily boundaries prevent premature resets and guarantee reliable repeat alarms after app restarts.
+• Refined Stability & Localization: Modular settings, complete translations for quick actions, and locale-aware date and time formatting worldwide.
+
 ## 2.2.8 – 2026-10-30
 ✨ New & Improved:
 • Maximum Alarm Reliability After Reboots: Scheduled wake-up calls now trigger reliably even after overnight device restarts before first unlock.

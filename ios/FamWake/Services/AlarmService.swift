@@ -85,7 +85,7 @@ struct ToggleGlobalAlarmIntent: AppIntent {
 // MARK: - Snooze Intent (REAKTIVIERT)
 // Führt Weckwiederholung im Hintergrund ohne Vordergrund-Erzwingung durch.
 struct SnoozeNotifyIntent: LiveActivityIntent {
-    static var title: LocalizedStringResource = "Snooze"
+    static var title: LocalizedStringResource = LocalizedStringResource("ringing_snooze", defaultValue: "Snooze")
     static var openAppWhenRun: Bool = false
 
     @Parameter(title: "Member ID")
@@ -106,27 +106,13 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             AlarmService.shared.stopAlarm()
         }
 
-        // Neuer Alarm-Zyklus: Nur resetten wenn snooze_until deutlich in der Vergangenheit liegt.
-        // Wenn der Snooze-Alarm klingelt, ist snooze_until gerade eben abgelaufen (~0-10 Sek) –
-        // das darf den Count NICHT zurücksetzen, sonst bleibt er immer bei 1/2.
-        // Toleranz: 2 Minuten (Snooze-Dauer ist 5 Min, also sicher genug).
-        let snoozeUntilTs = UserDefaults.standard.double(forKey: "snooze_until")
-        let staleThreshold = Date().timeIntervalSince1970 - 120 // 2 Min Toleranz
-        if snoozeUntilTs == 0 || snoozeUntilTs < staleThreshold {
-            UserDefaults.standard.set(0, forKey: "snooze_count")
-        }
-
-        // Snooze-Count prüfen (Max aus SnoozeConfig)
-        let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
-        if currentCount >= SnoozeConfig.maxSnoozeCount {
+        if !SnoozeController.shared.canSnooze {
             // Max erreicht – AlarmKit-Alarm canceln damit Lock-Screen sich dismissed
             if let uuid = AlarmService.readUUID(for: memberId) {
                 try? await AlarmManager.shared.cancel(id: uuid)
             }
             
-            // Snooze-State aufräumen
-            UserDefaults.standard.removeObject(forKey: "snooze_until")
-            UserDefaults.standard.set(0, forKey: "snooze_count")
+            SnoozeController.shared.reset()
             
             // Lokale Notification als Hinweis auf dem Lock-Screen
             let content = UNMutableNotificationContent()
@@ -145,11 +131,11 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             }
             return .result()
         }
-        let newCount = currentCount + 1
 
-        let snoozeDate = Date().addingTimeInterval(TimeInterval(SnoozeConfig.snoozeDurationMinutes * 60))
-        UserDefaults.standard.set(snoozeDate.timeIntervalSince1970, forKey: "snooze_until")
-        UserDefaults.standard.set(newCount, forKey: "snooze_count")
+        guard let snoozeDate = SnoozeController.shared.triggerSnooze(durationMinutes: SnoozeConfig.snoozeDurationMinutes) else {
+            return .result()
+        }
+        let newCount = SnoozeController.shared.snoozeCount
         
         let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
         do {

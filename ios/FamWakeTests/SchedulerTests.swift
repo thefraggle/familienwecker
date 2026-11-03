@@ -193,4 +193,56 @@ final class SchedulerTests: XCTestCase {
         let s1EndMinutes = (s1.bathroomEnd.hour ?? 0) * 60 + (s1.bathroomEnd.minute ?? 0)
         XCTAssertLessThanOrEqual(s1EndMinutes, 6 * 60 + 30)
     }
+
+    func testGoldenMaster_threeMembers_deterministicScheduleParity() {
+        let m1 = makeMember(
+            id: "m1",
+            name: "Papa",
+            earliest: (6, 15),
+            latest: (7, 0),
+            duration: 20,
+            breakfast: true,
+            leave: (7, 45),
+            breakfastDuration: 15
+        )
+        let m2 = makeMember(
+            id: "m2",
+            name: "Mama",
+            earliest: (6, 30),
+            latest: (7, 15),
+            duration: 25,
+            breakfast: true,
+            leave: (7, 45),
+            breakfastDuration: 20
+        )
+        let m3 = makeMember(
+            id: "m3",
+            name: "Kind",
+            earliest: (7, 0),
+            latest: (7, 30),
+            duration: 15,
+            breakfast: false,
+            leave: (8, 0)
+        )
+        let result = scheduler.calculateIdealSchedule(members: [m1, m2, m3], breakfastDurationMinutes: 20, globalBufferMinutes: 5)
+        XCTAssertTrue(result.isValid)
+        XCTAssertEqual(result.memberSchedules[0].wakeUpTime.hour, 6)
+        XCTAssertEqual(result.memberSchedules[0].wakeUpTime.minute, 35)
+        XCTAssertEqual(result.memberSchedules[0].bathroomEnd.hour, 6)
+        XCTAssertEqual(result.memberSchedules[0].bathroomEnd.minute, 55)
+
+        XCTAssertEqual(result.memberSchedules[1].wakeUpTime.hour, 7)
+        XCTAssertEqual(result.memberSchedules[1].wakeUpTime.minute, 0)
+        XCTAssertEqual(result.memberSchedules[1].bathroomEnd.hour, 7)
+        XCTAssertEqual(result.memberSchedules[1].bathroomEnd.minute, 25)
+
+        XCTAssertEqual(result.memberSchedules[2].wakeUpTime.hour, 7)
+        XCTAssertEqual(result.memberSchedules[2].wakeUpTime.minute, 30)
+        XCTAssertEqual(result.memberSchedules[2].bathroomEnd.hour, 7)
+        XCTAssertEqual(result.memberSchedules[2].bathroomEnd.minute, 45)
+
+        XCTAssertEqual(result.breakfastTime?.hour, 7)
+        XCTAssertEqual(result.breakfastTime?.minute, 25)
+    }
 }
+

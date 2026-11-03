@@ -2,6 +2,14 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.9 – 2026-11-03
+✨ Neu & Verbessert:
+• Höchste Weckzeit-Präzision: Vereinheitlichte Berechnungslogik für Weckzeiten und verlässliche Wecker-Planung bei geänderten Berechtigungen.
+• Schutz lokaler Daten: Sicherer lokaler Speicher schützt deine Familienprofile auch bei Versions-Updates zuverlässig vor Datenverlust.
+• Verbesserte Synchronisation: Verhindert doppelte Familienerstellung bei Verbindungswechseln und sichert Kontolöschungen lückenlos ab.
+• Zuverlässige Schlummerfunktion: Präzise Schlummer-Tagesgrenzen verhindern vorzeitiges Zurücksetzen und stellen Wecker auch nach App-Neustarts pünktlich nach.
+• Optimierte Stabilität & Lokalisierung: Schlankere Einstellungen, vollständige Übersetzungen für Schnellaktionen und verbesserte Datumsformate weltweit.
+
 ## 2.2.8 – 2026-10-30
 ✨ Neu & Verbessert:
 • Höchste Wecker-Zuverlässigkeit nach Neustarts: Wecker werden auch nach nächtlichen Geräteneustarts ohne vorheriges Entsperren pünktlich ausgelöst.

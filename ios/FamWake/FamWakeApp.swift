@@ -205,12 +205,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: ["memberId": memberId])
             }
         } else if response.actionIdentifier == "SNOOZE_ACTION" {
-            let currentCount = UserDefaults.standard.integer(forKey: "snooze_count")
-            if currentCount >= SnoozeConfig.maxSnoozeCount {
+            if !SnoozeController.shared.canSnooze {
                 Aptabase.shared.trackEvent("alarm_dismissed", with: ["source": "background_max_snooze"])
                 AlarmService.shared.cancelWakeUp(memberId: memberId)
-                UserDefaults.standard.removeObject(forKey: "snooze_until")
-                UserDefaults.standard.set(0, forKey: "snooze_count")
+                SnoozeController.shared.reset()
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: ["memberId": memberId])
                 }
@@ -218,10 +216,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 Aptabase.shared.trackEvent("alarm_snoozed", with: ["source": "background"])
                 AlarmService.shared.cancelWakeUp(memberId: memberId)
                 
-                let newCount = currentCount + 1
-                UserDefaults.standard.set(newCount, forKey: "snooze_count")
-                let snoozeTime = Date().addingTimeInterval(TimeInterval(SnoozeConfig.snoozeDurationMinutes * 60))
-                UserDefaults.standard.set(snoozeTime.timeIntervalSince1970, forKey: "snooze_until")
+                guard let snoozeTime = SnoozeController.shared.triggerSnooze(durationMinutes: SnoozeConfig.snoozeDurationMinutes) else {
+                    return
+                }
+                let newCount = SnoozeController.shared.snoozeCount
                 
                 let alarmSoundUri = UserDefaults.standard.string(forKey: "alarm_sound_uri")
                 AlarmService.shared.scheduleWakeUp(

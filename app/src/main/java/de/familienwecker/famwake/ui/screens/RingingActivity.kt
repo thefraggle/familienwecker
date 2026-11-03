@@ -48,6 +48,9 @@ import androidx.compose.ui.res.stringResource
 import de.familienwecker.famwake.R
 import androidx.core.net.toUri
 import com.aptabase.Aptabase
+import kotlinx.datetime.todayIn
+import kotlinx.datetime.plus
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 import androidx.lifecycle.lifecycleScope
@@ -275,47 +278,23 @@ class RingingActivity : AppCompatActivity() {
                 }
 
                 if (appSettings.isAlarmEnabled.value && currentMemberId.isNotEmpty() && updatedMembers.isNotEmpty()) {
-                    val tomorrow = java.time.LocalDate.now().plusDays(1)
-                    val tomorrowDow = tomorrow.dayOfWeek.value
-                    val tomorrowMembers = updatedMembers.map { m ->
-                        val profile = m.dayProfiles?.get(tomorrowDow)
-                        if (profile != null) {
-                            if (!profile.isActive) {
-                                m.copy(isPaused = true, snoozeUntil = null, snoozeCount = 0)
-                            } else {
-                                m.copy(
-                                    isPaused = m.isPaused,
-                                    earliestWakeUp = profile.earliestWakeUp,
-                                    latestWakeUp = profile.latestWakeUp,
-                                    bathroomDurationMinutes = profile.bathroomDurationMinutes,
-                                    wantsBreakfast = profile.wantsBreakfast,
-                                    leaveHomeTime = profile.leaveHomeTime,
-                                    breakfastDurationMinutes = m.breakfastDurationMinutes,
-                                    snoozeUntil = null,
-                                    snoozeCount = 0
-                                )
-                            }
-                        } else m.copy(snoozeUntil = null, snoozeCount = 0)
-                    }.sortedBy { it.sequenceOrder }
-
-                    val vacationUntilStr = appSettings.vacationUntil.value
-                    val isOnVacation = vacationUntilStr != null && tomorrow.toString() <= vacationUntilStr
-                    if (!isOnVacation) {
-                        val schedule = de.familienwecker.famwake.algorithm.Scheduler().calculateIdealSchedule(
-                            members = tomorrowMembers
+                    val todayKmp = kotlinx.datetime.Clock.System.todayIn(kotlinx.datetime.TimeZone.currentSystemDefault())
+                    val tomorrowKmp = todayKmp.plus(1, kotlinx.datetime.DateTimeUnit.DAY)
+                    val nextWakeUp = de.familienwecker.famwake.algorithm.NextAlarmCalculator.calculateNextWakeUpForDate(
+                        members = updatedMembers,
+                        targetMemberId = currentMemberId,
+                        targetDate = tomorrowKmp,
+                        vacationUntil = appSettings.vacationUntil.value
+                    )
+                    if (nextWakeUp != null) {
+                        val memberName = updatedMembers.find { it.id == currentMemberId }?.name ?: ""
+                        de.familienwecker.famwake.alarm.AlarmScheduler(appContext).scheduleWakeUp(
+                            wakeUpTime = nextWakeUp,
+                            memberId = currentMemberId,
+                            memberName = memberName,
+                            soundUri = appSettings.alarmSoundUri.value,
+                            isSnooze = false
                         )
-                        val mySchedule = schedule.memberSchedules.find { it.member.id == currentMemberId }
-                        if (mySchedule != null && !mySchedule.member.isPaused && mySchedule.member.deviceAlarmEnabled != false) {
-                            val wakeTime = java.time.LocalTime.of(mySchedule.wakeUpTime.hour, mySchedule.wakeUpTime.minute)
-                            val wakeDateTime = java.time.LocalDateTime.of(tomorrow, wakeTime)
-                            de.familienwecker.famwake.alarm.AlarmScheduler(appContext).scheduleWakeUp(
-                                wakeUpTime = wakeDateTime.toKmpLocalDateTime(),
-                                memberId = currentMemberId,
-                                memberName = mySchedule.member.name,
-                                soundUri = appSettings.alarmSoundUri.value,
-                                isSnooze = false
-                            )
-                        }
                     }
                 }
 

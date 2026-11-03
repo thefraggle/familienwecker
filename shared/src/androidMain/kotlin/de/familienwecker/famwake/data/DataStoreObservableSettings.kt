@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap
 class DataStoreObservableSettings(
     private val dataStore: DataStore<Preferences>,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-) : ObservableSettings {
+) : ObservableSettings, FlushableSettings {
 
     private val cache = ConcurrentHashMap<String, Any>()
     private val listeners = ConcurrentHashMap<String, MutableList<Pair<Class<*>, (Any?) -> Unit>>>()
@@ -74,6 +74,12 @@ class DataStoreObservableSettings(
             } catch (e: Exception) {
                 Log.w("DataStoreSettings", "Fehler im Listener für $key: ${e.message}")
             }
+        }
+    }
+
+    override suspend fun flush() {
+        writeMutex.withLock {
+            // Garantiert, dass alle vorherigen edit-Blöcke auf den DataStore geschrieben wurden
         }
     }
 

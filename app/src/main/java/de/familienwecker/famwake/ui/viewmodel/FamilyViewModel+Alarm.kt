@@ -250,7 +250,8 @@ internal fun FamilyViewModel.recalculateSchedule() {
                                 }
                                 if (snoozingMember != null) {
                                     val context = getApplication<android.app.Application>()
-                                    val formatter = java.time.format.DateTimeFormatter.ofPattern("HH:mm")
+                                    val is24h = android.text.format.DateFormat.is24HourFormat(context)
+                                    val formatter = java.time.format.DateTimeFormatter.ofPattern(if (is24h) "HH:mm" else "h:mm a")
                                     val timeStr = newWakeTime.toJavaLocalTime().format(formatter)
                                     sendSnoozeShiftNotification(context, snoozingMember.name, timeStr)
                                 }
@@ -395,7 +396,7 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
                 return
             }
 
-            alarmScheduler.scheduleWakeUp(
+            val scheduled = alarmScheduler.scheduleWakeUp(
                 wakeUpTime = targetDateTime,
                 memberId = memberSchedule.member.id,
                 memberName = memberSchedule.member.name,
@@ -409,9 +410,16 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
                     }
                 }
             )
-            lastScheduledAlarmMillis = newAlarmMillis
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm SET for $targetDateTime")
+            if (scheduled) {
+                lastScheduledAlarmMillis = newAlarmMillis
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm SET for $targetDateTime")
+                }
+            } else {
+                lastScheduledAlarmMillis = null
+                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                    android.util.Log.w("FamWake_Alarm", "applyAlarms: alarm scheduling failed (permission denied)")
+                }
             }
         }
     }

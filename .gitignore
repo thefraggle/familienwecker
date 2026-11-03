@@ -36,7 +36,6 @@ ios/DerivedData/
 ios/Pods/
 *.xcuserstate
 ios/FamWake/Config/Secrets.xcconfig
-*.xcconfig
 
 # Keystore & Signing Certificates & Keys
 *.jks

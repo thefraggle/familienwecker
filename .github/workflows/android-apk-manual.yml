@@ -52,15 +52,18 @@ jobs:
 
       - name: Build APK (Release)
         env:
+          APP_VERSION: ${{ steps.metadata.outputs.app_version }}
+          COMMIT_HASH: ${{ steps.metadata.outputs.hash }}
+          COMMIT_DATE: ${{ steps.metadata.outputs.date }}
           REVENUECAT_PUBLIC_API_KEY: ${{ secrets.REVENUECAT_PUBLIC_API_KEY }}
           APTABASE_APP_KEY: ${{ secrets.APTABASE_APP_KEY }}
           APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
         run: |
           ./gradlew assembleRelease \
             --build-cache --parallel --configuration-cache \
-            -PversionName=${{ steps.metadata.outputs.app_version }} \
-            -PcommitHash=${{ steps.metadata.outputs.hash }} \
-            -PcommitDate="${{ steps.metadata.outputs.date }}" \
+            -PversionName="$APP_VERSION" \
+            -PcommitHash="$COMMIT_HASH" \
+            -PcommitDate="$COMMIT_DATE" \
             -Dorg.gradle.jvmargs="-Xmx4g"
 
       - name: Decode Keystore
@@ -78,6 +81,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          APP_VERSION: ${{ steps.metadata.outputs.app_version }}
         run: |
           APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
           zipalign -v 4 "$APK_PATH" aligned.apk
@@ -85,7 +89,7 @@ jobs:
             --ks-pass env:KEYSTORE_PASSWORD \
             --key-pass env:KEY_PASSWORD \
             --ks-key-alias "$KEY_ALIAS" \
-            --out FamWake-${{ steps.metadata.outputs.app_version }}-manual.apk aligned.apk
+            --out "FamWake-${APP_VERSION}-manual.apk" aligned.apk
 
       - name: Upload APK as Artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

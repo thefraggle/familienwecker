@@ -68,18 +68,6 @@ async function checkSingleRateLimit(key, windowMs, maxAttempts) {
  * max. 5 Versuche pro Stunde UND max. 10 pro Tag – je Typ unabhängig.
  */
 async function checkEmailRateLimit(email, type = "email") {
-  // Admin-Bypass über _admins-Collection (sicher, da serverseitig)
-  const adminSnapshot = await admin.firestore()
-    .collection("_admins")
-    .where("email", "==", email.toLowerCase().trim())
-    .limit(1)
-    .get();
-
-  if (!adminSnapshot.empty) {
-    console.log(`Bypassing email rate limit for admin: ${email}`);
-    return;
-  }
-
   // Typ-spezifischer Key: reset/verify/confirm haben unabhängige Zähler
   const emailKey = email.toLowerCase().replace(/[^a-z0-9]/g, "_").slice(0, 70);
   const key = `${type}_${emailKey}`;
@@ -93,7 +81,7 @@ async function checkEmailRateLimit(email, type = "email") {
   if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
 }
 
-const NOTIFY_EMAIL = "famwake@goork.de";
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "famwake@goork.de";
 // Security: PRIMARY_ADMIN_UID aus Firebase Secret Manager – nicht hartkodiert.
 const primaryAdminUidSecret = defineSecret("PRIMARY_ADMIN_UID");
 const BRAND_BLUE = "#1A3A5C";
@@ -104,10 +92,10 @@ async function sendEmail(to, subject, html) {
   const resendKey = process.env.RESEND_API_KEY;
   if (!resendKey) {
     console.error("RESEND_API_KEY secret is not set.");
-    return;
+    throw new Error("RESEND_API_KEY secret is not set.");
   }
   const resend = new Resend(resendKey);
-  const { error } = await resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from: SENDER.de,
     to: [to],
     subject: subject,
@@ -115,7 +103,9 @@ async function sendEmail(to, subject, html) {
   });
   if (error) {
     console.error(`Fehler beim Senden der E-Mail an ${to}:`, error);
+    throw new Error(error.message || "Failed to send email");
   }
+  return data;
 }
 
 /**

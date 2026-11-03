@@ -8,8 +8,8 @@ const SUPPORTED_LANGS = [
   "zh-CN", "ko"
 ];
 
-// Dialekte → Muttersprache für E-Mail-Inhalte (formal/rechtlich → Hochdeutsch)
-const DIALECT_TO_LANG = { gsw: "de", swg: "de", ksh: "de" };
+// Dialekte & Sprachvarianten → Muttersprache für E-Mail-Inhalte (formal/rechtlich → Hochdeutsch bzw. Norwegisch)
+const DIALECT_TO_LANG = { gsw: "de", swg: "de", ksh: "de", nb: "no", nn: "no" };
 
 const SENDER = {
   de: "FamWake Familienwecker <no-reply@familienwecker.de>",

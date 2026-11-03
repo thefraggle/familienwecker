@@ -52,6 +52,14 @@ exports.sendFeedbackEmail = onCall(
       throw new HttpsError("failed-precondition", "Email service not configured.");
     }
 
+    // Filter Bot-Spam from Google Play Pre-Launch Report (Firebase Test Lab)
+    const isBotMessage = (message?.trim() === "Great app!" || message?.trim() === "Test feedback") &&
+      (device?.includes("OnePlus") || device?.includes("Pixel") || !device);
+    if (isBotMessage) {
+      console.log(`Suppressed bot feedback from device: ${device}, message: "${message?.trim()}"`);
+      return { success: true, suppressed: true };
+    }
+
 
     const sanitizedCategory = escapeHtml((category || "Sonstiges").slice(0, 100));
     const sanitizedMessage = escapeHtml(message?.trim().slice(0, 5000) || "");
@@ -127,46 +135,46 @@ async function getStatsReport() {
   } while (pageToken);
 
   const familiesSnapshot = await admin.firestore().collection("families").get();
-  let familiesHtml = "";
+  let totalMembersCount = 0;
+  let singleMemberFamilies = 0;
+  let smallFamilies = 0; // 2-4
+  let largeFamilies = 0; // 5+
 
   for (const doc of familiesSnapshot.docs) {
-    const family = doc.data();
     const membersSnapshot = await doc.ref.collection("members").get();
-    // escapeHtml: Member-Namen könnten HTML-Sonderzeichen enthalten (XSS in Admin-Mail)
-    const members = membersSnapshot.docs.map(m => escapeHtml(m.data().name || "Unbekannt")).join(", ");
-
-    familiesHtml += `
-            <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>${escapeHtml(family.name || family.familyName || "Unbenannt")}</b></td>
-                <td style="padding: 8px; border-bottom: 1px solid #eee; font-size: 0.9em; color: #666;">${members}</td>
-            </tr>
-        `;
+    const count = membersSnapshot.size;
+    totalMembersCount += count;
+    if (count <= 1) singleMemberFamilies++;
+    else if (count <= 4) smallFamilies++;
+    else largeFamilies++;
   }
+
+  const avgMembers = familiesSnapshot.size > 0
+    ? (totalMembersCount / familiesSnapshot.size).toFixed(1)
+    : "0";
 
   return `
         <div style="font-family: sans-serif; max-width: 600px; color: #333;">
             <h2 style="color: ${BRAND_BLUE};">FamWake Admin Report</h2>
             <p>Stand: ${new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}</p>
             
-            <h3 style="border-bottom: 2px solid ${BRAND_BLUE}; padding-bottom: 4px;">Zusammenfassung</h3>
+            <h3 style="border-bottom: 2px solid ${BRAND_BLUE}; padding-bottom: 4px;">Zusammenfassung (DSGVO-konform aggregiert)</h3>
             <ul>
                 <li>Gesamt-Nutzer: <b>${users.length}</b></li>
                 <li>Gesamt-Familien: <b>${familiesSnapshot.size}</b></li>
+                <li>Gesamt-Mitglieder: <b>${totalMembersCount}</b></li>
+                <li>Durchschnittliche Mitglieder pro Familie: <b>${avgMembers}</b></li>
             </ul>
 
-            <h3 style="border-bottom: 2px solid ${BRAND_BLUE}; padding-bottom: 4px;">Familien & Mitglieder</h3>
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="background: #f8f8f8;">
-                        <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Name</th>
-                        <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Mitglieder</th>
-                    </tr>
-                </thead>
-                <tbody>${familiesHtml}</tbody>
-            </table>
+            <h3 style="border-bottom: 2px solid ${BRAND_BLUE}; padding-bottom: 4px;">Familiengrößen-Verteilung</h3>
+            <ul>
+                <li>1 Mitglied (Single / Neu): <b>${singleMemberFamilies}</b></li>
+                <li>2–4 Mitglieder (Standard): <b>${smallFamilies}</b></li>
+                <li>5+ Mitglieder (Großfamilie): <b>${largeFamilies}</b></li>
+            </ul>
             
             <hr style="margin-top: 24px; border: 0; border-top: 1px solid #ccc;">
-            <p style="font-size: 0.8em; color: #999;">Dieser Report wurde automatisch generiert (anonymisiert für DSGVO).</p>
+            <p style="font-size: 0.8em; color: #999;">Dieser Report wurde automatisch generiert (100% anonymisiert & datenschutzkonform ohne Personenbezug).</p>
         </div>
     `;
 }

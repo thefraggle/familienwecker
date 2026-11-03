@@ -20,17 +20,19 @@ async function internalLeaveFamily(uid, familyId, memberId = null) {
     const familyData = familyDoc.data() || {};
     const membersSnapshot = await familyDocRef.collection("members").get();
 
-    // Falls User der Ersteller war und noch andere Mitglieder existieren: neuen Ersteller bestimmen
+    // Falls User der Ersteller war: Creator-Rolle an ein anderes Mitglied übertragen oder null setzen
     if (familyData.createdByUserId === uid) {
-      const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== (memberId || uid) && doc.data().claimedByUserId !== uid);
-      if (otherMembers.length > 0) {
+      const remainingUserIds = (familyData.userIds || []).filter(id => id !== uid);
+      let newCreatorUid = null;
+      if (remainingUserIds.length > 0) {
+        newCreatorUid = remainingUserIds[0];
+      } else {
+        const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== (memberId || uid) && doc.data().claimedByUserId !== uid);
         const newCreatorDoc = otherMembers.find(doc => doc.data().claimedByUserId);
-        const newCreatorUid = newCreatorDoc ? newCreatorDoc.data().claimedByUserId : null;
-        if (newCreatorUid) {
-          await familyDocRef.update({ createdByUserId: newCreatorUid });
-          console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
-        }
+        newCreatorUid = newCreatorDoc ? newCreatorDoc.data().claimedByUserId : null;
       }
+      await familyDocRef.update({ createdByUserId: newCreatorUid });
+      console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
     }
 
     // Member-Dokument ermitteln und löschen
@@ -75,6 +77,7 @@ async function internalLeaveFamily(uid, familyId, memberId = null) {
   } catch (err) {
     if (err instanceof HttpsError) throw err;
     console.error(`Fehler bei internalLeaveFamily für User ${uid} in Familie ${familyId}:`, err);
+    throw err;
   }
 }
 
