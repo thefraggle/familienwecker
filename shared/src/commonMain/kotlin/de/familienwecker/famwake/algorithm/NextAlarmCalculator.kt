@@ -53,6 +53,7 @@ object NextAlarmCalculator {
             wantsBreakfast = profile.wantsBreakfast,
             leaveHomeTime = profile.leaveHomeTime,
             breakfastDurationMinutes = profile.breakfastDurationMinutes ?: member.breakfastDurationMinutes,
+            sequenceOrder = profile.sequenceOrder ?: member.sequenceOrder,
             dayProfiles = mapOf(targetDow to profile),
             isSimpleMode = profile.isSimpleMode,
             snoozeUntil = if (targetDate == today) member.snoozeUntil else null,
@@ -63,11 +64,24 @@ object NextAlarmCalculator {
         val snoozeUntil = resolved.snoozeUntil
         if (snoozeUntil != null) {
             val nowDateTime = Clock.System.now().toLocalDateTime(timeZone)
-            if (nowDateTime < snoozeUntil) {
+            if (nowDateTime < snoozeUntil && snoozeUntil.date == targetDate) {
+                val snoozeTime = snoozeUntil.time
+                val absorbableMinutes = if (resolved.snoozeCount <= 1) {
+                    minOf(
+                        de.familienwecker.famwake.model.SnoozeConfig.SNOOZE_DURATION_MINUTES.toLong(),
+                        maxOf(0L, resolved.bathroomDurationMinutes - de.familienwecker.famwake.model.SnoozeConfig.MIN_BATHROOM_MINUTES)
+                    )
+                } else {
+                    0L
+                }
+                val reducedBathroom = resolved.bathroomDurationMinutes - absorbableMinutes
                 return resolved.copy(
-                    earliestWakeUp = snoozeUntil.time,
-                    latestWakeUp = snoozeUntil.time
+                    earliestWakeUp = snoozeTime,
+                    latestWakeUp = snoozeTime,
+                    bathroomDurationMinutes = reducedBathroom
                 )
+            } else {
+                return resolved.copy(snoozeUntil = null, snoozeCount = 0)
             }
         }
         return resolved

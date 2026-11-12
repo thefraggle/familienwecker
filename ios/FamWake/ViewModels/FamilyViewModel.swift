@@ -454,15 +454,27 @@ class FamilyViewModel: ObservableObject {
         let oldProfile = oldMember?.dayProfiles?[todayDow]
         let newProfile = member.dayProfiles?[todayDow]
 
-        let oldWakeUp = oldProfile?.latestWakeUp ?? oldProfile?.earliestWakeUp ?? oldMember?.latestWakeUp ?? oldMember?.earliestWakeUp
-        let newWakeUp = newProfile?.latestWakeUp ?? newProfile?.earliestWakeUp ?? member.latestWakeUp ?? member.earliestWakeUp
+        let oldEarliest = oldProfile?.earliestWakeUp ?? oldMember?.earliestWakeUp
+        let newEarliest = newProfile?.earliestWakeUp ?? member.earliestWakeUp
+        let oldLatest = oldProfile?.latestWakeUp ?? oldMember?.latestWakeUp
+        let newLatest = newProfile?.latestWakeUp ?? member.latestWakeUp
         let oldIsActive = oldProfile?.isActive ?? !(oldMember?.isPaused ?? false)
         let newIsActive = newProfile?.isActive ?? !member.isPaused
 
-        let todayProfileChanged = oldProfile != newProfile || oldWakeUp != newWakeUp || oldIsActive != newIsActive
+        let todayProfileChanged = oldProfile != newProfile || oldEarliest != newEarliest || oldLatest != newLatest || oldIsActive != newIsActive
 
         var hasFutureAlarmToday = false
-        if newIsActive, let targetDate = cal.date(bySettingHour: newWakeUp.hour ?? 0, minute: newWakeUp.minute ?? 0, second: 0, of: now) {
+        let effectiveNewTime: DateComponents?
+        if let ne = newEarliest, let nl = newLatest {
+            let neMin = (ne.hour ?? 0) * 60 + (ne.minute ?? 0)
+            let nlMin = (nl.hour ?? 0) * 60 + (nl.minute ?? 0)
+            effectiveNewTime = nlMin >= neMin ? nl : ne
+        } else {
+            effectiveNewTime = newLatest ?? newEarliest
+        }
+
+        if newIsActive, let targetHour = effectiveNewTime?.hour, let targetMin = effectiveNewTime?.minute,
+           let targetDate = cal.date(bySettingHour: targetHour, minute: targetMin, second: 0, of: now) {
             hasFutureAlarmToday = targetDate > now
         }
 

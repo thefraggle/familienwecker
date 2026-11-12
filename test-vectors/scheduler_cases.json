@@ -1,0 +1,125 @@
+{
+  "description": "Cross-platform test vectors for Scheduler algorithm ensuring Android and iOS produce identical schedules",
+  "version": 1,
+  "cases": [
+    {
+      "name": "empty_members",
+      "breakfastDurationMinutes": 30,
+      "globalBufferMinutes": 0,
+      "members": [],
+      "expected": {
+        "isValid": true,
+        "scheduleMessage": "NoActiveMembers",
+        "breakfastTime": null,
+        "memberSchedules": []
+      }
+    },
+    {
+      "name": "all_paused",
+      "breakfastDurationMinutes": 30,
+      "globalBufferMinutes": 0,
+      "members": [
+        {
+          "id": "m1",
+          "name": "Alice",
+          "earliestWakeUp": "06:00",
+          "latestWakeUp": "07:30",
+          "bathroomDurationMinutes": 20,
+          "wantsBreakfast": true,
+          "isPaused": true
+        },
+        {
+          "id": "m2",
+          "name": "Bob",
+          "earliestWakeUp": "06:30",
+          "latestWakeUp": "07:45",
+          "bathroomDurationMinutes": 15,
+          "wantsBreakfast": true,
+          "isPaused": true
+        }
+      ],
+      "expected": {
+        "isValid": true,
+        "scheduleMessage": "NoActiveMembers",
+        "breakfastTime": null,
+        "memberSchedules": []
+      }
+    },
+    {
+      "name": "single_member_optimal",
+      "breakfastDurationMinutes": 30,
+      "globalBufferMinutes": 0,
+      "members": [
+        {
+          "id": "m1",
+          "name": "Alice",
+          "earliestWakeUp": "06:00",
+          "latestWakeUp": "07:30",
+          "bathroomDurationMinutes": 20,
+          "wantsBreakfast": false,
+          "isPaused": false
+        }
+      ],
+      "expected": {
+        "isValid": true,
+        "scheduleMessage": "OptimalPlan",
+        "breakfastTime": null,
+        "memberSchedules": [
+          {
+            "memberId": "m1",
+            "wakeUpTime": "07:30",
+            "bathroomStartTime": "07:30",
+            "bathroomEndTime": "07:50",
+            "bufferAfter": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "two_members_with_breakfast_and_buffer",
+      "breakfastDurationMinutes": 30,
+      "globalBufferMinutes": 5,
+      "members": [
+        {
+          "id": "m1",
+          "name": "Alice",
+          "earliestWakeUp": "06:00",
+          "latestWakeUp": "07:00",
+          "bathroomDurationMinutes": 20,
+          "wantsBreakfast": true,
+          "isPaused": false
+        },
+        {
+          "id": "m2",
+          "name": "Bob",
+          "earliestWakeUp": "06:30",
+          "latestWakeUp": "07:30",
+          "bathroomDurationMinutes": 15,
+          "wantsBreakfast": true,
+          "isPaused": false
+        }
+      ],
+      "expected": {
+        "isValid": true,
+        "scheduleMessage": "OptimalPlan",
+        "breakfastTime": "07:30",
+        "memberSchedules": [
+          {
+            "memberId": "m1",
+            "wakeUpTime": "06:50",
+            "bathroomStartTime": "06:50",
+            "bathroomEndTime": "07:10",
+            "bufferAfter": 5
+          },
+          {
+            "memberId": "m2",
+            "wakeUpTime": "07:15",
+            "bathroomStartTime": "07:15",
+            "bathroomEndTime": "07:30",
+            "bufferAfter": 0
+          }
+        ]
+      }
+    }
+  ]
+}

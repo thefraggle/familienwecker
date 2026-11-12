@@ -373,6 +373,10 @@ extension FamilyViewModel {
 
     /// Ermittelt den aktuell relevanten DayProfile-Slot für einen Member.
     func resolveEffectiveMember(_ member: FamilyMember, forDate: Date? = nil) -> FamilyMember {
+        guard let dayProfiles = member.dayProfiles else {
+            return member
+        }
+
         let cal = Calendar.current
         let now = Date()
         let today = cal.startOfDay(for: now)
@@ -384,7 +388,7 @@ extension FamilyViewModel {
         } else {
             let todayDow = cal.component(.weekday, from: today)
             let todayIso = todayDow == 1 ? 7 : todayDow - 1
-            let todayProfile = member.dayProfiles?[todayIso]
+            let todayProfile = dayProfiles[todayIso]
             let latestMinutes = (todayProfile?.latestWakeUp.hour ?? 0) * 60 + (todayProfile?.latestWakeUp.minute ?? 0)
 
             if todayProfile?.isActive == true && nowMinutes < latestMinutes {
@@ -397,7 +401,7 @@ extension FamilyViewModel {
         let targetDowRaw = cal.component(.weekday, from: targetDate)
         let targetDow = targetDowRaw == 1 ? 7 : targetDowRaw - 1
 
-        guard let profile = member.dayProfiles?[targetDow], profile.isActive else {
+        guard let profile = dayProfiles[targetDow], profile.isActive else {
             var paused = member
             paused.isPaused = true
             return paused
@@ -410,6 +414,7 @@ extension FamilyViewModel {
         resolved.wantsBreakfast = profile.wantsBreakfast
         resolved.leaveHomeTime = profile.leaveHomeTime
         resolved.breakfastDurationMinutes = profile.breakfastDurationMinutes ?? member.breakfastDurationMinutes
+        resolved.sequenceOrder = profile.sequenceOrder ?? member.sequenceOrder
         resolved.dayProfiles = [targetDow: profile]
         resolved.isSimpleMode = profile.isSimpleMode
 
