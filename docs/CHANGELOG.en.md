@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.10 – 2026-11-12
+✨ New & Improved:
+• Maximum Alarm Precision: Cross-platform alignment of wake time calculations, day transitions, and snooze absorption between Android and iOS using unified test vectors.
+• Enhanced Cloud Security: Fine-grained cloud security rules protect family configurations against unauthorized updates and validate input data rigorously.
+• Transparent Licensing: Open-source documentation updated with official App Store and SDK linking permissions under GPLv3 Section 7.
+
 ## 2.2.9 – 2026-11-03
 ✨ New & Improved:
 • Maximum Alarm Accuracy: Unified wake-up calculation logic and seamless alarm rescheduling when system permissions change.

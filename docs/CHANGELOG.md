@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.10 – 2026-11-12
+✨ Neu & Verbessert:
+• Höchste Weckzeit-Präzision: Plattformübergreifende Harmonisierung von Weckzeitberechnung, Tageswechseln und Schlummer-Absorption zwischen Android und iOS anhand einheitlicher Testvektoren.
+• Maximale Datensicherheit: Verfeinerte Cloud-Sicherheitsregeln schützen Familienkonfigurationen zuverlässig vor unberechtigten Änderungen und validieren Eingaben lückenlos.
+• Transparente Lizenzierung: Open-Source-Dokumentation mit offiziellen Store- und SDK-Zusatzrechten nach GPLv3 §7 aktualisiert.
+
 ## 2.2.9 – 2026-11-03
 ✨ Neu & Verbessert:
 • Höchste Weckzeit-Präzision: Vereinheitlichte Berechnungslogik für Weckzeiten und verlässliche Wecker-Planung bei geänderten Berechtigungen.
