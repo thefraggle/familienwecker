@@ -78,19 +78,16 @@ service cloud.firestore {
             || (d.claimedByUserId is string && d.claimedByUserId == request.auth.uid));
     }
 
-    // Validierung für Familien-Updates (Schutz unveränderlicher Felder + Typ-/Größengrenzen + Whitelist #46)
+    // Validierung für Familien-Updates (Schutz serververwalteter/unveränderlicher Felder + Typ-/Größengrenzen + Whitelist #46)
     function isValidFamilyUpdate() {
       let d = request.resource.data;
-      return d.keys().hasOnly([
-          'name', 'vacationUntil', 'globalBufferMinutes',
-          'createdByUserId', 'joinCode', 'userIds',
-          'createdAt', 'lastUpdatedAt', 'systemResetAt'
-        ])
-        && !d.diff(resource.data).affectedKeys().hasAny(['createdByUserId', 'joinCode', 'userIds', 'createdAt'])
+      let changed = d.diff(resource.data).affectedKeys();
+      return changed.hasOnly(['name', 'vacationUntil', 'globalBufferMinutes', 'lastUpdatedAt'])
+        && (!('name' in changed) || ('name' in d && d.name is string && d.name.size() > 0 && d.name.size() <= 100))
         && (!('name' in d) || (d.name is string && d.name.size() > 0 && d.name.size() <= 100))
         && (!('vacationUntil' in d) || d.vacationUntil == null || (d.vacationUntil is string && d.vacationUntil.size() <= 20))
         && (!('globalBufferMinutes' in d) || (d.globalBufferMinutes is number && d.globalBufferMinutes >= 0 && d.globalBufferMinutes <= 60))
-        && (!('systemResetAt' in d) || d.systemResetAt == null || d.systemResetAt is timestamp);
+        && (!('lastUpdatedAt' in d) || d.lastUpdatedAt == null || d.lastUpdatedAt is timestamp || d.lastUpdatedAt is number);
     }
 
     match /users/{userId} {
@@ -102,7 +99,8 @@ service cloud.firestore {
       match /fcmTokens/{tokenId} {
         allow read, delete: if request.auth != null && request.auth.uid == userId;
         allow create, update: if request.auth != null && request.auth.uid == userId
-          && request.resource.data.keys().size() <= 10;
+          && request.resource.data.keys().size() <= 10
+          && (!('token' in request.resource.data) || (request.resource.data.token is string && request.resource.data.token.size() > 0 && request.resource.data.token.size() <= 4096));
       }
 
       // Push-Metadaten: Wer hat zuletzt einen Reorder ausgelöst?
@@ -220,6 +218,7 @@ service cloud.firestore {
         && request.resource.data.keys().hasAll(['uid', 'category', 'message', 'appVersion', 'device', 'createdAt'])
         && request.resource.data.keys().hasOnly(['uid', 'email', 'category', 'message', 'appVersion', 'device', 'createdAt'])
         && request.resource.data.uid == request.auth.uid
+        && (!('email' in request.resource.data) || request.resource.data.email == null || (request.resource.data.email is string && request.resource.data.email.size() <= 254))
         && request.resource.data.category is string && request.resource.data.category.size() > 0 && request.resource.data.category.size() <= 100
         && request.resource.data.message is string && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 5000
         && request.resource.data.appVersion is string && request.resource.data.appVersion.size() <= 50
