@@ -96,11 +96,13 @@ struct MemberSection: View {
                 }
                 .padding(.vertical, 20)
             } else {
+                let isScheduleForToday = familyViewModel.schedule?.targetDate.map { Calendar.current.isDateInToday($0) } ?? true
                 ForEach(familyViewModel.members) { member in
                     MemberCardView(
                         member: member,
                         isMyProfile: member.id == familyViewModel.myMemberId,
                         isAlarmEnabled: familyViewModel.isAlarmEnabled,
+                        isScheduleForToday: isScheduleForToday,
                         onEdit: { onEditMember(member.id) },
                         onDelete: {
                             memberToDelete = member

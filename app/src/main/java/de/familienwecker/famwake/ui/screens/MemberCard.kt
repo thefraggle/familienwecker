@@ -33,7 +33,8 @@ fun MemberCard(
     onTogglePause: () -> Unit,
     onToggleAwake: () -> Unit,
     isAlarmEnabled: Boolean,
-    isPauseLoading: Boolean = false
+    isPauseLoading: Boolean = false,
+    isScheduleForToday: Boolean = true
 ) {
     val isDarkTheme = LocalDarkTheme.current
     val context = LocalContext.current
@@ -140,7 +141,7 @@ fun MemberCard(
                         )
                     }
 
-                    if (member.isAwakeToday) {
+                    if (member.isAwakeToday && isScheduleForToday) {
                         if (member.claimedByUserId != null || member.isPaused) {
                             Spacer(modifier = Modifier.width(6.dp))
                         }

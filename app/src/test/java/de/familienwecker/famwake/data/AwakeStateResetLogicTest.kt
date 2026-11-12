@@ -176,4 +176,32 @@ class AwakeStateResetLogicTest {
         // Morning at 06:30 (before 07:30 latestWakeUp) with stale lastResetDate -> resets!
         assertTrue(shouldDailyResetMember(member, "2026-10-21", todayDow, LocalTime(6, 30)))
     }
+
+    @Test
+    fun awakeBadge_shownOnlyWhenScheduleIsForToday() {
+        val today = kotlinx.datetime.LocalDate(2026, 11, 12)
+        val tomorrow = kotlinx.datetime.LocalDate(2026, 11, 13)
+
+        assertTrue(
+            de.familienwecker.famwake.algorithm.NextAlarmCalculator.shouldShowAwakeBadge(
+                isAwakeToday = true,
+                scheduleTargetDate = today,
+                today = today
+            )
+        )
+        assertFalse(
+            de.familienwecker.famwake.algorithm.NextAlarmCalculator.shouldShowAwakeBadge(
+                isAwakeToday = true,
+                scheduleTargetDate = tomorrow,
+                today = today
+            )
+        )
+        assertFalse(
+            de.familienwecker.famwake.algorithm.NextAlarmCalculator.shouldShowAwakeBadge(
+                isAwakeToday = false,
+                scheduleTargetDate = today,
+                today = today
+            )
+        )
+    }
 }

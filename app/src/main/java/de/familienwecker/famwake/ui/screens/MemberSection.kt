@@ -34,6 +34,7 @@ fun LazyListScope.memberSection(
     isAlarmEnabled: Boolean,
     globalBufferMinutes: Long,
     pendingPauseIds: Set<String>,
+    isScheduleForToday: Boolean = true,
     viewModel: FamilyViewModel,
     onNavigateToEditMember: (String) -> Unit,
     showDeleteMemberDialog: (FamilyMember) -> Unit
@@ -205,7 +206,8 @@ fun LazyListScope.memberSection(
             onTogglePause = { viewModel.togglePauseMember(member.id) },
             onToggleAwake = { viewModel.toggleAwakeMember(member.id) },
             isAlarmEnabled = isAlarmEnabled,
-            isPauseLoading = pendingPauseIds.contains(member.id)
+            isPauseLoading = pendingPauseIds.contains(member.id),
+            isScheduleForToday = isScheduleForToday
         )
     }
 

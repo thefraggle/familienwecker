@@ -161,4 +161,18 @@ object NextAlarmCalculator {
 
         return todayProfileChanged && hasFutureAlarmToday
     }
+
+    /**
+     * Prüft, ob das "Schon wach"-Symbol (☀️) in der Mitgliederliste angezeigt werden soll.
+     * Nur sichtbar, wenn der Member heute wach ist UND der angezeigte Weckplan für heute gilt
+     * (verhindert das ☀️-Symbol neben dem Namen, sobald abends die Weckzeit für morgen angezeigt wird).
+     */
+    fun shouldShowAwakeBadge(
+        isAwakeToday: Boolean,
+        scheduleTargetDate: LocalDate?,
+        today: LocalDate
+    ): Boolean {
+        if (!isAwakeToday) return false
+        return scheduleTargetDate == null || scheduleTargetDate == today
+    }
 }

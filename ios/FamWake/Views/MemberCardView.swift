@@ -6,6 +6,7 @@ struct MemberCardView: View {
     let member: FamilyMember
     let isMyProfile: Bool
     let isAlarmEnabled: Bool
+    var isScheduleForToday: Bool = true
     var onEdit: () -> Void
     var onDelete: () -> Void
     var onTogglePause: () -> Void
@@ -58,7 +59,7 @@ struct MemberCardView: View {
                                 .foregroundStyle(textColor.opacity(0.8))
                         }
 
-                        if member.isAwakeToday {
+                        if member.isAwakeToday && isScheduleForToday {
                             Text("☀️").font(.subheadline)
                         }
                     }

@@ -464,16 +464,11 @@ class FamilyViewModel: ObservableObject {
         let todayProfileChanged = oldProfile != newProfile || oldEarliest != newEarliest || oldLatest != newLatest || oldIsActive != newIsActive
 
         var hasFutureAlarmToday = false
-        let effectiveNewTime: DateComponents?
-        if let ne = newEarliest, let nl = newLatest {
-            let neMin = (ne.hour ?? 0) * 60 + (ne.minute ?? 0)
-            let nlMin = (nl.hour ?? 0) * 60 + (nl.minute ?? 0)
-            effectiveNewTime = nlMin >= neMin ? nl : ne
-        } else {
-            effectiveNewTime = newLatest ?? newEarliest
-        }
+        let neMin = (newEarliest.hour ?? 0) * 60 + (newEarliest.minute ?? 0)
+        let nlMin = (newLatest.hour ?? 0) * 60 + (newLatest.minute ?? 0)
+        let effectiveNewTime = nlMin >= neMin ? newLatest : newEarliest
 
-        if newIsActive, let targetHour = effectiveNewTime?.hour, let targetMin = effectiveNewTime?.minute,
+        if newIsActive, let targetHour = effectiveNewTime.hour, let targetMin = effectiveNewTime.minute,
            let targetDate = cal.date(bySettingHour: targetHour, minute: targetMin, second: 0, of: now) {
             hasFutureAlarmToday = targetDate > now
         }

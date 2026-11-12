@@ -468,6 +468,8 @@ fun MainScreen(
                 }
 
                 // Liste der Familienmitglieder
+                val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+                val isScheduleForToday = schedule?.targetDate == null || schedule?.targetDate == today
                 memberSection(
                     members = members,
                     myMemberId = myMemberId,
@@ -475,6 +477,7 @@ fun MainScreen(
                     isAlarmEnabled = isAlarmEnabled,
                     globalBufferMinutes = globalBufferMinutes,
                     pendingPauseIds = pendingPauseIds,
+                    isScheduleForToday = isScheduleForToday,
                     viewModel = viewModel,
                     onNavigateToEditMember = onNavigateToEditMember,
                     showDeleteMemberDialog = { showDeleteMemberDialog = it }
