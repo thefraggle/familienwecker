@@ -672,3 +672,34 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
+
+---
+
+ADDITIONAL PERMISSION UNDER GNU GPL VERSION 3 SECTION 7
+
+As a special exception to the GNU General Public License version 3 ("GPLv3"),
+the copyright holders of FamWake grant you additional permissions under
+Section 7 of the GPLv3 to:
+
+1. App Store and Digital Distribution Exception:
+   Distribute executable versions of FamWake through digital application stores
+   and distribution platforms (including but not limited to the Apple App Store,
+   TestFlight, and Google Play Store), notwithstanding any terms of service,
+   digital rights management (DRM), code signing, or platform-imposed usage
+   rules of such application store or platform that would otherwise conflict
+   with the terms of the GPLv3.
+
+2. Proprietary SDK and Library Linking Exception:
+   Compile, link, and combine FamWake source code and binaries with the
+   following third-party software development kits (SDKs), frameworks, and
+   libraries, and convey the resulting combined work, even if those libraries
+   are proprietary or governed by terms incompatible with the GPLv3:
+   - Google Play Services, Google Play Integrity, and Firebase SDKs
+   - Apple iOS SDK, StoreKit, and AlarmKit frameworks
+   - RevenueCat SDK (Purchases-Hybrid / Purchases-iOS / Purchases-Android)
+   - Aptabase SDK (Client telemetry / crash reporting)
+
+All other terms and conditions of the GNU General Public License version 3
+remain in full force and effect. If you modify this program, you may extend
+this exception to your version of the program, but you are not obligated to do so.
+

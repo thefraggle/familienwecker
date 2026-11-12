@@ -1,7 +1,7 @@
 # ⏰ **FamWake** – Smart Family Alarm & Morning Scheduler
 
 [![Website: familienwecker.de](https://img.shields.io/badge/Website-familienwecker.de-blue)](https://familienwecker.de)
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-purple.svg)](LICENSE)
+[![License: GPL-3.0 with Exceptions](https://img.shields.io/badge/License-GPL%203.0%20w%2F%20exceptions-purple.svg)](LICENSE)
 
 Stop the morning chaos! **FamWake** is the smart family alarm & bathroom scheduler that organizes your morning routine as a synchronized team.
 
@@ -80,7 +80,7 @@ npx firebase-tools deploy
 
 ## ⚖️ License
 
-This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)** with **GPLv3 Section 7 Additional Permissions** for digital application store distribution (Apple App Store, Google Play Store) and proprietary SDK linking (Firebase, RevenueCat, Aptabase, Apple AlarmKit, Play Integrity). See the [LICENSE](LICENSE) file for the full text.
 
 * [Website](https://familienwecker.de)
 * [Architecture](ARCHITECTURE.md)
