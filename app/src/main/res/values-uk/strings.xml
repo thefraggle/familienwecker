@@ -465,4 +465,10 @@
     <string name="a11y_move_down">Перемістити вниз</string>
     <string name="setup_paste_clipboard">Вставити з буфера обміну</string>
     <string name="setup_clipboard_code_detected">Код запрошення %1$s виявлено з буфера обміну</string>
+    <string name="shift_presets_title">Шаблони змін</string>
+    <string name="shift_early">Рання зміна</string>
+    <string name="shift_late">Пізня зміна</string>
+    <string name="shift_normal">Звичайний</string>
+    <string name="shift_off">Вихідний</string>
+    <string name="error_no_app_found">Не знайдено відповідного додатка для відкриття цього посилання.</string>
 </resources>

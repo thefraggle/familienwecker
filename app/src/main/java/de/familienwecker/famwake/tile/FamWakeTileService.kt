@@ -2,6 +2,7 @@ package de.familienwecker.famwake.tile
 
 import android.graphics.drawable.Icon
 import android.os.Build
+import android.os.UserManager
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
@@ -13,6 +14,7 @@ import de.familienwecker.famwake.model.toKmpLocalDateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDateTime
@@ -32,8 +34,15 @@ class FamWakeTileService : TileService() {
         updateTileState()
     }
 
+    private fun isDeviceUnlocked(): Boolean =
+        getSystemService(UserManager::class.java)?.isUserUnlocked ?: true
+
     override fun onClick() {
         super.onClick()
+        if (!isDeviceUnlocked()) {
+            updateTileState()
+            return
+        }
         val app = application as? FamWakeApplication ?: return
         val currentEnabled = app.appSettings.isAlarmEnabled.value
         val newEnabled = !currentEnabled
@@ -88,8 +97,13 @@ class FamWakeTileService : TileService() {
 
     private fun updateTileState() {
         val tile = qsTile ?: return
-        val app = application as? FamWakeApplication
-        val isEnabled = app?.appSettings?.isAlarmEnabled?.value ?: true
+        val unlocked = isDeviceUnlocked()
+        val app = if (unlocked) application as? FamWakeApplication else null
+        val isEnabled = if (unlocked) {
+            app?.appSettings?.isAlarmEnabled?.value ?: true
+        } else {
+            AlarmBackupPrefs.isEnabled(this)
+        }
 
         tile.state = if (isEnabled) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
         tile.label = getString(R.string.app_name_short)
@@ -98,5 +112,10 @@ class FamWakeTileService : TileService() {
             tile.subtitle = if (isEnabled) getString(R.string.quick_tile_alarm_on) else getString(R.string.quick_tile_alarm_off)
         }
         tile.updateTile()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        serviceScope.cancel()
     }
 }

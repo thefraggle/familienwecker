@@ -462,4 +462,10 @@
     <string name="a11y_move_down">नीचे ले जाएं</string>
     <string name="setup_paste_clipboard">क्लिपबोर्ड से चिपकाएं</string>
     <string name="setup_clipboard_code_detected">क्लिपबोर्ड से आमंत्रण कोड %1$s का पता चला</string>
+    <string name="shift_presets_title">शिफ्ट प्रीसेट</string>
+    <string name="shift_early">सुबह की शिफ्ट</string>
+    <string name="shift_late">देर की शिफ्ट</string>
+    <string name="shift_normal">सामान्य</string>
+    <string name="shift_off">छुट्टी का दिन</string>
+    <string name="error_no_app_found">इस लिंक को खोलने के लिए कोई उपयुक्त ऐप नहीं मिला।</string>
 </resources>

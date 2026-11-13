@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArrayList
 
 class DataStoreObservableSettings(
     private val dataStore: DataStore<Preferences>,
@@ -18,7 +19,7 @@ class DataStoreObservableSettings(
 ) : ObservableSettings, FlushableSettings {
 
     private val cache = ConcurrentHashMap<String, Any>()
-    private val listeners = ConcurrentHashMap<String, MutableList<Pair<Class<*>, (Any?) -> Unit>>>()
+    private val listeners = ConcurrentHashMap<String, CopyOnWriteArrayList<Pair<Class<*>, (Any?) -> Unit>>>()
     private val writeMutex = Mutex()
     private val pendingWrites = ConcurrentHashMap<String, Int>()
     private val pendingClears = java.util.concurrent.atomic.AtomicInteger(0)
@@ -191,7 +192,7 @@ class DataStoreObservableSettings(
     override fun getStringOrNull(key: String): String? = getValueOrNull(key)
 
     private fun addGenericListener(key: String, type: Class<*>, callback: (Any?) -> Unit): SettingsListener {
-        val list = listeners.getOrPut(key) { mutableListOf() }
+        val list = listeners.getOrPut(key) { CopyOnWriteArrayList() }
         val pair = type to callback
         list.add(pair)
         return object : SettingsListener {

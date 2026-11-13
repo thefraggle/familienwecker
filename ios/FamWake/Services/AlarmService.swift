@@ -171,11 +171,11 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         }
 
         // Snooze-State nach Firestore synchronisieren
-        if let familyId = UserDefaults.standard.string(forKey: "family_id"),
-           let myMemberId = UserDefaults.standard.string(forKey: "my_member_id") {
+        let targetMemberId = !memberId.isEmpty ? memberId : (UserDefaults.standard.string(forKey: "my_member_id") ?? "")
+        if let familyId = UserDefaults.standard.string(forKey: "family_id"), !targetMemberId.isEmpty {
             let ref = Firestore.firestore()
                 .collection("families").document(familyId)
-                .collection("members").document(myMemberId)
+                .collection("members").document(targetMemberId)
             try? await ref.updateData([
                 "snoozeUntil": Timestamp(date: snoozeDate),
                 "snoozeCount": newCount
@@ -279,8 +279,8 @@ final class AlarmService: ObservableObject {
         
         let alert = AlarmPresentation.Alert(
             title: LocalizedStringResource(stringLiteral: memberName),
-            stopButton: AlarmButton(text: "Stop", textColor: .white, systemImageName: "stop.circle"),
-            secondaryButton: AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz"),
+            stopButton: AlarmButton(text: LocalizedStringResource(stringLiteral: L.ringingStop), textColor: .white, systemImageName: "stop.circle"),
+            secondaryButton: AlarmButton(text: LocalizedStringResource(stringLiteral: L.ringingSnooze), textColor: .white, systemImageName: "zzz"),
             secondaryButtonBehavior: .custom
         )
         let presentation = AlarmPresentation(alert: alert)

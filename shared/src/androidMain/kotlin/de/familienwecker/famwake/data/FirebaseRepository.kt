@@ -480,20 +480,7 @@ class FirebaseRepository : IFirebaseRepository {
                 db.batch().run {
                     chunk.forEach { member ->
                         val dayProfilesData = member.dayProfiles?.mapKeys { it.key.toString() }
-                            ?.mapValues { (_, profile) ->
-                                buildMap<String, Any?> {
-                                    put("isActive", profile.isActive)
-                                    put("earliestWakeUp", profile.earliestWakeUp.toString())
-                                    put("latestWakeUp", profile.latestWakeUp.toString())
-                                    put("bathroomDurationMinutes", profile.bathroomDurationMinutes)
-                                    put("wantsBreakfast", profile.wantsBreakfast)
-                                    profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
-                                    profile.bufferMinutes?.let { put("bufferMinutes", it) }
-                                    profile.breakfastDurationMinutes?.let { put("breakfastDurationMinutes", it) }
-                                    put("isSimpleMode", profile.isSimpleMode)
-                                    profile.sequenceOrder?.let { put("sequenceOrder", it) }
-                                }
-                            }
+                            ?.mapValues { (_, profile) -> profile.toFirestoreMap() }
                         val docRef = collection.document(member.id)
                         update(docRef, mapOf(
                             "sequenceOrder" to member.sequenceOrder,
@@ -517,20 +504,7 @@ class FirebaseRepository : IFirebaseRepository {
     ) {
         try {
             val dayProfilesData = dayProfiles?.mapKeys { it.key.toString() }
-                ?.mapValues { (_, profile) ->
-                    buildMap<String, Any?> {
-                        put("isActive", profile.isActive)
-                        put("earliestWakeUp", profile.earliestWakeUp.toString())
-                        put("latestWakeUp", profile.latestWakeUp.toString())
-                        put("bathroomDurationMinutes", profile.bathroomDurationMinutes)
-                        put("wantsBreakfast", profile.wantsBreakfast)
-                        profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
-                        profile.bufferMinutes?.let { put("bufferMinutes", it) }
-                        profile.breakfastDurationMinutes?.let { put("breakfastDurationMinutes", it) }
-                        put("isSimpleMode", profile.isSimpleMode)
-                        profile.sequenceOrder?.let { put("sequenceOrder", it) }
-                    }
-                }
+                ?.mapValues { (_, profile) -> profile.toFirestoreMap() }
 
             db.collection(COLLECTION_FAMILIES).document(familyId)
                 .collection(COLLECTION_MEMBERS).document(memberId)
@@ -573,26 +547,29 @@ class FirebaseRepository : IFirebaseRepository {
 
     override suspend fun updateMembersBatch(familyId: String, members: List<FamilyMember>) {
         try {
-            val membersColl = db.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS)
-            members.chunked(500).forEach { chunk ->
-                db.batch().run {
-                    chunk.forEach { member ->
-                        // Nur koordinative Felder updaten – kein volles .set() um Security Rules
-                        // für name/claimedByUserId nicht zu verletzen (betrifft fremde Members).
-                        update(membersColl.document(member.id), mapOf(
-                            "isPaused" to member.isPaused,
-                            "isAwakeToday" to member.isAwakeToday,
-                            "lastResetDate" to member.lastResetDate,
-                            "snoozeUntil" to member.snoozeUntil?.let {
-                                val instant = it.toInstant(kotlinx.datetime.TimeZone.currentSystemDefault())
-                                com.google.firebase.Timestamp(instant.epochSeconds, instant.nanosecondsOfSecond)
-                            },
-                            "snoozeCount" to member.snoozeCount,
-                            "lastUpdatedAt" to dev.gitlive.firebase.firestore.FieldValue.serverTimestamp
-                        ))
-                    }
-                    commit()
+            // Native Firebase SDK nutzen, damit Timestamp/FieldValue korrekt serialisiert werden
+            val nativeDb = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+            val membersColl = nativeDb.collection(COLLECTION_FAMILIES).document(familyId).collection(COLLECTION_MEMBERS)
+            members.chunked(450).forEach { chunk ->
+                val batch = nativeDb.batch()
+                chunk.forEach { member ->
+                    // Nur koordinative Felder updaten – kein volles .set() um Security Rules
+                    // für name/claimedByUserId nicht zu verletzen (betrifft fremde Members).
+                    val snoozeTs: Any = member.snoozeUntil?.let {
+                        val instant = it.toInstant(kotlinx.datetime.TimeZone.currentSystemDefault())
+                        com.google.firebase.Timestamp(instant.epochSeconds, instant.nanosecondsOfSecond)
+                    } ?: com.google.firebase.firestore.FieldValue.delete()
+                    val updates = hashMapOf<String, Any>(
+                        "isPaused" to member.isPaused,
+                        "isAwakeToday" to member.isAwakeToday,
+                        "lastResetDate" to member.lastResetDate,
+                        "snoozeUntil" to snoozeTs,
+                        "snoozeCount" to member.snoozeCount,
+                        "lastUpdatedAt" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+                    )
+                    batch.update(membersColl.document(member.id), updates)
                 }
+                batch.commit().await()
             }
         } catch (e: Exception) {
             if (debugLogging) Log.e(TAG, "Fehler im updateMembersBatch für $familyId: ${e.message}")

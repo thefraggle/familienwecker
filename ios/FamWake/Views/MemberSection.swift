@@ -41,7 +41,7 @@ struct MemberSection: View {
                     .disabled(familyViewModel.globalBufferMinutes <= 0)
                     .buttonStyle(.plain)
                     
-                    Text("\(familyViewModel.globalBufferMinutes) min")
+                    Text(L.minutesSuffix(familyViewModel.globalBufferMinutes))
                         .font(.subheadline).fontWeight(.bold)
                         .frame(minWidth: 50, alignment: .center)
                     

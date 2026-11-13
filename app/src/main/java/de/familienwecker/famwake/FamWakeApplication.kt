@@ -22,6 +22,11 @@ class FamWakeApplication : Application() {
         lateinit var instance: FamWakeApplication
             private set
         var isScreenshotMode = false
+        var isAptabaseConfigured: Boolean = false
+            private set
+        @Volatile
+        var isRevenueCatConfigured: Boolean = false
+            private set
     }
 
     val appSettings: de.familienwecker.famwake.data.AppSettings by lazy {
@@ -31,7 +36,7 @@ class FamWakeApplication : Application() {
 
     val memberRepository: de.familienwecker.famwake.data.MemberRepository by lazy {
         val db = de.familienwecker.famwake.db.getDatabaseBuilder(this)
-            .fallbackToDestructiveMigrationFrom(dropAllTables = true, 1, 2, 3)
+            .fallbackToDestructiveMigrationFrom(dropAllTables = true, 1, 2, 3, 4)
             .build()
         de.familienwecker.famwake.data.MemberRepository(db.memberDao())
     }
@@ -44,11 +49,22 @@ class FamWakeApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        // Push: Notification Channels einmalig registrieren (Android 8+, idempotent, Direct-Boot-sicher)
+        NotificationChannels.register(this)
+
+        // Direct Boot Guard: Credential-Encrypted Storage (DataStore, Room, Firebase)
+        // ist vor dem ersten Entsperren nach einem Reboot noch nicht verfügbar.
+        val userManager = getSystemService(android.os.UserManager::class.java)
+        val isUserUnlocked = userManager?.isUserUnlocked ?: true
+        if (!isUserUnlocked) {
+            return
+        }
+
         // O7: Persistente Firestore-Offline-Persistenz konfigurieren – muss VOR dem ersten Firestore-Zugriff sein
         de.familienwecker.famwake.data.FirebaseRepository.configurePersistentCache()
         // S2: Debug-Logging im shared-Modul an BuildConfig koppeln
         de.familienwecker.famwake.data.FirebaseRepository.debugLogging = BuildConfig.DEBUG
-        // Aptabase – anonyme Nutzungsanalyse (self-hosted)
+        // Aptabase – anonyme Nutzungsanalyse (nur in produktiven Release-Builds mit gesetzter Config)
         val isTestLab = try {
             Settings.System.getString(contentResolver, "firebase.test.lab") == "true"
         } catch (_: Exception) { false }
@@ -72,29 +88,17 @@ class FamWakeApplication : Application() {
                 Build.DEVICE.contains("cuttlefish")
         val isDebug = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0 || isTestLab || isTestHarness || isEmulator || BuildConfig.DEBUG
 
-        if (BuildConfig.APTABASE_APP_KEY.isNotBlank()) {
+        val aptaKey = BuildConfig.APTABASE_APP_KEY
+        val aptaHost = BuildConfig.APTABASE_HOST
+        if (!isDebug && aptaKey.isNotBlank() && aptaHost.isNotBlank()) {
             com.aptabase.Aptabase.instance.initialize(
                 this,
-                BuildConfig.APTABASE_APP_KEY,
-                com.aptabase.InitOptions(host = BuildConfig.APTABASE_HOST)
+                aptaKey,
+                com.aptabase.InitOptions(host = aptaHost)
             )
+            isAptabaseConfigured = true
+            com.aptabase.Aptabase.instance.trackEvent("app_launched", mapOf("debug" to false))
         }
-        if (isDebug) {
-            try {
-                val envField = com.aptabase.Aptabase.instance.javaClass.getDeclaredField("env")
-                envField.isAccessible = true
-                val env = envField.get(com.aptabase.Aptabase.instance)
-                if (env != null) {
-                    val debugField = env.javaClass.getDeclaredField("isDebug")
-                    debugField.isAccessible = true
-                    debugField.setBoolean(env, true)
-                }
-            } catch (e: Exception) {
-                android.util.Log.w("FamWakeApp", "Could not set Aptabase isDebug flag via reflection", e)
-            }
-        }
-        // Push: Notification Channels einmalig registrieren (Android 8+, idempotent)
-        NotificationChannels.register(this)
         de.familienwecker.famwake.alarm.EveningReminderScheduler.schedule(this)
 
         // Ausstehende Firestore-Writes (z.B. lastModifiedByUid) können nach einem
@@ -177,6 +181,7 @@ class FamWakeApplication : Application() {
                         .preferredUILocaleOverride(fullLocale)
                         .build()
                     )
+                    isRevenueCatConfigured = true
                     if (BuildConfig.DEBUG) {
                         android.util.Log.d("FamWakeDonation", "RevenueCat initialized with key from BuildConfig")
                     }

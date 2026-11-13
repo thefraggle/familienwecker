@@ -34,6 +34,9 @@ class AlarmReceiver : BroadcastReceiver() {
         val ringingIntent = Intent(context, RingingActivity::class.java).apply {
             putExtra("MEMBER_NAME", memberName)
             putExtra("MEMBER_ID", memberId)
+            if (!soundUriString.isNullOrBlank()) {
+                putExtra("SOUND_URI", soundUriString)
+            }
             putExtra("FROM_NOTIFICATION", true)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }

@@ -261,7 +261,6 @@ class FamilyViewModel: ObservableObject {
                 
                 if member.id == myMemberId {
                     setAwakeTodayLocal(false)
-                    UserDefaults.standard.set(false, forKey: "is_awake_today_\(member.id)")
                     // Snooze-Count nur resetten wenn kein aktiver Snooze läuft –
                     // sonst wird der Count zwischen zwei Snoozes gelöscht
                     let activeSnooze = UserDefaults.standard.double(forKey: "snooze_until")
@@ -281,24 +280,13 @@ class FamilyViewModel: ObservableObject {
             
             guard !isLocalOnlyFamily else { return }
             // Auf Firestore synchronisieren
-            let batch = db.batch()
-            for member in toUpdate {
-                let ref = db.collection("families").document(familyId).collection("members").document(member.id)
-                var updates: [String: Any] = [
-                    "isAwakeToday": false,
-                    "lastResetDate": todayStr,
-                    "lastUpdatedAt": FieldValue.serverTimestamp(),
-                    "snoozeCount": 0,
-                    "snoozeUntil": FieldValue.delete()
-                ]
-                if member.claimedByUserId == nil {
-                    updates["isPaused"] = false
-                }
-                batch.updateData(updates, forDocument: ref)
-            }
             Task {
                 do {
-                    try await batch.commit()
+                    try await FamilyFirestoreService.shared.resetMembersBatch(
+                        familyId: familyId,
+                        membersToUpdate: toUpdate,
+                        todayStr: todayStr
+                    )
                 } catch {
                     print("Batch commit failed during member reset: \(error.localizedDescription)")
                     await MainActor.run {
@@ -478,8 +466,7 @@ class FamilyViewModel: ObservableObject {
         if shouldResetAwake {
             updatedMember.isAwakeToday = false
             if isMyMember {
-                self.isAwakeTodayLocal = false
-                UserDefaults.standard.set(false, forKey: "is_awake_today_\(updatedMember.id)")
+                setAwakeTodayLocal(false)
             }
         }
         // Optimistisches lokales Update für sofortige UI-Aktualisierung (Offline-First)
@@ -681,7 +668,6 @@ class FamilyViewModel: ObservableObject {
         // Bewusster Toggle = expliziter Neustart – unabhängig vom vorherigen Zustand.
         setAwakeTodayLocal(false)
         if let mid = myMemberId {
-            UserDefaults.standard.set(false, forKey: "is_awake_today_\(mid)")
             if let idx = members.firstIndex(where: { $0.id == mid }) {
                 members[idx].isAwakeToday = false
             }
@@ -707,21 +693,9 @@ class FamilyViewModel: ObservableObject {
         
         if let fid = familyId, let mid = myMemberId {
             Task {
-                if let uid = Auth.auth().currentUser?.uid {
-                    do {
-                        try await db.collection("users").document(uid)
-                            .collection("pushMeta").document("user_action")
-                            .setData([
-                                "familyId": fid,
-                                "timestamp": FieldValue.serverTimestamp()
-                            ])
-                    } catch {
-                        print("Error writing pushMeta in setAlarmEnabled: \(error)")
-                    }
-                }
+                await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
                 do {
-                    try await db.collection("families").document(fid).collection("members").document(mid)
-                        .updateData(["deviceAlarmEnabled": enabled])
+                    try await FamilyFirestoreService.shared.updateDeviceAlarmEnabled(familyId: fid, memberId: mid, enabled: enabled)
                 } catch {
                     print("Error updating deviceAlarmEnabled: \(error)")
                 }
@@ -787,66 +761,21 @@ class FamilyViewModel: ObservableObject {
         
         Task {
             // pushMeta VOR dem Write, damit CF den Sender erkennt (kein Self-Push)
-            if let uid = Auth.auth().currentUser?.uid {
-                try? await db.collection("users").document(uid)
-                    .collection("pushMeta").document("user_action")
-                    .setData(["familyId": fid, "timestamp": FieldValue.serverTimestamp()])
-            }
+            await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
                 if let oldId = currentMyMemberId, oldId != memberId {
-                    // Unclaim old member in Firestore
-                    let oldDocRef = db.collection("families").document(fid).collection("members").document(oldId)
-                    _ = try? await db.runTransaction({ (transaction, errorPointer) -> Any? in
-                        let snapshot: DocumentSnapshot
-                        do {
-                            try snapshot = transaction.getDocument(oldDocRef)
-                        } catch let error as NSError {
-                            errorPointer?.pointee = error
-                            return false
-                        }
-                        let existingClaim = snapshot.data()?["claimedByUserId"] as? String
-                        if existingClaim == uid {
-                            transaction.updateData([
-                                "claimedByUserId": FieldValue.delete(),
-                                "claimedByUserName": FieldValue.delete(),
-                                "claimedByDeviceId": FieldValue.delete(),
-                                "isAwakeToday": false,
-                                "lastUpdatedAt": FieldValue.serverTimestamp()
-                            ], forDocument: oldDocRef)
-                            return true
-                        }
-                        return false
-                    })
+                    try? await FamilyFirestoreService.shared.unclaimProfile(familyId: fid, memberId: oldId, uid: uid)
                 }
                 
                 if let memberId = memberId {
-                    // Claim new member in Firestore
-                    let docRef = db.collection("families").document(fid).collection("members").document(memberId)
-                    let success = try await db.runTransaction({ (transaction, errorPointer) -> Any? in
-                        let snapshot: DocumentSnapshot
-                        do {
-                            try snapshot = transaction.getDocument(docRef)
-                        } catch let error as NSError {
-                            errorPointer?.pointee = error
-                            return false
-                        }
-                        
-                        let existingClaim = snapshot.data()?["claimedByUserId"] as? String
-                        if force || existingClaim == nil || existingClaim == uid {
-                            transaction.updateData([
-                                "claimedByUserId": uid,
-                                "claimedByUserName": userName,
-                                "claimedByDeviceId": deviceId,
-                                "deviceAlarmEnabled": true,
-                                "lastUpdatedAt": FieldValue.serverTimestamp()
-                            ], forDocument: docRef)
-                            return true
-                        } else {
-                            let err = NSError(domain: "FamWake", code: 409, userInfo: [NSLocalizedDescriptionKey: "profile_taken"])
-                            errorPointer?.pointee = err
-                            return false
-                        }
-                    }) as? Bool ?? false
+                    let success = try await FamilyFirestoreService.shared.claimProfile(
+                        familyId: fid,
+                        memberId: memberId,
+                        uid: uid,
+                        userName: userName,
+                        deviceId: deviceId,
+                        force: force
+                    )
                     
                     if success {
                         await MainActor.run {
@@ -975,23 +904,11 @@ class FamilyViewModel: ObservableObject {
                     ], merge: true)
             }
             
-            for member in members {
-                let dpData = member.toFirestoreMap()["dayProfiles"]
-                var updatePayload: [String: Any] = [
-                    "sequenceOrder": member.sequenceOrder,
-                    "lastUpdatedAt": FieldValue.serverTimestamp()
-                ]
-                if let dp = dpData {
-                    updatePayload["dayProfiles"] = dp
-                }
-                do {
-                    try await db.collection("families").document(fid)
-                        .collection("members").document(member.id)
-                        .updateData(updatePayload)
-                } catch {
-                    await MainActor.run {
-                        self.errorMessage = self.mapFirebaseError(error)
-                    }
+            do {
+                try await FamilyFirestoreService.shared.saveMembersOrderBatch(familyId: fid, members: members)
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = self.mapFirebaseError(error)
                 }
             }
         }
@@ -1122,6 +1039,7 @@ class FamilyViewModel: ObservableObject {
         }
     }
 
+    #if DEBUG
     func setupTestAlarmAndMembers(completion: @escaping (String) -> Void) {
         guard let fid = familyId else { completion("Fehler: keine FamilyId"); return }
         guard let userId = Auth.auth().currentUser?.uid else { completion("Fehler: nicht eingeloggt"); return }
@@ -1180,6 +1098,7 @@ class FamilyViewModel: ObservableObject {
             completion("Reset & Test User angelegt")
         }
     }
+    #endif
 
     func setTooltipsEnabled(_ enabled: Bool) {
         tooltipsEnabled = enabled
@@ -1246,15 +1165,9 @@ class FamilyViewModel: ObservableObject {
         recalculateSchedule()
         
         Task {
-            // pushMeta VOR dem Write, damit CF den Sender erkennt (kein Self-Push)
-            if let uid = Auth.auth().currentUser?.uid {
-                try? await db.collection("users").document(uid)
-                    .collection("pushMeta").document("user_action")
-                    .setData(["familyId": fid, "timestamp": FieldValue.serverTimestamp()])
-            }
+            await FamilyFirestoreService.shared.trackUserAction(familyId: fid)
             do {
-                try await db.collection("families").document(fid)
-                    .updateData(["globalBufferMinutes": minutes])
+                try await FamilyFirestoreService.shared.setGlobalBufferMinutes(familyId: fid, minutes: minutes)
             } catch {
                 await MainActor.run {
                     errorMessage = mapFirebaseError(error)
@@ -1505,6 +1418,8 @@ class FamilyViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "family_join_code")
         UserDefaults.standard.removeObject(forKey: "my_member_id")
         UserDefaults.standard.removeObject(forKey: "vacation_until")
+        UserDefaults.standard.removeObject(forKey: "awake_today")
+        UserDefaults.standard.removeObject(forKey: "awake_today_date")
         UserDefaults.standard.removeObject(forKey: "is_awake_today")
         UserDefaults.standard.removeObject(forKey: "is_awake_today_date")
         SnoozeController.shared.reset()

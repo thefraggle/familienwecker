@@ -31,6 +31,50 @@ service cloud.firestore {
         ));
     }
 
+    // Validierung einzelner Tagesprofile in dayProfiles['1'..'7'] (Schema-, Typ- und Größenschutz)
+    function isValidDayProfile(p) {
+      let ew = p.get('earliestWakeUp', null);
+      let lw = p.get('latestWakeUp', null);
+      let lh = p.get('leaveHomeTime', null);
+      let sn = p.get('shiftName', null);
+      let bd = p.get('bathroomDurationMinutes', 0);
+      let bf = p.get('bufferMinutes', null);
+      let br = p.get('breakfastDurationMinutes', null);
+      let so = p.get('sequenceOrder', null);
+      return p.keys().hasOnly([
+          'isActive', 'earliestWakeUp', 'latestWakeUp',
+          'bathroomDurationMinutes', 'wantsBreakfast', 'leaveHomeTime',
+          'bufferMinutes', 'breakfastDurationMinutes', 'isSimpleMode',
+          'sequenceOrder', 'shiftName', 'isPaused'
+        ])
+        && p.get('isActive', true) is bool
+        && p.get('isPaused', false) is bool
+        && p.get('isSimpleMode', false) is bool
+        && p.get('wantsBreakfast', true) is bool
+        && (ew == null || (ew is string && ew.size() <= 10))
+        && (lw == null || (lw is string && lw.size() <= 10))
+        && (lh == null || (lh is string && lh.size() <= 10))
+        && (sn == null || (sn is string && sn.size() <= 100))
+        && (bd is number && bd >= 0 && bd <= 180)
+        && (bf == null || (bf is number && bf >= 0 && bf <= 60))
+        && (br == null || (br is number && br >= 0 && br <= 180))
+        && (so == null || (so is number && so >= 0 && so <= 100));
+    }
+
+    // Validierung der dayProfiles-Map (max. 7 Wochentags-Einträge '1'..'7')
+    function isValidDayProfiles(dp) {
+      return dp is map
+        && dp.size() <= 7
+        && dp.keys().hasOnly(['1', '2', '3', '4', '5', '6', '7'])
+        && (!('1' in dp) || (dp['1'] is map && isValidDayProfile(dp['1'])))
+        && (!('2' in dp) || (dp['2'] is map && isValidDayProfile(dp['2'])))
+        && (!('3' in dp) || (dp['3'] is map && isValidDayProfile(dp['3'])))
+        && (!('4' in dp) || (dp['4'] is map && isValidDayProfile(dp['4'])))
+        && (!('5' in dp) || (dp['5'] is map && isValidDayProfile(dp['5'])))
+        && (!('6' in dp) || (dp['6'] is map && isValidDayProfile(dp['6'])))
+        && (!('7' in dp) || (dp['7'] is map && isValidDayProfile(dp['7'])));
+    }
+
     // Gemeinsame Feld-, Typ- und Größenvalidierung für Mitglieder (Create & Update, #60)
     function isValidMemberData() {
       let d = request.resource.data;
@@ -56,7 +100,7 @@ service cloud.firestore {
         && (!('leaveHomeTime' in d) || d.leaveHomeTime == null || (d.leaveHomeTime is string && d.leaveHomeTime.size() <= 10))
         && (!('lastResetDate' in d) || d.lastResetDate == null || (d.lastResetDate is string && d.lastResetDate.size() <= 20))
         && (!('soundUri' in d) || d.soundUri == null || (d.soundUri is string && d.soundUri.size() <= 500))
-        && (!('dayProfiles' in d) || d.dayProfiles == null || (d.dayProfiles is map && d.dayProfiles.keys().hasOnly(['1', '2', '3', '4', '5', '6', '7'])))
+        && (!('dayProfiles' in d) || d.dayProfiles == null || isValidDayProfiles(d.dayProfiles))
         && (!('bathroomDurationMinutes' in d) || (d.bathroomDurationMinutes is number && d.bathroomDurationMinutes >= 0 && d.bathroomDurationMinutes <= 180))
         && (!('breakfastDurationMinutes' in d) || d.breakfastDurationMinutes == null || (d.breakfastDurationMinutes is number && d.breakfastDurationMinutes >= 0 && d.breakfastDurationMinutes <= 180))
         && (!('sequenceOrder' in d) || (d.sequenceOrder is number && d.sequenceOrder >= 0 && d.sequenceOrder <= 100))
@@ -66,7 +110,8 @@ service cloud.firestore {
         && (!('isAwakeToday' in d) || d.isAwakeToday is bool)
         && (!('isSimpleMode' in d) || d.isSimpleMode is bool)
         && (!('deviceAlarmEnabled' in d) || d.deviceAlarmEnabled == null || d.deviceAlarmEnabled is bool)
-        && (!('systemResetAt' in d) || d.systemResetAt == null || d.systemResetAt is timestamp);
+        && (!('systemResetAt' in d) || d.systemResetAt == null || d.systemResetAt is timestamp)
+        && (!('snoozeUntil' in d) || d.snoozeUntil == null || d.snoozeUntil is timestamp);
     }
 
     // Validierung beim Anlegen eines neuen Mitglieds (Schema-, Claim- und Größenschutz)
@@ -166,10 +211,16 @@ service cloud.firestore {
                   request.resource.data.get('claimedByUserId', null) == request.auth.uid
                 )
                 ||
-                // Claimen: Jedes Familienmitglied darf ein Profil auf sich selbst setzen.
-                // Stehlen / Umclaimen (Claim von A auf B) ist erlaubt.
+                // Claimen: Familienmitglieder dürfen nur ein ungeclaimtes Profil auf sich selbst setzen
+                // oder ihr eigenes Profil erneut claimen (z. B. Gerätewechsel).
+                // Das Stehlen eines fremden Claims (claimedByUserId != null && != request.auth.uid) ist blockiert
+                // (Admins können Profile weiterhin über die Admin-Regel neu zuweisen).
                 (
                   request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimedByUserId', 'claimedByUserName', 'claimedByDeviceId', 'lastUpdatedAt', 'deviceAlarmEnabled']) &&
+                  (
+                    resource.data.get('claimedByUserId', null) == null ||
+                    resource.data.get('claimedByUserId', null) == request.auth.uid
+                  ) &&
                   request.resource.data.get('claimedByUserId', '') == request.auth.uid
                 )
                 ||

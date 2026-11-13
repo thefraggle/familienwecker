@@ -465,4 +465,10 @@
     <string name="a11y_move_down">Aşağı taşı</string>
     <string name="setup_paste_clipboard">Panodan yapıştır</string>
     <string name="setup_clipboard_code_detected">Panodan %1$s davet kodu algılandı</string>
+    <string name="shift_presets_title">Vardiya şablonları</string>
+    <string name="shift_early">Sabah vardiyası</string>
+    <string name="shift_late">Akşam vardiyası</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">İzin günü</string>
+    <string name="error_no_app_found">Bu bağlantıyı açmak için uygun uygulama bulunamadı.</string>
 </resources>

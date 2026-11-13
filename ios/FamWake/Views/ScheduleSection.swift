@@ -162,8 +162,8 @@ struct ScheduleSection: View {
                                     return L.scheduleMessageBreakfastAndTimeAdjusted(r, s)
                                 case .bufferReduced(let r, let s):
                                     return L.scheduleMessageBufferReduced(r, s)
-                                case .memberLimitExceeded(let total, let max):
-                                    return String(format: L.s("schedule_message_member_limit"), total, max)
+                                case .memberLimitExceeded:
+                                    return L.mainMemberLimitReached
                                 default:
                                     return nil
                                 }

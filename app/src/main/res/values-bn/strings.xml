@@ -464,4 +464,10 @@
     <string name="a11y_move_down">নিচে সরান</string>
     <string name="setup_paste_clipboard">ক্লিপবোর্ড থেকে পেস্ট করুন</string>
     <string name="setup_clipboard_code_detected">ক্লিপবোর্ড থেকে আমন্ত্রণ কোড %1$s সনাক্ত হয়েছে</string>
+    <string name="shift_presets_title">শিফট প্রিসেট</string>
+    <string name="shift_early">সকালের শিফট</string>
+    <string name="shift_late">বিকেলের শিফট</string>
+    <string name="shift_normal">সাধারণ</string>
+    <string name="shift_off">ছুটির দিন</string>
+    <string name="error_no_app_found">এই লিঙ্কটি খোলার জন্য কোনো উপযুক্ত অ্যাপ পাওয়া যায়নি।</string>
 </resources>

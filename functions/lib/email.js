@@ -1,11 +1,22 @@
 // email.js – E-Mail-Functions (Reset, Bestätigung, Verifizierung)
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { Resend } = require("resend");
-const { admin, checkEmailRateLimit, BRAND_BLUE, resolveLanguage } = require("./shared");
+const { admin, checkSingleRateLimit, checkEmailRateLimit, BRAND_BLUE, resolveLanguage } = require("./shared");
 const { SENDER, LINK_LABELS, EMAIL_CONTENT, EMAIL_CONTENT_CONFIRM, EMAIL_CONTENT_VERIFY } = require("./i18n");
 
-const OPERATOR_NAME = process.env.OPERATOR_NAME || "Daniel Notthoff";
-const OPERATOR_ADDRESS = process.env.OPERATOR_ADDRESS || "Rudolf-Virchow-Str. 20, 58300 Wetter";
+function renderEmailFooter(t, l, privacyUrl, imprintUrl) {
+  const operatorName = process.env.OPERATOR_NAME || "FamWake Support";
+  const operatorAddress = process.env.OPERATOR_ADDRESS || "";
+  const addressLines = [operatorName, operatorAddress].filter(Boolean).join("<br>\n        ");
+  return `<p style="font-size: 11px; color: #999; text-align: center;">
+        <strong>${t.appName}</strong><br>
+        ${addressLines ? `${addressLines}<br><br>` : "<br>"}
+        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${l.home}</a> &nbsp;|&nbsp;
+        <a href="${privacyUrl}" style="color: #999; text-decoration: none;">${l.privacy}</a> &nbsp;|&nbsp;
+        <a href="${imprintUrl}" style="color: #999; text-decoration: none;">${l.imprint}</a><br><br>
+        ${t.footerNote}
+      </p>`;
+}
 
 function buildEmailHtml(link, lang) {
   const t = EMAIL_CONTENT[lang] || EMAIL_CONTENT.en;
@@ -26,15 +37,7 @@ function buildEmailHtml(link, lang) {
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 12px; color: #888; background-color: #f9f9f9; padding: 12px; border-radius: 6px;">${t.security}</p>
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-      <p style="font-size: 11px; color: #999; text-align: center;">
-        <strong>${t.appName}</strong><br>
-        ${OPERATOR_NAME}<br>
-        ${OPERATOR_ADDRESS}<br><br>
-        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${l.home}</a> &nbsp;|&nbsp;
-        <a href="${privacyUrl}" style="color: #999; text-decoration: none;">${l.privacy}</a> &nbsp;|&nbsp;
-        <a href="${imprintUrl}" style="color: #999; text-decoration: none;">${l.imprint}</a><br><br>
-        ${t.footerNote}
-      </p>
+      ${renderEmailFooter(t, l, privacyUrl, imprintUrl)}
     </div>
   `;
 }
@@ -65,6 +68,11 @@ exports.sendBrandedResetEmail = onCall(
     }
 
     try {
+      const callerIp = (request.rawRequest?.ip || "").replace(/[^a-zA-Z0-9_.-]/g, "_");
+      if (callerIp) {
+        const ipLimited = await checkSingleRateLimit(`reset_ip_${callerIp}`, 60 * 60 * 1000, 15);
+        if (ipLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+      }
       await checkEmailRateLimit(email.trim(), "reset");
       const linkOriginal = await admin.auth().generatePasswordResetLink(email.trim());
       let link = linkOriginal.replace("deine-domain.de", "www.familienwecker.de");
@@ -123,15 +131,7 @@ function buildConfirmEmailHtml(lang) {
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="font-size: 12px; color: #888; background-color: #f9f9f9; padding: 12px; border-radius: 6px;">${t.security}</p>
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-      <p style="font-size: 11px; color: #999; text-align: center;">
-        <strong>${t.appName}</strong><br>
-        Daniel Notthoff<br>
-        Rudolf-Virchow-Str. 20, 58300 Wetter<br><br>
-        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${l.home}</a> &nbsp;|&nbsp;
-        <a href="${privacyUrl}" style="color: #999; text-decoration: none;">${l.privacy}</a> &nbsp;|&nbsp;
-        <a href="${imprintUrl}" style="color: #999; text-decoration: none;">${l.imprint}</a><br><br>
-        ${t.footerNote}
-      </p>
+      ${renderEmailFooter(t, l, privacyUrl, imprintUrl)}
     </div>
   `;
 }
@@ -208,15 +208,7 @@ function buildVerifyEmailHtml(link, lang) {
       <p style="font-size: 12px; color: #888; background-color: #f9f9f9; padding: 12px; border-radius: 6px;">${t.privacy}</p>
       <p style="font-size: 12px; color: #888;">${t.security}</p>
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-      <p style="font-size: 11px; color: #999; text-align: center;">
-        <strong>${t.appName}</strong><br>
-        ${OPERATOR_NAME}<br>
-        ${OPERATOR_ADDRESS}<br><br>
-        <a href="https://www.familienwecker.de" style="color: #999; text-decoration: none;">${l.home}</a> &nbsp;|&nbsp;
-        <a href="${privacyUrl}" style="color: #999; text-decoration: none;">${l.privacy}</a> &nbsp;|&nbsp;
-        <a href="${imprintUrl}" style="color: #999; text-decoration: none;">${l.imprint}</a><br><br>
-        ${t.footerNote}
-      </p>
+      ${renderEmailFooter(t, l, privacyUrl, imprintUrl)}
     </div>
   `;
 }
@@ -288,6 +280,7 @@ exports.sendVerificationEmail = onCall(
   }
 );
 
+exports.renderEmailFooter = renderEmailFooter;
 exports.buildEmailHtml = buildEmailHtml;
 exports.buildConfirmEmailHtml = buildConfirmEmailHtml;
 exports.buildVerifyEmailHtml = buildVerifyEmailHtml;

@@ -353,19 +353,30 @@ exports.deleteFamily = onCall(
       ...membersSnapshot.docs.map(d => d.data().claimedByUserId).filter(Boolean)
     ]);
 
-    const batch = admin.firestore().batch();
+    const batchOps = [];
 
     for (const memberDoc of membersSnapshot.docs) {
-      batch.delete(memberDoc.ref); // Delete member document
+      batchOps.push((b) => b.delete(memberDoc.ref)); // Delete member document
     }
 
-    for (const uid of userIdsToClean) {
-      batch.set(admin.firestore().collection("users").doc(uid), {
-        familyId: admin.firestore.FieldValue.delete()
-      }, { merge: true });
+    for (const cleanUid of userIdsToClean) {
+      batchOps.push((b) =>
+        b.set(
+          admin.firestore().collection("users").doc(cleanUid),
+          { familyId: admin.firestore.FieldValue.delete() },
+          { merge: true }
+        )
+      );
     }
 
-    await batch.commit(); // Commit batch for member deletion and user profile cleanup
+    // Firestore-Batch-Limit (max 500 Ops) durch Chunking auf 450 sicher einhalten
+    for (let i = 0; i < batchOps.length; i += 450) {
+      const batch = admin.firestore().batch();
+      for (const applyOp of batchOps.slice(i, i + 450)) {
+        applyOp(batch);
+      }
+      await batch.commit();
+    }
 
     // Recursively delete the family document and its subcollections
     // This is the robust way to ensure everything inside matches/members is gone
@@ -559,10 +570,32 @@ exports.notifyBathroomFree = onCall(
       throw new HttpsError("not-found", "MEMBER_NOT_FOUND");
     }
 
-    // Aktive Mitglieder nach Reihenfolge sortieren (sequenceOrder, dann createdAt)
+    const familyTimeZone = familyDoc.data().timeZone || "Europe/Berlin";
+    let dowShort;
+    try {
+      dowShort = new Intl.DateTimeFormat("en-US", { timeZone: familyTimeZone, weekday: "short" }).format(new Date());
+    } catch {
+      dowShort = new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Berlin", weekday: "short" }).format(new Date());
+    }
+    const DOW_MAP = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 };
+    const todayDow = DOW_MAP[dowShort] || (new Date().getDay() === 0 ? 7 : new Date().getDay());
+
+    const getEffectiveOrder = (m) => {
+      const dp = m.dayProfiles?.[todayDow] || m.dayProfiles?.[String(todayDow)];
+      return dp?.sequenceOrder ?? m.sequenceOrder ?? 0;
+    };
+    const toCreatedMillis = (ts) => {
+      if (!ts) return 0;
+      if (typeof ts.toMillis === "function") return ts.toMillis();
+      if (typeof ts === "number") return ts;
+      if (typeof ts._seconds === "number") return ts._seconds * 1000;
+      return 0;
+    };
+
+    // Aktive Mitglieder nach heutiger Tagesreihenfolge sortieren (dayProfiles -> sequenceOrder, dann createdAt)
     const activeMembers = members
       .filter(m => !m.isPaused)
-      .sort((a, b) => (a.sequenceOrder ?? 0) - (b.sequenceOrder ?? 0) || (a.createdAt ?? 0) - (b.createdAt ?? 0));
+      .sort((a, b) => getEffectiveOrder(a) - getEffectiveOrder(b) || toCreatedMillis(a.createdAt) - toCreatedMillis(b.createdAt));
 
     const senderIdx = activeMembers.findIndex(m => m.id === memberId);
     // Nächstes aktives Mitglied in der Reihe

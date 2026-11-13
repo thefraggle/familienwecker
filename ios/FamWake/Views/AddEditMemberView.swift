@@ -519,7 +519,7 @@ private struct DayProfileCard: View {
                             .accessibilityLabel(L.s("accessibility_buffer_minus"))
                             
                             let isOverride = profile.bufferMinutes != nil && profile.bufferMinutes != globalBufferMinutes
-                            Text("\(effectiveValue) min")
+                            Text(L.minutesSuffix(effectiveValue))
                                 .font(.headline)
                                 .fontWeight(isOverride ? .bold : .regular)
                                 .italic(!isOverride)
@@ -573,7 +573,7 @@ private struct DayProfileCard: View {
                                 }
                                 .disabled(currentBf <= 10)
 
-                                Text("\(currentBf) min")
+                                Text(L.minutesSuffix(currentBf))
                                     .font(.headline)
                                     .frame(minWidth: 64)
                                     .multilineTextAlignment(.center)

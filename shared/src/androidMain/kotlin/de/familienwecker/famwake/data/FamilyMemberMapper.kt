@@ -64,7 +64,8 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
                 is Long -> seqRaw.toInt()
                 is Number -> seqRaw.toInt()
                 else -> null
-            }
+            },
+            shiftName = map["shiftName"] as? String
         )
     }?.toMap()?.takeIf { it.isNotEmpty() }
 
@@ -132,24 +133,28 @@ fun DocumentSnapshot.toFamilyMember(): FamilyMember {
 }
 
 /**
+ * Mapper: DayProfile → Firestore Map
+ */
+fun DayProfile.toFirestoreMap(): Map<String, Any?> = buildMap {
+    put("isActive", isActive)
+    put("earliestWakeUp", earliestWakeUp.toString())
+    put("latestWakeUp", latestWakeUp.toString())
+    put("bathroomDurationMinutes", bathroomDurationMinutes)
+    put("wantsBreakfast", wantsBreakfast)
+    leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
+    bufferMinutes?.let { put("bufferMinutes", it) }
+    breakfastDurationMinutes?.let { put("breakfastDurationMinutes", it) }
+    put("isSimpleMode", isSimpleMode)
+    sequenceOrder?.let { put("sequenceOrder", it) }
+    shiftName?.let { put("shiftName", it) }
+}
+
+/**
  * Mapper: FamilyMember → Firestore Map (GitLive API)
  */
 fun FamilyMember.toFirestoreMap(): Map<String, Any?> {
     val dayProfilesData = dayProfiles?.mapKeys { it.key.toString() }
-        ?.mapValues { (_, profile) ->
-            buildMap<String, Any?> {
-                put("isActive", profile.isActive)
-                put("earliestWakeUp", profile.earliestWakeUp.toString())
-                put("latestWakeUp", profile.latestWakeUp.toString())
-                put("bathroomDurationMinutes", profile.bathroomDurationMinutes)
-                put("wantsBreakfast", profile.wantsBreakfast)
-                profile.leaveHomeTime?.let { put("leaveHomeTime", it.toString()) }
-                profile.bufferMinutes?.let { put("bufferMinutes", it) }
-                profile.breakfastDurationMinutes?.let { put("breakfastDurationMinutes", it) }
-                put("isSimpleMode", profile.isSimpleMode)
-                profile.sequenceOrder?.let { put("sequenceOrder", it) }
-            }
-        }
+        ?.mapValues { (_, profile) -> profile.toFirestoreMap() }
 
     return hashMapOf(
         "name" to name,

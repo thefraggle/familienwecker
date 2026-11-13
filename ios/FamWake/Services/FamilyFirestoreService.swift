@@ -178,20 +178,48 @@ final class FamilyFirestoreService {
     }
 
     func resetMembersBatch(familyId: String, membersToUpdate: [FamilyMember], todayStr: String) async throws {
-        let batch = db.batch()
-        for member in membersToUpdate {
-            let ref = db.collection("families").document(familyId).collection("members").document(member.id)
-            var updates: [String: Any] = [
-                "isAwakeToday": false,
-                "lastResetDate": todayStr,
-                "lastUpdatedAt": FieldValue.serverTimestamp()
-            ]
-            if member.claimedByUserId == nil {
-                updates["isPaused"] = false
+        var idx = 0
+        while idx < membersToUpdate.count {
+            let chunk = Array(membersToUpdate[idx..<min(idx + 450, membersToUpdate.count)])
+            let batch = db.batch()
+            for member in chunk {
+                let ref = db.collection("families").document(familyId).collection("members").document(member.id)
+                var updates: [String: Any] = [
+                    "isAwakeToday": false,
+                    "lastResetDate": todayStr,
+                    "lastUpdatedAt": FieldValue.serverTimestamp(),
+                    "snoozeCount": 0,
+                    "snoozeUntil": FieldValue.delete()
+                ]
+                if member.claimedByUserId == nil {
+                    updates["isPaused"] = false
+                }
+                batch.updateData(updates, forDocument: ref)
             }
-            batch.updateData(updates, forDocument: ref)
+            try await batch.commit()
+            idx += 450
         }
-        try await batch.commit()
+    }
+
+    func saveMembersOrderBatch(familyId: String, members: [FamilyMember]) async throws {
+        var idx = 0
+        while idx < members.count {
+            let chunk = Array(members[idx..<min(idx + 450, members.count)])
+            let batch = db.batch()
+            for member in chunk {
+                let ref = db.collection("families").document(familyId).collection("members").document(member.id)
+                var updatePayload: [String: Any] = [
+                    "sequenceOrder": member.sequenceOrder,
+                    "lastUpdatedAt": FieldValue.serverTimestamp()
+                ]
+                if let dp = member.toFirestoreMap()["dayProfiles"] {
+                    updatePayload["dayProfiles"] = dp
+                }
+                batch.updateData(updatePayload, forDocument: ref)
+            }
+            try await batch.commit()
+            idx += 450
+        }
     }
 
     func claimProfile(familyId: String, memberId: String, uid: String, userName: String, deviceId: String, force: Bool) async throws -> Bool {

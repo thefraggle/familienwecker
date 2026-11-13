@@ -40,6 +40,7 @@ object AlarmBackupPrefs {
     private const val KEY_ENABLED      = "alarm_enabled"
     private const val KEY_SNOOZE_UNTIL = "alarm_snooze_until"
     private const val KEY_SNOOZE_COUNT = "alarm_snooze_count"
+    private const val KEY_GLOBAL_BUFFER_MINUTES = "global_buffer_minutes"
 
     // Member-spezifische Key-Generatoren
     private fun keyMemberName(id: String) = "alarm_name_$id"
@@ -242,4 +243,21 @@ object AlarmBackupPrefs {
         }
         return p.getInt(KEY_SNOOZE_COUNT, 0)
     }
+
+    fun saveGlobalBufferMinutes(context: Context, minutes: Long) {
+        try {
+            prefs(context).edit().putLong(KEY_GLOBAL_BUFFER_MINUTES, minutes).apply()
+        } catch (e: Exception) {
+            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                android.util.Log.e("AlarmBackupPrefs", "Fehler beim Speichern von globalBufferMinutes: ${e.message}")
+            }
+        }
+    }
+
+    fun getGlobalBufferMinutes(context: Context): Long =
+        try {
+            prefs(context).getLong(KEY_GLOBAL_BUFFER_MINUTES, 0L)
+        } catch (_: Exception) {
+            0L
+        }
 }

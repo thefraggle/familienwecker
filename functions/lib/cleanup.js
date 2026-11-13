@@ -230,16 +230,26 @@ exports.scheduledMemberReset = onSchedule(
   },
   async (event) => {
     const now = new Date();
-    const options = { timeZone: "Europe/Berlin", hour12: false };
-    const todayStr = now.toLocaleDateString("en-CA", options); // YYYY-MM-DD
-    const currentTimeStr = now.toLocaleTimeString("en-GB", options).slice(0, 5); // HH:mm
-    const [currH, currM] = currentTimeStr.split(":").map(Number);
-    const currentMinutes = currH * 60 + currM;
-    const berlinDate = new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Berlin", weekday: "short" }).format(now);
     const DOW_MAP = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 };
-    const currentDow = DOW_MAP[berlinDate] || (now.getDay() === 0 ? 7 : now.getDay());
+    const resolveTimeContext = (tz) => {
+      let effectiveTz = tz || "Europe/Berlin";
+      try {
+        new Intl.DateTimeFormat("en-US", { timeZone: effectiveTz }).format(now);
+      } catch {
+        effectiveTz = "Europe/Berlin";
+      }
+      const options = { timeZone: effectiveTz, hour12: false };
+      const todayStr = now.toLocaleDateString("en-CA", options); // YYYY-MM-DD
+      const currentTimeStr = now.toLocaleTimeString("en-GB", options).slice(0, 5); // HH:mm
+      const [currH, currM] = currentTimeStr.split(":").map(Number);
+      const currentMinutes = currH * 60 + currM;
+      const dowShort = new Intl.DateTimeFormat("en-US", { timeZone: effectiveTz, weekday: "short" }).format(now);
+      const currentDow = DOW_MAP[dowShort] || (now.getDay() === 0 ? 7 : now.getDay());
+      return { todayStr, currentTimeStr, currentMinutes, currentDow };
+    };
 
-    console.log(`Running optimized scheduled reset check at ${currentTimeStr} (${todayStr}, DOW: ${currentDow}).`);
+    const defaultCtx = resolveTimeContext("Europe/Berlin");
+    console.log(`Running optimized scheduled reset check at ${defaultCtx.currentTimeStr} (${defaultCtx.todayStr}, DOW: ${defaultCtx.currentDow} Europe/Berlin).`);
 
     // 1. Nur Member abfragen, die tatsächlich im modifizierten Zustand sind
     const [awakeSnap, snoozeSnap, pausedSnap] = await Promise.all([
@@ -260,12 +270,37 @@ exports.scheduledMemberReset = onSchedule(
 
     console.log(`Evaluating ${docsToProcessMap.size} potentially dirty member documents.`);
 
+    // Zeitzonen einmalig pro betroffener Familie cachen
+    const familyRefsById = new Map();
+    for (const memberDoc of docsToProcessMap.values()) {
+      const familyRef = memberDoc.ref.parent.parent;
+      if (familyRef && !familyRefsById.has(familyRef.id)) {
+        familyRefsById.set(familyRef.id, familyRef);
+      }
+    }
+    const familyTimeContextById = new Map();
+    await Promise.all(
+      [...familyRefsById.entries()].map(async ([familyId, familyRef]) => {
+        try {
+          const familyDoc = await familyRef.get();
+          const tz = familyDoc.data()?.timeZone || "Europe/Berlin";
+          familyTimeContextById.set(familyId, resolveTimeContext(tz));
+        } catch (err) {
+          console.warn(`Could not read timezone for family ${familyId}:`, err?.message || err);
+          familyTimeContextById.set(familyId, defaultCtx);
+        }
+      })
+    );
+
     let batch = admin.firestore().batch();
     let batchCount = 0;
     let totalResetCount = 0;
 
     for (const memberDoc of docsToProcessMap.values()) {
       const member = memberDoc.data();
+      const familyId = memberDoc.ref.parent.parent?.id;
+      const { todayStr, currentMinutes, currentDow } =
+        (familyId && familyTimeContextById.get(familyId)) || defaultCtx;
       
       // Tagesprofil für den heutigen Wochentag berücksichtigen (Fallback auf Standardfeld)
       const dayProfile = member.dayProfiles?.[currentDow] || member.dayProfiles?.[String(currentDow)];

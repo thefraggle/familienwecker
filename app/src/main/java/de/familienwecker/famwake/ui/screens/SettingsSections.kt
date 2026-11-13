@@ -1337,7 +1337,9 @@ fun SettingsSupportSection(
                     }
                     try {
                         context.startActivity(intent)
-                    } catch (_: android.content.ActivityNotFoundException) { }
+                    } catch (_: android.content.ActivityNotFoundException) {
+                        android.widget.Toast.makeText(context, context.getString(R.string.error_no_app_found), android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 },
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth().height(56.dp).bounceClick(supportInteractionSource),
@@ -1393,7 +1395,9 @@ fun SettingsLogoutSection(
                     val intent = Intent(Intent.ACTION_VIEW, deleteAccountUrl.toUri())
                     try {
                         context.startActivity(intent)
-                    } catch (_: android.content.ActivityNotFoundException) { }
+                    } catch (_: android.content.ActivityNotFoundException) {
+                        android.widget.Toast.makeText(context, context.getString(R.string.error_no_app_found), android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {

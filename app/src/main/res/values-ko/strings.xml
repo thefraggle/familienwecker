@@ -460,4 +460,10 @@
     <string name="a11y_move_down">아래로 이동</string>
     <string name="setup_paste_clipboard">클립보드에서 붙여넣기</string>
     <string name="setup_clipboard_code_detected">클립보드에서 초대 코드 %1$s 감지됨</string>
+    <string name="shift_presets_title">근무 프리셋</string>
+    <string name="shift_early">오전 근무</string>
+    <string name="shift_late">오후 근무</string>
+    <string name="shift_normal">일반</string>
+    <string name="shift_off">휴무일</string>
+    <string name="error_no_app_found">이 링크를 열 수 있는 앱이 없습니다.</string>
 </resources>

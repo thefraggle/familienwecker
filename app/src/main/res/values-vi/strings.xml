@@ -465,4 +465,10 @@
     <string name="a11y_move_down">Di chuyển xuống</string>
     <string name="setup_paste_clipboard">Dán từ bộ nhớ tạm</string>
     <string name="setup_clipboard_code_detected">Mã mời %1$s được phát hiện từ bộ nhớ tạm</string>
+    <string name="shift_presets_title">Mẫu ca làm</string>
+    <string name="shift_early">Ca sáng</string>
+    <string name="shift_late">Ca chiều</string>
+    <string name="shift_normal">Bình thường</string>
+    <string name="shift_off">Ngày nghỉ</string>
+    <string name="error_no_app_found">Không tìm thấy ứng dụng phù hợp để mở liên kết này.</string>
 </resources>

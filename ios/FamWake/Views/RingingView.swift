@@ -66,7 +66,7 @@ struct RingingView: View {
                             HStack(spacing: 10) {
                                 Image(systemName: "checkmark.circle.fill")
                                     .font(.title3)
-                                Text("OK")
+                                Text(L.okButton)
                                     .font(.headline).fontWeight(.bold)
                             }
                             .foregroundStyle(Color.ringingPurpleDark)

@@ -438,71 +438,8 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
 internal fun FamilyViewModel.resolveEffectiveMember(
     member: de.familienwecker.famwake.model.FamilyMember,
     forDate: kotlinx.datetime.LocalDate? = null
-): de.familienwecker.famwake.model.FamilyMember {
-    val profiles = member.dayProfiles ?: return member
-    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
-    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
-
-    val targetDate = if (forDate != null) {
-        forDate
-    } else {
-        val todayDow = today.dayOfWeek.value
-        val todayProfile = profiles[todayDow]
-        if (todayProfile != null && todayProfile.isActive && now < todayProfile.latestWakeUp) {
-            today
-        } else {
-            today.plus(1, DateTimeUnit.DAY)
-        }
-    }
-
-    val targetDow = targetDate.dayOfWeek.value
-    val profile = profiles[targetDow] ?: return member.copy(isPaused = true)
-    if (!profile.isActive) return member.copy(isPaused = true)
-
-    val resolved = member.copy(
-        earliestWakeUp           = profile.earliestWakeUp,
-        latestWakeUp             = profile.latestWakeUp,
-        bathroomDurationMinutes  = profile.bathroomDurationMinutes,
-        wantsBreakfast           = profile.wantsBreakfast,
-        leaveHomeTime            = profile.leaveHomeTime,
-        breakfastDurationMinutes = profile.breakfastDurationMinutes ?: member.breakfastDurationMinutes,
-        dayProfiles              = mapOf(targetDow to profile),
-        isSimpleMode             = profile.isSimpleMode,
-        snoozeUntil              = if (targetDate == today) member.snoozeUntil else null,
-        snoozeCount              = if (targetDate == today) member.snoozeCount else 0
-    )
-
-    // Snooze-Constraint: Wenn dieser Member heute aktiv snoozed, fixiere seine Weckzeit
-    val snoozeUntil = resolved.snoozeUntil
-    if (snoozeUntil != null) {
-        val nowDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        if (snoozeUntil > nowDateTime && snoozeUntil.date == targetDate) {
-            val snoozeTime = snoozeUntil.time
-            // Beim 1. Snooze: Badzeit um SNOOZE_DURATION reduzieren → absorbiert die Verschiebung,
-            // sodass nachfolgende Members NICHT verschoben werden.
-            // Beim 2. Snooze: Badzeit bleibt gleich → Scheduler verschiebt nachfolgende Members.
-            // Bei kurzer Badzeit (≤ MIN_BATHROOM): auch der 1. Snooze verschiebt.
-            val absorbableMinutes = if (resolved.snoozeCount <= 1) {
-                minOf(
-                    SnoozeConfig.SNOOZE_DURATION_MINUTES.toLong(),
-                    maxOf(0L, resolved.bathroomDurationMinutes - SnoozeConfig.MIN_BATHROOM_MINUTES)
-                )
-            } else {
-                0L // 2. Snooze: keine Absorption → volle Verschiebung nachfolgender Members
-            }
-            val reducedBathroom = resolved.bathroomDurationMinutes - absorbableMinutes
-            return resolved.copy(
-                earliestWakeUp = snoozeTime,
-                latestWakeUp = snoozeTime,
-                bathroomDurationMinutes = reducedBathroom
-            )
-        } else {
-            return resolved.copy(snoozeUntil = null, snoozeCount = 0)
-        }
-    }
-
-    return resolved
-}
+): de.familienwecker.famwake.model.FamilyMember =
+    de.familienwecker.famwake.algorithm.NextAlarmCalculator.resolveEffectiveMember(member, forDate)
 
 /** Cancelt den Alarm des aktuell eingeloggten Users. */
 internal fun FamilyViewModel.cancelAlarmForCurrentUser() {

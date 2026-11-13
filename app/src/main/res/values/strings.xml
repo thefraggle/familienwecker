@@ -320,6 +320,7 @@
     <string name="error_report_failed">Could not send report</string>
     <string name="error_leave_failed">Could not leave the family</string>
     <string name="error_revenuecat_not_configured">Store not ready</string>
+    <string name="error_no_app_found">No suitable app found to open this link.</string>
     <string name="default_someone">Someone</string>
     <string name="error_label">Problem</string>
     <string name="offline_write_hint">No internet. Your changes will be saved as soon as you are back online.</string>

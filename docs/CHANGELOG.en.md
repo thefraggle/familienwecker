@@ -2,6 +2,13 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.11 – 2026-11-13
+✨ New & Improved:
+• More Reliable Alarms & Persistence: Saved schedules, alarm sounds, and buffer settings work together more reliably after a device restart.
+• Stronger Cloud Security: Family profiles and backend requests undergo stricter checks and are better protected against unauthorized changes.
+• Clean Default Configuration: Telemetry and email settings are strictly separated from the public source code so local builds and forks never send unintended data.
+• Complete Translations: Missing labels for shift schedules, pause states, and alarm actions have been added across all supported languages.
+
 ## 2.2.10 – 2026-11-12
 ✨ New & Improved:
 • Maximum Alarm Precision: Cross-platform alignment of wake time calculations, day transitions, and snooze absorption between Android and iOS using unified test vectors.

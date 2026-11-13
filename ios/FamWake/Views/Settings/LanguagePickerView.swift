@@ -41,7 +41,7 @@ struct LanguagePickerView: View {
                 langRow(code: "mr", label: "मराठी")
                 langRow(code: "hi", label: "हिन्दी")
             }
-            Section("Dialekte 🎙️") {
+            Section(L.settingsLanguageDialects) {
                 ForEach(dialectLanguages, id: \.0) { item in
                     langRow(code: item.0, label: item.1)
                 }

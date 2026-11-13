@@ -32,10 +32,16 @@ class DonationViewModel : ViewModel() {
     }
 
     fun fetchOfferings() {
+        if (!de.familienwecker.famwake.FamWakeApplication.isRevenueCatConfigured) {
+            _purchaseState.value = PurchaseState.Error(UiText.StringResource(R.string.error_revenuecat_not_configured))
+            return
+        }
         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
             android.util.Log.d("FamWakeDonation", "Fetching offerings from RevenueCat...")
         }
-        Aptabase.instance.trackEvent("donation_sheet_opened")
+        if (de.familienwecker.famwake.FamWakeApplication.isAptabaseConfigured) {
+            Aptabase.instance.trackEvent("donation_sheet_opened")
+        }
         try {
             Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
                 override fun onReceived(offerings: Offerings) {
@@ -83,11 +89,17 @@ class DonationViewModel : ViewModel() {
     }
 
     fun purchasePackage(activity: android.app.Activity, packageToPurchase: Package) {
+        if (!de.familienwecker.famwake.FamWakeApplication.isRevenueCatConfigured) {
+            _purchaseState.value = PurchaseState.Error(UiText.StringResource(R.string.error_revenuecat_not_configured))
+            return
+        }
         _purchaseState.value = PurchaseState.Loading
-        Aptabase.instance.trackEvent(
-            "donation_package_selected",
-            mapOf("package_id" to packageToPurchase.identifier)
-        )
+        if (de.familienwecker.famwake.FamWakeApplication.isAptabaseConfigured) {
+            Aptabase.instance.trackEvent(
+                "donation_package_selected",
+                mapOf("package_id" to packageToPurchase.identifier)
+            )
+        }
         val params = PurchaseParams.Builder(activity, packageToPurchase).build()
         Purchases.sharedInstance.purchase(
             params,

@@ -459,4 +459,10 @@
     <string name="a11y_move_down">Nonderschieba</string>
     <string name="setup_paste_clipboard">Aus dr Zwischablage eifüga</string>
     <string name="setup_clipboard_code_detected">Eiladungscode %1$s aus dr Zwischablage gfonde</string>
+    <string name="shift_presets_title">Schichtvorlaga</string>
+    <string name="shift_early">Friahschicht</string>
+    <string name="shift_late">Spätschicht</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">Frei</string>
+    <string name="error_no_app_found">Koi bassende App zom Öffna vo dem Link gfonda.</string>
 </resources>

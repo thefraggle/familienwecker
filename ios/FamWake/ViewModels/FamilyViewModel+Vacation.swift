@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import FirebaseFunctions
 import Aptabase
 
 // MARK: - FamilyViewModel Vacation, Notification & Feedback Extension
@@ -114,7 +113,7 @@ extension FamilyViewModel {
             return
         }
         let myMember = members.first(where: { $0.id == myId })
-        let memberName = myMember?.name ?? "jemand"
+        let memberName = myMember?.name ?? L.s("default_someone")
 
         bathroomFreeSending = true
         Task {
@@ -148,20 +147,19 @@ extension FamilyViewModel {
     func sendFeedback(category: String, message: String, email: String, appVersion: String, device: String) {
         isSendingFeedback = true
         feedbackError = nil
-        let data: [String: Any] = [
-            "category": category,
-            "message": message.trimmingCharacters(in: .whitespacesAndNewlines),
-            "email": email.trimmingCharacters(in: .whitespacesAndNewlines),
-            "appVersion": appVersion,
-            "device": device
-        ]
         Task {
             do {
-                try await functions.httpsCallable("sendFeedbackEmail").call(data)
+                try await FamilyFirestoreService.shared.sendFeedback(
+                    category: category,
+                    message: message,
+                    email: email,
+                    appVersion: appVersion,
+                    device: device
+                )
                 feedbackSubmitted = true
                 Aptabase.shared.trackEvent("feedback_submitted", with: ["category": category])
             } catch {
-                feedbackError = mapFirebaseError(error)
+                feedbackError = error.localizedDescription
             }
             isSendingFeedback = false
         }

@@ -20,9 +20,13 @@ class AndroidNetworkMonitor(private val context: Context) : NetworkMonitor {
     override val isOnline: StateFlow<Boolean> = _isOnline.asStateFlow()
 
     init {
-        val activeNetwork = connectivityManager.activeNetwork
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
-        _isOnline.value = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        _isOnline.value = checkCurrentConnectivity()
+    }
+
+    private fun checkCurrentConnectivity(): Boolean {
+        val activeNetwork = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
     private var offlineDebounceJob: Job? = null
@@ -38,12 +42,16 @@ class AndroidNetworkMonitor(private val context: Context) : NetworkMonitor {
             offlineDebounceJob?.cancel()
             offlineDebounceJob = scope.launch {
                 delay(3000)
-                _isOnline.value = false
+                // Erneut prüfen, ob zwischenzeitlich ein anderes Netzwerk (z.B. Mobilfunk nach WLAN-Verlust) aktiv ist
+                if (!checkCurrentConnectivity()) {
+                    _isOnline.value = false
+                }
             }
         }
     }
 
     override fun startMonitoring() {
+        _isOnline.value = checkCurrentConnectivity()
         val request = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()

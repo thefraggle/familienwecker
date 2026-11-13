@@ -134,15 +134,25 @@ async function getStatsReport() {
     pageToken = listResult.pageToken;
   } while (pageToken);
 
-  const familiesSnapshot = await admin.firestore().collection("families").get();
+  const [familiesSnapshot, allMembersSnapshot] = await Promise.all([
+    admin.firestore().collection("families").get(),
+    admin.firestore().collectionGroup("members").get(),
+  ]);
+
+  const memberCountByFamily = new Map();
+  for (const memberDoc of allMembersSnapshot.docs) {
+    const familyId = memberDoc.ref.parent.parent?.id;
+    if (!familyId) continue;
+    memberCountByFamily.set(familyId, (memberCountByFamily.get(familyId) || 0) + 1);
+  }
+
   let totalMembersCount = 0;
   let singleMemberFamilies = 0;
   let smallFamilies = 0; // 2-4
   let largeFamilies = 0; // 5+
 
   for (const doc of familiesSnapshot.docs) {
-    const membersSnapshot = await doc.ref.collection("members").get();
-    const count = membersSnapshot.size;
+    const count = memberCountByFamily.get(doc.id) || 0;
     totalMembersCount += count;
     if (count <= 1) singleMemberFamilies++;
     else if (count <= 4) smallFamilies++;
@@ -294,9 +304,22 @@ exports.verifyIntegrityToken = onCall(
     invoker: "public",
   },
   async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "LOGIN_REQUIRED");
+    }
+
+    const isLimited = await checkSingleRateLimit(`integrity_${request.auth.uid}`, 60 * 60 * 1000, 15);
+    if (isLimited) {
+      throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
+    }
+
     const token = request.data?.token;
+    const nonce = request.data?.nonce;
     if (!token || typeof token !== "string") {
       throw new HttpsError("invalid-argument", "Token required");
+    }
+    if (nonce !== undefined && nonce !== null && typeof nonce !== "string") {
+      throw new HttpsError("invalid-argument", "Invalid nonce");
     }
 
     try {
@@ -316,12 +339,23 @@ exports.verifyIntegrityToken = onCall(
       });
 
       const payload = response.data?.tokenPayloadExternal;
-      const pkgMatch = !payload?.requestDetails?.requestPackageName ||
-        payload.requestDetails.requestPackageName === packageName;
-      const verdictArray = payload?.deviceIntegrity?.deviceRecognitionVerdict ?? [];
-      const trusted = pkgMatch && Array.isArray(verdictArray) && verdictArray.includes("MEETS_DEVICE_INTEGRITY");
+      const reqDetails = payload?.requestDetails;
+      const pkgMatch = reqDetails?.requestPackageName === packageName;
 
-      console.log(`Play Integrity verdict: ${JSON.stringify(verdictArray)}, pkgMatch=${pkgMatch}, trusted=${trusted}`);
+      const tokenTs = Number(reqDetails?.timestampMillis);
+      const isFresh = Number.isFinite(tokenTs) && Math.abs(Date.now() - tokenTs) <= 5 * 60 * 1000;
+      const nonceMatch = !nonce || reqDetails?.nonce === nonce;
+
+      const appVerdict = payload?.appIntegrity?.appRecognitionVerdict;
+      const appRecognized = appVerdict === "PLAY_RECOGNIZED";
+
+      const verdictArray = payload?.deviceIntegrity?.deviceRecognitionVerdict ?? [];
+      const deviceTrusted = Array.isArray(verdictArray) && verdictArray.includes("MEETS_DEVICE_INTEGRITY");
+      const trusted = pkgMatch && isFresh && nonceMatch && appRecognized && deviceTrusted;
+
+      console.log(
+        `Play Integrity verdict: ${JSON.stringify(verdictArray)}, app=${appVerdict}, pkgMatch=${pkgMatch}, isFresh=${isFresh}, nonceMatch=${nonceMatch}, trusted=${trusted}`
+      );
       return { trusted, verdict: verdictArray };
 
     } catch (err) {

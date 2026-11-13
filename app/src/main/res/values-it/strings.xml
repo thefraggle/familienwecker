@@ -459,4 +459,10 @@
     <string name="a11y_move_down">Sposta in basso</string>
     <string name="setup_paste_clipboard">Incolla dagli appunti</string>
     <string name="setup_clipboard_code_detected">"Codice d'invito %1$s rilevato dagli appunti"</string>
+    <string name="shift_presets_title">Modelli di turno</string>
+    <string name="shift_early">Turno di mattina</string>
+    <string name="shift_late">Turno di pomeriggio</string>
+    <string name="shift_normal">Normale</string>
+    <string name="shift_off">Giorno libero</string>
+    <string name="error_no_app_found">Nessuna app adatta trovata per aprire questo link.</string>
 </resources>

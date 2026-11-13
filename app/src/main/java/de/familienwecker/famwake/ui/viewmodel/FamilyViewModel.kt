@@ -537,6 +537,10 @@ class FamilyViewModel(
                                     if (data != null) {
                                         _familyCreatorId.value = data.createdByUserId
                                         _globalBufferMinutes.value = data.globalBufferMinutes
+                                        de.familienwecker.famwake.alarm.AlarmBackupPrefs.saveGlobalBufferMinutes(
+                                            getApplication(),
+                                            data.globalBufferMinutes
+                                        )
                                         val oldVac = appSettings.vacationUntil.value
                                         val newVac = data.vacationUntil
                                         val todayStr = java.time.LocalDate.now().toString()
@@ -764,6 +768,7 @@ class FamilyViewModel(
     fun setGlobalBufferMinutes(minutes: Long) {
         val familyIdValue = familyId.value ?: return
         _globalBufferMinutes.value = minutes
+        de.familienwecker.famwake.alarm.AlarmBackupPrefs.saveGlobalBufferMinutes(getApplication(), minutes)
         recalculateSchedule()
         scope.launch {
             try {

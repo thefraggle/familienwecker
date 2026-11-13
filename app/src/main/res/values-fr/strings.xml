@@ -460,4 +460,10 @@
     <string name="a11y_move_down">Déplacer vers le bas</string>
     <string name="setup_paste_clipboard">Coller depuis le presse-papiers</string>
     <string name="setup_clipboard_code_detected">"Code d'invitation %1$s détecté dans le presse-papiers"</string>
+    <string name="shift_presets_title">Modèles de poste</string>
+    <string name="shift_early">Poste du matin</string>
+    <string name="shift_late">Poste du soir</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">Jour de repos</string>
+    <string name="error_no_app_found">Aucune application compatible trouvée pour ouvrir ce lien.</string>
 </resources>

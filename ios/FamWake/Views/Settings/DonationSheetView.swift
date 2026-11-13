@@ -131,19 +131,6 @@ struct DonationSheetView: View {
                         donationViewModel.resetState()
                         showDonationSheet = false
                     }) {
-                        Image(systemName: "xmark")
-                            .fontWeight(.semibold)
-                    }
-                    .buttonStyle(.borderless)
-                    .foregroundStyle(theme.primary)
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: {
-                        donationViewModel.resetState()
-                        showDonationSheet = false
-                    }) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.title3)
                             .foregroundStyle(theme.onSurfaceVariant)

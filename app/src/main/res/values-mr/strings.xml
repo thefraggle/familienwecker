@@ -460,4 +460,10 @@
     <string name="a11y_move_down">खाली हलवा</string>
     <string name="setup_paste_clipboard">क्लिपबोर्डवरून पेस्ट करा</string>
     <string name="setup_clipboard_code_detected">क्लिपबोर्डवरून आमंत्रण कोड %1$s आढळला</string>
+    <string name="shift_presets_title">शिफ्ट प्रीसेट्स</string>
+    <string name="shift_early">सकाळची शिफ्ट</string>
+    <string name="shift_late">उशिराची शिफ्ट</string>
+    <string name="shift_normal">सामान्य</string>
+    <string name="shift_off">सुट्टीचा दिवस</string>
+    <string name="error_no_app_found">हा दुवा उघडण्यासाठी कोणतेही योग्य अ‍ॅप सापडले नाही.</string>
 </resources>

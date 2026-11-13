@@ -459,4 +459,10 @@
     <string name="a11y_move_down">Mover para baixo</string>
     <string name="setup_paste_clipboard">Colar da área de transferência</string>
     <string name="setup_clipboard_code_detected">Código de convite %1$s detectado da área de transferência</string>
+    <string name="shift_presets_title">Modelos de turno</string>
+    <string name="shift_early">Turno da manhã</string>
+    <string name="shift_late">Turno da tarde</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">Folga</string>
+    <string name="error_no_app_found">Nenhum aplicativo adequado encontrado para abrir este link.</string>
 </resources>

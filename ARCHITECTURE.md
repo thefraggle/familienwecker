@@ -11,7 +11,7 @@ FamWake is built with a **Client-First & Privacy-Focused** mindset:
 - **Local-First Computation:** The scheduling algorithm (calculating wake times, bathroom slots, breakfast, and buffers) runs locally on the user's device. No cloud round-trips are required to compute schedules.
 - **Offline Resilience:** The application functions fully offline. Both Android and iOS cache all family data locally. When offline, users can pause/resume alarms or change day profiles. Sync occurs automatically when connectivity is restored.
 - **Minimalist Backend:** Firebase Cloud Functions serve purely as infrastructure helpers (transactional email, scheduled daily resets, play integrity verification). They never make scheduling decisions.
-- **Privacy by Design:** Zero tracking of personal schedules or habits. Data is scoped strictly to the authenticated family. Only anonymous, non-identifying telemetry via self-hosted Aptabase without cross-app profiling.
+- **Privacy by Design:** Zero tracking of personal schedules or habits. Data is scoped strictly to the authenticated family. Optional anonymous, non-identifying telemetry via self-hosted Aptabase is only initialized in non-debug builds when both app key and host are explicitly configured.
 
 ---
 
@@ -103,7 +103,7 @@ flowchart LR
 ### Local Storage
 - **Android:**
   - **Room Database:** Caches family and member documents for instant, offline-capable UI rendering.
-  - **Device-Protected Storage (`AlarmBackupPrefs`):** Unencrypted plain storage readable even in Direct Boot mode (before device unlock / PIN entry) to restore exact alarms after unexpected reboots.
+  - **Device-Protected Storage (`AlarmBackupPrefs`):** Unencrypted plain storage readable even in Direct Boot mode (before device unlock / PIN entry) persisting alarm schedules, `soundUri`, and `globalBufferMinutes` to restore exact alarms after unexpected reboots. `RingingActivity` and `FamWakeTileService` guard credential-protected reads/Firestore calls with `UserManager.isUserUnlocked`.
   - **DataStore:** Non-blocking asynchronous preferences via `DataStoreObservableSettings`.
 - **iOS:**
   - **LocalMemberStore (JSON Cache):** Persists family member models locally on disk so schedules and offline edits survive cold starts and app kills.
@@ -156,7 +156,12 @@ flowchart LR
 
 ### Security Rules (`firestore.rules`)
 - **Three-Tier Membership Verification (`isFamilyMember()`):** Fast-path check via `/users/{uid}.familyId`, fallback to family creator `createdByUserId`, or fallback to legacy `userIds` array.
-- **Strict Member Schema Validation (`isValidMemberData()` & `isValidMemberCreate()`):** Enforces string length, key whitelisting via `hasOnly()`, numeric bounds (`0..180` min durations, `0..10` snooze count), and type constraints on both `create` and `update` operations.
-- **Field-Level & Claim Protection (`isValidFamilyUpdate()`):** Clients cannot modify immutable family fields (`createdByUserId`, `joinCode`, `userIds`, `createdAt`) directly, and `name`, `vacationUntil`, and `globalBufferMinutes` are strictly validated. On member documents, coordinative updates by other family members cannot overwrite identity or claim fields (`claimedByUserId`, `claimedByUserName`, `claimedByDeviceId`, `soundUri`, or `name` of a profile claimed by another user).
+- **Strict Member Schema & `dayProfiles` Validation (`isValidMemberData()`, `isValidDayProfiles()`):** Enforces string length, key whitelisting via `hasOnly()`, `snoozeUntil is timestamp`, numeric bounds (`0..180` min durations, `0..10` snooze count), and nested schema/count validation (`size() <= 7`) on `dayProfiles` for both `create` and `update`.
+- **Field-Level & Anti-Hijack Claim Protection (`isValidFamilyUpdate()`, `isValidMemberUpdate()`):** Clients cannot modify immutable family fields (`createdByUserId`, `joinCode`, `userIds`, `createdAt`) directly, and `name`, `vacationUntil`, and `globalBufferMinutes` are strictly validated. On member documents, non-admin users cannot hijack an already claimed profile (`claimedByUserId` ownership check) or overwrite identity, `claimedBy*`, `soundUri`, or `name` fields of another user's claimed member.
 - **Feedback Collection Guard:** Authenticated users can submit feedback with strictly validated payload sizes, matching `uid`, and server timestamp.
 - **Safe Deletion:** Direct client deletion of families is disallowed. Deletion is routed through the `deleteFamily` Cloud Function to guarantee recursive cleanup of member subcollections and user profiles.
+
+### Cloud Functions & Integrity Verification (`/functions`)
+- **Timezone-Aware `scheduledMemberReset`:** Evaluates current date, morning reset window, and weekday per family using `family.timeZone` (cached per run, fallback `Europe/Berlin`), rather than a single fixed server timezone.
+- **Hardened `verifyIntegrityToken`:** Requires Firebase Authentication, enforces a 15/hour per-user rate limit (`_rate_limits`), validates 5-minute token timestamp freshness, matches client-provided `nonce` when supplied, requires `PLAY_RECOGNIZED` app licensing/recognition verdict, and checks the exact Android package name (`de.familienwecker.famwake`).
+- **Batch Chunking & Externalized Email Config:** `deleteFamily` and member reset batches chunk Firestore writes at 450 operations per commit. Transactional email footers and feedback routing read `OPERATOR_NAME`, `OPERATOR_ADDRESS`, and `NOTIFY_EMAIL` from `functions/.env` (`functions/.env.example` template) with neutral fallbacks for self-hosting/forks.

@@ -74,8 +74,8 @@ class FamilyMemberMapperTest {
     }
 
     @Test
-    fun toFirestoreMap_dayProfilesIncludeBreakfastDurationMinutes() {
-        val profile = DayProfile(breakfastDurationMinutes = 35L)
+    fun toFirestoreMap_dayProfilesIncludeBreakfastDurationMinutesAndShiftName() {
+        val profile = DayProfile(breakfastDurationMinutes = 35L, shiftName = "Frühschicht")
         val member = FamilyMember(
             id = "m-3",
             name = "Test 3",
@@ -89,5 +89,6 @@ class FamilyMemberMapperTest {
         @Suppress("UNCHECKED_CAST")
         val dayProfilesMap = map["dayProfiles"] as? Map<String, Map<String, Any?>>
         assertEquals(35L, dayProfilesMap?.get("1")?.get("breakfastDurationMinutes"))
+        assertEquals("Frühschicht", dayProfilesMap?.get("1")?.get("shiftName"))
     }
 }

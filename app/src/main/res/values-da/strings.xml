@@ -460,4 +460,10 @@
     <string name="a11y_move_down">Flyt ned</string>
     <string name="setup_paste_clipboard">Indsæt fra udklipsholder</string>
     <string name="setup_clipboard_code_detected">Invitationskode %1$s fundet i udklipsholder</string>
+    <string name="shift_presets_title">Vagtskabeloner</string>
+    <string name="shift_early">Tidlig vagt</string>
+    <string name="shift_late">Senvagt</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">Fridag</string>
+    <string name="error_no_app_found">Ingen egnet app fundet til at åbne dette link.</string>
 </resources>

@@ -1,6 +1,7 @@
 const { test, describe } = require("node:test");
 const assert = require("node:assert/strict");
 const {
+  renderEmailFooter,
   buildEmailHtml,
   buildConfirmEmailHtml,
   buildVerifyEmailHtml
@@ -39,6 +40,32 @@ describe("Functions Email HTML Builders", () => {
     assert.ok(htmlDe.includes("E-Mail-Adresse bestätigen") || htmlDe.includes("bestätigen"));
     assert.ok(htmlDe.includes("Datenschutzerklärung"));
     assert.ok(htmlDe.includes("Impressum"));
+  });
+
+  test("renderEmailFooter uses neutral fallback and respects OPERATOR_* env variables", () => {
+    const prevName = process.env.OPERATOR_NAME;
+    const prevAddr = process.env.OPERATOR_ADDRESS;
+    const t = { appName: "FamWake", footerNote: "Note" };
+    const l = { home: "Home", privacy: "Privacy", imprint: "Imprint" };
+
+    try {
+      delete process.env.OPERATOR_NAME;
+      delete process.env.OPERATOR_ADDRESS;
+      const neutralFooter = renderEmailFooter(t, l, "https://example.com/p", "https://example.com/i");
+      assert.ok(neutralFooter.includes("FamWake Support"));
+      assert.ok(!neutralFooter.includes("Virchow"));
+
+      process.env.OPERATOR_NAME = "Test Operator";
+      process.env.OPERATOR_ADDRESS = "Example Street 1";
+      const customFooter = renderEmailFooter(t, l, "https://example.com/p", "https://example.com/i");
+      assert.ok(customFooter.includes("Test Operator"));
+      assert.ok(customFooter.includes("Example Street 1"));
+    } finally {
+      if (prevName === undefined) delete process.env.OPERATOR_NAME;
+      else process.env.OPERATOR_NAME = prevName;
+      if (prevAddr === undefined) delete process.env.OPERATOR_ADDRESS;
+      else process.env.OPERATOR_ADDRESS = prevAddr;
+    }
   });
 });
 

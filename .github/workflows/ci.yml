@@ -33,6 +33,34 @@ jobs:
         with:
           cache-read-only: false
 
+      - name: Create Dummy Google Services Config (if missing)
+        run: |
+          if [ ! -f app/google-services.json ]; then
+            cat << 'JSON' > app/google-services.json
+{
+  "project_info": {
+    "project_number": "000000000000",
+    "project_id": "famwake-ci-dummy",
+    "storage_bucket": "famwake-ci-dummy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+        "android_client_info": {
+          "package_name": "de.familienwecker.famwake"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [{ "current_key": "AIzaSyDummyKeyForCiCompileChecksOnly0000" }],
+      "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
+    }
+  ],
+  "configuration_version": "1"
+}
+JSON
+          fi
+
       - name: Run Android Unit Tests
         run: ./gradlew testDebugUnitTest --build-cache --parallel
 
@@ -54,8 +82,42 @@ jobs:
           cat << 'SECRETS' > ios/FamWake/Config/Secrets.xcconfig
           REVENUECAT_IOS_API_KEY =
           APTABASE_APP_KEY =
-          APTABASE_HOST = https:\/\/telemetry-apps.goork.de
+          APTABASE_HOST =
           SECRETS
+          if [ ! -f ios/FamWake/GoogleService-Info.plist ]; then
+            cat << 'PLIST' > ios/FamWake/GoogleService-Info.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>API_KEY</key>
+  <string>AIzaSyDummyKeyForCiCompileChecksOnly0000</string>
+  <key>GCM_SENDER_ID</key>
+  <string>000000000000</string>
+  <key>PLIST_VERSION</key>
+  <string>1</string>
+  <key>BUNDLE_ID</key>
+  <string>de.familienwecker.famwake</string>
+  <key>PROJECT_ID</key>
+  <string>famwake-ci-dummy</string>
+  <key>STORAGE_BUCKET</key>
+  <string>famwake-ci-dummy.appspot.com</string>
+  <key>IS_ADS_ENABLED</key>
+  <false/>
+  <key>IS_ANALYTICS_ENABLED</key>
+  <false/>
+  <key>IS_APPINVITE_ENABLED</key>
+  <true/>
+  <key>IS_GCM_ENABLED</key>
+  <true/>
+  <key>IS_SIGNIN_ENABLED</key>
+  <true/>
+  <key>GOOGLE_APP_ID</key>
+  <string>1:000000000000:ios:0000000000000000000000</string>
+</dict>
+</plist>
+PLIST
+          fi
 
       - name: Run iOS Unit Tests
         run: |
@@ -83,7 +145,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
 

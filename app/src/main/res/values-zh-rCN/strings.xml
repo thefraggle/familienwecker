@@ -460,4 +460,10 @@
     <string name="a11y_move_down">向下移动</string>
     <string name="setup_paste_clipboard">从剪贴板粘贴</string>
     <string name="setup_clipboard_code_detected">从剪贴板检测到邀请码 %1$s</string>
+    <string name="shift_presets_title">班次预设</string>
+    <string name="shift_early">早班</string>
+    <string name="shift_late">晚班</string>
+    <string name="shift_normal">正常</string>
+    <string name="shift_off">休息日</string>
+    <string name="error_no_app_found">未找到可打开此链接的应用。</string>
 </resources>

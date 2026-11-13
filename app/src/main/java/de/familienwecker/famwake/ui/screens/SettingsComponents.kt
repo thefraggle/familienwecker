@@ -213,7 +213,9 @@ fun SettingsLegalFooter(
                     val url = context.getString(R.string.settings_terms_of_use_url)
                     try {
                         context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                    } catch (_: android.content.ActivityNotFoundException) { }
+                    } catch (_: android.content.ActivityNotFoundException) {
+                        android.widget.Toast.makeText(context, context.getString(R.string.error_no_app_found), android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 }
             )
             Text(
@@ -224,7 +226,9 @@ fun SettingsLegalFooter(
                     val url = context.getString(R.string.settings_privacy_policy_url)
                     try {
                         context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                    } catch (_: android.content.ActivityNotFoundException) { }
+                    } catch (_: android.content.ActivityNotFoundException) {
+                        android.widget.Toast.makeText(context, context.getString(R.string.error_no_app_found), android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 }
             )
             Text(
@@ -235,7 +239,9 @@ fun SettingsLegalFooter(
                     val url = context.getString(R.string.settings_imprint_url)
                     try {
                         context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                    } catch (_: android.content.ActivityNotFoundException) { }
+                    } catch (_: android.content.ActivityNotFoundException) {
+                        android.widget.Toast.makeText(context, context.getString(R.string.error_no_app_found), android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 }
             )
         }

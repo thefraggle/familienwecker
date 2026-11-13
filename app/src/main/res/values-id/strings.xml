@@ -460,4 +460,10 @@
     <string name="a11y_move_down">Pindahkan ke bawah</string>
     <string name="setup_paste_clipboard">Tempel dari papan klip</string>
     <string name="setup_clipboard_code_detected">Kode undangan %1$s terdeteksi dari papan klip</string>
+    <string name="shift_presets_title">Templat shift</string>
+    <string name="shift_early">Shift pagi</string>
+    <string name="shift_late">Shift sore</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">Hari libur</string>
+    <string name="error_no_app_found">Tidak ada aplikasi yang cocok untuk membuka tautan ini.</string>
 </resources>

@@ -39,11 +39,15 @@ For local builds, template files are provided and must be populated:
     ```properties
     DEFAULT_WEB_CLIENT_ID=your_google_web_client_id
     REVENUECAT_PUBLIC_API_KEY=your_revenuecat_key
+    # Optional (only initialized in non-debug builds when both key and host are set):
     APTABASE_APP_KEY=your_aptabase_key
+    APTABASE_HOST=https://your-aptabase-host
     ```
 * **iOS**: 
-  * Copy `ios/FamWake/Config/Secrets.xcconfig.template` to `ios/FamWake/Config/Secrets.xcconfig` and insert your API keys.
+  * Copy `ios/FamWake/Config/Secrets.xcconfig.template` to `ios/FamWake/Config/Secrets.xcconfig` and insert your API keys (`APTABASE_APP_KEY` and `APTABASE_HOST` remain empty by default so local builds and forks do not emit telemetry).
   * Place your iOS Firebase configuration in `ios/FamWake/GoogleService-Info.plist`.
+* **Cloud Functions**:
+  * Copy `functions/.env.example` to `functions/.env` and configure `OPERATOR_NAME`, `OPERATOR_ADDRESS`, and `NOTIFY_EMAIL` for notification emails and feedback forwarding.
 
 ### Project Structure
 * `/app`: Android Application (Jetpack Compose, Room, Kotlin)

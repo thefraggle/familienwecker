@@ -46,18 +46,25 @@ private fun de.familienwecker.famwake.db.FamilyMemberEntity.toDomain(): FamilyMe
     name = name,
     earliestWakeUp = try {
         kotlinx.datetime.LocalTime.parse(earliestWakeUp)
-    } catch (_: Exception) {
+    } catch (e: Exception) {
+        println("MemberRepository: invalid earliestWakeUp '$earliestWakeUp' for $id: ${e.message}")
         kotlinx.datetime.LocalTime(6, 0)
     },
     latestWakeUp = try {
         kotlinx.datetime.LocalTime.parse(latestWakeUp)
-    } catch (_: Exception) {
+    } catch (e: Exception) {
+        println("MemberRepository: invalid latestWakeUp '$latestWakeUp' for $id: ${e.message}")
         kotlinx.datetime.LocalTime(7, 30)
     },
     bathroomDurationMinutes = bathroomDurationMinutes,
     wantsBreakfast = wantsBreakfast,
     leaveHomeTime = leaveHomeTime?.let {
-        try { kotlinx.datetime.LocalTime.parse(it) } catch (_: Exception) { null }
+        try {
+            kotlinx.datetime.LocalTime.parse(it)
+        } catch (e: Exception) {
+            println("MemberRepository: invalid leaveHomeTime '$it' for $id: ${e.message}")
+            null
+        }
     },
     breakfastDurationMinutes = breakfastDurationMinutes,
     isPaused = isPaused,
@@ -71,11 +78,21 @@ private fun de.familienwecker.famwake.db.FamilyMemberEntity.toDomain(): FamilyMe
     lastUpdatedAt = lastUpdatedAt,
     deviceAlarmEnabled = deviceAlarmEnabled,
     dayProfiles = dayProfilesJson?.let {
-        try { json.decodeFromString(it) } catch (_: Exception) { null }
+        try {
+            json.decodeFromString(it)
+        } catch (e: Exception) {
+            println("MemberRepository: invalid dayProfilesJson for $id: ${e.message}")
+            null
+        }
     },
     isSimpleMode = isSimpleMode,
     snoozeUntil = snoozeUntil?.let {
-        try { kotlinx.datetime.LocalDateTime.parse(it) } catch (_: Exception) { null }
+        try {
+            kotlinx.datetime.LocalDateTime.parse(it)
+        } catch (e: Exception) {
+            println("MemberRepository: invalid snoozeUntil '$it' for $id: ${e.message}")
+            null
+        }
     },
     snoozeCount = snoozeCount
 )

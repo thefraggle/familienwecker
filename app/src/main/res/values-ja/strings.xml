@@ -464,4 +464,10 @@
     <string name="a11y_move_down">下に移動</string>
     <string name="setup_paste_clipboard">クリップボードから貼り付け</string>
     <string name="setup_clipboard_code_detected">クリップボードから招待コード %1$s を検出しました</string>
+    <string name="shift_presets_title">シフトテンプレート</string>
+    <string name="shift_early">早番</string>
+    <string name="shift_late">遅番</string>
+    <string name="shift_normal">通常</string>
+    <string name="shift_off">休日</string>
+    <string name="error_no_app_found">このリンクを開くためのアプリが見つかりません。</string>
 </resources>

@@ -81,7 +81,7 @@ extension FamilyMember {
             "isAwakeToday": isAwakeToday,
             "lastResetDate": lastResetDate,
             "sequenceOrder": sequenceOrder,
-            "createdAt": createdAt != nil ? (createdAt! as Any) : FieldValue.serverTimestamp(),
+            "createdAt": createdAt.map { Timestamp(date: Date(timeIntervalSince1970: $0 / 1000.0)) } ?? FieldValue.serverTimestamp(),
             "lastUpdatedAt": FieldValue.serverTimestamp(),
             "isSimpleMode": isSimpleMode,
             "snoozeCount": snoozeCount
@@ -128,6 +128,9 @@ extension FamilyMember {
                 if let seq = profile.sequenceOrder {
                     profileDict["sequenceOrder"] = seq
                 }
+                if let shift = profile.shiftName {
+                    profileDict["shiftName"] = shift
+                }
                 dpData["\(day)"] = profileDict
             }
             data["dayProfiles"] = dpData
@@ -167,6 +170,7 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
         let simpleMode = dp["isSimpleMode"] as? Bool ?? false
         let seq = (dp["sequenceOrder"] as? NSNumber)?.intValue
         let breakfastDuration = (dp["breakfastDurationMinutes"] as? NSNumber)?.intValue
+        let shiftName = dp["shiftName"] as? String
 
         result[day] = DayProfile(
             isActive: active,
@@ -178,7 +182,8 @@ private func parseDayProfiles(_ raw: Any?) -> [Int: DayProfile]? {
             bufferMinutes: buffer,
             isSimpleMode: simpleMode,
             sequenceOrder: seq,
-            breakfastDurationMinutes: breakfastDuration
+            breakfastDurationMinutes: breakfastDuration,
+            shiftName: shiftName
         )
     }
     return result.isEmpty ? nil : result

@@ -10,6 +10,10 @@ class DonationViewModel: ObservableObject {
     @Published var purchaseState: PurchaseState = .idle
 
     func loadOfferings() {
+        guard RevenueCatService.isConfigured else {
+            purchaseState = .error(L.s("error_revenuecat_not_configured"))
+            return
+        }
         Aptabase.shared.trackEvent("donation_sheet_opened")
         Purchases.shared.getOfferings { [weak self] offerings, error in
             guard let self = self else { return }
@@ -21,6 +25,10 @@ class DonationViewModel: ObservableObject {
     }
 
     func purchase(package: Package) {
+        guard RevenueCatService.isConfigured else {
+            purchaseState = .error(L.s("error_revenuecat_not_configured"))
+            return
+        }
         purchaseState = .loading
         Aptabase.shared.trackEvent("donation_package_selected", with: ["package_id": package.identifier])
         Purchases.shared.purchase(package: package) { [weak self] transaction, customerInfo, error, userCancelled in

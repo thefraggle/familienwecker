@@ -459,4 +459,10 @@
     <string name="a11y_move_down">Przesuń w dół</string>
     <string name="setup_paste_clipboard">Wklej ze schowka</string>
     <string name="setup_clipboard_code_detected">Kod zaproszenia %1$s wykryty ze schowka</string>
+    <string name="shift_presets_title">Szablony zmian</string>
+    <string name="shift_early">Pierwsza zmiana</string>
+    <string name="shift_late">Druga zmiana</string>
+    <string name="shift_normal">Normalna</string>
+    <string name="shift_off">Dzień wolny</string>
+    <string name="error_no_app_found">Nie znaleziono aplikacji do otwarcia tego linku.</string>
 </resources>

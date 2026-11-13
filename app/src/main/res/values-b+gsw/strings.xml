@@ -460,4 +460,10 @@
     <string name="a11y_move_down">Abe schiebe</string>
     <string name="setup_paste_clipboard">Us Zwüscheablag ifüege</string>
     <string name="setup_clipboard_code_detected">Iiladigscode %1$s us Zwüscheablag erchännt</string>
+    <string name="shift_presets_title">Schichtvorlage</string>
+    <string name="shift_early">Früehschicht</string>
+    <string name="shift_late">Spätschicht</string>
+    <string name="shift_normal">Normal</string>
+    <string name="shift_off">Frei</string>
+    <string name="error_no_app_found">Kei passendi App zum Öffne vo däm Link gfunde.</string>
 </resources>

@@ -64,6 +64,9 @@ class RingingActivity : AppCompatActivity() {
     private var currentMemberName: String = ""
     private lateinit var alarmScheduler: de.familienwecker.famwake.alarm.AlarmScheduler
 
+    private val isDeviceUnlocked: Boolean
+        get() = getSystemService(android.os.UserManager::class.java)?.isUserUnlocked ?: true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -83,7 +86,9 @@ class RingingActivity : AppCompatActivity() {
         showOnLockScreenAndTurnScreenOn()
         playRingtone()
         // Tracking: Wecker wurde tatsächlich ausgelöst (getrennt von Snooze tracken)
-        Aptabase.instance.trackEvent("alarm_triggered")
+        if (isDeviceUnlocked && FamWakeApplication.isAptabaseConfigured) {
+            Aptabase.instance.trackEvent("alarm_triggered")
+        }
 
         // Auto-Timeout: Nach 10 Minuten ohne Interaktion automatisch beenden
         lifecycleScope.launch {
@@ -91,8 +96,10 @@ class RingingActivity : AppCompatActivity() {
             executeStop(isMissedTimeout = true)
         }
 
-        val appSettings = (application as FamWakeApplication).appSettings
-        val currentSnoozeCount = appSettings.snoozeCount.value
+        val unlockedAtCreate = isDeviceUnlocked
+        val appSettings = if (unlockedAtCreate) (application as FamWakeApplication).appSettings else null
+        val currentSnoozeCount = appSettings?.snoozeCount?.value
+            ?: de.familienwecker.famwake.alarm.AlarmBackupPrefs.getSnoozeCount(this, memberId)
 
         setContent {
             FamilienweckerTheme {
@@ -108,7 +115,10 @@ class RingingActivity : AppCompatActivity() {
                             executeStop(isMissedTimeout = false)
                         },
                         onSnoozeClicked = {
-                            val count = appSettings.snoozeCount.value
+                            val unlockedNow = isDeviceUnlocked
+                            val currentSettings = if (unlockedNow) (application as FamWakeApplication).appSettings else null
+                            val count = currentSettings?.snoozeCount?.value
+                                ?: de.familienwecker.famwake.alarm.AlarmBackupPrefs.getSnoozeCount(this@RingingActivity, memberId)
                             if (count >= SnoozeConfig.MAX_SNOOZE_COUNT) {
                                 Toast.makeText(
                                     this@RingingActivity,
@@ -122,37 +132,51 @@ class RingingActivity : AppCompatActivity() {
                             val snoozeMinutes = SnoozeConfig.SNOOZE_DURATION_MINUTES
                             val snoozeTime = java.time.LocalDateTime.now().plusMinutes(snoozeMinutes.toLong())
 
-                            appSettings.setSnoozeUntil(snoozeTime.toKmpLocalDateTime())
-                            appSettings.setSnoozeCount(newCount)
+                            currentSettings?.setSnoozeUntil(snoozeTime.toKmpLocalDateTime())
+                            currentSettings?.setSnoozeCount(newCount)
 
                             // Snooze-Backup für Reboot-Recovery (Device-Protected Storage)
                             val snoozeMillis = snoozeTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()
-                            de.familienwecker.famwake.alarm.AlarmBackupPrefs.saveSnooze(this@RingingActivity, snoozeMillis, newCount)
+                            de.familienwecker.famwake.alarm.AlarmBackupPrefs.saveSnooze(this@RingingActivity, snoozeMillis, newCount, memberId)
+
+                            val soundUri = currentSettings?.alarmSoundUri?.value
+                                ?: intent.getStringExtra("SOUND_URI")
+                                ?: de.familienwecker.famwake.alarm.AlarmBackupPrefs.getSoundUri(this@RingingActivity)
 
                             alarmScheduler.scheduleWakeUp(
                                 wakeUpTime = snoozeTime.toKmpLocalDateTime(),
                                 memberId = memberId,
                                 memberName = memberName,
-                                soundUri = appSettings.alarmSoundUri.value,
+                                soundUri = soundUri,
                                 isSnooze = true,
                                 snoozeCount = newCount
                             )
 
-                            // Firestore-Sync (best-effort, non-blocking)
-                            val familyId = appSettings.familyId.value
-                            if (familyId != null) {
-                                lifecycleScope.launch {
+                            // Firestore-Sync (detached Scope mit Timeout, da finishAndRemoveTask() lifecycleScope abbricht)
+                            val familyId = currentSettings?.familyId?.value
+                            if (unlockedNow && familyId != null) {
+                                kotlinx.coroutines.CoroutineScope(
+                                    kotlinx.coroutines.Dispatchers.IO + kotlinx.coroutines.SupervisorJob()
+                                ).launch {
                                     try {
-                                        FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(
-                                            familyId, memberId,
-                                            snoozeTime.toKmpLocalDateTime(), newCount
-                                        )
+                                        kotlinx.coroutines.withTimeoutOrNull(4000L) {
+                                            FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(
+                                                familyId, memberId,
+                                                snoozeTime.toKmpLocalDateTime(), newCount
+                                            )
+                                        }
                                     } catch (e: CancellationException) { throw e }
-                                    catch (_: Exception) { /* best-effort */ }
+                                    catch (e: Exception) {
+                                        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
+                                            Log.w("RingingActivity", "Snooze Firestore sync failed: ${e.message}")
+                                        }
+                                    }
                                 }
                             }
 
-                            Aptabase.instance.trackEvent("alarm_snoozed", mapOf("snooze_count" to newCount))
+                            if (unlockedNow && FamWakeApplication.isAptabaseConfigured) {
+                                Aptabase.instance.trackEvent("alarm_snoozed", mapOf("snooze_count" to newCount))
+                            }
                             stopRingtoneAndLock()
                         }
                     )
@@ -194,9 +218,12 @@ class RingingActivity : AppCompatActivity() {
     }
 
     private fun playRingtone() {
-        val appSettings = (application as FamWakeApplication).appSettings
-        val savedUriString = appSettings.alarmSoundUri.value
-        val isGentleWake = appSettings.isGentleWakeEnabled.value
+        val unlocked = isDeviceUnlocked
+        val appSettings = if (unlocked) (application as FamWakeApplication).appSettings else null
+        val savedUriString = appSettings?.alarmSoundUri?.value
+            ?: intent.getStringExtra("SOUND_URI")
+            ?: de.familienwecker.famwake.alarm.AlarmBackupPrefs.getSoundUri(this)
+        val isGentleWake = appSettings?.isGentleWakeEnabled?.value ?: false
 
         // Versuche zunächst den gespeicherten Ton, dann System-Alarm, dann System-Ringtone
         val uriChain = listOfNotNull(
@@ -251,59 +278,64 @@ class RingingActivity : AppCompatActivity() {
     }
 
     private fun executeStop(isMissedTimeout: Boolean) {
-        val appSettings = (application as FamWakeApplication).appSettings
+        val unlocked = isDeviceUnlocked
+        val appSettings = if (unlocked) (application as FamWakeApplication).appSettings else null
 
         // Snooze-Status löschen, damit der Banner auf MainScreen verschwindet
-        appSettings.setSnoozeUntil(null)
-        appSettings.setSnoozeCount(0)
-        de.familienwecker.famwake.alarm.AlarmBackupPrefs.clearSnooze(this)
-        appSettings.setAwakeToday(true)
+        appSettings?.setSnoozeUntil(null)
+        appSettings?.setSnoozeCount(0)
+        de.familienwecker.famwake.alarm.AlarmBackupPrefs.clearSnooze(this, currentMemberId)
+        appSettings?.setAwakeToday(true)
         alarmScheduler.cancelWakeUp(currentMemberId, isSnooze = true)
         alarmScheduler.cancelWakeUp(currentMemberId, isSnooze = false)
 
-        val familyId = appSettings.familyId.value
-        val appContext = applicationContext
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
-            try {
-                val memberRepo = FamWakeApplication.instance.memberRepository
-                val currentMembers = memberRepo.members.first()
-                val updatedMembers = currentMembers.map { m ->
-                    if (m.id == currentMemberId) {
-                        m.copy(isAwakeToday = true, snoozeUntil = null, snoozeCount = 0)
-                    } else m
-                }
-                val targetMember = updatedMembers.find { it.id == currentMemberId }
-                if (targetMember != null) {
-                    memberRepo.upsertMember(targetMember)
-                }
-
-                if (appSettings.isAlarmEnabled.value && currentMemberId.isNotEmpty() && updatedMembers.isNotEmpty()) {
-                    val todayKmp = kotlinx.datetime.Clock.System.todayIn(kotlinx.datetime.TimeZone.currentSystemDefault())
-                    val tomorrowKmp = todayKmp.plus(1, kotlinx.datetime.DateTimeUnit.DAY)
-                    val nextWakeUp = de.familienwecker.famwake.algorithm.NextAlarmCalculator.calculateNextWakeUpForDate(
-                        members = updatedMembers,
-                        targetMemberId = currentMemberId,
-                        targetDate = tomorrowKmp,
-                        vacationUntil = appSettings.vacationUntil.value
-                    )
-                    if (nextWakeUp != null) {
-                        val memberName = updatedMembers.find { it.id == currentMemberId }?.name ?: ""
-                        de.familienwecker.famwake.alarm.AlarmScheduler(appContext).scheduleWakeUp(
-                            wakeUpTime = nextWakeUp,
-                            memberId = currentMemberId,
-                            memberName = memberName,
-                            soundUri = appSettings.alarmSoundUri.value,
-                            isSnooze = false
-                        )
+        if (unlocked && appSettings != null) {
+            val familyId = appSettings.familyId.value
+            val appContext = applicationContext
+            kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                try {
+                    val memberRepo = FamWakeApplication.instance.memberRepository
+                    val currentMembers = memberRepo.members.first()
+                    val updatedMembers = currentMembers.map { m ->
+                        if (m.id == currentMemberId) {
+                            m.copy(isAwakeToday = true, snoozeUntil = null, snoozeCount = 0)
+                        } else m
                     }
-                }
+                    val targetMember = updatedMembers.find { it.id == currentMemberId }
+                    if (targetMember != null) {
+                        memberRepo.upsertMember(targetMember)
+                    }
 
-                if (familyId != null && currentMemberId.isNotEmpty() && !familyId.startsWith("local_")) {
-                    FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(familyId, currentMemberId, null, 0)
-                    FamWakeApplication.instance.firebaseRepository.updateMemberAwakeToday(familyId, currentMemberId, true)
-                }
-            } catch (e: CancellationException) { throw e }
-            catch (_: Exception) { /* best-effort */ }
+                    if (appSettings.isAlarmEnabled.value && currentMemberId.isNotEmpty() && updatedMembers.isNotEmpty()) {
+                        val todayKmp = kotlinx.datetime.Clock.System.todayIn(kotlinx.datetime.TimeZone.currentSystemDefault())
+                        val tomorrowKmp = todayKmp.plus(1, kotlinx.datetime.DateTimeUnit.DAY)
+                        val globalBuffer = de.familienwecker.famwake.alarm.AlarmBackupPrefs.getGlobalBufferMinutes(appContext)
+                        val nextWakeUp = de.familienwecker.famwake.algorithm.NextAlarmCalculator.calculateNextWakeUpForDate(
+                            members = updatedMembers,
+                            targetMemberId = currentMemberId,
+                            targetDate = tomorrowKmp,
+                            globalBufferMinutes = globalBuffer,
+                            vacationUntil = appSettings.vacationUntil.value
+                        )
+                        if (nextWakeUp != null) {
+                            val memberName = updatedMembers.find { it.id == currentMemberId }?.name ?: ""
+                            de.familienwecker.famwake.alarm.AlarmScheduler(appContext).scheduleWakeUp(
+                                wakeUpTime = nextWakeUp,
+                                memberId = currentMemberId,
+                                memberName = memberName,
+                                soundUri = appSettings.alarmSoundUri.value,
+                                isSnooze = false
+                            )
+                        }
+                    }
+
+                    if (familyId != null && currentMemberId.isNotEmpty() && !familyId.startsWith("local_")) {
+                        FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(familyId, currentMemberId, null, 0)
+                        FamWakeApplication.instance.firebaseRepository.updateMemberAwakeToday(familyId, currentMemberId, true)
+                    }
+                } catch (e: CancellationException) { throw e }
+                catch (_: Exception) { /* best-effort */ }
+            }
         }
 
         if (isMissedTimeout) {
@@ -335,7 +367,9 @@ class RingingActivity : AppCompatActivity() {
             stopRingtoneAndLock()
             finish()
         } else {
-            Aptabase.instance.trackEvent("alarm_dismissed")
+            if (unlocked && FamWakeApplication.isAptabaseConfigured) {
+                Aptabase.instance.trackEvent("alarm_dismissed")
+            }
             stopRingtoneAndOpenApp()
         }
     }
@@ -345,8 +379,10 @@ class RingingActivity : AppCompatActivity() {
         fadeInJob?.cancel()
         fadeInJob = null
         try {
-            val appSettings = (application as FamWakeApplication).appSettings
-            appSettings.setLastAlarmTime(System.currentTimeMillis())
+            if (isDeviceUnlocked) {
+                val appSettings = (application as FamWakeApplication).appSettings
+                appSettings.setLastAlarmTime(System.currentTimeMillis())
+            }
         } catch (e: Exception) {
             Log.w("RingingActivity", "Failed to update last alarm time", e)
         }
@@ -366,8 +402,10 @@ class RingingActivity : AppCompatActivity() {
         fadeInJob?.cancel()
         fadeInJob = null
         try {
-            val appSettings = (application as FamWakeApplication).appSettings
-            appSettings.setLastAlarmTime(System.currentTimeMillis())
+            if (isDeviceUnlocked) {
+                val appSettings = (application as FamWakeApplication).appSettings
+                appSettings.setLastAlarmTime(System.currentTimeMillis())
+            }
         } catch (e: Exception) {
             Log.w("RingingActivity", "Failed to update last alarm time", e)
         }

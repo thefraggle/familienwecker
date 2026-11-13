@@ -89,13 +89,17 @@ scratch/
 .env
 .env.*
 !.env.example
+!functions/.env.example
 
 # Fastlane credentials
-fastlane/Appfile
-fastlane/Fastfile.private
-fastlane/Matchfile
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+**/fastlane/Fastfile.private
+**/fastlane/Deliverfile
+**/fastlane/Matchfile
 fastlane/README.md
-fastlane/test_output
 
 # Ruby Bundler
 .bundle/

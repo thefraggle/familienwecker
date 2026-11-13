@@ -72,10 +72,11 @@ class DeviceTrustManager(private val context: Context) {
 
     private suspend fun fetchVerdict(): DeviceTrustLevel {
         return try {
+            val nonce = generateNonce()
             val token = withTimeoutOrNull(5000L) {
                 val manager = IntegrityManagerFactory.create(context)
                 val request = IntegrityTokenRequest.builder()
-                    .setNonce(generateNonce())
+                    .setNonce(nonce)
                     .build()
                 manager.requestIntegrityToken(request).await().token()
             } ?: return DeviceTrustLevel.UNKNOWN // Timeout → fail-open
@@ -83,7 +84,7 @@ class DeviceTrustManager(private val context: Context) {
             // Token serverseitig via Cloud Function verifizieren.
             // Lokales JWT-Decoding liefert immer UNKNOWN, da das Token signiert ist
             // und die Signatur nur mit dem Google-Schlüssel serverseitig prüfbar ist.
-            verifyTokenServerSide(token)
+            verifyTokenServerSide(token, nonce)
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
                 Log.w(TAG, "Play Integrity check failed: ${e.message}")
@@ -97,10 +98,10 @@ class DeviceTrustManager(private val context: Context) {
      * die es serverseitig via Google Play Integrity API verifiziert.
      * Gibt UNKNOWN zurück wenn die Cloud Function nicht erreichbar ist (fail-open).
      */
-    private suspend fun verifyTokenServerSide(token: String): DeviceTrustLevel {
+    private suspend fun verifyTokenServerSide(token: String, nonce: String): DeviceTrustLevel {
         return try {
             val functions = FirebaseFunctions.getInstance(FIREBASE_REGION)
-            val data = hashMapOf("token" to token)
+            val data = hashMapOf("token" to token, "nonce" to nonce)
 
             val result = withTimeoutOrNull(8000L) {
                 functions.getHttpsCallable("verifyIntegrityToken")
@@ -136,7 +137,7 @@ class DeviceTrustManager(private val context: Context) {
      */
     private fun logVerdict(verdict: DeviceTrustLevel) {
         val verdictLabel = verdict.name // "TRUSTED", "UNTRUSTED", "UNKNOWN"
-        if (!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG && de.familienwecker.famwake.FamWakeApplication.isAptabaseConfigured) {
             Aptabase.instance.trackEvent(
                 "integrity_check",
                 mapOf(

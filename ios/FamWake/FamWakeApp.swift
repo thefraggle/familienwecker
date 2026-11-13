@@ -22,15 +22,16 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let isDebug = isSandbox || isTestHarness
         #endif
 
-        let aptaKey = Bundle.main.infoDictionary?["AptabaseAppKey"] as? String
-        let aptaHost = Bundle.main.infoDictionary?["AptabaseHost"] as? String ?? "https://telemetry-apps.goork.de"
-        if let key = aptaKey, !key.isEmpty, !key.hasPrefix("$(") {
-            let host = aptaHost.hasPrefix("$(") ? "https://telemetry-apps.goork.de" : aptaHost
+        let aptaKey = Bundle.main.infoDictionary?["AptabaseAppKey"] as? String ?? ""
+        let aptaHost = Bundle.main.infoDictionary?["AptabaseHost"] as? String ?? ""
+        if !isDebug,
+           !aptaKey.isEmpty, !aptaKey.hasPrefix("$("),
+           !aptaHost.isEmpty, !aptaHost.hasPrefix("$(") {
             Aptabase.shared.initialize(
-                appKey: key,
+                appKey: aptaKey,
                 options: InitOptions(
-                    host: host,
-                    trackingMode: isDebug ? .asDebug : .asRelease
+                    host: aptaHost,
+                    trackingMode: .asRelease
                 )
             )
             Aptabase.shared.trackEvent("app_launched")

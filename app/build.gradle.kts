@@ -8,7 +8,7 @@ plugins {
 }
 
 // Fallback version if no versionName property is provided (e.g. for local builds)
-val appVersion = project.findProperty("versionName")?.toString() ?: "2.2.9"
+val appVersion = project.findProperty("versionName")?.toString() ?: "2.2.11"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -47,11 +47,11 @@ android {
         val aptabaseKey = localAptabaseKey ?: System.getenv("APTABASE_APP_KEY") ?: ""
 
         val localAptabaseHost = localProperties.getProperty("APTABASE_HOST")
-        val aptabaseHost = localAptabaseHost ?: System.getenv("APTABASE_HOST") ?: "https://telemetry-apps.goork.de"
+        val aptabaseHost = localAptabaseHost ?: System.getenv("APTABASE_HOST") ?: ""
         
         // Only add resValue if it's not already provided by google-services.json
         val googleServicesFile = rootProject.file("app/google-services.json")
-        if (!googleServicesFile.exists() && googleClientId.isNotEmpty()) {
+        if (!googleServicesFile.exists()) {
             resValue("string", "default_web_client_id", googleClientId)
         }
 

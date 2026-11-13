@@ -17,6 +17,7 @@ extension FamilyViewModel {
 
         if rawMembers.isEmpty {
             schedule = nil
+            deviceSchedule = nil
             if let myId = currentMyMemberId {
                 AlarmService.shared.cancelWakeUp(memberId: myId)
             }
@@ -162,6 +163,7 @@ extension FamilyViewModel {
         let effectiveAlarmMembers = rawMembers.map { resolveEffectiveMember($0, forDate: alarmTargetDate) }
         var alarmResult = Scheduler().calculateIdealSchedule(members: effectiveAlarmMembers, globalBufferMinutes: globalBufferMinutes)
         alarmResult.targetDate = alarmTargetDate
+        self.deviceSchedule = alarmResult
 
         #if DEBUG
         print("[Schedule] UI Date: \(uiTargetDate), Alarm Date: \(alarmTargetDate)")

@@ -2,6 +2,13 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.11 – 2026-11-13
+✨ Neu & Verbessert:
+• Zuverlässigere Wecker & Datensicherung: Gespeicherte Zeitpläne, Wecktöne und Pufferzeiten greifen nach einem Geräteneustart noch stabiler ineinander.
+• Stärkere Cloud-Sicherheit: Familienprofile und Backend-Anfragen werden strenger geprüft und besser gegen unbefugte Änderungen abgesichert.
+• Saubere Standardkonfiguration: Telemetrie- und E-Mail-Einstellungen sind konsequent vom öffentlichen Quellcode getrennt, sodass lokale Builds und Forks keine ungewollten Daten senden.
+• Vollständige Übersetzungen: Fehlende Texte zu Schichtplänen, Pausen- und Weckfunktionen wurden in allen unterstützten Sprachen ergänzt.
+
 ## 2.2.10 – 2026-11-12
 ✨ Neu & Verbessert:
 • Höchste Weckzeit-Präzision: Plattformübergreifende Harmonisierung von Weckzeitberechnung, Tageswechseln und Schlummer-Absorption zwischen Android und iOS anhand einheitlicher Testvektoren.
