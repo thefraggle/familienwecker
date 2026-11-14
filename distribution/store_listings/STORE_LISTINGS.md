@@ -8,30 +8,28 @@
 > - **iOS Promo-Text (App Store)**: Max. 170 Zeichen
 > - **Vollständige Beschreibung**: Max. 4.000 Zeichen (Google Play erlaubt `<b>`-HTML-Tags; iOS benötigt reinen Text ohne HTML/Emojis)
 
-## Übersicht der aktuellen ASO-Textänderungen (KW 46 / 9. November 2026)
+## Übersicht der aktuellen ASO-Textänderungen (KW 46 / 14. November 2026)
 
 * **Deutsch (`de-DE`)**:
-  * **iOS Keywords (100 / 100 Zeichen)**: `kinderwecker,badplaner,zeitplan,timer,adhs,visuell,kinder,aufgaben,sanft,tagesplan,kids,schlaf,hilfe` — ersetzt redundante Begriffe (`planer` ist in `badplaner`/`tagesplan`; `mission` und `wach` haben geringen Traffic) durch isolierte Token `kinder` (schaltet exakten Token-Match für `timer kinder` Traffic 25 und `visueller timer für kinder` Traffic 48, Rang #41 frei), `schlaf` sowie `hilfe` (Traffic-Hebel für Alltags- und ADHS-Nischen). (**Applyra Simulation**: Coverage-Score steigt auf **79 (+3 Punkte)**, Targeting auf **74 Punkte**).
-  * **Google Play & iOS Beschreibung**: Gezielte Erhöhung der Keyword-Dichte von `Kinder Wecker` (mit Leerzeichen, von 1x auf 4x / 0.72% — Hebel für den Sprung von Rang #37 in die Top 20), `visueller Timer für Kinder` (auf 3x — Festigung des Aufstiegs von #51 auf #41 auf iOS) sowie `Badplaner` (auf 4x / 0.72% — Absicherung der Nischenführerschaft). Exakt byte-optimiert auf 3.918 Bytes (< 4.000 Byte-Limit).
-  * **Google Play Kurzbeschreibung (73 / 80 Zeichen)** & **iOS Untertitel (30 / 30 Zeichen)**: Beibehalten auf `Kinderwecker & Morgenroutine für Kinder. Wecker mit Badplaner & Zeitplan.` bzw. `Familienwecker & Morgenroutine`, welche die stabile Marktführerschaft vor Alarmy (58 vs. 53) und das Podest auf Android DE sichern.
+  * **Google Play Titel (29 / 30 Zeichen)**: `FamWake Kinderwecker Zeitplan` (ersetzt `FamWake Familienwecker` mit kaum gesuchtem Hauptkeyword; Applyra-Simulation: Global-Score **58 → 72 (+14)**, Coverage **49 → 95 (+46)**, 0 verlorene Phrasen).
+  * **Google Play Kurzbeschreibung (79 / 80 Zeichen)**: `Morgenroutine & Badplaner für Kinder & Familie. Sanftes Wecken ohne Werbung.` (keine Wort-Duplikate zum Titel).
 * **Englisch (`en-US`, `en-GB`, `en-IN`)**:
-  * **iOS Keywords (99 / 100 Zeichen)**: `checklist,visual,first,then,autism,chore,habit,adhd,planner,bedtime,kids,group,shared,timer,morning` — ersetzt `builder` durch `bedtime` zur direkten Erschließung der beiden neu identifizierten High-KEI Keywords `kids bedtime checklist` (Traffic 23, Diff 15, KEI 1.53) und `bedtime routine`. (**Applyra Simulation**: Targeting-Score steigt auf **38 (+1 Punkt)** ohne Phrasenverlust).
-  * **Google Play & iOS Beschreibung**: Gezielte Erhöhung der Keyword-Dichten zur Festigung der Top-Rankings: `bathroom schedule` (auf 3x — Hebel für den Sprung von #3 auf #1 auf Google Play US), `kids alarm clock` (auf 5x / 0.8% — Hebel für den Sprung von #19 in die Top 10) sowie `morning routine for kids` (auf 4x — Unterstützung der Sensationsexplosion von #67 auf #29 auf iOS). Exakt byte-optimiert auf 3.958 Bytes (< 4.000 Byte-Limit).
-  * **iOS Untertitel (27 / 30 Zeichen)** & **Google Play Kurzbeschreibung (78 / 80 Zeichen)**: Beibehalten auf `Bathroom Schedule & Routine` bzw. `Smart morning routine & kids wake up planner. Bathroom queue & group schedule.`, um die Doppelspitze (#1 für `family alarm` und #2 für `family alarm clock`) sowie `bathroom schedule` (#3) abzusichern.
-* **Rollout auf alle 29 Sprachen (`es`, `fr`, `pt`, `it`, `nl`, `pl`, `tr`, `ru`, `uk`, `da`, `sv`, `no`, `id`, `vi`, `ja`, `ko`, `zh`, `hi`, `mr`, `bn`)**:
-  * **Vollständige Parität**: Alle 29 Sprachen für Google Play und Apple App Store 100% konsistent synchronisiert und validiert.
+  * **Google Play Titel (28 / 30 Zeichen)**: `FamWake: Morning Routine App` (löst `TITLE_HARD_KEYWORD` auf und zielt auf `morning routine app` mit Traffic 50 / Difficulty 22; Applyra-Simulation: Targeting **50 → 55 (+5)**, Global **52 → 53 (+1)**, 0 verlorene Phrasen).
+  * **Google Play Kurzbeschreibung (74 / 80 Zeichen)**: `Visual schedule planner & bathroom queue for ADHD. Smart kids alarm clock.`
+* **Rollout auf alle 29 Sprachen (`fr`, `es`, `it`, `nl`, `pt`, `pl`, `tr`, `ru`, `uk`, `da`, `sv`, `nb`, `no`, `id`, `vi`, `ja`, `ko`, `zh`, `hi`, `mr`, `bn`)**:
+  * Alle 29 Google-Play-Titel (<= 30 Zeichen) und Kurzbeschreibungen (<= 80 Zeichen) auf das neue Morning-Routine- & Kinderwecker-Schema ohne Titel-Duplikate synchronisiert.
 ---
 
 ## Deutsch (Deutschland) (`de-DE` / iOS: `de-DE`)
 
-### Titel (22 / 30 Zeichen)
+### Titel (29 / 30 Zeichen)
 ```text
-FamWake Familienwecker
+FamWake Kinderwecker Zeitplan
 ```
 
-### Kurzbeschreibung – Google Play (73 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (76 / 80 Zeichen)
 ```text
-Kinderwecker & Morgenroutine für Kinder. Wecker mit Badplaner & Zeitplan.
+Morgenroutine & Badplaner für Kinder & Familie. Sanftes Wecken ohne Werbung.
 ```
 
 ### iOS Untertitel – App Store (28 / 30 Zeichen)
@@ -155,14 +153,14 @@ FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den Familien
 
 ## Englisch (USA) (`en-US` / iOS: `en-US`)
 
-### Titel (26 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake Family Alarm Clock
+FamWake: Morning Routine App
 ```
 
-### Kurzbeschreibung – Google Play (78 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (74 / 80 Zeichen)
 ```text
-Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
+Visual schedule planner & bathroom queue for ADHD. Smart kids alarm clock.
 ```
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
@@ -286,14 +284,14 @@ FamWake is a passion project born at our breakfast table. Download FamWake now a
 
 ## Englisch (UK) (`en-GB` / iOS: `en-GB`)
 
-### Titel (26 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake Family Alarm Clock
+FamWake: Morning Routine App
 ```
 
-### Kurzbeschreibung – Google Play (78 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (74 / 80 Zeichen)
 ```text
-Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
+Visual schedule planner & bathroom queue for ADHD. Smart kids alarm clock.
 ```
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
@@ -417,14 +415,14 @@ FamWake is a passion project born at our breakfast table. Download FamWake now a
 
 ## Englisch (Indien) (`en-IN` / iOS: `en-GB`)
 
-### Titel (26 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake Family Alarm Clock
+FamWake: Morning Routine App
 ```
 
-### Kurzbeschreibung – Google Play (78 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (74 / 80 Zeichen)
 ```text
-Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
+Visual schedule planner & bathroom queue for ADHD. Smart kids alarm clock.
 ```
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
@@ -548,14 +546,14 @@ FamWake is a passion project born at our breakfast table. Download FamWake now a
 
 ## Französisch (Frankreich) (`fr-FR` / iOS: `fr-FR`)
 
-### Titel (23 / 30 Zeichen)
+### Titel (25 / 30 Zeichen)
 ```text
-FamWake Réveil Familial
+FamWake: Routine du Matin
 ```
 
-### Kurzbeschreibung – Google Play (76 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (72 / 80 Zeichen)
 ```text
-Routine du matin et planning salle de bain pour enfants et toute la famille.
+Réveil enfant, planning salle de bain & TDAH. Horaires famille sans pub.
 ```
 
 ### iOS Untertitel – App Store (26 / 30 Zeichen)
@@ -679,14 +677,14 @@ FamWake est né autour de notre table de petit-déjeuner. Télécharge FamWake d
 
 ## Französisch (Kanada) (`fr-CA` / iOS: `fr-FR`)
 
-### Titel (23 / 30 Zeichen)
+### Titel (25 / 30 Zeichen)
 ```text
-FamWake Réveil Familial
+FamWake: Routine du Matin
 ```
 
-### Kurzbeschreibung – Google Play (76 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (72 / 80 Zeichen)
 ```text
-Routine du matin et planning salle de bain pour enfants et toute la famille.
+Réveil enfant, planning salle de bain & TDAH. Horaires famille sans pub.
 ```
 
 ### iOS Untertitel – App Store (26 / 30 Zeichen)
@@ -810,14 +808,14 @@ FamWake est né autour de notre table de petit-déjeuner. Télécharge FamWake d
 
 ## Spanisch (Spanien) (`es-ES` / iOS: `es-ES`)
 
-### Titel (28 / 30 Zeichen)
+### Titel (25 / 30 Zeichen)
 ```text
-FamWake Despertador Familiar
+FamWake: Rutina de Mañana
 ```
 
-### Kurzbeschreibung – Google Play (71 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (73 / 80 Zeichen)
 ```text
-Alarma infantil y rutina matinal para niños. Turnos de baño y horarios.
+Despertador infantil, turnos de baño y TDAH. Horario visual sin anuncios.
 ```
 
 ### iOS Untertitel – App Store (30 / 30 Zeichen)
@@ -941,14 +939,14 @@ FamWake nació en nuestra propia mesa de desayuno. ¡Descarga FamWake ahora y em
 
 ## Spanisch (Lateinamerika) (`es-419` / iOS: `es-MX`)
 
-### Titel (28 / 30 Zeichen)
+### Titel (25 / 30 Zeichen)
 ```text
-FamWake Despertador Familiar
+FamWake: Rutina de Mañana
 ```
 
-### Kurzbeschreibung – Google Play (71 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (73 / 80 Zeichen)
 ```text
-Alarma infantil y rutina matinal para niños. Turnos de baño y horarios.
+Despertador infantil, turnos de baño y TDAH. Horario visual sin anuncios.
 ```
 
 ### iOS Untertitel – App Store (30 / 30 Zeichen)
@@ -1072,14 +1070,14 @@ FamWake nació en nuestra propia mesa de desayuno. ¡Descarga FamWake ahora y em
 
 ## Spanisch (USA) (`es-US` / iOS: `es-MX`)
 
-### Titel (28 / 30 Zeichen)
+### Titel (25 / 30 Zeichen)
 ```text
-FamWake Despertador Familiar
+FamWake: Rutina de Mañana
 ```
 
-### Kurzbeschreibung – Google Play (71 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (73 / 80 Zeichen)
 ```text
-Alarma infantil y rutina matinal para niños. Turnos de baño y horarios.
+Despertador infantil, turnos de baño y TDAH. Horario visual sin anuncios.
 ```
 
 ### iOS Untertitel – App Store (30 / 30 Zeichen)
@@ -1203,14 +1201,14 @@ FamWake nació en nuestra propia mesa de desayuno. ¡Descarga FamWake ahora y em
 
 ## Italienisch (`it-IT` / iOS: `it`)
 
-### Titel (25 / 30 Zeichen)
+### Titel (26 / 30 Zeichen)
 ```text
-FamWake Sveglia Familiare
+FamWake: Routine Mattutina
 ```
 
-### Kurzbeschreibung – Google Play (73 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (72 / 80 Zeichen)
 ```text
-Routine mattutina per bambini, turni bagno e orari per tutta la famiglia.
+Sveglia bambini, turni bagno e ADHD. Orari visivi per tutta la famiglia.
 ```
 
 ### iOS Untertitel – App Store (28 / 30 Zeichen)
@@ -1334,14 +1332,14 @@ Scarica FamWake ora e trasforma le tue mattine in momenti piacevoli e puntuali!
 
 ## Niederländisch (`nl-NL` / iOS: `nl-NL`)
 
-### Titel (20 / 30 Zeichen)
+### Titel (27 / 30 Zeichen)
 ```text
-FamWake Gezinswekker
+FamWake: Ochtendroutine App
 ```
 
-### Kurzbeschreibung – Google Play (76 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (73 / 80 Zeichen)
 ```text
-Kinderwekker & ochtendroutine app. Badkamerplanning, volgorde en tijdschema.
+Kinderwekker, badkamerplanning & ADHD. Visueel tijdschema zonder reclame.
 ```
 
 ### iOS Untertitel – App Store (29 / 30 Zeichen)
@@ -1465,14 +1463,14 @@ Download FamWake nu en geniet elke ochtend van rust en harmonie!
 
 ## Portugiesisch (Brasilien) (`pt-BR` / iOS: `pt-BR`)
 
-### Titel (28 / 30 Zeichen)
+### Titel (27 / 30 Zeichen)
 ```text
-FamWake Despertador Familiar
+FamWake: Rotina Matinal App
 ```
 
-### Kurzbeschreibung – Google Play (75 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (72 / 80 Zeichen)
 ```text
-Alarme infantil, rotina matinal e horários de banheiro para toda a família.
+Despertador infantil, fila do banho e TDAH. Horário visual para família.
 ```
 
 ### iOS Untertitel – App Store (28 / 30 Zeichen)
@@ -1596,14 +1594,14 @@ Baixe o FamWake agora e comece suas manhãs com paz e pontualidade!
 
 ## Portugiesisch (Portugal) (`pt-PT` / iOS: `pt-PT`)
 
-### Titel (28 / 30 Zeichen)
+### Titel (27 / 30 Zeichen)
 ```text
-FamWake Despertador Familiar
+FamWake: Rotina Matinal App
 ```
 
-### Kurzbeschreibung – Google Play (75 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (72 / 80 Zeichen)
 ```text
-Alarme infantil, rotina matinal e horários de banheiro para toda a família.
+Despertador infantil, fila do banho e TDAH. Horário visual para família.
 ```
 
 ### iOS Untertitel – App Store (28 / 30 Zeichen)
@@ -1727,14 +1725,14 @@ Baixe o FamWake agora e comece suas manhãs com paz e pontualidade!
 
 ## Polnisch (`pl-PL` / iOS: `pl`)
 
-### Titel (23 / 30 Zeichen)
+### Titel (27 / 30 Zeichen)
 ```text
-FamWake Budzik Rodzinny
+FamWake: Poranna Rutyna App
 ```
 
-### Kurzbeschreibung – Google Play (76 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (72 / 80 Zeichen)
 ```text
-Harmonogram łazienki, kolejność i planowanie na spokojne poranki dla dzieci.
+Budzik dla dzieci, harmonogram łazienki i ADHD. Plan poranka bez reklam.
 ```
 
 ### iOS Untertitel – App Store (24 / 30 Zeichen)
@@ -1858,14 +1856,14 @@ Pobierz FamWake już dziś i rozpocznij każdy dzień bez pośpiechu!
 
 ## Türkisch (`tr-TR` / iOS: `tr`)
 
-### Titel (24 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake Aile Alarm Saati
+FamWake: Sabah Rutini & Plan
 ```
 
 ### Kurzbeschreibung – Google Play (70 / 80 Zeichen)
 ```text
-Akıllı sabah rutini, banyo sırası, sabah planlaması ve zaman yönetimi.
+Çocuk alarmı, banyo sırası ve DEHB. Aile için görsel zaman planlayıcı.
 ```
 
 ### iOS Untertitel – App Store (30 / 30 Zeichen)
@@ -1989,14 +1987,14 @@ FamWake'i şimdi indirin ve her güne neşeyle başlayın!
 
 ## Russisch (`ru-RU` / iOS: `ru`)
 
-### Titel (26 / 30 Zeichen)
+### Titel (24 / 30 Zeichen)
 ```text
-FamWake Семейный Будильник
+FamWake: Утренняя рутина
 ```
 
 ### Kurzbeschreibung – Google Play (72 / 80 Zeichen)
 ```text
-Конец утреннему хаосу! Таймер для детей, очередность в ванной и завтрак.
+Детский будильник, очередь в ванную и СДВГ. Визуальное расписание семьи.
 ```
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
@@ -2102,14 +2100,14 @@ FamWake рассчитывает идеальное время подъема д
 
 ## Ukrainisch (`uk` / iOS: `uk`)
 
-### Titel (26 / 30 Zeichen)
+### Titel (23 / 30 Zeichen)
 ```text
-FamWake Сімейний Будильник
+FamWake: Ранкова рутина
 ```
 
-### Kurzbeschreibung – Google Play (79 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (73 / 80 Zeichen)
 ```text
-Кінець ранковому хаосу! Таймер для дітей, черга до ванної та спільний сніданок.
+Дитячий будильник, черга до ванної та СДУГ. Візуальний розклад для сім’ї.
 ```
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
@@ -2215,14 +2213,14 @@ FamWake вираховує ідеальний час підйому для ко�
 
 ## Dänisch (`da-DK` / iOS: `da`)
 
-### Titel (22 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake Familievækkeur
+FamWake: Morgenrutine & Plan
 ```
 
-### Kurzbeschreibung – Google Play (76 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (72 / 80 Zeichen)
 ```text
-Slut med morgenkaos! Børnevækkeur, morgenrutine, badeværelseskø og tidsplan.
+Børnevækkeur, badeværelseskø og ADHD. Visuel tidsplan for hele familien.
 ```
 
 ### iOS Untertitel – App Store (26 / 30 Zeichen)
@@ -2346,14 +2344,14 @@ Hent FamWake nu og start hver morgen i ro og harmoni!
 
 ## Schwedisch (`sv-SE` / iOS: `sv`)
 
-### Titel (27 / 30 Zeichen)
+### Titel (29 / 30 Zeichen)
 ```text
-FamWake Familjeväckarklocka
+FamWake: Morgonrutin & Schema
 ```
 
-### Kurzbeschreibung – Google Play (74 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (76 / 80 Zeichen)
 ```text
-Slut på morgonkaoset! Barnväckarklocka, badrumsschema och morgonplanering.
+Barnväckarklocka, badrumsschema och ADHD. Visuell tidshantering utan reklam.
 ```
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
@@ -2477,14 +2475,14 @@ Ladda ner FamWake nu och njut av fridfulla morgnar tillsammans!
 
 ## Norwegisch (Bokmål) (`nb-NO` / iOS: `no`)
 
-### Titel (27 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake Familievekkerklokke
+FamWake: Morgenrutine & Plan
 ```
 
-### Kurzbeschreibung – Google Play (75 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (70 / 80 Zeichen)
 ```text
-Slutt på morgenkaoset! Barnevekkerur, morgenrutine, baderomskø og tidsplan.
+Barnevekkerur, baderomskø og ADHD. Visuell tidsplan for hele familien.
 ```
 
 ### iOS Untertitel – App Store (26 / 30 Zeichen)
@@ -2608,14 +2606,14 @@ Last ned FamWake nå og opplev en fredelig og punktlig morgen!
 
 ## Norwegisch (`no-NO` / iOS: `no`)
 
-### Titel (27 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake Familievekkerklokke
+FamWake: Morgenrutine & Plan
 ```
 
-### Kurzbeschreibung – Google Play (75 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (70 / 80 Zeichen)
 ```text
-Slutt på morgenkaoset! Barnevekkerur, morgenrutine, baderomskø og tidsplan.
+Barnevekkerur, baderomskø og ADHD. Visuell tidsplan for hele familien.
 ```
 
 ### iOS Untertitel – App Store (26 / 30 Zeichen)
@@ -2739,14 +2737,14 @@ Last ned FamWake nå og opplev en fredelig og punktlig morgen!
 
 ## Indonesisch (`id` / iOS: `id`)
 
-### Titel (26 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake Jam Alarm Keluarga
+FamWake: Rutinitas Pagi Anak
 ```
 
 ### Kurzbeschreibung – Google Play (74 / 80 Zeichen)
 ```text
-Aplikasi rutinitas pagi pintar, giliran kamar mandi, dan perencanaan pagi.
+Jam alarm keluarga, jadwal kamar mandi & ADHD. Pengatur waktu tanpa iklan.
 ```
 
 ### iOS Untertitel – App Store (26 / 30 Zeichen)
@@ -2870,14 +2868,14 @@ Unduh FamWake sekarang dan nikmati pagi yang harmonis bersama keluarga!
 
 ## Vietnamesisch (`vi` / iOS: `vi`)
 
-### Titel (25 / 30 Zeichen)
+### Titel (29 / 30 Zeichen)
 ```text
-FamWake Báo thức gia đình
+FamWake: Lịch trình Buổi sáng
 ```
 
-### Kurzbeschreibung – Google Play (78 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (66 / 80 Zeichen)
 ```text
-Ứng dụng lịch trình buổi sáng, quản lý phòng tắm và thời gian biểu thông minh.
+Báo thức trẻ em, thứ tự phòng tắm & ADHD. Thời gian biểu gia đình.
 ```
 
 ### iOS Untertitel – App Store (28 / 30 Zeichen)
@@ -2999,14 +2997,14 @@ Tải FamWake ngay hôm nay để mỗi sáng trôi qua thật bình yên và g�
 
 ## Japanisch (`ja-JP` / iOS: `ja`)
 
-### Titel (17 / 30 Zeichen)
+### Titel (15 / 30 Zeichen)
 ```text
-FamWake ファミリー目覚まし
+FamWake 朝のルーティン
 ```
 
-### Kurzbeschreibung – Google Play (51 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (42 / 80 Zeichen)
 ```text
-朝のバタバタにさようなら！洗面所の順番、朝食、出発時間を自動で完璧に整えるモーニングルーティンアプリ。
+子供用目覚まし時計、洗面所の順番、ADHD対応の視覚スケジュール。家族の朝を快適に。
 ```
 
 ### iOS Untertitel – App Store (14 / 30 Zeichen)
@@ -3128,14 +3126,14 @@ FamWakeは、洗面所の順番、朝食、出発時間を自動で完璧に整�
 
 ## Koreanisch (`ko-KR` / iOS: `ko`)
 
-### Titel (15 / 30 Zeichen)
+### Titel (19 / 30 Zeichen)
 ```text
-FamWake 가족 알람시계
+FamWake 아침 루틴 & 플래너
 ```
 
-### Kurzbeschreibung – Google Play (55 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (46 / 80 Zeichen)
 ```text
-아침의 전쟁은 이제 끝! 화장실 순서, 아침 식사, 출발 시간을 하나로 조율해 주는 모닝 루틴 앱.
+어린이 알람시계, 화장실 순서, ADHD 시각 일정표. 광고 없는 가족 아침 관리.
 ```
 
 ### iOS Untertitel – App Store (14 / 30 Zeichen)
@@ -3257,14 +3255,14 @@ FamWake는 화장실 순서, 아침 식사, 출발 시간을 하나로 조율해
 
 ## Chinesisch (Vereinfacht) (`zh-CN` / iOS: `zh-Hans`)
 
-### Titel (12 / 30 Zeichen)
+### Titel (15 / 30 Zeichen)
 ```text
-FamWake 家庭闹钟
+FamWake 晨间日程与习惯
 ```
 
-### Kurzbeschreibung – Google Play (43 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (34 / 80 Zeichen)
 ```text
-告别早晨的兵荒马乱！将洗手间排队、全家早餐与出门时间完美统筹在一处的智能晨间日程规划。
+儿童闹钟、洗手间排队与ADHD视觉时间表。无广告的家庭早晨规划助手。
 ```
 
 ### iOS Untertitel – App Store (15 / 30 Zeichen)
@@ -3386,14 +3384,14 @@ FamWake 是一款专为全家打造的智能晨间日程规划与共享闹钟应
 
 ## Hindi (`hi-IN` / iOS: `hi`)
 
-### Titel (24 / 30 Zeichen)
+### Titel (26 / 30 Zeichen)
 ```text
-FamWake पारिवारिक अलार्म
+FamWake: मॉर्निंग रूटीन ऐप
 ```
 
-### Kurzbeschreibung – Google Play (80 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (77 / 80 Zeichen)
 ```text
-सुबह की भागदौड़ खत्म! मॉर्निंग रूटीन, बाथरूम की बारी और निकलने का समय व्यवस्थित।
+बच्चों का अलार्म, बाथरूम की बारी व ADHD शेड्यूल। बिना विज्ञापन परिवार प्लानर।
 ```
 
 ### iOS Untertitel – App Store (23 / 30 Zeichen)
@@ -3495,14 +3493,14 @@ FamWake डाउनलोड करें और सुबह की शुर�
 
 ## Marathi (`mr-IN` / iOS: `mr-IN`)
 
-### Titel (23 / 30 Zeichen)
+### Titel (28 / 30 Zeichen)
 ```text
-FamWake कौटुंबिक अलार्म
+FamWake: मॉर्निंग रुटीन अ‍ॅप
 ```
 
-### Kurzbeschreibung – Google Play (75 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (69 / 80 Zeichen)
 ```text
-सकाळचा गोंधळ संपवा! मॉर्निंग रुटीन, बाथरूमची वेळ, नाश्ता आणि निघण्याची वेळ.
+मुलांचा अलार्म, बाथरूमची वेळ व ADHD वेळापत्रक। जाहिरातींशिवाय नियोजन।
 ```
 
 ### iOS Untertitel – App Store (26 / 30 Zeichen)
@@ -3606,12 +3604,12 @@ FamWake डाउनलोड करा आणि सकाळची सुर�
 
 ### Titel (27 / 30 Zeichen)
 ```text
-FamWake পারিবারিক অ্যালার্ম
+FamWake: মর্নিং রুটিন অ্যাপ
 ```
 
-### Kurzbeschreibung – Google Play (80 / 80 Zeichen)
+### Kurzbeschreibung – Google Play (73 / 80 Zeichen)
 ```text
-সকালের বিশৃঙ্খলা শেষ! মর্নিং রুটিন, বাথরুমের পালা, নাশতা এবং বের হওয়ার সমন্বয়।
+শিশুদের অ্যালার্ম, বাথরুম ও ADHD সময়সূচি। বিজ্ঞাপন ছাড়া পরিবার প্ল্যানার।
 ```
 
 ### iOS Untertitel – App Store (26 / 30 Zeichen)
