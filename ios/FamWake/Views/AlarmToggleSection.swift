@@ -68,6 +68,7 @@ struct AlarmToggleSection: View {
                             set: {
                                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                 familyViewModel.setAlarmEnabled($0)
+                                ReviewHelper.launchReview()
                             }
                         ))
                         .labelsHidden()

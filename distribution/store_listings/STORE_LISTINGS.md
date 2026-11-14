@@ -34,14 +34,14 @@ FamWake Familienwecker
 Kinderwecker & Morgenroutine für Kinder. Wecker mit Badplaner & Zeitplan.
 ```
 
-### iOS Untertitel – App Store (30 / 30 Zeichen)
+### iOS Untertitel – App Store (28 / 30 Zeichen)
 ```text
-Familienwecker & Morgenroutine
+Kinderwecker & Morgenroutine
 ```
 
-### iOS Keywords – App Store (100 / 100 Zeichen)
+### iOS Keywords – App Store (99 / 100 Zeichen)
 ```text
-kinderwecker,badplaner,zeitplan,timer,adhs,visuell,kinder,aufgaben,sanft,tagesplan,kids,schlaf,hilfe
+wecker,badplaner,zeitplan,timer,adhs,visuell,kinder,aufgaben,sanft,tagesplan,kids,schlaf,hilfe,plan
 ```
 
 ### iOS Promo-Text – App Store (116 / 170 Zeichen)
@@ -167,12 +167,12 @@ Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
 ```text
-Bathroom Schedule & Routine
+Visual Kids Morning Routine
 ```
 
-### iOS Keywords – App Store (99 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-checklist,visual,first,then,autism,chore,habit,adhd,planner,bedtime,kids,group,shared,timer,morning
+checklist,first,then,autism,chore,habit,adhd,planner,bedtime,group,shared,timer,wake,school,schedule
 ```
 
 ### iOS Promo-Text – App Store (109 / 170 Zeichen)
@@ -298,12 +298,12 @@ Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
 ```text
-Bathroom Schedule & Routine
+Visual Kids Morning Routine
 ```
 
-### iOS Keywords – App Store (99 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-checklist,visual,first,then,autism,chore,habit,adhd,planner,bedtime,kids,group,shared,timer,morning
+checklist,first,then,autism,chore,habit,adhd,planner,bedtime,group,shared,timer,wake,school,schedule
 ```
 
 ### iOS Promo-Text – App Store (109 / 170 Zeichen)
@@ -429,12 +429,12 @@ Smart morning routine & kids wake up planner. Bathroom queue & group schedule.
 
 ### iOS Untertitel – App Store (27 / 30 Zeichen)
 ```text
-Bathroom Schedule & Routine
+Visual Kids Morning Routine
 ```
 
-### iOS Keywords – App Store (99 / 100 Zeichen)
+### iOS Keywords – App Store (100 / 100 Zeichen)
 ```text
-checklist,visual,first,then,autism,chore,habit,adhd,planner,bedtime,kids,group,shared,timer,morning
+checklist,first,then,autism,chore,habit,adhd,planner,bedtime,group,shared,timer,wake,school,schedule
 ```
 
 ### iOS Promo-Text – App Store (109 / 170 Zeichen)

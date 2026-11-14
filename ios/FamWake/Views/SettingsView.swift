@@ -140,6 +140,9 @@ struct SettingsView: View {
             showProfilePicker: $showProfilePicker,
             pendingClaimMemberId: $pendingClaimMemberId
         )
+        .onDisappear {
+            ReviewHelper.launchReview()
+        }
     }
 }
 

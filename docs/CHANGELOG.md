@@ -2,6 +2,11 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.2.12 – 2026-11-14
+✨ Neu & Verbessert:
+• Feedback & Bewertungen: Sanfte Einladung zur App-Bewertung nach den ersten genutzten Tagen außerhalb der morgendlichen Weckzeit.
+• Verständlichere Store-Texte: Lokalisierte App-Titel und präzisere Beschreibungen in allen unterstützten Sprachen.
+
 ## 2.2.11 – 2026-11-13
 ✨ Neu & Verbessert:
 • Zuverlässigere Wecker & Datensicherung: Gespeicherte Zeitpläne, Wecktöne und Pufferzeiten greifen nach einem Geräteneustart noch stabiler ineinander.

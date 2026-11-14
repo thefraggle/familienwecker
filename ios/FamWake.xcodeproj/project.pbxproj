@@ -10,6 +10,7 @@
 		B10000012F90000000000001 /* SchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000012F90000000000001 /* SchedulerTests.swift */; };
 		B10000022F90000000000002 /* FirebaseErrorMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000022F90000000000002 /* FirebaseErrorMapperTests.swift */; };
 		B10000032F90000000000003 /* FamilyModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000032F90000000000003 /* FamilyModelsTests.swift */; };
+		B10000042F90000000000004 /* ReviewHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000062F90000000000006 /* ReviewHelperTests.swift */; };
 		12C43A1CE9835BFBF3EDA916 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDAFF0ADF4BED1A43C43F7EF /* GoogleService-Info.plist */; };
 		22FA8F237A30F464EE608DC4 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F4EE56F9FF20E4C1CE93CC62 /* FirebaseCore */; };
 		4F17EEDD79E7E0F7C84DFC02 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6E54CFA014A4B969C74152 /* SnapshotHelper.swift */; };
@@ -47,6 +48,7 @@
 		B20000012F90000000000001 /* SchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerTests.swift; sourceTree = "<group>"; };
 		B20000022F90000000000002 /* FirebaseErrorMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseErrorMapperTests.swift; sourceTree = "<group>"; };
 		B20000032F90000000000003 /* FamilyModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyModelsTests.swift; sourceTree = "<group>"; };
+		B20000062F90000000000006 /* ReviewHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelperTests.swift; sourceTree = "<group>"; };
 		B20000042F90000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B20000052F90000000000005 /* FamWakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FamWakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		429FA24C9471060946B76511 /* FamWakeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamWakeUITests.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				B20000012F90000000000001 /* SchedulerTests.swift */,
 				B20000022F90000000000002 /* FirebaseErrorMapperTests.swift */,
 				B20000032F90000000000003 /* FamilyModelsTests.swift */,
+				B20000062F90000000000006 /* ReviewHelperTests.swift */,
 			);
 			path = FamWakeTests;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				B10000012F90000000000001 /* SchedulerTests.swift in Sources */,
 				B10000022F90000000000002 /* FirebaseErrorMapperTests.swift in Sources */,
 				B10000032F90000000000003 /* FamilyModelsTests.swift in Sources */,
+				B10000042F90000000000004 /* ReviewHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,7 +599,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.11;
+				MARKETING_VERSION = 2.2.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = de.familienwecker.FamWake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -636,7 +640,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.11;
+				MARKETING_VERSION = 2.2.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = de.familienwecker.FamWake;
 				PRODUCT_NAME = "$(TARGET_NAME)";

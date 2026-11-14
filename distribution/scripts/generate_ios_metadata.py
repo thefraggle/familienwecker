@@ -1,10 +1,13 @@
 """
 Generate multi-language App Store Connect metadata in Fastlane format.
 
-Generates three files per locale:
+Generates metadata files per locale:
+  - name.txt             (App title — from localized Play Store title.txt)
   - release_notes.txt    (What's New — from changelogs, translated on-the-fly)
   - description.txt      (App description — from existing Play Store listings)
   - promotional_text.txt (Promotional text — translated from DE/EN source)
+  - keywords.txt         (App Store keywords, max 100 chars)
+  - subtitle.txt         (App Store subtitle, max 30 chars)
 
 Note: App Store Connect rejects emoji characters in all metadata fields.
 """
@@ -257,8 +260,8 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # Deduplicated against Title & Subtitle, policy-compliant (no price words like "free"/"kostenlos")
-KEYWORDS_DE = 'kinderwecker,badplaner,zeitplan,timer,adhs,visuell,kinder,aufgaben,sanft,tagesplan,kids,schlaf,hilfe'
-KEYWORDS_EN = 'checklist,visual,first,then,autism,chore,habit,adhd,planner,bedtime,kids,group,shared,timer,morning'
+KEYWORDS_DE = 'wecker,badplaner,zeitplan,timer,adhs,visuell,kinder,aufgaben,sanft,tagesplan,kids,schlaf,hilfe,plan'
+KEYWORDS_EN = 'checklist,first,then,autism,chore,habit,adhd,planner,bedtime,group,shared,timer,wake,school,schedule'
 
 # Hardcoded optimized keywords per locale (ASO KW 46)
 KEYWORDS_BY_LOCALE = {
@@ -292,9 +295,9 @@ KEYWORDS_BY_LOCALE = {
 # App Store subtitle: max 30 chars, shown below app name.
 # Hardcoded per locale for consistency.
 SUBTITLES = {
-    'de-DE':   'Familienwecker & Morgenroutine',
-    'en-US':   'Bathroom Schedule & Routine',
-    'en-GB':   'Bathroom Schedule & Routine',
+    'de-DE':   'Kinderwecker & Morgenroutine',
+    'en-US':   'Visual Kids Morning Routine',
+    'en-GB':   'Visual Kids Morning Routine',
     'fr-FR':   'R\u00e9veil familial & planning',
     'es-ES':   'Alarma familiar & planificador',
     'es-MX':   'Alarma familiar & planificador',
@@ -404,6 +407,14 @@ def main():
         # Try to read iOS metadata from local markdown file
         parsed_title, parsed_subtitle, parsed_promo, parsed_keywords = extract_ios_sections(listing_file)
 
+        # ── 0. NAME (APP TITLE) ───────────────────────────────────
+        android_title_file = os.path.join(android_metadata_dir, android_locale, 'title.txt')
+        app_name = safe_read_file(android_title_file) or parsed_title or 'FamWake Family Alarm Clock'
+        app_name = strip_emojis(app_name).strip()
+        if len(app_name) > 30:
+            app_name = app_name[:30].rsplit(' ', 1)[0].strip() or app_name[:30]
+        write_file(os.path.join(locale_dir, 'name.txt'), app_name)
+
         # ── 3. PROMOTIONAL TEXT ───────────────────────────────────
         promo = parsed_promo or PROMO_TEXTS.get(asc_locale, PROMO_TEXTS['en-US'])
         promo = strip_emojis(promo).strip()
@@ -464,7 +475,7 @@ def main():
         print(f"  ✅ {asc_locale:10s} | notes: {notes_bytes:4d}B | desc: {desc_bytes:4d}B | promo: {promo_len:3d}/170 | kw: {kw_len:3d}/100 | sub: {sub_len:2d}/30 | urls: {web_lang}")
 
     print(f"\n✅ {len(ASC_TO_LISTING)} locales generated in {metadata_base}/")
-    print("   Files per locale: release_notes.txt, description.txt, promotional_text.txt, keywords.txt, subtitle.txt, support_url.txt, marketing_url.txt")
+    print("   Files per locale: name.txt, release_notes.txt, description.txt, promotional_text.txt, keywords.txt, subtitle.txt, support_url.txt, marketing_url.txt")
 
 
 if __name__ == "__main__":

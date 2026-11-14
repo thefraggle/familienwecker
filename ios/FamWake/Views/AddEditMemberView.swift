@@ -355,6 +355,7 @@ struct AddEditMemberView: View {
         }
         
         familyViewModel.addOrUpdateMember(memberToSave)
+        ReviewHelper.launchReview()
         onDone()
     }
 }

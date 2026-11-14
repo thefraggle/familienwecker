@@ -2,6 +2,11 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.2.12 – 2026-11-14
+✨ New & Improved:
+• Feedback & Ratings: Gentle in-app rating prompt after the first few days of use, paused during early morning hours.
+• Clearer Store Listings: Localized app titles and refined descriptions across all supported languages.
+
 ## 2.2.11 – 2026-11-13
 ✨ New & Improved:
 • More Reliable Alarms & Persistence: Saved schedules, alarm sounds, and buffer settings work together more reliably after a device restart.
