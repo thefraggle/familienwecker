@@ -77,7 +77,7 @@ extension FamilyViewModel {
 
         let effectiveUiMembers = rawMembers
             .map { resolveEffectiveMember($0, forDate: uiTargetDate) }
-            .sorted { ($0.sequenceOrder, $0.createdAt) < ($1.sequenceOrder, $1.createdAt) }
+            .sorted { ($0.sequenceOrder, $0.createdAt ?? 0, $0.id) < ($1.sequenceOrder, $1.createdAt ?? 0, $1.id) }
         var uiResult = Scheduler().calculateIdealSchedule(members: effectiveUiMembers, globalBufferMinutes: globalBufferMinutes)
         uiResult.targetDate = uiTargetDate
         self.schedule = uiResult
@@ -139,7 +139,7 @@ extension FamilyViewModel {
             if cal.isDate(candidate, inSameDayAs: today) {
                 let candidateMembers = rawMembers
                     .map { resolveEffectiveMember($0, forDate: candidate) }
-                    .sorted { ($0.sequenceOrder, $0.createdAt) < ($1.sequenceOrder, $1.createdAt) }
+                    .sorted { ($0.sequenceOrder, $0.createdAt ?? 0, $0.id) < ($1.sequenceOrder, $1.createdAt ?? 0, $1.id) }
                 let candidateSchedule = Scheduler().calculateIdealSchedule(members: candidateMembers, globalBufferMinutes: globalBufferMinutes)
                 if let myId = currentMyMemberId,
                    let mySched = candidateSchedule.memberSchedules.first(where: { $0.member.id == myId }),
@@ -181,7 +181,7 @@ extension FamilyViewModel {
 
         let effectiveAlarmMembers = rawMembers
             .map { resolveEffectiveMember($0, forDate: alarmTargetDate) }
-            .sorted { ($0.sequenceOrder, $0.createdAt) < ($1.sequenceOrder, $1.createdAt) }
+            .sorted { ($0.sequenceOrder, $0.createdAt ?? 0, $0.id) < ($1.sequenceOrder, $1.createdAt ?? 0, $1.id) }
         var alarmResult = Scheduler().calculateIdealSchedule(members: effectiveAlarmMembers, globalBufferMinutes: globalBufferMinutes)
         alarmResult.targetDate = alarmTargetDate
         self.deviceSchedule = alarmResult
