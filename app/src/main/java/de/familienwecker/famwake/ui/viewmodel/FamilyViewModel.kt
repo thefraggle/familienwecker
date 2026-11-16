@@ -60,7 +60,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class FamilyViewModel(
     application: Application,
-    internal val repository: IFirebaseRepository = FirebaseRepository(),
+    internal val repository: IFirebaseRepository = (application as FamWakeApplication).firebaseRepository,
     internal val appSettings: de.familienwecker.famwake.data.AppSettings = (application as FamWakeApplication).appSettings,
     internal val memberRepository: de.familienwecker.famwake.data.MemberRepository = (application as FamWakeApplication).memberRepository
 ) : AndroidViewModel(application) {
@@ -396,13 +396,15 @@ class FamilyViewModel(
         networkMonitor.startMonitoring()
         viewModelScope.launch(Dispatchers.IO) {
             var wasOffline = false
+            var isFirstEmission = true
             networkMonitor.isOnline.collect { online ->
                 val isNowOffline = !online
                 _isOffline.value = isNowOffline
-                // Offline → Online Übergang: ausstehende lokale Familie synchronisieren
-                if (wasOffline && online && appSettings.isLocalOnlyFamily.value) {
+                // Cold-Start online oder Offline → Online Übergang: ausstehende lokale Familie synchronisieren
+                if ((isFirstEmission || wasOffline) && online && appSettings.isLocalOnlyFamily.value) {
                     syncPendingFamily()
                 }
+                isFirstEmission = false
                 wasOffline = isNowOffline
             }
         }

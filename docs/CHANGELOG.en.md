@@ -2,6 +2,15 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.3.0 – 2026-11-16
+✨ New & Improved:
+• Accurate Timezones & Day Transitions: Families persist their timezone upon creation so automated daily resets and morning schedules align accurately worldwide.
+• Reliable Vacation Scheduling: Wake-up times for the first day after a vacation are computed ahead of time, while snooze boundaries and evening reminders consistently use Gregorian calendar formatting.
+• Stronger Offline & Cloud Sync: Families created offline now synchronize automatically on the next online app launch, state changes consistently update activity timestamps, and active families are reliably protected from inactivity cleanup.
+• Seamless Family Management: Improved creator handover when leaving a family, refined deletion checks, and reliable alarm state persistence across quick toggles and device restarts.
+• Accessibility & Localization: Fully localized accessibility descriptions in the morning timeline, complete language coverage for legal links, and hardened build and repository hygiene.
+• Faster App Startup: Precompiled startup profiles accelerate cold starts of the main view and wake-up screen immediately after app updates.
+
 ## 2.2.12 – 2026-11-14
 ✨ New & Improved:
 • Feedback & Ratings: Gentle in-app rating prompt after the first few days of use, paused during early morning hours.

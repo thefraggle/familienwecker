@@ -26,4 +26,5 @@ dependencyResolutionManagement {
 rootProject.name = "Familienwecker"
 include(":app")
 include(":shared")
+include(":baselineprofile")
 

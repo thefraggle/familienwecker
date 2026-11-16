@@ -160,7 +160,11 @@ class RingingActivity : AppCompatActivity() {
                                 ).launch {
                                     try {
                                         kotlinx.coroutines.withTimeoutOrNull(4000L) {
-                                            FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(
+                                            val repo = FamWakeApplication.instance.firebaseRepository
+                                            com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid?.let { uid ->
+                                                repo.setUserActionMeta(uid, familyId)
+                                            }
+                                            repo.updateMemberSnoozeState(
                                                 familyId, memberId,
                                                 snoozeTime.toKmpLocalDateTime(), newCount
                                             )
@@ -330,11 +334,17 @@ class RingingActivity : AppCompatActivity() {
                     }
 
                     if (familyId != null && currentMemberId.isNotEmpty() && !familyId.startsWith("local_")) {
-                        FamWakeApplication.instance.firebaseRepository.updateMemberSnoozeState(familyId, currentMemberId, null, 0)
-                        FamWakeApplication.instance.firebaseRepository.updateMemberAwakeToday(familyId, currentMemberId, true)
+                        val repo = FamWakeApplication.instance.firebaseRepository
+                        com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid?.let { uid ->
+                            repo.setUserActionMeta(uid, familyId)
+                        }
+                        repo.updateMemberSnoozeState(familyId, currentMemberId, null, 0)
+                        repo.updateMemberAwakeToday(familyId, currentMemberId, true)
                     }
                 } catch (e: CancellationException) { throw e }
-                catch (_: Exception) { /* best-effort */ }
+                catch (e: Exception) {
+                    Log.e("RingingActivity", "executeStop background sync failed: ${e.message}", e)
+                }
             }
         }
 

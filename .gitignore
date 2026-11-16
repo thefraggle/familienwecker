@@ -68,15 +68,18 @@ internal/
 .antigravity/
 .agents/
 
-# Fastlane test reports & build artifacts
-*/fastlane/report.xml
+# Fastlane test reports, screenshots & credentials
+**/fastlane/report.xml
 fastlane/report.xml
 report.xml
 screenshots.html
-*/fastlane/screenshots/
-fastlane/screenshots/
-android/fastlane/screenshots/
-ios/fastlane/screenshots/
+**/fastlane/screenshots/
+**/fastlane/Preview.html
+**/fastlane/test_output/
+**/fastlane/Fastfile.private
+**/fastlane/Deliverfile
+**/fastlane/Matchfile
+fastlane/README.md
 android/fastlane/metadata/android/*/images/
 
 # Firebase Functions & Configs
@@ -90,16 +93,6 @@ scratch/
 .env.*
 !.env.example
 !functions/.env.example
-
-# Fastlane credentials
-**/fastlane/report.xml
-**/fastlane/Preview.html
-**/fastlane/screenshots
-**/fastlane/test_output
-**/fastlane/Fastfile.private
-**/fastlane/Deliverfile
-**/fastlane/Matchfile
-fastlane/README.md
 
 # Ruby Bundler
 .bundle/

@@ -13,8 +13,7 @@ import kotlinx.coroutines.launch
 
 /**
  * Application-Klasse, die Singletons für Repositories bereitstellt.
- * Stellt sicher, dass [PreferencesRepository] nur einmal instanziiert wird,
- * da es einen SharedPreferences-Listener hält.
+ * Stellt sicher, dass [AppSettings] und [MemberRepository] nur einmal instanziiert werden.
  */
 class FamWakeApplication : Application() {
 

@@ -38,6 +38,7 @@ object AlarmBackupPrefs {
     private const val KEY_SOUND_URI    = "alarm_sound_uri"
     private const val KEY_WAKE_MILLIS  = "alarm_wake_millis"
     private const val KEY_ENABLED      = "alarm_enabled"
+    private const val KEY_TILE_DISABLED = "alarm_tile_disabled"
     private const val KEY_SNOOZE_UNTIL = "alarm_snooze_until"
     private const val KEY_SNOOZE_COUNT = "alarm_snooze_count"
     private const val KEY_GLOBAL_BUFFER_MINUTES = "global_buffer_minutes"
@@ -77,6 +78,7 @@ object AlarmBackupPrefs {
                 putString(KEY_SOUND_URI, soundUri)
                 putLong(KEY_WAKE_MILLIS, wakeUpMillis)
                 putBoolean(KEY_ENABLED, true)
+                putBoolean(KEY_TILE_DISABLED, false)
                 apply()
             }
         } catch (e: Exception) {
@@ -172,8 +174,21 @@ object AlarmBackupPrefs {
         }
     }
 
+    fun setEnabled(context: Context, enabled: Boolean) {
+        try {
+            prefs(context).edit().apply {
+                putBoolean(KEY_ENABLED, enabled)
+                putBoolean(KEY_TILE_DISABLED, !enabled)
+                apply()
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("AlarmBackupPrefs", "Fehler beim Setzen von enabled=$enabled: ${e.message}")
+        }
+    }
+
     fun isEnabled(context: Context): Boolean {
         val p = prefs(context)
+        if (p.getBoolean(KEY_TILE_DISABLED, false)) return false
         val members = p.getStringSet(KEY_ACTIVE_MEMBERS, emptySet())
         return !members.isNullOrEmpty() || p.getBoolean(KEY_ENABLED, false)
     }

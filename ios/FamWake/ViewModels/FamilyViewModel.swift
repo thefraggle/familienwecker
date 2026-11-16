@@ -991,7 +991,8 @@ class FamilyViewModel: ObservableObject {
                 do {
                     try await memberRef.updateData([
                         "snoozeUntil": Timestamp(date: snoozeTime),
-                        "snoozeCount": newCount
+                        "snoozeCount": newCount,
+                        "lastUpdatedAt": FieldValue.serverTimestamp()
                     ])
                 } catch {
                     print("Error syncing snooze to Firestore: \(error)")
@@ -1030,7 +1031,8 @@ class FamilyViewModel: ObservableObject {
                 do {
                     try await memberRef.updateData([
                         "snoozeUntil": FieldValue.delete(),
-                        "snoozeCount": 0
+                        "snoozeCount": 0,
+                        "lastUpdatedAt": FieldValue.serverTimestamp()
                     ])
                 } catch {
                     print("Error syncing cancelSnooze to Firestore: \(error)")
@@ -1189,8 +1191,12 @@ class FamilyViewModel: ObservableObject {
         familyListener?.remove()
         familyListener = db.collection("families").document(id).addSnapshotListener { [weak self] snap, error in
             guard let self else { return }
-            if let error = error {
-                // Bei Offline / Netzwerkfehlern / Permission-Denied niemals Session löschen!
+            if let error = error as NSError? {
+                print("listenToFamily error for \(id): \(error.localizedDescription)")
+                if !self.isOffline && error.domain == FirestoreErrorDomain && error.code == FirestoreErrorCode.permissionDenied.rawValue {
+                    // User wurde aus Familie entfernt oder Session ungültig -> lokal bereinigen
+                    self.leaveFamily()
+                }
                 return
             }
             guard let snapshot = snap, snapshot.exists else {
@@ -1238,7 +1244,11 @@ class FamilyViewModel: ObservableObject {
         membersListener = db.collection("families/\(familyId)/members")
             .addSnapshotListener { [weak self] snap, error in
                 guard let self else { return }
-                if let error = error {
+                if let error = error as NSError? {
+                    print("listenToMembers error for \(familyId): \(error.localizedDescription)")
+                    if !self.isOffline && error.domain == FirestoreErrorDomain && error.code == FirestoreErrorCode.permissionDenied.rawValue {
+                        self.leaveFamily()
+                    }
                     return
                 }
                 // M7 revert: isFromCache ist nicht zuverlässig für Offline-Erkennung,
@@ -1342,6 +1352,8 @@ class FamilyViewModel: ObservableObject {
             }
             if !isLocalOnlyFamily {
                 listenToFamily(id: fid)
+            } else if !isOffline {
+                syncPendingFamily()
             }
         }
     }

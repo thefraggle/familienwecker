@@ -5,10 +5,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.baselineprofile)
 }
 
 // Fallback version if no versionName property is provided (e.g. for local builds)
-val appVersion = project.findProperty("versionName")?.toString() ?: "2.2.12"
+val appVersion = project.findProperty("versionName")?.toString() ?: "2.3.0"
 
 val commitHash = providers.gradleProperty("commitHash").getOrElse("dev")
 val commitDate = providers.gradleProperty("commitDate").getOrElse("dev")
@@ -161,4 +162,13 @@ dependencies {
 
     // Aptabase – anonyme Nutzungsanalyse (privacy-first)
     implementation(libs.aptabase)
+
+    // Baseline Profile
+    implementation(libs.androidx.profileinstaller)
+    baselineProfile(project(":baselineprofile"))
+}
+
+baselineProfile {
+    // Profil wird gezielt über :app:generateReleaseBaselineProfile (oder CI) generiert
+    automaticGenerationDuringBuild = false
 }

@@ -42,7 +42,7 @@ jobs:
           mkdir -p ios/FamWake/Config
           echo "REVENUECAT_IOS_API_KEY = ${REVENUECAT_IOS_API_KEY:-}" > ios/FamWake/Config/Secrets.xcconfig
           echo "APTABASE_APP_KEY = ${APTABASE_APP_KEY:-}" >> ios/FamWake/Config/Secrets.xcconfig
-          echo "APTABASE_HOST = ${APTABASE_HOST:-https:\/\/telemetry-apps.goork.de}" >> ios/FamWake/Config/Secrets.xcconfig
+          echo "APTABASE_HOST = ${APTABASE_HOST:-}" >> ios/FamWake/Config/Secrets.xcconfig
 
 
       - name: Set up Ruby

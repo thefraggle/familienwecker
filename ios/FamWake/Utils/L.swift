@@ -128,7 +128,7 @@ enum L {
         if isGermanLang(lang) { return "https://www.familienwecker.de/\(page).html" }
         let suffix: String
         switch lang {
-        case "da", "es", "fr", "it", "ja", "nl", "pl", "pt", "ru", "sv", "uk":
+        case "bn", "da", "es", "fr", "hi", "it", "ja", "ko", "mr", "nl", "pl", "pt", "ru", "sv", "tr", "uk", "vi":
             suffix = lang
         case "no", "nb":
             suffix = "no"

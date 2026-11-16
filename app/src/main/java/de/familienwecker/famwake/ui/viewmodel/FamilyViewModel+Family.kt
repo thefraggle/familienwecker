@@ -387,13 +387,10 @@ fun FamilyViewModel.syncPendingFamily() {
             val currentMembers = _members.value.toList()
             val result = repository.syncLocalFamilyToCloud(localFamilyId, name, currentMembers, uid)
             result.onSuccess { (newFamilyId, joinCode) ->
-                // Lokale IDs auf echte Cloud-IDs migrieren
+                // Lokale IDs auf echte Cloud-IDs migrieren (Room-Sync übernimmt der neue Listener)
                 appSettings.setFamilyId(newFamilyId)
                 appSettings.setJoinCode(joinCode)
                 appSettings.setLocalOnlyFamily(false)
-
-                // Room-Cache aktualisieren: alte Temp-IDs entfernen, Firestore-Listener übernimmt
-                memberRepository.clearCache()
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                     android.util.Log.d("FamilyViewModel", "Local family synced to cloud: $newFamilyId")
                 }

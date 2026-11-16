@@ -954,75 +954,6 @@ private fun DayProfileCard(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TimePickerRow(
-    label: String,
-    time: LocalTime,
-    context: android.content.Context,
-    formatter: DateTimeFormatter,
-    onTimeSelected: (LocalTime) -> Unit,
-    isError: Boolean = false
-) {
-    var showPicker by remember { mutableStateOf(false) }
-
-    // Dialog wird nur gerendert wenn sichtbar – State wird damit jedes Mal frisch
-    // mit den aktuellen Zeitwerten initialisiert (verhindert veraltete Vorauswahl)
-    if (showPicker) {
-        val pickerState = rememberTimePickerState(
-            initialHour = time.hour,
-            initialMinute = time.minute,
-            is24Hour = android.text.format.DateFormat.is24HourFormat(context)
-        )
-        AlertDialog(
-            onDismissRequest = { showPicker = false },
-            confirmButton = {
-                TextButton(onClick = {
-                    onTimeSelected(LocalTime.of(pickerState.hour, pickerState.minute))
-                    showPicker = false
-                }) { Text(stringResource(android.R.string.ok)) }
-            },
-            dismissButton = {
-                TextButton(onClick = { showPicker = false }) {
-                    Text(stringResource(R.string.cancel_button))
-                }
-            },
-            // TimeInput = Tastatur-Eingabe, kein Uhrzeiger → kein Auto-Sprung zur Minute
-            text = { TimeInput(state = pickerState) }
-        )
-    }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        // Kein SpaceBetween mehr – Label mit weight() drängt den Button nach rechts
-        horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // weight(1f): Label bekommt den verfügbaren Platz und bricht bei langen
-        // Übersetzungen um – verhindert, dass die Uhrzeit rechts gequetscht wird
-        Text(
-            label,
-            style = MaterialTheme.typography.bodyLarge,
-            color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.weight(1f).padding(end = 8.dp)
-        )
-        // wrapContentWidth: Uhrzeit behält ihre natürliche Breite und bricht nie um
-        TextButton(
-            onClick = { showPicker = true },
-            modifier = Modifier.wrapContentWidth()
-        ) {
-            Text(
-                time.format(formatter),
-                style = MaterialTheme.typography.titleMedium,
-                color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
-                softWrap = false
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
 private fun TimePickerRowWithIcon(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     label: String,
@@ -1089,14 +1020,6 @@ private fun TimePickerRowWithIcon(
             )
         }
     }
-}
-
-// TimePickerRow benötigt für Rückwärtskompatibilität noch als top-level Funktion
-@Composable
-fun TimePickerRow(label: String, time: LocalTime, onTimeSelected: (LocalTime) -> Unit) {
-    val context = LocalContext.current
-    val formatter = DateTimeFormatter.ofPattern(if (android.text.format.DateFormat.is24HourFormat(context)) "HH:mm" else "h:mm a")
-    TimePickerRow(label = label, time = time, context = context, formatter = formatter, onTimeSelected = onTimeSelected)
 }
 
 private fun dayNameRes(day: Int): Int = when (day) {

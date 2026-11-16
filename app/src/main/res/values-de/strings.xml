@@ -478,5 +478,6 @@
     <string name="settings_logout_message">Möchtest du dich wirklich abmelden?</string>
     <string name="settings_delete_account_message">Möchtest du deinen Account wirklich unwiderruflich löschen? Alle Daten werden entfernt.</string>
     <string name="error_no_app_found">Keine passende App zum Öffnen dieses Links gefunden.</string>
+    <string name="a11y_schedule_position">%1$s, Position %2$d von %3$d</string>
 </resources>
 

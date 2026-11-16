@@ -119,6 +119,7 @@ flowchart LR
     ├── userIds: string[]
     ├── globalBufferMinutes: number (optional, 0-60)
     ├── vacationUntil: string (optional, YYYY-MM-DD)
+    ├── timeZone: string (optional, IANA timezone)
     └── members/{memberId}
             ├── name: string (1-50 chars)
             ├── isAwakeToday: boolean
@@ -162,6 +163,6 @@ flowchart LR
 - **Safe Deletion:** Direct client deletion of families is disallowed. Deletion is routed through the `deleteFamily` Cloud Function to guarantee recursive cleanup of member subcollections and user profiles.
 
 ### Cloud Functions & Integrity Verification (`/functions`)
-- **Timezone-Aware `scheduledMemberReset`:** Evaluates current date, morning reset window, and weekday per family using `family.timeZone` (cached per run, fallback `Europe/Berlin`), rather than a single fixed server timezone.
+- **Timezone-Aware `scheduledMemberReset` & Activity-Aware `cleanupInactiveFamilies`:** `createFamily` persists the creator's validated IANA `timeZone`, allowing `scheduledMemberReset` to evaluate the current date, morning reset window, and weekday per family (cached per run, fallback `Europe/Berlin`). `cleanupInactiveFamilies` checks both `lastUpdatedAt` and `systemResetAt` so families with active automated wake-up resets are never pruned prematurely.
 - **Hardened `verifyIntegrityToken`:** Requires Firebase Authentication, enforces a 15/hour per-user rate limit (`_rate_limits`), validates 5-minute token timestamp freshness, matches client-provided `nonce` when supplied, requires `PLAY_RECOGNIZED` app licensing/recognition verdict, and checks the exact Android package name (`de.familienwecker.famwake`).
 - **Batch Chunking & Externalized Email Config:** `deleteFamily` and member reset batches chunk Firestore writes at 450 operations per commit. Transactional email footers and feedback routing read `OPERATOR_NAME`, `OPERATOR_ADDRESS`, and `NOTIFY_EMAIL` from `functions/.env` (`functions/.env.example` template) with neutral fallbacks for self-hosting/forks.

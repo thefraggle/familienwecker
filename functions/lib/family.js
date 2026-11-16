@@ -20,21 +20,6 @@ async function internalLeaveFamily(uid, familyId, memberId = null) {
     const familyData = familyDoc.data() || {};
     const membersSnapshot = await familyDocRef.collection("members").get();
 
-    // Falls User der Ersteller war: Creator-Rolle an ein anderes Mitglied übertragen oder null setzen
-    if (familyData.createdByUserId === uid) {
-      const remainingUserIds = (familyData.userIds || []).filter(id => id !== uid);
-      let newCreatorUid = null;
-      if (remainingUserIds.length > 0) {
-        newCreatorUid = remainingUserIds[0];
-      } else {
-        const otherMembers = membersSnapshot.docs.filter(doc => doc.id !== (memberId || uid) && doc.data().claimedByUserId !== uid);
-        const newCreatorDoc = otherMembers.find(doc => doc.data().claimedByUserId);
-        newCreatorUid = newCreatorDoc ? newCreatorDoc.data().claimedByUserId : null;
-      }
-      await familyDocRef.update({ createdByUserId: newCreatorUid });
-      console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
-    }
-
     // Member-Dokument ermitteln und löschen
     let targetMemberRef = null;
     if (memberId) {
@@ -60,8 +45,25 @@ async function internalLeaveFamily(uid, familyId, memberId = null) {
         }
       }
     }
+    const deletedMemberId = targetMemberRef ? targetMemberRef.id : null;
     if (targetMemberRef) {
       await targetMemberRef.delete();
+    }
+
+    // Falls User der Ersteller war: Creator-Rolle an ein verbleibendes Mitglied übertragen oder null setzen
+    if (familyData.createdByUserId === uid) {
+      const remainingUserIds = (familyData.userIds || []).filter(id => id !== uid);
+      let newCreatorUid = null;
+      if (remainingUserIds.length > 0) {
+        newCreatorUid = remainingUserIds[0];
+      } else {
+        const otherMembers = membersSnapshot.docs.filter(
+          doc => doc.id !== deletedMemberId && doc.data().claimedByUserId && doc.data().claimedByUserId !== uid
+        );
+        newCreatorUid = otherMembers.length > 0 ? otherMembers[0].data().claimedByUserId : null;
+      }
+      await familyDocRef.update({ createdByUserId: newCreatorUid });
+      console.log(`Reassigned creator of family ${familyId} from ${uid} to ${newCreatorUid}.`);
     }
 
     // UID aus userIds der Familie entfernen
@@ -238,6 +240,19 @@ exports.createFamily = onCall(
       throw new HttpsError("internal", "CODE_GENERATION_FAILED");
     }
 
+    // Optionale IANA-Zeitzone validieren (Fallback: Europe/Berlin)
+    let resolvedTimeZone = "Europe/Berlin";
+    const rawTimeZone = request.data?.timeZone;
+    if (typeof rawTimeZone === "string" && rawTimeZone.trim().length > 0 && rawTimeZone.length <= 64) {
+      const candidateTz = rawTimeZone.trim();
+      try {
+        Intl.DateTimeFormat(undefined, { timeZone: candidateTz });
+        resolvedTimeZone = candidateTz;
+      } catch (tzErr) {
+        console.warn(`Invalid timeZone '${candidateTz}' in createFamily, falling back to Europe/Berlin:`, tzErr.message);
+      }
+    }
+
     // Familie-Dokument anlegen
     const familyData = {
       name: sanitizedName,
@@ -245,6 +260,7 @@ exports.createFamily = onCall(
       createdByUserId: uid,
       userIds: [uid],
       isAlarmEnabled: true,
+      timeZone: resolvedTimeZone,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -338,13 +354,14 @@ exports.deleteFamily = onCall(
     const membersSnapshot = await familyDocRef.collection("members").get();
 
     // Der Ersteller oder Admin kann die Familie immer löschen.
-    // Andere Mitglieder können die Familie nur löschen, wenn keine anderen Mitglieder enthalten sind.
-    const otherMembers = membersSnapshot.docs.filter(doc => {
+    // Andere Mitglieder können die Familie nur löschen, wenn keine anderen beanspruchten Accounts beteiligt sind.
+    const otherClaimedMembers = membersSnapshot.docs.filter(doc => {
       const claimedUid = doc.data().claimedByUserId;
-      return claimedUid ? claimedUid !== uid : true;
+      return Boolean(claimedUid && claimedUid !== uid);
     });
+    const otherUserIds = (familyData.userIds || []).filter(id => id !== uid);
 
-    if (!isGlobalAdmin && !isCreator && otherMembers.length > 0) {
+    if (!isGlobalAdmin && !isCreator && (otherClaimedMembers.length > 0 || otherUserIds.length > 0)) {
       throw new HttpsError("permission-denied", "NON_CREATOR_CANNOT_DELETE_NON_EMPTY_FAMILY");
     }
 

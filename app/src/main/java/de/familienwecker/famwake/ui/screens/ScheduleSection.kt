@@ -400,7 +400,7 @@ fun LazyListScope.scheduleSection(
 
             val moveUpLabel = stringResource(R.string.a11y_move_up)
             val moveDownLabel = stringResource(R.string.a11y_move_down)
-            val posDesc = "${sched.member.name}, Position ${index + 1} von $totalItems"
+            val posDesc = stringResource(R.string.a11y_schedule_position, sched.member.name, index + 1, totalItems)
 
             Card(
                 modifier = Modifier

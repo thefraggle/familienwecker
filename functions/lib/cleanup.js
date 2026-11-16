@@ -119,8 +119,15 @@ exports.cleanupInactiveFamilies = onSchedule(
         : 0;
 
       if (createdAtMs <= sixMonthsAgoMs) {
-        // Familie selbst ist alt genug (oder Legacy) – prüfe ob Members aktiv waren
-        if (membersSnapshot.empty) {
+        const familyUpdatedMs = familyData.lastUpdatedAt
+          ? (typeof familyData.lastUpdatedAt.toMillis === "function"
+            ? familyData.lastUpdatedAt.toMillis()
+            : familyData.lastUpdatedAt)
+          : 0;
+
+        if (familyUpdatedMs > sixMonthsAgoMs) {
+          isStale = false;
+        } else if (membersSnapshot.empty) {
           // Keine Members UND Familie älter als 6 Monate (oder ohne Datum) → stale
           isStale = true;
         } else {
@@ -133,7 +140,19 @@ exports.cleanupInactiveFamilies = onSchedule(
               : latestMember.lastUpdatedAt)
             : 0;
           if (lastUpdatedMs <= sixMonthsAgoMs) {
-            isStale = true;
+            // Auch systemResetAt prüfen, da automatische Resets nach aktivem Wecker lastUpdatedAt nicht zwingend erhöhen
+            const resetSnapshot = await familyDoc.ref.collection("members")
+              .orderBy("systemResetAt", "desc")
+              .limit(1)
+              .get();
+            const latestResetMs = !resetSnapshot.empty && resetSnapshot.docs[0].data().systemResetAt
+              ? (typeof resetSnapshot.docs[0].data().systemResetAt.toMillis === "function"
+                ? resetSnapshot.docs[0].data().systemResetAt.toMillis()
+                : resetSnapshot.docs[0].data().systemResetAt)
+              : 0;
+            if (Math.max(lastUpdatedMs, latestResetMs) <= sixMonthsAgoMs) {
+              isStale = true;
+            }
           }
         }
       }

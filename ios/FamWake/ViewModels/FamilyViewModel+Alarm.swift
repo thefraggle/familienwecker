@@ -75,7 +75,9 @@ extension FamilyViewModel {
             }
         }
 
-        let effectiveUiMembers = rawMembers.map { resolveEffectiveMember($0, forDate: uiTargetDate) }
+        let effectiveUiMembers = rawMembers
+            .map { resolveEffectiveMember($0, forDate: uiTargetDate) }
+            .sorted { ($0.sequenceOrder, $0.createdAt) < ($1.sequenceOrder, $1.createdAt) }
         var uiResult = Scheduler().calculateIdealSchedule(members: effectiveUiMembers, globalBufferMinutes: globalBufferMinutes)
         uiResult.targetDate = uiTargetDate
         self.schedule = uiResult
@@ -101,12 +103,27 @@ extension FamilyViewModel {
         }
 
         // 2. Alarm Target Date & Calculation
+        let searchStartDate: Date
+        if isVacationActive, let vacStr = vacationUntil {
+            let f = DateFormatter()
+            f.calendar = Calendar(identifier: .gregorian)
+            f.locale = Locale(identifier: "en_US_POSIX")
+            f.dateFormat = "yyyy-MM-dd"
+            if let vacEnd = f.date(from: vacStr),
+               let firstDayAfterVac = cal.date(byAdding: .day, value: 1, to: cal.startOfDay(for: vacEnd)) {
+                searchStartDate = max(today, firstDayAfterVac)
+            } else {
+                searchStartDate = today
+            }
+        } else {
+            searchStartDate = today
+        }
+
         let alarmTargetDate: Date
-        let currentIsoDow = cal.component(.weekday, from: today) == 1 ? 7 : cal.component(.weekday, from: today) - 1
         var nextAlarmDate: Date? = nil
 
         for offset in 0..<7 {
-            guard let candidate = cal.date(byAdding: .day, value: offset, to: today) else { continue }
+            guard let candidate = cal.date(byAdding: .day, value: offset, to: searchStartDate) else { continue }
             let candidateWeekday = cal.component(.weekday, from: candidate)
             let checkIsoDow = candidateWeekday == 1 ? 7 : candidateWeekday - 1
 
@@ -119,8 +136,10 @@ extension FamilyViewModel {
 
             guard dayHasActiveAlarms else { continue }
 
-            if offset == 0 {
-                let candidateMembers = rawMembers.map { resolveEffectiveMember($0, forDate: candidate) }
+            if cal.isDate(candidate, inSameDayAs: today) {
+                let candidateMembers = rawMembers
+                    .map { resolveEffectiveMember($0, forDate: candidate) }
+                    .sorted { ($0.sequenceOrder, $0.createdAt) < ($1.sequenceOrder, $1.createdAt) }
                 let candidateSchedule = Scheduler().calculateIdealSchedule(members: candidateMembers, globalBufferMinutes: globalBufferMinutes)
                 if let myId = currentMyMemberId,
                    let mySched = candidateSchedule.memberSchedules.first(where: { $0.member.id == myId }),
@@ -160,7 +179,9 @@ extension FamilyViewModel {
             }
         }
 
-        let effectiveAlarmMembers = rawMembers.map { resolveEffectiveMember($0, forDate: alarmTargetDate) }
+        let effectiveAlarmMembers = rawMembers
+            .map { resolveEffectiveMember($0, forDate: alarmTargetDate) }
+            .sorted { ($0.sequenceOrder, $0.createdAt) < ($1.sequenceOrder, $1.createdAt) }
         var alarmResult = Scheduler().calculateIdealSchedule(members: effectiveAlarmMembers, globalBufferMinutes: globalBufferMinutes)
         alarmResult.targetDate = alarmTargetDate
         self.deviceSchedule = alarmResult

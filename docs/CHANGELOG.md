@@ -2,6 +2,15 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.3.0 – 2026-11-16
+✨ Neu & Verbessert:
+• Zuverlässigere Zeitzonen & Tageswechsel: Familiengruppen speichern ihre Zeitzone direkt bei der Erstellung, sodass automatische Tagesresets und Zeitpläne weltweit präziser greifen.
+• Verlässliche Urlaubsplanung: Wecker für den ersten Tag nach dem Urlaub werden vorausschauend berechnet und rechtzeitig vorbereitet; Schlummer- und Erinnerungsdaten nutzen einheitliche gregorianische Kalendergrenzen.
+• Stabilere Offline- & Cloud-Synchronisation: Offline angelegte Familiengruppen werden beim nächsten Online-App-Start automatisch synchronisiert, Statusänderungen aktualisieren Zeitstempel lückenlos und aktive Familien bleiben zuverlässig vor Inaktivitätsbereinigung geschützt.
+• Reibungslose Familienverwaltung: Verbesserte Ersteller-Übergabe beim Verlassen einer Familie, präzisere Löschprüfungen sowie saubereres Verhalten beim Pausieren über Schnellaktionen und Neustarts.
+• Barrierefreiheit & Lokalisierung: Vollständig lokalisierte Zugänglichkeitshinweise im Morgenplan, ergänzte Sprachlinks für Rechtstexte sowie erweiterte Build- und Sicherheits-Hygiene.
+• Schnellerer App-Start: Vorkompilierte Startup-Profile beschleunigen den Kaltstart der Hauptansicht und der Wecker-Anzeige unmittelbar nach App-Updates.
+
 ## 2.2.12 – 2026-11-14
 ✨ Neu & Verbessert:
 • Feedback & Bewertungen: Sanfte Einladung zur App-Bewertung nach den ersten genutzten Tagen außerhalb der morgendlichen Weckzeit.

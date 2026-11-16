@@ -17,7 +17,7 @@ This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDU
 ### Project Architecture
 * `/app`: Android app written in Kotlin and Jetpack Compose.
 * `/ios`: iOS app written natively in Swift and SwiftUI (using AlarmKit, ActivityKit).
-* `/shared`: Internal Android library module (Room DB, scheduler algorithm).
+* `/shared`: Kotlin Multiplatform (KMP) shared module (scheduler algorithm, shared models, settings, Room DB).
 * `/functions`: Firebase Cloud Functions backend (Node.js).
 
 ### Building the Apps

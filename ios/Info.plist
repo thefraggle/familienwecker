@@ -42,7 +42,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSAlarmKitUsageDescription</key>
-	<string>Wir benötigen AlarmKit, um Familienwecker zuverlässig auf deinem Gerät zu planen.</string>
+	<string>FamWake uses AlarmKit to reliably schedule family wake-up alarms on your device.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

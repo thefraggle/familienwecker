@@ -21,7 +21,11 @@ final class FamilyFirestoreService {
             throw NSError(domain: "FamWake", code: 401, userInfo: [NSLocalizedDescriptionKey: "Not authenticated"])
         }
         do {
-            let result = try await functions.httpsCallable("createFamily").call(["familyName": name, "userId": uid])
+            let result = try await functions.httpsCallable("createFamily").call([
+                "familyName": name,
+                "userId": uid,
+                "timeZone": TimeZone.current.identifier
+            ])
             guard let data = result.data as? [String: Any],
                   let familyId = data["familyId"] as? String,
                   let joinCode = data["joinCode"] as? String else {
@@ -85,7 +89,10 @@ final class FamilyFirestoreService {
     func togglePauseMember(familyId: String, memberId: String, newPausedState: Bool) async throws {
         do {
             try await db.collection("families").document(familyId).collection("members").document(memberId)
-                .updateData(["isPaused": newPausedState])
+                .updateData([
+                    "isPaused": newPausedState,
+                    "lastUpdatedAt": FieldValue.serverTimestamp()
+                ])
         } catch {
             throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
         }
@@ -106,7 +113,10 @@ final class FamilyFirestoreService {
     func updateDeviceAlarmEnabled(familyId: String, memberId: String, enabled: Bool) async throws {
         do {
             try await db.collection("families").document(familyId).collection("members").document(memberId)
-                .updateData(["deviceAlarmEnabled": enabled])
+                .updateData([
+                    "deviceAlarmEnabled": enabled,
+                    "lastUpdatedAt": FieldValue.serverTimestamp()
+                ])
         } catch {
             throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
         }

@@ -53,6 +53,7 @@ class FamWakeTileService : TileService() {
         val memberId = app.appSettings.myMemberId.value
 
         if (!newEnabled) {
+            AlarmBackupPrefs.setEnabled(this, false)
             if (memberId != null) {
                 // Wecker abbrechen, aber Backup-Zeit erhalten (clearBackup = false),
                 // damit beim erneuten Aktivieren über die Kachel der Wecker wiederhergestellt werden kann.
@@ -60,6 +61,7 @@ class FamWakeTileService : TileService() {
                 scheduler.cancelWakeUp(memberId, isSnooze = true, clearBackup = true)
             }
         } else {
+            AlarmBackupPrefs.setEnabled(this, true)
             // Wenn Wecker wieder aktiviert wird: Backup-Alarm direkt reaktivieren
             val savedMillis = AlarmBackupPrefs.getWakeUpMillis(this)
             val memberName = AlarmBackupPrefs.getMemberName(this) ?: ""

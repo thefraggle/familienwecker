@@ -483,5 +483,6 @@
     <string name="settings_leave_family_confirm">Do you really want to leave the family? You will lose access to the shared alarms.</string>
     <string name="settings_logout_message">Do you really want to log out?</string>
     <string name="settings_delete_account_message">Do you really want to permanently delete your account? All data will be removed.</string>
+    <string name="a11y_schedule_position">%1$s, position %2$d of %3$d</string>
 </resources>
 

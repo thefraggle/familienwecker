@@ -35,7 +35,7 @@ FamWake uses a shared Kotlin Multiplatform (`:shared`) module for algorithms and
 For local builds, template files are provided and must be populated:
 * **Android**: 
   * Place your Firebase configuration in `app/google-services.json`.
-  * Create `local.properties` in root with:
+  * Copy `local.properties.example` to `local.properties` in root and populate your local values:
     ```properties
     DEFAULT_WEB_CLIENT_ID=your_google_web_client_id
     REVENUECAT_PUBLIC_API_KEY=your_revenuecat_key

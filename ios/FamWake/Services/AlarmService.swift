@@ -178,7 +178,8 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
                 .collection("members").document(targetMemberId)
             try? await ref.updateData([
                 "snoozeUntil": Timestamp(date: snoozeDate),
-                "snoozeCount": newCount
+                "snoozeCount": newCount,
+                "lastUpdatedAt": FieldValue.serverTimestamp()
             ])
         }
         
@@ -465,6 +466,8 @@ final class AlarmService: ObservableObject {
         if let vacStr = vacationUntil, !vacStr.isEmpty {
             // Urlaubsmodus aktiv: Erinnerung erst am Vorabend des ersten Tags nach dem Urlaub planen
             let f = DateFormatter()
+            f.calendar = Calendar(identifier: .gregorian)
+            f.locale = Locale(identifier: "en_US_POSIX")
             f.dateFormat = "yyyy-MM-dd"
             if let vacDate = f.date(from: vacStr) {
                 // vacDate ist der letzte Urlaubstag. Der erste Schultag/Arbeitstag ist vacDate + 1 Tag.
