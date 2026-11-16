@@ -94,5 +94,5 @@ This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**
 * [Privacy Policy](https://familienwecker.de/privacy-policy.html)
 * [Imprint](https://familienwecker.de/imprint.html)
 * [Account Deletion](https://familienwecker.de/account-deletion.html)
-* [Contact / Support](mailto:famwake@goork.de)
+* [Contact / Support](mailto:hey@goork.de)
 
