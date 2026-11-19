@@ -4,9 +4,9 @@ import XCTest
 final class FamilyModelsTests: XCTestCase {
 
     func testSnoozeConfig_constantsMatchKMP() {
-        XCTAssertEqual(SnoozeConfig.snoozeDurationMinutes, 5)
-        XCTAssertEqual(SnoozeConfig.maxSnoozeCount, 2)
-        XCTAssertEqual(SnoozeConfig.minBathroomMinutes, 5)
+        XCTAssertEqual(SnoozeController.snoozeDurationMinutes, 5)
+        XCTAssertEqual(SnoozeController.maxSnoozeCount, 2)
+        XCTAssertEqual(SnoozeController.minBathroomMinutes, 5)
     }
 
     func testDayProfile_defaultValues() {

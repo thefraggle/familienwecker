@@ -103,7 +103,7 @@ struct RingingView: View {
                         // Snooze – Glasmorphism
                         Button(action: {
                             #if DEBUG
-                            print("[RingingView] Snooze tapped! snoozeCount=\(snoozeCount), maxSnooze=\(SnoozeConfig.maxSnoozeCount)")
+                            print("[RingingView] Snooze tapped! snoozeCount=\(snoozeCount), maxSnooze=\(SnoozeController.maxSnoozeCount)")
                             #endif
                             Aptabase.shared.trackEvent("alarm_snoozed", with: ["snooze_count": snoozeCount + 1])
                             AlarmService.shared.stopAlarm()
@@ -112,7 +112,7 @@ struct RingingView: View {
                             HStack(spacing: 10) {
                                 Image(systemName: "zzz")
                                     .font(.title3)
-                                Text(L.snoozeCounter(snoozeCount + 1, SnoozeConfig.maxSnoozeCount))
+                                Text(L.snoozeCounter(snoozeCount + 1, SnoozeController.maxSnoozeCount))
                                     .font(.headline).fontWeight(.semibold)
                             }
                             .foregroundStyle(.white)
@@ -127,8 +127,8 @@ struct RingingView: View {
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
-                        .disabled(snoozeCount >= SnoozeConfig.maxSnoozeCount)
-                        .opacity(snoozeCount >= SnoozeConfig.maxSnoozeCount ? 0.5 : 1.0)
+                        .disabled(snoozeCount >= SnoozeController.maxSnoozeCount)
+                        .opacity(snoozeCount >= SnoozeController.maxSnoozeCount ? 0.5 : 1.0)
                         .accessibilityLabel(L.s("accessibility_alarm_snooze"))
                         .accessibilityHint(L.s("accessibility_alarm_snooze_hint"))
                     }

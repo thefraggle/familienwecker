@@ -36,13 +36,9 @@ struct OpenFamWakeIntent: LiveActivityIntent {
             return .result()
         }
         
-        let snoozeUntil = UserDefaults.standard.double(forKey: "snooze_until")
-        let hasActiveSnooze = snoozeUntil > Date().timeIntervalSince1970
-        
-        if !hasActiveSnooze {
+        if SnoozeController.shared.activeSnoozeUntil == nil {
             await AlarmService.shared.cancelWakeUp(memberId: memberId)
-            UserDefaults.standard.removeObject(forKey: "snooze_until")
-            UserDefaults.standard.set(0, forKey: "snooze_count")
+            SnoozeController.shared.reset()
             let formatter = DateFormatter()
             formatter.calendar = Calendar(identifier: .gregorian)
             formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -132,7 +128,7 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             return .result()
         }
 
-        guard let snoozeDate = SnoozeController.shared.triggerSnooze(durationMinutes: SnoozeConfig.snoozeDurationMinutes) else {
+        guard let snoozeDate = SnoozeController.shared.triggerSnooze(durationMinutes: SnoozeController.snoozeDurationMinutes) else {
             return .result()
         }
         let newCount = SnoozeController.shared.snoozeCount
@@ -153,10 +149,10 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
             // Fallback: UNNotification als Ersatz planen
             let content = UNMutableNotificationContent()
             content.title = memberName
-            content.body = "Snooze \(newCount)/\(SnoozeConfig.maxSnoozeCount)"
+            content.body = "Snooze \(newCount)/\(SnoozeController.maxSnoozeCount)"
             content.sound = .default
             content.userInfo = ["memberId": memberId, "memberName": memberName, "isSnooze": true]
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(SnoozeConfig.snoozeDurationMinutes * 60), repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(SnoozeController.snoozeDurationMinutes * 60), repeats: false)
             let request = UNNotificationRequest(identifier: "snooze_fallback_\(memberId)", content: content, trigger: trigger)
             try? await UNUserNotificationCenter.current().add(request)
         }
@@ -247,8 +243,7 @@ final class AlarmService: ObservableObject {
         // Bei neuem regulärem Alarm (nicht Snooze): snooze_count zurücksetzen,
         // damit der Snooze-Button am nächsten Tag nicht disabled bleibt.
         if !isSnooze {
-            UserDefaults.standard.set(0, forKey: "snooze_count")
-            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            SnoozeController.shared.reset()
         }
         
         let status = try await AlarmManager.shared.requestAuthorization()

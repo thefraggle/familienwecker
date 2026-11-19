@@ -322,7 +322,7 @@ struct MainView: View {
             HStack {
                 Image(systemName: "zzz")
                     .foregroundStyle(colorScheme == .dark ? Color.onlineIconDark : Color.onlineIconLight)
-                Text("\(L.mainSnoozeActive(timeString(until))) (\(currentSnoozeCount)/\(SnoozeConfig.maxSnoozeCount))")
+                Text("\(L.mainSnoozeActive(timeString(until))) (\(currentSnoozeCount)/\(SnoozeController.maxSnoozeCount))")
                     .font(.subheadline)
                     .foregroundStyle(colorScheme == .dark ? Color.snoozeTextDark : Color.snoozeTextLight)
                 Spacer()

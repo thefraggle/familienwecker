@@ -200,7 +200,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         if response.actionIdentifier == "STOP_ACTION" {
             Aptabase.shared.trackEvent("alarm_dismissed", with: ["source": "background"])
             AlarmService.shared.cancelWakeUp(memberId: memberId)
-            UserDefaults.standard.removeObject(forKey: "snooze_until")
+            SnoozeController.shared.reset()
             
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .stopAlarmFromNotification, object: nil, userInfo: ["memberId": memberId])
@@ -217,7 +217,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 Aptabase.shared.trackEvent("alarm_snoozed", with: ["source": "background"])
                 AlarmService.shared.cancelWakeUp(memberId: memberId)
                 
-                guard let snoozeTime = SnoozeController.shared.triggerSnooze(durationMinutes: SnoozeConfig.snoozeDurationMinutes) else {
+                guard let snoozeTime = SnoozeController.shared.triggerSnooze(durationMinutes: SnoozeController.snoozeDurationMinutes) else {
                     return
                 }
                 let newCount = SnoozeController.shared.snoozeCount
@@ -291,8 +291,7 @@ struct FamWakeApp: App {
     private static func setupMockDataForScreenshots() {
         // 1. Lokale Datenbank / UserDefaults leeren & vorbereiten
         UserDefaults.standard.removeObject(forKey: "language")
-        UserDefaults.standard.removeObject(forKey: "snooze_until")
-        UserDefaults.standard.set(0, forKey: "snooze_count")
+        SnoozeController.shared.reset()
         
         UserDefaults.standard.set(true, forKey: "alarm_enabled")
         UserDefaults.standard.set(true, forKey: "onboarding_completed")

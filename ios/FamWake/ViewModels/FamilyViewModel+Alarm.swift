@@ -459,8 +459,8 @@ extension FamilyViewModel {
             let absorbableMinutes: Int
             if resolved.snoozeCount <= 1 {
                 absorbableMinutes = min(
-                    SnoozeConfig.snoozeDurationMinutes,
-                    max(0, resolved.bathroomDurationMinutes - Int(SnoozeConfig.minBathroomMinutes))
+                    SnoozeController.snoozeDurationMinutes,
+                    max(0, resolved.bathroomDurationMinutes - Int(SnoozeController.minBathroomMinutes))
                 )
             } else {
                 absorbableMinutes = 0

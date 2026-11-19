@@ -35,7 +35,7 @@ class FamilyViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var pendingJoinCode: String? = nil
     @Published var snoozeUntil: Date? = nil
-    @Published var snoozeCount: Int = UserDefaults.standard.integer(forKey: "snooze_count")
+    @Published var snoozeCount: Int = SnoozeController.shared.snoozeCount
     @Published var alarmSoundUri: String? = UserDefaults.standard.string(forKey: "alarm_sound_uri")
     @Published var isGentleWakeEnabled: Bool = UserDefaults.standard.object(forKey: "gentle_wake_enabled") as? Bool ?? true
     @Published var isEveningReminderEnabled: Bool = UserDefaults.standard.object(forKey: "evening_reminder_enabled") as? Bool ?? true
@@ -97,14 +97,9 @@ class FamilyViewModel: ObservableObject {
     init() {
         tooltipsEnabled = UserDefaults.standard.object(forKey: "tooltips_enabled") as? Bool ?? true
         
-        if let snoozeTime = UserDefaults.standard.value(forKey: "snooze_until") as? Double {
-            let date = Date(timeIntervalSince1970: snoozeTime)
-            if date > Date() {
-                self.snoozeUntil = date
-            } else {
-                UserDefaults.standard.removeObject(forKey: "snooze_until")
-            }
-        }
+        let snoozeStatus = SnoozeController.shared.currentStatus()
+        self.snoozeUntil = snoozeStatus.until
+        self.snoozeCount = snoozeStatus.count
         
         self.isAwakeTodayLocal = isAwakeTodayEffective()
         
@@ -263,10 +258,7 @@ class FamilyViewModel: ObservableObject {
                     setAwakeTodayLocal(false)
                     // Snooze-Count nur resetten wenn kein aktiver Snooze läuft –
                     // sonst wird der Count zwischen zwei Snoozes gelöscht
-                    let activeSnooze = UserDefaults.standard.double(forKey: "snooze_until")
-                    if activeSnooze <= Date().timeIntervalSince1970 {
-                        UserDefaults.standard.set(0, forKey: "snooze_count")
-                        UserDefaults.standard.removeObject(forKey: "snooze_until")
+                    if SnoozeController.shared.clearIfNotActive() {
                         snoozeUntil = nil
                         snoozeCount = 0
                     }
@@ -610,8 +602,7 @@ class FamilyViewModel: ObservableObject {
         if awake {
             snoozeUntil = nil
             snoozeCount = 0
-            UserDefaults.standard.removeObject(forKey: "snooze_until")
-            UserDefaults.standard.set(0, forKey: "snooze_count")
+            SnoozeController.shared.reset()
             AlarmService.shared.cancelWakeUp(memberId: memberId)
         }
         
@@ -711,8 +702,8 @@ class FamilyViewModel: ObservableObject {
             }
             // Snooze-State löschen
             snoozeUntil = nil
-            UserDefaults.standard.removeObject(forKey: "snooze_until")
-            UserDefaults.standard.set(0, forKey: "snooze_count")
+            snoozeCount = 0
+            SnoozeController.shared.reset()
         }
     }
 
@@ -915,26 +906,10 @@ class FamilyViewModel: ObservableObject {
     }
 
     func checkSnoozeStatus() {
-        let staleThreshold = Date().addingTimeInterval(-30 * 60)
-        if let snoozeTime = UserDefaults.standard.value(forKey: "snooze_until") as? Double {
-            let date = Date(timeIntervalSince1970: snoozeTime)
-            if date > Date() {
-                self.snoozeUntil = date
-                self.snoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
-            } else if date < staleThreshold {
-                // Snooze deutlich abgelaufen (>30 Min) → alles aufräumen
-                self.snoozeUntil = nil
-                self.snoozeCount = 0
-                UserDefaults.standard.removeObject(forKey: "snooze_until")
-                UserDefaults.standard.set(0, forKey: "snooze_count")
-            } else {
-                // Snooze gerade erst abgelaufen – Count behalten (Max-Schutz)
-                self.snoozeUntil = nil
-            }
-        } else {
-            self.snoozeUntil = nil
-            // Kein snooze_until → Count nur zurücksetzen wenn nicht gerade
-            // ein Snooze-Alarm feuert (Count bleibt für den nächsten Snooze erhalten)
+        let status = SnoozeController.shared.currentStatus()
+        self.snoozeUntil = status.until
+        if status.isActive || status.count == 0 {
+            self.snoozeCount = status.count
         }
     }
 
@@ -942,7 +917,7 @@ class FamilyViewModel: ObservableObject {
 
     func snooze(memberId: String, memberName: String) {
         guard SnoozeController.shared.canSnooze,
-              let snoozeTime = SnoozeController.shared.triggerSnooze(durationMinutes: SnoozeConfig.snoozeDurationMinutes) else {
+              let snoozeTime = SnoozeController.shared.triggerSnooze(durationMinutes: SnoozeController.snoozeDurationMinutes) else {
             errorMessage = L.snoozeMaxReached
             return
         }
@@ -1004,8 +979,7 @@ class FamilyViewModel: ObservableObject {
     func cancelSnooze(_ memberId: String) {
         snoozeUntil = nil
         snoozeCount = 0
-        UserDefaults.standard.removeObject(forKey: "snooze_until")
-        UserDefaults.standard.set(0, forKey: "snooze_count")
+        SnoozeController.shared.reset()
         // Bei nativem .countdown-Snooze läuft der Countdown unter der Haupt-UUID,
         // daher beide canceln (Haupt + ggf. alte Snooze-UUID).
         AlarmService.shared.cancelWakeUp(memberId: memberId)
@@ -1270,7 +1244,7 @@ class FamilyViewModel: ObservableObject {
                     // noch unterwegs sein kann und der Snapshot sonst den Snooze "verschluckt"
                     if let localSnooze = self.snoozeUntil, localSnooze > Date() {
                         sorted[localIdx].snoozeUntil = localSnooze
-                        sorted[localIdx].snoozeCount = UserDefaults.standard.integer(forKey: "snooze_count")
+                        sorted[localIdx].snoozeCount = SnoozeController.shared.snoozeCount
                     }
                 }
                 // Pause-Flicker-Guard: Lokalen isPaused-Wert beibehalten solange
