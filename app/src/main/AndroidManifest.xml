@@ -16,6 +16,11 @@
     <!-- Telemetriedaten senden (auch für Firebase benötigt) -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Verhindert, dass Google Play durch screenOrientation="portrait" Tablets/Desktop/XR blockiert -->
+    <uses-feature
+        android:name="android.hardware.screen.portrait"
+        android:required="false" />
+
     <application
         android:name=".FamWakeApplication"
         android:allowBackup="false"
