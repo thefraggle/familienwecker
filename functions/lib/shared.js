@@ -197,6 +197,20 @@ async function sendPushToUsers(uids, payload) {
   await Promise.all(uids.map(uid => sendPushToUser(uid, payload)));
 }
 
+/**
+ * Führt einen Rate-Limit-Check fail-closed aus: HttpsErrors werden durchgereicht,
+ * transiente/Contention-Fehler werden als 'unavailable' abgewiesen statt ignoriert.
+ */
+async function runFailClosedRateLimit(checkFn) {
+  try {
+    await checkFn();
+  } catch (err) {
+    if (err instanceof HttpsError) throw err;
+    console.error("Rate-Limit-Check fehlgeschlagen:", err);
+    throw new HttpsError("unavailable", "RATE_LIMIT_UNAVAILABLE");
+  }
+}
+
 module.exports = {
   admin,
   db,
@@ -204,6 +218,7 @@ module.exports = {
   resolveLanguage,
   checkSingleRateLimit,
   checkEmailRateLimit,
+  runFailClosedRateLimit,
   NOTIFY_EMAIL,
   BRAND_BLUE,
   primaryAdminUidSecret,

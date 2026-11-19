@@ -3,7 +3,7 @@ const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { onSchedule } = require("firebase-functions/v2/scheduler");
 const functions = require("firebase-functions/v1");
 const { Resend } = require("resend");
-const { admin, escapeHtml, checkSingleRateLimit, primaryAdminUidSecret, NOTIFY_EMAIL, BRAND_BLUE, sendEmail } = require("./shared");
+const { admin, escapeHtml, checkSingleRateLimit, runFailClosedRateLimit, primaryAdminUidSecret, NOTIFY_EMAIL, BRAND_BLUE, sendEmail } = require("./shared");
 const { SENDER } = require("./i18n");
 
 // ─── Feedback-E-Mail via Resend ──────────────────────────────────────────────
@@ -20,8 +20,8 @@ exports.sendFeedbackEmail = onCall(
     }
     const uid = request.auth.uid;
 
-    // S8: Rate-Limiting – max. 3 Feedbacks/Stunde, max. 10/Tag pro UID
-    try {
+    // S8: Rate-Limiting – max. 3 Feedbacks/Stunde, max. 10/Tag pro UID (fail-closed)
+    await runFailClosedRateLimit(async () => {
       const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
       const isAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
       if (!isAdmin) {
@@ -30,10 +30,7 @@ exports.sendFeedbackEmail = onCall(
         const dayLimited = await checkSingleRateLimit(`feedback_${uid}_d`, 24 * 60 * 60 * 1000, 10);
         if (dayLimited) throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS");
       }
-    } catch (err) {
-      if (err instanceof HttpsError) throw err;
-      console.error("Feedback rate-limit check failed (ignored):", err);
-    }
+    });
 
     const { category, message, email, appVersion, device } = request.data || {};
 

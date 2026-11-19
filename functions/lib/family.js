@@ -2,7 +2,33 @@
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { onDocumentWritten } = require("firebase-functions/v2/firestore");
 const { randomInt } = require("crypto");
-const { admin, checkSingleRateLimit, primaryAdminUidSecret, sendPushToUsers } = require("./shared");
+const { admin, checkSingleRateLimit, runFailClosedRateLimit, primaryAdminUidSecret, sendPushToUsers } = require("./shared");
+
+/**
+ * Prüft beim Verlassen einer Familie, ob das angegebene Member-Dokument
+ * vom Aufrufer gelöscht werden darf (entspricht firestore.rules:245).
+ */
+function canDeleteMemberOnLeave(memberData, familyData, uid) {
+  if (memberData?.claimedByUserId) {
+    if (memberData.claimedByUserId !== uid) {
+      throw new HttpsError("permission-denied", "CANNOT_DELETE_OTHER_MEMBER");
+    }
+    return;
+  }
+  if (familyData?.createdByUserId !== uid) {
+    throw new HttpsError("permission-denied", "CANNOT_DELETE_OTHER_MEMBER");
+  }
+}
+
+/**
+ * Verhindert, dass ein Mitglied notifyBathroomFree unter der claimedByUserId
+ * eines anderen Familienmitglieds auslöst.
+ */
+function assertCanNotifyBathroomFree(sender, uid) {
+  if (sender?.claimedByUserId && sender.claimedByUserId !== uid) {
+    throw new HttpsError("permission-denied", "NOT_OWNER");
+  }
+}
 
 /**
  * Interner Helper: Trägt einen User sauber aus einer alten Familie aus,
@@ -26,9 +52,7 @@ async function internalLeaveFamily(uid, familyId, memberId = null) {
       const memberDocRef = familyDocRef.collection("members").doc(memberId);
       const memberDoc = await memberDocRef.get();
       if (memberDoc.exists) {
-        if (memberDoc.data().claimedByUserId && memberDoc.data().claimedByUserId !== uid) {
-          throw new HttpsError("permission-denied", "CANNOT_DELETE_OTHER_MEMBER");
-        }
+        canDeleteMemberOnLeave(memberDoc.data(), familyData, uid);
         targetMemberRef = memberDocRef;
       }
     } else {
@@ -103,8 +127,8 @@ exports.joinFamilyByCode = onCall(
       throw new HttpsError("invalid-argument", "INVALID_CODE");
     }
 
-    // Rate-Limiting: max. 5 Join-Versuche pro UID pro Minute, max. 10 pro Tag
-    try {
+    // Rate-Limiting: max. 5 Join-Versuche pro UID pro Minute, max. 10 pro Tag (fail-closed)
+    await runFailClosedRateLimit(async () => {
       const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
       const isAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
 
@@ -123,10 +147,7 @@ exports.joinFamilyByCode = onCall(
           });
         }
       }
-    } catch (err) {
-      if (err instanceof HttpsError) throw err;
-      console.error("Rate-Limit-Check fehlgeschlagen (wird ignoriert):", err);
-    }
+    });
 
     const snapshot = await admin.firestore()
       .collection("families")
@@ -182,8 +203,8 @@ exports.createFamily = onCall(
     }
     const sanitizedName = familyName.trim().slice(0, 64);
 
-    // Rate-Limiting: max. 3 Family-Erstellungen pro UID pro Stunde, max. 6 pro Tag
-    try {
+    // Rate-Limiting: max. 3 Family-Erstellungen pro UID pro Stunde, max. 6 pro Tag (fail-closed)
+    await runFailClosedRateLimit(async () => {
       const adminDoc = await admin.firestore().collection("_admins").doc(uid).get();
       const isAdmin = adminDoc.exists || uid === primaryAdminUidSecret.value();
 
@@ -203,10 +224,7 @@ exports.createFamily = onCall(
           });
         }
       }
-    } catch (err) {
-      if (err instanceof HttpsError) throw err;
-      console.error("Rate-Limit-Check fehlgeschlagen (wird ignoriert):", err);
-    }
+    });
 
     // Eindeutigen 6-stelligen alphanumerischen Join-Code generieren (max. 5 Versuche)
     const CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // ohne 0/O und 1/I zur Verwechslungsvermeidung
@@ -557,7 +575,7 @@ exports.notifyBathroomFree = onCall(
     }
     const uid = request.auth.uid;
     const { familyId, memberId } = request.data || {};
-    if (!familyId || !memberId) {
+    if (typeof familyId !== "string" || !familyId || typeof memberId !== "string" || !memberId) {
       throw new HttpsError("invalid-argument", "MISSING_PARAMETERS");
     }
 
@@ -586,6 +604,7 @@ exports.notifyBathroomFree = onCall(
     if (!sender) {
       throw new HttpsError("not-found", "MEMBER_NOT_FOUND");
     }
+    assertCanNotifyBathroomFree(sender, uid);
 
     const familyTimeZone = familyDoc.data().timeZone || "Europe/Berlin";
     let dowShort;
@@ -647,3 +666,6 @@ exports.notifyBathroomFree = onCall(
     };
   }
 );
+
+exports.canDeleteMemberOnLeave = canDeleteMemberOnLeave;
+exports.assertCanNotifyBathroomFree = assertCanNotifyBathroomFree;

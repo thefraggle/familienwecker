@@ -1,6 +1,7 @@
 const { test, describe } = require("node:test");
 const assert = require("node:assert/strict");
-const { escapeHtml, resolveLanguage } = require("../lib/shared");
+const { HttpsError } = require("firebase-functions/v2/https");
+const { escapeHtml, resolveLanguage, runFailClosedRateLimit } = require("../lib/shared");
 
 describe("Functions Shared Helpers", () => {
   describe("escapeHtml", () => {
@@ -49,6 +50,22 @@ describe("Functions Shared Helpers", () => {
       assert.equal(resolveLanguage(null), "de");
       assert.equal(resolveLanguage(undefined), "de");
       assert.equal(resolveLanguage(""), "de");
+    });
+  });
+
+  describe("runFailClosedRateLimit", () => {
+    test("rethrows HttpsError unchanged", async () => {
+      await assert.rejects(
+        () => runFailClosedRateLimit(async () => { throw new HttpsError("resource-exhausted", "TOO_MANY_REQUESTS"); }),
+        (err) => err instanceof HttpsError && err.code === "resource-exhausted"
+      );
+    });
+
+    test("converts non-HttpsError transaction contention errors into unavailable HttpsError", async () => {
+      await assert.rejects(
+        () => runFailClosedRateLimit(async () => { throw new Error("10 ABORTED: cross-transaction contention"); }),
+        (err) => err instanceof HttpsError && err.code === "unavailable"
+      );
     });
   });
 });

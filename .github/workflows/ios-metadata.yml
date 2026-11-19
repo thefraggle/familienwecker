@@ -40,7 +40,7 @@ jobs:
 
       - name: Generate iOS Release Notes (all languages)
         run: |
-          pip3 install --break-system-packages deep-translator==1.11.4
+          pip3 install --break-system-packages --require-hashes -r distribution/scripts/requirements.txt
           python3 distribution/scripts/generate_ios_metadata.py
 
       - name: Upload Release Notes to App Store Connect
