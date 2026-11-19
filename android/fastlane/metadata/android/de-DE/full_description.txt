@@ -1,34 +1,34 @@
-<b>Schluss mit Morgen-Chaos! Dein Familienwecker & Kinderwecker für eine entspannte Morgenroutine.</b>
+<b>Schluss mit Morgen-Chaos! Dein Familienwecker für eine entspannte Morgenroutine.</b>
 
-FamWake ist deine smarte Morgenroutine App und Wecker App kostenlos für den perfekten Morgen — Morgenplanung, Badplaner, Kinder Wecker und Zeitplaner in einer App.
+FamWake ist deine smarte Morgenroutine App und kostenloser Tagesplaner für den perfekten Start — Morgenplanung, Badplaner, Kinderwecker und Zeitplan in einer App.
 
-Alle müssen gleichzeitig raus und jemand kommt zu spät. Als Vater habe ich <b>FamWake</b> gebaut: den <b>Familienwecker</b>, den ich mir gewünscht habe. Ob als cleverer <b>Kinderwecker</b>, Helfer für die <b>Morgenroutine für Kinder</b> oder gemeinsamer Wecker — unsere Familienwecker App macht den Morgen stressfrei.
+Alle müssen gleichzeitig raus und jemand kommt zu spät. Als Vater habe ich <b>FamWake</b> gebaut: den <b>Familienwecker</b>, den ich mir gewünscht habe. Ob als cleverer <b>Kinderwecker</b>, Helfer für die <b>Morgenroutine für Kinder</b> oder gemeinsamer Weckplan — unsere App macht den Morgen stressfrei.
 
 FamWake berechnet für jedes Familienmitglied den <b>perfekten Weckzeitpunkt</b> — abgestimmt auf Bad, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und alle sind pünktlich.
 
 <b> Kein Bad-Chaos – Dein smarter Badplaner</b>
-Wer wann ins Bad darf, plant FamWake automatisch als intelligenter Badplaner und Kinder Wecker ohne Überschneidungen. Du stehst erst auf, wenn du wirklich dran bist.
+Wer wann ins Bad darf, plant FamWake automatisch als intelligenter Badplaner ohne Überschneidungen. Du stehst erst auf, wenn du wirklich dran bist.
 
 <b> Gemeinsam frühstücken</b>
-Aktiviere die Frühstückszeit: FamWake stimmt Badplaner und Frühstück gemeinsam ab — für einen stressfreien Start.
+Aktiviere die Frühstückszeit: FamWake stimmt Badplaner und Frühstück gemeinsam ab — für einen ruhigen Start in den Tag.
 
 <b> Die ganze Familie im Blick</b>
-Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan für Kinder, visueller Wecker, ADHS Planer kostenlos und alltagstaugliche ADHS App für Familie und ADHS Kids: Ein integrierter visueller Timer für Kinder, dein treuer Kinder Wecker und strukturierte Tagesplan minimieren Ablenkungen.
+Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan, ADHS Planer kostenlos und alltagstaugliche ADHS App für Familie und ADHS Kids: Ein integrierter visueller Timer für Kinder und strukturierter Tagesplan minimieren Ablenkungen am Morgen.
 
 <b> Flexible Wochentage & Urlaubsmodus</b>
-• <b>Wochentags-Profile:</b> Für jeden Wochentag individuelle Weckzeiten und Schultage hinterlegen.
+• <b>Wochentags-Profile:</b> Für jeden Wochentag individuelle Aufstehzeiten und Schultage hinterlegen.
 • <b>Ferienmodus:</b> Alarme und Erinnerungen mit einem Klick bis zum Ferienende pausieren — am ersten Schultag startet alles automatisch neu.
 
-<b> Sanftes Wecken, Snooze & lauter Wecker</b>
-FamWake weckt zuverlässig auch bei stummem Gerät — wie ein intelligenter Wecker mit Aufgaben, der das Aufstehen spielerisch strukturiert. 30 Sekunden Crescendo-Lautstärke und smarte Schlummerfunktion (Snooze) holen Kinder sanft aus dem Schlaf. Als visueller Timer für Kinder, Kinderwecker und leiser wie lauter Wecker sorgt FamWake für einen leichten Start. Für Tiefschläfer gibt es durchsetzungsstarke Wecktöne — dein lauter Wecker für Morgenmuffel.
+<b> Sanftes Wecken, Snooze & lauter Alarm</b>
+FamWake klingelt zuverlässig auch bei stummem Gerät — wie ein intelligenter Aufgaben-Planer, der das Aufstehen spielerisch strukturiert. 30 Sekunden Crescendo-Lautstärke und smarte Schlummerfunktion (Snooze) holen deinen Nachwuchs sanft aus dem Schlaf. Als visueller Timer und leiser wie lauter Wecker sorgt FamWake für einen leichten Start. Für Tiefschläfer gibt es durchsetzungsstarke Töne — ideal für Morgenmuffel.
 
 <b> Vorabend-Check & „Schon wach?“</b>
-• <b>Check-in um 20:30 Uhr:</b> Kurzer Abend-Hinweis, ob der Weckplan für morgen noch passt.
+• <b>Check-in um 20:30 Uhr:</b> Kurzer Abend-Hinweis, ob der Ablauf für morgen noch passt.
 • <b>Schon früher wach?</b> Ein Tipp auf „Schon wach“ und dein Alarm bleibt für heute stumm.
-• <b>1-Klick Auto-Fix:</b> Erkennt Zeitengpässe sofort und löst Konflikte automatisch.
+• <b>1-Klick Auto-Fix:</b> Erkennt Zeitengpässe sofort und löst Konflikte im Zeitplan automatisch.
 
 <b> Blitzschneller Beitritt ohne Registrierung</b>
-Kein Konto für Kinder nötig: Code teilen, App öffnen — der Code wird automatisch aus der Zwischenablage erkannt und alle sind sofort startklar.
+Kein eigenes Konto für den Nachwuchs nötig: Code teilen, App öffnen — der Code wird automatisch aus der Zwischenablage erkannt und alle sind sofort startklar.
 
 <b> Deine Daten sind sicher</b>
 • Völlig anonym nutzbar (nur der Ersteller meldet sich an).
@@ -38,10 +38,10 @@ Kein Konto für Kinder nötig: Code teilen, App öffnen — der Code wird automa
 <b>So funktioniert's:</b>
 1. Familie erstellen und Code teilen (keine Registrierung nötig).
 2. Bad-Zeit, Frühstück und Abfahrtszeit festlegen.
-3. FamWake berechnet als Familienwecker, visueller Timer für Kinder und verlässlicher Kinder Wecker den perfekten Ablauf — wie ein Wecker mit Aufgaben, aber vollautomatisch.
+3. FamWake berechnet als Familienwecker und verlässlicher Zeitplan automatisch den perfekten Ablauf für jeden Tag.
 
 <b>100% kostenlos & ohne Werbung</b>
-Alle Kernfunktionen sind dauerhaft <b>kostenlos</b> — dieser Wecker ohne Werbung und ohne Abo garantiert einen stressfreien Morgen für die ganze Familie.
+Alle Kernfunktionen sind dauerhaft <b>kostenlos</b> — komplett ohne Werbung und ohne Abo für einen stressfreien Morgen.
 
 <b>Von einem Vater für Familien gebaut.</b>
-FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den Familienwecker und Kinderwecker und starte jeden Morgen mit einer harmonischen Morgenroutine für Kinder!
+FamWake ist ein Herzensprojekt vom Frühstückstisch. Hol dir jetzt den smarten Kinderwecker und starte jeden Morgen mit einer harmonischen Morgenroutine!
