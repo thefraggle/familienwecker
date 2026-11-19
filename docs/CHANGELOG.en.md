@@ -2,6 +2,12 @@
 
 *[🇩🇪 Deutsche Version](CHANGELOG.md)*
 
+## 2.3.1 – 2026-11-19
+✨ New & Improved:
+• Unified Alarm & Snooze Logic: Centralized alarm planning on Android and snooze state handling on iOS ensure more consistent schedule resolution, grace periods, and snooze limits.
+• More Reliable Error Handling & Sync: Unified error mapping and tighter cloud repository boundaries on Android and iOS improve stability during network and sync issues.
+• Hardened Backend & Release Pipeline: Strengthened backend access and rate checks alongside hash-verified build dependencies in release workflows.
+
 ## 2.3.0 – 2026-11-16
 ✨ New & Improved:
 • Accurate Timezones & Day Transitions: Families persist their timezone upon creation so automated daily resets and morning schedules align accurately worldwide.

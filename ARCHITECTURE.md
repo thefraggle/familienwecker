@@ -63,7 +63,7 @@ flowchart TB
 | Directory | Platform / Technology | Purpose |
 |---|---|---|
 | [`/app`](app) | Kotlin, Jetpack Compose | Native Android application, receivers (`BootReceiver`, `AlarmReceiver`), services (`FamWakeTileService`). |
-| [`/shared`](shared) | Kotlin Multiplatform (KMP), Room DB | Shared scheduling algorithm (`Scheduler.kt`), domain models (`FamilyModels.kt`), Room database cache, and settings. |
+| [`/shared`](shared) | Kotlin Multiplatform (KMP), Room DB | Shared scheduling & alarm planning (`Scheduler.kt`, `AlarmPlanner.kt`), domain models (`FamilyModels.kt`), Room database cache, and settings. |
 | [`/ios`](ios) | Swift, SwiftUI, AlarmKit | Native iOS application, Live Activities, lock screen interactions, and local persistence. |
 | [`/functions`](functions) | Node.js 22, Firebase SDK v2 | Cloud Functions for background maintenance, family management (`deleteFamily`, `joinFamilyByCode`), and transactional emails. |
 | [`/distribution`](distribution) | Python, Shell, Fastlane | Store listings across 29 locales, store assets, icons, feature graphics, and release automation scripts. |
@@ -159,7 +159,7 @@ flowchart LR
 - **Three-Tier Membership Verification (`isFamilyMember()`):** Fast-path check via `/users/{uid}.familyId`, fallback to family creator `createdByUserId`, or fallback to legacy `userIds` array.
 - **Strict Member Schema & `dayProfiles` Validation (`isValidMemberData()`, `isValidDayProfiles()`):** Enforces string length, key whitelisting via `hasOnly()`, `snoozeUntil is timestamp`, numeric bounds (`0..180` min durations, `0..10` snooze count), and nested schema/count validation (`size() <= 7`) on `dayProfiles` for both `create` and `update`.
 - **Field-Level & Anti-Hijack Claim Protection (`isValidFamilyUpdate()`, `isValidMemberUpdate()`):** Clients cannot modify immutable family fields (`createdByUserId`, `joinCode`, `userIds`, `createdAt`) directly, and `name`, `vacationUntil`, and `globalBufferMinutes` are strictly validated. On member documents, non-admin users cannot hijack an already claimed profile (`claimedByUserId` ownership check) or overwrite identity, `claimedBy*`, `soundUri`, or `name` fields of another user's claimed member.
-- **Feedback Collection Guard:** Authenticated users can submit feedback with strictly validated payload sizes, matching `uid`, and server timestamp.
+- **Feedback Collection Guard:** Direct client writes to `/feedback` are disallowed (`allow create: if false`); feedback is submitted exclusively through the rate-limited `sendFeedbackEmail` Cloud Function (Admin SDK) with strict payload validation.
 - **Safe Deletion:** Direct client deletion of families is disallowed. Deletion is routed through the `deleteFamily` Cloud Function to guarantee recursive cleanup of member subcollections and user profiles.
 
 ### Cloud Functions & Integrity Verification (`/functions`)

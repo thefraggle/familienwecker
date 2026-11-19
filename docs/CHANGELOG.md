@@ -2,6 +2,12 @@
 
 *[🇺🇸 English Version](CHANGELOG.en.md)*
 
+## 2.3.1 – 2026-11-19
+✨ Neu & Verbessert:
+• Vereinheitlichte Weckzeit- & Schlummer-Logik: Die Alarm-Planung unter Android sowie die Schlummer-Verwaltung unter iOS wurden weiter zentralisiert, sodass Zeitpläne, Übergangsfristen und Schlummer-Limits konsistenter greifen.
+• Zuverlässigere Fehlerbehandlung & Synchronisation: Einheitliche Fehlerzuordnung und sauber gekapselte Cloud-Schnittstellen auf Android und iOS verbessern die Stabilität bei Verbindungs- und Synchronisationsproblemen.
+• Gestärkte Backend- & Release-Sicherheit: Verschärfte Zugriffs- und Ratenprüfungen im Backend sowie hash-verifizierte Build-Abhängigkeiten in den Release-Workflows.
+
 ## 2.3.0 – 2026-11-16
 ✨ Neu & Verbessert:
 • Zuverlässigere Zeitzonen & Tageswechsel: Familiengruppen speichern ihre Zeitzone direkt bei der Erstellung, sodass automatische Tagesresets und Zeitpläne weltweit präziser greifen.
