@@ -2,8 +2,9 @@ package de.familienwecker.famwake.ui.viewmodel
 
 import com.aptabase.Aptabase
 import de.familienwecker.famwake.R
-import de.familienwecker.famwake.data.FamilyNotFoundException
-import de.familienwecker.famwake.data.CodeGenerationFailedException
+import de.familienwecker.famwake.data.AppError
+import de.familienwecker.famwake.data.appErrorFromException
+import de.familienwecker.famwake.data.toUiText
 import de.familienwecker.famwake.ui.util.UiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -55,10 +56,10 @@ fun FamilyViewModel.createFamily(familyName: String, onComplete: (Boolean) -> Un
             Aptabase.instance.trackEvent("family_created", mapOf("offline" to false))
             onComplete(true)
         }.onFailure { error ->
-            when {
-                error is CodeGenerationFailedException ->
-                    _errorMessage.value = UiText.StringResource(R.string.error_code_generation_failed)
-                error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
+            when (appErrorFromException(error)) {
+                is AppError.CodeGenerationFailed ->
+                    _errorMessage.value = AppError.CodeGenerationFailed.toUiText()
+                is AppError.TooManyRequests ->
                     _errorMessage.value = UiText.StringResource(R.string.error_create_family_rate_limit)
                 else ->
                     _errorMessage.value = UiText.StringResource(R.string.error_create_family, error.localizedMessage ?: "")
@@ -102,10 +103,10 @@ fun FamilyViewModel.joinFamily(code: String, onComplete: (Boolean) -> Unit) {
             Aptabase.instance.trackEvent("family_joined")
             onComplete(true)
         }.onFailure { error ->
-            when {
-                error is FamilyNotFoundException ->
-                    _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
-                error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
+            when (appErrorFromException(error)) {
+                is AppError.FamilyNotFound ->
+                    _errorMessage.value = AppError.FamilyNotFound.toUiText()
+                is AppError.TooManyRequests ->
                     _errorMessage.value = UiText.StringResource(R.string.error_join_family_rate_limit)
                 else ->
                     _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, _pendingJoinCode.value ?: "")
@@ -180,10 +181,10 @@ fun FamilyViewModel.leaveAndJoinPendingCode(onComplete: (Boolean) -> Unit) {
                 appSettings.setAlarmEnabled(false)
                 onComplete(true)
             }.onFailure { error ->
-                when {
-                    error is FamilyNotFoundException ->
-                        _errorMessage.value = UiText.StringResource(R.string.error_family_not_found)
-                    error.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ->
+                when (appErrorFromException(error)) {
+                    is AppError.FamilyNotFound ->
+                        _errorMessage.value = AppError.FamilyNotFound.toUiText()
+                    is AppError.TooManyRequests ->
                         _errorMessage.value = UiText.StringResource(R.string.error_join_family_rate_limit)
                     else ->
                         _errorMessage.value = UiText.StringResource(R.string.error_invalid_code, error.localizedMessage ?: getApplication<android.app.Application>().getString(R.string.add_member_unknown))

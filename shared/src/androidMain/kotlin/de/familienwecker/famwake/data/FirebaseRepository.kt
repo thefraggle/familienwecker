@@ -73,24 +73,24 @@ class FirebaseRepository : IFirebaseRepository {
             )
             @Suppress("UNCHECKED_CAST")
             val result = functions.httpsCallable("createFamily").invoke(data).android.data as? Map<String, Any>
-                ?: return Result.failure(CodeGenerationFailedException())
+                ?: return Result.failure(AppErrorException(AppError.CodeGenerationFailed))
             val familyId = result["familyId"] as? String
-                ?: return Result.failure(CodeGenerationFailedException())
+                ?: return Result.failure(AppErrorException(AppError.CodeGenerationFailed))
             val joinCode = result["joinCode"] as? String
-                ?: return Result.failure(CodeGenerationFailedException())
+                ?: return Result.failure(AppErrorException(AppError.CodeGenerationFailed))
             Result.success(Pair(familyId, joinCode))
         } catch (e: FirebaseFunctionsException) {
             when {
                 e.message?.contains("RESOURCE_EXHAUSTED", ignoreCase = true) == true ->
                     Result.failure(Exception("TOO_MANY_REQUESTS"))
                 e.message?.contains("CODE_GENERATION_FAILED", ignoreCase = true) == true ->
-                    Result.failure(CodeGenerationFailedException())
+                    Result.failure(AppErrorException(AppError.CodeGenerationFailed))
                 else -> Result.failure(e)
             }
         } catch (e: Exception) {
             when {
                 e.message?.contains("CODE_GENERATION_FAILED", ignoreCase = true) == true ->
-                    Result.failure(CodeGenerationFailedException())
+                    Result.failure(AppErrorException(AppError.CodeGenerationFailed))
                 e.message?.contains("TOO_MANY_REQUESTS", ignoreCase = true) == true ||
                 e.message?.contains("RESOURCE_EXHAUSTED", ignoreCase = true) == true ->
                     Result.failure(Exception("TOO_MANY_REQUESTS"))
@@ -110,12 +110,12 @@ class FirebaseRepository : IFirebaseRepository {
             if (familyId != null && code != null) {
                 Result.success(Pair(familyId, code))
             } else {
-                Result.failure(FamilyNotFoundException())
+                Result.failure(AppErrorException(AppError.FamilyNotFound))
             }
         } catch (e: FirebaseFunctionsException) {
             when {
                 e.message?.contains("NOT_FOUND", ignoreCase = true) == true ->
-                    Result.failure(FamilyNotFoundException())
+                    Result.failure(AppErrorException(AppError.FamilyNotFound))
                 e.message?.contains("RESOURCE_EXHAUSTED", ignoreCase = true) == true ->
                     Result.failure(Exception("TOO_MANY_REQUESTS"))
                 else -> Result.failure(e)
@@ -286,11 +286,11 @@ class FirebaseRepository : IFirebaseRepository {
             )
             @Suppress("UNCHECKED_CAST")
             val result = functions.httpsCallable("createFamily").invoke(data).android.data as? Map<String, Any>
-                ?: return Result.failure(CodeGenerationFailedException())
+                ?: return Result.failure(AppErrorException(AppError.CodeGenerationFailed))
             val newFamilyId = result["familyId"] as? String
-                ?: return Result.failure(CodeGenerationFailedException())
+                ?: return Result.failure(AppErrorException(AppError.CodeGenerationFailed))
             val joinCode = result["joinCode"] as? String
-                ?: return Result.failure(CodeGenerationFailedException())
+                ?: return Result.failure(AppErrorException(AppError.CodeGenerationFailed))
 
             // 2. Lokal erstellte Members in die neue Familie hochladen (Batch-Write)
             if (members.isNotEmpty()) {

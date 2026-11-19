@@ -10,11 +10,6 @@ final class FamilyFirestoreService {
     private let functions = Functions.functions(region: "europe-west3")
     
     private init() {}
-    
-    // MARK: - Error Mapping
-    private func mapFirebaseError(_ error: Error) -> String {
-        FirebaseErrorMapper.map(error)
-    }
 
     func createFamily(name: String) async throws -> (familyId: String, familyName: String, joinCode: String) {
         guard let uid = Auth.auth().currentUser?.uid else {
@@ -34,7 +29,7 @@ final class FamilyFirestoreService {
             let familyName = data["familyName"] as? String ?? name
             return (familyId, familyName, joinCode)
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -49,7 +44,7 @@ final class FamilyFirestoreService {
             let familyName = data["familyName"] as? String ?? "FamWake"
             return (familyId, familyName, joinCode)
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -63,7 +58,7 @@ final class FamilyFirestoreService {
         do {
             try await functions.httpsCallable("deleteFamily").call(["familyId": familyId])
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -74,7 +69,7 @@ final class FamilyFirestoreService {
                 .collection("members").document(member.id)
                 .setData(data)
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -82,7 +77,7 @@ final class FamilyFirestoreService {
         do {
             try await db.collection("families").document(familyId).collection("members").document(memberId).delete()
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -94,7 +89,7 @@ final class FamilyFirestoreService {
                     "lastUpdatedAt": FieldValue.serverTimestamp()
                 ])
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -106,8 +101,44 @@ final class FamilyFirestoreService {
                     "lastUpdatedAt": FieldValue.serverTimestamp()
                 ])
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
+    }
+
+    func updateSnoozeState(familyId: String, memberId: String, snoozeUntil: Date, snoozeCount: Int) async throws {
+        if let uid = Auth.auth().currentUser?.uid {
+            try? await db.collection("users").document(uid)
+                .collection("pushMeta").document("user_action")
+                .setData([
+                    "familyId": familyId,
+                    "timestamp": FieldValue.serverTimestamp()
+                ])
+        }
+        try await db.collection("families").document(familyId)
+            .collection("members").document(memberId)
+            .updateData([
+                "snoozeUntil": Timestamp(date: snoozeUntil),
+                "snoozeCount": snoozeCount,
+                "lastUpdatedAt": FieldValue.serverTimestamp()
+            ])
+    }
+
+    func clearSnoozeState(familyId: String, memberId: String) async throws {
+        if let uid = Auth.auth().currentUser?.uid {
+            try? await db.collection("users").document(uid)
+                .collection("pushMeta").document("user_action")
+                .setData([
+                    "familyId": familyId,
+                    "timestamp": FieldValue.serverTimestamp()
+                ])
+        }
+        try await db.collection("families").document(familyId)
+            .collection("members").document(memberId)
+            .updateData([
+                "snoozeUntil": FieldValue.delete(),
+                "snoozeCount": 0,
+                "lastUpdatedAt": FieldValue.serverTimestamp()
+            ])
     }
 
     func updateDeviceAlarmEnabled(familyId: String, memberId: String, enabled: Bool) async throws {
@@ -118,7 +149,7 @@ final class FamilyFirestoreService {
                     "lastUpdatedAt": FieldValue.serverTimestamp()
                 ])
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -127,7 +158,7 @@ final class FamilyFirestoreService {
             try await db.collection("families").document(familyId)
                 .updateData(["globalBufferMinutes": minutes])
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -141,7 +172,7 @@ final class FamilyFirestoreService {
                     .updateData(["vacationUntil": FieldValue.delete()])
             }
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -154,7 +185,7 @@ final class FamilyFirestoreService {
         do {
             _ = try await functions.httpsCallable("notifyBathroomFree").call(data)
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
 
@@ -169,7 +200,7 @@ final class FamilyFirestoreService {
         do {
             try await functions.httpsCallable("sendFeedbackEmail").call(data)
         } catch {
-            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: mapFirebaseError(error)])
+            throw NSError(domain: "FamWake", code: 500, userInfo: [NSLocalizedDescriptionKey: FirebaseErrorMapper.map(error)])
         }
     }
     

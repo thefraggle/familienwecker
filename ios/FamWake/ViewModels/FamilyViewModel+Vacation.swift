@@ -138,11 +138,6 @@ extension FamilyViewModel {
         }
     }
 
-    // MARK: - Error Mapping
-    func mapFirebaseError(_ error: Error) -> String {
-        FirebaseErrorMapper.map(error)
-    }
-
     // MARK: - Feedback
     func sendFeedback(category: String, message: String, email: String, appVersion: String, device: String) {
         isSendingFeedback = true

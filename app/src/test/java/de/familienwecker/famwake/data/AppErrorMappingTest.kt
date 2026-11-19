@@ -43,4 +43,10 @@ class AppErrorMappingTest {
         assertEquals(R.string.error_family_not_found, (AppError.FamilyNotFound.toUiText() as UiText.StringResource).resId)
         assertEquals(R.string.error_code_generation_failed, (AppError.CodeGenerationFailed.toUiText() as UiText.StringResource).resId)
     }
+
+    @Test
+    fun appErrorFromException_unwrapsAppErrorExceptionDirectly() {
+        assertEquals(AppError.FamilyNotFound, appErrorFromException(AppErrorException(AppError.FamilyNotFound)))
+        assertEquals(AppError.CodeGenerationFailed, appErrorFromException(AppErrorException(AppError.CodeGenerationFailed)))
+    }
 }

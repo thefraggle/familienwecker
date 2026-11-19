@@ -163,7 +163,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = FirebaseErrorMapper.map(error)
                     completion(false)
                 }
             }
@@ -186,7 +186,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = FirebaseErrorMapper.map(error)
                     completion(false)
                 }
             }
@@ -282,7 +282,7 @@ class FamilyViewModel: ObservableObject {
                 } catch {
                     print("Batch commit failed during member reset: \(error.localizedDescription)")
                     await MainActor.run {
-                        self.errorMessage = self.mapFirebaseError(error)
+                        self.errorMessage = FirebaseErrorMapper.map(error)
                     }
                 }
             }
@@ -319,7 +319,7 @@ class FamilyViewModel: ObservableObject {
                         self.schedule = nil
                         completion(true)
                     } else {
-                        self.errorMessage = self.mapFirebaseError(error)
+                        self.errorMessage = FirebaseErrorMapper.map(error)
                         completion(false)
                     }
                 }
@@ -406,7 +406,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = FirebaseErrorMapper.map(error)
                     completion(false)
                 }
             }
@@ -502,7 +502,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = FirebaseErrorMapper.map(error)
                     isSyncing = false
                 }
             }
@@ -541,7 +541,7 @@ class FamilyViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = FirebaseErrorMapper.map(error)
                 }
             }
         }
@@ -799,7 +799,7 @@ class FamilyViewModel: ObservableObject {
                     if msg.contains("profile_taken") || msg.contains("already-exists") {
                         self.errorMessage = L.errorProfileTaken
                     } else {
-                        self.errorMessage = self.mapFirebaseError(error)
+                        self.errorMessage = FirebaseErrorMapper.map(error)
                     }
                 }
                 completion(false)
@@ -899,7 +899,7 @@ class FamilyViewModel: ObservableObject {
                 try await FamilyFirestoreService.shared.saveMembersOrderBatch(familyId: fid, members: members)
             } catch {
                 await MainActor.run {
-                    self.errorMessage = self.mapFirebaseError(error)
+                    self.errorMessage = FirebaseErrorMapper.map(error)
                 }
             }
         }
@@ -947,28 +947,14 @@ class FamilyViewModel: ObservableObject {
 
         // Snooze-State nach Firestore synchronisieren
         if let familyId = familyId {
-            let memberRef = db.collection("families").document(familyId)
-                .collection("members").document(memberId)
             Task {
-                // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
-                if let uid = Auth.auth().currentUser?.uid {
-                    do {
-                        try await db.collection("users").document(uid)
-                            .collection("pushMeta").document("user_action")
-                            .setData([
-                                "familyId": familyId,
-                                "timestamp": FieldValue.serverTimestamp()
-                            ])
-                    } catch {
-                        print("Error writing pushMeta in snooze: \(error)")
-                    }
-                }
                 do {
-                    try await memberRef.updateData([
-                        "snoozeUntil": Timestamp(date: snoozeTime),
-                        "snoozeCount": newCount,
-                        "lastUpdatedAt": FieldValue.serverTimestamp()
-                    ])
+                    try await FamilyFirestoreService.shared.updateSnoozeState(
+                        familyId: familyId,
+                        memberId: memberId,
+                        snoozeUntil: snoozeTime,
+                        snoozeCount: newCount
+                    )
                 } catch {
                     print("Error syncing snooze to Firestore: \(error)")
                 }
@@ -986,28 +972,12 @@ class FamilyViewModel: ObservableObject {
 
         // Snooze-State in Firestore löschen
         if let familyId = familyId {
-            let memberRef = db.collection("families").document(familyId)
-                .collection("members").document(memberId)
             Task {
-                // pushMeta setzen, damit CF den Sender erkennt und keine Self-Push schickt
-                if let uid = Auth.auth().currentUser?.uid {
-                    do {
-                        try await db.collection("users").document(uid)
-                            .collection("pushMeta").document("user_action")
-                            .setData([
-                                "familyId": familyId,
-                                "timestamp": FieldValue.serverTimestamp()
-                            ])
-                    } catch {
-                        print("Error writing pushMeta in cancelSnooze: \(error)")
-                    }
-                }
                 do {
-                    try await memberRef.updateData([
-                        "snoozeUntil": FieldValue.delete(),
-                        "snoozeCount": 0,
-                        "lastUpdatedAt": FieldValue.serverTimestamp()
-                    ])
+                    try await FamilyFirestoreService.shared.clearSnoozeState(
+                        familyId: familyId,
+                        memberId: memberId
+                    )
                 } catch {
                     print("Error syncing cancelSnooze to Firestore: \(error)")
                 }
@@ -1146,7 +1116,7 @@ class FamilyViewModel: ObservableObject {
                 try await FamilyFirestoreService.shared.setGlobalBufferMinutes(familyId: fid, minutes: minutes)
             } catch {
                 await MainActor.run {
-                    errorMessage = mapFirebaseError(error)
+                    errorMessage = FirebaseErrorMapper.map(error)
                 }
             }
         }

@@ -34,11 +34,15 @@ import com.aptabase.Aptabase
 import java.security.MessageDigest
 import java.util.UUID
 
-class AuthViewModel(application: Application) : AndroidViewModel(application) {
-    private val authRepository: AuthRepository = AuthRepository()
+import de.familienwecker.famwake.data.IFirebaseRepository
+
+class AuthViewModel(
+    application: Application,
+    private val authRepository: AuthRepository = AuthRepository(),
+    private val dbRepository: IFirebaseRepository = (application as FamWakeApplication).firebaseRepository
+) : AndroidViewModel(application) {
     private val appSettings: AppSettings =
         (application as FamWakeApplication).appSettings
-    private val dbRepository: FirebaseRepository = FirebaseRepository()
 
     sealed class AuthState {
         object Idle : AuthState()

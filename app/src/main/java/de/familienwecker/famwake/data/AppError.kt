@@ -30,7 +30,8 @@ fun AppError.toUiText(): UiText = when (this) {
  * Mappt eine Exception auf den passenden AppError.
  * Bleibt im app-Modul, da com.google.firebase.auth Android-only ist.
  */
-fun appErrorFromException(e: Exception): AppError {
+fun appErrorFromException(e: Throwable): AppError {
+    if (e is AppErrorException) return e.appError
     val msg = e.message?.uppercase() ?: ""
     return when {
         e is com.google.firebase.FirebaseNetworkException

@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.familienwecker.famwake.FamWakeApplication
-import de.familienwecker.famwake.data.FirebaseRepository
 
 class FamilyViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -14,7 +13,7 @@ class FamilyViewModelFactory(private val application: Application) : ViewModelPr
             @Suppress("UNCHECKED_CAST")
             return FamilyViewModel(
                 application,
-                FirebaseRepository(),
+                app.firebaseRepository,
                 app.appSettings,
                 app.memberRepository
             ) as T

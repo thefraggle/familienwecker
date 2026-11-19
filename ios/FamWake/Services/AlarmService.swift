@@ -169,14 +169,12 @@ struct SnoozeNotifyIntent: LiveActivityIntent {
         // Snooze-State nach Firestore synchronisieren
         let targetMemberId = !memberId.isEmpty ? memberId : (UserDefaults.standard.string(forKey: "my_member_id") ?? "")
         if let familyId = UserDefaults.standard.string(forKey: "family_id"), !targetMemberId.isEmpty {
-            let ref = Firestore.firestore()
-                .collection("families").document(familyId)
-                .collection("members").document(targetMemberId)
-            try? await ref.updateData([
-                "snoozeUntil": Timestamp(date: snoozeDate),
-                "snoozeCount": newCount,
-                "lastUpdatedAt": FieldValue.serverTimestamp()
-            ])
+            try? await FamilyFirestoreService.shared.updateSnoozeState(
+                familyId: familyId,
+                memberId: targetMemberId,
+                snoozeUntil: snoozeDate,
+                snoozeCount: newCount
+            )
         }
         
         

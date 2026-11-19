@@ -4,6 +4,7 @@ import android.app.Activity
 import com.aptabase.Aptabase
 
 import de.familienwecker.famwake.R
+import de.familienwecker.famwake.data.toUiText
 import de.familienwecker.famwake.ui.util.UiText
 import de.familienwecker.famwake.util.ReviewHelper
 import kotlinx.coroutines.launch
@@ -100,14 +101,15 @@ fun FamilyViewModel.sendFeedback(
         } else {
             // F3: Fehlertyp differenzieren – Netzwerk vs. Rate-Limit vs. Server
             val ex = result.exceptionOrNull()
+            val appError = ex?.let { de.familienwecker.famwake.data.appErrorFromException(it) }
             _feedbackError.value = when {
-                ex?.message?.contains("TOO_MANY_REQUESTS") == true ->
+                appError is de.familienwecker.famwake.data.AppError.TooManyRequests ->
                     UiText.StringResource(R.string.error_feedback_rate_limit_server)
-                ex?.message?.contains("INVALID_EMAIL") == true ->
-                    UiText.StringResource(R.string.error_invalid_email)
+                appError is de.familienwecker.famwake.data.AppError.InvalidEmail ->
+                    appError.toUiText()
                 ex?.message?.contains("INVALID_MESSAGE") == true ->
                     UiText.StringResource(R.string.error_feedback_empty_message)
-                else -> UiText.StringResource(R.string.error_unknown)
+                else -> (appError ?: de.familienwecker.famwake.data.AppError.Unknown(null)).toUiText()
             }
         }
         _isSendingFeedback.value = false

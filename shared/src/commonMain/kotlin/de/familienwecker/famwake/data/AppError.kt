@@ -30,3 +30,11 @@ sealed class AppError {
     // Fallback
     data class Unknown(val message: String?) : AppError()
 }
+
+/**
+ * Typisierte Exception zum Transport eines [AppError] über [Result.failure].
+ */
+class AppErrorException(
+    val appError: AppError,
+    cause: Throwable? = null
+) : Exception(appError.toString(), cause)
