@@ -28,6 +28,9 @@ import de.familienwecker.famwake.model.SnoozeConfig
 import de.familienwecker.famwake.model.toJavaLocalTime
 import de.familienwecker.famwake.NotificationChannels
 import de.familienwecker.famwake.alarm.AlarmBackupPrefs
+import de.familienwecker.famwake.algorithm.AlarmCancelReason
+import de.familienwecker.famwake.algorithm.AlarmDecision
+import de.familienwecker.famwake.algorithm.AlarmPlanner
 
 // ─── Alarm-Logik ──────────────────────────────────────────────────────────────
 
@@ -53,149 +56,33 @@ internal fun FamilyViewModel.recalculateSchedule() {
                     currentMembers.filter { it.id != currentMyMemberId && it.deviceAlarmEnabled != false }
                 }
 
-                val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
-                val tomorrow = today.plus(1, DateTimeUnit.DAY)
-                val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
-
-                // 1. Berechne UI Schedule (basierend auf selectedDayOfWeek)
-                val selectedDay = selectedDayOfWeek.value
-                val uiTargetDate = if (selectedDay != null) {
+                val timeZone = TimeZone.currentSystemDefault()
+                val nowDt = Clock.System.now().toLocalDateTime(timeZone)
+                val today = nowDt.date
+                val selectedDate = selectedDayOfWeek.value?.let { selectedDay ->
                     var checkDate = today
                     while (checkDate.dayOfWeek.value != selectedDay) {
                         checkDate = checkDate.plus(1, DateTimeUnit.DAY)
                     }
-                    if (checkDate == today) {
-                        val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
-                        val todayHasActive = todayMembers.any { !it.isPaused }
-                        if (todayHasActive) {
-                            val todaySchedule = withContext(Dispatchers.Default) {
-                                scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
-                            }
-                            val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
-                            if (latestAlarm != null && now < latestAlarm) {
-                                today
-                            } else {
-                                today.plus(7, DateTimeUnit.DAY)
-                            }
-                        } else {
-                            today.plus(7, DateTimeUnit.DAY)
-                        }
-                    } else {
-                        checkDate
-                    }
-                } else {
-                    // Auto-Modus
-                    val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
-                    val todayHasActive = todayMembers.any { !it.isPaused }
-                    if (todayHasActive) {
-                        val todaySchedule = withContext(Dispatchers.Default) {
-                            scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
-                        }
-                        val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
-                        if (latestAlarm != null && now < latestAlarm) {
-                            today
-                        } else {
-                            // Morgen prüfen: Wenn morgen keine aktiven Profile hat,
-                            // auf heute zurückfallen statt leere Liste anzuzeigen
-                            val tomorrowMembers = rawMembers.map { resolveEffectiveMember(it, forDate = tomorrow) }
-                            val tomorrowHasActive = tomorrowMembers.any { !it.isPaused }
-                            if (tomorrowHasActive) tomorrow else today
-                        }
-                    } else {
-                        // Heute keine aktiven Profile → morgen prüfen, sonst heute
-                        val tomorrowMembers = rawMembers.map { resolveEffectiveMember(it, forDate = tomorrow) }
-                        val tomorrowHasActive = tomorrowMembers.any { !it.isPaused }
-                        if (tomorrowHasActive) tomorrow else today
-                    }
+                    checkDate
                 }
 
-                val uiCalculationMembers = rawMembers.map { resolveEffectiveMember(it, forDate = uiTargetDate) }
-                    .sortedWith(compareBy({ it.dayProfiles?.get(uiTargetDate.dayOfWeek.value)?.sequenceOrder ?: it.sequenceOrder }, { it.createdAt ?: 0L }))
-                
-                val uiResult = if (uiCalculationMembers.none { !it.isPaused }) {
-                    FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule).copy(targetDate = uiTargetDate)
-                } else {
-                    val res = withContext(Dispatchers.Default) {
-                        scheduler.calculateIdealSchedule(uiCalculationMembers, globalBufferMinutes = _globalBufferMinutes.value)
-                    }
-                    res.copy(targetDate = uiTargetDate)
-                }
-                
-                _schedule.value = uiResult
-
-                // 2. Berechne Device Alarm Schedule (IMMER Auto-Modus)
-                val deviceTargetDate = run {
-                    val vacationUntilStr = appSettings.vacationUntil.value
-                    val isVacationActive = !vacationUntilStr.isNullOrBlank() && today.toString() <= vacationUntilStr
-
-                    if (isVacationActive) {
-                        // Verschlaf-Schutz: Berechne den ersten aktiven Wecktag NACH dem Urlaub
-                        val vacEndLocalDate = try {
-                            LocalDate.parse(vacationUntilStr!!)
-                        } catch (e: Exception) {
-                            android.util.Log.w("FamWake_Alarm", "Failed to parse vacationUntil: $vacationUntilStr (${e.message})")
-                            null
-                        }
-
-                        if (vacEndLocalDate != null) {
-                            val startSearchDate = vacEndLocalDate.plus(1, DateTimeUnit.DAY)
-                            var foundDate: LocalDate? = null
-                            for (offset in 0..6) {
-                                val checkDate = startSearchDate.plus(offset, DateTimeUnit.DAY)
-                                val dow = checkDate.dayOfWeek.value
-                                val hasActiveMember = rawMembers.any { member ->
-                                    val profile = member.dayProfiles?.get(dow)
-                                    !member.isPaused && (profile?.isActive ?: false)
-                                }
-                                if (hasActiveMember) {
-                                    foundDate = checkDate
-                                    break
-                                }
-                            }
-                            foundDate ?: startSearchDate
-                        } else {
-                            tomorrow
-                        }
-                    } else if (appSettings.isAwakeTodayEffective()) {
-                        // Eigener Nutzer ist heute bereits wach -> lokaler Wecker gilt für morgen
-                        tomorrow
-                    } else {
-                        val todayMembers = rawMembers.map { resolveEffectiveMember(it, forDate = today) }
-                            .sortedWith(compareBy({ it.dayProfiles?.get(today.dayOfWeek.value)?.sequenceOrder ?: it.sequenceOrder }, { it.createdAt ?: 0L }))
-                        val todayHasActive = todayMembers.any { !it.isPaused }
-                        if (todayHasActive) {
-                            val todaySchedule = withContext(Dispatchers.Default) {
-                                scheduler.calculateIdealSchedule(todayMembers, globalBufferMinutes = _globalBufferMinutes.value)
-                            }
-                            val myTodaySchedule = if (currentMyMemberId != null) {
-                                todaySchedule.memberSchedules.find { it.member.id == currentMyMemberId }
-                            } else null
-                            val latestAlarm = todaySchedule.memberSchedules.maxByOrNull { it.wakeUpTime }?.wakeUpTime
-                            if (myTodaySchedule != null) {
-                                // Für das eigene Gerät zählt die eigene heutige Weckzeit
-                                if (now < myTodaySchedule.wakeUpTime) today else tomorrow
-                            } else if (latestAlarm != null && now < latestAlarm) {
-                                today
-                            } else {
-                                tomorrow
-                            }
-                        } else {
-                            tomorrow
-                        }
-                    }
+                val plan = withContext(Dispatchers.Default) {
+                    AlarmPlanner.planSchedules(
+                        members = rawMembers,
+                        myMemberId = currentMyMemberId,
+                        selectedDate = selectedDate,
+                        globalBufferMinutes = _globalBufferMinutes.value,
+                        vacationUntil = appSettings.vacationUntil.value,
+                        isAwakeToday = appSettings.isAwakeTodayEffective(),
+                        now = nowDt,
+                        timeZone = timeZone,
+                        scheduler = scheduler
+                    )
                 }
 
-                val deviceCalculationMembers = rawMembers.map { resolveEffectiveMember(it, forDate = deviceTargetDate) }
-                    .sortedWith(compareBy({ it.dayProfiles?.get(deviceTargetDate.dayOfWeek.value)?.sequenceOrder ?: it.sequenceOrder }, { it.createdAt ?: 0L }))
-                
-                val deviceResult = if (deviceCalculationMembers.none { !it.isPaused }) {
-                    FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule).copy(targetDate = deviceTargetDate)
-                } else {
-                    val res = withContext(Dispatchers.Default) {
-                        scheduler.calculateIdealSchedule(deviceCalculationMembers, globalBufferMinutes = _globalBufferMinutes.value)
-                    }
-                    res.copy(targetDate = deviceTargetDate)
-                }
+                _schedule.value = plan.uiSchedule
+                val deviceResult = plan.deviceSchedule
                 _deviceSchedule.value = deviceResult
 
                 // 3. Alarme anwenden basierend auf deviceResult (inkl. Grace-Period Check)
@@ -205,17 +92,7 @@ internal fun FamilyViewModel.recalculateSchedule() {
                     }
 
                     val myMember = currentMembers.find { it.id == currentMyMemberId }
-                    val currentDao = Clock.System.todayIn(TimeZone.currentSystemDefault())
-                    val myProfile = myMember?.dayProfiles?.get(currentDao.dayOfWeek.value)
-                    val myWakeUpToday = myProfile?.latestWakeUp
-                    val inGrace = if (myWakeUpToday != null) {
-                        val todayAlarmMillis = LocalDateTime(currentDao, myWakeUpToday)
-                            .toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
-                        val millisSince = System.currentTimeMillis() - todayAlarmMillis
-                        millisSince in 0..300_000
-                    } else false
-
-                    if (inGrace) {
+                    if (AlarmPlanner.isInGracePeriod(myMember, nowDt, timeZone)) {
                         if (de.familienwecker.famwake.BuildConfig.DEBUG) {
                             android.util.Log.d("FamWake_Alarm", "recalculate: GRACE PERIOD – skipping cancel (alarm just fired)")
                         }
@@ -283,123 +160,57 @@ internal fun FamilyViewModel.recalculateSchedule() {
  * Plant den konkreten AlarmManager-Eintrag für den eingeloggten User.
  */
 internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
-    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val tomorrow = today.plus(1, DateTimeUnit.DAY)
-    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
+    val timeZone = TimeZone.currentSystemDefault()
+    val nowDt = Clock.System.now().toLocalDateTime(timeZone)
+    val decision = AlarmPlanner.decideAlarmAction(
+        schedule = schedule,
+        myMemberId = myMemberId.value,
+        isAwakeToday = appSettings.isAwakeTodayEffective(),
+        vacationUntil = appSettings.vacationUntil.value,
+        snoozeUntil = appSettings.snoozeUntil.value,
+        now = nowDt,
+        timeZone = timeZone
+    )
 
-    val currentMyMemberId = myMemberId.value ?: run {
-        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-            android.util.Log.w("FamWake_Alarm", "applyAlarms: myMemberId is null, skipping")
-        }
-        return
-    }
-    val myMemberSchedule = schedule.memberSchedules.find { it.member.id == currentMyMemberId }
-    val myWakeUpTime = myMemberSchedule?.wakeUpTime
-    val targetDate = schedule.targetDate
-        ?: if (myWakeUpTime != null && now > myWakeUpTime) tomorrow else today
-
-    if (appSettings.isAwakeTodayEffective() && targetDate == today) {
-        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-            android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling all alarms")
-        }
-        alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = false)
-        alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = true)
-        lastScheduledAlarmMillis = null
-        return
-    }
-
-    // Urlaubs-Guard: Wenn targetDate im Urlaubszeitraum liegt -> keine Alarme planen
-    val vacationUntil = appSettings.vacationUntil.value
-    if (!vacationUntil.isNullOrBlank() && targetDate.toString() <= vacationUntil) {
-        if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-            android.util.Log.d("FamWake_Alarm", "applyAlarms: targetDate $targetDate is in vacation (until $vacationUntil) -> cancelling alarms")
-        }
-        alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = false)
-        alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = true)
-        lastScheduledAlarmMillis = null
-        return
-    }
-
-    // Snooze-Guard: Während eines aktiven Snooze keine regulären Alarme planen.
-    // WICHTIG: Den Snooze-Alarm selbst IMMER neu planen – nach App-Kill oder
-    // Reinstall sind PendingIntents verloren. Nur bei echtem Reboot stellt der
-    // BootReceiver den Alarm wieder her.
-    val snoozeUntilLocal = appSettings.snoozeUntil.value
-    if (snoozeUntilLocal != null) {
-        val snoozeDateTime = snoozeUntilLocal.toJavaLocalDateTime()
-        if (snoozeDateTime.isAfter(java.time.LocalDateTime.now())) {
-            if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                android.util.Log.d("FamWake_Alarm", "applyAlarms: active snooze until $snoozeUntilLocal, re-scheduling snooze alarm")
+    when (decision) {
+        is AlarmDecision.CancelAll -> {
+            val currentMyMemberId = myMemberId.value ?: return
+            when (decision.reason) {
+                AlarmCancelReason.AWAKE_TODAY, AlarmCancelReason.VACATION -> {
+                    alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = false)
+                    alarmScheduler.cancelWakeUp(currentMyMemberId, isSnooze = true)
+                    lastScheduledAlarmMillis = null
+                }
+                AlarmCancelReason.DAY_INACTIVE -> {
+                    alarmScheduler.cancelWakeUp(currentMyMemberId)
+                    lastScheduledAlarmMillis = null
+                    _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)
+                }
+                AlarmCancelReason.NOT_FOUND -> {
+                    alarmScheduler.cancelWakeUp(currentMyMemberId)
+                    lastScheduledAlarmMillis = null
+                }
+                AlarmCancelReason.NO_MEMBER_ID -> Unit
             }
-            // Snooze-Alarm (re-)planen – idempotent, überschreibt identischen PendingIntent
+        }
+        is AlarmDecision.ScheduleSnooze -> {
             alarmScheduler.scheduleWakeUp(
-                wakeUpTime = snoozeUntilLocal,
-                memberId = currentMyMemberId,
-                memberName = schedule.memberSchedules
-                    .find { it.member.id == currentMyMemberId }?.member?.name ?: "",
+                wakeUpTime = decision.wakeUpTime,
+                memberId = decision.memberId,
+                memberName = decision.memberName,
                 soundUri = alarmSoundUri.value,
                 isSnooze = true
             )
-            return
         }
-    }
-
-    var foundMySchedule = false
-    for (memberSchedule in schedule.memberSchedules) {
-        if (memberSchedule.member.id == currentMyMemberId) {
-            foundMySchedule = true
-            val wakeUpTime = memberSchedule.wakeUpTime
-
-            // Autoritatives Zieldatum aus dem Two-Pass in recalculateSchedule() übernehmen.
-            // Früher wurde targetDate hier nochmal anhand "now > wakeUpTime" bestimmt –
-            // das ignorierte den Wochentag und führte z.B. dazu, dass nach Di-6:30 der
-            // Mi-7:30-Alarm fälschlicherweise noch am Di-7:30 gesetzt wurde.
-            val targetDate = schedule.targetDate
-                ?: if (now > wakeUpTime) tomorrow else today
-
-            // Grace-Period: verhindert, dass ein soeben gefeuerter Alarm den nächsten
-            // Tag überspringt, weil targetDate nun bereits auf morgen zeigt (außer Nutzer hat bereits aktiv gestoppt/Schon wach gedrückt).
-            if (targetDate != today && !appSettings.isAwakeTodayEffective()) {
-                val todayAlarmMillis = LocalDateTime(today, wakeUpTime)
-                    .toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
-                val millisSinceTodayAlarm = System.currentTimeMillis() - todayAlarmMillis
-                if (millisSinceTodayAlarm in 0..300_000) return
-            }
-
-            val dayOfWeek = targetDate.dayOfWeek.value
-            val dayProfile = memberSchedule.member.dayProfiles?.get(dayOfWeek)
-
-            if (dayProfile != null && !dayProfile.isActive) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.w("FamWake_Alarm", "applyAlarms: day $dayOfWeek is inactive, cancelling alarm")
-                }
-                alarmScheduler.cancelWakeUp(currentMyMemberId)
-                lastScheduledAlarmMillis = null
-                _schedule.value = FamilySchedule(emptyList(), null, true, ScheduleMessage.NoActiveSchedule)
-                return
-            }
-
-            val targetDateTime = LocalDateTime(targetDate, wakeUpTime)
-            val newAlarmMillis = targetDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
-
+        AlarmDecision.KeepGracePeriod -> Unit
+        is AlarmDecision.ScheduleRegular -> {
+            val newAlarmMillis = decision.wakeUpTime.toInstant(timeZone).toEpochMilliseconds()
             if (newAlarmMillis == lastScheduledAlarmMillis) return
 
-            // isAwakeTodayLocal.value könnte veraltet sein, wenn der App-Prozess über Nacht
-            // im Hintergrund läuft und kein Resume stattfand. Daher appSettings direkt befragen –
-            // isAwakeTodayEffective() prüft das gespeicherte Datum live gegen heute.
-            if (appSettings.isAwakeTodayEffective() && targetDate == today) {
-                if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.w("FamWake_Alarm", "applyAlarms: isAwakeToday=true for today, cancelling alarm")
-                }
-                alarmScheduler.cancelWakeUp(currentMyMemberId)
-                lastScheduledAlarmMillis = null
-                return
-            }
-
             val scheduled = alarmScheduler.scheduleWakeUp(
-                wakeUpTime = targetDateTime,
-                memberId = memberSchedule.member.id,
-                memberName = memberSchedule.member.name,
+                wakeUpTime = decision.wakeUpTime,
+                memberId = decision.memberId,
+                memberName = decision.memberName,
                 soundUri = alarmSoundUri.value,
                 onPermissionDenied = {
                     if (de.familienwecker.famwake.BuildConfig.DEBUG) {
@@ -413,7 +224,7 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
             if (scheduled) {
                 lastScheduledAlarmMillis = newAlarmMillis
                 if (de.familienwecker.famwake.BuildConfig.DEBUG) {
-                    android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm SET for $targetDateTime")
+                    android.util.Log.i("FamWake_Alarm", "applyAlarms: alarm SET for ${decision.wakeUpTime}")
                 }
             } else {
                 lastScheduledAlarmMillis = null
@@ -422,12 +233,6 @@ internal fun FamilyViewModel.applyAlarms(schedule: FamilySchedule) {
                 }
             }
         }
-    }
-    // Eigener Member nicht im Plan (pausiert, deaktiviert, etc.) → alten Alarm canceln,
-    // sonst bleibt der Geisterwecker stehen.
-    if (!foundMySchedule) {
-        alarmScheduler.cancelWakeUp(currentMyMemberId)
-        lastScheduledAlarmMillis = null
     }
 }
 
