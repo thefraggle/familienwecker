@@ -260,8 +260,8 @@ PROMO_TEXTS = {
 
 # App Store keywords: max 100 chars, comma-separated, no spaces after commas
 # Deduplicated against Title & Subtitle, policy-compliant (no price words like "free"/"kostenlos")
-KEYWORDS_DE = 'wecker,timer,adhs,visuell,kinder,aufgaben,sanft,tagesplan,kids,familie,frühstück,schule,eltern'
-KEYWORDS_EN = 'checklist,first,then,autism,habit,adhd,planner,tracker,group,shared,timer,bathroom,clock,family'
+KEYWORDS_DE = 'wecker,timer,adhs,visuell,aufgaben,sanft,tagesplan,kids,familie,frühstück,schule,planer,wach,eltern'
+KEYWORDS_EN = 'checklist,first,then,autism,habit,adhd,planner,tracker,toddler,shared,timer,bathroom,clock,family'
 
 # Hardcoded optimized keywords per locale (ASO KW 46)
 KEYWORDS_BY_LOCALE = {

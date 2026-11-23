@@ -2,15 +2,15 @@
 
 FamWake ist deine smarte Morgenroutine App und kostenloser Tagesplaner für den perfekten Start — Morgenplanung, Badplaner, Kinderwecker und Zeitplan in einer App.
 
-Alle müssen gleichzeitig raus und jemand kommt zu spät. Als Vater habe ich <b>FamWake</b> gebaut: den <b>Familienwecker</b>, den ich mir gewünscht habe. Ob als cleverer <b>Kinderwecker</b>, Helfer für die <b>Morgenroutine für Kinder</b> oder gemeinsamer Weckplan — unsere App macht den Morgen stressfrei.
+Alle müssen gleichzeitig raus und jemand kommt zu spät. Als Vater habe ich diese App gebaut: den <b>Familienwecker</b>, den ich mir gewünscht habe. Ob als cleverer <b>Wecker für Kinder & Familie</b>, Helfer für die <b>Morgenroutine für Kinder</b> oder gemeinsamer Weckplan — der Morgen bleibt stressfrei.
 
-FamWake berechnet für jedes Familienmitglied den <b>perfekten Weckzeitpunkt</b> — abgestimmt auf Bad, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und alle sind pünktlich.
+Der Planer berechnet für jedes Familienmitglied den <b>perfekten Weckzeitpunkt</b> — abgestimmt auf Bad, Frühstück und Abfahrtszeit. So schläft jeder so lange wie möglich und alle sind pünktlich.
 
 <b> Kein Bad-Chaos – Dein smarter Badplaner</b>
-Wer wann ins Bad darf, plant FamWake automatisch als intelligenter Badplaner ohne Überschneidungen. Du stehst erst auf, wenn du wirklich dran bist.
+Wer wann ins Bad darf, plant dein intelligenter Badplaner automatisch ohne Überschneidungen. Du stehst erst auf, wenn du wirklich dran bist.
 
 <b> Gemeinsam frühstücken</b>
-Aktiviere die Frühstückszeit: FamWake stimmt Badplaner und Frühstück gemeinsam ab — für einen ruhigen Start in den Tag.
+Aktiviere die Frühstückszeit: Badplaner und Frühstück werden gemeinsam abgestimmt — für einen ruhigen Start in den Tag.
 
 <b> Die ganze Familie im Blick</b>
 Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer ist im Bad und wann müssen alle los. Per Drag & Drop passt du die Reihenfolge blitzschnell an. Dein visueller Zeitplan, ADHS Planer kostenlos und alltagstaugliche ADHS App für Familie und ADHS Kids: Ein integrierter visueller Timer für Kinder und strukturierter Tagesplan minimieren Ablenkungen am Morgen.
@@ -20,7 +20,7 @@ Auf dem Dashboard siehst du den Zeitplan in Echtzeit: Wer steht wann auf, wer is
 • <b>Ferienmodus:</b> Alarme und Erinnerungen mit einem Klick bis zum Ferienende pausieren — am ersten Schultag startet alles automatisch neu.
 
 <b> Sanftes Wecken, Snooze & lauter Alarm</b>
-FamWake klingelt zuverlässig auch bei stummem Gerät — wie ein intelligenter Aufgaben-Planer, der das Aufstehen spielerisch strukturiert. 30 Sekunden Crescendo-Lautstärke und smarte Schlummerfunktion (Snooze) holen deinen Nachwuchs sanft aus dem Schlaf. Als visueller Timer und leiser wie lauter Wecker sorgt FamWake für einen leichten Start. Für Tiefschläfer gibt es durchsetzungsstarke Töne — ideal für Morgenmuffel.
+Der Wecker klingelt zuverlässig auch bei stummem Gerät — wie ein intelligenter Aufgaben-Planer, der das Aufstehen spielerisch strukturiert. 30 Sekunden Crescendo-Lautstärke und smarte Schlummerfunktion (Snooze) holen deinen Nachwuchs sanft aus dem Schlaf. Als visueller Timer und leiser wie lauter Wecker sorgt die App für einen leichten Start. Für Tiefschläfer gibt es durchsetzungsstarke Töne — ideal für Morgenmuffel.
 
 <b> Vorabend-Check & „Schon wach?“</b>
 • <b>Check-in um 20:30 Uhr:</b> Kurzer Abend-Hinweis, ob der Ablauf für morgen noch passt.
